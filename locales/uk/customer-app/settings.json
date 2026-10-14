@@ -1039,40 +1039,43 @@
       }
     },
     "modules": {
-      "title": "Module management",
-      "subtitle": "Enable or disable purchased modules. Aipify grows with your business.",
-      "loading": "Preparing modules overview…",
-      "back": "Back to settings",
-      "viewBilling": "Billing & packages",
-      "empty": "No modules available.",
-      "enable": "Enable",
-      "disable": "Disable",
+      "title": "Керування модулями",
+      "subtitle": "Увімкніть або вимкніть придбані модулі. Aipify зростає разом із вашим бізнесом.",
+      "loading": "Підготовка огляду модулів…",
+      "back": "Назад до налаштувань",
+      "viewBilling": "Оплата та пакети",
+      "empty": "Немає доступних модулів.",
+      "enable": "Увімкнути",
+      "disable": "Вимкнути",
       "sections": {
-        "installed": "Installed modules",
-        "available": "Available with upgrade",
-        "trials": "Trial modules",
-        "recommendations": "Upgrade recommendations",
-        "packages": "Commercial packages",
-        "flags": "Feature flag states"
+        "installed": "Встановлені модулі",
+        "available": "Доступно з оновленням",
+        "trials": "Пробні модулі",
+        "recommendations": "Рекомендації щодо оновлення",
+        "packages": "Комерційні пакети",
+        "flags": "Стани функціональних прапорців"
       },
       "statusActive": "Активний",
       "statusAvailable": "Доступний",
-      "statusTrial": "Пробний період",
+      "statusTrial": "Пробний",
       "openManage": "Поточний пакет",
-      "upgradeRequired": "Входить після оновлення — покупки з цієї картки немає.",
-      "plannedSection": "Заплановані додатки",
+      "upgradeRequired": "Входить після оновлення — з цієї картки не можна здійснити покупку.",
+      "plannedSection": "Заплановані доповнення",
       "plannedHint": "Ці можливості заплановані. Купівля та активація ще недоступні в Aipify.",
-      "plannedCta": "Згодом",
+      "plannedCta": "Незабаром",
       "plannedProducts": {
         "designStudio": {
           "name": "Design Studio",
-          "description": "Пакети дизайну вигляду робочого простору. Купівля та пакування ще не доставлені."
+          "description": "Пакети дизайну вигляду робочого простору. Купівля та пакування ще не надані."
         },
         "aiTranslator": {
           "name": "Aipify Translator",
-          "description": "Платні кредити перекладу. Купівля, кредити та активація ще не доставлені."
+          "description": "Платні кредити перекладу для клієнта. Купівля, кредити та активація ще не надані."
         }
-      }
+      },
+      "retry": "Спробувати знову",
+      "unnamedModule": "Ліцензований модуль",
+      "loadError": "Не вдалося завантажити модулі. Спробуйте знову."
     }
   },
   "unifiedBilling": {

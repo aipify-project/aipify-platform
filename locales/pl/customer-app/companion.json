@@ -9,6 +9,14 @@
       "general": "Jestem z Tobą. Zapytaj własnymi słowami — odpowiem tak jasno, jak mogę."
     }
   },
+  "companionBriefing": {
+    "companionBriefing": "Briefing Companion",
+    "loading": "Przygotowywanie briefingu…",
+    "viewDetails": "Zobacz szczegóły",
+    "aipifyNoticed": "Aipify zauważył",
+    "companionNote": "Notatka Companion",
+    "privacy": "Briefingi Companion podsumowują wyłącznie zweryfikowaną aktywność modułów — metadane, spokojny ton, kontrola człowieka."
+  },
   "companionContextEngine": {
     "title": "Companion Context Engine",
     "subtitle": "Understand what is happening across your work environment so Aipify assistance becomes more relevant and valuable.",

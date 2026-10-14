@@ -3,6 +3,7 @@
 import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { resolveCustomerFacingModuleName } from "@/lib/app-portal/software-catalog/module-presentation";
 import { parseModulesCenter, type ModulesCenter } from "@/lib/commercial-packages";
+import { AppLayoutClasses } from "@/lib/design/app-layout";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
@@ -36,6 +37,9 @@ type ModulesAdminPanelProps = {
       packages: string;
       flags: string;
     };
+    retry: string;
+    unnamedModule: string;
+    loadError: string;
   };
   /** Job 61 — inside AppHubShell / product Modules page. */
   embedded?: boolean;
@@ -63,14 +67,17 @@ function ModuleGlyph({ kind }: { kind: "active" | "available" | "trial" | "plann
   );
 }
 
-function moduleDisplayName(mod: Record<string, unknown>): string {
+function moduleDisplayName(
+  mod: Record<string, unknown>,
+  unnamedFallback: string,
+): string {
   const key = String(mod.module_key ?? "");
   return (
     resolveCustomerFacingModuleName({
       moduleKey: key,
       moduleName: typeof mod.module_name === "string" ? mod.module_name : null,
       name: typeof mod.name === "string" ? mod.name : null,
-    }) ?? key
+    }) ?? unnamedFallback
   );
 }
 
@@ -87,11 +94,13 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
       setCenter(parseModulesCenter(await res.json()));
     } else {
       const payload = (await res.json()) as { error?: string };
-      setLoadError(typeof payload.error === "string" ? payload.error : "Failed to load modules");
+      setLoadError(
+        typeof payload.error === "string" ? payload.error : labels.loadError,
+      );
       setCenter(null);
     }
     setLoading(false);
-  }, []);
+  }, [labels.loadError]);
 
   useEffect(() => {
     void refresh();
@@ -110,7 +119,13 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
 
   if (loadError) {
     return (
-      <div className={embedded ? "w-full space-y-4" : "mx-auto max-w-5xl space-y-4 p-6"}>
+      <div
+        className={
+          embedded
+            ? "w-full space-y-4"
+            : `${AppLayoutClasses.pageWidth} ${AppLayoutClasses.pagePaddingX} space-y-4 pb-10 pt-6`
+        }
+      >
         {!embedded ? (
           <>
             <Link href="/app/settings" className="text-sm text-indigo-600 hover:underline">
@@ -125,7 +140,7 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
           onClick={() => void refresh()}
           className="rounded-lg bg-[#7C3AED] px-4 py-2 text-sm font-medium text-white hover:bg-[#6D28D9]"
         >
-          Retry
+          {labels.retry}
         </button>
       </div>
     );
@@ -137,7 +152,13 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
   ];
 
   return (
-    <div className={embedded ? "w-full space-y-8" : "mx-auto max-w-5xl space-y-8 p-6"}>
+    <div
+      className={
+        embedded
+          ? "w-full space-y-8"
+          : `${AppLayoutClasses.pageWidth} ${AppLayoutClasses.pagePaddingX} space-y-8 pb-10 pt-6`
+      }
+    >
       {!embedded ? (
         <div>
           <Link href="/app/settings" className="text-sm text-indigo-600 hover:underline">
@@ -188,7 +209,7 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
                   <div className="flex items-start gap-3">
                     <ModuleGlyph kind="active" />
                     <div className="min-w-0">
-                      <h3 className="text-base font-semibold text-gray-900">{moduleDisplayName(mod)}</h3>
+                      <h3 className="text-base font-semibold text-gray-900">{moduleDisplayName(mod, labels.unnamedModule)}</h3>
                       <p className="mt-1 text-sm text-emerald-800">{labels.statusActive}</p>
                     </div>
                   </div>
@@ -222,7 +243,7 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
                 <div className="flex items-start gap-3">
                   <ModuleGlyph kind="available" />
                   <div>
-                    <h3 className="text-base font-semibold text-gray-900">{moduleDisplayName(mod)}</h3>
+                    <h3 className="text-base font-semibold text-gray-900">{moduleDisplayName(mod, labels.unnamedModule)}</h3>
                     <p className="mt-1 text-sm text-gray-600">{labels.upgradeRequired}</p>
                     <p className="mt-2 text-sm text-indigo-700">{labels.statusAvailable}</p>
                   </div>
@@ -247,7 +268,7 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
                 <div className="flex items-start gap-3">
                   <ModuleGlyph kind="trial" />
                   <div>
-                    <h3 className="text-base font-semibold text-gray-900">{moduleDisplayName(mod)}</h3>
+                    <h3 className="text-base font-semibold text-gray-900">{moduleDisplayName(mod, labels.unnamedModule)}</h3>
                     <p className="mt-1 text-sm text-amber-800">{labels.statusTrial}</p>
                   </div>
                 </div>

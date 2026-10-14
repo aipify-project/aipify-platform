@@ -44,21 +44,23 @@
     "navigation": "Mobile navigation"
   },
   "licenseSidebar": {
-    "workspace": "Workspace:",
-    "poweredBy": "Powered by",
-    "licensedTo": "Licensed to:",
+    "workspace": "Espacio de trabajo:",
+    "poweredBy": "Con tecnología de",
+    "licensedTo": "Licenciado a:",
     "plan": "Plan:",
-    "subscription": "Subscription:",
-    "status": "Status:",
-    "version": "Version:",
+    "subscription": "Suscripción:",
+    "status": "Estado:",
+    "version": "Versión:",
     "copyright": "© Aipify Group AS",
-    "statusActive": "Active",
-    "statusGrace": "Grace period",
-    "statusPaused": "Paused",
-    "statusUnknown": "Unknown",
-    "notConfigured": "Not configured",
-    "notAssigned": "Not assigned",
-    "organizationMissing": "Organization not linked"
+    "statusActive": "Activa",
+    "statusGrace": "Periodo de gracia",
+    "statusPaused": "En pausa",
+    "statusUnknown": "Desconocido",
+    "notConfigured": "No configurado",
+    "notAssigned": "No asignado",
+    "organizationMissing": "Falta el contexto de la organización",
+    "contextLoading": "Obteniendo el contexto de la organización…",
+    "contextUnavailable": "No pudimos obtener el contexto de la organización ahora. Intente recargar la página."
   },
   "branding": {
     "pulseLabel": "Aipify platform symbol"

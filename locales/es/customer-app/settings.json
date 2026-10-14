@@ -58,5 +58,46 @@
       "openAction": "Abrir",
       "categoryLabel": "Categoría"
     }
+  },
+  "commercialPackages": {
+    "modules": {
+      "title": "Gestión de módulos",
+      "subtitle": "Active o desactive los módulos adquiridos. Aipify crece con su negocio.",
+      "loading": "Preparando el resumen de módulos…",
+      "back": "Volver a ajustes",
+      "viewBilling": "Facturación y paquetes",
+      "empty": "No hay módulos disponibles.",
+      "enable": "Activar",
+      "disable": "Desactivar",
+      "sections": {
+        "installed": "Módulos instalados",
+        "available": "Disponible con actualización",
+        "trials": "Módulos de prueba",
+        "recommendations": "Recomendaciones de actualización",
+        "packages": "Paquetes comerciales",
+        "flags": "Estados de indicadores de funciones"
+      },
+      "statusActive": "Activo",
+      "statusAvailable": "Disponible",
+      "statusTrial": "Prueba",
+      "openManage": "Paquete actual",
+      "upgradeRequired": "Incluido al actualizar: no hay acción de compra disponible desde esta tarjeta.",
+      "plannedSection": "Adiciones planificadas",
+      "plannedHint": "Estas capacidades están planificadas. La compra y la activación aún no están disponibles en Aipify.",
+      "plannedCta": "Próximamente",
+      "plannedProducts": {
+        "designStudio": {
+          "name": "Design Studio",
+          "description": "Paquetes de diseño para la apariencia de su espacio de trabajo. La compra y el empaquetado aún no están disponibles."
+        },
+        "aiTranslator": {
+          "name": "Aipify Translator",
+          "description": "Créditos de traducción de pago del cliente. La compra, los créditos y la activación aún no están disponibles."
+        }
+      },
+      "retry": "Reintentar",
+      "unnamedModule": "Módulo con licencia",
+      "loadError": "No se pudieron cargar los módulos. Inténtelo de nuevo."
+    }
   }
 }

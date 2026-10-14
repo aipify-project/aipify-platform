@@ -38,5 +38,8 @@ export function buildModulesAdminPanelLabels(t: Translator) {
       packages: t(`${P}.sections.packages`),
       flags: t(`${P}.sections.flags`),
     },
+    retry: t(`${P}.retry`),
+    unnamedModule: t(`${P}.unnamedModule`),
+    loadError: t(`${P}.loadError`),
   };
 }

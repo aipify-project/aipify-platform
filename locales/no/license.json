@@ -1,6 +1,6 @@
 {
   "sidebar": {
-    "workspace": "Workspace:",
+    "workspace": "Arbeidsområde:",
     "poweredBy": "Drevet av",
     "licensedTo": "Lisensiert til:",
     "plan": "Plan:",
@@ -18,19 +18,19 @@
   "center": {
     "title": "Tillits- og lisensenter",
     "subtitle": "Transparens om eierskap, lisens, data og abonnementet ditt.",
-    "loading": "Laster lisensinformasjon...",
+    "loading": "Går gjennom kontostatus…",
     "backToApp": "Tilbake til kontrollsenteret",
-    "graceBanner": "Payment is overdue. You are within the 3-day grace period with full access. Please update billing to avoid service pause.",
-    "pausedBanner": "Services are paused due to an overdue subscription.",
-    "billingCta": "Go to billing",
+    "graceBanner": "Betalingen er forfalt. Du er innenfor den 3-dagers utsettelsesperioden med full tilgang. Oppdater fakturering for å unngå pause i tjenesten.",
+    "pausedBanner": "Tjenestene er pauset på grunn av et forfalt abonnement.",
+    "billingCta": "Gå til fakturering",
     "subscription": {
-      "currentPlan": "Current plan",
-      "renewalDate": "Renewal date",
-      "licenseStatus": "License status",
-      "installations": "Installations",
-      "domains": "Domains",
-      "users": "Users",
-      "paymentStatus": "Payment status"
+      "currentPlan": "Gjeldende plan",
+      "renewalDate": "Fornyelsesdato",
+      "licenseStatus": "Lisensstatus",
+      "installations": "Installasjoner",
+      "domains": "Domener",
+      "users": "Brukere",
+      "paymentStatus": "Betalingsstatus"
     },
     "licenseCode": {
       "title": "Aipify-lisenskode",
@@ -45,35 +45,35 @@
     },
     "sections": {
       "license_information": {
-        "title": "License Information",
+        "title": "Lisensinformasjon",
         "body": [
-          "You receive a limited license to use Aipify software for your organization.",
-          "This license is tied to your subscription plan and approved domains.",
-          "License status is shown in the sidebar and on this page."
+          "Du mottar en begrenset lisens til å bruke Aipify-programvare for organisasjonen din.",
+          "Lisensen er knyttet til abonnementsplanen din og godkjente domener.",
+          "Lisensstatus vises i sidemenyen og på denne siden."
         ]
       },
       "software_ownership": {
-        "title": "Software Ownership",
+        "title": "Programvareeierskap",
         "body": [
-          "Aipify is proprietary software owned by {owner}.",
-          "Customers receive a license to use the software.",
-          "Customers do not receive ownership rights to the software itself.",
-          "Unauthorized copying, redistribution, reverse engineering, or tampering is prohibited."
+          "Aipify er proprietær programvare eid av {owner}.",
+          "Kunder mottar en lisens til å bruke programvaren.",
+          "Kunder mottar ikke eierskapsrettigheter til programvaren selv.",
+          "Uautorisert kopiering, videredistribusjon, reverse engineering eller manipulering er forbudt."
         ]
       },
       "subscription_status": {
-        "title": "Subscription Status",
+        "title": "Abonnementsstatus",
         "body": [
-          "Your plan, renewal date, and usage limits are listed above."
+          "Planen din, fornyelsesdato og bruksgrenser er oppført ovenfor."
         ]
       },
       "data_ownership": {
-        "title": "Data Ownership",
+        "title": "Dataeierskap",
         "body": [
-          "Your business data remains under your control.",
-          "Aipify stores intelligence and operational metadata required to deliver its services.",
-          "Aipify does not assume ownership of your operational systems.",
-          "You may revoke permissions according to platform policies."
+          "Forretningsdataene dine forblir under din kontroll.",
+          "Aipify lagrer intelligens og operasjonell metadata som kreves for å levere tjenestene.",
+          "Aipify overtar ikke eierskap til dine operative systemer.",
+          "Du kan trekke tilbake tillatelser i henhold til plattformens retningslinjer."
         ]
       },
       "anonymised_impact": {
@@ -109,62 +109,62 @@
         ]
       },
       "security_principles": {
-        "title": "Security Principles",
+        "title": "Sikkerhetsprinsipper",
         "body": [
-          "Aipify does not function as an employee monitoring system.",
-          "Aipify does not access cameras or microphones.",
-          "Aipify only accesses approved systems.",
-          "Permissions remain transparent and auditable."
+          "Aipify fungerer ikke som et system for overvåking av ansatte.",
+          "Aipify har ikke tilgang til kameraer eller mikrofoner.",
+          "Aipify får kun tilgang til godkjente systemer.",
+          "Tillatelser forblir transparente og reviderbare."
         ]
       },
       "update_policy": {
-        "title": "Update Policy",
+        "title": "Oppdateringspolicy",
         "body": [
-          "Aipify periodically receives updates to improve security, stability, and functionality.",
-          "Customers receive advance notice before planned maintenance.",
-          "Critical security updates may be applied with shortened notice periods."
+          "Aipify mottar jevnlig oppdateringer for å forbedre sikkerhet, stabilitet og funksjonalitet.",
+          "Kunder får forhåndsvarsel før planlagt vedlikehold.",
+          "Kritiske sikkerhetsoppdateringer kan anvendes med kortere varslingsfrister."
         ]
       },
       "payment_policy": {
-        "title": "Payment Policy",
+        "title": "Betalingspolicy",
         "body": [
-          "Grace period: 3 calendar days after payment becomes overdue.",
-          "During grace period: warning notifications are shown and full access remains available.",
-          "After grace period: Aipify services pause, configuration and metadata are preserved.",
-          "Upon successful payment: services reactivate automatically with previous configuration restored."
+          "Utsettelsesperiode: 3 kalenderdager etter at betalingen forfaller.",
+          "Under utsettelsesperioden: varsler vises og full tilgang forblir tilgjengelig.",
+          "Etter utsettelsesperioden: Aipify-tjenester pauses, konfigurasjon og metadata bevares.",
+          "Ved vellykket betaling: tjenestene reaktiveres automatisk med tidligere konfigurasjon gjenopprettet."
         ]
       },
       "contact_information": {
-        "title": "Contact Information",
+        "title": "Kontaktinformasjon",
         "body": [
           "Hovedkontor: Bergen, Norge",
-          "Official website: {website}",
-          "Support: {support}",
-          "Privacy: {privacy}"
+          "Offisiell nettside: {website}",
+          "Kundestøtte: {support}",
+          "Personvern: {privacy}"
         ]
       },
       "legal_information": {
-        "title": "Legal Information",
+        "title": "Juridisk informasjon",
         "body": [
-          "Software owner: {owner}",
-          "Website: {website}",
-          "Support contact: {support}",
-          "Privacy contact: {privacy}"
+          "Programvareeier: {owner}",
+          "Nettsted: {website}",
+          "Supportkontakt: {support}",
+          "Personvernkontakt: {privacy}"
         ]
       },
       "anti_tampering": {
-        "title": "Anti-Tampering Policy",
+        "title": "Policy mot manipulering",
         "body": [
-          "Configure Aipify only through supported interfaces.",
-          "Unauthorized modification of licensing, security controls, or installation mechanisms is prohibited.",
-          "Aipify may disable installations that have been intentionally compromised."
+          "Konfigurer Aipify kun gjennom støttede grensesnitt.",
+          "Uautorisert endring av lisensiering, sikkerhetskontroller eller installasjonsmekanismer er forbudt.",
+          "Aipify kan deaktivere installasjoner som bevisst er kompromittert."
         ]
       },
       "enterprise_note": {
         "title": "Enterprise",
         "body": [
-          "Enterprise customers may negotiate custom agreements.",
-          "Extended grace periods, custom maintenance windows, dedicated deployments, and customer-hosted intelligence are available."
+          "Enterprise-kunder kan forhandle tilpassede avtaler.",
+          "Utvidede utsettelsesperioder, tilpassede vedlikeholdsvinduer, dedikerte utrullinger og kundehostet intelligens er tilgjengelig."
         ]
       }
     }

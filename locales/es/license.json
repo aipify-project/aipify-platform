@@ -1,0 +1,172 @@
+{
+  "sidebar": {
+    "workspace": "Espacio de trabajo:",
+    "poweredBy": "Con tecnología de",
+    "licensedTo": "Licenciado a:",
+    "plan": "Plan:",
+    "subscription": "Suscripción:",
+    "status": "Estado:",
+    "version": "Versión:",
+    "copyright": "© Aipify Group AS",
+    "statusActive": "Activa",
+    "statusGrace": "Periodo de gracia",
+    "statusPaused": "En pausa",
+    "statusUnknown": "Desconocido",
+    "notConfigured": "No configurado",
+    "notAssigned": "No asignado"
+  },
+  "center": {
+    "title": "Centro de confianza y licencia",
+    "subtitle": "Transparencia sobre propiedad, licencia, datos y su suscripción.",
+    "loading": "Revisando el estado de la cuenta…",
+    "backToApp": "Volver al centro de control",
+    "graceBanner": "El pago está vencido. Está dentro del periodo de gracia de 3 días con acceso completo. Actualice la facturación para evitar la pausa del servicio.",
+    "pausedBanner": "Los servicios están en pausa debido a una suscripción vencida.",
+    "billingCta": "Ir a facturación",
+    "subscription": {
+      "currentPlan": "Plan actual",
+      "renewalDate": "Fecha de renovación",
+      "licenseStatus": "Estado de la licencia",
+      "installations": "Instalaciones",
+      "domains": "Dominios",
+      "users": "Usuarios",
+      "paymentStatus": "Estado del pago"
+    },
+    "licenseCode": {
+      "title": "Código de licencia de Aipify",
+      "description": "Su código de licencia de suscripción APP. Oculto de forma predeterminada: use el control del ojo para revelar el código completo.",
+      "reveal": "Mostrar código de licencia",
+      "hide": "Ocultar código de licencia",
+      "copy": "Copiar código de licencia",
+      "copied": "Copiado",
+      "unavailable": "El código de licencia aún no está disponible.",
+      "revealError": "No se pudo revelar el código de licencia. Inténtelo de nuevo.",
+      "status": "Estado del código"
+    },
+    "sections": {
+      "license_information": {
+        "title": "Información de la licencia",
+        "body": [
+          "Recibe una licencia limitada para usar el software de Aipify en su organización.",
+          "Esta licencia está vinculada a su plan de suscripción y a los dominios aprobados.",
+          "El estado de la licencia se muestra en la barra lateral y en esta página."
+        ]
+      },
+      "software_ownership": {
+        "title": "Propiedad del software",
+        "body": [
+          "Aipify es software propietario propiedad de {owner}.",
+          "Los clientes reciben una licencia para usar el software.",
+          "Los clientes no reciben derechos de propiedad sobre el software en sí.",
+          "La copia, redistribución, ingeniería inversa o manipulación no autorizadas están prohibidas."
+        ]
+      },
+      "subscription_status": {
+        "title": "Estado de la suscripción",
+        "body": [
+          "Su plan, fecha de renovación y límites de uso se enumeran arriba."
+        ]
+      },
+      "data_ownership": {
+        "title": "Propiedad de los datos",
+        "body": [
+          "Sus datos empresariales permanecen bajo su control.",
+          "Aipify almacena inteligencia y metadatos operativos necesarios para prestar sus servicios.",
+          "Aipify no asume la propiedad de sus sistemas operativos.",
+          "Puede revocar permisos de acuerdo con las políticas de la plataforma."
+        ]
+      },
+      "anonymised_impact": {
+        "title": "Métricas de impacto anonimizadas",
+        "body": [
+          "Aipify recopila métricas operativas anonimizadas para medir el rendimiento del servicio y el impacto de la plataforma.",
+          "Estas métricas no incluyen sus datos de ventas, contenido de clientes, correos electrónicos, transacciones, inventario ni registros empresariales privados.",
+          "Solo se almacenan recuentos agregados y tendencias de resultados: nunca el contenido de mensajes ni registros empresariales confidenciales.",
+          "Las declaraciones de marketing globales combinan varios inquilinos y nunca revelan el rendimiento empresarial individual."
+        ]
+      },
+      "product_improvement": {
+        "title": "Política de comentarios de clientes y mejora del producto",
+        "body": [
+          "Propósito: Aipify mejora continuamente sus servicios basándose en interacciones con clientes, comentarios voluntarios e información de uso agregada.",
+          "Principios: Somos transparentes sobre cómo se recopilan los comentarios. Solo recopilamos la información necesaria para mejorar la plataforma. No vendemos comentarios de clientes. No usamos comentarios individuales con fines publicitarios. Los clientes conservan el control sobre la información que eligen compartir.",
+          "Lo que podemos recopilar: valoraciones de funciones; envíos voluntarios de comentarios; sugerencias de mejora; informes de errores; solicitudes de funciones; estadísticas anónimas de uso del producto; resultados de interacción (p. ej., si una acción sugerida fue útil); analítica agregada de la plataforma.",
+          "Propósito de la recopilación: mejorar funciones existentes; identificar problemas de usabilidad; priorizar el desarrollo del producto; detectar problemas recurrentes; mejorar las experiencias del cliente; mejorar las recomendaciones de Aipify; comprender cómo Aipify puede apoyar mejor a las organizaciones.",
+          "Lo que no hacemos: vender datos de comentarios a terceros; usar comentarios para publicidad dirigida; compartir públicamente comentarios específicos de clientes sin permiso; supervisar comunicaciones no relacionadas con los servicios de Aipify.",
+          "Participación voluntaria: Proporcionar comentarios escritos es voluntario. Puede elegir si desea que se le contacte en relación con sus comentarios.",
+          "Transparencia: Donde existan mecanismos de comentarios en la plataforma, Aipify indica claramente cuándo se recopila información para mejorar productos y servicios, incluidos botones de comentarios, formularios de mejora, valoraciones de funciones y encuestas de producto.",
+          "Principio de confianza: Los comentarios son un regalo. Aipify existe para servir a sus clientes. Escuchar con honestidad y mejorar continuamente son partes esenciales de esa responsabilidad."
+        ]
+      },
+      "company_identity": {
+        "title": "Acerca de Aipify Group AS",
+        "body": [
+          "Aipify Group AS tiene su sede en Bergen, Noruega.",
+          "Declaración oficial de marca: Bergen. Noruega. Para el mundo.",
+          "Aipify se fundó en Bergen, forjada por valores noruegos de confianza, calidad y pensamiento a largo plazo.",
+          "Nuestra ambición es global. Nuestros valores siguen siendo noruegos.",
+          "Construimos sistemas empresariales inteligentes diseñados para ayudar a las organizaciones a trabajar de forma más inteligente, responder más rápido y crecer con confianza, para organizaciones en todas partes."
+        ]
+      },
+      "security_principles": {
+        "title": "Principios de seguridad",
+        "body": [
+          "Aipify no funciona como un sistema de supervisión de empleados.",
+          "Aipify no accede a cámaras ni micrófonos.",
+          "Aipify solo accede a sistemas aprobados.",
+          "Los permisos permanecen transparentes y auditables."
+        ]
+      },
+      "update_policy": {
+        "title": "Política de actualizaciones",
+        "body": [
+          "Aipify recibe periódicamente actualizaciones para mejorar la seguridad, la estabilidad y la funcionalidad.",
+          "Los clientes reciben aviso previo antes del mantenimiento planificado.",
+          "Las actualizaciones de seguridad críticas pueden aplicarse con periodos de aviso más cortos."
+        ]
+      },
+      "payment_policy": {
+        "title": "Política de pago",
+        "body": [
+          "Periodo de gracia: 3 días calendario después de que el pago se atrase.",
+          "Durante el periodo de gracia: se muestran avisos y el acceso completo permanece disponible.",
+          "Después del periodo de gracia: los servicios de Aipify se pausan; la configuración y los metadatos se conservan.",
+          "Tras un pago correcto: los servicios se reactivan automáticamente con la configuración anterior restaurada."
+        ]
+      },
+      "contact_information": {
+        "title": "Información de contacto",
+        "body": [
+          "Sede: Bergen, Noruega",
+          "Sitio web oficial: {website}",
+          "Soporte: {support}",
+          "Privacidad: {privacy}"
+        ]
+      },
+      "legal_information": {
+        "title": "Información legal",
+        "body": [
+          "Propietario del software: {owner}",
+          "Sitio web: {website}",
+          "Contacto de soporte: {support}",
+          "Contacto de privacidad: {privacy}"
+        ]
+      },
+      "anti_tampering": {
+        "title": "Política anti-manipulación",
+        "body": [
+          "Configure Aipify solo a través de interfaces compatibles.",
+          "La modificación no autorizada de la licencia, los controles de seguridad o los mecanismos de instalación está prohibida.",
+          "Aipify puede desactivar instalaciones que hayan sido comprometidas intencionadamente."
+        ]
+      },
+      "enterprise_note": {
+        "title": "Enterprise",
+        "body": [
+          "Los clientes Enterprise pueden negociar acuerdos personalizados.",
+          "Hay disponibles periodos de gracia ampliados, ventanas de mantenimiento personalizadas, implementaciones dedicadas e inteligencia alojada por el cliente."
+        ]
+      }
+    }
+  }
+}

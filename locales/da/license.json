@@ -1,6 +1,6 @@
 {
   "sidebar": {
-    "workspace": "Workspace:",
+    "workspace": "Arbejdsområde:",
     "poweredBy": "Drevet af",
     "licensedTo": "Licenseret til:",
     "plan": "Plan:",
@@ -18,26 +18,26 @@
   "center": {
     "title": "Tillids- og licenscenter",
     "subtitle": "Gennemsigtighed om ejerskab, licens, data og dit abonnement.",
-    "loading": "Indlæser licensinformation...",
-    "backToApp": "Tilbage til kontrolcenteret",
-    "graceBanner": "Payment is overdue. You are within the 3-day grace period with full access. Please update billing to avoid service pause.",
-    "pausedBanner": "Services are paused due to an overdue subscription.",
-    "billingCta": "Go to billing",
+    "loading": "Gennemgår kontostatus…",
+    "backToApp": "Tilbage til kontrolcentret",
+    "graceBanner": "Betalingen er forfalden. Du er inden for den 3-dages henstandsperiode med fuld adgang. Opdater fakturering for at undgå servicepause.",
+    "pausedBanner": "Tjenesterne er pauset på grund af et forfaldent abonnement.",
+    "billingCta": "Gå til fakturering",
     "subscription": {
-      "currentPlan": "Current plan",
-      "renewalDate": "Renewal date",
-      "licenseStatus": "License status",
-      "installations": "Installations",
-      "domains": "Domains",
-      "users": "Users",
-      "paymentStatus": "Payment status"
+      "currentPlan": "Nuværende plan",
+      "renewalDate": "Fornyelsesdato",
+      "licenseStatus": "Licensstatus",
+      "installations": "Installationer",
+      "domains": "Domæner",
+      "users": "Brugere",
+      "paymentStatus": "Betalingsstatus"
     },
     "licenseCode": {
       "title": "Aipify-licenskode",
-      "description": "Din APP-abonnementslicenskode. Skjult som standard — brug øje-kontrollen for at vise hele koden.",
+      "description": "Din APP-abonnementslicenskode. Skjult som standard — brug øjekontrollen for at vise hele koden.",
       "reveal": "Vis licenskode",
       "hide": "Skjul licenskode",
-      "copy": "Kopier licenskode",
+      "copy": "Kopiér licenskode",
       "copied": "Kopieret",
       "unavailable": "Licenskode er ikke tilgængelig endnu.",
       "revealError": "Kunne ikke vise licenskoden. Prøv igen.",
@@ -45,57 +45,57 @@
     },
     "sections": {
       "license_information": {
-        "title": "License Information",
+        "title": "Licensinformation",
         "body": [
-          "You receive a limited license to use Aipify software for your organization.",
-          "This license is tied to your subscription plan and approved domains.",
-          "License status is shown in the sidebar and on this page."
+          "Du modtager en begrænset licens til at bruge Aipify-software for din organisation.",
+          "Licensen er knyttet til din abonnementsplan og godkendte domæner.",
+          "Licensstatus vises i sidepanelet og på denne side."
         ]
       },
       "software_ownership": {
-        "title": "Software Ownership",
+        "title": "Softwareejerskab",
         "body": [
-          "Aipify is proprietary software owned by {owner}.",
-          "Customers receive a license to use the software.",
-          "Customers do not receive ownership rights to the software itself.",
-          "Unauthorized copying, redistribution, reverse engineering, or tampering is prohibited."
+          "Aipify er proprietær software ejet af {owner}.",
+          "Kunder modtager en licens til at bruge softwaren.",
+          "Kunder modtager ikke ejendomsrettigheder til softwaren selv.",
+          "Uautoriseret kopiering, videredistribution, reverse engineering eller manipulation er forbudt."
         ]
       },
       "subscription_status": {
-        "title": "Subscription Status",
+        "title": "Abonnementsstatus",
         "body": [
-          "Your plan, renewal date, and usage limits are listed above."
+          "Din plan, fornyelsesdato og brugsgrænser er angivet ovenfor."
         ]
       },
       "data_ownership": {
-        "title": "Data Ownership",
+        "title": "Dataejerskab",
         "body": [
-          "Your business data remains under your control.",
-          "Aipify stores intelligence and operational metadata required to deliver its services.",
-          "Aipify does not assume ownership of your operational systems.",
-          "You may revoke permissions according to platform policies."
+          "Dine forretningsdata forbliver under din kontrol.",
+          "Aipify gemmer intelligens og operationel metadata, der kræves for at levere tjenesterne.",
+          "Aipify overtager ikke ejerskab af dine operative systemer.",
+          "Du kan tilbagekalde tilladelser i henhold til platformens politikker."
         ]
       },
       "anonymised_impact": {
         "title": "Anonymiserede effektmålinger",
         "body": [
-          "Aipify indsamler anonymiserede operationelle målinger for at måle serviceydelse og platformeffekt.",
-          "Disse målinger omfatter ikke salgsdata, kundeindhold, e-mails, transaktioner, lager eller private forretningsdata.",
-          "Kun aggregerede optællinger og resultattrends gemmes — aldrig beskedindhold eller forretningsfølsomme poster.",
-          "Globale marketingudsagn kombinerer flere lejere og afslører aldrig individuel forretningspræstation."
+          "Aipify indsamler anonymiserede operationelle målinger for at måle tjenesteydelse og platformseffekt.",
+          "Disse målinger omfatter ikke dine salgsdata, kundeindhold, e-mails, transaktioner, lager eller private forretningsdata.",
+          "Kun aggregerede antal og resultattrends gemmes — aldrig meddelelsesindhold eller forretningsfølsomme poster.",
+          "Globale marketingudsagn kombinerer flere lejere og afslører aldrig individuel forretningsydelse."
         ]
       },
       "product_improvement": {
-        "title": "Politik for kundefeedback og produktforbedring",
+        "title": "Retningslinjer for kundefeedback og produktforbedring",
         "body": [
           "Formål: Aipify forbedrer løbende sine tjenester baseret på kundeinteraktioner, frivillig feedback og aggregerede brugsindsigter.",
-          "Principper: Vi er transparente om, hvordan feedback indsamles. Vi indsamler kun information, der er nødvendig for at forbedre platformen. Vi sælger ikke kundefeedback. Vi bruger ikke individuel feedback til reklame. Kunder beholder kontrol over den information, de vælger at dele.",
-          "Hvad vi kan indsamle: funktionsvurderinger; frivillige feedbackindsendelser; forbedringsforslag; fejlrapporter; funktionsanmodninger; anonyme produktbrugsstatistikker; interaktionsresultater (f.eks. om en foreslået handling var nyttig); aggregeret platformanalyse.",
+          "Principper: Vi er transparente om, hvordan feedback indsamles. Vi indsamler kun oplysninger, der er nødvendige for at forbedre platformen. Vi sælger ikke kundefeedback. Vi bruger ikke individuel feedback til reklame. Kunder bevarer kontrollen over de oplysninger, de vælger at dele.",
+          "Hvad vi kan indsamle: funktionsvurderinger; frivillige feedbackindsendelser; forbedringsforslag; fejl rapporter; funktionsanmodninger; anonyme produktbrugsstatistikker; interaktionsresultater (f.eks. om en foreslået handling var nyttig); aggregerede platformanalyser.",
           "Formål med indsamling: forbedre eksisterende funktioner; identificere brugervenlighedsproblemer; prioritere produktudvikling; opdage tilbagevendende problemer; forbedre kundeoplevelser; forbedre Aipify-anbefalinger; forstå, hvordan Aipify bedre kan støtte organisationer.",
           "Hvad vi ikke gør: sælge feedbackdata til tredjeparter; bruge feedback til målrettet reklame; dele kundespecifik feedback offentligt uden tilladelse; overvåge kommunikation, der ikke er relateret til Aipify-tjenester.",
-          "Frivillig deltagelse: Skriftlig feedback er frivillig. Du vælger, om du ønsker at blive kontaktet vedrørende din feedback.",
-          "Transparens: Hvor feedbackmekanismer findes i platformen, angiver Aipify tydeligt, når information indsamles for at forbedre produkter og tjenester — herunder feedbackknapper, forbedringsformularer, funktionsvurderinger og produktundersøgelser.",
-          "Tillidsprincip: Feedback er en gave. Aipify eksisterer for at tjene sine kunder. At lytte ærligt og forbedre løbende er en væsentlig del af det ansvar."
+          "Frivillig deltagelse: At give skriftlig feedback er frivilligt. Du kan vælge, om du ønsker at blive kontaktet vedrørende din feedback.",
+          "Transparens: Hvor feedbackmekanismer findes i platformen, angiver Aipify tydeligt, når oplysninger indsamles for at forbedre produkter og tjenester — herunder feedbackknapper, forbedringsformularer, funktionsvurderinger og produktundersøgelser.",
+          "Tillidsprincip: Feedback er en gave. Aipify eksisterer for at tjene sine kunder. At lytte ærligt og forbedre sig kontinuerligt er væsentlige dele af det ansvar."
         ]
       },
       "company_identity": {
@@ -109,62 +109,62 @@
         ]
       },
       "security_principles": {
-        "title": "Security Principles",
+        "title": "Sikkerhedsprincipper",
         "body": [
-          "Aipify does not function as an employee monitoring system.",
-          "Aipify does not access cameras or microphones.",
-          "Aipify only accesses approved systems.",
-          "Permissions remain transparent and auditable."
+          "Aipify fungerer ikke som et system til overvågning af medarbejdere.",
+          "Aipify har ikke adgang til kameraer eller mikrofoner.",
+          "Aipify får kun adgang til godkendte systemer.",
+          "Tilladelser forbliver transparente og revisionsegnede."
         ]
       },
       "update_policy": {
-        "title": "Update Policy",
+        "title": "Opdateringspolitik",
         "body": [
-          "Aipify periodically receives updates to improve security, stability, and functionality.",
-          "Customers receive advance notice before planned maintenance.",
-          "Critical security updates may be applied with shortened notice periods."
+          "Aipify modtager jævnligt opdateringer for at forbedre sikkerhed, stabilitet og funktionalitet.",
+          "Kunder får forhåndsvarsel før planlagt vedligeholdelse.",
+          "Kritiske sikkerhedsopdateringer kan anvendes med kortere varslingsfrister."
         ]
       },
       "payment_policy": {
-        "title": "Payment Policy",
+        "title": "Betalingspolitik",
         "body": [
-          "Grace period: 3 calendar days after payment becomes overdue.",
-          "During grace period: warning notifications are shown and full access remains available.",
-          "After grace period: Aipify services pause, configuration and metadata are preserved.",
-          "Upon successful payment: services reactivate automatically with previous configuration restored."
+          "Henstandsperiode: 3 kalenderdage efter, at betalingen forfalder.",
+          "I henstandsperioden: advarsler vises, og fuld adgang forbliver tilgængelig.",
+          "Efter henstandsperioden: Aipify-tjenester pauses, konfiguration og metadata bevares.",
+          "Ved vellykket betaling: tjenesterne genaktiveres automatisk med tidligere konfiguration gendannet."
         ]
       },
       "contact_information": {
-        "title": "Contact Information",
+        "title": "Kontaktinformation",
         "body": [
-          "Headquarters: Bergen, Norge",
-          "Official website: {website}",
-          "Support: {support}",
-          "Privacy: {privacy}"
+          "Hovedkontor: Bergen, Norge",
+          "Officiel hjemmeside: {website}",
+          "Kundesupport: {support}",
+          "Privatliv: {privacy}"
         ]
       },
       "legal_information": {
-        "title": "Legal Information",
+        "title": "Juridisk information",
         "body": [
-          "Software owner: {owner}",
-          "Website: {website}",
-          "Support contact: {support}",
-          "Privacy contact: {privacy}"
+          "Softwareejer: {owner}",
+          "Hjemmeside: {website}",
+          "Supportkontakt: {support}",
+          "Privatlivskontakt: {privacy}"
         ]
       },
       "anti_tampering": {
-        "title": "Anti-Tampering Policy",
+        "title": "Politik mod manipulation",
         "body": [
-          "Configure Aipify only through supported interfaces.",
-          "Unauthorized modification of licensing, security controls, or installation mechanisms is prohibited.",
-          "Aipify may disable installations that have been intentionally compromised."
+          "Konfigurer Aipify kun via understøttede grænseflader.",
+          "Uautoriseret ændring af licensiering, sikkerhedskontroller eller installationsmekanismer er forbudt.",
+          "Aipify kan deaktivere installationer, der bevidst er kompromitteret."
         ]
       },
       "enterprise_note": {
         "title": "Enterprise",
         "body": [
-          "Enterprise customers may negotiate custom agreements.",
-          "Extended grace periods, custom maintenance windows, dedicated deployments, and customer-hosted intelligence are available."
+          "Enterprise-kunder kan forhandle tilpassede aftaler.",
+          "Udvidede henstandsperioder, tilpassede vedligeholdelsesvinduer, dedikerede udrulninger og kundehostet intelligens er tilgængelige."
         ]
       }
     }

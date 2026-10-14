@@ -9,6 +9,14 @@
       "general": "Я поруч із вами. Запитайте своїми словами — відповім якомога зрозуміліше."
     }
   },
+  "companionBriefing": {
+    "companionBriefing": "Брифінг Companion",
+    "loading": "Підготовка брифінгу…",
+    "viewDetails": "Переглянути деталі",
+    "aipifyNoticed": "Aipify помітив",
+    "companionNote": "Примітка Companion",
+    "privacy": "Брифінги Companion підсумовують лише перевірену активність модулів — метадані, спокійний тон, контроль людини."
+  },
   "companionContextEngine": {
     "title": "Companion Context Engine",
     "subtitle": "Understand what is happening across your work environment so Aipify assistance becomes more relevant and valuable.",
