@@ -98,12 +98,15 @@ Svein (via ChatGPT, carried in authorized `.text`):
 
 ## Repository / deploy
 
-Filled after commit/PR if executed in same job; migration was applied on Core **before** git merge so CI/deploy will not need to re-apply (ledger skip).
+Migration was applied on Core **before** git merge; ledger skip prevents double-apply.
 
 | Item | Value |
 |------|--------|
-| Branch / PR / merge | See follow-up section below when shipped |
-| Extra SQL / Vercel / Stripe | None authorized beyond recording this RESULT |
+| Branch | `feature/wk-visitor-faq-sql-approval-gate-2026-10-13` |
+| Commit | `ffa0ed250d23056eabee52fa5bc308990f6a1e6a` |
+| PR | [#182](https://github.com/aipify-project/aipify-platform/pull/182) |
+| Merge | Pending CI (then squash-merge if green) |
+| Extra SQL / Vercel / Stripe | None |
 
 ---
 
