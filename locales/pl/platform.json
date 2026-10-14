@@ -844,7 +844,17 @@
       "enterManually": "Wprowadź dane firmy ręcznie.",
       "queryTooShort": "Wyszukiwanie musi zawierać co najmniej dwa znaki",
       "registryNoResponse": "Rejestr firm nie odpowiedział",
-      "registrationNumberRequired": "Numer rejestracyjny jest wymagany"
+      "registrationNumberRequired": "Numer rejestracyjny jest wymagany",
+      "prepareAction": "Przygotuj dry-run (D1)",
+      "prepareRunning": "Przygotowywanie…",
+      "prepareReady": "Dry-run gotowy — nie utworzono klienta",
+      "prepareBlocked": "Przygotowanie znalazło blokujące lub doradcze konflikty",
+      "prepareReason": "Wewnętrzny powód audytu przygotowania",
+      "prepareSideEffectsNone": "Brak firmy, klienta, organizacji, auth, e-maila, członkostwa ani przyznania Bedrift w tym kroku.",
+      "prepareDuplicateAdvisory": "Skan rejestru znalazł możliwy duplikat. Unikalność Core jest nadal egzekwowana tylko przy tworzeniu Production.",
+      "prepareCoreDeferred": "Autorytatywne odrzucenie duplikatu następuje dopiero przy późniejszej autoryzacji właściciela.",
+      "prepareExecuteLocked": "Tworzenie Production jest poza tą pracą D1. Execute na /customers/prepare pozostaje fail-closed.",
+      "prepareProductSeparation": "Przygotowanie nigdy nie przypisuje admina, nie używa e-maila do auto-powiązania tenanta i nie przyznaje kompis_bedrift ani nie zmienia UnoNight."
     },
     "commercialPlan": {
       "managePlan": "Zarządzaj umową",

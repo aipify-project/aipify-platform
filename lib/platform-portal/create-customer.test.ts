@@ -254,7 +254,7 @@ test("company lookup route supports name/number and non-NO unavailable", () => {
   assert.doesNotMatch(route, /rawResponse/);
 });
 
-test("creation panel has country-first flow and no initial error banner", () => {
+test("creation panel has country-first flow and D1 prepare-only submit", () => {
   const panel = readFileSync(
     join(
       process.cwd(),
@@ -268,12 +268,18 @@ test("creation panel has country-first flow and no initial error banner", () => 
   assert.match(panel, /showOrgError/);
   assert.match(panel, /submitted/);
   assert.match(panel, /noValidate/);
-  assert.match(panel, /disabled=\{!canSubmit\}/);
+  assert.match(panel, /\/api\/platform-portal\/customers\/prepare/);
+  assert.match(panel, /mode:\s*["']prepare["']/);
+  assert.match(panel, /prepareExecuteLocked/);
+  assert.doesNotMatch(
+    panel,
+    /fetch\(\s*["']\/api\/platform-portal\/customers["']/,
+  );
   assert.doesNotMatch(panel, /useState\("NO"\)/);
 });
 
 test("locale parity for creation namespace", () => {
-  const locales = ["en", "no", "da", "sv", "pl", "uk"] as const;
+  const locales = ["en", "no", "da", "sv", "pl", "uk", "es"] as const;
   const en = JSON.parse(
     readFileSync(join(process.cwd(), "locales/en/platform.json"), "utf8"),
   ) as { customers: { creation: Record<string, unknown> } };

@@ -4,6 +4,7 @@ export * from "./parse";
 export * from "./labels";
 export * from "./countries";
 export * from "./create-customer";
+export * from "./create-customer-prepare";
 export * from "./commercial-plan";
 export * from "./business-language";
 export * from "./license-provisioning";

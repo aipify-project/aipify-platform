@@ -537,6 +537,16 @@ export type PlatformPortalCustomerCreationLabels = {
   retry: string;
   slugPreview: string;
   addressUnavailableNote: string;
+  prepareAction: string;
+  prepareRunning: string;
+  prepareReady: string;
+  prepareBlocked: string;
+  prepareReason: string;
+  prepareSideEffectsNone: string;
+  prepareDuplicateAdvisory: string;
+  prepareCoreDeferred: string;
+  prepareExecuteLocked: string;
+  prepareProductSeparation: string;
 };
 
 export type PlatformPortalCompanyLookupMatch = {

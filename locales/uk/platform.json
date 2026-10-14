@@ -844,7 +844,17 @@
       "enterManually": "Введіть дані компанії вручну.",
       "queryTooShort": "Пошук має містити щонайменше два символи",
       "registryNoResponse": "Реєстр компаній не відповів",
-      "registrationNumberRequired": "Реєстраційний номер є обов’язковим"
+      "registrationNumberRequired": "Реєстраційний номер є обов’язковим",
+      "prepareAction": "Підготувати dry-run (D1)",
+      "prepareRunning": "Підготовка…",
+      "prepareReady": "Dry-run готовий — клієнта не створено",
+      "prepareBlocked": "Підготовка виявила блокувальні або дорадчі конфлікти",
+      "prepareReason": "Внутрішня причина для аудиту підготовки",
+      "prepareSideEffectsNone": "Немає компанії, клієнта, організації, auth, e-mail, членства чи надання Bedrift на цьому кроці.",
+      "prepareDuplicateAdvisory": "Сканування реєстру знайшло можливий дублікат. Унікальність Core досі застосовується лише під час Production-створення.",
+      "prepareCoreDeferred": "Авторитетне відхилення дубліката відбувається лише після пізнішої авторизації власника.",
+      "prepareExecuteLocked": "Production-створення поза цією роботою D1. Execute на /customers/prepare залишається fail-closed.",
+      "prepareProductSeparation": "Підготовка ніколи не призначає адміна, не використовує e-mail для автоприв’язки tenant і не надає kompis_bedrift та не змінює UnoNight."
     },
     "commercialPlan": {
       "managePlan": "Керувати угодою",

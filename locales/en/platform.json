@@ -844,7 +844,17 @@
       "enterManually": "Enter the company details manually.",
       "queryTooShort": "The search must contain at least two characters",
       "registryNoResponse": "The company registry did not respond",
-      "registrationNumberRequired": "A registration number is required"
+      "registrationNumberRequired": "A registration number is required",
+      "prepareAction": "Prepare dry-run (D1)",
+      "prepareRunning": "Preparing…",
+      "prepareReady": "Dry-run ready — no customer created",
+      "prepareBlocked": "Prepare found blocking or advisory conflicts",
+      "prepareReason": "Internal reason for prepare audit",
+      "prepareSideEffectsNone": "No company, customer, organization, auth, email, membership, or Bedrift grant in this step.",
+      "prepareDuplicateAdvisory": "Registry scan found a possible duplicate. Core uniqueness is still enforced only on Production create.",
+      "prepareCoreDeferred": "Authoritative duplicate rejection happens only when create is later owner-authorized.",
+      "prepareExecuteLocked": "Production create is outside this D1 job. Execute on /customers/prepare remains fail-closed.",
+      "prepareProductSeparation": "Prepare never attaches an admin, never uses email to auto-link a tenant, and never grants kompis_bedrift or changes UnoNight."
     },
     "commercialPlan": {
       "managePlan": "Manage agreement",

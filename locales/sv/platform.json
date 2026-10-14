@@ -844,7 +844,17 @@
       "enterManually": "Ange företagsuppgifterna manuellt.",
       "queryTooShort": "Sökningen måste innehålla minst två tecken",
       "registryNoResponse": "Företagsregistret svarade inte",
-      "registrationNumberRequired": "Registreringsnummer är obligatoriskt"
+      "registrationNumberRequired": "Registreringsnummer är obligatoriskt",
+      "prepareAction": "Förbered dry-run (D1)",
+      "prepareRunning": "Förbereder…",
+      "prepareReady": "Dry-run klar — ingen kund skapad",
+      "prepareBlocked": "Förberedelse hittade blockerande eller rådgivande konflikter",
+      "prepareReason": "Intern anledning för förberedelserevision",
+      "prepareSideEffectsNone": "Inget företag, kund, organisation, auth, e-post, medlemskap eller Bedrift-tilldelning i detta steg.",
+      "prepareDuplicateAdvisory": "Registerskanning hittade möjlig dubblett. Core-unikhet verkställs fortfarande bara vid Production-skapande.",
+      "prepareCoreDeferred": "Auktoritativa dubblettavslag sker först när skapande senare ägargodkänns.",
+      "prepareExecuteLocked": "Production-skapande ligger utanför detta D1-jobb. Execute på /customers/prepare förblir fail-closed.",
+      "prepareProductSeparation": "Förberedelse kopplar aldrig administratör, använder aldrig e-post för autokoppling av tenant och ger aldrig kompis_bedrift eller ändrar UnoNight."
     },
     "commercialPlan": {
       "managePlan": "Hantera avtal",
