@@ -1,0 +1,34 @@
+DO
+REVOKE
+REVOKE
+GRANT
+GRANT
+CREATE TABLE
+DO
+DO
+DO
+DO
+DO
+DO
+DO
+DO
+DO
+DO
+              name               | pass |                                                                                                                                                                  detail                                                                                                                                                                  
+---------------------------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ anon_execute_denied             | t    | denied
+ authenticated_execute_denied    | t    | denied
+ finalize_wrong_install          | t    | {"ok": false, "reason": "reservation_not_found"}
+ happy_reserve_finalize          | t    | {"limit": 60, "status": "allowed", "allowed": true, "reservation_id": "c4a5025d-8427-4b64-8677-e18381712939", "reserved_count": 1} | {"ok": true, "status": "success", "reservation_id": "c4a5025d-8427-4b64-8677-e18381712939"} | {"ok": true, "reason": "already_finalized", "reservation_id": "c4a5025d-8427-4b64-8677-e18381712939"}
+ idem_after_finalize_no_reauth   | t    | {"reason": "already_finalized", "status": "denied", "allowed": false, "prior_status": "success", "reservation_id": "ca216434-05b2-4c45-a788-2857846cbb05"}
+ idem_binding_mismatch_denied    | t    | {"reason": "binding_mismatch", "status": "denied", "allowed": false, "reservation_id": "ca216434-05b2-4c45-a788-2857846cbb05"}
+ inflight_idempotent_replay      | t    | {"limit": 60, "status": "allowed", "allowed": true, "reservation_id": "4d48655f-7494-46fc-acea-5704b9a6e554", "reserved_count": 1} | {"reason": "idempotent_replay", "status": "allowed", "allowed": true, "reservation_id": "4d48655f-7494-46fc-acea-5704b9a6e554"}
+ null_binding_denied             | t    | {"reason": "untrusted_binding", "status": "denied", "allowed": false}
+ race_at_limit_no_overshoot      | t    | allowed=1 denied=3 reserved=60
+ release_does_not_free_rate_slot | t    | before=1 after=1
+ schema_is_v2_semantics          | t    | r2=already_finalized r3=binding_mismatch
+ sequential_rate_60              | t    | allowed=60 denied=5
+(12 rows)
+
+NOTICE:  ALL_CONTRACT_TESTS_PASSED
+DO
