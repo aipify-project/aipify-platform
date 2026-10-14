@@ -1247,7 +1247,10 @@
           "name": "Aipify Translator",
           "description": "Kunde-betalte oversettelseskreditter. Kjøp, kreditter og aktivering er ikke levert ennå."
         }
-      }
+      },
+      "retry": "Prøv igjen",
+      "unnamedModule": "Lisensiert modul",
+      "loadError": "Moduler kunne ikke lastes. Prøv igjen."
     }
   },
   "workingStyle": {

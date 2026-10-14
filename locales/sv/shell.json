@@ -53,7 +53,7 @@
     "version": "Version:",
     "copyright": "© Aipify Group AS",
     "statusActive": "Aktiv",
-    "statusGrace": "Anståndperiod",
+    "statusGrace": "Anståndsperiod",
     "statusPaused": "Pausad",
     "statusUnknown": "Okänd",
     "notConfigured": "Inte konfigurerad",

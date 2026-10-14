@@ -1186,5 +1186,13 @@
     "attachments": {
       "dropHint": "Suelta archivos aquí o pega una imagen del portapapeles. Máx. 10 MB por archivo."
     }
+  },
+  "companionBriefing": {
+    "companionBriefing": "Briefing de Companion",
+    "loading": "Preparando el briefing…",
+    "viewDetails": "Ver detalles",
+    "aipifyNoticed": "Aipify observó",
+    "companionNote": "Nota de Companion",
+    "privacy": "Los briefings de Companion resumen solo la actividad verificada de los módulos: metadatos, tono calmado y control humano."
   }
 }

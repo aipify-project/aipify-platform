@@ -1039,40 +1039,43 @@
       }
     },
     "modules": {
-      "title": "Module management",
-      "subtitle": "Enable or disable purchased modules. Aipify grows with your business.",
-      "loading": "Preparing modules overview…",
-      "back": "Back to settings",
-      "viewBilling": "Billing & packages",
-      "empty": "No modules available.",
-      "enable": "Enable",
-      "disable": "Disable",
+      "title": "Zarządzanie modułami",
+      "subtitle": "Włączaj lub wyłączaj zakupione moduły. Aipify rozwija się wraz z Twoją firmą.",
+      "loading": "Przygotowywanie przeglądu modułów…",
+      "back": "Powrót do ustawień",
+      "viewBilling": "Rozliczenia i pakiety",
+      "empty": "Brak dostępnych modułów.",
+      "enable": "Włącz",
+      "disable": "Wyłącz",
       "sections": {
-        "installed": "Installed modules",
-        "available": "Available with upgrade",
-        "trials": "Trial modules",
-        "recommendations": "Upgrade recommendations",
-        "packages": "Commercial packages",
-        "flags": "Feature flag states"
+        "installed": "Zainstalowane moduły",
+        "available": "Dostępne po uaktualnieniu",
+        "trials": "Moduły próbne",
+        "recommendations": "Rekomendacje uaktualnienia",
+        "packages": "Pakiety komercyjne",
+        "flags": "Stany flag funkcji"
       },
       "statusActive": "Aktywny",
       "statusAvailable": "Dostępny",
-      "statusTrial": "Okres próbny",
+      "statusTrial": "Próbny",
       "openManage": "Bieżący pakiet",
-      "upgradeRequired": "Dostępne po uaktualnieniu — brak zakupu z tej karty.",
+      "upgradeRequired": "Dostępne po uaktualnieniu — z tej karty nie można dokonać zakupu.",
       "plannedSection": "Planowane dodatki",
       "plannedHint": "Te możliwości są planowane. Zakup i aktywacja nie są jeszcze dostępne w Aipify.",
       "plannedCta": "Wkrótce",
       "plannedProducts": {
         "designStudio": {
           "name": "Design Studio",
-          "description": "Pakiety projektowe wyglądu przestrzeni. Zakup i pakietowanie nie są jeszcze dostarczone."
+          "description": "Pakiety projektowe wyglądu obszaru roboczego. Zakup i pakietowanie nie są jeszcze dostarczone."
         },
         "aiTranslator": {
           "name": "Aipify Translator",
-          "description": "Płatne kredyty tłumaczeniowe. Zakup, kredyty i aktywacja nie są jeszcze dostarczone."
+          "description": "Płatne kredyty tłumaczeniowe klienta. Zakup, kredyty i aktywacja nie są jeszcze dostarczone."
         }
-      }
+      },
+      "retry": "Spróbuj ponownie",
+      "unnamedModule": "Licencjonowany moduł",
+      "loadError": "Nie udało się wczytać modułów. Spróbuj ponownie."
     }
   },
   "unifiedBilling": {

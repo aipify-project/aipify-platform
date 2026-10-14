@@ -9,7 +9,7 @@
     "version": "Version:",
     "copyright": "© Aipify Group AS",
     "statusActive": "Aktiv",
-    "statusGrace": "Anståndperiod",
+    "statusGrace": "Anståndsperiod",
     "statusPaused": "Pausad",
     "statusUnknown": "Okänd",
     "notConfigured": "Inte konfigurerad",
@@ -17,24 +17,24 @@
   },
   "center": {
     "title": "Förtroende- och licenscenter",
-    "subtitle": "Transparens kring ägande, licens, data och din prenumeration.",
-    "loading": "Laddar licensinformation...",
+    "subtitle": "Transparens om ägarskap, licens, data och din prenumeration.",
+    "loading": "Granskar kontostatus…",
     "backToApp": "Tillbaka till kontrollcentret",
-    "graceBanner": "Payment is overdue. You are within the 3-day grace period with full access. Please update billing to avoid service pause.",
-    "pausedBanner": "Services are paused due to an overdue subscription.",
-    "billingCta": "Go to billing",
+    "graceBanner": "Betalningen är förfallen. Du är inom den 3-dagars anståndsperioden med full åtkomst. Uppdatera fakturering för att undvika tjänstepaus.",
+    "pausedBanner": "Tjänsterna är pausade på grund av en förfallen prenumeration.",
+    "billingCta": "Gå till fakturering",
     "subscription": {
-      "currentPlan": "Current plan",
-      "renewalDate": "Renewal date",
-      "licenseStatus": "License status",
-      "installations": "Installations",
-      "domains": "Domains",
-      "users": "Users",
-      "paymentStatus": "Payment status"
+      "currentPlan": "Nuvarande plan",
+      "renewalDate": "Förnyelsedatum",
+      "licenseStatus": "Licensstatus",
+      "installations": "Installationer",
+      "domains": "Domäner",
+      "users": "Användare",
+      "paymentStatus": "Betalningsstatus"
     },
     "licenseCode": {
       "title": "Aipify-licenskod",
-      "description": "Din APP-prenumerationslicenskod. Dold som standard — använd ögat för att visa hela koden.",
+      "description": "Din APP-prenumerationslicenskod. Dold som standard — använd ögonkontrollen för att visa hela koden.",
       "reveal": "Visa licenskod",
       "hide": "Dölj licenskod",
       "copy": "Kopiera licenskod",
@@ -45,126 +45,126 @@
     },
     "sections": {
       "license_information": {
-        "title": "License Information",
+        "title": "Licensinformation",
         "body": [
-          "You receive a limited license to use Aipify software for your organization.",
-          "This license is tied to your subscription plan and approved domains.",
-          "License status is shown in the sidebar and on this page."
+          "Du får en begränsad licens att använda Aipify-programvara för din organisation.",
+          "Licensen är kopplad till din prenumerationsplan och godkända domäner.",
+          "Licensstatus visas i sidofältet och på den här sidan."
         ]
       },
       "software_ownership": {
-        "title": "Software Ownership",
+        "title": "Programvaruägande",
         "body": [
-          "Aipify is proprietary software owned by {owner}.",
-          "Customers receive a license to use the software.",
-          "Customers do not receive ownership rights to the software itself.",
-          "Unauthorized copying, redistribution, reverse engineering, or tampering is prohibited."
+          "Aipify är proprietär programvara som ägs av {owner}.",
+          "Kunder får en licens att använda programvaran.",
+          "Kunder får inte äganderätt till programvaran i sig.",
+          "Obehörig kopiering, vidare distribution, reverse engineering eller manipulation är förbjuden."
         ]
       },
       "subscription_status": {
-        "title": "Subscription Status",
+        "title": "Prenumerationsstatus",
         "body": [
-          "Your plan, renewal date, and usage limits are listed above."
+          "Din plan, förnyelsedatum och användningsgränser visas ovan."
         ]
       },
       "data_ownership": {
-        "title": "Data Ownership",
+        "title": "Dataägande",
         "body": [
-          "Your business data remains under your control.",
-          "Aipify stores intelligence and operational metadata required to deliver its services.",
-          "Aipify does not assume ownership of your operational systems.",
-          "You may revoke permissions according to platform policies."
+          "Dina affärsdata förblir under din kontroll.",
+          "Aipify lagrar intelligens och operativ metadata som krävs för att leverera tjänsterna.",
+          "Aipify tar inte över ägandet av dina operativa system.",
+          "Du kan återkalla behörigheter enligt plattformens riktlinjer."
         ]
       },
       "anonymised_impact": {
-        "title": "Anonymiserade effektmätningar",
+        "title": "Anonymiserade effektmått",
         "body": [
-          "Aipify samlar anonymiserade operativa mätvärden för att mäta tjänsteprestanda och plattformseffekt.",
-          "Dessa mätvärden inkluderar inte försäljningsdata, kundinnehåll, e-post, transaktioner, lager eller privata affärsdata.",
-          "Endast aggregerade räkningar och resultattrender lagras — aldrig meddelandeinnehåll eller affärskänsliga poster.",
-          "Globala marknadsföringsuttalanden kombinerar flera tenants och avslöjar aldrig individuell affärsprestanda."
+          "Aipify samlar in anonymiserade operativa mått för att mäta tjänste­prestanda och plattformseffekt.",
+          "Dessa mått inkluderar inte dina försäljningsdata, kundinnehåll, e-post, transaktioner, lager eller privata affärsuppgifter.",
+          "Endast aggregerade antal och resultat­trender lagras — aldrig meddelandeinnehåll eller affärskänsliga poster.",
+          "Globala marknadsförings­påståenden kombinerar flera hyresgäster och avslöjar aldrig individuell affärsprestanda."
         ]
       },
       "product_improvement": {
-        "title": "Policy för kundfeedback och produktförbättring",
+        "title": "Riktlinjer för kundfeedback och produktförbättring",
         "body": [
-          "Syfte: Aipify förbättrar sina tjänster kontinuerligt baserat på kundinteraktioner, frivillig feedback och aggregerade användningsinsikter.",
-          "Principer: Vi är transparenta om hur feedback samlas in. Vi samlar endast information som behövs för att förbättra plattformen. Vi säljer inte kundfeedback. Vi använder inte individuell feedback för reklam. Kunder behåller kontroll över informationen de väljer att dela.",
-          "Vad vi kan samla in: funktionsbetyg; frivilliga feedbackinlämningar; förbättringsförslag; buggrapporter; funktionsförfrågningar; anonyma produktanvändningsstatistik; interaktionsresultat (t.ex. om en föreslagen åtgärd var hjälpsam); aggregerad plattformsanalys.",
+          "Syfte: Aipify förbättrar kontinuerligt sina tjänster baserat på kundinteraktioner, frivillig feedback och aggregerade användningsinsikter.",
+          "Principer: Vi är transparenta om hur feedback samlas in. Vi samlar endast in information som behövs för att förbättra plattformen. Vi säljer inte kundfeedback. Vi använder inte individuell feedback för reklam. Kunder behåller kontrollen över informationen de väljer att dela.",
+          "Vad vi kan samla in: funktionsbetyg; frivilliga feedbackinlämningar; förbättringsförslag; felrapporter; funktionsförfrågningar; anonyma produktanvändningsstatistik; interaktionsresultat (t.ex. om en föreslagen åtgärd var hjälpsam); aggregerad plattformsanalys.",
           "Syfte med insamling: förbättra befintliga funktioner; identifiera användbarhetsproblem; prioritera produktutveckling; upptäcka återkommande problem; förbättra kundupplevelser; förbättra Aipify-rekommendationer; förstå hur Aipify bättre kan stödja organisationer.",
           "Vad vi inte gör: sälja feedbackdata till tredje part; använda feedback för riktad reklam; dela kundspecifik feedback offentligt utan tillstånd; övervaka kommunikation som inte är relaterad till Aipify-tjänster.",
-          "Frivilligt deltagande: Skriftlig feedback är frivillig. Du väljer om du vill bli kontaktad angående din feedback.",
-          "Transparens: Där feedbackmekanismer finns i plattformen anger Aipify tydligt när information samlas in för att förbättra produkter och tjänster — inklusive feedbackknappar, förbättringsformulär, funktionsbetyg och produktenkäter.",
-          "Förtroendeprincip: Feedback är en gåva. Aipify finns för att tjäna sina kunder. Att lyssna ärligt och förbättra kontinuerligt är en viktig del av det ansvaret."
+          "Frivilligt deltagande: Att lämna skriftlig feedback är frivilligt. Du kan välja om du vill bli kontaktad angående din feedback.",
+          "Transparens: Där feedbackmekanismer finns i plattformen anger Aipify tydligt när information samlas in för att förbättra produkter och tjänster — inklusive feedbackknappar, förbättringsformulär, funktionsbetyg och produktundersökningar.",
+          "Förtroendeprincip: Feedback är en gåva. Aipify finns för att tjäna sina kunder. Att lyssna ärligt och förbättras kontinuerligt är väsentliga delar av det ansvaret."
         ]
       },
       "company_identity": {
         "title": "Om Aipify Group AS",
         "body": [
-          "Aipify Group AS har sitt huvudkontor i Bergen, Norge.",
+          "Aipify Group AS har huvudkontor i Bergen, Norge.",
           "Officiellt varumärkesuttalande: Bergen. Norge. För världen.",
-          "Aipify grundades i Bergen — formad av norska värderingar som förtroende, kvalitet och långsiktigt tänkande.",
+          "Aipify grundades i Bergen — format av norska värderingar som förtroende, kvalitet och långsiktigt tänkande.",
           "Vår ambition är global. Våra värderingar förblir norska.",
-          "Vi bygger intelligenta affärssystem designade för att hjälpa organisationer arbeta smartare, svara snabbare och växa med förtroende — för organisationer överallt."
+          "Vi bygger intelligenta affärssystem som hjälper organisationer att arbeta smartare, svara snabbare och växa med förtroende — för organisationer överallt."
         ]
       },
       "security_principles": {
-        "title": "Security Principles",
+        "title": "Säkerhetsprinciper",
         "body": [
-          "Aipify does not function as an employee monitoring system.",
-          "Aipify does not access cameras or microphones.",
-          "Aipify only accesses approved systems.",
-          "Permissions remain transparent and auditable."
+          "Aipify fungerar inte som ett system för övervakning av anställda.",
+          "Aipify har inte tillgång till kameror eller mikrofoner.",
+          "Aipify får endast tillgång till godkända system.",
+          "Behörigheter förblir transparenta och granskningsbara."
         ]
       },
       "update_policy": {
-        "title": "Update Policy",
+        "title": "Uppdateringspolicy",
         "body": [
-          "Aipify periodically receives updates to improve security, stability, and functionality.",
-          "Customers receive advance notice before planned maintenance.",
-          "Critical security updates may be applied with shortened notice periods."
+          "Aipify får regelbundet uppdateringar för att förbättra säkerhet, stabilitet och funktionalitet.",
+          "Kunder får förhandsbesked före planerat underhåll.",
+          "Kritiska säkerhetsuppdateringar kan tillämpas med kortare varselperioder."
         ]
       },
       "payment_policy": {
-        "title": "Payment Policy",
+        "title": "Betalningspolicy",
         "body": [
-          "Grace period: 3 calendar days after payment becomes overdue.",
-          "During grace period: warning notifications are shown and full access remains available.",
-          "After grace period: Aipify services pause, configuration and metadata are preserved.",
-          "Upon successful payment: services reactivate automatically with previous configuration restored."
+          "Anståndsperiod: 3 kalenderdagar efter att betalningen förfaller.",
+          "Under anståndsperioden: varningar visas och full åtkomst förblir tillgänglig.",
+          "Efter anståndsperioden: Aipify-tjänster pausas, konfiguration och metadata bevaras.",
+          "Vid lyckad betalning: tjänsterna återaktiveras automatiskt med tidigare konfiguration återställd."
         ]
       },
       "contact_information": {
-        "title": "Contact Information",
+        "title": "Kontaktinformation",
         "body": [
-          "Headquarters: Bergen, Norge",
-          "Official website: {website}",
-          "Support: {support}",
-          "Privacy: {privacy}"
+          "Huvudkontor: Bergen, Norge",
+          "Officiell webbplats: {website}",
+          "Kundsupport: {support}",
+          "Integritet: {privacy}"
         ]
       },
       "legal_information": {
-        "title": "Legal Information",
+        "title": "Juridisk information",
         "body": [
-          "Software owner: {owner}",
-          "Website: {website}",
-          "Support contact: {support}",
-          "Privacy contact: {privacy}"
+          "Programvaruägare: {owner}",
+          "Webbplats: {website}",
+          "Supportkontakt: {support}",
+          "Integritetskontakt: {privacy}"
         ]
       },
       "anti_tampering": {
-        "title": "Anti-Tampering Policy",
+        "title": "Policy mot manipulation",
         "body": [
-          "Configure Aipify only through supported interfaces.",
-          "Unauthorized modification of licensing, security controls, or installation mechanisms is prohibited.",
-          "Aipify may disable installations that have been intentionally compromised."
+          "Konfigurera Aipify endast via stödda gränssnitt.",
+          "Obehörig ändring av licensiering, säkerhetskontroller eller installationsmekanismer är förbjuden.",
+          "Aipify kan inaktivera installationer som avsiktligt har komprometterats."
         ]
       },
       "enterprise_note": {
         "title": "Enterprise",
         "body": [
-          "Enterprise customers may negotiate custom agreements.",
-          "Extended grace periods, custom maintenance windows, dedicated deployments, and customer-hosted intelligence are available."
+          "Enterprise-kunder kan förhandla anpassade avtal.",
+          "Förlängda anståndsperioder, anpassade underhållsfönster, dedikerade utrullningar och kundhostad intelligens finns tillgängliga."
         ]
       }
     }

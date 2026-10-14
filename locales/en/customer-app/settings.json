@@ -764,7 +764,10 @@
           "name": "Aipify Translator",
           "description": "Customer-paid translation credits. Purchase, credits, and activation are not delivered yet."
         }
-      }
+      },
+      "retry": "Try again",
+      "unnamedModule": "Licensed module",
+      "loadError": "Modules could not be loaded. Please try again."
     }
   },
   "workingStyle": {

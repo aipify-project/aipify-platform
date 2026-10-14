@@ -64,7 +64,8 @@ export default function TrustLicenseCenterPanel({
   const [revealLoading, setRevealLoading] = useState(false);
   const [revealError, setRevealError] = useState<string | null>(null);
   const [copyState, setCopyState] = useState<"idle" | "copied">("idle");
-  const billingHref = resolveAppHref("/app/billing");
+  const billingHref = resolveAppHref("/app/account/subscription");
+  const backHref = resolveAppHref("/app/command-center");
 
   const loadCenter = useCallback(async () => {
     setLoading(true);
@@ -151,7 +152,7 @@ export default function TrustLicenseCenterPanel({
   const licenseStatus = String(data?.license_status ?? "active");
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="w-full space-y-6">
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">{labels.title}</h1>
         <p className="mt-2 text-sm text-gray-600">{labels.subtitle}</p>
@@ -295,7 +296,7 @@ export default function TrustLicenseCenterPanel({
         ))}
 
       <p className="text-center text-sm text-gray-500">
-        <Link href={resolveAppHref("/app")} className="text-indigo-600 hover:text-indigo-800">
+        <Link href={backHref} className="text-indigo-600 hover:text-indigo-800">
           {labels.backToApp}
         </Link>
       </p>

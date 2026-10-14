@@ -1217,7 +1217,10 @@
           "name": "Aipify Translator",
           "description": "Kundebetalte oversættelseskreditter. Køb, kreditter og aktivering er endnu ikke leveret."
         }
-      }
+      },
+      "retry": "Prøv igen",
+      "unnamedModule": "Licenseret modul",
+      "loadError": "Moduler kunne ikke indlæses. Prøv igen."
     }
   },
   "workingStyle": {
