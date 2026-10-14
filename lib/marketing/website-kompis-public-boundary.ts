@@ -174,9 +174,11 @@ export function isExplicitAipifyPricingQuestion(question: string): boolean {
   const normalized = normalizeVisitorQuestion(question);
   if (!normalized) return false;
 
-  const mentionsPricing = /\b(kost|koster|pris\w*|price|pricing|cost|costs|abonnement)\b/.test(
-    normalized,
-  );
+  // Package/plan/license wording is treated as pricing intent (P1 host-only gate).
+  const mentionsPricing =
+    /\b(kost|koster|kostar|pris\w*|price|pricing|cost|costs|abonnement|subscription|pakke\w*|package\w*|plan\w*|lisens\w*|license\w*)\b/.test(
+      normalized,
+    );
   const mentionsAipify = /\b(aipify|abos|website kompis|website-kompis)\b/.test(normalized);
 
   return mentionsPricing && mentionsAipify;
@@ -227,7 +229,8 @@ export function recentContextSuggestsCustomerSiteTopic(
 /**
  * Follow-ups in an active customer-site thread must not jump to ABOS/platform FAQ
  * just because the visitor reused an Aipify-branded site feature name.
- * Explicit platform pricing/support/widget identity questions still win.
+ * Explicit Aipify support/widget identity may leave the thread; platform *pricing*
+ * is denied on customer hosts by shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite (P1).
  */
 export function isContinuingCustomerSiteTopicFollowUp(
   question: string,
@@ -265,7 +268,8 @@ export function isContinuingCustomerSiteTopicFollowUp(
 
 /**
  * Platform/Aipify knowledge is allowed on a customer public domain only for explicit
- * Aipify, Website Kompis, pricing, product, or support questions.
+ * Aipify / Website Kompis identity or support questions — never Aipify Platform
+ * subscription/package pricing (P1 host-only). Host FAQ/index remain the path for prices.
  * recentContext is relevance help only — never authorization or trusted evidence.
  */
 export function shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(
@@ -279,10 +283,13 @@ export function shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(
   if (isAipifyBrandedCustomerSiteFeatureQuestion(question)) {
     return false;
   }
+  // P1: block even when the question also matches isExplicitAipifyOrKompisQuestion
+  // (e.g. "How much does the Aipify Platform subscription cost…").
+  if (isExplicitAipifyPricingQuestion(question)) {
+    return false;
+  }
   return (
-    isExplicitAipifyOrKompisQuestion(question) ||
-    isExplicitAipifyPricingQuestion(question) ||
-    isExplicitAipifySupportQuestion(question)
+    isExplicitAipifyOrKompisQuestion(question) || isExplicitAipifySupportQuestion(question)
   );
 }
 

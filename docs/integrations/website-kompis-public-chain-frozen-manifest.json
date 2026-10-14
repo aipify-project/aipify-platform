@@ -17,8 +17,14 @@
     "answerContract": "website-kompis-public-answer-policy-v1"
   },
   "layoutPx": {
-    "closed": { "width": 72, "height": 72 },
-    "openVisible": { "width": 450, "height": 800 }
+    "closed": {
+      "width": 72,
+      "height": 72
+    },
+    "openVisible": {
+      "width": 450,
+      "height": 800
+    }
   },
   "protectedRuntimeFiles": [
     {
@@ -64,7 +70,7 @@
     {
       "path": "lib/marketing/public-companion-ask.ts",
       "role": "Ask orchestration + evidence collection",
-      "sha256": "3f826ea8edaa509f7e7cadd0ca1ec5ffe87dca5805c5243f53c4c24937de1f96"
+      "sha256": "4ec48ee373ab7dc11bf39f07abff0317708c89df265513517499988ae9575682"
     },
     {
       "path": "lib/marketing/public-companion-tenant-faq.ts",
@@ -199,7 +205,7 @@
     {
       "path": "lib/marketing/website-kompis-public-boundary.ts",
       "role": "Public/private boundary",
-      "sha256": "04a7906f501cbca67590a804efe404d185c75939bffcf96e5496fe10b0ed692b"
+      "sha256": "f09e3a1c89d6efd7fb4a7dad905a222330d5c1490df197734945eb52982e1e01"
     },
     {
       "path": "lib/marketing/website-kompis-domain-activation.ts",
@@ -238,7 +244,7 @@
     },
     {
       "path": "lib/marketing/website-kompis-public-site-index/locale-contract.ts",
-      "role": "no↔nb / nn locale expand",
+      "role": "no\u2194nb / nn locale expand",
       "sha256": "5add299f1bc64d6208a1e9340a032830fb96fee73d68f323dff67fda5e5b8fa7"
     },
     {

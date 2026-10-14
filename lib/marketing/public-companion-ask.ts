@@ -1123,7 +1123,10 @@ export async function askPublicPlatformCompanion(
   ]);
   const t = createTranslator(dict);
 
+  // P1: Aipify Platform package ladder only on Aipify-owned assistants — never on
+  // verified customer Website Kompis hosts (authoritative onCustomerWebsite context).
   if (
+    !onCustomerWebsite &&
     isPublicPricingQuestion(validated.question) &&
     allowAipifyPlatformKnowledge
   ) {
