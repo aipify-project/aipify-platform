@@ -83,6 +83,7 @@ export function AppHubShell({
           eyebrow={eyebrow}
           title={title}
           description={description}
+          clearDecorativeOrb={decorativeAccent}
           actions={
             primaryAction ? (
               <Link
