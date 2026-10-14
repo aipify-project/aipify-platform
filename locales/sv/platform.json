@@ -872,7 +872,13 @@
       "agreementCommercialCatalogNote": "Kommersiell plankatalog är läsbar som referens. Plan sätts inte här.",
       "agreementOwnerPacketTitle": "Ägarbeslutspaket (förhandsvisning)",
       "agreementExecuteLocked": "D2 execute är låst. Avtalsskrivning och kommersiell bindning kräver separat ägarauktorisation.",
-      "agreementExecuteUnavailable": "Kör avtal / kommersiell bindning (ägarauktorisation krävs)"
+      "agreementExecuteUnavailable": "Kör avtal / kommersiell bindning (ägarauktorisation krävs)",
+      "evidenceContractTitle": "Kontrakt för juridisk acceptansbevis (D2B)",
+      "evidenceContractBody": "Kanoniska evidensfält för acceptans av affärskundavtal. Tills en Core Platform-acceptanskälla är ansluten förblir statusen Avtal overifierat. Inga accept-, skapa-, aktivera- eller inbjudningshandlingar finns här.",
+      "evidenceSourceDisconnected": "Evidenskälla frånkopplad — juridisk acceptans / e-signatur för Platform-kunder är inte ansluten i Core.",
+      "evidenceRejectedSourcesNote": "Avvisat som juridisk bevis: prenumerationsöversikt, Business Pack juridiska acceptanser, Growth Partner-avtal, registreringsvillkorskryss och operatörsrevision ensamt.",
+      "evidenceRequiredFields": "Nödvändig evidens när en källa finns: aktörs-ID, kundens juridiska enhets-ID, avtals-ID/version, innehållshash, acceptansåtgärd, UTC-tidsstämpel, revisionspost-ID. IP och användaragent endast när lagligen insamlat.",
+      "evidenceNoExecute": "Detta förberedelsesteg kan inte utföra, aktivera, skapa kund eller acceptera avtal å någon annans vägnar."
     },
     "commercialPlan": {
       "managePlan": "Hantera avtal",

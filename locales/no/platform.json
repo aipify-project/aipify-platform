@@ -719,7 +719,13 @@
       "agreementCommercialCatalogNote": "Kommersiell plankatalog er lesbar som referanse. Plan settes ikke her.",
       "agreementOwnerPacketTitle": "Eierbeslutningspakke (forhåndsvisning)",
       "agreementExecuteLocked": "D2 execute er låst. Avtaleskriving og kommersiell binding krever separat eierautorisasjon.",
-      "agreementExecuteUnavailable": "Kjør avtale / kommersiell binding (eierautorisasjon kreves)"
+      "agreementExecuteUnavailable": "Kjør avtale / kommersiell binding (eierautorisasjon kreves)",
+      "evidenceContractTitle": "Kontrakt for juridisk akseptbevis (D2B)",
+      "evidenceContractBody": "Kanoniske evidensfelt for aksept av forretningskundeavtale. Inntil en Core Platform-akseptkilde er tilkoblet, forblir statusen Avtale uverifisert. Ingen aksept-, opprett-, aktiver- eller invitasjonshandlinger er tilgjengelige her.",
+      "evidenceSourceDisconnected": "Evidenskilde frakoblet — juridisk aksept / e-signatur for Platform-kunder er ikke tilkoblet i Core.",
+      "evidenceRejectedSourcesNote": "Avvist som juridisk bevis: abonnementsoversikt, Business Pack juridiske aksepter, Growth Partner-avtaler, registreringsvilkår-avkrysninger og operatørrevisjon alene.",
+      "evidenceRequiredFields": "Påkrevd evidens når en kilde finnes: aktør-ID, kundens juridiske enhets-ID, avtale-ID/versjon, innholdshash, aksepthandling, UTC-tidspunkt, revisjonsoppførings-ID. IP og brukeragent kun når lovlig innsamlet.",
+      "evidenceNoExecute": "Dette forberedelsessteget kan ikke utføre, aktivere, opprette kunde eller akseptere avtale på vegne av noen."
     },
     "commercialPlan": {
       "managePlan": "Administrer avtale",

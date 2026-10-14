@@ -872,7 +872,13 @@
       "agreementCommercialCatalogNote": "Commercial plan catalog is readable for reference. Setting a plan is not performed here.",
       "agreementOwnerPacketTitle": "Owner decision packet (preview)",
       "agreementExecuteLocked": "D2 execute is locked. Agreement write and commercial bind require a separate owner authorization.",
-      "agreementExecuteUnavailable": "Execute agreement / commercial bind (owner authorization required)"
+      "agreementExecuteUnavailable": "Execute agreement / commercial bind (owner authorization required)",
+      "evidenceContractTitle": "Legal acceptance evidence contract (D2B)",
+      "evidenceContractBody": "Canonical evidence fields for business-customer agreement acceptance. Until a Core Platform acceptance source is connected, status stays Agreement unverified. No accept, create, activate, or invite actions are available here.",
+      "evidenceSourceDisconnected": "Evidence source disconnected — Platform customer legal acceptance / e-sign is not connected in Core.",
+      "evidenceRejectedSourcesNote": "Rejected as legal proof: subscriptions overview, Business Pack legal acceptances, Growth Partner agreements, registration terms checkboxes, and operator audit alone.",
+      "evidenceRequiredFields": "Required evidence when a source exists: actor ID, customer legal entity ID, agreement ID/version, content hash, acceptance action, UTC timestamp, audit record ID. IP and user-agent only when legitimately collected.",
+      "evidenceNoExecute": "This prepare step cannot execute, activate, create a customer, or accept an agreement on anyone’s behalf."
     },
     "commercialPlan": {
       "managePlan": "Manage agreement",

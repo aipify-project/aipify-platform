@@ -23,6 +23,13 @@ import {
   scanRegistryForCustomerConflicts,
   type RegistryCustomerScanRow,
 } from "./create-customer-prepare";
+import {
+  PLATFORM_CUSTOMER_LEGAL_ACCEPTANCE_SOURCE_CONNECTED,
+  probePlatformCustomerLegalAcceptanceEvidence,
+  type LegalAcceptanceEvidenceProbeResult,
+} from "./legal-acceptance-evidence-contract";
+
+export { PLATFORM_CUSTOMER_LEGAL_ACCEPTANCE_SOURCE_CONNECTED };
 
 const SECRET_REASON =
   /(sk-|rk_|bearer\s|password|secret|api[_-]?key|totp|mfa|authorization:)/i;
@@ -33,12 +40,6 @@ export const AGREEMENT_APPROVAL_EXECUTE_OWNER_ALLOWLIST: ReadonlySet<string> =
 
 /** Live D2 execute path stays off until a named owner job. */
 export const AGREEMENT_APPROVAL_EXECUTE_ENABLED = false;
-
-/**
- * Core does not expose Platform-customer legal acceptance / e-sign evidence.
- * Do not invent verification from checkboxes, drafts, or operator audit alone.
- */
-export const PLATFORM_CUSTOMER_LEGAL_ACCEPTANCE_SOURCE_CONNECTED = false;
 
 export type AgreementApprovalReadinessStatus =
   | "NOT_FOUND"
@@ -140,6 +141,8 @@ export type AgreementApprovalPreparePlan = {
     nextAuthorizedJobs: ["D1_or_existing_create_when_owner_authorized", "D3_admin", "D4_bedrift"];
     blockedUntil: string[];
   };
+  /** D2B — fail-closed evidence probe; never invents acceptance. */
+  evidenceProbe: LegalAcceptanceEvidenceProbeResult;
 };
 
 export function createAgreementApprovalIdempotencyKey(): string {
@@ -390,6 +393,12 @@ export function buildAgreementApprovalPreparePlan(input: {
     executeBlockedReasons.push("registry_scan_conflict_advisory");
   }
 
+  const evidenceProbe = probePlatformCustomerLegalAcceptanceEvidence({
+    candidateOrganizationNumber: input.creation.organizationNumber || null,
+    candidateSlug: input.creation.slug || null,
+    claimedEvidence: null,
+  });
+
   return {
     mode: "prepare",
     dryRun: true,
@@ -478,6 +487,7 @@ export function buildAgreementApprovalPreparePlan(input: {
         "named_owner_authorization_for_create_and_commercial_bind",
       ],
     },
+    evidenceProbe,
   };
 }
 

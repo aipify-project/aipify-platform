@@ -158,6 +158,14 @@ assert.equal(plan.priorGatesIntact.d1CreateOwnerAllowlistEmpty, true);
 assert.equal(plan.priorGatesIntact.d3AdminProvisionAllowlistEmpty, true);
 assert.equal(plan.priorGatesIntact.d4BedriftActivateAllowlistEmpty, true);
 assert.equal(plan.ownerDecisionPacket.legalEntity, "UNKNOWN_REQUIRES_OWNER");
+assert.equal(plan.evidenceProbe.verificationStatus, "AGREEMENT_UNVERIFIED");
+assert.equal(plan.evidenceProbe.evidence, null);
+assert.equal(plan.evidenceProbe.canExecute, false);
+assert.equal(plan.evidenceProbe.canCreateCustomer, false);
+assert.equal(plan.evidenceProbe.sourceConnected, false);
+assert.ok(
+  plan.evidenceProbe.rejectedSources.includes("subscriptions_overview"),
+);
 
 const missingIdentity = buildAgreementApprovalPreparePlan({
   creation: {
@@ -251,13 +259,24 @@ const lib = readFileSync(
 );
 assert.match(lib, /AGREEMENT_APPROVAL_EXECUTE_OWNER_ALLOWLIST[\s\S]*new Set\(\)/);
 assert.match(lib, /AGREEMENT_APPROVAL_EXECUTE_ENABLED = false/);
-assert.match(lib, /PLATFORM_CUSTOMER_LEGAL_ACCEPTANCE_SOURCE_CONNECTED = false/);
+assert.match(lib, /legal-acceptance-evidence-contract/);
+assert.match(lib, /evidenceProbe/);
 assert.match(lib, /readyToExecute: false/);
 assert.match(
   lib,
   /AgreementApprovalReadinessStatus[\s\S]*"NOT_FOUND"[\s\S]*"NEEDS_REVIEW"[\s\S]*"READY_FOR_OWNER_DECISION"[\s\S]*"AGREEMENT_UNVERIFIED"/,
 );
 assert.ok(assertNoHardcodedAgreementTestTarget(lib));
+
+const evidenceContract = readFileSync(
+  "lib/platform-portal/legal-acceptance-evidence-contract.ts",
+  "utf8",
+);
+assert.match(
+  evidenceContract,
+  /PLATFORM_CUSTOMER_LEGAL_ACCEPTANCE_SOURCE_CONNECTED = false/,
+);
+assert.ok(assertNoHardcodedAgreementTestTarget(evidenceContract));
 
 const panel = readFileSync(
   "components/platform/platform-portal/PlatformPortalCustomerCreationPanel.tsx",
@@ -305,6 +324,12 @@ const agreementKeys = [
   "agreementOwnerPacketTitle",
   "agreementExecuteLocked",
   "agreementExecuteUnavailable",
+  "evidenceContractTitle",
+  "evidenceContractBody",
+  "evidenceSourceDisconnected",
+  "evidenceRejectedSourcesNote",
+  "evidenceRequiredFields",
+  "evidenceNoExecute",
 ] as const;
 
 for (const locale of ["en", "no", "da", "sv", "pl", "uk", "es"]) {

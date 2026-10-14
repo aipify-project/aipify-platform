@@ -324,7 +324,13 @@
       "agreementCommercialCatalogNote": "El catálogo de planes comerciales es legible como referencia. El plan no se establece aquí.",
       "agreementOwnerPacketTitle": "Paquete de decisión del propietario (vista previa)",
       "agreementExecuteLocked": "D2 execute está bloqueado. Escribir el acuerdo y vincular lo comercial requiere autorización del propietario por separado.",
-      "agreementExecuteUnavailable": "Ejecutar acuerdo / vínculo comercial (se requiere autorización del propietario)"
+      "agreementExecuteUnavailable": "Ejecutar acuerdo / vínculo comercial (se requiere autorización del propietario)",
+      "evidenceContractTitle": "Contrato de evidencia de aceptación legal (D2B)",
+      "evidenceContractBody": "Campos canónicos de evidencia para la aceptación del acuerdo de cliente empresarial. Hasta que exista una fuente de aceptación de Platform en Core, el estado permanece Acuerdo no verificado. No hay acciones de aceptar, crear, activar ni invitar.",
+      "evidenceSourceDisconnected": "Fuente de evidencia desconectada — la aceptación legal / firma electrónica de clientes Platform no está conectada en Core.",
+      "evidenceRejectedSourcesNote": "Rechazado como prueba legal: resumen de suscripciones, aceptaciones legales de Business Pack, acuerdos de Growth Partner, casillas de términos de registro y la auditoría del operador sola.",
+      "evidenceRequiredFields": "Evidencia requerida cuando exista una fuente: ID del actor, ID de la entidad legal del cliente, ID/versión del acuerdo, hash del contenido, acción de aceptación, marca de tiempo UTC, ID del registro de auditoría. IP y user-agent solo cuando se recopilen legítimamente.",
+      "evidenceNoExecute": "Este paso de preparación no puede ejecutar, activar, crear un cliente ni aceptar un acuerdo en nombre de nadie."
     }
   },
   "nav": {

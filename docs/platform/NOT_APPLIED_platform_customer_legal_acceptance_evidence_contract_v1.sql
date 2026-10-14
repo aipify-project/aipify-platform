@@ -1,0 +1,50 @@
+-- =============================================================================
+-- NOT_APPLIED — DRAFT ONLY — DO NOT EXECUTE
+-- =============================================================================
+-- Contract: platform_customer_legal_acceptance_evidence_v1
+-- Job: AIPIFY_KOMPIS_BEDRIFT_D2B_LEGAL_ACCEPTANCE_EVIDENCE_CONTRACT_PREPARE_V1
+--
+-- This file is a proposed Core schema sketch for a future owner-authorized
+-- migration. It is NOT in supabase/migrations/, MUST NOT be applied by this
+-- job, and is NOT permission to run SQL, change RLS, or record acceptance.
+--
+-- Owner must separately approve:
+--   1) Legal agreement text + version identity
+--   2) This schema / RLS / RPC design
+--   3) A named migration apply job
+--   4) Connecting PLATFORM_CUSTOMER_LEGAL_ACCEPTANCE_SOURCE_CONNECTED
+--
+-- Privacy: ip_address / user_agent only when legitimately collected and
+-- necessary; retention policy required before Production enablement.
+-- =============================================================================
+
+-- Proposed table (NOT CREATED):
+-- create table public.platform_customer_legal_acceptances (
+--   id uuid primary key default gen_random_uuid(),
+--   customer_id uuid not null references public.customers(id),
+--   agreement_id text not null,
+--   agreement_version text not null,
+--   agreement_content_hash text not null check (agreement_content_hash ~ '^[a-f0-9]{64}$'),
+--   acceptance_action text not null check (acceptance_action in ('accept','reaccept','countersign')),
+--   actor_user_id uuid not null,
+--   accepted_at timestamptz not null default timezone('utc', now()),
+--   ip_address inet null,
+--   user_agent text null,
+--   audit_record_id uuid not null,
+--   created_at timestamptz not null default timezone('utc', now()),
+--   unique (customer_id, agreement_id, agreement_version, acceptance_action, accepted_at)
+-- );
+--
+-- Proposed read RPC (NOT CREATED):
+--   get_platform_customer_legal_acceptance_evidence(p_customer_id uuid)
+--     security definer; platform_admin only; returns evidence or empty;
+--     never invents rows from subscriptions / pack legal / partner agreements.
+--
+-- Proposed write RPC (NOT CREATED — separate authorization required):
+--   record_platform_customer_legal_acceptance(...)
+--     append-only; deny duplicates that would false-accept; no accept-on-behalf
+--     without explicit owner policy.
+--
+-- Until applied and connected: readiness remains AGREEMENT_UNVERIFIED.
+
+select 'NOT_APPLIED_platform_customer_legal_acceptance_evidence_contract_v1' as draft_marker;
