@@ -565,6 +565,12 @@ export type PlatformPortalCustomerCreationLabels = {
   agreementOwnerPacketTitle: string;
   agreementExecuteLocked: string;
   agreementExecuteUnavailable: string;
+  evidenceContractTitle: string;
+  evidenceContractBody: string;
+  evidenceSourceDisconnected: string;
+  evidenceRejectedSourcesNote: string;
+  evidenceRequiredFields: string;
+  evidenceNoExecute: string;
 };
 
 export type PlatformPortalCompanyLookupMatch = {

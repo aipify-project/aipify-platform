@@ -802,6 +802,26 @@ export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
           <p className="mt-2 text-sm text-sky-900/90 dark:text-sky-100/90">
             {labels.agreementReadyToExecuteNever}
           </p>
+          <div className="mt-4 rounded-xl border border-sky-200/80 bg-white/70 p-3 dark:border-sky-800/80 dark:bg-slate-950/40">
+            <h3 className="text-sm font-semibold text-sky-950 dark:text-sky-100">
+              {labels.evidenceContractTitle}
+            </h3>
+            <p className="mt-2 text-sm text-sky-900/90 dark:text-sky-100/90">
+              {labels.evidenceContractBody}
+            </p>
+            <p className="mt-2 text-sm text-sky-900/90 dark:text-sky-100/90">
+              {labels.evidenceSourceDisconnected}
+            </p>
+            <p className="mt-2 text-sm text-sky-900/90 dark:text-sky-100/90">
+              {labels.evidenceRejectedSourcesNote}
+            </p>
+            <p className="mt-2 text-sm text-sky-900/90 dark:text-sky-100/90">
+              {labels.evidenceRequiredFields}
+            </p>
+            <p className="mt-2 text-sm font-medium text-sky-950 dark:text-sky-100">
+              {labels.evidenceNoExecute}
+            </p>
+          </div>
           <label className="mt-4 block text-sm">
             <span className="font-medium text-sky-950 dark:text-sky-100">
               {labels.agreementReason}
@@ -839,6 +859,11 @@ export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
               </p>
               <p>{labels.agreementSideEffectsNone}</p>
               <p>{labels.agreementCommercialCatalogNote}</p>
+              <p>{labels.evidenceSourceDisconnected}</p>
+              <p className="text-xs text-sky-900/80 dark:text-sky-100/80">
+                {agreementPlan.evidenceProbe.contractId} ·{" "}
+                {agreementPlan.evidenceProbe.reasonCode}
+              </p>
               <p className="font-medium">{labels.agreementOwnerPacketTitle}</p>
               <ul className="list-disc space-y-1 pl-5">
                 {agreementPlan.ownerDecisionPacket.blockedUntil.map((item) => (
@@ -846,6 +871,7 @@ export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
                 ))}
               </ul>
               <p>{labels.agreementExecuteLocked}</p>
+              <p>{labels.evidenceNoExecute}</p>
             </div>
           ) : null}
           <div className="mt-4">

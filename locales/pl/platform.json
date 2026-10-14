@@ -872,7 +872,13 @@
       "agreementCommercialCatalogNote": "Katalog planów komercyjnych jest czytelny jako odniesienie. Plan nie jest ustawiany tutaj.",
       "agreementOwnerPacketTitle": "Pakiet decyzji właściciela (podgląd)",
       "agreementExecuteLocked": "D2 execute jest zablokowane. Zapis umowy i powiązanie komercyjne wymagają osobnej autoryzacji właściciela.",
-      "agreementExecuteUnavailable": "Wykonaj umowę / powiązanie komercyjne (wymagana autoryzacja właściciela)"
+      "agreementExecuteUnavailable": "Wykonaj umowę / powiązanie komercyjne (wymagana autoryzacja właściciela)",
+      "evidenceContractTitle": "Umowa dowodu akceptacji prawnej (D2B)",
+      "evidenceContractBody": "Kanoniczne pola dowodowe akceptacji umowy klienta biznesowego. Dopóki źródło akceptacji Platform w Core nie jest podłączone, status pozostaje Umowa niezweryfikowana. Brak akcji akceptacji, tworzenia, aktywacji ani zaproszenia.",
+      "evidenceSourceDisconnected": "Źródło dowodu odłączone — prawna akceptacja / e-podpis klienta Platform nie jest podłączona w Core.",
+      "evidenceRejectedSourcesNote": "Odrzucone jako dowód prawny: przegląd subskrypcji, akceptacje prawne Business Pack, umowy Growth Partner, checkboxy regulaminu rejestracji oraz sam audyt operatora.",
+      "evidenceRequiredFields": "Wymagane dowody, gdy źródło istnieje: ID aktora, ID podmiotu prawnego klienta, ID/wersja umowy, skrót treści, czynność akceptacji, znacznik czasu UTC, ID rekordu audytu. IP i user-agent tylko gdy legalnie zebrane.",
+      "evidenceNoExecute": "Ten krok przygotowania nie może wykonywać, aktywować, tworzyć klienta ani akceptować umowy w czyimś imieniu."
     },
     "commercialPlan": {
       "managePlan": "Zarządzaj umową",

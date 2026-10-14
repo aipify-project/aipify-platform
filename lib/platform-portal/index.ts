@@ -6,6 +6,7 @@ export * from "./countries";
 export * from "./create-customer";
 export * from "./create-customer-prepare";
 export * from "./agreement-approval-prepare";
+export * from "./legal-acceptance-evidence-contract";
 export * from "./commercial-plan";
 export * from "./business-language";
 export * from "./license-provisioning";

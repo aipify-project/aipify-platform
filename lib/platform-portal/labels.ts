@@ -1086,6 +1086,12 @@ export function buildPlatformPortalCustomerCreationLabels(
     agreementOwnerPacketTitle: t(`${c}.agreementOwnerPacketTitle`),
     agreementExecuteLocked: t(`${c}.agreementExecuteLocked`),
     agreementExecuteUnavailable: t(`${c}.agreementExecuteUnavailable`),
+    evidenceContractTitle: t(`${c}.evidenceContractTitle`),
+    evidenceContractBody: t(`${c}.evidenceContractBody`),
+    evidenceSourceDisconnected: t(`${c}.evidenceSourceDisconnected`),
+    evidenceRejectedSourcesNote: t(`${c}.evidenceRejectedSourcesNote`),
+    evidenceRequiredFields: t(`${c}.evidenceRequiredFields`),
+    evidenceNoExecute: t(`${c}.evidenceNoExecute`),
   };
 }
 
