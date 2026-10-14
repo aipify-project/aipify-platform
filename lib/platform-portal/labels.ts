@@ -1066,6 +1066,26 @@ export function buildPlatformPortalCustomerCreationLabels(
     prepareCoreDeferred: t(`${c}.prepareCoreDeferred`),
     prepareExecuteLocked: t(`${c}.prepareExecuteLocked`),
     prepareProductSeparation: t(`${c}.prepareProductSeparation`),
+    agreementSectionTitle: t(`${c}.agreementSectionTitle`),
+    agreementSectionBody: t(`${c}.agreementSectionBody`),
+    agreementPrepareAction: t(`${c}.agreementPrepareAction`),
+    agreementPrepareRunning: t(`${c}.agreementPrepareRunning`),
+    agreementReason: t(`${c}.agreementReason`),
+    agreementProposedPlanKey: t(`${c}.agreementProposedPlanKey`),
+    agreementProposedPlanKeyHelp: t(`${c}.agreementProposedPlanKeyHelp`),
+    agreementStatusNotFound: t(`${c}.agreementStatusNotFound`),
+    agreementStatusNeedsReview: t(`${c}.agreementStatusNeedsReview`),
+    agreementStatusReadyForOwnerDecision: t(
+      `${c}.agreementStatusReadyForOwnerDecision`,
+    ),
+    agreementStatusUnverified: t(`${c}.agreementStatusUnverified`),
+    agreementReadyToExecuteNever: t(`${c}.agreementReadyToExecuteNever`),
+    agreementSideEffectsNone: t(`${c}.agreementSideEffectsNone`),
+    agreementLegalSourceMissing: t(`${c}.agreementLegalSourceMissing`),
+    agreementCommercialCatalogNote: t(`${c}.agreementCommercialCatalogNote`),
+    agreementOwnerPacketTitle: t(`${c}.agreementOwnerPacketTitle`),
+    agreementExecuteLocked: t(`${c}.agreementExecuteLocked`),
+    agreementExecuteUnavailable: t(`${c}.agreementExecuteUnavailable`),
   };
 }
 
