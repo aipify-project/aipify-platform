@@ -10,6 +10,7 @@ import type {
   PlatformPortalCustomerDetailLabels,
   PlatformPortalDomainInstallationLabels,
   PlatformPortalLicenseProvisioningLabels,
+  PlatformAdminProvisionLabels,
   PlatformPortalKompisBedriftLabels,
   PlatformPortalWebsiteKompisLabels,
   PlatformPortalWebsiteKompisStatus,
@@ -36,6 +37,7 @@ import { PlatformPortalDomainInstallationPanel } from "@/components/platform/pla
 import { PlatformPortalLicenseProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalLicenseProvisioningPanel";
 import { PlatformPortalWebsiteKompisActivationPanel } from "@/components/platform/platform-portal/PlatformPortalWebsiteKompisActivationPanel";
 import { PlatformPortalKompisBedriftStatusPanel } from "@/components/platform/platform-portal/PlatformPortalKompisBedriftStatusPanel";
+import { PlatformPortalAdminProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalAdminProvisioningPanel";
 import { PlatformPortalCustomerIdentityPanel } from "@/components/platform/platform-portal/PlatformPortalCustomerIdentityPanel";
 import type { PlatformCustomerIdentityLabels } from "@/lib/platform-portal/customer-identity-labels";
 import {
@@ -53,6 +55,7 @@ type Props = {
   domainInstallationLabels: PlatformPortalDomainInstallationLabels;
   websiteKompisLabels: PlatformPortalWebsiteKompisLabels;
   kompisBedriftLabels: PlatformPortalKompisBedriftLabels;
+  adminProvisionLabels: PlatformAdminProvisionLabels;
   appKompisDeliveryLabels: PlatformPortalAppKompisDeliveryLabels;
   websiteRuntimeLabels: CustomerWebsiteRuntimeLabels;
   customerIdentityLabels: PlatformCustomerIdentityLabels;
@@ -598,6 +601,7 @@ export function PlatformPortalCustomerDetailPanel({
   domainInstallationLabels,
   websiteKompisLabels,
   kompisBedriftLabels,
+  adminProvisionLabels,
   appKompisDeliveryLabels,
   websiteRuntimeLabels,
   customerIdentityLabels,
@@ -1440,6 +1444,10 @@ export function PlatformPortalCustomerDetailPanel({
           <PlatformPortalKompisBedriftStatusPanel
             customerId={customerId}
             labels={kompisBedriftLabels}
+          />
+          <PlatformPortalAdminProvisioningPanel
+            customerId={customerId}
+            labels={adminProvisionLabels}
           />
           <SectionCard title={websiteKompisLabels.sectionActivatedServices}>
             <div className="space-y-4">

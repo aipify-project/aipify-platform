@@ -3,6 +3,7 @@ import { buildPlatformPresentationQualityLabels } from "@/lib/platform-presentat
 import type { PlatformCustomerAgreementsLabels } from "./customer-agreements";
 import type { PlatformCustomerSuccessLabels } from "./customer-success";
 import type { PlatformLicensesLabels } from "./licenses-overview";
+import type { PlatformAdminProvisionLabels } from "./admin-provisioning";
 import type { PlatformPortalKompisBedriftLabels } from "./kompis-bedrift-activation";
 import type {
   PlatformPortalAppKompisDeliveryLabels,
@@ -387,6 +388,75 @@ export function buildPlatformLicensesOverviewLabels(
     lifetimeAgreement: t(`${c}.lifetimeAgreement`),
     websiteKompis: t(`${c}.websiteKompis`),
     servicesCount: t(`${c}.servicesCount`),
+  };
+}
+
+export function buildPlatformPortalAdminProvisionLabels(
+  t: Translator,
+): PlatformAdminProvisionLabels {
+  const c = "platform.customers.adminProvisioning";
+  const presentation = buildPlatformPresentationQualityLabels(t);
+  return {
+    title: t(`${c}.title`),
+    sectionTitle: t(`${c}.sectionTitle`),
+    sourceNote: t(`${c}.sourceNote`),
+    readinessTitle: t(`${c}.readinessTitle`),
+    planTitle: t(`${c}.planTitle`),
+    customerId: t(`${c}.customerId`),
+    organizationId: t(`${c}.organizationId`),
+    slug: t(`${c}.slug`),
+    companyName: t(`${c}.companyName`),
+    contactEmail: t(`${c}.contactEmail`),
+    memberCount: t(`${c}.memberCount`),
+    customerStatus: t(`${c}.customerStatus`),
+    adminEmail: t(`${c}.adminEmail`),
+    role: t(`${c}.role`),
+    roleOwner: t(`${c}.roleOwner`),
+    roleAdministrator: t(`${c}.roleAdministrator`),
+    internalReason: t(`${c}.internalReason`),
+    prepareAction: t(`${c}.prepareAction`),
+    prepareRunning: t(`${c}.prepareRunning`),
+    executeLockedTitle: t(`${c}.executeLockedTitle`),
+    executeLockedBody: t(`${c}.executeLockedBody`),
+    executeUnavailable: t(`${c}.executeUnavailable`),
+    deliveryNotConnected: t(`${c}.deliveryNotConnected`),
+    noBedriftFromMembership: t(`${c}.noBedriftFromMembership`),
+    existingEmailAcceptNote: t(`${c}.existingEmailAcceptNote`),
+    loading: t(`${c}.loading`),
+    error: t(`${c}.error`),
+    unauthorized: t(`${c}.unauthorized`),
+    forbidden: t(`${c}.forbidden`),
+    retry: t(`${c}.retry`),
+    notConfigured: presentation.notConfigured,
+    ready: t(`${c}.ready`),
+    notReady: t(`${c}.notReady`),
+    prerequisites: t(`${c}.prerequisites`),
+    planReady: t(`${c}.planReady`),
+    sideEffectsNone: t(`${c}.sideEffectsNone`),
+    ownerApprovalChecklistTitle: t(`${c}.ownerApprovalChecklistTitle`),
+    checklistNamedCustomer: t(`${c}.checklistNamedCustomer`),
+    checklistInviteContract: t(`${c}.checklistInviteContract`),
+    checklistExplicitAccept: t(`${c}.checklistExplicitAccept`),
+    checklistNoBedriftGrant: t(`${c}.checklistNoBedriftGrant`),
+    checklistAuditIdempotency: t(`${c}.checklistAuditIdempotency`),
+    prerequisiteLabels: {
+      customer_presentOk: t(`${c}.checks.customerPresentOk`),
+      customer_presentMissing: t(`${c}.checks.customerPresentMissing`),
+      organization_syncedOk: t(`${c}.checks.organizationSyncedOk`),
+      organization_syncedMissing: t(`${c}.checks.organizationSyncedMissing`),
+      tenant_not_inactiveOk: t(`${c}.checks.tenantNotInactiveOk`),
+      tenant_not_inactiveMissing: t(`${c}.checks.tenantNotInactiveMissing`),
+      invite_delivery_contractOk: t(`${c}.checks.inviteDeliveryContractOk`),
+      invite_delivery_contractMissing: t(
+        `${c}.checks.inviteDeliveryContractMissing`,
+      ),
+      owner_execute_authorizationOk: t(
+        `${c}.checks.ownerExecuteAuthorizationOk`,
+      ),
+      owner_execute_authorizationMissing: t(
+        `${c}.checks.ownerExecuteAuthorizationMissing`,
+      ),
+    },
   };
 }
 
