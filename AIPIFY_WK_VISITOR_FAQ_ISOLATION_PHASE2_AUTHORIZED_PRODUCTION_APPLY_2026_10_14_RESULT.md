@@ -103,9 +103,9 @@ Migration was applied on Core **before** git merge; ledger skip prevents double-
 | Item | Value |
 |------|--------|
 | Branch | `feature/wk-visitor-faq-sql-approval-gate-2026-10-13` |
-| Commit | `ffa0ed250d23056eabee52fa5bc308990f6a1e6a` |
-| PR | [#182](https://github.com/aipify-project/aipify-platform/pull/182) |
-| Merge | Pending CI (then squash-merge if green) |
+| Feature commits | `ffa0ed25` · `9f0d8a76` |
+| PR | [#182](https://github.com/aipify-project/aipify-platform/pull/182) MERGED |
+| Merge SHA | `52e0b2894bc6e81ed52a5aa97998912935f24bf1` |
 | Extra SQL / Vercel / Stripe | None |
 
 ---
