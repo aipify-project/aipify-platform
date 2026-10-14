@@ -306,7 +306,25 @@
       "prepareDuplicateAdvisory": "El escaneo del registro encontró un posible duplicado. La unicidad de Core solo se aplica en la creación de Production.",
       "prepareCoreDeferred": "El rechazo autoritativo de duplicados ocurre solo cuando la creación se autorice más tarde.",
       "prepareExecuteLocked": "La creación en Production está fuera de este trabajo D1. Execute en /customers/prepare permanece fail-closed.",
-      "prepareProductSeparation": "La preparación nunca asigna un admin, nunca usa el correo para auto-vincular un tenant y nunca concede kompis_bedrift ni cambia UnoNight."
+      "prepareProductSeparation": "La preparación nunca asigna un admin, nunca usa el correo para auto-vincular un tenant y nunca concede kompis_bedrift ni cambia UnoNight.",
+      "agreementSectionTitle": "Acuerdo y aprobación del propietario — preparación (D2)",
+      "agreementSectionBody": "Solo lectura: preparación para un futuro cliente de prueba Bedrift. La aceptación legal no se puede verificar hasta que exista una fuente de aceptación de Platform. No se escribe ningún cliente, acuerdo ni plan comercial.",
+      "agreementPrepareAction": "Preparar preparación del acuerdo (D2)",
+      "agreementPrepareRunning": "Preparando preparación del acuerdo…",
+      "agreementReason": "Motivo interno para la auditoría de preparación del acuerdo",
+      "agreementProposedPlanKey": "Clave de plan comercial propuesta (opcional)",
+      "agreementProposedPlanKeyHelp": "Solo consulta del catálogo. Vincular un plan es un trabajo posterior autorizado por el propietario cuando el cliente exista.",
+      "agreementStatusNotFound": "Identidad candidata no encontrada — complete primero los datos de la organización",
+      "agreementStatusNeedsReview": "Requiere revisión — conflictos de identidad o de plan requieren atención",
+      "agreementStatusReadyForOwnerDecision": "Listo para decisión del propietario — aún no ejecutable",
+      "agreementStatusUnverified": "Acuerdo no verificado — no hay fuente de aceptación legal verificable de forma independiente",
+      "agreementReadyToExecuteNever": "Listo para ejecutar no está disponible en D2. Execute permanece fail-closed.",
+      "agreementSideEffectsNone": "Sin cliente, organización, acuerdo, plan comercial, auth, correo, membresía ni concesión Bedrift en este paso.",
+      "agreementLegalSourceMissing": "La aceptación legal / e-sign de clientes Platform no está conectada. Las suscripciones y la auditoría del operador no son prueba legal.",
+      "agreementCommercialCatalogNote": "El catálogo de planes comerciales es legible como referencia. El plan no se establece aquí.",
+      "agreementOwnerPacketTitle": "Paquete de decisión del propietario (vista previa)",
+      "agreementExecuteLocked": "D2 execute está bloqueado. Escribir el acuerdo y vincular lo comercial requiere autorización del propietario por separado.",
+      "agreementExecuteUnavailable": "Ejecutar acuerdo / vínculo comercial (se requiere autorización del propietario)"
     }
   },
   "nav": {

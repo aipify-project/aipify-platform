@@ -547,6 +547,24 @@ export type PlatformPortalCustomerCreationLabels = {
   prepareCoreDeferred: string;
   prepareExecuteLocked: string;
   prepareProductSeparation: string;
+  agreementSectionTitle: string;
+  agreementSectionBody: string;
+  agreementPrepareAction: string;
+  agreementPrepareRunning: string;
+  agreementReason: string;
+  agreementProposedPlanKey: string;
+  agreementProposedPlanKeyHelp: string;
+  agreementStatusNotFound: string;
+  agreementStatusNeedsReview: string;
+  agreementStatusReadyForOwnerDecision: string;
+  agreementStatusUnverified: string;
+  agreementReadyToExecuteNever: string;
+  agreementSideEffectsNone: string;
+  agreementLegalSourceMissing: string;
+  agreementCommercialCatalogNote: string;
+  agreementOwnerPacketTitle: string;
+  agreementExecuteLocked: string;
+  agreementExecuteUnavailable: string;
 };
 
 export type PlatformPortalCompanyLookupMatch = {

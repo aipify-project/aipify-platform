@@ -18,6 +18,11 @@ import {
   type PlatformPortalCustomerCreationErrorCode,
 } from "@/lib/platform-portal/create-customer";
 import {
+  createAgreementApprovalIdempotencyKey,
+  type AgreementApprovalPreparePlan,
+  type AgreementApprovalReadinessStatus,
+} from "@/lib/platform-portal/agreement-approval-prepare";
+import {
   createCustomerPrepareIdempotencyKey,
   type CustomerCreatePreparePlan,
 } from "@/lib/platform-portal/create-customer-prepare";
@@ -106,6 +111,13 @@ export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
   );
   const [prepareRunning, setPrepareRunning] = useState(false);
   const [prepareError, setPrepareError] = useState(false);
+  const [agreementReason, setAgreementReason] = useState("");
+  const [agreementPlanKey, setAgreementPlanKey] = useState("");
+  const [agreementKey] = useState(() => createAgreementApprovalIdempotencyKey());
+  const [agreementPlan, setAgreementPlan] =
+    useState<AgreementApprovalPreparePlan | null>(null);
+  const [agreementRunning, setAgreementRunning] = useState(false);
+  const [agreementError, setAgreementError] = useState(false);
 
   const isNorway = country === "NO";
   const hasLookup = countryHasCompanyLookupProvider(country);
@@ -313,12 +325,83 @@ export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
     }
   }
 
+  async function runAgreementPrepare() {
+    setSubmitted(true);
+    setAgreementError(false);
+    setAgreementPlan(null);
+    if (!canSubmit || !normalizedOrg || !normalizedSlug) return;
+    if (agreementReason.trim().length < 3) return;
+
+    setAgreementRunning(true);
+    try {
+      const response = await fetch(
+        "/api/platform-portal/customers/agreement-approval/prepare",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
+          body: JSON.stringify({
+            mode: "prepare",
+            organizationNumber: normalizedOrg,
+            legalName: legalName.trim(),
+            displayName: displayName.trim() || legalName.trim(),
+            slug: normalizedSlug,
+            country,
+            verificationSource,
+            internalReason: agreementReason.trim(),
+            confirmation: true,
+            idempotencyKey: agreementKey,
+            proposedPlanKey: agreementPlanKey.trim() || null,
+          }),
+        },
+      );
+      if (response.status === 401) {
+        setSubmit({ kind: "error", code: "unauthorized" });
+        setAgreementError(true);
+        return;
+      }
+      if (response.status === 403) {
+        setSubmit({ kind: "error", code: "forbidden" });
+        setAgreementError(true);
+        return;
+      }
+      if (!response.ok) {
+        setAgreementError(true);
+        return;
+      }
+      const plan = (await response.json()) as AgreementApprovalPreparePlan;
+      if (!plan?.dryRun || plan.mode !== "prepare" || plan.readyToExecute) {
+        setAgreementError(true);
+        return;
+      }
+      setAgreementPlan(plan);
+    } catch {
+      setAgreementError(true);
+    } finally {
+      setAgreementRunning(false);
+    }
+  }
+
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     await runPrepare();
   }
 
-  const isSubmitting = prepareRunning;
+  const isSubmitting = prepareRunning || agreementRunning;
+
+  function agreementStatusLabel(status: AgreementApprovalReadinessStatus): string {
+    switch (status) {
+      case "NOT_FOUND":
+        return labels.agreementStatusNotFound;
+      case "NEEDS_REVIEW":
+        return labels.agreementStatusNeedsReview;
+      case "READY_FOR_OWNER_DECISION":
+        return labels.agreementStatusReadyForOwnerDecision;
+      case "AGREEMENT_UNVERIFIED":
+      default:
+        return labels.agreementStatusUnverified;
+    }
+  }
   const bannerError =
     submit.kind === "error" ? errorMessage(labels, submit.code, country) : null;
 
@@ -704,6 +787,91 @@ export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
               ) : null}
             </div>
           ) : null}
+        </section>
+
+        <section className="rounded-2xl border border-sky-200 bg-sky-50/70 p-5 dark:border-sky-800/70 dark:bg-sky-950/30">
+          <h2 className="text-base font-semibold text-sky-950 dark:text-sky-100">
+            {labels.agreementSectionTitle}
+          </h2>
+          <p className="mt-2 text-sm text-sky-900/90 dark:text-sky-100/90">
+            {labels.agreementSectionBody}
+          </p>
+          <p className="mt-2 text-sm text-sky-900/90 dark:text-sky-100/90">
+            {labels.agreementLegalSourceMissing}
+          </p>
+          <p className="mt-2 text-sm text-sky-900/90 dark:text-sky-100/90">
+            {labels.agreementReadyToExecuteNever}
+          </p>
+          <label className="mt-4 block text-sm">
+            <span className="font-medium text-sky-950 dark:text-sky-100">
+              {labels.agreementReason}
+            </span>
+            <textarea
+              value={agreementReason}
+              onChange={(event) => setAgreementReason(event.target.value)}
+              rows={2}
+              className="mt-1 w-full rounded-lg border border-sky-200 bg-white px-3 py-2 text-sm text-slate-900 dark:border-sky-800 dark:bg-slate-900 dark:text-slate-100"
+            />
+          </label>
+          <label className="mt-3 block text-sm">
+            <span className="font-medium text-sky-950 dark:text-sky-100">
+              {labels.agreementProposedPlanKey}
+            </span>
+            <input
+              value={agreementPlanKey}
+              onChange={(event) => setAgreementPlanKey(event.target.value)}
+              autoComplete="off"
+              className="mt-1 w-full max-w-xl rounded-lg border border-sky-200 bg-white px-3 py-2 text-sm text-slate-900 dark:border-sky-800 dark:bg-slate-900 dark:text-slate-100"
+            />
+            <span className="mt-1 block text-xs text-sky-900/80 dark:text-sky-100/80">
+              {labels.agreementProposedPlanKeyHelp}
+            </span>
+          </label>
+          {agreementError ? (
+            <p className="mt-3 text-sm text-rose-700 dark:text-rose-300">
+              {labels.error}
+            </p>
+          ) : null}
+          {agreementPlan ? (
+            <div className="mt-3 space-y-2 rounded-xl border border-sky-200 bg-white/80 p-3 text-sm text-sky-950 dark:border-sky-800 dark:bg-slate-950/50 dark:text-sky-100">
+              <p className="font-medium">
+                {agreementStatusLabel(agreementPlan.readinessStatus)}
+              </p>
+              <p>{labels.agreementSideEffectsNone}</p>
+              <p>{labels.agreementCommercialCatalogNote}</p>
+              <p className="font-medium">{labels.agreementOwnerPacketTitle}</p>
+              <ul className="list-disc space-y-1 pl-5">
+                {agreementPlan.ownerDecisionPacket.blockedUntil.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p>{labels.agreementExecuteLocked}</p>
+            </div>
+          ) : null}
+          <div className="mt-4">
+            <button
+              type="button"
+              disabled={
+                !canSubmit ||
+                agreementRunning ||
+                agreementReason.trim().length < 3
+              }
+              onClick={() => void runAgreementPrepare()}
+              className="inline-flex items-center justify-center rounded-lg bg-sky-700 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-sky-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-sky-600 dark:hover:bg-sky-500"
+            >
+              {agreementRunning
+                ? labels.agreementPrepareRunning
+                : labels.agreementPrepareAction}
+            </button>
+            <button
+              type="button"
+              disabled
+              title={labels.agreementExecuteLocked}
+              className="ml-3 inline-flex cursor-not-allowed items-center justify-center rounded-lg border border-slate-300 bg-slate-100 px-4 py-2.5 text-sm font-medium text-slate-500 opacity-70 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400"
+            >
+              {labels.agreementExecuteUnavailable}
+            </button>
+          </div>
         </section>
 
         <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
