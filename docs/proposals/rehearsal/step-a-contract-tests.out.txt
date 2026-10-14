@@ -1,0 +1,34 @@
+              set_config              
+--------------------------------------
+ cccccccc-cccc-cccc-cccc-ccccccccccc1
+(1 row)
+
+psql:/tmp/tests.sql:15: NOTICE:  PASS apply_time_zero_bedrift_rows
+DO
+psql:/tmp/tests.sql:27: NOTICE:  PASS web_only_baseline
+DO
+psql:/tmp/tests.sql:39: NOTICE:  PASS status_eligible_web_only
+DO
+DO
+psql:/tmp/tests.sql:48: NOTICE:  PASS none_not_eligible
+DO
+psql:/tmp/tests.sql:64: NOTICE:  PASS unauthorized_denied
+psql:/tmp/tests.sql:84: NOTICE:  PASS malformed_inputs
+DO
+psql:/tmp/tests.sql:106: NOTICE:  PASS activate_bedrift_only
+DO
+psql:/tmp/tests.sql:122: NOTICE:  PASS idempotent_replay
+DO
+psql:/tmp/tests.sql:144: NOTICE:  PASS both_products
+DO
+psql:/tmp/tests.sql:156: NOTICE:  PASS cross_tenant_isolation
+DO
+psql:/tmp/tests.sql:172: NOTICE:  PASS deactivate
+DO
+psql:/tmp/tests.sql:187: NOTICE:  PASS function_signatures
+DO
+          result           
+---------------------------
+ ALL_CONTRACT_TESTS_PASSED
+(1 row)
+
