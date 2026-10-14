@@ -5,6 +5,7 @@ export * from "./labels";
 export * from "./countries";
 export * from "./create-customer";
 export * from "./create-customer-prepare";
+export * from "./customer-environment-type-contract";
 export * from "./agreement-approval-prepare";
 export * from "./legal-acceptance-evidence-contract";
 export * from "./internal-sandbox-onboarding-contract";

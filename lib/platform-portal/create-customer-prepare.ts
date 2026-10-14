@@ -11,6 +11,15 @@ import {
   parseCustomerCreationInput,
   type PlatformPortalCustomerCreationErrorCode,
 } from "./create-customer";
+import {
+  CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE,
+  CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED,
+  CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED,
+  resolveCustomerCreateEnvironmentType,
+  type CustomerCreateEnvironmentResolution,
+  type CustomerCreateEnvironmentTypeErrorCode,
+  type PlatformCustomerCreateEnvironmentType,
+} from "./customer-environment-type-contract";
 import type { PlatformPortalCustomerCreationInput } from "./types";
 
 const SECRET_REASON =
@@ -25,6 +34,7 @@ export const CUSTOMER_CREATE_EXECUTE_ENABLED = false;
 
 export type CustomerCreatePrepareErrorCode =
   | PlatformPortalCustomerCreationErrorCode
+  | CustomerCreateEnvironmentTypeErrorCode
   | "confirmation_required"
   | "invalid_internal_reason"
   | "invalid_idempotency_key"
@@ -42,6 +52,14 @@ export type CustomerCreatePreparePlan = {
   dryRun: true;
   readyForLaterCreate: boolean;
   normalizedInput: PlatformPortalCustomerCreationInput;
+  environmentType: {
+    requested: PlatformCustomerCreateEnvironmentType | null;
+    resolved: PlatformCustomerCreateEnvironmentType;
+    resolution: CustomerCreateEnvironmentResolution;
+    rpcConnected: boolean;
+    coreWouldPersistToday: typeof CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE;
+    internalAuthorized: boolean;
+  };
   blockReasons: CustomerCreatePrepareBlockReason[];
   productSeparation: {
     noAdminAttach: true;
@@ -105,6 +123,7 @@ export function parseCustomerCreatePrepareInput(
       ok: true;
       value: {
         input: PlatformPortalCustomerCreationInput;
+        environmentResolution: CustomerCreateEnvironmentResolution;
         internalReason: string;
         confirmation: boolean;
         idempotencyKey: string;
@@ -124,9 +143,19 @@ export function parseCustomerCreatePrepareInput(
   delete identityBody.confirmation;
   delete identityBody.idempotencyKey;
   delete identityBody.idempotency_key;
+  delete identityBody.environmentType;
+  delete identityBody.environment_type;
 
   const parsed = parseCustomerCreationInput(identityBody);
   if (!parsed.ok) return { ok: false, code: parsed.code };
+
+  const environmentResolved = resolveCustomerCreateEnvironmentType({
+    requested: row.environmentType ?? row.environment_type,
+    serverInternalAuthorized: CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED,
+  });
+  if (!environmentResolved.ok) {
+    return { ok: false, code: environmentResolved.code };
+  }
 
   const internalReason = text(row.internalReason ?? row.internal_reason);
   const idempotencyKey = text(row.idempotencyKey ?? row.idempotency_key);
@@ -154,6 +183,7 @@ export function parseCustomerCreatePrepareInput(
     ok: true,
     value: {
       input: parsed.value,
+      environmentResolution: environmentResolved.value,
       internalReason,
       confirmation: true,
       idempotencyKey,
@@ -225,11 +255,25 @@ export function buildCustomerCreatePreparePlan(input: {
   registryRows: RegistryCustomerScanRow[];
   internalReason: string;
   idempotencyKey: string;
+  environmentResolution?: CustomerCreateEnvironmentResolution;
 }): CustomerCreatePreparePlan {
   const conflicts = scanRegistryForCustomerConflicts(
     input.registryRows,
     input.creation,
   );
+
+  const environmentResolution =
+    input.environmentResolution ??
+    (() => {
+      const resolved = resolveCustomerCreateEnvironmentType({
+        requested: null,
+        serverInternalAuthorized: CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED,
+      });
+      if (!resolved.ok) {
+        throw new Error(`unexpected_environment_default:${resolved.code}`);
+      }
+      return resolved.value;
+    })();
 
   const blockReasons: CustomerCreatePrepareBlockReason[] = [
     {
@@ -253,6 +297,18 @@ export function buildCustomerCreatePreparePlan(input: {
       satisfied: !isReservedCustomerSlug(input.creation.slug),
     },
     {
+      code: "environment_type_resolved",
+      severity: "block",
+      satisfied: Boolean(environmentResolution.resolved),
+    },
+    {
+      code: "internal_environment_server_authorized_when_requested",
+      severity: "block",
+      satisfied:
+        environmentResolution.resolved !== "internal" ||
+        environmentResolution.serverInternalAuthorized,
+    },
+    {
       code: "organization_number_unique_in_registry_scan",
       severity: "advisory",
       satisfied: !conflicts.organizationNumberMatchCustomerId,
@@ -266,6 +322,11 @@ export function buildCustomerCreatePreparePlan(input: {
       code: "core_create_uniqueness_deferred",
       severity: "advisory",
       satisfied: true,
+    },
+    {
+      code: "environment_type_rpc_connected",
+      severity: "advisory",
+      satisfied: CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED,
     },
   ];
 
@@ -282,6 +343,17 @@ export function buildCustomerCreatePreparePlan(input: {
     "create_execute_not_enabled",
     "d1_prepare_only_no_production_create",
   ];
+  if (!CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED) {
+    executeBlockedReasons.push("environment_type_rpc_not_connected");
+  }
+  if (
+    environmentResolution.resolved === "internal" &&
+    !CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED
+  ) {
+    executeBlockedReasons.push(
+      "core_would_persist_production_despite_internal_request",
+    );
+  }
   if (hardBlocks.length > 0) {
     executeBlockedReasons.push("prepare_hard_blocks_present");
   }
@@ -292,8 +364,19 @@ export function buildCustomerCreatePreparePlan(input: {
   return {
     mode: "prepare",
     dryRun: true,
-    readyForLaterCreate: hardBlocks.length === 0 && !advisoryConflicts,
+    readyForLaterCreate:
+      hardBlocks.length === 0 &&
+      !advisoryConflicts &&
+      CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED,
     normalizedInput: input.creation,
+    environmentType: {
+      requested: environmentResolution.requested,
+      resolved: environmentResolution.resolved,
+      resolution: environmentResolution,
+      rpcConnected: CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED,
+      coreWouldPersistToday: CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE,
+      internalAuthorized: CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED,
+    },
     blockReasons,
     productSeparation: {
       noAdminAttach: true,
@@ -336,6 +419,8 @@ export function mapCustomerCreatePrepareError(
     case "forbidden":
     case "owner_create_authorization_required":
     case "create_execute_not_enabled":
+    case "internal_environment_not_authorized":
+    case "environment_type_rpc_not_connected":
       return { status: 403, code };
     case "duplicate_organization_number":
     case "duplicate_slug":

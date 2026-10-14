@@ -1,0 +1,90 @@
+-- =============================================================================
+-- NOT_APPLIED — DRAFT ONLY — DO NOT EXECUTE
+-- =============================================================================
+-- Contract: platform_customer_create_environment_type_v1
+-- Job: AIPIFY_KOMPIS_BEDRIFT_D2F_GENERIC_CREATE_ENVIRONMENT_TYPE_CONTRACT_PREPARE_V1
+--
+-- This file is a proposed Core RPC sketch for a future owner-authorized
+-- migration. It is NOT in supabase/migrations/, MUST NOT be applied by this
+-- job, and is NOT permission to create tenants, change RLS broadly, or enable
+-- internal sandbox create in Production.
+--
+-- Baseline today:
+--   create_platform_portal_customer(...) hardcodes environment_type = 'production'
+--   (supabase/migrations/20261934400000_platform_portal_customer_creation_global_identity.sql)
+-- Schema already allows customers.environment_type in
+--   ('internal','pilot','customer','enterprise','production','staging')
+--   via 20261935700000_platform_website_staging_verification_v2.sql
+--
+-- Owner must separately approve:
+--   1) This RPC signature / authorization model
+--   2) A named migration apply job
+--   3) Platform server flag CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED
+--      (or successor allowlist) for any internal create
+--   4) Named customer create execute for the sandbox identity (separate job)
+-- =============================================================================
+
+-- Proposed helper (NOT CREATED): always false until a later allowlist job.
+-- create or replace function public._platform_portal_internal_customer_create_authorized()
+-- returns boolean
+-- language sql
+-- stable
+-- security definer
+-- set search_path = public
+-- as $$
+--   select false;
+-- $$;
+
+-- Proposed RPC signature change (NOT APPLIED):
+-- create or replace function public.create_platform_portal_customer(
+--   p_organization_number text,
+--   p_legal_name text,
+--   p_display_name text,
+--   p_slug text,
+--   p_country text default null,
+--   p_environment_type text default 'production'
+-- )
+-- ...
+-- begin
+--   perform public._ppsf258_require_platform_access();
+--
+--   v_environment_type := lower(nullif(btrim(coalesce(p_environment_type, '')), ''));
+--   if v_environment_type is null then
+--     v_environment_type := 'production';
+--   end if;
+--
+--   if v_environment_type not in ('production', 'internal') then
+--     raise exception 'INVALID_ENVIRONMENT_TYPE' using errcode = 'P0001';
+--   end if;
+--
+--   if v_environment_type = 'internal'
+--      and not public._platform_portal_internal_customer_create_authorized() then
+--     raise exception 'INTERNAL_ENVIRONMENT_NOT_AUTHORIZED' using errcode = 'P0001';
+--   end if;
+--
+--   -- insert into public.customers (..., environment_type, ...)
+--   -- values (..., v_environment_type, ...);
+--
+--   -- audit metadata must include environment_type
+-- end;
+
+-- Security notes for the approving job:
+-- - Never trust a client-only flag; Platform must gate internal before calling RPC,
+--   and Core must re-check authorization (defense in depth).
+-- - Legacy/default create remains production.
+-- - Do not map membership, employee_knowledge, or website_kompis to environment_type.
+-- - Do not auto-grant kompis_bedrift for internal.
+-- - Rollback: restore prior create_platform_portal_customer without p_environment_type
+--   (hardcoded production) after draining any internal create callers.
+
+-- Dependencies:
+-- - Existing customers.environment_type check constraint including 'internal'+'production'
+-- - Existing _ppsf258_require_platform_access()
+-- - Platform prepare contract lib/platform-portal/customer-environment-type-contract.ts
+
+-- Explicit non-goals of any future apply of this draft:
+-- - ZERO sandbox tenant inserts
+-- - ZERO auth/invite/membership writes
+-- - ZERO Bedrift grants
+-- - ZERO legal acceptance fabrication
+-- =============================================================================
