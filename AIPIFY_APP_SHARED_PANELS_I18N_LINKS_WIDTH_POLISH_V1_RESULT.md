@@ -80,6 +80,6 @@ Labels remain locale-driven (`license.center.backToApp`).
 ## PR / deploy
 
 - PR: https://github.com/aipify-project/aipify-platform/pull/214  
-- Head SHA: `0647bea6` (feature commit `475db10d`)  
+- Head SHA: `13aa1f97` (feature commit `475db10d`)  
 - Merge: not auto-merged (runtime QA NOT RUN)  
 - LIVE deploy: **not claimed**
