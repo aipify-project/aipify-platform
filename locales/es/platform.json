@@ -144,6 +144,41 @@
       "domainStatusOk": "Dominio aceptado",
       "domainStatusForbidden": "Dominio prohibido",
       "domainStatusNeedsOwned": "Se requiere dominio Aipify propio"
+    },
+    "kompisBedrift": {
+      "title": "Kompis Bedrift",
+      "serviceName": "Kompis Bedrift",
+      "sectionTitle": "Licencia Kompis Bedrift",
+      "statusLabel": "Estado de Kompis Bedrift",
+      "sourceCore": "Estado desde Aipify Core (kompis_bedrift). No membresía. No conocimiento de empleados.",
+      "active": "Activa",
+      "eligible": "Lista para activación",
+      "inactive": "No activa",
+      "unknown": "Desconocido",
+      "noGrant": "Sin concesión de Kompis Bedrift",
+      "moduleKey": "Clave de producto",
+      "agreement": "Acuerdo del cliente",
+      "subscriptionStatus": "Estado del acuerdo",
+      "planKey": "Plan",
+      "prerequisites": "Requisitos previos",
+      "productDistinctionTitle": "Separación de productos",
+      "productWebsiteKompis": "Website Kompis (website_kompis) — producto web separado",
+      "productKompisBedrift": "Kompis Bedrift (kompis_bedrift) — este estado de licencia",
+      "productEmployeeKnowledge": "Conocimiento de empleados",
+      "productEmployeeKnowledgeNote": "no es una licencia de Kompis Bedrift",
+      "activateLockedTitle": "Activación bloqueada",
+      "activateLockedBody": "La activación en producción está deshabilitada hasta que el propietario autorice a un cliente nombrado. Platform no inventa concesiones desde la membresía.",
+      "activateUnavailable": "Activar (requiere autorización del propietario)",
+      "alreadyActive": "Kompis Bedrift ya está activo para este cliente",
+      "loading": "Cargando el estado de Kompis Bedrift",
+      "error": "No se pudo cargar el estado de Kompis Bedrift",
+      "unauthorized": "No has iniciado sesión",
+      "forbidden": "No tienes acceso de plataforma a este cliente",
+      "retry": "Reintentar",
+      "reasons": {
+        "agreementActiveOk": "El acuerdo del cliente está activo",
+        "agreementActiveMissing": "El acuerdo del cliente falta o no es elegible"
+      }
     }
   },
   "nav": {

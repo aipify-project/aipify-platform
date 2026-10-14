@@ -1128,6 +1128,41 @@
         "activationNotConflictingMissing": "Website Kompis уже активний або в конфлікті"
       }
     },
+    "kompisBedrift": {
+      "title": "Kompis Bedrift",
+      "serviceName": "Kompis Bedrift",
+      "sectionTitle": "Ліцензія Kompis Bedrift",
+      "statusLabel": "Статус Kompis Bedrift",
+      "sourceCore": "Статус з Aipify Core (kompis_bedrift). Не членство. Не знання співробітників.",
+      "active": "Активна",
+      "eligible": "Готова до активації",
+      "inactive": "Неактивна",
+      "unknown": "Невідомо",
+      "noGrant": "Немає надання Kompis Bedrift",
+      "moduleKey": "Ключ продукту",
+      "agreement": "Угода клієнта",
+      "subscriptionStatus": "Статус угоди",
+      "planKey": "План",
+      "prerequisites": "Передумови",
+      "productDistinctionTitle": "Розділення продуктів",
+      "productWebsiteKompis": "Website Kompis (website_kompis) — окремий продукт сайту",
+      "productKompisBedrift": "Kompis Bedrift (kompis_bedrift) — цей статус ліцензії",
+      "productEmployeeKnowledge": "Знання співробітників",
+      "productEmployeeKnowledgeNote": "не є ліцензією Kompis Bedrift",
+      "activateLockedTitle": "Активацію заблоковано",
+      "activateLockedBody": "Виробнича активація вимкнена, доки власник не авторизує названого клієнта. Platform не створює надань із членства.",
+      "activateUnavailable": "Активувати (потрібна авторизація власника)",
+      "alreadyActive": "Kompis Bedrift уже активний для цього клієнта",
+      "loading": "Завантаження статусу Kompis Bedrift",
+      "error": "Не вдалося завантажити статус Kompis Bedrift",
+      "unauthorized": "Ви не ввійшли",
+      "forbidden": "У вас немає платформного доступу до цього клієнта",
+      "retry": "Спробувати знову",
+      "reasons": {
+        "agreementActiveOk": "Угода клієнта активна",
+        "agreementActiveMissing": "Угода клієнта відсутня або не підходить"
+      }
+    },
     "appKompisDelivery": {
       "title": "Постачання APP і Website Kompis",
       "sectionTitle": "APP і Website Kompis",

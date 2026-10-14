@@ -1128,6 +1128,41 @@
         "activationNotConflictingMissing": "Website Kompis is already active or conflicting"
       }
     },
+    "kompisBedrift": {
+      "title": "Kompis Bedrift",
+      "serviceName": "Kompis Bedrift",
+      "sectionTitle": "Kompis Bedrift license",
+      "statusLabel": "Kompis Bedrift status",
+      "sourceCore": "Status from Aipify Core (kompis_bedrift). Not membership. Not employee knowledge.",
+      "active": "Active",
+      "eligible": "Eligible for activation",
+      "inactive": "Not active",
+      "unknown": "Unknown",
+      "noGrant": "No Kompis Bedrift grant",
+      "moduleKey": "Product key",
+      "agreement": "Customer agreement",
+      "subscriptionStatus": "Agreement status",
+      "planKey": "Plan",
+      "prerequisites": "Prerequisites",
+      "productDistinctionTitle": "Product separation",
+      "productWebsiteKompis": "Website Kompis (website_kompis) — separate website product",
+      "productKompisBedrift": "Kompis Bedrift (kompis_bedrift) — this license status",
+      "productEmployeeKnowledge": "Employee knowledge",
+      "productEmployeeKnowledgeNote": "not a Kompis Bedrift license",
+      "activateLockedTitle": "Activation locked",
+      "activateLockedBody": "Production activation is disabled until the owner authorizes a named customer. Platform does not invent grants from membership.",
+      "activateUnavailable": "Activate (owner authorization required)",
+      "alreadyActive": "Kompis Bedrift is already active for this customer",
+      "loading": "Loading Kompis Bedrift status",
+      "error": "Could not load Kompis Bedrift status",
+      "unauthorized": "You are not signed in",
+      "forbidden": "You do not have platform access for this customer",
+      "retry": "Try again",
+      "reasons": {
+        "agreementActiveOk": "Customer agreement is active",
+        "agreementActiveMissing": "Customer agreement is missing or not eligible"
+      }
+    },
     "appKompisDelivery": {
       "title": "APP and Website Kompis delivery",
       "sectionTitle": "APP and Website Kompis",
