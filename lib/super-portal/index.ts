@@ -7,4 +7,5 @@ export * from "./redirect-super-operational";
 export * from "./dashboard-access-constants";
 export * from "./platform-insight";
 export * from "./platform-insight-labels";
+export * from "./platform-insight-client";
 // dashboard-access is server-only (NextResponse / createClient) — import directly.
