@@ -1,10 +1,13 @@
 # AIPIFY.CORE.WEBSITE_KOMPIS.FIRST_LOAD_WHITE_IFRAME.P1.SCOPED_REOPEN_FIX.V1 — RESULT
 
-**Status:** **PARTIAL / HOLD** — root cause isolated and fix implemented in authorized frozen loader; contract tests PASS; production public closed-state OK; merge/LIVE deferred until Preview visual QA of the fix (host must serve patched `website-kompis.js`).
+**Status:** **PARTIAL / HOLD** — root cause isolated; scoped frozen-loader fix on PR **#250**; contract + local same-turn race harness PASS; production closed-state OK on old loader; **merge/LIVE HOLD** until Preview/Production host serves patched JS and cold-start visual desktop+mobile is confirmed (Vercel Deployment Protection blocked automated Preview fetch).
 
 **Date:** 2026-10-16  
 **Baseline `origin/main`:** `3c8f323a23e0f4e751b65343f37951c4896e11cf` (#249 LIVE tip, untouched)  
-**Branch:** `feat/kompis-first-load-white-iframe-p1-scoped-fix-v1`
+**Branch:** `feat/kompis-first-load-white-iframe-p1-scoped-fix-v1`  
+**PR:** https://github.com/aipify-project/aipify-platform/pull/250  
+**HEAD:** `e4a73d9d08f734159ebea1546b5e28ccd1b375c1`  
+**Preview deploy (iz5z):** `dpl_H8UomT3ZJCGtNQ76TWYjhAgCh3rc` READY (protection blocked curl/share)
 
 ---
 
@@ -44,14 +47,16 @@ This is a Core host-loader race (not UnoNight CSS). Hypothesis class from the jo
 | `website-kompis-embed.test.ts` | **PASS** |
 | Live `https://www.unonight.com/no` (production loader) | iframe **72×72**, `backgroundColor: transparent`, opacity 1 — **no white plane** on this observation (intermittent; production still on old loader) |
 | Auth model routes | Not used (login wall); not required once Core race is isolated |
-| Preview visual QA of **patched** loader | **PENDING** — HOLD merge until Preview host serves new JS and cold/open/close/refresh desktop+mobile checked |
+| Local same-turn closed→open race harness (patched loader) | **PASS** — first sample 72×72 transparent; open only after paint commit (~32ms); no sync enlarge |
+| Vercel Preview JS fetch / share link | **BLOCKED** (Deployment Protection 403) — cannot automate Preview visual on real embed URL |
+| Cold-start visual desktop+mobile on host serving new JS | **PENDING** — required before merge |
 
 ---
 
 ## Release gates
 
-- PR: open for review/CI (this job).
-- Merge/LIVE: **HOLD** until Preview visual QA PASS on patched loader + CI green.
+- PR **#250** open; Vercel project checks completed on Preview.
+- Merge/LIVE: **HOLD** until owner/agent can open Preview (or temporary protection bypass) and confirm cold closed 72×72, open/close/refresh, no white plane on desktop+mobile.
 - PR #249: untouched.
 - No SQL, secrets, Customer APP, licenses, or Step B stash.
 
@@ -59,8 +64,8 @@ This is a Core host-loader race (not UnoNight CSS). Hypothesis class from the jo
 
 ## Next exact step
 
-1. Land PR / Preview deploy serving `public/embed/website-kompis.js` at new SHA.  
-2. Visual QA: cold closed 72×72 transparent; open panel; close; refresh; no white plane on first paint.  
-3. If PASS → merge + Production alias verify; mark LIVE. Else HOLD with blocker.
+1. Access Preview `aipify-platform-iz5z` (or bypass) and confirm `/embed/website-kompis.js` SHA `0ba977a01b24…`.  
+2. Visual QA cold/open/close/refresh desktop+mobile — no white plane.  
+3. If PASS → merge #250 + Production alias verify; mark LIVE. Else keep HOLD.
 
 END OF RESULT.
