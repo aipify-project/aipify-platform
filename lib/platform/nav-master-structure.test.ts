@@ -50,7 +50,14 @@ test("knowledge keeps docs and communications; translations live under control &
   );
   assert.deepEqual(
     audit!.items.map((i) => i.id),
-    ["system", "translationManagement", "activityLogs", "governanceRecords", "securityReviews"],
+    [
+      "system",
+      "translationManagement",
+      "activityLogs",
+      "superRevision",
+      "governanceRecords",
+      "securityReviews",
+    ],
   );
 });
 

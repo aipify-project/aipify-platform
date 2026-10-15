@@ -104,6 +104,28 @@
     "activityLogs": {
       "title": "Dzienniki aktywności",
       "subtitle": "Ogólnoplatformowe dzienniki aktywności i działań administracyjnych."
+    },
+    "superRevision": {
+      "title": "Dziennik rewizji",
+      "subtitle": "Tylko do odczytu zdarzenia zarządzania Super Admin. Oddzielone od dziennika aktywności Platformy.",
+      "sourceNote": "Źródło: rewizja Super Admin (get_super_global_audit_center). Operacje Platformy używają innego dziennika aktywności.",
+      "periodNote": "Pokazuje najnowsze zdarzenia z Core (do 100).",
+      "loading": "Ładowanie dziennika rewizji…",
+      "loadError": "Nie udało się wczytać dziennika rewizji. Spróbuj ponownie lub otwórz Super Admin, aby zobaczyć szczegóły.",
+      "retry": "Spróbuj ponownie",
+      "empty": "Brak dostępnych zdarzeń rewizji.",
+      "unavailableTitle": "Dziennik rewizji niedostępny",
+      "unavailableMessage": "Ten dziennik rewizji Super Admin wymaga aktywnej roli Super Admin z zweryfikowanym uwierzytelnianiem dwuskładnikowym i kodami odzyskiwania.",
+      "openSuperRevision": "Otwórz dziennik rewizji Super",
+      "backToPlatform": "Powrót do Platform",
+      "noValue": "—",
+      "columns": {
+        "actor": "Administrator",
+        "action": "Działanie",
+        "when": "Kiedy",
+        "previous": "Poprzednia wartość",
+        "next": "Nowa wartość"
+      }
     }
   },
   "pageStates": {
@@ -192,6 +214,7 @@
     "productManagement": "Zarządzanie produktem",
     "installationOversight": "Instalacje",
     "activityLogs": "Dziennik aktywności",
+    "superRevision": "Dziennik rewizji",
     "governanceRecords": "Rejestry zarządzania",
     "securityReviews": "Przeglądy bezpieczeństwa",
     "customers": "Klienci",

@@ -104,6 +104,28 @@
     "activityLogs": {
       "title": "Aktivitetslogg",
       "subtitle": "Plattformomfattende aktivitets- og administrasjonslogger."
+    },
+    "superRevision": {
+      "title": "Revisjonslogg",
+      "subtitle": "Skrivebeskyttede Super Admin-styringshendelser. Skilt fra plattformens aktivitetslogg.",
+      "sourceNote": "Kilde: Super Admin-revisjon (get_super_global_audit_center). Plattformdrift bruker en annen aktivitetslogg.",
+      "periodNote": "Viser de nyeste hendelsene fra Core (inntil 100).",
+      "loading": "Laster revisjonslogg…",
+      "loadError": "Revisjonsloggen kunne ikke lastes. Prøv igjen eller åpne Super Admin for detaljer.",
+      "retry": "Prøv igjen",
+      "empty": "Ingen revisjonshendelser er tilgjengelige ennå.",
+      "unavailableTitle": "Revisjonslogg ikke tilgjengelig",
+      "unavailableMessage": "Denne Super Admin-revisjonsloggen krever aktiv Super Admin-rolle med bekreftet tofaktorautentisering og gjenopprettingskoder.",
+      "openSuperRevision": "Åpne Super-revisjonslogg",
+      "backToPlatform": "Tilbake til Platform",
+      "noValue": "—",
+      "columns": {
+        "actor": "Administrator",
+        "action": "Handling",
+        "when": "Når",
+        "previous": "Tidligere verdi",
+        "next": "Ny verdi"
+      }
     }
   },
   "navGroups": {
@@ -172,6 +194,7 @@
     "productManagement": "Produktstyring",
     "installationOversight": "Installasjoner",
     "activityLogs": "Aktivitetslogg",
+    "superRevision": "Revisjonslogg",
     "governanceRecords": "Styringsregistre",
     "securityReviews": "Sikkerhetsgjennomganger",
     "customers": "Kunder",

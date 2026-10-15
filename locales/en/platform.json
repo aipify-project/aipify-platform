@@ -104,6 +104,28 @@
     "activityLogs": {
       "title": "Activity Logs",
       "subtitle": "Platform-wide activity and administrative action logs."
+    },
+    "superRevision": {
+      "title": "Revision log",
+      "subtitle": "Read-only Super Admin governance events. Separate from the Platform activity log.",
+      "sourceNote": "Source: Super Admin audit (get_super_global_audit_center). Platform operations use a different activity log.",
+      "periodNote": "Shows the most recent events available from Core (up to 100).",
+      "loading": "Loading revision log…",
+      "loadError": "The revision log could not be loaded. Try again or open Super Admin for details.",
+      "retry": "Try again",
+      "empty": "No revision events are available yet.",
+      "unavailableTitle": "Revision log not available",
+      "unavailableMessage": "This Super Admin revision log requires an active Super Admin role with verified two-factor authentication and recovery codes.",
+      "openSuperRevision": "Open Super revision log",
+      "backToPlatform": "Back to Platform",
+      "noValue": "—",
+      "columns": {
+        "actor": "Administrator",
+        "action": "Action",
+        "when": "When",
+        "previous": "Previous value",
+        "next": "New value"
+      }
     }
   },
   "pageStates": {
@@ -192,6 +214,7 @@
     "productManagement": "Product management",
     "installationOversight": "Installations",
     "activityLogs": "Activity log",
+    "superRevision": "Revision log",
     "governanceRecords": "Governance records",
     "securityReviews": "Security reviews",
     "customers": "Customers",

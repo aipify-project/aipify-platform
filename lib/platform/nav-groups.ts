@@ -103,6 +103,7 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
       { id: "system", labelKey: "platform.nav.system" },
       { id: "translationManagement", labelKey: "platform.nav.translationManagement" },
       { id: "activityLogs", labelKey: "platform.nav.activityLogs" },
+      { id: "superRevision", labelKey: "platform.nav.superRevision" },
       { id: "governanceRecords", labelKey: "platform.nav.governanceRecords" },
       { id: "securityReviews", labelKey: "platform.nav.securityReviews" },
     ],

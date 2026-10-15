@@ -13,10 +13,12 @@ import { NO_STORE_HEADERS } from "./dashboard-access-constants";
 export {
   NO_STORE_HEADERS,
   SUPER_ADMIN_DASHBOARD_HREF,
+  SUPER_ADMIN_GLOBAL_AUDIT_HREF,
 } from "./dashboard-access-constants";
 
 /**
- * Server-side gate for Super portal dashboard aggregates.
+ * Server-side gate for Super portal privileged read surfaces
+ * (dashboard aggregates, global audit / revision log).
  * Matches Super UI: active super_admin + enabled 2FA + ≥1 recovery code + verified session.
  * Fail-closed for platform_support, customers, anonymous, and incomplete MFA.
  */
@@ -123,8 +125,28 @@ export function responseBodyContainsSuperAggregates(body: unknown): boolean {
   return aggregateKeys.some((key) => key in row);
 }
 
+/** True when a JSON body contains Super revision-log payload keys (leak detector). */
+export function responseBodyContainsSuperAuditPayload(body: unknown): boolean {
+  if (!body || typeof body !== "object") return false;
+  const row = body as Record<string, unknown>;
+  if ("audit_logs" in row) return true;
+  if ("categories" in row) return true;
+  return false;
+}
+
 /** Server Component mount gate — boolean only; never returns aggregates. */
 export async function canRenderPlatformSuperAdminInsight(): Promise<boolean> {
+  try {
+    const supabase = await createClient();
+    const evaluation = await evaluateSuperPortalDashboardAccess(supabase);
+    return evaluation.allowed;
+  } catch {
+    return false;
+  }
+}
+
+/** Server Component mount gate for Platform Super revision log — boolean only. */
+export async function canRenderPlatformSuperRevisionLog(): Promise<boolean> {
   try {
     const supabase = await createClient();
     const evaluation = await evaluateSuperPortalDashboardAccess(supabase);

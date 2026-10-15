@@ -8,4 +8,6 @@ export * from "./dashboard-access-constants";
 export * from "./platform-insight";
 export * from "./platform-insight-labels";
 export * from "./platform-insight-client";
+export * from "./platform-revision";
+export * from "./platform-revision-labels";
 // dashboard-access is server-only (NextResponse / createClient) — import directly.

@@ -104,6 +104,28 @@
     "activityLogs": {
       "title": "Журнали активності",
       "subtitle": "Журнали активності та адміністративних дій на всій платформі."
+    },
+    "superRevision": {
+      "title": "Журнал ревізії",
+      "subtitle": "Події керування Super Admin лише для читання. Окремо від журналу активності Platform.",
+      "sourceNote": "Джерело: ревізія Super Admin (get_super_global_audit_center). Операції Platform використовують інший журнал активності.",
+      "periodNote": "Показує найновіші події з Core (до 100).",
+      "loading": "Завантаження журналу ревізії…",
+      "loadError": "Не вдалося завантажити журнал ревізії. Спробуйте ще раз або відкрийте Super Admin для деталей.",
+      "retry": "Спробувати ще раз",
+      "empty": "Події ревізії ще недоступні.",
+      "unavailableTitle": "Журнал ревізії недоступний",
+      "unavailableMessage": "Цей журнал ревізії Super Admin потребує активної ролі Super Admin з підтвердженою двофакторною автентифікацією та кодами відновлення.",
+      "openSuperRevision": "Відкрити журнал ревізії Super",
+      "backToPlatform": "Назад до Platform",
+      "noValue": "—",
+      "columns": {
+        "actor": "Адміністратор",
+        "action": "Дія",
+        "when": "Коли",
+        "previous": "Попереднє значення",
+        "next": "Нове значення"
+      }
     }
   },
   "pageStates": {
@@ -192,6 +214,7 @@
     "productManagement": "Керування продуктом",
     "installationOversight": "Встановлення",
     "activityLogs": "Журнал активності",
+    "superRevision": "Журнал ревізії",
     "governanceRecords": "Реєстри управління",
     "securityReviews": "Перевірки безпеки",
     "customers": "Клієнти",
