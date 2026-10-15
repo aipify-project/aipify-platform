@@ -147,7 +147,7 @@ export function CustomerWebsiteRuntimeDeliveryPanel({
   if (state.kind === "loading") {
     return (
       <section
-        className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950"
+        className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950"
         aria-busy="true"
         aria-label={labels.loading}
       >
@@ -159,7 +159,7 @@ export function CustomerWebsiteRuntimeDeliveryPanel({
 
   if (state.kind === "unauthorized") {
     return (
-      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950">
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
         <h2 className="text-base font-semibold text-slate-900 dark:text-slate-50">{labels.sectionTitle}</h2>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300" role="alert">
           {labels.unauthorized}
@@ -170,7 +170,7 @@ export function CustomerWebsiteRuntimeDeliveryPanel({
 
   if (state.kind === "forbidden") {
     return (
-      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950">
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
         <h2 className="text-base font-semibold text-slate-900 dark:text-slate-50">{labels.sectionTitle}</h2>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300" role="alert">
           {labels.forbidden}
@@ -181,7 +181,7 @@ export function CustomerWebsiteRuntimeDeliveryPanel({
 
   if (state.kind === "error") {
     return (
-      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950">
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
         <h2 className="text-base font-semibold text-slate-900 dark:text-slate-50">{labels.sectionTitle}</h2>
         <p className="mt-2 text-sm text-rose-700 dark:text-rose-300" role="alert">
           {labels.error}
@@ -199,7 +199,7 @@ export function CustomerWebsiteRuntimeDeliveryPanel({
 
   if (state.kind === "empty") {
     return (
-      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950">
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
         <h2 className="text-base font-semibold text-slate-900 dark:text-slate-50">{labels.sectionTitle}</h2>
         <p className="mt-2 text-sm font-medium text-slate-800 dark:text-slate-100">{labels.emptyTitle}</p>
         <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{labels.emptyDescription}</p>
@@ -212,7 +212,7 @@ export function CustomerWebsiteRuntimeDeliveryPanel({
   const httpKey = runtimeAckStatusLabelKey(data.httpStatus);
 
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950">
+    <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-base font-semibold text-slate-900 dark:text-slate-50">{labels.sectionTitle}</h2>

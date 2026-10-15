@@ -412,7 +412,7 @@ export function PlatformPortalAppKompisDeliveryPanel({
 
   if (loadState.kind === "loading") {
     return (
-      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
           {labels.sectionTitle}
         </h2>
@@ -425,7 +425,7 @@ export function PlatformPortalAppKompisDeliveryPanel({
 
   if (loadState.kind === "unauthorized" || loadState.kind === "forbidden") {
     return (
-      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
           {labels.sectionTitle}
         </h2>
@@ -438,7 +438,7 @@ export function PlatformPortalAppKompisDeliveryPanel({
 
   if (loadState.kind === "error") {
     return (
-      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
           {labels.sectionTitle}
         </h2>
@@ -458,7 +458,7 @@ export function PlatformPortalAppKompisDeliveryPanel({
   const action = primaryAction(data);
 
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
+    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">

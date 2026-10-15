@@ -97,7 +97,7 @@ export function PlatformPortalKompisBedriftStatusPanel({
   }, [load]);
 
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">

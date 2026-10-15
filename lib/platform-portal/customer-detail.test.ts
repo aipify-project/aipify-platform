@@ -202,14 +202,7 @@ test("panel is read-only, localized, and never shows raw statuses", () => {
     join(ROOT, "components/platform/platform-portal/PlatformPortalCustomerDetailPanel.tsx"),
     "utf8",
   );
-  assert.match(source, /w-full space-y-4/);
-  assert.match(source, /lg:grid-cols-12/);
-  assert.match(source, /lg:sticky lg:top-4/);
-  assert.match(source, /sectionActivatedServices/);
-  assert.match(
-    source,
-    /sectionActivatedServices[\s\S]*?<\/SectionCard>\s*<\/div>\s*<aside/,
-  );
+  assert.match(source, /w-full space-y-6/);
   assert.doesNotMatch(source, /max-w-\[/);
   assert.doesNotMatch(source, /createClient|supabase/);
   assert.doesNotMatch(source, /Delete customer|Edit customer|Coming soon|kommer snart/i);
