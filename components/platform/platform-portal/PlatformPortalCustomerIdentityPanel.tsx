@@ -136,7 +136,7 @@ export function PlatformPortalCustomerIdentityPanel({ customerId, labels }: Prop
   if (loadState.kind === "loading") {
     return (
       <section
-        className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900"
+        className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900"
         aria-busy="true"
         aria-live="polite"
       >
@@ -148,8 +148,8 @@ export function PlatformPortalCustomerIdentityPanel({ customerId, labels }: Prop
 
   if (loadState.kind === "error") {
     return (
-      <section className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{labels.title}</h2>
+      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{labels.title}</h2>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300" role="alert">
           {customerIdentityErrorLabel(loadState.code, labels)}
         </p>
@@ -168,10 +168,10 @@ export function PlatformPortalCustomerIdentityPanel({ customerId, labels }: Prop
 
   return (
     <section
-      className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900"
+      className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900"
       aria-labelledby={`${formId}-title`}
     >
-      <h2 id={`${formId}-title`} className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+      <h2 id={`${formId}-title`} className="text-sm font-semibold text-slate-900 dark:text-slate-100">
         {labels.title}
       </h2>
       <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{labels.description}</p>
