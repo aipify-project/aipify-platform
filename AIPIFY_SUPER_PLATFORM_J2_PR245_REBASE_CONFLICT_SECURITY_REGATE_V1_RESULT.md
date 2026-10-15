@@ -11,7 +11,7 @@
 |---|---|
 | Pre-rebase feature tip | `8d0449f7962093eb573e6afbbb83256febc4e10a` (docs) / security matrix on `7a7a2c9d…` |
 | Rebase base (`origin/main`) | `a0e5a05c9d6836c22d2eda8cdcbf3267534eadc3` (#246) |
-| **New feature HEAD** | *(filled after push — see git tip)* |
+| **New feature HEAD** | `1211b6cfbf576f68e813fa92cd870c457e2f3834` |
 
 ## Conflict resolution
 
