@@ -48,7 +48,7 @@ assert.equal(no.navGroups.knowledge, "Kunnskap");
 assert.equal(no.navGroups.product, "Produkt");
 assert.equal(no.navGroups.auditGovernance, "Kontroll og styring");
 assert.equal(no.nav.invoices, "Kundefakturaer");
-assert.equal(no.nav.payments, "Betalingssenter");
+assert.equal(no.nav.payments, "Økonomioversikt");
 assert.equal(no.nav.overview, "Dashboard");
 assert.equal(no.navGroups.dashboard, "Dashboard");
 assert.equal(no.nav.operationsOverview, "Driftsoversikt");

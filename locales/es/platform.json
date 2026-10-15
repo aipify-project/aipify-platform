@@ -356,14 +356,16 @@
     "providerOnboarding": "Incorporación de proveedores",
     "growthPartners": "Registro de vendedores",
     "growthPartnerAttribution": "Enlaces de venta y atribución",
-    "commissions": "Comisiones",
+    "commissions": "Comisiones de vendedores",
     "invoices": "Facturas de clientes",
     "overview": "Dashboard",
     "installationOversight": "Instalaciones",
     "translationManagement": "Idioma y traducciones",
     "system": "Configuración del sistema",
     "unonightPilot": "Customer Zero / operaciones de prueba",
-    "payments": "Centro de pagos"
+    "payments": "Resumen financiero",
+    "licenses": "Registro de licencias",
+    "subscriptions": "Acuerdos de cliente"
   },
   "kompisAi": {
     "title": "Kompis AI",
@@ -751,5 +753,126 @@
       "invoices": "Facturas de clientes"
     },
     "dashboard": "Dashboard"
+  },
+  "billingCommerceCenter": {
+    "title": "Acuerdos y ventas — finanzas",
+    "subtitle": "Resumen financiero de facturas de clientes, pagos, acuerdos, impuestos, proveedores, informes y exportación contable.",
+    "principle": "Every sale must be traceable from agreement to invoice, payment, tax, and accounting — without confusing planned integrations for live settlement.",
+    "privacyNote": "Platform aggregates only — no customer operational content beyond billing metadata.",
+    "loading": "Preparing finance overview",
+    "empty": "Finance overview data is unavailable.",
+    "openModule": "Open",
+    "back": "Volver al resumen financiero",
+    "overview": "Resumen financiero",
+    "stats": "Statistics",
+    "records": "Records",
+    "legalReviewBanner": "Review tax and VAT display with accounting and legal before changing checkout behaviour.",
+    "subNavAria": "Navegación de Acuerdos y ventas — finanzas",
+    "relatedOperations": "Related operations",
+    "relatedLinks": {
+      "paymentOperations": "Payment operations",
+      "revenueOperations": "Revenue operations",
+      "subscriptionOperations": "Agreement operations"
+    },
+    "overviewStats": {
+      "activeCustomers": "Active customers",
+      "overdueCustomers": "Overdue customers",
+      "openInvoices": "Open customer invoices",
+      "draftCheckouts": "Draft checkouts"
+    },
+    "groups": {
+      "core": "Facturas, pagos y acuerdos",
+      "tax": "Impuestos y IVA",
+      "reporting": "Reembolsos, informes y contabilidad"
+    },
+    "sections": {
+      "finance": "Módulos financieros",
+      "customers": "Enlace al registro de clientes",
+      "product": "Producto y licencias",
+      "sellers": "Vendedores",
+      "customersHint": "La identidad del cliente pertenece al registro de clientes. Esta vista solo muestra metadatos de facturación.",
+      "productHint": "Business Packs y licencias pertenecen a Producto. La navegación principal está en Producto.",
+      "sellersHint": "Enlaces de venta, atribución y comisiones de vendedores pertenecen a Vendedores en el menú lateral."
+    },
+    "nav": {
+      "overview": "Resumen financiero",
+      "customerIdentity": "Identidad del cliente (metadatos de facturación)",
+      "billingProfiles": "Pagos",
+      "subscriptions": "Acuerdos de cliente",
+      "invoices": "Facturas de clientes",
+      "vatEngine": "Impuestos e IVA",
+      "paymentProviders": "Proveedores de pago",
+      "taxRules": "Reglas fiscales (visualización)",
+      "businessPacks": "Business Packs",
+      "licensePurchases": "Compras de licencias",
+      "domainLicenses": "Licencias de dominio",
+      "growthPartnerAttribution": "Enlaces de venta y atribución",
+      "licenses": "Registro de licencias",
+      "commissions": "Comisiones de vendedores",
+      "accountingExport": "Exportación contable",
+      "disputes": "Reembolsos y disputas de pago",
+      "reports": "Informes financieros",
+      "accountingIntegration": "Integraciones contables"
+    },
+    "modules": {
+      "customerIdentity": "Identidad del cliente (metadatos de facturación)",
+      "billingProfiles": "Pagos",
+      "subscriptions": "Acuerdos de cliente",
+      "invoices": "Facturas de clientes",
+      "vatEngine": "Impuestos e IVA",
+      "paymentProviders": "Proveedores de pago",
+      "taxRules": "Reglas fiscales (visualización)",
+      "businessPacks": "Business Packs",
+      "licensePurchases": "Compras de licencias",
+      "domainLicenses": "Licencias de dominio",
+      "growthPartnerAttribution": "Enlaces de venta y atribución",
+      "licenses": "Registro de licencias",
+      "commissions": "Comisiones de vendedores",
+      "accountingExport": "Exportación contable",
+      "disputes": "Reembolsos y disputas de pago",
+      "reports": "Informes financieros",
+      "accountingIntegration": "Integraciones contables"
+    },
+    "moduleDescriptions": {
+      "customerIdentity": "Billing identity metadata only — organisations live in the customer register.",
+      "billingProfiles": "Payment profiles and billing addresses. Does not execute payments from this screen.",
+      "subscriptions": "Customer agreements and plan lifecycle across organisations.",
+      "invoices": "Facturas que Aipify emite a los clientes — no facturas de proveedores.",
+      "vatEngine": "Visualización de impuestos e IVA. Las reglas de cálculo no se cambian aquí.",
+      "paymentProviders": "Configuración y estado de proveedores. Los desconectados nunca deben mostrarse como conectados.",
+      "taxRules": "Display of tax rule catalogues. Rates and calculation logic are out of scope for this view.",
+      "businessPacks": "Business Pack catalogue references for licensing.",
+      "licensePurchases": "License purchase history tied to checkout records.",
+      "domainLicenses": "Included and purchased domain license pools per organisation.",
+      "growthPartnerAttribution": "Seller attribution from first touch through commission eligibility.",
+      "licenses": "License registry for subscription, domain, and capacity licenses.",
+      "commissions": "Seller commission eligibility and payout preparation from paid invoices.",
+      "accountingExport": "Prepare customer, invoice, payment, VAT and commission exports for accounting systems.",
+      "disputes": "Refund requests, credit notes, and payment disputes.",
+      "reports": "Finance reports for revenue, VAT, agreements and partner commissions.",
+      "accountingIntegration": "Accounting system connections. Status reflects configuration — not live posting."
+    }
+  },
+  "unifiedBillingAdmin": {
+    "licenses": {
+      "title": "License registry",
+      "subtitle": "Subscription, domain, Business Pack, and user capacity licenses connected to billing records."
+    },
+    "commissions": {
+      "title": "Seller commissions",
+      "subtitle": "Partner attribution, commission eligibility, and payout preparation from paid invoices."
+    },
+    "disputes": {
+      "title": "Refunds and payment disputes",
+      "subtitle": "Refund requests, approvals, credit notes, and payment disputes."
+    },
+    "reports": {
+      "title": "Finance reports",
+      "subtitle": "Revenue, VAT, agreement, partner commission, and accounting export summaries."
+    },
+    "accountingExport": {
+      "title": "Accounting export",
+      "subtitle": "Prepare customer, invoice, payment, VAT, and commission exports for Fiken and other systems."
+    }
   }
 }

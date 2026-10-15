@@ -4,7 +4,35 @@ import { BILLING_COMMERCE_NAV } from "./config";
 export function buildBillingCommerceCenterLabels(t: Translator) {
   const p = "platform.billingCommerceCenter";
   const nav = Object.fromEntries(
-    BILLING_COMMERCE_NAV.map((item) => [item.id, t(item.labelKey)])
+    BILLING_COMMERCE_NAV.map((item) => [item.id, t(item.labelKey)]),
+  ) as Record<string, string>;
+
+  const moduleIds = [
+    "customerIdentity",
+    "billingProfiles",
+    "subscriptions",
+    "invoices",
+    "vatEngine",
+    "paymentProviders",
+    "taxRules",
+    "businessPacks",
+    "licensePurchases",
+    "domainLicenses",
+    "growthPartnerAttribution",
+    "licenses",
+    "commissions",
+    "accountingExport",
+    "disputes",
+    "reports",
+    "accountingIntegration",
+  ] as const;
+
+  const modules = Object.fromEntries(
+    moduleIds.map((id) => [id, t(`${p}.modules.${id}`)]),
+  ) as Record<string, string>;
+
+  const moduleDescriptions = Object.fromEntries(
+    moduleIds.map((id) => [id, t(`${p}.moduleDescriptions.${id}`)]),
   ) as Record<string, string>;
 
   return {
@@ -21,34 +49,8 @@ export function buildBillingCommerceCenterLabels(t: Translator) {
     records: t(`${p}.records`),
     legalReviewBanner: t(`${p}.legalReviewBanner`),
     nav,
-    modules: {
-      customerIdentity: t(`${p}.modules.customerIdentity`),
-      billingProfiles: t(`${p}.modules.billingProfiles`),
-      subscriptions: t(`${p}.modules.subscriptions`),
-      invoices: t(`${p}.modules.invoices`),
-      vatEngine: t(`${p}.modules.vatEngine`),
-      paymentProviders: t(`${p}.modules.paymentProviders`),
-      taxRules: t(`${p}.modules.taxRules`),
-      businessPacks: t(`${p}.modules.businessPacks`),
-      licensePurchases: t(`${p}.modules.licensePurchases`),
-      domainLicenses: t(`${p}.modules.domainLicenses`),
-      growthPartnerAttribution: t(`${p}.modules.growthPartnerAttribution`),
-      accountingIntegration: t(`${p}.modules.accountingIntegration`),
-    },
-    moduleDescriptions: {
-      customerIdentity: t(`${p}.moduleDescriptions.customerIdentity`),
-      billingProfiles: t(`${p}.moduleDescriptions.billingProfiles`),
-      subscriptions: t(`${p}.moduleDescriptions.subscriptions`),
-      invoices: t(`${p}.moduleDescriptions.invoices`),
-      vatEngine: t(`${p}.moduleDescriptions.vatEngine`),
-      paymentProviders: t(`${p}.moduleDescriptions.paymentProviders`),
-      taxRules: t(`${p}.moduleDescriptions.taxRules`),
-      businessPacks: t(`${p}.moduleDescriptions.businessPacks`),
-      licensePurchases: t(`${p}.moduleDescriptions.licensePurchases`),
-      domainLicenses: t(`${p}.moduleDescriptions.domainLicenses`),
-      growthPartnerAttribution: t(`${p}.moduleDescriptions.growthPartnerAttribution`),
-      accountingIntegration: t(`${p}.moduleDescriptions.accountingIntegration`),
-    },
+    modules,
+    moduleDescriptions,
     relatedOperations: t(`${p}.relatedOperations`),
     relatedLinks: {
       paymentOperations: t(`${p}.relatedLinks.paymentOperations`),
@@ -60,6 +62,15 @@ export function buildBillingCommerceCenterLabels(t: Translator) {
       overdueCustomers: t(`${p}.overviewStats.overdueCustomers`),
       openInvoices: t(`${p}.overviewStats.openInvoices`),
       draftCheckouts: t(`${p}.overviewStats.draftCheckouts`),
+    },
+    sections: {
+      finance: t(`${p}.sections.finance`),
+      customers: t(`${p}.sections.customers`),
+      product: t(`${p}.sections.product`),
+      sellers: t(`${p}.sections.sellers`),
+      customersHint: t(`${p}.sections.customersHint`),
+      productHint: t(`${p}.sections.productHint`),
+      sellersHint: t(`${p}.sections.sellersHint`),
     },
   };
 }

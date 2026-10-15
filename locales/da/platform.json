@@ -133,7 +133,7 @@
     "operationsAuditLogs": "Hændelseslog",
     "organizations": "Organisationer",
     "customerSuccess": "Kundesucces",
-    "payments": "Betalingscenter",
+    "payments": "Økonomioversigt",
     "marketplace": "Markedsplads",
     "growthPartners": "Sælgerregister",
     "knowledgeCenter": "Videnscenter",
@@ -195,13 +195,13 @@
     "marketingSeo": "SEO & Organic Discovery",
     "websiteIntelligence": "Website Intelligence",
     "websiteGovernance": "Website Governance",
-    "licenses": "Licenser",
+    "licenses": "Licensregister",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Webstedverifikation",
     "providerOnboarding": "Provider-onboarding",
     "websiteKompisPlans": "Kompis Web-planer",
     "growthPartnerAttribution": "Salgslinks og attribuering",
-    "commissions": "Provisioner"
+    "commissions": "Sælgerprovisioner"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -1558,73 +1558,102 @@
     "providerMandateId": "Provider mandate ID"
   },
   "billingCommerceCenter": {
-    "title": "Fakturering og handel",
-    "subtitle": "Samlet platformskontrol for kundeidentitet, faktureringsprofiler, abonnementer, skat, licenser og regnskabsintegration.",
-    "principle": "Hvert salg skal kunne spores fra identitet til faktura, skat og regnskab.",
-    "privacyNote": "Kun platformaggregater — intet kundedrift ud over faktureringsmetadata.",
-    "loading": "Forbereder fakturerings- og handelscenter",
-    "empty": "Fakturerings- og handelsdata er utilgængelig.",
-    "openModule": "Åbn modul",
-    "back": "Tilbage til fakturering og handel",
-    "overview": "Oversigt",
-    "stats": "Statistik",
-    "records": "Poster",
-    "legalReviewBanner": "Gennemgå skatteregler og momslogik med regnskab og juridisk før offentlig lancering.",
-    "relatedOperations": "Relaterede operationer",
+    "title": "Aftaler og salg — økonomi",
+    "subtitle": "Økonomioversigt for kundefakturaer, betalinger, kundaftaler, afgifter, udbydere, rapporter og regnskabsoverførsel.",
+    "principle": "Every sale must be traceable from agreement to invoice, payment, tax, and accounting — without confusing planned integrations for live settlement.",
+    "privacyNote": "Platform aggregates only — no customer operational content beyond billing metadata.",
+    "loading": "Preparing finance overview",
+    "empty": "Finance overview data is unavailable.",
+    "openModule": "Open",
+    "back": "Tilbage til økonomioversigt",
+    "overview": "Økonomioversigt",
+    "stats": "Statistics",
+    "records": "Records",
+    "legalReviewBanner": "Review tax and VAT display with accounting and legal before changing checkout behaviour.",
+    "relatedOperations": "Related operations",
     "relatedLinks": {
-      "paymentOperations": "Betalingsoperationer",
-      "revenueOperations": "Indtægtsoperationer",
-      "subscriptionOperations": "Abonnementsoperationer"
+      "paymentOperations": "Payment operations",
+      "revenueOperations": "Revenue operations",
+      "subscriptionOperations": "Agreement operations"
     },
     "overviewStats": {
-      "activeCustomers": "Aktive kunder",
-      "overdueCustomers": "Forfaldne kunder",
-      "openInvoices": "Åbne fakturaer",
-      "draftCheckouts": "Kladde til kasse"
+      "activeCustomers": "Active customers",
+      "overdueCustomers": "Overdue customers",
+      "openInvoices": "Open customer invoices",
+      "draftCheckouts": "Draft checkouts"
     },
     "nav": {
-      "overview": "Oversigt",
-      "customerIdentity": "Kundeidentitet",
-      "billingProfiles": "Faktureringsprofiler",
-      "subscriptions": "Abonnementer",
-      "invoices": "Fakturaer",
-      "vatEngine": "Momsmotor",
+      "overview": "Økonomioversigt",
+      "customerIdentity": "Kundeidentitet (faktureringsmetadata)",
+      "billingProfiles": "Betalinger",
+      "subscriptions": "Kundaftaler",
+      "invoices": "Kundefakturaer",
+      "vatEngine": "Afgifter og moms",
       "paymentProviders": "Betalingsudbydere",
-      "taxRules": "Skatteregler",
+      "taxRules": "Skatteregler (visning)",
       "businessPacks": "Business Packs",
       "licensePurchases": "Licenskøb",
       "domainLicenses": "Domænelicenser",
-      "growthPartnerAttribution": "Growth Partner-attribution",
-      "accountingIntegration": "Regnskabsintegration",
-      "commissions": "Provisioner"
+      "growthPartnerAttribution": "Salgslinks og attribuering",
+      "accountingIntegration": "Regnskabsintegrationer",
+      "commissions": "Sælgerprovisioner",
+      "licenses": "Licensregister",
+      "accountingExport": "Regnskabseksport",
+      "disputes": "Refusioner og betalingstvister",
+      "reports": "Økonomirapporter"
     },
     "modules": {
-      "customerIdentity": "Kundeidentitet",
-      "billingProfiles": "Faktureringsprofiler",
-      "subscriptions": "Abonnementer",
-      "invoices": "Fakturaer",
-      "vatEngine": "Momsmotor",
+      "customerIdentity": "Kundeidentitet (faktureringsmetadata)",
+      "billingProfiles": "Betalinger",
+      "subscriptions": "Kundaftaler",
+      "invoices": "Kundefakturaer",
+      "vatEngine": "Afgifter og moms",
       "paymentProviders": "Betalingsudbydere",
-      "taxRules": "Skatteregler",
+      "taxRules": "Skatteregler (visning)",
       "businessPacks": "Business Packs",
       "licensePurchases": "Licenskøb",
       "domainLicenses": "Domænelicenser",
-      "growthPartnerAttribution": "Growth Partner-attribution",
-      "accountingIntegration": "Regnskabsintegration"
+      "growthPartnerAttribution": "Salgslinks og attribuering",
+      "accountingIntegration": "Regnskabsintegrationer",
+      "licenses": "Licensregister",
+      "commissions": "Sælgerprovisioner",
+      "accountingExport": "Regnskabseksport",
+      "disputes": "Refusioner og betalingstvister",
+      "reports": "Økonomirapporter"
     },
     "moduleDescriptions": {
-      "customerIdentity": "Kundeposter, CVR-numre og faktureringsidentitet.",
-      "billingProfiles": "Udbyderuafhængige betalingsprofiler, KID og fakturaadresser.",
-      "subscriptions": "Planer, prøveperioder og abonnementslivscyklus på tværs af tenants.",
-      "invoices": "Fakturaudstedelse, status og betalingsafstemning.",
-      "vatEngine": "Kasse-moms, kundetype, virksomhedsverifikation og fakturaskat.",
-      "paymentProviders": "Stripe, DNB, Klarna og Vipps-konfiguration og sundhed.",
-      "taxRules": "Norge, EU omvendt betalingspligt og reserve-regler ved kasse.",
-      "businessPacks": "Business Pack-katalog, licensering og markedsplads.",
-      "licensePurchases": "Historik for domæne- og brugerlicenskøb knyttet til kasse.",
-      "domainLicenses": "Inkluderede og købte domænelicenspuljer pr. organisation.",
-      "growthPartnerAttribution": "Growth Partner-attribution fra første kontakt til provision.",
-      "accountingIntegration": "Fiken, Stripe og regnskab via integrationsmotoren."
+      "customerIdentity": "Billing identity metadata only — organisations live in the customer register.",
+      "billingProfiles": "Payment profiles and billing addresses. Does not execute payments from this screen.",
+      "subscriptions": "Customer agreements and plan lifecycle across organisations.",
+      "invoices": "Fakturaer Aipify udsteder til kunder — ikke leverandørfakturaer.",
+      "vatEngine": "Visning af afgifter og moms. Beregningsregler ændres ikke her.",
+      "paymentProviders": "Udbyderkonfiguration og sundhed. Frakoblede udbydere må aldrig vises som betalt/tilsluttet.",
+      "taxRules": "Display of tax rule catalogues. Rates and calculation logic are out of scope for this view.",
+      "businessPacks": "Business Pack catalogue references for licensing.",
+      "licensePurchases": "License purchase history tied to checkout records.",
+      "domainLicenses": "Included and purchased domain license pools per organisation.",
+      "growthPartnerAttribution": "Seller attribution from first touch through commission eligibility.",
+      "accountingIntegration": "Accounting system connections. Status reflects configuration — not live posting.",
+      "licenses": "License registry for subscription, domain, and capacity licenses.",
+      "commissions": "Seller commission eligibility and payout preparation from paid invoices.",
+      "accountingExport": "Prepare customer, invoice, payment, VAT and commission exports for accounting systems.",
+      "disputes": "Refund requests, credit notes, and payment disputes.",
+      "reports": "Finance reports for revenue, VAT, agreements and partner commissions."
+    },
+    "subNavAria": "Navigation for Aftaler og salg — økonomi",
+    "groups": {
+      "core": "Fakturaer, betalinger og aftaler",
+      "tax": "Afgifter og moms",
+      "reporting": "Refusioner, rapporter og regnskab"
+    },
+    "sections": {
+      "finance": "Økonomimoduler",
+      "customers": "Kobling til kunderegister",
+      "product": "Produkt og licenser",
+      "sellers": "Sælgere",
+      "customersHint": "Kundeidentitet hører hjemme i kunderegistret. Denne visning er kun understøttende faktureringsmetadata.",
+      "productHint": "Business Packs og licensposter er produktområder. Primær navigation ligger under Produkt.",
+      "sellersHint": "Salgslinks, attribuering og sælgerprovisioner hører under Sælgere i sidemenuen."
     }
   },
   "subscriptions": {
@@ -7098,6 +7127,28 @@
         "body": "Fakturering og licenskontroller ser sunde ud igen. Besøgendes svar kan fortsætte inden for verificerede pakkegrænser.",
         "cta": "Åbn forbindelsesstatus"
       }
+    }
+  },
+  "unifiedBillingAdmin": {
+    "licenses": {
+      "title": "License registry",
+      "subtitle": "Subscription, domain, Business Pack, and user capacity licenses connected to billing records."
+    },
+    "commissions": {
+      "title": "Seller commissions",
+      "subtitle": "Partner attribution, commission eligibility, and payout preparation from paid invoices."
+    },
+    "disputes": {
+      "title": "Refunds and payment disputes",
+      "subtitle": "Refund requests, approvals, credit notes, and payment disputes."
+    },
+    "reports": {
+      "title": "Finance reports",
+      "subtitle": "Revenue, VAT, agreement, partner commission, and accounting export summaries."
+    },
+    "accountingExport": {
+      "title": "Accounting export",
+      "subtitle": "Prepare customer, invoice, payment, VAT, and commission exports for Fiken and other systems."
     }
   }
 }

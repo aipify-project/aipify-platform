@@ -625,6 +625,8 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   ) {
     return "invoices";
   }
+  if (pathname.startsWith("/platform/billing/licenses")) return "licenses";
+  if (pathname.startsWith("/platform/billing/business-packs")) return "businessPacks";
   if (pathname.startsWith("/platform/billing")) return "payments";
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
   if (pathname.startsWith("/platform/licenses")) return "licenses";
