@@ -377,6 +377,15 @@ body {
  * Job 63 — Customer APP premium visual system (scoped).
  * Remaps semantic --aipify-* aliases only inside .aipify-app-shell so Platform/public stay unchanged.
  */
+/*
+ * Platform Admin shared layout — lavender canvas aligned with APP / Public Home family.
+ * Scoped so Customer APP and public marketing tokens stay independent.
+ */
+.aipify-platform-shell {
+  --aipify-canvas: #f3f5fb;
+  --background: #f3f5fb;
+}
+
 .aipify-app-shell {
   /* Align canvas with Public Home V1 family (#f3f5fb + soft purple/blue glow). */
   --app-canvas: #f3f5fb;

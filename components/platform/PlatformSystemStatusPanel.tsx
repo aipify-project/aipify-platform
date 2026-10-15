@@ -182,7 +182,7 @@ export default function PlatformSystemStatusPanel({ labels }: PlatformSystemStat
   const aiSummary = buildSystemAiSummary(metrics, providers);
 
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
           {labels.title}

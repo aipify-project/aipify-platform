@@ -86,7 +86,7 @@ export function PlatformHealthOperationsCenterPanel({
   const summary = center.executive_summary;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 p-6">
+    <div className="w-full space-y-6 lg:space-y-8">
       <div>
         <Link href={backHref} className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
           ← {labels.back}

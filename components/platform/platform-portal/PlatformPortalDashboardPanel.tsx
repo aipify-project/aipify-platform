@@ -9,6 +9,8 @@ import {
 } from "@/lib/platform-portal";
 import { mapLookupLabel } from "@/lib/platform-portal/business-language";
 import type { PlatformNavGroupConfig } from "@/lib/platform/build-nav";
+import { PlatformLayoutClasses } from "@/lib/design";
+import { PlatformPageFrame } from "@/components/platform/PlatformPageFrame";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 
 type PlatformPortalDashboardPanelProps = {
@@ -440,15 +442,15 @@ export function PlatformPortalDashboardPanel({
 
   if (loading) {
     return (
-      <div className="mx-auto flex min-h-[60vh] w-full max-w-[1680px] items-center justify-center p-6">
+      <PlatformPageFrame className="flex min-h-[60vh] items-center justify-center">
         <AipifyLoader centered label={labels.loading} />
-      </div>
+      </PlatformPageFrame>
     );
   }
 
   if (loadError || !dashboard) {
     return (
-      <div className="mx-auto w-full max-w-[1680px] p-6">
+      <PlatformPageFrame>
         <div
           role="alert"
           className="flex flex-col gap-4 rounded-xl border border-rose-200 bg-rose-50 px-5 py-4 shadow-sm sm:flex-row sm:items-start sm:justify-between dark:border-rose-800/80 dark:bg-rose-950/40"
@@ -483,7 +485,7 @@ export function PlatformPortalDashboardPanel({
             {labels.retry}
           </button>
         </div>
-      </div>
+      </PlatformPageFrame>
     );
   }
 
@@ -506,17 +508,17 @@ export function PlatformPortalDashboardPanel({
   const activityUpdates = dashboard.product_deployment_updates.slice(0, 5);
 
   return (
-    <div className="mx-auto w-full max-w-[1680px] space-y-8 p-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">{labels.title}</h1>
-        <p className="mt-2 max-w-3xl text-slate-600">{labels.subtitle}</p>
-        <p className="mt-4 rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm text-slate-800">
+    <PlatformPageFrame>
+      <header className={PlatformLayoutClasses.pageHeader}>
+        <h1 className={PlatformLayoutClasses.pageTitle}>{labels.title}</h1>
+        <p className={PlatformLayoutClasses.pageSubtitle}>{labels.subtitle}</p>
+        <p className={`mt-4 ${PlatformLayoutClasses.cardMuted} text-sm text-slate-800 dark:text-slate-200`}>
           {labels.principle}
         </p>
-      </div>
+      </header>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
-        <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <section className={PlatformLayoutClasses.card}>
+        <dl className={PlatformLayoutClasses.metricGrid}>
           <AttentionCard
             label={labels.organizationsRequiringAttention}
             value={dashboard.organizations_requiring_attention}
@@ -537,11 +539,11 @@ export function PlatformPortalDashboardPanel({
         </dl>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
-        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+      <section className={PlatformLayoutClasses.card}>
+        <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
           {labels.paymentStatusSummary}
         </h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+        <div className={`mt-4 ${PlatformLayoutClasses.metricGridDense}`}>
           <dl className="contents">
             <FinanceMetricCard
               label={labels.paymentActive}
@@ -571,11 +573,8 @@ export function PlatformPortalDashboardPanel({
         </div>
       </section>
 
-      <section
-        className="w-full rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40"
-        data-area="operational-metrics"
-      >
-        <dl className="grid w-full grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <section className={PlatformLayoutClasses.card} data-area="operational-metrics">
+        <dl className={`w-full items-stretch ${PlatformLayoutClasses.metricGrid}`}>
           <MetricCard
             label={labels.activeSubscriptions}
             value={dashboard.active_subscriptions}
@@ -595,14 +594,11 @@ export function PlatformPortalDashboardPanel({
       </section>
 
       {partnerNavCards.length > 0 ? (
-        <section
-          className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900/40"
-          data-area="partners"
-        >
-          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+        <section className={PlatformLayoutClasses.cardMuted} data-area="partners">
+          <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
             {labels.partnerProgramSummary}
           </h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <div className={`mt-4 ${PlatformLayoutClasses.navCardGrid}`}>
             {partnerNavCards.map((card) => (
               <PartnerNavCard
                 key={card.href}
@@ -616,11 +612,8 @@ export function PlatformPortalDashboardPanel({
         </section>
       ) : null}
 
-      <section
-        className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40"
-        data-area="activity"
-      >
-        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+      <section className={PlatformLayoutClasses.card} data-area="activity">
+        <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
           {labels.productDeploymentUpdates}
         </h2>
         {activityUpdates.length === 0 ? (
@@ -630,13 +623,13 @@ export function PlatformPortalDashboardPanel({
             {activityUpdates.map((update) => (
               <li
                 key={update.id}
-                className="flex items-start justify-between gap-4 py-2.5 first:pt-0 last:pb-0"
+                className="flex items-start justify-between gap-4 py-3 first:pt-0 last:pb-0"
               >
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
+                  <p className="truncate text-[15px] font-medium text-slate-900 dark:text-slate-100">
                     {update.title}
                   </p>
-                  <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                  <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
                     {update.version ? `v${update.version}` : null}
                     {update.version && update.classification ? " · " : null}
                     {update.classification
@@ -649,7 +642,7 @@ export function PlatformPortalDashboardPanel({
                   </p>
                 </div>
                 {update.scheduled_at ? (
-                  <span className="shrink-0 text-xs text-slate-500 dark:text-slate-400">
+                  <span className="shrink-0 text-sm text-slate-500 dark:text-slate-400">
                     {new Date(update.scheduled_at).toLocaleDateString()}
                   </span>
                 ) : null}
@@ -660,11 +653,8 @@ export function PlatformPortalDashboardPanel({
       </section>
 
       {quickActionNavCards.length === QUICK_ACTION_ROUTES.length ? (
-        <section
-          className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900/40"
-          data-area="quick-actions"
-        >
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <section className={PlatformLayoutClasses.cardMuted} data-area="quick-actions">
+          <div className={PlatformLayoutClasses.navCardGrid}>
             {quickActionNavCards.map((card) => (
               <QuickActionNavCard
                 key={card.href}
@@ -678,7 +668,7 @@ export function PlatformPortalDashboardPanel({
         </section>
       ) : null}
 
-      <p className="text-xs text-slate-500">{labels.privacyNote}</p>
-    </div>
+      <p className="text-sm text-slate-500">{labels.privacyNote}</p>
+    </PlatformPageFrame>
   );
 }

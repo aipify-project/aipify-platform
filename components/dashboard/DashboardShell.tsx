@@ -458,9 +458,10 @@ function DashboardShellFrame({
       className={
         isCustomerApp
           ? AppVisualClasses.shellRoot
-          : `flex min-h-screen ${AipifyShellClasses.canvas}`
+          : `aipify-platform-shell flex min-h-screen ${AipifyShellClasses.canvas}`
       }
       data-aipify-app-shell={isCustomerApp ? "true" : undefined}
+      data-aipify-platform-shell={isCustomerApp ? undefined : "true"}
     >
       {isCustomerApp ? <AppCanvasBackground /> : null}
       <div className={isCustomerApp ? AppVisualClasses.appFrame : "flex min-h-screen w-full"}>

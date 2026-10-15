@@ -249,7 +249,7 @@ export default function PlatformOverviewPanel({
   const health = metrics ? getSystemHealth(metrics) : null;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8">
+    <div className="w-full space-y-6 lg:space-y-8">
       <header>
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
           {labels.title}

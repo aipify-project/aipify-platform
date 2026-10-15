@@ -17,6 +17,11 @@ export {
   AppVisualColors,
 } from "./app-visual-system";
 export {
+  PLATFORM_CONTENT_MAX_WIDTH_PX,
+  PlatformLayoutClasses,
+  PlatformStatusToneClasses,
+} from "./platform-layout";
+export {
   AipifyStatusPresentations,
   getAipifyStatusPresentation,
   type AipifyStatusKind,
