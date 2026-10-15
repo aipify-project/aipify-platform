@@ -3,7 +3,8 @@
 **Feature owner:** PLATFORM ADMIN  
 **Scope:** Presentation-only filter row on `/platform/customer-success`  
 **Branch:** `fix/platform-support-ro-audit-and-customer-success-filter-ux-v1`  
-**Base:** `origin/main` @ `d161610b`
+**Base:** `origin/main` @ `d161610b`  
+**Head:** `8ce793ae`
 
 ## Verdict
 
