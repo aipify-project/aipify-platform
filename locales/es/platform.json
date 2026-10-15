@@ -365,7 +365,9 @@
     "unonightPilot": "Customer Zero / operaciones de prueba",
     "payments": "Resumen financiero",
     "licenses": "Registro de licencias",
-    "subscriptions": "Acuerdos de cliente"
+    "subscriptions": "Acuerdos de cliente",
+    "communications": "Comunicación",
+    "websiteKompisPlans": "Planes Kompis Web"
   },
   "kompisAi": {
     "title": "Kompis AI",
@@ -873,6 +875,49 @@
     "accountingExport": {
       "title": "Accounting export",
       "subtitle": "Prepare customer, invoice, payment, VAT, and commission exports for Fiken and other systems."
+    }
+  },
+  "communications": {
+    "title": "Comunicación",
+    "subtitle": "Anuncios y borradores de mensajes salientes para administradores de la plataforma. Esto no es una bandeja de soporte al cliente.",
+    "notSupportInbox": "Los tickets de soporte pertenecen a Clientes → Soporte. Comunicación solo cubre anuncios y borradores que no se envían desde esta pantalla.",
+    "back": "Volver a Comunicación",
+    "cards": {
+      "announcements": {
+        "title": "Centro de anuncios",
+        "description": "Prepare y revise anuncios globales de la plataforma para operadores autorizados.",
+        "cta": "Abrir centro de anuncios"
+      },
+      "planMessages": {
+        "title": "Borradores de mensajes de planes Kompis Web",
+        "description": "Vista previa del catálogo de planes previstos y borradores de correo a clientes. Solo vista previa — no se envían mensajes.",
+        "cta": "Abrir borradores de mensajes de planes"
+      }
+    }
+  },
+  "websiteKompisPlans": {
+    "title": "Borradores de mensajes de planes Kompis Web",
+    "subtitle": "Catálogo de planes previsto y borradores de mensajes a clientes. La entrega no está activa.",
+    "noCustomerSend": "Solo vista previa — no se envían mensajes a clientes desde esta pantalla. Stripe y derechos no se modifican.",
+    "deliveryDraftOnly": "Solo borrador — sin envío a clientes.",
+    "offerStatusPlanned": "Planificado",
+    "quotaLifetime": "Respuestas de por vida por licencia de sitio",
+    "quotaMonthly": "Respuestas mensuales renovables",
+    "priceMonthly": "{currency} {amount}/mes",
+    "priceAnnual": "{currency} {amount}/año",
+    "freePrice": "No se requiere tarjeta",
+    "checkoutNotEnabled": "Checkout no habilitado",
+    "stripeTrialNote": "La prueba de Stripe y el checkout de pago son trabajo futuro. Esta pantalla nunca afirma facturación en vivo.",
+    "plans": {
+      "free": {
+        "name": "Gratis"
+      },
+      "standard": {
+        "name": "Standard"
+      },
+      "pro": {
+        "name": "Pro"
+      }
     }
   }
 }

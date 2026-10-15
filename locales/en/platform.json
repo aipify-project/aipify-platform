@@ -227,7 +227,8 @@
     "providerOnboarding": "Provider onboarding",
     "websiteKompisPlans": "Kompis Web plans",
     "growthPartnerAttribution": "Sales links & attribution",
-    "commissions": "Seller commissions"
+    "commissions": "Seller commissions",
+    "communications": "Communication"
   },
   "executive": {
     "title": "Executive Center",
@@ -7595,12 +7596,12 @@
     }
   },
   "websiteKompisPlans": {
-    "title": "Kompis Web plan communication",
-    "subtitle": "Authoritative planned catalog and draft customer email previews. Delivery is not live.",
+    "title": "Kompis Web plan message drafts",
+    "subtitle": "Planned plan catalog and draft customer email previews. Delivery is not live.",
     "catalogSection": "Planned plan catalog",
     "templatesSection": "Draft email templates",
     "deliveryDraftOnly": "Draft preview only — no customer send pipeline.",
-    "noCustomerSend": "This surface never sends email to customers and never mutates Stripe or entitlements.",
+    "noCustomerSend": "Preview only — no customer messages are sent from this screen. Stripe and entitlements are not changed.",
     "previewSubject": "Subject",
     "previewBody": "Body",
     "readinessSection": "Upgrade readiness gates (future authorization)",
@@ -7674,6 +7675,43 @@
         "title": "Access is restored",
         "body": "Billing and license checks look healthy again. Visitor answers can resume within your verified package limits.",
         "cta": "Open connection status"
+      }
+    },
+    "offerStatusPlanned": "Planned",
+    "quotaLifetime": "Lifetime answers per website licence",
+    "quotaMonthly": "Monthly renewing answers",
+    "priceMonthly": "{currency} {amount}/month",
+    "priceAnnual": "{currency} {amount}/year",
+    "freePrice": "No card required",
+    "checkoutNotEnabled": "Checkout not enabled",
+    "stripeTrialNote": "Stripe trial and paid checkout remain future work. This screen never claims live billing.",
+    "plans": {
+      "free": {
+        "name": "Free"
+      },
+      "standard": {
+        "name": "Standard"
+      },
+      "pro": {
+        "name": "Pro"
+      }
+    }
+  },
+  "communications": {
+    "title": "Communication",
+    "subtitle": "Announcements and draft outgoing messages for Platform operators. This is not a customer support inbox.",
+    "notSupportInbox": "Support tickets belong under Customers → Support. Communication only covers announcements and message drafts that are not sent from this screen.",
+    "back": "Back to Communication",
+    "cards": {
+      "announcements": {
+        "title": "Announcement centre",
+        "description": "Prepare and review global Platform announcements for authorised operators.",
+        "cta": "Open announcement centre"
+      },
+      "planMessages": {
+        "title": "Kompis Web plan message drafts",
+        "description": "Preview planned plan catalog and draft customer emails. Preview only — no messages are sent.",
+        "cta": "Open plan message drafts"
       }
     }
   }

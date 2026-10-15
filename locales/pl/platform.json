@@ -227,7 +227,8 @@
     "providerOnboarding": "Onboarding dostawców",
     "websiteKompisPlans": "Plany Kompis Web",
     "growthPartnerAttribution": "Linki sprzedażowe i atrybucja",
-    "commissions": "Prowizje sprzedawców"
+    "commissions": "Prowizje sprzedawców",
+    "communications": "Komunikacja"
   },
   "executive": {
     "title": "Centrum wykonawcze",
@@ -7595,12 +7596,12 @@
     }
   },
   "websiteKompisPlans": {
-    "title": "Komunikacja planów Kompis Web",
-    "subtitle": "Autorytatywny planowany katalog i szkice e-maili do klientów. Dostawa nie jest aktywna.",
+    "title": "Szkice wiadomości planów Kompis Web",
+    "subtitle": "Planowany katalog planów i szkice wiadomości do klientów. Dostarczanie nie jest aktywne.",
     "catalogSection": "Planowany katalog planów",
     "templatesSection": "Szkice szablonów e-mail",
-    "deliveryDraftOnly": "Tylko podgląd — bez wysyłki do klientów.",
-    "noCustomerSend": "Ta powierzchnia nigdy nie wysyła e-maili do klientów i nie zmienia Stripe ani uprawnień.",
+    "deliveryDraftOnly": "Tylko szkic — brak wysyłki do klientów.",
+    "noCustomerSend": "Tylko podgląd — żadne wiadomości do klientów nie są wysyłane z tego ekranu. Stripe i uprawnienia nie są zmieniane.",
     "previewSubject": "Temat",
     "previewBody": "Treść",
     "readinessSection": "Bramki gotowości do aktualizacji (przyszła autoryzacja)",
@@ -7674,6 +7675,43 @@
         "title": "Dostęp przywrócony",
         "body": "Kontrole rozliczeń i licencji wyglądają zdrowo. Odpowiedzi dla odwiedzających mogą być kontynuowane w zweryfikowanych limitach pakietu.",
         "cta": "Otwórz status połączenia"
+      }
+    },
+    "offerStatusPlanned": "Planowane",
+    "quotaLifetime": "Odpowiedzi dożywotnie na licencję witryny",
+    "quotaMonthly": "Comiesięcznie odnawiane odpowiedzi",
+    "priceMonthly": "{currency} {amount}/mies.",
+    "priceAnnual": "{currency} {amount}/rok",
+    "freePrice": "Karta nie jest wymagana",
+    "checkoutNotEnabled": "Kasa nie jest włączona",
+    "stripeTrialNote": "Okres próbny Stripe i płatna kasa to późniejsza praca. Ten ekran nigdy nie twierdzi o żywym rozliczeniu.",
+    "plans": {
+      "free": {
+        "name": "Free"
+      },
+      "standard": {
+        "name": "Standard"
+      },
+      "pro": {
+        "name": "Pro"
+      }
+    }
+  },
+  "communications": {
+    "title": "Komunikacja",
+    "subtitle": "Ogłoszenia i szkice wiadomości wychodzących dla administratorów platformy. To nie jest skrzynka wsparcia klienta.",
+    "notSupportInbox": "Zgłoszenia wsparcia należą do Klienci → Wsparcie. Komunikacja obejmuje tylko ogłoszenia i szkice, które nie są wysyłane z tego ekranu.",
+    "back": "Powrót do Komunikacji",
+    "cards": {
+      "announcements": {
+        "title": "Centrum ogłoszeń",
+        "description": "Przygotuj i przeglądaj globalne ogłoszenia platformy dla uprawnionych administratorów.",
+        "cta": "Otwórz centrum ogłoszeń"
+      },
+      "planMessages": {
+        "title": "Szkice wiadomości planów Kompis Web",
+        "description": "Podgląd planowanego katalogu planów i szkiców e-mail do klientów. Tylko podgląd — wiadomości nie są wysyłane.",
+        "cta": "Otwórz szkice wiadomości planów"
       }
     }
   }

@@ -227,7 +227,8 @@
     "providerOnboarding": "Provider-onboarding",
     "websiteKompisPlans": "Kompis Web-planer",
     "growthPartnerAttribution": "Försäljningslänkar och attribution",
-    "commissions": "Säljarprovisioner"
+    "commissions": "Säljarprovisioner",
+    "communications": "Kommunikation"
   },
   "executive": {
     "title": "Executive Center",
@@ -7595,12 +7596,12 @@
     }
   },
   "websiteKompisPlans": {
-    "title": "Kompis Web-plankommunikation",
-    "subtitle": "Auktoritativ planerad katalog och utkast till kundmejl. Leverans är inte live.",
+    "title": "Kompis Web planmeddelandeutkast",
+    "subtitle": "Planerad plankatalog och utkast till kundmeddelanden. Leverans är inte aktiv.",
     "catalogSection": "Planerad plankatalog",
     "templatesSection": "Utkast till e-postmallar",
-    "deliveryDraftOnly": "Endast förhandsvisning — ingen kundutsändning.",
-    "noCustomerSend": "Denna yta skickar aldrig e-post till kunder och ändrar aldrig Stripe eller rättigheter.",
+    "deliveryDraftOnly": "Endast utkast — ingen kundutsändning.",
+    "noCustomerSend": "Endast förhandsvisning — inga kundmeddelanden skickas från den här skärmen. Stripe och rättigheter ändras inte.",
     "previewSubject": "Ämne",
     "previewBody": "Brödtext",
     "readinessSection": "Uppgraderingsgrindar (framtida auktorisation)",
@@ -7674,6 +7675,43 @@
         "title": "Åtkomsten är återställd",
         "body": "Fakturering och licenskontroller ser friska ut igen. Besökarsvar kan fortsätta inom verifierade paketgränser.",
         "cta": "Öppna anslutningsstatus"
+      }
+    },
+    "offerStatusPlanned": "Planerad",
+    "quotaLifetime": "Livstidssvar per webbplatsslicens",
+    "quotaMonthly": "Månadsvis förnyande svar",
+    "priceMonthly": "{currency} {amount}/mån",
+    "priceAnnual": "{currency} {amount}/år",
+    "freePrice": "Inget kort krävs",
+    "checkoutNotEnabled": "Kassan är inte aktiverad",
+    "stripeTrialNote": "Stripe-provperiod och betald kassa är framtida arbete. Den här skärmen påstår aldrig live-fakturering.",
+    "plans": {
+      "free": {
+        "name": "Gratis"
+      },
+      "standard": {
+        "name": "Standard"
+      },
+      "pro": {
+        "name": "Pro"
+      }
+    }
+  },
+  "communications": {
+    "title": "Kommunikation",
+    "subtitle": "Meddelanden och utkast till utgående meddelanden för plattformsadministratörer. Detta är inte en kundsupportinkorg.",
+    "notSupportInbox": "Supportsärenden hör under Kunder → Support. Kommunikation täcker endast meddelanden och utkast som inte skickas från den här skärmen.",
+    "back": "Tillbaka till Kommunikation",
+    "cards": {
+      "announcements": {
+        "title": "Meddelandecenter",
+        "description": "Förbered och granska globala plattformsmeddelanden för behöriga administratörer.",
+        "cta": "Öppna meddelandecenter"
+      },
+      "planMessages": {
+        "title": "Kompis Web planmeddelandeutkast",
+        "description": "Förhandsvisa planerad plankatalog och e-postutkast till kunder. Endast förhandsvisning — inga meddelanden skickas.",
+        "cta": "Öppna planmeddelandeutkast"
       }
     }
   }

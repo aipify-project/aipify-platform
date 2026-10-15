@@ -34,6 +34,7 @@ export type PlatformNavId =
   | "executive"
   | "executiveOperationsCenter"
   | "announcementCenter"
+  | "communications"
   | "websiteKompisPlans"
   | "feedbackCenter"
   | "productRoadmapCenter"
@@ -331,6 +332,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     id: "executiveOperationsCenter",
     href: "/platform/executive/operations-center",
     labelKey: "platform.nav.executiveOperationsCenter",
+  },
+  {
+    id: "communications",
+    href: "/platform/communications",
+    labelKey: "platform.nav.communications",
   },
   {
     id: "announcementCenter",
@@ -646,7 +652,10 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
     return "websiteKompisPlans";
   }
   if (pathname.startsWith("/platform/communications/announcement-center")) {
-    return "announcementCenter";
+    return "communications";
+  }
+  if (pathname === "/platform/communications" || pathname.startsWith("/platform/communications/")) {
+    return "communications";
   }
   if (pathname.startsWith("/platform/product")) return "productManagement";
   if (pathname.startsWith("/platform/installations")) return "installationOversight";
