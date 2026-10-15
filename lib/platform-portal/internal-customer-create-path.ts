@@ -261,10 +261,10 @@ export type InternalCustomerCreatePathPacket = {
   };
   dependenciesBlockedForFirstCreate: {
     legalAcceptance: "PROPOSED_NOT_APPROVED_OR_REQUIRE_REAL_SOURCE";
-    legalSourceConnected: false;
-    adminAuthVerified: false;
-    inviteDeliveryConnected: false;
-    inviteAllowlistEmpty: true;
+    legalSourceConnected: boolean;
+    adminAuthVerified: boolean;
+    inviteDeliveryConnected: boolean;
+    inviteAllowlistEmpty: boolean;
     note: "D3 must provide real invite/accept for admin@aipify.ai — never fake membership inserts.";
   };
   entitlementPathSeparate: {
@@ -274,9 +274,9 @@ export type InternalCustomerCreatePathPacket = {
     sqlPath: typeof INTERNAL_DEMO_BEDRIFT_ENTITLEMENT_SQL_PATH;
     sqlSha256: typeof INTERNAL_DEMO_BEDRIFT_ENTITLEMENT_SQL_SHA256;
     sqlApplied: false;
-    rpcConnected: false;
-    helperFlipAuthorized: false;
-    sandboxEnablementExecuteEnabled: false;
+    rpcConnected: boolean;
+    helperFlipAuthorized: boolean;
+    sandboxEnablementExecuteEnabled: boolean;
     note: "Create path does not grant Bedrift. D2M exception SQL + helper flip are separate owner jobs after create.";
   };
   coreHelperAllowlistSql: {
