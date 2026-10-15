@@ -120,6 +120,8 @@ This job does **not** mark J0 PASS and does not waive Super auth/2FA.
 
 | Item | Value |
 |------|--------|
+| PR | **https://github.com/aipify-project/aipify-platform/pull/243** |
+| Branch HEAD | `d7613fe6` |
 | Built | Yes (branch) |
 | Unit tested | Yes |
 | Merged | **No** |
