@@ -223,7 +223,7 @@
       "sinceVisit": "Siden ditt siste besøk:",
       "newCustomers": "{count} nye kunder registrert.",
       "trialsEnding": "{count} prøveperioder utløper innen 7 dager.",
-      "supportResolved": "Aipify Support løste {count} henvendelser.",
+      "supportResolved": "Aipify registrerte {count} livstidsløsninger i driftsmål (ikke APP-ticket SoT).",
       "followUp": "{count} kunde krever oppfølging.",
       "noIncidents": "Ingen kritiske systemhendelser oppdaget.",
       "incidents": "{count} installasjonsproblem(er) krever oppmerksomhet."
@@ -234,7 +234,7 @@
       "markedRead": "Merket som lest",
       "newCustomers": "Nye kunder: {count}",
       "newInstallations": "Nye installasjoner: {count}",
-      "supportResolved": "Løste supportsaker: {count}",
+      "supportResolved": "Livstidsløsninger support (driftsmål): {count}",
       "escalated": "Eskalerte saker: {count}",
       "trialsEnding": "Prøveperioder utløper snart: {count}",
       "billingEvents": "Faktureringshendelser: {count}",
@@ -2116,9 +2116,9 @@
   },
   "support": {
     "title": "Support",
-    "subtitle": "Intern supportkø med Aipify-eskaleringsstatus.",
+    "subtitle": "Eldre intern kø og driftsmål. Ikke APP-ticketregisteret.",
     "loading": "Laster supportkø...",
-    "empty": "Ingen supportsaker ennå.",
+    "empty": "Ingen saker i den eldre supportkøen. Dette betyr ikke at APP-ticketregisteret er tomt.",
     "customer": "Kunde",
     "category": "Kategori",
     "priority": "Prioritet",
@@ -2143,10 +2143,14 @@
       "urgent": "Haster"
     },
     "counters": {
-      "resolvedByAi": "Løst av Aipifypifypify",
-      "escalatedByAi": "Eskalert av Aipify",
-      "waitingHuman": "Venter på menneske",
-      "openCases": "Åpne saker"
+      "resolvedByAi": "Livstidsløsninger (driftsmål)",
+      "escalatedByAi": "Eskalert (driftsmål)",
+      "waitingHuman": "Venter på menneske (driftsmål)",
+      "openCases": "Åpne saker (driftsmål)",
+      "scopeNote": "Disse tallene kommer fra plattformens driftsoversikt — ikke antall APP-tickets, og ikke «siden innlogging»."
+    },
+    "performance": {
+      "resolvedByAi": "Løst av Aipify (driftsmål)"
     }
   },
   "assistantMemory": {
@@ -3508,7 +3512,7 @@
     "greetingSubtext": "Her er hva Aipify har håndtert siden ditt siste besøk.",
     "sinceLogin": {
       "title": "Siden siste innlogging",
-      "supportResolved": "{count} supporthenvendelser løst",
+      "supportResolved": "{count} supportløsninger i livstids-driftsmål (ikke sakvolum siden innlogging)",
       "automationsCompleted": "{count} automatiseringer fullført",
       "approvalWaiting": "{count} godkjenning venter på gjennomgang",
       "criticalIncidents": "{count} kritiske hendelser oppdaget",
@@ -7375,6 +7379,86 @@
         "body": "Fakturering og lisenskontroller ser sunne ut igjen. Besøkendes svar kan fortsette innen verifiserte pakkegrenser.",
         "cta": "Åpne tilkoblingsstatus"
       }
+    }
+  },
+  "supportInbox": {
+    "title": "Supportarbeidssted",
+    "subtitle": "Samlet Platform-support for Aipify-nettside, Kompis Web, Kompis Bedrift og Selgere — klargjort for APP-saker når Core-lesing aktiveres.",
+    "dormantBannerTitle": "APP-saksinnboksen er ikke aktiv ennå",
+    "dormantBannerBody": "Dette arbeidsstedet er kun presentasjon. Live APP-saker lastes ikke før Core-lesing er applied og funksjonsbryteren slås på i en separat eierjobb.",
+    "legacySectionTitle": "Eldre supportkø",
+    "legacySectionSubtitle": "Seksjonen under viser den eldre interne køen og driftsmål. Dette er ikke APP-ticketregisteret (app_portal_support_requests).",
+    "statusCards": {
+      "open": "Åpne saker",
+      "waiting": "Venter",
+      "resolved": "Løst eller lukket",
+      "total": "Totalt antall saker",
+      "unavailable": "—",
+      "scopeNote": "Sakstall er utilgjengelige mens APP-lesestien er inaktiv. Disse kortene viser aldri livstidsstatistikk."
+    },
+    "filters": {
+      "channel": "Kanal",
+      "status": "Status",
+      "priority": "Prioritet",
+      "search": "Søk",
+      "searchPlaceholder": "Søk i saker når aktivert",
+      "disabledHint": "Filtre og søk er deaktivert til APP-saklesing er aktivert."
+    },
+    "list": {
+      "title": "Saksliste",
+      "emptyTitle": "APP-sakslisten er ikke aktivert",
+      "emptyBody": "Denne tomtilstanden betyr at den nye innboksen er inaktiv — ikke at APP-ticketregisteret er tomt. Tom eldre kø under er en separat datakilde.",
+      "columns": {
+        "customer": "Kunde",
+        "subject": "Emne",
+        "channel": "Kanal",
+        "status": "Status",
+        "priority": "Prioritet",
+        "updated": "Oppdatert"
+      }
+    },
+    "detail": {
+      "title": "Saksdetaljer",
+      "empty": "Velg en sak etter aktivering for detaljer og historikk.",
+      "originalLanguage": "Originalspråk",
+      "norwegianTranslation": "Norsk oversettelse (planlagt)",
+      "replyTranslation": "Oversettelse av utgående svar (planlagt)",
+      "internalNotes": "Interne notater",
+      "customerVisibleReply": "Kundesynlig svar",
+      "approveBeforeSend": "Kundesvar krever manuell godkjenning før sending.",
+      "sendDisabled": "Send svar (ikke tilgjengelig)",
+      "history": "Historikk",
+      "localeGap": "Kildespråk er ikke lagret på saker ennå — språk oppfinnes ikke fra operatørens UI."
+    },
+    "channels": {
+      "aipify_public_site": {
+        "label": "Aipify-nettside",
+        "statusLinked": "Ikke koblet.",
+        "statusNotLinked": "Ikke koblet.",
+        "note": "Offentlig kontakt er ikke bekreftet som sak-inntak til APP-registeret."
+      },
+      "kompis_web": {
+        "label": "Kompis Web",
+        "statusLinked": "Ikke koblet.",
+        "statusNotLinked": "Ikke koblet.",
+        "note": "Besøks-spørsmål/FAQ er ikke APP-ticket SoT."
+      },
+      "kompis_bedrift_app": {
+        "label": "Kompis Bedrift",
+        "statusLinked": "Koblet kilde til sannhet når aktivert.",
+        "statusNotLinked": "Koblet kilde planlagt.",
+        "note": "APP-portal-saker (app_portal) er planlagt primær SoT for denne fanen."
+      },
+      "sellers_partners": {
+        "label": "Selgere",
+        "statusLinked": "Ikke koblet.",
+        "statusNotLinked": "Ikke koblet.",
+        "note": "Selger-/Growth Partner-eskaleringer er ikke bekreftet som sak-inntak ennå."
+      }
+    },
+    "linkStatus": {
+      "linked": "Koblet",
+      "notLinked": "Ikke koblet"
     }
   }
 }

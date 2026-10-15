@@ -243,7 +243,7 @@
     "greetingSubtext": "Här är vad Aipify har hanterat sedan ditt senaste besök.",
     "sinceLogin": {
       "title": "Sedan senaste inloggning",
-      "supportResolved": "{count} supportärenden lösta",
+      "supportResolved": "{count} supportlösningar i livstidsdriftsmått (inte ärendevolym sedan inloggning)",
       "automationsCompleted": "{count} automationer slutförda",
       "approvalWaiting": "{count} godkännande väntar på granskning",
       "criticalIncidents": "{count} kritiska incidenter upptäckta",
@@ -330,7 +330,7 @@
       "sinceVisit": "Since your last visit:",
       "newCustomers": "{count} new customers registered.",
       "trialsEnding": "{count} trial periods expire within 7 days.",
-      "supportResolved": "Aipify Support resolved {count} requests.",
+      "supportResolved": "Aipify registrerade {count} livstidslösningar i driftsmått (inte APP-ärende-SoT).",
       "escalated": "{count} support case(s) escalated.",
       "failedAutomations": "{count} automation(s) failed.",
       "systemWarnings": "{count} system warning(s) detected.",
@@ -381,7 +381,7 @@
       "expand": "Expand",
       "openModule": "Open module",
       "newCustomers": "New customers: {count}",
-      "supportResolved": "Support cases resolved: {count}",
+      "supportResolved": "Livstidslösningar support (driftsmått): {count}",
       "escalated": "Escalated cases: {count}",
       "installationsCompleted": "Installations completed: {count}",
       "automationsTriggered": "Automations triggered: {count}",
@@ -4582,9 +4582,9 @@
   },
   "support": {
     "title": "Support",
-    "subtitle": "Internal support queue with Aipify escalation visibility.",
+    "subtitle": "Äldre intern kö och driftsmått. Inte APP-ärenderegistret.",
     "loading": "Loading support queue...",
-    "empty": "No support cases yet.",
+    "empty": "Inga ärenden i den äldre supportkön. Det betyder inte att APP-ärenderegistret är tomt.",
     "customer": "Customer",
     "category": "Category",
     "priority": "Priority",
@@ -4609,16 +4609,17 @@
       "urgent": "Urgent"
     },
     "counters": {
-      "resolvedByAi": "Resolved by Aipifypifypify",
-      "escalatedByAi": "Escalated by Aipify",
-      "waitingHuman": "Waiting for Human",
-      "openCases": "Open Cases"
+      "resolvedByAi": "Livstidslösningar (driftsmått)",
+      "escalatedByAi": "Eskalerade (driftsmått)",
+      "waitingHuman": "Väntar på människa (driftsmått)",
+      "openCases": "Öppna ärenden (driftsmått)",
+      "scopeNote": "Dessa siffror kommer från plattformens driftöversikt — inte APP-ärenderäkningar och inte «sedan inloggning»."
     },
     "performance": {
       "title": "Aipify Support Performance",
       "subtitle": "Aipify uses Aipify first — visibility into Aipify-powered support value.",
       "requestsToday": "Requests today",
-      "resolvedByAi": "Resolved by Aipifypifypify",
+      "resolvedByAi": "Lösta av Aipify (driftsmått)",
       "escalatedCases": "Escalated cases",
       "avgResponseTime": "Average response time",
       "satisfactionScore": "Customer satisfaction",
@@ -7650,6 +7651,86 @@
         "body": "Fakturering och licenskontroller ser friska ut igen. Besökarsvar kan fortsätta inom verifierade paketgränser.",
         "cta": "Öppna anslutningsstatus"
       }
+    }
+  },
+  "supportInbox": {
+    "title": "Supportarbetsyta",
+    "subtitle": "Samlad Platform-support för Aipify-webbplats, Kompis Web, Kompis Bedrift och Säljare — förberedd för APP-ärenden när Core-läsning aktiveras.",
+    "dormantBannerTitle": "APP-ärendeinkorgen är inte aktiv ännu",
+    "dormantBannerBody": "Denna arbetsyta är endast presentation. Live APP-ärenden laddas inte förrän Core-läsning är applied och funktionsbrytaren slås på i ett separat ägarjobb.",
+    "legacySectionTitle": "Äldre supportkö",
+    "legacySectionSubtitle": "Avsnittet nedan visar den äldre interna kön och driftsmått. Det är inte APP-ärenderegistret (app_portal_support_requests).",
+    "statusCards": {
+      "open": "Öppna ärenden",
+      "waiting": "Väntar",
+      "resolved": "Lösta eller stängda",
+      "total": "Totalt antal ärenden",
+      "unavailable": "—",
+      "scopeNote": "Ärendenummer är otillgängliga medan APP-läsvägen är inaktiv. Dessa kort visar aldrig livstidsstatistik."
+    },
+    "filters": {
+      "channel": "Kanal",
+      "status": "Status",
+      "priority": "Prioritet",
+      "search": "Sök",
+      "searchPlaceholder": "Sök ärenden när aktiverat",
+      "disabledHint": "Filter och sök är inaktiverade tills APP-ärendeläsning aktiveras."
+    },
+    "list": {
+      "title": "Ärendelista",
+      "emptyTitle": "APP-ärendelistan är inte aktiverad",
+      "emptyBody": "Detta tomma läge betyder att den nya inkorgen är vilande — inte att APP-ärenderegistret är tomt. En tom äldre kö nedan är en separat datakälla.",
+      "columns": {
+        "customer": "Kund",
+        "subject": "Ämne",
+        "channel": "Kanal",
+        "status": "Status",
+        "priority": "Prioritet",
+        "updated": "Uppdaterad"
+      }
+    },
+    "detail": {
+      "title": "Ärendedetaljer",
+      "empty": "Välj ett ärende efter aktivering för detaljer och historik.",
+      "originalLanguage": "Originalspråk",
+      "norwegianTranslation": "Norsk översättning (planerad)",
+      "replyTranslation": "Översättning av utgående svar (planerad)",
+      "internalNotes": "Interna anteckningar",
+      "customerVisibleReply": "Kundsynligt svar",
+      "approveBeforeSend": "Kundsvar kräver manuellt godkännande innan sändning.",
+      "sendDisabled": "Skicka svar (inte tillgängligt)",
+      "history": "Historik",
+      "localeGap": "Källspråk lagras inte på ärenden ännu — språk uppfinns inte från operatörsgränssnittet."
+    },
+    "channels": {
+      "aipify_public_site": {
+        "label": "Aipify-webbplats",
+        "statusLinked": "Inte kopplad.",
+        "statusNotLinked": "Inte kopplad.",
+        "note": "Offentlig kontakt är inte bekräftad som ärendeintag till APP-registret."
+      },
+      "kompis_web": {
+        "label": "Kompis Web",
+        "statusLinked": "Inte kopplad.",
+        "statusNotLinked": "Inte kopplad.",
+        "note": "Besöksfrågor/FAQ är inte APP-ärende-SoT."
+      },
+      "kompis_bedrift_app": {
+        "label": "Kompis Bedrift",
+        "statusLinked": "Kopplad källa till sanning när aktiverad.",
+        "statusNotLinked": "Kopplad källa planerad.",
+        "note": "APP-portalärenden (app_portal) är planerad primär SoT för den här fliken."
+      },
+      "sellers_partners": {
+        "label": "Säljare",
+        "statusLinked": "Inte kopplad.",
+        "statusNotLinked": "Inte kopplad.",
+        "note": "Säljar-/Growth Partner-eskaleringar är inte bekräftade som ärendeintag ännu."
+      }
+    },
+    "linkStatus": {
+      "linked": "Kopplad",
+      "notLinked": "Inte kopplad"
     }
   }
 }

@@ -243,7 +243,7 @@
     "greetingSubtext": "Here is what Aipify has handled since your last visit.",
     "sinceLogin": {
       "title": "Since your last login",
-      "supportResolved": "{count} support requests resolved",
+      "supportResolved": "{count} support resolutions recorded in lifetime ops metrics (not ticket volume since login)",
       "automationsCompleted": "{count} automations completed",
       "approvalWaiting": "{count} approval awaiting review",
       "criticalIncidents": "{count} critical incidents detected",
@@ -330,7 +330,7 @@
       "sinceVisit": "Since your last visit:",
       "newCustomers": "{count} new customers acquired.",
       "trialsEnding": "{count} trial periods expire within 7 days.",
-      "supportResolved": "Aipify Support resolved {count} requests.",
+      "supportResolved": "Aipify recorded {count} lifetime support resolutions in ops metrics (not APP ticket SoT).",
       "escalated": "{count} support case(s) escalated.",
       "failedAutomations": "{count} automation(s) failed.",
       "systemWarnings": "{count} system warning(s) detected.",
@@ -381,7 +381,7 @@
       "expand": "Expand",
       "openModule": "Open module",
       "newCustomers": "New customers: {count}",
-      "supportResolved": "Support requests resolved: {count}",
+      "supportResolved": "Lifetime support resolutions (ops metric): {count}",
       "escalated": "Escalated cases: {count}",
       "installationsCompleted": "Installations completed: {count}",
       "automationsTriggered": "Automations triggered: {count}",
@@ -4582,9 +4582,9 @@
   },
   "support": {
     "title": "Support",
-    "subtitle": "Internal support queue with Aipify escalation visibility.",
+    "subtitle": "Legacy internal queue and operations metrics. Not the APP ticket register.",
     "loading": "Loading support queue...",
-    "empty": "No support cases yet.",
+    "empty": "No cases in the legacy support queue. This does not mean the APP ticket register is empty.",
     "customer": "Customer",
     "category": "Category",
     "priority": "Priority",
@@ -4609,16 +4609,17 @@
       "urgent": "Urgent"
     },
     "counters": {
-      "resolvedByAi": "Resolved by Aipifypifypify",
-      "escalatedByAi": "Escalated by Aipify",
-      "waitingHuman": "Waiting for Human",
-      "openCases": "Open Cases"
+      "resolvedByAi": "Lifetime resolutions (ops metric)",
+      "escalatedByAi": "Escalated (ops metric)",
+      "waitingHuman": "Waiting for human (ops metric)",
+      "openCases": "Open cases (ops metric)",
+      "scopeNote": "These figures come from the platform operations snapshot — not APP ticket SoT counts, and not “since last login” ticket volume."
     },
     "performance": {
       "title": "Aipify Support Performance",
       "subtitle": "Aipify uses Aipify first — visibility into Aipify-powered support value.",
       "requestsToday": "Requests today",
-      "resolvedByAi": "Resolved by Aipifypifypify",
+      "resolvedByAi": "Resolved by Aipify (ops metric)",
       "escalatedCases": "Escalated cases",
       "avgResponseTime": "Average response time",
       "satisfactionScore": "Customer satisfaction",
@@ -7650,6 +7651,86 @@
         "body": "Billing and license checks look healthy again. Visitor answers can resume within your verified package limits.",
         "cta": "Open connection status"
       }
+    }
+  },
+  "supportInbox": {
+    "title": "Support workspace",
+    "subtitle": "Unified Platform support for Aipify website, Kompis Web, Kompis Bedrift, and Sellers — prepared for APP tickets when Core read access is activated.",
+    "dormantBannerTitle": "APP ticket inbox is not active yet",
+    "dormantBannerBody": "This workspace shell is presentation-only. Live APP tickets stay unavailable until Core read RPCs are applied and the feature gate is turned on in a separate owner job. No customer tickets are loaded here.",
+    "legacySectionTitle": "Legacy support queue",
+    "legacySectionSubtitle": "The section below shows the older internal queue and operations metrics. It is not the APP ticket register (app_portal_support_requests).",
+    "statusCards": {
+      "open": "Open tickets",
+      "waiting": "Waiting",
+      "resolved": "Resolved or closed",
+      "total": "Total tickets",
+      "unavailable": "—",
+      "scopeNote": "Ticket counts stay unavailable while the APP SoT read path is dormant. These cards never show lifetime usage statistics."
+    },
+    "filters": {
+      "channel": "Channel",
+      "status": "Status",
+      "priority": "Priority",
+      "search": "Search",
+      "searchPlaceholder": "Search tickets when activated",
+      "disabledHint": "Filters and search are disabled until APP ticket reading is activated."
+    },
+    "list": {
+      "title": "Ticket list",
+      "emptyTitle": "APP ticket list not activated",
+      "emptyBody": "This empty state means the new inbox is dormant — not that the APP ticket register has zero rows. Legacy queue emptiness below is a separate data source.",
+      "columns": {
+        "customer": "Customer",
+        "subject": "Subject",
+        "channel": "Channel",
+        "status": "Status",
+        "priority": "Priority",
+        "updated": "Updated"
+      }
+    },
+    "detail": {
+      "title": "Ticket detail",
+      "empty": "Select a ticket after activation to review detail and history.",
+      "originalLanguage": "Original message language",
+      "norwegianTranslation": "Norwegian translation (planned)",
+      "replyTranslation": "Outbound reply translation (planned)",
+      "internalNotes": "Internal notes",
+      "customerVisibleReply": "Customer-visible reply",
+      "approveBeforeSend": "Customer replies will require manual approval before send.",
+      "sendDisabled": "Send reply (not available)",
+      "history": "History timeline",
+      "localeGap": "Source language is not stored on tickets yet — locale will not be invented from the operator UI."
+    },
+    "channels": {
+      "aipify_public_site": {
+        "label": "Aipify website",
+        "statusLinked": "Not linked.",
+        "statusNotLinked": "Not linked.",
+        "note": "Public contact is not confirmed as ticket ingest into the APP register."
+      },
+      "kompis_web": {
+        "label": "Kompis Web",
+        "statusLinked": "Not linked.",
+        "statusNotLinked": "Not linked.",
+        "note": "Visitor ask/FAQ is not APP ticket SoT."
+      },
+      "kompis_bedrift_app": {
+        "label": "Kompis Bedrift",
+        "statusLinked": "Linked source of truth when activated.",
+        "statusNotLinked": "Linked source planned.",
+        "note": "APP portal tickets (app_portal) are the planned primary SoT for this tab."
+      },
+      "sellers_partners": {
+        "label": "Sellers",
+        "statusLinked": "Not linked.",
+        "statusNotLinked": "Not linked.",
+        "note": "Seller / Growth Partner escalations are not confirmed as ticket ingest yet."
+      }
+    },
+    "linkStatus": {
+      "linked": "Linked",
+      "notLinked": "Not linked"
     }
   }
 }

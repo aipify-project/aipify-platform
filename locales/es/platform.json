@@ -750,5 +750,110 @@
       "invoices": "Facturas"
     },
     "dashboard": "Dashboard"
+  },
+  "supportInbox": {
+    "title": "Espacio de soporte",
+    "subtitle": "Soporte unificado de Platform para el sitio Aipify, Kompis Web, Kompis Bedrift y Vendedores — preparado para tickets APP cuando se active la lectura de Core.",
+    "dormantBannerTitle": "La bandeja de tickets APP aún no está activa",
+    "dormantBannerBody": "Este espacio es solo de presentación. No se cargan tickets APP en vivo hasta que se apliquen los RPC de lectura de Core y se active la función en un trabajo de propietario separado.",
+    "legacySectionTitle": "Cola de soporte anterior",
+    "legacySectionSubtitle": "La sección siguiente muestra la cola interna anterior y métricas operativas. No es el registro de tickets APP (app_portal_support_requests).",
+    "statusCards": {
+      "open": "Tickets abiertos",
+      "waiting": "En espera",
+      "resolved": "Resueltos o cerrados",
+      "total": "Total de tickets",
+      "unavailable": "—",
+      "scopeNote": "Los recuentos de tickets no están disponibles mientras la lectura APP está inactiva. Estas tarjetas nunca muestran estadísticas de por vida."
+    },
+    "filters": {
+      "channel": "Canal",
+      "status": "Estado",
+      "priority": "Prioridad",
+      "search": "Buscar",
+      "searchPlaceholder": "Buscar tickets cuando se active",
+      "disabledHint": "Los filtros y la búsqueda están desactivados hasta activar la lectura de tickets APP."
+    },
+    "list": {
+      "title": "Lista de tickets",
+      "emptyTitle": "La lista de tickets APP no está activada",
+      "emptyBody": "Este estado vacío significa que la nueva bandeja está inactiva — no que el registro APP esté vacío. Una cola anterior vacía abajo es otra fuente de datos.",
+      "columns": {
+        "customer": "Cliente",
+        "subject": "Asunto",
+        "channel": "Canal",
+        "status": "Estado",
+        "priority": "Prioridad",
+        "updated": "Actualizado"
+      }
+    },
+    "detail": {
+      "title": "Detalle del ticket",
+      "empty": "Seleccione un ticket tras la activación para ver detalle e historial.",
+      "originalLanguage": "Idioma original",
+      "norwegianTranslation": "Traducción al noruego (planificada)",
+      "replyTranslation": "Traducción de respuesta saliente (planificada)",
+      "internalNotes": "Notas internas",
+      "customerVisibleReply": "Respuesta visible para el cliente",
+      "approveBeforeSend": "Las respuestas al cliente requerirán aprobación manual antes del envío.",
+      "sendDisabled": "Enviar respuesta (no disponible)",
+      "history": "Historial",
+      "localeGap": "El idioma de origen aún no se almacena en los tickets — no se inventa desde la UI del operador."
+    },
+    "channels": {
+      "aipify_public_site": {
+        "label": "Sitio Aipify",
+        "statusLinked": "No vinculado.",
+        "statusNotLinked": "No vinculado.",
+        "note": "El contacto público no está confirmado como ingreso de tickets al registro APP."
+      },
+      "kompis_web": {
+        "label": "Kompis Web",
+        "statusLinked": "No vinculado.",
+        "statusNotLinked": "No vinculado.",
+        "note": "Preguntas/FAQ de visitantes no son SoT de tickets APP."
+      },
+      "kompis_bedrift_app": {
+        "label": "Kompis Bedrift",
+        "statusLinked": "Fuente de verdad vinculada cuando se active.",
+        "statusNotLinked": "Vinculación planificada.",
+        "note": "Los tickets del portal APP (app_portal) son el SoT principal previsto para esta pestaña."
+      },
+      "sellers_partners": {
+        "label": "Vendedores",
+        "statusLinked": "No vinculado.",
+        "statusNotLinked": "No vinculado.",
+        "note": "Las escalaciones de vendedores / Growth Partner aún no están confirmadas como ingreso de tickets."
+      }
+    },
+    "linkStatus": {
+      "linked": "Vinculado",
+      "notLinked": "No vinculado"
+    }
+  },
+  "support": {
+    "subtitle": "Cola interna anterior y métricas operativas. No es el registro de tickets APP.",
+    "empty": "No hay casos en la cola de soporte anterior. Esto no significa que el registro de tickets APP esté vacío.",
+    "counters": {
+      "resolvedByAi": "Resoluciones lifetime (métrica ops)",
+      "escalatedByAi": "Escalados (métrica ops)",
+      "waitingHuman": "Esperando a una persona (métrica ops)",
+      "openCases": "Casos abiertos (métrica ops)",
+      "scopeNote": "Estas cifras vienen del snapshot operativo de la plataforma — no del recuento de tickets APP ni de «desde el último inicio de sesión»."
+    },
+    "performance": {
+      "resolvedByAi": "Resuelto por Aipify (métrica ops)"
+    }
+  },
+  "executive": {
+    "sinceLogin": {
+      "supportResolved": "{count} resoluciones de soporte en métricas ops lifetime (no volumen de tickets desde el inicio de sesión)"
+    }
+  },
+  "overview": {
+    "briefing": {
+      "supportResolved": "Aipify registró {count} resoluciones lifetime en métricas ops (no SoT de tickets APP)."
+    },
+    "sinceLogin": {}
   }
 }
