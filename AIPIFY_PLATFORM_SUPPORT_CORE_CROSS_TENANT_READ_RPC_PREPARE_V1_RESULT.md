@@ -5,7 +5,8 @@
 **Base:** `origin/main` @ `d161610b`  
 **Branch:** `docs/platform-support-cross-tenant-read-rpc-prepare-v1`  
 **PR:** https://github.com/aipify-project/aipify-platform/pull/234  
-**Head:** `124e0041`  
+**Feature commit:** `91be9bcb`  
+**Branch tip:** see PR #234 HEAD (docs-only SHA bumps after feature commit)  
 **Website Kompis Public Chain:** **46/46 preserved** (static hash check in contract test)  
 **Step B stash:** preserved (untouched)  
 **PR #233:** **not merged** (still blocked on visual QA; accidental prepare commit reverted there → tip `2bb2cab9`)
