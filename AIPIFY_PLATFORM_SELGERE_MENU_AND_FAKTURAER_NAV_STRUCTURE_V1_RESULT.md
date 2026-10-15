@@ -2,14 +2,14 @@
 
 ## Status
 
-**READY for merge** (fill PR/merge/deploy after LIVE). Nav/IA only — no invoice engine.
+**LIVE** — nav/IA only; no invoice engine.
 
 ## Baseline
 
 | Item | Value |
 |---|---|
 | Worktree | `/Users/veltrix/Development/aipify-platform-selgere-menu-and-fakturaer-nav-structure-v1` |
-| Branch | `fix/platform-selgere-menu-and-fakturaer-nav-structure-v1` |
+| Branch | `fix/platform-selgere-menu-and-fakturaer-nav-structure-v1` (merged/deleted) |
 | Base | `origin/main` @ `45ece944` (customer-detail compaction present) |
 | Frozen WK 46/46 | Untouched |
 | Step B stash | Untouched |
@@ -51,13 +51,15 @@ Full invoice ops: row-level Stripe reconciliation, manual create, PDF send, dunn
 | `nav-sellers-commercial-structure.test.ts` | **PASS** |
 | `dashboard-business-language.test.ts` | **PASS** |
 | Auth visual click-through | **NOT RUN** (login-gated) |
-| CI / Vercel | Pending PR |
+| CI / Vercel preview | **PASS** |
 
 ## PR / deploy
 
 | Item | Value |
 |---|---|
-| PR | _pending_ |
-| Head | _pending_ |
-| Merge SHA | _pending_ |
-| Deploy | _pending_ |
+| PR | https://github.com/aipify-project/aipify-platform/pull/230 |
+| Head | `702e586e` |
+| Merge SHA | `5d0917e7` |
+| Deploy (aipify-platform) | `dpl_ESLULrdhDLtYAkPDWAZ8ggxZiRHp` **READY** → `app.aipify.ai` |
+| Deploy (aipify) | `dpl_ATQtHwzUgVdBjXx2yzXGzRBa8Fgh` **READY** |
+| Merged at | 2026-10-15T12:00:46Z |
