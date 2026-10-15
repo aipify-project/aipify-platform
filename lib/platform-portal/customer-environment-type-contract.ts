@@ -51,13 +51,23 @@ export const CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED = false;
 export const CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED = false;
 
 /**
- * D2G authored executable Core SQL (NOT_APPLIED — not in supabase/migrations/).
- * Authoring this file does not apply it. SHA must match file bytes exactly.
+ * Canonical apply candidate (D2J): D2G enforcement SQL + service_role EXECUTE.
+ * NOT_APPLIED — not in supabase/migrations/. SHA must match file bytes exactly.
  */
 export const CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_PATH =
-  "docs/platform/NOT_APPLIED_platform_customer_create_internal_environment_enforcement_v1.sql" as const;
+  "docs/platform/NOT_APPLIED_platform_customer_create_internal_environment_enforcement_v1_1_service_role_grant.sql" as const;
 
 export const CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_SHA256 =
+  "546c60b949f85097479207de8ad9e1a8bbe313e25e0def7d0f2732db70f78584" as const;
+
+/**
+ * D2G v1 (superseded for apply — omitted service_role EXECUTE after DROP/CREATE).
+ * Kept for historical identity checks only; do not cite for Production apply.
+ */
+export const CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_V1_SUPERSEDED_PATH =
+  "docs/platform/NOT_APPLIED_platform_customer_create_internal_environment_enforcement_v1.sql" as const;
+
+export const CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_V1_SUPERSEDED_SHA256 =
   "83056fb8fbf9c80293da68237ef8a4045ddfae96257669c8de7e5a4b6890733b" as const;
 
 /** What Core create writes today regardless of Platform prepare intent. */

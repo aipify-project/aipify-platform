@@ -11,6 +11,8 @@ import {
   CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED,
   CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_PATH,
   CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_SHA256,
+  CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_V1_SUPERSEDED_PATH,
+  CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_V1_SUPERSEDED_SHA256,
   assertEnvironmentTypeContractIsPrepareOnly,
 } from "./customer-environment-type-contract";
 
@@ -19,10 +21,13 @@ const sql = readFileSync(sqlPath, "utf8");
 const sha = createHash("sha256").update(sql).digest("hex");
 
 assert.equal(sha, CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_SHA256);
+assert.match(sqlPath, /v1_1_service_role_grant\.sql$/);
 assert.match(sqlPath, /^docs\/platform\//);
 assert.doesNotMatch(sqlPath, /supabase\/migrations\//);
 assert.match(sql, /NOT_APPLIED/);
 assert.match(sql, /DO NOT AUTO-DEPLOY|DO NOT EXECUTE/i);
+assert.match(sql, /SUPERSEDES/);
+assert.match(sql, /service_role/);
 
 const nonCommentLines = sql
   .split("\n")
@@ -51,11 +56,31 @@ assert.match(
 );
 assert.match(
   sql,
-  /grant execute on function public\.create_platform_portal_customer\(\s*text, text, text, text, text, text\s*\)/i,
+  /grant execute on function public\.create_platform_portal_customer\(\s*text, text, text, text, text, text\s*\)\s*to authenticated/i,
+);
+assert.match(
+  sql,
+  /grant execute on function public\.create_platform_portal_customer\(\s*text, text, text, text, text, text\s*\)\s*to service_role/i,
 );
 assert.match(sql, /trg_block_internal_customer_subscriptions/);
 assert.match(sql, /trg_block_internal_customer_installations/);
 assert.match(sql, /'environment_type', v_environment_type/);
+
+// Superseded D2G v1 must remain byte-stable and must NOT be the apply candidate.
+const v1 = readFileSync(
+  CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_V1_SUPERSEDED_PATH,
+  "utf8",
+);
+const v1Sha = createHash("sha256").update(v1).digest("hex");
+assert.equal(
+  v1Sha,
+  CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_V1_SUPERSEDED_SHA256,
+);
+assert.notEqual(v1Sha, sha);
+assert.doesNotMatch(
+  v1,
+  /grant execute on function public\.create_platform_portal_customer\(\s*text, text, text, text, text, text\s*\)\s*to service_role/i,
+);
 
 // Fail-closed Platform prepare gates must remain off in this authoring job.
 assert.equal(CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED, false);
@@ -110,13 +135,18 @@ const createRoute = readFileSync(
 );
 assert.doesNotMatch(createRoute, /p_environment_type/);
 
-// Apply plan present with matching SHA.
+// Apply plan present with matching SHA (v1.1).
 const applyPlan = readFileSync(
-  "docs/platform/NOT_APPLIED_platform_customer_create_internal_environment_enforcement_v1_APPLY_PLAN.md",
+  "docs/platform/NOT_APPLIED_platform_customer_create_internal_environment_enforcement_v1_1_APPLY_PLAN.md",
   "utf8",
 );
 assert.match(applyPlan, /NOT AUTHORIZED TO APPLY/);
 assert.match(applyPlan, new RegExp(CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_SHA256));
+assert.match(applyPlan, /service_role/);
+assert.match(
+  applyPlan,
+  new RegExp(CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_V1_SUPERSEDED_SHA256),
+);
 
 // Frozen Website Kompis public chain 46/46
 const manifest = JSON.parse(
