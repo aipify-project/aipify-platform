@@ -1,9 +1,12 @@
 # Apply / recovery / verification plan — internal environment enforcement v1
 
-**Status:** NOT AUTHORIZED TO APPLY  
-**SQL path:** `docs/platform/NOT_APPLIED_platform_customer_create_internal_environment_enforcement_v1.sql`  
-**SHA-256:** `83056fb8fbf9c80293da68237ef8a4045ddfae96257669c8de7e5a4b6890733b`  
-**Core deploy path (future):** owner-named apply relocates or applies this file once; never via silent CI into `supabase/migrations/` without that YES.
+**Status:** SUPERSEDED FOR APPLY — use v1.1 instead  
+**SQL path (historical):** `docs/platform/NOT_APPLIED_platform_customer_create_internal_environment_enforcement_v1.sql`  
+**SHA-256 (historical):** `83056fb8fbf9c80293da68237ef8a4045ddfae96257669c8de7e5a4b6890733b`  
+**Apply candidate:** `docs/platform/NOT_APPLIED_platform_customer_create_internal_environment_enforcement_v1_1_service_role_grant.sql`  
+**Apply SHA-256:** `546c60b949f85097479207de8ad9e1a8bbe313e25e0def7d0f2732db70f78584`  
+**Why superseded:** D2I found Production grants EXECUTE to `service_role` as well as `authenticated`; v1 omitted `service_role` after DROP/CREATE.  
+**Core deploy path (future):** owner-named apply of **v1.1** only; never via silent CI into `supabase/migrations/` without that YES.
 
 ## Dependencies (must already exist on target)
 
