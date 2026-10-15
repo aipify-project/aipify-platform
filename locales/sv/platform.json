@@ -119,7 +119,8 @@
       "growthPartners": "Säljarregister",
       "invoices": "Fakturor"
     },
-    "sellers": "Säljare"
+    "sellers": "Säljare",
+    "dashboard": "Dashboard"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -138,7 +139,7 @@
     "platform_admin": "Platform Administrator"
   },
   "nav": {
-    "overview": "Plattformsöversikt",
+    "overview": "Dashboard",
     "operationsOverview": "Driftsöversikt",
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
@@ -159,13 +160,13 @@
     "marketplace": "Marknadsplats",
     "growthPartners": "Säljarregister",
     "knowledgeCenter": "Kunskapscenter",
-    "translationManagement": "Översättningshantering",
+    "translationManagement": "Språk och översättningar",
     "documentation": "Dokumentation",
     "businessPacks": "Business Packs",
     "moduleRegistry": "Module Registry",
     "appStoreRevenue": "App Store Revenue",
     "productManagement": "Produkthantering",
-    "installationOversight": "Installationsöversikt",
+    "installationOversight": "Installationer",
     "activityLogs": "Aktivitetslogg",
     "governanceRecords": "Styrningsregister",
     "securityReviews": "Säkerhetsgranskningar",
@@ -217,12 +218,12 @@
     "platformComplianceGovernanceCenter": "Compliance-center",
     "platformPlaybookCenter": "Playbooks",
     "platformHealthOperationsCenter": "Plattformhälsa",
-    "system": "System status",
+    "system": "Systeminställningar",
     "pilotOperations": "Customer Zero-center",
-    "unonightPilot": "Unonight pilotkontroll",
+    "unonightPilot": "Customer Zero / testkörning",
     "licenses": "Licenser",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification",
+    "websiteReleaseVerification": "Webbplatsverifiering",
     "providerOnboarding": "Provider-onboarding",
     "websiteKompisPlans": "Kompis Web-planer",
     "growthPartnerAttribution": "Försäljningslänkar och attribution",

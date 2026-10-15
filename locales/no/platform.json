@@ -101,7 +101,8 @@
     "searchDescriptions": {
       "growthPartners": "Selgerregister",
       "invoices": "Fakturaer"
-    }
+    },
+    "dashboard": "Dashboard"
   },
   "search": "Søk etter kunder…",
   "sidebar": {
@@ -121,7 +122,7 @@
     "platform_admin": "Platform Administrator"
   },
   "nav": {
-    "overview": "Platformoversikt",
+    "overview": "Dashboard",
     "operationsOverview": "Driftsoversikt",
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
@@ -141,11 +142,11 @@
     "marketplace": "Markedsplass",
     "growthPartners": "Selgerregister",
     "knowledgeCenter": "Kunnskapssenter",
-    "translationManagement": "Oversettelsesadministrasjon",
+    "translationManagement": "Språk og oversettelser",
     "documentation": "Dokumentasjon",
     "businessPacks": "Business Packs",
     "productManagement": "Produktstyring",
-    "installationOversight": "Installasjonsoversikt",
+    "installationOversight": "Installasjoner",
     "activityLogs": "Aktivitetslogg",
     "governanceRecords": "Styringsregistre",
     "securityReviews": "Sikkerhetsgjennomganger",
@@ -170,7 +171,7 @@
     "paymentProviders": "Payment providers",
     "support": "Support",
     "automations": "Automatiseringer",
-    "system": "System status",
+    "system": "Systeminnstillinger",
     "intelligence": "Intelligence",
     "actions": "Action Center",
     "skills": "Skills",
@@ -190,7 +191,7 @@
     "companionMarketplace": "Companion Marketplace",
     "skillGovernancePipeline": "Skill Governance Pipeline",
     "pilotOperations": "Customer Zero-senter",
-    "unonightPilot": "Unonight pilotkontroll",
+    "unonightPilot": "Customer Zero / testdrift",
     "paymentOperations": "Betalingsoperasjonssenter",
     "paymentHealth": "Betalingshelse",
     "paymentAnalytics": "Betalingsanalyse",
@@ -203,7 +204,7 @@
     "changeOperations": "Endringsoperasjoner",
     "licenses": "Lisenser",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification",
+    "websiteReleaseVerification": "Nettsideverifisering",
     "providerOnboarding": "Provider-onboarding",
     "websiteKompisPlans": "Kompis Web-planer",
     "growthPartnerAttribution": "Salgslenker og attribusjon",

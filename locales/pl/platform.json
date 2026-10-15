@@ -119,7 +119,8 @@
       "growthPartners": "Rejestr sprzedawców",
       "invoices": "Faktury"
     },
-    "sellers": "Sprzedawcy"
+    "sellers": "Sprzedawcy",
+    "dashboard": "Dashboard"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -138,7 +139,7 @@
     "platform_admin": "Administrator Platformy"
   },
   "nav": {
-    "overview": "Przegląd platformy",
+    "overview": "Dashboard",
     "operationsOverview": "Przegląd operacji",
     "buildHealthCenter": "Centrum kondycji kompilacji",
     "aosCore": "Centrum AOS Core",
@@ -159,13 +160,13 @@
     "marketplace": "Marketplace",
     "growthPartners": "Rejestr sprzedawców",
     "knowledgeCenter": "Centrum wiedzy",
-    "translationManagement": "Zarządzanie tłumaczeniami",
+    "translationManagement": "Język i tłumaczenia",
     "documentation": "Dokumentacja",
     "businessPacks": "Business Packs",
     "moduleRegistry": "Rejestr modułów",
     "appStoreRevenue": "Przychody App Store",
     "productManagement": "Zarządzanie produktem",
-    "installationOversight": "Przegląd instalacji",
+    "installationOversight": "Instalacje",
     "activityLogs": "Dziennik aktywności",
     "governanceRecords": "Rejestry zarządzania",
     "securityReviews": "Przeglądy bezpieczeństwa",
@@ -217,12 +218,12 @@
     "platformComplianceGovernanceCenter": "Centrum zgodności",
     "platformPlaybookCenter": "Instrukcje operacyjne",
     "platformHealthOperationsCenter": "Kondycja platformy",
-    "system": "Status systemu",
+    "system": "Ustawienia systemu",
     "pilotOperations": "Centrum Customer Zero",
-    "unonightPilot": "Kontrola pilotażu Unonight",
+    "unonightPilot": "Customer Zero / operacje testowe",
     "licenses": "Licencje",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification",
+    "websiteReleaseVerification": "Weryfikacja strony",
     "providerOnboarding": "Onboarding dostawców",
     "websiteKompisPlans": "Plany Kompis Web",
     "growthPartnerAttribution": "Linki sprzedażowe i atrybucja",
