@@ -6,6 +6,8 @@
 | Worktree | `/Users/veltrix/Development/aipify-bedrift-d2s-internal-sandbox-create-path-author-only-v1` |
 | Base | `origin/main` @ `2150fa46` (D2R merge) |
 | Branch | `feat/kompis-bedrift-d2s-internal-sandbox-create-path-author-only-v1` |
+| PR | https://github.com/aipify-project/aipify-platform/pull/221 |
+| Feature head | `1f569bca715d92de2a15346fae53db6803e2958b` |
 | Frozen WK | **46/46** |
 | Step B stash | **intact** (`step-b-wip-blocked-not-for-merge`) |
 
