@@ -29,9 +29,10 @@ test("sidebar group order matches IA polish: sellers last", () => {
   assert.equal(PLATFORM_NAV_GROUPS.at(-1)?.id, "sellers");
 });
 
-test("sellers group collects growth partner routes; commercial has invoices first", () => {
+test("sellers group collects growth partner routes; commercial starts with finance overview", () => {
   const sellers = PLATFORM_NAV_GROUPS.find((g) => g.id === "sellers");
   const commercial = PLATFORM_NAV_GROUPS.find((g) => g.id === "commercial");
+  const product = PLATFORM_NAV_GROUPS.find((g) => g.id === "product");
   assert.ok(sellers);
   assert.deepEqual(
     sellers!.items.map((i) => i.id),
@@ -40,7 +41,12 @@ test("sellers group collects growth partner routes; commercial has invoices firs
   assert.ok(commercial);
   assert.deepEqual(
     commercial!.items.map((i) => i.id),
-    ["invoices", "payments", "subscriptions", "marketplace"],
+    ["payments", "invoices", "subscriptions", "marketplace"],
+  );
+  assert.ok(product);
+  assert.ok(
+    product!.items.some((i) => i.id === "licenses"),
+    "license registry belongs under Product",
   );
   assert.ok(PLATFORM_COLLAPSIBLE_GROUPS.includes("sellers"));
   assert.equal(
@@ -105,9 +111,17 @@ test("locale parity for sellers group and clearer economy labels", () => {
     navGroups: { sellers: string };
     nav: { invoices: string; payments: string };
   };
-  assert.equal(no.navGroups.sellers, "Selgere");
-  assert.equal(no.nav.invoices, "Kundefakturaer");
-  assert.equal(no.nav.payments, "Betalingssenter");
+  const noFull = JSON.parse(
+    readFileSync(join(ROOT, "locales/no/platform.json"), "utf8"),
+  ) as {
+    navGroups: { sellers: string };
+    nav: { invoices: string; payments: string; licenses: string; commissions: string };
+  };
+  assert.equal(noFull.navGroups.sellers, "Selgere");
+  assert.equal(noFull.nav.invoices, "Kundefakturaer");
+  assert.equal(noFull.nav.payments, "Økonomioversikt");
+  assert.equal(noFull.nav.licenses, "Lisensregister");
+  assert.equal(noFull.nav.commissions, "Selgerprovisjoner");
 });
 
 console.log("platform-nav-sellers-commercial-structure: all tests passed");

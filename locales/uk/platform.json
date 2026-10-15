@@ -156,7 +156,7 @@
     "operationsAuditLogs": "Журнал подій",
     "organizations": "Організації",
     "customerSuccess": "Успіх клієнта",
-    "payments": "Платіжний центр",
+    "payments": "Фінансовий огляд",
     "marketplace": "Маркетплейс",
     "growthPartners": "Реєстр продавців",
     "knowledgeCenter": "Центр знань",
@@ -221,13 +221,13 @@
     "system": "Системні налаштування",
     "pilotOperations": "Нульовий центр клієнтів",
     "unonightPilot": "Customer Zero / тестова експлуатація",
-    "licenses": "Ліцензії",
+    "licenses": "Реєстр ліцензій",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Перевірка сайту",
     "providerOnboarding": "Онбординг провайдерів",
     "websiteKompisPlans": "Плани Kompis Web",
     "growthPartnerAttribution": "Посилання на продаж і атрибуція",
-    "commissions": "Комісії"
+    "commissions": "Комісії продавців"
   },
   "executive": {
     "title": "Виконавчий центр",
@@ -1773,99 +1773,124 @@
     "auditLogs": "Ревізійний журнал"
   },
   "billingCommerceCenter": {
-    "title": "Платежі та комерція",
-    "subtitle": "Уніфікований контроль платформи для ідентифікації клієнта, платіжних профілів, підписок, податків, ліцензій і передачі бухгалтерського обліку.",
-    "principle": "Кожен продаж має бути відстежуваним від ідентифікації до рахунку-фактури, податків і бухгалтерського обліку.",
-    "privacyNote": "Лише агрегати платформи — жодного операційного вмісту клієнта, крім метаданих платежів.",
-    "loading": "Підготовка білінгово-комерційного центру",
-    "empty": "Платіжні та комерційні дані недоступні.",
-    "openModule": "Відкритий модуль",
-    "back": "Назад до рахунків і комерції",
-    "overview": "Огляд",
-    "stats": "Статистика",
-    "records": "Записи",
-    "legalReviewBanner": "Перегляньте правила оподаткування та логіку ПДВ з бухгалтерським та юридичним обліком перед публічним запуском.",
-    "relatedOperations": "Пов'язані операції",
+    "title": "Угоди та продажі — фінанси",
+    "subtitle": "Фінансовий огляд: клієнтські рахунки, платежі, угоди, податки, провайдери, звіти та бухгалтерський експорт.",
+    "principle": "Every sale must be traceable from agreement to invoice, payment, tax, and accounting — without confusing planned integrations for live settlement.",
+    "privacyNote": "Platform aggregates only — no customer operational content beyond billing metadata.",
+    "loading": "Preparing finance overview",
+    "empty": "Finance overview data is unavailable.",
+    "openModule": "Open",
+    "back": "Назад до фінансового огляду",
+    "overview": "Фінансовий огляд",
+    "stats": "Statistics",
+    "records": "Records",
+    "legalReviewBanner": "Review tax and VAT display with accounting and legal before changing checkout behaviour.",
+    "relatedOperations": "Related operations",
     "relatedLinks": {
-      "paymentOperations": "Платіжні операції",
-      "revenueOperations": "Прибуткові операції",
-      "subscriptionOperations": "Операції з підписки"
+      "paymentOperations": "Payment operations",
+      "revenueOperations": "Revenue operations",
+      "subscriptionOperations": "Agreement operations"
     },
     "overviewStats": {
-      "activeCustomers": "Активні клієнти",
-      "overdueCustomers": "Прострочені клієнти",
-      "openInvoices": "Відкриті рахунки",
-      "draftCheckouts": "Чорнові каси"
+      "activeCustomers": "Active customers",
+      "overdueCustomers": "Overdue customers",
+      "openInvoices": "Open customer invoices",
+      "draftCheckouts": "Draft checkouts"
     },
     "nav": {
-      "overview": "Огляд",
-      "customerIdentity": "Ідентичність клієнта",
-      "billingProfiles": "Платіжні профілі",
-      "subscriptions": "Підписки",
-      "invoices": "Рахунки-фактури",
-      "vatEngine": "Двигун ПДВ",
-      "paymentProviders": "Постачальники платежів",
-      "taxRules": "Правила оподаткування",
+      "overview": "Фінансовий огляд",
+      "customerIdentity": "Ідентичність клієнта (розрахункові метадані)",
+      "billingProfiles": "Платежі",
+      "subscriptions": "Клієнтські угоди",
+      "invoices": "Клієнтські рахунки",
+      "vatEngine": "Збори та ПДВ",
+      "paymentProviders": "Платіжні провайдери",
+      "taxRules": "Податкові правила (відображення)",
       "businessPacks": "Business Packs",
-      "licensePurchases": "Придбання ліцензій",
-      "domainLicenses": "Ліцензії на домен",
-      "growthPartnerAttribution": "Атрибуція Growth Partner",
-      "licenses": "Ліцензії",
-      "commissions": "Комісії",
-      "accountingExport": "Експорт бухгалтерського обліку",
-      "disputes": "суперечки",
-      "reports": "Звіти",
-      "accountingIntegration": "Інтеграція бухгалтерського обліку"
+      "licensePurchases": "Купівля ліцензій",
+      "domainLicenses": "Доменні ліцензії",
+      "growthPartnerAttribution": "Посилання на продаж і атрибуція",
+      "licenses": "Реєстр ліцензій",
+      "commissions": "Комісії продавців",
+      "accountingExport": "Бухгалтерський експорт",
+      "disputes": "Повернення та платіжні суперечки",
+      "reports": "Фінансові звіти",
+      "accountingIntegration": "Бухгалтерські інтеграції"
     },
     "modules": {
-      "customerIdentity": "Ідентичність клієнта",
-      "billingProfiles": "Платіжні профілі",
-      "subscriptions": "Підписки",
-      "invoices": "Рахунки-фактури",
-      "vatEngine": "Двигун ПДВ",
-      "paymentProviders": "Постачальники платежів",
-      "taxRules": "Правила оподаткування",
+      "customerIdentity": "Ідентичність клієнта (розрахункові метадані)",
+      "billingProfiles": "Платежі",
+      "subscriptions": "Клієнтські угоди",
+      "invoices": "Клієнтські рахунки",
+      "vatEngine": "Збори та ПДВ",
+      "paymentProviders": "Платіжні провайдери",
+      "taxRules": "Податкові правила (відображення)",
       "businessPacks": "Business Packs",
-      "licensePurchases": "Придбання ліцензій",
-      "domainLicenses": "Ліцензії на домен",
-      "growthPartnerAttribution": "Атрибуція Growth Partner",
-      "accountingIntegration": "Інтеграція бухгалтерського обліку"
+      "licensePurchases": "Купівля ліцензій",
+      "domainLicenses": "Доменні ліцензії",
+      "growthPartnerAttribution": "Посилання на продаж і атрибуція",
+      "accountingIntegration": "Бухгалтерські інтеграції",
+      "licenses": "Реєстр ліцензій",
+      "commissions": "Комісії продавців",
+      "accountingExport": "Бухгалтерський експорт",
+      "disputes": "Повернення та платіжні суперечки",
+      "reports": "Фінансові звіти"
     },
     "moduleDescriptions": {
-      "customerIdentity": "Записи клієнтів, номери організацій і метадані платіжної особи.",
-      "billingProfiles": "Незалежні від постачальника платіжні профілі, заповнювачі KID і платіжні адреси.",
-      "subscriptions": "Плани, пробні періоди та життєвий цикл підписки для всіх орендарів.",
-      "invoices": "Виписка рахунків, статус і звірка платежів.",
-      "vatEngine": "Оплата ПДВ, тип клієнта, підтвердження бізнесу та податкові записи рахунків-фактур.",
-      "paymentProviders": "Конфігурація та справність Stripe, DNB, Klarna та Vipps.",
-      "taxRules": "Норвегія, правила зворотного стягнення плати в ЄС і резервні правила застосовуються під час оплати.",
-      "businessPacks": "Каталог Business Pack, ліцензування та оркестровка ринку.",
-      "licensePurchases": "Історія покупок ліцензій на домен і користувача, прив’язана до оплати.",
-      "domainLicenses": "Включені та придбані пули ліцензій на домен для кожної організації.",
-      "growthPartnerAttribution": "Атрибуція Growth Partner від першого дотику через право на комісію.",
-      "accountingIntegration": "Fiken, Stripe і координація обліку через Integration Engine."
+      "customerIdentity": "Billing identity metadata only — organisations live in the customer register.",
+      "billingProfiles": "Payment profiles and billing addresses. Does not execute payments from this screen.",
+      "subscriptions": "Customer agreements and plan lifecycle across organisations.",
+      "invoices": "Рахунки, які Aipify виставляє клієнтам — не рахунки постачальників.",
+      "vatEngine": "Відображення ПДВ і зборів. Правила розрахунку тут не змінюються.",
+      "paymentProviders": "Конфігурація та стан провайдерів. Відключені провайдери ніколи не мають виглядати підключеними.",
+      "taxRules": "Display of tax rule catalogues. Rates and calculation logic are out of scope for this view.",
+      "businessPacks": "Business Pack catalogue references for licensing.",
+      "licensePurchases": "License purchase history tied to checkout records.",
+      "domainLicenses": "Included and purchased domain license pools per organisation.",
+      "growthPartnerAttribution": "Seller attribution from first touch through commission eligibility.",
+      "accountingIntegration": "Accounting system connections. Status reflects configuration — not live posting.",
+      "licenses": "License registry for subscription, domain, and capacity licenses.",
+      "commissions": "Seller commission eligibility and payout preparation from paid invoices.",
+      "accountingExport": "Prepare customer, invoice, payment, VAT and commission exports for accounting systems.",
+      "disputes": "Refund requests, credit notes, and payment disputes.",
+      "reports": "Finance reports for revenue, VAT, agreements and partner commissions."
+    },
+    "subNavAria": "Навігація Угоди та продажі — фінанси",
+    "groups": {
+      "core": "Рахунки, платежі та угоди",
+      "tax": "Збори та ПДВ",
+      "reporting": "Повернення, звіти та бухгалтерія"
+    },
+    "sections": {
+      "finance": "Фінансові модулі",
+      "customers": "Зв’язок із реєстром клієнтів",
+      "product": "Продукт і ліцензії",
+      "sellers": "Продавці",
+      "customersHint": "Ідентичність клієнта належить до реєстру клієнтів. Цей екран містить лише розрахункові метадані.",
+      "productHint": "Business Packs і ліцензії належать до Продукту. Основна навігація — у розділі Продукт.",
+      "sellersHint": "Посилання на продаж, атрибуція та комісії продавців належать до Продавців у бічному меню."
     }
   },
   "unifiedBillingAdmin": {
     "licenses": {
-      "title": "Реєстр ліцензій",
-      "subtitle": "Ліцензії на передплату, домен, бізнес-пакет і ємність користувача, пов’язані з платіжними записами."
+      "title": "License registry",
+      "subtitle": "Subscription, domain, Business Pack, and user capacity licenses connected to billing records."
     },
     "commissions": {
-      "title": "Комісії Growth Partner",
-      "subtitle": "Атрибуція партнера, право на комісію та підготовка виплат із оплачених рахунків."
+      "title": "Seller commissions",
+      "subtitle": "Partner attribution, commission eligibility, and payout preparation from paid invoices."
     },
     "disputes": {
-      "title": "Повернення коштів і спори",
-      "subtitle": "Запити на відшкодування, схвалення, кредитні ноти та суперечки щодо платежів."
+      "title": "Refunds and payment disputes",
+      "subtitle": "Refund requests, approvals, credit notes, and payment disputes."
     },
     "reports": {
-      "title": "Платіжні звіти",
-      "subtitle": "Дохід, ПДВ, підписка, партнерська комісія та підсумки експорту бухгалтерського обліку."
+      "title": "Finance reports",
+      "subtitle": "Revenue, VAT, agreement, partner commission, and accounting export summaries."
     },
     "accountingExport": {
-      "title": "Експорт бухгалтерського обліку",
-      "subtitle": "Підготуйте експорт клієнтів, рахунків-фактур, платежів, ПДВ і комісії для Fiken та інших систем."
+      "title": "Accounting export",
+      "subtitle": "Prepare customer, invoice, payment, VAT, and commission exports for Fiken and other systems."
     }
   },
   "subscriptions": {

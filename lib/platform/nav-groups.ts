@@ -66,9 +66,9 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
     labelKey: "platform.navGroups.commercial",
     defaultExpanded: true,
     items: [
-      // Invoices first — easiest to find for billing operators
-      { id: "invoices", labelKey: "platform.nav.invoices" },
+      // Finance overview first, then invoices / agreements / marketplace
       { id: "payments", labelKey: "platform.nav.payments" },
+      { id: "invoices", labelKey: "platform.nav.invoices" },
       { id: "subscriptions", labelKey: "platform.nav.subscriptions" },
       { id: "marketplace", labelKey: "platform.nav.marketplace" },
     ],
@@ -89,6 +89,7 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
     items: [
       { id: "productManagement", labelKey: "platform.nav.productManagement" },
       { id: "businessPacks", labelKey: "platform.nav.businessPacks" },
+      { id: "licenses", labelKey: "platform.nav.licenses" },
       { id: "websiteKompisPlans", labelKey: "platform.nav.websiteKompisPlans" },
     ],
   },

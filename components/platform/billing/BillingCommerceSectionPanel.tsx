@@ -24,9 +24,9 @@ type BillingCommerceSectionPanelProps = {
 function StatCard({ label, value }: { label: string; value: number | string | boolean }) {
   const display = typeof value === "boolean" ? (value ? "Yes" : "No") : value;
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-      <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">{label}</dt>
-      <dd className="mt-2 text-xl font-semibold text-gray-900">{display}</dd>
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm">
+      <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</dt>
+      <dd className="mt-2 text-xl font-semibold text-slate-900">{display}</dd>
     </div>
   );
 }
