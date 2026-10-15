@@ -5,8 +5,8 @@
 **Date:** 2026-10-15  
 **Baseline `origin/main`:** `5eca3f83d52ec95a94ac9bce5be3d1fed1828f51` (#245 LIVE)  
 **Branch:** `feat/super-platform-j3a-role-access-ro-v1`  
-**Feature HEAD:** `b37743eb11de0cb2659e4917eeaf9b2b5c1ae158`  
-**PR:** (filled after open)
+**Feature HEAD:** `2776d73b66d5be4e71b8a73e470b484c975961ba` (docs tip; security code tip `b37743eb11de0cb2659e4917eeaf9b2b5c1ae158`)  
+**PR:** https://github.com/aipify-project/aipify-platform/pull/247
 
 ---
 
