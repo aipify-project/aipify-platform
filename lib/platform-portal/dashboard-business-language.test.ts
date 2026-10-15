@@ -42,10 +42,12 @@ assert.match(
 );
 assert.equal(no.navGroups.operations, "Drift");
 assert.equal(no.navGroups.customers, "Kunder");
+assert.equal(no.navGroups.sellers, "Selgere");
 assert.equal(no.navGroups.commercial, "Avtaler og salg");
 assert.equal(no.navGroups.knowledge, "Kunnskap");
 assert.equal(no.navGroups.product, "Produkt");
 assert.equal(no.navGroups.auditGovernance, "Kontroll og styring");
+assert.equal(no.nav.invoices, "Fakturaer");
 assert.equal(no.nav.overview, "Platformoversikt");
 assert.equal(no.nav.operationsOverview, "Driftsoversikt");
 assert.equal(no.nav.platformHealth, "Plattformstatus");

@@ -115,8 +115,11 @@
     "searchDescriptions": {
       "platformAcademyStudio": "Growth Partner Academy — навчання, сертифікація та комерційна підтримка.",
       "companionMarketplace": "Керований каталог Companion і нагляд за розгортанням.",
-      "skillGovernancePipeline": "Процеси впровадження навичок, управління та затвердження."
-    }
+      "skillGovernancePipeline": "Процеси впровадження навичок, управління та затвердження.",
+      "growthPartners": "Реєстр продавців",
+      "invoices": "Рахунки-фактури"
+    },
+    "sellers": "Продавці"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -154,7 +157,7 @@
     "customerSuccess": "Успіх клієнта",
     "payments": "Платежі",
     "marketplace": "Маркетплейс",
-    "growthPartners": "Growth Partners",
+    "growthPartners": "Реєстр продавців",
     "knowledgeCenter": "Центр знань",
     "translationManagement": "Керування перекладами",
     "documentation": "Документація",
@@ -221,7 +224,9 @@
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
     "providerOnboarding": "Онбординг провайдерів",
-    "websiteKompisPlans": "Плани Kompis Web"
+    "websiteKompisPlans": "Плани Kompis Web",
+    "growthPartnerAttribution": "Посилання на продаж і атрибуція",
+    "commissions": "Комісії"
   },
   "executive": {
     "title": "Виконавчий центр",

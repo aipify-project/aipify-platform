@@ -98,6 +98,9 @@ export const AipifyNavClasses = {
   itemIcon: "text-aipify-text-secondary",
   itemActive: "bg-aipify-companion text-white shadow-sm",
   itemActiveIcon: "text-white",
+  /** Platform selected state — light blue (selection), not status green/red. */
+  itemActiveLight: "bg-sky-100 text-sky-950 shadow-sm ring-1 ring-sky-200/90",
+  itemActiveLightIcon: "text-sky-700",
   groupLabel: "text-aipify-text-secondary hover:bg-aipify-surface-muted hover:text-aipify-text",
 } as const;
 

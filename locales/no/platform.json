@@ -96,7 +96,12 @@
     "revenueBilling": "Omsetning og fakturering",
     "deploymentPlatform": "Publisering og plattform",
     "intelligenceAutomation": "Innsikt og automatisering",
-    "marketplace": "Markedsplass"
+    "marketplace": "Markedsplass",
+    "sellers": "Selgere",
+    "searchDescriptions": {
+      "growthPartners": "Selgerregister",
+      "invoices": "Fakturaer"
+    }
   },
   "search": "Søk etter kunder…",
   "sidebar": {
@@ -134,7 +139,7 @@
     "customerSuccess": "Kundesuksess",
     "payments": "Betalinger",
     "marketplace": "Markedsplass",
-    "growthPartners": "Growth Partners",
+    "growthPartners": "Selgerregister",
     "knowledgeCenter": "Kunnskapssenter",
     "translationManagement": "Oversettelsesadministrasjon",
     "documentation": "Dokumentasjon",
@@ -200,7 +205,9 @@
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
     "providerOnboarding": "Provider-onboarding",
-    "websiteKompisPlans": "Kompis Web-planer"
+    "websiteKompisPlans": "Kompis Web-planer",
+    "growthPartnerAttribution": "Salgslenker og attribusjon",
+    "commissions": "Provisjoner"
   },
   "overview": {
     "title": "Aipify Platform Admin",

@@ -3,6 +3,7 @@ import type { PlatformNavId } from "./nav-config";
 export type PlatformNavGroupId =
   | "operations"
   | "customers"
+  | "sellers"
   | "commercial"
   | "knowledge"
   | "product"
@@ -47,18 +48,25 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
     ],
   },
   {
+    id: "sellers",
+    labelKey: "platform.navGroups.sellers",
+    items: [
+      { id: "growthPartners", labelKey: "platform.nav.growthPartners" },
+      {
+        id: "growthPartnerAttribution",
+        labelKey: "platform.nav.growthPartnerAttribution",
+      },
+      { id: "commissions", labelKey: "platform.nav.commissions" },
+    ],
+  },
+  {
     id: "commercial",
     labelKey: "platform.navGroups.commercial",
     items: [
       { id: "payments", labelKey: "platform.nav.payments" },
-      {
-        id: "growthPartnerAttribution",
-        labelKey: "platform.billingCommerceCenter.nav.growthPartnerAttribution",
-      },
-      { id: "commissions", labelKey: "platform.billingCommerceCenter.nav.commissions" },
+      { id: "invoices", labelKey: "platform.nav.invoices" },
       { id: "subscriptions", labelKey: "platform.nav.subscriptions" },
       { id: "marketplace", labelKey: "platform.nav.marketplace" },
-      { id: "growthPartners", labelKey: "platform.nav.growthPartners" },
     ],
   },
   {
@@ -100,6 +108,7 @@ export const PLATFORM_NAV_COMPACT_STORAGE_KEY = "aipify.platform.nav.compact.v2"
 export const PLATFORM_COLLAPSIBLE_GROUPS: PlatformNavGroupId[] = [
   "operations",
   "customers",
+  "sellers",
   "commercial",
   "knowledge",
   "product",
