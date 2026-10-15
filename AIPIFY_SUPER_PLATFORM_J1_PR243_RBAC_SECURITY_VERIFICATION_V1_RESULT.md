@@ -147,3 +147,5 @@ PR #238 · Support SQL NOT_APPLIED · Website Kompis freeze · Step B stash · J
 ## STOP
 
 Verification complete. Awaiting owner decision; **no merge/LIVE performed**.
+
+**Verification push HEAD:** `d0b495a9297f19ac0a6255bd3a962ea1e3cff0ce`
