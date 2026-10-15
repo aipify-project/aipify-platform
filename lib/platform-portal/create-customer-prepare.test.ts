@@ -146,13 +146,17 @@ const plan = buildCustomerCreatePreparePlan({
 });
 assert.equal(plan.dryRun, true);
 assert.equal(plan.mode, "prepare");
-// D2F: Core environment_type RPC not connected — must not claim ready for create.
-assert.equal(plan.readyForLaterCreate, false);
+// D2M: Core 6-arg RPC connected after D2L; execute remain fail-closed.
+assert.equal(plan.readyForLaterCreate, true);
 assert.equal(plan.environmentType.resolved, "production");
-assert.equal(plan.environmentType.rpcConnected, false);
+assert.equal(plan.environmentType.rpcConnected, true);
 assert.equal(plan.environmentType.coreWouldPersistToday, "production");
 assert.ok(
+  plan.executeBlockedReasons.includes("create_execute_not_enabled"),
+);
+assert.equal(
   plan.executeBlockedReasons.includes("environment_type_rpc_not_connected"),
+  false,
 );
 assert.equal(plan.ownerApprovalRequired, true);
 

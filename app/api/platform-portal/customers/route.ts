@@ -60,12 +60,15 @@ export async function POST(request: Request) {
 
     const { value } = parsedInput;
     // verificationSource is validated in parseCustomerCreationInput (brreg only for NO).
+    // Post-D2L Core is 6-arg with p_environment_type default production. Ordinary
+    // Platform create always passes production — never trust a client internal flag.
     const { data, error } = await supabase.rpc("create_platform_portal_customer", {
       p_organization_number: value.organizationNumber,
       p_legal_name: value.legalName,
       p_display_name: value.displayName,
       p_slug: value.slug,
       p_country: value.country,
+      p_environment_type: "production",
     });
 
     if (error) {

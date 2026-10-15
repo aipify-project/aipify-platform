@@ -1,13 +1,14 @@
 /**
- * D2F — Generic Platform/Core customer create environment_type contract (prepare).
+ * D2F / D2M — Generic Platform/Core customer create environment_type contract.
  *
  * Canonical create-path values: production | internal.
  * Schema also allows pilot/customer/enterprise/staging (legacy + staging harness);
  * those are not selectable via ordinary Platform create prepare.
  *
- * TODAY: Core `create_platform_portal_customer` hardcodes environment_type='production'.
- * Platform has no connected RPC parameter. Declared internal invariants are NOT
- * Core-enforced. This module must not be read as "internal sandbox available".
+ * Post-D2L (2026-10-15): Core create is 6-arg with p_environment_type (default
+ * production). Internal create remains fail-closed while Core helper and Platform
+ * CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED stay false. This module must
+ * not be read as "internal sandbox available" or "Bedrift demo works".
  */
 
 /** Values accepted on the future generic create path (NOT connected to Core yet). */
@@ -45,10 +46,11 @@ export const CUSTOMER_CREATE_ENVIRONMENT_TYPE_CONTRACT_ID =
 export const CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED = false;
 
 /**
- * Whether Core create RPC accepts p_environment_type (false until NOT_APPLIED
- * SQL is owner-approved and applied in a separate job).
+ * Whether Core create RPC accepts p_environment_type.
+ * True after D2L applied v1.1 enforcement SQL (SHA 546c60b9…78584).
+ * Does NOT authorize internal create or Platform execute.
  */
-export const CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED = false;
+export const CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED = true;
 
 /**
  * Canonical apply candidate (D2J): D2G enforcement SQL + service_role EXECUTE.
@@ -70,9 +72,17 @@ export const CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_V1_SUPERSEDED_PATH =
 export const CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_V1_SUPERSEDED_SHA256 =
   "83056fb8fbf9c80293da68237ef8a4045ddfae96257669c8de7e5a4b6890733b" as const;
 
-/** What Core create writes today regardless of Platform prepare intent. */
+/**
+ * Default Core persist when p_environment_type is omitted (RPC default).
+ * Post-D2L Core no longer hardcodes ignoring the parameter; production remains
+ * the safe default for ordinary Platform create.
+ */
 export const CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE =
   "production" as const;
+
+/** Alias — preferred name after D2L connected the RPC parameter. */
+export const CUSTOMER_CREATE_CORE_DEFAULT_ENVIRONMENT_TYPE =
+  CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE;
 
 export type CustomerCreateEnvironmentTypeErrorCode =
   | "invalid_environment_type"
@@ -86,7 +96,7 @@ export type CustomerCreateEnvironmentResolution = {
   serverInternalAuthorized: boolean;
   rpcConnected: boolean;
   /** Honest: what Core would persist if create ran today. */
-  coreWouldPersistToday: typeof CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE;
+  coreWouldPersistToday: PlatformCustomerCreateEnvironmentType;
   enforcementStatus: "not_enforced" | "prepare_only" | "enforced";
   clientForgeryRejected: boolean;
 };
@@ -184,7 +194,7 @@ export function resolveCustomerCreateEnvironmentType(input: {
         defaultApplied: true,
         serverInternalAuthorized,
         rpcConnected: CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED,
-        coreWouldPersistToday: CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE,
+        coreWouldPersistToday: CUSTOMER_CREATE_CORE_DEFAULT_ENVIRONMENT_TYPE,
         enforcementStatus: CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED
           ? "enforced"
           : "not_enforced",
@@ -209,7 +219,11 @@ export function resolveCustomerCreateEnvironmentType(input: {
       defaultApplied: false,
       serverInternalAuthorized,
       rpcConnected: CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED,
-      coreWouldPersistToday: CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE,
+      // When RPC is connected, Core persists the resolved value (still blocked
+      // for internal by Core helper + Platform authorize flags).
+      coreWouldPersistToday: CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED
+        ? raw
+        : CUSTOMER_CREATE_CORE_DEFAULT_ENVIRONMENT_TYPE,
       enforcementStatus: CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED
         ? "enforced"
         : "prepare_only",
@@ -224,10 +238,10 @@ export function listInternalEnvironmentInvariants(): InternalEnvironmentInvarian
     {
       key: "not_billable",
       declared: true,
-      enforcedToday: false,
+      enforcedToday: true,
       enforcedAfterExecutableSqlApply: true,
       evidence:
-        "After D2G SQL apply: triggers block subscriptions + license links for internal; Stripe/provider objects remain a separate gate",
+        "D2L applied: triggers block subscriptions + license links for internal; Stripe/provider objects remain a separate gate",
     },
     {
       key: "no_automatic_provisioning",
@@ -235,15 +249,15 @@ export function listInternalEnvironmentInvariants(): InternalEnvironmentInvarian
       enforcedToday: true,
       enforcedAfterExecutableSqlApply: true,
       evidence:
-        "Create RPC already creates identity only (no licenses/domains/installs)",
+        "Create RPC creates identity only (no licenses/domains/installs)",
     },
     {
       key: "no_public_website_binding",
       declared: true,
-      enforcedToday: false,
+      enforcedToday: true,
       enforcedAfterExecutableSqlApply: true,
       evidence:
-        "After D2G SQL apply: triggers block organization_domains, customer_domains, installations for internal; website CMS publish paths remain a separate gate if needed",
+        "D2L applied: triggers block organization_domains, customer_domains, installations for internal; website CMS publish paths remain a separate gate",
     },
     {
       key: "no_automatic_license_grant",
@@ -251,7 +265,7 @@ export function listInternalEnvironmentInvariants(): InternalEnvironmentInvarian
       enforcedToday: true,
       enforcedAfterExecutableSqlApply: true,
       evidence:
-        "Create does not write tenant_modules; Bedrift activate remain allowlist-gated; license-link trigger blocks internal",
+        "Create does not write tenant_modules; Bedrift activate remain allowlist-gated; license-link trigger blocks internal; commercial activate still needs subscription (D2M exception SQL separate)",
     },
     {
       key: "no_security_control_bypass",
@@ -264,10 +278,10 @@ export function listInternalEnvironmentInvariants(): InternalEnvironmentInvarian
     {
       key: "super_admin_only_internal_create",
       declared: true,
-      enforcedToday: false,
+      enforcedToday: true,
       enforcedAfterExecutableSqlApply: true,
       evidence:
-        "After apply: platform_support denied via INTERNAL_ENVIRONMENT_SUPER_ADMIN_REQUIRED; helper still false",
+        "D2L applied: platform_support denied via INTERNAL_ENVIRONMENT_SUPER_ADMIN_REQUIRED; helper still false so super_admin also denied",
     },
     {
       key: "admin_reporting_label",
@@ -280,18 +294,18 @@ export function listInternalEnvironmentInvariants(): InternalEnvironmentInvarian
     {
       key: "full_audit_isolation",
       declared: true,
-      enforcedToday: false,
+      enforcedToday: true,
       enforcedAfterExecutableSqlApply: true,
       evidence:
-        "After apply: platform_customer_created audit metadata includes environment_type",
+        "D2L applied: platform_customer_created audit metadata includes environment_type",
     },
     {
       key: "persisted_environment_type_internal",
       declared: true,
-      enforcedToday: false,
+      enforcedToday: true,
       enforcedAfterExecutableSqlApply: true,
       evidence:
-        "After apply + helper authorize: create persists p_environment_type; today still hardcoded production; helper remains false so internal create stays blocked",
+        "D2L applied: create accepts p_environment_type; helper remains false so unauthorized internal create stays blocked",
     },
   ];
 }
@@ -350,10 +364,13 @@ export function buildCustomerCreateEnvironmentTypePreparePacket(input?: {
   };
 }
 
+/**
+ * Fail-closed for internal create / execute. RPC may be connected after D2L
+ * without authorizing sandbox creation.
+ */
 export function assertEnvironmentTypeContractIsPrepareOnly(): boolean {
   return (
-    CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED === false &&
     CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED === false &&
-    CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE === "production"
+    CUSTOMER_CREATE_CORE_DEFAULT_ENVIRONMENT_TYPE === "production"
   );
 }

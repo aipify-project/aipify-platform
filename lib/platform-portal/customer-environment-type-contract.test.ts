@@ -27,7 +27,7 @@ assert.deepEqual(PLATFORM_CUSTOMER_CREATE_ENVIRONMENT_TYPES, [
 assert.ok(CUSTOMERS_ENVIRONMENT_TYPE_SCHEMA_VALUES.includes("production"));
 assert.ok(CUSTOMERS_ENVIRONMENT_TYPE_SCHEMA_VALUES.includes("internal"));
 assert.ok(CUSTOMERS_ENVIRONMENT_TYPE_SCHEMA_VALUES.includes("staging"));
-assert.equal(CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED, false);
+assert.equal(CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED, true);
 assert.equal(CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED, false);
 assert.equal(CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE, "production");
 assert.ok(assertEnvironmentTypeContractIsPrepareOnly());
@@ -43,7 +43,7 @@ if (defaulted.ok) {
   assert.equal(defaulted.value.resolved, "production");
   assert.equal(defaulted.value.defaultApplied, true);
   assert.equal(defaulted.value.coreWouldPersistToday, "production");
-  assert.equal(defaulted.value.enforcementStatus, "not_enforced");
+  assert.equal(defaulted.value.enforcementStatus, "enforced");
 }
 
 const forged = resolveCustomerCreateEnvironmentType({
@@ -70,8 +70,8 @@ const authorizedInternal = resolveCustomerCreateEnvironmentType({
 assert.equal(authorizedInternal.ok, true);
 if (authorizedInternal.ok) {
   assert.equal(authorizedInternal.value.resolved, "internal");
-  assert.equal(authorizedInternal.value.coreWouldPersistToday, "production");
-  assert.equal(authorizedInternal.value.enforcementStatus, "prepare_only");
+  assert.equal(authorizedInternal.value.coreWouldPersistToday, "internal");
+  assert.equal(authorizedInternal.value.enforcementStatus, "enforced");
 }
 
 const invariants = listInternalEnvironmentInvariants();
@@ -80,7 +80,7 @@ assert.ok(
   invariants.some(
     (row) =>
       row.key === "persisted_environment_type_internal" &&
-      row.enforcedToday === false &&
+      row.enforcedToday === true &&
       row.enforcedAfterExecutableSqlApply === true,
   ),
 );
@@ -93,7 +93,7 @@ assert.ok(
   invariants.some(
     (row) =>
       row.key === "super_admin_only_internal_create" &&
-      row.enforcedToday === false &&
+      row.enforcedToday === true &&
       row.enforcedAfterExecutableSqlApply === true,
   ),
 );
@@ -183,6 +183,7 @@ const createRoute = readFileSync(
   "utf8",
 );
 assert.match(createRoute, /create_platform_portal_customer/);
-assert.doesNotMatch(createRoute, /p_environment_type/);
+assert.match(createRoute, /p_environment_type:\s*["']production["']/);
+assert.doesNotMatch(createRoute, /p_environment_type:\s*["']internal["']/);
 
 console.log("customer-environment-type-contract: all tests passed");

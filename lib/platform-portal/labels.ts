@@ -501,7 +501,34 @@ export function buildPlatformPortalKompisBedriftLabels(
     reasonLabels: {
       agreement_activeOk: t(`${c}.reasons.agreementActiveOk`),
       agreement_activeMissing: t(`${c}.reasons.agreementActiveMissing`),
+      internal_demo_entitlement_exceptionOk: t(
+        `${c}.reasons.internalDemoEntitlementExceptionOk`,
+      ),
+      internal_demo_entitlement_exceptionMissing: t(
+        `${c}.reasons.internalDemoEntitlementExceptionMissing`,
+      ),
     },
+  };
+}
+
+export function buildPlatformPortalInternalSandboxEnablementLabels(
+  t: Translator,
+): {
+  title: string;
+  summary: string;
+  notLive: string;
+  orgnrCollisionUnoNight: string;
+  entitlementExceptionPending: string;
+  nextGateSqlOnly: string;
+} {
+  const c = "platform.customers.internalSandboxEnablement";
+  return {
+    title: t(`${c}.title`),
+    summary: t(`${c}.summary`),
+    notLive: t(`${c}.notLive`),
+    orgnrCollisionUnoNight: t(`${c}.orgnrCollisionUnoNight`),
+    entitlementExceptionPending: t(`${c}.entitlementExceptionPending`),
+    nextGateSqlOnly: t(`${c}.nextGateSqlOnly`),
   };
 }
 

@@ -82,8 +82,8 @@ assert.doesNotMatch(
   /grant execute on function public\.create_platform_portal_customer\(\s*text, text, text, text, text, text\s*\)\s*to service_role/i,
 );
 
-// Fail-closed Platform prepare gates must remain off in this authoring job.
-assert.equal(CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED, false);
+// Fail-closed Platform authorize/execute gates remain off (RPC may be connected post-D2L).
+assert.equal(CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED, true);
 assert.equal(CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED, false);
 assert.ok(assertEnvironmentTypeContractIsPrepareOnly());
 
@@ -128,12 +128,13 @@ const commentExec = commentSql
   .filter((line) => line.length > 0 && !line.startsWith("--"));
 assert.equal(commentExec.length, 0);
 
-// Legacy create route still must not pass p_environment_type (prepare-only era).
+// Ordinary Platform create passes production only (never client-controlled internal).
 const createRoute = readFileSync(
   "app/api/platform-portal/customers/route.ts",
   "utf8",
 );
-assert.doesNotMatch(createRoute, /p_environment_type/);
+assert.match(createRoute, /p_environment_type:\s*["']production["']/);
+assert.doesNotMatch(createRoute, /p_environment_type:\s*["']internal["']/);
 
 // Apply plan present with matching SHA (v1.1).
 const applyPlan = readFileSync(
