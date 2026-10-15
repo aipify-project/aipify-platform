@@ -15,21 +15,26 @@
 
 Writes, outbound replies, and email remain a **separate** owner job (may tighten to super_admin + confirmation).
 
-## Future Platform API (next job after SQL apply)
+## Platform API + READ adapter (Phase A — inactive)
 
-Suggested thin route (not created here):
+Thin server routes and adapter exist but are **fail-closed** until Core SQL apply **and** an explicit feature-gate job:
 
-- `GET /api/platform-portal/support-requests` → `list_platform_app_portal_support_requests`
-- `GET /api/platform-portal/support-requests/[id]` → `get_platform_app_portal_support_request`
-- `GET /api/platform-portal/support-requests/counts` → `get_platform_app_portal_support_request_counts`
+| Surface | Path / module | Live? |
+|---------|---------------|-------|
+| Adapter | `lib/platform-portal/support-tickets-read-adapter.ts` | **No** (`RPC_CONNECTED=false`, `FEATURE_GATE=false`) |
+| List | `GET /api/platform-portal/support-requests` | **No** → HTTP 503 `rpc_not_applied` |
+| Detail | `GET /api/platform-portal/support-requests/[id]` | **No** |
+| Counts | `GET /api/platform-portal/support-requests/counts` | **No** |
+| UI `/platform/support` | Still `list_platform_support_queue` | Legacy only — **not** APP SoT |
 
 Rules:
 
-1. Server-side session must prove Platform admin via existing portal auth helpers (same as other `platform-portal` routes).
-2. Never accept a client-supplied “role” or “isAdmin” flag.
-3. Map stable status/channel/priority codes through Platform i18n labels — never show raw codes as primary UI.
+1. Server-side session via `createClient()` + `getUser()` — never service-role for ticket reads; never trust client-supplied role flags.
+2. Core RBAC remains `_ppsf258_require_platform_access` (active `super_admin` \| `platform_support`) after apply.
+3. Map stable status/channel/priority codes through Platform i18n labels — never show raw codes as primary UI (UI job).
 4. List uses `description_preview`; detail uses bounded `description` + `timeline`.
 5. Treat `source_locale: null` as “unknown / not stored” — do not invent from operator UI locale.
+6. Product inboxes **Aipify public site**, **Kompis Web**, and **Selgere** are documented `NOT_LINKED` until ingest is proven; only APP/`app_portal` is linked SoT today.
 
 ## KPI rules (mandatory)
 
