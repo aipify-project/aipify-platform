@@ -4,21 +4,39 @@ import {
   buildPasswordResetRedirectUrl,
   readRequestHostFromHeaders,
 } from "@/lib/auth/auth-redirect-urls";
+import {
+  isForgotPasswordUnknownAccountMessage,
+  logForgotPasswordFailure,
+  mapForgotPasswordProviderError,
+  normalizeForgotPasswordEmail,
+} from "@/lib/auth/forgot-password";
 import { createClient } from "@/lib/supabase/server";
 
-function normalizeEmail(raw: unknown): string | null {
-  if (typeof raw !== "string") return null;
-  const trimmed = raw.trim().toLowerCase();
-  return trimmed || null;
-}
+const NO_STORE = { "Cache-Control": "no-store" } as const;
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { email?: unknown };
-    const email = normalizeEmail(body.email);
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { error: "request_failed" },
+        { status: 400, headers: NO_STORE },
+      );
+    }
+
+    const email = normalizeForgotPasswordEmail(
+      body && typeof body === "object" && !Array.isArray(body)
+        ? (body as Record<string, unknown>).email
+        : null,
+    );
 
     if (!email) {
-      return NextResponse.json({ error: "email_required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "email_required" },
+        { status: 400, headers: NO_STORE },
+      );
     }
 
     const supabase = await createClient();
@@ -27,14 +45,37 @@ export async function POST(request: Request) {
       requestHost: readRequestHostFromHeaders(headerStore),
     });
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo,
+    });
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      // Anti-enumeration: unknown account must look like success publicly.
+      if (isForgotPasswordUnknownAccountMessage(error.message)) {
+        return NextResponse.json(
+          { ok: true, redirectToHost: new URL(redirectTo).host },
+          { headers: NO_STORE },
+        );
+      }
+
+      const code = mapForgotPasswordProviderError(error.message);
+      logForgotPasswordFailure({
+        code,
+        status: 400,
+        providerMessageLength: error.message?.length,
+      });
+      return NextResponse.json({ error: code }, { status: 400, headers: NO_STORE });
     }
 
-    return NextResponse.json({ ok: true, redirectToHost: new URL(redirectTo).host });
+    return NextResponse.json(
+      { ok: true, redirectToHost: new URL(redirectTo).host },
+      { headers: NO_STORE },
+    );
   } catch {
-    return NextResponse.json({ error: "request_failed" }, { status: 500 });
+    logForgotPasswordFailure({ code: "request_failed", status: 500 });
+    return NextResponse.json(
+      { error: "request_failed" },
+      { status: 500, headers: NO_STORE },
+    );
   }
 }
