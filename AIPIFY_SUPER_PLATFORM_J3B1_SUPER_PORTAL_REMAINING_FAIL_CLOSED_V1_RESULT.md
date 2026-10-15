@@ -5,8 +5,8 @@
 **Date:** 2026-10-16  
 **Baseline `origin/main`:** `139fd717abf5c5d34d561a0c9685fed4f04a4fa2`  
 **Branch:** `feat/super-platform-j3b1-super-portal-fail-closed-v1`  
-**Feature HEAD:** (see git / PR after push)  
-**PR:** (filled after open)
+**Feature HEAD:** `e6a14d5f55d877a04ee42fa0ba3bfdb72526eb43`  
+**PR:** https://github.com/aipify-project/aipify-platform/pull/248
 
 ---
 
