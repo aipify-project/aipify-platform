@@ -90,7 +90,12 @@
     "product": "Produkt",
     "auditGovernance": "Kontrol og styring",
     "system": "System",
-    "platformAdmin": "Platform Admin"
+    "platformAdmin": "Platform Admin",
+    "sellers": "Sælgere",
+    "searchDescriptions": {
+      "growthPartners": "Sælgerregister",
+      "invoices": "Fakturaer"
+    }
   },
   "search": "Søg efter kunder…",
   "sidebar": {
@@ -129,7 +134,7 @@
     "customerSuccess": "Kundesucces",
     "payments": "Betalinger",
     "marketplace": "Markedsplads",
-    "growthPartners": "Growth Partners",
+    "growthPartners": "Sælgerregister",
     "knowledgeCenter": "Videnscenter",
     "translationManagement": "Oversættelsesadministration",
     "documentation": "Dokumentation",
@@ -145,7 +150,7 @@
     "commercialIntelligence": "Indtægtscenter",
     "subscriptions": "Kundaftaler",
     "billing": "Billing",
-    "invoices": "Invoices",
+    "invoices": "Fakturaer",
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Opdateringer",
@@ -193,7 +198,9 @@
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
     "providerOnboarding": "Provider-onboarding",
-    "websiteKompisPlans": "Kompis Web-planer"
+    "websiteKompisPlans": "Kompis Web-planer",
+    "growthPartnerAttribution": "Salgslinks og attribuering",
+    "commissions": "Provisioner"
   },
   "overview": {
     "title": "Aipify Platform Admin",
