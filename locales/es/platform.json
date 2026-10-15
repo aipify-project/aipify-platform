@@ -919,5 +919,33 @@
         "name": "Pro"
       }
     }
+  },
+  "portalStructure": {
+    "dashboard": {
+      "superAdminInsight": {
+        "title": "Resumen del grupo",
+        "subtitle": "Agregados de Super Admin de solo lectura para ejecutivos cualificados. Las operaciones diarias permanecen en Platform.",
+        "loading": "Cargando resumen del grupo…",
+        "loadError": "No se pudo cargar el resumen del grupo. Inténtelo de nuevo o abra Super Admin para ver los detalles.",
+        "retry": "Reintentar",
+        "privacyNote": "Solo métricas ejecutivas agregadas — sin contenido comercial del cliente.",
+        "periodNote": "Los totales de organizaciones y acuerdos son de por vida. Los porcentajes de crecimiento cubren los últimos 30 días.",
+        "totalOrganizations": "Organizaciones cliente (histórico)",
+        "totalRegisteredUsers": "Usuarios registrados (histórico)",
+        "totalActiveSubscriptions": "Acuerdos activos (actuales)",
+        "activePlatformSupportAdmins": "Administradores activos de Platform Support",
+        "openCriticalIncidents": "Incidentes críticos abiertos",
+        "globalPlatformStatus": "Estado global de la plataforma",
+        "organizationGrowth30d": "Proporción de organizaciones nuevas (últimos 30 días)",
+        "subscriptionGrowth30d": "Proporción de acuerdos nuevos (últimos 30 días)",
+        "executiveAlertCount": "Alertas abiertas de alta prioridad",
+        "openSuperDashboard": "Abrir panel de Super Admin",
+        "statuses": {
+          "operational": "Operativo",
+          "attention_required": "Requiere atención",
+          "unknown": "Estado no disponible"
+        }
+      }
+    }
   }
 }

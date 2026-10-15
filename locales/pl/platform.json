@@ -42,6 +42,30 @@
         "major": "Większa aktualizacja",
         "security": "Aktualizacja bezpieczeństwa",
         "database_migration": "Aktualizacja bazy danych"
+      },
+      "superAdminInsight": {
+        "title": "Przegląd grupy",
+        "subtitle": "Agregaty Super Admin tylko do odczytu dla uprawnionych liderów. Codzienna eksploatacja pozostaje w Platform.",
+        "loading": "Ładowanie przeglądu grupy…",
+        "loadError": "Nie udało się wczytać przeglądu grupy. Spróbuj ponownie lub otwórz Super Admin, aby zobaczyć szczegóły.",
+        "retry": "Spróbuj ponownie",
+        "privacyNote": "Wyłącznie zagregowane wskaźniki kierownicze — bez treści biznesowych klientów.",
+        "periodNote": "Liczby organizacji i umów to wartości łączne. Procenty wzrostu obejmują ostatnie 30 dni.",
+        "totalOrganizations": "Organizacje klientów (łącznie)",
+        "totalRegisteredUsers": "Zarejestrowani użytkownicy (łącznie)",
+        "totalActiveSubscriptions": "Aktywne umowy (bieżące)",
+        "activePlatformSupportAdmins": "Aktywni administratorzy Platform Support",
+        "openCriticalIncidents": "Otwarte krytyczne incydenty",
+        "globalPlatformStatus": "Globalny status platformy",
+        "organizationGrowth30d": "Udział nowych organizacji (ostatnie 30 dni)",
+        "subscriptionGrowth30d": "Udział nowych umów (ostatnie 30 dni)",
+        "executiveAlertCount": "Otwarte alerty wysokiego priorytetu",
+        "openSuperDashboard": "Otwórz pulpit Super Admin",
+        "statuses": {
+          "operational": "Sprawna",
+          "attention_required": "Wymaga uwagi",
+          "unknown": "Status niedostępny"
+        }
       }
     },
     "foundation": {

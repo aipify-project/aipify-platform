@@ -42,6 +42,30 @@
         "major": "Major update",
         "security": "Security update",
         "database_migration": "Database update"
+      },
+      "superAdminInsight": {
+        "title": "Group overview",
+        "subtitle": "Read-only Super Admin aggregates for qualified executives. Daily operations stay in Platform.",
+        "loading": "Loading group overview…",
+        "loadError": "Group overview could not be loaded. Try again or open Super Admin for details.",
+        "retry": "Try again",
+        "privacyNote": "Aggregate executive metrics only — no customer business content.",
+        "periodNote": "Organization and agreement totals are lifetime counts. Growth percentages cover the last 30 days.",
+        "totalOrganizations": "Customer organizations (lifetime)",
+        "totalRegisteredUsers": "Registered users (lifetime)",
+        "totalActiveSubscriptions": "Active agreements (current)",
+        "activePlatformSupportAdmins": "Active Platform Support administrators",
+        "openCriticalIncidents": "Open critical incidents",
+        "globalPlatformStatus": "Global platform status",
+        "organizationGrowth30d": "New organizations share (last 30 days)",
+        "subscriptionGrowth30d": "New agreements share (last 30 days)",
+        "executiveAlertCount": "Open high-priority alerts",
+        "openSuperDashboard": "Open Super Admin dashboard",
+        "statuses": {
+          "operational": "Operational",
+          "attention_required": "Attention required",
+          "unknown": "Status unavailable"
+        }
       }
     },
     "foundation": {

@@ -42,6 +42,30 @@
         "major": "Større opdatering",
         "security": "Sikkerhedsopdatering",
         "database_migration": "Databaseopdatering"
+      },
+      "superAdminInsight": {
+        "title": "Koncernoversigt",
+        "subtitle": "Skrivebeskyttede Super Admin-aggregater for kvalificerede ledere. Daglig drift forbliver i Platform.",
+        "loading": "Indlæser koncernoversigt…",
+        "loadError": "Koncernoversigten kunne ikke indlæses. Prøv igen, eller åbn Super Admin for detaljer.",
+        "retry": "Prøv igen",
+        "privacyNote": "Kun aggregerede ledelsesmålinger — intet kundens forretningsindhold.",
+        "periodNote": "Organisations- og aftaletal er livstidstal. Vækstprocenter dækker de seneste 30 dage.",
+        "totalOrganizations": "Kundeorganisationer (livstid)",
+        "totalRegisteredUsers": "Registrerede brugere (livstid)",
+        "totalActiveSubscriptions": "Aktive aftaler (aktuelle)",
+        "activePlatformSupportAdmins": "Aktive Platform Support-administratorer",
+        "openCriticalIncidents": "Åbne kritiske hændelser",
+        "globalPlatformStatus": "Global platformstatus",
+        "organizationGrowth30d": "Andel nye organisationer (seneste 30 dage)",
+        "subscriptionGrowth30d": "Andel nye aftaler (seneste 30 dage)",
+        "executiveAlertCount": "Åbne advarsler med høj prioritet",
+        "openSuperDashboard": "Åbn Super Admin-dashboard",
+        "statuses": {
+          "operational": "Operationel",
+          "attention_required": "Kræver opmærksomhed",
+          "unknown": "Status utilgængelig"
+        }
       }
     },
     "foundation": {
