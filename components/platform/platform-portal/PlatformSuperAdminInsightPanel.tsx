@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PlatformLayoutClasses } from "@/lib/design";
 import { SUPER_ADMIN_DASHBOARD_HREF } from "@/lib/super-portal/dashboard-access-constants";
 import { parseSuperPortalDashboard } from "@/lib/super-portal/parse";
@@ -9,8 +9,8 @@ import {
   toPlatformSuperAdminInsightView,
   type PlatformSuperAdminInsightView,
 } from "@/lib/super-portal/platform-insight";
+import { armInsightFetchTimeout } from "@/lib/super-portal/platform-insight-client";
 import type { PlatformSuperAdminInsightLabels } from "@/lib/super-portal/platform-insight-labels";
-import { AipifyLoader } from "@/components/ui/aipify-loader";
 
 type PlatformSuperAdminInsightPanelProps = {
   labels: PlatformSuperAdminInsightLabels;
@@ -63,14 +63,45 @@ function InsightMetric({
   );
 }
 
+/** Compact in-card pulse skeleton — avoids the shared loader’s large empty plane and default English copy. */
+function InsightLoadingSkeleton({ label }: { label: string }) {
+  return (
+    <div
+      className="mt-4"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+      data-state="loading"
+      data-area="super-admin-insight-loading"
+    >
+      <span className="sr-only">{label}</span>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div
+            key={index}
+            className="h-[4.25rem] animate-pulse rounded-xl border border-violet-100/90 bg-white/80 dark:border-violet-900/40 dark:bg-slate-900/35"
+            aria-hidden="true"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function PlatformSuperAdminInsightPanel({
   labels,
 }: PlatformSuperAdminInsightPanelProps) {
   const [insight, setInsight] = useState<PlatformSuperAdminInsightView | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
+  const requestRef = useRef<AbortController | null>(null);
 
   const load = useCallback(async () => {
+    requestRef.current?.abort();
+    const controller = new AbortController();
+    requestRef.current = controller;
+    const clearTimeoutArm = armInsightFetchTimeout(controller);
+
     setLoading(true);
     setLoadError(false);
     setInsight(null);
@@ -79,9 +110,10 @@ export default function PlatformSuperAdminInsightPanel({
       const res = await fetch("/api/super-portal/dashboard", {
         credentials: "same-origin",
         cache: "no-store",
+        signal: controller.signal,
       });
       if (!res.ok) {
-        setLoadError(true);
+        if (requestRef.current === controller) setLoadError(true);
         return;
       }
 
@@ -89,26 +121,39 @@ export default function PlatformSuperAdminInsightPanel({
       try {
         payload = await res.json();
       } catch {
-        setLoadError(true);
+        if (requestRef.current === controller) setLoadError(true);
         return;
       }
 
       const parsed = parseSuperPortalDashboard(payload);
       if (!parsed) {
-        setLoadError(true);
+        if (requestRef.current === controller) setLoadError(true);
         return;
       }
 
-      setInsight(toPlatformSuperAdminInsightView(parsed));
+      if (requestRef.current === controller) {
+        setInsight(toPlatformSuperAdminInsightView(parsed));
+      }
     } catch {
+      if (requestRef.current !== controller) return;
+      // Timeout (AbortError) and network failures share the existing calm error + retry UI.
+      // Unmount / superseded requests are ignored via requestRef above.
       setLoadError(true);
     } finally {
-      setLoading(false);
+      clearTimeoutArm();
+      if (requestRef.current === controller) {
+        setLoading(false);
+      }
     }
   }, []);
 
   useEffect(() => {
     void load();
+    return () => {
+      const active = requestRef.current;
+      requestRef.current = null;
+      active?.abort();
+    };
   }, [load]);
 
   return (
@@ -136,12 +181,7 @@ export default function PlatformSuperAdminInsightPanel({
         </Link>
       </div>
 
-      {loading ? (
-        <div className="mt-6 flex min-h-[8rem] items-center justify-center">
-          <AipifyLoader centered />
-          <span className="sr-only">{labels.loading}</span>
-        </div>
-      ) : null}
+      {loading ? <InsightLoadingSkeleton label={labels.loading} /> : null}
 
       {!loading && loadError ? (
         <div
