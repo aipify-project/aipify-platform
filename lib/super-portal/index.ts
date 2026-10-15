@@ -10,4 +10,6 @@ export * from "./platform-insight-labels";
 export * from "./platform-insight-client";
 export * from "./platform-revision";
 export * from "./platform-revision-labels";
+export * from "./platform-role-access";
+export * from "./platform-role-access-labels";
 // dashboard-access is server-only (NextResponse / createClient) — import directly.

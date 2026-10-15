@@ -126,6 +126,27 @@
         "previous": "Tidligere værdi",
         "next": "Ny værdi"
       }
+    },
+    "superRoleAccess": {
+      "title": "Roller og adgange",
+      "subtitle": "Skrivbeskyttet Super Admin-oversigt over APP-rolle- og tilladelsesaggregater. Redigerer ikke kunderoller.",
+      "sourceNote": "Kilde: Super Admin-rolleoversigt (get_super_admin_role_permission_matrix_overview). Redigering af roller i Customer APP sker i et separat indstillingsområde.",
+      "definitionNote": "Tallene er kun platformomfattende aggregater — ingen organisationsidentifikatorer eller adgangsrevisionsrækker.",
+      "loading": "Indlæser oversigt over roller og adgange…",
+      "loadError": "Oversigten over roller og adgange kunne ikke indlæses. Prøv igen, eller åbn Super Admin for detaljer.",
+      "retry": "Prøv igen",
+      "empty": "Ingen aggregater for roller og adgange er tilgængelige endnu.",
+      "unavailableTitle": "Roller og adgange ikke tilgængelige",
+      "unavailableMessage": "Denne Super Admin-oversigt kræver en aktiv Super Admin-rolle med bekræftet tofaktorgodkendelse og gendannelseskoder.",
+      "openSuperMatrix": "Åbn Super-rollematrix",
+      "backToPlatform": "Tilbage til Platform",
+      "totalPermissions": "Tilladelsesdefinitioner",
+      "totalModules": "Aktive moduler",
+      "organizationsWithGrants": "Kundeapps med rettigheder",
+      "totalRoleGrants": "Aktive rollerettigheder",
+      "userOverrides": "Brugertilsidesættelser",
+      "customRoles": "Tilpassede roller",
+      "templates": "Rolle-skabeloner"
     }
   },
   "navGroups": {
@@ -249,7 +270,8 @@
     "websiteKompisPlans": "Kompis Web-planer",
     "growthPartnerAttribution": "Salgslinks og attribuering",
     "commissions": "Sælgerprovisioner",
-    "communications": "Kommunikation"
+    "communications": "Kommunikation",
+    "superRoleAccess": "Roller og adgange"
   },
   "overview": {
     "title": "Aipify Platform Admin",

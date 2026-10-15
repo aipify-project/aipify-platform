@@ -55,6 +55,7 @@ test("knowledge keeps docs and communications; translations live under control &
       "translationManagement",
       "activityLogs",
       "superRevision",
+      "superRoleAccess",
       "governanceRecords",
       "securityReviews",
     ],
