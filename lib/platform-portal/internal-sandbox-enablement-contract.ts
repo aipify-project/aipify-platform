@@ -197,6 +197,10 @@ export function buildInternalSandboxEnablementPacket(input?: {
     collision: input?.collision ?? null,
   });
 
+  // Fail-closed boolean consts are typed as literal `false`. Assign through a
+  // boolean parameter so gate evaluation typechecks without claiming a flip.
+  const gateOn = (flag: boolean): boolean => flag;
+
   const gates: InternalSandboxEnablementGate[] = [
     {
       code: "core_create_helper_false",
@@ -207,48 +211,48 @@ export function buildInternalSandboxEnablementPacket(input?: {
     },
     {
       code: "platform_internal_create_not_authorized",
-      satisfied: CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED === true,
+      satisfied: gateOn(CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED),
       severity: "block",
       detail:
         "Platform CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED remains false.",
     },
     {
       code: "platform_create_execute_disabled",
-      satisfied: CUSTOMER_CREATE_EXECUTE_ENABLED === true,
+      satisfied: gateOn(CUSTOMER_CREATE_EXECUTE_ENABLED),
       severity: "block",
       detail: "CUSTOMER_CREATE_EXECUTE_ENABLED remains false.",
     },
     {
       code: "demo_bedrift_rpc_not_connected",
-      satisfied: INTERNAL_DEMO_BEDRIFT_ENTITLEMENT_RPC_CONNECTED === true,
+      satisfied: gateOn(INTERNAL_DEMO_BEDRIFT_ENTITLEMENT_RPC_CONNECTED),
       severity: "block",
       detail:
         "Internal demo Bedrift entitlement exception SQL is not applied / not connected.",
     },
     {
       code: "demo_bedrift_helper_flip_not_authorized",
-      satisfied: INTERNAL_DEMO_BEDRIFT_ENTITLEMENT_HELPER_FLIP_AUTHORIZED === true,
+      satisfied: gateOn(INTERNAL_DEMO_BEDRIFT_ENTITLEMENT_HELPER_FLIP_AUTHORIZED),
       severity: "block",
       detail:
         "Demo Bedrift entitlement helper flip is not authorized (default deny).",
     },
     {
       code: "legal_acceptance_unverified",
-      satisfied: PLATFORM_CUSTOMER_LEGAL_ACCEPTANCE_SOURCE_CONNECTED === true,
+      satisfied: gateOn(PLATFORM_CUSTOMER_LEGAL_ACCEPTANCE_SOURCE_CONNECTED),
       severity: "block",
       detail:
         "Legal acceptance source remains disconnected; AGREEMENT_UNVERIFIED; internal exception still PROPOSED_NOT_APPROVED.",
     },
     {
       code: "admin_identity_unverified",
-      satisfied: identity.adminAuthVerified === true,
+      satisfied: gateOn(identity.adminAuthVerified),
       severity: "block",
       detail: `Admin ${identity.adminEmail} is not a verified auth user; invite/accept not proven.`,
     },
     {
       code: "invite_delivery_not_connected",
       satisfied:
-        ADMIN_PROVISION_INVITE_DELIVERY_CONNECTED === true &&
+        gateOn(ADMIN_PROVISION_INVITE_DELIVERY_CONNECTED) &&
         ADMIN_PROVISION_OWNER_ALLOWLIST.size > 0,
       severity: "block",
       detail:
@@ -269,7 +273,7 @@ export function buildInternalSandboxEnablementPacket(input?: {
     },
     {
       code: "sandbox_execute_disabled",
-      satisfied: INTERNAL_SANDBOX_ENABLEMENT_EXECUTE_ENABLED === true,
+      satisfied: gateOn(INTERNAL_SANDBOX_ENABLEMENT_EXECUTE_ENABLED),
       severity: "block",
       detail: "INTERNAL_SANDBOX_ENABLEMENT_EXECUTE_ENABLED remains false.",
     },

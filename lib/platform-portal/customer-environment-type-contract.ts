@@ -96,7 +96,7 @@ export type CustomerCreateEnvironmentResolution = {
   serverInternalAuthorized: boolean;
   rpcConnected: boolean;
   /** Honest: what Core would persist if create ran today. */
-  coreWouldPersistToday: typeof CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE;
+  coreWouldPersistToday: PlatformCustomerCreateEnvironmentType;
   enforcementStatus: "not_enforced" | "prepare_only" | "enforced";
   clientForgeryRejected: boolean;
 };
