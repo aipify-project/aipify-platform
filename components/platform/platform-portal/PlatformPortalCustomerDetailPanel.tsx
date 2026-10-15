@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { AppVisualColors } from "@/lib/design/app-visual-system";
 import type {
   PlatformPortalAppKompisDeliveryLabels,
   PlatformPortalCommercialPlanLabels,
@@ -12,6 +14,7 @@ import type {
   PlatformPortalLicenseProvisioningLabels,
   PlatformAdminProvisionLabels,
   PlatformPortalKompisBedriftLabels,
+  PlatformPortalKompisBedriftStatus,
   PlatformPortalWebsiteKompisLabels,
   PlatformPortalWebsiteKompisStatus,
 } from "@/lib/platform-portal";
@@ -45,7 +48,29 @@ import {
   reasonLabel,
   websiteKompisStatusVariant,
 } from "@/lib/platform-portal/website-kompis-activation";
+import { parsePlatformPortalKompisBedriftStatus } from "@/lib/platform-portal/kompis-bedrift-activation";
 import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
+
+type DetailTabId =
+  | "overview"
+  | "agreement"
+  | "licenses"
+  | "domains"
+  | "delivery"
+  | "admin";
+
+const DETAIL_TABS: DetailTabId[] = [
+  "overview",
+  "agreement",
+  "licenses",
+  "domains",
+  "delivery",
+  "admin",
+];
+
+function isDetailTabId(value: string | null): value is DetailTabId {
+  return Boolean(value && DETAIL_TABS.includes(value as DetailTabId));
+}
 
 type Props = {
   customerId: string;
@@ -147,11 +172,18 @@ function controlPlaneStatusVariant(status: AccessProductStatus): MetricVariant {
 function ControlPlaneOverviewCard({
   labels,
   data,
+  websiteKompis,
+  bedrift,
 }: {
   labels: PlatformPortalCustomerDetailLabels;
   data: PlatformPortalCustomerDetail;
+  websiteKompis: PlatformPortalWebsiteKompisStatus | null;
+  bedrift: PlatformPortalKompisBedriftStatus | null;
 }) {
-  const summary = buildPlatformCustomerControlPlaneSummary(data);
+  const summary = buildPlatformCustomerControlPlaneSummary(data, {
+    websiteKompis,
+    bedrift,
+  });
   const cp = labels.controlPlane;
   const statusLabel = (status: string) => cp.statuses[status] ?? labels.unknownStatus;
   const productLabel = (key: "web" | "bedrift" | "website_kompis") => {
@@ -162,7 +194,7 @@ function ControlPlaneOverviewCard({
 
   return (
     <section
-      className="rounded-xl border border-violet-200/80 bg-violet-50/40 p-4 shadow-sm dark:border-violet-800/60 dark:bg-violet-950/25"
+      className="rounded-xl border border-sky-200/80 bg-white p-4 shadow-sm dark:border-sky-800/60 dark:bg-slate-950/40"
       aria-label={cp.sectionControlPlane}
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -196,14 +228,34 @@ function ControlPlaneOverviewCard({
           variant={summary.modulesActiveCount > 0 ? "info" : "muted"}
         />
         <MetricCard
-          label={cp.reason}
-          value={summary.overallReasonCode}
-          variant="muted"
+          label={labels.subscription}
+          value={
+            data.commercial.lifetime
+              ? labels.lifetime
+              : statusLabel(
+                  (data.commercial.subscriptionStatus ?? "unavailable").toLowerCase() ===
+                    "active"
+                    ? "active"
+                    : (data.commercial.subscriptionStatus ?? "unavailable").toLowerCase() ===
+                        "trialing"
+                      ? "pending"
+                      : "unavailable",
+                )
+          }
+          variant={
+            data.commercial.lifetime ||
+            (data.commercial.subscriptionStatus ?? "").toLowerCase() === "active"
+              ? "success"
+              : "muted"
+          }
         />
       </dl>
       <div className="mt-3">
         <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
           {cp.products}
+        </p>
+        <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+          {cp.productTruthNote}
         </p>
         <ul className="mt-1.5 flex flex-wrap gap-1.5">
           {summary.products.map((product) => (
@@ -634,6 +686,27 @@ export function PlatformPortalCustomerDetailPanel({
   const [websiteKompisSuccess, setWebsiteKompisSuccess] = useState<string | null>(
     null,
   );
+  const [bedrift, setBedrift] = useState<PlatformPortalKompisBedriftStatus | null>(
+    null,
+  );
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const activeTab: DetailTabId = useMemo(() => {
+    const raw = searchParams.get("tab");
+    return isDetailTabId(raw) ? raw : "overview";
+  }, [searchParams]);
+
+  const setActiveTab = useCallback(
+    (tab: DetailTabId) => {
+      const next = new URLSearchParams(searchParams.toString());
+      if (tab === "overview") next.delete("tab");
+      else next.set("tab", tab);
+      const query = next.toString();
+      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    },
+    [pathname, router, searchParams],
+  );
 
   const load = useCallback(async () => {
     setLoadState({ kind: "loading" });
@@ -683,6 +756,28 @@ export function PlatformPortalCustomerDetailPanel({
   useEffect(() => {
     void load();
   }, [load]);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function loadBedrift() {
+      try {
+        const response = await fetch(
+          `/api/platform-portal/customers/${customerId}/kompis-bedrift`,
+          { cache: "no-store" },
+        );
+        if (!response.ok) return;
+        const body: unknown = await response.json();
+        const parsed = parsePlatformPortalKompisBedriftStatus(body);
+        if (!cancelled) setBedrift(parsed);
+      } catch {
+        /* keep null — chips stay fail-closed / unverified */
+      }
+    }
+    void loadBedrift();
+    return () => {
+      cancelled = true;
+    };
+  }, [customerId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -830,13 +925,18 @@ export function PlatformPortalCustomerDetailPanel({
     customerStatus: customer.status,
   });
 
+  const tabLabel = (tab: DetailTabId) => labels.detailTabs[tab];
+
   return (
-    <div className="w-full space-y-4">
+    <div
+      className="w-full space-y-4 rounded-2xl p-1 sm:p-2"
+      style={{ backgroundColor: AppVisualColors.canvas }}
+    >
       <header className="space-y-3">
         <nav>
           <Link
             href="/platform/customers"
-            className="inline-flex items-center text-sm font-medium text-violet-700 transition hover:text-violet-800 dark:text-violet-300 dark:hover:text-violet-200"
+            className="inline-flex items-center text-sm font-medium text-sky-800 transition hover:text-sky-950 dark:text-sky-300 dark:hover:text-sky-200"
           >
             ← {labels.backToCustomers}
           </Link>
@@ -962,10 +1062,61 @@ export function PlatformPortalCustomerDetailPanel({
         </div>
       </header>
 
-      <ControlPlaneOverviewCard labels={labels} data={data} />
+      <ControlPlaneOverviewCard
+        labels={labels}
+        data={data}
+        websiteKompis={websiteKompis}
+        bedrift={bedrift}
+      />
+
+      <div
+        role="tablist"
+        aria-label={labels.detailTabs.ariaLabel}
+        className="flex gap-1 overflow-x-auto rounded-xl border border-slate-200 bg-white p-1 shadow-sm dark:border-slate-700 dark:bg-slate-950/40"
+      >
+        {DETAIL_TABS.map((tab) => {
+          const selected = activeTab === tab;
+          return (
+            <button
+              key={tab}
+              type="button"
+              role="tab"
+              id={`customer-detail-tab-${tab}`}
+              aria-selected={selected}
+              aria-controls={`customer-detail-panel-${tab}`}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => setActiveTab(tab)}
+              onKeyDown={(event) => {
+                if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+                event.preventDefault();
+                const index = DETAIL_TABS.indexOf(tab);
+                const next =
+                  event.key === "ArrowRight"
+                    ? DETAIL_TABS[(index + 1) % DETAIL_TABS.length]
+                    : DETAIL_TABS[(index - 1 + DETAIL_TABS.length) % DETAIL_TABS.length];
+                setActiveTab(next);
+              }}
+              className={`whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ${
+                selected
+                  ? "bg-sky-100 text-sky-950 shadow-sm"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-900"
+              }`}
+            >
+              {tabLabel(tab)}
+            </button>
+          );
+        })}
+      </div>
 
       <div className="grid gap-4 lg:grid-cols-12 lg:items-start">
-        <div className="space-y-4 lg:col-span-7 xl:col-span-8">
+        <div className="space-y-4 lg:col-span-12">
+          <div
+            id="customer-detail-panel-overview"
+            role="tabpanel"
+            aria-labelledby="customer-detail-tab-overview"
+            hidden={activeTab !== "overview"}
+            className="space-y-4"
+          >
           <SectionCard title={labels.sectionBusiness} compact>
             <dl>
               <DetailRow label={labels.customerName}>{customer.name}</DetailRow>
@@ -1016,7 +1167,15 @@ export function PlatformPortalCustomerDetailPanel({
               </dl>
             </details>
           </SectionCard>
+          </div>
 
+          <div
+            id="customer-detail-panel-agreement"
+            role="tabpanel"
+            aria-labelledby="customer-detail-tab-agreement"
+            hidden={activeTab !== "agreement"}
+            className="space-y-4"
+          >
           <SectionCard
             title={labels.sectionCommercial}
             compact
@@ -1027,7 +1186,7 @@ export function PlatformPortalCustomerDetailPanel({
                   setCommercialSuccess(false);
                   setCommercialOpen(true);
                 }}
-                className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
+                className="inline-flex items-center justify-center rounded-lg bg-sky-700 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-sky-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
               >
                 {labels.managePlan}
               </button>
@@ -1095,7 +1254,19 @@ export function PlatformPortalCustomerDetailPanel({
               </p>
             ) : null}
           </SectionCard>
+          <PlatformPortalCustomerIdentityPanel
+            customerId={customerId}
+            labels={customerIdentityLabels}
+          />
+          </div>
 
+          <div
+            id="customer-detail-panel-licenses"
+            role="tabpanel"
+            aria-labelledby="customer-detail-tab-licenses"
+            hidden={activeTab !== "licenses"}
+            className="space-y-4"
+          >
           <SectionCard
             title={labels.sectionLicenses}
             compact
@@ -1107,19 +1278,15 @@ export function PlatformPortalCustomerDetailPanel({
                     setLicenseSuccess(false);
                     setLicenseOpen(true);
                   }}
-                  className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
+                  className="inline-flex items-center justify-center rounded-lg bg-sky-700 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-sky-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
                 >
                   {labels.createLicense}
                 </button>
               ) : (
                 <button
                   type="button"
-                  onClick={() => {
-                    document
-                      .getElementById("platform-portal-customer-licenses")
-                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
-                  className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900"
+                  onClick={() => setActiveTab("licenses")}
+                  className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900"
                 >
                   {labels.viewLicense}
                 </button>
@@ -1266,6 +1433,77 @@ export function PlatformPortalCustomerDetailPanel({
             </div>
           </SectionCard>
 
+          <SectionCard title={labels.sectionEntitlements} compact>
+            {data.entitlements.length === 0 ? (
+              <EmptyTableMessage message={labels.emptyEntitlements} />
+            ) : (
+              <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
+                <table className="min-w-full border-collapse text-left text-sm">
+                  <thead className="border-b border-slate-200 bg-slate-50/95 dark:border-slate-700 dark:bg-slate-900/95">
+                    <tr>
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                        {labels.code}
+                      </th>
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                        {labels.name}
+                      </th>
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                        {labels.status}
+                      </th>
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                        {labels.grantedAt}
+                      </th>
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                        {labels.expiresAt}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                    {data.entitlements.map((entitlement) => (
+                      <tr key={entitlement.id} className="align-top">
+                        <td className="px-2.5 py-2 font-mono text-xs text-slate-800 dark:text-slate-200">
+                          {entitlement.code}
+                        </td>
+                        <td className="px-2.5 py-2 text-slate-700 dark:text-slate-300">
+                          {entitlement.name?.trim() ? entitlement.name : labels.notAvailable}
+                        </td>
+                        <td className="px-2.5 py-2">
+                          <StatusBadge
+                            label={statusLabel(
+                              entitlement.status,
+                              labels.entitlementStatuses,
+                              labels.notAvailable,
+                            )}
+                            variant={entitlementStatusVariant(entitlement.status)}
+                          />
+                        </td>
+                        <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
+                          {formatDate(entitlement.grantedAt, locale, labels.notAvailable)}
+                        </td>
+                        <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
+                          {formatDate(entitlement.expiresAt, locale, labels.notAvailable)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </SectionCard>
+
+          <PlatformPortalKompisBedriftStatusPanel
+            customerId={customerId}
+            labels={kompisBedriftLabels}
+          />
+          </div>
+
+          <div
+            id="customer-detail-panel-domains"
+            role="tabpanel"
+            aria-labelledby="customer-detail-tab-domains"
+            hidden={activeTab !== "domains"}
+            className="space-y-4"
+          >
           <SectionCard
             title={labels.sectionDomains}
             compact
@@ -1401,64 +1639,15 @@ export function PlatformPortalCustomerDetailPanel({
             </div>
           </SectionCard>
 
-          <SectionCard title={labels.sectionEntitlements} compact>
-            {data.entitlements.length === 0 ? (
-              <EmptyTableMessage message={labels.emptyEntitlements} />
-            ) : (
-              <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
-                <table className="min-w-full border-collapse text-left text-sm">
-                  <thead className="border-b border-slate-200 bg-slate-50/95 dark:border-slate-700 dark:bg-slate-900/95">
-                    <tr>
-                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                        {labels.code}
-                      </th>
-                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                        {labels.name}
-                      </th>
-                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                        {labels.status}
-                      </th>
-                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                        {labels.grantedAt}
-                      </th>
-                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                        {labels.expiresAt}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                    {data.entitlements.map((entitlement) => (
-                      <tr key={entitlement.id} className="align-top">
-                        <td className="px-2.5 py-2 font-mono text-xs text-slate-800 dark:text-slate-200">
-                          {entitlement.code}
-                        </td>
-                        <td className="px-2.5 py-2 text-slate-700 dark:text-slate-300">
-                          {entitlement.name?.trim() ? entitlement.name : labels.notAvailable}
-                        </td>
-                        <td className="px-2.5 py-2">
-                          <StatusBadge
-                            label={statusLabel(
-                              entitlement.status,
-                              labels.entitlementStatuses,
-                              labels.notAvailable,
-                            )}
-                            variant={entitlementStatusVariant(entitlement.status)}
-                          />
-                        </td>
-                        <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
-                          {formatDate(entitlement.grantedAt, locale, labels.notAvailable)}
-                        </td>
-                        <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
-                          {formatDate(entitlement.expiresAt, locale, labels.notAvailable)}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </SectionCard>
+          </div>
 
+          <div
+            id="customer-detail-panel-delivery"
+            role="tabpanel"
+            aria-labelledby="customer-detail-tab-delivery"
+            hidden={activeTab !== "delivery"}
+            className="space-y-4"
+          >
           <SectionCard
             title={websiteKompisLabels.sectionActivatedServices}
             compact
@@ -1569,13 +1758,6 @@ export function PlatformPortalCustomerDetailPanel({
               </div>
             </div>
           </SectionCard>
-        </div>
-
-        <aside className="space-y-4 lg:col-span-5 xl:col-span-4 lg:sticky lg:top-4 lg:self-start">
-          <PlatformPortalCustomerIdentityPanel
-            customerId={customerId}
-            labels={customerIdentityLabels}
-          />
           <PlatformPortalAppKompisDeliveryPanel
             customerId={customerId}
             labels={appKompisDeliveryLabels}
@@ -1586,10 +1768,15 @@ export function PlatformPortalCustomerDetailPanel({
             labels={websiteRuntimeLabels}
             locale={locale}
           />
-          <PlatformPortalKompisBedriftStatusPanel
-            customerId={customerId}
-            labels={kompisBedriftLabels}
-          />
+          </div>
+
+          <div
+            id="customer-detail-panel-admin"
+            role="tabpanel"
+            aria-labelledby="customer-detail-tab-admin"
+            hidden={activeTab !== "admin"}
+            className="space-y-4"
+          >
           <PlatformPortalAdminProvisioningPanel
             customerId={customerId}
             labels={adminProvisionLabels}
@@ -1661,7 +1848,8 @@ export function PlatformPortalCustomerDetailPanel({
               </DetailRow>
             </dl>
           </SectionCard>
-        </aside>
+          </div>
+        </div>
       </div>
 
       <PlatformPortalCommercialPlanPanel

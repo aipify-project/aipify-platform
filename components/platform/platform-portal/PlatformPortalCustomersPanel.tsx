@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { AppVisualColors } from "@/lib/design/app-visual-system";
 import type {
   PlatformPortalCustomerRecord,
   PlatformPortalCustomersLabels,
@@ -343,7 +344,10 @@ export function PlatformPortalCustomersPanel({
   }
 
   return (
-    <div className="w-full space-y-6">
+    <div
+      className="w-full space-y-6 rounded-2xl p-1 sm:p-2"
+      style={{ backgroundColor: AppVisualColors.canvas }}
+    >
       <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
           <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
@@ -420,8 +424,8 @@ export function PlatformPortalCustomersPanel({
           </section>
 
           <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
-            <div className="grid gap-4 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-4">
+            <div className="flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:items-end">
+              <div className="w-full max-w-xs shrink-0 lg:max-w-[14rem]">
                 <label
                   htmlFor="platform-portal-customers-search"
                   className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400"
@@ -434,11 +438,11 @@ export function PlatformPortalCustomersPanel({
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                   placeholder={labels.searchPlaceholder}
-                  className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:ring-2 focus:ring-violet-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-violet-500 dark:focus:ring-violet-900/60"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-sky-500 dark:focus:ring-sky-900/60"
                 />
               </div>
 
-              <div className="lg:col-span-2">
+              <div className="min-w-[10rem] flex-1 basis-[10rem]">
                 <label
                   htmlFor="platform-portal-customers-status"
                   className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400"
@@ -449,7 +453,7 @@ export function PlatformPortalCustomersPanel({
                   id="platform-portal-customers-status"
                   value={statusFilter}
                   onChange={(event) => setStatusFilter(event.target.value)}
-                  className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-violet-500 dark:focus:ring-violet-900/60"
+                  className="w-full appearance-auto rounded-lg border border-slate-200 bg-white px-3 py-2 pr-8 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-500 dark:focus:ring-sky-900/60"
                 >
                   <option value="all">{labels.filterAll}</option>
                   {statusOptions.map((status) => (
@@ -460,7 +464,7 @@ export function PlatformPortalCustomersPanel({
                 </select>
               </div>
 
-              <div className="lg:col-span-2">
+              <div className="min-w-[10rem] flex-1 basis-[10rem]">
                 <label
                   htmlFor="platform-portal-customers-subscription"
                   className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400"
@@ -471,7 +475,7 @@ export function PlatformPortalCustomersPanel({
                   id="platform-portal-customers-subscription"
                   value={subscriptionFilter}
                   onChange={(event) => setSubscriptionFilter(event.target.value)}
-                  className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-violet-500 dark:focus:ring-violet-900/60"
+                  className="w-full appearance-auto rounded-lg border border-slate-200 bg-white px-3 py-2 pr-8 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-500 dark:focus:ring-sky-900/60"
                 >
                   <option value="all">{labels.filterAll}</option>
                   {subscriptionOptions.statuses.map((status) => (
@@ -485,7 +489,7 @@ export function PlatformPortalCustomersPanel({
                 </select>
               </div>
 
-              <div className="lg:col-span-2">
+              <div className="min-w-[10rem] flex-1 basis-[10rem]">
                 <label
                   htmlFor="platform-portal-customers-attribution"
                   className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400"
@@ -498,7 +502,7 @@ export function PlatformPortalCustomersPanel({
                   onChange={(event) =>
                     setAttributionFilter(event.target.value as AttributionFilter)
                   }
-                  className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-violet-500 dark:focus:ring-violet-900/60"
+                  className="w-full appearance-auto rounded-lg border border-slate-200 bg-white px-3 py-2 pr-8 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-500 dark:focus:ring-sky-900/60"
                 >
                   <option value="all">{labels.filterAll}</option>
                   <option value="partner">{labels.filterPartner}</option>
@@ -506,12 +510,12 @@ export function PlatformPortalCustomersPanel({
                 </select>
               </div>
 
-              <div className="lg:col-span-2">
+              <div className="min-w-[8rem] shrink-0">
                 {filtersActive ? (
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="inline-flex w-full items-center justify-center rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                    className="inline-flex w-full items-center justify-center rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
                   >
                     {labels.clearFilters}
                   </button>

@@ -1,4 +1,8 @@
 import type { PlatformPortalCustomerDetail } from "@/lib/platform-portal/types";
+import {
+  buildProductStatusTruth,
+  type ProductStatusTruthOverlay,
+} from "@/lib/platform-portal/product-status-truth";
 import { createAccessCorrelationId } from "./correlation";
 import type {
   AccessProductStatus,
@@ -18,7 +22,7 @@ function mapSubscription(status: string | null): AccessSubscriptionStatus {
 }
 
 function licenseRowsToProductStatus(
-  detail: PlatformPortalCustomerDetail
+  detail: PlatformPortalCustomerDetail,
 ): { status: AccessProductStatus; reason: AccessReasonCode } {
   const licenses = detail.licenses;
   if (licenses.length === 0) {
@@ -26,10 +30,10 @@ function licenseRowsToProductStatus(
   }
   const active = licenses.filter((l) => (l.status ?? "").toLowerCase() === "active");
   const suspended = licenses.filter((l) =>
-    ["suspended", "paused", "revoked"].includes((l.status ?? "").toLowerCase())
+    ["suspended", "paused", "revoked"].includes((l.status ?? "").toLowerCase()),
   );
   const expired = licenses.filter((l) =>
-    ["expired", "cancelled", "canceled"].includes((l.status ?? "").toLowerCase())
+    ["expired", "cancelled", "canceled"].includes((l.status ?? "").toLowerCase()),
   );
   if (active.length > 0) return { status: "active", reason: "ok" };
   if (suspended.length > 0) return { status: "suspended", reason: "product_suspended" };
@@ -37,69 +41,31 @@ function licenseRowsToProductStatus(
   return { status: "pending", reason: "product_pending" };
 }
 
-function hasWebsiteKompisSignal(detail: PlatformPortalCustomerDetail): boolean {
-  return (
-    detail.licenses.some((l) =>
-      (l.productCode ?? "").toLowerCase().includes("website_kompis")
-    ) ||
-    detail.entitlements.some((e) => (e.code ?? "").toLowerCase().includes("website_kompis"))
-  );
-}
-
 /**
  * Read-only Platform control-plane summary over existing customer detail payload.
- * One understandable status — drill-down remains in existing detail sections.
+ * Product chips use the product-status-truth contract (Bedrift never from membership).
  */
 export function buildPlatformCustomerControlPlaneSummary(
-  detail: PlatformPortalCustomerDetail
+  detail: PlatformPortalCustomerDetail,
+  overlay: ProductStatusTruthOverlay = {},
 ): PlatformCustomerControlPlaneSummary {
   const subscriptionStatus = mapSubscription(detail.commercial.subscriptionStatus);
   const licenseOverall = licenseRowsToProductStatus(detail);
-  const webSignal = hasWebsiteKompisSignal(detail);
+  const truth = buildProductStatusTruth(detail, overlay);
   const membershipReady = detail.usage.memberCount > 0;
   const provisioningReady =
     detail.usage.domainCount > 0 &&
     detail.usage.installationCount > 0 &&
     licenseOverall.status === "active";
 
-  const products: PlatformCustomerControlPlaneSummary["products"] = [
-    {
-      productId: "website_kompis",
-      labelKey: "website_kompis",
-      status: webSignal
-        ? licenseOverall.status
-        : detail.usage.domainCount > 0
-          ? "pending"
-          : "unavailable",
-      reasonCode: webSignal
-        ? licenseOverall.reason
-        : detail.usage.domainCount > 0
-          ? "product_pending"
-          : "product_not_entitled",
-    },
-    {
-      productId: "kompisWeb",
-      labelKey: "web",
-      status: webSignal ? licenseOverall.status : "unavailable",
-      reasonCode: webSignal ? licenseOverall.reason : "product_not_entitled",
-    },
-    {
-      productId: "kompisBedrift",
-      labelKey: "bedrift",
-      status: membershipReady
-        ? subscriptionStatus === "cancelled" || subscriptionStatus === "expired"
-          ? subscriptionStatus === "expired"
-            ? "expired"
-            : "cancelled"
-          : "active"
-        : "unavailable",
-      reasonCode: membershipReady
-        ? subscriptionStatus === "cancelled" || subscriptionStatus === "expired"
-          ? "subscription_invalid"
-          : "ok"
-        : "membership_missing",
-    },
-  ];
+  const products: PlatformCustomerControlPlaneSummary["products"] = truth.productChips.map(
+    (chip) => ({
+      productId: chip.productId,
+      labelKey: chip.labelKey,
+      status: chip.status,
+      reasonCode: chip.reasonCode,
+    }),
+  );
 
   let overallStatus: AccessProductStatus = "pending";
   let overallReasonCode: AccessReasonCode = "product_pending";
@@ -129,7 +95,7 @@ export function buildPlatformCustomerControlPlaneSummary(
     licenseOverall: licenseOverall.status,
     products,
     modulesActiveCount: detail.entitlements.filter(
-      (e) => (e.status ?? "").toLowerCase() === "active"
+      (e) => (e.status ?? "").toLowerCase() === "active",
     ).length,
     modulesTotalCount: detail.entitlements.length,
     domainCount: detail.usage.domainCount,

@@ -348,6 +348,20 @@
       "notAuthorized": "La creación de cliente interno no está autorizada. Las puertas de Platform y Core permanecen cerradas.",
       "ordinaryProductionOnly": "La creación ordinaria en Platform siempre usa el entorno de producción.",
       "nextGateHelperAllowlistSql": "Próxima decisión del propietario: aplicar solo el SQL de lista de permisos del helper de creación interna (tabla vacía; el helper sigue en false). Sin creación de tenant."
+    },
+    "detail": {
+      "controlPlane": {
+        "productTruthNote": "Las etiquetas de producto usan derechos de Core y el estado de activación verificado. Un acuerdo o membresía activos no son una licencia de Kompis Bedrift."
+      },
+      "detailTabs": {
+        "overview": "Resumen",
+        "agreement": "Acuerdo y facturación",
+        "licenses": "Licencias y productos",
+        "domains": "Dominios e instalaciones",
+        "delivery": "Entrega y operaciones",
+        "admin": "Administración y acceso",
+        "ariaLabel": "Secciones del detalle del cliente"
+      }
     }
   },
   "nav": {
