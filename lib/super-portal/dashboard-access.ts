@@ -8,6 +8,8 @@ import {
 import { getPlatformProfile } from "@/lib/tenant/get-platform-profile";
 import { createClient } from "@/lib/supabase/server";
 
+import { NO_STORE_HEADERS } from "./dashboard-access-constants";
+
 export {
   NO_STORE_HEADERS,
   SUPER_ADMIN_DASHBOARD_HREF,
@@ -77,16 +79,48 @@ export function mapSuperPortalDashboardAccessToResponse(
 ): NextResponse {
   switch (evaluation.reason) {
     case "unauthenticated":
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401, headers: NO_STORE_HEADERS },
+      );
     case "forbidden":
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      return NextResponse.json(
+        { error: "Forbidden" },
+        { status: 403, headers: NO_STORE_HEADERS },
+      );
     case "mfa_required":
-      return NextResponse.json({ error: "mfa_required" }, { status: 403 });
+      return NextResponse.json(
+        { error: "mfa_required" },
+        { status: 403, headers: NO_STORE_HEADERS },
+      );
     case "recovery_required":
-      return NextResponse.json({ error: "recovery_required" }, { status: 403 });
+      return NextResponse.json(
+        { error: "recovery_required" },
+        { status: 403, headers: NO_STORE_HEADERS },
+      );
     case "auth_guard_unavailable":
-      return NextResponse.json({ error: "auth_guard_unavailable" }, { status: 503 });
+      return NextResponse.json(
+        { error: "auth_guard_unavailable" },
+        { status: 503, headers: NO_STORE_HEADERS },
+      );
   }
+}
+
+/** True when a JSON body contains Super dashboard aggregate keys (leak detector). */
+export function responseBodyContainsSuperAggregates(body: unknown): boolean {
+  if (!body || typeof body !== "object") return false;
+  const row = body as Record<string, unknown>;
+  const aggregateKeys = [
+    "total_organizations",
+    "total_active_users",
+    "total_active_subscriptions",
+    "platform_administrator_count",
+    "open_critical_incidents",
+    "growth_trends",
+    "executive_alerts",
+    "platform_uptime_pct",
+  ] as const;
+  return aggregateKeys.some((key) => key in row);
 }
 
 /** Server Component mount gate — boolean only; never returns aggregates. */
