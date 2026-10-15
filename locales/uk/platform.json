@@ -1701,6 +1701,13 @@
         "ownerExecuteAuthorizationOk": "Дозвіл виконання власника присутній",
         "ownerExecuteAuthorizationMissing": "Дозвіл виконання власника відсутній"
       }
+    },
+    "internalCustomerCreatePath": {
+      "title": "Внутрішній шлях створення клієнта",
+      "summary": "Іменовані шлюзи для майбутнього створення внутрішнього sandbox-клієнта. Звичайне створення залишається production. Sandbox не створено.",
+      "notAuthorized": "Внутрішнє створення клієнта не авторизовано. Шлюзи Platform і Core залишаються закритими.",
+      "ordinaryProductionOnly": "Звичайне створення в Platform завжди використовує production-середовище.",
+      "nextGateHelperAllowlistSql": "Наступне рішення власника: застосувати лише SQL списку дозволів helper внутрішнього створення (порожня таблиця; helper досі false). Без створення тенанта."
     }
   },
   "customerDetail": {

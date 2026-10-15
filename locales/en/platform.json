@@ -1701,6 +1701,13 @@
         "ownerExecuteAuthorizationOk": "Owner execute authorization is present",
         "ownerExecuteAuthorizationMissing": "Owner execute authorization is missing"
       }
+    },
+    "internalCustomerCreatePath": {
+      "title": "Internal customer create path",
+      "summary": "Named gates for a future internal sandbox customer create. Ordinary create stays production. No sandbox was created.",
+      "notAuthorized": "Internal customer create is not authorized. Platform and Core gates remain closed.",
+      "ordinaryProductionOnly": "Ordinary Platform create always uses the production environment.",
+      "nextGateHelperAllowlistSql": "Next owner decision: apply only the internal create helper-allowlist SQL (empty table; helper still false). No tenant create."
     }
   },
   "customerDetail": {

@@ -1506,6 +1506,13 @@
         "ownerExecuteAuthorizationOk": "Ejer-udførelsesautorisering er til stede",
         "ownerExecuteAuthorizationMissing": "Ejer-udførelsesautorisering mangler"
       }
+    },
+    "internalCustomerCreatePath": {
+      "title": "Intern sti til kundeoprettelse",
+      "summary": "Navngivne porte til fremtidig oprettelse af intern sandbox-kunde. Almindelig oprettelse forbliver produktion. Ingen sandbox blev oprettet.",
+      "notAuthorized": "Intern kundeoprettelse er ikke autoriseret. Platform- og Core-porte forbliver lukkede.",
+      "ordinaryProductionOnly": "Almindelig Platform-oprettelse bruger altid produktionsmiljøet.",
+      "nextGateHelperAllowlistSql": "Næste ejerbeslutning: anvend kun SQL for tilladelseslisten til intern oprettelseshelper (tom tabel; helper stadig false). Ingen tenant-oprettelse."
     }
   },
   "customerDetail": {

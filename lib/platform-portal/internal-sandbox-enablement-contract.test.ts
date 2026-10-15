@@ -124,7 +124,9 @@ const createRoute = readFileSync(
   "app/api/platform-portal/customers/route.ts",
   "utf8",
 );
-assert.match(createRoute, /p_environment_type:\s*["']production["']/);
+assert.match(createRoute, /selectCustomerCreateEnvironmentTypeForRpc/);
+assert.match(createRoute, /authorizedInternalCreateIntent:\s*false/);
+assert.match(createRoute, /p_environment_type:\s*envSelection\.p_environment_type/);
 assert.doesNotMatch(createRoute, /p_environment_type:\s*["']internal["']/);
 
 for (const locale of LOCALES) {

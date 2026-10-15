@@ -4,8 +4,10 @@ import {
   parseCustomerCreationInput,
   parsePlatformPortalCustomerCreationResult,
 } from "@/lib/platform-portal/create-customer";
+import { selectCustomerCreateEnvironmentTypeForRpc } from "@/lib/platform-portal/internal-customer-create-path";
 import { parsePlatformPortalCustomersPayload } from "@/lib/platform-portal/parse";
 import { createClient } from "@/lib/supabase/server";
+import { getPlatformProfile } from "@/lib/tenant/get-platform-profile";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 
@@ -58,17 +60,46 @@ export async function POST(request: Request) {
       return jsonError("Invalid customer creation input.", 400, parsedInput.code);
     }
 
+    const profile = await getPlatformProfile(supabase);
+    if (!profile) {
+      return jsonError("Forbidden", 403, "forbidden");
+    }
+
+    const bodyRecord =
+      body && typeof body === "object" && !Array.isArray(body)
+        ? (body as Record<string, unknown>)
+        : {};
+    // D2S: ordinary create never authorizes internal intent. Client
+    // environment_type is forgery-detected only — never trusted as authority.
+    const envSelection = selectCustomerCreateEnvironmentTypeForRpc({
+      actorRole:
+        profile.role === "super_admin" || profile.role === "platform_support"
+          ? profile.role
+          : null,
+      actorAuthUserId: user.id,
+      authorizedInternalCreateIntent: false,
+      clientEnvironmentType:
+        bodyRecord.environmentType ?? bodyRecord.environment_type,
+    });
+    if (envSelection.path === "denied") {
+      return jsonError(
+        "Internal customer create is not authorized.",
+        403,
+        envSelection.denialCode ?? "internal_environment_not_authorized",
+      );
+    }
+
     const { value } = parsedInput;
     // verificationSource is validated in parseCustomerCreationInput (brreg only for NO).
-    // Post-D2L Core is 6-arg with p_environment_type default production. Ordinary
-    // Platform create always passes production — never trust a client internal flag.
+    // Post-D2L Core is 6-arg with p_environment_type. Ordinary Platform create
+    // resolves to production while internal path gates remain closed.
     const { data, error } = await supabase.rpc("create_platform_portal_customer", {
       p_organization_number: value.organizationNumber,
       p_legal_name: value.legalName,
       p_display_name: value.displayName,
       p_slug: value.slug,
       p_country: value.country,
-      p_environment_type: "production",
+      p_environment_type: envSelection.p_environment_type,
     });
 
     if (error) {
