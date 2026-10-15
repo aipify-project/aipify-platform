@@ -831,6 +831,16 @@
   var shellReady = false;
   /** First closed resize must win before the host frame may become visible or accept open size. */
   var closedHandshakeDone = false;
+  /**
+   * Open host geometry is deferred until closed 72×72 has been committed to a painted frame.
+   * Otherwise restore/hydration can enlarge the iframe while the child still paints closed
+   * launcher chrome — a large white host plane with the mascot in the top-left.
+   */
+  var closedPaintCommitted = false;
+  var closedPaintRaf1 = 0;
+  var closedPaintRaf2 = 0;
+  /** Stashed open intent while closed paint is not yet committed (or handshake pending). */
+  var pendingOpenResize = null;
   var lastOpenRequested = false;
   var lastPathname = String(window.location.pathname || "");
   var lastHref = String(window.location.href || "");
@@ -851,6 +861,51 @@
     shellReady = true;
     iframe.style.opacity = "1";
     iframe.style.pointerEvents = "auto";
+  }
+
+  function cancelClosedPaintCommit() {
+    if (closedPaintRaf1 && typeof window.cancelAnimationFrame === "function") {
+      window.cancelAnimationFrame(closedPaintRaf1);
+    }
+    if (closedPaintRaf2 && typeof window.cancelAnimationFrame === "function") {
+      window.cancelAnimationFrame(closedPaintRaf2);
+    }
+    closedPaintRaf1 = 0;
+    closedPaintRaf2 = 0;
+  }
+
+  function flushPendingOpenResize() {
+    if (!pendingOpenResize || !closedPaintCommitted || !closedHandshakeDone) {
+      return;
+    }
+    if (!surfaceActive) {
+      pendingOpenResize = null;
+      return;
+    }
+    var pending = pendingOpenResize;
+    pendingOpenResize = null;
+    applyResize(true, pending.width, pending.height);
+  }
+
+  function scheduleClosedPaintCommit() {
+    if (closedPaintCommitted) {
+      flushPendingOpenResize();
+      return;
+    }
+    cancelClosedPaintCommit();
+    if (typeof window.requestAnimationFrame !== "function") {
+      closedPaintCommitted = true;
+      flushPendingOpenResize();
+      return;
+    }
+    closedPaintRaf1 = window.requestAnimationFrame(function onClosedPaintFrame1() {
+      closedPaintRaf1 = 0;
+      closedPaintRaf2 = window.requestAnimationFrame(function onClosedPaintFrame2() {
+        closedPaintRaf2 = 0;
+        closedPaintCommitted = true;
+        flushPendingOpenResize();
+      });
+    });
   }
 
   function preferredOpenPanelHeight(viewportHeight) {
@@ -928,13 +983,34 @@
     var nextHeight = CLOSED_HEIGHT;
     var wantOpen = Boolean(open);
     // Premature open sizing before a closed handshake paints a large white host frame
-    // with only the closed launcher chrome — refuse until closed 72×72 is established.
+    // with only the closed launcher chrome — stash intent; do not fake a closed handshake.
     if (wantOpen && !closedHandshakeDone) {
-      wantOpen = false;
+      pendingOpenResize = {
+        width: typeof width === "number" ? width : undefined,
+        height: typeof height === "number" ? height : undefined,
+      };
+      return;
     }
     // Inactive/private surface must never retain panel geometry for a later reveal.
     if (wantOpen && !surfaceActive) {
+      pendingOpenResize = null;
       wantOpen = false;
+    }
+    // After handshake, defer open enlarge until closed chrome has painted at 72×72.
+    // Sync restore/hydration often posts open=true in the same turn as the first closed
+    // reveal; applying open immediately leaves closed launcher chrome inside a panel frame.
+    if (wantOpen && !closedPaintCommitted) {
+      pendingOpenResize = {
+        width: typeof width === "number" ? width : undefined,
+        height: typeof height === "number" ? height : undefined,
+      };
+      wantOpen = false;
+    } else if (wantOpen) {
+      pendingOpenResize = null;
+    } else if (!open && closedHandshakeDone) {
+      // Explicit close after handshake drops stashed open. Use original `open` (not
+      // coerced wantOpen) so a deferred open that falls through as closed keeps pending.
+      pendingOpenResize = null;
     }
     lastOpenRequested = wantOpen;
     if (wantOpen) {
@@ -965,6 +1041,8 @@
       nextWidth = CLOSED_WIDTH;
       nextHeight = CLOSED_HEIGHT;
       closedHandshakeDone = true;
+      // Keep closedPaintCommitted once true so user open-after-close is not double-rAF delayed.
+      // Only the first closed→open bootstrap needs the paint gate.
     }
     if (viewportWidth && nextWidth > viewportWidth - OPEN_EDGE_INSET) {
       nextWidth = Math.max(CLOSED_WIDTH, Math.floor(viewportWidth - OPEN_EDGE_INSET));
@@ -979,6 +1057,7 @@
     iframe.style.bottom = OPEN_EDGE_INSET + "px";
     if (!wantOpen) {
       markShellReady();
+      scheduleClosedPaintCommit();
     } else if (closedHandshakeDone) {
       markShellReady();
     }
@@ -1178,8 +1257,10 @@
   applyAccessClassFromEnvironment({ skipContext: true });
   // Failsafe: never leave an invisible host frame if the iframe never posts resize.
   // Skip when path/host already marked the surface inactive.
+  // Drop pre-handshake open intent — failsafe is closed-launcher only.
   window.setTimeout(function ensureShellVisible() {
     if (!shellReady && surfaceActive) {
+      pendingOpenResize = null;
       applyResize(false, CLOSED_WIDTH, CLOSED_HEIGHT);
     }
   }, 2500);
