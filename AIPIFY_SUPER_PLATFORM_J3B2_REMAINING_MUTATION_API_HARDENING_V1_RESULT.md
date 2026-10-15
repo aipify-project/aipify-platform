@@ -5,8 +5,8 @@
 **Date:** 2026-10-16  
 **Baseline `origin/main`:** `e01d2efd9227455b70b266879b6e44095983dcfd` (#248 LIVE)  
 **Branch:** `feat/super-platform-j3b2-remaining-mutation-api-hardening-v1`  
-**Feature HEAD:** *(set after commit — see PR)*  
-**PR:** *(URL after open)*
+**Feature HEAD:** `c85724eb302042c6739061dbe045ddc3a04cf496`  
+**PR:** https://github.com/aipify-project/aipify-platform/pull/249
 
 ---
 
