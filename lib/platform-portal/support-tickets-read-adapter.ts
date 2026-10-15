@@ -11,7 +11,6 @@
  *   get_platform_app_portal_support_request_counts
  */
 
-import type { SupabaseClient } from "@supabase/supabase-js";
 import {
   APP_PORTAL_SUPPORT_CHANNEL_VALUES,
   PLATFORM_SUPPORT_FOUR_CHANNEL_MAPPING_PLAN,
@@ -161,10 +160,11 @@ export const PLATFORM_SUPPORT_ALLOWED_CHANNEL_FILTERS =
   APP_PORTAL_SUPPORT_CHANNEL_VALUES;
 
 export function canInvokePlatformSupportTicketsReadRpc(): boolean {
-  return (
-    PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED === true &&
-    PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE === true
-  );
+  // Flags are intentionally literal-false until named apply/activation jobs flip them.
+  // Cast through boolean so typecheck does not treat `false === true` as a hard error.
+  const rpcConnected = PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED as boolean;
+  const featureGate = PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE as boolean;
+  return rpcConnected && featureGate;
 }
 
 export function getPlatformSupportTicketsReadGateState() {
@@ -263,7 +263,12 @@ function normalizeChannelFilter(
   return value;
 }
 
-type RpcClient = Pick<SupabaseClient, "rpc">;
+/** Minimal RPC surface — accepts SupabaseClient or test stubs. */
+type RpcClient = {
+  // Intentionally loose: supabase-js returns a thenable builder, not Promise.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rpc: (fn: string, args?: Record<string, unknown>) => any;
+};
 
 /**
  * List APP SoT tickets for Platform operators.

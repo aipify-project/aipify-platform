@@ -16,7 +16,7 @@ function jsonError(
   extras: Record<string, unknown> = {},
 ) {
   return NextResponse.json(
-    { error, live: false, ...getPlatformSupportTicketsReadGateState(), ...extras },
+    { error, ...getPlatformSupportTicketsReadGateState(), ...extras },
     { status, headers: NO_STORE },
   );
 }
