@@ -13,6 +13,8 @@ import {
   mapAgreementStatus,
   mapCustomerLifecycleStatus,
 } from "@/lib/platform-portal/business-language";
+import { PlatformLayoutClasses } from "@/lib/design";
+import { PlatformPageFrame } from "@/components/platform/PlatformPageFrame";
 
 type PlatformPortalCustomersPanelProps = {
   labels: PlatformPortalCustomersLabels;
@@ -332,26 +334,20 @@ export function PlatformPortalCustomersPanel({
 
   if (loading) {
     return (
-      <div
-        className="flex min-h-[60vh] w-full items-center justify-center"
-        role="status"
-        aria-live="polite"
-      >
-        <AipifyLoader centered label={labels.loading} />
-      </div>
+      <PlatformPageFrame className="flex min-h-[60vh] items-center justify-center">
+        <div role="status" aria-live="polite">
+          <AipifyLoader centered label={labels.loading} />
+        </div>
+      </PlatformPageFrame>
     );
   }
 
   return (
-    <div className="w-full space-y-6">
+    <PlatformPageFrame>
       <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div className="min-w-0">
-          <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
-            {labels.title}
-          </h1>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-            {labels.description}
-          </p>
+        <div className={PlatformLayoutClasses.pageHeader}>
+          <h1 className={PlatformLayoutClasses.pageTitle}>{labels.title}</h1>
+          <p className={PlatformLayoutClasses.pageSubtitle}>{labels.description}</p>
         </div>
         <Link
           href="/platform/customers/new"
@@ -763,6 +759,6 @@ export function PlatformPortalCustomersPanel({
           )}
         </>
       )}
-    </div>
+    </PlatformPageFrame>
   );
 }

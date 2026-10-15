@@ -120,7 +120,7 @@ export default function PlatformExecutiveCenterPanel({
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6">
+    <div className="w-full space-y-6 lg:space-y-8">
       <section>
         <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl">
           {greeting}

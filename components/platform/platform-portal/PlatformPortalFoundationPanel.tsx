@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { PlatformLayoutClasses } from "@/lib/design";
+import { PlatformPageFrame } from "@/components/platform/PlatformPageFrame";
 
 type PlatformPortalFoundationPanelProps = {
   title: string;
@@ -16,17 +18,17 @@ export function PlatformPortalFoundationPanel({
   backHref = "/platform",
 }: PlatformPortalFoundationPanelProps) {
   return (
-    <div className="mx-auto max-w-3xl space-y-6 p-6">
-      <div>
+    <PlatformPageFrame>
+      <div className={PlatformLayoutClasses.pageHeader}>
         <Link href={backHref} className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
           ← {backLabel}
         </Link>
-        <h1 className="mt-4 text-2xl font-semibold tracking-tight text-slate-900">{title}</h1>
-        <p className="mt-2 text-slate-600">{subtitle}</p>
+        <h1 className={`mt-4 ${PlatformLayoutClasses.pageTitle}`}>{title}</h1>
+        <p className={PlatformLayoutClasses.pageSubtitle}>{subtitle}</p>
       </div>
-      <p className="rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm text-slate-800">
+      <p className={`${PlatformLayoutClasses.cardMuted} text-sm text-slate-800 dark:text-slate-200`}>
         {structureNote}
       </p>
-    </div>
+    </PlatformPageFrame>
   );
 }
