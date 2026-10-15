@@ -103,5 +103,5 @@ assert.doesNotMatch(supportPanel, /list_platform_app_portal_support_requests/);
 assert.doesNotMatch(supportPanel, /get_platform_app_portal_support_request/);
 
 console.log(
-  "support-tickets-cross-tenant-read-contract: static gates PASS; disposable DB runtime NOT RUN",
+  "support-tickets-cross-tenant-read-contract: static gates PASS; disposable ACL matrix is external (see PR #234 preflight RESULT)",
 );
