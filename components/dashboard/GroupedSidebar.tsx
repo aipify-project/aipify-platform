@@ -42,7 +42,7 @@ type GroupedSidebarProps = {
   searchQuery?: string;
   onNavigate?: () => void;
   className?: string;
-  activeAccent?: "default" | "soft";
+  activeAccent?: "default" | "soft" | "light";
   searchResultsLabel?: string;
   keyboardHint?: string;
   noSearchResultsLabel?: string;
@@ -53,6 +53,19 @@ type GroupedSidebarProps = {
 const ACTIVE_ACCENT_CLASSES = {
   default: AipifyNavClasses.itemActive,
   soft: AipifyNavClasses.itemActive,
+  light: AipifyNavClasses.itemActiveLight,
+} as const;
+
+const ACTIVE_ICON_CLASSES = {
+  default: AipifyNavClasses.itemActiveIcon,
+  soft: AipifyNavClasses.itemActiveIcon,
+  light: AipifyNavClasses.itemActiveLightIcon,
+} as const;
+
+const ACTIVE_TEXT_CLASSES = {
+  default: AipifySidebarTypography.navigationItemActive,
+  soft: AipifySidebarTypography.navigationItemActive,
+  light: "text-[15px] font-semibold leading-snug text-sky-950",
 } as const;
 
 function createStorageHelpers(mode: "customer" | "platform") {
@@ -113,7 +126,7 @@ function NavLinkRow({
 }: {
   item: NavItem;
   isActive: boolean;
-  activeAccent: "default" | "soft";
+  activeAccent: "default" | "soft" | "light";
   onNavigate?: () => void;
   prefetch?: boolean;
 }) {
@@ -125,14 +138,14 @@ function NavLinkRow({
       title={item.accessHint ? `${item.label} — ${item.accessHint}` : item.label}
       className={`${AipifySidebarTypography.navItemRow} ${
         isActive
-          ? `${ACTIVE_ACCENT_CLASSES[activeAccent]} ${AipifySidebarTypography.navigationItemActive}`
+          ? `${ACTIVE_ACCENT_CLASSES[activeAccent]} ${ACTIVE_TEXT_CLASSES[activeAccent]}`
           : `${AipifyNavClasses.item} ${AipifySidebarTypography.navigationItem}`
       }`}
       aria-current={isActive ? "page" : undefined}
     >
       <span
         className={`mt-0.5 ${AipifySidebarTypography.navIcon} ${
-          isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon
+          isActive ? ACTIVE_ICON_CLASSES[activeAccent] : AipifyNavClasses.itemIcon
         }`}
       >
         {item.icon}
@@ -156,12 +169,18 @@ function SearchResultRow({
   item,
   isActive,
   onNavigate,
+  activeAccent,
 }: {
   item: NavSearchEntry;
   isActive: boolean;
   onNavigate?: () => void;
+  activeAccent: "default" | "soft" | "light";
 }) {
   const icon = getNavIcon(item.id);
+  const activeMeta =
+    activeAccent === "light"
+      ? "text-[13px] font-medium leading-snug text-sky-800/90"
+      : "text-[13px] font-medium leading-snug text-white/90";
 
   return (
     <Link
@@ -170,14 +189,14 @@ function SearchResultRow({
       title={item.label}
       className={`${AipifySidebarTypography.navItemRow} items-start ${
         isActive
-          ? `${AipifyNavClasses.itemActive} ${AipifySidebarTypography.navigationItemActive}`
+          ? `${ACTIVE_ACCENT_CLASSES[activeAccent]} ${ACTIVE_TEXT_CLASSES[activeAccent]}`
           : `${AipifyNavClasses.item} ${AipifySidebarTypography.navigationItem}`
       }`}
       aria-current={isActive ? "page" : undefined}
     >
       <span
         className={`mt-0.5 ${AipifySidebarTypography.navIcon} ${
-          isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon
+          isActive ? ACTIVE_ICON_CLASSES[activeAccent] : AipifyNavClasses.itemIcon
         }`}
       >
         {icon}
@@ -185,7 +204,7 @@ function SearchResultRow({
       <span className="min-w-0 flex-1">
         <span
           className={`${AipifySidebarTypography.navLabelWrap} ${
-            isActive ? AipifySidebarTypography.navigationItemActive : AipifySidebarTypography.searchMenuRow
+            isActive ? ACTIVE_TEXT_CLASSES[activeAccent] : AipifySidebarTypography.searchMenuRow
           }`}
           title={item.label}
         >
@@ -193,7 +212,7 @@ function SearchResultRow({
         </span>
         <span
           className={`mt-0.5 ${AipifySidebarTypography.navLabelWrap} ${
-            isActive ? "text-[13px] font-medium leading-snug text-white/90" : AipifySidebarTypography.searchMenuGroup
+            isActive ? activeMeta : AipifySidebarTypography.searchMenuGroup
           }`}
           title={item.groupLabel}
         >
@@ -201,7 +220,7 @@ function SearchResultRow({
         </span>
         <span
           className={`mt-1 block ${
-            isActive ? "text-[13px] leading-snug text-white/90" : AipifySidebarTypography.searchMenuDescription
+            isActive ? activeMeta : AipifySidebarTypography.searchMenuDescription
           }`}
         >
           {item.description}
@@ -352,6 +371,7 @@ export default function GroupedSidebar({
                   key={item.id}
                   item={item}
                   isActive={item.id === activeId}
+                  activeAccent={activeAccent}
                   onNavigate={() => handleNavigate(item.id)}
                 />
               ))

@@ -439,8 +439,8 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   },
   {
     id: "invoices",
-    href: "/platform/billing/enterprise-invoices",
-    labelKey: "platform.nav.enterpriseInvoices",
+    href: "/platform/billing/invoices",
+    labelKey: "platform.nav.invoices",
   },
   {
     id: "taxVerification",
@@ -455,12 +455,12 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   {
     id: "growthPartnerAttribution",
     href: "/platform/billing/growth-partner-attribution",
-    labelKey: "platform.billingCommerceCenter.nav.growthPartnerAttribution",
+    labelKey: "platform.nav.growthPartnerAttribution",
   },
   {
     id: "commissions",
     href: "/platform/billing/commissions",
-    labelKey: "platform.billingCommerceCenter.nav.commissions",
+    labelKey: "platform.nav.commissions",
   },
   {
     id: "installations",
@@ -617,7 +617,14 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
     return "growthPartnerAttribution";
   }
   if (pathname.startsWith("/platform/billing/commissions")) return "commissions";
-  if (pathname.startsWith("/platform/billing")) return "billing";
+  if (
+    pathname.startsWith("/platform/billing/invoices") ||
+    pathname.startsWith("/platform/billing/enterprise-invoices") ||
+    pathname.startsWith("/platform/invoices")
+  ) {
+    return "invoices";
+  }
+  if (pathname.startsWith("/platform/billing")) return "payments";
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
   if (pathname.startsWith("/platform/licenses")) return "licenses";
   if (pathname.startsWith("/platform/companion-marketplace")) return "marketplace";

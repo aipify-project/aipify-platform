@@ -115,8 +115,11 @@
     "searchDescriptions": {
       "platformAcademyStudio": "Growth Partner Academy — training, certifications, and commercial enablement.",
       "companionMarketplace": "Governed Companion catalog and deployment oversight.",
-      "skillGovernancePipeline": "Skill rollout pipeline, governance, and approval workflows."
-    }
+      "skillGovernancePipeline": "Skill rollout pipeline, governance, and approval workflows.",
+      "growthPartners": "Growth Partners",
+      "invoices": "Invoices"
+    },
+    "sellers": "Sellers"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -221,7 +224,9 @@
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
     "providerOnboarding": "Provider onboarding",
-    "websiteKompisPlans": "Kompis Web plans"
+    "websiteKompisPlans": "Kompis Web plans",
+    "growthPartnerAttribution": "Sales links & attribution",
+    "commissions": "Commissions"
   },
   "executive": {
     "title": "Executive Center",

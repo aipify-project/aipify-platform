@@ -115,8 +115,11 @@
     "searchDescriptions": {
       "platformAcademyStudio": "Growth Partner Academy — szkolenia, certyfikacje i wsparcie komercyjne.",
       "companionMarketplace": "Zarządzany katalog Companion i nadzór nad wdrożeniami.",
-      "skillGovernancePipeline": "Proces wdrażania Skills, ład organizacyjny i procesy zatwierdzania."
-    }
+      "skillGovernancePipeline": "Proces wdrażania Skills, ład organizacyjny i procesy zatwierdzania.",
+      "growthPartners": "Rejestr sprzedawców",
+      "invoices": "Faktury"
+    },
+    "sellers": "Sprzedawcy"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -154,7 +157,7 @@
     "customerSuccess": "Sukces klienta",
     "payments": "Płatności",
     "marketplace": "Marketplace",
-    "growthPartners": "Growth Partners",
+    "growthPartners": "Rejestr sprzedawców",
     "knowledgeCenter": "Centrum wiedzy",
     "translationManagement": "Zarządzanie tłumaczeniami",
     "documentation": "Dokumentacja",
@@ -221,7 +224,9 @@
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
     "providerOnboarding": "Onboarding dostawców",
-    "websiteKompisPlans": "Plany Kompis Web"
+    "websiteKompisPlans": "Plany Kompis Web",
+    "growthPartnerAttribution": "Linki sprzedażowe i atrybucja",
+    "commissions": "Prowizje"
   },
   "executive": {
     "title": "Centrum wykonawcze",

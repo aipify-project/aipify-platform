@@ -353,7 +353,11 @@
   "nav": {
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
-    "providerOnboarding": "Incorporación de proveedores"
+    "providerOnboarding": "Incorporación de proveedores",
+    "growthPartners": "Registro de vendedores",
+    "growthPartnerAttribution": "Enlaces de venta y atribución",
+    "commissions": "Comisiones",
+    "invoices": "Facturas"
   },
   "kompisAi": {
     "title": "Kompis AI",
@@ -732,6 +736,13 @@
       "contract_invalid": "El contrato debe corregirse",
       "deprecated": "Obsoleto",
       "reference_only": "Solo vista previa"
+    }
+  },
+  "navGroups": {
+    "sellers": "Vendedores",
+    "searchDescriptions": {
+      "growthPartners": "Registro de vendedores",
+      "invoices": "Facturas"
     }
   }
 }

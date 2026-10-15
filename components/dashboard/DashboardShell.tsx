@@ -417,14 +417,14 @@ function DashboardShellFrame({
       keyboardHint={navSearchHint}
       noSearchResultsLabel={navSearchNoResultsLabel}
       navigationAriaLabel={navigationAriaLabel}
-      activeAccent={shellVariant === "customer" ? "soft" : "default"}
+      activeAccent={shellVariant === "customer" ? "soft" : "light"}
       sidebarMode={shellVariant === "platform" ? "platform" : "customer"}
     />
   ) : (
     <Sidebar
       items={navItems}
       activeId={activeNav}
-      activeAccent={shellVariant === "customer" ? "soft" : "default"}
+      activeAccent={shellVariant === "customer" ? "soft" : "light"}
     />
   );
 
@@ -552,7 +552,7 @@ function DashboardShellFrame({
                   keyboardHint={navSearchHint}
                   noSearchResultsLabel={navSearchNoResultsLabel}
                   navigationAriaLabel={navigationAriaLabel}
-                  activeAccent={shellVariant === "customer" ? "soft" : "default"}
+                  activeAccent={shellVariant === "customer" ? "soft" : "light"}
                   sidebarMode={shellVariant === "platform" ? "platform" : "customer"}
                 />
               ) : (
@@ -560,7 +560,7 @@ function DashboardShellFrame({
                   items={navItems}
                   activeId={activeNav}
                   onNavigate={() => setSidebarOpen(false)}
-                  activeAccent={shellVariant === "customer" ? "soft" : "default"}
+                  activeAccent={shellVariant === "customer" ? "soft" : "light"}
                 />
               )}
             </div>
