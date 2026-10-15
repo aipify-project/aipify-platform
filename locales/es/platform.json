@@ -341,6 +341,13 @@
       "evidenceRejectedSourcesNote": "Rechazado como prueba legal: resumen de suscripciones, aceptaciones legales de Business Pack, acuerdos de Growth Partner, casillas de términos de registro y la auditoría del operador sola.",
       "evidenceRequiredFields": "Evidencia requerida cuando exista una fuente: ID del actor, ID de la entidad legal del cliente, ID/versión del acuerdo, hash del contenido, acción de aceptación, marca de tiempo UTC, ID del registro de auditoría. IP y user-agent solo cuando se recopilen legítimamente.",
       "evidenceNoExecute": "Este paso de preparación no puede ejecutar, activar, crear un cliente ni aceptar un acuerdo en nombre de nadie."
+    },
+    "internalCustomerCreatePath": {
+      "title": "Ruta de creación de cliente interno",
+      "summary": "Puertas con nombre para una futura creación de cliente sandbox interno. La creación ordinaria permanece en producción. No se creó ningún sandbox.",
+      "notAuthorized": "La creación de cliente interno no está autorizada. Las puertas de Platform y Core permanecen cerradas.",
+      "ordinaryProductionOnly": "La creación ordinaria en Platform siempre usa el entorno de producción.",
+      "nextGateHelperAllowlistSql": "Próxima decisión del propietario: aplicar solo el SQL de lista de permisos del helper de creación interna (tabla vacía; el helper sigue en false). Sin creación de tenant."
     }
   },
   "nav": {

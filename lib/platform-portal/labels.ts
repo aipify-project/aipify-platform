@@ -532,6 +532,25 @@ export function buildPlatformPortalInternalSandboxEnablementLabels(
   };
 }
 
+export function buildPlatformPortalInternalCustomerCreatePathLabels(
+  t: Translator,
+): {
+  title: string;
+  summary: string;
+  notAuthorized: string;
+  ordinaryProductionOnly: string;
+  nextGateHelperAllowlistSql: string;
+} {
+  const c = "platform.customers.internalCustomerCreatePath";
+  return {
+    title: t(`${c}.title`),
+    summary: t(`${c}.summary`),
+    notAuthorized: t(`${c}.notAuthorized`),
+    ordinaryProductionOnly: t(`${c}.ordinaryProductionOnly`),
+    nextGateHelperAllowlistSql: t(`${c}.nextGateHelperAllowlistSql`),
+  };
+}
+
 export function buildPlatformPortalWebsiteKompisLabels(
   t: Translator,
 ): PlatformPortalWebsiteKompisLabels {

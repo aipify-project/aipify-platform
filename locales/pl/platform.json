@@ -1701,6 +1701,13 @@
         "ownerExecuteAuthorizationOk": "Autoryzacja wykonania właściciela jest obecna",
         "ownerExecuteAuthorizationMissing": "Brak autoryzacji wykonania właściciela"
       }
+    },
+    "internalCustomerCreatePath": {
+      "title": "Wewnętrzna ścieżka tworzenia klienta",
+      "summary": "Nazwane bramki dla przyszłego utworzenia klienta wewnętrznego sandbox. Zwykłe tworzenie pozostaje produkcyjne. Nie utworzono sandboxa.",
+      "notAuthorized": "Tworzenie klienta wewnętrznego nie jest autoryzowane. Bramki Platform i Core pozostają zamknięte.",
+      "ordinaryProductionOnly": "Zwykłe tworzenie w Platform zawsze używa środowiska produkcyjnego.",
+      "nextGateHelperAllowlistSql": "Następna decyzja właściciela: zastosuj wyłącznie SQL listy uprawnień helpera tworzenia wewnętrznego (pusta tabela; helper nadal false). Bez tworzenia tenanta."
     }
   },
   "customerDetail": {

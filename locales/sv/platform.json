@@ -1701,6 +1701,13 @@
         "ownerExecuteAuthorizationOk": "Ägarkörningsauktorisering finns",
         "ownerExecuteAuthorizationMissing": "Ägarkörningsauktorisering saknas"
       }
+    },
+    "internalCustomerCreatePath": {
+      "title": "Intern sökväg för kundskapande",
+      "summary": "Namngivna grindar för framtida skapande av intern sandlådekund. Vanligt skapande förblir produktion. Ingen sandlåda skapades.",
+      "notAuthorized": "Internt kundskapande är inte auktoriserat. Plattforms- och Core-grindar förblir stängda.",
+      "ordinaryProductionOnly": "Vanligt Platform-skapande använder alltid produktionsmiljön.",
+      "nextGateHelperAllowlistSql": "Nästa ägarbeslut: tillämpa endast SQL för tillåtelselistan för intern skapandehelper (tom tabell; helper fortfarande false). Ingen tenant-skapande."
     }
   },
   "customerDetail": {

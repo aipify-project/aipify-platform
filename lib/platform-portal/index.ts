@@ -10,6 +10,7 @@ export * from "./agreement-approval-prepare";
 export * from "./legal-acceptance-evidence-contract";
 export * from "./internal-sandbox-onboarding-contract";
 export * from "./internal-sandbox-enablement-contract";
+export * from "./internal-customer-create-path";
 export * from "./commercial-plan";
 export * from "./business-language";
 export * from "./license-provisioning";

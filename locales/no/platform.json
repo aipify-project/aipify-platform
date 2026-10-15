@@ -1548,6 +1548,13 @@
         "ownerExecuteAuthorizationOk": "Eier-utføringsautorisasjon er til stede",
         "ownerExecuteAuthorizationMissing": "Eier-utføringsautorisasjon mangler"
       }
+    },
+    "internalCustomerCreatePath": {
+      "title": "Intern opprettelsessti for kunder",
+      "summary": "Navngitte porter for fremtidig opprettelse av intern sandkassekunde. Vanlig opprettelse forblir produksjon. Ingen sandkasse ble opprettet.",
+      "notAuthorized": "Intern kundeopprettelse er ikke autorisert. Plattform- og Core-porter forblir stengt.",
+      "ordinaryProductionOnly": "Vanlig Platform-opprettelse bruker alltid produksjonsmiljøet.",
+      "nextGateHelperAllowlistSql": "Neste eierbeslutning: bruk kun SQL for tillatelseslisten for intern opprettelseshelper (tom tabell; helper fortsatt false). Ingen tenant-opprettelse."
     }
   },
   "customerDetail": {
