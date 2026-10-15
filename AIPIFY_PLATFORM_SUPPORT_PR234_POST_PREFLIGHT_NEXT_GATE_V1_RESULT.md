@@ -25,6 +25,8 @@
 | Feature prepare commit (historical) | `91be9bcb` |
 | Worktree base | `origin/main` @ `6cbdc2f1` |
 | This job branch | `docs/platform-support-read-adapter-inactive-v1` |
+| This job PR | https://github.com/aipify-project/aipify-platform/pull/236 (replaces closed #235 muddy history) |
+| Feature tip | `1d2389f1` |
 
 ## SQL (still NOT_APPLIED)
 
