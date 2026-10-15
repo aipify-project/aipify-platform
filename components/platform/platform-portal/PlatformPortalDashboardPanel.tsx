@@ -10,12 +10,16 @@ import {
 import { mapLookupLabel } from "@/lib/platform-portal/business-language";
 import type { PlatformNavGroupConfig } from "@/lib/platform/build-nav";
 import { PlatformLayoutClasses } from "@/lib/design";
+import type { PlatformSuperAdminInsightLabels } from "@/lib/super-portal/platform-insight-labels";
 import { PlatformPageFrame } from "@/components/platform/PlatformPageFrame";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import PlatformSuperAdminInsightPanel from "./PlatformSuperAdminInsightPanel";
 
 type PlatformPortalDashboardPanelProps = {
   labels: ReturnType<typeof buildPlatformPortalLabels>["dashboard"];
   navGroups: PlatformNavGroupConfig[];
+  /** Present only when server confirmed active super_admin + verified 2FA + recovery codes. */
+  superAdminInsightLabels?: PlatformSuperAdminInsightLabels | null;
 };
 
 type MetricVariant = "neutral" | "success" | "warning" | "danger";
@@ -397,6 +401,7 @@ function QuickActionNavCard({
 export function PlatformPortalDashboardPanel({
   labels,
   navGroups,
+  superAdminInsightLabels = null,
 }: PlatformPortalDashboardPanelProps) {
   const [dashboard, setDashboard] = useState<PlatformPortalDashboard | null>(null);
   const [loading, setLoading] = useState(true);
@@ -516,6 +521,10 @@ export function PlatformPortalDashboardPanel({
           {labels.principle}
         </p>
       </header>
+
+      {superAdminInsightLabels ? (
+        <PlatformSuperAdminInsightPanel labels={superAdminInsightLabels} />
+      ) : null}
 
       <section className={PlatformLayoutClasses.card}>
         <dl className={PlatformLayoutClasses.metricGrid}>

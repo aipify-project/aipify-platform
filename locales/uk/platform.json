@@ -42,6 +42,30 @@
         "major": "Значне оновлення",
         "security": "Оновлення безпеки",
         "database_migration": "Оновлення бази даних"
+      },
+      "superAdminInsight": {
+        "title": "Огляд групи",
+        "subtitle": "Агрегати Super Admin лише для читання для кваліфікованих керівників. Щоденна робота залишається в Platform.",
+        "loading": "Завантаження огляду групи…",
+        "loadError": "Не вдалося завантажити огляд групи. Спробуйте ще раз або відкрийте Super Admin для деталей.",
+        "retry": "Спробувати знову",
+        "privacyNote": "Лише агреговані керівні показники — без бізнес-вмісту клієнтів.",
+        "periodNote": "Кількість організацій і угод — за весь час. Відсотки зростання охоплюють останні 30 днів.",
+        "totalOrganizations": "Організації клієнтів (за весь час)",
+        "totalRegisteredUsers": "Зареєстровані користувачі (за весь час)",
+        "totalActiveSubscriptions": "Активні угоди (поточні)",
+        "activePlatformSupportAdmins": "Активні адміністратори Platform Support",
+        "openCriticalIncidents": "Відкриті критичні інциденти",
+        "globalPlatformStatus": "Глобальний стан платформи",
+        "organizationGrowth30d": "Частка нових організацій (останні 30 днів)",
+        "subscriptionGrowth30d": "Частка нових угод (останні 30 днів)",
+        "executiveAlertCount": "Відкриті сповіщення високого пріоритету",
+        "openSuperDashboard": "Відкрити панель Super Admin",
+        "statuses": {
+          "operational": "Працює",
+          "attention_required": "Потребує уваги",
+          "unknown": "Статус недоступний"
+        }
       }
     },
     "foundation": {
