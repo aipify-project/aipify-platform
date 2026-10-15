@@ -1194,8 +1194,18 @@
       "retry": "Försök igen",
       "reasons": {
         "agreementActiveOk": "Kundavtalet är aktivt",
-        "agreementActiveMissing": "Kundavtalet saknas eller är inte berättigat"
+        "agreementActiveMissing": "Kundavtalet saknas eller är inte berättigat",
+        "internalDemoEntitlementExceptionOk": "Internt ofakturerat demo-berättigande är godkänt",
+        "internalDemoEntitlementExceptionMissing": "Internt ofakturerat demo-berättigande är inte godkänt"
       }
+    },
+    "internalSandboxEnablement": {
+      "title": "Intern sandlådeaktivering",
+      "summary": "Plattformskontrakt för framtida intern Kompis Bedrift-sandlåda. Inte live. Ingen kund, inbjudan eller rättighet skapades.",
+      "notLive": "Intern sandlåda är inte användbar. Core-hjälpare och plattformsflaggor är fortfarande av.",
+      "orgnrCollisionUnoNight": "Det angivna organisationsnumret används redan av UnoNight. Konvertera inte UnoNight till Bedrift-sandlåda.",
+      "entitlementExceptionPending": "Ofakturerat Bedrift-demo-berättigande kräver separat Core SQL-apply. Kommersiella abonnemang förblir blockerade för interna kunder.",
+      "nextGateSqlOnly": "Nästa ägarbeslut: tillämpa endast SQL för internt Bedrift demo-berättigande. Ingen kundskapande i det steget."
     },
     "appKompisDelivery": {
       "title": "Leverans av APP och Website Kompis",

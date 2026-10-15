@@ -1041,8 +1041,18 @@
       "retry": "Prøv igjen",
       "reasons": {
         "agreementActiveOk": "Kundeavtalen er aktiv",
-        "agreementActiveMissing": "Kundeavtalen mangler eller er ikke kvalifisert"
+        "agreementActiveMissing": "Kundeavtalen mangler eller er ikke kvalifisert",
+        "internalDemoEntitlementExceptionOk": "Intern unfakturert demo-rettighet er autorisert",
+        "internalDemoEntitlementExceptionMissing": "Intern unfakturert demo-rettighet er ikke autorisert"
       }
+    },
+    "internalSandboxEnablement": {
+      "title": "Intern sandkasse-aktivering",
+      "summary": "Plattformkontrakt for fremtidig intern Kompis Bedrift-sandkasse. Ikke live. Ingen kunde, invitasjon eller rettighet er opprettet.",
+      "notLive": "Intern sandkasse er ikke brukbar. Core-hjelper og Platform-flagg er fortsatt av.",
+      "orgnrCollisionUnoNight": "Oppgitt organisasjonsnummer brukes allerede av UnoNight. Ikke konverter UnoNight til Bedrift-sandkasse.",
+      "entitlementExceptionPending": "Unfakturert Bedrift-demo-rettighet krever separat Core SQL-apply. Kommersielle abonnementer forblir blokkert for interne kunder.",
+      "nextGateSqlOnly": "Neste eierbeslutning: apply kun SQL for intern Bedrift demo-rettighet. Ingen kundeopprettelse i det steget."
     },
     "appKompisDelivery": {
       "title": "Leveranse av APP og Website Kompis",

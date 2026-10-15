@@ -348,11 +348,9 @@ export function buildCustomerCreatePreparePlan(input: {
   }
   if (
     environmentResolution.resolved === "internal" &&
-    !CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED
+    !CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED
   ) {
-    executeBlockedReasons.push(
-      "core_would_persist_production_despite_internal_request",
-    );
+    executeBlockedReasons.push("internal_environment_not_authorized");
   }
   if (hardBlocks.length > 0) {
     executeBlockedReasons.push("prepare_hard_blocks_present");
@@ -374,7 +372,7 @@ export function buildCustomerCreatePreparePlan(input: {
       resolved: environmentResolution.resolved,
       resolution: environmentResolution,
       rpcConnected: CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED,
-      coreWouldPersistToday: CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE,
+      coreWouldPersistToday: environmentResolution.coreWouldPersistToday,
       internalAuthorized: CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED,
     },
     blockReasons,

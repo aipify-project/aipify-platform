@@ -1194,8 +1194,18 @@
       "retry": "Try again",
       "reasons": {
         "agreementActiveOk": "Customer agreement is active",
-        "agreementActiveMissing": "Customer agreement is missing or not eligible"
+        "agreementActiveMissing": "Customer agreement is missing or not eligible",
+        "internalDemoEntitlementExceptionOk": "Internal non-billable demo entitlement exception is authorized",
+        "internalDemoEntitlementExceptionMissing": "Internal non-billable demo entitlement exception is not authorized"
       }
+    },
+    "internalSandboxEnablement": {
+      "title": "Internal sandbox enablement",
+      "summary": "Platform contract for a future internal Kompis Bedrift sandbox. Not live. No customer, invite, or entitlement was created.",
+      "notLive": "Internal sandbox is not usable. Core helper and Platform flags remain off.",
+      "orgnrCollisionUnoNight": "The stated organization number is already used by UnoNight. Do not convert UnoNight into a Bedrift sandbox.",
+      "entitlementExceptionPending": "Non-billable Bedrift demo entitlement requires a separate Core SQL apply. Commercial subscriptions stay blocked for internal customers.",
+      "nextGateSqlOnly": "Next owner decision: apply only the internal demo Bedrift entitlement exception SQL. No tenant create in that step."
     },
     "appKompisDelivery": {
       "title": "APP and Website Kompis delivery",

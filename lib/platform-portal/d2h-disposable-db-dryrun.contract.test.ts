@@ -22,7 +22,7 @@ assert.equal(
   sha,
   "83056fb8fbf9c80293da68237ef8a4045ddfae96257669c8de7e5a4b6890733b",
 );
-assert.equal(CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED, false);
+assert.equal(CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED, true);
 assert.equal(CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED, false);
 
 const fixture = readFileSync(

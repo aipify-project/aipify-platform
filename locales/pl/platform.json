@@ -1194,8 +1194,18 @@
       "retry": "Spróbuj ponownie",
       "reasons": {
         "agreementActiveOk": "Umowa klienta jest aktywna",
-        "agreementActiveMissing": "Umowa klienta jest niedostępna lub niekwalifikująca"
+        "agreementActiveMissing": "Umowa klienta jest niedostępna lub niekwalifikująca",
+        "internalDemoEntitlementExceptionOk": "Wewnętrzny niefakturowany wyjątek uprawnień demo jest autoryzowany",
+        "internalDemoEntitlementExceptionMissing": "Wewnętrzny niefakturowany wyjątek uprawnień demo nie jest autoryzowany"
       }
+    },
+    "internalSandboxEnablement": {
+      "title": "Włączenie wewnętrznej piaskownicy",
+      "summary": "Kontrakt Platformy dla przyszłej wewnętrznej piaskownicy Kompis Bedrift. Nie jest aktywny. Nie utworzono klienta, zaproszenia ani uprawnienia.",
+      "notLive": "Wewnętrzna piaskownica nie jest używalna. Helper Core i flagi Platform pozostają wyłączone.",
+      "orgnrCollisionUnoNight": "Podany numer organizacji jest już używany przez UnoNight. Nie konwertuj UnoNight na piaskownicę Bedrift.",
+      "entitlementExceptionPending": "Niefakturowane uprawnienie demo Bedrift wymaga osobnego apply SQL w Core. Subskrypcje komercyjne pozostają zablokowane dla klientów wewnętrznych.",
+      "nextGateSqlOnly": "Następna decyzja właściciela: zastosuj wyłącznie SQL wyjątku uprawnień demo Bedrift. Bez tworzenia klienta w tym kroku."
     },
     "appKompisDelivery": {
       "title": "Dostawa APP i Website Kompis",

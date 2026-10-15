@@ -1194,8 +1194,18 @@
       "retry": "Спробувати знову",
       "reasons": {
         "agreementActiveOk": "Угода клієнта активна",
-        "agreementActiveMissing": "Угода клієнта відсутня або не підходить"
+        "agreementActiveMissing": "Угода клієнта відсутня або не підходить",
+        "internalDemoEntitlementExceptionOk": "Внутрішній нерахунковий виняток демо-права авторизовано",
+        "internalDemoEntitlementExceptionMissing": "Внутрішній нерахунковий виняток демо-права не авторизовано"
       }
+    },
+    "internalSandboxEnablement": {
+      "title": "Увімкнення внутрішньої пісочниці",
+      "summary": "Контракт Platform для майбутньої внутрішньої пісочниці Kompis Bedrift. Не активний. Клієнта, запрошення чи права не створено.",
+      "notLive": "Внутрішня пісочниця непридатна. Helper Core і прапорці Platform залишаються вимкненими.",
+      "orgnrCollisionUnoNight": "Зазначений номер організації вже використовує UnoNight. Не перетворюйте UnoNight на пісочницю Bedrift.",
+      "entitlementExceptionPending": "Нерахункове демо-право Bedrift потребує окремого apply SQL у Core. Комерційні підписки залишаються заблокованими для внутрішніх клієнтів.",
+      "nextGateSqlOnly": "Наступне рішення власника: застосувати лише SQL винятку демо-права Bedrift. Без створення клієнта на цьому кроці."
     },
     "appKompisDelivery": {
       "title": "Постачання APP і Website Kompis",

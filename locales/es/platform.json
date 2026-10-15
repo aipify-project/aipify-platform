@@ -177,8 +177,18 @@
       "retry": "Reintentar",
       "reasons": {
         "agreementActiveOk": "El acuerdo del cliente está activo",
-        "agreementActiveMissing": "El acuerdo del cliente falta o no es elegible"
+        "agreementActiveMissing": "El acuerdo del cliente falta o no es elegible",
+        "internalDemoEntitlementExceptionOk": "La excepción de derecho demo interno no facturable está autorizada",
+        "internalDemoEntitlementExceptionMissing": "La excepción de derecho demo interno no facturable no está autorizada"
       }
+    },
+    "internalSandboxEnablement": {
+      "title": "Habilitación de entorno aislado interno",
+      "summary": "Contrato de Platform para un futuro entorno aislado interno de Kompis Bedrift. No está en vivo. No se creó cliente, invitación ni derecho.",
+      "notLive": "El entorno aislado interno no es usable. El helper de Core y las banderas de Platform siguen desactivados.",
+      "orgnrCollisionUnoNight": "El número de organización indicado ya lo usa UnoNight. No convierta UnoNight en un entorno aislado de Bedrift.",
+      "entitlementExceptionPending": "El derecho demo de Bedrift no facturable requiere un apply SQL de Core aparte. Las suscripciones comerciales siguen bloqueadas para clientes internos.",
+      "nextGateSqlOnly": "Siguiente decisión del propietario: aplicar solo el SQL de excepción de derecho demo Bedrift. Sin crear cliente en ese paso."
     },
     "adminProvisioning": {
       "title": "Aprovisionamiento de administrador",
