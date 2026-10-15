@@ -119,7 +119,8 @@
       "growthPartners": "Growth Partners",
       "invoices": "Invoices"
     },
-    "sellers": "Sellers"
+    "sellers": "Sellers",
+    "dashboard": "Dashboard"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -138,7 +139,7 @@
     "platform_admin": "Platform Administrator"
   },
   "nav": {
-    "overview": "Platform overview",
+    "overview": "Dashboard",
     "operationsOverview": "Operations overview",
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
@@ -159,13 +160,13 @@
     "marketplace": "Marketplace",
     "growthPartners": "Growth Partners",
     "knowledgeCenter": "Knowledge Center",
-    "translationManagement": "Translation management",
+    "translationManagement": "Language & translations",
     "documentation": "Documentation",
     "businessPacks": "Business Packs",
     "moduleRegistry": "Module Registry",
     "appStoreRevenue": "App Store Revenue",
     "productManagement": "Product management",
-    "installationOversight": "Installation overview",
+    "installationOversight": "Installations",
     "activityLogs": "Activity log",
     "governanceRecords": "Governance records",
     "securityReviews": "Security reviews",
@@ -217,12 +218,12 @@
     "platformComplianceGovernanceCenter": "Compliance Center",
     "platformPlaybookCenter": "Playbooks",
     "platformHealthOperationsCenter": "Platform Health",
-    "system": "System status",
+    "system": "System settings",
     "pilotOperations": "Customer Zero Center",
-    "unonightPilot": "Unonight Pilot Control",
+    "unonightPilot": "Customer Zero / test ops",
     "licenses": "Licenses",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification",
+    "websiteReleaseVerification": "Website verification",
     "providerOnboarding": "Provider onboarding",
     "websiteKompisPlans": "Kompis Web plans",
     "growthPartnerAttribution": "Sales links & attribution",

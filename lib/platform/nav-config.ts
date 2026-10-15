@@ -587,7 +587,8 @@ export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
 ];
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
-  if (pathname === "/platform") return "overview";
+  // Dashboard is active only on the Platform home path — never on /platform/*.
+  if (pathname === "/platform" || pathname === "/platform/") return "overview";
   if (pathname.startsWith("/platform/aos-core")) return "aosCore";
   if (pathname.startsWith("/platform/companion/personality")) return "companionPersonality";
   if (pathname.startsWith("/platform/developers")) return "developerEcosystem";
@@ -676,7 +677,8 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/skills")) return "skills";
   if (pathname.startsWith("/platform/companion-marketplace")) return "companionMarketplace";
   if (pathname.startsWith("/platform/system")) return "system";
-  return "overview";
+  // Never fall back to Dashboard for unknown /platform/* paths.
+  return "operationsOverview";
 }
 
 export function getOperationsActiveNavId(pathname: string): OperationsNavId {

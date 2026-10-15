@@ -352,12 +352,17 @@
   },
   "nav": {
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification",
+    "websiteReleaseVerification": "Verificación del sitio",
     "providerOnboarding": "Incorporación de proveedores",
     "growthPartners": "Registro de vendedores",
     "growthPartnerAttribution": "Enlaces de venta y atribución",
     "commissions": "Comisiones",
-    "invoices": "Facturas"
+    "invoices": "Facturas",
+    "overview": "Dashboard",
+    "installationOversight": "Instalaciones",
+    "translationManagement": "Idioma y traducciones",
+    "system": "Configuración del sistema",
+    "unonightPilot": "Customer Zero / operaciones de prueba"
   },
   "kompisAi": {
     "title": "Kompis AI",
@@ -743,6 +748,7 @@
     "searchDescriptions": {
       "growthPartners": "Registro de vendedores",
       "invoices": "Facturas"
-    }
+    },
+    "dashboard": "Dashboard"
   }
 }

@@ -95,7 +95,8 @@
     "searchDescriptions": {
       "growthPartners": "Sælgerregister",
       "invoices": "Fakturaer"
-    }
+    },
+    "dashboard": "Dashboard"
   },
   "search": "Søg efter kunder…",
   "sidebar": {
@@ -115,7 +116,7 @@
     "platform_admin": "Platform Administrator"
   },
   "nav": {
-    "overview": "Platformoversigt",
+    "overview": "Dashboard",
     "operationsOverview": "Driftsoversigt",
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
@@ -136,11 +137,11 @@
     "marketplace": "Markedsplads",
     "growthPartners": "Sælgerregister",
     "knowledgeCenter": "Videnscenter",
-    "translationManagement": "Oversættelsesadministration",
+    "translationManagement": "Sprog og oversættelser",
     "documentation": "Dokumentation",
     "businessPacks": "Business Packs",
     "productManagement": "Produktstyring",
-    "installationOversight": "Installationsoversigt",
+    "installationOversight": "Installationer",
     "activityLogs": "Aktivitetslog",
     "governanceRecords": "Styringsregistre",
     "securityReviews": "Sikkerhedsgennemgange",
@@ -163,7 +164,7 @@
     "paymentProviders": "Payment providers",
     "support": "Support",
     "automations": "Automations",
-    "system": "System status",
+    "system": "Systemindstillinger",
     "intelligence": "Intelligence",
     "actions": "Action Center",
     "skills": "Skills",
@@ -183,7 +184,7 @@
     "companionMarketplace": "Companion Marketplace",
     "skillGovernancePipeline": "Skill Governance Pipeline",
     "pilotOperations": "Customer Zero-center",
-    "unonightPilot": "Unonight pilotkontrol",
+    "unonightPilot": "Customer Zero / testdrift",
     "enterpriseInvoices": "Enterprise-fakturaer",
     "paymentOperations": "Betalingsoperationscenter",
     "paymentHealth": "Betalingshelbred",
@@ -196,7 +197,7 @@
     "websiteGovernance": "Website Governance",
     "licenses": "Licenser",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification",
+    "websiteReleaseVerification": "Webstedverifikation",
     "providerOnboarding": "Provider-onboarding",
     "websiteKompisPlans": "Kompis Web-planer",
     "growthPartnerAttribution": "Salgslinks og attribuering",

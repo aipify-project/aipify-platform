@@ -119,7 +119,8 @@
       "growthPartners": "Реєстр продавців",
       "invoices": "Рахунки-фактури"
     },
-    "sellers": "Продавці"
+    "sellers": "Продавці",
+    "dashboard": "Dashboard"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -138,7 +139,7 @@
     "platform_admin": "Platform Administrator"
   },
   "nav": {
-    "overview": "Огляд платформи",
+    "overview": "Dashboard",
     "operationsOverview": "Огляд операцій",
     "buildHealthCenter": "Побудувати Центр здоров'я",
     "aosCore": "Основний центр AOS",
@@ -159,13 +160,13 @@
     "marketplace": "Маркетплейс",
     "growthPartners": "Реєстр продавців",
     "knowledgeCenter": "Центр знань",
-    "translationManagement": "Керування перекладами",
+    "translationManagement": "Мова та переклади",
     "documentation": "Документація",
     "businessPacks": "Business Packs",
     "moduleRegistry": "Реєстр модулів",
     "appStoreRevenue": "Дохід App Store",
     "productManagement": "Керування продуктом",
-    "installationOversight": "Огляд інсталяцій",
+    "installationOversight": "Встановлення",
     "activityLogs": "Журнал активності",
     "governanceRecords": "Реєстри управління",
     "securityReviews": "Перевірки безпеки",
@@ -217,12 +218,12 @@
     "platformComplianceGovernanceCenter": "Комплаєнс центр",
     "platformPlaybookCenter": "П'єси",
     "platformHealthOperationsCenter": "Платформа Health",
-    "system": "Статус системи",
+    "system": "Системні налаштування",
     "pilotOperations": "Нульовий центр клієнтів",
-    "unonightPilot": "Unonight Pilot Control",
+    "unonightPilot": "Customer Zero / тестова експлуатація",
     "licenses": "Ліцензії",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification",
+    "websiteReleaseVerification": "Перевірка сайту",
     "providerOnboarding": "Онбординг провайдерів",
     "websiteKompisPlans": "Плани Kompis Web",
     "growthPartnerAttribution": "Посилання на продаж і атрибуція",

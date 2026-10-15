@@ -19,6 +19,7 @@ import {
   PLATFORM_NAV_LAST_ITEM_STORAGE_KEY,
   PLATFORM_NAV_OPEN_GROUP_STORAGE_KEY,
   PLATFORM_COLLAPSIBLE_GROUPS,
+  PLATFORM_FIXED_NAV_GROUPS,
 } from "@/lib/platform/nav-groups";
 import {
   getPlatformGroupIdForNavItem,
@@ -83,7 +84,7 @@ function createStorageHelpers(mode: "customer" | "platform") {
     mode === "platform" ? getPlatformGroupIdForNavItem : getGroupIdForNavItem;
   const filterSearch =
     mode === "platform" ? filterPlatformNavSearchEntries : filterAppNavSearchEntries;
-  const defaultOpenGroup = mode === "platform" ? "platformAdmin" : "organization";
+  const defaultOpenGroup = mode === "platform" ? "operations" : "organization";
 
   return {
     openGroupKey,
@@ -94,7 +95,10 @@ function createStorageHelpers(mode: "customer" | "platform") {
     resolveGroupId,
     filterSearch,
     defaultOpenGroup,
-    fixedGroupIds: mode === "customer" ? (["home"] as string[]) : ([] as string[]),
+    fixedGroupIds:
+      mode === "platform"
+        ? ([...PLATFORM_FIXED_NAV_GROUPS] as string[])
+        : (["home"] as string[]),
   };
 }
 
@@ -381,13 +385,16 @@ export default function GroupedSidebar({
           groups.map((group) => {
             const isFixed = storage.fixedGroupIds.includes(group.id);
             const isExpanded = isFixed || openGroupId === group.id;
+            const hideFixedSectionLabel = isFixed && group.id === "dashboard";
 
             return (
               <div key={group.id} className="space-y-1">
                 {isFixed ? (
-                  <p className={`px-3 py-2 ${AipifySidebarTypography.sectionLabel}`} title={group.label}>
-                    {group.label}
-                  </p>
+                  hideFixedSectionLabel ? null : (
+                    <p className={`px-3 py-2 ${AipifySidebarTypography.sectionLabel}`} title={group.label}>
+                      {group.label}
+                    </p>
+                  )
                 ) : (
                   <button
                     type="button"
