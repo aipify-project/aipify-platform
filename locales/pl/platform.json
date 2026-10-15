@@ -126,6 +126,27 @@
         "previous": "Poprzednia wartość",
         "next": "Nowa wartość"
       }
+    },
+    "superRoleAccess": {
+      "title": "Role i dostępy",
+      "subtitle": "Przegląd tylko do odczytu Super Admin agregatów ról i uprawnień APP. Nie edytuje ról klientów.",
+      "sourceNote": "Źródło: przegląd ról Super Admin (get_super_admin_role_permission_matrix_overview). Edycja ról w Customer APP odbywa się w osobnym obszarze ustawień.",
+      "definitionNote": "Liczby to wyłącznie agregaty całej platformy — bez identyfikatorów organizacji ani wierszy audytu uprawnień.",
+      "loading": "Ładowanie przeglądu ról i dostępów…",
+      "loadError": "Nie udało się załadować przeglądu ról i dostępów. Spróbuj ponownie lub otwórz Super Admin, aby zobaczyć szczegóły.",
+      "retry": "Spróbuj ponownie",
+      "empty": "Agregaty ról i dostępów nie są jeszcze dostępne.",
+      "unavailableTitle": "Role i dostępy niedostępne",
+      "unavailableMessage": "Ten przegląd Super Admin wymaga aktywnej roli Super Admin z zweryfikowanym uwierzytelnianiem dwuskładnikowym i kodami odzyskiwania.",
+      "openSuperMatrix": "Otwórz macierz ról Super",
+      "backToPlatform": "Powrót do Platform",
+      "totalPermissions": "Definicje uprawnień",
+      "totalModules": "Aktywne moduły",
+      "organizationsWithGrants": "Aplikacje klientów z uprawnieniami",
+      "totalRoleGrants": "Aktywne uprawnienia ról",
+      "userOverrides": "Nadpisania uprawnień użytkownika",
+      "customRoles": "Role niestandardowe",
+      "templates": "Szablony ról"
     }
   },
   "pageStates": {
@@ -275,7 +296,8 @@
     "websiteKompisPlans": "Plany Kompis Web",
     "growthPartnerAttribution": "Linki sprzedażowe i atrybucja",
     "commissions": "Prowizje sprzedawców",
-    "communications": "Komunikacja"
+    "communications": "Komunikacja",
+    "superRoleAccess": "Role i dostępy"
   },
   "executive": {
     "title": "Centrum wykonawcze",

@@ -368,7 +368,8 @@
     "licenses": "Registro de licencias",
     "subscriptions": "Acuerdos de cliente",
     "communications": "Comunicación",
-    "websiteKompisPlans": "Planes Kompis Web"
+    "websiteKompisPlans": "Planes Kompis Web",
+    "superRoleAccess": "Roles y accesos"
   },
   "kompisAi": {
     "title": "Kompis AI",
@@ -969,6 +970,27 @@
           "unknown": "Estado no disponible"
         }
       }
+    },
+    "superRoleAccess": {
+      "title": "Roles y accesos",
+      "subtitle": "Resumen de solo lectura de Super Admin sobre agregados de roles y permisos de APP. No edita roles de clientes.",
+      "sourceNote": "Fuente: resumen de roles de Super Admin (get_super_admin_role_permission_matrix_overview). La edición de roles en Customer APP está en un área de ajustes separada.",
+      "definitionNote": "Los recuentos son solo agregados de toda la plataforma: sin identificadores de organización ni filas de auditoría de permisos.",
+      "loading": "Cargando resumen de roles y accesos…",
+      "loadError": "No se pudo cargar el resumen de roles y accesos. Inténtelo de nuevo o abra Super Admin para ver los detalles.",
+      "retry": "Intentar de nuevo",
+      "empty": "Aún no hay agregados de roles y accesos disponibles.",
+      "unavailableTitle": "Roles y accesos no disponibles",
+      "unavailableMessage": "Este resumen de Super Admin requiere un rol Super Admin activo con autenticación de dos factores verificada y códigos de recuperación.",
+      "openSuperMatrix": "Abrir matriz de roles Super",
+      "backToPlatform": "Volver a Platform",
+      "totalPermissions": "Definiciones de permisos",
+      "totalModules": "Módulos activos",
+      "organizationsWithGrants": "Apps de clientes con permisos",
+      "totalRoleGrants": "Permisos de rol activos",
+      "userOverrides": "Anulaciones de permiso de usuario",
+      "customRoles": "Roles personalizados",
+      "templates": "Plantillas de roles"
     }
   }
 }

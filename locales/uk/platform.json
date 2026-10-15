@@ -126,6 +126,27 @@
         "previous": "Попереднє значення",
         "next": "Нове значення"
       }
+    },
+    "superRoleAccess": {
+      "title": "Ролі та доступи",
+      "subtitle": "Огляд Super Admin лише для читання агрегатів ролей і дозволів APP. Не редагує ролі клієнтів.",
+      "sourceNote": "Джерело: огляд ролей Super Admin (get_super_admin_role_permission_matrix_overview). Редагування ролей у Customer APP відбувається в окремій області налаштувань.",
+      "definitionNote": "Числа — лише загальноплатформенні агрегати — без ідентифікаторів організацій або рядків аудиту дозволів.",
+      "loading": "Завантаження огляду ролей і доступів…",
+      "loadError": "Не вдалося завантажити огляд ролей і доступів. Спробуйте ще раз або відкрийте Super Admin для деталей.",
+      "retry": "Спробувати ще раз",
+      "empty": "Агрегати ролей і доступів ще недоступні.",
+      "unavailableTitle": "Ролі та доступи недоступні",
+      "unavailableMessage": "Цей огляд Super Admin потребує активної ролі Super Admin з підтвердженою двофакторною автентифікацією та кодами відновлення.",
+      "openSuperMatrix": "Відкрити матрицю ролей Super",
+      "backToPlatform": "Назад до Platform",
+      "totalPermissions": "Визначення дозволів",
+      "totalModules": "Активні модулі",
+      "organizationsWithGrants": "Клієнтські додатки з правами",
+      "totalRoleGrants": "Активні права ролей",
+      "userOverrides": "Перевизначення прав користувача",
+      "customRoles": "Користувацькі ролі",
+      "templates": "Шаблони ролей"
     }
   },
   "pageStates": {
@@ -275,7 +296,8 @@
     "websiteKompisPlans": "Плани Kompis Web",
     "growthPartnerAttribution": "Посилання на продаж і атрибуція",
     "commissions": "Комісії продавців",
-    "communications": "Комунікація"
+    "communications": "Комунікація",
+    "superRoleAccess": "Ролі та доступи"
   },
   "executive": {
     "title": "Виконавчий центр",

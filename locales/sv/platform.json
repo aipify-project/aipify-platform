@@ -126,6 +126,27 @@
         "previous": "Tidigare värde",
         "next": "Nytt värde"
       }
+    },
+    "superRoleAccess": {
+      "title": "Roller och behörigheter",
+      "subtitle": "Skrivskyddad Super Admin-översikt över APP-roll- och behörighetsaggregat. Redigerar inte kundroller.",
+      "sourceNote": "Källa: Super Admin-rollöversikt (get_super_admin_role_permission_matrix_overview). Rollredigering i Customer APP sker i ett separat inställningsområde.",
+      "definitionNote": "Siffrorna är endast plattformsomfattande aggregat — inga organisationsidentifierare eller behörighetsrevisionsrader.",
+      "loading": "Läser in översikt över roller och behörigheter…",
+      "loadError": "Översikten över roller och behörigheter kunde inte läsas in. Försök igen eller öppna Super Admin för detaljer.",
+      "retry": "Försök igen",
+      "empty": "Inga aggregat för roller och behörigheter är tillgängliga ännu.",
+      "unavailableTitle": "Roller och behörigheter inte tillgängliga",
+      "unavailableMessage": "Denna Super Admin-översikt kräver en aktiv Super Admin-roll med verifierad tvåfaktorsautentisering och återställningskoder.",
+      "openSuperMatrix": "Öppna Super-rollmatris",
+      "backToPlatform": "Tillbaka till Platform",
+      "totalPermissions": "Behörighetsdefinitioner",
+      "totalModules": "Aktiva moduler",
+      "organizationsWithGrants": "Kundappar med behörigheter",
+      "totalRoleGrants": "Aktiva rollbehörigheter",
+      "userOverrides": "Användaröverstyrningar",
+      "customRoles": "Anpassade roller",
+      "templates": "Rollmallar"
     }
   },
   "pageStates": {
@@ -275,7 +296,8 @@
     "websiteKompisPlans": "Kompis Web-planer",
     "growthPartnerAttribution": "Försäljningslänkar och attribution",
     "commissions": "Säljarprovisioner",
-    "communications": "Kommunikation"
+    "communications": "Kommunikation",
+    "superRoleAccess": "Roller och behörigheter"
   },
   "executive": {
     "title": "Executive Center",

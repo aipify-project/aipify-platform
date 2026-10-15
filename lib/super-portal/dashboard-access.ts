@@ -155,3 +155,25 @@ export async function canRenderPlatformSuperRevisionLog(): Promise<boolean> {
     return false;
   }
 }
+
+/** True when a JSON body contains Super role-access aggregate keys (leak detector). */
+export function responseBodyContainsSuperRoleAccessPayload(body: unknown): boolean {
+  if (!body || typeof body !== "object") return false;
+  const row = body as Record<string, unknown>;
+  if ("overview" in row) return true;
+  if ("recent_audit" in row) return true;
+  if ("organization_id" in row) return true;
+  if ("catalog" in row || "adoption" in row || "templates" in row) return true;
+  return false;
+}
+
+/** Server Component mount gate for Platform Super role-access overview — boolean only. */
+export async function canRenderPlatformSuperRoleAccess(): Promise<boolean> {
+  try {
+    const supabase = await createClient();
+    const evaluation = await evaluateSuperPortalDashboardAccess(supabase);
+    return evaluation.allowed;
+  } catch {
+    return false;
+  }
+}

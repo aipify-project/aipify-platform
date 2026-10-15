@@ -30,6 +30,7 @@ export type PlatformNavId =
   | "installationOversight"
   | "activityLogs"
   | "superRevision"
+  | "superRoleAccess"
   | "governanceRecords"
   | "securityReviews"
   | "executive"
@@ -329,6 +330,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     id: "superRevision",
     href: "/platform/governance/super-revision",
     labelKey: "platform.nav.superRevision",
+  },
+  {
+    id: "superRoleAccess",
+    href: "/platform/governance/role-access",
+    labelKey: "platform.nav.superRoleAccess",
   },
   { id: "governanceRecords", href: "/platform/governance/compliance-center", labelKey: "platform.nav.governanceRecords" },
   { id: "securityReviews", href: "/platform/trust/security", labelKey: "platform.nav.securityReviews" },
@@ -667,6 +673,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/installations")) return "installationOversight";
   if (pathname.startsWith("/platform/governance/activity-logs")) return "activityLogs";
   if (pathname.startsWith("/platform/governance/super-revision")) return "superRevision";
+  if (pathname.startsWith("/platform/governance/role-access")) return "superRoleAccess";
   if (pathname.startsWith("/platform/governance/compliance-center")) return "governanceRecords";
   if (pathname.startsWith("/platform/governance")) return "governanceRecords";
   if (pathname.startsWith("/platform/trust/security")) return "securityReviews";

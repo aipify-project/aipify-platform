@@ -126,6 +126,27 @@
         "previous": "Previous value",
         "next": "New value"
       }
+    },
+    "superRoleAccess": {
+      "title": "Roles & access",
+      "subtitle": "Read-only Super Admin overview of APP role and permission aggregates. Does not edit customer roles.",
+      "sourceNote": "Source: Super Admin role overview (get_super_admin_role_permission_matrix_overview). Customer APP role editing uses a separate settings area.",
+      "definitionNote": "Counts are platform-wide aggregates only — no organization identifiers or permission audit rows.",
+      "loading": "Loading roles and access overview…",
+      "loadError": "The roles and access overview could not be loaded. Try again or open Super Admin for details.",
+      "retry": "Try again",
+      "empty": "No role and access aggregates are available yet.",
+      "unavailableTitle": "Roles and access not available",
+      "unavailableMessage": "This Super Admin overview requires an active Super Admin role with verified two-factor authentication and recovery codes.",
+      "openSuperMatrix": "Open Super role matrix",
+      "backToPlatform": "Back to Platform",
+      "totalPermissions": "Permission definitions",
+      "totalModules": "Active modules",
+      "organizationsWithGrants": "Customer apps with grants",
+      "totalRoleGrants": "Active role grants",
+      "userOverrides": "User permission overrides",
+      "customRoles": "Custom roles",
+      "templates": "Role templates"
     }
   },
   "pageStates": {
@@ -275,7 +296,8 @@
     "websiteKompisPlans": "Kompis Web plans",
     "growthPartnerAttribution": "Sales links & attribution",
     "commissions": "Seller commissions",
-    "communications": "Communication"
+    "communications": "Communication",
+    "superRoleAccess": "Roles & access"
   },
   "executive": {
     "title": "Executive Center",
