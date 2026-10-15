@@ -162,15 +162,15 @@ function ControlPlaneOverviewCard({
 
   return (
     <section
-      className="rounded-2xl border border-violet-200/80 bg-violet-50/40 p-5 shadow-sm dark:border-violet-800/60 dark:bg-violet-950/25"
+      className="rounded-xl border border-violet-200/80 bg-violet-50/40 p-4 shadow-sm dark:border-violet-800/60 dark:bg-violet-950/25"
       aria-label={cp.sectionControlPlane}
     >
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="min-w-0">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
             {cp.sectionControlPlane}
           </h2>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+          <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-300">
             {cp.overallStatus}
           </p>
         </div>
@@ -179,7 +179,7 @@ function ControlPlaneOverviewCard({
           variant={controlPlaneStatusVariant(summary.overallStatus)}
         />
       </div>
-      <dl className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard
           label={cp.membership}
           value={summary.membershipReady ? cp.ready : cp.notReady}
@@ -201,11 +201,11 @@ function ControlPlaneOverviewCard({
           variant="muted"
         />
       </dl>
-      <div className="mt-4">
-        <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+      <div className="mt-3">
+        <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
           {cp.products}
         </p>
-        <ul className="mt-2 flex flex-wrap gap-2">
+        <ul className="mt-1.5 flex flex-wrap gap-1.5">
           {summary.products.map((product) => (
             <li key={`${product.productId}-${product.labelKey}`}>
               <StatusBadge
@@ -388,18 +388,20 @@ function MetricCard({
 
   return (
     <div
-      className={`flex h-full flex-col rounded-xl border px-4 py-3.5 shadow-sm ${styles.card}`}
+      className={`flex h-full flex-col rounded-lg border px-3 py-2.5 shadow-sm ${styles.card}`}
       data-variant={variant}
     >
-      <div className="flex items-start justify-between gap-3">
-        <dt className={`text-xs font-medium uppercase tracking-wide ${styles.label}`}>{label}</dt>
+      <div className="flex items-start justify-between gap-2">
+        <dt className={`text-[11px] font-medium uppercase tracking-wide ${styles.label}`}>
+          {label}
+        </dt>
         <span
-          className={`mt-0.5 h-2 w-2 shrink-0 rounded-full ring-2 ${styles.marker}`}
+          className={`mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full ring-2 ${styles.marker}`}
           aria-hidden="true"
           data-status={variant}
         />
       </div>
-      <dd className={`mt-2 text-2xl font-semibold tabular-nums tracking-tight ${styles.value}`}>
+      <dd className={`mt-1 text-lg font-semibold tabular-nums tracking-tight ${styles.value}`}>
         {value}
       </dd>
     </div>
@@ -426,16 +428,27 @@ function StatusBadge({
 function SectionCard({
   title,
   children,
+  headerAction,
+  compact = false,
 }: {
   title: string;
   children: ReactNode;
+  headerAction?: ReactNode;
+  compact?: boolean;
 }) {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-        {title}
-      </h2>
-      <div className="mt-4">{children}</div>
+    <section
+      className={`rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-950/40 ${
+        compact ? "p-3.5" : "p-4"
+      }`}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+          {title}
+        </h2>
+        {headerAction ? <div className="shrink-0">{headerAction}</div> : null}
+      </div>
+      <div className={compact ? "mt-2.5" : "mt-3"}>{children}</div>
     </section>
   );
 }
@@ -448,8 +461,8 @@ function DetailRow({
   children: ReactNode;
 }) {
   return (
-    <div className="grid gap-1 sm:grid-cols-[minmax(0,10rem)_1fr] sm:gap-4">
-      <dt className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+    <div className="grid gap-0.5 border-b border-slate-100 py-2 last:border-b-0 sm:grid-cols-[minmax(0,9.5rem)_1fr] sm:gap-3 dark:border-slate-800">
+      <dt className="text-[11px] font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
         {label}
       </dt>
       <dd className="min-w-0 text-sm text-slate-800 dark:text-slate-200">{children}</dd>
@@ -722,7 +735,7 @@ export function PlatformPortalCustomerDetailPanel({
 
   if (loadState.kind === "unauthorized") {
     return (
-      <div className="w-full space-y-6">
+      <div className="w-full space-y-4">
         <StateMessage message={labels.unauthorized} tone="neutral" />
       </div>
     );
@@ -730,7 +743,7 @@ export function PlatformPortalCustomerDetailPanel({
 
   if (loadState.kind === "forbidden") {
     return (
-      <div className="w-full space-y-6">
+      <div className="w-full space-y-4">
         <StateMessage message={labels.forbidden} tone="neutral" />
       </div>
     );
@@ -738,7 +751,7 @@ export function PlatformPortalCustomerDetailPanel({
 
   if (loadState.kind === "notFound") {
     return (
-      <div className="w-full space-y-6">
+      <div className="w-full space-y-4">
         <nav>
           <Link
             href="/platform/customers"
@@ -754,7 +767,7 @@ export function PlatformPortalCustomerDetailPanel({
 
   if (loadState.kind === "error") {
     return (
-      <div className="w-full space-y-6">
+      <div className="w-full space-y-4">
         <nav>
           <Link
             href="/platform/customers"
@@ -818,8 +831,8 @@ export function PlatformPortalCustomerDetailPanel({
   });
 
   return (
-    <div className="w-full space-y-6">
-      <header className="space-y-4">
+    <div className="w-full space-y-4">
+      <header className="space-y-3">
         <nav>
           <Link
             href="/platform/customers"
@@ -829,10 +842,10 @@ export function PlatformPortalCustomerDetailPanel({
           </Link>
         </nav>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-            <div className="min-w-0 space-y-2">
-              <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
+        <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+            <div className="min-w-0 space-y-1.5">
+              <h1 className="text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
                 {customer.name}
               </h1>
               {showLegalName ? (
@@ -840,7 +853,7 @@ export function PlatformPortalCustomerDetailPanel({
                   {labels.legalName}: {customer.legalName}
                 </p>
               ) : null}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-600 dark:text-slate-400">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-600 dark:text-slate-400">
                 {customer.organizationNumber ? (
                   <span>
                     {labels.organizationNumber}: {customer.organizationNumber}
@@ -852,7 +865,7 @@ export function PlatformPortalCustomerDetailPanel({
                   </span>
                 ) : null}
               </div>
-              <div className="flex flex-wrap items-center gap-2 pt-1">
+              <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
                 <StatusBadge
                   label={customerStatusLabel}
                   variant={
@@ -893,11 +906,12 @@ export function PlatformPortalCustomerDetailPanel({
                   />
                 ) : null}
                 <StatusBadge label={partnerLabel} variant={partnerVariant} />
+                <StatusBadge label={healthLabel} variant={healthVariant} />
               </div>
             </div>
 
-            <div className="min-w-0 shrink-0 space-y-1.5 lg:text-right">
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+            <div className="min-w-0 shrink-0 space-y-1 lg:text-right">
+              <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
                 {labels.customerId}
               </p>
               <CopyableValue
@@ -909,53 +923,51 @@ export function PlatformPortalCustomerDetailPanel({
               />
             </div>
           </div>
+
+          <dl
+            className="mt-3 grid gap-2 border-t border-slate-100 pt-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6 dark:border-slate-800"
+            aria-label={labels.title}
+          >
+            <MetricCard
+              label={subscriptionKpiValue.label}
+              value={subscriptionKpiValue.value}
+              variant={subscriptionKpiValue.variant}
+            />
+            <MetricCard
+              label={labels.activeLicenses}
+              value={usage.activeLicenseCount}
+              variant={usage.activeLicenseCount > 0 ? "success" : "muted"}
+            />
+            <MetricCard
+              label={labels.domainCountLabel}
+              value={usage.domainCount}
+              variant={usage.domainCount > 0 ? "info" : "muted"}
+            />
+            <MetricCard
+              label={labels.installationCountLabel}
+              value={usage.installationCount}
+              variant={usage.installationCount > 0 ? "info" : "muted"}
+            />
+            <MetricCard
+              label={labels.members}
+              value={usage.memberCount}
+              variant={usage.memberCount > 0 ? "neutral" : "muted"}
+            />
+            <MetricCard
+              label={labels.openSupport}
+              value={usage.openSupportCount}
+              variant={usage.openSupportCount > 0 ? "warning" : "success"}
+            />
+          </dl>
         </div>
       </header>
 
-      <section
-        className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40"
-        aria-label={labels.title}
-      >
-        <dl className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
-          <MetricCard
-            label={subscriptionKpiValue.label}
-            value={subscriptionKpiValue.value}
-            variant={subscriptionKpiValue.variant}
-          />
-          <MetricCard
-            label={labels.activeLicenses}
-            value={usage.activeLicenseCount}
-            variant={usage.activeLicenseCount > 0 ? "success" : "muted"}
-          />
-          <MetricCard
-            label={labels.domainCountLabel}
-            value={usage.domainCount}
-            variant={usage.domainCount > 0 ? "info" : "muted"}
-          />
-          <MetricCard
-            label={labels.installationCountLabel}
-            value={usage.installationCount}
-            variant={usage.installationCount > 0 ? "info" : "muted"}
-          />
-          <MetricCard
-            label={labels.members}
-            value={usage.memberCount}
-            variant={usage.memberCount > 0 ? "neutral" : "muted"}
-          />
-          <MetricCard
-            label={labels.openSupport}
-            value={usage.openSupportCount}
-            variant={usage.openSupportCount > 0 ? "warning" : "success"}
-          />
-        </dl>
-      </section>
-
       <ControlPlaneOverviewCard labels={labels} data={data} />
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="space-y-6 lg:col-span-2">
-          <SectionCard title={labels.sectionBusiness}>
-            <dl className="space-y-4">
+      <div className="grid gap-4 lg:grid-cols-12 lg:items-start">
+        <div className="space-y-4 lg:col-span-7 xl:col-span-8">
+          <SectionCard title={labels.sectionBusiness} compact>
+            <dl>
               <DetailRow label={labels.customerName}>{customer.name}</DetailRow>
               <DetailRow label={labels.legalName}>
                 {customer.legalName?.trim() ? customer.legalName : labels.notAvailable}
@@ -965,24 +977,6 @@ export function PlatformPortalCustomerDetailPanel({
                   ? customer.organizationNumber
                   : labels.notAvailable}
               </DetailRow>
-              <DetailRow label={labels.customerId}>
-                <CopyableValue
-                  value={customer.id}
-                  copyKey="business-customer-id"
-                  copiedKey={copiedKey}
-                  labels={labels}
-                  onCopy={(key, value) => void handleCopy(key, value)}
-                />
-              </DetailRow>
-              <DetailRow label={labels.companyId}>
-                <CopyableValue
-                  value={customer.companyId}
-                  copyKey="business-company-id"
-                  copiedKey={copiedKey}
-                  labels={labels}
-                  onCopy={(key, value) => void handleCopy(key, value)}
-                />
-              </DetailRow>
               <DetailRow label={labels.createdAt}>
                 {formatDate(customer.createdAt, locale, labels.notAvailable)}
               </DetailRow>
@@ -990,10 +984,56 @@ export function PlatformPortalCustomerDetailPanel({
                 {formatDate(customer.updatedAt, locale, labels.notAvailable)}
               </DetailRow>
             </dl>
+            <details className="mt-2 rounded-lg border border-slate-200 bg-slate-50/70 px-3 py-2 dark:border-slate-700 dark:bg-slate-900/40">
+              <summary className="cursor-pointer text-xs font-medium text-slate-600 dark:text-slate-300">
+                {labels.customerId} · {labels.companyId} · {labels.slug}
+              </summary>
+              <dl className="mt-2">
+                <DetailRow label={labels.customerId}>
+                  <CopyableValue
+                    value={customer.id}
+                    copyKey="business-customer-id"
+                    copiedKey={copiedKey}
+                    labels={labels}
+                    onCopy={(key, value) => void handleCopy(key, value)}
+                  />
+                </DetailRow>
+                <DetailRow label={labels.companyId}>
+                  <CopyableValue
+                    value={customer.companyId}
+                    copyKey="business-company-id"
+                    copiedKey={copiedKey}
+                    labels={labels}
+                    onCopy={(key, value) => void handleCopy(key, value)}
+                  />
+                </DetailRow>
+                <DetailRow label={labels.slug}>
+                  <div className="space-y-1">
+                    <p>{customer.slug?.trim() ? customer.slug : labels.notAvailable}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{labels.slugHelp}</p>
+                  </div>
+                </DetailRow>
+              </dl>
+            </details>
           </SectionCard>
 
-          <SectionCard title={labels.sectionCommercial}>
-            <dl className="space-y-4">
+          <SectionCard
+            title={labels.sectionCommercial}
+            compact
+            headerAction={
+              <button
+                type="button"
+                onClick={() => {
+                  setCommercialSuccess(false);
+                  setCommercialOpen(true);
+                }}
+                className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
+              >
+                {labels.managePlan}
+              </button>
+            }
+          >
+            <dl>
               <DetailRow label={labels.duration}>
                 <StatusBadge
                   label={commercial.lifetime ? labels.lifetime : labels.notAvailable}
@@ -1049,35 +1089,25 @@ export function PlatformPortalCustomerDetailPanel({
                 </div>
               </DetailRow>
             </dl>
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setCommercialSuccess(false);
-                  setCommercialOpen(true);
-                }}
-                className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
-              >
-                {labels.managePlan}
-              </button>
-              {commercialSuccess ? (
-                <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
-                  {commercialPlanLabels.success}
-                </p>
-              ) : null}
-            </div>
+            {commercialSuccess ? (
+              <p className="mt-2 text-sm font-medium text-emerald-700 dark:text-emerald-300">
+                {commercialPlanLabels.success}
+              </p>
+            ) : null}
           </SectionCard>
 
-          <SectionCard title={labels.sectionLicenses}>
-            <div className="mb-4 flex flex-wrap items-center gap-3">
-              {showCreateLicense ? (
+          <SectionCard
+            title={labels.sectionLicenses}
+            compact
+            headerAction={
+              showCreateLicense ? (
                 <button
                   type="button"
                   onClick={() => {
                     setLicenseSuccess(false);
                     setLicenseOpen(true);
                   }}
-                  className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
+                  className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
                 >
                   {labels.createLicense}
                 </button>
@@ -1089,55 +1119,56 @@ export function PlatformPortalCustomerDetailPanel({
                       .getElementById("platform-portal-customer-licenses")
                       ?.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
-                  className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900"
+                  className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900"
                 >
                   {labels.viewLicense}
                 </button>
-              )}
-              {!showCreateLicense ? (
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  {labels.noNewLicenseNeeded}
-                </p>
-              ) : null}
-              {licenseSuccess ? (
-                <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
-                  {licenseProvisioningLabels.success}
-                </p>
-              ) : null}
-            </div>
+              )
+            }
+          >
+            {!showCreateLicense ? (
+              <p className="mb-2 text-xs text-slate-600 dark:text-slate-400">
+                {labels.noNewLicenseNeeded}
+              </p>
+            ) : null}
+            {licenseSuccess ? (
+              <p className="mb-2 text-sm font-medium text-emerald-700 dark:text-emerald-300">
+                {licenseProvisioningLabels.success}
+              </p>
+            ) : null}
             <div id="platform-portal-customer-licenses">
             {data.licenses.length === 0 ? (
               <EmptyTableMessage message={labels.emptyLicenses} />
             ) : (
-              <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+              <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                 <table className="min-w-full border-collapse text-left text-sm">
                   <thead className="border-b border-slate-200 bg-slate-50/95 dark:border-slate-700 dark:bg-slate-900/95">
                     <tr>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.product}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.status}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {licenseProvisioningLabels.provisioningStatus}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {licenseProvisioningLabels.maskedLicenseCode}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.domain}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.installId}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.createdAt}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.activatedAt}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.expiresAt}
                       </th>
                     </tr>
@@ -1162,8 +1193,8 @@ export function PlatformPortalCustomerDetailPanel({
                       });
                       return (
                         <tr key={license.id} className="align-top">
-                          <td className="px-3 py-2.5 text-slate-800 dark:text-slate-200">{productLabel}</td>
-                          <td className="px-3 py-2.5">
+                          <td className="px-2.5 py-2 text-slate-800 dark:text-slate-200">{productLabel}</td>
+                          <td className="px-2.5 py-2">
                             <StatusBadge
                               label={statusLabel(
                                 license.status,
@@ -1173,7 +1204,7 @@ export function PlatformPortalCustomerDetailPanel({
                               variant={licenseStatusVariant(license.status)}
                             />
                           </td>
-                          <td className="px-3 py-2.5">
+                          <td className="px-2.5 py-2">
                             <StatusBadge
                               label={statusLabel(
                                 provisioningStatus,
@@ -1195,15 +1226,15 @@ export function PlatformPortalCustomerDetailPanel({
                               }
                             />
                           </td>
-                          <td className="px-3 py-2.5 font-mono text-xs text-slate-600 dark:text-slate-300">
+                          <td className="px-2.5 py-2 font-mono text-xs text-slate-600 dark:text-slate-300">
                             {license.maskedLicenseCode?.trim()
                               ? license.maskedLicenseCode
                               : labels.notAvailable}
                           </td>
-                          <td className="px-3 py-2.5 text-slate-700 dark:text-slate-300">
+                          <td className="px-2.5 py-2 text-slate-700 dark:text-slate-300">
                             {license.domain?.trim() ? license.domain : labels.notAvailable}
                           </td>
-                          <td className="px-3 py-2.5">
+                          <td className="px-2.5 py-2">
                             {license.installId ? (
                               <CopyableValue
                                 value={license.installId}
@@ -1216,13 +1247,13 @@ export function PlatformPortalCustomerDetailPanel({
                               labels.notAvailable
                             )}
                           </td>
-                          <td className="whitespace-nowrap px-3 py-2.5 text-slate-700 dark:text-slate-300">
+                          <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
                             {formatDate(license.createdAt, locale, labels.notAvailable)}
                           </td>
-                          <td className="whitespace-nowrap px-3 py-2.5 text-slate-700 dark:text-slate-300">
+                          <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
                             {formatDate(license.activatedAt, locale, labels.notAvailable)}
                           </td>
-                          <td className="whitespace-nowrap px-3 py-2.5 text-slate-700 dark:text-slate-300">
+                          <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
                             {formatDate(license.expiresAt, locale, labels.notAvailable)}
                           </td>
                         </tr>
@@ -1235,16 +1266,18 @@ export function PlatformPortalCustomerDetailPanel({
             </div>
           </SectionCard>
 
-          <SectionCard title={labels.sectionDomains}>
-            <div className="mb-4 flex flex-wrap items-center gap-3">
-              {showDomainInstallation ? (
+          <SectionCard
+            title={labels.sectionDomains}
+            compact
+            headerAction={
+              showDomainInstallation ? (
                 <button
                   type="button"
                   onClick={() => {
                     setDomainSuccess(false);
                     setDomainOpen(true);
                   }}
-                  className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
+                  className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
                 >
                   {labels.addDomainInstallation}
                 </button>
@@ -1256,49 +1289,50 @@ export function PlatformPortalCustomerDetailPanel({
                       .getElementById("platform-portal-customer-domains")
                       ?.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
-                  className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900"
+                  className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900"
                 >
                   {labels.viewSetup}
                 </button>
-              )}
-              {!showDomainInstallation ? (
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  {data.licenses.some((license) => !(license.domain ?? "").trim()) &&
-                  (usage.domainCount > 0 || usage.installationCount > 0)
-                    ? labels.licenseMissingLink
-                    : labels.noNewDomainInstallationNeeded}
-                </p>
-              ) : null}
-              {domainSuccess ? (
-                <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
-                  {domainInstallationLabels.success}
-                </p>
-              ) : null}
-            </div>
+              )
+            }
+          >
+            {!showDomainInstallation ? (
+              <p className="mb-2 text-xs text-slate-600 dark:text-slate-400">
+                {data.licenses.some((license) => !(license.domain ?? "").trim()) &&
+                (usage.domainCount > 0 || usage.installationCount > 0)
+                  ? labels.licenseMissingLink
+                  : labels.noNewDomainInstallationNeeded}
+              </p>
+            ) : null}
+            {domainSuccess ? (
+              <p className="mb-2 text-sm font-medium text-emerald-700 dark:text-emerald-300">
+                {domainInstallationLabels.success}
+              </p>
+            ) : null}
             <div id="platform-portal-customer-domains">
             {data.domains.length === 0 ? (
               <EmptyTableMessage message={labels.emptyDomains} />
             ) : (
-              <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+              <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                 <table className="min-w-full border-collapse text-left text-sm">
                   <thead className="border-b border-slate-200 bg-slate-50/95 dark:border-slate-700 dark:bg-slate-900/95">
                     <tr>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.hostname}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.domainRole}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.status}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.installId}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.createdAt}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.verifiedAt}
                       </th>
                     </tr>
@@ -1315,10 +1349,10 @@ export function PlatformPortalCustomerDetailPanel({
                       });
                       return (
                       <tr key={domain.id} className="align-top">
-                        <td className="px-3 py-2.5 font-medium text-slate-800 dark:text-slate-200">
+                        <td className="px-2.5 py-2 font-medium text-slate-800 dark:text-slate-200">
                           {domain.hostname}
                         </td>
-                        <td className="px-3 py-2.5">
+                        <td className="px-2.5 py-2">
                           <StatusBadge
                             label={
                               role === "unknown"
@@ -1328,7 +1362,7 @@ export function PlatformPortalCustomerDetailPanel({
                             variant={role === "license" || role === "runtime" ? "info" : "neutral"}
                           />
                         </td>
-                        <td className="px-3 py-2.5">
+                        <td className="px-2.5 py-2">
                           <StatusBadge
                             label={statusLabel(
                               domain.status,
@@ -1338,7 +1372,7 @@ export function PlatformPortalCustomerDetailPanel({
                             variant={domainStatusVariant(domain.status)}
                           />
                         </td>
-                        <td className="px-3 py-2.5">
+                        <td className="px-2.5 py-2">
                           {domain.installId ? (
                             <CopyableValue
                               value={domain.installId}
@@ -1351,10 +1385,10 @@ export function PlatformPortalCustomerDetailPanel({
                             labels.notAvailable
                           )}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2.5 text-slate-700 dark:text-slate-300">
+                        <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
                           {formatDate(domain.createdAt, locale, labels.notAvailable)}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2.5 text-slate-700 dark:text-slate-300">
+                        <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
                           {formatDate(domain.verifiedAt, locale, labels.notAvailable)}
                         </td>
                       </tr>
@@ -1367,27 +1401,27 @@ export function PlatformPortalCustomerDetailPanel({
             </div>
           </SectionCard>
 
-          <SectionCard title={labels.sectionEntitlements}>
+          <SectionCard title={labels.sectionEntitlements} compact>
             {data.entitlements.length === 0 ? (
               <EmptyTableMessage message={labels.emptyEntitlements} />
             ) : (
-              <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+              <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
                 <table className="min-w-full border-collapse text-left text-sm">
                   <thead className="border-b border-slate-200 bg-slate-50/95 dark:border-slate-700 dark:bg-slate-900/95">
                     <tr>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.code}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.name}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.status}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.grantedAt}
                       </th>
-                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <th scope="col" className="whitespace-nowrap px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.expiresAt}
                       </th>
                     </tr>
@@ -1395,13 +1429,13 @@ export function PlatformPortalCustomerDetailPanel({
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                     {data.entitlements.map((entitlement) => (
                       <tr key={entitlement.id} className="align-top">
-                        <td className="px-3 py-2.5 font-mono text-xs text-slate-800 dark:text-slate-200">
+                        <td className="px-2.5 py-2 font-mono text-xs text-slate-800 dark:text-slate-200">
                           {entitlement.code}
                         </td>
-                        <td className="px-3 py-2.5 text-slate-700 dark:text-slate-300">
+                        <td className="px-2.5 py-2 text-slate-700 dark:text-slate-300">
                           {entitlement.name?.trim() ? entitlement.name : labels.notAvailable}
                         </td>
-                        <td className="px-3 py-2.5">
+                        <td className="px-2.5 py-2">
                           <StatusBadge
                             label={statusLabel(
                               entitlement.status,
@@ -1411,10 +1445,10 @@ export function PlatformPortalCustomerDetailPanel({
                             variant={entitlementStatusVariant(entitlement.status)}
                           />
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2.5 text-slate-700 dark:text-slate-300">
+                        <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
                           {formatDate(entitlement.grantedAt, locale, labels.notAvailable)}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2.5 text-slate-700 dark:text-slate-300">
+                        <td className="whitespace-nowrap px-2.5 py-2 text-slate-700 dark:text-slate-300">
                           {formatDate(entitlement.expiresAt, locale, labels.notAvailable)}
                         </td>
                       </tr>
@@ -1424,9 +1458,120 @@ export function PlatformPortalCustomerDetailPanel({
               </div>
             )}
           </SectionCard>
+
+          <SectionCard
+            title={websiteKompisLabels.sectionActivatedServices}
+            compact
+            headerAction={
+              websiteKompis?.eligible && !websiteKompis.active ? (
+                <button
+                  type="button"
+                  onClick={() => setWebsiteKompisOpen(true)}
+                  className="rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-violet-500"
+                >
+                  {websiteKompisLabels.activate}
+                </button>
+              ) : null
+            }
+          >
+            <div className="space-y-3">
+              {websiteKompisSuccess ? (
+                <p
+                  className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-200"
+                  role="status"
+                >
+                  {websiteKompisSuccess}
+                </p>
+              ) : null}
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {websiteKompisLabels.scopeNote}
+              </p>
+              <div className="rounded-lg border border-slate-200 p-3 dark:border-slate-700">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                      {websiteKompisLabels.serviceName}
+                    </h3>
+                    <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400">
+                      {websiteKompisLabels.appLicense}
+                      {websiteKompis?.domain.hostname
+                        ? ` · ${websiteKompis.domain.hostname}`
+                        : ""}
+                    </p>
+                  </div>
+                  <StatusBadge
+                    label={
+                      websiteKompisLabels.activationStatuses[
+                        websiteKompis?.activationStatus ?? "not_ready"
+                      ] ?? websiteKompisLabels.notReady
+                    }
+                    variant={websiteKompisStatusVariant(
+                      websiteKompis?.activationStatus,
+                    )}
+                  />
+                </div>
+                <dl className="mt-3 grid gap-2 sm:grid-cols-2">
+                  <div>
+                    <dt className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      {websiteKompisLabels.domain}
+                    </dt>
+                    <dd className="mt-0.5 text-sm text-slate-800 dark:text-slate-200">
+                      {websiteKompis?.domain.hostname ??
+                        websiteKompisLabels.notLinked}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      {websiteKompisLabels.installKey}
+                    </dt>
+                    <dd className="mt-0.5 break-all text-sm text-slate-800 dark:text-slate-200">
+                      {websiteKompis?.installation.installId ??
+                        websiteKompisLabels.notConfigured}
+                    </dd>
+                  </div>
+                </dl>
+                {!websiteKompis?.active && websiteKompis?.reasons?.length ? (
+                  <ul className="mt-3 space-y-1">
+                    {websiteKompis.reasons.map((reason) => (
+                      <li
+                        key={reason.code}
+                        className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300"
+                      >
+                        <span
+                          aria-hidden
+                          className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
+                            reason.satisfied ? "bg-emerald-500" : "bg-amber-500"
+                          }`}
+                        />
+                        <span>
+                          {reasonLabel(
+                            reason.code,
+                            websiteKompisLabels.reasonLabels,
+                            reason.satisfied,
+                          )}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                {websiteKompis?.active ? (
+                  <p className="mt-3 text-xs text-slate-600 dark:text-slate-300">
+                    {websiteKompisLabels.alreadyActive}
+                    {websiteKompis.existingActivation.activatedAt
+                      ? ` · ${formatDate(
+                          websiteKompis.existingActivation.activatedAt,
+                          locale,
+                          labels.notAvailable,
+                        )}`
+                      : ""}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          </SectionCard>
         </div>
 
-        <aside className="space-y-6">
+        <aside className="space-y-4 lg:col-span-5 xl:col-span-4 lg:sticky lg:top-4 lg:self-start">
           <PlatformPortalCustomerIdentityPanel
             customerId={customerId}
             labels={customerIdentityLabels}
@@ -1449,115 +1594,8 @@ export function PlatformPortalCustomerDetailPanel({
             customerId={customerId}
             labels={adminProvisionLabels}
           />
-          <SectionCard title={websiteKompisLabels.sectionActivatedServices}>
-            <div className="space-y-4">
-              {websiteKompisSuccess ? (
-                <p
-                  className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-200"
-                  role="status"
-                >
-                  {websiteKompisSuccess}
-                </p>
-              ) : null}
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                {websiteKompisLabels.scopeNote}
-              </p>
-              <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                      {websiteKompisLabels.serviceName}
-                    </h3>
-                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                      {websiteKompisLabels.appLicense}
-                      {websiteKompis?.domain.hostname
-                        ? ` · ${websiteKompis.domain.hostname}`
-                        : ""}
-                    </p>
-                  </div>
-                  <StatusBadge
-                    label={
-                      websiteKompisLabels.activationStatuses[
-                        websiteKompis?.activationStatus ?? "not_ready"
-                      ] ?? websiteKompisLabels.notReady
-                    }
-                    variant={websiteKompisStatusVariant(
-                      websiteKompis?.activationStatus,
-                    )}
-                  />
-                </div>
-                <dl className="mt-4 grid gap-3 sm:grid-cols-2">
-                  <div>
-                    <dt className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                      {websiteKompisLabels.domain}
-                    </dt>
-                    <dd className="mt-1 text-sm text-slate-800 dark:text-slate-200">
-                      {websiteKompis?.domain.hostname ??
-                        websiteKompisLabels.notLinked}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                      {websiteKompisLabels.installKey}
-                    </dt>
-                    <dd className="mt-1 break-all text-sm text-slate-800 dark:text-slate-200">
-                      {websiteKompis?.installation.installId ??
-                        websiteKompisLabels.notConfigured}
-                    </dd>
-                  </div>
-                </dl>
-                {!websiteKompis?.active && websiteKompis?.reasons?.length ? (
-                  <ul className="mt-4 space-y-1.5">
-                    {websiteKompis.reasons.map((reason) => (
-                      <li
-                        key={reason.code}
-                        className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300"
-                      >
-                        <span
-                          aria-hidden
-                          className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
-                            reason.satisfied ? "bg-emerald-500" : "bg-amber-500"
-                          }`}
-                        />
-                        <span>
-                          {reasonLabel(
-                            reason.code,
-                            websiteKompisLabels.reasonLabels,
-                            reason.satisfied,
-                          )}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {websiteKompis?.eligible && !websiteKompis.active ? (
-                    <button
-                      type="button"
-                      onClick={() => setWebsiteKompisOpen(true)}
-                      className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-500"
-                    >
-                      {websiteKompisLabels.activate}
-                    </button>
-                  ) : null}
-                  {websiteKompis?.active ? (
-                    <p className="text-sm text-slate-600 dark:text-slate-300">
-                      {websiteKompisLabels.alreadyActive}
-                      {websiteKompis.existingActivation.activatedAt
-                        ? ` · ${formatDate(
-                            websiteKompis.existingActivation.activatedAt,
-                            locale,
-                            labels.notAvailable,
-                          )}`
-                        : ""}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          </SectionCard>
-          <SectionCard title={labels.sectionStatus}>
-            <dl className="space-y-4">
+          <SectionCard title={labels.sectionStatus} compact>
+            <dl>
               <DetailRow label={labels.status}>
                 <StatusBadge label={healthLabel} variant={healthVariant} />
               </DetailRow>
