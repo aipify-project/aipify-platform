@@ -2,6 +2,8 @@
 
 **Feature owner:** PLATFORM ADMIN  
 **Worktree base:** `origin/main` @ `d161610b`  
+**PR (filter UX + these docs):** https://github.com/aipify-project/aipify-platform/pull/233  
+**Head:** `164274d7`  
 **Mode:** Read-only code/migration inventory (no Core writes, no ticket mutations, no email sends)  
 **Live Production Core SQL:** **NOT RUN** (no authorized RO session used in this job)  
 **Website Kompis Public Chain:** untouched (46/46)  
