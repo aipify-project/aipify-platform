@@ -11,7 +11,7 @@ export default async function PlatformAnnouncementCenterPage() {
 
   return (
     <GlobalAnnouncementCenterPanel
-      backHref="/platform"
+      backHref="/platform/communications"
       labels={buildGlobalAnnouncementLabels(t)}
     />
   );

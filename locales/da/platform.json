@@ -201,7 +201,8 @@
     "providerOnboarding": "Provider-onboarding",
     "websiteKompisPlans": "Kompis Web-planer",
     "growthPartnerAttribution": "Salgslinks og attribuering",
-    "commissions": "Sælgerprovisioner"
+    "commissions": "Sælgerprovisioner",
+    "communications": "Kommunikation"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -7047,12 +7048,12 @@
     }
   },
   "websiteKompisPlans": {
-    "title": "Kompis Web-plankommunikation",
-    "subtitle": "Autoritativ planlagt katalog og udkast til kunde-e-mails. Levering er ikke live.",
+    "title": "Kompis Web planbeskedudkast",
+    "subtitle": "Planlagt plankatalog og udkast til kundebeskeder. Levering er ikke aktiv.",
     "catalogSection": "Planlagt plankatalog",
     "templatesSection": "Udkast til e-mailskabeloner",
-    "deliveryDraftOnly": "Kun forhåndsvisning — ingen kundesending.",
-    "noCustomerSend": "Denne flade sender aldrig e-mail til kunder og ændrer aldrig Stripe eller rettigheder.",
+    "deliveryDraftOnly": "Kun udkast — ingen kundelevering.",
+    "noCustomerSend": "Kun forhåndsvisning — ingen kundebeskeder sendes fra denne skærm. Stripe og rettigheder ændres ikke.",
     "previewSubject": "Emne",
     "previewBody": "Brødtekst",
     "readinessSection": "Opgraderingsporte (fremtidig autorisation)",
@@ -7127,6 +7128,25 @@
         "body": "Fakturering og licenskontroller ser sunde ud igen. Besøgendes svar kan fortsætte inden for verificerede pakkegrænser.",
         "cta": "Åbn forbindelsesstatus"
       }
+    },
+    "offerStatusPlanned": "Planlagt",
+    "quotaLifetime": "Livstidssvar pr. webstedlicens",
+    "quotaMonthly": "Månedligt fornyende svar",
+    "priceMonthly": "{currency} {amount}/md.",
+    "priceAnnual": "{currency} {amount}/år",
+    "freePrice": "Intet kort kræves",
+    "checkoutNotEnabled": "Checkout er ikke aktiveret",
+    "stripeTrialNote": "Stripe-prøveperiode og betalt checkout er senere arbejde. Denne skærm hævder aldrig live-fakturering.",
+    "plans": {
+      "free": {
+        "name": "Gratis"
+      },
+      "standard": {
+        "name": "Standard"
+      },
+      "pro": {
+        "name": "Pro"
+      }
     }
   },
   "unifiedBillingAdmin": {
@@ -7149,6 +7169,24 @@
     "accountingExport": {
       "title": "Accounting export",
       "subtitle": "Prepare customer, invoice, payment, VAT, and commission exports for Fiken and other systems."
+    }
+  },
+  "communications": {
+    "title": "Kommunikation",
+    "subtitle": "Meddelelser og udkast til udgående beskeder for platformadministratorer. Dette er ikke en kundesupport-indbakke.",
+    "notSupportInbox": "Supportsager hører under Kunder → Support. Kommunikation dækker kun meddelelser og beskedudkast, der ikke sendes fra denne skærm.",
+    "back": "Tilbage til Kommunikation",
+    "cards": {
+      "announcements": {
+        "title": "Meddelelsescenter",
+        "description": "Forbered og gennemgå globale platformmeddelelser for autoriserede administratorer.",
+        "cta": "Åbn meddelelsescenter"
+      },
+      "planMessages": {
+        "title": "Kompis Web planbeskedudkast",
+        "description": "Forhåndsvis planlagt plankatalog og e-mailudkast til kunder. Kun forhåndsvisning — ingen beskeder sendes.",
+        "cta": "Åbn planbeskedudkast"
+      }
     }
   }
 }

@@ -80,6 +80,7 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
     items: [
       { id: "knowledgeCenter", labelKey: "platform.nav.knowledgeCenter" },
       { id: "documentation", labelKey: "platform.nav.documentation" },
+      { id: "communications", labelKey: "platform.nav.communications" },
     ],
   },
   {
@@ -90,6 +91,7 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
       { id: "productManagement", labelKey: "platform.nav.productManagement" },
       { id: "businessPacks", labelKey: "platform.nav.businessPacks" },
       { id: "licenses", labelKey: "platform.nav.licenses" },
+      // Deep link preserved — plan catalog / message drafts live under Communications route
       { id: "websiteKompisPlans", labelKey: "platform.nav.websiteKompisPlans" },
     ],
   },

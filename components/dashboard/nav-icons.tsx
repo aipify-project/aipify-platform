@@ -302,6 +302,13 @@ export function getNavIcon(id: string) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       );
+    case "communications":
+    case "announcementCenter":
+      return (
+        <svg className={className} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.69.4-1.56.2-1.923-.464a48.106 48.106 0 01-1.804-4.21m14.052-5.029c.263.393.4.86.4 1.343v1.786a2.25 2.25 0 01-1.35 2.06l-2.55 1.1a2.25 2.25 0 01-1.957-.106l-2.2-1.21a2.25 2.25 0 01-1.14-1.952V9.75a2.25 2.25 0 011.14-1.952l2.2-1.21a2.25 2.25 0 011.957-.106l2.55 1.1a2.25 2.25 0 011.35 2.06z" />
+        </svg>
+      );
     case "knowledgeCenter":
     case "contactSupport":
     case "supportRequests":

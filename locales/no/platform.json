@@ -208,7 +208,8 @@
     "providerOnboarding": "Provider-onboarding",
     "websiteKompisPlans": "Kompis Web-planer",
     "growthPartnerAttribution": "Salgslenker og attribusjon",
-    "commissions": "Selgerprovisjoner"
+    "commissions": "Selgerprovisjoner",
+    "communications": "Kommunikasjon"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -7324,12 +7325,12 @@
     }
   },
   "websiteKompisPlans": {
-    "title": "Kompis Web plankommunikasjon",
-    "subtitle": "Autoritativ planlagt katalog og utkast til kundee-post. Levering er ikke live.",
+    "title": "Kompis Web planmeldingsutkast",
+    "subtitle": "Planlagt plankatalog og utkast til kundemeldinger. Leveranse er ikke aktiv.",
     "catalogSection": "Planlagt plankatalog",
     "templatesSection": "Utkast til e-postmaler",
-    "deliveryDraftOnly": "Kun forhåndsvisning — ingen kundesending.",
-    "noCustomerSend": "Denne flaten sender aldri e-post til kunder og endrer aldri Stripe eller rettigheter.",
+    "deliveryDraftOnly": "Kun utkast — ingen kundemelding sendes.",
+    "noCustomerSend": "Kun forhåndsvisning — ingen kundemeldinger sendes fra denne skjermen. Stripe og rettigheter endres ikke.",
     "previewSubject": "Emne",
     "previewBody": "Brødtekst",
     "readinessSection": "Oppgraderingsporter (fremtidig autorisasjon)",
@@ -7403,6 +7404,43 @@
         "title": "Tilgangen er gjenopprettet",
         "body": "Fakturering og lisenskontroller ser sunne ut igjen. Besøkendes svar kan fortsette innen verifiserte pakkegrenser.",
         "cta": "Åpne tilkoblingsstatus"
+      }
+    },
+    "offerStatusPlanned": "Planlagt",
+    "quotaLifetime": "Livstidssvar per nettstedslisens",
+    "quotaMonthly": "Månedlig fornyende svar",
+    "priceMonthly": "{currency} {amount}/mnd",
+    "priceAnnual": "{currency} {amount}/år",
+    "freePrice": "Ingen kort kreves",
+    "checkoutNotEnabled": "Kasse er ikke aktivert",
+    "stripeTrialNote": "Stripe-prøveperiode og betalt kasse er senere arbeid. Denne skjermen hevder aldri live fakturering.",
+    "plans": {
+      "free": {
+        "name": "Gratis"
+      },
+      "standard": {
+        "name": "Standard"
+      },
+      "pro": {
+        "name": "Pro"
+      }
+    }
+  },
+  "communications": {
+    "title": "Kommunikasjon",
+    "subtitle": "Kunngjøringer og utkast til utgående meldinger for plattformadministratorer. Dette er ikke en kundeservice-innboks.",
+    "notSupportInbox": "Support-saker hører under Kunder → Support. Kommunikasjon dekker kun kunngjøringer og meldingsutkast som ikke sendes fra denne skjermen.",
+    "back": "Tilbake til Kommunikasjon",
+    "cards": {
+      "announcements": {
+        "title": "Kunngjøringssenter",
+        "description": "Forbered og gjennomgå globale plattformkunngjøringer for autoriserte administratorer.",
+        "cta": "Åpne kunngjøringssenter"
+      },
+      "planMessages": {
+        "title": "Kompis Web planmeldingsutkast",
+        "description": "Forhåndsvis planlagt plankatalog og e-postutkast til kunder. Kun forhåndsvisning — ingen meldinger sendes.",
+        "cta": "Åpne planmeldingsutkast"
       }
     }
   }

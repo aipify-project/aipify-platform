@@ -37,16 +37,16 @@ test("operations owns installations; product does not", () => {
   );
   assert.deepEqual(
     product!.items.map((i) => i.id),
-    ["productManagement", "businessPacks", "websiteKompisPlans"],
+    ["productManagement", "businessPacks", "licenses", "websiteKompisPlans"],
   );
 });
 
-test("knowledge keeps docs; translations live under control & governance", () => {
+test("knowledge keeps docs and communications; translations live under control & governance", () => {
   const knowledge = PLATFORM_NAV_GROUPS.find((g) => g.id === "knowledge");
   const audit = PLATFORM_NAV_GROUPS.find((g) => g.id === "auditGovernance");
   assert.deepEqual(
     knowledge!.items.map((i) => i.id),
-    ["knowledgeCenter", "documentation"],
+    ["knowledgeCenter", "documentation", "communications"],
   );
   assert.deepEqual(
     audit!.items.map((i) => i.id),
