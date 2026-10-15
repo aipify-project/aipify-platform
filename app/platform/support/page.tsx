@@ -1,9 +1,11 @@
 import PlatformSupportPanel from "@/components/platform/PlatformSupportPanel";
+import { PlatformSupportInboxDormantPanel } from "@/components/platform/platform-portal/PlatformSupportInboxDormantPanel";
 import {
   supportCaseStatusLabels,
   supportCategoryLabels,
   supportPriorityLabels,
 } from "@/lib/platform/labels";
+import { buildPlatformSupportInboxLabels } from "@/lib/platform-portal/support-inbox-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -13,10 +15,12 @@ export default async function PlatformSupportPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["platform", "branding"]);
   const t = createTranslator(dict);
+  const inboxLabels = buildPlatformSupportInboxLabels(t);
 
-  return (
+  const legacyPanel = (
     <PlatformSupportPanel
       locale={locale}
+      embedded
       sinceLastLoginLabels={buildSinceLastLoginLabels(t)}
       labels={{
         title: t("platform.support.title"),
@@ -43,6 +47,7 @@ export default async function PlatformSupportPage() {
           escalatedByAi: t("platform.support.counters.escalatedByAi"),
           waitingHuman: t("platform.support.counters.waitingHuman"),
           openCases: t("platform.support.counters.openCases"),
+          scopeNote: t("platform.support.counters.scopeNote"),
         },
         performance: {
           title: t("platform.support.performance.title"),
@@ -59,5 +64,9 @@ export default async function PlatformSupportPage() {
         },
       }}
     />
+  );
+
+  return (
+    <PlatformSupportInboxDormantPanel labels={inboxLabels} legacyQueue={legacyPanel} />
   );
 }

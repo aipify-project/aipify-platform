@@ -17,6 +17,8 @@ import SupportAiPerformancePanel from "./SupportAiPerformancePanel";
 type PlatformSupportPanelProps = {
   locale: string;
   sinceLastLoginLabels: SinceLastLoginSummaryLabels;
+  /** When true, omit page title (parent workspace already provides chrome). */
+  embedded?: boolean;
   labels: {
     title: string;
     subtitle: string;
@@ -42,6 +44,7 @@ type PlatformSupportPanelProps = {
       escalatedByAi: string;
       waitingHuman: string;
       openCases: string;
+      scopeNote: string;
     };
     performance: {
       title: string;
@@ -62,6 +65,7 @@ type PlatformSupportPanelProps = {
 export default function PlatformSupportPanel({
   locale,
   sinceLastLoginLabels,
+  embedded = false,
   labels,
 }: PlatformSupportPanelProps) {
   const [cases, setCases] = useState<PlatformSupportQueueRow[]>([]);
@@ -133,13 +137,15 @@ export default function PlatformSupportPanel({
   }
 
   return (
-    <div className="mx-auto max-w-6xl">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-          {labels.title}
-        </h1>
-        <p className="mt-2 text-base text-gray-500">{labels.subtitle}</p>
-      </div>
+    <div className={embedded ? "w-full" : "w-full"}>
+      {!embedded && (
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            {labels.title}
+          </h1>
+          <p className="mt-2 text-base text-gray-500">{labels.subtitle}</p>
+        </div>
+      )}
 
       <SinceLastLoginSummaryPanel
         scope="support"
@@ -156,10 +162,6 @@ export default function PlatformSupportPanel({
           {performance && (
             <SupportAiPerformancePanel performance={performance} labels={labels.performance} />
           )}
-          {cases.length === 0 ? (
-            <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
-          ) : (
-            <>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { label: labels.counters.resolvedByAi, value: counters.resolvedByAi },
@@ -178,6 +180,10 @@ export default function PlatformSupportPanel({
               </article>
             ))}
           </div>
+          <p className="text-xs leading-relaxed text-slate-500">{labels.counters.scopeNote}</p>
+          {cases.length === 0 ? (
+            <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
+          ) : (
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-100">
@@ -246,7 +252,6 @@ export default function PlatformSupportPanel({
             </table>
           </div>
         </div>
-            </>
           )}
         </div>
       )}

@@ -243,7 +243,7 @@
     "greetingSubtext": "Ось що обробив Aipify з моменту вашого останнього відвідування.",
     "sinceLogin": {
       "title": "З моменту вашого останнього входу",
-      "supportResolved": "Запити на підтримку {count} вирішено",
+      "supportResolved": "{count} розв’язань підтримки в lifetime ops-метриках (не обсяг звернень з моменту входу)",
       "automationsCompleted": "Автоматизацію {count} завершено",
       "approvalWaiting": "Затвердження {count} очікує на розгляд",
       "criticalIncidents": "Виявлено критичні інциденти {count}",
@@ -330,7 +330,7 @@
       "sinceVisit": "З моменту вашого останнього візиту:",
       "newCustomers": "{count} придбано нових клієнтів.",
       "trialsEnding": "Термін дії пробних періодів {count} закінчується протягом 7 днів.",
-      "supportResolved": "Aipify Підтримка вирішила запити {count}.",
+      "supportResolved": "Aipify зафіксував {count} lifetime-розв’язань у ops-метриках (не SoT звернень APP).",
       "escalated": "Звернення до служби підтримки {count} передано.",
       "failedAutomations": "Збій автоматизації {count}.",
       "systemWarnings": "Виявлено попередження системи {count}.",
@@ -381,7 +381,7 @@
       "expand": "Розгорнути",
       "openModule": "Відкритий модуль",
       "newCustomers": "Нові клієнти: {count}",
-      "supportResolved": "Запити на підтримку вирішено: {count}",
+      "supportResolved": "Lifetime-розв’язання підтримки (ops-метрика): {count}",
       "escalated": "Ескалація випадків: {count}",
       "installationsCompleted": "Встановлення завершено: {count}",
       "automationsTriggered": "Запущена автоматизація: {count}",
@@ -4582,9 +4582,9 @@
   },
   "support": {
     "title": "Підтримка",
-    "subtitle": "Внутрішня черга підтримки з видимістю ескалації Aipify.",
+    "subtitle": "Старіша внутрішня черга та операційні метрики. Не реєстр звернень APP.",
     "loading": "Завантаження черги підтримки...",
-    "empty": "Заявок у службу підтримки ще немає.",
+    "empty": "Немає справ у старішій черзі підтримки. Це не означає, що реєстр звернень APP порожній.",
     "customer": "Замовник",
     "category": "Категорія",
     "priority": "Пріоритет",
@@ -4609,16 +4609,17 @@
       "urgent": "Терміново"
     },
     "counters": {
-      "resolvedByAi": "Вирішено Aipifypifypify",
-      "escalatedByAi": "Передано Aipify",
-      "waitingHuman": "В очікуванні людини",
-      "openCases": "Відкриті кейси"
+      "resolvedByAi": "Lifetime-розв’язання (ops-метрика)",
+      "escalatedByAi": "Ескальовано (ops-метрика)",
+      "waitingHuman": "Очікує людину (ops-метрика)",
+      "openCases": "Відкриті справи (ops-метрика)",
+      "scopeNote": "Ці цифри з операційного знімка платформи — не кількість звернень APP і не «з моменту входу»."
     },
     "performance": {
       "title": "Продуктивність підтримки Aipify",
       "subtitle": "Aipify спочатку використовує Aipify — видимість значення підтримки на основі Aipify.",
       "requestsToday": "Запити сьогодні",
-      "resolvedByAi": "Вирішено Aipifypifypify",
+      "resolvedByAi": "Розв’язано Aipify (ops-метрика)",
       "escalatedCases": "Ескалація випадків",
       "avgResponseTime": "Середній час відповіді",
       "satisfactionScore": "Задоволеність клієнтів",
@@ -7650,6 +7651,86 @@
         "body": "Перевірки розрахунків і ліцензії знову виглядають здоровими. Відповіді відвідувачам можуть тривати в межах перевірених лімітів пакета.",
         "cta": "Відкрити статус підключення"
       }
+    }
+  },
+  "supportInbox": {
+    "title": "Робочий простір підтримки",
+    "subtitle": "Єдина підтримка Platform для сайту Aipify, Kompis Web, Kompis Bedrift і Продавців — підготовлена до звернень APP після активації читання Core.",
+    "dormantBannerTitle": "Скринька звернень APP ще не активна",
+    "dormantBannerBody": "Цей екран лише презентаційний. Живі звернення APP не завантажуються, доки читання Core не застосовано, а перемикач функції не увімкнено в окремому завданні власника.",
+    "legacySectionTitle": "Застаріла черга підтримки",
+    "legacySectionSubtitle": "Нижче показано старішу внутрішню чергу та операційні метрики. Це не реєстр звернень APP (app_portal_support_requests).",
+    "statusCards": {
+      "open": "Відкриті звернення",
+      "waiting": "Очікують",
+      "resolved": "Розв’язані або закриті",
+      "total": "Усього звернень",
+      "unavailable": "—",
+      "scopeNote": "Кількість звернень недоступна, поки шлях читання APP неактивний. Ці картки ніколи не показують lifetime-статистику."
+    },
+    "filters": {
+      "channel": "Канал",
+      "status": "Статус",
+      "priority": "Пріоритет",
+      "search": "Пошук",
+      "searchPlaceholder": "Пошук звернень після активації",
+      "disabledHint": "Фільтри та пошук вимкнено, доки не активовано читання звернень APP."
+    },
+    "list": {
+      "title": "Список звернень",
+      "emptyTitle": "Список звернень APP не активовано",
+      "emptyBody": "Цей порожній стан означає, що нова скринька неактивна — не те, що реєстр APP порожній. Порожня стара черга нижче — окреме джерело даних.",
+      "columns": {
+        "customer": "Клієнт",
+        "subject": "Тема",
+        "channel": "Канал",
+        "status": "Статус",
+        "priority": "Пріоритет",
+        "updated": "Оновлено"
+      }
+    },
+    "detail": {
+      "title": "Деталі звернення",
+      "empty": "Після активації оберіть звернення, щоб переглянути деталі та історію.",
+      "originalLanguage": "Мова оригіналу",
+      "norwegianTranslation": "Норвезький переклад (заплановано)",
+      "replyTranslation": "Переклад відповіді (заплановано)",
+      "internalNotes": "Внутрішні нотатки",
+      "customerVisibleReply": "Відповідь, видима клієнту",
+      "approveBeforeSend": "Відповіді клієнту потребуватимуть ручного затвердження перед надсиланням.",
+      "sendDisabled": "Надіслати відповідь (недоступно)",
+      "history": "Історія",
+      "localeGap": "Мова джерела ще не зберігається у зверненнях — її не вигадують з UI оператора."
+    },
+    "channels": {
+      "aipify_public_site": {
+        "label": "Сайт Aipify",
+        "statusLinked": "Не підключено.",
+        "statusNotLinked": "Не підключено.",
+        "note": "Публічний контакт не підтверджено як надходження звернень до реєстру APP."
+      },
+      "kompis_web": {
+        "label": "Kompis Web",
+        "statusLinked": "Не підключено.",
+        "statusNotLinked": "Не підключено.",
+        "note": "Запитання/FAQ відвідувачів не є SoT звернень APP."
+      },
+      "kompis_bedrift_app": {
+        "label": "Kompis Bedrift",
+        "statusLinked": "Підключене джерело істини після активації.",
+        "statusNotLinked": "Підключення заплановано.",
+        "note": "Звернення порталу APP (app_portal) — заплановане основне SoT для цієї вкладки."
+      },
+      "sellers_partners": {
+        "label": "Продавці",
+        "statusLinked": "Не підключено.",
+        "statusNotLinked": "Не підключено.",
+        "note": "Ескалації продавців / Growth Partner ще не підтверджено як надходження звернень."
+      }
+    },
+    "linkStatus": {
+      "linked": "Підключено",
+      "notLinked": "Не підключено"
     }
   }
 }

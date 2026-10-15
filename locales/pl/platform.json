@@ -243,7 +243,7 @@
     "greetingSubtext": "Oto czym Aipify zajęło się od Twojej ostatniej wizyty.",
     "sinceLogin": {
       "title": "Od ostatniego logowania",
-      "supportResolved": "Rozwiązane zgłoszenia wsparcia: {count}",
+      "supportResolved": "{count} rozwiązań supportu w metrykach lifetime ops (nie wolumen zgłoszeń od logowania)",
       "automationsCompleted": "Ukończone automatyzacje: {count}",
       "approvalWaiting": "Zatwierdzenia oczekujące na weryfikację: {count}",
       "criticalIncidents": "Wykryte incydenty krytyczne: {count}",
@@ -330,7 +330,7 @@
       "sinceVisit": "Od Twojej ostatniej wizyty:",
       "newCustomers": "Pozyskano nowych klientów: {count}.",
       "trialsEnding": "Okresy próbne {count} klientów wygasają w ciągu 7 dni.",
-      "supportResolved": "Aipify Support rozwiązało zgłoszenia: {count}.",
+      "supportResolved": "Aipify zarejestrowało {count} rozwiązań lifetime w metrykach ops (nie SoT zgłoszeń APP).",
       "escalated": "Eskalowano sprawy wsparcia: {count}.",
       "failedAutomations": "Nieudane automatyzacje: {count}.",
       "systemWarnings": "Wykryte ostrzeżenia systemowe: {count}.",
@@ -381,7 +381,7 @@
       "expand": "Rozwiń",
       "openModule": "Otwórz moduł",
       "newCustomers": "Nowi klienci: {count}",
-      "supportResolved": "Rozwiązane zgłoszenia wsparcia: {count}",
+      "supportResolved": "Rozwiązania support lifetime (metryka ops): {count}",
       "escalated": "Eskalowane sprawy: {count}",
       "installationsCompleted": "Ukończone instalacje: {count}",
       "automationsTriggered": "Uruchomione automatyzacje: {count}",
@@ -4582,9 +4582,9 @@
   },
   "support": {
     "title": "Wsparcie",
-    "subtitle": "Wewnętrzna kolejka wsparcia z widocznością eskalacji Aipify.",
+    "subtitle": "Starsza kolejka wewnętrzna i metryki operacyjne. Nie rejestr zgłoszeń APP.",
     "loading": "Ładowanie kolejki wsparcia...",
-    "empty": "Brak zgłoszeń wsparcia.",
+    "empty": "Brak spraw w starszej kolejce wsparcia. To nie oznacza, że rejestr zgłoszeń APP jest pusty.",
     "customer": "Klient",
     "category": "Kategoria",
     "priority": "Priorytet",
@@ -4609,16 +4609,17 @@
       "urgent": "Pilny"
     },
     "counters": {
-      "resolvedByAi": "Rozwiązane przez Aipifypifypify",
-      "escalatedByAi": "Eskalowane przez Aipify",
-      "waitingHuman": "Oczekuje na człowieka",
-      "openCases": "Otwarte sprawy"
+      "resolvedByAi": "Rozwiązania lifetime (metryka ops)",
+      "escalatedByAi": "Eskalowane (metryka ops)",
+      "waitingHuman": "Oczekuje na człowieka (metryka ops)",
+      "openCases": "Otwarte sprawy (metryka ops)",
+      "scopeNote": "Te liczby pochodzą ze snapshotu operacyjnego platformy — nie z rejestru zgłoszeń APP i nie „od ostatniego logowania”."
     },
     "performance": {
       "title": "Wydajność Aipify Support",
       "subtitle": "Aipify korzysta najpierw z Aipify — wgląd w wartość wsparcia wspieranego przez Aipify.",
       "requestsToday": "Zgłoszenia dzisiaj",
-      "resolvedByAi": "Rozwiązane przez Aipifypifypify",
+      "resolvedByAi": "Rozwiązane przez Aipify (metryka ops)",
       "escalatedCases": "Eskalowane sprawy",
       "avgResponseTime": "Średni czas odpowiedzi",
       "satisfactionScore": "Satysfakcja klientów",
@@ -7650,6 +7651,86 @@
         "body": "Kontrole rozliczeń i licencji wyglądają zdrowo. Odpowiedzi dla odwiedzających mogą być kontynuowane w zweryfikowanych limitach pakietu.",
         "cta": "Otwórz status połączenia"
       }
+    }
+  },
+  "supportInbox": {
+    "title": "Przestrzeń wsparcia",
+    "subtitle": "Wspólne wsparcie Platformy dla strony Aipify, Kompis Web, Kompis Bedrift i Sprzedawców — przygotowane na zgłoszenia APP po aktywacji odczytu Core.",
+    "dormantBannerTitle": "Skrzynka zgłoszeń APP nie jest jeszcze aktywna",
+    "dormantBannerBody": "Ten ekran jest wyłącznie prezentacyjny. Żywe zgłoszenia APP nie są ładowane, dopóki odczyt Core nie zostanie zastosowany, a przełącznik funkcji nie zostanie włączony w osobnym zadaniu właściciela.",
+    "legacySectionTitle": "Starsza kolejka wsparcia",
+    "legacySectionSubtitle": "Poniższa sekcja pokazuje starszą kolejkę wewnętrzną i metryki operacyjne. To nie jest rejestr zgłoszeń APP (app_portal_support_requests).",
+    "statusCards": {
+      "open": "Otwarte zgłoszenia",
+      "waiting": "Oczekujące",
+      "resolved": "Rozwiązane lub zamknięte",
+      "total": "Łączna liczba zgłoszeń",
+      "unavailable": "—",
+      "scopeNote": "Liczby zgłoszeń są niedostępne, gdy ścieżka odczytu APP jest nieaktywna. Te karty nigdy nie pokazują statystyk lifetime."
+    },
+    "filters": {
+      "channel": "Kanał",
+      "status": "Status",
+      "priority": "Priorytet",
+      "search": "Szukaj",
+      "searchPlaceholder": "Szukaj zgłoszeń po aktywacji",
+      "disabledHint": "Filtry i wyszukiwanie są wyłączone do aktywacji odczytu zgłoszeń APP."
+    },
+    "list": {
+      "title": "Lista zgłoszeń",
+      "emptyTitle": "Lista zgłoszeń APP nie jest aktywowana",
+      "emptyBody": "Ten pusty stan oznacza, że nowa skrzynka jest uśpiona — nie że rejestr APP jest pusty. Pusta starsza kolejka poniżej to osobne źródło danych.",
+      "columns": {
+        "customer": "Klient",
+        "subject": "Temat",
+        "channel": "Kanał",
+        "status": "Status",
+        "priority": "Priorytet",
+        "updated": "Zaktualizowano"
+      }
+    },
+    "detail": {
+      "title": "Szczegóły zgłoszenia",
+      "empty": "Po aktywacji wybierz zgłoszenie, aby zobaczyć szczegóły i historię.",
+      "originalLanguage": "Język oryginalny",
+      "norwegianTranslation": "Tłumaczenie norweskie (planowane)",
+      "replyTranslation": "Tłumaczenie odpowiedzi wychodzącej (planowane)",
+      "internalNotes": "Notatki wewnętrzne",
+      "customerVisibleReply": "Odpowiedź widoczna dla klienta",
+      "approveBeforeSend": "Odpowiedzi do klienta będą wymagały ręcznej akceptacji przed wysyłką.",
+      "sendDisabled": "Wyślij odpowiedź (niedostępne)",
+      "history": "Historia",
+      "localeGap": "Język źródłowy nie jest jeszcze przechowywany w zgłoszeniach — nie wymyślamy go z UI operatora."
+    },
+    "channels": {
+      "aipify_public_site": {
+        "label": "Strona Aipify",
+        "statusLinked": "Niepołączone.",
+        "statusNotLinked": "Niepołączone.",
+        "note": "Kontakt publiczny nie jest potwierdzony jako wpływ zgłoszeń do rejestru APP."
+      },
+      "kompis_web": {
+        "label": "Kompis Web",
+        "statusLinked": "Niepołączone.",
+        "statusNotLinked": "Niepołączone.",
+        "note": "Pytania/FAQ odwiedzających nie są SoT zgłoszeń APP."
+      },
+      "kompis_bedrift_app": {
+        "label": "Kompis Bedrift",
+        "statusLinked": "Połączone źródło prawdy po aktywacji.",
+        "statusNotLinked": "Planowane połączenie.",
+        "note": "Zgłoszenia portalu APP (app_portal) to planowane główne SoT dla tej karty."
+      },
+      "sellers_partners": {
+        "label": "Sprzedawcy",
+        "statusLinked": "Niepołączone.",
+        "statusNotLinked": "Niepołączone.",
+        "note": "Eskalacje sprzedawców / Growth Partner nie są jeszcze potwierdzone jako wpływ zgłoszeń."
+      }
+    },
+    "linkStatus": {
+      "linked": "Połączone",
+      "notLinked": "Niepołączone"
     }
   }
 }
