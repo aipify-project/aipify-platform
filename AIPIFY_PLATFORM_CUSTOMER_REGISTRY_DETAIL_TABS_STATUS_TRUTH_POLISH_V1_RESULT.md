@@ -2,12 +2,14 @@
 
 **Feature owner:** PLATFORM ADMIN  
 **Branch:** `fix/platform-customer-registry-detail-tabs-status-truth-polish-v1`  
+**PR:** https://github.com/aipify-project/aipify-platform/pull/232  
+**Head:** `05911b41`  
 **Scope:** `/platform/customers`, `/platform/customers/[id]` (+ view contracts, locales, tests)  
 **Out of scope:** Customer APP, Core writes, Bedrift grants, Website Kompis Public Chain, Step B stash
 
 ## Verdict
 
-**PARTIAL — ready for PR/CI; visual QA NOT RUN (auth-gated).**
+**PARTIAL — PR open; visual QA NOT RUN (auth-gated); LIVE merge held.**
 
 Status-truth mapper, registry filter layout, detail tabs, lavender canvas token reuse, and 7-locale copy are implemented and unit-tested. Authenticated browser QA and Production LIVE merge are blocked until visual QA can run.
 
