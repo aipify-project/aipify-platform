@@ -104,6 +104,28 @@
     "activityLogs": {
       "title": "Activity Logs",
       "subtitle": "Plattformsomfattande aktivitets- och administrationsloggar."
+    },
+    "superRevision": {
+      "title": "Revisionslogg",
+      "subtitle": "Skrivskyddade Super Admin-styrningshändelser. Separat från plattformens aktivitetslogg.",
+      "sourceNote": "Källa: Super Admin-revision (get_super_global_audit_center). Plattformsdrift använder en annan aktivitetslogg.",
+      "periodNote": "Visar de senaste händelserna från Core (upp till 100).",
+      "loading": "Läser in revisionslogg…",
+      "loadError": "Revisionsloggen kunde inte läsas in. Försök igen eller öppna Super Admin för detaljer.",
+      "retry": "Försök igen",
+      "empty": "Inga revisionshändelser är tillgängliga ännu.",
+      "unavailableTitle": "Revisionslogg inte tillgänglig",
+      "unavailableMessage": "Denna Super Admin-revisionslogg kräver en aktiv Super Admin-roll med verifierad tvåfaktorsautentisering och återställningskoder.",
+      "openSuperRevision": "Öppna Super-revisionslogg",
+      "backToPlatform": "Tillbaka till Platform",
+      "noValue": "—",
+      "columns": {
+        "actor": "Administratör",
+        "action": "Åtgärd",
+        "when": "När",
+        "previous": "Tidigare värde",
+        "next": "Nytt värde"
+      }
     }
   },
   "pageStates": {
@@ -192,6 +214,7 @@
     "productManagement": "Produkthantering",
     "installationOversight": "Installationer",
     "activityLogs": "Aktivitetslogg",
+    "superRevision": "Revisionslogg",
     "governanceRecords": "Styrningsregister",
     "securityReviews": "Säkerhetsgranskningar",
     "customers": "Kunder",

@@ -362,6 +362,7 @@
     "installationOversight": "Instalaciones",
     "translationManagement": "Idioma y traducciones",
     "system": "Configuración del sistema",
+    "superRevision": "Registro de revisión",
     "unonightPilot": "Customer Zero / operaciones de prueba",
     "payments": "Resumen financiero",
     "licenses": "Registro de licencias",
@@ -921,6 +922,28 @@
     }
   },
   "portalStructure": {
+    "superRevision": {
+      "title": "Registro de revisión",
+      "subtitle": "Eventos de gobernanza de Super Admin de solo lectura. Separado del registro de actividad de Platform.",
+      "sourceNote": "Fuente: auditoría de Super Admin (get_super_global_audit_center). Las operaciones de Platform usan otro registro de actividad.",
+      "periodNote": "Muestra los eventos más recientes de Core (hasta 100).",
+      "loading": "Cargando registro de revisión…",
+      "loadError": "No se pudo cargar el registro de revisión. Inténtelo de nuevo o abra Super Admin para ver los detalles.",
+      "retry": "Intentar de nuevo",
+      "empty": "Aún no hay eventos de revisión disponibles.",
+      "unavailableTitle": "Registro de revisión no disponible",
+      "unavailableMessage": "Este registro de revisión de Super Admin requiere un rol Super Admin activo con autenticación de dos factores verificada y códigos de recuperación.",
+      "openSuperRevision": "Abrir registro de revisión Super",
+      "backToPlatform": "Volver a Platform",
+      "noValue": "—",
+      "columns": {
+        "actor": "Administrador",
+        "action": "Acción",
+        "when": "Cuándo",
+        "previous": "Valor anterior",
+        "next": "Valor nuevo"
+      }
+    },
     "dashboard": {
       "superAdminInsight": {
         "title": "Resumen del grupo",
