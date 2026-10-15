@@ -115,3 +115,5 @@ Website Kompis freeze · Step B stash · PR #238 · Support SQL NOT_APPLIED · n
 ## STOP
 
 **BLOCKED** on authenticated smoke. Awaiting owner-executed matrix + separate release decision for PR #243.
+
+**Report commit HEAD:** `77acd1dfd00ec924c69cef967d2992314c3c6560`
