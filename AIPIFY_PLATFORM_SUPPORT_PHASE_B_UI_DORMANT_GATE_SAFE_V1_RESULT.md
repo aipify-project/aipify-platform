@@ -10,7 +10,9 @@
 
 ## Verdict
 
-**PARTIAL → aim PASS on merge** — dormant Support workspace UI + label cleanup shipped with gates **OFF**.  
+**PARTIAL — WAITING_FOR_AUTHENTICATED_VISUAL_QA** — dormant Support workspace UI + label cleanup on PR #238 with gates **OFF**.  
+CI / Vercel preview **green**. Authenticated desktop/mobile QA **blocked** at Platform login (no operator session in agent).  
+**Do not claim LIVE Support inbox.** Merge deferred until owner completes visual QA.  
 **No Production SQL apply. No live APP ticket binding. No Customer APP design changes.**
 
 ## What shipped
@@ -47,15 +49,17 @@
 | `support-inbox-ui-contract.test.ts` | **PASS** |
 | Prior read-adapter / SQL contract tests | **PASS** |
 | Website Kompis frozen | **46/46** |
-| Authenticated visual QA desktop/mobile | **PENDING / may BLOCK merge until green** |
+| Authenticated visual QA desktop/mobile | **BLOCKED** — preview redirects to `/login?next=/platform/support` |
+| CI / Vercel (aipify, aipify-platform, iz5z) | **PASS** |
+| Preview deployment | `dpl_HW98KUd8v2wVTczh8Z3kNHkYih1W` (`aipify-platform`) |
 
 ## LIVE / NOT LIVE
 
 | Surface | State |
 |---------|-------|
-| Dormant Support workspace chrome on `/platform/support` | **LIVE after merge** (presentation only) |
+| Dormant Support workspace chrome on `/platform/support` | **NOT LIVE on main** (open on PR #238 preview only) |
 | APP ticket list/detail/counts | **NOT LIVE** |
-| Legacy queue | Still present, clearly labelled |
+| Legacy queue | Still present in branch, clearly labelled |
 | Production SQL | **NOT_APPLIED** |
 
 ## Next (separate jobs)
