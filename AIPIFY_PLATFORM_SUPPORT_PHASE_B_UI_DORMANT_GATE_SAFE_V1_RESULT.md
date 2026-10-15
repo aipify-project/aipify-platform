@@ -4,7 +4,9 @@
 **Job:** `AIPIFY_PLATFORM_SUPPORT_PHASE_B_UI_DORMANT_GATE_SAFE_V1`  
 **Feature owner:** PLATFORM ADMIN  
 **Base:** `origin/main` @ `be213df2`  
-**Branch:** `feat/platform-support-phase-b-ui-dormant-gate-safe-v1`
+**Branch:** `feat/platform-support-phase-b-ui-dormant-gate-safe-v1`  
+**PR:** https://github.com/aipify-project/aipify-platform/pull/238  
+**Feature tip:** `cb61040b`
 
 ## Verdict
 
