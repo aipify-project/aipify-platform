@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
+import { isForgotPasswordPublicErrorCode } from "@/lib/auth/forgot-password";
 
 type ForgotPasswordFormProps = {
   labels: {
@@ -10,6 +11,9 @@ type ForgotPasswordFormProps = {
     backToLogin: string;
     success: string;
     emailRequired: string;
+    deliveryFailed: string;
+    rateLimited: string;
+    requestFailed: string;
     generic: string;
   };
 };
@@ -19,6 +23,24 @@ export default function ForgotPasswordForm({ labels }: ForgotPasswordFormProps) 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  function resolveErrorLabel(code: unknown): string {
+    if (!isForgotPasswordPublicErrorCode(code)) {
+      return labels.generic;
+    }
+    switch (code) {
+      case "email_required":
+        return labels.emailRequired;
+      case "rate_limited":
+        return labels.rateLimited;
+      case "delivery_failed":
+        return labels.deliveryFailed;
+      case "request_failed":
+        return labels.requestFailed;
+      default:
+        return labels.generic;
+    }
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -39,10 +61,10 @@ export default function ForgotPasswordForm({ labels }: ForgotPasswordFormProps) 
         body: JSON.stringify({ email }),
       });
 
-      const payload = (await response.json()) as { error?: string };
+      const payload = (await response.json()) as { error?: string; ok?: boolean };
 
       if (!response.ok) {
-        setError(payload.error ?? labels.generic);
+        setError(resolveErrorLabel(payload.error));
         return;
       }
 

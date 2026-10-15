@@ -22,6 +22,9 @@ export default async function ForgotPasswordPage() {
           backToLogin: t("auth.forgotPassword.backToLogin"),
           success: t("auth.forgotPassword.success"),
           emailRequired: t("auth.errors.emailRequired"),
+          deliveryFailed: t("auth.forgotPassword.errors.deliveryFailed"),
+          rateLimited: t("auth.forgotPassword.errors.rateLimited"),
+          requestFailed: t("auth.forgotPassword.errors.requestFailed"),
           generic: t("auth.errors.generic"),
         }}
       />
