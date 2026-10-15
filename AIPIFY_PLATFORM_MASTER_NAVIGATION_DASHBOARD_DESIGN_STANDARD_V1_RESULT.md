@@ -2,17 +2,17 @@
 
 ## Status
 
-**READY for merge** (fill PR/merge/deploy after LIVE). Nav/IA + shared design polish only.
+**LIVE** — nav/IA + shared design polish only; no new business engines.
 
 ## Baseline
 
 | Item | Value |
 |---|---|
 | Worktree | `/Users/veltrix/Development/aipify-platform-master-navigation-dashboard-design-standard-v1` |
-| Branch | `fix/platform-master-navigation-dashboard-design-standard-v1` |
+| Branch | `fix/platform-master-navigation-dashboard-design-standard-v1` (merged/deleted) |
 | Base | `origin/main` @ `37b585d3` (Selgere/Fakturaer LIVE) |
 | Prior LIVE | Customer detail compaction (#228), Selgere/Fakturaer (#230) |
-| Drift audit worktree | Present but stale/behind — not conflicting; no duplicate PR |
+| Drift audit worktree | Present but stale/behind — not conflicting |
 | Frozen WK 46/46 | Untouched |
 | Step B stash | Untouched |
 
@@ -58,7 +58,7 @@
 
 ## Design
 
-- Platform active accent: light blue (`sky-100` / `sky-950`) — already LIVE from #230
+- Platform active accent: light blue (`sky-100` / `sky-950`) — from #230
 - Dashboard uses home icon; clearer icons for Driftsoversikt, status, publishing, installations, organizations
 - Customer APP sidebar unchanged (no Platform Dashboard)
 
@@ -74,13 +74,14 @@
 | `nav-sellers-commercial-structure.test.ts` | **PASS** |
 | `dashboard-business-language.test.ts` | **PASS** |
 | Auth visual click-through | **NOT RUN** (login-gated) |
-| CI / Vercel | Pending PR |
+| CI / Vercel preview | **PASS** |
 
 ## PR / deploy
 
 | Item | Value |
 |---|---|
-| PR | _pending_ |
-| Head | _pending_ |
-| Merge SHA | _pending_ |
-| Deploy | _pending_ |
+| PR | https://github.com/aipify-project/aipify-platform/pull/231 |
+| Head | `4f07b3c5` |
+| Merge SHA | `5ec873d6` |
+| Deploy (aipify-platform) | `dpl_EB3VfxgtaYL3H7zY9byj5fhMdpEC` **READY** → `app.aipify.ai` |
+| Merged at | 2026-10-15T12:23:27Z |
