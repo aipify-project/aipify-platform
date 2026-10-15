@@ -785,7 +785,17 @@
           "cancelled": "Anulowany",
           "unavailable": "Niedostępny",
           "conflict": "Wymaga przeglądu"
-        }
+        },
+        "productTruthNote": "Etykiety produktów opierają się na uprawnieniach Core i zweryfikowanym statusie aktywacji. Aktywna umowa lub członkostwo nie oznacza licencji Kompis Bedrift."
+      },
+      "detailTabs": {
+        "overview": "Przegląd",
+        "agreement": "Umowa i faktury",
+        "licenses": "Licencje i produkty",
+        "domains": "Domeny i instalacje",
+        "delivery": "Dostawa i operacje",
+        "admin": "Administracja i dostęp",
+        "ariaLabel": "Sekcje szczegółów klienta"
       }
     },
     "createCustomer": "Utwórz klienta",

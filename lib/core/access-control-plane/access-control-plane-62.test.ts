@@ -237,6 +237,17 @@ function baseSnapshotInput(
   assert.equal(summary.overallStatus, "active");
   assert.equal(summary.provisioningReady, true);
   assert.equal(summary.membershipReady, true);
+  const bedrift = summary.products.find((p) => p.productId === "kompisBedrift" || p.labelKey === "bedrift");
+  assert.ok(bedrift);
+  assert.notEqual(bedrift!.status, "active", "membership must not invent Bedrift active");
+  const web = summary.products.find((p) => p.productId === "website_kompis");
+  assert.ok(web);
+  assert.equal(web!.status, "active");
+  assert.equal(
+    summary.products.some((p) => p.labelKey === "web"),
+    false,
+    "duplicate Kompis Web chip removed",
+  );
 }
 
 // No SQL / migration files in this job scope

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { PlatformPortalCustomerDetailPanel } from "@/components/platform/platform-portal/PlatformPortalCustomerDetailPanel";
 import {
   buildPlatformPortalAdminProvisionLabels,
@@ -14,6 +15,7 @@ import { buildCustomerWebsiteRuntimeLabels } from "@/lib/customer-website-runtim
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 
 type CustomerDetailPageProps = {
   params: Promise<{ id: string }>;
@@ -36,19 +38,21 @@ export default async function PlatformCustomerDetailPage({ params }: CustomerDet
   const customerIdentityLabels = buildPlatformCustomerIdentityLabels(t);
 
   return (
-    <PlatformPortalCustomerDetailPanel
-      customerId={id}
-      labels={labels}
-      commercialPlanLabels={commercialPlanLabels}
-      licenseProvisioningLabels={licenseProvisioningLabels}
-      domainInstallationLabels={domainInstallationLabels}
-      websiteKompisLabels={websiteKompisLabels}
-      kompisBedriftLabels={kompisBedriftLabels}
-      adminProvisionLabels={adminProvisionLabels}
-      appKompisDeliveryLabels={appKompisDeliveryLabels}
-      websiteRuntimeLabels={websiteRuntimeLabels}
-      customerIdentityLabels={customerIdentityLabels}
-      locale={locale}
-    />
+    <Suspense fallback={<AipifyLoader centered />}>
+      <PlatformPortalCustomerDetailPanel
+        customerId={id}
+        labels={labels}
+        commercialPlanLabels={commercialPlanLabels}
+        licenseProvisioningLabels={licenseProvisioningLabels}
+        domainInstallationLabels={domainInstallationLabels}
+        websiteKompisLabels={websiteKompisLabels}
+        kompisBedriftLabels={kompisBedriftLabels}
+        adminProvisionLabels={adminProvisionLabels}
+        appKompisDeliveryLabels={appKompisDeliveryLabels}
+        websiteRuntimeLabels={websiteRuntimeLabels}
+        customerIdentityLabels={customerIdentityLabels}
+        locale={locale}
+      />
+    </Suspense>
   );
 }

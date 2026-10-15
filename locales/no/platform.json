@@ -634,7 +634,17 @@
           "cancelled": "Avsluttet",
           "unavailable": "Utilgjengelig",
           "conflict": "Krever gjennomgang"
-        }
+        },
+        "productTruthNote": "Produktmerker bygger på Core-rettigheter og verifisert aktiveringsstatus. Aktiv kundeavtale eller medlemskap er ikke det samme som Kompis Bedrift-lisens."
+      },
+      "detailTabs": {
+        "overview": "Oversikt",
+        "agreement": "Avtale og faktura",
+        "licenses": "Lisenser og produkter",
+        "domains": "Domener og installasjoner",
+        "delivery": "Leveranse og drift",
+        "admin": "Administrasjon og tilgang",
+        "ariaLabel": "Kundedetalj-seksjoner"
       }
     },
     "createCustomer": "Opprett kunde",

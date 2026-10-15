@@ -23,3 +23,4 @@ export * from "./app-kompis-delivery";
 export * from "./app-kompis-delivery-locales";
 export * from "./customer-identity";
 export * from "./customer-identity-labels";
+export * from "./product-status-truth";

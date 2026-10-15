@@ -785,7 +785,17 @@
           "cancelled": "Cancelled",
           "unavailable": "Unavailable",
           "conflict": "Needs review"
-        }
+        },
+        "productTruthNote": "Product chips use Core entitlements and verified activation status. An active customer agreement or membership is not a Kompis Bedrift grant."
+      },
+      "detailTabs": {
+        "overview": "Overview",
+        "agreement": "Agreement & billing",
+        "licenses": "Licenses & products",
+        "domains": "Domains & installations",
+        "delivery": "Delivery & operations",
+        "admin": "Administration & access",
+        "ariaLabel": "Customer detail sections"
       }
     },
     "createCustomer": "Create customer",
