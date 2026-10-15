@@ -18,8 +18,10 @@ import {
   PLATFORM_NAV_INITIALIZED_STORAGE_KEY,
   PLATFORM_NAV_LAST_ITEM_STORAGE_KEY,
   PLATFORM_NAV_OPEN_GROUP_STORAGE_KEY,
+  PLATFORM_NAV_EXPANDED_SET_STORAGE_KEY,
   PLATFORM_COLLAPSIBLE_GROUPS,
   PLATFORM_FIXED_NAV_GROUPS,
+  getPlatformDefaultExpandedGroupIds,
 } from "@/lib/platform/nav-groups";
 import {
   getPlatformGroupIdForNavItem,
@@ -69,9 +71,14 @@ const ACTIVE_TEXT_CLASSES = {
   light: "text-[15px] font-semibold leading-snug text-sky-950",
 } as const;
 
+/** Desktop shell breakpoint — matches AipifySidebarLayout.asideDesktop (lg). */
+const PLATFORM_DESKTOP_MQ = "(min-width: 1024px)";
+
 function createStorageHelpers(mode: "customer" | "platform") {
   const openGroupKey =
     mode === "platform" ? PLATFORM_NAV_OPEN_GROUP_STORAGE_KEY : APP_NAV_OPEN_GROUP_STORAGE_KEY;
+  const expandedSetKey =
+    mode === "platform" ? PLATFORM_NAV_EXPANDED_SET_STORAGE_KEY : null;
   const legacyCompactKey =
     mode === "platform" ? PLATFORM_NAV_COMPACT_STORAGE_KEY : APP_NAV_COMPACT_STORAGE_KEY;
   const initializedKey =
@@ -88,6 +95,7 @@ function createStorageHelpers(mode: "customer" | "platform") {
 
   return {
     openGroupKey,
+    expandedSetKey,
     legacyCompactKey,
     initializedKey,
     lastItemKey,
@@ -100,6 +108,19 @@ function createStorageHelpers(mode: "customer" | "platform") {
         ? ([...PLATFORM_FIXED_NAV_GROUPS] as string[])
         : (["home"] as string[]),
   };
+}
+
+function parseExpandedSet(raw: string | null, allowed: readonly string[]): Set<string> {
+  if (!raw) return new Set();
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return new Set();
+    return new Set(
+      parsed.filter((id): id is string => typeof id === "string" && allowed.includes(id)),
+    );
+  } catch {
+    return new Set();
+  }
 }
 
 function ChevronIcon({ open }: { open: boolean }) {
@@ -249,10 +270,21 @@ export default function GroupedSidebar({
   sidebarMode = "customer",
 }: GroupedSidebarProps) {
   const storage = useMemo(() => createStorageHelpers(sidebarMode), [sidebarMode]);
+  const isPlatform = sidebarMode === "platform";
   const [openGroupId, setOpenGroupId] = useState<string | null>(null);
+  const [expandedGroupIds, setExpandedGroupIds] = useState<Set<string>>(() => new Set());
+  const [isDesktopViewport, setIsDesktopViewport] = useState(true);
   const [hydrated, setHydrated] = useState(false);
 
   const activeGroupId = useMemo(() => storage.resolveGroupId(activeId), [activeId, storage]);
+
+  const persistExpandedSet = useCallback(
+    (next: Set<string>) => {
+      if (typeof window === "undefined" || !storage.expandedSetKey) return;
+      window.localStorage.setItem(storage.expandedSetKey, JSON.stringify([...next]));
+    },
+    [storage.expandedSetKey],
+  );
 
   const applyOpenGroup = useCallback(
     (groupId: string | null) => {
@@ -267,52 +299,110 @@ export default function GroupedSidebar({
     [storage.openGroupKey],
   );
 
+  const applyExpandedSet = useCallback(
+    (next: Set<string>) => {
+      setExpandedGroupIds(next);
+      persistExpandedSet(next);
+    },
+    [persistExpandedSet],
+  );
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     window.localStorage.removeItem(storage.legacyCompactKey);
+
+    if (isPlatform) {
+      const mq = window.matchMedia(PLATFORM_DESKTOP_MQ);
+      const sync = () => setIsDesktopViewport(mq.matches);
+      sync();
+      mq.addEventListener("change", sync);
+      setHydrated(true);
+      return () => mq.removeEventListener("change", sync);
+    }
+
     setHydrated(true);
-  }, [storage.legacyCompactKey]);
+  }, [storage.legacyCompactKey, isPlatform]);
 
   useEffect(() => {
     if (!hydrated) return;
 
-    if (activeGroupId && !storage.fixedGroupIds.includes(activeGroupId)) {
-      applyOpenGroup(activeGroupId);
-      return;
-    }
-
-    if (typeof window !== "undefined" && window.localStorage.getItem(storage.initializedKey) === "1") {
-      const raw = window.localStorage.getItem(storage.openGroupKey);
-      if (raw && storage.collapsibleGroups.includes(raw)) {
-        setOpenGroupId(raw);
+    if (!isPlatform) {
+      if (activeGroupId && !storage.fixedGroupIds.includes(activeGroupId)) {
+        applyOpenGroup(activeGroupId);
+        return;
       }
-      return;
-    }
 
-    if (sidebarMode === "platform") {
-      applyOpenGroup(storage.defaultOpenGroup);
-      window.localStorage.setItem(storage.initializedKey, "1");
-      return;
-    }
+      if (
+        typeof window !== "undefined" &&
+        window.localStorage.getItem(storage.initializedKey) === "1"
+      ) {
+        const raw = window.localStorage.getItem(storage.openGroupKey);
+        if (raw && storage.collapsibleGroups.includes(raw)) {
+          setOpenGroupId(raw);
+        }
+        return;
+      }
 
-    void fetch("/api/auth/2fa/status")
-      .then(async (res) => {
-        if (!res.ok) {
+      void fetch("/api/auth/2fa/status")
+        .then(async (res) => {
+          if (!res.ok) {
+            applyOpenGroup(storage.defaultOpenGroup);
+            window.localStorage.setItem(storage.initializedKey, "1");
+            return;
+          }
+          const status = (await res.json()) as { required?: boolean; enabled?: boolean };
+          const defaultGroup =
+            status.required && !status.enabled ? "governance" : storage.defaultOpenGroup;
+          applyOpenGroup(defaultGroup);
+          window.localStorage.setItem(storage.initializedKey, "1");
+        })
+        .catch(() => {
           applyOpenGroup(storage.defaultOpenGroup);
           window.localStorage.setItem(storage.initializedKey, "1");
-          return;
-        }
-        const status = (await res.json()) as { required?: boolean; enabled?: boolean };
-        const defaultGroup =
-          status.required && !status.enabled ? "governance" : storage.defaultOpenGroup;
-        applyOpenGroup(defaultGroup);
-        window.localStorage.setItem(storage.initializedKey, "1");
-      })
-      .catch(() => {
-        applyOpenGroup(storage.defaultOpenGroup);
-        window.localStorage.setItem(storage.initializedKey, "1");
-      });
-  }, [hydrated, activeGroupId, applyOpenGroup, sidebarMode, storage]);
+        });
+      return;
+    }
+
+    // Platform: multi-expand on desktop; accordion on narrow viewports.
+    const defaults = new Set(getPlatformDefaultExpandedGroupIds());
+    const stored =
+      typeof window !== "undefined" && storage.expandedSetKey
+        ? parseExpandedSet(
+            window.localStorage.getItem(storage.expandedSetKey),
+            storage.collapsibleGroups,
+          )
+        : new Set<string>();
+    const initialized =
+      typeof window !== "undefined" &&
+      window.localStorage.getItem(storage.initializedKey) === "1";
+
+    let next: Set<string>;
+    if (isDesktopViewport) {
+      next = initialized && stored.size > 0 ? new Set(stored) : new Set(defaults);
+      if (activeGroupId && !storage.fixedGroupIds.includes(activeGroupId)) {
+        next.add(activeGroupId);
+      }
+    } else {
+      const focus =
+        activeGroupId && !storage.fixedGroupIds.includes(activeGroupId)
+          ? activeGroupId
+          : storage.defaultOpenGroup;
+      next = new Set(focus ? [focus] : []);
+    }
+
+    applyExpandedSet(next);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(storage.initializedKey, "1");
+    }
+  }, [
+    hydrated,
+    activeGroupId,
+    applyOpenGroup,
+    applyExpandedSet,
+    isPlatform,
+    isDesktopViewport,
+    storage,
+  ]);
 
   useEffect(() => {
     if (!hydrated || !activeId || typeof window === "undefined") return;
@@ -322,10 +412,40 @@ export default function GroupedSidebar({
   const toggleGroup = useCallback(
     (groupId: string) => {
       if (storage.fixedGroupIds.includes(groupId)) return;
+
+      if (isPlatform) {
+        setExpandedGroupIds((prev) => {
+          const next = new Set(prev);
+          if (next.has(groupId)) {
+            // Keep the active section visible so location stays clear.
+            if (groupId === activeGroupId && isDesktopViewport) {
+              return prev;
+            }
+            next.delete(groupId);
+          } else {
+            if (!isDesktopViewport) {
+              next.clear();
+            }
+            next.add(groupId);
+          }
+          persistExpandedSet(next);
+          return next;
+        });
+        return;
+      }
+
       const next = openGroupId === groupId ? null : groupId;
       applyOpenGroup(next);
     },
-    [openGroupId, applyOpenGroup, storage.fixedGroupIds],
+    [
+      openGroupId,
+      applyOpenGroup,
+      storage.fixedGroupIds,
+      isPlatform,
+      activeGroupId,
+      isDesktopViewport,
+      persistExpandedSet,
+    ],
   );
 
   const handleNavigate = useCallback(
@@ -335,11 +455,27 @@ export default function GroupedSidebar({
       }
       const groupId = storage.resolveGroupId(itemId);
       if (groupId && !storage.fixedGroupIds.includes(groupId)) {
-        applyOpenGroup(groupId);
+        if (isPlatform) {
+          setExpandedGroupIds((prev) => {
+            const next = isDesktopViewport ? new Set(prev) : new Set<string>();
+            next.add(groupId);
+            persistExpandedSet(next);
+            return next;
+          });
+        } else {
+          applyOpenGroup(groupId);
+        }
       }
       onNavigate?.();
     },
-    [applyOpenGroup, onNavigate, storage],
+    [
+      applyOpenGroup,
+      onNavigate,
+      storage,
+      isPlatform,
+      isDesktopViewport,
+      persistExpandedSet,
+    ],
   );
 
   const searchResults = useMemo(
@@ -361,7 +497,10 @@ export default function GroupedSidebar({
         </p>
       ) : null}
 
-      <nav className="flex flex-col gap-1" aria-label={navigationAriaLabel}>
+      <nav
+        className={`flex flex-col ${isPlatform ? "gap-3" : "gap-1"}`}
+        aria-label={navigationAriaLabel}
+      >
         {isSearching ? (
           <div className="space-y-1">
             <p className={`px-3 py-1 ${AipifySidebarTypography.sectionLabel}`}>{searchResultsLabel}</p>
@@ -382,16 +521,31 @@ export default function GroupedSidebar({
             )}
           </div>
         ) : (
-          groups.map((group) => {
+          groups.map((group, index) => {
             const isFixed = storage.fixedGroupIds.includes(group.id);
-            const isExpanded = isFixed || openGroupId === group.id;
+            const isExpanded = isFixed
+              ? true
+              : isPlatform
+                ? expandedGroupIds.has(group.id)
+                : openGroupId === group.id;
             const hideFixedSectionLabel = isFixed && group.id === "dashboard";
+            const isActiveSection =
+              !isFixed && activeGroupId === group.id && !isSearching;
+            const showDivider = isPlatform && index > 0;
 
             return (
-              <div key={group.id} className="space-y-1">
+              <div
+                key={group.id}
+                className={`space-y-1 ${
+                  showDivider ? "border-t border-aipify-border/50 pt-3" : ""
+                }`}
+              >
                 {isFixed ? (
                   hideFixedSectionLabel ? null : (
-                    <p className={`px-3 py-2 ${AipifySidebarTypography.sectionLabel}`} title={group.label}>
+                    <p
+                      className={`px-3 py-2 ${AipifySidebarTypography.sectionLabel}`}
+                      title={group.label}
+                    >
                       {group.label}
                     </p>
                   )
@@ -399,10 +553,17 @@ export default function GroupedSidebar({
                   <button
                     type="button"
                     onClick={() => toggleGroup(group.id)}
-                    className={`flex min-h-12 w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left ${AipifySidebarTypography.sectionLabelButton} focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2`}
+                    className={`flex min-h-11 w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left ${AipifySidebarTypography.sectionLabelButton} ${
+                      isActiveSection
+                        ? "bg-sky-50/80 text-sky-900 ring-1 ring-sky-100"
+                        : ""
+                    } focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2`}
                     aria-expanded={isExpanded}
                   >
-                    <span className={`min-w-0 flex-1 ${AipifySidebarTypography.navLabelWrap}`} title={group.label}>
+                    <span
+                      className={`min-w-0 flex-1 ${AipifySidebarTypography.navLabelWrap}`}
+                      title={group.label}
+                    >
                       {group.label}
                     </span>
                     <ChevronIcon open={isExpanded} />

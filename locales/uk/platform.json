@@ -117,7 +117,7 @@
       "companionMarketplace": "Керований каталог Companion і нагляд за розгортанням.",
       "skillGovernancePipeline": "Процеси впровадження навичок, управління та затвердження.",
       "growthPartners": "Реєстр продавців",
-      "invoices": "Рахунки-фактури"
+      "invoices": "Клієнтські рахунки"
     },
     "sellers": "Продавці",
     "dashboard": "Dashboard"
@@ -156,7 +156,7 @@
     "operationsAuditLogs": "Журнал подій",
     "organizations": "Організації",
     "customerSuccess": "Успіх клієнта",
-    "payments": "Платежі",
+    "payments": "Платіжний центр",
     "marketplace": "Маркетплейс",
     "growthPartners": "Реєстр продавців",
     "knowledgeCenter": "Центр знань",
@@ -176,7 +176,7 @@
     "commercialIntelligence": "Центр доходів",
     "subscriptions": "Клієнтські угоди",
     "billing": "Виставлення рахунків",
-    "invoices": "Рахунки-фактури",
+    "invoices": "Клієнтські рахунки",
     "enterpriseInvoices": "Рахунки підприємства",
     "taxVerification": "Податкова перевірка",
     "installations": "інсталяції",

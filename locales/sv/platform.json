@@ -117,7 +117,7 @@
       "companionMarketplace": "Governed Companion catalog and deployment oversight.",
       "skillGovernancePipeline": "Skill rollout pipeline, governance, and approval workflows.",
       "growthPartners": "Säljarregister",
-      "invoices": "Fakturor"
+      "invoices": "Kundfakturor"
     },
     "sellers": "Säljare",
     "dashboard": "Dashboard"
@@ -156,7 +156,7 @@
     "operationsAuditLogs": "Händelselogg",
     "organizations": "Organisationer",
     "customerSuccess": "Kundframgång",
-    "payments": "Betalningar",
+    "payments": "Betalningscenter",
     "marketplace": "Marknadsplats",
     "growthPartners": "Säljarregister",
     "knowledgeCenter": "Kunskapscenter",
@@ -176,7 +176,7 @@
     "commercialIntelligence": "Intäktscenter",
     "subscriptions": "Kundavtal",
     "billing": "Billing",
-    "invoices": "Fakturor",
+    "invoices": "Kundfakturor",
     "enterpriseInvoices": "Enterprise-fakturor",
     "taxVerification": "Tax verification",
     "installations": "Installations",

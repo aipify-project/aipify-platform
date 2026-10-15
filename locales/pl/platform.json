@@ -117,7 +117,7 @@
       "companionMarketplace": "Zarządzany katalog Companion i nadzór nad wdrożeniami.",
       "skillGovernancePipeline": "Proces wdrażania Skills, ład organizacyjny i procesy zatwierdzania.",
       "growthPartners": "Rejestr sprzedawców",
-      "invoices": "Faktury"
+      "invoices": "Faktury klientów"
     },
     "sellers": "Sprzedawcy",
     "dashboard": "Dashboard"
@@ -156,7 +156,7 @@
     "operationsAuditLogs": "Dziennik zdarzeń",
     "organizations": "Organizacje",
     "customerSuccess": "Sukces klienta",
-    "payments": "Płatności",
+    "payments": "Centrum płatności",
     "marketplace": "Marketplace",
     "growthPartners": "Rejestr sprzedawców",
     "knowledgeCenter": "Centrum wiedzy",
@@ -176,7 +176,7 @@
     "commercialIntelligence": "Centrum przychodów",
     "subscriptions": "Umowy klienta",
     "billing": "Rozliczenia",
-    "invoices": "Faktury",
+    "invoices": "Faktury klientów",
     "enterpriseInvoices": "Faktury Enterprise",
     "taxVerification": "Weryfikacja podatkowa",
     "installations": "Instalacje",

@@ -94,7 +94,7 @@
     "sellers": "Sælgere",
     "searchDescriptions": {
       "growthPartners": "Sælgerregister",
-      "invoices": "Fakturaer"
+      "invoices": "Kundefakturaer"
     },
     "dashboard": "Dashboard"
   },
@@ -133,7 +133,7 @@
     "operationsAuditLogs": "Hændelseslog",
     "organizations": "Organisationer",
     "customerSuccess": "Kundesucces",
-    "payments": "Betalinger",
+    "payments": "Betalingscenter",
     "marketplace": "Markedsplads",
     "growthPartners": "Sælgerregister",
     "knowledgeCenter": "Videnscenter",
@@ -151,7 +151,7 @@
     "commercialIntelligence": "Indtægtscenter",
     "subscriptions": "Kundaftaler",
     "billing": "Billing",
-    "invoices": "Fakturaer",
+    "invoices": "Kundefakturaer",
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Opdateringer",
