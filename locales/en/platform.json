@@ -117,7 +117,7 @@
       "companionMarketplace": "Governed Companion catalog and deployment oversight.",
       "skillGovernancePipeline": "Skill rollout pipeline, governance, and approval workflows.",
       "growthPartners": "Growth Partners",
-      "invoices": "Invoices"
+      "invoices": "Customer invoices"
     },
     "sellers": "Sellers",
     "dashboard": "Dashboard"
@@ -156,7 +156,7 @@
     "operationsAuditLogs": "Event log",
     "organizations": "Organizations",
     "customerSuccess": "Customer success",
-    "payments": "Payments",
+    "payments": "Payment center",
     "marketplace": "Marketplace",
     "growthPartners": "Growth Partners",
     "knowledgeCenter": "Knowledge Center",
@@ -176,7 +176,7 @@
     "commercialIntelligence": "Revenue Center",
     "subscriptions": "Customer agreements",
     "billing": "Billing",
-    "invoices": "Invoices",
+    "invoices": "Customer invoices",
     "enterpriseInvoices": "Enterprise invoices",
     "taxVerification": "Tax verification",
     "installations": "Installations",

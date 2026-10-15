@@ -100,7 +100,7 @@
     "sellers": "Selgere",
     "searchDescriptions": {
       "growthPartners": "Selgerregister",
-      "invoices": "Fakturaer"
+      "invoices": "Kundefakturaer"
     },
     "dashboard": "Dashboard"
   },
@@ -138,7 +138,7 @@
     "operationsAuditLogs": "Hendelseslogg",
     "organizations": "Organisasjoner",
     "customerSuccess": "Kundesuksess",
-    "payments": "Betalinger",
+    "payments": "Betalingssenter",
     "marketplace": "Markedsplass",
     "growthPartners": "Selgerregister",
     "knowledgeCenter": "Kunnskapssenter",
@@ -156,7 +156,7 @@
     "commercialIntelligence": "Inntektssenter",
     "subscriptions": "Kundeavtaler",
     "billing": "Fakturering",
-    "invoices": "Fakturaer",
+    "invoices": "Kundefakturaer",
     "enterpriseInvoices": "Enterprise-fakturaer",
     "installations": "Installasjoner",
     "installEngine": "Install Engine",

@@ -357,12 +357,13 @@
     "growthPartners": "Registro de vendedores",
     "growthPartnerAttribution": "Enlaces de venta y atribución",
     "commissions": "Comisiones",
-    "invoices": "Facturas",
+    "invoices": "Facturas de clientes",
     "overview": "Dashboard",
     "installationOversight": "Instalaciones",
     "translationManagement": "Idioma y traducciones",
     "system": "Configuración del sistema",
-    "unonightPilot": "Customer Zero / operaciones de prueba"
+    "unonightPilot": "Customer Zero / operaciones de prueba",
+    "payments": "Centro de pagos"
   },
   "kompisAi": {
     "title": "Kompis AI",
@@ -747,7 +748,7 @@
     "sellers": "Vendedores",
     "searchDescriptions": {
       "growthPartners": "Registro de vendedores",
-      "invoices": "Facturas"
+      "invoices": "Facturas de clientes"
     },
     "dashboard": "Dashboard"
   }
