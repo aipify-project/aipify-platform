@@ -119,8 +119,15 @@ const panel = readFileSync(
 );
 assert.match(panel, /mapLookupLabel/);
 assert.match(panel, /updateClassifications/);
+assert.match(panel, /labels\.title/);
+assert.match(panel, /labels\.subtitle/);
+assert.doesNotMatch(panel, /labels\.principle/);
 assert.doesNotMatch(panel, /PLATFORM Dashboard/);
 assert.doesNotMatch(panel, /Operations Overview/);
+
+const layout = readFileSync("app/platform/layout.tsx", "utf8");
+assert.doesNotMatch(layout, /PlatformPortalBanner/);
+assert.doesNotMatch(layout, /PlatformPortalBannerRouteGate/);
 
 const customerDetail = readFileSync(
   "components/platform/platform-portal/PlatformPortalCustomerDetailPanel.tsx",
