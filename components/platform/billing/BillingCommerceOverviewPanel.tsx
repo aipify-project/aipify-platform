@@ -22,6 +22,7 @@ type BillingCommerceOverviewPanelProps = {
     empty: string;
     openModule: string;
     overview: string;
+    stats: string;
     modules: Record<string, string>;
     moduleDescriptions: Record<string, string>;
     relatedOperations: string;
