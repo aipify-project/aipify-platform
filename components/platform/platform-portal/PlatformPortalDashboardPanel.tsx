@@ -517,9 +517,6 @@ export function PlatformPortalDashboardPanel({
       <header className={PlatformLayoutClasses.pageHeader}>
         <h1 className={PlatformLayoutClasses.pageTitle}>{labels.title}</h1>
         <p className={PlatformLayoutClasses.pageSubtitle}>{labels.subtitle}</p>
-        <p className={`mt-4 ${PlatformLayoutClasses.cardMuted} text-sm text-slate-800 dark:text-slate-200`}>
-          {labels.principle}
-        </p>
       </header>
 
       {superAdminInsightLabels ? (
