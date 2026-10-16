@@ -9,19 +9,22 @@ import {
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
 import { buildWebsiteKompisPlanLabels } from "@/lib/website-kompis-plans";
+import { loadWebsiteKompisLicenseQuotaRead } from "@/lib/website-kompis-plans/load-license-quota-read";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
-/** Web Modules — software catalog + planned Kompis Web plans (no purchase/activation). */
+/** Web Modules — catalog plus a read-only Kompis Web license and quota status. */
 export default async function SoftwareCatalogPage() {
   const locale = await getLocale();
   const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "core"]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
   const ctx = await resolveHubWorkspaceContext();
+  const quotaRead = await loadWebsiteKompisLicenseQuotaRead();
 
   return (
     <AppHubShell
@@ -40,7 +43,11 @@ export default async function SoftwareCatalogPage() {
     >
       <div className="space-y-10">
         <SoftwareCatalogPanel labels={buildSoftwareCatalogLabels(t)} embedded />
-        <WebsiteKompisPlansPanel labels={buildWebsiteKompisPlanLabels(t)} />
+        <WebsiteKompisPlansPanel
+          labels={buildWebsiteKompisPlanLabels(t)}
+          quotaRead={quotaRead}
+          locale={locale}
+        />
       </div>
     </AppHubShell>
   );

@@ -807,5 +807,30 @@
       "retry": "Intentar de nuevo",
       "loadError": "No se pudo cargar el conocimiento de empleados. Inténtelo de nuevo."
     }
+  },
+  "websiteKompisPlans": {
+    "assignment": {
+      "unauthenticatedTitle": "Inicie sesión para ver esta licencia",
+      "unauthenticatedBody": "Aipify muestra la licencia de Kompis Web y el uso de respuestas solo para el espacio de trabajo con sesión iniciada.",
+      "noModuleTitle": "Kompis Web no está activo",
+      "noModuleBody": "Este espacio de trabajo no tiene un módulo Kompis Web activo. Los paquetes de abajo son ofertas previstas, no un plan asignado.",
+      "unknownPlanTitle": "Plan no asignado",
+      "unknownPlanBody": "Kompis Web está activo para este espacio de trabajo y todavía no hay un plan de respuestas asignado. Aipify no lo trata como un plan gratuito ni de pago, y no muestra un cupo de respuestas.",
+      "unavailableTitle": "El estado de la cuota no está disponible",
+      "unavailableBody": "Aipify no pudo leer la licencia y la cuota de respuestas de este espacio de trabajo. El uso no se muestra como cero.",
+      "knownTitle": "Plan de Kompis Web asignado",
+      "planLabel": "Paquete",
+      "ceilingLabel": "Cupo de respuestas",
+      "usedLabel": "Respuestas usadas",
+      "reservedLabel": "Respuestas reservadas",
+      "remainingLabel": "Respuestas restantes",
+      "periodLabel": "Periodo de uso",
+      "periodLifetime": "Total de por vida, UTC",
+      "periodUtcMonth": "Mes UTC",
+      "acceptsAnswers": "Se pueden aceptar respuestas nuevas",
+      "pausesAnswers": "Ahora mismo no se aceptan respuestas nuevas",
+      "catalogSeparate": "Los paquetes de abajo son ofertas previstas. No son el plan asignado de este espacio de trabajo.",
+      "notAPurchase": "Esta página no cambia el plan, la cuota ni un pago."
+    }
   }
 }
