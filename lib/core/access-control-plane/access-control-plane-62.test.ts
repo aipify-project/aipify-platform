@@ -12,8 +12,13 @@ import {
   buildPlatformCustomerControlPlaneSummary,
   evaluateActivationGate,
   isReservedHiddenCapability,
+  isModuleUsableInSnapshot,
   resolveAccessControlPlaneSnapshot,
 } from "@/lib/core/access-control-plane";
+import {
+  applyTenantModuleLookup,
+  isKompisBedriftProductPath,
+} from "@/lib/core/access-control-plane/tenant-module-lookup";
 import { resolveAppMenuCapabilityBundle } from "@/lib/core/app-menu-capability";
 import type { PlatformPortalCustomerDetail } from "@/lib/platform-portal/types";
 
@@ -66,7 +71,11 @@ function baseSnapshotInput(
 
 // Both products
 {
-  const snap = resolveAccessControlPlaneSnapshot(baseSnapshotInput());
+  const snap = resolveAccessControlPlaneSnapshot(
+    baseSnapshotInput({
+      activeModuleKeys: new Set(["website_kompis", "kompis_bedrift"]),
+    })
+  );
   assert.deepEqual(snap.authorizedProductIds.sort(), ["kompisBedrift", "kompisWeb"].sort());
   const design = snap.modules.find((m) => m.capabilityKey === KOMPIS_DESIGN_STUDIO_CAPABILITY_KEY);
   assert.ok(design);
@@ -77,7 +86,36 @@ function baseSnapshotInput(
   assert.ok(ACCESS_CAPABILITY_CATALOG.some((e) => e.capabilityKey === KOMPIS_DESIGN_STUDIO_CAPABILITY_KEY));
 }
 
-// Web-only (Bedrift module explicitly off)
+// Membership and Kompis Web do not grant Bedrift
+{
+  const membershipOnly = resolveAccessControlPlaneSnapshot(baseSnapshotInput());
+  assert.deepEqual(membershipOnly.authorizedProductIds, ["kompisWeb"]);
+  assert.equal(
+    membershipOnly.products.find((p) => p.productId === "kompisBedrift")?.reasonCode,
+    "module_status_unknown"
+  );
+  assert.equal(isModuleUsableInSnapshot(membershipOnly, "kompis_bedrift"), false);
+
+  const inactive = resolveAccessControlPlaneSnapshot(
+    baseSnapshotInput({
+      activeModuleKeys: new Set(["website_kompis", "__kompis_bedrift_denied__"]),
+    })
+  );
+  assert.deepEqual(inactive.authorizedProductIds, ["kompisWeb"]);
+  assert.equal(
+    inactive.products.find((p) => p.productId === "kompisBedrift")?.reasonCode,
+    "product_not_entitled"
+  );
+
+  const ambiguous = resolveAccessControlPlaneSnapshot(
+    baseSnapshotInput({
+      activeModuleKeys: new Set(["website_kompis", "kompis_bedrift", "__kompis_bedrift_denied__"]),
+      bedriftModuleEnabled: true,
+    })
+  );
+  assert.equal(ambiguous.authorizedProductIds.includes("kompisBedrift"), false);
+  assert.equal(isModuleUsableInSnapshot(ambiguous, "kompis_bedrift"), false);
+}
 {
   const snap = resolveAccessControlPlaneSnapshot(
     baseSnapshotInput({ bedriftModuleEnabled: false })
@@ -85,22 +123,33 @@ function baseSnapshotInput(
   assert.deepEqual(snap.authorizedProductIds, ["kompisWeb"]);
 }
 
-// Bedrift-only (no website_kompis module)
+// Bedrift-only when the Core module key is explicit
 {
   const snap = resolveAccessControlPlaneSnapshot(
-    baseSnapshotInput({ activeModuleKeys: new Set() })
+    baseSnapshotInput({ activeModuleKeys: new Set(["kompis_bedrift"]) })
   );
   assert.deepEqual(snap.authorizedProductIds, ["kompisBedrift"]);
+  assert.equal(isModuleUsableInSnapshot(snap, "kompis_bedrift"), true);
   assert.equal(
     snap.products.find((p) => p.productId === "kompisWeb")?.reasonCode,
     "module_status_unknown"
   );
+  const direct = authorizeProductContext({
+    snapshot: snap,
+    pathname: "/app/kompis-bedrift/employees",
+    cookieValue: "kompisWeb",
+  });
+  assert.equal(direct.pathDenied, false);
+  assert.equal(direct.activeProduct, "kompisBedrift");
 }
 
 // Suspended license
 {
   const snap = resolveAccessControlPlaneSnapshot(
-    baseSnapshotInput({ licenseServiceStatus: "paused" })
+    baseSnapshotInput({
+      licenseServiceStatus: "paused",
+      activeModuleKeys: new Set(["website_kompis", "kompis_bedrift"]),
+    })
   );
   assert.deepEqual(snap.authorizedProductIds, []);
   assert.ok(snap.products.every((p) => p.reasonCode === "license_paused"));
@@ -109,7 +158,10 @@ function baseSnapshotInput(
 // Cancelled subscription
 {
   const snap = resolveAccessControlPlaneSnapshot(
-    baseSnapshotInput({ subscriptionStatus: "cancelled" })
+    baseSnapshotInput({
+      subscriptionStatus: "cancelled",
+      activeModuleKeys: new Set(["website_kompis", "kompis_bedrift"]),
+    })
   );
   assert.deepEqual(snap.authorizedProductIds, []);
 }
@@ -123,25 +175,33 @@ function baseSnapshotInput(
   assert.ok(snap.products.every((p) => p.reasonCode === "membership_missing"));
 }
 
-// Cookie tampering — preference ignored when not authorized
+// Cookie and direct Bedrift URL are not authorization
 {
-  const snap = resolveAccessControlPlaneSnapshot(
-    baseSnapshotInput({ activeModuleKeys: new Set() })
-  );
-  const authz = authorizeProductContext({
-    snapshot: snap,
+  const webOnly = resolveAccessControlPlaneSnapshot(baseSnapshotInput());
+  const cookie = authorizeProductContext({
+    snapshot: webOnly,
     pathname: "/app/account/subscription",
-    cookieValue: "kompisWeb",
+    cookieValue: "kompisBedrift",
   });
-  assert.equal(authz.activeProduct, "kompisBedrift");
-  assert.equal(authz.cookieIgnored, true);
-  assert.equal(authz.reasonCode, "cookie_not_authorization");
+  assert.equal(cookie.activeProduct, "kompisWeb");
+  assert.equal(cookie.cookieIgnored, true);
+  assert.equal(cookie.reasonCode, "cookie_not_authorization");
+
+  const directBedrift = authorizeProductContext({
+    snapshot: webOnly,
+    pathname: "/app/kompis-bedrift/documents",
+    cookieValue: "kompisBedrift",
+  });
+  assert.equal(directBedrift.pathDenied, true);
+  assert.equal(directBedrift.activeProduct, "kompisWeb");
+  assert.equal(isKompisBedriftProductPath("/app/kompis-bedrift/documents"), true);
+  assert.equal(isKompisBedriftProductPath("/app/website-kompis"), false);
 }
 
-// Direct path denied → safe fallback, no data bleed into unauthorized product
+// Direct Web path denied when the Web module is absent
 {
   const snap = resolveAccessControlPlaneSnapshot(
-    baseSnapshotInput({ activeModuleKeys: new Set() })
+    baseSnapshotInput({ activeModuleKeys: new Set(["kompis_bedrift"]) })
   );
   const authz = authorizeProductContext({
     snapshot: snap,
@@ -151,6 +211,33 @@ function baseSnapshotInput(
   assert.equal(authz.pathDenied, true);
   assert.equal(authz.activeProduct, "kompisBedrift");
   assert.equal(authz.reasonCode, "path_not_authorized");
+}
+
+{
+  const keys = new Set<string>();
+  applyTenantModuleLookup(keys, "kompis_bedrift", { error: null, data: true });
+  assert.equal(keys.has("kompis_bedrift"), true);
+  const missing = new Set<string>();
+  applyTenantModuleLookup(missing, "kompis_bedrift", { error: null, data: null });
+  assert.equal(missing.size, 0);
+  const failed = new Set<string>();
+  applyTenantModuleLookup(failed, "kompis_bedrift", { error: { message: "timeout" }, data: true });
+  assert.equal(failed.size, 0);
+  const inactiveLookup = new Set<string>();
+  applyTenantModuleLookup(inactiveLookup, "kompis_bedrift", { error: null, data: false });
+  assert.equal(inactiveLookup.has("__kompis_bedrift_denied__"), true);
+  assert.equal(inactiveLookup.has("kompis_bedrift"), false);
+}
+
+{
+  const loader = read("lib/core/access-control-plane/load-snapshot.ts");
+  assert.match(loader, /p_module_key: KOMPIS_BEDRIFT_MODULE_KEY/);
+  assert.match(loader, /customer_id \?\? context.organization_id/);
+  assert.doesNotMatch(loader, /searchParams/);
+  const layout = read("app/app/layout.tsx");
+  assert.match(layout, /isKompisBedriftProductPath/);
+  assert.match(layout, /isModuleUsableInSnapshot\(accessSnapshot, "kompis_bedrift"\)/);
+  assert.match(layout, /redirect\("\/app"\)/);
 }
 
 // Menu capability fail-closed aligns with control plane for unknown WK

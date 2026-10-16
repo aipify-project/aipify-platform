@@ -6,3 +6,4 @@ export * from "./resolve-snapshot";
 export * from "./product-context";
 export * from "./platform-summary";
 export * from "./load-snapshot";
+export * from "./tenant-module-lookup";

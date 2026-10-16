@@ -219,48 +219,57 @@ export const KOMPIS_BEDRIFT_FLAT_NAV: AppPortalNavItem[] = [
     id: "kompisBedriftDashboard",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftDashboard",
+    moduleKey: "kompis_bedrift",
   },
   {
     id: "kompisBedriftEmployees",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftEmployees,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftEmployees",
+    moduleKey: "kompis_bedrift",
   },
   {
     id: "kompisBedriftDocuments",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftDocuments,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftDocuments",
+    moduleKey: "kompis_bedrift",
   },
   {
     id: "kompisBedriftFaq",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftFaq,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftFaq",
+    moduleKey: "kompis_bedrift",
   },
   {
     id: "kompisBedriftComms",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftComms,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftComms",
+    moduleKey: "kompis_bedrift",
   },
   {
     id: "kompisBedriftMeetings",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftMeetings,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftMeetings",
+    moduleKey: "kompis_bedrift",
   },
   SHARED_ACCOUNT_INVOICES,
   {
     id: "kompisBedriftModules",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftModules,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftModules",
+    moduleKey: "kompis_bedrift",
   },
   SHARED_ACCOUNT_SUBSCRIPTION,
   {
     id: "kompisBedriftConnection",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftConnection,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftConnection",
+    moduleKey: "kompis_bedrift",
   },
   {
     id: "kompisBedriftSettings",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftSettings,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftSettings",
+    moduleKey: "kompis_bedrift",
   },
 ];
 
