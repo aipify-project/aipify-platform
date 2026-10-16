@@ -1326,6 +1326,29 @@
         "feature2": "NOK 1 199 / miesiąc lub NOK 11 990 / rok",
         "feature3": "Aktywacja dopiero po zweryfikowanej płatności i bramce produktu"
       }
+    },
+    "assignment": {
+      "unauthenticatedTitle": "Zaloguj się, aby zobaczyć tę licencję",
+      "unauthenticatedBody": "Aipify pokazuje licencję Kompis Web i użycie odpowiedzi tylko dla zalogowanego obszaru roboczego.",
+      "noModuleTitle": "Kompis Web nie jest aktywny",
+      "noModuleBody": "Ten obszar roboczy nie ma aktywnego modułu Kompis Web. Pakiety poniżej to planowane oferty, a nie przypisany plan.",
+      "unknownPlanTitle": "Plan nie został przypisany",
+      "unknownPlanBody": "Kompis Web jest aktywny w tym obszarze roboczym, a plan odpowiedzi nie został jeszcze przypisany. Aipify nie traktuje tego jako planu bezpłatnego ani płatnego i nie pokazuje limitu odpowiedzi.",
+      "unavailableTitle": "Status limitu jest niedostępny",
+      "unavailableBody": "Aipify nie mógł odczytać licencji i limitu odpowiedzi dla tego obszaru roboczego. Użycie nie jest pokazywane jako zero.",
+      "knownTitle": "Przypisany plan Kompis Web",
+      "planLabel": "Pakiet",
+      "ceilingLabel": "Limit odpowiedzi",
+      "usedLabel": "Użyte odpowiedzi",
+      "reservedLabel": "Zarezerwowane odpowiedzi",
+      "remainingLabel": "Pozostałe odpowiedzi",
+      "periodLabel": "Okres użycia",
+      "periodLifetime": "Suma na cały okres, UTC",
+      "periodUtcMonth": "Miesiąc UTC",
+      "acceptsAnswers": "Nowe odpowiedzi mogą być przyjmowane",
+      "pausesAnswers": "Nowe odpowiedzi nie są teraz przyjmowane",
+      "catalogSeparate": "Pakiety poniżej to planowane oferty. Nie są przypisanym planem tego obszaru roboczego.",
+      "notAPurchase": "Ta strona nie zmienia planu, limitu ani płatności."
     }
   }
 }

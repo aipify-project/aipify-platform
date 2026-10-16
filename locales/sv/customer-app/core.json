@@ -7622,6 +7622,29 @@
         "feature2": "NOK 1 199 / månad eller NOK 11 990 / år",
         "feature3": "Aktiveras först efter verifierad betalning och produktgrind"
       }
+    },
+    "assignment": {
+      "unauthenticatedTitle": "Logga in för att se den här licensen",
+      "unauthenticatedBody": "Aipify visar Kompis Web-licens och svarförbrukning bara för arbetsytan du är inloggad i.",
+      "noModuleTitle": "Kompis Web är inte aktiv",
+      "noModuleBody": "Den här arbetsytan har ingen aktiv Kompis Web-modul. Paketen nedan är planerade erbjudanden, inte en tilldelad plan.",
+      "unknownPlanTitle": "Planen är inte tilldelad",
+      "unknownPlanBody": "Kompis Web är aktiv för den här arbetsytan, och ingen svarplan är tilldelad ännu. Aipify behandlar inte det som en kostnadsfri eller betald plan och visar ingen svarskvot.",
+      "unavailableTitle": "Kvotstatus är inte tillgänglig",
+      "unavailableBody": "Aipify kunde inte läsa licensen och svarskvoten för den här arbetsytan. Förbrukning visas inte som noll.",
+      "knownTitle": "Tilldelad Kompis Web-plan",
+      "planLabel": "Avtal",
+      "ceilingLabel": "Svarskvot",
+      "usedLabel": "Svar använda",
+      "reservedLabel": "Svar reserverade",
+      "remainingLabel": "Svar kvar",
+      "periodLabel": "Förbrukningsperiod",
+      "periodLifetime": "Livstidssumma, UTC",
+      "periodUtcMonth": "UTC-månad",
+      "acceptsAnswers": "Nya svar kan tas emot",
+      "pausesAnswers": "Nya svar tas inte emot just nu",
+      "catalogSeparate": "Paketen nedan är planerade erbjudanden. De är inte den tilldelade planen för den här arbetsytan.",
+      "notAPurchase": "Den här sidan ändrar inte planen, kvoten eller en betalning."
     }
   }
 }

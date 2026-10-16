@@ -7611,6 +7611,29 @@
         "feature2": "NOK 1 199 / month or NOK 11 990 / year",
         "feature3": "Activated only after verified payment and product gate"
       }
+    },
+    "assignment": {
+      "unauthenticatedTitle": "Sign in to see this license",
+      "unauthenticatedBody": "Aipify shows Kompis Web license and answer usage only for the signed-in workspace.",
+      "noModuleTitle": "Kompis Web is not active",
+      "noModuleBody": "This workspace does not have an active Kompis Web module. The packages below are planned offers, not an assigned plan.",
+      "unknownPlanTitle": "Plan not assigned",
+      "unknownPlanBody": "Kompis Web is active for this workspace, and no answer plan is assigned yet. Aipify does not treat that as a free or paid plan and does not show an answer allowance.",
+      "unavailableTitle": "Quota status unavailable",
+      "unavailableBody": "Aipify could not read the license and answer quota for this workspace. Usage is not shown as zero.",
+      "knownTitle": "Assigned Kompis Web plan",
+      "planLabel": "Plan",
+      "ceilingLabel": "Answer allowance",
+      "usedLabel": "Answers used",
+      "reservedLabel": "Answers reserved",
+      "remainingLabel": "Answers remaining",
+      "periodLabel": "Usage period",
+      "periodLifetime": "Lifetime total, UTC",
+      "periodUtcMonth": "UTC month",
+      "acceptsAnswers": "New answers can be accepted",
+      "pausesAnswers": "New answers are not accepted right now",
+      "catalogSeparate": "The packages below are planned offers. They are not this workspace's assigned plan.",
+      "notAPurchase": "This page does not change the plan, the quota, or a payment."
     }
   }
 }
