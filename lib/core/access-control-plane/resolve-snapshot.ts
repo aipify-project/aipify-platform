@@ -10,12 +10,15 @@ import {
   isLicenseServiceUsable,
   isSubscriptionUsable,
 } from "./activation-gate";
+import {
+  KOMPIS_BEDRIFT_DENIED_SENTINEL,
+  KOMPIS_BEDRIFT_MODULE_KEY,
+} from "./tenant-module-lookup";
 import type {
   AccessControlPlaneSnapshot,
   AccessLicenseServiceStatus,
   AccessModuleView,
   AccessProductContextView,
-  AccessProductStatus,
   AccessReasonCode,
   AccessSubscriptionStatus,
 } from "./types";
@@ -29,13 +32,16 @@ export type ResolveAccessControlPlaneInput = {
   subscriptionStatus: AccessSubscriptionStatus;
   licenseServiceStatus: AccessLicenseServiceStatus;
   /**
-   * tenant_modules truth:
-   * - has `website_kompis` → Web module assigned/enabled
-   * - has `__website_kompis_denied__` → explicitly off
-   * - neither → unknown (fail closed for Web)
+   * tenant_modules truth for the authenticated tenant only:
+   * - `website_kompis` / `kompis_bedrift` → that module is explicitly enabled
+   * - `__website_kompis_denied__` / `__kompis_bedrift_denied__` → explicit inactive/missing false
+   * - neither → unknown (fail closed). Membership never implies Bedrift.
    */
   activeModuleKeys: ReadonlySet<string>;
-  /** Optional: Bedrift module when present in tenant_modules. */
+  /**
+   * Optional override from a trusted loader. `true` enables only when the denied
+   * sentinel is absent. `false`, null, and omission do not enable Bedrift.
+   */
   bedriftModuleEnabled?: boolean | null;
   correlationId?: string;
   generatedAt?: string;
@@ -115,6 +121,16 @@ function mapWebProduct(
   };
 }
 
+/** Explicit Core row only. Missing, inactive, ambiguous, or lookup-unknown stays closed. */
+export function isKompisBedriftExplicitlyEnabled(
+  input: Pick<ResolveAccessControlPlaneInput, "activeModuleKeys" | "bedriftModuleEnabled">
+): boolean {
+  if (input.activeModuleKeys.has(KOMPIS_BEDRIFT_DENIED_SENTINEL)) return false;
+  if (input.bedriftModuleEnabled === false) return false;
+  if (input.bedriftModuleEnabled === true) return true;
+  return input.activeModuleKeys.has(KOMPIS_BEDRIFT_MODULE_KEY);
+}
+
 function mapBedriftProduct(
   input: ResolveAccessControlPlaneInput,
   licenseOk: boolean,
@@ -129,14 +145,16 @@ function mapBedriftProduct(
       moduleKey: "kompis_bedrift",
     };
   }
-  // No dedicated tenant_modules row yet for Bedrift — membership + license gate.
-  // Explicit false when a future module key is present and disabled.
-  if (input.bedriftModuleEnabled === false) {
+  if (!isKompisBedriftExplicitlyEnabled(input)) {
     return {
       productId: "kompisBedrift",
       status: "unavailable",
       authorized: false,
-      reasonCode: "product_not_entitled",
+      reasonCode:
+        input.bedriftModuleEnabled === false ||
+        input.activeModuleKeys.has(KOMPIS_BEDRIFT_DENIED_SENTINEL)
+          ? "product_not_entitled"
+          : "module_status_unknown",
       moduleKey: "kompis_bedrift",
     };
   }
@@ -162,13 +180,21 @@ function mapBedriftProduct(
     };
   }
 
-  // Membership-gated until a dedicated Bedrift tenant_modules key is authoritative.
+  const gate = evaluateActivationGate({
+    paymentOrContractValid: subscriptionOk || input.subscriptionStatus === "unknown",
+    subscriptionValid: subscriptionOk || input.subscriptionStatus === "unknown",
+    licenseValid: licenseOk || input.licenseServiceStatus === "unknown",
+    moduleAssignmentValid: true,
+    tenantProductValid: true,
+    runtimeCapabilityReady: true,
+  });
+
   return {
     productId: "kompisBedrift",
-    status: "active",
-    authorized: true,
+    status: gate.open ? "active" : "pending",
+    authorized: gate.open,
     reasonCode:
-      input.licenseServiceStatus === "unknown" && !licenseOk ? "license_unknown" : "ok",
+      gate.open && input.licenseServiceStatus === "unknown" ? "license_unknown" : gate.reasonCode,
     moduleKey: "kompis_bedrift",
   };
 }
@@ -216,7 +242,7 @@ function resolveModules(
     }
 
     if (entry.capabilityKey === "kompis_bedrift") {
-      const assigned = input.bedriftModuleEnabled !== false && input.membershipValid;
+      const assigned = isKompisBedriftExplicitlyEnabled(input) && input.membershipValid;
       const gate = evaluateActivationGate({
         paymentOrContractValid: isSubscriptionUsable(input.subscriptionStatus),
         subscriptionValid: isSubscriptionUsable(input.subscriptionStatus),

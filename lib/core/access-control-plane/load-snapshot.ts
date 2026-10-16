@@ -3,6 +3,11 @@ import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organizati
 import { parseCustomerLicenseCenter } from "@/lib/license/types";
 import { createAccessCorrelationId } from "./correlation";
 import { resolveAccessControlPlaneSnapshot } from "./resolve-snapshot";
+import {
+  applyTenantModuleLookup,
+  KOMPIS_BEDRIFT_MODULE_KEY,
+  WEBSITE_KOMPIS_MODULE_KEY,
+} from "./tenant-module-lookup";
 import type {
   AccessControlPlaneSnapshot,
   AccessLicenseServiceStatus,
@@ -69,20 +74,20 @@ export async function loadAccessControlPlaneSnapshot(
     const tenantId = context.customer_id ?? context.organization_id;
     if (tenantId) {
       try {
-        const { data: wkEnabled, error: wkError } = await supabase.rpc(
-          "is_tenant_module_enabled",
-          {
+        const [websiteKompis, kompisBedrift] = await Promise.all([
+          supabase.rpc("is_tenant_module_enabled", {
             p_tenant_id: tenantId,
-            p_module_key: "website_kompis",
-          }
-        );
-        if (!wkError && wkEnabled === false) {
-          activeModuleKeys.add("__website_kompis_denied__");
-        } else if (!wkError && wkEnabled === true) {
-          activeModuleKeys.add("website_kompis");
-        }
+            p_module_key: WEBSITE_KOMPIS_MODULE_KEY,
+          }),
+          supabase.rpc("is_tenant_module_enabled", {
+            p_tenant_id: tenantId,
+            p_module_key: KOMPIS_BEDRIFT_MODULE_KEY,
+          }),
+        ]);
+        applyTenantModuleLookup(activeModuleKeys, WEBSITE_KOMPIS_MODULE_KEY, websiteKompis);
+        applyTenantModuleLookup(activeModuleKeys, KOMPIS_BEDRIFT_MODULE_KEY, kompisBedrift);
       } catch {
-        // Leave empty → Web fail-closed (module_status_unknown).
+        // Leave empty → Web and Bedrift fail closed.
       }
     }
 

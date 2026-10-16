@@ -99,7 +99,7 @@ const bothBundle = resolveAppMenuCapabilityBundle({
   activePackKeys: new Set(),
   pendingPackKeys: new Set(),
   revokedPackKeys: new Set(),
-  activeModuleKeys: new Set(["website_kompis"]),
+  activeModuleKeys: new Set(["website_kompis", "kompis_bedrift"]),
 });
 const webPresented = presentAppNavFromCapabilities(bothBundle, t, { activeProduct: "kompisWeb" });
 assert.equal(webPresented.navGroups.length, 1);
@@ -131,7 +131,7 @@ const denied = resolveAppMenuCapabilityBundle({
   activeModuleKeys: new Set(["__website_kompis_denied__"]),
 });
 const availableDenied = availableProductsFromBundle(denied);
-assert.deepEqual(availableDenied, ["kompisBedrift"]);
+assert.deepEqual(availableDenied, []);
 const deniedPresented = presentAppNavFromCapabilities(denied, t, {
   activeProduct: resolveActiveProductContext({
     availableProducts: availableDenied,
@@ -139,8 +139,8 @@ const deniedPresented = presentAppNavFromCapabilities(denied, t, {
     pathname: "/app",
   }),
 });
-assert.ok(deniedPresented.navConfig.every((i) => !i.id.startsWith("kompisWeb")));
-assert.equal(deniedPresented.activeProduct, "kompisBedrift");
+assert.ok(deniedPresented.navConfig.every((i) => !i.id.startsWith("kompisBedrift")));
+assert.equal(deniedPresented.activeProduct === "kompisBedrift", false);
 
 // 7. Active state + settings remap helpers
 assert.equal(getAppPortalActiveNavId("/app/account/invoices"), "accountInvoices");

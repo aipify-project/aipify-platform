@@ -48,7 +48,7 @@ function ctx(
     pendingPackKeys: new Set<string>(),
     revokedPackKeys: new Set<string>(),
     // Job 62: Web requires explicit tenant_modules enable (fail closed).
-    activeModuleKeys: new Set<string>(["website_kompis"]),
+    activeModuleKeys: new Set<string>(["website_kompis", "kompis_bedrift"]),
     ...overrides,
   };
 }
@@ -205,7 +205,7 @@ describe("bypass scenario 06 — available not in nav", () => {
       })
     );
     assert.equal(isCapabilityAllowed(bundle, "kompisWebDashboard"), false);
-    assert.equal(isCapabilityAllowed(bundle, "kompisBedriftDashboard"), true);
+    assert.equal(isCapabilityAllowed(bundle, "kompisBedriftDashboard"), false);
     assert.equal(
       presentAppNavFromCapabilities(bundle, t).navConfig.some((i) => i.id === "kompisWebDashboard"),
       false
@@ -255,7 +255,8 @@ describe("bypass scenario 09 — resolver error fail-closed", () => {
       role: null,
     });
     const visible = getVisibleCapabilityIds(closed);
-    assert.ok(visible.has("kompisBedriftDashboard"));
+    assert.ok(visible.has("accountSubscription"));
+    assert.equal(visible.has("kompisBedriftDashboard"), false);
     for (const id of ["appTasks", "workflows", "rolesPermissions", "apiAccess", "megaOnlyEngine"]) {
       assert.equal(visible.has(id), false, id);
     }

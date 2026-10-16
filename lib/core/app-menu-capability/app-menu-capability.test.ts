@@ -50,7 +50,13 @@ describe("core app menu capability contract", () => {
     const presented = presentAppNavFromCapabilities(bundle, t, { activeProduct: "kompisWeb" });
     assert.deepEqual(presented.navGroups.map((g) => g.id), ["kompisWeb"]);
     assert.ok(!presented.navConfig.some((i) => i.id.startsWith("kompisBedrift")));
-    const bedrift = presentAppNavFromCapabilities(bundle, t, { activeProduct: "kompisBedrift" });
+    const bedrift = presentAppNavFromCapabilities(
+      resolveAppMenuCapabilityBundle(
+        emptyCtx({ activeModuleKeys: new Set(["website_kompis", "kompis_bedrift"]) })
+      ),
+      t,
+      { activeProduct: "kompisBedrift" }
+    );
     assert.deepEqual(bedrift.navGroups.map((g) => g.id), ["kompisBedrift"]);
     assert.ok(!bedrift.navConfig.some((i) => i.id.startsWith("kompisWeb")));
   });
@@ -62,14 +68,14 @@ describe("core app menu capability contract", () => {
       })
     );
     assert.equal(isCapabilityAllowed(bundle, "kompisWebDashboard"), false);
-    assert.equal(isCapabilityAllowed(bundle, "kompisBedriftDashboard"), true);
+    assert.equal(isCapabilityAllowed(bundle, "kompisBedriftDashboard"), false);
     assert.equal(isCapabilityAllowed(bundle, "accountSubscription"), true);
   });
 
   it("hides Kompis Web when website_kompis module status is unknown (fail closed)", () => {
     const bundle = resolveAppMenuCapabilityBundle(emptyCtx({ activeModuleKeys: new Set() }));
     assert.equal(isCapabilityAllowed(bundle, "kompisWebDashboard"), false);
-    assert.equal(isCapabilityAllowed(bundle, "kompisBedriftDashboard"), true);
+    assert.equal(isCapabilityAllowed(bundle, "kompisBedriftDashboard"), false);
   });
 
   it("hides billing account items when billing feature is off", () => {
@@ -90,8 +96,8 @@ describe("core app menu capability contract", () => {
       role: "organization_member",
     });
     const visible = getVisibleCapabilityIds(bundle);
-    assert.ok(visible.has("kompisBedriftDashboard"));
     assert.ok(visible.has("accountNotifications"));
+    assert.equal(visible.has("kompisBedriftDashboard"), false);
     assert.equal(visible.has("kompisBedriftSettings"), false);
     const presented = presentAppNavFromCapabilities(bundle, t);
     assert.ok(presented.navConfig.every((item) => visible.has(item.id)));
@@ -177,7 +183,8 @@ describe("core app menu capability contract", () => {
       role: "organization_member",
     });
     assert.equal(isCapabilityAllowed(closed, "kompisBedriftSettings"), false);
-    assert.equal(isCapabilityAllowed(closed, "kompisBedriftDashboard"), true);
+    assert.equal(isCapabilityAllowed(closed, "kompisBedriftDashboard"), false);
+    assert.equal(isCapabilityAllowed(closed, "accountNotifications"), true);
   });
 
   it("unknown capability id is never treated as allowed", () => {

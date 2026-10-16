@@ -121,6 +121,21 @@ function resolveOne(
         reasonCode: "module_status_unknown",
       };
     }
+  } else if (contract.requiredEntitlement === "kompis_bedrift") {
+    if (
+      ctx.activeModuleKeys.has("__kompis_bedrift_denied__") ||
+      !ctx.activeModuleKeys.has("kompis_bedrift")
+    ) {
+      return {
+        capabilityId,
+        state: "available",
+        visibleInNavigation: false,
+        usable: false,
+        reasonCode: ctx.activeModuleKeys.has("__kompis_bedrift_denied__")
+          ? "feature_not_entitled"
+          : "module_status_unknown",
+      };
+    }
   } else if (contract.requiredFeatureKey) {
     const enabled = ctx.featureEnabled.get(contract.requiredFeatureKey);
     if (enabled === false) {
@@ -184,9 +199,6 @@ export function resolveAppMenuCapabilityBundle(
 
 /** Fail-closed minimal allowlist when resolver cannot load entitlements. */
 export const FAIL_CLOSED_SAFE_CAPABILITY_IDS = [
-  "kompisBedriftDashboard",
-  "kompisBedriftEmployees",
-  "kompisBedriftSettings",
   "accountNotifications",
   "accountSubscription",
 ] as const;

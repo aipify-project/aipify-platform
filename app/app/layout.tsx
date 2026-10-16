@@ -42,8 +42,10 @@ import type { AppProductContextId } from "@/lib/app-portal/product-context/const
 import { availableProductsFromBundle } from "@/lib/app-portal/product-context/available-from-bundle";
 import {
   authorizeProductContext,
+  isModuleUsableInSnapshot,
   loadAccessControlPlaneSnapshot,
 } from "@/lib/core/access-control-plane";
+import { isKompisBedriftProductPath } from "@/lib/core/access-control-plane/tenant-module-lookup";
 
 /** Authenticated app shell — skip build-time static prerender (700+ routes). */
 export const dynamic = "force-dynamic";
@@ -148,6 +150,13 @@ export default async function AppLayout({
         ]);
 
       // Cookie is preference only — server control plane authorizes product contexts.
+      if (
+        isKompisBedriftProductPath(requestPathname) &&
+        !isModuleUsableInSnapshot(accessSnapshot, "kompis_bedrift")
+      ) {
+        redirect("/app");
+      }
+
       const fromCapabilities = availableProductsFromBundle(capabilityBundle);
       const authz = authorizeProductContext({
         snapshot: accessSnapshot,
@@ -198,6 +207,9 @@ export default async function AppLayout({
         }
       }
     } catch {
+      if (isKompisBedriftProductPath(requestPathname)) {
+        redirect("/app");
+      }
       // Fail closed — never restore mega-nav or unfiltered dynamic payloads.
       const closedBundle = buildFailClosedAppMenuCapabilityBundle({
         organizationId: null,
