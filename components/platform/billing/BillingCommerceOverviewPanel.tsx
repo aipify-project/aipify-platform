@@ -22,6 +22,7 @@ type BillingCommerceOverviewPanelProps = {
     empty: string;
     openModule: string;
     overview: string;
+    stats: string;
     modules: Record<string, string>;
     moduleDescriptions: Record<string, string>;
     relatedOperations: string;
@@ -49,9 +50,9 @@ function OverviewStat({
   tone?: keyof typeof PlatformStatusToneClasses;
 }) {
   return (
-    <div className={PlatformLayoutClasses.card}>
+    <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-[0_1px_2px_rgba(32,35,54,0.04),0_8px_24px_rgba(32,35,54,0.05)] sm:p-5 dark:border-slate-700 dark:bg-slate-950/40">
       <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</dt>
-      <dd className={`mt-2 text-2xl font-semibold ${PlatformStatusToneClasses[tone]}`}>{value}</dd>
+      <dd className={`mt-1.5 text-2xl font-semibold ${PlatformStatusToneClasses[tone]}`}>{value}</dd>
     </div>
   );
 }
@@ -72,23 +73,23 @@ function ModuleCard({
   return (
     <Link
       href={item.href}
-      className={`${PlatformLayoutClasses.card} block transition hover:border-sky-200 hover:shadow-md`}
+      className="block rounded-2xl border border-slate-200/90 bg-white p-4 shadow-[0_1px_2px_rgba(32,35,54,0.04),0_8px_24px_rgba(32,35,54,0.05)] transition hover:border-sky-200 hover:shadow-md sm:p-5 dark:border-slate-700 dark:bg-slate-950/40"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-start gap-3">
-          <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-800 ring-1 ring-sky-100">
+          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-800 ring-1 ring-sky-100">
             <BillingCommerceModuleIcon icon={item.icon} />
           </span>
           <div className="min-w-0">
             <h3 className="font-medium text-slate-900">{title}</h3>
-            <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{description}</p>
+            <p className="mt-1 text-sm leading-relaxed text-slate-600">{description}</p>
           </div>
         </div>
         <span className="shrink-0 rounded-full bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-700 ring-1 ring-slate-200">
           {stat}
         </span>
       </div>
-      <span className="mt-4 inline-block text-sm font-medium text-sky-700">
+      <span className="mt-3 inline-block text-sm font-medium text-sky-700">
         {openLabel} →
       </span>
     </Link>
@@ -110,10 +111,10 @@ function ModuleSection({
 }) {
   if (items.length === 0) return null;
   return (
-    <section className="space-y-3">
+    <section className="space-y-2.5">
       <div>
-        <h2 className="font-semibold text-slate-900">{title}</h2>
-        {hint ? <p className="mt-1 max-w-3xl text-sm text-slate-600">{hint}</p> : null}
+        <h2 className="text-base font-semibold text-slate-900">{title}</h2>
+        {hint ? <p className="mt-0.5 max-w-3xl text-sm text-slate-600">{hint}</p> : null}
       </div>
       <div className={PlatformLayoutClasses.navCardGrid}>
         {items.map((item) => (
@@ -165,17 +166,13 @@ export function BillingCommerceOverviewPanel({ labels }: BillingCommerceOverview
   const overdue = Number(stats.overdue_customers ?? 0);
 
   return (
-    <div className={PlatformLayoutClasses.sectionGap}>
-      <div className={PlatformLayoutClasses.pageHeader}>
-        <h1 className={PlatformLayoutClasses.pageTitle}>{labels.title}</h1>
+    <div className="space-y-5 lg:space-y-6">
+      <header className={PlatformLayoutClasses.pageHeader}>
+        <h1 className={PlatformLayoutClasses.pageTitle}>{labels.overview}</h1>
         <p className={PlatformLayoutClasses.pageSubtitle}>{labels.subtitle}</p>
-        <p className="mt-4 rounded-2xl border border-slate-200/80 bg-slate-50/80 px-5 py-4 text-sm text-slate-800">
-          {center.principle ?? labels.principle}
-        </p>
-      </div>
+      </header>
 
-      <section>
-        <h2 className="mb-4 font-semibold text-slate-900">{labels.overview}</h2>
+      <section aria-label={labels.stats}>
         <dl className={PlatformLayoutClasses.metricGrid}>
           <OverviewStat
             label={labels.overviewStats.activeCustomers}
@@ -229,24 +226,24 @@ export function BillingCommerceOverviewPanel({ labels }: BillingCommerceOverview
         moduleStats={moduleStats}
       />
 
-      <section>
-        <h2 className="mb-4 font-semibold text-slate-900">{labels.relatedOperations}</h2>
-        <div className="flex flex-wrap gap-3">
+      <section className="space-y-2.5">
+        <h2 className="text-base font-semibold text-slate-900">{labels.relatedOperations}</h2>
+        <div className="flex flex-wrap gap-2">
           <Link
             href="/platform/billing/payment-operations"
-            className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
+            className="rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-sm font-medium text-slate-800 hover:bg-slate-50"
           >
             {labels.relatedLinks.paymentOperations}
           </Link>
           <Link
             href="/platform/billing/revenue-operations"
-            className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
+            className="rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-sm font-medium text-slate-800 hover:bg-slate-50"
           >
             {labels.relatedLinks.revenueOperations}
           </Link>
           <Link
             href="/platform/billing/subscription-operations"
-            className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50"
+            className="rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-sm font-medium text-slate-800 hover:bg-slate-50"
           >
             {labels.relatedLinks.subscriptionOperations}
           </Link>
