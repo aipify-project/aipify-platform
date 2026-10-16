@@ -65,7 +65,7 @@
     {
       "path": "public/embed/website-kompis.js",
       "role": "Host loader lifecycle",
-      "sha256": "37743654086c5253545dff566db7f59efb3b9ada79d5ed55ec5aa28db63a71b8"
+      "sha256": "0ba977a01b24c4fb0c3997f9f51a5cc247b554174c26da1f465f01851a6ebba9"
     },
     {
       "path": "lib/marketing/public-companion-ask.ts",
