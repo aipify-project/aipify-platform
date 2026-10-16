@@ -63,6 +63,73 @@ test("billing layout uses shared Platform page frame (not narrow max-w billing r
   assert.doesNotMatch(layout, /max-w-7xl|max-w-6xl|max-w-5xl/);
 });
 
+test("shared Platform shell removes redundant portal banner stripe", () => {
+  const layout = readFileSync(join(ROOT, "app/platform/layout.tsx"), "utf8");
+  assert.doesNotMatch(layout, /PlatformPortalBanner/);
+  assert.doesNotMatch(layout, /bannerTitle|bannerBody/);
+});
+
+test("billing overview uses Økonomioversikt title and drops decorative principle box", () => {
+  const panel = readFileSync(
+    join(ROOT, "components/platform/billing/BillingCommerceOverviewPanel.tsx"),
+    "utf8",
+  );
+  assert.match(panel, /labels\.overview/);
+  assert.match(panel, /labels\.subtitle/);
+  assert.doesNotMatch(panel, /labels\.principle/);
+  assert.doesNotMatch(panel, /center\.principle/);
+  assert.doesNotMatch(panel, /\{labels\.title\}/);
+});
+
+test("primary finance nav hrefs stay unchanged", () => {
+  const expected: Record<string, string> = {
+    invoices: "/platform/billing/invoices",
+    billingProfiles: "/platform/billing/profiles",
+    subscriptions: "/platform/billing/subscriptions",
+    paymentProviders: "/platform/billing/payment-providers",
+    vatEngine: "/platform/billing/vat-engine",
+    taxRules: "/platform/billing/tax-rules",
+    disputes: "/platform/billing/disputes",
+    reports: "/platform/billing/reports",
+    accountingExport: "/platform/billing/accounting-export",
+    accountingIntegration: "/platform/billing/accounting-integration",
+  };
+  for (const [id, href] of Object.entries(expected)) {
+    const item = BILLING_COMMERCE_NAV.find((nav) => nav.id === id);
+    assert.ok(item, id);
+    assert.equal(item.href, href);
+  }
+  assert.deepEqual(
+    BILLING_COMMERCE_NAV_GROUPS.map((g) => g.id),
+    ["core", "tax", "reporting"],
+  );
+  assert.deepEqual(BILLING_COMMERCE_NAV_GROUPS[0].itemIds, [
+    "invoices",
+    "billingProfiles",
+    "subscriptions",
+    "paymentProviders",
+  ]);
+  assert.deepEqual(BILLING_COMMERCE_NAV_GROUPS[1].itemIds, ["vatEngine", "taxRules"]);
+  assert.deepEqual(BILLING_COMMERCE_NAV_GROUPS[2].itemIds, [
+    "disputes",
+    "reports",
+    "accountingExport",
+    "accountingIntegration",
+  ]);
+});
+
+test("sub-nav uses color families per finance group without changing destinations", () => {
+  const subNav = readFileSync(
+    join(ROOT, "components/platform/billing/BillingCommerceSubNav.tsx"),
+    "utf8",
+  );
+  assert.match(subNav, /GROUP_CHIP_STYLES/);
+  assert.match(subNav, /sky-/);
+  assert.match(subNav, /orange-/);
+  assert.match(subNav, /violet-/);
+  assert.match(subNav, /fromProps\?\.href \?\? fromConfig\.href/);
+});
+
 test("locale parity for finance business labels", () => {
   for (const locale of FINANCE_LOCALES) {
     const data = JSON.parse(

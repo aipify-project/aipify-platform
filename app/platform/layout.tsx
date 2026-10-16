@@ -1,7 +1,6 @@
 import DashboardShell from "@/components/dashboard/DashboardShell";
 import PlatformAuthGuard from "@/components/platform/PlatformAuthGuard";
 import PlatformAccessGate from "@/components/platform/PlatformAccessGate";
-import PlatformPortalBanner from "@/components/platform/PlatformPortalBanner";
 import { PlatformProfileProvider } from "@/components/platform/PlatformProfileProvider";
 import { requirePlatformServerAccess } from "@/lib/auth/platform-server-access";
 import {
@@ -79,10 +78,6 @@ export default async function PlatformLayout({
             navSources: platformNavSources(t),
           }}
         >
-          <PlatformPortalBanner
-            title={t("platform.portal.bannerTitle")}
-            body={t("platform.portal.bannerBody")}
-          />
           {children}
         </DashboardShell>
       </PlatformProfileProvider>
