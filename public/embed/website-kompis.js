@@ -8,6 +8,12 @@
   }
 
   var currentScript = document.currentScript;
+  // A host may insert this file after publishing data-aipify-kompis-access.
+  // Dynamic insertion often leaves document.currentScript null; one matching tag is enough.
+  if (!currentScript) {
+    var loaderScripts = document.querySelectorAll('script[src*="/embed/website-kompis.js"]');
+    currentScript = loaderScripts.length === 1 ? loaderScripts[0] : null;
+  }
   if (!currentScript) {
     return;
   }
@@ -22,6 +28,10 @@
   if (!installId || !domain) {
     return;
   }
+
+  // Claim this page before classification. A host failover must not add another frame
+  // while access is still being resolved.
+  window.__AIPIFY_WEBSITE_KOMPIS_EMBED__ = true;
 
   var PAGE_CONTEXT_MESSAGE_TYPE = "aipify.websiteKompis.pageContext";
   var PAGE_CONTEXT_REQUEST_MESSAGE_TYPE = "aipify.websiteKompis.requestPageContext";
@@ -1284,7 +1294,6 @@
     }
   });
 
-  window.__AIPIFY_WEBSITE_KOMPIS_EMBED__ = true;
   applyAccessClassFromEnvironment({ skipContext: true });
   // Failsafe: never leave an invisible host frame if the iframe never posts resize.
   // Skip when path/host already marked the surface inactive.

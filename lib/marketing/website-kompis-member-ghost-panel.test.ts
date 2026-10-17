@@ -21,6 +21,11 @@ const widgetSource = readFileSync(
 assert.match(loaderSource, /painted !== true/);
 assert.match(loaderSource, /removeChild\(iframe\)/);
 assert.match(loaderSource, /var surfaceActive = false/);
+assert.match(loaderSource, /script\[src\*="\/embed\/website-kompis\.js"\]/);
+assert.match(loaderSource, /loaderScripts\.length === 1/);
+const claimAt = loaderSource.indexOf("window.__AIPIFY_WEBSITE_KOMPIS_EMBED__ = true");
+const classifyAt = loaderSource.indexOf("applyAccessClassFromEnvironment({ skipContext: true })");
+assert.ok(claimAt > 0 && classifyAt > claimAt, "embed flag is claimed before classification");
 assert.match(widgetSource, /postResizeToParent\(true, true\)/);
 assert.doesNotMatch(widgetSource, /postResizeToParent\(restored\.open\)/);
 
