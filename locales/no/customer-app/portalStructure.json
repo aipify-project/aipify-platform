@@ -14,6 +14,7 @@
       "aipifyIntelligence": "Aipify Intelligence",
       "integrations": "Integrasjoner",
       "kompisWeb": "Kompis Web",
+      "productsAndSubscription": "Produkter og abonnement",
       "kompisBedrift": "Kompis Bedrift"
     },
     "nav": {
@@ -113,9 +114,9 @@
       "kompisWebDashboard": "Dashboard",
       "kompisWebQa": "Spørsmål og svar",
       "kompisWebFaq": "FAQ og kunnskap",
-      "kompisWebConnection": "Tilkobling/lisens",
+      "kompisWebConnection": "Tilkobling og domener",
       "kompisWebAppearance": "Utseende",
-      "kompisWebModules": "Moduler",
+      "kompisWebModules": "Tilleggsmoduler",
       "kompisWebSettings": "Innstillinger",
       "kompisBedriftDashboard": "Dashboard",
       "kompisBedriftEmployees": "Ansatte og tilgang",
@@ -126,7 +127,7 @@
       "kompisBedriftModules": "Moduler",
       "kompisBedriftSettings": "Innstillinger",
       "accountSubscription": "Abonnement",
-      "accountInvoices": "Faktura",
+      "accountInvoices": "Fakturaer",
       "accountIntegrations": "Integrasjoner",
       "kompisBedriftConnection": "Tilkobling/lisens"
     },

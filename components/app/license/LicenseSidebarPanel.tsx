@@ -7,7 +7,6 @@ import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardPro
 import { AipifySidebarTypography } from "@/lib/design";
 import { AipifyPulse } from "@/components/branding";
 import { AIPIFY_BRAND } from "@/lib/branding/tokens";
-import { formatSoftwareVersion } from "@/lib/license";
 import { resolveAppHref } from "@/lib/app/route-aliases";
 import {
   fetchOrganizationContextWithRetry,
@@ -171,12 +170,14 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
                 {display.workspaceName}
               </span>
             </div>
-            <div className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.licensedTo} ${display.licensedTo}`}>
-              <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.licensedTo}</span>
-              <span className={`${AipifySidebarTypography.workspaceSummaryValue} line-clamp-2`}>
-                {display.licensedTo}
-              </span>
-            </div>
+            {display.licensedTo.trim().toLowerCase() !== display.workspaceName.trim().toLowerCase() ? (
+              <div className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.licensedTo} ${display.licensedTo}`}>
+                <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.licensedTo}</span>
+                <span className={`${AipifySidebarTypography.workspaceSummaryValue} line-clamp-2`}>
+                  {display.licensedTo}
+                </span>
+              </div>
+            ) : null}
             <div className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.plan} ${display.planName}`}>
               <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.plan}</span>
               <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{display.planName}</span>
@@ -184,12 +185,6 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
             <div className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.status} ${display.statusLabel}`}>
               <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.status}</span>
               <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{display.statusLabel}</span>
-            </div>
-            <div className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.version} ${formatSoftwareVersion("1.0.0")}`}>
-              <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.version}</span>
-              <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>
-                {formatSoftwareVersion("1.0.0")}
-              </span>
             </div>
             <div className="space-y-0.5 border-t border-[var(--app-border)] pt-2">
               <p className={AipifySidebarTypography.workspaceSummaryFooter}>

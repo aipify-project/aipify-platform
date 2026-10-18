@@ -29,13 +29,19 @@ function linksForItems(
 ): AppNavLink[] {
   const links: AppNavLink[] = [];
   const seen = new Set<string>();
+  let commerceHeadingPlaced = false;
   for (const item of items) {
     if (!allowed.has(item.id) || seen.has(item.id)) continue;
     seen.add(item.id);
+    const showCommerceHeading = item.menuBand === "commerce" && !commerceHeadingPlaced;
+    if (showCommerceHeading) commerceHeadingPlaced = true;
     links.push({
       id: item.id,
       href: resolveAppRouteHref(item.id, item.href),
       label: t(item.labelKey),
+      sectionLabel: showCommerceHeading
+        ? t("customerApp.portalStructure.navGroups.productsAndSubscription")
+        : undefined,
     });
   }
   return links;

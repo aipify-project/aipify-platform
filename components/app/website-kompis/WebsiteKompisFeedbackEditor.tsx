@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
-import { canPublishWebsiteKompisFaqDraft } from "@/lib/website-kompis-faq/safety";
+import { runFaqPublishFlow } from "@/lib/website-kompis-faq/publish-flow";
+import { planWebsiteKompisFaqPublish } from "@/lib/website-kompis-faq/safety";
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import type { FeedbackOpsRow } from "@/lib/website-kompis-feedback/operations-model";
 
@@ -24,10 +25,12 @@ export function WebsiteKompisFeedbackEditor({
   row,
   labels,
   onClose,
+  onPublished,
 }: {
   row: FeedbackOpsRow;
   labels: WebsiteKompisFeedbackLabels;
   onClose: () => void;
+  onPublished: (faqId: string) => void;
 }) {
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -45,6 +48,7 @@ export function WebsiteKompisFeedbackEditor({
   const [savedSnapshot, setSavedSnapshot] = useState("");
   const [matchingPublished, setMatchingPublished] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [publishing, setPublishing] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [confirmClose, setConfirmClose] = useState(false);
@@ -128,7 +132,9 @@ export function WebsiteKompisFeedbackEditor({
     };
   }, []);
 
-  async function findExisting(): Promise<{ kind: "published" } | { kind: "draft"; id: string } | { kind: "none" }> {
+  async function findExisting(): Promise<
+    { kind: "published"; id: string } | { kind: "draft"; id: string } | { kind: "none" }
+  > {
     const params = new URLSearchParams();
     params.set("query", question.trim().slice(0, 180));
     if (locale.trim()) params.set("locale", locale.trim());
@@ -140,15 +146,16 @@ export function WebsiteKompisFeedbackEditor({
     const match = (payload.items ?? []).find(
       (item) =>
         item.title?.trim() === question.trim() &&
-        (item.locale ?? "").toLowerCase() === locale.trim().toLowerCase(),
+        (item.locale ?? "").toLowerCase() === locale.trim().toLowerCase() &&
+        Boolean(item.id),
     );
-    if (!match?.id || !match.status) return { kind: "none" };
-    if (match.status === "published") return { kind: "published" };
+    if (!match?.id) return { kind: "none" };
+    if (match.status === "published") return { kind: "published", id: match.id };
     if (match.status === "draft") return { kind: "draft", id: match.id };
     return { kind: "none" };
   }
 
-  async function saveDraft(): Promise<SavedDraft | null> {
+  async function saveDraft(forcedId?: string | null): Promise<SavedDraft | null> {
     if (busy.current) return null;
     busy.current = true;
     setError(null);
@@ -165,7 +172,7 @@ export function WebsiteKompisFeedbackEditor({
     }
     setSaving(true);
     try {
-      let itemId = saved?.status === "draft" ? saved.id : null;
+      let itemId = forcedId ?? (saved ? saved.id : null);
       if (!itemId) {
         const existing = await findExisting();
         if (existing.kind === "published") {
@@ -190,6 +197,8 @@ export function WebsiteKompisFeedbackEditor({
           publicSafe,
           priority: 100,
           tags: [],
+          validFrom: null,
+          validUntil: null,
         }),
       });
       const payload = (await response.json()) as { id?: string; status?: string; error?: string };
@@ -200,7 +209,7 @@ export function WebsiteKompisFeedbackEditor({
       const next = { id: payload.id, status: payload.status };
       setSaved(next);
       setSavedSnapshot(fieldSnapshot);
-      setMessage(next.status === "draft" ? labels.quality.savedDraft : labels.quality.publishOnlyDraft);
+      if (next.status === "draft") setMessage(labels.quality.savedDraft);
       return next;
     } catch {
       setError(labels.quality.saveError);
@@ -212,42 +221,68 @@ export function WebsiteKompisFeedbackEditor({
   }
 
   async function publishFaq() {
-    if (busy.current) return;
+    if (busy.current || saving || publishing) return;
+    setPublishing(true);
     setError(null);
     setMessage(null);
-    const draft = saved && !dirty ? saved : await saveDraft();
-    if (!draft) return;
-    if (busy.current) return;
-    busy.current = true;
-    if (
-      !canPublishWebsiteKompisFaqDraft({
-        title: question,
-        answer,
-        locale,
-        contentType: "faq",
-        publicSafe,
-        status: draft.status,
-      })
-    ) {
-      setError(draft.status === "draft" ? labels.quality.privacy : labels.quality.publishOnlyDraft);
-      busy.current = false;
+    if (!question.trim() || !answer.trim() || !locale.trim() || !publicSafe) {
+      setPublishing(false);
+      setError(labels.quality.privacy);
       return;
     }
+    if (!installId) {
+      setPublishing(false);
+      setError(labels.quality.siteRequired);
+      return;
+    }
+    const existing = saved ? null : await findExisting();
+    const knownId = saved?.id ?? (existing && existing.kind !== "none" ? existing.id : null);
+    const status =
+      saved?.status === "published" || existing?.kind === "published" ? "published" : "new";
+    const plan = planWebsiteKompisFaqPublish({
+      status,
+      title: question,
+      answer,
+      locale,
+      contentType: "faq",
+      publicSafe,
+      validFrom: null,
+      validUntil: null,
+    });
+    if (plan === "blocked") {
+      setPublishing(false);
+      setError(labels.quality.privacy);
+      return;
+    }
+    setPublishing(true);
     setSaving(true);
     try {
-      const response = await fetch(`/api/website-kompis/faq/${draft.id}/publish`, { method: "POST" });
-      const payload = (await response.json()) as { id?: string; status?: string };
-      if (!response.ok || payload.status !== "published" || !payload.id) {
+      const result = await runFaqPublishFlow({
+        plan,
+        save: () => saveDraft(knownId),
+        publish: async (id) => {
+          const response = await fetch(`/api/website-kompis/faq/${id}/publish`, { method: "POST" });
+          const payload = (await response.json()) as { id?: string; status?: string };
+          return { ok: response.ok, id: payload.id, status: payload.status };
+        },
+      });
+      if (result.outcome === "draft_saved_publish_failed") {
+        setSaved({ id: result.id, status: "draft" });
+        setSavedSnapshot(fieldSnapshot);
+        setError(labels.quality.publishRetry);
+        return;
+      }
+      if (result.outcome !== "published" && result.outcome !== "revised") {
         setError(labels.quality.publishError);
         return;
       }
-      setSaved({ id: payload.id, status: "published" });
+      setSaved({ id: result.id, status: "published" });
       setSavedSnapshot(fieldSnapshot);
-      setMessage(labels.quality.publishedOk);
+      onPublished(result.id);
     } catch {
       setError(labels.quality.publishError);
     } finally {
-      busy.current = false;
+      setPublishing(false);
       setSaving(false);
     }
   }
@@ -407,11 +442,11 @@ export function WebsiteKompisFeedbackEditor({
             </button>
             <button
               type="button"
-              disabled={saving || !publicSafe || siteState === "empty" || matchingPublished}
+              disabled={saving || publishing || !publicSafe || siteState === "empty"}
               onClick={() => void publishFaq()}
               className="inline-flex min-h-11 items-center rounded-xl bg-[image:var(--app-primary-gradient)] px-4 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] disabled:opacity-60"
             >
-              {labels.quality.publishFaq}
+              {publishing ? labels.quality.publishing : labels.quality.publishFaq}
             </button>
           </div>
         </form>

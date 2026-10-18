@@ -142,6 +142,8 @@ export type AppPortalNavItem = {
   featureKey?: string;
   /** tenant_modules key — read-only entitlement adapter (no new license schema). */
   moduleKey?: string;
+  /** Visual band only. Does not change the route or who can see the item. */
+  menuBand?: "commerce";
 };
 
 export type AppPortalNavGroup = {
@@ -191,25 +193,32 @@ export const KOMPIS_WEB_FLAT_NAV: AppPortalNavItem[] = [
     labelKey: "customerApp.portalStructure.nav.kompisWebFaq",
     moduleKey: "website_kompis",
   },
-  SHARED_ACCOUNT_INVOICES,
-  {
-    id: "kompisWebModules",
-    href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
-    labelKey: "customerApp.portalStructure.nav.kompisWebModules",
-    moduleKey: "website_kompis",
-  },
   {
     id: "kompisWebConnection",
     href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
     labelKey: "customerApp.portalStructure.nav.kompisWebConnection",
     moduleKey: "website_kompis",
   },
-  SHARED_ACCOUNT_SUBSCRIPTION,
   {
     id: "kompisWebSettings",
     href: FOUNDATION_NAV_BINDINGS.kompisWebSettings,
     labelKey: "customerApp.portalStructure.nav.kompisWebSettings",
     moduleKey: "website_kompis",
+  },
+  {
+    id: "kompisWebModules",
+    href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
+    labelKey: "customerApp.portalStructure.nav.kompisWebModules",
+    moduleKey: "website_kompis",
+    menuBand: "commerce",
+  },
+  {
+    ...SHARED_ACCOUNT_SUBSCRIPTION,
+    menuBand: "commerce",
+  },
+  {
+    ...SHARED_ACCOUNT_INVOICES,
+    menuBand: "commerce",
   },
 ];
 
