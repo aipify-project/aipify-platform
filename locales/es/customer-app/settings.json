@@ -104,9 +104,24 @@
       "noCard": "Sin tarjeta",
       "invoiceDetails": "Detalles de la factura"
     },
+    "softwareShowcase": {
+      "heroTitle": "IA que trabaja con usted.",
+      "heroBody": "Encuentre el Kompis adecuado para sus clientes, su equipo y su conocimiento.",
+      "webLead": "Ofrezca a los visitantes una respuesta clara cuando la necesitan.",
+      "webSupport": "Kompis usa las FAQ aprobadas y el conocimiento del sitio para que la información sea más fácil de encontrar, en el propio sitio.",
+      "bedriftLead": "Haga más fácil usar el conocimiento de la organización.",
+      "bedriftSupport": "Reúna el conocimiento interno relevante y ofrezca un camino más claro hacia la respuesta, con acceso según el rol."
+    },
     "modules": {
-      "title": "Módulos",
-      "subtitle": "Los productos y módulos de su espacio de trabajo.",
+      "title": "Módulos complementarios",
+      "subtitle": "Amplíe el espacio de trabajo con funciones que se ajusten a su forma de trabajar.",
+      "activeCount": "Módulos activos",
+      "unnamedNote": "Los nombres de estos módulos no forman parte de la lectura actual. El recuento es lo que el espacio de trabajo tiene realmente.",
+      "notForPurchase": "Aún no disponible para compra",
+      "purchaseGap": "Los módulos complementarios no se compran desde esta página. El precio y la activación no se deciden aquí.",
+      "contactSupport": "Contactarnos",
+      "emptyAddons": "No hay módulos complementarios con licencia para este espacio de trabajo.",
+      "licensedRecord": "Con licencia",
       "productsIntro": "Los productos y módulos de su espacio de trabajo.",
       "manageSubscription": "Administrar la suscripción",
       "loading": "Preparando el resumen de módulos…",

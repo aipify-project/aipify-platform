@@ -1227,9 +1227,24 @@
         "notChatbot": "Inte konsument-chatbot-prissättning"
       }
     },
+    "softwareShowcase": {
+      "heroTitle": "AI som arbetar tillsammans med dig.",
+      "heroBody": "Hitta rätt Kompis för kunderna, teamet och kunskapen.",
+      "webLead": "Ge besökare bra svar, precis när de behöver dem.",
+      "webSupport": "Låt Kompis använda godkänd FAQ och webbplatskunskap så att information blir lättare att hitta — direkt på webbplatsen.",
+      "bedriftLead": "Gör verksamhetens kunskap enklare att använda.",
+      "bedriftSupport": "Samla relevant intern kunskap och ge medarbetare en tydligare väg till svar, med åtkomst efter roll."
+    },
     "modules": {
-      "title": "Moduler",
-      "subtitle": "Produkterna och modulerna för din arbetsyta.",
+      "title": "Tilläggsmoduler",
+      "subtitle": "Utöka arbetsytan med funktioner som passar hur ni arbetar.",
+      "activeCount": "Aktiva moduler",
+      "unnamedNote": "Visningsnamn för dessa moduler ingår inte i den aktuella läsningen. Antalet är det arbetsytan faktiskt har.",
+      "notForPurchase": "Inte tillgänglig för köp ännu",
+      "purchaseGap": "Tilläggsmoduler kan inte köpas från den här sidan. Pris och aktivering avgörs inte här.",
+      "contactSupport": "Kontakta oss",
+      "emptyAddons": "Inga tilläggsmoduler är licensierade för den här arbetsytan.",
+      "licensedRecord": "Licensierad",
       "productsIntro": "Produkterna och modulerna för din arbetsyta.",
       "manageSubscription": "Hantera abonnemang",
       "loading": "Laddar moduler…",

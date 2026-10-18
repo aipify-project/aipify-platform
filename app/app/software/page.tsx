@@ -1,53 +1,60 @@
-import { SoftwareCatalogPanel } from "@/components/app/app-portal/SoftwareCatalogPanel";
-import { WebsiteKompisPlansPanel } from "@/components/app/website-kompis/WebsiteKompisPlansPanel";
+import { SoftwareProductShowcase } from "@/components/app/software/SoftwareProductShowcase";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
-import { buildSoftwareCatalogLabels } from "@/lib/app-portal/software-catalog";
-import { hubCommon, hubT } from "@/lib/app-portal/hubs/hub-copy";
+import { hubCommon } from "@/lib/app-portal/hubs/hub-copy";
+import { loadSubscriptionProductReads } from "@/lib/commercial-packages/load-kompis-product-access";
+import { buildSoftwareShowcaseLabels } from "@/lib/commercial-packages/modules-panel-labels";
+import { buildPortfolioLabels } from "@/lib/commercial-packages/portfolio-labels";
+import { AppLayoutClasses } from "@/lib/design/app-layout";
 import {
   formatHubContextLine,
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
-import { buildWebsiteKompisPlanLabels } from "@/lib/website-kompis-plans";
-import { loadWebsiteKompisLicenseQuotaRead } from "@/lib/website-kompis-plans/load-license-quota-read";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-/** Web Modules — catalog plus a read-only Kompis Web license and quota status. */
+/** Main products. Add-on modules and planned prices live on their own routes. */
 export default async function SoftwareCatalogPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "core"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "settings"]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
-  const ctx = await resolveHubWorkspaceContext();
-  const quotaRead = await loadWebsiteKompisLicenseQuotaRead();
+  const [ctx, productReads] = await Promise.all([
+    resolveHubWorkspaceContext(),
+    loadSubscriptionProductReads(),
+  ]);
+  const portfolio = buildPortfolioLabels(t);
+  const showcase = buildSoftwareShowcaseLabels(t);
 
   return (
     <AppHubShell
       breadcrumb={[
         { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
-        {
-          label: t("customerApp.portalStructure.navGroups.kompisWeb"),
-          href: FOUNDATION_NAV_BINDINGS.kompisWebDashboard,
-        },
-        { label: t("customerApp.portalStructure.nav.kompisWebModules") },
+        { label: portfolio.myProducts },
       ]}
-      eyebrow={t("customerApp.portalStructure.navGroups.kompisWeb")}
-      title={t("customerApp.portalStructure.nav.kompisWebModules")}
-      description={hubT(t, "web.modulesCard")}
+      eyebrow={portfolio.myProducts}
+      title={showcase.heroTitle}
+      description={showcase.heroBody}
       contextLabel={formatHubContextLine(common, ctx)}
     >
-      <div className="space-y-10">
-        <SoftwareCatalogPanel labels={buildSoftwareCatalogLabels(t)} embedded />
-        <WebsiteKompisPlansPanel
-          labels={buildWebsiteKompisPlanLabels(t)}
-          quotaRead={quotaRead}
-          locale={locale}
+      <div className={`${AppLayoutClasses.pageWidth} space-y-6`}>
+        <SoftwareProductShowcase
+          embedded
+          showcase={showcase}
+          labels={portfolio}
+          access={productReads.access}
         />
+        <Link
+          href="/app/settings/billing/packages"
+          className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+        >
+          {portfolio.packagesTitle}
+        </Link>
       </div>
     </AppHubShell>
   );

@@ -774,9 +774,24 @@
         "notChatbot": "Not consumer chatbot pricing"
       }
     },
+    "softwareShowcase": {
+      "heroTitle": "AI that works with you.",
+      "heroBody": "Find the right Kompis for your customers, your team, and your knowledge.",
+      "webLead": "Give visitors a clear answer when they need it.",
+      "webSupport": "Kompis uses approved FAQ and website knowledge so information is easier to find, on the website itself.",
+      "bedriftLead": "Make your organisation’s knowledge easier to use.",
+      "bedriftSupport": "Bring relevant internal knowledge together and give people a clearer path to an answer, with access by role."
+    },
     "modules": {
-      "title": "Modules",
-      "subtitle": "The products and modules for your workspace.",
+      "title": "Add-on modules",
+      "subtitle": "Extend the workspace with capabilities that fit how you work.",
+      "activeCount": "Active modules",
+      "unnamedNote": "Display names for these modules are not included in the current read. The count is what this workspace actually has.",
+      "notForPurchase": "Not available for purchase yet",
+      "purchaseGap": "Add-on modules cannot be purchased from this page. Price and activation are not decided here.",
+      "contactSupport": "Contact us",
+      "emptyAddons": "No add-on modules are licensed for this workspace.",
+      "licensedRecord": "Licensed",
       "productsIntro": "The products and modules for your workspace.",
       "manageSubscription": "Manage subscription",
       "loading": "Preparing modules overview…",
