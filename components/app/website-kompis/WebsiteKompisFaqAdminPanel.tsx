@@ -6,7 +6,7 @@ import { WebsiteKompisFaqPreviewPanel } from "@/components/app/website-kompis/We
 import { WebsiteKompisFaqPublishDialog } from "@/components/app/website-kompis/WebsiteKompisFaqPublishDialog";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   WPKF_CONTENT_TYPES,
   WPKF_LOCALES,
@@ -15,10 +15,12 @@ import {
   type WpkfStatus,
 } from "@/lib/website-kompis-faq/constants";
 import type { WebsiteKompisFaqLabels } from "@/lib/website-kompis-faq/labels";
+import { runFaqPublishFlow } from "@/lib/website-kompis-faq/publish-flow";
 import {
-  canPublishWebsiteKompisFaqDraft,
   detectWebsiteKompisFaqRiskyWords,
+  isoToDateTimeLocal,
   isWebsiteKompisFaqEditorValid,
+  planWebsiteKompisFaqPublish,
 } from "@/lib/website-kompis-faq/safety";
 import type {
   WebsiteKompisFaqItem,
@@ -44,8 +46,13 @@ type OwnedSiteOption = {
   domain: string;
 };
 
-function createEmptyDraft(site?: OwnedSiteOption | null): WebsiteKompisFaqUpsertInput {
+type FaqEditorState = WebsiteKompisFaqUpsertInput & {
+  editorStatus: "new" | WpkfStatus;
+};
+
+function createEmptyDraft(site?: OwnedSiteOption | null): FaqEditorState {
   return {
+    editorStatus: "new",
     itemId: null,
     installId: site?.installId ?? null,
     domain: site?.domain ?? null,
@@ -65,8 +72,9 @@ function createEmptyDraft(site?: OwnedSiteOption | null): WebsiteKompisFaqUpsert
   };
 }
 
-function itemToDraft(item: WebsiteKompisFaqItem): WebsiteKompisFaqUpsertInput {
+function itemToDraft(item: WebsiteKompisFaqItem): FaqEditorState {
   return {
+    editorStatus: item.status,
     itemId: item.id,
     installId: item.installId,
     domain: item.domain,
@@ -106,10 +114,13 @@ export function WebsiteKompisFaqAdminPanel({
   const [accessDenied, setAccessDenied] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [editorOpen, setEditorOpen] = useState(false);
-  const [draft, setDraft] = useState<WebsiteKompisFaqUpsertInput>(createEmptyDraft());
+  const [draft, setDraft] = useState<FaqEditorState>(createEmptyDraft());
   const [publishDialogOpen, setPublishDialogOpen] = useState(false);
+  const publishLock = useRef(false);
+  const persistedIdRef = useRef<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<WpkfStatus | "">("");
   const [localeFilter, setLocaleFilter] = useState("");
   const [contentTypeFilter, setContentTypeFilter] = useState<WpkfContentType | "">("");
@@ -137,14 +148,18 @@ export function WebsiteKompisFaqAdminPanel({
     [draft.answer, draft.category, draft.question, draft.title],
   );
 
-  const canPublish = canPublishWebsiteKompisFaqDraft({
+  const publishPlan = planWebsiteKompisFaqPublish({
+    status: draft.editorStatus,
     title: draft.title,
     answer: draft.answer,
     locale: draft.locale,
     contentType: draft.contentType,
     publicSafe: draft.publicSafe,
-    status: "draft",
+    validFrom: draft.validFrom,
+    validUntil: draft.validUntil,
   });
+  const canPublish = publishPlan !== "blocked";
+  const revisingPublished = publishPlan === "revise_published";
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -249,6 +264,7 @@ export function WebsiteKompisFaqAdminPanel({
         question: suggestQuestion.slice(0, 2000),
         answer: "",
       });
+      persistedIdRef.current = null;
       setSuggestFromFeedback(fromFeedback);
       setEditorOpen(true);
       setError(null);
@@ -266,39 +282,41 @@ export function WebsiteKompisFaqAdminPanel({
   }, [searchParams, selectedSite]);
 
   function openCreate() {
+    persistedIdRef.current = null;
     setDraft(createEmptyDraft(selectedSite));
     setSuggestFromFeedback(false);
     setEditorOpen(true);
     setError(null);
+    setNotice(null);
   }
 
   function openEdit(item: WebsiteKompisFaqItem) {
+    persistedIdRef.current = item.id;
     setDraft(itemToDraft(item));
     setEditorOpen(true);
     setError(null);
+    setNotice(null);
   }
 
   function closeEditor() {
     setEditorOpen(false);
     setPublishDialogOpen(false);
     setSuggestFromFeedback(false);
+    persistedIdRef.current = null;
     setDraft(createEmptyDraft(selectedSite));
   }
 
-  async function saveDraft() {
+  async function persistEditor(failureMessage: string): Promise<{ id: string; status: WpkfStatus } | null> {
     if (!isWebsiteKompisFaqEditorValid(draft)) {
       setError(labels.errorGeneric);
-      return;
+      return null;
     }
-
-    setBusy(true);
-    setError(null);
 
     const res = await fetch("/api/website-kompis/faq", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        itemId: draft.itemId,
+        itemId: persistedIdRef.current,
         installId: draft.installId,
         domain: draft.domain,
         locale: draft.locale,
@@ -317,24 +335,36 @@ export function WebsiteKompisFaqAdminPanel({
       }),
     });
 
-    const body = (await res.json()) as { id?: string; error?: string };
-    if (!res.ok) {
-      setError(body.error ?? labels.errorGeneric);
-      setBusy(false);
-      return;
+    const body = (await res.json()) as { id?: string; status?: WpkfStatus; error?: string };
+    if (!res.ok || !body.id || !body.status) {
+      setError(failureMessage);
+      return null;
     }
 
-    if (body.id) {
-      setDraft((current) => ({ ...current, itemId: body.id ?? current.itemId }));
-    }
-
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 2000);
-    setBusy(false);
-    await refresh();
+    persistedIdRef.current = body.id;
+    setDraft((current) => ({
+      ...current,
+      itemId: body.id ?? current.itemId,
+      editorStatus: body.status ?? current.editorStatus,
+    }));
+    return { id: body.id, status: body.status };
   }
 
-  async function runAction(action: "publish" | "unpublish" | "archive" | "restore", itemId: string) {
+  async function saveDraft() {
+    if (draft.editorStatus === "published") return;
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+    const savedRow = await persistEditor(labels.errorGeneric);
+    if (savedRow) {
+      setSaved(true);
+      window.setTimeout(() => setSaved(false), 2000);
+      await refresh();
+    }
+    setBusy(false);
+  }
+
+  async function runAction(action: "unpublish" | "archive" | "restore", itemId: string) {
     setBusy(true);
     setError(null);
 
@@ -347,22 +377,54 @@ export function WebsiteKompisFaqAdminPanel({
       return;
     }
 
-    setPublishDialogOpen(false);
     setBusy(false);
     closeEditor();
     await refresh();
   }
 
   async function confirmPublish() {
-    if (!draft.itemId) {
-      await saveDraft();
-    }
-    const itemId = draft.itemId;
-    if (!itemId) {
-      setError(labels.errorGeneric);
+    if (publishLock.current || busy || publishPlan === "blocked") {
+      if (publishPlan === "blocked") setError(labels.validityInvalidWindow);
       return;
     }
-    await runAction("publish", itemId);
+
+    publishLock.current = true;
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+
+    try {
+      const result = await runFaqPublishFlow({
+        plan: publishPlan,
+        save: () => persistEditor(labels.publishFailed),
+        publish: async (id) => {
+          const res = await fetch(`/api/website-kompis/faq/${id}/publish`, { method: "POST" });
+          const body = (await res.json()) as { id?: string; status?: string };
+          return { ok: res.ok, id: body.id, status: body.status };
+        },
+      });
+
+      if (result.outcome === "draft_saved_publish_failed") {
+        persistedIdRef.current = result.id;
+        setDraft((current) => ({ ...current, itemId: result.id, editorStatus: "draft" }));
+        setError(labels.publishSavedAsDraft);
+        return;
+      }
+      if (result.outcome !== "published" && result.outcome !== "revised") {
+        setError(labels.publishFailed);
+        return;
+      }
+
+      setDraft((current) => ({ ...current, itemId: result.id, editorStatus: "published" }));
+      setPublishDialogOpen(false);
+      setNotice(result.outcome === "revised" ? labels.publishedChangesSuccess : labels.publishedNewSuccess);
+      await refresh();
+    } catch {
+      setError(labels.publishFailed);
+    } finally {
+      publishLock.current = false;
+      setBusy(false);
+    }
   }
 
   if (loading && items.length === 0 && !editorOpen) {
@@ -457,6 +519,12 @@ export function WebsiteKompisFaqAdminPanel({
       {error ? (
         <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
           {error}
+        </p>
+      ) : null}
+
+      {notice ? (
+        <p className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800" role="status">
+          {notice}
         </p>
       ) : null}
 
@@ -799,7 +867,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.validFrom}</span>
                 <input
                   type="datetime-local"
-                  value={draft.validFrom ? draft.validFrom.slice(0, 16) : ""}
+                  value={isoToDateTimeLocal(draft.validFrom)}
                   onChange={(event) =>
                     setDraft((current) => ({
                       ...current,
@@ -814,7 +882,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.validUntil}</span>
                 <input
                   type="datetime-local"
-                  value={draft.validUntil ? draft.validUntil.slice(0, 16) : ""}
+                  value={isoToDateTimeLocal(draft.validUntil)}
                   onChange={(event) =>
                     setDraft((current) => ({
                       ...current,
@@ -824,6 +892,7 @@ export function WebsiteKompisFaqAdminPanel({
                   className="w-full rounded-md border border-slate-300 px-3 py-2"
                 />
               </label>
+              <p className="text-xs text-slate-500 md:col-span-2">{labels.validityOpenEnded}</p>
 
               <label className="text-sm md:col-span-2">
                 <span className="mb-1 block font-medium text-slate-700">
@@ -873,7 +942,7 @@ export function WebsiteKompisFaqAdminPanel({
                 onClick={() => void saveDraft()}
                 className="rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50"
               >
-                {labels.saveDraft}
+                {busy ? labels.saving : labels.saveDraft}
               </button>
               <button
                 type="button"
@@ -882,7 +951,7 @@ export function WebsiteKompisFaqAdminPanel({
                 onClick={() => setPublishDialogOpen(true)}
                 className="rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-50"
               >
-                {labels.publish}
+                {revisingPublished ? labels.publishChanges : labels.publish}
               </button>
             </div>
           </section>
@@ -900,6 +969,10 @@ export function WebsiteKompisFaqAdminPanel({
         labels={labels}
         open={publishDialogOpen}
         riskyWords={riskyWords}
+        title={revisingPublished ? labels.confirmReviseTitle : labels.confirmPublishTitle}
+        body={revisingPublished ? labels.confirmReviseBody : labels.confirmPublishBody}
+        confirmLabel={revisingPublished ? labels.publishChanges : labels.confirmPublishAction}
+        error={error}
         onConfirm={() => void confirmPublish()}
         onCancel={() => setPublishDialogOpen(false)}
         busy={busy}
