@@ -836,7 +836,7 @@
   },
   "websiteKompisFeedback":   {
     "title": "Preguntas, respuestas y comentarios",
-    "subtitle": "Haga que Kompis mejore con cada conversación. Vea qué encuentran útil los visitantes, corrija las respuestas que no acertaron y construya un conocimiento más seguro.",
+    "subtitle": "Para revisar, FAQ publicadas y comentarios anteriores.",
     "navTitle": "Questions & answers",
     "backToFaq": "Open FAQ",
     "loading": "Preparando la vista de comentarios…",
@@ -852,7 +852,7 @@
     "reuseOffNote": "Las respuestas valoradas no se reutilizan automáticamente.",
     "helpfulNotTruth": "Vea qué les resulta útil a los visitantes y qué respuestas conviene mejorar.",
     "negativeNotAutoChange": "Una valoración que no acertó permanece en revisión. No publica nada y no cambia la respuesta que recibió el visitante.",
-    "scopeNote": "Esta lista muestra los comentarios más recientes, hasta 100. Las filas anteriores no están en esta vista.",
+    "scopeNote": "Comentarios útiles que no tienen que estar publicados.",
     "sourcesUnavailable": "Las fuentes de la respuesta no se muestran en esta vista.",
     "unansweredGapTitle": "Unanswered questions are not listed yet",
     "unansweredGapBody": "Core currently stores answer receipts when Website Kompis produced an answer. Unanswered asks, security stops, and technical failures are not in this feedback overview.",
@@ -871,7 +871,7 @@
     "filterWithoutComment": "Without comment",
     "clearFilters": "Restablecer filtros",
     "sectionReviewQueue": "Para revisar",
-    "sectionReviewQueueHint": "Las valoraciones negativas aparecen primero. Las respuestas útiles están en Historial.",
+    "sectionReviewQueueHint": "Respuestas que conviene revisar.",
     "sectionTable": "Feedback list",
     "suggestFaqWarning": "El borrador parte de una pregunta de un visitante. Revíselo antes de que otros puedan verlo.",
     "totals": {
@@ -959,6 +959,7 @@
       "proposedQuestion": "Pregunta de la FAQ",
       "proposedAnswer": "Respuesta de la FAQ",
       "language": "Idioma",
+      "category": "Categoría",
       "chooseLanguage": "Elija un idioma",
       "languages": {
         "en": "Inglés",

@@ -837,7 +837,7 @@
   },
   "websiteKompisFeedback": {
     "title": "Запитання, відповіді та відгуки",
-    "subtitle": "Робіть Kompis кращим після кожної розмови. Дивіться, що відвідувачі вважають корисним, виправляйте відповіді, які не влучили, і збирайте надійніше знання.",
+    "subtitle": "На перевірку, опубліковані FAQ і попередні відгуки.",
     "navTitle": "Питання та відповіді",
     "backToFaq": "Відкрити FAQ",
     "loading": "Preparing feedback overview…",
@@ -853,7 +853,7 @@
     "reuseOffNote": "Оцінені відповіді не використовуються автоматично далі.",
     "helpfulNotTruth": "Дивіться, що відвідувачам вдається, і які відповіді варто покращити.",
     "negativeNotAutoChange": "Оцінка, яка не влучила, лишається на розгляд. Нічого не публікується, і відповідь, яку отримав відвідувач, не змінюється.",
-    "scopeNote": "Список показує останні відгуки, до 100. Старіші рядки не входять у цей перегляд.",
+    "scopeNote": "Корисні відгуки, які не обов’язково опубліковані.",
     "sourcesUnavailable": "Джерела відповіді не показано в цьому перегляді.",
     "unansweredGapTitle": "Unanswered questions are not listed yet",
     "unansweredGapBody": "Core currently stores answer receipts when Website Kompis produced an answer. Unanswered asks, security stops, and technical failures are not in this feedback overview.",
@@ -872,7 +872,7 @@
     "filterWithoutComment": "Without comment",
     "clearFilters": "Скинути фільтри",
     "sectionReviewQueue": "На розгляд",
-    "sectionReviewQueueHint": "Спочатку негативні оцінки. Корисні відповіді є в Історії.",
+    "sectionReviewQueueHint": "Відповіді, які варто перевірити.",
     "sectionTable": "Список відгуків",
     "suggestFaqWarning": "Чернетка починається з питання відвідувача. Перевірте її, перш ніж її побачать інші.",
     "totals": {
@@ -960,6 +960,7 @@
       "proposedQuestion": "Запитання FAQ",
       "proposedAnswer": "Відповідь FAQ",
       "language": "Мова",
+      "category": "Категорія",
       "chooseLanguage": "Виберіть мову",
       "languages": {
         "en": "Англійська",

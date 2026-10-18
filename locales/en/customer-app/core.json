@@ -7359,7 +7359,7 @@
   },
   "websiteKompisFeedback": {
     "title": "Questions, answers and feedback",
-    "subtitle": "Make Kompis better with every conversation. See what visitors find useful, correct answers that missed, and build safer knowledge over time.",
+    "subtitle": "Review answers, published FAQs, and earlier feedback.",
     "navTitle": "Questions & answers",
     "backToFaq": "Open FAQ",
     "loading": "Preparing feedback overview…",
@@ -7375,7 +7375,7 @@
     "reuseOffNote": "Rated answers are not reused automatically.",
     "helpfulNotTruth": "See what visitors find useful, and which answers you should improve.",
     "negativeNotAutoChange": "A rating that missed stays in review. It publishes nothing and does not change the answer the visitor received.",
-    "scopeNote": "This list shows the latest feedback, up to 100. Older rows are not in this view.",
+    "scopeNote": "Helpful feedback that is not necessarily published.",
     "sourcesUnavailable": "The sources behind the answer are not shown in this view.",
     "unansweredGapTitle": "Unanswered questions are not listed yet",
     "unansweredGapBody": "Core currently stores answer receipts when Website Kompis produced an answer. Unanswered asks, security stops, and technical failures are not in this feedback overview.",
@@ -7394,7 +7394,7 @@
     "filterWithoutComment": "Without comment",
     "clearFilters": "Reset filters",
     "sectionReviewQueue": "To review",
-    "sectionReviewQueueHint": "Negative ratings come first. Useful answers stay in History.",
+    "sectionReviewQueueHint": "Answers that should be checked.",
     "sectionTable": "Feedback list",
     "suggestFaqWarning": "This draft starts from a visitor question. Check it before anyone else can see it.",
     "totals": {
@@ -7482,6 +7482,7 @@
       "proposedQuestion": "FAQ question",
       "proposedAnswer": "FAQ answer",
       "language": "Language",
+      "category": "Category",
       "chooseLanguage": "Choose language",
       "languages": {
         "en": "English",

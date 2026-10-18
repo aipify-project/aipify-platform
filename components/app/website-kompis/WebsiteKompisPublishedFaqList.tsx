@@ -11,6 +11,7 @@ type PublishedItem = {
   question: string | null;
   answer: string;
   locale: string;
+  category: string | null;
   domain: string | null;
   status: string;
 };
@@ -18,13 +19,16 @@ type PublishedItem = {
 export function WebsiteKompisPublishedFaqList({
   labels,
   query,
+  localeFilter = "",
 }: {
   labels: WebsiteKompisFeedbackLabels;
   query: string;
+  localeFilter?: string;
 }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [items, setItems] = useState<PublishedItem[]>([]);
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -80,14 +84,42 @@ export function WebsiteKompisPublishedFaqList({
   }
 
   const names = labels.quality.languages as Record<string, string>;
+  const categories = Array.from(
+    new Set(items.map((item) => item.category?.trim()).filter((value): value is string => Boolean(value))),
+  ).sort((a, b) => a.localeCompare(b));
+  const visible = items.filter((item) => {
+    if (localeFilter && item.locale.toLowerCase() !== localeFilter.toLowerCase()) return false;
+    if (category && (item.category ?? "").trim() !== category) return false;
+    return true;
+  });
 
   return (
     <div className="space-y-3">
+      {categories.length > 0 ? (
+        <label className="block max-w-xs text-sm">
+          <span className="mb-1 block text-[var(--app-text-muted)]">{labels.quality.category}</span>
+          <select
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+            className="w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+          >
+            <option value="">{labels.filterAll}</option>
+            {categories.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+      ) : null}
       {items.length >= 100 ? (
         <p className="text-sm text-[var(--app-text-muted)]">{labels.quality.publishedCap}</p>
       ) : null}
+      {visible.length === 0 ? (
+        <p className="text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.quality.publishedEmpty}</p>
+      ) : (
       <ul className="grid gap-3 md:grid-cols-2">
-        {items.map((item) => (
+        {visible.map((item) => (
           <li
             key={item.id}
             className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]"
@@ -103,6 +135,7 @@ export function WebsiteKompisPublishedFaqList({
           </li>
         ))}
       </ul>
+      )}
       <Link
         href={FOUNDATION_NAV_BINDINGS.kompisWebFaq}
         className="inline-flex min-h-11 items-center text-sm font-medium text-[var(--app-primary)] underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"

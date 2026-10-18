@@ -15,7 +15,6 @@ import { WebsiteKompisPublishedFaqList } from "@/components/app/website-kompis/W
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import {
   FEEDBACK_REVIEW_PAGE_SIZE,
-  OWNER_REVIEW_APPROVAL_SUPPORTED,
   filterFeedbackOpsRows,
   partitionFeedbackWorkspace,
   resolveFeedbackOpsStatus,
@@ -39,7 +38,7 @@ type OverviewPayload = {
   error?: string;
 };
 
-type ViewId = "review" | "approved" | "published" | "history";
+type ViewId = "review" | "published" | "history";
 
 const STATUS_TONE: Record<string, string> = {
   emerald: "bg-[#E8F7F0] text-[var(--app-text)] ring-[#B7E4CF]",
@@ -97,7 +96,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
 
   const viewParam = searchParams.get("view");
   const view: ViewId =
-    viewParam === "history" || viewParam === "published" || viewParam === "approved" || viewParam === "review"
+    viewParam === "history" || viewParam === "published" || viewParam === "review"
       ? viewParam
       : "review";
   const voteFilter = (searchParams.get("vote") as FeedbackOpsVoteFilter) || "all";
@@ -214,24 +213,20 @@ export function WebsiteKompisFeedbackOverviewPanel({
     { label: labels.totals.withComment, value: totals.withComment, icon: MessageSquareText, chip: "bg-[var(--app-primary-soft)] text-[var(--app-primary)]" },
     { label: labels.totals.needsReview, value: totals.notHelpful, icon: ClipboardCheck, chip: "bg-[#FFF4E5] text-[#9A3412]" },
   ];
-  const tabs: Array<{ id: ViewId; label: string; count: number | null; disabled: boolean }> = [
-    { id: "review", label: labels.quality.tabs.review, count: reviewQueue.length, disabled: false },
-    { id: "approved", label: labels.quality.tabs.approved, count: OWNER_REVIEW_APPROVAL_SUPPORTED ? 0 : null, disabled: true },
-    { id: "published", label: labels.quality.tabs.published, count: null, disabled: false },
-    { id: "history", label: labels.quality.tabs.history, count: partitioned.history.length, disabled: false },
+  const tabs: Array<{ id: ViewId; label: string; count: number | null }> = [
+    { id: "review", label: labels.quality.tabs.review, count: reviewQueue.length },
+    { id: "published", label: labels.quality.tabs.published, count: null },
+    { id: "history", label: labels.quality.tabs.history, count: partitioned.history.length },
   ];
 
   return (
-    <div className={embedded ? "w-full space-y-8" : "mx-auto w-full max-w-[1560px] space-y-8"}>
+    <div className={embedded ? "w-full space-y-5" : "mx-auto w-full max-w-[1560px] space-y-5"}>
       {!persistenceReady ? (
         <div className="rounded-2xl border border-[var(--app-border-accent)] bg-[var(--app-primary-soft)] px-4 py-3 text-sm text-[var(--app-text)]">
           <p className="font-medium">{labels.persistenceUnavailableTitle}</p>
           <p className="mt-1 text-[var(--app-text-muted)]">{labels.persistenceUnavailableBody}</p>
         </div>
       ) : null}
-
-      <p className="max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.quality.storageNote}</p>
-      <p className="max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.helpfulNotTruth}</p>
 
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         {tiles.map((item) => {
@@ -261,7 +256,6 @@ export function WebsiteKompisFeedbackOverviewPanel({
               id={`feedback-tab-${tab.id}`}
               aria-selected={selectedTab}
               aria-controls={`feedback-panel-${tab.id}`}
-              disabled={tab.disabled && tab.id !== "approved"}
               onClick={() => setFilterParam("view", tab.id === "review" ? "" : tab.id)}
               onKeyDown={(event) => {
                 if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
@@ -283,7 +277,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
         })}
       </div>
 
-      {view !== "published" && view !== "approved" ? (
+      {view !== "published" ? (
         <section className="space-y-3 rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-4 shadow-[var(--app-shadow-card)]" aria-labelledby="wk-feedback-filters">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 id="wk-feedback-filters" className="text-base font-semibold text-[var(--app-text)]">
@@ -364,14 +358,9 @@ export function WebsiteKompisFeedbackOverviewPanel({
       ) : null}
 
       <div role="tabpanel" id={`feedback-panel-${view}`} aria-labelledby={`feedback-tab-${view}`} className="space-y-4">
-        {view === "approved" ? (
-          <section className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]">
-            <h2 className="text-lg font-semibold text-[var(--app-text)]">{labels.quality.approvedTitle}</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.quality.approvedBody}</p>
-          </section>
+        {view === "published" ? (
+          <WebsiteKompisPublishedFaqList labels={labels} query={query} localeFilter={localeFilter} />
         ) : null}
-
-        {view === "published" ? <WebsiteKompisPublishedFaqList labels={labels} query={query} /> : null}
 
         {view === "review" || view === "history" ? (
           <section className="space-y-3" aria-labelledby="wk-review-queue">
@@ -441,8 +430,6 @@ export function WebsiteKompisFeedbackOverviewPanel({
           </section>
         ) : null}
       </div>
-
-      <p className="text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.negativeNotAutoChange}</p>
 
       {toast ? (
         <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900" role="status">

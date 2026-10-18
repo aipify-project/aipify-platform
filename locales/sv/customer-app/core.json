@@ -7370,7 +7370,7 @@
   },
   "websiteKompisFeedback": {
     "title": "Frågor, svar och återkoppling",
-    "subtitle": "Gör Kompis bättre för varje samtal. Se vad besökare upplever som användbart, rätta svar som inte träffade, och bygg tryggare kunskap över tid.",
+    "subtitle": "Att granska, publicerade FAQ och tidigare återkoppling.",
     "navTitle": "Frågor och svar",
     "backToFaq": "Öppna FAQ",
     "loading": "Preparing feedback overview…",
@@ -7386,7 +7386,7 @@
     "reuseOffNote": "Bedömda svar återanvänds inte automatiskt.",
     "helpfulNotTruth": "Se vad besökare tycker fungerar bra, och vilka svar du bör förbättra.",
     "negativeNotAutoChange": "En bedömning som inte träffade blir kvar för genomgång. Den publicerar inget och ändrar inte svaret besökaren fick.",
-    "scopeNote": "Listan visar den senaste återkopplingen, upp till 100. Äldre rader ingår inte i den här vyn.",
+    "scopeNote": "Användbar återkoppling som inte nödvändigtvis är publicerad.",
     "sourcesUnavailable": "Källorna bakom svaret visas inte i den här översikten.",
     "unansweredGapTitle": "Unanswered questions are not listed yet",
     "unansweredGapBody": "Core currently stores answer receipts when Website Kompis produced an answer. Unanswered asks, security stops, and technical failures are not in this feedback overview.",
@@ -7405,7 +7405,7 @@
     "filterWithoutComment": "Without comment",
     "clearFilters": "Återställ filter",
     "sectionReviewQueue": "Att gå igenom",
-    "sectionReviewQueueHint": "Negativa bedömningar kommer först. Användbara svar ligger i Historik.",
+    "sectionReviewQueueHint": "Svar som bör kontrolleras.",
     "sectionTable": "Feedbacklista",
     "suggestFaqWarning": "Utkastet utgår från en besökarfråga. Kontrollera det innan andra kan se det.",
     "totals": {
@@ -7493,6 +7493,7 @@
       "proposedQuestion": "FAQ-fråga",
       "proposedAnswer": "FAQ-svar",
       "language": "Språk",
+      "category": "Kategori",
       "chooseLanguage": "Välj språk",
       "languages": {
         "en": "Engelska",

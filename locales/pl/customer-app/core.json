@@ -837,7 +837,7 @@
   },
   "websiteKompisFeedback": {
     "title": "Pytania, odpowiedzi i opinie",
-    "subtitle": "Niech Kompis staje się lepszy z każdą rozmową. Zobacz, co odwiedzający uznają za pomocne, popraw odpowiedzi, które nie trafiły, i buduj pewniejszą wiedzę.",
+    "subtitle": "Do przeglądu, opublikowane FAQ i wcześniejsze opinie.",
     "navTitle": "Pytania i odpowiedzi",
     "backToFaq": "Otwórz FAQ",
     "loading": "Preparing feedback overview…",
@@ -853,7 +853,7 @@
     "reuseOffNote": "Ocenione odpowiedzi nie są używane automatycznie dalej.",
     "helpfulNotTruth": "Zobacz, co odwiedzający uznają za dobre, i które odpowiedzi warto poprawić.",
     "negativeNotAutoChange": "Ocena, która nie trafiła, zostaje do przejrzenia. Nic nie jest publikowane i odpowiedź, którą dostał odwiedzający, się nie zmienia.",
-    "scopeNote": "Lista pokazuje najnowsze opinie, do 100. Starsze wiersze nie są w tym widoku.",
+    "scopeNote": "Przydatne opinie, które nie muszą być opublikowane.",
     "sourcesUnavailable": "Źródła odpowiedzi nie są pokazane w tym widoku.",
     "unansweredGapTitle": "Unanswered questions are not listed yet",
     "unansweredGapBody": "Core currently stores answer receipts when Website Kompis produced an answer. Unanswered asks, security stops, and technical failures are not in this feedback overview.",
@@ -872,7 +872,7 @@
     "filterWithoutComment": "Without comment",
     "clearFilters": "Wyczyść filtry",
     "sectionReviewQueue": "Do przejrzenia",
-    "sectionReviewQueueHint": "Najpierw oceny negatywne. Przydatne odpowiedzi są w Historii.",
+    "sectionReviewQueueHint": "Odpowiedzi do sprawdzenia.",
     "sectionTable": "Lista opinii",
     "suggestFaqWarning": "Szkic zaczyna się od pytania odwiedzającego. Sprawdź go, zanim zobaczą go inni.",
     "totals": {
@@ -960,6 +960,7 @@
       "proposedQuestion": "Pytanie FAQ",
       "proposedAnswer": "Odpowiedź FAQ",
       "language": "Język",
+      "category": "Kategoria",
       "chooseLanguage": "Wybierz język",
       "languages": {
         "en": "Angielski",

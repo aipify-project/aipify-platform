@@ -127,6 +127,7 @@ export function buildWebsiteKompisFeedbackLabels(t: TranslateFn) {
       proposedQuestion: t(`${prefix}.quality.proposedQuestion`),
       proposedAnswer: t(`${prefix}.quality.proposedAnswer`),
       language: t(`${prefix}.quality.language`),
+      category: t(`${prefix}.quality.category`),
       chooseLanguage: t(`${prefix}.quality.chooseLanguage`),
       languages: {
         en: t(`${prefix}.quality.languages.en`),

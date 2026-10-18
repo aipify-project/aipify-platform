@@ -40,6 +40,7 @@ export function WebsiteKompisFeedbackEditor({
   const [answer, setAnswer] = useState(row.answerPreview);
   const [locale, setLocale] = useState(row.locale?.trim() || "");
   const [publicSafe, setPublicSafe] = useState(false);
+  const [category, setCategory] = useState("");
   const [sites, setSites] = useState<SiteOption[]>([]);
   const [siteState, setSiteState] = useState<"loading" | "ready" | "empty">("loading");
   const [installId, setInstallId] = useState("");
@@ -57,7 +58,7 @@ export function WebsiteKompisFeedbackEditor({
     locale: row.locale?.trim() || "",
     publicSafe: false,
   });
-  const fieldSnapshot = JSON.stringify({ question, answer, locale, publicSafe });
+  const fieldSnapshot = JSON.stringify({ question, answer, locale, publicSafe, category });
   const dirty = fieldSnapshot !== (savedSnapshot || JSON.stringify(openedFields.current));
   const requestCloseRef = useRef<() => void>(() => {});
 
@@ -192,6 +193,7 @@ export function WebsiteKompisFeedbackEditor({
           question: question.trim(),
           answer: answer.trim(),
           contentType: "faq",
+          category: category.trim(),
           publicSafe,
           priority: 100,
           tags: [],
@@ -303,7 +305,6 @@ export function WebsiteKompisFeedbackEditor({
             <h2 id={titleId} className="text-lg font-semibold text-[var(--app-text)]">
               {labels.openDetail}
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.quality.immutable}</p>
           </div>
           <button
             type="button"
@@ -314,34 +315,12 @@ export function WebsiteKompisFeedbackEditor({
           </button>
         </div>
 
-        <dl className="mt-5 space-y-4 text-sm">
-          <div>
-            <dt className="font-medium text-[var(--app-text-muted)]">{labels.quality.originalQuestion}</dt>
-            <dd className="mt-1 whitespace-pre-wrap text-[var(--app-text)]">{row.questionPreview || "—"}</dd>
-          </div>
-          <div>
-            <dt className="font-medium text-[var(--app-text-muted)]">{labels.quality.originalAnswer}</dt>
-            <dd className="mt-1 whitespace-pre-wrap text-[var(--app-text)]">{row.answerPreview || "—"}</dd>
-          </div>
-          <div>
-            <dt className="font-medium text-[var(--app-text-muted)]">{labels.quality.visitorFeedback}</dt>
-            <dd className="mt-1 whitespace-pre-wrap text-[var(--app-text)]">{row.comment?.trim() || "—"}</dd>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <dt className="font-medium text-[var(--app-text-muted)]">{labels.columns.page}</dt>
-              <dd className="mt-1 text-[var(--app-text)]">{row.pagePathname || "—"}</dd>
-            </div>
-            <div>
-              <dt className="font-medium text-[var(--app-text-muted)]">{labels.quality.language}</dt>
-              <dd className="mt-1 text-[var(--app-text)]">{row.locale ? languageLabel(labels, row.locale) : "—"}</dd>
-            </div>
-          </div>
-        </dl>
-        <p className="mt-3 text-sm text-[var(--app-text-muted)]">{labels.sourcesUnavailable}</p>
+        {row.comment?.trim() ? (
+          <p className="mt-3 text-sm text-[var(--app-text-muted)]">{row.comment.trim()}</p>
+        ) : null}
 
         <form
-          className="mt-6 space-y-4"
+          className="mt-5 space-y-4"
           onSubmit={(event) => {
             event.preventDefault();
             void saveDraft();
@@ -362,6 +341,14 @@ export function WebsiteKompisFeedbackEditor({
               value={answer}
               onChange={(event) => setAnswer(event.target.value)}
               rows={5}
+              className="w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+            />
+          </label>
+          <label className="block text-sm">
+            <span className="mb-1 block font-medium text-[var(--app-text)]">{labels.quality.category}</span>
+            <input
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
               className="w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             />
           </label>

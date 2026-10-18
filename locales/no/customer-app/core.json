@@ -7370,7 +7370,7 @@
   },
   "websiteKompisFeedback": {
     "title": "Spørsmål, svar og tilbakemelding",
-    "subtitle": "Gjør Kompis bedre for hver samtale. Se hva besøkende opplever som nyttig, rett opp svar som ikke traff, og bygg tryggere kunnskap over tid.",
+    "subtitle": "Til gjennomgang, publiserte FAQ-er og tidligere tilbakemeldinger.",
     "navTitle": "Spørsmål og svar",
     "backToFaq": "Åpne FAQ",
     "loading": "Forbereder tilbakemeldingsoversikt…",
@@ -7386,7 +7386,7 @@
     "reuseOffNote": "Vurderte svar brukes ikke automatisk videre.",
     "helpfulNotTruth": "Se hva besøkende synes fungerer godt, og hvilke svar du bør forbedre.",
     "negativeNotAutoChange": "En vurdering som ikke traff, blir stående til gjennomgang. Den publiserer ingenting og endrer ikke svaret besøkende fikk.",
-    "scopeNote": "Listen viser de siste tilbakemeldingene, opptil 100. Eldre rader er ikke med i denne visningen.",
+    "scopeNote": "Nyttige tilbakemeldinger som ikke nødvendigvis er publisert.",
     "sourcesUnavailable": "Kildene bak svaret vises ikke i denne oversikten.",
     "unansweredGapTitle": "Ubesvarte spørsmål listes ikke ennå",
     "unansweredGapBody": "Core lagrer svarkvitteringer når Website Kompis ga et svar. Ubesvarte spørsmål, sikkerhetsstopp og tekniske feil er ikke i denne oversikten.",
@@ -7405,7 +7405,7 @@
     "filterWithoutComment": "Uten kommentar",
     "clearFilters": "Nullstill filtre",
     "sectionReviewQueue": "Til gjennomgang",
-    "sectionReviewQueueHint": "Negative vurderinger kommer først. Nyttige svar ligger i Historikk.",
+    "sectionReviewQueueHint": "Svar som bør sjekkes.",
     "sectionTable": "Tilbakemeldingsliste",
     "suggestFaqWarning": "Utkastet starter fra et besøksspørsmål. Kontroller det før andre kan se det.",
     "totals": {
@@ -7493,6 +7493,7 @@
       "proposedQuestion": "FAQ-spørsmål",
       "proposedAnswer": "FAQ-svar",
       "language": "Språk",
+      "category": "Kategori",
       "chooseLanguage": "Velg språk",
       "languages": {
         "en": "Engelsk",
