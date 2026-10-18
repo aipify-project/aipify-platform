@@ -142,6 +142,7 @@ for (const loc of ["en", "no", "sv", "da", "pl", "uk"]) {
 // Panel + FAQ suggest wiring
 assert.match(read("components/app/website-kompis/WebsiteKompisFeedbackOverviewPanel.tsx"), /selectKnowledgeGapCandidates/);
 assert.match(read("components/app/website-kompis/WebsiteKompisFeedbackOverviewPanel.tsx"), /role="tablist"/);
+assert.doesNotMatch(read("components/app/website-kompis/WebsiteKompisFeedbackOverviewPanel.tsx"), /id: "approved"/);
 assert.match(read("components/app/website-kompis/WebsiteKompisFeedbackEditor.tsx"), /createPortal/);
 assert.match(read("components/app/website-kompis/WebsiteKompisFeedbackEditor.tsx"), /Lagre FAQ-utkast|quality.saveDraft/);
 assert.doesNotMatch(read("components/app/website-kompis/WebsiteKompisFeedbackOverviewPanel.tsx"), /Godkjenn svar/);

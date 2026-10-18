@@ -7359,7 +7359,7 @@
   },
   "websiteKompisFeedback": {
     "title": "Spørgsmål, svar og feedback",
-    "subtitle": "Gør Kompis bedre for hver samtale. Se hvad besøgende oplever som nyttigt, ret svar der ikke ramte, og byg tryggere viden over tid.",
+    "subtitle": "Til gennemgang, publicerede FAQ og tidligere tilbagemeldinger.",
     "navTitle": "Spørgsmål og svar",
     "backToFaq": "Åbn FAQ",
     "loading": "Preparing feedback overview…",
@@ -7375,7 +7375,7 @@
     "reuseOffNote": "Vurderede svar genbruges ikke automatisk.",
     "helpfulNotTruth": "Se hvad besøgende synes fungerer godt, og hvilke svar du bør forbedre.",
     "negativeNotAutoChange": "En vurdering der ikke ramte, bliver stående til gennemgang. Den publicerer intet og ændrer ikke svaret den besøgende fik.",
-    "scopeNote": "Listen viser den seneste feedback, op til 100. Ældre rækker er ikke med i denne visning.",
+    "scopeNote": "Nyttige tilbagemeldinger, som ikke nødvendigvis er publiceret.",
     "sourcesUnavailable": "Kilderne bag svaret vises ikke i denne oversigt.",
     "unansweredGapTitle": "Unanswered questions are not listed yet",
     "unansweredGapBody": "Core currently stores answer receipts when Website Kompis produced an answer. Unanswered asks, security stops, and technical failures are not in this feedback overview.",
@@ -7394,7 +7394,7 @@
     "filterWithoutComment": "Without comment",
     "clearFilters": "Nulstil filtre",
     "sectionReviewQueue": "Til gennemgang",
-    "sectionReviewQueueHint": "Negative vurderinger kommer først. Nyttige svar ligger i Historik.",
+    "sectionReviewQueueHint": "Svar der bør tjekkes.",
     "sectionTable": "Feedbackliste",
     "suggestFaqWarning": "Udkastet starter fra et besøgsspørgsmål. Kontrollér det, før andre kan se det.",
     "totals": {
@@ -7480,6 +7480,7 @@
       "proposedQuestion": "FAQ-spørgsmål",
       "proposedAnswer": "FAQ-svar",
       "language": "Sprog",
+      "category": "Kategori",
       "chooseLanguage": "Vælg sprog",
       "languages": {
         "en": "Engelsk",

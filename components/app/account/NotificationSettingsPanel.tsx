@@ -16,32 +16,26 @@ export function NotificationSettingsPanel({ labels }: NotificationSettingsPanelP
   const orgGate = useNotificationOrganizationGate();
 
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-6 px-4 py-5 sm:px-6">
-      <header className="space-y-2">
+    <div className="w-full space-y-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Link
           href="/app/account/preferences"
           className="text-sm font-medium text-aipify-companion hover:text-aipify-companion/80"
         >
           {labels.back}
         </Link>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
-            <p className="mt-1 text-gray-600">{labels.subtitle}</p>
-            {orgGate.isReady && orgGate.organizationName ? (
-              <p className="mt-2 text-sm text-aipify-text-secondary">
-                {labels.activeOrganization.replace("{name}", orgGate.organizationName)}
-              </p>
-            ) : null}
-          </div>
-          <Link
-            href="/app/notifications"
-            className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-aipify-border bg-white px-4 py-2 text-sm font-semibold text-aipify-text transition hover:bg-aipify-surface-muted"
-          >
-            {labels.manageInboxLink}
-          </Link>
-        </div>
-      </header>
+        <Link
+          href="/app/notifications"
+          className="inline-flex min-h-11 items-center justify-center rounded-xl border border-aipify-border bg-white px-4 py-2 text-sm font-semibold text-aipify-text transition hover:bg-aipify-surface-muted"
+        >
+          {labels.manageInboxLink}
+        </Link>
+      </div>
+      {orgGate.isReady && orgGate.organizationName ? (
+        <p className="text-sm text-aipify-text-secondary">
+          {labels.activeOrganization.replace("{name}", orgGate.organizationName)}
+        </p>
+      ) : null}
 
       <NotificationOrganizationGate
         loading={orgGate.loading}

@@ -67,7 +67,13 @@ export function KompisProductPortfolio({
   return (
     <div className="space-y-6">
       <div className="grid gap-6 lg:grid-cols-2">
-        <article className="flex h-full flex-col overflow-hidden rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] shadow-[var(--app-shadow-card)]">
+        <article
+          className={`flex h-full flex-col overflow-hidden rounded-[var(--app-radius-lg)] border bg-[var(--app-card)] shadow-[var(--app-shadow-card)] ${
+            webTone === "assigned"
+              ? "border-[#B7E4CF] bg-[#F4FBF7] ring-2 ring-[var(--app-positive)]"
+              : "border-[var(--app-border)]"
+          }`}
+        >
           <div className="relative aspect-[4/3] bg-[image:var(--app-primary-soft-fill)]">
             <Image
               src="/brand/kompis-web-product-visual.png"
@@ -106,7 +112,13 @@ export function KompisProductPortfolio({
           </div>
         </article>
 
-        <article className="flex h-full flex-col overflow-hidden rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] shadow-[var(--app-shadow-card)]">
+        <article
+          className={`flex h-full flex-col overflow-hidden rounded-[var(--app-radius-lg)] border bg-[var(--app-card)] shadow-[var(--app-shadow-card)] ${
+            bedriftTone === "licensed"
+              ? "border-[#B7E4CF] bg-[#F4FBF7] ring-2 ring-[var(--app-positive)]"
+              : "border-[var(--app-border)]"
+          }`}
+        >
           <div className="relative aspect-[4/3] bg-[image:var(--app-primary-soft-fill)]">
             <Image
               src="/brand/kompis-bedrift-product-visual.png"
