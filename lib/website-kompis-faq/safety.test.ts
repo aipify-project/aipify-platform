@@ -5,7 +5,9 @@ import { fileURLToPath } from "node:url";
 import {
   canPublishWebsiteKompisFaqDraft,
   detectWebsiteKompisFaqRiskyWords,
+  faqValidityAllowsPublication,
   isWebsiteKompisFaqEditorValid,
+  planWebsiteKompisFaqPublish,
 } from "@/lib/website-kompis-faq/safety";
 import { parseWebsiteKompisFaqItem, parseWebsiteKompisFaqList } from "@/lib/website-kompis-faq/parse";
 
@@ -88,6 +90,45 @@ function main() {
     },
   ]);
   assert.equal(list.length, 1);
+
+  const fields = {
+    title: "Åpningstider",
+    answer: "Stengt i påsken",
+    locale: "no",
+    contentType: "faq",
+    publicSafe: true,
+  };
+  assert.equal(planWebsiteKompisFaqPublish({ ...fields, status: "new" }), "publish_draft");
+  assert.equal(planWebsiteKompisFaqPublish({ ...fields, status: "draft" }), "publish_draft");
+  assert.equal(planWebsiteKompisFaqPublish({ ...fields, status: "published" }), "revise_published");
+  assert.equal(planWebsiteKompisFaqPublish({ ...fields, status: "archived" }), "blocked");
+  assert.equal(
+    faqValidityAllowsPublication({ validFrom: null, validUntil: null }),
+    true,
+  );
+  assert.equal(
+    faqValidityAllowsPublication({
+      validFrom: "2026-10-18T10:00:00.000Z",
+      validUntil: "2026-10-18T10:00:00.000Z",
+    }),
+    false,
+  );
+  assert.equal(
+    faqValidityAllowsPublication({
+      validUntil: "2020-01-01T00:00:00.000Z",
+      now: Date.parse("2026-10-18T00:00:00.000Z"),
+    }),
+    false,
+  );
+  assert.equal(
+    planWebsiteKompisFaqPublish({
+      ...fields,
+      status: "new",
+      validFrom: "2026-10-18T10:00:00.000Z",
+      validUntil: "2026-10-18T10:00:00.000Z",
+    }),
+    "blocked",
+  );
 
   const apiRoute = fs.readFileSync(
     path.join(root, "app/api/website-kompis/faq/route.ts"),
