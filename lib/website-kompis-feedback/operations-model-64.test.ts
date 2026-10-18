@@ -9,10 +9,14 @@ import {
   FEEDBACK_OPS_UNSUPPORTED_WITHOUT_MIGRATION,
   WEBSITE_KOMPIS_FEEDBACK_FIELD_MATRIX,
   buildFaqSuggestHref,
+  FEEDBACK_REVIEW_PAGE_SIZE,
+  OWNER_REVIEW_APPROVAL_SUPPORTED,
   filterFeedbackOpsRows,
   nextActionsForFeedbackRow,
+  partitionFeedbackWorkspace,
   resolveFeedbackOpsStatus,
   selectKnowledgeGapCandidates,
+  takeFeedbackPage,
   type FeedbackOpsRow,
 } from "@/lib/website-kompis-feedback/operations-model";
 import { buildWebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
@@ -73,6 +77,39 @@ const gaps = selectKnowledgeGapCandidates(sample);
 assert.equal(gaps[0]!.id, "2");
 assert.ok(gaps.every((g) => g.vote === "not_helpful"));
 
+const workspace = partitionFeedbackWorkspace(sample);
+assert.deepEqual(workspace.review.map((row) => row.id), ["2", "3"]);
+assert.deepEqual(workspace.history.map((row) => row.id), ["1"]);
+assert.equal(OWNER_REVIEW_APPROVAL_SUPPORTED, false);
+
+const hundredHelpful = Array.from({ length: 100 }, (_, index) => ({
+  id: `h-${index}`,
+  vote: "helpful" as const,
+  comment: index % 2 === 0 ? "thanks" : null,
+  questionPreview: `Question ${index}`,
+  answerPreview: `Answer ${index}`,
+  pagePathname: "/help",
+  locale: "en",
+  createdAt: `2026-02-${String((index % 27) + 1).padStart(2, "0")}T10:00:00.000Z`,
+}));
+const helpfulOnly = partitionFeedbackWorkspace(hundredHelpful);
+assert.equal(helpfulOnly.review.length, 0);
+assert.equal(helpfulOnly.history.length, 100);
+const firstPage = takeFeedbackPage(helpfulOnly.history, FEEDBACK_REVIEW_PAGE_SIZE);
+assert.equal(firstPage.items.length, FEEDBACK_REVIEW_PAGE_SIZE);
+assert.equal(firstPage.hasMore, true);
+
+const dated = filterFeedbackOpsRows(sample, {
+  vote: "all",
+  comment: "all",
+  query: "",
+  locale: "",
+  page: "",
+  dateFrom: "2026-01-03",
+  dateTo: "2026-01-03",
+});
+assert.deepEqual(dated.map((row) => row.id), ["2"]);
+
 const href = buildFaqSuggestHref({
   questionPreview: "What does it cost?",
   locale: "no",
@@ -104,6 +141,14 @@ for (const loc of ["en", "no", "sv", "da", "pl", "uk"]) {
 
 // Panel + FAQ suggest wiring
 assert.match(read("components/app/website-kompis/WebsiteKompisFeedbackOverviewPanel.tsx"), /selectKnowledgeGapCandidates/);
+assert.match(read("components/app/website-kompis/WebsiteKompisFeedbackOverviewPanel.tsx"), /role="tablist"/);
+assert.match(read("components/app/website-kompis/WebsiteKompisFeedbackEditor.tsx"), /createPortal/);
+assert.match(read("components/app/website-kompis/WebsiteKompisFeedbackEditor.tsx"), /Lagre FAQ-utkast|quality.saveDraft/);
+assert.doesNotMatch(read("components/app/website-kompis/WebsiteKompisFeedbackOverviewPanel.tsx"), /Godkjenn svar/);
+assert.doesNotMatch(
+  read("components/app/website-kompis/WebsiteKompisFeedbackEditor.tsx"),
+  /record_website_kompis_answer_feedback/,
+);
 assert.match(read("components/app/website-kompis/WebsiteKompisFaqAdminPanel.tsx"), /suggestQuestion/);
 assert.match(read("app/app/website-kompis/page.tsx"), /getWebsiteKompisAnswerFeedbackOverview/);
 
