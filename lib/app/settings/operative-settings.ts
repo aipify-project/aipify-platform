@@ -4,6 +4,7 @@
  */
 
 export type OperativeSettingsCategoryId =
+  | "companyProfile"
   | "accountSecurity"
   | "billingSubscription"
   | "integrations"
@@ -22,6 +23,10 @@ export type OperativeSettingsCategoryDef = {
 
 /** Only routes that are production-operative for ordinary customers. */
 export const OPERATIVE_SETTINGS_CATEGORIES: readonly OperativeSettingsCategoryDef[] = [
+  {
+    id: "companyProfile",
+    links: [{ id: "profile", href: "/app/settings/company-profile" }],
+  },
   {
     id: "accountSecurity",
     links: [

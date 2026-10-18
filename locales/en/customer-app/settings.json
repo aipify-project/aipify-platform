@@ -403,7 +403,50 @@
     },
     "operativeTitle": "Settings",
     "operativeSubtitle": "Manage security, billing, integrations, and developer access for your organization.",
+    "companyProfile": {
+      "title": "Profile and company information",
+      "subtitle": "Keep the company's details and contact information up to date.",
+      "businessTitle": "Company profile",
+      "contactTitle": "Contact information",
+      "systemTitle": "System-managed details",
+      "securityTitle": "Account security",
+      "locked": "Cannot be changed here",
+      "organizationName": "Organization name",
+      "loginEmail": "Sign-in email",
+      "role": "Role",
+      "plan": "Plan",
+      "license": "License status",
+      "contactUnavailable": "Phone, address, website, and organization number from registration cannot be changed here.",
+      "logoUnavailable": "A company logo can be added when a secure upload is available.",
+      "emptyName": "Your organization",
+      "roles": {
+        "owner": "Owner",
+        "admin": "Administrator",
+        "member": "Member"
+      },
+      "licenses": {
+        "active": "Active",
+        "paused": "Paused",
+        "grace": "Grace period",
+        "trialing": "Trial",
+        "cancelled": "Cancelled"
+      },
+      "securityLinks": {
+        "signIn": "Sign-in verification",
+        "security": "Security overview"
+      }
+    },
     "operativeCategories": {
+      "companyProfile": {
+        "title": "Profile",
+        "description": "Company information shown for this workspace.",
+        "links": {
+          "profile": {
+            "href": "/app/settings/company-profile",
+            "label": "Profile and company information"
+          }
+        }
+      },
       "accountSecurity": {
         "title": "Security",
         "description": "Sign-in verification and organization security controls.",

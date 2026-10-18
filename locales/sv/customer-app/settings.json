@@ -369,7 +369,50 @@
     },
     "operativeTitle": "Inställningar",
     "operativeSubtitle": "Hantera säkerhet, fakturering, integrationer och utvecklaråtkomst för organisationen.",
+    "companyProfile": {
+      "title": "Profil och företagsinformation",
+      "subtitle": "Håll företagets uppgifter och kontaktinformation uppdaterade.",
+      "businessTitle": "Företagsprofil",
+      "contactTitle": "Kontaktinformation",
+      "systemTitle": "Systemstyrda uppgifter",
+      "securityTitle": "Kontosäkerhet",
+      "locked": "Kan inte ändras här",
+      "organizationName": "Organisationsnamn",
+      "loginEmail": "Inloggningsadress",
+      "role": "Roll",
+      "plan": "Avtal",
+      "license": "Licensstatus",
+      "contactUnavailable": "Telefon, adress, webbplats och organisationsnummer från registreringen kan inte ändras här.",
+      "logoUnavailable": "En företagslogotyp kan läggas till när en säker uppladdning finns.",
+      "emptyName": "Din organisation",
+      "roles": {
+        "owner": "Ägare",
+        "admin": "Administratör",
+        "member": "Medlem"
+      },
+      "licenses": {
+        "active": "Aktiv",
+        "paused": "Pausad",
+        "grace": "Betalningsfrist",
+        "trialing": "Provperiod",
+        "cancelled": "Avslutad"
+      },
+      "securityLinks": {
+        "signIn": "Inloggningsbekräftelse",
+        "security": "Säkerhetsöversikt"
+      }
+    },
     "operativeCategories": {
+      "companyProfile": {
+        "title": "Profil",
+        "description": "Företagsinformation för den här arbetsytan.",
+        "links": {
+          "profile": {
+            "href": "/app/settings/company-profile",
+            "label": "Profil och företagsinformation"
+          }
+        }
+      },
       "accountSecurity": {
         "title": "Säkerhet",
         "description": "Inloggningsverifiering och säkerhetskontroller för organisationen.",

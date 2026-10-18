@@ -68,7 +68,50 @@
     },
     "operativeTitle": "Ustawienia",
     "operativeSubtitle": "Zarządzaj bezpieczeństwem, rozliczeniami, integracjami i dostępem deweloperskim organizacji.",
+    "companyProfile": {
+      "title": "Profil i informacje o firmie",
+      "subtitle": "Utrzymuj dane firmy i informacje kontaktowe w aktualnym stanie.",
+      "businessTitle": "Profil firmy",
+      "contactTitle": "Informacje kontaktowe",
+      "systemTitle": "Dane zarządzane przez system",
+      "securityTitle": "Bezpieczeństwo konta",
+      "locked": "Nie można zmienić tutaj",
+      "organizationName": "Nazwa organizacji",
+      "loginEmail": "Adres logowania",
+      "role": "Rola",
+      "plan": "Plan",
+      "license": "Status licencji",
+      "contactUnavailable": "Telefonu, adresu, strony i numeru organizacji z rejestracji nie można zmienić tutaj.",
+      "logoUnavailable": "Logo firmy będzie można dodać, gdy dostępne będzie bezpieczne przesyłanie.",
+      "emptyName": "Twoja organizacja",
+      "roles": {
+        "owner": "Właściciel",
+        "admin": "Administrator",
+        "member": "Członek"
+      },
+      "licenses": {
+        "active": "Aktywna",
+        "paused": "Wstrzymana",
+        "grace": "Okres prolongaty",
+        "trialing": "Okres próbny",
+        "cancelled": "Zakończona"
+      },
+      "securityLinks": {
+        "signIn": "Potwierdzenie logowania",
+        "security": "Przegląd bezpieczeństwa"
+      }
+    },
     "operativeCategories": {
+      "companyProfile": {
+        "title": "Profil",
+        "description": "Informacje o firmie dla tego obszaru roboczego.",
+        "links": {
+          "profile": {
+            "href": "/app/settings/company-profile",
+            "label": "Profil i informacje o firmie"
+          }
+        }
+      },
       "accountSecurity": {
         "title": "Bezpieczeństwo",
         "description": "Weryfikacja logowania i kontrola bezpieczeństwa organizacji.",
