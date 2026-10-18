@@ -4,9 +4,10 @@ import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
 import { WebsiteKompisFaqPreviewPanel } from "@/components/app/website-kompis/WebsiteKompisFaqPreviewPanel";
 import { WebsiteKompisFaqPublishDialog } from "@/components/app/website-kompis/WebsiteKompisFaqPublishDialog";
+import { AlertCircle, CircleCheck, Save, Send } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   WPKF_CONTENT_TYPES,
   WPKF_LOCALES,
@@ -16,9 +17,9 @@ import {
 } from "@/lib/website-kompis-faq/constants";
 import type { WebsiteKompisFaqLabels } from "@/lib/website-kompis-faq/labels";
 import {
-  canPublishWebsiteKompisFaqDraft,
   detectWebsiteKompisFaqRiskyWords,
   isWebsiteKompisFaqEditorValid,
+  planWebsiteKompisFaqPublish,
 } from "@/lib/website-kompis-faq/safety";
 import type {
   WebsiteKompisFaqItem,
@@ -44,8 +45,13 @@ type OwnedSiteOption = {
   domain: string;
 };
 
-function createEmptyDraft(site?: OwnedSiteOption | null): WebsiteKompisFaqUpsertInput {
+type FaqEditorState = WebsiteKompisFaqUpsertInput & {
+  editorStatus: "new" | WpkfStatus;
+};
+
+function createEmptyDraft(site?: OwnedSiteOption | null): FaqEditorState {
   return {
+    editorStatus: "new",
     itemId: null,
     installId: site?.installId ?? null,
     domain: site?.domain ?? null,
@@ -65,8 +71,9 @@ function createEmptyDraft(site?: OwnedSiteOption | null): WebsiteKompisFaqUpsert
   };
 }
 
-function itemToDraft(item: WebsiteKompisFaqItem): WebsiteKompisFaqUpsertInput {
+function itemToDraft(item: WebsiteKompisFaqItem): FaqEditorState {
   return {
+    editorStatus: item.status,
     itemId: item.id,
     installId: item.installId,
     domain: item.domain,
@@ -106,10 +113,12 @@ export function WebsiteKompisFaqAdminPanel({
   const [accessDenied, setAccessDenied] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [editorOpen, setEditorOpen] = useState(false);
-  const [draft, setDraft] = useState<WebsiteKompisFaqUpsertInput>(createEmptyDraft());
+  const [draft, setDraft] = useState<FaqEditorState>(createEmptyDraft());
   const [publishDialogOpen, setPublishDialogOpen] = useState(false);
+  const publishLock = useRef(false);
   const [statusFilter, setStatusFilter] = useState<WpkfStatus | "">("");
   const [localeFilter, setLocaleFilter] = useState("");
   const [contentTypeFilter, setContentTypeFilter] = useState<WpkfContentType | "">("");
@@ -137,14 +146,17 @@ export function WebsiteKompisFaqAdminPanel({
     [draft.answer, draft.category, draft.question, draft.title],
   );
 
-  const canPublish = canPublishWebsiteKompisFaqDraft({
+  const publishPlan = planWebsiteKompisFaqPublish({
+    status: draft.editorStatus,
     title: draft.title,
     answer: draft.answer,
     locale: draft.locale,
     contentType: draft.contentType,
     publicSafe: draft.publicSafe,
-    status: "draft",
+    validUntil: draft.validUntil,
   });
+  const canPublish = publishPlan !== "blocked";
+  const revisingPublished = publishPlan === "revise_published";
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -285,14 +297,11 @@ export function WebsiteKompisFaqAdminPanel({
     setDraft(createEmptyDraft(selectedSite));
   }
 
-  async function saveDraft() {
+  async function persistEditor(failureMessage: string): Promise<{ id: string; status: WpkfStatus } | null> {
     if (!isWebsiteKompisFaqEditorValid(draft)) {
       setError(labels.errorGeneric);
-      return;
+      return null;
     }
-
-    setBusy(true);
-    setError(null);
 
     const res = await fetch("/api/website-kompis/faq", {
       method: "POST",
@@ -317,21 +326,28 @@ export function WebsiteKompisFaqAdminPanel({
       }),
     });
 
-    const body = (await res.json()) as { id?: string; error?: string };
-    if (!res.ok) {
-      setError(body.error ?? labels.errorGeneric);
-      setBusy(false);
-      return;
+    const body = (await res.json()) as { id?: string; status?: WpkfStatus; error?: string };
+    if (!res.ok || !body.id || !body.status) {
+      setError(failureMessage);
+      return null;
     }
 
-    if (body.id) {
-      setDraft((current) => ({ ...current, itemId: body.id ?? current.itemId }));
-    }
+    setDraft((current) => ({ ...current, itemId: body.id ?? current.itemId, editorStatus: body.status ?? current.editorStatus }));
+    return { id: body.id, status: body.status };
+  }
 
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 2000);
+  async function saveDraft() {
+    if (draft.editorStatus === "published") return;
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+    const savedRow = await persistEditor(labels.errorGeneric);
+    if (savedRow) {
+      setSaved(true);
+      window.setTimeout(() => setSaved(false), 2000);
+      await refresh();
+    }
     setBusy(false);
-    await refresh();
   }
 
   async function runAction(action: "publish" | "unpublish" | "archive" | "restore", itemId: string) {
@@ -339,30 +355,64 @@ export function WebsiteKompisFaqAdminPanel({
     setError(null);
 
     const res = await fetch(`/api/website-kompis/faq/${itemId}/${action}`, { method: "POST" });
-    const body = (await res.json()) as { error?: string };
+    const body = (await res.json()) as { error?: string; status?: string };
 
     if (!res.ok) {
-      setError(body.error ?? labels.errorGeneric);
+      setError(action === "publish" ? labels.publishFailed : (body.error ?? labels.errorGeneric));
       setBusy(false);
-      return;
+      return false;
     }
 
     setPublishDialogOpen(false);
     setBusy(false);
-    closeEditor();
+    if (action !== "publish") closeEditor();
     await refresh();
+    return true;
   }
 
   async function confirmPublish() {
-    if (!draft.itemId) {
-      await saveDraft();
-    }
-    const itemId = draft.itemId;
-    if (!itemId) {
-      setError(labels.errorGeneric);
+    if (publishLock.current || busy || publishPlan === "blocked") {
+      if (publishPlan === "blocked") setError(labels.publishFailed);
       return;
     }
-    await runAction("publish", itemId);
+
+    publishLock.current = true;
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+
+    try {
+      const savedRow = await persistEditor(labels.publishFailed);
+      if (!savedRow) return;
+
+      if (publishPlan === "revise_published") {
+        if (savedRow.status !== "published") {
+          setError(labels.publishFailed);
+          return;
+        }
+        setPublishDialogOpen(false);
+        setNotice(labels.publishedChangesSuccess);
+        await refresh();
+        return;
+      }
+
+      const res = await fetch(`/api/website-kompis/faq/${savedRow.id}/publish`, { method: "POST" });
+      const body = (await res.json()) as { error?: string; status?: string };
+      if (!res.ok || body.status !== "published") {
+        setError(labels.publishFailed);
+        return;
+      }
+
+      setDraft((current) => ({ ...current, itemId: savedRow.id, editorStatus: "published" }));
+      setPublishDialogOpen(false);
+      setNotice(labels.publishedNewSuccess);
+      await refresh();
+    } catch {
+      setError(labels.publishFailed);
+    } finally {
+      publishLock.current = false;
+      setBusy(false);
+    }
   }
 
   if (loading && items.length === 0 && !editorOpen) {
@@ -409,6 +459,19 @@ export function WebsiteKompisFaqAdminPanel({
         </div>
       )}
 
+      {notice ? (
+        <p className="inline-flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+          <CircleCheck aria-hidden className="size-4 shrink-0" strokeWidth={2} />
+          {notice}
+        </p>
+      ) : null}
+      {error ? (
+        <p className="inline-flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          <AlertCircle aria-hidden className="size-4 shrink-0" strokeWidth={2} />
+          {error}
+        </p>
+      ) : null}
+
       <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
         {labels.warningBanner}
       </div>
@@ -453,12 +516,6 @@ export function WebsiteKompisFaqAdminPanel({
         ) : null}
         <p className="text-xs text-slate-500">{labels.siteContext.visitorPartialNote}</p>
       </section>
-
-      {error ? (
-        <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
-          {error}
-        </p>
-      ) : null}
 
       {saved ? (
         <p className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
@@ -867,22 +924,29 @@ export function WebsiteKompisFaqAdminPanel({
             ) : null}
 
             <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                disabled={busy || !isWebsiteKompisFaqEditorValid(draft)}
-                onClick={() => void saveDraft()}
-                className="rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50"
-              >
-                {labels.saveDraft}
-              </button>
+              {draft.editorStatus !== "published" ? (
+                <button
+                  type="button"
+                  disabled={busy || !isWebsiteKompisFaqEditorValid(draft)}
+                  onClick={() => void saveDraft()}
+                  className="inline-flex min-h-11 items-center gap-2 rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+                >
+                  <Save aria-hidden className="size-4" strokeWidth={2} />
+                  {labels.saveDraft}
+                </button>
+              ) : null}
               <button
                 type="button"
                 disabled={busy || !canPublish}
                 title={!canPublish ? labels.publishDisabledHint : undefined}
-                onClick={() => setPublishDialogOpen(true)}
-                className="rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-50"
+                onClick={() => {
+                  setError(null);
+                  setPublishDialogOpen(true);
+                }}
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
               >
-                {labels.publish}
+                <Send aria-hidden className="size-4" strokeWidth={2} />
+                {revisingPublished ? labels.publishChanges : labels.confirmPublishAction}
               </button>
             </div>
           </section>
@@ -899,9 +963,15 @@ export function WebsiteKompisFaqAdminPanel({
       <WebsiteKompisFaqPublishDialog
         labels={labels}
         open={publishDialogOpen}
+        title={revisingPublished ? labels.confirmReviseTitle : labels.confirmPublishTitle}
+        body={revisingPublished ? labels.confirmReviseBody : labels.confirmPublishBody}
+        confirmLabel={revisingPublished ? labels.publishChanges : labels.confirmPublishAction}
+        error={error}
         riskyWords={riskyWords}
         onConfirm={() => void confirmPublish()}
-        onCancel={() => setPublishDialogOpen(false)}
+        onCancel={() => {
+          if (!busy) setPublishDialogOpen(false);
+        }}
         busy={busy}
       />
     </div>

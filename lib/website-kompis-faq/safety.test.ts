@@ -6,6 +6,7 @@ import {
   canPublishWebsiteKompisFaqDraft,
   detectWebsiteKompisFaqRiskyWords,
   isWebsiteKompisFaqEditorValid,
+  planWebsiteKompisFaqPublish,
 } from "@/lib/website-kompis-faq/safety";
 import { parseWebsiteKompisFaqItem, parseWebsiteKompisFaqList } from "@/lib/website-kompis-faq/parse";
 
@@ -104,6 +105,44 @@ function main() {
   );
   assert.match(publishRoute, /publish_tenant_public_companion_faq_item/);
   assert.doesNotMatch(publishRoute, /search_tenant_public_visitor_knowledge/);
+
+  const ready = {
+    title: "Åpningstider",
+    answer: "Stengt i påsken",
+    locale: "no",
+    contentType: "holiday_notice",
+    publicSafe: true,
+  };
+  assert.equal(planWebsiteKompisFaqPublish({ ...ready, status: "published" }), "revise_published");
+  assert.equal(planWebsiteKompisFaqPublish({ ...ready, status: "draft" }), "publish_draft");
+  assert.equal(planWebsiteKompisFaqPublish({ ...ready, status: "new" }), "publish_draft");
+  assert.equal(planWebsiteKompisFaqPublish({ ...ready, status: "archived" }), "blocked");
+  assert.equal(
+    planWebsiteKompisFaqPublish({ ...ready, status: "published", publicSafe: false }),
+    "blocked",
+  );
+  assert.equal(
+    planWebsiteKompisFaqPublish({
+      ...ready,
+      status: "draft",
+      validUntil: "2000-01-01T00:00:00.000Z",
+    }),
+    "blocked",
+  );
+
+  const panel = fs.readFileSync(
+    path.join(root, "components/app/website-kompis/WebsiteKompisFaqAdminPanel.tsx"),
+    "utf8",
+  );
+  assert.match(panel, /revise_published/);
+  assert.match(panel, /savedRow\.id/);
+  assert.doesNotMatch(panel, /status:\s*"draft"/);
+  assert.doesNotMatch(panel, /unpublish_tenant_public_companion_faq_item/);
+  const confirmStart = panel.indexOf("async function confirmPublish");
+  const confirmEnd = panel.indexOf("if (loading && items.length === 0");
+  const confirmBody = panel.slice(confirmStart, confirmEnd);
+  assert.equal(confirmBody.includes("/unpublish"), false);
+  assert.equal(confirmBody.includes("draft.itemId"), false);
 
   console.log("website-kompis-faq-safety.test.ts: all assertions passed");
 }
