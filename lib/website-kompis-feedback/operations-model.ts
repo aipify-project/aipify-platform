@@ -163,6 +163,8 @@ export function filterFeedbackOpsRows(
     query: string;
     locale: string;
     page: string;
+    dateFrom?: string;
+    dateTo?: string;
   },
 ): FeedbackOpsRow[] {
   const q = filters.query.trim().toLowerCase();
@@ -176,6 +178,9 @@ export function filterFeedbackOpsRows(
     if (filters.comment === "without_comment" && hasComment) return false;
     if (locale && (row.locale ?? "").toLowerCase() !== locale) return false;
     if (page && !(row.pagePathname ?? "").toLowerCase().includes(page)) return false;
+    const day = createdDay(row.createdAt);
+    if (filters.dateFrom && day && day < filters.dateFrom) return false;
+    if (filters.dateTo && day && day > filters.dateTo) return false;
     if (q) {
       const hay = [
         row.questionPreview,
@@ -205,6 +210,40 @@ export function selectKnowledgeGapCandidates(rows: FeedbackOpsRow[]): FeedbackOp
       if (ac !== bc) return bc - ac;
       return String(b.createdAt).localeCompare(String(a.createdAt));
     });
+}
+
+/** Persisted owner approval does not exist. Hiding a row is not approval. */
+export const OWNER_REVIEW_APPROVAL_SUPPORTED = false;
+
+export const FEEDBACK_REVIEW_PAGE_SIZE = 8;
+
+function createdDay(value: string): string {
+  const parsed = Date.parse(value);
+  if (Number.isNaN(parsed)) return "";
+  return new Date(parsed).toISOString().slice(0, 10);
+}
+
+/**
+ * Active review is negative feedback only.
+ * Helpful ratings stay historical evidence, including when they have a comment.
+ * Unanswered and fallback events are not in this read.
+ */
+export function partitionFeedbackWorkspace(rows: FeedbackOpsRow[]): {
+  review: FeedbackOpsRow[];
+  history: FeedbackOpsRow[];
+} {
+  const review = selectKnowledgeGapCandidates(rows);
+  const reviewIds = new Set(review.map((row) => row.id));
+  const history = rows
+    .filter((row) => !reviewIds.has(row.id))
+    .slice()
+    .sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
+  return { review, history };
+}
+
+export function takeFeedbackPage<T>(rows: T[], visible: number): { items: T[]; hasMore: boolean } {
+  const count = Math.max(FEEDBACK_REVIEW_PAGE_SIZE, visible);
+  return { items: rows.slice(0, count), hasMore: rows.length > count };
 }
 
 /** Unanswered / rejected / technical error are NOT available in current overview schema. */

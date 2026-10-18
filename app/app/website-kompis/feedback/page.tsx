@@ -42,7 +42,7 @@ export default async function WebsiteKompisFeedbackPage() {
       }}
     >
       <Suspense fallback={<AipifyLoadingState />}>
-        <WebsiteKompisFeedbackOverviewPanel labels={labels} embedded />
+        <WebsiteKompisFeedbackOverviewPanel labels={labels} embedded locale={locale} />
       </Suspense>
     </AppHubShell>
   );
