@@ -1228,8 +1228,10 @@
       }
     },
     "modules": {
-      "title": "Modulhantering",
-      "subtitle": "Aktivera eller inaktivera köpta moduler. Aipify växer med ditt företag.",
+      "title": "Moduler",
+      "subtitle": "Produkterna och modulerna för din arbetsyta.",
+      "productsIntro": "Produkterna och modulerna för din arbetsyta.",
+      "manageSubscription": "Hantera abonnemang",
       "loading": "Laddar moduler…",
       "back": "Tillbaka till inställningar",
       "viewBilling": "Fakturering och paket",

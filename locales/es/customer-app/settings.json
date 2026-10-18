@@ -105,8 +105,10 @@
       "invoiceDetails": "Detalles de la factura"
     },
     "modules": {
-      "title": "Gestión de módulos",
-      "subtitle": "Active o desactive los módulos adquiridos. Aipify crece con su negocio.",
+      "title": "Módulos",
+      "subtitle": "Los productos y módulos de su espacio de trabajo.",
+      "productsIntro": "Los productos y módulos de su espacio de trabajo.",
+      "manageSubscription": "Administrar la suscripción",
       "loading": "Preparando el resumen de módulos…",
       "back": "Volver a ajustes",
       "viewBilling": "Facturación y paquetes",

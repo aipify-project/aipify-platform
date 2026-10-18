@@ -6,6 +6,8 @@ export function buildModulesAdminPanelLabels(t: Translator) {
   return {
     title: t(`${P}.title`),
     subtitle: t(`${P}.subtitle`),
+    productsIntro: t(`${P}.productsIntro`),
+    manageSubscription: t(`${P}.manageSubscription`),
     loading: t(`${P}.loading`),
     back: t(`${P}.back`),
     viewBilling: t(`${P}.viewBilling`),
