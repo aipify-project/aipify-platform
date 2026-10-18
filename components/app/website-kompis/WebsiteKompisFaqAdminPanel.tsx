@@ -3,6 +3,7 @@
 import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
 import { WebsiteKompisFaqPreviewPanel } from "@/components/app/website-kompis/WebsiteKompisFaqPreviewPanel";
+import { WebsiteKompisFaqImportActions, WebsiteKompisFaqImportWorkspace } from "@/components/app/website-kompis/WebsiteKompisFaqImportWorkspace";
 import { WebsiteKompisFaqPublishDialog } from "@/components/app/website-kompis/WebsiteKompisFaqPublishDialog";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -119,6 +120,7 @@ export function WebsiteKompisFaqAdminPanel({
   const [editorOpen, setEditorOpen] = useState(false);
   const [draft, setDraft] = useState<FaqEditorState>(createEmptyDraft());
   const [publishDialogOpen, setPublishDialogOpen] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
   const publishLock = useRef(false);
   const persistedIdRef = useRef<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<WpkfStatus | "">("");
@@ -710,14 +712,19 @@ export function WebsiteKompisFaqAdminPanel({
             </section>
           )}
 
-          <div>
+          <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
               onClick={openCreate}
-              className="rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
+              className="inline-flex min-h-11 items-center rounded-xl bg-[image:var(--app-primary-gradient)] px-4 text-sm font-medium text-white"
             >
               {labels.create}
             </button>
+            <WebsiteKompisFaqImportActions
+              labels={labels.importFaq}
+              disabled={siteState === "loading" || requiresSiteSelection || (!selectedInstallId && siteState !== "no_sites")}
+              onOpen={() => setImportOpen(true)}
+            />
           </div>
         </>
       ) : (
@@ -977,6 +984,19 @@ export function WebsiteKompisFaqAdminPanel({
         onCancel={() => setPublishDialogOpen(false)}
         busy={busy}
       />
+      {importOpen ? (
+        <WebsiteKompisFaqImportWorkspace
+          labels={labels.importFaq}
+          fields={labels.fields}
+          installId={selectedInstallId}
+          onClose={() => setImportOpen(false)}
+          onImported={(importedMessage) => {
+            setImportOpen(false);
+            setNotice(importedMessage);
+            setStatusFilter("draft");
+          }}
+        />
+      ) : null}
     </div>
   );
 }
