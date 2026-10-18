@@ -4,6 +4,7 @@ import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
 import { WebsiteKompisFaqPreviewPanel } from "@/components/app/website-kompis/WebsiteKompisFaqPreviewPanel";
 import { WebsiteKompisFaqImportActions, WebsiteKompisFaqImportWorkspace } from "@/components/app/website-kompis/WebsiteKompisFaqImportWorkspace";
+import { FaqPermanentExpiryFields } from "@/components/app/website-kompis/FaqPermanentExpiryFields";
 import { WebsiteKompisFaqPublishDialog } from "@/components/app/website-kompis/WebsiteKompisFaqPublishDialog";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -19,9 +20,9 @@ import type { WebsiteKompisFaqLabels } from "@/lib/website-kompis-faq/labels";
 import { runFaqPublishFlow } from "@/lib/website-kompis-faq/publish-flow";
 import {
   detectWebsiteKompisFaqRiskyWords,
-  isoToDateTimeLocal,
   isWebsiteKompisFaqEditorValid,
   planWebsiteKompisFaqPublish,
+  resolveFaqExpiryForSave,
 } from "@/lib/website-kompis-faq/safety";
 import type {
   WebsiteKompisFaqItem,
@@ -49,6 +50,7 @@ type OwnedSiteOption = {
 
 type FaqEditorState = WebsiteKompisFaqUpsertInput & {
   editorStatus: "new" | WpkfStatus;
+  permanent: boolean;
 };
 
 function createEmptyDraft(site?: OwnedSiteOption | null): FaqEditorState {
@@ -69,6 +71,7 @@ function createEmptyDraft(site?: OwnedSiteOption | null): FaqEditorState {
     sourceUrl: "",
     validFrom: null,
     validUntil: null,
+    permanent: true,
     lastReviewedAt: null,
   };
 }
@@ -91,6 +94,7 @@ function itemToDraft(item: WebsiteKompisFaqItem): FaqEditorState {
     sourceUrl: item.sourceUrl ?? "",
     validFrom: item.validFrom,
     validUntil: item.validUntil,
+    permanent: !item.validUntil,
     lastReviewedAt: item.lastReviewedAt,
   };
 }
@@ -150,16 +154,19 @@ export function WebsiteKompisFaqAdminPanel({
     [draft.answer, draft.category, draft.question, draft.title],
   );
 
-  const publishPlan = planWebsiteKompisFaqPublish({
-    status: draft.editorStatus,
-    title: draft.title,
-    answer: draft.answer,
-    locale: draft.locale,
-    contentType: draft.contentType,
-    publicSafe: draft.publicSafe,
-    validFrom: draft.validFrom,
-    validUntil: draft.validUntil,
-  });
+  const expiryPreview = resolveFaqExpiryForSave(draft);
+  const publishPlan = expiryPreview.ok
+    ? planWebsiteKompisFaqPublish({
+        status: draft.editorStatus,
+        title: draft.title,
+        answer: draft.answer,
+        locale: draft.locale,
+        contentType: draft.contentType,
+        publicSafe: draft.publicSafe,
+        validFrom: expiryPreview.validFrom,
+        validUntil: expiryPreview.validUntil,
+      })
+    : "blocked";
   const canPublish = publishPlan !== "blocked";
   const revisingPublished = publishPlan === "revise_published";
 
@@ -313,6 +320,11 @@ export function WebsiteKompisFaqAdminPanel({
       setError(labels.errorGeneric);
       return null;
     }
+    const expiry = resolveFaqExpiryForSave(draft);
+    if (!expiry.ok) {
+      setError(expiry.reason === "window" ? labels.validityInvalidWindow : labels.permanentEndRequired);
+      return null;
+    }
 
     const res = await fetch("/api/website-kompis/faq", {
       method: "POST",
@@ -331,8 +343,8 @@ export function WebsiteKompisFaqAdminPanel({
         priority: draft.priority,
         tags: draft.tags,
         sourceUrl: draft.sourceUrl,
-        validFrom: draft.validFrom,
-        validUntil: draft.validUntil,
+        validFrom: expiry.validFrom,
+        validUntil: expiry.validUntil,
         lastReviewedAt: draft.lastReviewedAt,
       }),
     });
@@ -348,6 +360,9 @@ export function WebsiteKompisFaqAdminPanel({
       ...current,
       itemId: body.id ?? current.itemId,
       editorStatus: body.status ?? current.editorStatus,
+      validFrom: expiry.validFrom,
+      validUntil: expiry.validUntil,
+      permanent: expiry.validUntil == null,
     }));
     return { id: body.id, status: body.status };
   }
@@ -870,36 +885,28 @@ export function WebsiteKompisFaqAdminPanel({
                 />
               </label>
 
-              <label className="text-sm">
-                <span className="mb-1 block font-medium text-slate-700">{labels.fields.validFrom}</span>
-                <input
-                  type="datetime-local"
-                  value={isoToDateTimeLocal(draft.validFrom)}
-                  onChange={(event) =>
+              <div className="md:col-span-2">
+                <FaqPermanentExpiryFields
+                  permanent={draft.permanent}
+                  validFrom={draft.validFrom ?? null}
+                  validUntil={draft.validUntil ?? null}
+                  labels={{
+                    permanent: labels.permanent,
+                    permanentHelp: labels.permanentHelp,
+                    validFrom: labels.fields.validFrom,
+                    validUntil: labels.fields.validUntil,
+                  }}
+                  onPermanentChange={(permanent) =>
                     setDraft((current) => ({
                       ...current,
-                      validFrom: event.target.value ? new Date(event.target.value).toISOString() : null,
+                      permanent,
+                      validUntil: permanent ? null : current.validUntil,
                     }))
                   }
-                  className="w-full rounded-md border border-slate-300 px-3 py-2"
+                  onValidFromChange={(validFrom) => setDraft((current) => ({ ...current, validFrom }))}
+                  onValidUntilChange={(validUntil) => setDraft((current) => ({ ...current, validUntil }))}
                 />
-              </label>
-
-              <label className="text-sm">
-                <span className="mb-1 block font-medium text-slate-700">{labels.fields.validUntil}</span>
-                <input
-                  type="datetime-local"
-                  value={isoToDateTimeLocal(draft.validUntil)}
-                  onChange={(event) =>
-                    setDraft((current) => ({
-                      ...current,
-                      validUntil: event.target.value ? new Date(event.target.value).toISOString() : null,
-                    }))
-                  }
-                  className="w-full rounded-md border border-slate-300 px-3 py-2"
-                />
-              </label>
-              <p className="text-xs text-slate-500 md:col-span-2">{labels.validityOpenEnded}</p>
+              </div>
 
               <label className="text-sm md:col-span-2">
                 <span className="mb-1 block font-medium text-slate-700">

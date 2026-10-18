@@ -24,6 +24,36 @@ function hasRequiredPublishFields(input: {
   );
 }
 
+export type FaqExpirySaveResult =
+  | { ok: true; validFrom: string | null; validUntil: string | null }
+  | { ok: false; reason: "end_required" | "window" };
+
+/**
+ * Permanent means an explicit null end date. A finite period must keep its end,
+ * and the end must be after the start when a start is present.
+ */
+export function resolveFaqExpiryForSave(input: {
+  permanent: boolean;
+  validFrom?: string | null;
+  validUntil?: string | null;
+}): FaqExpirySaveResult {
+  const fromRaw = input.validFrom?.trim() ?? "";
+  const from = fromRaw ? fromRaw : null;
+  if (input.permanent) {
+    return { ok: true, validFrom: from, validUntil: null };
+  }
+  const untilRaw = input.validUntil?.trim() ?? "";
+  const until = Date.parse(untilRaw);
+  const fromTime = from ? Date.parse(from) : null;
+  if (!untilRaw || Number.isNaN(until) || (fromTime != null && Number.isNaN(fromTime))) {
+    return { ok: false, reason: "end_required" };
+  }
+  if (fromTime != null && until <= fromTime) {
+    return { ok: false, reason: "window" };
+  }
+  return { ok: true, validFrom: from, validUntil: new Date(until).toISOString() };
+}
+
 /** Empty end date means no expiry. Equal start and end is not a usable window. */
 export function faqValidityAllowsPublication(input: {
   validFrom?: string | null;

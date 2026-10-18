@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { FaqPermanentExpiryFields } from "@/components/app/website-kompis/FaqPermanentExpiryFields";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { runFaqPublishFlow } from "@/lib/website-kompis-faq/publish-flow";
-import { planWebsiteKompisFaqPublish } from "@/lib/website-kompis-faq/safety";
+import { planWebsiteKompisFaqPublish, resolveFaqExpiryForSave } from "@/lib/website-kompis-faq/safety";
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import type { FeedbackOpsRow } from "@/lib/website-kompis-feedback/operations-model";
 
@@ -41,6 +42,9 @@ export function WebsiteKompisFeedbackEditor({
   const [locale, setLocale] = useState(row.locale?.trim() || "");
   const [publicSafe, setPublicSafe] = useState(false);
   const [category, setCategory] = useState("");
+  const [permanent, setPermanent] = useState(true);
+  const [validFrom, setValidFrom] = useState<string | null>(null);
+  const [validUntil, setValidUntil] = useState<string | null>(null);
   const [sites, setSites] = useState<SiteOption[]>([]);
   const [siteState, setSiteState] = useState<"loading" | "ready" | "empty">("loading");
   const [installId, setInstallId] = useState("");
@@ -57,8 +61,12 @@ export function WebsiteKompisFeedbackEditor({
     answer: row.answerPreview,
     locale: row.locale?.trim() || "",
     publicSafe: false,
+    category: "",
+    permanent: true,
+    validFrom: null as string | null,
+    validUntil: null as string | null,
   });
-  const fieldSnapshot = JSON.stringify({ question, answer, locale, publicSafe, category });
+  const fieldSnapshot = JSON.stringify({ question, answer, locale, publicSafe, category, permanent, validFrom, validUntil });
   const dirty = fieldSnapshot !== (savedSnapshot || JSON.stringify(openedFields.current));
   const requestCloseRef = useRef<() => void>(() => {});
 
@@ -170,6 +178,12 @@ export function WebsiteKompisFeedbackEditor({
       setError(labels.quality.siteRequired);
       return null;
     }
+    const expiry = resolveFaqExpiryForSave({ permanent, validFrom, validUntil });
+    if (!expiry.ok) {
+      busy.current = false;
+      setError(expiry.reason === "window" ? labels.quality.expiryWindow : labels.quality.permanentEndRequired);
+      return null;
+    }
     setSaving(true);
     try {
       let itemId = forcedId ?? (saved ? saved.id : null);
@@ -197,8 +211,8 @@ export function WebsiteKompisFeedbackEditor({
           publicSafe,
           priority: 100,
           tags: [],
-          validFrom: null,
-          validUntil: null,
+          validFrom: expiry.validFrom,
+          validUntil: expiry.validUntil,
         }),
       });
       const payload = (await response.json()) as { id?: string; status?: string; error?: string };
@@ -235,6 +249,12 @@ export function WebsiteKompisFeedbackEditor({
       setError(labels.quality.siteRequired);
       return;
     }
+    const expiry = resolveFaqExpiryForSave({ permanent, validFrom, validUntil });
+    if (!expiry.ok) {
+      setPublishing(false);
+      setError(expiry.reason === "window" ? labels.quality.expiryWindow : labels.quality.permanentEndRequired);
+      return;
+    }
     const existing = saved ? null : await findExisting();
     const knownId = saved?.id ?? (existing && existing.kind !== "none" ? existing.id : null);
     const status =
@@ -246,8 +266,8 @@ export function WebsiteKompisFeedbackEditor({
       locale,
       contentType: "faq",
       publicSafe,
-      validFrom: null,
-      validUntil: null,
+      validFrom: expiry.validFrom,
+      validUntil: expiry.validUntil,
     });
     if (plan === "blocked") {
       setPublishing(false);
@@ -291,152 +311,174 @@ export function WebsiteKompisFeedbackEditor({
   const localeChoices = locale && !languageCodes.includes(locale) ? [locale, ...languageCodes] : languageCodes;
 
   const drawer = (
-    <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/40" role="presentation">
-      <button type="button" className="absolute inset-0 cursor-default" aria-label={labels.detailClose} onClick={requestClose} />
+    <div className="fixed inset-0 z-[80] flex justify-end" role="presentation">
+      <button
+        type="button"
+        className="absolute inset-0 cursor-default bg-slate-900/40"
+        aria-label={labels.detailClose}
+        onClick={requestClose}
+      />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative z-10 flex h-full w-full flex-col overflow-y-auto border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card-hover)] sm:max-w-xl sm:border-l sm:p-6"
+        className="relative z-10 flex h-dvh w-full max-w-xl flex-col overflow-hidden border-l border-slate-200 bg-white text-[var(--app-text)] shadow-xl"
+        style={{ backgroundColor: "#ffffff" }}
       >
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <h2 id={titleId} className="text-lg font-semibold text-[var(--app-text)]">
-              {labels.openDetail}
-            </h2>
-          </div>
+        <div className="flex items-start justify-between gap-3 border-b border-slate-200 bg-white px-5 py-4 sm:px-6">
+          <h2 id={titleId} className="text-lg font-semibold text-slate-900">
+            {labels.openDetail}
+          </h2>
           <button
             type="button"
             onClick={requestClose}
-            className="rounded-lg px-2 py-1 text-sm text-[var(--app-text-muted)] hover:bg-[var(--app-soft-surface)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+            className="rounded-lg px-2 py-1 text-sm text-slate-600 hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
           >
             {labels.detailClose}
           </button>
         </div>
 
-        {row.comment?.trim() ? (
-          <p className="mt-3 text-sm text-[var(--app-text-muted)]">{row.comment.trim()}</p>
-        ) : null}
-
         <form
-          className="mt-5 space-y-4"
+          className="flex min-h-0 flex-1 flex-col"
           onSubmit={(event) => {
             event.preventDefault();
             void saveDraft();
           }}
         >
-          <label className="block text-sm">
-            <span className="mb-1 block font-medium text-[var(--app-text)]">{labels.quality.proposedQuestion}</span>
-            <textarea
-              value={question}
-              onChange={(event) => setQuestion(event.target.value)}
-              rows={3}
-              className="w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            />
-          </label>
-          <label className="block text-sm">
-            <span className="mb-1 block font-medium text-[var(--app-text)]">{labels.quality.proposedAnswer}</span>
-            <textarea
-              value={answer}
-              onChange={(event) => setAnswer(event.target.value)}
-              rows={5}
-              className="w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            />
-          </label>
-          <label className="block text-sm">
-            <span className="mb-1 block font-medium text-[var(--app-text)]">{labels.quality.category}</span>
-            <input
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-              className="w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            />
-          </label>
-          <label className="block text-sm">
-            <span className="mb-1 block font-medium text-[var(--app-text)]">{labels.quality.language}</span>
-            <select
-              value={locale}
-              onChange={(event) => setLocale(event.target.value)}
-              className="w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            >
-              <option value="">{labels.quality.chooseLanguage}</option>
-              {localeChoices.map((code) => (
-                <option key={code} value={code}>
-                  {languageLabel(labels, code)}
-                </option>
-              ))}
-            </select>
-          </label>
-          {siteState === "ready" && sites.length > 1 ? (
+          <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain bg-white px-5 py-5 sm:px-6">
+            {row.comment?.trim() ? (
+              <p className="text-sm text-slate-600">{row.comment.trim()}</p>
+            ) : null}
             <label className="block text-sm">
-              <span className="mb-1 block font-medium text-[var(--app-text)]">{labels.quality.site}</span>
+              <span className="mb-1 block font-medium text-slate-900">{labels.quality.proposedQuestion}</span>
+              <textarea
+                value={question}
+                onChange={(event) => setQuestion(event.target.value)}
+                rows={3}
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+              />
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-slate-900">{labels.quality.proposedAnswer}</span>
+              <textarea
+                value={answer}
+                onChange={(event) => setAnswer(event.target.value)}
+                rows={5}
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+              />
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-slate-900">{labels.quality.category}</span>
+              <input
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+              />
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-slate-900">{labels.quality.language}</span>
               <select
-                value={installId}
-                onChange={(event) => setInstallId(event.target.value)}
-                className="w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+                value={locale}
+                onChange={(event) => setLocale(event.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
               >
-                <option value="">{labels.quality.siteRequired}</option>
-                {sites.map((site) => (
-                  <option key={site.installId} value={site.installId}>
-                    {site.domain}
+                <option value="">{labels.quality.chooseLanguage}</option>
+                {localeChoices.map((code) => (
+                  <option key={code} value={code}>
+                    {languageLabel(labels, code)}
                   </option>
                 ))}
               </select>
             </label>
-          ) : null}
-          {siteState === "ready" && sites.length === 1 ? (
-            <p className="text-sm text-[var(--app-text-muted)]">
-              {labels.quality.site}: {sites[0]?.domain}
-            </p>
-          ) : null}
-          {siteState === "empty" ? <p className="text-sm text-[var(--app-text)]">{labels.quality.noSite}</p> : null}
-          <label className="flex items-start gap-2 text-sm text-[var(--app-text)]">
-            <input
-              type="checkbox"
-              checked={publicSafe}
-              onChange={(event) => setPublicSafe(event.target.checked)}
-              className="mt-1"
+            {siteState === "ready" && sites.length > 1 ? (
+              <label className="block text-sm">
+                <span className="mb-1 block font-medium text-slate-900">{labels.quality.site}</span>
+                <select
+                  value={installId}
+                  onChange={(event) => setInstallId(event.target.value)}
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                >
+                  <option value="">{labels.quality.siteRequired}</option>
+                  {sites.map((site) => (
+                    <option key={site.installId} value={site.installId}>
+                      {site.domain}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ) : null}
+            {siteState === "ready" && sites.length === 1 ? (
+              <p className="text-sm text-slate-600">
+                {labels.quality.site}: {sites[0]?.domain}
+              </p>
+            ) : null}
+            {siteState === "empty" ? <p className="text-sm text-slate-900">{labels.quality.noSite}</p> : null}
+            <FaqPermanentExpiryFields
+              permanent={permanent}
+              validFrom={validFrom}
+              validUntil={validUntil}
+              labels={{
+                permanent: labels.quality.permanent,
+                permanentHelp: labels.quality.permanentHelp,
+                validFrom: labels.quality.validFrom,
+                validUntil: labels.quality.validUntil,
+              }}
+              onPermanentChange={(next) => {
+                setPermanent(next);
+                if (next) setValidUntil(null);
+              }}
+              onValidFromChange={setValidFrom}
+              onValidUntilChange={setValidUntil}
             />
-            <span>{labels.quality.publicSafe}</span>
-          </label>
-          <p className="text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.quality.privacy}</p>
-          <p className="text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.suggestFaqWarning}</p>
-          {matchingPublished ? (
-            <p className="text-sm text-[var(--app-text)]">
-              {labels.quality.matchingPublished}{" "}
-              <Link href={FOUNDATION_NAV_BINDINGS.kompisWebFaq} className="font-medium text-[var(--app-primary)] underline">
-                {labels.quality.openExistingFaq}
-              </Link>
-            </p>
-          ) : null}
-          {message ? <p className="text-sm text-[var(--app-positive)]">{message}</p> : null}
-          {error ? <p className="text-sm text-[var(--app-text)]">{error}</p> : null}
-          {confirmClose ? (
-            <div className="rounded-xl border border-[var(--app-border)] bg-[var(--app-soft-surface)] p-3">
-              <p className="text-sm text-[var(--app-text)]">{labels.quality.dirtyLeave}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => setConfirmClose(false)}
-                  className="rounded-lg border border-[var(--app-border)] px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-                >
-                  {labels.quality.stay}
-                </button>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--app-text-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-                >
-                  {labels.quality.discard}
-                </button>
+            <label className="flex items-start gap-2 text-sm text-slate-900">
+              <input
+                type="checkbox"
+                checked={publicSafe}
+                onChange={(event) => setPublicSafe(event.target.checked)}
+                className="mt-1 h-4 w-4 accent-[#7357e8]"
+              />
+              <span>{labels.quality.publicSafe}</span>
+            </label>
+            <p className="text-sm leading-relaxed text-slate-600">{labels.quality.privacy}</p>
+            <p className="text-sm leading-relaxed text-slate-600">{labels.suggestFaqWarning}</p>
+            {matchingPublished ? (
+              <p className="text-sm text-slate-900">
+                {labels.quality.matchingPublished}{" "}
+                <Link href={FOUNDATION_NAV_BINDINGS.kompisWebFaq} className="font-medium text-[#7357e8] underline">
+                  {labels.quality.openExistingFaq}
+                </Link>
+              </p>
+            ) : null}
+            {message ? <p className="text-sm text-[#1f7a4d]">{message}</p> : null}
+            {error ? <p className="text-sm text-slate-900">{error}</p> : null}
+            {confirmClose ? (
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-sm text-slate-900">{labels.quality.dirtyLeave}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setConfirmClose(false)}
+                    className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                  >
+                    {labels.quality.stay}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                  >
+                    {labels.quality.discard}
+                  </button>
+                </div>
               </div>
-            </div>
-          ) : null}
-          <div className="flex flex-wrap gap-2 pb-4">
+            ) : null}
+          </div>
+          <div className="flex flex-wrap gap-2 border-t border-slate-200 bg-white px-5 py-4 sm:px-6">
             <button
               type="submit"
               disabled={saving || siteState === "empty"}
-              className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] disabled:opacity-60"
+              className="inline-flex min-h-11 items-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
             >
               {saving ? labels.quality.saving : labels.quality.saveDraft}
             </button>
@@ -444,7 +486,7 @@ export function WebsiteKompisFeedbackEditor({
               type="button"
               disabled={saving || publishing || !publicSafe || siteState === "empty"}
               onClick={() => void publishFaq()}
-              className="inline-flex min-h-11 items-center rounded-xl bg-[image:var(--app-primary-gradient)] px-4 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] disabled:opacity-60"
+              className="inline-flex min-h-11 items-center rounded-xl bg-[#7357e8] px-4 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
             >
               {publishing ? labels.quality.publishing : labels.quality.publishFaq}
             </button>

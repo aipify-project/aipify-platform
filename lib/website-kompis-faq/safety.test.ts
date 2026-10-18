@@ -8,6 +8,7 @@ import {
   faqValidityAllowsPublication,
   isWebsiteKompisFaqEditorValid,
   planWebsiteKompisFaqPublish,
+  resolveFaqExpiryForSave,
 } from "@/lib/website-kompis-faq/safety";
 import { parseWebsiteKompisFaqItem, parseWebsiteKompisFaqList } from "@/lib/website-kompis-faq/parse";
 
@@ -106,6 +107,31 @@ function main() {
     faqValidityAllowsPublication({ validFrom: null, validUntil: null }),
     true,
   );
+  assert.deepEqual(resolveFaqExpiryForSave({ permanent: true, validFrom: null, validUntil: "2030-01-01T00:00:00.000Z" }), {
+    ok: true,
+    validFrom: null,
+    validUntil: null,
+  });
+  assert.equal(
+    resolveFaqExpiryForSave({
+      permanent: false,
+      validFrom: "2026-01-01T00:00:00.000Z",
+      validUntil: "2030-01-01T00:00:00.000Z",
+    }).ok,
+    true,
+  );
+  assert.deepEqual(
+    resolveFaqExpiryForSave({ permanent: false, validFrom: null, validUntil: null }),
+    { ok: false, reason: "end_required" },
+  );
+  assert.deepEqual(
+    resolveFaqExpiryForSave({
+      permanent: false,
+      validFrom: "2030-01-02T00:00:00.000Z",
+      validUntil: "2030-01-01T00:00:00.000Z",
+    }),
+    { ok: false, reason: "window" },
+  );
   assert.equal(
     faqValidityAllowsPublication({
       validFrom: "2026-10-18T10:00:00.000Z",
@@ -145,6 +171,23 @@ function main() {
   );
   assert.match(publishRoute, /publish_tenant_public_companion_faq_item/);
   assert.doesNotMatch(publishRoute, /search_tenant_public_visitor_knowledge/);
+
+  const editor = fs.readFileSync(
+    path.join(root, "components/app/website-kompis/WebsiteKompisFaqAdminPanel.tsx"),
+    "utf8",
+  );
+  const drawer = fs.readFileSync(
+    path.join(root, "components/app/website-kompis/WebsiteKompisFeedbackEditor.tsx"),
+    "utf8",
+  );
+  const norwegian = fs.readFileSync(path.join(root, "locales/no/customer-app/core.json"), "utf8");
+  assert.match(editor, /FaqPermanentExpiryFields/);
+  assert.match(editor, /permanent: true/);
+  assert.match(drawer, /backgroundColor: "#ffffff"/);
+  assert.match(drawer, /validUntil: expiry.validUntil/);
+  assert.doesNotMatch(drawer, /review_status|approve_website_kompis_answer_feedback/);
+  assert.match(norwegian, /Permanent – ingen utløpsdato/);
+  assert.match(norwegian, /Spørsmålet forblir tilgjengelig til du avpubliserer eller arkiverer det./);
 
   console.log("website-kompis-faq-safety.test.ts: all assertions passed");
 }
