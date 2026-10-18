@@ -11,6 +11,10 @@ import {
   WEBSITE_KOMPIS_CONNECTION_TRUTH_SOURCES,
 } from "@/lib/website-kompis-connection/source-inventory";
 import {
+  connectionShowsActiveLicenseWithoutPublicView,
+  websiteKompisLicenseStatusKey,
+} from "@/lib/website-kompis-connection/customer-copy";
+import {
   buildConnectionStatusSummary,
   composeConnectionAggregate,
   maskWebsiteKompisInstallId,
@@ -87,6 +91,11 @@ assert.equal(activeSummary.aggregate, "active");
 assert.equal(activeSummary.diagnosis, "all_clear");
 assert.equal(activeSummary.pageVisibilityEditable, false);
 assert.equal(activeSummary.runtimeLastSeenAvailable, false);
+assert.equal(connectionShowsActiveLicenseWithoutPublicView(activeSummary), true);
+assert.equal(websiteKompisLicenseStatusKey("active"), "active");
+assert.equal(websiteKompisLicenseStatusKey("ACTIVE"), "active");
+assert.equal(websiteKompisLicenseStatusKey("ready"), "unknown");
+assert.equal(websiteKompisLicenseStatusKey(null), "unknown");
 assert.match(activeSummary.supportReference, /^WK-CONN-/);
 
 const noDomain = buildConnectionStatusSummary({
@@ -118,6 +127,9 @@ const panel = readFileSync(
   join(ROOT, "components/app/website-kompis/WebsiteKompisConnectionCenterPanel.tsx"),
   "utf8",
 );
+assert.match(panel, /activeLicenseRuntimeUnavailable/);
+assert.match(panel, /websiteKompisLicenseStatusKey/);
+assert.doesNotMatch(panel, /summary\.licenseStatus \?\?/);
 assert.match(panel, /pageVisibilityNoRules/);
 assert.match(panel, /installNeverSecrets/);
 assert.match(panel, /accountSubscription/);
@@ -142,5 +154,15 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"] as const) {
   assert.ok(block, `missing websiteKompisConnection in ${locale}`);
   assert.deepEqual(flatten(block).sort(), enKeys, `key parity ${locale}`);
 }
+
+const norwegianConnection = JSON.parse(
+  readFileSync(join(ROOT, "locales/no/customer-app/core.json"), "utf8"),
+).websiteKompisConnection;
+assert.equal(
+  norwegianConnection.activeLicenseRuntimeUnavailable,
+  "Lisensen er aktiv, men offentlig Kompis Web-visning er ikke tilgjengelig ennå.",
+);
+assert.equal(norwegianConnection.checkpoints.public_runtime, "Offentlig visning");
+assert.equal(norwegianConnection.licenseStatusValue.active, "Aktiv");
 
 console.log("connection-66.test.ts: OK");

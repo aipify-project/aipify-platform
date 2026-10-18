@@ -210,12 +210,27 @@ const assignmentKeys = [
   "acceptsAnswers",
   "pausesAnswers",
   "catalogSeparate",
+  "unassignedCatalogNote",
   "notAPurchase",
 ];
 const locales = ["en", "no", "sv", "da", "pl", "uk", "es"];
 const english = JSON.parse(
   readFileSync(join(root, "locales/en/customer-app/core.json"), "utf8"),
 ).websiteKompisPlans.assignment;
+const norwegian = JSON.parse(
+  readFileSync(join(root, "locales/no/customer-app/core.json"), "utf8"),
+).websiteKompisPlans.assignment;
+assert.equal(norwegian.unknownPlanTitle, "Ingen Kompis Web-plan er tildelt");
+assert.equal(
+  norwegian.unknownPlanBody,
+  "Kompis Web er tilgjengelig i arbeidsområdet, men ingen svarplan er tildelt. Det vises derfor ingen aktiv svarkvote.",
+);
+assert.equal(
+  norwegian.unassignedCatalogNote,
+  "Pakkene nedenfor er planlagte tilbud. De er ikke aktivert for dette arbeidsområdet.",
+);
+assert.match(panel, /unassignedCatalogNote/);
+
 for (const locale of locales) {
   const json = JSON.parse(readFileSync(join(root, `locales/${locale}/customer-app/core.json`), "utf8"));
   const assignment = json.websiteKompisPlans?.assignment;

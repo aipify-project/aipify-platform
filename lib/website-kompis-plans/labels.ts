@@ -73,6 +73,7 @@ export function buildWebsiteKompisPlanLabels(t: TranslateFn) {
       acceptsAnswers: t(`${p}.assignment.acceptsAnswers`),
       pausesAnswers: t(`${p}.assignment.pausesAnswers`),
       catalogSeparate: t(`${p}.assignment.catalogSeparate`),
+      unassignedCatalogNote: t(`${p}.assignment.unassignedCatalogNote`),
       notAPurchase: t(`${p}.assignment.notAPurchase`),
     },
     plans,

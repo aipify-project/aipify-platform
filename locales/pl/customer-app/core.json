@@ -974,7 +974,7 @@
       "license": "Licencja",
       "domain": "Domena",
       "installation": "Instalacja",
-      "public_runtime": "Publiczny runtime"
+      "public_runtime": "Widok publiczny"
     },
     "checkpointState": {
       "ok": "Gotowe",
@@ -1004,6 +1004,14 @@
     "licenseTitle": "Licencja i możliwości",
     "licensePlan": "Odniesienie planu",
     "licenseStatus": "Status licencji",
+    "licenseStatusValue": {
+      "active": "Aktywna",
+      "paused": "Wstrzymana",
+      "suspended": "Zawieszona",
+      "cancelled": "Zakończona",
+      "expired": "Wygasła",
+      "unknown": "Jeszcze niedostępna"
+    },
     "licenseProduct": "Produkt Kompis Web",
     "licenseProductOn": "Włączone dla tego konta",
     "licenseProductOff": "Wyłączone",
@@ -1040,6 +1048,7 @@
     "technicalDetails": "Szczegóły techniczne",
     "supportReference": "Referencja supportu",
     "manageDomains": "Zarządzaj domenami i ustawieniami instalacji",
+    "activeLicenseRuntimeUnavailable": "Licencja jest aktywna, ale publiczny widok Kompis Web nie jest jeszcze dostępny.",
     "runtimeUnavailable": "Ostatnie widzenie publicznego runtime nie jest jeszcze dostępne w APP.",
     "dashboardTitle": "Status połączenia",
     "dashboardDescription": "Czy Kompis Web jest autoryzowany i połączony — to samo podsumowanie co Połączenie/licencja.",
@@ -1332,8 +1341,8 @@
       "unauthenticatedBody": "Aipify pokazuje licencję Kompis Web i użycie odpowiedzi tylko dla zalogowanego obszaru roboczego.",
       "noModuleTitle": "Kompis Web nie jest aktywny",
       "noModuleBody": "Ten obszar roboczy nie ma aktywnego modułu Kompis Web. Pakiety poniżej to planowane oferty, a nie przypisany plan.",
-      "unknownPlanTitle": "Plan nie został przypisany",
-      "unknownPlanBody": "Kompis Web jest aktywny w tym obszarze roboczym, a plan odpowiedzi nie został jeszcze przypisany. Aipify nie traktuje tego jako planu bezpłatnego ani płatnego i nie pokazuje limitu odpowiedzi.",
+      "unknownPlanTitle": "Nie przypisano planu Kompis Web",
+      "unknownPlanBody": "Kompis Web jest dostępny w obszarze roboczym, ale nie przypisano planu odpowiedzi. Nie pokazujemy więc aktywnego limitu odpowiedzi.",
       "unavailableTitle": "Status limitu jest niedostępny",
       "unavailableBody": "Aipify nie mógł odczytać licencji i limitu odpowiedzi dla tego obszaru roboczego. Użycie nie jest pokazywane jako zero.",
       "knownTitle": "Przypisany plan Kompis Web",
@@ -1348,6 +1357,7 @@
       "acceptsAnswers": "Nowe odpowiedzi mogą być przyjmowane",
       "pausesAnswers": "Nowe odpowiedzi nie są teraz przyjmowane",
       "catalogSeparate": "Pakiety poniżej to planowane oferty. Nie są przypisanym planem tego obszaru roboczego.",
+      "unassignedCatalogNote": "Pakiety poniżej to planowane oferty. Nie są aktywowane dla tego obszaru roboczego.",
       "notAPurchase": "Ta strona nie zmienia planu, limitu ani płatności."
     }
   }

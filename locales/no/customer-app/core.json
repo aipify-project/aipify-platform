@@ -7507,7 +7507,7 @@
       "license": "Lisens",
       "domain": "Domene",
       "installation": "Installasjon",
-      "public_runtime": "Offentlig runtime"
+      "public_runtime": "Offentlig visning"
     },
     "checkpointState": {
       "ok": "Klar",
@@ -7537,6 +7537,14 @@
     "licenseTitle": "Lisens og muligheter",
     "licensePlan": "Planreferanse",
     "licenseStatus": "Lisensstatus",
+    "licenseStatusValue": {
+      "active": "Aktiv",
+      "paused": "Pause",
+      "suspended": "Suspendert",
+      "cancelled": "Avsluttet",
+      "expired": "Utløpt",
+      "unknown": "Ikke tilgjengelig ennå"
+    },
     "licenseProduct": "Kompis Web-produkt",
     "licenseProductOn": "Aktivert for denne kontoen",
     "licenseProductOff": "Ikke aktivert",
@@ -7573,6 +7581,7 @@
     "technicalDetails": "Tekniske detaljer",
     "supportReference": "Supportreferanse",
     "manageDomains": "Administrer domener og installasjonsinnstillinger",
+    "activeLicenseRuntimeUnavailable": "Lisensen er aktiv, men offentlig Kompis Web-visning er ikke tilgjengelig ennå.",
     "runtimeUnavailable": "Sist sett for offentlig runtime er ikke tilgjengelig i APP ennå.",
     "dashboardTitle": "Tilkoblingsstatus",
     "dashboardDescription": "Om Kompis Web er autorisert og tilkoblet — samme sammendrag som Tilkobling/lisens.",
@@ -7628,8 +7637,8 @@
       "unauthenticatedBody": "Aipify viser Kompis Web-lisens og svarforbruk bare for arbeidsområdet du er innlogget i.",
       "noModuleTitle": "Kompis Web er ikke aktiv",
       "noModuleBody": "Dette arbeidsområdet har ikke en aktiv Kompis Web-modul. Pakkene under er planlagte tilbud, ikke en tildelt plan.",
-      "unknownPlanTitle": "Plan er ikke tildelt",
-      "unknownPlanBody": "Kompis Web er aktiv for dette arbeidsområdet, og ingen svarplan er tildelt ennå. Aipify behandler ikke det som en gratis eller betalt plan, og viser ikke en svarkvote.",
+      "unknownPlanTitle": "Ingen Kompis Web-plan er tildelt",
+      "unknownPlanBody": "Kompis Web er tilgjengelig i arbeidsområdet, men ingen svarplan er tildelt. Det vises derfor ingen aktiv svarkvote.",
       "unavailableTitle": "Kvotestatus er utilgjengelig",
       "unavailableBody": "Aipify kunne ikke lese lisensen og svarkvoten for dette arbeidsområdet. Forbruk vises ikke som null.",
       "knownTitle": "Tildelt Kompis Web-plan",
@@ -7644,6 +7653,7 @@
       "acceptsAnswers": "Nye svar kan tas imot",
       "pausesAnswers": "Nye svar tas ikke imot akkurat nå",
       "catalogSeparate": "Pakkene under er planlagte tilbud. De er ikke den tildelte planen for dette arbeidsområdet.",
+      "unassignedCatalogNote": "Pakkene nedenfor er planlagte tilbud. De er ikke aktivert for dette arbeidsområdet.",
       "notAPurchase": "Denne siden endrer ikke planen, kvoten eller en betaling."
     }
   }

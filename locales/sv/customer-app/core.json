@@ -7507,7 +7507,7 @@
       "license": "Licens",
       "domain": "Domän",
       "installation": "Installation",
-      "public_runtime": "Offentlig runtime"
+      "public_runtime": "Offentlig vy"
     },
     "checkpointState": {
       "ok": "Klar",
@@ -7537,6 +7537,14 @@
     "licenseTitle": "Licens och funktioner",
     "licensePlan": "Planreferens",
     "licenseStatus": "Licensstatus",
+    "licenseStatusValue": {
+      "active": "Aktiv",
+      "paused": "Pausad",
+      "suspended": "Avstängd",
+      "cancelled": "Avslutad",
+      "expired": "Utgången",
+      "unknown": "Inte tillgänglig ännu"
+    },
     "licenseProduct": "Kompis Web-produkt",
     "licenseProductOn": "Aktiverad för det här kontot",
     "licenseProductOff": "Inte aktiverad",
@@ -7573,6 +7581,7 @@
     "technicalDetails": "Tekniska detaljer",
     "supportReference": "Supportreferens",
     "manageDomains": "Hantera domäner och installationsinställningar",
+    "activeLicenseRuntimeUnavailable": "Licensen är aktiv, men den offentliga Kompis Web-vyn är inte tillgänglig ännu.",
     "runtimeUnavailable": "Senast sedd för offentlig runtime är inte tillgänglig i APP ännu.",
     "dashboardTitle": "Anslutningsstatus",
     "dashboardDescription": "Om Kompis Web är auktoriserad och ansluten — samma sammanfattning som Anslutning/licens.",
@@ -7628,8 +7637,8 @@
       "unauthenticatedBody": "Aipify visar Kompis Web-licens och svarförbrukning bara för arbetsytan du är inloggad i.",
       "noModuleTitle": "Kompis Web är inte aktiv",
       "noModuleBody": "Den här arbetsytan har ingen aktiv Kompis Web-modul. Paketen nedan är planerade erbjudanden, inte en tilldelad plan.",
-      "unknownPlanTitle": "Planen är inte tilldelad",
-      "unknownPlanBody": "Kompis Web är aktiv för den här arbetsytan, och ingen svarplan är tilldelad ännu. Aipify behandlar inte det som en kostnadsfri eller betald plan och visar ingen svarskvot.",
+      "unknownPlanTitle": "Ingen Kompis Web-plan är tilldelad",
+      "unknownPlanBody": "Kompis Web är tillgängligt i arbetsytan, men ingen svarplan är tilldelad. Därför visas ingen aktiv svarskvot.",
       "unavailableTitle": "Kvotstatus är inte tillgänglig",
       "unavailableBody": "Aipify kunde inte läsa licensen och svarskvoten för den här arbetsytan. Förbrukning visas inte som noll.",
       "knownTitle": "Tilldelad Kompis Web-plan",
@@ -7644,6 +7653,7 @@
       "acceptsAnswers": "Nya svar kan tas emot",
       "pausesAnswers": "Nya svar tas inte emot just nu",
       "catalogSeparate": "Paketen nedan är planerade erbjudanden. De är inte den tilldelade planen för den här arbetsytan.",
+      "unassignedCatalogNote": "Paketen nedan är planerade erbjudanden. De är inte aktiverade för den här arbetsytan.",
       "notAPurchase": "Den här sidan ändrar inte planen, kvoten eller en betalning."
     }
   }
