@@ -13,6 +13,8 @@ export type AppNavLink = {
   label: string;
   locked?: boolean;
   accessHint?: string;
+  /** Translated heading rendered once, above the first commercial item. */
+  sectionLabel?: string;
 };
 
 export type AppNavGroupConfig = {

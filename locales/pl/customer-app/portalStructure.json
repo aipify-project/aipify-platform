@@ -261,9 +261,9 @@
       "kompisWebDashboard": "Dashboard",
       "kompisWebQa": "Pytania i odpowiedzi",
       "kompisWebFaq": "FAQ i wiedza",
-      "kompisWebConnection": "Połączenie i licencja",
+      "kompisWebConnection": "Połączenie i domeny",
       "kompisWebAppearance": "Wygląd",
-      "kompisWebModules": "Moduły",
+      "kompisWebModules": "Moduły dodatkowe",
       "kompisWebSettings": "Ustawienia",
       "kompisBedriftDashboard": "Dashboard",
       "kompisBedriftEmployees": "Pracownicy i dostęp",
@@ -3554,6 +3554,7 @@
       "account": "Konto",
       "integrations": "Integracje",
       "kompisWeb": "Kompis Web",
+      "productsAndSubscription": "Produkty i subskrypcja",
       "kompisBedrift": "Kompis Firma"
     },
     "executiveCompanion": {

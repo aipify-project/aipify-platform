@@ -88,12 +88,12 @@ export function ProductContextSwitcher({
         {labels.label}
       </p>
       <div className="rounded-xl border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-3 py-2.5 shadow-sm">
-        <p className="truncate text-sm font-semibold text-[var(--app-text)]" title={organizationName}>
-          {organizationName}
-        </p>
-        <p className="mt-0.5 text-sm text-[var(--app-text-muted)]">
+        <p className="truncate text-sm font-semibold text-[var(--app-text)]">
           <span className="sr-only">{labels.activeProduct}: </span>
           {activeLabel}
+        </p>
+        <p className="mt-0.5 truncate text-xs text-[var(--app-text-muted)]" title={organizationName}>
+          {organizationName}
         </p>
         {canSwitch ? (
           <button
@@ -105,9 +105,7 @@ export function ProductContextSwitcher({
           >
             {labels.switchProduct}
           </button>
-        ) : (
-          <p className="mt-2 text-xs text-[var(--app-text-muted)]">{labels.singleContextHint}</p>
-        )}
+        ) : null}
       </div>
       {open && canSwitch ? (
         <div

@@ -12,6 +12,7 @@ export type FlatNavItem = {
   href: string;
   locked?: boolean;
   accessHint?: string;
+  sectionLabel?: string;
 };
 
 type FlatSidebarProps = {
@@ -38,8 +39,13 @@ export default function FlatSidebar({
         const isActive = item.id === activeId;
         const icon: ReactNode = getNavIcon(item.id);
         return (
+          <div key={item.id} className="contents">
+          {item.sectionLabel ? (
+            <p className="mb-1 mt-3 px-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--app-text-muted)]">
+              {item.sectionLabel}
+            </p>
+          ) : null}
           <Link
-            key={item.id}
             href={item.href}
             onClick={onNavigate}
             title={item.accessHint ?? item.label}
@@ -66,6 +72,7 @@ export default function FlatSidebar({
               </span>
             </span>
           </Link>
+          </div>
         );
       })}
     </nav>

@@ -261,9 +261,9 @@
       "kompisWebDashboard": "Dashboard",
       "kompisWebQa": "Питання та відповіді",
       "kompisWebFaq": "FAQ та знання",
-      "kompisWebConnection": "Підключення та ліцензія",
+      "kompisWebConnection": "Підключення та домени",
       "kompisWebAppearance": "Вигляд",
-      "kompisWebModules": "Модулі",
+      "kompisWebModules": "Додаткові модулі",
       "kompisWebSettings": "Налаштування",
       "kompisBedriftDashboard": "Dashboard",
       "kompisBedriftEmployees": "Працівники та доступ",
@@ -3554,6 +3554,7 @@
       "account": "Обліковий запис",
       "integrations": "Інтеграції",
       "kompisWeb": "Kompis Web",
+      "productsAndSubscription": "Продукти та підписка",
       "kompisBedrift": "Kompis Бізнес"
     },
     "executiveCompanion": {

@@ -37,11 +37,11 @@ const WEB_ORDER = [
   "kompisWebDashboard",
   "kompisWebQa",
   "kompisWebFaq",
-  "accountInvoices",
-  "kompisWebModules",
   "kompisWebConnection",
-  "accountSubscription",
   "kompisWebSettings",
+  "kompisWebModules",
+  "accountSubscription",
+  "accountInvoices",
 ];
 
 const BEDRIFT_ORDER = [
@@ -106,6 +106,18 @@ assert.equal(webPresented.navGroups.length, 1);
 assert.deepEqual(
   webPresented.navConfig.map((i) => i.id),
   WEB_ORDER
+);
+assert.equal(
+  webPresented.navConfig.find((item) => item.id === "kompisWebModules")?.sectionLabel,
+  "customerApp.portalStructure.navGroups.productsAndSubscription",
+);
+assert.equal(
+  webPresented.navConfig.filter((item) => item.sectionLabel).length,
+  1,
+);
+assert.equal(
+  webPresented.navConfig.find((item) => item.id === "kompisWebConnection")?.href,
+  FOUNDATION_NAV_BINDINGS.kompisWebConnection,
 );
 assert.ok(!webPresented.navConfig.some((i) => i.id.startsWith("kompisBedrift")));
 
