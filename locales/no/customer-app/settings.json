@@ -1258,8 +1258,10 @@
       }
     },
     "modules": {
-      "title": "Modulstyring",
-      "subtitle": "Aktiver eller deaktiver kjøpte moduler. Aipify vokser med virksomheten din.",
+      "title": "Moduler",
+      "subtitle": "Produktene og modulene for arbeidsområdet ditt.",
+      "productsIntro": "Produktene og modulene for arbeidsområdet ditt.",
+      "manageSubscription": "Administrer abonnement",
       "loading": "Laster moduler…",
       "back": "Tilbake til innstillinger",
       "viewBilling": "Fakturering og pakker",

@@ -775,8 +775,10 @@
       }
     },
     "modules": {
-      "title": "Module management",
-      "subtitle": "Enable or disable purchased modules. Aipify grows with your business.",
+      "title": "Modules",
+      "subtitle": "The products and modules for your workspace.",
+      "productsIntro": "The products and modules for your workspace.",
+      "manageSubscription": "Manage subscription",
       "loading": "Preparing modules overview…",
       "back": "Back to settings",
       "viewBilling": "Billing & packages",

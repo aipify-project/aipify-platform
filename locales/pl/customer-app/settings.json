@@ -1083,8 +1083,10 @@
       }
     },
     "modules": {
-      "title": "Zarządzanie modułami",
-      "subtitle": "Włączaj lub wyłączaj zakupione moduły. Aipify rozwija się wraz z Twoją firmą.",
+      "title": "Moduły",
+      "subtitle": "Produkty i moduły dla tego środowiska.",
+      "productsIntro": "Produkty i moduły dla tego środowiska.",
+      "manageSubscription": "Zarządzaj subskrypcją",
       "loading": "Przygotowywanie przeglądu modułów…",
       "back": "Powrót do ustawień",
       "viewBilling": "Rozliczenia i pakiety",

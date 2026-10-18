@@ -40,6 +40,7 @@ function run() {
   const licensePanel = read("components/app/license/TrustLicenseCenterPanel.tsx");
   const integrationsPanel = read("components/app/app-portal/AppPortalIntegrationsHubPanel.tsx");
   const modulesPanel = read("components/app/settings/ModulesAdminPanel.tsx");
+  const modulesPage = read("app/app/settings/modules/page.tsx");
 
   assert.match(licensePage, /AppLayoutClasses/);
   assert.match(licensePage, /companion/);
@@ -50,7 +51,7 @@ function run() {
   assert.doesNotMatch(licensePanel, /max-w-3xl/);
   assert.doesNotMatch(integrationsPanel, /max-w-4xl/);
   assert.match(integrationsPanel, /w-full/);
-  assert.match(modulesPanel, /AppLayoutClasses/);
+  assert.match(modulesPage, /AppLayoutClasses/);
   assert.match(modulesPanel, /unnamedModule/);
   assert.match(modulesPanel, /labels\.retry/);
   assert.match(modulesPanel, /labels\.loadError/);
