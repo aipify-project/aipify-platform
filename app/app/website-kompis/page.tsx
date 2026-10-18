@@ -1,3 +1,4 @@
+import { Archive, BookOpen, CircleAlert, FileText, MessagesSquare, ThumbsDown, ThumbsUp, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { AppIconActionCard } from "@/components/app/design";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
@@ -19,6 +20,28 @@ import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { createClient } from "@/lib/supabase/server";
 import { AppVisualClasses } from "@/lib/design/app-visual-system";
+
+function MetricCard({
+  label,
+  value,
+  icon: Icon,
+  tone,
+}: {
+  label: string;
+  value: number;
+  icon: LucideIcon;
+  tone: string;
+}) {
+  return (
+    <div className={AppVisualClasses.card}>
+      <div className="flex items-center gap-2">
+        <Icon aria-hidden className={`size-4 ${tone}`} strokeWidth={2} />
+        <p className="text-sm font-medium text-[var(--app-text-muted)]">{label}</p>
+      </div>
+      <p className="mt-2 text-2xl font-semibold tabular-nums text-[var(--app-text)]">{value}</p>
+    </div>
+  );
+}
 
 /** Kompis Web product hub — harmonized with Bedrift/Account hub pattern. */
 export default async function WebsiteKompisHubPage() {
@@ -113,32 +136,40 @@ export default async function WebsiteKompisHubPage() {
             {connectionLabels.dashboardDescription}
           </p>
         </div>
-        <div className={AppVisualClasses.card}>
-          <p className="text-xs uppercase tracking-wide text-[var(--app-text-muted)]">
-            {connectionLabels.title}
-          </p>
-          <p className="mt-1 text-2xl font-semibold text-[var(--app-text)]">
-            {connectionLabels.aggregate[connection.summary.aggregate]}
-          </p>
-          <p className="mt-2 text-sm text-[var(--app-text-muted)]">
-            {connectionLabels.aggregateExplain[connection.summary.aggregate]}
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2">
+        <div className={`${AppVisualClasses.card} overflow-hidden !p-0`}>
+          <div
+            className={`px-5 py-5 sm:px-6 ${
+              connection.summary.aggregate === "active"
+                ? "bg-[#E8F7F0]"
+                : "bg-[image:var(--app-primary-soft-fill)]"
+            }`}
+          >
+            <p className="text-sm font-medium text-[var(--app-text-muted)]">
+              {connectionLabels.title}
+            </p>
+            <p className="mt-1 text-2xl font-semibold text-[var(--app-text)]">
+              {connectionLabels.aggregate[connection.summary.aggregate]}
+            </p>
+            <p className="mt-2 text-sm text-[var(--app-text-muted)]">
+              {connectionLabels.aggregateExplain[connection.summary.aggregate]}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2 px-5 py-5 sm:px-6">
             <Link
               href={FOUNDATION_NAV_BINDINGS.kompisWebConnection}
-              className="inline-flex rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {connectionLabels.openConnection}
             </Link>
             <Link
               href={`${FOUNDATION_NAV_BINDINGS.kompisWebConnection}?section=domains`}
-              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {connectionLabels.domainsTitle}
             </Link>
             <Link
               href={`${FOUNDATION_NAV_BINDINGS.kompisWebConnection}?section=help`}
-              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {connectionLabels.diagnosisTitle}
             </Link>
@@ -158,38 +189,35 @@ export default async function WebsiteKompisHubPage() {
           </div>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {[
-              { label: knowledgeLabels.counts.published, value: knowledge.faq.published },
-              { label: knowledgeLabels.counts.draft, value: knowledge.faq.draft },
-              { label: knowledgeLabels.counts.archived, value: knowledge.faq.archived },
+              { label: knowledgeLabels.counts.published, value: knowledge.faq.published, icon: BookOpen, tone: "text-[var(--app-positive)]" },
+              { label: knowledgeLabels.counts.draft, value: knowledge.faq.draft, icon: FileText, tone: "text-[var(--app-primary)]" },
+              { label: knowledgeLabels.counts.archived, value: knowledge.faq.archived, icon: Archive, tone: "text-[var(--app-text-muted)]" },
               {
                 label: knowledgeLabels.counts.needsReview,
                 value: knowledge.feedbackNeedsReview,
+                icon: CircleAlert,
+                tone: "text-[var(--app-pending)]",
               },
             ].map((item) => (
-              <div key={item.label} className={AppVisualClasses.card}>
-                <p className="text-xs uppercase tracking-wide text-[var(--app-text-muted)]">
-                  {item.label}
-                </p>
-                <p className="mt-1 text-2xl font-semibold text-[var(--app-text)]">{item.value}</p>
-              </div>
+              <MetricCard key={item.label} label={item.label} value={item.value} icon={item.icon} tone={item.tone} />
             ))}
           </div>
           <div className="flex flex-wrap gap-2">
             <Link
               href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?create=1`}
-              className="inline-flex rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {knowledgeLabels.createFaq}
             </Link>
             <Link
               href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=followUp`}
-              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {knowledgeLabels.reviewDrafts}
             </Link>
             <Link
               href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=pages`}
-              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {knowledgeLabels.sections.pages}
             </Link>
@@ -209,35 +237,30 @@ export default async function WebsiteKompisHubPage() {
           </div>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {[
-              { label: feedbackLabels.totals.answers, value: overview.totals.answers },
-              { label: feedbackLabels.totals.helpful, value: overview.totals.helpful },
-              { label: feedbackLabels.totals.notHelpful, value: overview.totals.notHelpful },
-              { label: feedbackLabels.totals.needsReview, value: overview.totals.notHelpful },
+              { label: feedbackLabels.totals.answers, value: overview.totals.answers, icon: MessagesSquare, tone: "text-[var(--app-primary)]" },
+              { label: feedbackLabels.totals.helpful, value: overview.totals.helpful, icon: ThumbsUp, tone: "text-[var(--app-positive)]" },
+              { label: feedbackLabels.totals.notHelpful, value: overview.totals.notHelpful, icon: ThumbsDown, tone: "text-[var(--app-pending)]" },
+              { label: feedbackLabels.totals.needsReview, value: overview.totals.notHelpful, icon: CircleAlert, tone: "text-[var(--app-pending)]" },
             ].map((item) => (
-              <div key={item.label} className={AppVisualClasses.card}>
-                <p className="text-xs uppercase tracking-wide text-[var(--app-text-muted)]">
-                  {item.label}
-                </p>
-                <p className="mt-1 text-2xl font-semibold text-[var(--app-text)]">{item.value}</p>
-              </div>
+              <MetricCard key={item.label} label={item.label} value={item.value} icon={item.icon} tone={item.tone} />
             ))}
           </div>
           <div className="flex flex-wrap gap-2">
             <Link
               href={`${FOUNDATION_NAV_BINDINGS.kompisWebQa}?vote=not_helpful`}
-              className="inline-flex rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {feedbackLabels.actions.reviewNegative}
             </Link>
             <Link
               href={FOUNDATION_NAV_BINDINGS.kompisWebFaq}
-              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {feedbackLabels.actions.openFaq}
             </Link>
             <Link
               href={FOUNDATION_NAV_BINDINGS.kompisWebConnection}
-              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {feedbackLabels.actions.checkConnection}
             </Link>

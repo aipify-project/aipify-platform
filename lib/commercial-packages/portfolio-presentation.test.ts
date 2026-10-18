@@ -78,4 +78,23 @@ const packages = readFileSync(join(root, "app/app/settings/billing/packages/page
 assert.doesNotMatch(packages, /goldNugget|Package comparison|Locked features/);
 assert.doesNotMatch(packages, /unonight/i);
 
+const portfolio = readFileSync(
+  join(root, "components/app/settings/billing/KompisProductPortfolio.tsx"),
+  "utf8",
+);
+assert.match(portfolio, /plannedPlansTitle/);
+assert.match(portfolio, /kompisWebDashboard/);
+assert.match(portfolio, /kompis-web-product-visual\.png/);
+assert.match(portfolio, /kompis-bedrift-product-visual\.png/);
+assert.doesNotMatch(portfolio, /checkout|Kjøp|Buy now/i);
+
+const noPortfolio = JSON.parse(
+  readFileSync(join(root, "locales/no/customer-app/settings.json"), "utf8"),
+).commercialPackages.portfolio;
+assert.equal(noPortfolio.seeWeb, "Åpne Kompis Web");
+assert.equal(noPortfolio.seeBedrift, "Se Kompis Bedrift");
+assert.equal(noPortfolio.plannedPlansTitle, "Kompis Web-planer");
+assert.equal(noPortfolio.noChange, "Produktene og tilgangen som gjelder for arbeidsområdet ditt.");
+assert.doesNotMatch(noPortfolio.noChange, /Ingen endring er gjort/);
+
 console.log("portfolio-presentation.test.ts: ok");

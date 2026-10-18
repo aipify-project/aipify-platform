@@ -61,7 +61,7 @@ export function AppIconActionCard({
           <p className="text-[0.9375rem] leading-relaxed text-[var(--app-text-muted)] sm:text-base">{description}</p>
         </div>
         <span
-          className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--app-primary-soft)] text-[var(--app-primary)] ring-1 ring-[var(--app-border-accent)] transition group-hover:translate-x-0.5 group-hover:bg-[image:var(--app-primary-soft-fill)]"
+          className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--app-primary-soft)] text-[var(--app-primary)] ring-1 ring-[var(--app-border-accent)] transition motion-reduce:transition-none group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0 group-hover:bg-[image:var(--app-primary-soft-fill)]"
           aria-hidden="true"
         >
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
