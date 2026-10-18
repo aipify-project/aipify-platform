@@ -12,15 +12,18 @@ import {
 
 export type BillingLimitMeter = {
   key: "users" | "installations" | "domains";
-  used: number;
+  used: number | null;
   max: number | null;
-  /** 0–100 when max is finite; null when unlimited. */
+  /** 0–100 when a finite max exists. */
   percent: number | null;
+  /** Unknown is not unlimited and is never divided. */
+  state: "meter" | "unlimited" | "unknown";
 };
 
 export type BillingUsageItem = {
   key: string;
-  value: number;
+  /** Null when the period payload did not include this meter. */
+  value: number | null;
 };
 
 export type BillingHistoryItem = {
@@ -78,6 +81,15 @@ function asNumber(value: unknown): number {
   return 0;
 }
 
+function asReceivedNumber(value: unknown): number | null {
+  if (value == null || value === "") return null;
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string" && value.trim() !== "" && Number.isFinite(Number(value))) {
+    return Number(value);
+  }
+  return null;
+}
+
 function asNullableMax(value: unknown): number | null {
   if (value == null) return null;
   if (typeof value === "string" && (value === "∞" || value.toLowerCase() === "unlimited")) {
@@ -91,13 +103,31 @@ function asNullableMax(value: unknown): number | null {
 function meter(
   key: BillingLimitMeter["key"],
   usedRaw: unknown,
-  maxRaw: unknown
+  maxRaw: unknown,
+  present: boolean
 ): BillingLimitMeter {
-  const used = asNumber(usedRaw);
+  const used = asReceivedNumber(usedRaw);
+  if (!present) {
+    return { key, used, max: null, percent: null, state: "unknown" };
+  }
+  if (
+    typeof maxRaw === "string" &&
+    (maxRaw === "∞" || maxRaw.toLowerCase() === "unlimited")
+  ) {
+    return { key, used, max: null, percent: null, state: "unlimited" };
+  }
   const max = asNullableMax(maxRaw);
-  const percent =
-    max != null && max > 0 ? Math.min(100, Math.round((used / max) * 100)) : null;
-  return { key, used, max, percent };
+  if (max == null || max <= 0) {
+    return { key, used, max: null, percent: null, state: "unknown" };
+  }
+  const usedCount = used ?? 0;
+  return {
+    key,
+    used,
+    max,
+    percent: Math.min(100, Math.round((usedCount / max) * 100)),
+    state: "meter",
+  };
 }
 
 function customerSafeName(raw: unknown, fallback: string): string {
@@ -140,7 +170,7 @@ export function buildBillingViewModel(
 
   const usageItems: BillingUsageItem[] = usageKeys.map((key) => ({
     key,
-    value: asNumber(usageRaw[key]),
+    value: asReceivedNumber(usageRaw[key]),
   }));
 
   const history: BillingHistoryItem[] = (center.billing_history ?? []).map((row) => {
@@ -259,7 +289,7 @@ export function buildBillingViewModel(
       kind: "view_packages",
       recommendationText: firstRecommendationText,
     };
-  } else if (usageItems.some((u) => u.value > 0)) {
+  } else if (usageItems.some((u) => (u.value ?? 0) > 0)) {
     nextStep = { kind: "review_usage", recommendationText: null };
   }
 
@@ -279,9 +309,14 @@ export function buildBillingViewModel(
     .filter((f): f is string => Boolean(f));
 
   const limits = [
-    meter("users", limitsRaw.used_users, limitsRaw.max_users),
-    meter("installations", limitsRaw.used_installations, limitsRaw.max_installations),
-    meter("domains", limitsRaw.used_domains, limitsRaw.max_domains),
+    meter("users", limitsRaw.used_users, limitsRaw.max_users, "max_users" in limitsRaw || "used_users" in limitsRaw),
+    meter(
+      "installations",
+      limitsRaw.used_installations,
+      limitsRaw.max_installations,
+      "max_installations" in limitsRaw || "used_installations" in limitsRaw
+    ),
+    meter("domains", limitsRaw.used_domains, limitsRaw.max_domains, "max_domains" in limitsRaw || "used_domains" in limitsRaw),
   ];
 
   return {

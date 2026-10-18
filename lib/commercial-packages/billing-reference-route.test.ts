@@ -11,7 +11,13 @@ function read(path: string): string {
 }
 
 function run() {
-  const page = read("app/app/settings/billing/page.tsx");
+  const page = read("app/app/account/subscription/page.tsx");
+  const legacyBilling = read("app/app/settings/billing/page.tsx");
+  assert.match(legacyBilling, /redirect/);
+  const packagesPage = read("app/app/settings/billing/packages/page.tsx");
+  assert.match(packagesPage, /KompisProductPortfolio/);
+  assert.doesNotMatch(packagesPage, /PackageAccessCenterPanel/);
+  assert.doesNotMatch(packagesPage, /checkout/);
   const panel = read("components/app/settings/BillingAdminPanel.tsx");
   const api = read("app/api/commercial-packages/billing/route.ts");
   const layout = read("lib/design/app-layout.ts");

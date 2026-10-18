@@ -10,6 +10,8 @@ import {
   buildBillingPresentationMaps,
   buildBillingReferenceLabels,
 } from "@/lib/commercial-packages";
+import { loadSubscriptionProductReads } from "@/lib/commercial-packages/load-kompis-product-access";
+import { buildPortfolioLabels } from "@/lib/commercial-packages/portfolio-labels";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -21,6 +23,7 @@ export default async function AccountSubscriptionPage() {
   const t = createTranslator(dict);
   const common = hubCommon(t);
   const ctx = await resolveHubWorkspaceContext();
+  const productReads = await loadSubscriptionProductReads();
 
   return (
     <AppHubShell
@@ -35,6 +38,9 @@ export default async function AccountSubscriptionPage() {
     >
       <BillingAdminPanel
         labels={buildBillingReferenceLabels(t)}
+        portfolio={buildPortfolioLabels(t)}
+        license={productReads.license}
+        access={productReads.access}
         locale={locale}
         presentation={buildBillingPresentationMaps(dict)}
         embedded

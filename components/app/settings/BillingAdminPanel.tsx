@@ -2,14 +2,22 @@
 
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { KompisProductPortfolio } from "@/components/app/settings/billing/KompisProductPortfolio";
 import {
   buildBillingViewModel,
   presentationOptionsFromMaps,
-  type BillingLockedCapability,
   type BillingPresentationMaps,
   type BillingReferenceLabels,
   type BillingViewModel,
 } from "@/lib/commercial-packages";
+import type { PortfolioLabels } from "@/lib/commercial-packages/portfolio-labels";
+import {
+  isLegacyCommercialPackage,
+  renewalPresentation,
+  subscriptionShowsDistinctLicense,
+  type KompisProductAccessRead,
+  type WorkspaceLicenseRead,
+} from "@/lib/commercial-packages/portfolio-presentation";
 import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import type { AipifyStatusKind } from "@/lib/design/status-system";
@@ -19,6 +27,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 type BillingAdminPanelProps = {
   labels: BillingReferenceLabels;
+  portfolio: PortfolioLabels;
+  license: WorkspaceLicenseRead;
+  access: KompisProductAccessRead;
   locale: string;
   presentation?: BillingPresentationMaps;
   /** Inside AppHubShell — omit page chrome and extra width padding. */
@@ -54,39 +65,36 @@ function usageLabel(labels: BillingReferenceLabels, key: string): string {
   return labels.usage[key] ?? labels.unavailable;
 }
 
-function lockedReason(labels: BillingReferenceLabels, kind: BillingLockedCapability["kind"]): string {
-  if (kind === "addon") return labels.locked.addonReason;
-  if (kind === "recommendation") return labels.locked.recommendationReason;
-  return labels.locked.upgradeReason;
-}
-
-function nextStepBody(labels: BillingReferenceLabels, vm: BillingViewModel): string {
-  if (vm.nextStep.kind === "view_packages") {
-    return vm.nextStep.recommendationText?.trim() || labels.nextStep.viewPackages;
-  }
-  if (vm.nextStep.kind === "review_usage") return labels.nextStep.reviewUsage;
-  return labels.nextStep.none;
-}
-
 function UsageMeter({
   label,
   used,
   max,
   percent,
+  state,
   unlimitedLabel,
+  unknownLabel,
   usedOfMax,
 }: {
   label: string;
-  used: number;
+  used: number | null;
   max: number | null;
   percent: number | null;
+  state: "meter" | "unlimited" | "unknown";
   unlimitedLabel: string;
+  unknownLabel: string;
   usedOfMax: string;
 }) {
-  const valueText =
-    max == null
-      ? `${used} · ${unlimitedLabel}`
-      : usedOfMax.replace("{used}", String(used)).replace("{max}", String(max));
+  if (state !== "meter" || max == null || max <= 0) {
+    return (
+      <div className="rounded-xl border border-aipify-border bg-aipify-canvas/40 p-4">
+        <p className="text-sm font-medium text-aipify-text">{label}</p>
+        <p className="mt-2 text-sm text-aipify-text-secondary">
+          {state === "unlimited" ? `${used ?? "—"} · ${unlimitedLabel}` : unknownLabel}
+        </p>
+      </div>
+    );
+  }
+  const valueText = usedOfMax.replace("{used}", String(used ?? 0)).replace("{max}", String(max));
 
   return (
     <div className="rounded-xl border border-aipify-border bg-aipify-canvas/40 p-4">
@@ -97,7 +105,7 @@ function UsageMeter({
       <div className="mt-3 h-2 overflow-hidden rounded-full bg-aipify-surface-muted">
         <div
           className="h-full rounded-full bg-aipify-companion transition-[width]"
-          style={{ width: `${percent == null ? Math.min(12, used > 0 ? 12 : 0) : percent}%` }}
+          style={{ width: `${percent == null ? 0 : percent}%` }}
           aria-hidden="true"
         />
       </div>
@@ -107,6 +115,9 @@ function UsageMeter({
 
 export function BillingAdminPanel({
   labels,
+  portfolio,
+  license,
+  access,
   locale,
   presentation,
   embedded = false,
@@ -188,9 +199,15 @@ export function BillingAdminPanel({
     );
   }
 
-  const packageStatus = statusLabel(labels, vm.statusKey);
-  const usageWithValues = vm.usageItems.filter((item) => item.value > 0);
-  const usageRows = usageWithValues.length > 0 ? usageWithValues : vm.usageItems;
+  const shownStatusKey = license.licenseStatus || vm.statusKey;
+  const packageStatus = statusLabel(labels, shownStatusKey);
+  const legacyPackage = isLegacyCommercialPackage(vm.packageKey);
+  const distinctLicense = subscriptionShowsDistinctLicense(vm.packageName, license);
+  const renewal = renewalPresentation({
+    statusKey: vm.statusKey,
+    licenseStatus: license.licenseStatus,
+    renewalDate: vm.renewalDate,
+  });
 
   return (
     <div className={frame}>
@@ -212,7 +229,7 @@ export function BillingAdminPanel({
           <p className="min-w-0 text-sm text-aipify-text-muted">{labels.privacyNote}</p>
         )}
         <div className="flex shrink-0 flex-col items-start gap-3 sm:flex-row sm:items-center lg:flex-col lg:items-end">
-          <AipifyStatusBadge kind={statusKind(vm.statusKey)} label={packageStatus} />
+          <AipifyStatusBadge kind={statusKind(shownStatusKey)} label={packageStatus} />
           <div className="flex flex-wrap gap-2">
             <Link
               href="/app/settings/billing/packages"
@@ -236,7 +253,7 @@ export function BillingAdminPanel({
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <h2 id="billing-package-heading" className={AppPremiumShell.sectionTitle}>
-                  {labels.sections.package}
+                  {portfolio.mySubscription}
                 </h2>
                 {vm.modulesCount != null ? (
                   <p className={AppPremiumShell.sectionSubtitle}>
@@ -244,25 +261,44 @@ export function BillingAdminPanel({
                   </p>
                 ) : null}
               </div>
-              <AipifyStatusBadge kind={statusKind(vm.statusKey)} label={packageStatus} />
+              <AipifyStatusBadge kind={statusKind(shownStatusKey)} label={packageStatus} />
             </div>
-            {vm.packageName ? (
-              <div className="mt-5">
-                <p className="text-2xl font-semibold tracking-tight text-aipify-text">{vm.packageName}</p>
+            {vm.packageName || license.planName ? (
+              <div className="mt-5 space-y-4">
+                {legacyPackage && vm.packageName ? (
+                  <div>
+                    <p className="text-sm font-medium text-[#667085]">
+                      {portfolio.registeredLegacy}
+                    </p>
+                    <p className="mt-1 text-lg font-semibold text-[#22263B]">{vm.packageName}</p>
+                  </div>
+                ) : null}
+                <div>
+                  <p className="text-sm font-medium text-[#667085]">
+                    {portfolio.currentLicense}
+                  </p>
+                  {!legacyPackage || distinctLicense ? (
+                    <p className="mt-1 text-2xl font-semibold tracking-tight text-[#22263B]">
+                      {distinctLicense ? license.planName : vm.packageName || license.planName}
+                    </p>
+                  ) : null}
+                </div>
                 {vm.packageDescription ? (
                   <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">
                     {vm.packageDescription}
                   </p>
                 ) : null}
-                {vm.renewalDate ? (
-                  <p className="mt-3 text-sm text-aipify-text-secondary">
-                    {labels.renewalDate}:{" "}
-                    <span className="font-medium text-aipify-text">
-                      {formatDate(vm.renewalDate, locale)}
-                    </span>
-                  </p>
-                ) : null}
-                {vm.packageFeatures.length > 0 ? (
+                <p className="text-sm text-aipify-text-secondary">
+                  {labels.renewalDate}:{" "}
+                  <span className="font-medium text-aipify-text">
+                    {renewal === "date" && vm.renewalDate
+                      ? formatDate(vm.renewalDate, locale)
+                      : renewal === "lifetime"
+                        ? portfolio.noRenewal
+                        : "—"}
+                  </span>
+                </p>
+                {!legacyPackage && vm.packageFeatures.length > 0 ? (
                   <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                     {vm.packageFeatures.map((feature) => (
                       <li
@@ -276,7 +312,7 @@ export function BillingAdminPanel({
                 ) : null}
               </div>
             ) : (
-              <p className="mt-4 text-sm text-aipify-text-secondary">{labels.emptyPackage}</p>
+              <p className="mt-4 text-sm text-aipify-text-secondary">{portfolio.detailsUnavailable}</p>
             )}
             <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm">
               <Link href="/app/license" className="text-aipify-companion hover:underline">
@@ -307,7 +343,9 @@ export function BillingAdminPanel({
                   used={limit.used}
                   max={limit.max}
                   percent={limit.percent}
+                  state={limit.state}
                   unlimitedLabel={labels.unlimited}
+                  unknownLabel={portfolio.limitUnavailable}
                   usedOfMax={labels.usedOfMax}
                 />
               ))}
@@ -319,13 +357,15 @@ export function BillingAdminPanel({
               {labels.sections.usage}
             </h2>
             <ul className="mt-5 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-              {usageRows.map((item) => (
+              {vm.usageItems.map((item) => (
                 <li
                   key={item.key}
                   className="flex items-center justify-between gap-3 rounded-xl border border-aipify-border bg-aipify-canvas/40 px-3.5 py-3"
                 >
                   <span className="text-sm text-aipify-text-secondary">{usageLabel(labels, item.key)}</span>
-                  <span className="text-sm font-semibold tabular-nums text-aipify-text">{item.value}</span>
+                  <span className="text-sm font-semibold tabular-nums text-aipify-text">
+                    {item.value == null ? labels.unavailable : item.value}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -374,55 +414,20 @@ export function BillingAdminPanel({
         </div>
 
         <aside className={`${AppLayoutClasses.sideColumn} space-y-6`}>
-          <section className={AppLayoutClasses.card} aria-labelledby="billing-next-heading">
-            <h2 id="billing-next-heading" className={AppPremiumShell.sectionTitle}>
-              {labels.sections.nextStep}
+          <section className={AppLayoutClasses.card} aria-labelledby="billing-products-heading">
+            <h2 id="billing-products-heading" className={AppPremiumShell.sectionTitle}>
+              {portfolio.myProducts}
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-aipify-text-secondary">
-              {nextStepBody(labels, vm)}
-            </p>
-            {vm.nextStep.kind === "view_packages" ? (
-              <Link
-                href="/app/settings/billing/packages"
-                className={`mt-4 inline-flex rounded-lg bg-aipify-companion px-3.5 py-2 text-sm font-medium text-white hover:opacity-95 ${AppPremiumShell.focusRing}`}
-              >
-                {labels.locked.viewPackagesCta}
-              </Link>
-            ) : null}
-          </section>
-
-          <section className={AppLayoutClasses.card} aria-labelledby="billing-locked-heading">
-            <h2 id="billing-locked-heading" className={AppPremiumShell.sectionTitle}>
-              {labels.sections.locked}
-            </h2>
-            {vm.lockedCapabilities.length > 0 ? (
-              <ul className="mt-4 space-y-3">
-                {vm.lockedCapabilities.map((item) => (
-                  <li
-                    key={item.id}
-                    className="rounded-xl border border-aipify-border bg-aipify-canvas/40 p-3.5"
-                  >
-                    <p className="text-sm font-semibold text-aipify-text">{item.name}</p>
-                    {item.description ? (
-                      <p className="mt-1 text-sm leading-relaxed text-aipify-text-secondary">
-                        {item.description}
-                      </p>
-                    ) : null}
-                    <p className="mt-2 text-xs text-aipify-text-muted">{lockedReason(labels, item.kind)}</p>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-4 text-sm text-aipify-text-secondary">{labels.emptyLocked}</p>
-            )}
-            {vm.lockedCapabilities.length > 0 ? (
-              <Link
-                href="/app/settings/billing/packages"
-                className="mt-4 inline-flex text-sm font-medium text-aipify-companion hover:underline"
-              >
-                {labels.locked.viewPackagesCta}
-              </Link>
-            ) : null}
+            <p className="mt-2 text-sm text-aipify-text-secondary">{portfolio.noChange}</p>
+            <div className="mt-4">
+              <KompisProductPortfolio labels={portfolio} access={access} />
+            </div>
+            <Link
+              href="/app/settings/billing/packages"
+              className={`mt-4 inline-flex min-h-11 items-center text-sm font-medium text-[#7055EE] hover:underline ${AppPremiumShell.focusRing}`}
+            >
+              {portfolio.exploreProducts}
+            </Link>
           </section>
 
           <section className={AppLayoutClasses.cardMuted} aria-labelledby="billing-support-heading">

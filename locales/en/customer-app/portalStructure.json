@@ -8558,7 +8558,7 @@
         "invoicesCard": "View invoices from Aipify for this account when available.",
         "integrationsCard": "See connected apps and what still needs attention.",
         "notificationsCard": "Choose how Aipify notifies your account.",
-        "subscriptionDescription": "Your subscription and billing reference. Changes that require an external portal are explained there.",
+        "subscriptionDescription": "See the license, products, and capacity linked to your workspace.",
         "invoicesTitle": "Aipify invoices",
         "invoicesDescription": "Invoices and receipts from Aipify to your account. Aipify does not create invoices that you send to your own customers.",
         "integrationsDescription": "Connected systems for this account. Status only appears when it can be verified.",
