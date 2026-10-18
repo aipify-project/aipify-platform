@@ -399,7 +399,50 @@
     },
     "operativeTitle": "Innstillinger",
     "operativeSubtitle": "Administrer sikkerhet, fakturering, integrasjoner og utvikler tilgang for organisasjonen.",
+    "companyProfile": {
+      "title": "Profil og bedriftsinformasjon",
+      "subtitle": "Hold bedriftens opplysninger og kontaktinformasjon oppdatert.",
+      "businessTitle": "Bedriftsprofil",
+      "contactTitle": "Kontaktinformasjon",
+      "systemTitle": "Systemstyrte opplysninger",
+      "securityTitle": "Kontosikkerhet",
+      "locked": "Kan ikke endres her",
+      "organizationName": "Organisasjonsnavn",
+      "loginEmail": "Innloggingsadresse",
+      "role": "Rolle",
+      "plan": "Avtale",
+      "license": "Lisensstatus",
+      "contactUnavailable": "Telefon, adresse, nettsted og organisasjonsnummer fra registreringen kan ikke endres her.",
+      "logoUnavailable": "Bedriftslogo kan legges til når en sikker opplasting er tilgjengelig.",
+      "emptyName": "Organisasjonen din",
+      "roles": {
+        "owner": "Eier",
+        "admin": "Administrator",
+        "member": "Medlem"
+      },
+      "licenses": {
+        "active": "Aktiv",
+        "paused": "Pauset",
+        "grace": "Betalingsfrist",
+        "trialing": "Prøveperiode",
+        "cancelled": "Avsluttet"
+      },
+      "securityLinks": {
+        "signIn": "Påloggingsbekreftelse",
+        "security": "Sikkerhetsoversikt"
+      }
+    },
     "operativeCategories": {
+      "companyProfile": {
+        "title": "Profil",
+        "description": "Bedriftsinformasjon som gjelder dette arbeidsområdet.",
+        "links": {
+          "profile": {
+            "href": "/app/settings/company-profile",
+            "label": "Profil og bedriftsinformasjon"
+          }
+        }
+      },
       "accountSecurity": {
         "title": "Sikkerhet",
         "description": "Påloggingsbekreftelse og sikkerhetskontroller for organisasjonen.",

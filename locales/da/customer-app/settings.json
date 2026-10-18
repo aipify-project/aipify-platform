@@ -369,7 +369,50 @@
     },
     "operativeTitle": "Indstillinger",
     "operativeSubtitle": "Administrer sikkerhed, fakturering, integrationer og udvikleradgang for organisationen.",
+    "companyProfile": {
+      "title": "Profil og virksomhedsoplysninger",
+      "subtitle": "Hold virksomhedens oplysninger og kontaktinformation opdateret.",
+      "businessTitle": "Virksomhedsprofil",
+      "contactTitle": "Kontaktinformation",
+      "systemTitle": "Systemstyrede oplysninger",
+      "securityTitle": "Kontosikkerhed",
+      "locked": "Kan ikke ændres her",
+      "organizationName": "Organisationsnavn",
+      "loginEmail": "Loginadresse",
+      "role": "Rolle",
+      "plan": "Aftale",
+      "license": "Licensstatus",
+      "contactUnavailable": "Telefon, adresse, websted og organisationsnummer fra registreringen kan ikke ændres her.",
+      "logoUnavailable": "Et virksomhedslogo kan tilføjes, når en sikker upload er tilgængelig.",
+      "emptyName": "Din organisation",
+      "roles": {
+        "owner": "Ejer",
+        "admin": "Administrator",
+        "member": "Medlem"
+      },
+      "licenses": {
+        "active": "Aktiv",
+        "paused": "Sat på pause",
+        "grace": "Betalingsfrist",
+        "trialing": "Prøveperiode",
+        "cancelled": "Afsluttet"
+      },
+      "securityLinks": {
+        "signIn": "Loginbekræftelse",
+        "security": "Sikkerhedsoversigt"
+      }
+    },
     "operativeCategories": {
+      "companyProfile": {
+        "title": "Profil",
+        "description": "Virksomhedsoplysninger for dette arbejdsområde.",
+        "links": {
+          "profile": {
+            "href": "/app/settings/company-profile",
+            "label": "Profil og virksomhedsoplysninger"
+          }
+        }
+      },
       "accountSecurity": {
         "title": "Sikkerhed",
         "description": "Loginbekræftelse og sikkerhedskontroller for organisationen.",

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-/** Profile placeholder is hidden from nav; deep links go to account security. */
+/** Profile is the company profile. Deep links no longer leave the profile surface. */
 export default function AccountProfilePage() {
-  redirect("/app/account/security");
+  redirect("/app/settings/company-profile");
 }
