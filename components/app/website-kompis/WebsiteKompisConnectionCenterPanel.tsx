@@ -3,8 +3,13 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { AlertCircle, CircleCheck } from "lucide-react";
 import { AppVisualClasses } from "@/lib/design/app-visual-system";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
+import {
+  connectionShowsActiveLicenseWithoutPublicView,
+  websiteKompisLicenseStatusKey,
+} from "@/lib/website-kompis-connection/customer-copy";
 import type { WebsiteKompisConnectionLabels } from "@/lib/website-kompis-connection/labels";
 import type { ConnectionStatusSummary } from "@/lib/website-kompis-connection/status-model";
 import type { ConnectionAggregateStatus } from "@/lib/website-kompis-connection/source-inventory";
@@ -58,7 +63,7 @@ function SectionButton({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] ${
+      className={`min-h-11 rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] ${
         active
           ? "border-[var(--app-border-accent)] bg-[var(--app-primary-soft)]"
           : "border-[var(--app-border)] bg-[var(--app-card)] hover:border-[var(--app-border-accent)]"
@@ -98,8 +103,14 @@ export function WebsiteKompisConnectionCenterPanel({
   }
 
   const aggregateLabel = labels.aggregate[summary.aggregate];
-  const aggregateExplain = labels.aggregateExplain[summary.aggregate];
-  const diagnosisText = labels.diagnosis[summary.diagnosis];
+  const publicViewUnavailable = connectionShowsActiveLicenseWithoutPublicView(summary);
+  const aggregateExplain = publicViewUnavailable
+    ? labels.activeLicenseRuntimeUnavailable
+    : labels.aggregateExplain[summary.aggregate];
+  const diagnosisText =
+    summary.diagnosis === "all_clear" && publicViewUnavailable
+      ? labels.activeLicenseRuntimeUnavailable
+      : labels.diagnosis[summary.diagnosis];
   const diagnosisAction = labels.diagnosisActions[summary.diagnosis];
 
   return (
@@ -170,7 +181,12 @@ export function WebsiteKompisConnectionCenterPanel({
                 <p className="text-sm font-medium text-[var(--app-text)]">
                   {labels.checkpoints[checkpoint.id]}
                 </p>
-                <p className={`mt-2 text-sm font-semibold ${checkpointTone(checkpoint.state)}`}>
+                <p className={`mt-2 inline-flex items-center gap-1.5 text-sm font-semibold ${checkpointTone(checkpoint.state)}`}>
+                  {checkpoint.state === "ok" ? (
+                    <CircleCheck aria-hidden className="size-4 shrink-0" strokeWidth={2} />
+                  ) : checkpoint.id === "public_runtime" && checkpoint.state === "unavailable" ? (
+                    <AlertCircle aria-hidden className="size-4 shrink-0" strokeWidth={2} />
+                  ) : null}
                   {labels.checkpointState[checkpoint.state]}
                 </p>
               </li>
@@ -315,7 +331,7 @@ export function WebsiteKompisConnectionCenterPanel({
                 {labels.licenseStatus}
               </dt>
               <dd className="mt-1 text-sm font-medium text-[var(--app-text)]">
-                {summary.licenseStatus ?? "—"}
+                {labels.licenseStatusValue[websiteKompisLicenseStatusKey(summary.licenseStatus)]}
               </dd>
             </div>
           </dl>

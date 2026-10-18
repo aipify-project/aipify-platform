@@ -814,8 +814,8 @@
       "unauthenticatedBody": "Aipify muestra la licencia de Kompis Web y el uso de respuestas solo para el espacio de trabajo con sesión iniciada.",
       "noModuleTitle": "Kompis Web no está activo",
       "noModuleBody": "Este espacio de trabajo no tiene un módulo Kompis Web activo. Los paquetes de abajo son ofertas previstas, no un plan asignado.",
-      "unknownPlanTitle": "Plan no asignado",
-      "unknownPlanBody": "Kompis Web está activo para este espacio de trabajo y todavía no hay un plan de respuestas asignado. Aipify no lo trata como un plan gratuito ni de pago, y no muestra un cupo de respuestas.",
+      "unknownPlanTitle": "No hay un plan de Kompis Web asignado",
+      "unknownPlanBody": "Kompis Web está disponible en el espacio de trabajo, pero no hay un plan de respuestas asignado. Por eso no se muestra un cupo de respuestas activo.",
       "unavailableTitle": "El estado de la cuota no está disponible",
       "unavailableBody": "Aipify no pudo leer la licencia y la cuota de respuestas de este espacio de trabajo. El uso no se muestra como cero.",
       "knownTitle": "Plan de Kompis Web asignado",
@@ -830,6 +830,7 @@
       "acceptsAnswers": "Se pueden aceptar respuestas nuevas",
       "pausesAnswers": "Ahora mismo no se aceptan respuestas nuevas",
       "catalogSeparate": "Los paquetes de abajo son ofertas previstas. No son el plan asignado de este espacio de trabajo.",
+      "unassignedCatalogNote": "Los paquetes de abajo son ofertas previstas. No están activados para este espacio de trabajo.",
       "notAPurchase": "Esta página no cambia el plan, la cuota ni un pago."
     }
   }

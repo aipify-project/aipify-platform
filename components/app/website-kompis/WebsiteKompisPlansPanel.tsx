@@ -194,7 +194,11 @@ export function WebsiteKompisPlansPanel({
       </div>
 
       <LicenseQuotaStatus quotaRead={quotaRead} labels={labels} locale={locale} />
-      <p className="text-sm text-[var(--app-text-muted,#5C6275)]">{labels.assignment.catalogSeparate}</p>
+      <p className="text-sm text-[var(--app-text-muted,#5C6275)]">
+        {quotaRead.kind === "unknown_plan"
+          ? labels.assignment.unassignedCatalogNote
+          : labels.assignment.catalogSeparate}
+      </p>
 
       <div className="grid gap-4 lg:grid-cols-3">
         {WEBSITE_KOMPIS_PLAN_CATALOG.map((plan) => (
