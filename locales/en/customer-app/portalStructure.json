@@ -14,6 +14,7 @@
       "aipifyIntelligence": "Aipify Intelligence",
       "integrations": "Integrations",
       "kompisWeb": "Kompis Web",
+      "productsAndSubscription": "Products and subscription",
       "kompisBedrift": "Kompis Bedrift"
     },
     "nav": {
@@ -113,9 +114,9 @@
       "kompisWebDashboard": "Dashboard",
       "kompisWebQa": "Questions and answers",
       "kompisWebFaq": "FAQ and knowledge",
-      "kompisWebConnection": "Connection and license",
+      "kompisWebConnection": "Connection and domains",
       "kompisWebAppearance": "Appearance",
-      "kompisWebModules": "Modules",
+      "kompisWebModules": "Add-on modules",
       "kompisWebSettings": "Settings",
       "kompisBedriftDashboard": "Dashboard",
       "kompisBedriftEmployees": "Employees and access",
