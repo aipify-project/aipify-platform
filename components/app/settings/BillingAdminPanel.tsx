@@ -1,5 +1,6 @@
 "use client";
 
+import { Globe, Monitor, Users, type LucideIcon } from "lucide-react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { KompisProductPortfolio } from "@/components/app/settings/billing/KompisProductPortfolio";
@@ -65,6 +66,12 @@ function usageLabel(labels: BillingReferenceLabels, key: string): string {
   return labels.usage[key] ?? labels.unavailable;
 }
 
+function limitIcon(key: string): LucideIcon {
+  if (key === "users") return Users;
+  if (key === "installations") return Monitor;
+  return Globe;
+}
+
 function UsageMeter({
   label,
   used,
@@ -74,6 +81,7 @@ function UsageMeter({
   unlimitedLabel,
   unknownLabel,
   usedOfMax,
+  icon: Icon,
 }: {
   label: string;
   used: number | null;
@@ -83,12 +91,16 @@ function UsageMeter({
   unlimitedLabel: string;
   unknownLabel: string;
   usedOfMax: string;
+  icon: LucideIcon;
 }) {
   if (state !== "meter" || max == null || max <= 0) {
     return (
-      <div className="rounded-xl border border-aipify-border bg-aipify-canvas/40 p-4">
-        <p className="text-sm font-medium text-aipify-text">{label}</p>
-        <p className="mt-2 text-sm text-aipify-text-secondary">
+      <div className="rounded-xl border border-[var(--app-border)] bg-[var(--app-surface)] p-4">
+        <div className="flex items-center gap-2">
+          <Icon aria-hidden className="size-4 text-[var(--app-primary)]" strokeWidth={2} />
+          <p className="text-sm font-medium text-[var(--app-text)]">{label}</p>
+        </div>
+        <p className="mt-2 text-sm text-[var(--app-text-muted)]">
           {state === "unlimited" ? `${used ?? "—"} · ${unlimitedLabel}` : unknownLabel}
         </p>
       </div>
@@ -97,16 +109,25 @@ function UsageMeter({
   const valueText = usedOfMax.replace("{used}", String(used ?? 0)).replace("{max}", String(max));
 
   return (
-    <div className="rounded-xl border border-aipify-border bg-aipify-canvas/40 p-4">
+    <div className="rounded-xl border border-[var(--app-border)] bg-[var(--app-surface)] p-4">
       <div className="flex items-baseline justify-between gap-3">
-        <p className="text-sm font-medium text-aipify-text">{label}</p>
-        <p className="text-sm tabular-nums text-aipify-text-secondary">{valueText}</p>
+        <div className="flex items-center gap-2">
+          <Icon aria-hidden className="size-4 text-[var(--app-primary)]" strokeWidth={2} />
+          <p className="text-sm font-medium text-[var(--app-text)]">{label}</p>
+        </div>
+        <p className="text-sm tabular-nums text-[var(--app-text-muted)]">{valueText}</p>
       </div>
-      <div className="mt-3 h-2 overflow-hidden rounded-full bg-aipify-surface-muted">
+      <div
+        className="mt-3 h-2 overflow-hidden rounded-full bg-[var(--app-primary-soft)]"
+        role="progressbar"
+        aria-valuenow={percent ?? 0}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={label}
+      >
         <div
-          className="h-full rounded-full bg-aipify-companion transition-[width]"
+          className="h-full rounded-full bg-[image:var(--app-primary-gradient)] motion-reduce:transition-none"
           style={{ width: `${percent == null ? 0 : percent}%` }}
-          aria-hidden="true"
         />
       </div>
     </div>
@@ -249,14 +270,24 @@ export function BillingAdminPanel({
 
       <div className={AppLayoutClasses.contentGrid}>
         <div className={`${AppLayoutClasses.mainColumn} space-y-6`}>
-          <section className={AppLayoutClasses.card} aria-labelledby="billing-package-heading">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <h2 id="billing-package-heading" className={AppPremiumShell.sectionTitle}>
+          <section className={`${AppLayoutClasses.card} overflow-hidden !p-0`} aria-labelledby="billing-package-heading">
+            <div className="flex flex-wrap items-start justify-between gap-3 bg-[image:var(--app-primary-soft-fill)] px-5 py-5 sm:px-6">
+              <div className="min-w-0">
+                <h2 id="billing-package-heading" className="text-sm font-medium text-[var(--app-text-muted)]">
                   {portfolio.mySubscription}
                 </h2>
+                <p className="mt-1 text-sm text-[var(--app-text-muted)]">{portfolio.currentLicense}</p>
+                {vm.packageName || license.planName ? (
+                  <p className="mt-1 text-2xl font-semibold tracking-tight text-[var(--app-text)]">
+                    {distinctLicense
+                      ? license.planName
+                      : legacyPackage && vm.packageName
+                        ? vm.packageName
+                        : license.planName || vm.packageName}
+                  </p>
+                ) : null}
                 {vm.modulesCount != null ? (
-                  <p className={AppPremiumShell.sectionSubtitle}>
+                  <p className="mt-1 text-sm text-[var(--app-text-muted)]">
                     {labels.modulesCount.replace("{count}", String(vm.modulesCount))}
                   </p>
                 ) : null}
@@ -264,25 +295,13 @@ export function BillingAdminPanel({
               <AipifyStatusBadge kind={statusKind(shownStatusKey)} label={packageStatus} />
             </div>
             {vm.packageName || license.planName ? (
-              <div className="mt-5 space-y-4">
+              <div className="space-y-4 px-5 py-5 sm:px-6">
                 {legacyPackage && vm.packageName ? (
-                  <div>
-                    <p className="text-sm font-medium text-[#667085]">
-                      {portfolio.registeredLegacy}
-                    </p>
-                    <p className="mt-1 text-lg font-semibold text-[#22263B]">{vm.packageName}</p>
-                  </div>
-                ) : null}
-                <div>
-                  <p className="text-sm font-medium text-[#667085]">
-                    {portfolio.currentLicense}
+                  <p className="text-sm text-[var(--app-text-muted)]">
+                    {portfolio.registeredLegacy}:{" "}
+                    <span className="font-medium text-[var(--app-text)]">{vm.packageName}</span>
                   </p>
-                  {!legacyPackage || distinctLicense ? (
-                    <p className="mt-1 text-2xl font-semibold tracking-tight text-[#22263B]">
-                      {distinctLicense ? license.planName : vm.packageName || license.planName}
-                    </p>
-                  ) : null}
-                </div>
+                ) : null}
                 {vm.packageDescription ? (
                   <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">
                     {vm.packageDescription}
@@ -312,9 +331,9 @@ export function BillingAdminPanel({
                 ) : null}
               </div>
             ) : (
-              <p className="mt-4 text-sm text-aipify-text-secondary">{portfolio.detailsUnavailable}</p>
+              <p className="px-5 py-5 text-sm text-aipify-text-secondary sm:px-6">{portfolio.detailsUnavailable}</p>
             )}
-            <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            <div className="flex flex-wrap gap-x-4 gap-y-2 px-5 pb-5 text-sm sm:px-6">
               <Link href="/app/license" className="text-aipify-companion hover:underline">
                 {labels.viewLicense}
               </Link>
@@ -347,6 +366,7 @@ export function BillingAdminPanel({
                   unlimitedLabel={labels.unlimited}
                   unknownLabel={portfolio.limitUnavailable}
                   usedOfMax={labels.usedOfMax}
+                  icon={limitIcon(limit.key)}
                 />
               ))}
             </div>

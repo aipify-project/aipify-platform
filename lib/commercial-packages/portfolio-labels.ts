@@ -28,6 +28,7 @@ export type PortfolioLabels = {
   unknown: string;
   exploreReview: string;
   seeWeb: string;
+  plannedPlansTitle: string;
   seeBedrift: string;
   noRenewal: string;
   detailsUnavailable: string;
@@ -73,6 +74,7 @@ export function buildPortfolioLabels(t: Translator): PortfolioLabels {
     unknown: t(`${NS}.unknown`),
     exploreReview: t(`${NS}.exploreReview`),
     seeWeb: t(`${NS}.seeWeb`),
+    plannedPlansTitle: t(`${NS}.plannedPlansTitle`),
     seeBedrift: t(`${NS}.seeBedrift`),
     noRenewal: t(`${NS}.noRenewal`),
     detailsUnavailable: t(`${NS}.detailsUnavailable`),
