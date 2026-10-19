@@ -6987,7 +6987,31 @@
       "sv": "Svensk",
       "da": "Dansk",
       "pl": "Polsk",
-      "uk": "Ukrainsk"
+      "uk": "Ukrainsk",
+      "de": "Tysk",
+      "fr": "Fransk",
+      "es": "Spansk",
+      "it": "Italiensk",
+      "pt": "Portugisisk",
+      "nl": "Nederlandsk",
+      "fi": "Finsk",
+      "is": "Islandsk",
+      "et": "Estisk",
+      "lv": "Lettisk",
+      "lt": "Litauisk",
+      "cs": "Tjekkisk",
+      "sk": "Slovakisk",
+      "hu": "Ungarsk",
+      "ro": "Rumænsk",
+      "bg": "Bulgarsk",
+      "el": "Græsk",
+      "tr": "Tyrkisk",
+      "ar": "Arabisk",
+      "he": "Hebraisk",
+      "hi": "Hindi",
+      "ja": "Japansk",
+      "ko": "Koreansk",
+      "zh": "Kinesisk"
     },
     "feedbackOverviewLink": "Se svarefeedback",
     "siteContext": {
@@ -6999,7 +7023,11 @@
       "siteScopedBadge": "Dette websted",
       "noSites": "Ingen verificeret webstedinstallation er knyttet endnu. Tilslut et domæne under Forbindelse, før FAQ scopes pr. websted.",
       "visitorPartialNote": "Besøgendes svar kan stadig inkludere delt ældre FAQ, indtil en Core-isoleringsopdatering er autoriseret."
-    }
+    },
+    "languageSearch": "Søg efter sprog eller kode",
+    "languageNoMatch": "Intet sprog matcher søgningen.",
+    "languageList": "Indholdssprog",
+    "languageCollation": "da"
   },
   "kompisOperator": {
     "title": "Kompis",

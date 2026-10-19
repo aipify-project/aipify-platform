@@ -1,4 +1,4 @@
-import { CORE_LOCALES } from "@/lib/i18n/config";
+import { FAQ_CONTENT_LANGUAGE_CODES } from "@/lib/website-kompis-faq/content-languages";
 
 export const WPKF_CONTENT_TYPES = [
   "faq",
@@ -17,7 +17,7 @@ export const WPKF_STATUSES = ["draft", "published", "archived"] as const;
 
 export type WpkfStatus = (typeof WPKF_STATUSES)[number];
 
-export const WPKF_LOCALES = CORE_LOCALES;
+export const WPKF_LOCALES = FAQ_CONTENT_LANGUAGE_CODES;
 
 export const WPKF_RISKY_WORDS = [
   "internal",

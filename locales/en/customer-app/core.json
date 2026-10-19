@@ -6976,7 +6976,31 @@
       "sv": "Swedish",
       "da": "Danish",
       "pl": "Polish",
-      "uk": "Ukrainian"
+      "uk": "Ukrainian",
+      "de": "German",
+      "fr": "French",
+      "es": "Spanish",
+      "it": "Italian",
+      "pt": "Portuguese",
+      "nl": "Dutch",
+      "fi": "Finnish",
+      "is": "Icelandic",
+      "et": "Estonian",
+      "lv": "Latvian",
+      "lt": "Lithuanian",
+      "cs": "Czech",
+      "sk": "Slovak",
+      "hu": "Hungarian",
+      "ro": "Romanian",
+      "bg": "Bulgarian",
+      "el": "Greek",
+      "tr": "Turkish",
+      "ar": "Arabic",
+      "he": "Hebrew",
+      "hi": "Hindi",
+      "ja": "Japanese",
+      "ko": "Korean",
+      "zh": "Chinese"
     },
     "feedbackOverviewLink": "View answer feedback",
     "siteContext": {
@@ -6988,7 +7012,11 @@
       "siteScopedBadge": "This website",
       "noSites": "No verified website installation is linked yet. Connect a domain under Connection before scoping FAQ by website.",
       "visitorPartialNote": "Visitor answers may still include shared legacy FAQ until a Core isolation update is authorized."
-    }
+    },
+    "languageSearch": "Search by language or code",
+    "languageNoMatch": "No language matches that search.",
+    "languageList": "Content language",
+    "languageCollation": "en"
   },
   "kompisOperator": {
     "title": "Kompis",

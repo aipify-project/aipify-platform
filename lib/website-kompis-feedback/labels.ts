@@ -1,3 +1,5 @@
+import { WPKF_LOCALES } from "@/lib/website-kompis-faq/constants";
+
 type TranslateFn = (key: string) => string;
 
 export function buildWebsiteKompisFeedbackLabels(t: TranslateFn) {
@@ -135,15 +137,13 @@ export function buildWebsiteKompisFeedbackLabels(t: TranslateFn) {
       language: t(`${prefix}.quality.language`),
       category: t(`${prefix}.quality.category`),
       chooseLanguage: t(`${prefix}.quality.chooseLanguage`),
-      languages: {
-        en: t(`${prefix}.quality.languages.en`),
-        no: t(`${prefix}.quality.languages.no`),
-        sv: t(`${prefix}.quality.languages.sv`),
-        da: t(`${prefix}.quality.languages.da`),
-        pl: t(`${prefix}.quality.languages.pl`),
-        uk: t(`${prefix}.quality.languages.uk`),
-        es: t(`${prefix}.quality.languages.es`),
-      },
+      languageSearch: t("customerApp.websiteKompisFaq.languageSearch"),
+      languageNoMatch: t("customerApp.websiteKompisFaq.languageNoMatch"),
+      languageList: t("customerApp.websiteKompisFaq.languageList"),
+      languageCollation: t("customerApp.websiteKompisFaq.languageCollation"),
+      languages: Object.fromEntries(
+        WPKF_LOCALES.map((locale) => [locale, t(`customerApp.websiteKompisFaq.locales.${locale}`)]),
+      ) as Record<(typeof WPKF_LOCALES)[number], string>,
     },
   };
 }

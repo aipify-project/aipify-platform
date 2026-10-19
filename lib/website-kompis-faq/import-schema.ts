@@ -1,4 +1,5 @@
 import { WPKF_LOCALES } from "@/lib/website-kompis-faq/constants";
+import { canonicalFaqContentLanguage } from "@/lib/website-kompis-faq/content-languages";
 
 export const FAQ_IMPORT_SCHEMA_VERSION = "kompis-web-faq-import-v1";
 export const FAQ_IMPORT_MAX_ROWS = 100;
@@ -67,41 +68,6 @@ const HEADER_ALIASES: Record<string, FaqImportColumnTarget> = {
   status: "status",
 };
 
-const LOCALE_ALIASES: Record<string, (typeof WPKF_LOCALES)[number]> = {
-  en: "en",
-  "en-us": "en",
-  "en-gb": "en",
-  english: "en",
-  engelsk: "en",
-  no: "no",
-  nb: "no",
-  nn: "no",
-  "nb-no": "no",
-  "nn-no": "no",
-  norwegian: "no",
-  norsk: "no",
-  bokmål: "no",
-  bokmal: "no",
-  nynorsk: "no",
-  sv: "sv",
-  "sv-se": "sv",
-  swedish: "sv",
-  svensk: "sv",
-  svenska: "sv",
-  da: "da",
-  "da-dk": "da",
-  danish: "da",
-  dansk: "da",
-  pl: "pl",
-  "pl-pl": "pl",
-  polish: "pl",
-  polski: "pl",
-  uk: "uk",
-  "uk-ua": "uk",
-  ukrainian: "uk",
-  українська: "uk",
-};
-
 export function normalizeFaqImportHeader(value: string): string {
   return value.trim().toLowerCase().replace(/\s+/g, " ");
 }
@@ -116,8 +82,7 @@ export function suggestFaqImportMapping(headers: string[]): Record<string, FaqIm
 }
 
 export function canonicalFaqLocale(value: string): (typeof WPKF_LOCALES)[number] | null {
-  const key = value.trim().toLowerCase();
-  return LOCALE_ALIASES[key] ?? null;
+  return canonicalFaqContentLanguage(value);
 }
 
 export function supportedFaqImportLocales(): readonly string[] {

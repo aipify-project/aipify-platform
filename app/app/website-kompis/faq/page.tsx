@@ -45,10 +45,6 @@ export default async function WebsiteKompisFaqPage() {
       title={knowledgeLabels.title}
       description={knowledgeLabels.subtitle}
       contextLabel={formatHubContextLine(common, ctx)}
-      primaryAction={{
-        label: knowledgeLabels.createFaq,
-        href: `${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?create=1`,
-      }}
     >
       <Suspense fallback={<AipifyLoadingState />}>
         <WebsiteKompisKnowledgeCenterPanel

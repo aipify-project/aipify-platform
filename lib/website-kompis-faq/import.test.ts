@@ -3,6 +3,11 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { strToU8, zipSync } from "fflate";
 import { WPKF_LOCALES } from "@/lib/website-kompis-faq/constants";
+import {
+  FAQ_CONTENT_LANGUAGE_CODES,
+  resolveFaqContentLanguageForSave,
+  sortFaqContentLanguageCodes,
+} from "@/lib/website-kompis-faq/content-languages";
 import { buildFaqImportCsvTemplate, parseFaqImportCsv } from "@/lib/website-kompis-faq/import-csv";
 import { planFaqImport } from "@/lib/website-kompis-faq/import-plan";
 import {
@@ -67,7 +72,9 @@ if (!("error" in maliciousRead) && maliciousRead.table) {
 }
 
 assert.deepEqual([...supportedFaqImportLocales()], [...WPKF_LOCALES]);
-assert.equal(WPKF_LOCALES.length, 6);
+assert.equal(WPKF_LOCALES.length, 30);
+assert.equal(new Set(FAQ_CONTENT_LANGUAGE_CODES).size, 30);
+assert.deepEqual(FAQ_CONTENT_LANGUAGE_CODES.slice(0, 6), ["no", "en", "sv", "da", "pl", "uk"]);
 for (const [alias, code] of [
   ["en", "en"],
   ["english", "en"],
@@ -80,8 +87,17 @@ for (const [alias, code] of [
 ] as const) {
   assert.equal(canonicalFaqLocale(alias), code);
 }
-assert.equal(canonicalFaqLocale("es"), null);
-assert.equal(canonicalFaqLocale("fr"), null);
+assert.equal(canonicalFaqLocale("es"), "es");
+assert.equal(canonicalFaqLocale("fr"), "fr");
+assert.equal(canonicalFaqLocale("de-AT"), "de");
+assert.equal(canonicalFaqLocale("ja"), "ja");
+assert.equal(canonicalFaqLocale("zh"), "zh");
+assert.equal(canonicalFaqLocale("pt-BR"), null);
+assert.equal(canonicalFaqLocale("zh-Hant"), null);
+assert.equal(canonicalFaqLocale("xx"), null);
+assert.equal(resolveFaqContentLanguageForSave("nb-NO", "nb-NO"), "nb-NO");
+assert.equal(resolveFaqContentLanguageForSave("nb-NO", null), "no");
+assert.equal(resolveFaqContentLanguageForSave("de", null), "de");
 
 const ready = planFaqImport({
   table: parsed.table,
@@ -103,7 +119,7 @@ assert.equal(missing.fileError, "missing_column");
 const invalid = planFaqImport({
   table: {
     headers: [...FAQ_IMPORT_TEMPLATE_HEADERS],
-    rows: [["=cmd", "", "<script>alert(1)</script>", "", "fr", "a, a, =bad", "MAYBE", "18.10.2026", "2026-10-18"]],
+    rows: [["=cmd", "", "<script>alert(1)</script>", "", "xx", "a, a, =bad", "MAYBE", "18.10.2026", "2026-10-18"]],
   },
   installId: "site-a",
   existing: [],
@@ -157,5 +173,69 @@ assert.match(read("components/app/website-kompis/WebsiteKompisFaqImportWorkspace
 assert.match(read("components/app/website-kompis/WebsiteKompisFaqImportWorkspace.tsx"), /aria-current/);
 assert.match(read("components/app/website-kompis/WebsiteKompisFaqImportWorkspace.tsx"), /md:hidden/);
 assert.doesNotMatch(read("components/app/website-kompis/WebsiteKompisFaqImportWorkspace.tsx"), /Core|RPC|tenant/);
+
+const csvText = new TextDecoder().decode(csv);
+for (const code of FAQ_CONTENT_LANGUAGE_CODES) {
+  assert.match(csvText, new RegExp(`(?:^|\\s)${code}(?:\\s|$)`, "m"));
+}
+const readme = readFaqImportXlsx(buildFaqImportXlsxTemplate(), "Read me");
+assert.ok(!("error" in readme));
+if (!("error" in readme)) {
+  const note = readme.table?.rows.map((row) => row.join(" ")).join("\n") ?? "";
+  assert.match(note, /de/);
+  assert.match(note, /ja/);
+  assert.match(note, /zh/);
+  assert.match(note, /pt-BR/);
+}
+
+const expanded = planFaqImport({
+  table: {
+    headers: [...FAQ_IMPORT_TEMPLATE_HEADERS],
+    rows: [
+      ["Deutsch", "", "Antwort", "Allgemein", "de", "", "JA", "", ""],
+      ["Nihongo", "", "Kotae", "Ippan", "ja", "", "JA", "", ""],
+      ["Zhongwen", "", "Daan", "Yiban", "zh", "", "JA", "", ""],
+      ["Unknown", "", "Answer", "General", "xx", "", "JA", "", ""],
+    ],
+  },
+  installId: "site-a",
+  existing: [],
+});
+assert.equal(expanded.summary.ready, 3);
+assert.equal(expanded.summary.invalid, 1);
+assert.equal(expanded.summary.duplicates, 0);
+assert.equal(expanded.summary.ready + expanded.summary.duplicates + expanded.summary.invalid, expanded.rows.length);
+assert.equal(expanded.rows[0]?.locale, "de");
+assert.equal(expanded.rows[1]?.locale, "ja");
+assert.equal(expanded.rows[2]?.locale, "zh");
+assert.equal(expanded.rows[0]?.validUntil, null);
+assert.ok(expanded.rows[3]?.issues.some((issue) => issue.code === "locale"));
+
+const norwegian = JSON.parse(read("locales/no/customer-app/core.json")) as {
+  websiteKompisFaq: { locales: Record<string, string> };
+};
+const sorted = sortFaqContentLanguageCodes(
+  FAQ_CONTENT_LANGUAGE_CODES,
+  (code) => norwegian.websiteKompisFaq.locales[code] ?? code,
+  "nb",
+);
+assert.equal(sorted[0], "ar");
+assert.equal(sorted.at(-1), "hu");
+assert.equal(norwegian.websiteKompisFaq.locales.no, "Norsk");
+assert.equal(norwegian.websiteKompisFaq.locales.de, "Tysk");
+
+const panel = read("components/app/website-kompis/WebsiteKompisFaqAdminPanel.tsx");
+assert.equal(panel.match(/data-faq-library-actions/g)?.length, 1);
+assert.match(panel, /FaqContentLanguagePicker/);
+assert.doesNotMatch(panel, /WebsiteKompisFaqImportActions/);
+const actionsAt = panel.indexOf("data-faq-library-actions");
+const siteAt = panel.indexOf("labels.siteContext.label");
+assert.ok(actionsAt > 0 && siteAt > actionsAt);
+assert.match(read("components/dashboard/nav-icons.tsx"), /case "kompisWebFaq":\s*return <BookOpen/);
+assert.match(read("locales/no/customer-app/portalStructure.json"), /"kompisWebFaq": "Kunnskapssenter"/);
+assert.match(read("locales/no/customer-app/portalStructure.json"), /"kompisWebQa": "Spørsmål og svar"/);
+assert.match(read("app/api/website-kompis/faq/route.ts"), /resolveFaqContentLanguageForSave/);
+assert.match(read("components/app/website-kompis/WebsiteKompisFeedbackEditor.tsx"), /FaqContentLanguagePicker/);
+assert.match(read("components/app/website-kompis/WebsiteKompisFeedbackEditor.tsx"), /backgroundColor: "#ffffff"/);
 
 console.log("faq-import.test.ts: ok");

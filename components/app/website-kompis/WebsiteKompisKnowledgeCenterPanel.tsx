@@ -127,12 +127,6 @@ export function WebsiteKompisKnowledgeCenterPanel({
 
       <div className="flex flex-wrap gap-2">
         <Link
-          href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?create=1`}
-          className="inline-flex rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-        >
-          {labels.createFaq}
-        </Link>
-        <Link
           href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=followUp`}
           className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
         >

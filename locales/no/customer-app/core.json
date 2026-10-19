@@ -6987,7 +6987,31 @@
       "sv": "Svensk",
       "da": "Dansk",
       "pl": "Polsk",
-      "uk": "Ukrainsk"
+      "uk": "Ukrainsk",
+      "de": "Tysk",
+      "fr": "Fransk",
+      "es": "Spansk",
+      "it": "Italiensk",
+      "pt": "Portugisisk",
+      "nl": "Nederlandsk",
+      "fi": "Finsk",
+      "is": "Islandsk",
+      "et": "Estisk",
+      "lv": "Latvisk",
+      "lt": "Litauisk",
+      "cs": "Tsjekkisk",
+      "sk": "Slovakisk",
+      "hu": "Ungarsk",
+      "ro": "Rumensk",
+      "bg": "Bulgarsk",
+      "el": "Gresk",
+      "tr": "Tyrkisk",
+      "ar": "Arabisk",
+      "he": "Hebraisk",
+      "hi": "Hindi",
+      "ja": "Japansk",
+      "ko": "Koreansk",
+      "zh": "Kinesisk"
     },
     "feedbackOverviewLink": "Se svartilbakemelding",
     "siteContext": {
@@ -6999,7 +7023,11 @@
       "siteScopedBadge": "Dette nettstedet",
       "noSites": "Ingen verifisert nettstedinstallasjon er knyttet ennå. Koble et domene under Tilkobling før FAQ scopes per nettsted.",
       "visitorPartialNote": "Besøkendes svar kan fortsatt inkludere delt eldre FAQ til en Core-isolasjonsoppdatering er autorisert."
-    }
+    },
+    "languageSearch": "Søk etter språk eller kode",
+    "languageNoMatch": "Ingen språk samsvarer med søket.",
+    "languageList": "Innholdsspråk",
+    "languageCollation": "nb"
   },
   "kompisOperator": {
     "title": "Kompis",

@@ -18,6 +18,7 @@ import {
   parseWebsiteKompisFaqList,
   parseWebsiteKompisFaqUpsertResult,
 } from "@/lib/website-kompis-faq/parse";
+import { resolveFaqContentLanguageForSave } from "@/lib/website-kompis-faq/content-languages";
 import {
   annotateWebsiteKompisFaqScope,
   filterWebsiteKompisFaqItemsForSiteContext,
@@ -185,6 +186,7 @@ export async function POST(request: Request) {
     const { sites } = await loadWebsiteKompisOwnedSites(auth.supabase);
 
     let existingInstallId: string | null = null;
+    let existingLocale: string | null = null;
     if (itemId) {
       const { data: existingRows, error: existingError } = await auth.supabase.rpc(
         "list_tenant_public_companion_faq_items",
@@ -206,6 +208,12 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "FAQ item not found" }, { status: 404 });
       }
       existingInstallId = existing.installId;
+      existingLocale = existing.locale;
+    }
+
+    const storedLocale = resolveFaqContentLanguageForSave(locale, existingLocale);
+    if (!storedLocale) {
+      return NextResponse.json({ error: "Unsupported FAQ content language" }, { status: 400 });
     }
 
     const writeGate = requireInstallIdForFaqWrite({
@@ -226,7 +234,7 @@ export async function POST(request: Request) {
       p_item_id: itemId,
       p_install_id: writeGate.installId,
       p_domain: writeGate.domain,
-      p_locale: locale,
+      p_locale: storedLocale,
       p_title: title,
       p_question:
         typeof body.question === "string"

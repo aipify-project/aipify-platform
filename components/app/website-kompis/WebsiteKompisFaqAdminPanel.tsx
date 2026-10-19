@@ -3,15 +3,16 @@
 import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
 import { WebsiteKompisFaqPreviewPanel } from "@/components/app/website-kompis/WebsiteKompisFaqPreviewPanel";
-import { WebsiteKompisFaqImportActions, WebsiteKompisFaqImportWorkspace } from "@/components/app/website-kompis/WebsiteKompisFaqImportWorkspace";
+import { WebsiteKompisFaqImportWorkspace } from "@/components/app/website-kompis/WebsiteKompisFaqImportWorkspace";
+import { FaqContentLanguagePicker } from "@/components/app/website-kompis/FaqContentLanguagePicker";
 import { FaqPermanentExpiryFields } from "@/components/app/website-kompis/FaqPermanentExpiryFields";
+import { Download, FileUp, Plus } from "lucide-react";
 import { WebsiteKompisFaqPublishDialog } from "@/components/app/website-kompis/WebsiteKompisFaqPublishDialog";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   WPKF_CONTENT_TYPES,
-  WPKF_LOCALES,
   WPKF_STATUSES,
   type WpkfContentType,
   type WpkfStatus,
@@ -492,6 +493,40 @@ export function WebsiteKompisFaqAdminPanel({
         {labels.warningBanner}
       </div>
 
+      {!editorOpen ? (
+        <div className="flex flex-col gap-3" data-faq-library-actions>
+          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+            <button
+              type="button"
+              onClick={openCreate}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#7357e8] px-4 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+            >
+              <Plus aria-hidden className="h-4 w-4" />
+              {labels.create}
+            </button>
+            <button
+              type="button"
+              disabled={siteState === "loading" || requiresSiteSelection || (!selectedInstallId && siteState !== "no_sites")}
+              onClick={() => setImportOpen(true)}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 text-sm font-medium text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+            >
+              <FileUp aria-hidden className="h-4 w-4 text-[#7357e8]" />
+              {labels.importFaq.open}
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            <a href="/api/website-kompis/faq/import/template?format=csv" className="inline-flex min-h-11 items-center gap-2 text-sm text-slate-600">
+              <Download aria-hidden className="h-4 w-4" />
+              {labels.importFaq.downloadCsv}
+            </a>
+            <a href="/api/website-kompis/faq/import/template?format=xlsx" className="inline-flex min-h-11 items-center gap-2 text-sm text-slate-600">
+              <Download aria-hidden className="h-4 w-4" />
+              {labels.importFaq.downloadXlsx}
+            </a>
+          </div>
+        </div>
+      ) : null}
+
       <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-3">
         <div>
           <p className="text-sm font-semibold text-slate-900">{labels.siteContext.label}</p>
@@ -573,23 +608,22 @@ export function WebsiteKompisFaqAdminPanel({
                 </select>
               </label>
 
-              <label className="text-sm">
+              <div className="text-sm">
                 <span className="mb-1 block text-xs font-medium text-slate-600">
                   {labels.filters.locale}
                 </span>
-                <select
+                <FaqContentLanguagePicker
                   value={localeFilter}
-                  onChange={(event) => setLocaleFilter(event.target.value)}
-                  className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
-                >
-                  <option value="">{labels.filters.all}</option>
-                  {WPKF_LOCALES.map((locale) => (
-                    <option key={locale} value={locale}>
-                      {labels.locales[locale]}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                  onChange={setLocaleFilter}
+                  labels={labels.locales}
+                  searchLabel={labels.languageSearch}
+                  noMatchLabel={labels.languageNoMatch}
+                  listLabel={labels.languageList}
+                  collationLocale={labels.languageCollation}
+                  allowEmpty
+                  emptyLabel={labels.filters.all}
+                />
+              </div>
 
               <label className="text-sm">
                 <span className="mb-1 block text-xs font-medium text-slate-600">
@@ -727,20 +761,6 @@ export function WebsiteKompisFaqAdminPanel({
             </section>
           )}
 
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={openCreate}
-              className="inline-flex min-h-11 items-center rounded-xl bg-[image:var(--app-primary-gradient)] px-4 text-sm font-medium text-white"
-            >
-              {labels.create}
-            </button>
-            <WebsiteKompisFaqImportActions
-              labels={labels.importFaq}
-              disabled={siteState === "loading" || requiresSiteSelection || (!selectedInstallId && siteState !== "no_sites")}
-              onOpen={() => setImportOpen(true)}
-            />
-          </div>
         </>
       ) : (
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
@@ -805,20 +825,18 @@ export function WebsiteKompisFaqAdminPanel({
                 />
               </label>
 
-              <label className="text-sm">
+              <div className="text-sm">
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.locale}</span>
-                <select
+                <FaqContentLanguagePicker
                   value={draft.locale}
-                  onChange={(event) => setDraft((current) => ({ ...current, locale: event.target.value }))}
-                  className="w-full rounded-md border border-slate-300 px-3 py-2"
-                >
-                  {WPKF_LOCALES.map((locale) => (
-                    <option key={locale} value={locale}>
-                      {labels.locales[locale]}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                  onChange={(locale) => setDraft((current) => ({ ...current, locale }))}
+                  labels={labels.locales}
+                  searchLabel={labels.languageSearch}
+                  noMatchLabel={labels.languageNoMatch}
+                  listLabel={labels.languageList}
+                  collationLocale={labels.languageCollation}
+                />
+              </div>
 
               <label className="text-sm">
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.contentType}</span>
