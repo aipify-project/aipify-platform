@@ -15,6 +15,11 @@ import {
   type WebsiteKompisAnswerReceiptInput,
   type WebsiteKompisAnswerSourceSnapshot,
 } from "@/lib/marketing/website-kompis-answer-feedback";
+import {
+  feedbackReviewCloseCapability,
+  parseFeedbackReviewPage,
+  type FeedbackReviewPage,
+} from "@/lib/website-kompis-feedback/review-close";
 
 export function hashWebsiteKompisVisitorKey(rawKey: string): string {
   return createHash("sha256").update(`wk-visitor:${rawKey.trim()}`).digest("hex");
@@ -235,12 +240,15 @@ export async function recordWebsiteKompisAnswerFeedback(
 
 export type WebsiteKompisAnswerFeedbackOverview = {
   persistenceReady: boolean;
+  reviewCloseReady: boolean;
+  reviewPageReady: boolean;
   totals: {
     answers: number;
     helpful: number;
     notHelpful: number;
     withComment: number;
     needsReview: number | null;
+    history: number | null;
   };
   recent: Array<{
     id: string;
@@ -254,22 +262,33 @@ export type WebsiteKompisAnswerFeedbackOverview = {
     reviewStatus: "open" | "closed" | null;
     reviewedAt: string | null;
   }>;
+  reviewPage: FeedbackReviewPage | null;
+  historyPage: FeedbackReviewPage | null;
 };
 
 export async function getWebsiteKompisAnswerFeedbackOverview(
   supabase: SupabaseClient,
-  options?: { limit?: number },
+  options?: { limit?: number; queue?: "review" | "history" | null; before?: string | null; beforeId?: string | null },
 ): Promise<WebsiteKompisAnswerFeedbackOverview> {
   const limit = Math.min(Math.max(options?.limit ?? 40, 1), 100);
   const empty: WebsiteKompisAnswerFeedbackOverview = {
     persistenceReady: false,
-    totals: { answers: 0, helpful: 0, notHelpful: 0, withComment: 0, needsReview: null },
+    reviewCloseReady: false,
+    reviewPageReady: false,
+    totals: { answers: 0, helpful: 0, notHelpful: 0, withComment: 0, needsReview: null, history: null },
     recent: [],
+    reviewPage: null,
+    historyPage: null,
   };
 
-  const { data, error } = await supabase.rpc(GET_WEBSITE_KOMPIS_ANSWER_FEEDBACK_OVERVIEW_RPC, {
-    p_limit: limit,
-  });
+  const args: Record<string, unknown> = { p_limit: limit };
+  if (options?.queue === "review" || options?.queue === "history") {
+    args.p_queue = options.queue;
+    if (options.before) args.p_before = options.before;
+    if (options.beforeId) args.p_before_id = options.beforeId;
+  }
+
+  const { data, error } = await supabase.rpc(GET_WEBSITE_KOMPIS_ANSWER_FEEDBACK_OVERVIEW_RPC, args);
 
   if (error) {
     if (isMissingRpcError(error)) return empty;
@@ -300,7 +319,18 @@ export async function getWebsiteKompisAnswerFeedbackOverview(
         typeof totals.needs_review === "number" && Number.isFinite(totals.needs_review)
           ? totals.needs_review
           : null,
+      history:
+        typeof totals.history === "number" && Number.isFinite(totals.history)
+          ? totals.history
+          : null,
     },
+    reviewCloseReady: feedbackReviewCloseCapability({
+      reviewCloseReady: row.review_close_ready,
+      reviewPageReady: row.review_page_ready,
+    }),
+    reviewPageReady: row.review_page_ready === true,
+    reviewPage: parseFeedbackReviewPage(row.review_page),
+    historyPage: parseFeedbackReviewPage(row.history_page),
     recent: recentRaw
       .filter((entry): entry is Record<string, unknown> => !!entry && typeof entry === "object")
       .map((entry) => {

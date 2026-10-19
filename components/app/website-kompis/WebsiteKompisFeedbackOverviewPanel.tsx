@@ -15,7 +15,6 @@ import { WebsiteKompisPublishedFaqList } from "@/components/app/website-kompis/W
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import {
   FEEDBACK_REVIEW_BADGE_CLASS,
-  FEEDBACK_REVIEW_CLOSE_READY,
   FEEDBACK_REVIEW_PAGE_SIZE,
   filterFeedbackOpsRows,
   partitionFeedbackWorkspace,
@@ -26,6 +25,11 @@ import {
   type FeedbackOpsRow,
   type FeedbackOpsVoteFilter,
 } from "@/lib/website-kompis-feedback/operations-model";
+import {
+  appendFeedbackRows,
+  type FeedbackReviewCursor,
+  type FeedbackReviewPage,
+} from "@/lib/website-kompis-feedback/review-close";
 
 type OverviewPayload = {
   ok?: boolean;
@@ -36,9 +40,21 @@ type OverviewPayload = {
     notHelpful: number;
     withComment: number;
     needsReview?: number | null;
+    history?: number | null;
   };
   recent?: FeedbackOpsRow[];
+  reviewCloseReady?: boolean;
+  reviewPageReady?: boolean;
+  reviewPage?: FeedbackReviewPage | null;
+  historyPage?: FeedbackReviewPage | null;
   error?: string;
+};
+
+type ServerLists = {
+  review: FeedbackOpsRow[];
+  history: FeedbackOpsRow[];
+  reviewNext: FeedbackReviewCursor | null;
+  historyNext: FeedbackReviewCursor | null;
 };
 
 type ViewId = "review" | "published" | "history";
@@ -94,6 +110,8 @@ export function WebsiteKompisFeedbackOverviewPanel({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<OverviewPayload | null>(null);
+  const [serverLists, setServerLists] = useState<ServerLists | null>(null);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [visible, setVisible] = useState(FEEDBACK_REVIEW_PAGE_SIZE);
@@ -139,17 +157,31 @@ export function WebsiteKompisFeedbackOverviewPanel({
       if (response.status === 401 || response.status === 403) {
         setError(labels.accessDenied);
         setData(null);
+        setServerLists(null);
         return;
       }
       if (!response.ok) {
         setError(labels.errorGeneric);
         setData(null);
+        setServerLists(null);
         return;
       }
-      setData((await response.json()) as OverviewPayload);
+      const payload = (await response.json()) as OverviewPayload;
+      setData(payload);
+      setServerLists(
+        payload.reviewPageReady === true && payload.reviewCloseReady === true
+          ? {
+              review: payload.reviewPage?.rows ?? [],
+              history: payload.historyPage?.rows ?? [],
+              reviewNext: payload.reviewPage?.next ?? null,
+              historyNext: payload.historyPage?.next ?? null,
+            }
+          : null,
+      );
     } catch {
       setError(labels.errorGeneric);
       setData(null);
+      setServerLists(null);
     } finally {
       setLoading(false);
     }
@@ -159,7 +191,10 @@ export function WebsiteKompisFeedbackOverviewPanel({
     void load();
   }, [load]);
 
-  const recent = useMemo(() => data?.recent ?? [], [data]);
+  const recent = useMemo(() => {
+    if (serverLists) return appendFeedbackRows(serverLists.review, serverLists.history);
+    return data?.recent ?? [];
+  }, [data, serverLists]);
   const filtered = useMemo(
     () =>
       filterFeedbackOpsRows(recent, {
@@ -177,7 +212,49 @@ export function WebsiteKompisFeedbackOverviewPanel({
   const reviewQueue = useMemo(() => selectKnowledgeGapCandidates(filtered), [filtered]);
   const activeRows = view === "history" ? partitioned.history : reviewQueue;
   const page = takeFeedbackPage(activeRows, visible);
+  const serverNext = view === "history" ? serverLists?.historyNext : serverLists?.reviewNext;
+  const canLoadOlder = Boolean(serverLists && serverNext && visible >= activeRows.length);
   const selected = recent.find((row) => row.id === selectedId) ?? null;
+
+  async function showMore() {
+    if (page.hasMore) {
+      setVisible((current) => current + FEEDBACK_REVIEW_PAGE_SIZE);
+      return;
+    }
+    if (!serverLists || !serverNext || loadingMore) return;
+    setLoadingMore(true);
+    try {
+      const params = new URLSearchParams({
+        limit: "100",
+        queue: view === "history" ? "history" : "review",
+        before: serverNext.before,
+        beforeId: serverNext.beforeId,
+      });
+      const response = await fetch(`/api/website-kompis/feedback?${params.toString()}`);
+      if (!response.ok) return;
+      const payload = (await response.json()) as OverviewPayload;
+      const incoming = view === "history" ? payload.historyPage : payload.reviewPage;
+      if (!incoming || !payload.reviewPageReady || !payload.reviewCloseReady) return;
+      setServerLists((current) => {
+        if (!current) return current;
+        if (view === "history") {
+          return {
+            ...current,
+            history: appendFeedbackRows(current.history, incoming.rows),
+            historyNext: incoming.next,
+          };
+        }
+        return {
+          ...current,
+          review: appendFeedbackRows(current.review, incoming.rows),
+          reviewNext: incoming.next,
+        };
+      });
+      setVisible((current) => current + FEEDBACK_REVIEW_PAGE_SIZE);
+    } finally {
+      setLoadingMore(false);
+    }
+  }
   const locales = useMemo(
     () => Array.from(new Set(recent.map((row) => row.locale).filter((value): value is string => Boolean(value)))),
     [recent],
@@ -219,9 +296,9 @@ export function WebsiteKompisFeedbackOverviewPanel({
     { label: labels.totals.needsReview, value: reviewTotal, icon: ClipboardCheck, chip: FEEDBACK_REVIEW_BADGE_CLASS },
   ];
   const tabs: Array<{ id: ViewId; label: string; count: number | null }> = [
-    { id: "review", label: labels.quality.tabs.review, count: reviewQueue.length },
+    { id: "review", label: labels.quality.tabs.review, count: serverLists ? reviewTotal : reviewQueue.length },
     { id: "published", label: labels.quality.tabs.published, count: null },
-    { id: "history", label: labels.quality.tabs.history, count: partitioned.history.length },
+    { id: "history", label: labels.quality.tabs.history, count: serverLists ? (totals.history ?? partitioned.history.length) : partitioned.history.length },
   ];
 
   return (
@@ -376,7 +453,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
               <p className="mt-1 max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">
                 {view === "history" ? labels.scopeNote : labels.sectionReviewQueueHint}
               </p>
-              {view === "review" && reviewTotal > reviewQueue.length ? (
+              {view === "review" && !serverLists && reviewTotal > reviewQueue.length ? (
                 <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.quality.windowGap}</p>
               ) : null}
             </div>
@@ -429,11 +506,12 @@ export function WebsiteKompisFeedbackOverviewPanel({
                 ))}
               </ul>
             )}
-            {page.hasMore ? (
+            {page.hasMore || canLoadOlder ? (
               <button
                 type="button"
-                onClick={() => setVisible((current) => current + FEEDBACK_REVIEW_PAGE_SIZE)}
-                className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+                disabled={loadingMore}
+                onClick={() => void showMore()}
+                className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] disabled:opacity-60"
               >
                 {labels.quality.showMore}
               </button>
@@ -453,7 +531,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
           row={selected}
           labels={labels}
           onClose={() => setSelectedId(null)}
-          closeReady={FEEDBACK_REVIEW_CLOSE_READY}
+          closeReady={data?.reviewCloseReady === true}
           onReviewClosed={async () => {
             setSelectedId(null);
             await load();

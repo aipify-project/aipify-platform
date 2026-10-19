@@ -35,6 +35,9 @@ export async function POST(_request: Request, context: RouteContext) {
       if (/owner or admin|forbidden/i.test(error.message)) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
       }
+      if (/not eligible/i.test(error.message)) {
+        return NextResponse.json({ error: "This feedback cannot be closed." }, { status: 409 });
+      }
       if (/not found/i.test(error.message)) {
         return NextResponse.json({ error: "Feedback not found" }, { status: 404 });
       }

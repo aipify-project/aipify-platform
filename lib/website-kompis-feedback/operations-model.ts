@@ -225,8 +225,9 @@ export function selectKnowledgeGapCandidates(rows: FeedbackOpsRow[]): FeedbackOp
 export const OWNER_REVIEW_APPROVAL_SUPPORTED = false;
 
 /**
- * The close RPC is not in Core yet. The button stays off until the owner
- * applies the reviewed SQL file and this flag is turned on in a later change.
+ * Assumed Core capability. Stays false. The button uses the overview flags
+ * review_close_ready and review_page_ready, which are absent until the
+ * reviewed page SQL is applied.
  */
 export const FEEDBACK_REVIEW_CLOSE_READY = false;
 

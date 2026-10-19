@@ -16,14 +16,25 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const limitRaw = Number(url.searchParams.get("limit") ?? "40");
     const limit = Number.isFinite(limitRaw) ? limitRaw : 40;
+    const queueParam = url.searchParams.get("queue");
+    const queue = queueParam === "review" || queueParam === "history" ? queueParam : null;
 
-    const overview = await getWebsiteKompisAnswerFeedbackOverview(supabase, { limit });
+    const overview = await getWebsiteKompisAnswerFeedbackOverview(supabase, {
+      limit,
+      queue,
+      before: url.searchParams.get("before"),
+      beforeId: url.searchParams.get("beforeId"),
+    });
 
     return NextResponse.json({
       ok: true,
       persistenceReady: overview.persistenceReady,
+      reviewCloseReady: overview.reviewCloseReady,
+      reviewPageReady: overview.reviewPageReady,
       totals: overview.totals,
       recent: overview.recent,
+      reviewPage: overview.reviewPage,
+      historyPage: overview.historyPage,
       reuseEnabled: false,
       reuseNote:
         "Helpful votes are prioritization signals only. Automatic answer reuse stays off until source-control gates are applied.",
