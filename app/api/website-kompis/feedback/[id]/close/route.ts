@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { FEEDBACK_REVIEW_CLOSE_READY } from "@/lib/website-kompis-feedback/operations-model";
+import { reviewCloseIsBlocked } from "@/lib/website-kompis-feedback/publish-review";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -14,6 +16,13 @@ export async function POST(_request: Request, context: RouteContext) {
     const { id } = await context.params;
     if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)) {
       return NextResponse.json({ error: "Invalid feedback id" }, { status: 400 });
+    }
+
+    if (reviewCloseIsBlocked(FEEDBACK_REVIEW_CLOSE_READY)) {
+      return NextResponse.json(
+        { error: "Review close is not available.", code: "review_close_unavailable" },
+        { status: 501 },
+      );
     }
 
     const { data, error } = await supabase.rpc("close_website_kompis_answer_feedback_review", {
