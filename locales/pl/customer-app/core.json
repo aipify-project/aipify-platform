@@ -1005,7 +1005,9 @@
       "needsReview": "Do przeglądu",
       "commented": "Z komentarzem",
       "noFeedbackSignal": "Brak oceny",
-      "closed": "Usunięto z przeglądu"
+      "closed": "Usunięto z przeglądu",
+      "published": "Opublikowano jako FAQ",
+      "rejected": "Odrzucono"
     },
     "actions": {
       "reviewAnswer": "Przejrzyj",
@@ -1048,6 +1050,9 @@
       "removing": "Usuwanie…",
       "removeFromReviewError": "Sprawa nadal jest w przeglądzie. Nic nie zostało usunięte.",
       "reviewedAt": "Usunięto z przeglądu",
+      "answerHeading": "Odpowiedź Kompisa",
+      "commentHeading": "Opinia odwiedzającego",
+      "noCommentAdded": "Nie dodano komentarza.",
       "savedDraft": "Szkic został zapisany.",
       "publishedOk": "FAQ jest opublikowane",
       "privacy": "Publikacja pokazuje pytanie i odpowiedź odwiedzającym. Sprawdź tekst przed publikacją.",
@@ -1063,6 +1068,12 @@
       "saving": "Zapisywanie…",
       "publishError": "Publikacja nie została potwierdzona. Twój tekst został zachowany.",
       "publishRetry": "FAQ zapisano jako wersję roboczą, ale publikacja nie powiodła się. Spróbuj ponownie.",
+      "dispositionPending": "FAQ jest opublikowane, ale sprawa pozostaje otwarta. Spróbuj ponownie. Zostanie użyte to samo FAQ.",
+      "rejectSpam": "Odrzuć jako spam",
+      "rejectSpamTitle": "Odrzucić tę sprawę?",
+      "rejectSpamBody": "To usuwa sprawę z listy pracy i zachowuje historię. Wiersz nie jest usuwany.",
+      "rejectSpamConfirm": "Odrzuć sprawę",
+      "rejectSpamError": "Sprawa pozostaje otwarta. Spróbuj ponownie.",
       "publishing": "Publikowanie…",
       "saveError": "Szkic nie został zapisany. Twój tekst został zachowany.",
       "publishOnlyDraft": "Tutaj można opublikować tylko nowy szkic. Już opublikowane FAQ nie jest aktualizowane z tej strony.",

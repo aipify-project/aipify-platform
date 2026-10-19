@@ -7538,7 +7538,9 @@
       "needsReview": "Behöver granskning",
       "commented": "Kommenterad",
       "noFeedbackSignal": "Ingen bedömning",
-      "closed": "Borttagen från granskning"
+      "closed": "Borttagen från granskning",
+      "published": "Publicerad som FAQ",
+      "rejected": "Avvisad"
     },
     "actions": {
       "reviewAnswer": "Granska",
@@ -7581,6 +7583,9 @@
       "removing": "Tar bort…",
       "removeFromReviewError": "Ärendet ligger kvar för granskning. Ingenting raderades.",
       "reviewedAt": "Borttagen från granskning",
+      "answerHeading": "Kompis svar",
+      "commentHeading": "Besökarens återkoppling",
+      "noCommentAdded": "Ingen kommentar lades till.",
       "savedDraft": "Utkastet är sparat.",
       "publishedOk": "FAQ är publicerad",
       "privacy": "Publicering gör frågan och svaret synliga för besökare. Kontrollera texten innan du publicerar.",
@@ -7596,6 +7601,12 @@
       "saving": "Sparar…",
       "publishError": "Publiceringen bekräftades inte. Din text är kvar.",
       "publishRetry": "FAQ sparades som utkast, men publiceringen misslyckades. Försök igen.",
+      "dispositionPending": "FAQ:n är publicerad, men ärendet är fortfarande öppet. Försök igen. Samma FAQ används på nytt.",
+      "rejectSpam": "Avvisa som skräp",
+      "rejectSpamTitle": "Avvisa det här ärendet?",
+      "rejectSpamBody": "Detta tar bort ärendet från arbetslistan och behåller historiken. Raden raderas inte.",
+      "rejectSpamConfirm": "Avvisa ärendet",
+      "rejectSpamError": "Ärendet är fortfarande öppet. Försök igen.",
       "publishing": "Publicerar …",
       "saveError": "Utkastet sparades inte. Din text är kvar.",
       "publishOnlyDraft": "Bara ett nytt utkast kan publiceras här. En redan publicerad FAQ uppdateras inte från den här sidan.",

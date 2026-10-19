@@ -7538,7 +7538,9 @@
       "needsReview": "Trenger gjennomgang",
       "commented": "Kommentert",
       "noFeedbackSignal": "Ingen vurdering",
-      "closed": "Fjernet fra gjennomgang"
+      "closed": "Fjernet fra gjennomgang",
+      "published": "Publisert som FAQ",
+      "rejected": "Avvist"
     },
     "actions": {
       "reviewAnswer": "Gjennomgå",
@@ -7581,6 +7583,9 @@
       "removing": "Fjerner…",
       "removeFromReviewError": "Saken ligger fortsatt til gjennomgang. Ingenting ble slettet.",
       "reviewedAt": "Fjernet fra gjennomgang",
+      "answerHeading": "Kompis sitt svar",
+      "commentHeading": "Kundens tilbakemelding",
+      "noCommentAdded": "Ingen kommentar ble lagt til.",
       "savedDraft": "Utkastet er lagret.",
       "publishedOk": "FAQ er publisert",
       "privacy": "Publisering gjør spørsmålet og svaret synlig for besøkende. Kontroller teksten før du publiserer.",
@@ -7596,6 +7601,12 @@
       "saving": "Lagrer…",
       "publishError": "Publiseringen ble ikke bekreftet. Teksten din er beholdt.",
       "publishRetry": "FAQ ble lagret som utkast, men publisering mislyktes. Prøv igjen.",
+      "dispositionPending": "FAQ-en er publisert, men saken er fortsatt åpen. Prøv igjen. Samme FAQ brukes på nytt.",
+      "rejectSpam": "Avvis som søppel",
+      "rejectSpamTitle": "Avvise denne saken?",
+      "rejectSpamBody": "Dette fjerner saken fra arbeidslisten og beholder historikken. Raden slettes ikke.",
+      "rejectSpamConfirm": "Avvis saken",
+      "rejectSpamError": "Saken er fortsatt åpen. Prøv igjen.",
       "publishing": "Publiserer …",
       "saveError": "Utkastet ble ikke lagret. Teksten din er beholdt.",
       "publishOnlyDraft": "Bare et nytt utkast kan publiseres her. En allerede publisert FAQ oppdateres ikke fra denne siden.",

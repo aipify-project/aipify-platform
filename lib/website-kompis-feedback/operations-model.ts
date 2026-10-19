@@ -18,7 +18,10 @@ export type FeedbackOpsRow = {
   locale: string | null;
   createdAt: string;
   reviewStatus?: "open" | "closed" | null;
+  reviewDisposition?: "open" | "published" | "rejected" | null;
   reviewedAt?: string | null;
+  installId?: string | null;
+  publishedFaqItemId?: string | null;
 };
 
 export type FeedbackOpsStatusTone = "emerald" | "amber" | "slate" | "purple" | "review";
@@ -30,7 +33,7 @@ export const FEEDBACK_REVIEW_BADGE_CLASS =
 export type FeedbackOpsStatus = {
   tone: FeedbackOpsStatusTone;
   /** i18n key suffix under customerApp.websiteKompisFeedback.status.* */
-  key: "helpful" | "needsReview" | "commented" | "noFeedbackSignal" | "closed";
+  key: "helpful" | "needsReview" | "commented" | "noFeedbackSignal" | "closed" | "published" | "rejected";
 };
 
 export type FeedbackOpsNextAction = {
@@ -124,6 +127,12 @@ export const WEBSITE_KOMPIS_FEEDBACK_FIELD_MATRIX = [
 ] as const;
 
 export function resolveFeedbackOpsStatus(row: FeedbackOpsRow): FeedbackOpsStatus {
+  if (row.reviewDisposition === "published") {
+    return { tone: "emerald", key: "published" };
+  }
+  if (row.reviewDisposition === "rejected") {
+    return { tone: "slate", key: "rejected" };
+  }
   if (row.reviewStatus === "closed") {
     return { tone: "slate", key: "closed" };
   }
@@ -229,6 +238,13 @@ export const OWNER_REVIEW_APPROVAL_SUPPORTED = false;
  * applies the reviewed SQL file and this flag is turned on in a later change.
  */
 export const FEEDBACK_REVIEW_CLOSE_READY = false;
+
+/**
+ * The disposition RPCs are not in Core yet. Review completion and spam
+ * rejection stay off until the owner applies the disposition SQL and a later
+ * change turns this flag on. The existing overview remains the live queue.
+ */
+export const FEEDBACK_REVIEW_DISPOSITION_READY = false;
 
 export function canOfferFeedbackReviewClose(
   row: Pick<FeedbackOpsRow, "vote" | "reviewStatus">,
