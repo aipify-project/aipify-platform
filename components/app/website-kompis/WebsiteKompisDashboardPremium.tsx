@@ -91,8 +91,14 @@ export function WebsiteKompisDashboardPremium({
       <section className="relative overflow-hidden rounded-3xl border border-[#E4E6F2] bg-white shadow-[0_12px_32px_rgba(65,54,132,0.06)]">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[min(46%,460px)] bg-cover bg-right bg-no-repeat lg:block"
-          style={{ backgroundImage: "url(/website-kompis/dashboard/kompis_hero_glow_premium_v2.png)" }}
+          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[min(46%,460px)] bg-contain bg-right bg-no-repeat lg:block"
+          style={{
+            backgroundImage: "url(/website-kompis/dashboard/kompis_hero_glow_premium_v2.png)",
+            maskImage:
+              "radial-gradient(ellipse 72% 64% at 64% 42%, #000 22%, rgba(0,0,0,0.45) 48%, transparent 70%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 72% 64% at 64% 42%, #000 22%, rgba(0,0,0,0.45) 48%, transparent 70%)",
+          }}
         />
         <div className="relative grid gap-6 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-end lg:gap-10">
           <div className="relative z-10 min-w-0">
