@@ -1017,7 +1017,7 @@
     },
     "dashboard": {
       "title": "Sygnały jakości",
-      "description": "Bieżące sumy z opinii Website Kompis — ten sam zakres tenanta co obszar Q&A."
+      "description": "Opinie o odpowiedziach Kompisa."
     },
     "filterFrom": "Od",
     "filterTo": "Do",
@@ -1126,7 +1126,7 @@
     "neverAutoPublish": "Opinie i sugestie nigdy nie publikują się automatycznie. Zawsze zatwierdzasz szkic i publikację.",
     "bedriftNotMixed": "Prywatna wiedza Kompis Bedrift nigdy nie jest pokazywana ani mieszana w tym publicznym Centrum wiedzy.",
     "dashboardTitle": "Status wiedzy",
-    "dashboardDescription": "Aktualne liczby FAQ i sygnały opinii dla Twojej organizacji — te same źródła co Centrum wiedzy."
+    "dashboardDescription": "Treść FAQ dla Twojego obszaru roboczego."
   },
   "websiteKompisConnection": {
     "title": "Status połączenia",

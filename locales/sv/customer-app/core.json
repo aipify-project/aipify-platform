@@ -7550,7 +7550,7 @@
     },
     "dashboard": {
       "title": "Kvalitetssignaler",
-      "description": "Live-totaler från Website Kompis-feedback — samma tenant-scope som Q&A-ytan."
+      "description": "Återkoppling på svar från Kompis."
     },
     "filterFrom": "Från",
     "filterTo": "Till",
@@ -7659,7 +7659,7 @@
     "neverAutoPublish": "Feedback och förslag publiceras aldrig automatiskt. Du bekräftar alltid utkast och publicering.",
     "bedriftNotMixed": "Privat Kompis Bedrift-kunskap visas aldrig eller blandas in i detta offentliga Kunskapscenter.",
     "dashboardTitle": "Kunskapsstatus",
-    "dashboardDescription": "Live FAQ-siffror och feedbacksignaler för din organisation — samma källor som Kunskapscentret."
+    "dashboardDescription": "FAQ-innehåll för din arbetsyta."
   },
   "websiteKompisConnection": {
     "title": "Anslutningsstatus",

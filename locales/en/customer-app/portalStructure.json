@@ -8460,7 +8460,7 @@
       }
     },
     "webHub": {
-      "description": "Manage your public website companion: visitor questions, FAQ, connection, and appearance.",
+      "description": "Manage Kompis Web: visitor questions, knowledge, and the connection to your website.",
       "qaDescription": "Review visitor questions and feedback from your website.",
       "faqDescription": "Publish and maintain public FAQ and knowledge for your website — pages and documents when available.",
       "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
@@ -8468,13 +8468,16 @@
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
       "operatorLink": "Open website publisher (Kompis)",
       "presenceReady": "Aipify is ready to help on your verified pages.",
-      "hintPublished": "Visible on the website",
-      "hintDraft": "Not published yet",
-      "hintArchived": "Archived questions",
-      "hintReview": "Ready for your review",
-      "hintAnswers": "Feedback recorded so far",
-      "hintHelpful": "Rated as helpful",
-      "hintNotHelpful": "Rated as not helpful",
+      "hintPublished": "Visible to visitors",
+      "hintDraft": "Waiting for review and publishing",
+      "hintArchived": "Not active content",
+      "hintReview": "Open cases to handle",
+      "hintAnswers": "Answers Kompis has recorded",
+      "hintHelpful": "Rated helpful",
+      "hintNotHelpful": "Rated not helpful",
+      "hintReviewUnseparated": "Shown as not-helpful until open cases can be stored separately",
+      "knowledgeWindowNote": "The figures cover the newest {minimum} FAQs, not the whole library.",
+      "shortcutCreate": "Start an FAQ draft that you publish yourself.",
       "domainCount": "{count} domains"
     },
     "foundationDashboard": {

@@ -20,6 +20,11 @@ assert.match(page, /kompisWebModules/);
 assert.match(view, /kompis_mascot_premium_v2\.png/);
 assert.doesNotMatch(page + view, /AI-assistent|AI assistant|\+12%|\+23%/);
 assert.match(page, /needsReview \?\? overview\.totals\.notHelpful/);
+assert.doesNotMatch(page, /feedbackNeedsReview/);
+assert.match(page, /knowledgeWindowNote/);
+assert.match(page, /hintReviewUnseparated/);
+assert.match(view, /lg:grid-cols-3/);
+assert.match(view, /tabular-nums/);
 assert.match(page, /aggregate === "active"/);
 
 console.log("dashboard-premium.test.ts: ok");

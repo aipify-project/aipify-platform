@@ -8536,7 +8536,7 @@
       }
     },
     "webHub": {
-      "description": "Manage your public website companion: visitor questions, FAQ, connection, and appearance.",
+      "description": "Administrer Kompis Web: spørgsmål fra besøgende, viden og forbindelse til dit website.",
       "qaDescription": "Review visitor questions and feedback from your website.",
       "faqDescription": "Publicér og vedligehold offentlig FAQ og viden til dit website — sider og dokumenter når tilgængeligt.",
       "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
@@ -8544,13 +8544,16 @@
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
       "operatorLink": "Open website publisher (Kompis)",
       "presenceReady": "Aipify er klar til at hjælpe på de verificerede sider.",
-      "hintPublished": "Synlige på websitet",
-      "hintDraft": "Ikke udgivet endnu",
-      "hintArchived": "Arkiverede spørgsmål",
-      "hintReview": "Klar til din gennemgang",
-      "hintAnswers": "Tilbagemeldinger registreret indtil nu",
-      "hintHelpful": "Vurderet som nyttige",
-      "hintNotHelpful": "Vurderet som ikke nyttige",
+      "hintPublished": "Synligt for besøgende",
+      "hintDraft": "Venter på gennemgang og publicering",
+      "hintArchived": "Ikke aktivt indhold",
+      "hintReview": "Åbne sager der bør behandles",
+      "hintAnswers": "Svar Kompis har registreret",
+      "hintHelpful": "Vurderet som nyttigt",
+      "hintNotHelpful": "Vurderet som ikke nyttigt",
+      "hintReviewUnseparated": "Vises som ikke nyttige, indtil åbne sager kan gemmes for sig",
+      "knowledgeWindowNote": "Tallene gælder de nyeste {minimum} FAQ'er, ikke hele biblioteket.",
+      "shortcutCreate": "Start et FAQ-udkast, du selv publicerer.",
       "domainCount": "{count} domæner"
     },
     "foundationDashboard": {

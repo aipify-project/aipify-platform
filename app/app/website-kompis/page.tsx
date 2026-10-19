@@ -1,4 +1,20 @@
-import { Archive, BookOpen, CircleAlert, FileText, MessagesSquare, ThumbsDown, ThumbsUp } from "lucide-react";
+import {
+  Archive,
+  BookOpen,
+  CircleAlert,
+  FileText,
+  Globe,
+  Link2,
+  MessagesSquare,
+  Package,
+  Palette,
+  Plus,
+  Puzzle,
+  Server,
+  ShieldCheck,
+  ThumbsDown,
+  ThumbsUp,
+} from "lucide-react";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { WebsiteKompisDashboardPremium } from "@/components/app/website-kompis/WebsiteKompisDashboardPremium";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
@@ -47,13 +63,27 @@ export default async function WebsiteKompisHubPage() {
           : "slate";
   const contextParts = [ctx.organizationName, ctx.planLabel].filter((part): part is string => Boolean(part?.trim()));
   const reviewCount = overview.totals.needsReview ?? overview.totals.notHelpful;
-  const checkpointSignals = (["domain", "installation", "product"] as const)
-    .map((id) => connection.summary.checkpoints.find((checkpoint) => checkpoint.id === id))
-    .filter((checkpoint): checkpoint is NonNullable<typeof checkpoint> => Boolean(checkpoint))
-    .map((checkpoint) => ({
-      label: connectionLabels.checkpoints[checkpoint.id],
-      value: (connectionLabels.checkpointState as Record<string, string>)[checkpoint.state] ?? checkpoint.state,
-    }));
+  const reviewHintKey =
+    typeof overview.totals.needsReview === "number"
+      ? "customerApp.portalStructure.webHub.hintReview"
+      : "customerApp.portalStructure.webHub.hintReviewUnseparated";
+  const checkpointSignals = (
+    [
+      { id: "domain" as const, icon: Globe },
+      { id: "installation" as const, icon: Server },
+      { id: "product" as const, icon: Package },
+    ] as const
+  ).flatMap(({ id, icon }) => {
+    const checkpoint = connection.summary.checkpoints.find((item) => item.id === id);
+    if (!checkpoint) return [];
+    return [
+      {
+        label: connectionLabels.checkpoints[id],
+        value: (connectionLabels.checkpointState as Record<string, string>)[checkpoint.state] ?? checkpoint.state,
+        icon,
+      },
+    ];
+  });
 
   return (
     <AppHubShell
@@ -81,10 +111,9 @@ export default async function WebsiteKompisHubPage() {
         knowledgeMetrics={
           knowledge.faqLoadOk
             ? [
-                { label: knowledgeLabels.counts.published, hint: t("customerApp.portalStructure.webHub.hintPublished"), value: knowledge.faq.published, icon: BookOpen, chip: "bg-[#E9F8F0] text-[#146C43]" },
-                { label: knowledgeLabels.counts.draft, hint: t("customerApp.portalStructure.webHub.hintDraft"), value: knowledge.faq.draft, icon: FileText, chip: "bg-[#F2EFFF] text-[#5538D3]" },
-                { label: knowledgeLabels.counts.archived, hint: t("customerApp.portalStructure.webHub.hintArchived"), value: knowledge.faq.archived, icon: Archive, chip: "bg-[#F4F6FB] text-[#5F6788]" },
-                { label: knowledgeLabels.counts.needsReview, hint: t("customerApp.portalStructure.webHub.hintReview"), value: knowledge.feedbackNeedsReview, icon: CircleAlert, chip: "bg-[#FFF3DF] text-[#8A5A10]" },
+                { label: knowledgeLabels.counts.published, hint: t("customerApp.portalStructure.webHub.hintPublished"), value: knowledge.faq.published, icon: BookOpen, chip: "bg-[#E9F8F0] text-[#146C43]", wash: "bg-gradient-to-br from-white to-[#F3FBF7]" },
+                { label: knowledgeLabels.counts.draft, hint: t("customerApp.portalStructure.webHub.hintDraft"), value: knowledge.faq.draft, icon: FileText, chip: "bg-[#F3EDFF] text-[#7055EE]", wash: "bg-gradient-to-br from-white to-[#F7F4FF]" },
+                { label: knowledgeLabels.counts.archived, hint: t("customerApp.portalStructure.webHub.hintArchived"), value: knowledge.faq.archived, icon: Archive, chip: "bg-[#F4F6FB] text-[#5F6788]", wash: "bg-gradient-to-br from-white to-[#F7F8FC]" },
               ]
             : null
         }
@@ -92,7 +121,7 @@ export default async function WebsiteKompisHubPage() {
           knowledge.faqLoadOk
             ? knowledge.faqWindow.totalState === "exact_tenant"
               ? knowledgeLabels.counts.windowExact.replace("{total}", String(knowledge.faqWindow.tenantTotal ?? 0))
-              : knowledgeLabels.counts.windowLimited.replace("{minimum}", String(knowledge.faqWindow.tenantMinimum))
+              : t("customerApp.portalStructure.webHub.knowledgeWindowNote").replace("{minimum}", String(knowledge.faqWindow.tenantMinimum))
             : null
         }
         qualityTitle={feedbackLabels.dashboard.title}
@@ -100,19 +129,20 @@ export default async function WebsiteKompisHubPage() {
         qualityMetrics={
           overview.persistenceReady
             ? [
-                { label: feedbackLabels.totals.answers, hint: t("customerApp.portalStructure.webHub.hintAnswers"), value: overview.totals.answers, icon: MessagesSquare, chip: "bg-[#EEF3FF] text-[#3E4EC2]" },
-                { label: feedbackLabels.totals.helpful, hint: t("customerApp.portalStructure.webHub.hintHelpful"), value: overview.totals.helpful, icon: ThumbsUp, chip: "bg-[#E9F8F0] text-[#146C43]" },
-                { label: feedbackLabels.totals.notHelpful, hint: t("customerApp.portalStructure.webHub.hintNotHelpful"), value: overview.totals.notHelpful, icon: ThumbsDown, chip: "bg-[#FFE8EE] text-[#9F1239]" },
-                { label: feedbackLabels.totals.needsReview, hint: t("customerApp.portalStructure.webHub.hintReview"), value: reviewCount, icon: CircleAlert, chip: "bg-[#FFF3DF] text-[#8A5A10]" },
+                { label: feedbackLabels.totals.answers, hint: t("customerApp.portalStructure.webHub.hintAnswers"), value: overview.totals.answers, icon: MessagesSquare, chip: "bg-[#F3EDFF] text-[#7055EE]", wash: "bg-gradient-to-br from-white to-[#F7F4FF]" },
+                { label: feedbackLabels.totals.helpful, hint: t("customerApp.portalStructure.webHub.hintHelpful"), value: overview.totals.helpful, icon: ThumbsUp, chip: "bg-[#E9F8F0] text-[#146C43]", wash: "bg-gradient-to-br from-white to-[#F3FBF7]" },
+                { label: feedbackLabels.totals.notHelpful, hint: t("customerApp.portalStructure.webHub.hintNotHelpful"), value: overview.totals.notHelpful, icon: ThumbsDown, chip: "bg-[#FDE9EC] text-[#A52D3E]", wash: "bg-gradient-to-br from-white to-[#FFF6F7]" },
+                { label: feedbackLabels.totals.needsReview, hint: t(reviewHintKey), value: reviewCount, icon: CircleAlert, chip: "bg-[#FFF4E5] text-[#945A15]", wash: "bg-gradient-to-br from-white to-[#FFF8EE]" },
               ]
             : null
         }
         connectionTitle={connectionLabels.dashboardTitle}
         connectionSignals={[
-          { label: connectionLabels.title, value: connectionLabels.aggregate[aggregate] },
+          { label: connectionLabels.title, value: connectionLabels.aggregate[aggregate], icon: ShieldCheck },
           {
             label: connectionLabels.domainsTitle,
             value: t("customerApp.portalStructure.webHub.domainCount").replace("{count}", String(connection.summary.domains.length)),
+            icon: Globe,
           },
           ...checkpointSignals,
         ]}
@@ -123,44 +153,52 @@ export default async function WebsiteKompisHubPage() {
             href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
             title: t("customerApp.portalStructure.nav.kompisWebQa"),
             description: t("customerApp.portalStructure.webHub.qaDescription"),
+            icon: MessagesSquare,
             emphasis: true,
           },
           {
             href: FOUNDATION_NAV_BINDINGS.kompisWebFaq,
             title: t("customerApp.portalStructure.nav.kompisWebFaq"),
             description: t("customerApp.portalStructure.webHub.faqDescription"),
+            icon: BookOpen,
           },
           {
             href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
             title: t("customerApp.portalStructure.nav.kompisWebConnection"),
             description: t("customerApp.portalStructure.webHub.connectionDescription"),
+            icon: Link2,
           },
         ]}
         secondaryActions={[
           {
             href: `${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?create=1`,
             title: knowledgeLabels.createFaq,
-            description: t("customerApp.portalStructure.webHub.qaDescription"),
+            description: t("customerApp.portalStructure.webHub.shortcutCreate"),
+            icon: Plus,
           },
           {
             href: `${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=pages`,
             title: knowledgeLabels.sections.pages,
-            description: t("customerApp.portalStructure.webHub.faqDescription"),
+            description: knowledgeLabels.sectionHints.pages,
+            icon: Globe,
           },
           {
             href: `${FOUNDATION_NAV_BINDINGS.kompisWebConnection}?section=domains`,
             title: connectionLabels.domainsTitle,
             description: t("customerApp.portalStructure.webHub.connectionDescription"),
+            icon: Link2,
           },
           {
             href: FOUNDATION_NAV_BINDINGS.kompisWebAppearance,
             title: t("customerApp.portalStructure.nav.kompisWebAppearance"),
             description: t("customerApp.portalStructure.webHub.appearanceDescription"),
+            icon: Palette,
           },
           {
             href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
             title: t("customerApp.portalStructure.nav.kompisWebModules"),
             description: hubT(t, "web.modulesCard"),
+            icon: Puzzle,
           },
         ]}
         operatorHref={FOUNDATION_NAV_BINDINGS.kompisOperatorPreserved}
