@@ -676,19 +676,15 @@ export function WebsiteKompisFaqAdminPanel({
         <div className="flex justify-end">
           <Link
             href="/app/website-kompis/feedback"
-            className="rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-sm font-medium text-violet-800 hover:bg-violet-100"
+            className="inline-flex min-h-11 items-center rounded-xl border border-[#E3E6F1] bg-white px-3 text-sm font-medium text-[#5538D3] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
           >
             {labels.feedbackOverviewLink}
           </Link>
         </div>
       )}
 
-      <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-        {labels.warningBanner}
-      </div>
-
       {!editorOpen ? (
-        <div className="flex flex-col gap-3" data-faq-library-actions>
+        <div className="flex flex-wrap items-center gap-2 rounded-[18px] border border-[#E3E6F1] bg-white p-4 shadow-[0_8px_22px_rgba(38,37,104,0.04)]" data-faq-library-actions>
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
             <button
               type="button"
@@ -721,7 +717,11 @@ export function WebsiteKompisFaqAdminPanel({
         </div>
       ) : null}
 
-      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-3">
+      <p className="rounded-[18px] border border-[#E3E6F1] bg-white px-4 py-3 text-sm leading-relaxed text-[#20243A]">
+        {labels.warningBanner}
+      </p>
+
+      <section className="space-y-3 rounded-[18px] border border-[#E3E6F1] bg-white p-4 shadow-[0_8px_22px_rgba(38,37,104,0.04)]">
         <div>
           <p className="text-sm font-semibold text-slate-900">{labels.siteContext.label}</p>
           <p className="mt-1 text-sm text-slate-600">{labels.siteContext.hint}</p>
@@ -785,7 +785,7 @@ export function WebsiteKompisFaqAdminPanel({
 
       {!editorOpen ? (
         <>
-          <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+          <section className="rounded-[18px] border border-[#E3E6F1] bg-white p-4 shadow-[0_8px_22px_rgba(38,37,104,0.04)]">
             <div className="grid gap-3 md:grid-cols-4">
               <label className="text-sm">
                 <span className="mb-1 block text-xs font-medium text-slate-600">
@@ -905,9 +905,9 @@ export function WebsiteKompisFaqAdminPanel({
               primaryAction={{ label: labels.createFirst, onClick: openCreate }}
             />
           ) : (
-            <section className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+            <section className="overflow-x-auto rounded-[18px] border border-[#E3E6F1] bg-white shadow-[0_8px_22px_rgba(38,37,104,0.04)]">
               <table className="min-w-full text-sm">
-                <thead className="border-b border-slate-200 bg-slate-50 text-left text-xs uppercase text-slate-500">
+                <thead className="border-b border-[#E3E6F1] bg-[#F8F9FD] text-left text-xs uppercase tracking-wide text-[#657089]">
                   <tr>
                     <th className="px-4 py-3">
                       <input
@@ -933,7 +933,7 @@ export function WebsiteKompisFaqAdminPanel({
                 </thead>
                 <tbody>
                   {items.map((item) => (
-                    <tr key={item.id} className="border-b border-slate-100">
+                    <tr key={item.id} className="border-b border-[#EEF0F6] hover:bg-[#FAF9FF]">
                       <td className="px-4 py-3">
                         <input
                           type="checkbox"

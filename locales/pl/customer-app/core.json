@@ -1087,7 +1087,7 @@
   },
   "websiteKompisKnowledge": {
     "title": "Centrum wiedzy",
-    "subtitle": "Przeglądaj i zarządzaj publiczną wiedzą, której może używać Website Kompis — najpierw FAQ, ze statusem stron i dokumentów gdy są dostępne.",
+    "subtitle": "Zarządzaj wiedzą, której Kompis używa, aby pomagać odwiedzającym Twoją witrynę.",
     "sections": {
       "faq": "FAQ",
       "pages": "Strony WWW",
@@ -1126,7 +1126,12 @@
     "neverAutoPublish": "Opinie i sugestie nigdy nie publikują się automatycznie. Zawsze zatwierdzasz szkic i publikację.",
     "bedriftNotMixed": "Prywatna wiedza Kompis Bedrift nigdy nie jest pokazywana ani mieszana w tym publicznym Centrum wiedzy.",
     "dashboardTitle": "Status wiedzy",
-    "dashboardDescription": "Treść FAQ dla Twojego obszaru roboczego."
+    "dashboardDescription": "Treść FAQ dla Twojego obszaru roboczego.",
+    "overviewTitle": "Przegląd wiedzy",
+    "overviewDescription": "FAQ dla wybranej witryny, ze statusem i jasnymi wyborami publikacji.",
+    "hintPublished": "Dostępne dla odwiedzających",
+    "hintDraft": "Niedostępne publicznie",
+    "hintArchived": "Nieaktywne"
   },
   "websiteKompisConnection": {
     "title": "Status połączenia",

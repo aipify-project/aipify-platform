@@ -7609,7 +7609,7 @@
   },
   "websiteKompisKnowledge": {
     "title": "Knowledge Center",
-    "subtitle": "See and manage the public knowledge Website Kompis can use — FAQ first, with clear status for website pages and documents when available.",
+    "subtitle": "Manage the knowledge Kompis uses to help visitors on your website.",
     "sections": {
       "faq": "FAQ",
       "pages": "Website pages",
@@ -7648,7 +7648,12 @@
     "neverAutoPublish": "Feedback and suggestions never publish automatically. You always confirm draft and publish.",
     "bedriftNotMixed": "Private Kompis Bedrift knowledge is never shown or mixed into this public Knowledge Center.",
     "dashboardTitle": "Knowledge status",
-    "dashboardDescription": "FAQ content for your workspace."
+    "dashboardDescription": "FAQ content for your workspace.",
+    "overviewTitle": "Knowledge overview",
+    "overviewDescription": "FAQs for the selected website, with status and clear publishing choices.",
+    "hintPublished": "Available to visitors",
+    "hintDraft": "Not publicly available",
+    "hintArchived": "Not active"
   },
   "websiteKompisConnection": {
     "title": "Connection status",

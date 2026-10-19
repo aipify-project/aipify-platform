@@ -7620,7 +7620,7 @@
   },
   "websiteKompisKnowledge": {
     "title": "Kunnskapssenter",
-    "subtitle": "Se og administrer den offentlige kunnskapen Website Kompis kan bruke — FAQ først, med tydelig status for nettsider og dokumenter når det finnes.",
+    "subtitle": "Administrer kunnskapen Kompis bruker for å hjelpe besøkende på nettstedet ditt.",
     "sections": {
       "faq": "FAQ",
       "pages": "Nettsider",
@@ -7659,7 +7659,12 @@
     "neverAutoPublish": "Tilbakemelding og forslag publiseres aldri automatisk. Du bekrefter alltid utkast og publisering.",
     "bedriftNotMixed": "Privat Kompis Bedrift-kunnskap vises aldri eller blandes inn i dette offentlige Kunnskapssenteret.",
     "dashboardTitle": "Kunnskapsstatus",
-    "dashboardDescription": "FAQ-innhold for arbeidsområdet ditt."
+    "dashboardDescription": "FAQ-innhold for arbeidsområdet ditt.",
+    "overviewTitle": "Kunnskapsoversikt",
+    "overviewDescription": "FAQ-er for valgt nettsted, med status og tydelige publiseringsvalg.",
+    "hintPublished": "Tilgjengelig for besøkende",
+    "hintDraft": "Ikke offentlig tilgjengelig",
+    "hintArchived": "Ikke aktivt"
   },
   "websiteKompisConnection": {
     "title": "Tilkoblingsstatus",

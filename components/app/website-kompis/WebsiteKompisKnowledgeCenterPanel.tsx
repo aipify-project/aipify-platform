@@ -1,5 +1,6 @@
 "use client";
 
+import { Archive, BookOpen, FileText } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -14,6 +15,7 @@ type WebsiteKompisKnowledgeCenterPanelProps = {
   labels: WebsiteKompisKnowledgeLabels;
   summary: WebsiteKompisKnowledgeSummary;
   faqPanel: ReactNode;
+  contextLabel?: string | null;
 };
 
 function formatWhen(value: string | null): string {
@@ -45,10 +47,10 @@ function SectionButton({
     <button
       type="button"
       onClick={onClick}
-      className={`flex min-h-[5.5rem] flex-col items-start rounded-2xl border px-4 py-3 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] ${
+      className={`inline-flex min-h-11 flex-col items-start justify-center rounded-xl border px-3 py-2 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] ${
         active
-          ? "border-[var(--app-border-accent)] bg-[var(--app-primary-soft)] shadow-[var(--app-shadow-card)]"
-          : "border-[var(--app-border)] bg-[var(--app-card)] hover:border-[var(--app-border-accent)]"
+          ? "border-[#D3C7FF] bg-[#F3EDFF] text-[#5538D3]"
+          : "border-[#E3E6F1] bg-white text-[#20243A]"
       }`}
       aria-current={active ? "true" : undefined}
     >
@@ -62,6 +64,7 @@ export function WebsiteKompisKnowledgeCenterPanel({
   labels,
   summary,
   faqPanel,
+  contextLabel,
 }: WebsiteKompisKnowledgeCenterPanelProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -93,14 +96,55 @@ export function WebsiteKompisKnowledgeCenterPanel({
 
   const followUpCount = summary.faq.draft + summary.feedbackNeedsReview;
 
+  const metrics = summary.faqLoadOk
+    ? [
+        { label: labels.counts.published, value: summary.faq.published, hint: labels.hintPublished, chip: "bg-[#E9F8F0] text-[#146C43]", icon: BookOpen },
+        { label: labels.counts.draft, value: summary.faq.draft, hint: labels.hintDraft, chip: "bg-[#F3EDFF] text-[#7055EE]", icon: FileText },
+        { label: labels.counts.archived, value: summary.faq.archived, hint: labels.hintArchived, chip: "bg-[#F4F6FB] text-[#5F6788]", icon: Archive },
+      ]
+    : [];
+
   return (
     <div className="space-y-6">
+      <section className="rounded-3xl border border-[#E8E4FB] bg-gradient-to-br from-white to-[#F5F1FF] p-6 shadow-[0_12px_32px_rgba(49,38,112,0.055)] sm:p-8">
+        <h1 className="text-3xl font-semibold tracking-tight text-[#20243A] sm:text-4xl">{labels.title}</h1>
+        <p className="mt-3 max-w-3xl text-base leading-relaxed text-[#657089]">{labels.subtitle}</p>
+        {contextLabel ? <p className="mt-3 text-sm text-[#657089]">{contextLabel}</p> : null}
+      </section>
+
+      <section className="space-y-3" aria-labelledby="wk-kc-overview">
+        <div>
+          <h2 id="wk-kc-overview" className="text-lg font-semibold text-[#20243A]">{labels.overviewTitle}</h2>
+          <p className="mt-1 text-sm text-[#657089]">{labels.overviewDescription}</p>
+        </div>
+        {metrics.length > 0 ? (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {metrics.map((metric) => {
+              const Icon = metric.icon;
+              return (
+              <div key={metric.label} className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)]">
+                <span className={`inline-flex size-11 items-center justify-center rounded-2xl ${metric.chip}`} aria-hidden>
+                  <Icon className="size-5" strokeWidth={2} />
+                </span>
+                <p className="mt-4 text-sm font-medium text-[#657089]">{metric.label}</p>
+                <p className="mt-1 text-[1.85rem] font-semibold tabular-nums tracking-tight text-[#20243A]">{metric.value}</p>
+                <p className="mt-1 text-sm text-[#657089]">{metric.hint}</p>
+              </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="text-sm text-[#657089]">{labels.counts.unavailable}</p>
+        )}
+        <p className="text-sm text-[#657089]">{windowNote}</p>
+      </section>
+
       <div className={`${AppVisualClasses.card} space-y-2 text-sm`}>
         <p className="text-[var(--app-text)]">{labels.neverAutoPublish}</p>
         <p className="text-[var(--app-text-muted)]">{labels.bedriftNotMixed}</p>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="flex flex-wrap gap-2">
         <SectionButton
           active={section === "faq"}
           onClick={() => setSection("faq")}
