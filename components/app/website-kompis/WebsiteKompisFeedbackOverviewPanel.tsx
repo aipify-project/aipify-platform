@@ -14,6 +14,7 @@ import { WebsiteKompisFeedbackEditor } from "@/components/app/website-kompis/Web
 import { WebsiteKompisPublishedFaqList } from "@/components/app/website-kompis/WebsiteKompisPublishedFaqList";
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import {
+  FEEDBACK_REVIEW_BADGE_CLASS,
   FEEDBACK_REVIEW_PAGE_SIZE,
   filterFeedbackOpsRows,
   partitionFeedbackWorkspace,
@@ -45,6 +46,7 @@ const STATUS_TONE: Record<string, string> = {
   amber: "bg-[#FFF4E5] text-[var(--app-text)] ring-[#F5D4A3]",
   purple: "bg-[var(--app-primary-soft)] text-[var(--app-text)] ring-[var(--app-border-accent)]",
   slate: "bg-[var(--app-soft-surface)] text-[var(--app-text)] ring-[var(--app-border)]",
+  review: FEEDBACK_REVIEW_BADGE_CLASS,
 };
 
 function formatWhen(value: string, locale: string): string {
@@ -211,7 +213,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
     { label: labels.totals.helpful, value: totals.helpful, icon: ThumbsUp, chip: "bg-[#E8F7F0] text-[#146C43]" },
     { label: labels.totals.notHelpful, value: totals.notHelpful, icon: ThumbsDown, chip: "bg-[#FDECEC] text-[#9F1239]" },
     { label: labels.totals.withComment, value: totals.withComment, icon: MessageSquareText, chip: "bg-[var(--app-primary-soft)] text-[var(--app-primary)]" },
-    { label: labels.totals.needsReview, value: totals.notHelpful, icon: ClipboardCheck, chip: "bg-[#FFF4E5] text-[#9A3412]" },
+    { label: labels.totals.needsReview, value: totals.notHelpful, icon: ClipboardCheck, chip: FEEDBACK_REVIEW_BADGE_CLASS },
   ];
   const tabs: Array<{ id: ViewId; label: string; count: number | null }> = [
     { id: "review", label: labels.quality.tabs.review, count: reviewQueue.length },
@@ -408,6 +410,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
                     <div className="mt-4">
                       <button
                         type="button"
+                        data-feedback-edit={row.id}
                         onClick={() => setSelectedId(row.id)}
                         className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] px-3 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
                       >

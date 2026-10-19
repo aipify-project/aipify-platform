@@ -19,7 +19,11 @@ export type FeedbackOpsRow = {
   createdAt: string;
 };
 
-export type FeedbackOpsStatusTone = "emerald" | "amber" | "slate" | "purple";
+export type FeedbackOpsStatusTone = "emerald" | "amber" | "slate" | "purple" | "review";
+
+/** Active review only. Not a global warning color. */
+export const FEEDBACK_REVIEW_BADGE_CLASS =
+  "bg-[#FDECEC] text-[#9F1239] ring-[#F3C1C1]";
 
 export type FeedbackOpsStatus = {
   tone: FeedbackOpsStatusTone;
@@ -119,7 +123,7 @@ export const WEBSITE_KOMPIS_FEEDBACK_FIELD_MATRIX = [
 
 export function resolveFeedbackOpsStatus(row: FeedbackOpsRow): FeedbackOpsStatus {
   if (row.vote === "not_helpful") {
-    return { tone: "amber", key: "needsReview" };
+    return { tone: "review", key: "needsReview" };
   }
   if (row.comment?.trim()) {
     return { tone: "purple", key: "commented" };

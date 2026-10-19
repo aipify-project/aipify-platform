@@ -9,6 +9,7 @@ import { runFaqPublishFlow } from "@/lib/website-kompis-faq/publish-flow";
 import { FaqContentLanguagePicker } from "@/components/app/website-kompis/FaqContentLanguagePicker";
 import { planWebsiteKompisFaqPublish, resolveFaqExpiryForSave } from "@/lib/website-kompis-faq/safety";
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
+import { existingPublishedFaqHref, resolveFeedbackDrawerClose } from "@/lib/website-kompis-feedback/drawer-close";
 import type { FeedbackOpsRow } from "@/lib/website-kompis-feedback/operations-model";
 
 type SiteOption = { installId: string; domain: string };
@@ -46,7 +47,7 @@ export function WebsiteKompisFeedbackEditor({
   const [installId, setInstallId] = useState("");
   const [saved, setSaved] = useState<SavedDraft | null>(null);
   const [savedSnapshot, setSavedSnapshot] = useState("");
-  const [matchingPublished, setMatchingPublished] = useState(false);
+  const [matchingPublishedId, setMatchingPublishedId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -67,12 +68,13 @@ export function WebsiteKompisFeedbackEditor({
   const requestCloseRef = useRef<() => void>(() => {});
 
   const requestClose = useCallback(() => {
-    if (dirty) {
+    const decision = resolveFeedbackDrawerClose({ dirty, confirmVisible: confirmClose });
+    if (decision === "confirm") {
       setConfirmClose(true);
       return;
     }
     onClose();
-  }, [dirty, onClose]);
+  }, [confirmClose, dirty, onClose]);
   requestCloseRef.current = requestClose;
 
   useEffect(() => {
@@ -108,9 +110,12 @@ export function WebsiteKompisFeedbackEditor({
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onKey);
-      restoreFocus.current?.focus();
+      const editButton = document.querySelector<HTMLElement>(
+        `[data-feedback-edit="${CSS.escape(row.id)}"]`,
+      );
+      (editButton ?? restoreFocus.current)?.focus();
     };
-  }, []);
+  }, [row.id]);
 
   useEffect(() => {
     let cancelled = false;
@@ -186,8 +191,9 @@ export function WebsiteKompisFeedbackEditor({
       if (!itemId) {
         const existing = await findExisting();
         if (existing.kind === "published") {
-          setMatchingPublished(true);
-          setError(labels.quality.matchingPublished);
+          setMatchingPublishedId(existing.id);
+          setError(null);
+          setMessage(null);
           return null;
         }
         if (existing.kind === "draft") itemId = existing.id;
@@ -252,9 +258,15 @@ export function WebsiteKompisFeedbackEditor({
       return;
     }
     const existing = saved ? null : await findExisting();
+    if (existing?.kind === "published") {
+      setMatchingPublishedId(existing.id);
+      setError(null);
+      setMessage(null);
+      setPublishing(false);
+      return;
+    }
     const knownId = saved?.id ?? (existing && existing.kind !== "none" ? existing.id : null);
-    const status =
-      saved?.status === "published" || existing?.kind === "published" ? "published" : "new";
+    const status = saved?.status === "published" ? "published" : "new";
     const plan = planWebsiteKompisFaqPublish({
       status,
       title: question,
@@ -288,6 +300,7 @@ export function WebsiteKompisFeedbackEditor({
         setError(labels.quality.publishRetry);
         return;
       }
+      if (result.outcome === "save_failed") return;
       if (result.outcome !== "published" && result.outcome !== "revised") {
         setError(labels.quality.publishError);
         return;
@@ -307,7 +320,7 @@ export function WebsiteKompisFeedbackEditor({
     <div className="fixed inset-0 z-[80] flex justify-end" role="presentation">
       <button
         type="button"
-        className="absolute inset-0 cursor-default bg-slate-900/40"
+        className="absolute inset-0 z-0 cursor-default bg-slate-900/40"
         aria-label={labels.detailClose}
         onClick={requestClose}
       />
@@ -316,6 +329,7 @@ export function WebsiteKompisFeedbackEditor({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
+        onMouseDown={(event) => event.stopPropagation()}
         className="relative z-10 flex h-dvh w-full max-w-xl flex-col overflow-hidden border-l border-slate-200 bg-white text-[var(--app-text)] shadow-xl"
         style={{ backgroundColor: "#ffffff" }}
       >
@@ -434,37 +448,23 @@ export function WebsiteKompisFeedbackEditor({
             </label>
             <p className="text-sm leading-relaxed text-slate-600">{labels.quality.privacy}</p>
             <p className="text-sm leading-relaxed text-slate-600">{labels.suggestFaqWarning}</p>
-            {matchingPublished ? (
+            {matchingPublishedId ? (
               <p className="text-sm text-slate-900">
                 {labels.quality.matchingPublished}{" "}
-                <Link href={FOUNDATION_NAV_BINDINGS.kompisWebFaq} className="font-medium text-[#7357e8] underline">
+                <Link
+                  href={existingPublishedFaqHref(
+                    FOUNDATION_NAV_BINDINGS.kompisWebFaq,
+                    matchingPublishedId,
+                    question,
+                  )}
+                  className="font-medium text-[#7357e8] underline"
+                >
                   {labels.quality.openExistingFaq}
                 </Link>
               </p>
             ) : null}
             {message ? <p className="text-sm text-[#1f7a4d]">{message}</p> : null}
             {error ? <p className="text-sm text-slate-900">{error}</p> : null}
-            {confirmClose ? (
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-                <p className="text-sm text-slate-900">{labels.quality.dirtyLeave}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setConfirmClose(false)}
-                    className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
-                  >
-                    {labels.quality.stay}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
-                  >
-                    {labels.quality.discard}
-                  </button>
-                </div>
-              </div>
-            ) : null}
           </div>
           <div className="flex flex-wrap gap-2 border-t border-slate-200 bg-white px-5 py-4 sm:px-6">
             <button
@@ -484,6 +484,32 @@ export function WebsiteKompisFeedbackEditor({
             </button>
           </div>
         </form>
+        {confirmClose ? (
+          <div
+            data-feedback-drawer-confirm
+            className="absolute inset-0 z-20 flex items-end bg-white p-4 sm:items-center sm:justify-center"
+          >
+            <div className="w-full rounded-xl border border-slate-200 bg-white p-4 shadow-lg">
+              <p className="text-sm text-slate-900">{labels.quality.dirtyLeave}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setConfirmClose(false)}
+                  className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                >
+                  {labels.quality.stay}
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                >
+                  {labels.quality.discard}
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );

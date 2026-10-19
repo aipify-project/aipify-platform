@@ -61,7 +61,8 @@ const sample: FeedbackOpsRow[] = [
 ];
 
 assert.equal(resolveFeedbackOpsStatus(sample[0]!).key, "helpful");
-assert.equal(resolveFeedbackOpsStatus(sample[1]!).tone, "amber");
+assert.equal(resolveFeedbackOpsStatus(sample[1]!).tone, "review");
+assert.equal(resolveFeedbackOpsStatus(sample[1]!).key, "needsReview");
 
 const filtered = filterFeedbackOpsRows(sample, {
   vote: "not_helpful",

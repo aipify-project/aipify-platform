@@ -128,6 +128,7 @@ export function WebsiteKompisFaqAdminPanel({
   const [importOpen, setImportOpen] = useState(false);
   const publishLock = useRef(false);
   const persistedIdRef = useRef<string | null>(null);
+  const openedEditRef = useRef("");
   const [statusFilter, setStatusFilter] = useState<WpkfStatus | "">("");
   const [localeFilter, setLocaleFilter] = useState("");
   const [contentTypeFilter, setContentTypeFilter] = useState<WpkfContentType | "">("");
@@ -263,6 +264,9 @@ export function WebsiteKompisFaqAdminPanel({
   }, [refresh]);
 
   useEffect(() => {
+    const editId = searchParams.get("edit")?.trim() ?? "";
+    const query = searchParams.get("query")?.trim() ?? "";
+    if (editId && query) setSearchQuery((current) => current || query);
     const suggestQuestion = searchParams.get("suggestQuestion")?.trim() ?? "";
     if (suggestQuestion) {
       const suggestLocale = searchParams.get("suggestLocale")?.trim() || "no";
@@ -290,6 +294,15 @@ export function WebsiteKompisFaqAdminPanel({
       setStatusFilter("draft");
     }
   }, [searchParams, selectedSite]);
+
+  useEffect(() => {
+    const editId = searchParams.get("edit")?.trim() ?? "";
+    if (!editId || openedEditRef.current === editId) return;
+    const item = items.find((row) => row.id === editId);
+    if (!item) return;
+    openedEditRef.current = editId;
+    openEdit(item);
+  }, [items, searchParams]);
 
   function openCreate() {
     persistedIdRef.current = null;
