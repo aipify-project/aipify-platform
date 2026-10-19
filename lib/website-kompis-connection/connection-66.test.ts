@@ -113,6 +113,7 @@ assert.equal(noDomain.aggregate, "unconfigured");
 assert.equal(noDomain.diagnosis, "no_domain");
 
 const page = readFileSync(join(ROOT, "app/app/website-kompis/connection/page.tsx"), "utf8");
+assert.match(page, /suppressPageHeader/);
 assert.match(page, /WebsiteKompisConnectionCenterPanel/);
 assert.match(page, /loadWebsiteKompisConnectionSummary/);
 assert.match(page, /DomainLicenseCenterPanel/);
@@ -121,12 +122,12 @@ assert.doesNotMatch(page, /force.?active|kompis_design_studio/i);
 const hub = readFileSync(join(ROOT, "app/app/website-kompis/page.tsx"), "utf8");
 assert.match(hub, /loadWebsiteKompisConnectionSummary/);
 assert.match(hub, /section=domains/);
-assert.match(hub, /section=help/);
 
 const panel = readFileSync(
   join(ROOT, "components/app/website-kompis/WebsiteKompisConnectionCenterPanel.tsx"),
   "utf8",
 );
+assert.match(panel, /"help"/);
 assert.match(panel, /activeLicenseRuntimeUnavailable/);
 assert.match(panel, /websiteKompisLicenseStatusKey/);
 assert.doesNotMatch(panel, /summary\.licenseStatus \?\?/);
