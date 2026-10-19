@@ -19,6 +19,7 @@ import {
   parseWebsiteKompisFaqUpsertResult,
 } from "@/lib/website-kompis-faq/parse";
 import { resolveFaqContentLanguageForSave } from "@/lib/website-kompis-faq/content-languages";
+import { buildFaqListWindow, clampFaqListLimit, clampFaqListOffset } from "@/lib/website-kompis-faq/list-window";
 import {
   annotateWebsiteKompisFaqScope,
   filterWebsiteKompisFaqItemsForSiteContext,
@@ -90,6 +91,8 @@ export async function GET(request: Request) {
     const contentType = sanitizeContentType(url.searchParams.get("contentType"));
     const query = url.searchParams.get("query")?.trim().slice(0, WPKF_QUERY_MAX_LENGTH) || null;
     const requestedInstallId = url.searchParams.get("installId");
+    const offset = clampFaqListOffset(url.searchParams.get("offset"));
+    const limit = clampFaqListLimit(url.searchParams.get("limit"), WPKF_LIST_LIMIT_DEFAULT);
 
     const siteContext = await resolveWebsiteKompisSiteContextForRequest(
       auth.supabase,
@@ -110,6 +113,12 @@ export async function GET(request: Request) {
     if (siteContext.state === "multi_site" && !siteContext.selectedInstallId) {
       return NextResponse.json({
         items: [],
+        listWindow: buildFaqListWindow({
+          offset: 0,
+          limit,
+          tenantReturned: 0,
+          visibleReturned: 0,
+        }),
         siteContext: {
           state: siteContext.state,
           selectedInstallId: null,
@@ -126,8 +135,8 @@ export async function GET(request: Request) {
       p_locale: locale,
       p_content_type: contentType,
       p_query: query,
-      p_limit: WPKF_LIST_LIMIT_DEFAULT,
-      p_offset: 0,
+      p_limit: limit,
+      p_offset: offset,
     });
 
     if (error) {
@@ -144,6 +153,12 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       items,
+      listWindow: buildFaqListWindow({
+        offset,
+        limit,
+        tenantReturned: parsed.length,
+        visibleReturned: items.length,
+      }),
       siteContext: {
         state: siteContext.state,
         selectedInstallId: siteContext.selectedInstallId,
@@ -188,22 +203,29 @@ export async function POST(request: Request) {
     let existingInstallId: string | null = null;
     let existingLocale: string | null = null;
     if (itemId) {
-      const { data: existingRows, error: existingError } = await auth.supabase.rpc(
-        "list_tenant_public_companion_faq_items",
-        {
-          p_status: null,
-          p_locale: null,
-          p_content_type: null,
-          p_query: null,
-          p_limit: WPKF_LIST_LIMIT_DEFAULT,
-          p_offset: 0,
-        },
-      );
-      if (existingError) {
-        const statusCode = /owner or admin/i.test(existingError.message) ? 403 : 400;
-        return NextResponse.json({ error: existingError.message }, { status: statusCode });
+      const lookupPageSize = 500;
+      const lookupPageCap = 40;
+      let existing: ReturnType<typeof parseWebsiteKompisFaqList>[number] | undefined;
+      for (let page = 0; page < lookupPageCap; page += 1) {
+        const { data: existingRows, error: existingError } = await auth.supabase.rpc(
+          "list_tenant_public_companion_faq_items",
+          {
+            p_status: null,
+            p_locale: null,
+            p_content_type: null,
+            p_query: null,
+            p_limit: lookupPageSize,
+            p_offset: page * lookupPageSize,
+          },
+        );
+        if (existingError) {
+          const statusCode = /owner or admin/i.test(existingError.message) ? 403 : 400;
+          return NextResponse.json({ error: existingError.message }, { status: statusCode });
+        }
+        const rows = parseWebsiteKompisFaqList(existingRows);
+        existing = rows.find((row) => row.id === itemId);
+        if (existing || rows.length < lookupPageSize) break;
       }
-      const existing = parseWebsiteKompisFaqList(existingRows).find((row) => row.id === itemId);
       if (!existing) {
         return NextResponse.json({ error: "FAQ item not found" }, { status: 404 });
       }

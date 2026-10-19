@@ -6920,6 +6920,24 @@
     "no": "No",
     "errorGeneric": "Something went wrong. Please try again.",
     "publishDisabledHint": "Complete title, answer, locale, content type, and mark as public-safe before publishing.",
+    "listWindow": {
+      "showingExact": "Showing {from}–{to} of {total} on this website",
+      "showingWindow": "Showing {count} on this page",
+      "moreMayExist": "More questions may exist further down. The full total is not confirmed.",
+      "globalBlocked": "Select all matches is unavailable until a counting read is approved. Hidden rows are not included.",
+      "selectPage": "Select all on this page",
+      "selectRow": "Select {title}",
+      "selectedCount": "{count} selected on this page",
+      "clearSelection": "Clear selection",
+      "previous": "Previous",
+      "loadMore": "Show more",
+      "publishSelected": "Publish selected drafts",
+      "publishTitle": "Publish the selected drafts on this page",
+      "publishBody": "Website: {site}. Filter: {filter}. {ready} checked drafts on this page are ready to become public. {skipped} checked rows are skipped. Other pages stay unchanged. Checking a box does not publish.",
+      "publishConfirm": "Publish these drafts",
+      "publishResult": "Published {passed}. Not published {failed}. Skipped {skipped}.",
+      "nothingReady": "None of the selected rows are drafts marked ready for the public website."
+    },
     "filters": {
       "status": "Status",
       "locale": "Locale",
@@ -7601,7 +7619,9 @@
       "archived": "Archived",
       "needsReview": "Needs review",
       "lastUpdated": "Last updated",
-      "unavailable": "Not available yet"
+      "unavailable": "Not available yet",
+      "windowExact": "These figures cover the whole account list: {total}.",
+      "windowLimited": "These figures are the newest {minimum} in the account, not the whole library."
     },
     "pagesUnavailableTitle": "Website page inventory is not available in APP yet",
     "pagesUnavailableBody": "Website Kompis still uses approved public site content at answer time. Listing crawl status and pages for owners requires a dedicated Core read contract — not created in this job.",

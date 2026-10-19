@@ -202,6 +202,17 @@ export default async function WebsiteKompisHubPage() {
               <MetricCard key={item.label} label={item.label} value={item.value} icon={item.icon} tone={item.tone} />
             ))}
           </div>
+          <p className="text-sm text-[var(--app-text-muted)]">
+            {knowledge.faqWindow.totalState === "exact_tenant"
+              ? knowledgeLabels.counts.windowExact.replace(
+                  "{total}",
+                  String(knowledge.faqWindow.tenantTotal ?? 0),
+                )
+              : knowledgeLabels.counts.windowLimited.replace(
+                  "{minimum}",
+                  String(knowledge.faqWindow.tenantMinimum),
+                )}
+          </p>
           <div className="flex flex-wrap gap-2">
             <Link
               href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?create=1`}

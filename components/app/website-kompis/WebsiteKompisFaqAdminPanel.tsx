@@ -18,6 +18,15 @@ import {
   type WpkfStatus,
 } from "@/lib/website-kompis-faq/constants";
 import type { WebsiteKompisFaqLabels } from "@/lib/website-kompis-faq/labels";
+import {
+  FAQ_GLOBAL_MATCH_SELECT_SUPPORTED,
+  FAQ_LIST_PAGE_SIZE,
+  buildFaqListWindow,
+  planVisibleDraftPublish,
+  pruneSelectionToVisible,
+  visibleRowRange,
+  type FaqListWindow,
+} from "@/lib/website-kompis-faq/list-window";
 import { runFaqPublishFlow } from "@/lib/website-kompis-faq/publish-flow";
 import {
   detectWebsiteKompisFaqRiskyWords,
@@ -100,6 +109,13 @@ function itemToDraft(item: WebsiteKompisFaqItem): FaqEditorState {
   };
 }
 
+function fillLabel(template: string, values: Record<string, string | number>): string {
+  return Object.entries(values).reduce(
+    (text, [key, value]) => text.replaceAll(`{${key}}`, String(value)),
+    template,
+  );
+}
+
 function formatDate(value: string | null): string {
   if (!value) return "—";
   const parsed = Date.parse(value);
@@ -110,12 +126,120 @@ function formatDate(value: string | null): string {
   }).format(new Date(parsed));
 }
 
+function ListWindowBar({
+  labels,
+  listWindow,
+  selectedIds,
+  items,
+  busy,
+  summary,
+  onPrevious,
+  onNext,
+  onTogglePage,
+  onClear,
+  onPublish,
+}: {
+  labels: WebsiteKompisFaqLabels;
+  listWindow: FaqListWindow;
+  selectedIds: string[];
+  items: WebsiteKompisFaqItem[];
+  busy: boolean;
+  summary: string | null;
+  onPrevious: () => void;
+  onNext: () => void;
+  onTogglePage: (checked: boolean) => void;
+  onClear: () => void;
+  onPublish: () => void;
+}) {
+  const range = visibleRowRange(listWindow);
+  const rangeLabel =
+    listWindow.siteTotal != null
+      ? fillLabel(labels.listWindow.showingExact, {
+          from: range.from,
+          to: range.to,
+          total: listWindow.siteTotal,
+        })
+      : fillLabel(labels.listWindow.showingWindow, { count: listWindow.visibleReturned });
+  const pageChecked = items.length > 0 && selectedIds.length === items.length;
+
+  return (
+    <section className="space-y-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+      <p className="text-sm text-slate-700">{rangeLabel}</p>
+      {listWindow.totalState === "at_least_tenant" ? (
+        <p className="text-sm text-slate-600">{labels.listWindow.moreMayExist}</p>
+      ) : null}
+      {FAQ_GLOBAL_MATCH_SELECT_SUPPORTED ? null : (
+        <p className="text-sm text-slate-600">{labels.listWindow.globalBlocked}</p>
+      )}
+      <div className="flex flex-wrap items-center gap-3">
+        <label className="inline-flex items-center gap-2 text-sm text-slate-800">
+          <input
+            type="checkbox"
+            checked={pageChecked}
+            onChange={(event) => onTogglePage(event.target.checked)}
+            disabled={items.length === 0 || busy}
+          />
+          {labels.listWindow.selectPage}
+        </label>
+        <span className="text-sm text-slate-600">
+          {fillLabel(labels.listWindow.selectedCount, { count: selectedIds.length })}
+        </span>
+        <button
+          type="button"
+          onClick={onClear}
+          disabled={selectedIds.length === 0 || busy}
+          className="text-sm text-slate-700 underline disabled:opacity-50"
+        >
+          {labels.listWindow.clearSelection}
+        </button>
+        <button
+          type="button"
+          onClick={onPrevious}
+          disabled={listWindow.offset === 0 || busy}
+          className="rounded-md border border-slate-300 px-3 py-2 text-sm disabled:opacity-50"
+        >
+          {labels.listWindow.previous}
+        </button>
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={!listWindow.hasMore || busy}
+          className="rounded-md border border-slate-300 px-3 py-2 text-sm disabled:opacity-50"
+        >
+          {labels.listWindow.loadMore}
+        </button>
+        <button
+          type="button"
+          onClick={onPublish}
+          disabled={selectedIds.length === 0 || busy}
+          className="rounded-md bg-violet-700 px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+        >
+          {labels.listWindow.publishSelected}
+        </button>
+      </div>
+      {summary ? <p className="text-sm text-slate-700">{summary}</p> : null}
+    </section>
+  );
+}
+
 export function WebsiteKompisFaqAdminPanel({
   labels,
   embedded = false,
   suggestFromFeedbackWarning,
 }: WebsiteKompisFaqAdminPanelProps) {
   const [items, setItems] = useState<WebsiteKompisFaqItem[]>([]);
+  const [listOffset, setListOffset] = useState(0);
+  const [listWindow, setListWindow] = useState<FaqListWindow>(() =>
+    buildFaqListWindow({
+      offset: 0,
+      limit: FAQ_LIST_PAGE_SIZE,
+      tenantReturned: 0,
+      visibleReturned: 0,
+    }),
+  );
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [pagePublishOpen, setPagePublishOpen] = useState(false);
+  const [pagePublishSummary, setPagePublishSummary] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [accessDenied, setAccessDenied] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -145,6 +269,10 @@ export function WebsiteKompisFaqAdminPanel({
   const selectedSite = useMemo(
     () => sites.find((site) => site.installId === selectedInstallId) ?? null,
     [selectedInstallId, sites],
+  );
+  const pagePublishPlan = useMemo(
+    () => planVisibleDraftPublish(items, selectedIds),
+    [items, selectedIds],
   );
 
   const riskyWords = useMemo(
@@ -182,6 +310,8 @@ export function WebsiteKompisFaqAdminPanel({
     if (contentTypeFilter) params.set("contentType", contentTypeFilter);
     if (searchQuery.trim()) params.set("query", searchQuery.trim());
     if (selectedInstallId) params.set("installId", selectedInstallId);
+    params.set("offset", String(listOffset));
+    params.set("limit", String(FAQ_LIST_PAGE_SIZE));
 
     const res = await fetch(`/api/website-kompis/faq?${params.toString()}`);
     if (res.status === 403) {
@@ -193,6 +323,7 @@ export function WebsiteKompisFaqAdminPanel({
 
     const body = (await res.json()) as {
       items?: WebsiteKompisFaqItem[];
+      listWindow?: FaqListWindow;
       error?: string;
       siteContext?: {
         state?: "no_sites" | "single_site" | "multi_site";
@@ -227,11 +358,23 @@ export function WebsiteKompisFaqAdminPanel({
 
     setRequiresSiteSelection(body.siteContext?.requiresSiteSelection === true);
     setLegacyNullVisible(body.siteContext?.legacyNullVisible === true);
-    setItems(body.items ?? []);
+    const nextItems = body.items ?? [];
+    setItems(nextItems);
+    setListWindow(
+      body.listWindow ??
+        buildFaqListWindow({
+          offset: listOffset,
+          limit: FAQ_LIST_PAGE_SIZE,
+          tenantReturned: nextItems.length,
+          visibleReturned: nextItems.length,
+        }),
+    );
+    setSelectedIds((current) => pruneSelectionToVisible(current, nextItems.map((item) => item.id)));
     setLoading(false);
   }, [
     contentTypeFilter,
     labels.errorGeneric,
+    listOffset,
     localeFilter,
     searchQuery,
     selectedInstallId,
@@ -306,6 +449,44 @@ export function WebsiteKompisFaqAdminPanel({
     setEditorOpen(true);
     setError(null);
     setNotice(null);
+  }
+
+  function resetListScope() {
+    setListOffset(0);
+    setSelectedIds([]);
+    setPagePublishOpen(false);
+    setPagePublishSummary(null);
+  }
+
+  async function publishVisibleDrafts() {
+    if (publishLock.current) return;
+    const plan = planVisibleDraftPublish(items, selectedIds);
+    if (plan.readyIds.length === 0) return;
+    publishLock.current = true;
+    setBusy(true);
+    setError(null);
+    try {
+      let passed = 0;
+      let failed = 0;
+      for (const id of plan.readyIds) {
+        const res = await fetch(`/api/website-kompis/faq/${id}/publish`, { method: "POST" });
+        if (res.ok) passed += 1;
+        else failed += 1;
+      }
+      setPagePublishSummary(
+        fillLabel(labels.listWindow.publishResult, {
+          passed,
+          failed,
+          skipped: plan.skipped.length,
+        }),
+      );
+      setPagePublishOpen(false);
+      setSelectedIds([]);
+      await refresh();
+    } finally {
+      publishLock.current = false;
+      setBusy(false);
+    }
   }
 
   function closeEditor() {
@@ -542,7 +723,10 @@ export function WebsiteKompisFaqAdminPanel({
             </span>
             <select
               value={selectedInstallId}
-              onChange={(event) => setSelectedInstallId(event.target.value)}
+              onChange={(event) => {
+                resetListScope();
+                setSelectedInstallId(event.target.value);
+              }}
               disabled={siteState === "single_site"}
               className="w-full max-w-md rounded-md border border-slate-300 px-3 py-2 text-sm"
             >
@@ -596,7 +780,10 @@ export function WebsiteKompisFaqAdminPanel({
                 </span>
                 <select
                   value={statusFilter}
-                  onChange={(event) => setStatusFilter(event.target.value as WpkfStatus | "")}
+                  onChange={(event) => {
+                    resetListScope();
+                    setStatusFilter(event.target.value as WpkfStatus | "");
+                  }}
                   className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
                 >
                   <option value="">{labels.filters.all}</option>
@@ -614,7 +801,10 @@ export function WebsiteKompisFaqAdminPanel({
                 </span>
                 <FaqContentLanguagePicker
                   value={localeFilter}
-                  onChange={setLocaleFilter}
+                  onChange={(code) => {
+                    resetListScope();
+                    setLocaleFilter(code);
+                  }}
                   labels={labels.locales}
                   searchLabel={labels.languageSearch}
                   noMatchLabel={labels.languageNoMatch}
@@ -631,9 +821,10 @@ export function WebsiteKompisFaqAdminPanel({
                 </span>
                 <select
                   value={contentTypeFilter}
-                  onChange={(event) =>
-                    setContentTypeFilter(event.target.value as WpkfContentType | "")
-                  }
+                  onChange={(event) => {
+                    resetListScope();
+                    setContentTypeFilter(event.target.value as WpkfContentType | "");
+                  }}
                   className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
                 >
                   <option value="">{labels.filters.all}</option>
@@ -652,14 +843,49 @@ export function WebsiteKompisFaqAdminPanel({
                 <input
                   type="search"
                   value={searchQuery}
-                  onChange={(event) => setSearchQuery(event.target.value)}
+                  onChange={(event) => {
+                    resetListScope();
+                    setSearchQuery(event.target.value);
+                  }}
                   className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
                 />
               </label>
             </div>
           </section>
 
-          {items.length === 0 ? (
+          {requiresSiteSelection ? null : (
+          <ListWindowBar
+            labels={labels}
+            listWindow={listWindow}
+            selectedIds={selectedIds}
+            items={items}
+            busy={busy}
+            onPrevious={() => {
+              setSelectedIds([]);
+              setPagePublishOpen(false);
+              setListOffset((current) => Math.max(0, current - FAQ_LIST_PAGE_SIZE));
+            }}
+            onNext={() => {
+              setSelectedIds([]);
+              setPagePublishOpen(false);
+              setListOffset((current) => current + FAQ_LIST_PAGE_SIZE);
+            }}
+            onTogglePage={(checked) => {
+              setSelectedIds(checked ? items.map((item) => item.id) : []);
+            }}
+            onClear={() => setSelectedIds([])}
+            onPublish={() => {
+              if (pagePublishPlan.readyIds.length === 0) {
+                setPagePublishSummary(labels.listWindow.nothingReady);
+                return;
+              }
+              setPagePublishOpen(true);
+            }}
+            summary={pagePublishSummary}
+          />
+          )}
+
+          {items.length === 0 && !listWindow.hasMore ? (
             <PlatformEmptyState
               title={labels.emptyTitle}
               message={labels.emptyDescription}
@@ -670,6 +896,16 @@ export function WebsiteKompisFaqAdminPanel({
               <table className="min-w-full text-sm">
                 <thead className="border-b border-slate-200 bg-slate-50 text-left text-xs uppercase text-slate-500">
                   <tr>
+                    <th className="px-4 py-3">
+                      <input
+                        type="checkbox"
+                        aria-label={labels.listWindow.selectPage}
+                        checked={items.length > 0 && selectedIds.length === items.length}
+                        onChange={(event) =>
+                          setSelectedIds(event.target.checked ? items.map((item) => item.id) : [])
+                        }
+                      />
+                    </th>
                     <th className="px-4 py-3">{labels.columns.title}</th>
                     <th className="px-4 py-3">{labels.columns.locale}</th>
                     <th className="px-4 py-3">{labels.columns.category}</th>
@@ -685,6 +921,20 @@ export function WebsiteKompisFaqAdminPanel({
                 <tbody>
                   {items.map((item) => (
                     <tr key={item.id} className="border-b border-slate-100">
+                      <td className="px-4 py-3">
+                        <input
+                          type="checkbox"
+                          aria-label={fillLabel(labels.listWindow.selectRow, { title: item.title })}
+                          checked={selectedIds.includes(item.id)}
+                          onChange={(event) =>
+                            setSelectedIds((current) =>
+                              event.target.checked
+                                ? [...current, item.id]
+                                : current.filter((id) => id !== item.id),
+                            )
+                          }
+                        />
+                      </td>
                       <td className="px-4 py-3 font-medium text-slate-900">
                         <div className="flex flex-wrap items-center gap-2">
                           <span>{item.title}</span>
@@ -760,6 +1010,25 @@ export function WebsiteKompisFaqAdminPanel({
               </table>
             </section>
           )}
+          <WebsiteKompisFaqPublishDialog
+            labels={labels}
+            open={pagePublishOpen}
+            riskyWords={[]}
+            title={labels.listWindow.publishTitle}
+            body={fillLabel(labels.listWindow.publishBody, {
+              site: selectedSite?.domain ?? labels.filters.all,
+              filter: statusFilter ? labels.statuses[statusFilter] : labels.filters.all,
+              ready: pagePublishPlan.readyIds.length,
+              skipped: pagePublishPlan.skipped.length,
+            })}
+            confirmLabel={labels.listWindow.publishConfirm}
+            error={null}
+            busy={busy}
+            onCancel={() => {
+              if (!busy) setPagePublishOpen(false);
+            }}
+            onConfirm={() => void publishVisibleDrafts()}
+          />
 
         </>
       ) : (

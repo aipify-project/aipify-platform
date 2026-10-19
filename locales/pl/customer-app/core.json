@@ -398,6 +398,24 @@
     "no": "Nie",
     "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie.",
     "publishDisabledHint": "Uzupełnij tytuł, odpowiedź, język, typ treści i oznacz jako publicznie bezpieczne przed publikacją.",
+    "listWindow": {
+      "showingExact": "Wyświetlono {from}–{to} z {total} na tej witrynie",
+      "showingWindow": "Wyświetlono {count} na tej stronie listy",
+      "moreMayExist": "Dalej mogą być kolejne pytania. Pełna liczba nie jest potwierdzona.",
+      "globalBlocked": "Zaznaczenie wszystkich wyników jest niedostępne, dopóki liczące odczytanie nie zostanie zatwierdzone. Ukryte wiersze nie wchodzą w skład.",
+      "selectPage": "Zaznacz wszystkie na tej stronie",
+      "selectRow": "Zaznacz {title}",
+      "selectedCount": "Zaznaczono {count} na tej stronie",
+      "clearSelection": "Usuń zaznaczenie",
+      "previous": "Poprzednia",
+      "loadMore": "Pokaż więcej",
+      "publishSelected": "Opublikuj zaznaczone wersje robocze",
+      "publishTitle": "Opublikuj zaznaczone wersje robocze na tej stronie",
+      "publishBody": "Witryna: {site}. Filtr: {filter}. {ready} zaznaczonych wersji roboczych na tej stronie jest gotowych do publikacji. {skipped} zaznaczonych wierszy zostanie pominiętych. Inne strony pozostają bez zmian. Zaznaczenie nie publikuje.",
+      "publishConfirm": "Opublikuj te wersje robocze",
+      "publishResult": "Opublikowano {passed}. Nie opublikowano {failed}. Pominięto {skipped}.",
+      "nothingReady": "Żaden z zaznaczonych wierszy nie jest wersją roboczą oznaczoną jako gotowa na publiczną witrynę."
+    },
     "filters": {
       "status": "Status",
       "locale": "Język",
@@ -1079,7 +1097,9 @@
       "archived": "Zarchiwizowane",
       "needsReview": "Do przeglądu",
       "lastUpdated": "Ostatnia aktualizacja",
-      "unavailable": "Jeszcze niedostępne"
+      "unavailable": "Jeszcze niedostępne",
+      "windowExact": "Liczby obejmują całą listę na koncie: {total}.",
+      "windowLimited": "Liczby to najnowsze {minimum} na koncie, a nie cała biblioteka."
     },
     "pagesUnavailableTitle": "Inwentarz stron nie jest jeszcze dostępny w APP",
     "pagesUnavailableBody": "Website Kompis nadal używa zatwierdzonej publicznej treści stron przy odpowiedziach. Lista statusu crawl dla właścicieli wymaga osobnej umowy odczytu Core — nie utworzonej w tym zadaniu.",

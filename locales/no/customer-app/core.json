@@ -6931,6 +6931,24 @@
     "no": "Nei",
     "errorGeneric": "Noe gikk galt. Prøv igjen.",
     "publishDisabledHint": "Fyll ut tittel, svar, språk, innholdstype og merk som offentlig trygt før publisering.",
+    "listWindow": {
+      "showingExact": "Viser {from}–{to} av {total} på dette nettstedet",
+      "showingWindow": "Viser {count} på denne siden",
+      "moreMayExist": "Flere spørsmål kan ligge lenger nede. Hele totalen er ikke bekreftet.",
+      "globalBlocked": "Velg alle treff er ikke tilgjengelig før en tellende lesing er godkjent. Skjulte rader blir ikke med.",
+      "selectPage": "Velg alle på denne siden",
+      "selectRow": "Velg {title}",
+      "selectedCount": "{count} valgt på denne siden",
+      "clearSelection": "Fjern valg",
+      "previous": "Forrige",
+      "loadMore": "Vis flere",
+      "publishSelected": "Publiser valgte utkast",
+      "publishTitle": "Publiser de valgte utkastene på denne siden",
+      "publishBody": "Nettsted: {site}. Filter: {filter}. {ready} avkryssede utkast på denne siden er klare til å bli offentlige. {skipped} avkryssede rader hoppes over. Andre sider blir stående. Å krysse av publiserer ikke.",
+      "publishConfirm": "Publiser disse utkastene",
+      "publishResult": "Publisert {passed}. Ikke publisert {failed}. Hoppet over {skipped}.",
+      "nothingReady": "Ingen av de valgte radene er utkast som er merket klare for det offentlige nettstedet."
+    },
     "filters": {
       "status": "Status",
       "locale": "Språk",
@@ -7612,7 +7630,9 @@
       "archived": "Arkivert",
       "needsReview": "Trenger gjennomgang",
       "lastUpdated": "Sist oppdatert",
-      "unavailable": "Ikke tilgjengelig ennå"
+      "unavailable": "Ikke tilgjengelig ennå",
+      "windowExact": "Tallene dekker hele listen i kontoen: {total}.",
+      "windowLimited": "Tallene er de nyeste {minimum} i kontoen, ikke hele biblioteket."
     },
     "pagesUnavailableTitle": "Nettsideoversikt er ikke tilgjengelig i APP ennå",
     "pagesUnavailableBody": "Website Kompis bruker fortsatt godkjent offentlig sideinnhold ved svar. Listing av crawl-status for eiere krever egen Core-lesekontrakt — ikke opprettet i denne jobben.",

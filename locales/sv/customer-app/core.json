@@ -6931,6 +6931,24 @@
     "no": "Nej",
     "errorGeneric": "Något gick fel. Försök igen.",
     "publishDisabledHint": "Fyll i titel, svar, språk, innehållstyp och markera som offentligt säker före publicering.",
+    "listWindow": {
+      "showingExact": "Visar {from}–{to} av {total} på den här webbplatsen",
+      "showingWindow": "Visar {count} på den här sidan",
+      "moreMayExist": "Fler frågor kan finnas längre ned. Hela totalen är inte bekräftad.",
+      "globalBlocked": "Välj alla träffar är inte tillgängligt förrän en räknande läsning är godkänd. Dolda rader ingår inte.",
+      "selectPage": "Välj alla på den här sidan",
+      "selectRow": "Välj {title}",
+      "selectedCount": "{count} valda på den här sidan",
+      "clearSelection": "Rensa val",
+      "previous": "Föregående",
+      "loadMore": "Visa fler",
+      "publishSelected": "Publicera valda utkast",
+      "publishTitle": "Publicera de valda utkasten på den här sidan",
+      "publishBody": "Webbplats: {site}. Filter: {filter}. {ready} markerade utkast på den här sidan är redo att bli offentliga. {skipped} markerade rader hoppas över. Andra sidor ändras inte. En markering publicerar inte.",
+      "publishConfirm": "Publicera dessa utkast",
+      "publishResult": "Publicerade {passed}. Inte publicerade {failed}. Överhoppade {skipped}.",
+      "nothingReady": "Ingen av de valda raderna är utkast som är markerade som redo för den offentliga webbplatsen."
+    },
     "filters": {
       "status": "Status",
       "locale": "Språk",
@@ -7612,7 +7630,9 @@
       "archived": "Arkiverad",
       "needsReview": "Behöver granskning",
       "lastUpdated": "Senast uppdaterad",
-      "unavailable": "Inte tillgängligt ännu"
+      "unavailable": "Inte tillgängligt ännu",
+      "windowExact": "Siffrorna täcker hela listan i kontot: {total}.",
+      "windowLimited": "Siffrorna är de senaste {minimum} i kontot, inte hela biblioteket."
     },
     "pagesUnavailableTitle": "Webbsideöversikt är inte tillgänglig i APP ännu",
     "pagesUnavailableBody": "Website Kompis använder fortfarande godkänt offentligt sidinnehåll vid svar. Listning av crawl-status för ägare kräver ett eget Core-läskontrakt — skapat inte i detta jobb.",
