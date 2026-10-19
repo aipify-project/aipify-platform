@@ -81,6 +81,12 @@ export function WebsiteKompisKnowledgeCenterPanel({
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
 
+  const windowNote = summary.faqLoadOk
+    ? summary.faqWindow.totalState === "exact_tenant"
+      ? labels.counts.windowExact.replace("{total}", String(summary.faqWindow.tenantTotal ?? 0))
+      : labels.counts.windowLimited.replace("{minimum}", String(summary.faqWindow.tenantMinimum))
+    : labels.counts.unavailable;
+
   const faqMeta = summary.faqLoadOk
     ? `${summary.faq.published} ${labels.counts.published} · ${summary.faq.draft} ${labels.counts.draft}`
     : labels.counts.unavailable;
@@ -119,7 +125,7 @@ export function WebsiteKompisKnowledgeCenterPanel({
           title={labels.sections.followUp}
           meta={
             summary.faqLoadOk || summary.feedbackPersistenceReady
-              ? String(followUpCount)
+              ? `${summary.faq.draft} ${labels.counts.draft} · ${summary.feedbackNeedsReview} ${labels.counts.needsReview}`
               : labels.counts.unavailable
           }
         />
@@ -154,11 +160,14 @@ export function WebsiteKompisKnowledgeCenterPanel({
             </h2>
             <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.sectionHints.faq}</p>
             {summary.faqLoadOk ? (
-              <p className="mt-2 text-sm text-[var(--app-text-muted)]">
-                {labels.counts.published}: {summary.faq.published} · {labels.counts.draft}:{" "}
-                {summary.faq.draft} · {labels.counts.archived}: {summary.faq.archived} ·{" "}
-                {labels.counts.lastUpdated}: {formatWhen(summary.faq.lastUpdatedAt)}
-              </p>
+              <>
+                <p className="mt-2 text-sm text-[var(--app-text-muted)]">
+                  {labels.counts.published}: {summary.faq.published} · {labels.counts.draft}:{" "}
+                  {summary.faq.draft} · {labels.counts.archived}: {summary.faq.archived} ·{" "}
+                  {labels.counts.lastUpdated}: {formatWhen(summary.faq.lastUpdatedAt)}
+                </p>
+                <p className="mt-1 text-sm text-[var(--app-text-muted)]">{windowNote}</p>
+              </>
             ) : null}
           </div>
           {faqPanel}

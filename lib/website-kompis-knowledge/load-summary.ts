@@ -4,10 +4,12 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { WPKF_LIST_LIMIT_DEFAULT } from "@/lib/website-kompis-faq/constants";
 import { parseWebsiteKompisFaqList } from "@/lib/website-kompis-faq/parse";
 import { getWebsiteKompisAnswerFeedbackOverview } from "@/lib/marketing/website-kompis-answer-feedback-server";
+import { buildFaqListWindow, type FaqListWindow } from "@/lib/website-kompis-faq/list-window";
 import { summarizeFaqItems, type FaqKnowledgeCounts } from "@/lib/website-kompis-knowledge/source-inventory";
 
 export type WebsiteKompisKnowledgeSummary = {
   faq: FaqKnowledgeCounts;
+  faqWindow: FaqListWindow;
   feedbackNeedsReview: number;
   feedbackPersistenceReady: boolean;
   faqLoadOk: boolean;
@@ -37,11 +39,23 @@ export async function loadWebsiteKompisKnowledgeSummary(
   ]);
 
   let faq = emptyFaq;
+  let faqWindow = buildFaqListWindow({
+    offset: 0,
+    limit: WPKF_LIST_LIMIT_DEFAULT,
+    tenantReturned: 0,
+    visibleReturned: 0,
+  });
   let faqLoadOk = false;
   if (!faqResult.error) {
     try {
       const items = parseWebsiteKompisFaqList(faqResult.data);
       faq = summarizeFaqItems(items);
+      faqWindow = buildFaqListWindow({
+        offset: 0,
+        limit: WPKF_LIST_LIMIT_DEFAULT,
+        tenantReturned: items.length,
+        visibleReturned: items.length,
+      });
       faqLoadOk = true;
     } catch {
       faqLoadOk = false;
@@ -50,6 +64,7 @@ export async function loadWebsiteKompisKnowledgeSummary(
 
   return {
     faq,
+    faqWindow,
     feedbackNeedsReview: feedback.totals.notHelpful,
     feedbackPersistenceReady: feedback.persistenceReady,
     faqLoadOk,
