@@ -8537,7 +8537,7 @@
       }
     },
     "webHub": {
-      "description": "Administrer din offentlige nettstedskompanjong: besøkende spørsmål, FAQ, tilkobling og utseende.",
+      "description": "Administrer Kompis Web: spørsmål fra besøkende, kunnskap og tilkobling på nettstedet ditt.",
       "qaDescription": "Se spørsmål og tilbakemeldinger fra besøkende på nettstedet.",
       "faqDescription": "Publiser og vedlikehold offentlig FAQ og kunnskap for nettstedet ditt — sider og dokumenter når tilgjengelig.",
       "connectionDescription": "Koble domener, installasjoner og besøkendes tilgang for Kompis Web.",
@@ -8545,13 +8545,16 @@
       "settingsDescription": "Nettstedinnstillinger for tilkobling, utseende og avanserte verktøy.",
       "operatorLink": "Åpne nettstedsutgiver (Kompis)",
       "presenceReady": "Aipify er klar til å hjelpe på de verifiserte sidene.",
-      "hintPublished": "Synlige på nettstedet",
-      "hintDraft": "Ikke publisert ennå",
-      "hintArchived": "Arkiverte spørsmål",
-      "hintReview": "Klar for din vurdering",
-      "hintAnswers": "Tilbakemeldinger registrert så langt",
-      "hintHelpful": "Vurdert som nyttige",
-      "hintNotHelpful": "Vurdert som ikke nyttige",
+      "hintPublished": "Synlig for besøkende",
+      "hintDraft": "Venter på gjennomgang og publisering",
+      "hintArchived": "Ikke aktivt innhold",
+      "hintReview": "Åpne saker som bør behandles",
+      "hintAnswers": "Svar Kompis har registrert",
+      "hintHelpful": "Vurdert som nyttig",
+      "hintNotHelpful": "Vurdert som ikke nyttig",
+      "hintReviewUnseparated": "Vises som ikke-nyttige til åpne saker kan lagres for seg",
+      "knowledgeWindowNote": "Tallene gjelder de nyeste {minimum} FAQ-ene, ikke hele biblioteket.",
+      "shortcutCreate": "Start et FAQ-utkast du publiserer selv.",
       "domainCount": "{count} domener"
     },
     "foundationDashboard": {

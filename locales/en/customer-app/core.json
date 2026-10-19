@@ -7539,7 +7539,7 @@
     },
     "dashboard": {
       "title": "Quality signals",
-      "description": "Live totals from your Website Kompis feedback overview — same tenant scope as the Q&A workspace."
+      "description": "Feedback on answers from Kompis."
     },
     "filterFrom": "From",
     "filterTo": "To",
@@ -7648,7 +7648,7 @@
     "neverAutoPublish": "Feedback and suggestions never publish automatically. You always confirm draft and publish.",
     "bedriftNotMixed": "Private Kompis Bedrift knowledge is never shown or mixed into this public Knowledge Center.",
     "dashboardTitle": "Knowledge status",
-    "dashboardDescription": "Live FAQ counts and feedback review signals for your organization — same sources as the Knowledge Center."
+    "dashboardDescription": "FAQ content for your workspace."
   },
   "websiteKompisConnection": {
     "title": "Connection status",

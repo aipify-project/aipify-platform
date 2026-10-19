@@ -7473,7 +7473,7 @@
       }
     },
     "webHub": {
-      "description": "Manage your public website companion: visitor questions, FAQ, connection, and appearance.",
+      "description": "Керуйте Kompis Web: запитання відвідувачів, знання та підключення до вашого сайту.",
       "qaDescription": "Review visitor questions and feedback from your website.",
       "faqDescription": "Публікуйте та підтримуйте публічні FAQ і знання для вашого сайту — сторінки та документи коли доступні.",
       "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
@@ -7481,13 +7481,16 @@
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
       "operatorLink": "Open website publisher (Kompis)",
       "presenceReady": "Aipify готовий допомагати на перевірених сторінках.",
-      "hintPublished": "Видно на сайті",
-      "hintDraft": "Ще не опубліковано",
-      "hintArchived": "Архівні запитання",
-      "hintReview": "Готово до вашого перегляду",
-      "hintAnswers": "Зареєстровані відгуки",
+      "hintPublished": "Видно відвідувачам",
+      "hintDraft": "Очікує на перегляд і публікацію",
+      "hintArchived": "Неактивний вміст",
+      "hintReview": "Відкриті справи, які варто опрацювати",
+      "hintAnswers": "Відповіді, які Kompis зафіксував",
       "hintHelpful": "Оцінено як корисні",
       "hintNotHelpful": "Оцінено як некорисні",
+      "hintReviewUnseparated": "Показується як некорисні, доки відкриті справи не можна зберегти окремо",
+      "knowledgeWindowNote": "Числа стосуються найновіших {minimum} FAQ, не всієї бібліотеки.",
+      "shortcutCreate": "Почніть чернетку FAQ, яку ви публікуєте самі.",
       "domainCount": "{count} доменів"
     },
     "foundationDashboard": {

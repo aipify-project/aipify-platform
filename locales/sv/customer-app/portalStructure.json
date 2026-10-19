@@ -8536,7 +8536,7 @@
       }
     },
     "webHub": {
-      "description": "Manage your public website companion: visitor questions, FAQ, connection, and appearance.",
+      "description": "Hantera Kompis Web: frågor från besökare, kunskap och anslutning till din webbplats.",
       "qaDescription": "Review visitor questions and feedback from your website.",
       "faqDescription": "Publicera och underhåll offentlig FAQ och kunskap för din webbplats — sidor och dokument när tillgängligt.",
       "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
@@ -8544,13 +8544,16 @@
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
       "operatorLink": "Open website publisher (Kompis)",
       "presenceReady": "Aipify är redo att hjälpa på de verifierade sidorna.",
-      "hintPublished": "Synliga på webbplatsen",
-      "hintDraft": "Inte publicerade ännu",
-      "hintArchived": "Arkiverade frågor",
-      "hintReview": "Redo för din granskning",
-      "hintAnswers": "Återkoppling registrerad hittills",
-      "hintHelpful": "Bedömda som hjälpsamma",
-      "hintNotHelpful": "Bedömda som inte hjälpsamma",
+      "hintPublished": "Synligt för besökare",
+      "hintDraft": "Väntar på granskning och publicering",
+      "hintArchived": "Inte aktivt innehåll",
+      "hintReview": "Öppna ärenden som bör hanteras",
+      "hintAnswers": "Svar Kompis har registrerat",
+      "hintHelpful": "Bedömt som hjälpsamt",
+      "hintNotHelpful": "Bedömt som inte hjälpsamt",
+      "hintReviewUnseparated": "Visas som inte hjälpsamma tills öppna ärenden kan lagras för sig",
+      "knowledgeWindowNote": "Siffrorna gäller de senaste {minimum} FAQ-erna, inte hela biblioteket.",
+      "shortcutCreate": "Starta ett FAQ-utkast som du publicerar själv.",
       "domainCount": "{count} domäner"
     },
     "foundationDashboard": {

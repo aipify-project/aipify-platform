@@ -7182,7 +7182,7 @@
       }
     },
     "webHub": {
-      "description": "Manage your public website companion: visitor questions, FAQ, connection, and appearance.",
+      "description": "Administra Kompis Web: preguntas de visitantes, conocimiento y la conexión con tu sitio.",
       "qaDescription": "Review visitor questions and feedback from your website.",
       "faqDescription": "Publish and maintain public FAQ and knowledge for your website.",
       "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
@@ -7190,13 +7190,16 @@
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
       "operatorLink": "Open website publisher (Kompis)",
       "presenceReady": "Aipify está listo para ayudar en las páginas verificadas.",
-      "hintPublished": "Visibles en el sitio",
-      "hintDraft": "Aún no publicados",
-      "hintArchived": "Preguntas archivadas",
-      "hintReview": "Listo para tu revisión",
-      "hintAnswers": "Opiniones registradas hasta ahora",
+      "hintPublished": "Visible para los visitantes",
+      "hintDraft": "En espera de revisión y publicación",
+      "hintArchived": "Contenido no activo",
+      "hintReview": "Casos abiertos por atender",
+      "hintAnswers": "Respuestas que Kompis ha registrado",
       "hintHelpful": "Valoradas como útiles",
       "hintNotHelpful": "Valoradas como no útiles",
+      "hintReviewUnseparated": "Se muestra como no útiles hasta que los casos abiertos puedan guardarse aparte",
+      "knowledgeWindowNote": "Las cifras cubren las {minimum} FAQ más recientes, no toda la biblioteca.",
+      "shortcutCreate": "Empieza un borrador de FAQ que publicas tú.",
       "domainCount": "{count} dominios"
     },
     "foundationDashboard": {

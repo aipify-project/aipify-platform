@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,18 +9,21 @@ type Metric = {
   value: number;
   icon: LucideIcon;
   chip: string;
+  wash: string;
 };
 
 type Action = {
   href: string;
   title: string;
   description: string;
+  icon: LucideIcon;
   emphasis?: boolean;
 };
 
 type Signal = {
   label: string;
   value: string;
+  icon: LucideIcon;
 };
 
 export function WebsiteKompisDashboardPremium({
@@ -77,38 +81,38 @@ export function WebsiteKompisDashboardPremium({
     statusTone === "emerald"
       ? "bg-[#E9F8F0] text-[#146C43] ring-[#B7E4CF]"
       : statusTone === "amber"
-        ? "bg-[#FFF3DF] text-[#8A5A10] ring-[#F5D4A3]"
+        ? "bg-[#FFF4E5] text-[#945A15] ring-[#EEC58C]"
         : statusTone === "purple"
           ? "bg-[#F3EDFF] text-[#5538D3] ring-[#D3C7FF]"
           : "bg-[#F4F6FB] text-[#5F6788] ring-[#E6E9F5]";
 
   return (
-    <div className="space-y-6">
-      <section className="relative overflow-hidden rounded-[28px] border border-[#E6E9F5] bg-white shadow-[0_16px_40px_rgba(84,66,190,0.10)]">
+    <div className="space-y-8">
+      <section className="relative overflow-hidden rounded-3xl border border-[#E4E6F2] bg-white shadow-[0_12px_32px_rgba(65,54,132,0.06)]">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 w-[min(52%,520px)] bg-cover bg-right bg-no-repeat opacity-80"
+          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[min(46%,460px)] bg-cover bg-right bg-no-repeat lg:block"
           style={{ backgroundImage: "url(/website-kompis/dashboard/kompis_hero_glow_premium_v2.png)" }}
         />
-        <div className="relative grid gap-6 p-6 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(220px,340px)] lg:items-center">
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight text-[#181A3A] sm:text-4xl">{title}</h1>
-            <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#5F6788]">{description}</p>
-            <div className="mt-6 rounded-[20px] border border-[#E6E9F5] bg-white/90 p-4 shadow-[0_8px_24px_rgba(84,66,190,0.08)]">
+        <div className="relative grid gap-6 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-end lg:gap-10">
+          <div className="relative z-10 min-w-0">
+            <h1 className="text-3xl font-semibold tracking-tight text-[#20243E] sm:text-4xl">{title}</h1>
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-[#65708A]">{description}</p>
+            <div className="mt-6 max-w-xl rounded-[18px] border border-[#E4E6F2] bg-white p-4 shadow-[0_6px_18px_rgba(65,54,132,0.04)]">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="text-base font-semibold text-[#181A3A]">{productName}</p>
+                <p className="text-base font-semibold text-[#20243E]">{productName}</p>
                 <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${tone}`}>
                   <span className="size-1.5 rounded-full bg-current" aria-hidden />
                   {statusLabel}
                 </span>
               </div>
-              {contextLine ? <p className="mt-2 text-sm text-[#5F6788]">{contextLine}</p> : null}
-              <p className="mt-2 text-sm leading-relaxed text-[#5F6788]">{statusExplain}</p>
+              {contextLine ? <p className="mt-2 text-sm text-[#65708A]">{contextLine}</p> : null}
+              <p className="mt-2 text-sm leading-relaxed text-[#65708A]">{statusExplain}</p>
             </div>
           </div>
-          <div className="relative flex min-h-40 items-end justify-center lg:justify-end">
+          <div className="relative z-10 flex flex-col items-center gap-3 lg:items-end">
             {presence ? (
-              <p className="absolute left-0 top-0 max-w-[14rem] rounded-2xl rounded-br-md border border-[#E6E9F5] bg-white px-3 py-2 text-sm text-[#181A3A] shadow-[0_8px_24px_rgba(84,66,190,0.08)]">
+              <p className="max-w-[15rem] rounded-2xl rounded-br-md border border-[#E4E6F2] bg-white px-3 py-2 text-sm leading-snug text-[#20243E] shadow-[0_8px_20px_rgba(65,54,132,0.06)]">
                 {presence}
               </p>
             ) : null}
@@ -117,7 +121,7 @@ export function WebsiteKompisDashboardPremium({
               alt={mascotAlt}
               width={320}
               height={320}
-              className="h-40 w-auto object-contain sm:h-48"
+              className="h-36 w-auto object-contain sm:h-44 lg:h-52"
             />
           </div>
         </div>
@@ -143,17 +147,29 @@ export function WebsiteKompisDashboardPremium({
         />
       ) : null}
 
-      <section className="flex flex-col gap-4 rounded-[20px] border border-[#E6E9F5] bg-white p-5 shadow-[0_8px_24px_rgba(84,66,190,0.08)] sm:flex-row sm:items-center sm:justify-between" aria-labelledby="wk-connection-status">
-        <div>
-          <h2 id="wk-connection-status" className="text-lg font-semibold text-[#181A3A]">{connectionTitle}</h2>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {connectionSignals.map((signal) => (
-              <span key={signal.label} className="inline-flex items-center gap-2 rounded-full bg-[#F6F7FC] px-3 py-1.5 text-sm text-[#181A3A] ring-1 ring-[#E6E9F5]">
-                <span className="text-[#5F6788]">{signal.label}</span>
-                <span className="font-medium">{signal.value}</span>
-              </span>
-            ))}
-          </div>
+      <section
+        className="flex flex-col gap-4 rounded-[20px] border border-[#E4E6F2] bg-white p-5 shadow-[0_8px_22px_rgba(65,54,132,0.05)] sm:flex-row sm:items-center sm:justify-between"
+        aria-labelledby="wk-connection-status"
+      >
+        <div className="min-w-0">
+          <h2 id="wk-connection-status" className="text-lg font-semibold text-[#20243E]">
+            {connectionTitle}
+          </h2>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {connectionSignals.map((signal) => {
+              const Icon = signal.icon;
+              return (
+                <li
+                  key={signal.label}
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#F7F6FB] px-3 text-sm text-[#20243E] ring-1 ring-[#E4E6F2]"
+                >
+                  <Icon aria-hidden className="size-4 text-[#7055EE]" strokeWidth={2} />
+                  <span className="text-[#65708A]">{signal.label}</span>
+                  <span className="font-medium">{signal.value}</span>
+                </li>
+              );
+            })}
+          </ul>
         </div>
         <Link
           href={manageConnectionHref}
@@ -163,18 +179,34 @@ export function WebsiteKompisDashboardPremium({
         </Link>
       </section>
 
-      <div className="grid gap-4 lg:grid-cols-[1.5fr_1fr_1fr]">
+      <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr_1fr]">
         {primaryActions.map((action) => (
           <ActionCard key={action.href + action.title} action={action} />
         ))}
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {secondaryActions.map((action) => (
-          <ActionCard key={action.href + action.title} action={action} />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        {secondaryActions.map((action, index) => (
+          <div
+            key={action.href + action.title}
+            className={
+              secondaryActions.length === 5
+                ? index < 3
+                  ? "h-full lg:col-span-2"
+                  : index === secondaryActions.length - 1
+                    ? "h-full sm:col-span-2 lg:col-span-3"
+                    : "h-full lg:col-span-3"
+                : "h-full lg:col-span-2"
+            }
+          >
+            <ActionCard action={action} />
+          </div>
         ))}
       </div>
-      <p className="text-sm text-[#5F6788]">
-        <Link href={operatorHref} className="font-medium text-[#6847F3] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] rounded">
+      <p className="text-sm text-[#65708A]">
+        <Link
+          href={operatorHref}
+          className="inline-flex min-h-11 items-center rounded font-medium text-[#6847F3] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+        >
           {operatorLabel}
         </Link>
       </p>
@@ -195,44 +227,63 @@ function MetricSection({
   metrics: Metric[];
   note: string | null;
 }) {
+  const columns = metrics.length === 3 ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2 xl:grid-cols-4";
   return (
-    <section className="space-y-3" aria-labelledby={id}>
+    <section className="space-y-4" aria-labelledby={id}>
       <div>
-        <h2 id={id} className="text-lg font-semibold text-[#181A3A]">{title}</h2>
-        <p className="mt-1 text-sm text-[#5F6788]">{description}</p>
+        <h2 id={id} className="text-lg font-semibold text-[#20243E]">
+          {title}
+        </h2>
+        <p className="mt-1 text-sm leading-relaxed text-[#65708A]">{description}</p>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className={`grid gap-4 ${columns}`}>
         {metrics.map((metric) => {
           const Icon = metric.icon;
           return (
-            <div key={metric.label} className="rounded-[20px] border border-[#E6E9F5] bg-white p-4 shadow-[0_8px_24px_rgba(84,66,190,0.06)]">
-              <span className={`inline-flex size-9 items-center justify-center rounded-xl ${metric.chip}`}>
-                <Icon aria-hidden className="size-4" strokeWidth={2} />
+            <div
+              key={metric.label}
+              className={`flex h-full flex-col rounded-[18px] border border-[#E4E6F2] p-5 shadow-[0_8px_22px_rgba(65,54,132,0.045)] ${metric.wash}`}
+            >
+              <span className={`inline-flex size-11 items-center justify-center rounded-2xl ${metric.chip}`}>
+                <Icon aria-hidden className="size-5" strokeWidth={2} />
               </span>
-              <p className="mt-4 text-3xl font-semibold tabular-nums tracking-tight text-[#181A3A]">{metric.value}</p>
-              <p className="mt-1 text-sm font-medium text-[#181A3A]">{metric.label}</p>
-              <p className="mt-1 text-xs text-[#8A92B2]">{metric.hint}</p>
+              <p className="mt-4 text-sm font-medium text-[#65708A]">{metric.label}</p>
+              <p className="mt-1 text-[1.85rem] font-semibold tabular-nums tracking-tight text-[#20243E]">{metric.value}</p>
+              <p className="mt-1 text-sm leading-snug text-[#65708A]">{metric.hint}</p>
             </div>
           );
         })}
       </div>
-      {note ? <p className="text-sm text-[#5F6788]">{note}</p> : null}
+      {note ? <p className="text-sm leading-relaxed text-[#65708A]">{note}</p> : null}
     </section>
   );
 }
 
 function ActionCard({ action }: { action: Action }) {
+  const Icon = action.icon;
   return (
     <Link
       href={action.href}
-      className={`flex min-h-28 flex-col justify-between rounded-[20px] border p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] ${
+      className={`group flex h-full min-h-28 flex-col justify-between rounded-[18px] border p-5 transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] ${
         action.emphasis
-          ? "border-transparent bg-[image:var(--app-primary-gradient)] text-white shadow-[0_16px_40px_rgba(84,66,190,0.16)]"
-          : "border-[#E6E9F5] bg-white text-[#181A3A] shadow-[0_8px_24px_rgba(84,66,190,0.06)]"
+          ? "border-transparent bg-[#7055EE] text-white shadow-[0_14px_32px_rgba(112,85,238,0.22)] hover:shadow-[0_16px_36px_rgba(112,85,238,0.28)]"
+          : "border-[#E4E6F2] bg-white text-[#20243E] shadow-[0_8px_22px_rgba(65,54,132,0.045)] hover:shadow-[0_12px_28px_rgba(65,54,132,0.08)]"
       }`}
     >
-      <span className="text-base font-semibold">{action.title}</span>
-      <span className={`mt-2 text-sm ${action.emphasis ? "text-white/85" : "text-[#5F6788]"}`}>{action.description}</span>
+      <span className="flex items-start justify-between gap-3">
+        <span
+          className={`inline-flex size-11 items-center justify-center rounded-2xl ${
+            action.emphasis ? "bg-white/15 text-white" : "bg-[#F3EDFF] text-[#7055EE]"
+          }`}
+        >
+          <Icon aria-hidden className="size-5" strokeWidth={2} />
+        </span>
+        <ArrowUpRight aria-hidden className={`size-4 ${action.emphasis ? "text-white/80" : "text-[#7055EE]"}`} />
+      </span>
+      <span className="mt-4 block text-base font-semibold">{action.title}</span>
+      <span className={`mt-1 block text-sm leading-snug ${action.emphasis ? "text-white/85" : "text-[#65708A]"}`}>
+        {action.description}
+      </span>
     </Link>
   );
 }

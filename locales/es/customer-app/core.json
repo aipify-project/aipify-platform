@@ -913,7 +913,7 @@
     },
     "dashboard": {
       "title": "Quality signals",
-      "description": "Live totals from your Website Kompis feedback overview — same tenant scope as the Q&A workspace."
+      "description": "Comentarios sobre las respuestas de Kompis."
     },
     "filterFrom": "From",
     "filterTo": "To",

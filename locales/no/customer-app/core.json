@@ -7550,7 +7550,7 @@
     },
     "dashboard": {
       "title": "Kvalitetssignaler",
-      "description": "Live tall fra Website Kompis-tilbakemelding — samme tenant-scope som spørsmål/svar-arbeidsflaten."
+      "description": "Tilbakemeldinger på Kompis sine svar."
     },
     "filterFrom": "Fra",
     "filterTo": "Til",
@@ -7659,7 +7659,7 @@
     "neverAutoPublish": "Tilbakemelding og forslag publiseres aldri automatisk. Du bekrefter alltid utkast og publisering.",
     "bedriftNotMixed": "Privat Kompis Bedrift-kunnskap vises aldri eller blandes inn i dette offentlige Kunnskapssenteret.",
     "dashboardTitle": "Kunnskapsstatus",
-    "dashboardDescription": "Live FAQ-tall og tilbakemeldingssignaler for organisasjonen din — samme kilder som Kunnskapssenteret."
+    "dashboardDescription": "FAQ-innhold for arbeidsområdet ditt."
   },
   "websiteKompisConnection": {
     "title": "Tilkoblingsstatus",
