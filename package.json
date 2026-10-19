@@ -9,6 +9,7 @@
     "build:compile": "next build --webpack --experimental-build-mode compile",
     "build:generate": "next build --webpack --experimental-build-mode generate",
     "build:split": "node scripts/build-split.mjs",
+    "build:preflight": "node scripts/build-preflight.mjs",
     "typecheck": "tsc --noEmit",
     "validate:phase": "npm run lint && npm run typecheck && npm run validate:routes -- --warn-only",
     "validate:routes": "npx --yes tsx scripts/validate-routes.ts",
