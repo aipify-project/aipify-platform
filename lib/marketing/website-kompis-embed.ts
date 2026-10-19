@@ -1,3 +1,4 @@
+import { proposePublicContentLocale } from "@/lib/kompis-content-languages/proposed-public-locale";
 import {
   sanitizeWebsiteKompisPublicPageContext,
   type WebsiteKompisPublicPageContext,
@@ -240,7 +241,8 @@ export function parseWebsiteKompisEmbedResizeMessage(
 
 export type WebsiteKompisEmbedAskPayload = {
   question: string;
-  locale: WebsiteKompisEmbedLocale;
+  /** FAQ content language. Omitted when the host declared no page language. */
+  locale?: string;
   domain: string;
   installId: string;
   recentContext?: WebsiteKompisEmbedRecentContextMessage[];
@@ -426,18 +428,39 @@ export function buildWebsiteKompisMetadataRequestPath(input: {
 
 export function buildWebsiteKompisAskPayload(input: {
   question: string;
+  /** Widget chrome locale. Used as content only when the host did not send a page candidate. */
   locale: WebsiteKompisEmbedLocale;
+  /**
+   * Raw page/content candidate. `null` means the host page declared no language,
+   * so the UI locale must not be sent as German/Japanese content.
+   */
+  contentLocale?: string | null;
   domain: string;
   installId: string;
   recentContext?: WebsiteKompisEmbedRecentContextMessage[];
   pageContext?: WebsiteKompisPublicPageContext;
 }): WebsiteKompisEmbedAskPayload {
+  const hostContent = input.contentLocale;
+  const pageLocale =
+    hostContent === null
+      ? null
+      : hostContent?.trim()
+        ? hostContent
+        : input.pageContext?.locale?.trim()
+          ? input.pageContext.locale
+          : input.locale;
+  const content = proposePublicContentLocale({
+    pageLocale,
+    omittedFallback: "no",
+  });
   const payload: WebsiteKompisEmbedAskPayload = {
     question: input.question.trim(),
-    locale: sanitizeWebsiteKompisEmbedLocale(input.locale),
     domain: normalizeWebsiteKompisEmbedDomain(input.domain) ?? input.domain,
     installId: normalizeWebsiteKompisEmbedInstallId(input.installId) ?? input.installId,
   };
+  if (hostContent !== null) {
+    payload.locale = content.contentLocale;
+  }
 
   if (input.recentContext && input.recentContext.length > 0) {
     payload.recentContext = input.recentContext

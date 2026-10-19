@@ -22,6 +22,8 @@ import {
 import { createEmptyCompanionTenantContext } from "@/lib/companion-runtime/companion-tenant-context";
 import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n/config";
+import { proposePublicContentLocale } from "@/lib/kompis-content-languages/proposed-public-locale";
+import type { FaqContentLanguageCode } from "@/lib/website-kompis-faq/content-languages";
 import { isPublicFooterEnabledLocale } from "@/lib/i18n/public-locales";
 import { createTranslator, type Translator } from "@/lib/i18n/translate";
 import {
@@ -148,8 +150,9 @@ export function preferStrongSiteIndexOverSparseFaq(input: {
   return { faqRows: keptFaq, siteIndexHits };
 }
 
+/** Footer and dictionary locales. Visitor FAQ content uses the 30-code registry. */
 export const PUBLIC_COMPANION_ASK_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
-export type PublicCompanionAskLocale = (typeof PUBLIC_COMPANION_ASK_LOCALES)[number];
+export type PublicCompanionAskLocale = FaqContentLanguageCode;
 
 export const PUBLIC_COMPANION_ASK_MAX_QUESTION_LENGTH = 1000;
 export const PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGES = 6;
@@ -240,15 +243,23 @@ export class PublicCompanionAskValidationError extends Error {
   }
 }
 
-function resolvePublicCompanionLocale(
-  locale?: string,
-  messageLocale?: string,
-): PublicCompanionAskLocale {
-  const preferred = messageLocale?.trim() || locale?.trim();
-  if (preferred && isPublicFooterEnabledLocale(preferred)) {
-    return preferred;
-  }
-  return DEFAULT_LOCALE;
+function publicAskDictionaryLocale(locale: string): Locale {
+  return isPublicFooterEnabledLocale(locale) ? locale : DEFAULT_LOCALE;
+}
+
+function resolvePublicCompanionLocale(input: {
+  messageLocale?: string;
+  pageLocale?: string;
+  requestLocale?: string;
+  siteDefaultLocale?: string | null;
+  embedVisitor: boolean;
+}): PublicCompanionAskLocale {
+  return proposePublicContentLocale({
+    messageLocale: input.messageLocale,
+    pageLocale: input.pageLocale?.trim() ? input.pageLocale : input.requestLocale,
+    siteDefaultLocale: input.siteDefaultLocale,
+    omittedFallback: input.embedVisitor ? "no" : "en",
+  }).contentLocale;
 }
 
 function getSearchTermsArray(customerApp: Record<string, unknown>, key: string): string[] {
@@ -269,15 +280,20 @@ export function isPublicPricingQuestion(question: string): boolean {
   return /\b(kost|koster|pris\w*|price|pricing|cost|costs|abonnement)\b/.test(normalized);
 }
 
-function licenseLabelForLocale(locale: PublicCompanionAskLocale): string {
+function licenseLabelForLocale(locale: string): string {
   switch (locale) {
     case "en":
       return "licenses";
     case "da":
     case "sv":
       return "licenser";
-    default:
+    case "no":
+    case "pl":
+    case "uk":
+    case "es":
       return "lisenser";
+    default:
+      return "licenses";
   }
 }
 
@@ -305,7 +321,7 @@ async function buildPublicPricingCompanionResponse(
   locale: PublicCompanionAskLocale,
   t: Translator,
 ): Promise<PublicCompanionAskResponse> {
-  const marketingDict = await getDictionary(locale as Locale, ["marketing"]);
+  const marketingDict = await getDictionary(publicAskDictionaryLocale(locale), ["marketing"]);
   const marketing = marketingDict.marketing as Record<string, Record<string, unknown>>;
   const pricingLabels = buildPricingLabels(t);
   const pricingPageLabels = (marketing.pricingPage as { pricingLabels?: { custom?: string; perMonth?: string } } | undefined)
@@ -753,7 +769,7 @@ async function tryBuildPublicPageContextAnswer(
     return null;
   }
 
-  const dict = await getDictionary(locale as Locale, ["marketing"]);
+  const dict = await getDictionary(publicAskDictionaryLocale(locale), ["marketing"]);
   const article = getPublicKnowledgeArticle(dict.marketing as Record<string, unknown>, slug);
   if (!article || !isPublicPageContextQuestion(question, article, pageContext)) {
     return null;
@@ -1057,7 +1073,6 @@ export async function askPublicPlatformCompanion(
   options?: PublicCompanionAskOptions,
 ): Promise<PublicCompanionAskResponse> {
   const validated = validatePublicCompanionAskRequest(input);
-  const locale = resolvePublicCompanionLocale(validated.locale, validated.messageLocale);
   const searchTenantVisitorKnowledge =
     options?.searchTenantVisitorKnowledge ?? searchPublicCompanionTenantFaq;
   const searchPublicSiteIndex =
@@ -1076,6 +1091,27 @@ export async function askPublicPlatformCompanion(
       validated.recentContext,
     );
 
+  const installConfig = await getWebsiteKompisInstallConfigForPublicRequest(
+    {
+      installId: validated.installId,
+      domain: validated.domain,
+      requestHost: options?.requestHost,
+      locale: validated.locale,
+    },
+    {
+      rawInstallConfig: options?.rawInstallConfig,
+      loadInstallConfig: options?.loadInstallConfig,
+      requestLocale: validated.locale,
+    },
+  );
+  const locale = resolvePublicCompanionLocale({
+    messageLocale: validated.messageLocale,
+    pageLocale: validated.pageContext?.locale,
+    requestLocale: validated.locale,
+    siteDefaultLocale: installConfig.explicitContentLocale,
+    embedVisitor: hasPublicCompanionVisitorContext(visitorContext),
+  });
+
   if (hasPublicCompanionVisitorContext(visitorContext)) {
     const resolveAvailability =
       options?.resolveLicensedAvailability ?? resolveWebsiteKompisPublicLicensedAvailability;
@@ -1087,20 +1123,6 @@ export async function askPublicPlatformCompanion(
       ) as PublicCompanionAskResponse;
     }
   }
-
-  const installConfig = await getWebsiteKompisInstallConfigForPublicRequest(
-    {
-      installId: validated.installId,
-      domain: validated.domain,
-      requestHost: options?.requestHost,
-      locale,
-    },
-    {
-      rawInstallConfig: options?.rawInstallConfig,
-      loadInstallConfig: options?.loadInstallConfig,
-      requestLocale: locale,
-    },
-  );
 
   if (!installConfig.enabled) {
     return buildWebsiteKompisDisabledResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
@@ -1117,7 +1139,7 @@ export async function askPublicPlatformCompanion(
     ) as PublicCompanionAskResponse;
   }
 
-  const dict = await getCustomerAppDictionaryForSplits(locale as Locale, [
+  const dict = await getCustomerAppDictionaryForSplits(publicAskDictionaryLocale(locale), [
     "companionPlatformKnowledge",
     "portalStructure",
   ]);
@@ -1159,7 +1181,7 @@ export async function askPublicPlatformCompanion(
 
     const safetyPolicyAnswer = tryBuildWebsiteKompisSafetyPolicyAnswer(
       validated.question,
-      locale,
+      publicAskDictionaryLocale(locale),
     );
     if (safetyPolicyAnswer) {
       return finishCustomerWebsiteAskWithTrace(
@@ -1630,7 +1652,9 @@ export async function askPublicPlatformCompanion(
     ? buildPublicRetrievalQuery(validated.question)
     : contextualQuestion;
 
-  const tenantContext = createEmptyCompanionTenantContext({ locale });
+  const tenantContext = createEmptyCompanionTenantContext({
+    locale: publicAskDictionaryLocale(locale),
+  });
 
   const result = await searchPlatformKnowledge(query, {
     t,

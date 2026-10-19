@@ -89,7 +89,9 @@ export function buildWebsiteKompisMissingConcreteCostGapAnswer(input: {
             ? "Nie znajduję konkretnej ceny ani liczby punktów w dostępnych informacjach."
             : locale === "uk"
               ? "Я не знаходжу конкретної ціни чи кількості балів у наявній інформації."
-              : "Jeg finner ikke et konkret poengtall eller pris i informasjonen jeg har.";
+              : locale === "no" || locale === "es"
+                ? "Jeg finner ikke et konkret poengtall eller pris i informasjonen jeg har."
+                : "I cannot find a concrete price or point amount in the information I have.";
   const next = input.supportedNextStepFromEvidence?.replace(/\s+/g, " ").trim() || "";
   const directAnswer = next ? `${missing} ${next}`.slice(0, 900) : missing;
   return { directAnswer, explanation: null, steps: [] };

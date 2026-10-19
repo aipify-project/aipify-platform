@@ -598,9 +598,9 @@ export function resolveWebsiteKompisEmbedUiLabels(input: {
 }): WebsiteKompisEmbedUiLabels {
   const variant =
     input.welcomeMessageVariant === "compact" ? "compact" : ("standard" as const);
-  const shell = EMBED_UI_SHELL[input.locale] ?? EMBED_UI_SHELL.no;
-  const feedback = EMBED_FEEDBACK_SHELL[input.locale] ?? EMBED_FEEDBACK_SHELL.no;
-  const welcome = EMBED_UI_COPY[input.locale]?.[variant] ?? EMBED_UI_COPY.no[variant];
+  const shell = EMBED_UI_SHELL[input.locale] ?? EMBED_UI_SHELL.en;
+  const feedback = EMBED_FEEDBACK_SHELL[input.locale] ?? EMBED_FEEDBACK_SHELL.en;
+  const welcome = EMBED_UI_COPY[input.locale]?.[variant] ?? EMBED_UI_COPY.en[variant];
 
   return {
     ...shell,

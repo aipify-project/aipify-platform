@@ -3,10 +3,11 @@ import {
   resolveCompanionLauncherIconVariant,
   type CompanionLauncherIconVariantKey,
 } from "@/lib/branding/companion-launcher-icons";
-import type { PublicCompanionVisitorContext } from "@/lib/marketing/public-companion-tenant-faq";
+import { canonicalFaqContentLanguage, type FaqContentLanguageCode } from "@/lib/website-kompis-faq/content-languages";
 import {
   hasPublicCompanionVisitorContext,
   resolvePublicCompanionVisitorContext,
+  type PublicCompanionVisitorContext,
 } from "@/lib/marketing/public-companion-tenant-faq";
 import { loadWebsiteKompisInstallConfigFromStorage } from "@/lib/marketing/website-kompis-install-config-storage";
 import { siteLabelFromDomain } from "@/lib/marketing/website-kompis-site-label";
@@ -41,6 +42,8 @@ export type WebsiteKompisInstallConfig = {
   welcomeMessageVariant: WebsiteKompisWelcomeMessageVariant;
   /** APP-configured public support page URL; null when unset. */
   supportContactUrl: string | null;
+  /** Set only when the saved site default is one of the 30 content languages. */
+  explicitContentLocale?: FaqContentLanguageCode | null;
   updatedAt?: string;
 };
 
@@ -84,8 +87,6 @@ const ALLOWED_SOURCE_KEYS = new Set([
   "aipifyPublic",
 ]);
 
-const CORE_LOCALES = new Set(["en", "no", "sv", "da", "pl", "uk", "es"]);
-
 function parseBoolean(value: unknown, fallback: boolean): boolean {
   return typeof value === "boolean" ? value : fallback;
 }
@@ -110,11 +111,13 @@ function parseWelcomeMessageVariant(value: unknown): WebsiteKompisWelcomeMessage
   return DEFAULT_WEBSITE_KOMPIS_INSTALL_CONFIG.welcomeMessageVariant;
 }
 
+function explicitContentLocale(value: unknown): FaqContentLanguageCode | null {
+  if (typeof value !== "string") return null;
+  return canonicalFaqContentLanguage(value);
+}
+
 function parseDefaultLocale(value: unknown, fallback: string): string {
-  if (typeof value !== "string") return fallback;
-  const normalized = value.trim().toLowerCase();
-  if (!normalized || normalized.length > 16) return fallback;
-  return CORE_LOCALES.has(normalized) ? normalized : fallback;
+  return explicitContentLocale(value) ?? fallback;
 }
 
 function parseUpdatedAt(value: unknown): string | undefined {
@@ -196,6 +199,7 @@ export function normalizeWebsiteKompisInstallConfig(
     return {
       ...DEFAULT_WEBSITE_KOMPIS_INSTALL_CONFIG,
       defaultLocale: localeFallback,
+      explicitContentLocale: null,
       sources: { ...DEFAULT_WEBSITE_KOMPIS_INSTALL_SOURCE_CONFIG },
     };
   }
@@ -221,6 +225,7 @@ export function normalizeWebsiteKompisInstallConfig(
     sources: parseSources(block.sources),
     welcomeMessageVariant: parseWelcomeMessageVariant(block.welcomeMessageVariant),
     supportContactUrl: parseSupportContactUrl(block.supportContactUrl),
+    explicitContentLocale: explicitContentLocale(block.defaultLocale),
     updatedAt: parseUpdatedAt(block.updatedAt),
   };
 }

@@ -127,6 +127,37 @@
     return base;
   }
 
+  /**
+   * Raw page candidate for FAQ content. The server registry accepts the 30 codes.
+   * Do not split zh-Hans or pt-BR down to a primary tag here.
+   */
+  function readContentLocaleCandidate(value) {
+    var normalized = String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/_/g, "-");
+    if (!normalized || normalized.length > MAX_LOCALE_LENGTH) return "";
+    if (!/^[a-z]{2,3}(-[a-z0-9]{2,8}){0,2}$/.test(normalized)) return "";
+    return normalized;
+  }
+
+  function resolveContentLocaleCandidate() {
+    var path = String(window.location.pathname || "").toLowerCase();
+    var parts = path.split("/").filter(Boolean);
+    var segment = parts.length > 0 ? readContentLocaleCandidate(parts[0]) : "";
+    var segmentPrimary = segment ? segment.split("-")[0] : "";
+    if (segment && LOCALE_SEGMENTS[segmentPrimary]) return segment;
+    var htmlLang = document.documentElement && document.documentElement.getAttribute
+      ? document.documentElement.getAttribute("lang")
+      : "";
+    var fromHtml = readContentLocaleCandidate(htmlLang);
+    if (fromHtml) return fromHtml;
+    var fromData = readContentLocaleCandidate(dataLocale);
+    if (fromData) return fromData;
+    if (segment && /^[a-z]{2}$/.test(segment)) return segment;
+    return "";
+  }
+
   /** Explicit unsupported host locales map to English — never Norwegian by accident. */
   function sanitizeEmbedLocale(value) {
     var normalized = normalizeLocaleTag(value);
@@ -784,9 +815,9 @@
     if (canonicalUrl) {
       pageContext.canonicalUrl = canonicalUrl;
     }
-    var runtimeLocale = resolveRuntimeLocale();
-    if (runtimeLocale) {
-      pageContext.locale = normalizeText(runtimeLocale, MAX_LOCALE_LENGTH);
+    var contentLocale = resolveContentLocaleCandidate();
+    if (contentLocale) {
+      pageContext.locale = normalizeText(contentLocale, MAX_LOCALE_LENGTH);
     }
     if (headings.length > 0) {
       pageContext.headings = headings;
