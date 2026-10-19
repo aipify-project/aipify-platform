@@ -900,7 +900,8 @@
       "helpful": "Helpful",
       "needsReview": "Needs review",
       "commented": "Commented",
-      "noFeedbackSignal": "No rating"
+      "noFeedbackSignal": "No rating",
+      "closed": "Quitado de la revisión"
     },
     "actions": {
       "reviewAnswer": "Review",
@@ -935,6 +936,14 @@
       "immutable": "La respuesta que recibió el visitante no cambia. Usted crea una propuesta de FAQ aparte.",
       "saveDraft": "Guardar borrador de FAQ",
       "publishFaq": "Publicar como FAQ",
+      "removeFromReview": "Quitar de la revisión",
+      "removeFromReviewTitle": "¿Quitar este caso de la revisión?",
+      "removeFromReviewBody": "El caso pasa al historial. La opinión no se borra y no se publica ninguna FAQ.",
+      "removeFromReviewConfirm": "Quitar de la revisión",
+      "removeFromReviewCancel": "Cancelar",
+      "removing": "Quitando…",
+      "removeFromReviewError": "El caso sigue en revisión. No se borró nada.",
+      "reviewedAt": "Quitado de la revisión",
       "savedDraft": "El borrador está guardado.",
       "publishedOk": "La FAQ está publicada",
       "privacy": "Publicar hace visibles la pregunta y la respuesta para los visitantes. Revise el texto antes de publicar.",

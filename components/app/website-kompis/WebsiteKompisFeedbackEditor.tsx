@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Trash2 } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FaqPermanentExpiryFields } from "@/components/app/website-kompis/FaqPermanentExpiryFields";
@@ -10,7 +11,7 @@ import { FaqContentLanguagePicker } from "@/components/app/website-kompis/FaqCon
 import { planWebsiteKompisFaqPublish, resolveFaqExpiryForSave } from "@/lib/website-kompis-faq/safety";
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import { existingPublishedFaqHref, resolveFeedbackDrawerClose } from "@/lib/website-kompis-feedback/drawer-close";
-import type { FeedbackOpsRow } from "@/lib/website-kompis-feedback/operations-model";
+import { canOfferFeedbackReviewClose, type FeedbackOpsRow } from "@/lib/website-kompis-feedback/operations-model";
 
 type SiteOption = { installId: string; domain: string };
 
@@ -24,11 +25,15 @@ export function WebsiteKompisFeedbackEditor({
   labels,
   onClose,
   onPublished,
+  closeReady = false,
+  onReviewClosed,
 }: {
   row: FeedbackOpsRow;
   labels: WebsiteKompisFeedbackLabels;
   onClose: () => void;
   onPublished: (faqId: string) => void;
+  closeReady?: boolean;
+  onReviewClosed?: () => Promise<void> | void;
 }) {
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -53,6 +58,10 @@ export function WebsiteKompisFeedbackEditor({
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [confirmClose, setConfirmClose] = useState(false);
+  const [confirmReviewClose, setConfirmReviewClose] = useState(false);
+  const [closingReview, setClosingReview] = useState(false);
+  const reviewCloseLock = useRef(false);
+  const canCloseReview = canOfferFeedbackReviewClose(row, closeReady);
   const openedFields = useRef({
     question: row.questionPreview,
     answer: row.answerPreview,
@@ -68,13 +77,17 @@ export function WebsiteKompisFeedbackEditor({
   const requestCloseRef = useRef<() => void>(() => {});
 
   const requestClose = useCallback(() => {
+    if (confirmReviewClose) {
+      if (!closingReview) setConfirmReviewClose(false);
+      return;
+    }
     const decision = resolveFeedbackDrawerClose({ dirty, confirmVisible: confirmClose });
     if (decision === "confirm") {
       setConfirmClose(true);
       return;
     }
     onClose();
-  }, [confirmClose, dirty, onClose]);
+  }, [closingReview, confirmClose, confirmReviewClose, dirty, onClose]);
   requestCloseRef.current = requestClose;
 
   useEffect(() => {
@@ -316,6 +329,28 @@ export function WebsiteKompisFeedbackEditor({
     }
   }
 
+  async function closeReview() {
+    if (!canCloseReview || reviewCloseLock.current || closingReview) return;
+    reviewCloseLock.current = true;
+    setClosingReview(true);
+    setError(null);
+    try {
+      const response = await fetch(`/api/website-kompis/feedback/${row.id}/close`, { method: "POST" });
+      const payload = (await response.json()) as { reviewStatus?: string; code?: string };
+      if (!response.ok || payload.reviewStatus !== "closed") {
+        setError(labels.quality.removeFromReviewError);
+        return;
+      }
+      setConfirmReviewClose(false);
+      await onReviewClosed?.();
+    } catch {
+      setError(labels.quality.removeFromReviewError);
+    } finally {
+      reviewCloseLock.current = false;
+      setClosingReview(false);
+    }
+  }
+
   const drawer = (
     <div className="fixed inset-0 z-[80] flex justify-end" role="presentation">
       <button
@@ -482,8 +517,52 @@ export function WebsiteKompisFeedbackEditor({
             >
               {publishing ? labels.quality.publishing : labels.quality.publishFaq}
             </button>
+            {canCloseReview ? (
+              <button
+                type="button"
+                disabled={saving || publishing || closingReview}
+                onClick={() => setConfirmReviewClose(true)}
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[#F3C1C1] bg-white px-4 text-sm font-medium text-[#9F1239] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+              >
+                <Trash2 aria-hidden className="size-4" strokeWidth={2} />
+                {labels.quality.removeFromReview}
+              </button>
+            ) : null}
           </div>
         </form>
+        {confirmReviewClose ? (
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby={`${titleId}-close-review`}
+            className="absolute inset-0 z-30 flex items-end bg-white p-4 sm:items-center sm:justify-center"
+          >
+            <div className="w-full rounded-xl border border-slate-200 bg-white p-4 shadow-lg">
+              <h3 id={`${titleId}-close-review`} className="text-base font-semibold text-slate-900">
+                {labels.quality.removeFromReviewTitle}
+              </h3>
+              <p className="mt-2 text-sm text-slate-700">{labels.quality.removeFromReviewBody}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  disabled={closingReview}
+                  onClick={() => setConfirmReviewClose(false)}
+                  className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                >
+                  {labels.quality.removeFromReviewCancel}
+                </button>
+                <button
+                  type="button"
+                  disabled={closingReview}
+                  onClick={() => void closeReview()}
+                  className="rounded-lg border border-[#F3C1C1] bg-white px-3 py-2 text-sm font-medium text-[#9F1239] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+                >
+                  {closingReview ? labels.quality.removing : labels.quality.removeFromReviewConfirm}
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
         {confirmClose ? (
           <div
             data-feedback-drawer-confirm

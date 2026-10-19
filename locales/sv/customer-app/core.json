@@ -7537,7 +7537,8 @@
       "helpful": "Hjälpsam",
       "needsReview": "Behöver granskning",
       "commented": "Kommenterad",
-      "noFeedbackSignal": "Ingen bedömning"
+      "noFeedbackSignal": "Ingen bedömning",
+      "closed": "Borttagen från granskning"
     },
     "actions": {
       "reviewAnswer": "Granska",
@@ -7572,6 +7573,14 @@
       "immutable": "Svaret besökaren fick ändras inte. Du skapar ett eget FAQ-förslag.",
       "saveDraft": "Spara FAQ-utkast",
       "publishFaq": "Publicera som FAQ",
+      "removeFromReview": "Ta bort från granskning",
+      "removeFromReviewTitle": "Ta bort ärendet från granskning?",
+      "removeFromReviewBody": "Ärendet flyttas till historik. Återkopplingen raderas inte, och ingen FAQ publiceras.",
+      "removeFromReviewConfirm": "Ta bort från granskning",
+      "removeFromReviewCancel": "Avbryt",
+      "removing": "Tar bort…",
+      "removeFromReviewError": "Ärendet ligger kvar för granskning. Ingenting raderades.",
+      "reviewedAt": "Borttagen från granskning",
       "savedDraft": "Utkastet är sparat.",
       "publishedOk": "FAQ är publicerad",
       "privacy": "Publicering gör frågan och svaret synliga för besökare. Kontrollera texten innan du publicerar.",

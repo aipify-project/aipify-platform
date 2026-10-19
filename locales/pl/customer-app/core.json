@@ -1004,7 +1004,8 @@
       "helpful": "Pomocne",
       "needsReview": "Do przeglądu",
       "commented": "Z komentarzem",
-      "noFeedbackSignal": "Brak oceny"
+      "noFeedbackSignal": "Brak oceny",
+      "closed": "Usunięto z przeglądu"
     },
     "actions": {
       "reviewAnswer": "Przejrzyj",
@@ -1039,6 +1040,14 @@
       "immutable": "Odpowiedź, którą dostał odwiedzający, nie zmienia się. Tworzysz osobną propozycję FAQ.",
       "saveDraft": "Zapisz szkic FAQ",
       "publishFaq": "Opublikuj jako FAQ",
+      "removeFromReview": "Usuń z przeglądu",
+      "removeFromReviewTitle": "Usunąć sprawę z przeglądu?",
+      "removeFromReviewBody": "Sprawa przechodzi do historii. Opinia nie jest usuwana i żadne FAQ nie jest publikowane.",
+      "removeFromReviewConfirm": "Usuń z przeglądu",
+      "removeFromReviewCancel": "Anuluj",
+      "removing": "Usuwanie…",
+      "removeFromReviewError": "Sprawa nadal jest w przeglądzie. Nic nie zostało usunięte.",
+      "reviewedAt": "Usunięto z przeglądu",
       "savedDraft": "Szkic został zapisany.",
       "publishedOk": "FAQ jest opublikowane",
       "privacy": "Publikacja pokazuje pytanie i odpowiedź odwiedzającym. Sprawdź tekst przed publikacją.",

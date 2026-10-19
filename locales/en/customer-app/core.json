@@ -7526,7 +7526,8 @@
       "helpful": "Helpful",
       "needsReview": "Needs review",
       "commented": "Commented",
-      "noFeedbackSignal": "No rating"
+      "noFeedbackSignal": "No rating",
+      "closed": "Removed from review"
     },
     "actions": {
       "reviewAnswer": "Review",
@@ -7561,6 +7562,14 @@
       "immutable": "The answer the visitor received is not changed. You create a separate FAQ suggestion.",
       "saveDraft": "Save FAQ draft",
       "publishFaq": "Publish as FAQ",
+      "removeFromReview": "Remove from review",
+      "removeFromReviewTitle": "Remove this case from review?",
+      "removeFromReviewBody": "The case moves to history. The feedback is not deleted, and no FAQ is published.",
+      "removeFromReviewConfirm": "Remove from review",
+      "removeFromReviewCancel": "Cancel",
+      "removing": "Removing…",
+      "removeFromReviewError": "The case is still in review. Nothing was deleted.",
+      "reviewedAt": "Removed from review",
       "savedDraft": "The draft is saved.",
       "publishedOk": "FAQ is published",
       "privacy": "Publishing makes the question and answer visible to visitors. Check the text before you publish.",
