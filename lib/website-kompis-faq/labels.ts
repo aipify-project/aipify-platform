@@ -123,6 +123,10 @@ export function buildWebsiteKompisFaqLabels(t: TranslateFn) {
       publishConfirm: t(`${prefix}.listWindow.publishConfirm`),
       publishResult: t(`${prefix}.listWindow.publishResult`),
       nothingReady: t(`${prefix}.listWindow.nothingReady`),
+      alreadyPublished: t(`${prefix}.listWindow.alreadyPublished`),
+      eligibility: t(`${prefix}.listWindow.eligibility`),
+      noneReadyDetail: t(`${prefix}.listWindow.noneReadyDetail`),
+      showDrafts: t(`${prefix}.listWindow.showDrafts`),
     },
     siteContext: {
       label: t(`${prefix}.siteContext.label`),

@@ -6944,10 +6944,14 @@
       "loadMore": "Visa fler",
       "publishSelected": "Publicera valda utkast",
       "publishTitle": "Publicera de valda utkasten på den här sidan",
-      "publishBody": "Webbplats: {site}. Filter: {filter}. {ready} markerade utkast på den här sidan är redo att bli offentliga. {skipped} markerade rader hoppas över. Andra sidor ändras inte. En markering publicerar inte.",
+      "publishBody": "Webbplats: {site}. Filter: {filter}. {ready} markerade utkast på den här sidan är redo att bli offentliga. {skipped} markerade rader hoppas över. Andra sidor ändras inte. En markering publicerar inte. {published} redan publicerade rader förblir publicerade.",
       "publishConfirm": "Publicera dessa utkast",
       "publishResult": "Publicerade {passed}. Inte publicerade {failed}. Överhoppade {skipped}.",
-      "nothingReady": "Ingen av de valda raderna är utkast som är markerade som redo för den offentliga webbplatsen."
+      "nothingReady": "Ingen av de valda raderna är utkast som är markerade som redo för den offentliga webbplatsen.",
+      "alreadyPublished": "Alla {count} valda rader är redan publicerade. De publiceras inte igen. Använd Visa utkast för rader som fortfarande kan publiceras.",
+      "eligibility": "{ready} kan publiceras. {published} är redan publicerade. {draftNotReady} utkast är inte markerade som redo för den offentliga webbplatsen. {archived} är arkiverade.",
+      "noneReadyDetail": "Inga valda rader kan publiceras. {published} är redan publicerade. {draftNotReady} utkast är inte markerade som redo. {archived} är arkiverade. Arkiverade rader måste återställas en och en innan de kan bli utkast.",
+      "showDrafts": "Visa utkast"
     },
     "filters": {
       "status": "Status",

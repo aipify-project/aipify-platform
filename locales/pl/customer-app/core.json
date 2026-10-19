@@ -411,10 +411,14 @@
       "loadMore": "Pokaż więcej",
       "publishSelected": "Opublikuj zaznaczone wersje robocze",
       "publishTitle": "Opublikuj zaznaczone wersje robocze na tej stronie",
-      "publishBody": "Witryna: {site}. Filtr: {filter}. {ready} zaznaczonych wersji roboczych na tej stronie jest gotowych do publikacji. {skipped} zaznaczonych wierszy zostanie pominiętych. Inne strony pozostają bez zmian. Zaznaczenie nie publikuje.",
+      "publishBody": "Witryna: {site}. Filtr: {filter}. {ready} zaznaczonych wersji roboczych na tej stronie jest gotowych do publikacji. {skipped} zaznaczonych wierszy zostanie pominiętych. Inne strony pozostają bez zmian. Zaznaczenie nie publikuje. {published} już opublikowanych wierszy pozostaje opublikowanych.",
       "publishConfirm": "Opublikuj te wersje robocze",
       "publishResult": "Opublikowano {passed}. Nie opublikowano {failed}. Pominięto {skipped}.",
-      "nothingReady": "Żaden z zaznaczonych wierszy nie jest wersją roboczą oznaczoną jako gotowa na publiczną witrynę."
+      "nothingReady": "Żaden z zaznaczonych wierszy nie jest wersją roboczą oznaczoną jako gotowa na publiczną witrynę.",
+      "alreadyPublished": "Wszystkie {count} zaznaczone wiersze są już opublikowane. Nie zostaną opublikowane ponownie. Użyj Pokaż wersje robocze dla wierszy, które nadal można opublikować.",
+      "eligibility": "{ready} można opublikować. {published} jest już opublikowanych. {draftNotReady} wersji roboczych nie jest oznaczonych jako gotowe na publiczną witrynę. {archived} jest zarchiwizowanych.",
+      "noneReadyDetail": "Żadnego z zaznaczonych wierszy nie można opublikować. {published} jest już opublikowanych. {draftNotReady} wersji roboczych nie jest oznaczonych jako gotowe. {archived} jest zarchiwizowanych. Zarchiwizowane wiersze trzeba przywrócić pojedynczo, zanim staną się wersjami roboczymi.",
+      "showDrafts": "Pokaż wersje robocze"
     },
     "filters": {
       "status": "Status",

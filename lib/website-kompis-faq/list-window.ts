@@ -120,3 +120,58 @@ export function planVisibleDraftPublish(
 
   return { readyIds, skipped };
 }
+
+export type VisiblePublishSummary = {
+  selected: number;
+  ready: number;
+  published: number;
+  draftNotReady: number;
+  archived: number;
+  notVisible: number;
+};
+
+/** Counts for the visible page only. Published rows are not republish candidates. */
+export function summarizeVisiblePublish(
+  items: readonly { id: string; status: string; publicSafe: boolean }[],
+  selectedIds: readonly string[],
+): VisiblePublishSummary {
+  const plan = planVisibleDraftPublish(items, selectedIds);
+  const byId = new Map(items.map((item) => [item.id, item]));
+  let published = 0;
+  let draftNotReady = 0;
+  let archived = 0;
+  let notVisible = 0;
+  for (const skip of plan.skipped) {
+    const item = byId.get(skip.id);
+    if (!item || skip.reason === "not_visible") {
+      notVisible += 1;
+      continue;
+    }
+    if (item.status === "published") published += 1;
+    else if (item.status === "archived") archived += 1;
+    else if (item.status === "draft") draftNotReady += 1;
+    else notVisible += 1;
+  }
+  return {
+    selected: plan.readyIds.length + plan.skipped.length,
+    ready: plan.readyIds.length,
+    published,
+    draftNotReady,
+    archived,
+    notVisible,
+  };
+}
+
+export function visiblePublishBlock(
+  summary: VisiblePublishSummary,
+): "none_selected" | "already_published" | "none_ready" | "ready" {
+  if (summary.selected === 0) return "none_selected";
+  if (summary.ready > 0) return "ready";
+  if (summary.published === summary.selected && summary.published > 0) return "already_published";
+  return "none_ready";
+}
+
+/** Failed publish calls stay selected. Skipped and successful rows do not. */
+export function selectionAfterVisiblePublish(failedIds: readonly string[]): string[] {
+  return [...failedIds];
+}
