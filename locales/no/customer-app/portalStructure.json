@@ -8543,7 +8543,16 @@
       "connectionDescription": "Koble domener, installasjoner og besøkendes tilgang for Kompis Web.",
       "appearanceDescription": "Velg widget-utseende, velkomstmeldinger og presentasjon for besøkende.",
       "settingsDescription": "Nettstedinnstillinger for tilkobling, utseende og avanserte verktøy.",
-      "operatorLink": "Åpne nettstedsutgiver (Kompis)"
+      "operatorLink": "Åpne nettstedsutgiver (Kompis)",
+      "presenceReady": "Aipify er klar til å hjelpe på de verifiserte sidene.",
+      "hintPublished": "Synlige på nettstedet",
+      "hintDraft": "Ikke publisert ennå",
+      "hintArchived": "Arkiverte spørsmål",
+      "hintReview": "Klar for din vurdering",
+      "hintAnswers": "Tilbakemeldinger registrert så langt",
+      "hintHelpful": "Vurdert som nyttige",
+      "hintNotHelpful": "Vurdert som ikke nyttige",
+      "domainCount": "{count} domener"
     },
     "foundationDashboard": {
       "eyebrow": "Oversikt",

@@ -8542,7 +8542,16 @@
       "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
       "appearanceDescription": "Choose widget look, welcome messages, and presentation for visitors.",
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
-      "operatorLink": "Open website publisher (Kompis)"
+      "operatorLink": "Open website publisher (Kompis)",
+      "presenceReady": "Aipify er klar til at hjælpe på de verificerede sider.",
+      "hintPublished": "Synlige på websitet",
+      "hintDraft": "Ikke udgivet endnu",
+      "hintArchived": "Arkiverede spørgsmål",
+      "hintReview": "Klar til din gennemgang",
+      "hintAnswers": "Tilbagemeldinger registreret indtil nu",
+      "hintHelpful": "Vurderet som nyttige",
+      "hintNotHelpful": "Vurderet som ikke nyttige",
+      "domainCount": "{count} domæner"
     },
     "foundationDashboard": {
       "eyebrow": "Oversigt",

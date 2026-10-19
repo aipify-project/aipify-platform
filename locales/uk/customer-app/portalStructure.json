@@ -7479,7 +7479,16 @@
       "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
       "appearanceDescription": "Choose widget look, welcome messages, and presentation for visitors.",
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
-      "operatorLink": "Open website publisher (Kompis)"
+      "operatorLink": "Open website publisher (Kompis)",
+      "presenceReady": "Aipify готовий допомагати на перевірених сторінках.",
+      "hintPublished": "Видно на сайті",
+      "hintDraft": "Ще не опубліковано",
+      "hintArchived": "Архівні запитання",
+      "hintReview": "Готово до вашого перегляду",
+      "hintAnswers": "Зареєстровані відгуки",
+      "hintHelpful": "Оцінено як корисні",
+      "hintNotHelpful": "Оцінено як некорисні",
+      "domainCount": "{count} доменів"
     },
     "foundationDashboard": {
       "eyebrow": "Overview",
