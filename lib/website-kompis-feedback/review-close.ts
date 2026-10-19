@@ -5,6 +5,14 @@ export type FeedbackCloseOutcome =
   | "missing"
   | "failed";
 
+/** True only when Core reports both the close write and the paged read. */
+export function feedbackReviewCloseCapability(input: {
+  reviewCloseReady?: unknown;
+  reviewPageReady?: unknown;
+}): boolean {
+  return input.reviewCloseReady === true && input.reviewPageReady === true;
+}
+
 export function interpretFeedbackCloseResponse(input: {
   httpStatus: number;
   reviewStatus?: string | null;

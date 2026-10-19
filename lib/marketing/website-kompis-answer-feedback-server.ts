@@ -2,6 +2,7 @@ import "server-only";
 
 import { createHash, randomUUID } from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { feedbackReviewCloseCapability } from "@/lib/website-kompis-feedback/review-close";
 import {
   clipWebsiteKompisFeedbackSnapshot,
   CREATE_WEBSITE_KOMPIS_ANSWER_RECEIPT_RPC,
@@ -235,6 +236,7 @@ export async function recordWebsiteKompisAnswerFeedback(
 
 export type WebsiteKompisAnswerFeedbackOverview = {
   persistenceReady: boolean;
+  reviewCloseReady: boolean;
   totals: {
     answers: number;
     helpful: number;
@@ -263,6 +265,7 @@ export async function getWebsiteKompisAnswerFeedbackOverview(
   const limit = Math.min(Math.max(options?.limit ?? 40, 1), 100);
   const empty: WebsiteKompisAnswerFeedbackOverview = {
     persistenceReady: false,
+    reviewCloseReady: false,
     totals: { answers: 0, helpful: 0, notHelpful: 0, withComment: 0, needsReview: null },
     recent: [],
   };
@@ -291,6 +294,10 @@ export async function getWebsiteKompisAnswerFeedbackOverview(
 
   return {
     persistenceReady: row.persistence_ready !== false,
+    reviewCloseReady: feedbackReviewCloseCapability({
+      reviewCloseReady: row.review_close_ready,
+      reviewPageReady: row.review_page_ready,
+    }),
     totals: {
       answers: Number(totals.answers ?? 0) || 0,
       helpful: Number(totals.helpful ?? 0) || 0,

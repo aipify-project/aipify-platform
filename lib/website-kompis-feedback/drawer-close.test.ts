@@ -20,8 +20,8 @@ assert.match(href, /edit=11111111-1111-4111-8111-111111111111/);
 assert.match(href, /query=Hva\+koster\+det%3F|query=Hva%20koster%20det%3F/);
 
 assert.equal(OWNER_REVIEW_APPROVAL_SUPPORTED, false);
-assert.match(FEEDBACK_REVIEW_BADGE_CLASS, /#FDECEC/);
-assert.match(FEEDBACK_REVIEW_BADGE_CLASS, /#9F1239/);
+assert.match(FEEDBACK_REVIEW_BADGE_CLASS, /#FDE9EC/);
+assert.match(FEEDBACK_REVIEW_BADGE_CLASS, /#A52D3E/);
 assert.doesNotMatch(FEEDBACK_REVIEW_BADGE_CLASS, /#FFF4E5/);
 
 const editor = fs.readFileSync(

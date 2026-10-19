@@ -25,7 +25,7 @@ export type FeedbackOpsStatusTone = "emerald" | "amber" | "slate" | "purple" | "
 
 /** Active review only. Not a global warning color. */
 export const FEEDBACK_REVIEW_BADGE_CLASS =
-  "bg-[#FDECEC] text-[#9F1239] ring-[#F3C1C1]";
+  "bg-[#FDE9EC] text-[#A52D3E] ring-[#F2BAC2]";
 
 export type FeedbackOpsStatus = {
   tone: FeedbackOpsStatusTone;

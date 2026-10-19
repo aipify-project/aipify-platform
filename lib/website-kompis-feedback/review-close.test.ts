@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { interpretFeedbackCloseResponse } from "@/lib/website-kompis-feedback/review-close";
+import { feedbackReviewCloseCapability, interpretFeedbackCloseResponse } from "@/lib/website-kompis-feedback/review-close";
 import {
   FEEDBACK_REVIEW_CLOSE_READY,
   OWNER_REVIEW_APPROVAL_SUPPORTED,
@@ -40,6 +40,8 @@ assert.doesNotMatch(revised, /grant execute[\s\S]*to anon/);
 assert.doesNotMatch(revised, /delete from public.website_kompis_answer_feedback/i);
 
 assert.equal(FEEDBACK_REVIEW_CLOSE_READY, false);
+assert.equal(feedbackReviewCloseCapability({ reviewCloseReady: true }), false);
+assert.equal(feedbackReviewCloseCapability({ reviewCloseReady: true, reviewPageReady: true }), true);
 assert.equal(OWNER_REVIEW_APPROVAL_SUPPORTED, false);
 assert.equal(
   canOfferFeedbackReviewClose({ vote: "not_helpful", reviewStatus: "open" }, false),
@@ -91,5 +93,12 @@ const editor = fs.readFileSync(
 assert.match(editor, /canOfferFeedbackReviewClose/);
 assert.match(editor, /resolveFeedbackDrawerClose/);
 assert.doesNotMatch(editor, /FEEDBACK_REVIEW_CLOSE_READY = true/);
+const panel = fs.readFileSync(
+  path.join(root, "components/app/website-kompis/WebsiteKompisFeedbackOverviewPanel.tsx"),
+  "utf8",
+);
+assert.match(panel, /canOfferFeedbackReviewClose/);
+assert.match(panel, /#FFF4E5/);
+assert.doesNotMatch(panel, /closeReady=\{FEEDBACK_REVIEW_CLOSE_READY\}/);
 
 console.log("review-close.test.ts: ok");

@@ -22,6 +22,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       ok: true,
       persistenceReady: overview.persistenceReady,
+      reviewCloseReady: overview.reviewCloseReady,
       totals: overview.totals,
       recent: overview.recent,
       reuseEnabled: false,

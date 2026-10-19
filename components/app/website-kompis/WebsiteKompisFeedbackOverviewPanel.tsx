@@ -15,8 +15,8 @@ import { WebsiteKompisPublishedFaqList } from "@/components/app/website-kompis/W
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import {
   FEEDBACK_REVIEW_BADGE_CLASS,
-  FEEDBACK_REVIEW_CLOSE_READY,
   FEEDBACK_REVIEW_PAGE_SIZE,
+  canOfferFeedbackReviewClose,
   filterFeedbackOpsRows,
   partitionFeedbackWorkspace,
   resolveFeedbackOpsStatus,
@@ -38,6 +38,7 @@ type OverviewPayload = {
     needsReview?: number | null;
   };
   recent?: FeedbackOpsRow[];
+  reviewCloseReady?: boolean;
   error?: string;
 };
 
@@ -96,6 +97,9 @@ export function WebsiteKompisFeedbackOverviewPanel({
   const [data, setData] = useState<OverviewPayload | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [confirmCloseId, setConfirmCloseId] = useState<string | null>(null);
+  const [closingId, setClosingId] = useState<string | null>(null);
+  const [closeError, setCloseError] = useState<string | null>(null);
   const [visible, setVisible] = useState(FEEDBACK_REVIEW_PAGE_SIZE);
 
   const viewParam = searchParams.get("view");
@@ -178,6 +182,28 @@ export function WebsiteKompisFeedbackOverviewPanel({
   const activeRows = view === "history" ? partitioned.history : reviewQueue;
   const page = takeFeedbackPage(activeRows, visible);
   const selected = recent.find((row) => row.id === selectedId) ?? null;
+  const closeReady = data?.reviewCloseReady === true;
+
+  async function confirmReviewClose(id: string) {
+    if (!closeReady || closingId) return;
+    setClosingId(id);
+    setCloseError(null);
+    try {
+      const response = await fetch(`/api/website-kompis/feedback/${id}/close`, { method: "POST" });
+      const payload = (await response.json()) as { reviewStatus?: string };
+      if (!response.ok || payload.reviewStatus !== "closed") {
+        setCloseError(labels.quality.removeFromReviewError);
+        return;
+      }
+      setConfirmCloseId(null);
+      if (selectedId === id) setSelectedId(null);
+      await load();
+    } catch {
+      setCloseError(labels.quality.removeFromReviewError);
+    } finally {
+      setClosingId(null);
+    }
+  }
   const locales = useMemo(
     () => Array.from(new Set(recent.map((row) => row.locale).filter((value): value is string => Boolean(value)))),
     [recent],
@@ -237,14 +263,14 @@ export function WebsiteKompisFeedbackOverviewPanel({
         {tiles.map((item) => {
           const Icon = item.icon;
           return (
-            <div key={item.label} className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-4 shadow-[var(--app-shadow-card)]">
+            <div key={item.label} className="rounded-[18px] border border-[#E4E6F2] bg-white p-5 shadow-[0_8px_24px_rgba(65,54,132,0.055)]">
               <div className="flex items-center gap-2">
                 <span className={`inline-flex size-8 items-center justify-center rounded-full ${item.chip}`}>
                   <Icon aria-hidden className="size-4" strokeWidth={2} />
                 </span>
                 <p className="text-sm text-[var(--app-text-muted)]">{item.label}</p>
               </div>
-              <p className="mt-3 text-2xl font-semibold tracking-tight text-[var(--app-text)]">{item.value}</p>
+              <p className="mt-3 text-[1.95rem] font-semibold tabular-nums tracking-tight text-[#20243E]">{item.value}</p>
             </div>
           );
         })}
@@ -393,41 +419,83 @@ export function WebsiteKompisFeedbackOverviewPanel({
                 primaryAction={{ label: labels.clearFilters, onClick: clearFilters }}
               />
             ) : (
-              <ul className="grid gap-3 lg:grid-cols-2">
-                {page.items.map((row) => (
-                  <li key={row.id} className="flex flex-col rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]">
+              <>
+              <ul className="grid gap-4 lg:grid-cols-2">
+                {page.items.map((row) => {
+                  const canClose = canOfferFeedbackReviewClose(row, closeReady);
+                  return (
+                  <li key={row.id} className="flex flex-col gap-3.5 rounded-[20px] border border-[#E4E6F2] bg-white p-5 shadow-[0_8px_25px_rgba(65,54,132,0.045)]">
                     <div className="flex items-start justify-between gap-3">
                       <StatusBadge labels={labels} row={row} />
-                      <span className="text-xs text-[var(--app-text-muted)]">{formatWhen(row.createdAt, locale)}</span>
+                      <span className="text-xs text-[#65708A]">{formatWhen(row.createdAt, locale)}</span>
                     </div>
-                    <h3 className="mt-3 text-base font-semibold text-[var(--app-text)]">{row.questionPreview || "—"}</h3>
-                    <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[var(--app-text-muted)]">{row.answerPreview || "—"}</p>
-                    {row.comment?.trim() ? (
-                      <p className="mt-2 line-clamp-2 text-sm text-[var(--app-text)]">{row.comment.trim()}</p>
-                    ) : null}
-                    {row.reviewedAt ? (
-                      <p className="mt-3 text-xs text-[var(--app-text-muted)]">
-                        {labels.quality.reviewedAt}: {formatWhen(row.reviewedAt, locale)}
-                      </p>
-                    ) : null}
-                    <p className="mt-3 text-xs text-[var(--app-text-muted)]">
+                    <h3 className="text-base font-semibold text-[#20243E]">{row.questionPreview || "—"}</h3>
+                    <p className="text-xs text-[#65708A]">
                       {[row.pagePathname, row.locale ? languageNames[row.locale] ?? row.locale : null]
                         .filter(Boolean)
                         .join(" · ") || "—"}
                     </p>
-                    <div className="mt-4">
+                    <div className="rounded-[13px] border border-[#E4E6F2] bg-[#F8F9FD] p-3.5">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.07em] text-[#65708A]">{labels.quality.answerHeading}</p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-[#20243E]">{row.answerPreview || "—"}</p>
+                    </div>
+                    {view === "review" || row.comment?.trim() ? (
+                      <div className="rounded-[13px] border border-[#EEC58C] bg-[#FFF4E5] p-3.5">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.07em] text-[#945A15]">{labels.quality.commentHeading}</p>
+                        <p className="mt-1.5 text-sm leading-relaxed text-[#624422]">
+                          {row.comment?.trim() || labels.quality.noCommentAdded}
+                        </p>
+                      </div>
+                    ) : null}
+                    {row.reviewedAt ? (
+                      <p className="text-xs text-[#65708A]">
+                        {labels.quality.reviewedAt}: {formatWhen(row.reviewedAt, locale)}
+                      </p>
+                    ) : null}
+                    <div className="mt-auto flex flex-wrap gap-2.5">
                       <button
                         type="button"
                         data-feedback-edit={row.id}
                         onClick={() => setSelectedId(row.id)}
-                        className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] px-3 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+                        className="inline-flex min-h-11 items-center rounded-xl border border-[#DFE3F1] bg-white px-3.5 text-sm font-semibold text-[#20243E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
                       >
                         {labels.openDetail}
                       </button>
+                      {canClose ? (
+                        <button
+                          type="button"
+                          disabled={closingId === row.id}
+                          aria-label={labels.quality.removeFromReview}
+                          onClick={() => {
+                            setCloseError(null);
+                            setConfirmCloseId(row.id);
+                          }}
+                          className="inline-flex min-h-11 items-center rounded-xl border border-[#E6B8C0] bg-white px-3.5 text-sm font-semibold text-[#A52D3E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+                        >
+                          {closingId === row.id ? labels.quality.removing : labels.quality.removeFromReview}
+                        </button>
+                      ) : null}
                     </div>
+                    {confirmCloseId === row.id ? (
+                      <div role="alertdialog" aria-modal="true" className="rounded-xl border border-[#E4E6F2] bg-white p-3">
+                        <p className="text-sm font-semibold text-[#20243E]">{labels.quality.removeFromReviewTitle}</p>
+                        <p className="mt-1 text-sm text-[#65708A]">{labels.quality.removeFromReviewBody}</p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <button type="button" className="min-h-11 rounded-lg border border-[#DFE3F1] px-3 text-sm" onClick={() => setConfirmCloseId(null)}>
+                            {labels.quality.removeFromReviewCancel}
+                          </button>
+                          <button type="button" disabled={closingId === row.id} className="min-h-11 rounded-lg border border-[#E6B8C0] px-3 text-sm font-semibold text-[#A52D3E] disabled:opacity-60" onClick={() => void confirmReviewClose(row.id)}>
+                            {labels.quality.removeFromReviewConfirm}
+                          </button>
+                        </div>
+                      </div>
+                    ) : null}
                   </li>
-                ))}
+                  );
+                })}
               </ul>
+              {closeError ? <p className="text-sm text-[#20243E]" role="alert">{closeError}</p> : null}
+              </>
             )}
             {page.hasMore ? (
               <button
@@ -453,7 +521,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
           row={selected}
           labels={labels}
           onClose={() => setSelectedId(null)}
-          closeReady={FEEDBACK_REVIEW_CLOSE_READY}
+          closeReady={data?.reviewCloseReady === true}
           onReviewClosed={async () => {
             setSelectedId(null);
             await load();
