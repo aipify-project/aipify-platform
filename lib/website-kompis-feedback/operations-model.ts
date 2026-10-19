@@ -18,7 +18,10 @@ export type FeedbackOpsRow = {
   locale: string | null;
   createdAt: string;
   reviewStatus?: "open" | "closed" | null;
+  reviewDisposition?: "open" | "published" | "rejected" | null;
   reviewedAt?: string | null;
+  installId?: string | null;
+  publishedFaqItemId?: string | null;
 };
 
 export type FeedbackOpsStatusTone = "emerald" | "amber" | "slate" | "purple" | "review";
@@ -30,7 +33,7 @@ export const FEEDBACK_REVIEW_BADGE_CLASS =
 export type FeedbackOpsStatus = {
   tone: FeedbackOpsStatusTone;
   /** i18n key suffix under customerApp.websiteKompisFeedback.status.* */
-  key: "helpful" | "needsReview" | "commented" | "noFeedbackSignal" | "closed";
+  key: "helpful" | "needsReview" | "commented" | "noFeedbackSignal" | "closed" | "published" | "rejected";
 };
 
 export type FeedbackOpsNextAction = {
@@ -124,6 +127,12 @@ export const WEBSITE_KOMPIS_FEEDBACK_FIELD_MATRIX = [
 ] as const;
 
 export function resolveFeedbackOpsStatus(row: FeedbackOpsRow): FeedbackOpsStatus {
+  if (row.reviewDisposition === "published") {
+    return { tone: "emerald", key: "published" };
+  }
+  if (row.reviewDisposition === "rejected") {
+    return { tone: "slate", key: "rejected" };
+  }
   if (row.reviewStatus === "closed") {
     return { tone: "slate", key: "closed" };
   }

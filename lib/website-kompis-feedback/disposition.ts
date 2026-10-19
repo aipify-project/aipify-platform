@@ -1,4 +1,7 @@
-import { FEEDBACK_REVIEW_DISPOSITION_READY } from "@/lib/website-kompis-feedback/operations-model";
+import {
+  FEEDBACK_REVIEW_DISPOSITION_READY,
+  type FeedbackOpsRow,
+} from "@/lib/website-kompis-feedback/operations-model";
 
 export const COMPLETE_FEEDBACK_REVIEW_RPC = "complete_website_kompis_feedback_review_as_published" as const;
 export const REJECT_FEEDBACK_REVIEW_RPC = "reject_website_kompis_feedback_review" as const;
@@ -113,6 +116,50 @@ export function cursorFromQueuePage(items: { id: string; createdAt: string }[]):
   const last = items[items.length - 1];
   if (!last?.id || !last.createdAt) return null;
   return { before: last.createdAt, beforeId: last.id };
+}
+
+const QUEUE_VOTES = new Set(["helpful", "not_helpful"]);
+const QUEUE_DISPOSITIONS = new Set(["open", "published", "rejected"]);
+
+export type FeedbackReviewQueuePage = {
+  items: FeedbackOpsRow[];
+  next: { before: string; beforeId: string } | null;
+  openReviewCount: number;
+  publishedCount: number;
+  rejectedCount: number;
+};
+
+export function isOpenNegativeReview(row: Pick<FeedbackOpsRow, "vote" | "reviewDisposition" | "reviewStatus">): boolean {
+  return row.vote === "not_helpful" && row.reviewDisposition !== "published" && row.reviewDisposition !== "rejected" && row.reviewStatus !== "closed";
+}
+
+export function isHistoryFeedback(row: Pick<FeedbackOpsRow, "vote" | "reviewDisposition" | "reviewStatus">): boolean {
+  return row.vote === "helpful" || row.reviewDisposition === "published" || row.reviewDisposition === "rejected" || row.reviewStatus === "closed";
+}
+
+export function mapReviewQueueItem(raw: unknown): FeedbackOpsRow | null {
+  if (!raw || typeof raw !== "object") return null;
+  const row = raw as Record<string, unknown>;
+  if (typeof row.id !== "string" || typeof row.created_at !== "string") return null;
+  if (typeof row.vote !== "string" || !QUEUE_VOTES.has(row.vote)) return null;
+  const disposition = typeof row.review_disposition === "string" ? row.review_disposition : "open";
+  if (!QUEUE_DISPOSITIONS.has(disposition)) return null;
+  const reviewDisposition = disposition as NonNullable<FeedbackOpsRow["reviewDisposition"]>;
+  return {
+    id: row.id,
+    vote: row.vote as FeedbackOpsRow["vote"],
+    comment: typeof row.comment === "string" ? row.comment : null,
+    questionPreview: typeof row.question_preview === "string" ? row.question_preview : "",
+    answerPreview: typeof row.answer_preview === "string" ? row.answer_preview : "",
+    pagePathname: typeof row.page_pathname === "string" ? row.page_pathname : null,
+    locale: typeof row.locale === "string" ? row.locale : null,
+    createdAt: row.created_at,
+    reviewDisposition,
+    reviewStatus: reviewDisposition === "published" || reviewDisposition === "rejected" ? "closed" : "open",
+    reviewedAt: typeof row.reviewed_at === "string" ? row.reviewed_at : null,
+    installId: typeof row.install_id === "string" ? row.install_id : null,
+    publishedFaqItemId: typeof row.published_faq_item_id === "string" ? row.published_faq_item_id : null,
+  };
 }
 
 export function dispositionUnavailable(ready = FEEDBACK_REVIEW_DISPOSITION_READY): boolean {

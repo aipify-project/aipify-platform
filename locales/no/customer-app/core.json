@@ -7538,7 +7538,9 @@
       "needsReview": "Trenger gjennomgang",
       "commented": "Kommentert",
       "noFeedbackSignal": "Ingen vurdering",
-      "closed": "Fjernet fra gjennomgang"
+      "closed": "Fjernet fra gjennomgang",
+      "published": "Publisert som FAQ",
+      "rejected": "Avvist"
     },
     "actions": {
       "reviewAnswer": "Gjennomgå",
@@ -7581,6 +7583,9 @@
       "removing": "Fjerner…",
       "removeFromReviewError": "Saken ligger fortsatt til gjennomgang. Ingenting ble slettet.",
       "reviewedAt": "Fjernet fra gjennomgang",
+      "answerHeading": "Kompis sitt svar",
+      "commentHeading": "Kundens tilbakemelding",
+      "noCommentAdded": "Ingen kommentar ble lagt til.",
       "savedDraft": "Utkastet er lagret.",
       "publishedOk": "FAQ er publisert",
       "privacy": "Publisering gjør spørsmålet og svaret synlig for besøkende. Kontroller teksten før du publiserer.",

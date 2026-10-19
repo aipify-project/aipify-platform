@@ -901,7 +901,9 @@
       "needsReview": "Needs review",
       "commented": "Commented",
       "noFeedbackSignal": "No rating",
-      "closed": "Quitado de la revisión"
+      "closed": "Quitado de la revisión",
+      "published": "Publicado como FAQ",
+      "rejected": "Rechazado"
     },
     "actions": {
       "reviewAnswer": "Review",
@@ -944,6 +946,9 @@
       "removing": "Quitando…",
       "removeFromReviewError": "El caso sigue en revisión. No se borró nada.",
       "reviewedAt": "Quitado de la revisión",
+      "answerHeading": "Respuesta de Kompis",
+      "commentHeading": "Opinión del visitante",
+      "noCommentAdded": "No se añadió ningún comentario.",
       "savedDraft": "El borrador está guardado.",
       "publishedOk": "La FAQ está publicada",
       "privacy": "Publicar hace visibles la pregunta y la respuesta para los visitantes. Revise el texto antes de publicar.",

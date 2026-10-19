@@ -7527,7 +7527,9 @@
       "needsReview": "Needs review",
       "commented": "Commented",
       "noFeedbackSignal": "No rating",
-      "closed": "Removed from review"
+      "closed": "Removed from review",
+      "published": "Published as FAQ",
+      "rejected": "Rejected"
     },
     "actions": {
       "reviewAnswer": "Review",
@@ -7570,6 +7572,9 @@
       "removing": "Removing…",
       "removeFromReviewError": "The case is still in review. Nothing was deleted.",
       "reviewedAt": "Removed from review",
+      "answerHeading": "Kompis answer",
+      "commentHeading": "Visitor feedback",
+      "noCommentAdded": "No comment was added.",
       "savedDraft": "The draft is saved.",
       "publishedOk": "FAQ is published",
       "privacy": "Publishing makes the question and answer visible to visitors. Check the text before you publish.",

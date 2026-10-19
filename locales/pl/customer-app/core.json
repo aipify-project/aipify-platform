@@ -1005,7 +1005,9 @@
       "needsReview": "Do przeglądu",
       "commented": "Z komentarzem",
       "noFeedbackSignal": "Brak oceny",
-      "closed": "Usunięto z przeglądu"
+      "closed": "Usunięto z przeglądu",
+      "published": "Opublikowano jako FAQ",
+      "rejected": "Odrzucono"
     },
     "actions": {
       "reviewAnswer": "Przejrzyj",
@@ -1048,6 +1050,9 @@
       "removing": "Usuwanie…",
       "removeFromReviewError": "Sprawa nadal jest w przeglądzie. Nic nie zostało usunięte.",
       "reviewedAt": "Usunięto z przeglądu",
+      "answerHeading": "Odpowiedź Kompisa",
+      "commentHeading": "Opinia odwiedzającego",
+      "noCommentAdded": "Nie dodano komentarza.",
       "savedDraft": "Szkic został zapisany.",
       "publishedOk": "FAQ jest opublikowane",
       "privacy": "Publikacja pokazuje pytanie i odpowiedź odwiedzającym. Sprawdź tekst przed publikacją.",

@@ -7,6 +7,9 @@ import {
   buildRejectDispositionCall,
   buildReviewQueueRpcArgs,
   cursorFromQueuePage,
+  isHistoryFeedback,
+  isOpenNegativeReview,
+  mapReviewQueueItem,
   retryFaqId,
   shouldRemoveReviewCard,
 } from "@/lib/website-kompis-feedback/disposition";
@@ -89,6 +92,31 @@ const fullPage = Array.from({ length: 100 }, (_, index) => ({
   id: index === 99 ? "77777777-7777-4777-8777-777777777772" : "77777777-7777-4777-8777-777777777771",
   createdAt: "2026-01-01T00:00:00.000Z",
 }));
+
+const helpful = mapReviewQueueItem({
+  id: feedbackId,
+  created_at: "2026-01-02T00:00:00.000Z",
+  vote: "helpful",
+  review_disposition: "open",
+  comment: "thanks",
+  question_preview: "Question",
+  answer_preview: "Answer",
+});
+assert.equal(helpful?.vote, "helpful");
+assert.equal(helpful ? isOpenNegativeReview(helpful) : true, false);
+assert.equal(helpful ? isHistoryFeedback(helpful) : false, true);
+const rejectedHistory = mapReviewQueueItem({
+  id: feedbackId,
+  created_at: "2026-01-02T00:00:00.000Z",
+  vote: "not_helpful",
+  review_disposition: "rejected",
+  published_faq_item_id: null,
+  question_preview: "Question",
+  answer_preview: "Original answer",
+});
+assert.equal(rejectedHistory?.reviewDisposition, "rejected");
+assert.equal(rejectedHistory ? isOpenNegativeReview(rejectedHistory) : true, false);
+assert.equal(rejectedHistory?.publishedFaqItemId ?? null, null);
 const next = cursorFromQueuePage(fullPage);
 assert.equal(next?.before, "2026-01-01T00:00:00.000Z");
 assert.equal(next?.beforeId, "77777777-7777-4777-8777-777777777772");
@@ -111,9 +139,41 @@ const readyClient = {
     if (name === "get_website_kompis_feedback_review_queue") {
       const beforeId = (args as { p_before_id?: string | null }).p_before_id;
       if (!beforeId) {
-        return { data: { items: fullPage.map((item) => ({ id: item.id, created_at: item.createdAt, review_disposition: "open", install_id: installId })) }, error: null };
+        return {
+          data: {
+            open_review_count: 101,
+            published_count: 0,
+            rejected_count: 0,
+            items: fullPage.map((item) => ({
+              id: item.id,
+              created_at: item.createdAt,
+              vote: "not_helpful",
+              review_disposition: "open",
+              install_id: installId,
+              comment: "needs help",
+              question_preview: "Question",
+              answer_preview: "Answer",
+              page_pathname: "/pricing",
+              locale: "no",
+            })),
+          },
+          error: null,
+        };
       }
-      return { data: { items: [{ id: feedbackId, created_at: "2025-12-01T00:00:00.000Z", review_disposition: "open", install_id: installId }] }, error: null };
+      return {
+        data: {
+          items: [{
+            id: feedbackId,
+            created_at: "2025-12-01T00:00:00.000Z",
+            vote: "not_helpful",
+            review_disposition: "open",
+            install_id: installId,
+            question_preview: "Older question",
+            answer_preview: "Older answer",
+          }],
+        },
+        error: null,
+      };
     }
     return { data: { review_disposition: "rejected" }, error: null };
   },
@@ -134,9 +194,24 @@ if (queue.ok) assert.equal(queue.items.length, 101);
 const editor = fs.readFileSync(path.join(root, "components/app/website-kompis/WebsiteKompisFeedbackEditor.tsx"), "utf8");
 assert.match(editor, /dispositionPending/);
 assert.match(editor, /retryFaqId/);
+assert.equal((editor.match(/\/api\/website-kompis\/feedback\/\$\{row\.id\}\/disposition/g) ?? []).length, 2);
 assert.doesNotMatch(editor, /DELETE FROM/);
 assert.doesNotMatch(editor, /FEEDBACK_REVIEW_DISPOSITION_READY = true/);
 assert.doesNotMatch(editor, /FEEDBACK_REVIEW_CLOSE_READY = true/);
+
+const sql = fs.readFileSync(
+  path.join(root, "docs/platform/NOT_APPLIED_website_kompis_feedback_review_disposition_queue_v2.sql"),
+  "utf8",
+);
+assert.match(sql, /^-- NOT APPLIED/);
+assert.match(sql, /question_preview/);
+assert.match(sql, /left\(r\.question, 180\)/);
+assert.match(sql, /r\.tenant_id = f\.tenant_id/);
+assert.match(sql, /complete_website_kompis_feedback_review_as_published/);
+assert.match(sql, /reject_website_kompis_feedback_review/);
+assert.doesNotMatch(sql, /close_website_kompis_answer_feedback_review/);
+assert.doesNotMatch(sql, /review_status/);
+assert.doesNotMatch(sql, /delete from public\.website_kompis_answer_feedback/i);
 
 console.log("disposition.test.ts: ok");
 }

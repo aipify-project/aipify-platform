@@ -74,7 +74,12 @@ export function WebsiteKompisFeedbackEditor({
   const [rejecting, setRejecting] = useState(false);
   const reviewCloseLock = useRef(false);
   const canCloseReview = canOfferFeedbackReviewClose(row, closeReady);
-  const canRejectSpam = FEEDBACK_REVIEW_DISPOSITION_READY && row.vote === "not_helpful";
+  const canRejectSpam =
+    FEEDBACK_REVIEW_DISPOSITION_READY &&
+    row.vote === "not_helpful" &&
+    row.reviewDisposition !== "published" &&
+    row.reviewDisposition !== "rejected" &&
+    row.reviewStatus !== "closed";
   const openedFields = useRef({
     question: row.questionPreview,
     answer: row.answerPreview,
@@ -333,12 +338,17 @@ export function WebsiteKompisFeedbackEditor({
       }
       setSaved({ id: result.id, status: "published" });
       setSavedSnapshot(fieldSnapshot);
-      if (FEEDBACK_REVIEW_DISPOSITION_READY) {
+      if (
+        FEEDBACK_REVIEW_DISPOSITION_READY &&
+        row.reviewDisposition !== "published" &&
+        row.reviewDisposition !== "rejected" &&
+        row.reviewStatus !== "closed"
+      ) {
         const reusedFaqId = retryFaqId(result.id);
         const call = buildPublishedDispositionCall({
           feedbackId: row.id,
           faqItemId: reusedFaqId ?? "",
-          feedbackInstallId: "",
+          feedbackInstallId: row.installId ?? "",
           faqInstallId: installId,
           publishStatus: "published",
         });
@@ -352,6 +362,7 @@ export function WebsiteKompisFeedbackEditor({
           body: JSON.stringify({
             action: "published",
             faqItemId: reusedFaqId,
+            feedbackInstallId: row.installId ?? "",
             faqInstallId: installId,
             publishStatus: "published",
             confirmation: true,
