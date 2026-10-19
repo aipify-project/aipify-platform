@@ -80,6 +80,7 @@ type ChatMessage =
       sources?: WebsiteCompanionUiSource[];
       answerId?: string | null;
       feedbackPersistenceReady?: boolean;
+      contentLocale?: string;
       failed?: false;
     }
   | { id: string; role: "assistant"; failed: true; retryQuestion: string };
@@ -517,6 +518,7 @@ export function WebsiteKompisEmbedWidget({
             buildWebsiteKompisAskPayload({
               question: validation.question,
               locale: uiLocale,
+              contentLocale: askPageContext ? askPageContext.locale?.trim() || null : undefined,
               domain,
               installId,
               recentContext: toRecentContext(priorMessages),
@@ -550,6 +552,7 @@ export function WebsiteKompisEmbedWidget({
             sources: mapped.sources,
             answerId: typeof payload.answerId === "string" ? payload.answerId : null,
             feedbackPersistenceReady: payload.feedbackPersistenceReady !== false && Boolean(payload.answerId),
+            contentLocale: typeof payload.locale === "string" ? payload.locale : undefined,
           },
         ]);
       } catch {
@@ -802,7 +805,13 @@ export function WebsiteKompisEmbedWidget({
                       {!isUser ? (
                         <img className="ak-avatar" src={DESIGN_AVATAR_SRC} alt="" width={36} height={36} />
                       ) : null}
-                      <div className={`ak-bubble${isUser ? " ak-bubble--user" : ""}`}>
+                      <div
+                        className={`ak-bubble${isUser ? " ak-bubble--user" : ""}`}
+                        dir="auto"
+                        data-content-locale={
+                          !isUser && "contentLocale" in message ? message.contentLocale : undefined
+                        }
+                      >
                         {renderMessageParagraphs(message.text)}
                         {sources && sources.length > 0
                           ? sources.map((source) =>
