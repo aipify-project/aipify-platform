@@ -6944,10 +6944,14 @@
       "loadMore": "Vis flere",
       "publishSelected": "Publiser valgte utkast",
       "publishTitle": "Publiser de valgte utkastene på denne siden",
-      "publishBody": "Nettsted: {site}. Filter: {filter}. {ready} avkryssede utkast på denne siden er klare til å bli offentlige. {skipped} avkryssede rader hoppes over. Andre sider blir stående. Å krysse av publiserer ikke.",
+      "publishBody": "Nettsted: {site}. Filter: {filter}. {ready} avkryssede utkast på denne siden er klare til å bli offentlige. {skipped} avkryssede rader hoppes over. Andre sider blir stående. Å krysse av publiserer ikke. {published} allerede publiserte rader blir stående.",
       "publishConfirm": "Publiser disse utkastene",
       "publishResult": "Publisert {passed}. Ikke publisert {failed}. Hoppet over {skipped}.",
-      "nothingReady": "Ingen av de valgte radene er utkast som er merket klare for det offentlige nettstedet."
+      "nothingReady": "Ingen av de valgte radene er utkast som er merket klare for det offentlige nettstedet.",
+      "alreadyPublished": "Alle {count} valgte rader er allerede publisert. De publiseres ikke på nytt. Bruk Vis utkast for rader som fortsatt kan publiseres.",
+      "eligibility": "{ready} kan publiseres. {published} er allerede publisert. {draftNotReady} utkast mangler merket for offentlig nettsted. {archived} er arkivert.",
+      "noneReadyDetail": "Ingen valgte rader kan publiseres. {published} er allerede publisert. {draftNotReady} utkast er ikke merket klare. {archived} er arkivert. Arkiverte rader må gjenopprettes enkeltvis før de kan bli utkast.",
+      "showDrafts": "Vis utkast"
     },
     "filters": {
       "status": "Status",

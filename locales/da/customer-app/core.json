@@ -6944,10 +6944,14 @@
       "loadMore": "Vis flere",
       "publishSelected": "Udgiv valgte udkast",
       "publishTitle": "Udgiv de valgte udkast på denne side",
-      "publishBody": "Website: {site}. Filter: {filter}. {ready} afkrydsede udkast på denne side er klar til at blive offentlige. {skipped} afkrydsede rækker springes over. Andre sider ændres ikke. Et flueben udgiver ikke.",
+      "publishBody": "Website: {site}. Filter: {filter}. {ready} afkrydsede udkast på denne side er klar til at blive offentlige. {skipped} afkrydsede rækker springes over. Andre sider ændres ikke. Et flueben udgiver ikke. {published} allerede publicerede rækker forbliver publiceret.",
       "publishConfirm": "Udgiv disse udkast",
       "publishResult": "Udgivet {passed}. Ikke udgivet {failed}. Sprunget over {skipped}.",
-      "nothingReady": "Ingen af de valgte rækker er udkast, der er markeret som klar til det offentlige website."
+      "nothingReady": "Ingen af de valgte rækker er udkast, der er markeret som klar til det offentlige website.",
+      "alreadyPublished": "Alle {count} valgte rækker er allerede publiceret. De publiceres ikke igen. Brug Vis udkast for rækker, der stadig kan publiceres.",
+      "eligibility": "{ready} kan publiceres. {published} er allerede publiceret. {draftNotReady} udkast er ikke markeret som klar til det offentlige website. {archived} er arkiveret.",
+      "noneReadyDetail": "Ingen valgte rækker kan publiceres. {published} er allerede publiceret. {draftNotReady} udkast er ikke markeret som klar. {archived} er arkiveret. Arkiverede rækker skal gendannes én ad gangen, før de kan blive udkast.",
+      "showDrafts": "Vis udkast"
     },
     "filters": {
       "status": "Status",

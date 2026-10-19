@@ -24,6 +24,9 @@ import {
   buildFaqListWindow,
   planVisibleDraftPublish,
   pruneSelectionToVisible,
+  selectionAfterVisiblePublish,
+  summarizeVisiblePublish,
+  visiblePublishBlock,
   visibleRowRange,
   type FaqListWindow,
 } from "@/lib/website-kompis-faq/list-window";
@@ -138,6 +141,9 @@ function ListWindowBar({
   onTogglePage,
   onClear,
   onPublish,
+  onShowDrafts,
+  canPublish,
+  explanation,
 }: {
   labels: WebsiteKompisFaqLabels;
   listWindow: FaqListWindow;
@@ -150,6 +156,9 @@ function ListWindowBar({
   onTogglePage: (checked: boolean) => void;
   onClear: () => void;
   onPublish: () => void;
+  onShowDrafts: () => void;
+  canPublish: boolean;
+  explanation: string | null;
 }) {
   const range = visibleRowRange(listWindow);
   const rangeLabel =
@@ -210,13 +219,22 @@ function ListWindowBar({
         </button>
         <button
           type="button"
+          onClick={onShowDrafts}
+          disabled={busy}
+          className="rounded-md border border-slate-300 px-3 py-2 text-sm disabled:opacity-50"
+        >
+          {labels.listWindow.showDrafts}
+        </button>
+        <button
+          type="button"
           onClick={onPublish}
-          disabled={selectedIds.length === 0 || busy}
+          disabled={!canPublish || busy}
           className="rounded-md bg-violet-700 px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
         >
           {labels.listWindow.publishSelected}
         </button>
       </div>
+      {explanation ? <p className="text-sm text-slate-700">{explanation}</p> : null}
       {summary ? <p className="text-sm text-slate-700">{summary}</p> : null}
     </section>
   );
@@ -275,6 +293,28 @@ export function WebsiteKompisFaqAdminPanel({
     () => planVisibleDraftPublish(items, selectedIds),
     [items, selectedIds],
   );
+  const pagePublishSummaryCounts = useMemo(
+    () => summarizeVisiblePublish(items, selectedIds),
+    [items, selectedIds],
+  );
+  const pagePublishBlock = visiblePublishBlock(pagePublishSummaryCounts);
+  const pagePublishExplanation =
+    pagePublishBlock === "already_published"
+      ? fillLabel(labels.listWindow.alreadyPublished, { count: pagePublishSummaryCounts.published })
+      : pagePublishBlock === "ready"
+        ? fillLabel(labels.listWindow.eligibility, {
+            ready: pagePublishSummaryCounts.ready,
+            published: pagePublishSummaryCounts.published,
+            draftNotReady: pagePublishSummaryCounts.draftNotReady,
+            archived: pagePublishSummaryCounts.archived,
+          })
+        : pagePublishBlock === "none_ready"
+          ? fillLabel(labels.listWindow.noneReadyDetail, {
+              published: pagePublishSummaryCounts.published,
+              draftNotReady: pagePublishSummaryCounts.draftNotReady,
+              archived: pagePublishSummaryCounts.archived,
+            })
+          : null;
 
   const riskyWords = useMemo(
     () =>
@@ -480,21 +520,22 @@ export function WebsiteKompisFaqAdminPanel({
     setError(null);
     try {
       let passed = 0;
-      let failed = 0;
+      const failedIds: string[] = [];
       for (const id of plan.readyIds) {
         const res = await fetch(`/api/website-kompis/faq/${id}/publish`, { method: "POST" });
-        if (res.ok) passed += 1;
-        else failed += 1;
+        const body = (await res.json().catch(() => null)) as { status?: string } | null;
+        if (res.ok && body?.status === "published") passed += 1;
+        else failedIds.push(id);
       }
       setPagePublishSummary(
         fillLabel(labels.listWindow.publishResult, {
           passed,
-          failed,
+          failed: failedIds.length,
           skipped: plan.skipped.length,
         }),
       );
       setPagePublishOpen(false);
-      setSelectedIds([]);
+      setSelectedIds(selectionAfterVisiblePublish(failedIds));
       await refresh();
     } finally {
       publishLock.current = false;
@@ -887,11 +928,14 @@ export function WebsiteKompisFaqAdminPanel({
               setSelectedIds(checked ? items.map((item) => item.id) : []);
             }}
             onClear={() => setSelectedIds([])}
+            onShowDrafts={() => {
+              resetListScope();
+              setStatusFilter("draft");
+            }}
+            canPublish={pagePublishBlock === "ready"}
+            explanation={pagePublishExplanation}
             onPublish={() => {
-              if (pagePublishPlan.readyIds.length === 0) {
-                setPagePublishSummary(labels.listWindow.nothingReady);
-                return;
-              }
+              if (pagePublishPlan.readyIds.length === 0) return;
               setPagePublishOpen(true);
             }}
             summary={pagePublishSummary}
@@ -1033,6 +1077,7 @@ export function WebsiteKompisFaqAdminPanel({
               filter: statusFilter ? labels.statuses[statusFilter] : labels.filters.all,
               ready: pagePublishPlan.readyIds.length,
               skipped: pagePublishPlan.skipped.length,
+              published: pagePublishSummaryCounts.published,
             })}
             confirmLabel={labels.listWindow.publishConfirm}
             error={null}

@@ -6933,10 +6933,14 @@
       "loadMore": "Show more",
       "publishSelected": "Publish selected drafts",
       "publishTitle": "Publish the selected drafts on this page",
-      "publishBody": "Website: {site}. Filter: {filter}. {ready} checked drafts on this page are ready to become public. {skipped} checked rows are skipped. Other pages stay unchanged. Checking a box does not publish.",
+      "publishBody": "Website: {site}. Filter: {filter}. {ready} checked drafts on this page are ready to become public. {skipped} checked rows are skipped. Other pages stay unchanged. Checking a box does not publish. {published} already published rows stay published.",
       "publishConfirm": "Publish these drafts",
       "publishResult": "Published {passed}. Not published {failed}. Skipped {skipped}.",
-      "nothingReady": "None of the selected rows are drafts marked ready for the public website."
+      "nothingReady": "None of the selected rows are drafts marked ready for the public website.",
+      "alreadyPublished": "All {count} selected rows are already published. They will not be published again. Use Show drafts for rows that can still be published.",
+      "eligibility": "{ready} can be published. {published} are already published. {draftNotReady} drafts are not marked ready for the public site. {archived} are archived.",
+      "noneReadyDetail": "None of the selected rows can be published. {published} are already published. {draftNotReady} drafts are not marked ready. {archived} are archived. Archived rows must be restored one by one before they can become drafts.",
+      "showDrafts": "Show drafts"
     },
     "filters": {
       "status": "Status",
