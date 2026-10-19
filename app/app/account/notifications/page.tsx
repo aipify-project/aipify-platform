@@ -1,5 +1,6 @@
 import { NotificationSettingsPanel } from "@/components/app/account/NotificationSettingsPanel";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
+import { WebsiteKompisSettingsIntro } from "@/components/app/website-kompis/WebsiteKompisSettingsIntro";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon, hubT } from "@/lib/app-portal/hubs/hub-copy";
 import {
@@ -33,8 +34,17 @@ export default async function AccountNotificationsPage() {
       title={t("customerApp.portalStructure.nav.accountNotifications")}
       description={hubT(t, "account.notificationsDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
+      suppressPageHeader
     >
-      <NotificationSettingsPanel labels={buildNotificationSettingsPageLabels(t)} />
+      <div className="space-y-6">
+        <WebsiteKompisSettingsIntro
+          eyebrow={t("customerApp.portalStructure.nav.kompisWebSettings")}
+          title={t("customerApp.portalStructure.nav.accountNotifications")}
+          description={hubT(t, "account.notificationsDescription")}
+          contextLabel={formatHubContextLine(common, ctx)}
+        />
+        <NotificationSettingsPanel labels={buildNotificationSettingsPageLabels(t)} />
+      </div>
     </AppHubShell>
   );
 }
