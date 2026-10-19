@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Trash2 } from "lucide-react";
+import { Ban, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FaqPermanentExpiryFields } from "@/components/app/website-kompis/FaqPermanentExpiryFields";
@@ -11,7 +11,17 @@ import { FaqContentLanguagePicker } from "@/components/app/website-kompis/FaqCon
 import { planWebsiteKompisFaqPublish, resolveFaqExpiryForSave } from "@/lib/website-kompis-faq/safety";
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import { existingPublishedFaqHref, resolveFeedbackDrawerClose } from "@/lib/website-kompis-feedback/drawer-close";
-import { canOfferFeedbackReviewClose, type FeedbackOpsRow } from "@/lib/website-kompis-feedback/operations-model";
+import {
+  buildPublishedDispositionCall,
+  buildRejectDispositionCall,
+  retryFaqId,
+  shouldRemoveReviewCard,
+} from "@/lib/website-kompis-feedback/disposition";
+import {
+  canOfferFeedbackReviewClose,
+  FEEDBACK_REVIEW_DISPOSITION_READY,
+  type FeedbackOpsRow,
+} from "@/lib/website-kompis-feedback/operations-model";
 
 type SiteOption = { installId: string; domain: string };
 
@@ -60,8 +70,11 @@ export function WebsiteKompisFeedbackEditor({
   const [confirmClose, setConfirmClose] = useState(false);
   const [confirmReviewClose, setConfirmReviewClose] = useState(false);
   const [closingReview, setClosingReview] = useState(false);
+  const [confirmReject, setConfirmReject] = useState(false);
+  const [rejecting, setRejecting] = useState(false);
   const reviewCloseLock = useRef(false);
   const canCloseReview = canOfferFeedbackReviewClose(row, closeReady);
+  const canRejectSpam = FEEDBACK_REVIEW_DISPOSITION_READY && row.vote === "not_helpful";
   const openedFields = useRef({
     question: row.questionPreview,
     answer: row.answerPreview,
@@ -320,6 +333,44 @@ export function WebsiteKompisFeedbackEditor({
       }
       setSaved({ id: result.id, status: "published" });
       setSavedSnapshot(fieldSnapshot);
+      if (FEEDBACK_REVIEW_DISPOSITION_READY) {
+        const reusedFaqId = retryFaqId(result.id);
+        const call = buildPublishedDispositionCall({
+          feedbackId: row.id,
+          faqItemId: reusedFaqId ?? "",
+          feedbackInstallId: "",
+          faqInstallId: installId,
+          publishStatus: "published",
+        });
+        if (!call.ok) {
+          setError(labels.quality.dispositionPending);
+          return;
+        }
+        const response = await fetch(`/api/website-kompis/feedback/${row.id}/disposition`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            action: "published",
+            faqItemId: reusedFaqId,
+            faqInstallId: installId,
+            publishStatus: "published",
+            confirmation: true,
+          }),
+        });
+        const payload = (await response.json()) as { reviewDisposition?: string };
+        if (
+          !shouldRemoveReviewCard({
+            httpOk: response.ok,
+            reviewDisposition: payload.reviewDisposition,
+            expected: "published",
+          })
+        ) {
+          setError(labels.quality.dispositionPending);
+          return;
+        }
+        await onReviewClosed?.();
+        return;
+      }
       onPublished(result.id);
     } catch {
       setError(labels.quality.publishError);
@@ -348,6 +399,41 @@ export function WebsiteKompisFeedbackEditor({
     } finally {
       reviewCloseLock.current = false;
       setClosingReview(false);
+    }
+  }
+
+  async function rejectSpam() {
+    if (!canRejectSpam || rejecting) return;
+    const call = buildRejectDispositionCall(row.id);
+    if (!call.ok) {
+      setError(labels.quality.rejectSpamError);
+      return;
+    }
+    setRejecting(true);
+    setError(null);
+    try {
+      const response = await fetch(`/api/website-kompis/feedback/${row.id}/disposition`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ action: "rejected", confirmation: true }),
+      });
+      const payload = (await response.json()) as { reviewDisposition?: string };
+      if (
+        !shouldRemoveReviewCard({
+          httpOk: response.ok,
+          reviewDisposition: payload.reviewDisposition,
+          expected: "rejected",
+        })
+      ) {
+        setError(labels.quality.rejectSpamError);
+        return;
+      }
+      setConfirmReject(false);
+      await onReviewClosed?.();
+    } catch {
+      setError(labels.quality.rejectSpamError);
+    } finally {
+      setRejecting(false);
     }
   }
 
@@ -517,6 +603,17 @@ export function WebsiteKompisFeedbackEditor({
             >
               {publishing ? labels.quality.publishing : labels.quality.publishFaq}
             </button>
+            {canRejectSpam ? (
+              <button
+                type="button"
+                disabled={saving || publishing || rejecting}
+                onClick={() => setConfirmReject(true)}
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+              >
+                <Ban aria-hidden className="size-4" strokeWidth={2} />
+                {labels.quality.rejectSpam}
+              </button>
+            ) : null}
             {canCloseReview ? (
               <button
                 type="button"
@@ -558,6 +655,38 @@ export function WebsiteKompisFeedbackEditor({
                   className="rounded-lg border border-[#F3C1C1] bg-white px-3 py-2 text-sm font-medium text-[#9F1239] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
                 >
                   {closingReview ? labels.quality.removing : labels.quality.removeFromReviewConfirm}
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
+        {confirmReject ? (
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby={`${titleId}-reject-spam`}
+            className="absolute inset-0 z-30 flex items-end bg-white p-4 sm:items-center sm:justify-center"
+          >
+            <div className="w-full rounded-xl border border-slate-200 bg-white p-4 shadow-lg">
+              <h3 id={`${titleId}-reject-spam`} className="text-base font-semibold text-slate-900">
+                {labels.quality.rejectSpamTitle}
+              </h3>
+              <p className="mt-2 text-sm text-slate-700">{labels.quality.rejectSpamBody}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setConfirmReject(false)}
+                  className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                >
+                  {labels.quality.removeFromReviewCancel}
+                </button>
+                <button
+                  type="button"
+                  disabled={rejecting}
+                  onClick={() => void rejectSpam()}
+                  className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+                >
+                  {labels.quality.rejectSpamConfirm}
                 </button>
               </div>
             </div>

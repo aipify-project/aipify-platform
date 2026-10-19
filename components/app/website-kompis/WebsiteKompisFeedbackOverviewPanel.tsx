@@ -16,6 +16,7 @@ import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/
 import {
   FEEDBACK_REVIEW_BADGE_CLASS,
   FEEDBACK_REVIEW_CLOSE_READY,
+  FEEDBACK_REVIEW_DISPOSITION_READY,
   FEEDBACK_REVIEW_PAGE_SIZE,
   filterFeedbackOpsRows,
   partitionFeedbackWorkspace,
@@ -38,6 +39,7 @@ type OverviewPayload = {
     needsReview?: number | null;
   };
   recent?: FeedbackOpsRow[];
+  reviewQueue?: { id: string; createdAt: string }[] | null;
   error?: string;
 };
 
@@ -174,7 +176,12 @@ export function WebsiteKompisFeedbackOverviewPanel({
     [commentFilter, dateFrom, dateTo, localeFilter, pageFilter, query, recent, voteFilter],
   );
   const partitioned = useMemo(() => partitionFeedbackWorkspace(filtered), [filtered]);
-  const reviewQueue = useMemo(() => selectKnowledgeGapCandidates(filtered), [filtered]);
+  const reviewQueue = useMemo(() => {
+    const fromOverview = selectKnowledgeGapCandidates(filtered);
+    if (!FEEDBACK_REVIEW_DISPOSITION_READY || !data?.reviewQueue) return fromOverview;
+    const openIds = new Set(data.reviewQueue.map((item) => item.id));
+    return fromOverview.filter((row) => openIds.has(row.id));
+  }, [data?.reviewQueue, filtered]);
   const activeRows = view === "history" ? partitioned.history : reviewQueue;
   const page = takeFeedbackPage(activeRows, visible);
   const selected = recent.find((row) => row.id === selectedId) ?? null;
