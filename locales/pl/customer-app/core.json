@@ -454,7 +454,31 @@
       "sv": "Szwedzki",
       "da": "Duński",
       "pl": "Polski",
-      "uk": "Ukraiński"
+      "uk": "Ukraiński",
+      "de": "Niemiecki",
+      "fr": "Francuski",
+      "es": "Hiszpański",
+      "it": "Włoski",
+      "pt": "Portugalski",
+      "nl": "Niderlandzki",
+      "fi": "Fiński",
+      "is": "Islandzki",
+      "et": "Estoński",
+      "lv": "Łotewski",
+      "lt": "Litewski",
+      "cs": "Czeski",
+      "sk": "Słowacki",
+      "hu": "Węgierski",
+      "ro": "Rumuński",
+      "bg": "Bułgarski",
+      "el": "Grecki",
+      "tr": "Turecki",
+      "ar": "Arabski",
+      "he": "Hebrajski",
+      "hi": "Hindi",
+      "ja": "Japoński",
+      "ko": "Koreański",
+      "zh": "Chiński"
     },
     "feedbackOverviewLink": "Zobacz opinie o odpowiedziach",
     "siteContext": {
@@ -466,7 +490,11 @@
       "siteScopedBadge": "Ta witryna",
       "noSites": "Nie powiązano jeszcze zweryfikowanej instalacji witryny. Połącz domenę w Połączeniu, zanim FAQ będzie zakresowane per witryna.",
       "visitorPartialNote": "Odpowiedzi dla odwiedzających mogą nadal zawierać współdzielone starsze FAQ, dopóki nie zostanie autoryzowana aktualizacja izolacji w Core."
-    }
+    },
+    "languageSearch": "Szukaj języka lub kodu",
+    "languageNoMatch": "Żaden język nie pasuje do wyszukiwania.",
+    "languageList": "Język treści",
+    "languageCollation": "pl"
   },
   "kompisOperator": {
     "title": "Kompis",

@@ -1,3 +1,4 @@
+import { FAQ_CONTENT_LANGUAGE_CODES } from "@/lib/website-kompis-faq/content-languages";
 import { FAQ_IMPORT_SCHEMA_VERSION, FAQ_IMPORT_TEMPLATE_HEADERS } from "@/lib/website-kompis-faq/import-schema";
 
 export type CsvTable = {
@@ -126,6 +127,8 @@ export function buildFaqImportCsvTemplate(): Uint8Array {
   ];
   const lines = [
     `# ${FAQ_IMPORT_SCHEMA_VERSION}`,
+    `# languages: ${FAQ_CONTENT_LANGUAGE_CODES.join(" ")}`,
+    "# Norwegian aliases nb, nn, nb-NO and nn-NO are stored as no. pt-BR, pt-PT, zh-Hans and zh-Hant are rejected.",
     FAQ_IMPORT_TEMPLATE_HEADERS.join(delimiter),
     ...examples.map((row) => row.map((cell) => csvCell(cell, delimiter)).join(delimiter)),
   ];

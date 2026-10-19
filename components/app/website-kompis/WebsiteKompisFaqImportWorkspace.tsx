@@ -373,35 +373,3 @@ function StatusChip({ row, labels }: { row: PreviewRow; labels: ImportLabels }) 
   }
   return <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-xs text-amber-800"><AlertTriangle aria-hidden className="h-3.5 w-3.5" />{labels.statusReady}{text ? ` · ${text}` : ""}</span>;
 }
-
-export function WebsiteKompisFaqImportActions({
-  labels,
-  disabled,
-  onOpen,
-}: {
-  labels: ImportLabels;
-  disabled: boolean;
-  onOpen: () => void;
-}) {
-  return (
-    <div className="flex flex-wrap items-center gap-3">
-      <button
-        type="button"
-        disabled={disabled}
-        onClick={onOpen}
-        className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 text-sm font-medium text-[var(--app-text)] shadow-[var(--app-shadow-card)] disabled:opacity-60"
-      >
-        <FileUp aria-hidden className="h-4 w-4 text-[var(--app-primary)]" />
-        {labels.open}
-      </button>
-      <a href="/api/website-kompis/faq/import/template?format=csv" className="inline-flex min-h-11 items-center gap-2 text-sm text-[var(--app-text-muted)]">
-        <Download aria-hidden className="h-4 w-4" />
-        {labels.downloadCsv}
-      </a>
-      <a href="/api/website-kompis/faq/import/template?format=xlsx" className="inline-flex min-h-11 items-center gap-2 text-sm text-[var(--app-text-muted)]">
-        <Download aria-hidden className="h-4 w-4" />
-        {labels.downloadXlsx}
-      </a>
-    </div>
-  );
-}

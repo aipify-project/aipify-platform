@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import { FaqPermanentExpiryFields } from "@/components/app/website-kompis/FaqPermanentExpiryFields";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { runFaqPublishFlow } from "@/lib/website-kompis-faq/publish-flow";
+import { FaqContentLanguagePicker } from "@/components/app/website-kompis/FaqContentLanguagePicker";
 import { planWebsiteKompisFaqPublish, resolveFaqExpiryForSave } from "@/lib/website-kompis-faq/safety";
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import type { FeedbackOpsRow } from "@/lib/website-kompis-feedback/operations-model";
@@ -16,11 +17,6 @@ type SavedDraft = { id: string; status: string };
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
-function languageLabel(labels: WebsiteKompisFeedbackLabels, code: string): string {
-  const known = labels.quality.languages as Record<string, string>;
-  return known[code] ?? code;
-}
 
 export function WebsiteKompisFeedbackEditor({
   row,
@@ -307,9 +303,6 @@ export function WebsiteKompisFeedbackEditor({
     }
   }
 
-  const languageCodes = Object.keys(labels.quality.languages);
-  const localeChoices = locale && !languageCodes.includes(locale) ? [locale, ...languageCodes] : languageCodes;
-
   const drawer = (
     <div className="fixed inset-0 z-[80] flex justify-end" role="presentation">
       <button
@@ -376,21 +369,20 @@ export function WebsiteKompisFeedbackEditor({
                 className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
               />
             </label>
-            <label className="block text-sm">
+            <div className="block text-sm">
               <span className="mb-1 block font-medium text-slate-900">{labels.quality.language}</span>
-              <select
+              <FaqContentLanguagePicker
                 value={locale}
-                onChange={(event) => setLocale(event.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
-              >
-                <option value="">{labels.quality.chooseLanguage}</option>
-                {localeChoices.map((code) => (
-                  <option key={code} value={code}>
-                    {languageLabel(labels, code)}
-                  </option>
-                ))}
-              </select>
-            </label>
+                onChange={setLocale}
+                labels={labels.quality.languages}
+                searchLabel={labels.quality.languageSearch}
+                noMatchLabel={labels.quality.languageNoMatch}
+                listLabel={labels.quality.languageList}
+                collationLocale={labels.quality.languageCollation}
+                allowEmpty
+                emptyLabel={labels.quality.chooseLanguage}
+              />
+            </div>
             {siteState === "ready" && sites.length > 1 ? (
               <label className="block text-sm">
                 <span className="mb-1 block font-medium text-slate-900">{labels.quality.site}</span>

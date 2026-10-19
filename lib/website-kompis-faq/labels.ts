@@ -63,6 +63,10 @@ export function buildWebsiteKompisFaqLabels(t: TranslateFn) {
     previewTitle: t(`${prefix}.previewTitle`),
     previewHint: t(`${prefix}.previewHint`),
     previewGroundingNote: t(`${prefix}.previewGroundingNote`),
+    languageSearch: t(`${prefix}.languageSearch`),
+    languageNoMatch: t(`${prefix}.languageNoMatch`),
+    languageList: t(`${prefix}.languageList`),
+    languageCollation: t(`${prefix}.languageCollation`),
     filters: {
       status: t(`${prefix}.filters.status`),
       locale: t(`${prefix}.filters.locale`),

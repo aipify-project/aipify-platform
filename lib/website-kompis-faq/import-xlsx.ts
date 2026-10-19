@@ -1,4 +1,5 @@
 import { strFromU8, strToU8, unzipSync, zipSync } from "fflate";
+import { FAQ_CONTENT_LANGUAGE_CODES } from "@/lib/website-kompis-faq/content-languages";
 import { FAQ_IMPORT_SCHEMA_VERSION, FAQ_IMPORT_TEMPLATE_HEADERS } from "@/lib/website-kompis-faq/import-schema";
 import type { CsvTable } from "@/lib/website-kompis-faq/import-csv";
 
@@ -62,7 +63,8 @@ export function buildFaqImportXlsxTemplate(): Uint8Array {
   const readme = [
     [FAQ_IMPORT_SCHEMA_VERSION],
     ["Fyll ut arket FAQ. Alle rader lagres som utkast. Ingenting publiseres fra filen."],
-    ["Påkrevd: Spørsmål, Svar, Kategori og Språk. Språk: en, no, sv, da, pl, uk."],
+    [`Påkrevd: Spørsmål, Svar, Kategori og Språk. Språk: ${FAQ_CONTENT_LANGUAGE_CODES.join(", ")}.`],
+    ["Norsk lagres som no. nb, nn, nb-NO og nn-NO blir no ved ny import. pt-BR, pt-PT, zh-Hans og zh-Hant avvises."],
     ["Tom tittel bruker spørsmålet som tittel. Permanent JA, eller tom sluttdato, betyr at spørsmålet ikke utløper."],
     ["Datoer skrives som tekst: 2026-10-18 eller 2026-10-18T00:00:00Z. Ikke bruk formler."],
     ["Emneord skilles med komma i samme celle."],

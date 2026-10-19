@@ -6987,7 +6987,31 @@
       "sv": "Svenska",
       "da": "Danska",
       "pl": "Polska",
-      "uk": "Ukrainska"
+      "uk": "Ukrainska",
+      "de": "Tyska",
+      "fr": "Franska",
+      "es": "Spanska",
+      "it": "Italienska",
+      "pt": "Portugisiska",
+      "nl": "Nederländska",
+      "fi": "Finska",
+      "is": "Isländska",
+      "et": "Estniska",
+      "lv": "Lettiska",
+      "lt": "Litauiska",
+      "cs": "Tjeckiska",
+      "sk": "Slovakiska",
+      "hu": "Ungerska",
+      "ro": "Rumänska",
+      "bg": "Bulgariska",
+      "el": "Grekiska",
+      "tr": "Turkiska",
+      "ar": "Arabiska",
+      "he": "Hebreiska",
+      "hi": "Hindi",
+      "ja": "Japanska",
+      "ko": "Koreanska",
+      "zh": "Kinesiska"
     },
     "feedbackOverviewLink": "Visa svarsfeedback",
     "siteContext": {
@@ -6999,7 +7023,11 @@
       "siteScopedBadge": "Denna webbplats",
       "noSites": "Ingen verifierad webbplatsinstallation är kopplad ännu. Anslut en domän under Anslutning innan FAQ scopes per webbplats.",
       "visitorPartialNote": "Besökarsvar kan fortfarande inkludera delad äldre FAQ tills en Core-isoleringsuppdatering är auktoriserad."
-    }
+    },
+    "languageSearch": "Sök på språk eller kod",
+    "languageNoMatch": "Inget språk matchar sökningen.",
+    "languageList": "Innehållsspråk",
+    "languageCollation": "sv"
   },
   "kompisOperator": {
     "title": "Kompis",
