@@ -1,8 +1,6 @@
-import { Archive, BookOpen, CircleAlert, FileText, MessagesSquare, ThumbsDown, ThumbsUp, type LucideIcon } from "lucide-react";
-import Link from "next/link";
-import { AppIconActionCard } from "@/components/app/design";
+import { Archive, BookOpen, CircleAlert, FileText, MessagesSquare, ThumbsDown, ThumbsUp } from "lucide-react";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
-import { HubFeatureIcon, type HubFeatureIconKind } from "@/components/app/hubs/HubFeatureIcon";
+import { WebsiteKompisDashboardPremium } from "@/components/app/website-kompis/WebsiteKompisDashboardPremium";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon, hubT } from "@/lib/app-portal/hubs/hub-copy";
 import {
@@ -19,31 +17,8 @@ import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { createClient } from "@/lib/supabase/server";
-import { AppVisualClasses } from "@/lib/design/app-visual-system";
 
-function MetricCard({
-  label,
-  value,
-  icon: Icon,
-  tone,
-}: {
-  label: string;
-  value: number;
-  icon: LucideIcon;
-  tone: string;
-}) {
-  return (
-    <div className={AppVisualClasses.card}>
-      <div className="flex items-center gap-2">
-        <Icon aria-hidden className={`size-4 ${tone}`} strokeWidth={2} />
-        <p className="text-sm font-medium text-[var(--app-text-muted)]">{label}</p>
-      </div>
-      <p className="mt-2 text-2xl font-semibold tabular-nums text-[var(--app-text)]">{value}</p>
-    </div>
-  );
-}
-
-/** Kompis Web product hub — harmonized with Bedrift/Account hub pattern. */
+/** Kompis Web product hub. Feature owner: CUSTOMER APP. */
 export default async function WebsiteKompisHubPage() {
   const locale = await getLocale();
   const dict = await getCustomerAppDictionaryForSplits(locale, ["core", "portalStructure"]);
@@ -61,42 +36,24 @@ export default async function WebsiteKompisHubPage() {
     loadWebsiteKompisConnectionSummary(supabase),
   ]);
 
-  const cards: Array<{
-    href: string;
-    title: string;
-    description: string;
-    tone: "purple" | "blue" | "lavender" | "slate";
-    icon: HubFeatureIconKind;
-  }> = [
-    {
-      href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
-      title: t("customerApp.portalStructure.nav.kompisWebQa"),
-      description: t("customerApp.portalStructure.webHub.qaDescription"),
-      tone: "purple",
-      icon: "qa",
-    },
-    {
-      href: FOUNDATION_NAV_BINDINGS.kompisWebFaq,
-      title: t("customerApp.portalStructure.nav.kompisWebFaq"),
-      description: t("customerApp.portalStructure.webHub.faqDescription"),
-      tone: "blue",
-      icon: "faq",
-    },
-    {
-      href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
-      title: t("customerApp.portalStructure.nav.kompisWebConnection"),
-      description: t("customerApp.portalStructure.webHub.connectionDescription"),
-      tone: "lavender",
-      icon: "connection",
-    },
-    {
-      href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
-      title: t("customerApp.portalStructure.nav.kompisWebModules"),
-      description: hubT(t, "web.modulesCard"),
-      tone: "slate",
-      icon: "modules",
-    },
-  ];
+  const aggregate = connection.summary.aggregate;
+  const statusTone =
+    aggregate === "active"
+      ? "emerald"
+      : aggregate === "error" || aggregate === "suspended"
+        ? "purple"
+        : aggregate === "pending" || aggregate === "action_required"
+          ? "amber"
+          : "slate";
+  const contextParts = [ctx.organizationName, ctx.planLabel].filter((part): part is string => Boolean(part?.trim()));
+  const reviewCount = overview.totals.needsReview ?? overview.totals.notHelpful;
+  const checkpointSignals = (["domain", "installation", "product"] as const)
+    .map((id) => connection.summary.checkpoints.find((checkpoint) => checkpoint.id === id))
+    .filter((checkpoint): checkpoint is NonNullable<typeof checkpoint> => Boolean(checkpoint))
+    .map((checkpoint) => ({
+      label: connectionLabels.checkpoints[checkpoint.id],
+      value: (connectionLabels.checkpointState as Record<string, string>)[checkpoint.state] ?? checkpoint.state,
+    }));
 
   return (
     <AppHubShell
@@ -107,198 +64,108 @@ export default async function WebsiteKompisHubPage() {
       eyebrow={t("customerApp.portalStructure.navGroups.kompisWeb")}
       title={t("customerApp.portalStructure.nav.kompisWebDashboard")}
       description={t("customerApp.portalStructure.webHub.description")}
-      contextLabel={formatHubContextLine(common, ctx)}
-      status={{
-        label: connectionLabels.aggregate[connection.summary.aggregate],
-        tone:
-          connection.summary.aggregate === "active"
-            ? "emerald"
-            : connection.summary.aggregate === "error" ||
-                connection.summary.aggregate === "suspended"
-              ? "purple"
-              : connection.summary.aggregate === "pending" ||
-                  connection.summary.aggregate === "action_required"
-                ? "amber"
-                : "slate",
-      }}
-      decorativeAccent
-      primaryAction={{
-        label: t("customerApp.portalStructure.nav.kompisWebQa"),
-        href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
-      }}
+      suppressPageHeader
     >
-      <section className="space-y-3" aria-labelledby="wk-connection-status">
-        <div>
-          <h2 id="wk-connection-status" className="text-lg font-semibold text-[var(--app-text)]">
-            {connectionLabels.dashboardTitle}
-          </h2>
-          <p className="mt-1 text-sm text-[var(--app-text-muted)]">
-            {connectionLabels.dashboardDescription}
-          </p>
-        </div>
-        <div className={`${AppVisualClasses.card} overflow-hidden !p-0`}>
-          <div
-            className={`px-5 py-5 sm:px-6 ${
-              connection.summary.aggregate === "active"
-                ? "bg-[#E8F7F0]"
-                : "bg-[image:var(--app-primary-soft-fill)]"
-            }`}
-          >
-            <p className="text-sm font-medium text-[var(--app-text-muted)]">
-              {connectionLabels.title}
-            </p>
-            <p className="mt-1 text-2xl font-semibold text-[var(--app-text)]">
-              {connectionLabels.aggregate[connection.summary.aggregate]}
-            </p>
-            <p className="mt-2 text-sm text-[var(--app-text-muted)]">
-              {connectionLabels.aggregateExplain[connection.summary.aggregate]}
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2 px-5 py-5 sm:px-6">
-            <Link
-              href={FOUNDATION_NAV_BINDINGS.kompisWebConnection}
-              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            >
-              {connectionLabels.openConnection}
-            </Link>
-            <Link
-              href={`${FOUNDATION_NAV_BINDINGS.kompisWebConnection}?section=domains`}
-              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            >
-              {connectionLabels.domainsTitle}
-            </Link>
-            <Link
-              href={`${FOUNDATION_NAV_BINDINGS.kompisWebConnection}?section=help`}
-              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            >
-              {connectionLabels.diagnosisTitle}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {knowledge.faqLoadOk ? (
-        <section className="space-y-3" aria-labelledby="wk-knowledge-status">
-          <div>
-            <h2 id="wk-knowledge-status" className="text-lg font-semibold text-[var(--app-text)]">
-              {knowledgeLabels.dashboardTitle}
-            </h2>
-            <p className="mt-1 text-sm text-[var(--app-text-muted)]">
-              {knowledgeLabels.dashboardDescription}
-            </p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            {[
-              { label: knowledgeLabels.counts.published, value: knowledge.faq.published, icon: BookOpen, tone: "text-[var(--app-positive)]" },
-              { label: knowledgeLabels.counts.draft, value: knowledge.faq.draft, icon: FileText, tone: "text-[var(--app-primary)]" },
-              { label: knowledgeLabels.counts.archived, value: knowledge.faq.archived, icon: Archive, tone: "text-[var(--app-text-muted)]" },
-              {
-                label: knowledgeLabels.counts.needsReview,
-                value: knowledge.feedbackNeedsReview,
-                icon: CircleAlert,
-                tone: "text-[var(--app-pending)]",
-              },
-            ].map((item) => (
-              <MetricCard key={item.label} label={item.label} value={item.value} icon={item.icon} tone={item.tone} />
-            ))}
-          </div>
-          <p className="text-sm text-[var(--app-text-muted)]">
-            {knowledge.faqWindow.totalState === "exact_tenant"
-              ? knowledgeLabels.counts.windowExact.replace(
-                  "{total}",
-                  String(knowledge.faqWindow.tenantTotal ?? 0),
-                )
-              : knowledgeLabels.counts.windowLimited.replace(
-                  "{minimum}",
-                  String(knowledge.faqWindow.tenantMinimum),
-                )}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <Link
-              href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?create=1`}
-              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            >
-              {knowledgeLabels.createFaq}
-            </Link>
-            <Link
-              href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=followUp`}
-              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            >
-              {knowledgeLabels.reviewDrafts}
-            </Link>
-            <Link
-              href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=pages`}
-              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            >
-              {knowledgeLabels.sections.pages}
-            </Link>
-          </div>
-        </section>
-      ) : null}
-
-      {overview.persistenceReady ? (
-        <section className="space-y-3" aria-labelledby="wk-quality-signals">
-          <div>
-            <h2 id="wk-quality-signals" className="text-lg font-semibold text-[var(--app-text)]">
-              {feedbackLabels.dashboard.title}
-            </h2>
-            <p className="mt-1 text-sm text-[var(--app-text-muted)]">
-              {feedbackLabels.dashboard.description}
-            </p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            {[
-              { label: feedbackLabels.totals.answers, value: overview.totals.answers, icon: MessagesSquare, tone: "text-[var(--app-primary)]" },
-              { label: feedbackLabels.totals.helpful, value: overview.totals.helpful, icon: ThumbsUp, tone: "text-[var(--app-positive)]" },
-              { label: feedbackLabels.totals.notHelpful, value: overview.totals.notHelpful, icon: ThumbsDown, tone: "text-[var(--app-pending)]" },
-              { label: feedbackLabels.totals.needsReview, value: overview.totals.notHelpful, icon: CircleAlert, tone: "text-[var(--app-pending)]" },
-            ].map((item) => (
-              <MetricCard key={item.label} label={item.label} value={item.value} icon={item.icon} tone={item.tone} />
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Link
-              href={`${FOUNDATION_NAV_BINDINGS.kompisWebQa}?vote=not_helpful`}
-              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            >
-              {feedbackLabels.actions.reviewNegative}
-            </Link>
-            <Link
-              href={FOUNDATION_NAV_BINDINGS.kompisWebFaq}
-              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            >
-              {feedbackLabels.actions.openFaq}
-            </Link>
-            <Link
-              href={FOUNDATION_NAV_BINDINGS.kompisWebConnection}
-              className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-            >
-              {feedbackLabels.actions.checkConnection}
-            </Link>
-          </div>
-        </section>
-      ) : null}
-
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {cards.map((card) => (
-          <AppIconActionCard
-            key={card.href}
-            href={card.href}
-            title={card.title}
-            description={card.description}
-            tone={card.tone}
-            icon={<HubFeatureIcon kind={card.icon} />}
-          />
-        ))}
-      </div>
-      <p className="text-sm text-aipify-text-secondary">
-        <Link
-          href={FOUNDATION_NAV_BINDINGS.kompisOperatorPreserved}
-          className="font-medium text-aipify-accent hover:text-aipify-companion focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus rounded"
-        >
-          {t("customerApp.portalStructure.webHub.operatorLink")}
-        </Link>
-      </p>
+      <WebsiteKompisDashboardPremium
+        title={t("customerApp.portalStructure.nav.kompisWebDashboard")}
+        description={t("customerApp.portalStructure.webHub.description")}
+        productName={t("customerApp.portalStructure.navGroups.kompisWeb")}
+        statusLabel={connectionLabels.aggregate[aggregate]}
+        statusTone={statusTone}
+        contextLine={contextParts.length > 0 ? contextParts.join(" · ") : formatHubContextLine(common, ctx)}
+        statusExplain={connectionLabels.aggregateExplain[aggregate]}
+        presence={aggregate === "active" ? t("customerApp.portalStructure.webHub.presenceReady") : null}
+        mascotAlt={t("customerApp.portalStructure.navGroups.kompisWeb")}
+        knowledgeTitle={knowledgeLabels.dashboardTitle}
+        knowledgeDescription={knowledgeLabels.dashboardDescription}
+        knowledgeMetrics={
+          knowledge.faqLoadOk
+            ? [
+                { label: knowledgeLabels.counts.published, hint: t("customerApp.portalStructure.webHub.hintPublished"), value: knowledge.faq.published, icon: BookOpen, chip: "bg-[#E9F8F0] text-[#146C43]" },
+                { label: knowledgeLabels.counts.draft, hint: t("customerApp.portalStructure.webHub.hintDraft"), value: knowledge.faq.draft, icon: FileText, chip: "bg-[#F2EFFF] text-[#5538D3]" },
+                { label: knowledgeLabels.counts.archived, hint: t("customerApp.portalStructure.webHub.hintArchived"), value: knowledge.faq.archived, icon: Archive, chip: "bg-[#F4F6FB] text-[#5F6788]" },
+                { label: knowledgeLabels.counts.needsReview, hint: t("customerApp.portalStructure.webHub.hintReview"), value: knowledge.feedbackNeedsReview, icon: CircleAlert, chip: "bg-[#FFF3DF] text-[#8A5A10]" },
+              ]
+            : null
+        }
+        knowledgeNote={
+          knowledge.faqLoadOk
+            ? knowledge.faqWindow.totalState === "exact_tenant"
+              ? knowledgeLabels.counts.windowExact.replace("{total}", String(knowledge.faqWindow.tenantTotal ?? 0))
+              : knowledgeLabels.counts.windowLimited.replace("{minimum}", String(knowledge.faqWindow.tenantMinimum))
+            : null
+        }
+        qualityTitle={feedbackLabels.dashboard.title}
+        qualityDescription={feedbackLabels.dashboard.description}
+        qualityMetrics={
+          overview.persistenceReady
+            ? [
+                { label: feedbackLabels.totals.answers, hint: t("customerApp.portalStructure.webHub.hintAnswers"), value: overview.totals.answers, icon: MessagesSquare, chip: "bg-[#EEF3FF] text-[#3E4EC2]" },
+                { label: feedbackLabels.totals.helpful, hint: t("customerApp.portalStructure.webHub.hintHelpful"), value: overview.totals.helpful, icon: ThumbsUp, chip: "bg-[#E9F8F0] text-[#146C43]" },
+                { label: feedbackLabels.totals.notHelpful, hint: t("customerApp.portalStructure.webHub.hintNotHelpful"), value: overview.totals.notHelpful, icon: ThumbsDown, chip: "bg-[#FFE8EE] text-[#9F1239]" },
+                { label: feedbackLabels.totals.needsReview, hint: t("customerApp.portalStructure.webHub.hintReview"), value: reviewCount, icon: CircleAlert, chip: "bg-[#FFF3DF] text-[#8A5A10]" },
+              ]
+            : null
+        }
+        connectionTitle={connectionLabels.dashboardTitle}
+        connectionSignals={[
+          { label: connectionLabels.title, value: connectionLabels.aggregate[aggregate] },
+          {
+            label: connectionLabels.domainsTitle,
+            value: t("customerApp.portalStructure.webHub.domainCount").replace("{count}", String(connection.summary.domains.length)),
+          },
+          ...checkpointSignals,
+        ]}
+        manageConnectionLabel={connectionLabels.openConnection}
+        manageConnectionHref={FOUNDATION_NAV_BINDINGS.kompisWebConnection}
+        primaryActions={[
+          {
+            href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
+            title: t("customerApp.portalStructure.nav.kompisWebQa"),
+            description: t("customerApp.portalStructure.webHub.qaDescription"),
+            emphasis: true,
+          },
+          {
+            href: FOUNDATION_NAV_BINDINGS.kompisWebFaq,
+            title: t("customerApp.portalStructure.nav.kompisWebFaq"),
+            description: t("customerApp.portalStructure.webHub.faqDescription"),
+          },
+          {
+            href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
+            title: t("customerApp.portalStructure.nav.kompisWebConnection"),
+            description: t("customerApp.portalStructure.webHub.connectionDescription"),
+          },
+        ]}
+        secondaryActions={[
+          {
+            href: `${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?create=1`,
+            title: knowledgeLabels.createFaq,
+            description: t("customerApp.portalStructure.webHub.qaDescription"),
+          },
+          {
+            href: `${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=pages`,
+            title: knowledgeLabels.sections.pages,
+            description: t("customerApp.portalStructure.webHub.faqDescription"),
+          },
+          {
+            href: `${FOUNDATION_NAV_BINDINGS.kompisWebConnection}?section=domains`,
+            title: connectionLabels.domainsTitle,
+            description: t("customerApp.portalStructure.webHub.connectionDescription"),
+          },
+          {
+            href: FOUNDATION_NAV_BINDINGS.kompisWebAppearance,
+            title: t("customerApp.portalStructure.nav.kompisWebAppearance"),
+            description: t("customerApp.portalStructure.webHub.appearanceDescription"),
+          },
+          {
+            href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
+            title: t("customerApp.portalStructure.nav.kompisWebModules"),
+            description: hubT(t, "web.modulesCard"),
+          },
+        ]}
+        operatorHref={FOUNDATION_NAV_BINDINGS.kompisOperatorPreserved}
+        operatorLabel={t("customerApp.portalStructure.webHub.operatorLink")}
+      />
     </AppHubShell>
   );
 }

@@ -32,6 +32,8 @@ type AppHubShellProps = {
   primaryAction?: { label: string; href: string } | null;
   /** Discrete decorative orb for dashboards/hub overviews — off on dense detail pages. */
   decorativeAccent?: boolean;
+  /** Dashboard pages that render their own hero keep the breadcrumb and skip the standard header. */
+  suppressPageHeader?: boolean;
   children?: ReactNode;
 };
 
@@ -44,6 +46,7 @@ export function AppHubShell({
   status,
   primaryAction,
   decorativeAccent = false,
+  suppressPageHeader = false,
   children,
 }: AppHubShellProps) {
   return (
@@ -78,6 +81,7 @@ export function AppHubShell({
         </ol>
       </nav>
 
+      {suppressPageHeader ? null : (
       <div className="relative z-[1]">
         <AppPageHeader
           eyebrow={eyebrow}
@@ -124,6 +128,7 @@ export function AppHubShell({
           }
         />
       </div>
+      )}
 
       {children ? <div className="relative z-[1] mt-2 space-y-7">{children}</div> : null}
     </AppContentWidth>

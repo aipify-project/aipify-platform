@@ -8466,7 +8466,16 @@
       "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
       "appearanceDescription": "Choose widget look, welcome messages, and presentation for visitors.",
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
-      "operatorLink": "Open website publisher (Kompis)"
+      "operatorLink": "Open website publisher (Kompis)",
+      "presenceReady": "Aipify is ready to help on your verified pages.",
+      "hintPublished": "Visible on the website",
+      "hintDraft": "Not published yet",
+      "hintArchived": "Archived questions",
+      "hintReview": "Ready for your review",
+      "hintAnswers": "Feedback recorded so far",
+      "hintHelpful": "Rated as helpful",
+      "hintNotHelpful": "Rated as not helpful",
+      "domainCount": "{count} domains"
     },
     "foundationDashboard": {
       "eyebrow": "Overview",

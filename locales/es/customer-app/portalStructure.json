@@ -7188,7 +7188,16 @@
       "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
       "appearanceDescription": "Choose widget look, welcome messages, and presentation for visitors.",
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
-      "operatorLink": "Open website publisher (Kompis)"
+      "operatorLink": "Open website publisher (Kompis)",
+      "presenceReady": "Aipify está listo para ayudar en las páginas verificadas.",
+      "hintPublished": "Visibles en el sitio",
+      "hintDraft": "Aún no publicados",
+      "hintArchived": "Preguntas archivadas",
+      "hintReview": "Listo para tu revisión",
+      "hintAnswers": "Opiniones registradas hasta ahora",
+      "hintHelpful": "Valoradas como útiles",
+      "hintNotHelpful": "Valoradas como no útiles",
+      "domainCount": "{count} dominios"
     },
     "foundationDashboard": {
       "eyebrow": "Resumen",
