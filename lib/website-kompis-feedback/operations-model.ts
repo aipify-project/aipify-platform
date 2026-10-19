@@ -230,6 +230,13 @@ export const OWNER_REVIEW_APPROVAL_SUPPORTED = false;
  */
 export const FEEDBACK_REVIEW_CLOSE_READY = false;
 
+/**
+ * The disposition RPCs are not in Core yet. Review completion and spam
+ * rejection stay off until the owner applies the disposition SQL and a later
+ * change turns this flag on. The existing overview remains the live queue.
+ */
+export const FEEDBACK_REVIEW_DISPOSITION_READY = false;
+
 export function canOfferFeedbackReviewClose(
   row: Pick<FeedbackOpsRow, "vote" | "reviewStatus">,
   ready = FEEDBACK_REVIEW_CLOSE_READY,
