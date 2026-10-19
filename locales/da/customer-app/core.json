@@ -7620,7 +7620,7 @@
   },
   "websiteKompisKnowledge": {
     "title": "Videncenter",
-    "subtitle": "Se og administrer den offentlige viden Website Kompis kan bruge — FAQ først, med tydelig status for sider og dokumenter når det findes.",
+    "subtitle": "Administrer den viden, Kompis bruger til at hjælpe besøgende på dit website.",
     "sections": {
       "faq": "FAQ",
       "pages": "Websider",
@@ -7659,7 +7659,12 @@
     "neverAutoPublish": "Feedback og forslag offentliggøres aldrig automatisk. Du bekræfter altid kladde og publicering.",
     "bedriftNotMixed": "Privat Kompis Bedrift-viden vises aldrig eller blandes ind i dette offentlige Videncenter.",
     "dashboardTitle": "Vidensstatus",
-    "dashboardDescription": "FAQ-indhold til dit arbejdsområde."
+    "dashboardDescription": "FAQ-indhold til dit arbejdsområde.",
+    "overviewTitle": "Vidensoversigt",
+    "overviewDescription": "FAQ'er for det valgte website, med status og tydelige publiceringsvalg.",
+    "hintPublished": "Tilgængeligt for besøgende",
+    "hintDraft": "Ikke offentligt tilgængeligt",
+    "hintArchived": "Ikke aktivt"
   },
   "websiteKompisConnection": {
     "title": "Forbindelsesstatus",

@@ -44,6 +44,11 @@ export function buildWebsiteKompisKnowledgeLabels(t: TranslateFn) {
     bedriftNotMixed: t(`${prefix}.bedriftNotMixed`),
     dashboardTitle: t(`${prefix}.dashboardTitle`),
     dashboardDescription: t(`${prefix}.dashboardDescription`),
+    overviewTitle: t(`${prefix}.overviewTitle`),
+    overviewDescription: t(`${prefix}.overviewDescription`),
+    hintPublished: t(`${prefix}.hintPublished`),
+    hintDraft: t(`${prefix}.hintDraft`),
+    hintArchived: t(`${prefix}.hintArchived`),
   };
 }
 

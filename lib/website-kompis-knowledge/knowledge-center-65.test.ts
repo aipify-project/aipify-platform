@@ -66,15 +66,18 @@ const hubPage = readFileSync(join(ROOT, "app/app/website-kompis/page.tsx"), "utf
 assert.match(hubPage, /loadWebsiteKompisKnowledgeSummary/);
 assert.match(hubPage, /dashboardTitle/);
 assert.match(hubPage, /create=1/);
-assert.match(hubPage, /section=followUp/);
 assert.match(hubPage, /section=pages/);
 
 const panel = readFileSync(
   join(ROOT, "components/app/website-kompis/WebsiteKompisKnowledgeCenterPanel.tsx"),
   "utf8",
 );
+assert.match(faqPage, /suppressPageHeader/);
+assert.match(panel, /overviewTitle/);
+assert.match(panel, /hintPublished/);
 assert.match(panel, /neverAutoPublish/);
 assert.match(panel, /bedriftNotMixed/);
+assert.match(panel, /followUp/);
 assert.match(panel, /pagesUnavailableTitle/);
 assert.match(panel, /documentsUnavailableTitle/);
 assert.doesNotMatch(panel, /uploadDocument|drag.?and.?drop/i);

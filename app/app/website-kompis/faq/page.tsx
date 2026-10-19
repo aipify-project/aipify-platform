@@ -45,11 +45,13 @@ export default async function WebsiteKompisFaqPage() {
       title={knowledgeLabels.title}
       description={knowledgeLabels.subtitle}
       contextLabel={formatHubContextLine(common, ctx)}
+      suppressPageHeader
     >
       <Suspense fallback={<AipifyLoadingState />}>
         <WebsiteKompisKnowledgeCenterPanel
           labels={knowledgeLabels}
           summary={summary}
+          contextLabel={formatHubContextLine(common, ctx)}
           faqPanel={
             <WebsiteKompisFaqAdminPanel
               labels={faqLabels}
