@@ -22,15 +22,16 @@ export async function loadSubscriptionProductReads(): Promise<SubscriptionProduc
 
   try {
     const supabase = await createClient();
-    const { data, error } = await supabase.rpc("get_app_organization_context");
-    if (error) return { license, access };
-    const context = parseAppOrganizationContext(data);
-    license.planName = context.plan_name;
-    license.licenseStatus = context.license_status;
-
-    const web = await loadWebsiteKompisLicenseQuotaRead();
+    const [orgResult, web] = await Promise.all([
+      supabase.rpc("get_app_organization_context"),
+      loadWebsiteKompisLicenseQuotaRead(),
+    ]);
     access.webKind = web.kind;
     access.webPlan = web.kind === "known_plan" ? web.plan : null;
+    if (orgResult.error) return { license, access };
+    const context = parseAppOrganizationContext(orgResult.data);
+    license.planName = context.plan_name;
+    license.licenseStatus = context.license_status;
 
     if (!context.customer_id) return { license, access };
     const moduleResult = await supabase.rpc("is_tenant_module_enabled", {

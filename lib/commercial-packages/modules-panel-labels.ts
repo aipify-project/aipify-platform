@@ -43,5 +43,25 @@ export function buildModulesAdminPanelLabels(t: Translator) {
     retry: t(`${P}.retry`),
     unnamedModule: t(`${P}.unnamedModule`),
     loadError: t(`${P}.loadError`),
+    activeCount: t(`${P}.activeCount`),
+    unnamedNote: t(`${P}.unnamedNote`),
+    notForPurchase: t(`${P}.notForPurchase`),
+    purchaseGap: t(`${P}.purchaseGap`),
+    contactSupport: t(`${P}.contactSupport`),
+    emptyAddons: t(`${P}.emptyAddons`),
+    licensedRecord: t(`${P}.licensedRecord`),
+  };
+}
+
+const SHOW = "customerApp.commercialPackages.softwareShowcase";
+
+export function buildSoftwareShowcaseLabels(t: Translator) {
+  return {
+    heroTitle: t(`${SHOW}.heroTitle`),
+    heroBody: t(`${SHOW}.heroBody`),
+    webLead: t(`${SHOW}.webLead`),
+    webSupport: t(`${SHOW}.webSupport`),
+    bedriftLead: t(`${SHOW}.bedriftLead`),
+    bedriftSupport: t(`${SHOW}.bedriftSupport`),
   };
 }

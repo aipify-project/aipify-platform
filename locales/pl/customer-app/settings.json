@@ -1125,9 +1125,24 @@
         "notChatbot": "Not consumer chatbot pricing"
       }
     },
+    "softwareShowcase": {
+      "heroTitle": "AI, które pracuje razem z Tobą.",
+      "heroBody": "Znajdź właściwego Kompisa dla klientów, zespołu i wiedzy.",
+      "webLead": "Daj odwiedzającym dobrą odpowiedź dokładnie wtedy, gdy jej potrzebują.",
+      "webSupport": "Kompis korzysta z zatwierdzonego FAQ i wiedzy o witrynie, aby informacje były łatwiejsze do znalezienia — bezpośrednio na stronie.",
+      "bedriftLead": "Ułatw korzystanie z wiedzy organizacji.",
+      "bedriftSupport": "Zbierz istotną wiedzę wewnętrzną i daj pracownikom wyraźniejszą drogę do odpowiedzi, z dostępem według roli."
+    },
     "modules": {
-      "title": "Moduły",
-      "subtitle": "Produkty i moduły dla tego środowiska.",
+      "title": "Moduły dodatkowe",
+      "subtitle": "Rozszerz środowisko o funkcje dopasowane do sposobu pracy.",
+      "activeCount": "Aktywne moduły",
+      "unnamedNote": "Nazwy tych modułów nie są częścią bieżącego odczytu. Liczba pokazuje to, co środowisko faktycznie ma.",
+      "notForPurchase": "Jeszcze niedostępne do zakupu",
+      "purchaseGap": "Modułów dodatkowych nie kupuje się z tej strony. Cena i aktywacja nie są tu ustalane.",
+      "contactSupport": "Skontaktuj się z nami",
+      "emptyAddons": "Żadne moduły dodatkowe nie są objęte licencją tego środowiska.",
+      "licensedRecord": "Objęty licencją",
       "productsIntro": "Produkty i moduły dla tego środowiska.",
       "manageSubscription": "Zarządzaj subskrypcją",
       "loading": "Przygotowywanie przeglądu modułów…",

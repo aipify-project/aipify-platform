@@ -1300,9 +1300,24 @@
         "notChatbot": "Ikke forbruker-chatbot-prising"
       }
     },
+    "softwareShowcase": {
+      "heroTitle": "AI som jobber sammen med deg.",
+      "heroBody": "Finn riktig Kompis for kundene, teamet og kunnskapen din.",
+      "webLead": "Gi besøkende gode svar, akkurat når de trenger dem.",
+      "webSupport": "La Kompis bruke godkjent FAQ og nettstedskunnskap til å gjøre informasjon enklere å finne — direkte på nettsiden.",
+      "bedriftLead": "Gjør virksomhetens kunnskap enklere å bruke.",
+      "bedriftSupport": "Samle relevant intern kunnskap og gi medarbeidere en mer oversiktlig vei til svar, med tilgang etter rolle."
+    },
     "modules": {
-      "title": "Moduler",
-      "subtitle": "Produktene og modulene for arbeidsområdet ditt.",
+      "title": "Tilleggsmoduler",
+      "subtitle": "Utvid arbeidsområdet med funksjoner som passer måten dere jobber på.",
+      "activeCount": "Aktive moduler",
+      "unnamedNote": "Visningsnavn for disse modulene følger ikke med i den nåværende lesingen. Antallet er det arbeidsområdet faktisk har.",
+      "notForPurchase": "Ikke tilgjengelig for kjøp ennå",
+      "purchaseGap": "Tilleggsmoduler kan ikke kjøpes fra denne siden. Pris og aktivering avgjøres ikke her.",
+      "contactSupport": "Kontakt oss",
+      "emptyAddons": "Ingen tilleggsmoduler er lisensiert for dette arbeidsområdet.",
+      "licensedRecord": "Lisensiert",
       "productsIntro": "Produktene og modulene for arbeidsområdet ditt.",
       "manageSubscription": "Administrer abonnement",
       "loading": "Laster moduler…",

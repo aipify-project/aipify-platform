@@ -1,7 +1,7 @@
 "use client";
 
 import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
-import { resolveCustomerFacingModuleName } from "@/lib/app-portal/software-catalog/module-presentation";
+import { summarizeAddonModules } from "@/lib/commercial-packages/addon-module-summary";
 import { parseModulesCenter, type ModulesCenter } from "@/lib/commercial-packages";
 import { Blocks } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -39,21 +39,17 @@ type ModulesAdminPanelProps = {
     retry: string;
     unnamedModule: string;
     loadError: string;
+    activeCount: string;
+    unnamedNote: string;
+    notForPurchase: string;
+    purchaseGap: string;
+    contactSupport: string;
+    emptyAddons: string;
+    licensedRecord: string;
   };
   /** Inside AppHubShell. Commercial catalog stays off this surface. */
   embedded?: boolean;
 };
-
-function moduleDisplayName(mod: Record<string, unknown>, unnamedFallback: string): string {
-  const key = String(mod.module_key ?? "");
-  return (
-    resolveCustomerFacingModuleName({
-      moduleKey: key,
-      moduleName: typeof mod.module_name === "string" ? mod.module_name : null,
-      name: typeof mod.name === "string" ? mod.name : null,
-    }) ?? unnamedFallback
-  );
-}
 
 export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPanelProps) {
   const [center, setCenter] = useState<ModulesCenter | null>(null);
@@ -106,7 +102,9 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
   }
 
   const installed = center?.installed_modules ?? [];
+  const installedSummary = summarizeAddonModules(installed);
   const trials = center?.trial_modules ?? [];
+  const trialSummary = summarizeAddonModules(trials);
 
   return (
     <div className="space-y-6">
@@ -114,30 +112,35 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
         <h2 id="modules-installed-heading" className="text-lg font-semibold text-[var(--app-text)]">
           {labels.sections.installed}
         </h2>
-        {installed.length > 0 ? (
+        {installedSummary.total > 0 ? (
           <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {installed.map((mod) => {
-              const key = String(mod.module_key);
-              return (
-                <li
-                  key={key}
-                  className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]"
-                >
-                  <div className="flex items-start gap-3">
-                    <Blocks aria-hidden className="mt-0.5 size-5 shrink-0 text-[var(--app-primary)]" strokeWidth={2} />
-                    <div>
-                      <h3 className="text-base font-semibold text-[var(--app-text)]">
-                        {moduleDisplayName(mod, labels.unnamedModule)}
-                      </h3>
-                      <p className="mt-1 text-sm text-[var(--app-positive)]">{labels.statusActive}</p>
-                    </div>
+            {installedSummary.named.map((mod) => (
+              <li
+                key={mod.key}
+                className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]"
+              >
+                <div className="flex items-start gap-3">
+                  <Blocks aria-hidden className="mt-0.5 size-5 shrink-0 text-[var(--app-primary)]" strokeWidth={2} />
+                  <div>
+                    <h3 className="text-base font-semibold text-[var(--app-text)]">{mod.name}</h3>
+                    <p className={`mt-1 text-sm ${mod.tone === "active" ? "text-[var(--app-positive)]" : "text-[var(--app-text-muted)]"}`}>
+                      {mod.tone === "active" ? labels.statusActive : mod.tone === "trial" ? labels.statusTrial : labels.licensedRecord}
+                    </p>
                   </div>
-                </li>
-              );
-            })}
+                </div>
+              </li>
+            ))}
+            {installedSummary.unnamedCount > 0 ? (
+              <li className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]">
+                <h3 className="text-base font-semibold text-[var(--app-text)]">
+                  {labels.activeCount}: {installedSummary.unnamedCount}
+                </h3>
+                <p className="mt-2 text-sm text-[var(--app-text-muted)]">{labels.unnamedNote}</p>
+              </li>
+            ) : null}
           </ul>
         ) : (
-          <p className="text-sm text-[var(--app-text-muted)]">{labels.empty}</p>
+          <p className="text-sm text-[var(--app-text-muted)]">{labels.emptyAddons}</p>
         )}
       </section>
 
@@ -147,20 +150,23 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
             {labels.sections.trials}
           </h2>
           <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {trials.map((mod) => {
-              const key = String(mod.module_key);
-              return (
-                <li
-                  key={key}
-                  className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5"
-                >
-                  <h3 className="text-base font-semibold text-[var(--app-text)]">
-                    {moduleDisplayName(mod, labels.unnamedModule)}
-                  </h3>
-                  <p className="mt-1 text-sm text-[var(--app-pending)]">{labels.statusTrial}</p>
-                </li>
-              );
-            })}
+            {trialSummary.named.map((mod) => (
+              <li
+                key={mod.key}
+                className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5"
+              >
+                <h3 className="text-base font-semibold text-[var(--app-text)]">{mod.name}</h3>
+                <p className="mt-1 text-sm text-[var(--app-pending)]">{labels.statusTrial}</p>
+              </li>
+            ))}
+            {trialSummary.unnamedCount > 0 ? (
+              <li className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5">
+                <h3 className="text-base font-semibold text-[var(--app-text)]">
+                  {labels.sections.trials}: {trialSummary.unnamedCount}
+                </h3>
+                <p className="mt-2 text-sm text-[var(--app-text-muted)]">{labels.unnamedNote}</p>
+              </li>
+            ) : null}
           </ul>
         </section>
       ) : null}
