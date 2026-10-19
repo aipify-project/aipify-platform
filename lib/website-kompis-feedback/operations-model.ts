@@ -17,6 +17,8 @@ export type FeedbackOpsRow = {
   pagePathname: string | null;
   locale: string | null;
   createdAt: string;
+  reviewStatus?: "open" | "closed" | null;
+  reviewedAt?: string | null;
 };
 
 export type FeedbackOpsStatusTone = "emerald" | "amber" | "slate" | "purple" | "review";
@@ -28,7 +30,7 @@ export const FEEDBACK_REVIEW_BADGE_CLASS =
 export type FeedbackOpsStatus = {
   tone: FeedbackOpsStatusTone;
   /** i18n key suffix under customerApp.websiteKompisFeedback.status.* */
-  key: "helpful" | "needsReview" | "commented" | "noFeedbackSignal";
+  key: "helpful" | "needsReview" | "commented" | "noFeedbackSignal" | "closed";
 };
 
 export type FeedbackOpsNextAction = {
@@ -122,6 +124,9 @@ export const WEBSITE_KOMPIS_FEEDBACK_FIELD_MATRIX = [
 ] as const;
 
 export function resolveFeedbackOpsStatus(row: FeedbackOpsRow): FeedbackOpsStatus {
+  if (row.reviewStatus === "closed") {
+    return { tone: "slate", key: "closed" };
+  }
   if (row.vote === "not_helpful") {
     return { tone: "review", key: "needsReview" };
   }
@@ -206,7 +211,7 @@ export function filterFeedbackOpsRows(
  */
 export function selectKnowledgeGapCandidates(rows: FeedbackOpsRow[]): FeedbackOpsRow[] {
   return rows
-    .filter((row) => row.vote === "not_helpful")
+    .filter((row) => row.vote === "not_helpful" && row.reviewStatus !== "closed")
     .slice()
     .sort((a, b) => {
       const ac = a.comment?.trim() ? 1 : 0;
@@ -218,6 +223,19 @@ export function selectKnowledgeGapCandidates(rows: FeedbackOpsRow[]): FeedbackOp
 
 /** Persisted owner approval does not exist. Hiding a row is not approval. */
 export const OWNER_REVIEW_APPROVAL_SUPPORTED = false;
+
+/**
+ * The close RPC is not in Core yet. The button stays off until the owner
+ * applies the reviewed SQL file and this flag is turned on in a later change.
+ */
+export const FEEDBACK_REVIEW_CLOSE_READY = false;
+
+export function canOfferFeedbackReviewClose(
+  row: Pick<FeedbackOpsRow, "vote" | "reviewStatus">,
+  ready = FEEDBACK_REVIEW_CLOSE_READY,
+): boolean {
+  return ready && row.vote === "not_helpful" && row.reviewStatus !== "closed";
+}
 
 export const FEEDBACK_REVIEW_PAGE_SIZE = 8;
 

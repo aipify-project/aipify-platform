@@ -240,6 +240,7 @@ export type WebsiteKompisAnswerFeedbackOverview = {
     helpful: number;
     notHelpful: number;
     withComment: number;
+    needsReview: number | null;
   };
   recent: Array<{
     id: string;
@@ -250,6 +251,8 @@ export type WebsiteKompisAnswerFeedbackOverview = {
     pagePathname: string | null;
     locale: string | null;
     createdAt: string;
+    reviewStatus: "open" | "closed" | null;
+    reviewedAt: string | null;
   }>;
 };
 
@@ -260,7 +263,7 @@ export async function getWebsiteKompisAnswerFeedbackOverview(
   const limit = Math.min(Math.max(options?.limit ?? 40, 1), 100);
   const empty: WebsiteKompisAnswerFeedbackOverview = {
     persistenceReady: false,
-    totals: { answers: 0, helpful: 0, notHelpful: 0, withComment: 0 },
+    totals: { answers: 0, helpful: 0, notHelpful: 0, withComment: 0, needsReview: null },
     recent: [],
   };
 
@@ -293,10 +296,18 @@ export async function getWebsiteKompisAnswerFeedbackOverview(
       helpful: Number(totals.helpful ?? 0) || 0,
       notHelpful: Number(totals.not_helpful ?? 0) || 0,
       withComment: Number(totals.with_comment ?? 0) || 0,
+      needsReview:
+        typeof totals.needs_review === "number" && Number.isFinite(totals.needs_review)
+          ? totals.needs_review
+          : null,
     },
     recent: recentRaw
       .filter((entry): entry is Record<string, unknown> => !!entry && typeof entry === "object")
-      .map((entry) => ({
+      .map((entry) => {
+        const rawReviewStatus = entry.review_status;
+        const reviewStatus: "open" | "closed" | null =
+          rawReviewStatus === "open" || rawReviewStatus === "closed" ? rawReviewStatus : null;
+        return {
         id: String(entry.id ?? ""),
         vote: (entry.vote === "not_helpful" ? "not_helpful" : "helpful") as WebsiteKompisAnswerFeedbackVote,
         comment: typeof entry.comment === "string" ? entry.comment : null,
@@ -306,7 +317,10 @@ export async function getWebsiteKompisAnswerFeedbackOverview(
           typeof entry.page_pathname === "string" ? entry.page_pathname : null,
         locale: typeof entry.locale === "string" ? entry.locale : null,
         createdAt: String(entry.created_at ?? ""),
-      }))
+        reviewStatus,
+        reviewedAt: typeof entry.reviewed_at === "string" ? entry.reviewed_at : null,
+      };
+      })
       .filter((entry) => entry.id),
   };
 }

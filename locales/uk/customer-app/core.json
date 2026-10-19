@@ -1004,7 +1004,8 @@
       "helpful": "Корисно",
       "needsReview": "Потребує перевірки",
       "commented": "З коментарем",
-      "noFeedbackSignal": "Без оцінки"
+      "noFeedbackSignal": "Без оцінки",
+      "closed": "Прибрано з перегляду"
     },
     "actions": {
       "reviewAnswer": "Переглянути",
@@ -1039,6 +1040,14 @@
       "immutable": "Відповідь, яку отримав відвідувач, не змінюється. Ви створюєте окрему пропозицію FAQ.",
       "saveDraft": "Зберегти чернетку FAQ",
       "publishFaq": "Опублікувати як FAQ",
+      "removeFromReview": "Прибрати з перегляду",
+      "removeFromReviewTitle": "Прибрати справу з перегляду?",
+      "removeFromReviewBody": "Справа переходить до історії. Відгук не видаляється, і жоден FAQ не публікується.",
+      "removeFromReviewConfirm": "Прибрати з перегляду",
+      "removeFromReviewCancel": "Скасувати",
+      "removing": "Прибирання…",
+      "removeFromReviewError": "Справа досі на перегляді. Нічого не видалено.",
+      "reviewedAt": "Прибрано з перегляду",
       "savedDraft": "Чернетку збережено.",
       "publishedOk": "FAQ опубліковано",
       "privacy": "Публікація робить запитання й відповідь видимими для відвідувачів. Перевірте текст перед публікацією.",

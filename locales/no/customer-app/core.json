@@ -7537,7 +7537,8 @@
       "helpful": "Nyttig",
       "needsReview": "Trenger gjennomgang",
       "commented": "Kommentert",
-      "noFeedbackSignal": "Ingen vurdering"
+      "noFeedbackSignal": "Ingen vurdering",
+      "closed": "Fjernet fra gjennomgang"
     },
     "actions": {
       "reviewAnswer": "Gjennomgå",
@@ -7572,6 +7573,14 @@
       "immutable": "Svaret besøkende fikk, endres ikke. Du lager et eget FAQ-forslag.",
       "saveDraft": "Lagre FAQ-utkast",
       "publishFaq": "Publiser som FAQ",
+      "removeFromReview": "Fjern fra gjennomgang",
+      "removeFromReviewTitle": "Fjern saken fra gjennomgang?",
+      "removeFromReviewBody": "Saken flyttes til historikk. Tilbakemeldingen slettes ikke, og ingen FAQ publiseres.",
+      "removeFromReviewConfirm": "Fjern fra gjennomgang",
+      "removeFromReviewCancel": "Avbryt",
+      "removing": "Fjerner…",
+      "removeFromReviewError": "Saken ligger fortsatt til gjennomgang. Ingenting ble slettet.",
+      "reviewedAt": "Fjernet fra gjennomgang",
       "savedDraft": "Utkastet er lagret.",
       "publishedOk": "FAQ er publisert",
       "privacy": "Publisering gjør spørsmålet og svaret synlig for besøkende. Kontroller teksten før du publiserer.",

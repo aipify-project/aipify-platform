@@ -15,6 +15,7 @@ import { WebsiteKompisPublishedFaqList } from "@/components/app/website-kompis/W
 import type { WebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import {
   FEEDBACK_REVIEW_BADGE_CLASS,
+  FEEDBACK_REVIEW_CLOSE_READY,
   FEEDBACK_REVIEW_PAGE_SIZE,
   filterFeedbackOpsRows,
   partitionFeedbackWorkspace,
@@ -34,6 +35,7 @@ type OverviewPayload = {
     helpful: number;
     notHelpful: number;
     withComment: number;
+    needsReview?: number | null;
   };
   recent?: FeedbackOpsRow[];
   error?: string;
@@ -207,13 +209,14 @@ export function WebsiteKompisFeedbackOverviewPanel({
   }
 
   const persistenceReady = data?.persistenceReady === true;
-  const totals = data?.totals ?? { answers: 0, helpful: 0, notHelpful: 0, withComment: 0 };
+  const totals = data?.totals ?? { answers: 0, helpful: 0, notHelpful: 0, withComment: 0, needsReview: null };
+  const reviewTotal = totals.needsReview ?? totals.notHelpful;
   const tiles = [
     { label: labels.totals.answers, value: totals.answers, icon: MessageCircle, chip: "bg-[var(--app-primary-soft)] text-[var(--app-primary)]" },
     { label: labels.totals.helpful, value: totals.helpful, icon: ThumbsUp, chip: "bg-[#E8F7F0] text-[#146C43]" },
     { label: labels.totals.notHelpful, value: totals.notHelpful, icon: ThumbsDown, chip: "bg-[#FDECEC] text-[#9F1239]" },
     { label: labels.totals.withComment, value: totals.withComment, icon: MessageSquareText, chip: "bg-[var(--app-primary-soft)] text-[var(--app-primary)]" },
-    { label: labels.totals.needsReview, value: totals.notHelpful, icon: ClipboardCheck, chip: FEEDBACK_REVIEW_BADGE_CLASS },
+    { label: labels.totals.needsReview, value: reviewTotal, icon: ClipboardCheck, chip: FEEDBACK_REVIEW_BADGE_CLASS },
   ];
   const tabs: Array<{ id: ViewId; label: string; count: number | null }> = [
     { id: "review", label: labels.quality.tabs.review, count: reviewQueue.length },
@@ -373,7 +376,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
               <p className="mt-1 max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">
                 {view === "history" ? labels.scopeNote : labels.sectionReviewQueueHint}
               </p>
-              {view === "review" && totals.notHelpful > reviewQueue.length ? (
+              {view === "review" && reviewTotal > reviewQueue.length ? (
                 <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.quality.windowGap}</p>
               ) : null}
             </div>
@@ -401,6 +404,11 @@ export function WebsiteKompisFeedbackOverviewPanel({
                     <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[var(--app-text-muted)]">{row.answerPreview || "—"}</p>
                     {row.comment?.trim() ? (
                       <p className="mt-2 line-clamp-2 text-sm text-[var(--app-text)]">{row.comment.trim()}</p>
+                    ) : null}
+                    {row.reviewedAt ? (
+                      <p className="mt-3 text-xs text-[var(--app-text-muted)]">
+                        {labels.quality.reviewedAt}: {formatWhen(row.reviewedAt, locale)}
+                      </p>
                     ) : null}
                     <p className="mt-3 text-xs text-[var(--app-text-muted)]">
                       {[row.pagePathname, row.locale ? languageNames[row.locale] ?? row.locale : null]
@@ -445,6 +453,11 @@ export function WebsiteKompisFeedbackOverviewPanel({
           row={selected}
           labels={labels}
           onClose={() => setSelectedId(null)}
+          closeReady={FEEDBACK_REVIEW_CLOSE_READY}
+          onReviewClosed={async () => {
+            setSelectedId(null);
+            await load();
+          }}
           onPublished={() => {
             setSelectedId(null);
             setToast(labels.quality.publishedOk);
