@@ -3,8 +3,17 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { AlertCircle, CircleCheck } from "lucide-react";
-import { AppVisualClasses } from "@/lib/design/app-visual-system";
+import {
+  AlertCircle,
+  BadgeCheck,
+  CircleCheck,
+  CreditCard,
+  Eye,
+  Globe,
+  Package,
+  Plug,
+  type LucideIcon,
+} from "lucide-react";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import {
   connectionShowsActiveLicenseWithoutPublicView,
@@ -12,7 +21,6 @@ import {
 } from "@/lib/website-kompis-connection/customer-copy";
 import type { WebsiteKompisConnectionLabels } from "@/lib/website-kompis-connection/labels";
 import type { ConnectionStatusSummary } from "@/lib/website-kompis-connection/status-model";
-import type { ConnectionAggregateStatus } from "@/lib/website-kompis-connection/source-inventory";
 
 export type ConnectionCenterSection =
   | "overview"
@@ -25,29 +33,33 @@ export type ConnectionCenterSection =
 type WebsiteKompisConnectionCenterPanelProps = {
   labels: WebsiteKompisConnectionLabels;
   summary: ConnectionStatusSummary;
+  pageTitle: string;
+  contextLabel: string | null;
+  statusTone: "emerald" | "amber" | "slate" | "purple";
   domainPanel: ReactNode;
 };
 
-function aggregateTone(status: ConnectionAggregateStatus): string {
-  switch (status) {
-    case "active":
-      return "border-emerald-300 bg-emerald-50 text-emerald-900";
-    case "pending":
-    case "action_required":
-      return "border-amber-300 bg-amber-50 text-amber-950";
-    case "error":
-    case "suspended":
-      return "border-rose-300 bg-rose-50 text-rose-950";
-    default:
-      return "border-[var(--app-border)] bg-[var(--app-surface)] text-[var(--app-text)]";
-  }
+const CHECKPOINT_ICONS: Record<string, LucideIcon> = {
+  product: Package,
+  subscription: CreditCard,
+  license: BadgeCheck,
+  domain: Globe,
+  installation: Plug,
+  public_runtime: Eye,
+};
+
+function statusBadgeTone(tone: "emerald" | "amber" | "slate" | "purple"): string {
+  if (tone === "emerald") return "bg-[#E9F8F0] text-[#146C43] ring-[#B7E4CF]";
+  if (tone === "amber") return "bg-[#FFF4E5] text-[#945A15] ring-[#EEC58C]";
+  if (tone === "purple") return "bg-[#F3EDFF] text-[#5538D3] ring-[#D3C7FF]";
+  return "bg-[#F4F6FB] text-[#5F6788] ring-[#E6E9F5]";
 }
 
-function checkpointTone(state: string): string {
-  if (state === "ok") return "text-emerald-700";
-  if (state === "pending" || state === "action_required") return "text-amber-700";
-  if (state === "error" || state === "suspended") return "text-rose-700";
-  return "text-[var(--app-text-muted)]";
+function checkpointChip(state: string): string {
+  if (state === "ok") return "bg-[#E9F8F0] text-[#146C43]";
+  if (state === "pending" || state === "action_required") return "bg-[#FFF4E5] text-[#945A15]";
+  if (state === "error" || state === "suspended") return "bg-[#F3EDFF] text-[#5538D3]";
+  return "bg-[#F4F6FB] text-[#5F6788]";
 }
 
 function SectionButton({
@@ -63,11 +75,13 @@ function SectionButton({
     <button
       type="button"
       onClick={onClick}
-      className={`min-h-11 rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] ${
+      className={`min-h-11 shrink-0 rounded-full border px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7055EE] ${
         active
-          ? "border-[var(--app-border-accent)] bg-[var(--app-primary-soft)]"
-          : "border-[var(--app-border)] bg-[var(--app-card)] hover:border-[var(--app-border-accent)]"
+          ? "border-[#7055EE] bg-[#7055EE] text-white"
+          : "border-[#E3E6F1] bg-white text-[#20243A] hover:border-[#C9C4EE]"
       }`}
+      role="tab"
+      aria-selected={active}
       aria-current={active ? "true" : undefined}
     >
       {title}
@@ -78,6 +92,9 @@ function SectionButton({
 export function WebsiteKompisConnectionCenterPanel({
   labels,
   summary,
+  pageTitle,
+  contextLabel,
+  statusTone,
   domainPanel,
 }: WebsiteKompisConnectionCenterPanelProps) {
   const router = useRouter();
@@ -104,9 +121,6 @@ export function WebsiteKompisConnectionCenterPanel({
 
   const aggregateLabel = labels.aggregate[summary.aggregate];
   const publicViewUnavailable = connectionShowsActiveLicenseWithoutPublicView(summary);
-  const aggregateExplain = publicViewUnavailable
-    ? labels.activeLicenseRuntimeUnavailable
-    : labels.aggregateExplain[summary.aggregate];
   const diagnosisText =
     summary.diagnosis === "all_clear" && publicViewUnavailable
       ? labels.activeLicenseRuntimeUnavailable
@@ -115,29 +129,56 @@ export function WebsiteKompisConnectionCenterPanel({
 
   return (
     <div className="space-y-6">
+      <section className="rounded-3xl border border-[#E8E4FB] bg-gradient-to-br from-white to-[#F5F1FF] p-6 shadow-[0_12px_32px_rgba(49,38,112,0.055)] sm:p-8">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+          <div className="min-w-0">
+            <h1 className="text-3xl font-semibold tracking-tight text-[#20243A] sm:text-4xl">{pageTitle}</h1>
+            <p className="mt-3 max-w-3xl text-base leading-relaxed text-[#657089]">{labels.subtitle}</p>
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              {contextLabel ? <p className="text-sm text-[#657089]">{contextLabel}</p> : null}
+              <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${statusBadgeTone(statusTone)}`}>
+                <span className="size-1.5 rounded-full bg-current" aria-hidden />
+                {aggregateLabel}
+              </span>
+            </div>
+          </div>
+          <Link
+            href={FOUNDATION_NAV_BINDINGS.accountSubscription}
+            className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-[#E3E6F1] bg-white px-4 text-sm font-semibold text-[#20243A] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7055EE]"
+          >
+            {labels.openSubscription}
+          </Link>
+        </div>
+      </section>
+
       <section
-        className={`rounded-2xl border px-5 py-4 shadow-[var(--app-shadow-card)] ${aggregateTone(summary.aggregate)}`}
+        className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)] sm:p-6"
         aria-labelledby="wk-conn-aggregate"
       >
-        <p className="text-xs font-semibold uppercase tracking-wide opacity-80">
-          {labels.title}
-        </p>
-        <h2 id="wk-conn-aggregate" className="mt-1 text-2xl font-semibold">
+        <p className="text-sm font-medium text-[#657089]">{labels.title}</p>
+        <h2 id="wk-conn-aggregate" className="mt-1 text-2xl font-semibold text-[#20243A]">
           {aggregateLabel}
         </h2>
-        <p className="mt-2 text-sm leading-relaxed opacity-90">{aggregateExplain}</p>
-        <p className="mt-3 text-sm opacity-90">
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[#20243A]">
+          {labels.aggregateExplain[summary.aggregate]}
+        </p>
+        {publicViewUnavailable ? (
+          <p className="mt-4 rounded-2xl border border-[#EEC58C] bg-[#FFF4E5] px-4 py-3 text-sm leading-relaxed text-[#945A15]">
+            {labels.activeLicenseRuntimeUnavailable}
+          </p>
+        ) : null}
+        <p className="mt-4 text-sm text-[#657089]">
           {labels.subscriptionNote}{" "}
           <Link
             href={FOUNDATION_NAV_BINDINGS.accountSubscription}
-            className="font-medium underline underline-offset-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+            className="rounded font-medium text-[#7055EE] underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7055EE]"
           >
             {labels.openSubscription}
           </Link>
         </p>
       </section>
 
-      <div className="grid gap-2 sm:grid-cols-3 xl:grid-cols-6">
+      <div className="flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label={pageTitle}>
         <SectionButton
           active={section === "overview"}
           onClick={() => setSection("overview")}
@@ -175,13 +216,18 @@ export function WebsiteKompisConnectionCenterPanel({
           <h3 id="wk-conn-checks" className="text-lg font-semibold text-[var(--app-text)]">
             {labels.checkpointsTitle}
           </h3>
-          <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {summary.checkpoints.map((checkpoint) => (
-              <li key={checkpoint.id} className={AppVisualClasses.card}>
-                <p className="text-sm font-medium text-[var(--app-text)]">
+          <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {summary.checkpoints.map((checkpoint) => {
+              const Icon = CHECKPOINT_ICONS[checkpoint.id] ?? CircleCheck;
+              return (
+              <li key={checkpoint.id} className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)]">
+                <span className={`inline-flex size-11 items-center justify-center rounded-2xl ${checkpointChip(checkpoint.state)}`} aria-hidden>
+                  <Icon className="size-5" strokeWidth={2} />
+                </span>
+                <p className="mt-4 text-sm font-medium text-[#20243A]">
                   {labels.checkpoints[checkpoint.id]}
                 </p>
-                <p className={`mt-2 inline-flex items-center gap-1.5 text-sm font-semibold ${checkpointTone(checkpoint.state)}`}>
+                <p className={`mt-1 inline-flex items-center gap-1.5 text-sm font-semibold ${checkpointChip(checkpoint.state)} rounded-full px-2.5 py-1`}>
                   {checkpoint.state === "ok" ? (
                     <CircleCheck aria-hidden className="size-4 shrink-0" strokeWidth={2} />
                   ) : checkpoint.id === "public_runtime" && checkpoint.state === "unavailable" ? (
@@ -189,31 +235,40 @@ export function WebsiteKompisConnectionCenterPanel({
                   ) : null}
                   {labels.checkpointState[checkpoint.state]}
                 </p>
+                {checkpoint.id === "public_runtime" && checkpoint.state === "unavailable" ? (
+                  <p className="mt-3 text-sm leading-relaxed text-[#657089]">{labels.runtimeUnavailable}</p>
+                ) : null}
               </li>
-            ))}
+              );
+            })}
           </ul>
         </section>
       ) : null}
 
       {section === "overview" || section === "help" ? (
-        <section className={`${AppVisualClasses.card} space-y-2`} aria-labelledby="wk-conn-diag">
-          <h3 id="wk-conn-diag" className="text-lg font-semibold text-[var(--app-text)]">
+        <section className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)] sm:p-6" aria-labelledby="wk-conn-diag">
+          <h3 id="wk-conn-diag" className="text-lg font-semibold text-[#20243A]">
             {labels.diagnosisTitle}
           </h3>
-          <p className="text-sm text-[var(--app-text)]">
-            <span className="font-medium">{labels.diagnosisWhat}</span> {diagnosisText}
-          </p>
-          <p className="text-sm text-[var(--app-text-muted)]">
-            <span className="font-medium text-[var(--app-text)]">{labels.diagnosisCustomer}</span>{" "}
-            {diagnosisAction}
-          </p>
-          <p className="text-sm text-[var(--app-text-muted)]">
-            <span className="font-medium text-[var(--app-text)]">{labels.diagnosisAipify}</span>{" "}
-            {summary.diagnosis === "unknown_conflict" || summary.diagnosis === "product_not_enabled"
-              ? diagnosisAction
-              : labels.runtimeUnavailable}
-          </p>
-          <p className="text-xs text-[var(--app-text-muted)]">
+          <div className="mt-4 grid gap-4 lg:grid-cols-3">
+            <div className="rounded-2xl bg-[#F8F9FD] p-4">
+              <p className="text-sm font-semibold text-[#20243A]">{labels.diagnosisWhat}</p>
+              <p className="mt-2 text-sm leading-relaxed text-[#657089]">{diagnosisText}</p>
+            </div>
+            <div className="rounded-2xl bg-[#F8F9FD] p-4">
+              <p className="text-sm font-semibold text-[#20243A]">{labels.diagnosisCustomer}</p>
+              <p className="mt-2 text-sm leading-relaxed text-[#657089]">{diagnosisAction}</p>
+            </div>
+            <div className="rounded-2xl bg-[#F8F9FD] p-4">
+              <p className="text-sm font-semibold text-[#20243A]">{labels.diagnosisAipify}</p>
+              <p className="mt-2 text-sm leading-relaxed text-[#657089]">
+                {summary.diagnosis === "unknown_conflict" || summary.diagnosis === "product_not_enabled"
+                  ? diagnosisAction
+                  : labels.runtimeUnavailable}
+              </p>
+            </div>
+          </div>
+          <p className="mt-4 text-xs text-[#657089]">
             {labels.supportReference}: {summary.supportReference}
           </p>
         </section>
@@ -228,24 +283,27 @@ export function WebsiteKompisConnectionCenterPanel({
             <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.domainsHint}</p>
           </div>
           {summary.domains.length === 0 ? (
-            <div className={AppVisualClasses.card}>
+            <div className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)]">
               <p className="font-medium text-[var(--app-text)]">{labels.noDomainsTitle}</p>
               <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.noDomainsBody}</p>
             </div>
           ) : (
-            <ul className="grid gap-3 md:grid-cols-2">
+            <ul className="grid gap-4 md:grid-cols-2">
               {summary.domains.map((domain) => (
-                <li key={domain.domainId} className={AppVisualClasses.card}>
-                  <p className="font-semibold text-[var(--app-text)]">{domain.domain}</p>
-                  <p className="mt-1 text-sm text-[var(--app-text-muted)]">
-                    {domain.bindingVerified ? labels.domainVerified : labels.domainPending}
-                    {" · "}
-                    {domain.hasInstallId
-                      ? labels.domainInstallDetected
-                      : labels.domainInstallMissing}
-                  </p>
+                <li key={domain.domainId} className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)]">
+                  <p className="break-all font-semibold text-[#20243A]">{domain.domain}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <span className={`inline-flex min-h-8 items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${domain.bindingVerified ? "bg-[#E9F8F0] text-[#146C43] ring-[#B7E4CF]" : "bg-[#FFF4E5] text-[#945A15] ring-[#EEC58C]"}`}>
+                      {domain.bindingVerified ? labels.domainVerified : labels.domainPending}
+                    </span>
+                    <span className={`inline-flex min-h-8 items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${domain.hasInstallId ? "bg-[#E9F8F0] text-[#146C43] ring-[#B7E4CF]" : "bg-[#F4F6FB] text-[#5F6788] ring-[#E6E9F5]"}`}>
+                      {domain.hasInstallId
+                        ? labels.domainInstallDetected
+                        : labels.domainInstallMissing}
+                    </span>
+                  </div>
                   {domain.installIdMasked ? (
-                    <p className="mt-2 text-xs text-[var(--app-text-muted)]">
+                    <p className="mt-3 text-xs text-[#657089]">
                       {domain.installIdMasked}
                     </p>
                   ) : null}
@@ -271,7 +329,7 @@ export function WebsiteKompisConnectionCenterPanel({
       ) : null}
 
       {section === "install" ? (
-        <section className={`${AppVisualClasses.card} space-y-3`} aria-labelledby="wk-conn-install">
+        <section className="space-y-3 rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)] sm:p-6" aria-labelledby="wk-conn-install">
           <h3 id="wk-conn-install" className="text-lg font-semibold text-[var(--app-text)]">
             {labels.installTitle}
           </h3>
@@ -290,7 +348,7 @@ export function WebsiteKompisConnectionCenterPanel({
       ) : null}
 
       {section === "visibility" ? (
-        <section className={`${AppVisualClasses.card} space-y-3`} aria-labelledby="wk-conn-vis">
+        <section className="space-y-3 rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)] sm:p-6" aria-labelledby="wk-conn-vis">
           <h3 id="wk-conn-vis" className="text-lg font-semibold text-[var(--app-text)]">
             {labels.pageVisibilityTitle}
           </h3>
@@ -301,7 +359,7 @@ export function WebsiteKompisConnectionCenterPanel({
       ) : null}
 
       {section === "license" ? (
-        <section className={`${AppVisualClasses.card} space-y-3`} aria-labelledby="wk-conn-lic">
+        <section className="space-y-3 rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)] sm:p-6" aria-labelledby="wk-conn-lic">
           <h3 id="wk-conn-lic" className="text-lg font-semibold text-[var(--app-text)]">
             {labels.licenseTitle}
           </h3>
@@ -345,8 +403,8 @@ export function WebsiteKompisConnectionCenterPanel({
         </section>
       ) : null}
 
-      <details className={`${AppVisualClasses.card} text-sm text-[var(--app-text-muted)]`}>
-        <summary className="cursor-pointer font-medium text-[var(--app-text)]">
+      <details className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 text-sm text-[#657089] shadow-[0_8px_22px_rgba(38,37,104,0.05)]">
+        <summary className="min-h-11 cursor-pointer rounded font-medium text-[#20243A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7055EE]">
           {labels.technicalDetails}
         </summary>
         <ul className="mt-3 list-disc space-y-1 pl-5">
