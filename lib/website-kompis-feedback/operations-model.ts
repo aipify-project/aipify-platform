@@ -33,7 +33,15 @@ export const FEEDBACK_REVIEW_BADGE_CLASS =
 export type FeedbackOpsStatus = {
   tone: FeedbackOpsStatusTone;
   /** i18n key suffix under customerApp.websiteKompisFeedback.status.* */
-  key: "helpful" | "needsReview" | "commented" | "noFeedbackSignal" | "closed" | "published" | "rejected";
+  key:
+    | "helpful"
+    | "awaitingControl"
+    | "needsReview"
+    | "commented"
+    | "noFeedbackSignal"
+    | "closed"
+    | "published"
+    | "rejected";
 };
 
 export type FeedbackOpsNextAction = {
@@ -139,10 +147,7 @@ export function resolveFeedbackOpsStatus(row: FeedbackOpsRow): FeedbackOpsStatus
   if (row.vote === "not_helpful") {
     return { tone: "review", key: "needsReview" };
   }
-  if (row.comment?.trim()) {
-    return { tone: "purple", key: "commented" };
-  }
-  return { tone: "emerald", key: "helpful" };
+  return { tone: "amber", key: "awaitingControl" };
 }
 
 export function buildFaqSuggestHref(input: {

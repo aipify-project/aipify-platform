@@ -192,7 +192,9 @@ assert.equal(queue.ok, true);
 if (queue.ok) assert.equal(queue.items.length, 101);
 
 const editor = fs.readFileSync(path.join(root, "components/app/website-kompis/WebsiteKompisFeedbackEditor.tsx"), "utf8");
-assert.match(editor, /dispositionPending/);
+assert.match(editor, /publishedReviewStillOpen/);
+assert.match(editor, /presentReviewAfterFaqPublish/);
+assert.doesNotMatch(editor, /onPublished/);
 assert.match(editor, /retryFaqId/);
 assert.equal((editor.match(/\/api\/website-kompis\/feedback\/\$\{row\.id\}\/disposition/g) ?? []).length, 2);
 assert.doesNotMatch(editor, /DELETE FROM/);

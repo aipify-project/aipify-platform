@@ -101,7 +101,6 @@ export function WebsiteKompisFeedbackOverviewPanel({
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<OverviewPayload | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [toast, setToast] = useState<string | null>(null);
   const [visible, setVisible] = useState(FEEDBACK_REVIEW_PAGE_SIZE);
   const [reviewExtra, setReviewExtra] = useState<FeedbackOpsRow[]>([]);
   const [historyExtra, setHistoryExtra] = useState<FeedbackOpsRow[]>([]);
@@ -543,12 +542,6 @@ export function WebsiteKompisFeedbackOverviewPanel({
         ) : null}
       </div>
 
-      {toast ? (
-        <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900" role="status">
-          {toast}
-        </p>
-      ) : null}
-
       {selected ? (
         <WebsiteKompisFeedbackEditor
           row={selected}
@@ -558,11 +551,6 @@ export function WebsiteKompisFeedbackOverviewPanel({
           onReviewClosed={async () => {
             setSelectedId(null);
             await load();
-          }}
-          onPublished={() => {
-            setSelectedId(null);
-            setToast(labels.quality.publishedOk);
-            setFilterParam("view", "published");
           }}
         />
       ) : null}
