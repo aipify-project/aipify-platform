@@ -70,6 +70,7 @@ export function buildWebsiteKompisFeedbackLabels(t: TranslateFn) {
     },
     status: {
       helpful: t(`${prefix}.status.helpful`),
+      awaitingControl: t(`${prefix}.status.awaitingControl`),
       needsReview: t(`${prefix}.status.needsReview`),
       commented: t(`${prefix}.status.commented`),
       noFeedbackSignal: t(`${prefix}.status.noFeedbackSignal`),
@@ -137,6 +138,10 @@ export function buildWebsiteKompisFeedbackLabels(t: TranslateFn) {
       noSite: t(`${prefix}.quality.noSite`),
       matchingPublished: t(`${prefix}.quality.matchingPublished`),
       openExistingFaq: t(`${prefix}.quality.openExistingFaq`),
+      publishedReviewStillOpen: t(`${prefix}.quality.publishedReviewStillOpen`),
+      removalUnavailable: t(`${prefix}.quality.removalUnavailable`),
+      sourceUrl: t(`${prefix}.quality.sourceUrl`),
+      sourceUrlUnconfirmed: t(`${prefix}.quality.sourceUrlUnconfirmed`),
       saving: t(`${prefix}.quality.saving`),
       publishing: t(`${prefix}.quality.publishing`),
       publishError: t(`${prefix}.quality.publishError`),

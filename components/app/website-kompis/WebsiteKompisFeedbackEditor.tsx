@@ -22,6 +22,16 @@ import {
   FEEDBACK_REVIEW_DISPOSITION_READY,
   type FeedbackOpsRow,
 } from "@/lib/website-kompis-feedback/operations-model";
+import {
+  buildFeedbackFaqWriteBody,
+  feedbackFaqWriteAllowed,
+  presentReviewAfterFaqPublish,
+  removalStatusWhileDispositionOff,
+  selectFaqMatchForInstall,
+  sourceUrlMatchesPersisted,
+  type FaqListCandidate,
+  type FaqLookup,
+} from "@/lib/website-kompis-feedback/ui-truth";
 
 type SiteOption = { installId: string; domain: string };
 
@@ -34,14 +44,12 @@ export function WebsiteKompisFeedbackEditor({
   row,
   labels,
   onClose,
-  onPublished,
   closeReady = false,
   onReviewClosed,
 }: {
   row: FeedbackOpsRow;
   labels: WebsiteKompisFeedbackLabels;
   onClose: () => void;
-  onPublished: (faqId: string) => void;
   closeReady?: boolean;
   onReviewClosed?: () => Promise<void> | void;
 }) {
@@ -57,6 +65,8 @@ export function WebsiteKompisFeedbackEditor({
   const [permanent, setPermanent] = useState(true);
   const [validFrom, setValidFrom] = useState<string | null>(null);
   const [validUntil, setValidUntil] = useState<string | null>(null);
+  const [sourceUrl, setSourceUrl] = useState("");
+  const [reviewOpenAfterPublish, setReviewOpenAfterPublish] = useState(false);
   const [sites, setSites] = useState<SiteOption[]>([]);
   const [siteState, setSiteState] = useState<"loading" | "ready" | "empty">("loading");
   const [installId, setInstallId] = useState("");
@@ -74,6 +84,13 @@ export function WebsiteKompisFeedbackEditor({
   const [rejecting, setRejecting] = useState(false);
   const reviewCloseLock = useRef(false);
   const canCloseReview = canOfferFeedbackReviewClose(row, closeReady);
+  const removalUnavailable =
+    removalStatusWhileDispositionOff({
+      dispositionReady: FEEDBACK_REVIEW_DISPOSITION_READY,
+      vote: row.vote,
+      reviewDisposition: row.reviewDisposition,
+      reviewStatus: row.reviewStatus,
+    }) === "explain_unavailable";
   const canRejectSpam =
     FEEDBACK_REVIEW_DISPOSITION_READY &&
     row.vote === "not_helpful" &&
@@ -89,8 +106,19 @@ export function WebsiteKompisFeedbackEditor({
     permanent: true,
     validFrom: null as string | null,
     validUntil: null as string | null,
+    sourceUrl: "",
   });
-  const fieldSnapshot = JSON.stringify({ question, answer, locale, publicSafe, category, permanent, validFrom, validUntil });
+  const fieldSnapshot = JSON.stringify({
+    question,
+    answer,
+    locale,
+    publicSafe,
+    category,
+    permanent,
+    validFrom,
+    validUntil,
+    sourceUrl,
+  });
   const dirty = fieldSnapshot !== (savedSnapshot || JSON.stringify(openedFields.current));
   const requestCloseRef = useRef<() => void>(() => {});
 
@@ -172,34 +200,40 @@ export function WebsiteKompisFeedbackEditor({
     };
   }, []);
 
-  async function findExisting(): Promise<
-    { kind: "published"; id: string } | { kind: "draft"; id: string } | { kind: "none" }
-  > {
+  async function findExisting(): Promise<FaqLookup> {
+    if (!installId) return "lookup_failed";
     const params = new URLSearchParams();
     params.set("query", question.trim().slice(0, 180));
+    params.set("installId", installId);
+    params.set("limit", "100");
     if (locale.trim()) params.set("locale", locale.trim());
     const response = await fetch(`/api/website-kompis/faq?${params.toString()}`);
-    if (!response.ok) return { kind: "none" };
-    const payload = (await response.json()) as {
-      items?: Array<{ id?: string; title?: string; locale?: string; status?: string }>;
-    };
-    const match = (payload.items ?? []).find(
-      (item) =>
-        item.title?.trim() === question.trim() &&
-        (item.locale ?? "").toLowerCase() === locale.trim().toLowerCase() &&
-        Boolean(item.id),
-    );
-    if (!match?.id) return { kind: "none" };
-    if (match.status === "published") return { kind: "published", id: match.id };
-    if (match.status === "draft") return { kind: "draft", id: match.id };
-    return { kind: "none" };
+    if (!response.ok) return "lookup_failed";
+    const payload = (await response.json()) as { items?: FaqListCandidate[] };
+    return selectFaqMatchForInstall(payload.items ?? [], {
+      question,
+      locale,
+      installId,
+    });
+  }
+
+  async function confirmStoredSourceUrl(itemId: string, sent: string | null): Promise<boolean> {
+    const params = new URLSearchParams();
+    params.set("query", question.trim().slice(0, 180));
+    params.set("installId", installId);
+    params.set("limit", "100");
+    const response = await fetch(`/api/website-kompis/faq?${params.toString()}`);
+    if (!response.ok) return false;
+    const payload = (await response.json()) as { items?: FaqListCandidate[] };
+    const item = (payload.items ?? []).find((entry) => entry.id === itemId);
+    if (!item || !sourceUrlMatchesPersisted(sent, item.sourceUrl ?? null)) return false;
+    setSourceUrl(item.sourceUrl?.trim() ?? "");
+    return true;
   }
 
   async function saveDraft(forcedId?: string | null): Promise<SavedDraft | null> {
     if (busy.current) return null;
     busy.current = true;
-    setError(null);
-    setMessage(null);
     if (!question.trim() || !answer.trim() || !locale.trim()) {
       busy.current = false;
       setError(labels.quality.saveError);
@@ -221,32 +255,33 @@ export function WebsiteKompisFeedbackEditor({
       let itemId = forcedId ?? (saved ? saved.id : null);
       if (!itemId) {
         const existing = await findExisting();
-        if (existing.kind === "published") {
-          setMatchingPublishedId(existing.id);
-          setError(null);
-          setMessage(null);
+        if (!feedbackFaqWriteAllowed(existing, itemId)) {
+          if (existing !== "lookup_failed" && existing.kind === "published") {
+            setMatchingPublishedId(existing.id);
+            setReviewOpenAfterPublish(false);
+          } else {
+            setError(labels.quality.saveError);
+          }
           return null;
         }
-        if (existing.kind === "draft") itemId = existing.id;
+        if (existing !== "lookup_failed" && existing.kind === "draft") itemId = existing.id;
       }
+      const writeBody = buildFeedbackFaqWriteBody({
+        itemId,
+        installId,
+        locale,
+        question,
+        answer,
+        category,
+        publicSafe,
+        sourceUrl,
+        validFrom: expiry.validFrom,
+        validUntil: expiry.validUntil,
+      });
       const response = await fetch("/api/website-kompis/faq", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          itemId,
-          installId,
-          locale: locale.trim(),
-          title: question.trim(),
-          question: question.trim(),
-          answer: answer.trim(),
-          contentType: "faq",
-          category: category.trim(),
-          publicSafe,
-          priority: 100,
-          tags: [],
-          validFrom: expiry.validFrom,
-          validUntil: expiry.validUntil,
-        }),
+        body: JSON.stringify(writeBody),
       });
       const payload = (await response.json()) as { id?: string; status?: string; error?: string };
       if (!response.ok || !payload.id || !payload.status) {
@@ -256,6 +291,15 @@ export function WebsiteKompisFeedbackEditor({
       const next = { id: payload.id, status: payload.status };
       setSaved(next);
       setSavedSnapshot(fieldSnapshot);
+      if (writeBody.sourceUrl) {
+        const confirmed = await confirmStoredSourceUrl(payload.id, writeBody.sourceUrl);
+        if (!confirmed) {
+          setError(labels.quality.sourceUrlUnconfirmed);
+          setMessage(null);
+          return null;
+        }
+      }
+      setError(null);
       if (next.status === "draft") setMessage(labels.quality.savedDraft);
       return next;
     } catch {
@@ -267,11 +311,16 @@ export function WebsiteKompisFeedbackEditor({
     }
   }
 
+  function showFaqPublishedReviewOpen() {
+    const presentation = presentReviewAfterFaqPublish({ dispositionReady: false });
+    if (presentation.closeDrawer || presentation.removeReviewCard) return;
+    setReviewOpenAfterPublish(true);
+    setMessage(null);
+  }
+
   async function publishFaq() {
     if (busy.current || saving || publishing) return;
     setPublishing(true);
-    setError(null);
-    setMessage(null);
     if (!question.trim() || !answer.trim() || !locale.trim() || !publicSafe) {
       setPublishing(false);
       setError(labels.quality.privacy);
@@ -288,16 +337,33 @@ export function WebsiteKompisFeedbackEditor({
       setError(expiry.reason === "window" ? labels.quality.expiryWindow : labels.quality.permanentEndRequired);
       return;
     }
-    const existing = saved ? null : await findExisting();
-    if (existing?.kind === "published") {
-      setMatchingPublishedId(existing.id);
-      setError(null);
-      setMessage(null);
+    let existing: FaqLookup;
+    try {
+      existing = await findExisting();
+    } catch {
+      setPublishing(false);
+      setError(labels.quality.publishError);
+      return;
+    }
+    if (!feedbackFaqWriteAllowed(existing, saved?.id ?? null)) {
+      if (existing !== "lookup_failed" && existing.kind === "published") {
+        setMatchingPublishedId(existing.id);
+        setReviewOpenAfterPublish(false);
+      } else {
+        setError(labels.quality.publishError);
+      }
       setPublishing(false);
       return;
     }
-    const knownId = saved?.id ?? (existing && existing.kind !== "none" ? existing.id : null);
-    const status = saved?.status === "published" ? "published" : "new";
+    setError(null);
+    setMessage(null);
+    setMatchingPublishedId(null);
+    const knownId =
+      saved?.id ?? (existing !== "lookup_failed" && existing.kind === "draft" ? existing.id : null);
+    const status =
+      saved?.status === "published" || (existing !== "lookup_failed" && existing.kind === "published")
+        ? "published"
+        : "new";
     const plan = planWebsiteKompisFaqPublish({
       status,
       title: question,
@@ -353,7 +419,8 @@ export function WebsiteKompisFeedbackEditor({
           publishStatus: "published",
         });
         if (!call.ok) {
-          setError(labels.quality.dispositionPending);
+          setReviewOpenAfterPublish(true);
+          setMessage(null);
           return;
         }
         const response = await fetch(`/api/website-kompis/feedback/${row.id}/disposition`, {
@@ -368,21 +435,37 @@ export function WebsiteKompisFeedbackEditor({
             confirmation: true,
           }),
         });
-        const payload = (await response.json()) as { reviewDisposition?: string };
-        if (
-          !shouldRemoveReviewCard({
-            httpOk: response.ok,
-            reviewDisposition: payload.reviewDisposition,
-            expected: "published",
-          })
-        ) {
-          setError(labels.quality.dispositionPending);
+        const payload = (await response.json()) as { reviewDisposition?: string; code?: string };
+        const presentation = presentReviewAfterFaqPublish({
+          dispositionReady: true,
+          dispositionHttpStatus: response.status,
+          dispositionCode: payload.code,
+          reviewDisposition: payload.reviewDisposition,
+        });
+        const cardLeaves = shouldRemoveReviewCard({
+          httpOk: response.ok,
+          reviewDisposition: payload.reviewDisposition,
+          expected: "published",
+        });
+        if (presentation.removeReviewCard && presentation.closeDrawer && cardLeaves) {
+          setReviewOpenAfterPublish(false);
+          await onReviewClosed?.();
           return;
         }
-        await onReviewClosed?.();
+        setReviewOpenAfterPublish(true);
+        setMessage(null);
         return;
       }
-      onPublished(result.id);
+      if (
+        row.reviewDisposition === "published" ||
+        row.reviewDisposition === "rejected" ||
+        row.reviewStatus === "closed"
+      ) {
+        setReviewOpenAfterPublish(false);
+        setMessage(labels.quality.publishedOk);
+        return;
+      }
+      showFaqPublishedReviewOpen();
     } catch {
       setError(labels.quality.publishError);
     } finally {
@@ -552,6 +635,16 @@ export function WebsiteKompisFeedbackEditor({
               </p>
             ) : null}
             {siteState === "empty" ? <p className="text-sm text-slate-900">{labels.quality.noSite}</p> : null}
+            <label className="block text-sm">
+              <span className="mb-1 block font-medium text-slate-900">{labels.quality.sourceUrl}</span>
+              <input
+                type="url"
+                inputMode="url"
+                value={sourceUrl}
+                onChange={(event) => setSourceUrl(event.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+              />
+            </label>
             <FaqPermanentExpiryFields
               permanent={permanent}
               validFrom={validFrom}
@@ -580,25 +673,45 @@ export function WebsiteKompisFeedbackEditor({
             </label>
             <p className="text-sm leading-relaxed text-slate-600">{labels.quality.privacy}</p>
             <p className="text-sm leading-relaxed text-slate-600">{labels.suggestFaqWarning}</p>
+            {reviewOpenAfterPublish ? (
+              <div
+                role="status"
+                className="rounded-xl border border-[#F5D4A3] bg-[#FFF4E5] px-3 py-3 text-sm text-[#624422]"
+              >
+                <p className="font-medium text-[#20243E]">{labels.quality.publishedOk}</p>
+                <p className="mt-1">{labels.quality.publishedReviewStillOpen}</p>
+              </div>
+            ) : null}
             {matchingPublishedId ? (
-              <p className="text-sm text-slate-900">
-                {labels.quality.matchingPublished}{" "}
+              <div role="status" className="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-slate-900">
+                <p>{labels.quality.matchingPublished}</p>
                 <Link
                   href={existingPublishedFaqHref(
                     FOUNDATION_NAV_BINDINGS.kompisWebFaq,
                     matchingPublishedId,
                     question,
                   )}
-                  className="font-medium text-[#7357e8] underline"
+                  className="mt-2 inline-flex min-h-11 items-center font-medium text-[#7357e8] underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
                 >
                   {labels.quality.openExistingFaq}
                 </Link>
+              </div>
+            ) : null}
+            {message ? (
+              <p className="text-sm text-[#1f7a4d]" role="status">
+                {message}
               </p>
             ) : null}
-            {message ? <p className="text-sm text-[#1f7a4d]">{message}</p> : null}
-            {error ? <p className="text-sm text-slate-900">{error}</p> : null}
+            {error ? (
+              <p className="text-sm text-slate-900" role="alert">
+                {error}
+              </p>
+            ) : null}
           </div>
           <div className="flex flex-wrap gap-2 border-t border-slate-200 bg-white px-5 py-4 sm:px-6">
+            {removalUnavailable ? (
+              <p className="basis-full text-sm leading-relaxed text-slate-600">{labels.quality.removalUnavailable}</p>
+            ) : null}
             <button
               type="submit"
               disabled={saving || siteState === "empty"}
