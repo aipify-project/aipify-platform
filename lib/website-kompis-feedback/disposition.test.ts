@@ -204,6 +204,9 @@ const sql = fs.readFileSync(
   "utf8",
 );
 assert.match(sql, /^-- NOT APPLIED/);
+assert.match(sql, /jsonb_agg\(\s*row_to_json\(q\)::jsonb\s*order by q\.created_at desc, q\.id desc\s*\)/);
+assert.match(sql, /order by f\.created_at desc, f\.id desc/);
+assert.doesNotMatch(sql, /create or replace function public\.get_website_kompis_answer_feedback_overview/i);
 assert.match(sql, /question_preview/);
 assert.match(sql, /left\(r\.question, 180\)/);
 assert.match(sql, /r\.tenant_id = f\.tenant_id/);

@@ -17,6 +17,8 @@
 -- Queue pages include the same preview fields the applied overview already returns,
 -- joined to the receipt only inside the authenticated tenant, so review and history
 -- can page past 100 rows without a second read model.
+-- The page aggregate orders by created_at desc, id desc. That is the same total
+-- order as the keyset cursor. A subquery ORDER BY is not enough inside jsonb_agg.
 --
 -- Two terminal dispositions, both kept for history:
 -- * published — only after tenant_public_companion_faq_items.status is already
@@ -347,7 +349,13 @@ begin
   where tenant_id = v_tenant
     and review_disposition = 'rejected';
 
-  select coalesce(jsonb_agg(row_to_json(q)::jsonb), '[]'::jsonb)
+  select coalesce(
+    jsonb_agg(
+      row_to_json(q)::jsonb
+      order by q.created_at desc, q.id desc
+    ),
+    '[]'::jsonb
+  )
   into v_items
   from (
     select

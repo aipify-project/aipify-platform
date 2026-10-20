@@ -125,7 +125,7 @@ export async function loadReviewQueuePage(
     ok: true,
     page: {
       items,
-      next: cursorFromQueuePage(stamped),
+      next: cursorFromQueuePage(stamped, call.args.p_limit),
       openReviewCount: readCount(data, "open_review_count"),
       publishedCount: readCount(data, "published_count"),
       rejectedCount: readCount(data, "rejected_count"),
