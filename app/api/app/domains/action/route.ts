@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { performDomainLicenseAction } from "@/lib/domain-license";
 import { domainActionRefusal } from "@/lib/domain-license/action-guard";
+import { domainActionHttpError } from "@/lib/website-kompis-connection/provision-state";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
@@ -13,12 +14,13 @@ export async function POST(request: Request) {
     const actionType = body.action_type ?? "";
     const refusal = domainActionRefusal(actionType);
     if (refusal) {
-      return NextResponse.json({ ok: false, error: refusal }, { status: 409 });
+      return NextResponse.json({ ok: false, code: refusal }, { status: 409 });
     }
     const data = await performDomainLicenseAction(supabase, actionType, body.payload ?? {});
     return NextResponse.json(data);
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Domain action failed";
-    return NextResponse.json({ error: message }, { status: 500 });
+    const message = err instanceof Error ? err.message : "";
+    const mapped = domainActionHttpError(message);
+    return NextResponse.json({ ok: false, code: mapped.code }, { status: mapped.status });
   }
 }

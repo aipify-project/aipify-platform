@@ -15,6 +15,7 @@ import {
 } from "@/lib/domain-license/labels";
 import { AipifyModuleAccessDenied } from "@/components/ui/aipify-module-access-denied";
 import { WebsiteKompisDomainSettingsCard } from "@/components/app/domain-license/WebsiteKompisDomainSettingsCard";
+import { classifyDomainActionResult } from "@/lib/website-kompis-connection/provision-state";
 
 type Tab = "overview" | "active" | "pending" | "licenses" | "packs";
 
@@ -75,8 +76,16 @@ export function DomainLicenseCenterPanel({
         payload: { domain: newDomain.trim(), connected_platform: platform },
       }),
     });
-    if (res.ok) {
+    const body = (await res.json().catch(() => null)) as { ok?: unknown; code?: string } | null;
+    const outcome = classifyDomainActionResult("create_domain", res.ok, body);
+    if (outcome.notice === "pending_without_installation") {
       setDomainNotice(labels.domainAddedPending);
+    } else if (body?.code === "management_role_required") {
+      setDomainNotice(labels.managementRoleRequired);
+    } else if (body?.code === "license_unavailable") {
+      setDomainNotice(labels.licenseUnavailable);
+    } else {
+      setDomainNotice(labels.domainActionFailed);
     }
     setNewDomain("");
     setBusy(false);

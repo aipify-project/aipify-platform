@@ -142,7 +142,10 @@ export function requireInstallIdForFaqWrite(input: {
     return { ok: true, installId: requestedInstallId, domain: null };
   }
 
-  if (isUpdate && existingInstallId == null && requestedInstallId == null) {
+  if (isUpdate && existingInstallId == null) {
+    if (requestedInstallId) {
+      return { ok: false, reason: "legacy_assignment_requires_confirmation" };
+    }
     if (sites.length > 1) {
       return { ok: false, reason: "legacy_unassigned" };
     }

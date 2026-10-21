@@ -238,6 +238,7 @@ export function WebsiteKompisConnectionCenterPanel({
           <div className="mt-4 rounded-2xl bg-[#F8F9FD] p-4">
             <p className="font-medium text-[#20243A]">{labels.emptySitesTitle}</p>
             <p className="mt-1 text-sm leading-relaxed text-[#657089]">{labels.emptySitesBody}</p>
+            <p className="mt-2 text-sm leading-relaxed text-[#657089]">{labels.installationNotCreated}</p>
             {summary.canManage ? (
               <button
                 type="button"
@@ -291,7 +292,10 @@ export function WebsiteKompisConnectionCenterPanel({
               {labels.selectedSite}: <span className="break-all">{workspace.selected.domain}</span>
             </p>
             {workspace.selected.verified ? null : (
-              <p className="text-sm text-[#657089]">{labels.verificationPendingExplain}</p>
+              <>
+                <p className="text-sm text-[#657089]">{labels.verificationPendingExplain}</p>
+                <p className="text-sm leading-relaxed text-[#657089]">{labels.installationNotCreated}</p>
+              </>
             )}
             <p className="break-all text-xs text-[#657089]">
               {labels.publicInstallId}: {workspace.selected.installId}

@@ -7,6 +7,7 @@ import {
   requireInstallIdForFaqWrite,
   resolveWebsiteKompisSiteContextState,
 } from "./filter";
+import { planLegacyFaqAssignment } from "./legacy-assignment";
 import type { WebsiteKompisOwnedSite } from "./types";
 import { WEBSITE_KOMPIS_SITE_SCOPE_FUTURE_SQL_CHANGESET } from "./contract";
 
@@ -167,6 +168,58 @@ assert.equal(WEBSITE_KOMPIS_SITE_SCOPE_FUTURE_SQL_CHANGESET.status, "blocked_unt
   );
   assert.match(faqRoute, /resolveWebsiteKompisSiteContextForRequest|filterWebsiteKompisFaqItemsForSiteContext/);
   assert.doesNotMatch(faqRoute, /employee_knowledge|eke_/i);
+  assert.match(faqRoute, /planLegacyFaqAssignment/);
+  assert.match(faqRoute, /scope=unassigned|scope" === "unassigned"|get\("scope"\) === "unassigned"/);
+}
+
+{
+  const silent = requireInstallIdForFaqWrite({
+    sites: [siteA, siteB],
+    requestedInstallId: siteA.installId,
+    isUpdate: true,
+    existingInstallId: null,
+  });
+  assert.equal(silent.ok, false);
+  if (!silent.ok) assert.equal(silent.reason, "legacy_assignment_requires_confirmation");
+}
+
+{
+  const denied = planLegacyFaqAssignment({
+    sites: [siteA, siteB],
+    existingInstallId: null,
+    targetInstallId: siteA.installId,
+    confirmed: false,
+  });
+  assert.equal(denied.ok, false);
+  const foreign = planLegacyFaqAssignment({
+    sites: [siteA],
+    existingInstallId: null,
+    targetInstallId: siteB.installId,
+    confirmed: true,
+  });
+  assert.equal(foreign.ok, false);
+  const pending = planLegacyFaqAssignment({
+    sites: [{ ...siteA, verificationStatus: "pending", domainStatus: "pending" }],
+    existingInstallId: null,
+    targetInstallId: siteA.installId,
+    confirmed: true,
+  });
+  assert.equal(pending.ok, false);
+  const assigned = planLegacyFaqAssignment({
+    sites: [siteA, siteB],
+    existingInstallId: siteB.installId,
+    targetInstallId: siteA.installId,
+    confirmed: true,
+  });
+  assert.equal(assigned.ok, false);
+  const ok = planLegacyFaqAssignment({
+    sites: [siteA, siteB],
+    existingInstallId: null,
+    targetInstallId: siteA.installId,
+    confirmed: true,
+  });
+  assert.equal(ok.ok, true);
+  if (ok.ok) assert.equal(ok.installId, siteA.installId);
 }
 
 console.log("website-kompis-site-context/site-context.test.ts: all assertions passed");

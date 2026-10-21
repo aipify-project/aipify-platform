@@ -8,7 +8,7 @@ const ROOT = process.cwd();
 assert.equal(domainActionRefusal("purchase_domain_license"), "payment_not_confirmed");
 assert.equal(domainActionRefusal("activate_domain"), "verification_not_recorded");
 assert.equal(domainActionRefusal("create_domain"), null);
-assert.equal(domainActionRefusal("remove_domain"), null);
+assert.equal(domainActionRefusal("remove_domain"), "domain_removal_not_available");
 
 const migration = readFileSync(
   join(
@@ -57,6 +57,8 @@ assert.match(panel, /purchaseUnavailable/);
 
 const actionRoute = readFileSync(join(ROOT, "app/api/app/domains/action/route.ts"), "utf8");
 assert.match(actionRoute, /domainActionRefusal/);
+assert.match(actionRoute, /domainActionHttpError/);
+assert.doesNotMatch(actionRoute, /error: message/);
 
 const proposal = readFileSync(
   join(ROOT, "docs/platform/NOT_APPLIED_website_kompis_faq_install_isolation_v1.sql"),
@@ -64,5 +66,13 @@ const proposal = readFileSync(
 );
 assert.match(proposal, /NOT APPLIED/);
 assert.equal(/^\s*(create|alter|update|insert|delete|drop)\b/im.test(proposal), false);
+
+const provision = readFileSync(
+  join(ROOT, "docs/platform/NOT_APPLIED_website_kompis_site_provision_v1.sql"),
+  "utf8",
+);
+assert.match(provision, /NOT APPLIED/);
+assert.match(provision, /installation token/);
+assert.equal(/^\s*(create|alter|update|insert|delete|drop)\b/im.test(provision), false);
 
 console.log("domain-action-guard.test.ts: OK");

@@ -74,6 +74,7 @@ export function buildWebsiteKompisConnectionLabels(t: TranslateFn) {
     publicInstallId: t(`${prefix}.publicInstallId`),
     managePermissionRequired: t(`${prefix}.managePermissionRequired`),
     openKnowledge: t(`${prefix}.openKnowledge`),
+    installationNotCreated: t(`${prefix}.installationNotCreated`),
     pageVisibilityTitle: t(`${prefix}.pageVisibilityTitle`),
     pageVisibilityBody: t(`${prefix}.pageVisibilityBody`),
     pageVisibilityProtected: t(`${prefix}.pageVisibilityProtected`),

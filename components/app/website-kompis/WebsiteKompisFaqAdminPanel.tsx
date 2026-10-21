@@ -59,6 +59,8 @@ const STATUS_STYLES: Record<WpkfStatus, string> = {
 type OwnedSiteOption = {
   installId: string;
   domain: string;
+  verificationStatus?: string;
+  domainStatus?: string;
 };
 
 type FaqEditorState = WebsiteKompisFaqUpsertInput & {
@@ -283,6 +285,8 @@ export function WebsiteKompisFaqAdminPanel({
   );
   const [legacyNullVisible, setLegacyNullVisible] = useState(false);
   const [legacyNullHidden, setLegacyNullHidden] = useState(false);
+  const [unassigned, setUnassigned] = useState<Array<{ id: string; title: string; locale: string }>>([]);
+  const [assignTarget, setAssignTarget] = useState<string | null>(null);
   const [requiresSiteSelection, setRequiresSiteSelection] = useState(false);
   const searchParams = useSearchParams();
 
@@ -449,6 +453,43 @@ export function WebsiteKompisFaqAdminPanel({
       }
     })();
   }, [requestedSite]);
+
+  useEffect(() => {
+    void (async () => {
+      const res = await fetch("/api/website-kompis/faq?scope=unassigned&limit=50");
+      if (!res.ok) {
+        setUnassigned([]);
+        return;
+      }
+      const body = (await res.json()) as { items?: Array<{ id: string; title: string; locale: string }> };
+      setUnassigned(body.items ?? []);
+    })();
+  }, [selectedInstallId]);
+
+  async function assignLegacy(itemId: string) {
+    if (!selectedInstallId) return;
+    setBusy(true);
+    setError(null);
+    const res = await fetch("/api/website-kompis/faq", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        assignLegacy: true,
+        confirmAssignment: true,
+        itemId,
+        installId: selectedInstallId,
+      }),
+    });
+    setBusy(false);
+    if (!res.ok) {
+      setError(labels.siteContext.assignLegacyFailed);
+      return;
+    }
+    setNotice(labels.siteContext.assignLegacyDone);
+    setAssignTarget(null);
+    setUnassigned((current) => current.filter((item) => item.id !== itemId));
+    await refresh();
+  }
 
   useEffect(() => {
     void refresh();
@@ -815,6 +856,40 @@ export function WebsiteKompisFaqAdminPanel({
           <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
             {labels.siteContext.legacyHidden}
           </p>
+        ) : null}
+        {unassigned.length > 0 ? (
+          <div className="space-y-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
+            <p className="text-sm font-medium text-amber-950">{labels.siteContext.unassignedTitle}</p>
+            <p className="text-sm text-amber-950">{labels.siteContext.assignLegacyExplain}</p>
+            {unassigned.map((item) => {
+              const selected = sites.find((site) => site.installId === selectedInstallId);
+              const verified = selected?.verificationStatus === "verified" && selected?.domainStatus === "active";
+              return (
+                <div key={item.id} className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm text-amber-950">{item.title}</p>
+                  {assignTarget === item.id ? (
+                    <button
+                      type="button"
+                      disabled={busy || !verified}
+                      onClick={() => void assignLegacy(item.id)}
+                      className="inline-flex min-h-11 items-center rounded-full bg-[#7055EE] px-4 text-sm font-semibold text-white disabled:opacity-60"
+                    >
+                      {labels.siteContext.assignLegacyConfirm}
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={busy || !verified}
+                      onClick={() => setAssignTarget(item.id)}
+                      className="inline-flex min-h-11 items-center rounded-full border border-amber-300 px-4 text-sm font-semibold text-amber-950 disabled:opacity-60"
+                    >
+                      {verified ? labels.siteContext.assignLegacy : labels.siteContext.assignLegacyNeedsVerifiedSite}
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         ) : null}
         <p className="text-xs text-slate-500">{labels.siteContext.visitorPartialNote}</p>
       </section>
