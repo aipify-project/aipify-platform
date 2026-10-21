@@ -150,7 +150,7 @@ export async function GET(request: Request) {
     if (url.searchParams.get("scope") === "unassigned") {
       return NextResponse.json({
         scope: "unassigned",
-        publicIsolation: "not_applied",
+        publicIsolation: "exact_one_null",
         items: parsed
           .filter((item) => item.installId == null)
           .map((item) => ({
@@ -274,7 +274,7 @@ export async function POST(request: Request) {
         ok: true,
         id: existing.id,
         installId: assignment.installId,
-        publicIsolation: "not_applied",
+        publicIsolation: "exact_one_null",
       });
     }
 

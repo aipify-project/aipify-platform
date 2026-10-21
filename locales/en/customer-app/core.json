@@ -7035,7 +7035,7 @@
       "unassignedTitle": "FAQ not assigned to a website",
       "assignLegacy": "Assign to the selected website",
       "assignLegacyConfirm": "Confirm assignment to this website",
-      "assignLegacyExplain": "These items stay stored without an installation. Assigning one item does not assign the others. Visitor answers can still include them until the Core search update is applied.",
+      "assignLegacyExplain": "These items stay stored without an installation. Assigning one item does not assign the others. Public search includes an unassigned item only while the account has exactly one active verified installation.",
       "assignLegacyDone": "The item is now assigned to the selected website.",
       "assignLegacyFailed": "The item was not assigned. Choose a verified website you own and confirm the assignment.",
       "assignLegacyNeedsVerifiedSite": "Select a verified website first",

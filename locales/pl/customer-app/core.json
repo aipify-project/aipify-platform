@@ -513,7 +513,7 @@
       "unassignedTitle": "FAQ bez witryny",
       "assignLegacy": "Przypisz do wybranej witryny",
       "assignLegacyConfirm": "Potwierdź przypisanie do tej witryny",
-      "assignLegacyExplain": "Te elementy pozostają zapisane bez instalacji. Przypisanie jednego elementu nie przypisuje pozostałych. Odpowiedzi dla odwiedzających mogą nadal je zawierać, dopóki wyszukiwanie w Core nie zostanie zaktualizowane.",
+      "assignLegacyExplain": "Te elementy pozostają zapisane bez instalacji. Przypisanie jednego elementu nie przypisuje pozostałych. Wyszukiwanie publiczne uwzględnia nieprzypisany element tylko wtedy, gdy konto ma dokładnie jedną aktywną, zweryfikowaną instalację.",
       "assignLegacyDone": "Element jest teraz przypisany do wybranej witryny.",
       "assignLegacyFailed": "Element nie został przypisany. Wybierz zweryfikowaną witrynę, którą posiadasz, i potwierdź przypisanie.",
       "assignLegacyNeedsVerifiedSite": "Najpierw wybierz zweryfikowaną witrynę",

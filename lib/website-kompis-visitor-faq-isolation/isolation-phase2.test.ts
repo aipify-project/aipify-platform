@@ -72,7 +72,16 @@ assert.equal(
   WEBSITE_KOMPIS_VISITOR_FAQ_LEGACY_NULL_POLICY.multiActiveInstall,
   "deny_when_tenant_has_multiple_active_installs",
 );
-assert.equal(WEBSITE_KOMPIS_VISITOR_FAQ_ISOLATION_STATUS.coreVisitorIsolation, "blocked_requires_sql");
+assert.equal(WEBSITE_KOMPIS_VISITOR_FAQ_ISOLATION_STATUS.coreVisitorIsolation, "live_exact_one_null");
+assert.equal(
+  shouldIncludeFaqRowForVisitor({
+    faqInstallId: null,
+    resolvedInstallId: "11111111-1111-4111-8111-111111111111",
+    tenantActiveVerifiedInstallCount: 0,
+    contextTrusted: true,
+  }),
+  false,
+);
 assert.equal(
   WEBSITE_KOMPIS_VISITOR_FAQ_ISOLATION_REOPEN_REQUEST.title,
   "Website Kompis Public Chain — visitor FAQ isolation Phase 2",

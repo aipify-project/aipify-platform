@@ -1,0 +1,91 @@
+-- NOT APPLIED.
+-- Executing this file raises and changes nothing.
+-- Do not place this file under supabase/migrations.
+-- Do not apply it to Production, Staging, or any shared database.
+-- Feature owner: CUSTOMER APP calls the future RPC. Aipify Core owns the function.
+-- This file does not replace docs/platform/NOT_APPLIED_website_kompis_site_provision_v1.sql
+-- on the unmerged local branch, and it does not change migration
+-- 20261938200000_website_kompis_visitor_faq_install_isolation_v1.sql.
+--
+-- Approval required before any later migration is written:
+-- name this file and the function public.provision_website_kompis_site(uuid, boolean).
+-- A later migration is a new file. This file stays raise-only.
+--
+-- BEFORE
+--   GET page loads read organization_domains and do not create a primary domain.
+--   POST create_domain, through perform_domain_license_action, inserts one pending
+--   organization_domains row. It does not insert installations or customer_domains
+--   and it does not set install_id on FAQ rows.
+--   create_installation_draft inserts a draft installation and returns a plaintext
+--   installation token. The connection page must not call it.
+--   begin_modern_install calls that draft function. It is not this provision path.
+--   The platform function that creates a draft install, a pending organization domain,
+--   and a pending customer domain is not the customer self-serve path.
+--   Public FAQ search isolation is a separate contract. This function must not
+--   update tenant_public_companion_faq_items.
+--
+-- UP, only in a later approved migration, not in this file:
+--   create function public.provision_website_kompis_site(
+--     p_domain_id uuid,
+--     p_confirmation boolean
+--   ) returns jsonb
+--   language plpgsql
+--   security definer
+--   set search_path = public
+--
+--   Server resolves the signed-in user. Do not accept organization id, customer id,
+--   installation id, or hostname from the client as authority.
+--   Reject when auth.uid() is null.
+--   Reject unless the membership role is owner or admin.
+--   Reject unless p_confirmation is true.
+--   Load organization_domains by p_domain_id and the server-resolved organization.
+--   Reject when the row is missing, when verification_status is not verified,
+--   or when domain_status is not active.
+--   Do not update verification_status or domain_status.
+--   Normalize the stored hostname. Reject an empty hostname.
+--   Require a real existing customer license for that organization.
+--   Use the existing capacity check when a customer row already exists.
+--   Do not insert a license, an invoice, a payment, or a purchased_licenses increment.
+--   If the hostname already has a customer_domains row for this customer with a
+--   non-null installation_id, return that installation id and change nothing.
+--   If the hostname is bound to another customer, raise and change nothing.
+--   Otherwise insert one installations row for this company and customer:
+--   system_type custom, status ready, site_url the verified hostname,
+--   installation_token_hash a server-generated hash.
+--   Do not put the plaintext token in the return value, in logs, or in FAQ rows.
+--   Insert one customer_domains row for that installation and hostname with
+--   verification_status verified and status active, because the organization
+--   domain was already verified. Do not use an update that rebinds an existing
+--   installation_id to a different hostname.
+--   Do not update other installations, other domains, or any FAQ row.
+--   Return jsonb with installation_id, domain, and created true or false.
+--   Grant execute to authenticated. Revoke from public and anon.
+--
+-- AFTER a later approved apply
+--   One verified hostname has one installation id.
+--   A repeat call returns the same id and writes nothing.
+--   A second hostname needs its own already verified domain and its own call.
+--   FAQ rows stay unassigned until a separate confirmed assignment.
+--   Public search behavior is unchanged by this function.
+--
+-- DOWN of that later function only:
+--   drop function public.provision_website_kompis_site(uuid, boolean);
+--   Do not delete installations, customer_domains, organization_domains, licenses, or FAQ rows.
+--
+-- Idempotency: the hostname plus customer is the key. A concurrent pair of calls
+-- must lock the organization domain row, then the existing customer domain row,
+-- before insert. The loser returns the winner's installation id.
+-- Rollback of a failed call is the function's own transaction. A successful call
+-- is not undone by DROP FUNCTION.
+-- Performance: one domain lookup, one license check, one hostname lookup, at most
+-- two inserts. No table rewrite and no FAQ scan.
+-- RLS: security definer with search_path public. Tenant identity comes from the
+-- session, then every read and write includes that organization or customer.
+-- Compatibility: create_domain, create_installation_draft, and the public search
+-- function stay as they are.
+
+do $$
+begin
+  raise exception 'NOT_APPLIED website_kompis_site_provision_contract_v1';
+end
+$$;

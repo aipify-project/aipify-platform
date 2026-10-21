@@ -7046,7 +7046,7 @@
       "unassignedTitle": "FAQ uten nettsted",
       "assignLegacy": "Tilordne til valgt nettsted",
       "assignLegacyConfirm": "Bekreft tilordning til dette nettstedet",
-      "assignLegacyExplain": "Disse elementene ligger lagret uten installasjon. Tilordning av ett element tilordner ikke de andre. Besøkendes svar kan fortsatt inkludere dem til Core-søket er oppdatert.",
+      "assignLegacyExplain": "Disse elementene ligger lagret uten installasjon. Tilordning av ett element tilordner ikke de andre. Offentlig søk tar med et utilordnet element bare når kontoen har nøyaktig én aktiv, verifisert installasjon.",
       "assignLegacyDone": "Elementet er nå tilordnet det valgte nettstedet.",
       "assignLegacyFailed": "Elementet ble ikke tilordnet. Velg et verifisert nettsted du eier, og bekreft tilordningen.",
       "assignLegacyNeedsVerifiedSite": "Velg et verifisert nettsted først",

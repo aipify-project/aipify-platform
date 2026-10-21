@@ -7046,7 +7046,7 @@
       "unassignedTitle": "FAQ uden websted",
       "assignLegacy": "Tildel til det valgte websted",
       "assignLegacyConfirm": "Bekræft tildeling til dette websted",
-      "assignLegacyExplain": "Disse elementer forbliver gemt uden installation. Tildeling af ét element tildeler ikke de andre. Besøgendes svar kan stadig inkludere dem, indtil Core-søgningen er opdateret.",
+      "assignLegacyExplain": "Disse elementer forbliver gemt uden installation. Tildeling af ét element tildeler ikke de andre. Offentlig søgning medtager et ikke-tildelt element kun, når kontoen har præcis én aktiv, verificeret installation.",
       "assignLegacyDone": "Elementet er nu tildelt det valgte websted.",
       "assignLegacyFailed": "Elementet blev ikke tildelt. Vælg et bekræftet websted, du ejer, og bekræft tildelingen.",
       "assignLegacyNeedsVerifiedSite": "Vælg et bekræftet websted først",

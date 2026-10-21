@@ -7046,7 +7046,7 @@
       "unassignedTitle": "FAQ utan webbplats",
       "assignLegacy": "Koppla till den valda webbplatsen",
       "assignLegacyConfirm": "Bekräfta koppling till den här webbplatsen",
-      "assignLegacyExplain": "De här posterna ligger kvar utan installation. Koppling av en post kopplar inte de andra. Besökarsvar kan fortfarande inkludera dem tills Core-sökningen är uppdaterad.",
+      "assignLegacyExplain": "De här posterna ligger kvar utan installation. Koppling av en post kopplar inte de andra. Offentlig sökning tar med en okopplad post bara när kontot har exakt en aktiv, verifierad installation.",
       "assignLegacyDone": "Posten är nu kopplad till den valda webbplatsen.",
       "assignLegacyFailed": "Posten kopplades inte. Välj en verifierad webbplats du äger och bekräfta kopplingen.",
       "assignLegacyNeedsVerifiedSite": "Välj en verifierad webbplats först",
