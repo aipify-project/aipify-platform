@@ -45,7 +45,7 @@ export const WEBSITE_KOMPIS_CONNECTION_TRUTH_SOURCES: ConnectionTruthSourceRow[]
   },
   {
     id: "domain_license_center",
-    authoritative: "organization_domains via get_domain_license_center",
+    authoritative: "organization_domains read for the active organization; page load does not call get_domain_license_center",
     readPath: "GET /api/app/domains",
     writePath: "POST /api/app/domains/action (create/activate/remove/purchase…)",
     customerVisible: true,
