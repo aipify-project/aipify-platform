@@ -64,6 +64,8 @@ export function buildDomainLicenseLabels(t: Translator) {
     available: t(`${p}.available`),
     addDomain: t(`${p}.addDomain`),
     purchaseLicense: t(`${p}.purchaseLicense`),
+    purchaseUnavailable: t(`${p}.purchaseUnavailable`),
+    domainAddedPending: t(`${p}.domainAddedPending`),
     platform: t(`${p}.platform`),
     status: t(`${p}.status`),
     packs: t(`${p}.packs`),

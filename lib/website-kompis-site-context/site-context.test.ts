@@ -51,14 +51,14 @@ const items = [
   assert.deepEqual(filterWebsiteKompisFaqItemsForSiteContext(items, ctx), []);
 }
 
-// multi site with selection — site + legacy only
+// multi site with selection — selected installation only; legacy NULL stays stored and hidden
 {
   const ctx = resolveWebsiteKompisSiteContextState([siteA, siteB], siteB.installId);
   assert.equal(ctx.selectedInstallId, siteB.installId);
   const filtered = filterWebsiteKompisFaqItemsForSiteContext(items, ctx);
   assert.deepEqual(
     filtered.map((i) => i.id),
-    ["2", "3"],
+    ["2"],
   );
 }
 
@@ -108,10 +108,22 @@ const items = [
   }
 }
 
-// preserve legacy NULL on update without reassignment
+// multi-site must not keep a legacy NULL row editable as shared knowledge
+{
+  const denied = requireInstallIdForFaqWrite({
+    sites: [siteA, siteB],
+    requestedInstallId: null,
+    isUpdate: true,
+    existingInstallId: null,
+  });
+  assert.equal(denied.ok, false);
+  if (!denied.ok) assert.equal(denied.reason, "legacy_unassigned");
+}
+
+// one website may keep an existing NULL row without assigning it
 {
   const preserved = requireInstallIdForFaqWrite({
-    sites: [siteA, siteB],
+    sites: [siteA],
     requestedInstallId: null,
     isUpdate: true,
     existingInstallId: null,

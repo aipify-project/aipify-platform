@@ -912,6 +912,8 @@
   },
   "domainLicense": {
     "pendingDomainsNone": "Немає доменів, що очікують.",
+    "purchaseUnavailable": "Ця сторінка не може надати ліцензію домену. Ліцензія потребує підтвердженої оплати поза цією дією.",
+    "domainAddedPending": "Домен додано як очікуваний. Це не створило інсталяцію, не підтвердило домен і не відкрило область знань.",
     "licensesUsage": "{{included}} включено + {{additional}} придбано",
     "expandDomainDetails": "Показати деталі Website Kompis",
     "collapseDomainDetails": "Приховати деталі Website Kompis",

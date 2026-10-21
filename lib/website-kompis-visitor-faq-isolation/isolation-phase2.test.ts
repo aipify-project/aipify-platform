@@ -126,6 +126,14 @@ assert.equal(
   });
   assert.deepEqual(
     forA.map((i) => i.id),
+    ["a"],
+  );
+  const single = filterWebsiteKompisFaqItemsForSiteContext(items, {
+    state: "single_site",
+    selectedInstallId: "11111111-1111-4111-8111-111111111111",
+  });
+  assert.deepEqual(
+    single.map((i) => i.id),
     ["a", "legacy"],
   );
 }

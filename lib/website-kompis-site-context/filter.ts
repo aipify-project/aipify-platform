@@ -87,9 +87,12 @@ export function annotateWebsiteKompisFaqScope(
 
 /**
  * Fail-closed list filter for APP FAQ admin.
- * - no_sites: return all rows (cannot scope; honest unconfigured)
- * - single/multi with selection: site-scoped rows for install OR legacy NULL
- * - multi without selection / invalid: empty (never dump all tenant FAQs)
+ * - no_sites: return the tenant list. There is no installation to split on.
+ * - single_site: the selected installation, plus legacy NULL rows.
+ *   One website cannot leak those rows into a second website.
+ * - multi_site: only rows whose install_id equals the selected installation.
+ *   Legacy NULL rows stay in storage and are hidden, not assigned and not deleted.
+ * - multi without selection / invalid: empty.
  */
 export function filterWebsiteKompisFaqItemsForSiteContext<T extends FaqRowForSiteScope>(
   items: readonly T[],
@@ -105,13 +108,13 @@ export function filterWebsiteKompisFaqItemsForSiteContext<T extends FaqRowForSit
     return [...items];
   }
 
-  if (state === "multi_site" && !context.selectedInstallId) {
-    return [];
-  }
-
   const selected = context.selectedInstallId;
   if (!selected) {
     return [];
+  }
+
+  if (state === "multi_site") {
+    return items.filter((item) => item.installId === selected);
   }
 
   return items.filter((item) => item.installId == null || item.installId === selected);
@@ -140,7 +143,9 @@ export function requireInstallIdForFaqWrite(input: {
   }
 
   if (isUpdate && existingInstallId == null && requestedInstallId == null) {
-    // Preserve legacy NULL rows — do not force-migrate on edit.
+    if (sites.length > 1) {
+      return { ok: false, reason: "legacy_unassigned" };
+    }
     return { ok: true, installId: null, domain: null };
   }
 

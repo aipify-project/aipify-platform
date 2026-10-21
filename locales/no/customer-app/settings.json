@@ -2090,6 +2090,8 @@
     "available": "Tilgjengelige domenelisenser",
     "addDomain": "Legg til domene",
     "purchaseLicense": "Kjøp tilleggsdomenelisens",
+    "purchaseUnavailable": "Denne siden kan ikke gi en domenelisens. En lisens krever bekreftet betaling utenfor denne handlingen.",
+    "domainAddedPending": "Domenet ble lagt til som ventende. Dette opprettet ikke en installasjon, verifiserte ikke domenet og åpnet ikke et kunnskapsområde.",
     "platform": "Plattform",
     "status": "Status",
     "packs": "Installerte pakker",

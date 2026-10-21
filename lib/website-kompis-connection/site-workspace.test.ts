@@ -71,7 +71,7 @@ const domainRows = [
   assert.equal((a2.snippet ?? "").match(/<script/g)?.length, 1);
   assert.deepEqual(
     filterWebsiteKompisFaqItemsForSiteContext(faq, a2.faqScope).map((row) => row.id),
-    ["a2", "legacy"],
+    ["a2"],
   );
   assert.deepEqual(
     connectionDomainsForSelection(domainRows, a2).map((row) => row.domainId),
@@ -84,7 +84,7 @@ const domainRows = [
   assert.match(back.snippet ?? "", /data-locale="no"/);
   assert.deepEqual(
     filterWebsiteKompisFaqItemsForSiteContext(faq, back.faqScope).map((row) => row.id),
-    ["a1", "legacy"],
+    ["a1"],
   );
   assert.equal(back.snippet, buildConnectionSiteWorkspace({
     sites: tenantA,
@@ -201,6 +201,8 @@ const domainRows = [
   );
   assert.match(panel, /copyScript/);
   assert.match(panel, /workspace\.snippet/);
+  assert.match(panel, /kompisWebFaq/);
+  assert.match(panel, /\?site=/);
   assert.doesNotMatch(panel, /method:\s*"POST"|create_domain/);
 }
 

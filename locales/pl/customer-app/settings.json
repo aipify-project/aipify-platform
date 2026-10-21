@@ -912,6 +912,8 @@
   },
   "domainLicense": {
     "pendingDomainsNone": "Brak oczekujących domen.",
+    "purchaseUnavailable": "Ta strona nie może przyznać licencji domeny. Licencja wymaga potwierdzonej płatności poza tą akcją.",
+    "domainAddedPending": "Domena została dodana jako oczekująca. Nie utworzono instalacji, nie zweryfikowano domeny i nie otwarto obszaru wiedzy.",
     "licensesUsage": "{{included}} wliczone + {{additional}} zakupione",
     "expandDomainDetails": "Pokaż szczegóły Website Kompis",
     "collapseDomainDetails": "Ukryj szczegóły Website Kompis",

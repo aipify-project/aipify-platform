@@ -7041,7 +7041,8 @@
       "hint": "FAQ for valgt nettstedinstallasjon. Én konto kan administrere flere nettsteder.",
       "selectRequired": "Velg et nettsted for å vise eller opprette offentlig FAQ.",
       "legacyBadge": "Delt (eldre)",
-      "legacyWarning": "Noen FAQ-elementer er ikke knyttet til et bestemt nettsted (eldre). De forblir synlige for alle installasjoner til en egen migrering er godkjent. Nye elementer lagres på valgt nettsted.",
+      "legacyWarning": "Noen FAQ-elementer har ingen installasjon. De vises fordi kontoen har ett nettsted. Det er ikke en bekreftet tilordning til nettstedet.",
+      "legacyHidden": "Kontoen har FAQ-elementer uten installasjon. De er skjult for alle nettsteder, slik at de ikke behandles som tilhørende det valgte nettstedet. De slettes ikke.",
       "siteScopedBadge": "Dette nettstedet",
       "noSites": "Ingen verifisert nettstedinstallasjon er knyttet ennå. Koble et domene under Tilkobling før FAQ scopes per nettsted.",
       "visitorPartialNote": "Besøkendes svar kan fortsatt inkludere delt eldre FAQ til en Core-isolasjonsoppdatering er autorisert."
@@ -7806,6 +7807,7 @@
     "verificationPendingExplain": "Avventende betyr at domenet ikke er verifisert. Et primærflagg teller ikke som verifisering.",
     "publicInstallId": "Offentlig installasjons-ID",
     "managePermissionRequired": "Du kan se status. En eier eller administrator må legge til eller endre nettsteder.",
+    "openKnowledge": "Åpne kunnskap for dette nettstedet",
     "manageDomains": "Administrer domener og installasjonsinnstillinger",
     "activeLicenseRuntimeUnavailable": "Lisensen er aktiv. APP har ikke observert den offentlige visningen, så dette er ikke en bekreftet runtime.",
     "runtimeNotObserved": "Ikke observert",

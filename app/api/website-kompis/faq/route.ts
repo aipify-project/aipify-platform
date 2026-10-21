@@ -90,7 +90,7 @@ export async function GET(request: Request) {
     const locale = url.searchParams.get("locale")?.trim() || null;
     const contentType = sanitizeContentType(url.searchParams.get("contentType"));
     const query = url.searchParams.get("query")?.trim().slice(0, WPKF_QUERY_MAX_LENGTH) || null;
-    const requestedInstallId = url.searchParams.get("installId");
+    const requestedInstallId = url.searchParams.get("installId") || url.searchParams.get("site");
     const offset = clampFaqListOffset(url.searchParams.get("offset"));
     const limit = clampFaqListLimit(url.searchParams.get("limit"), WPKF_LIST_LIMIT_DEFAULT);
 
@@ -167,6 +167,10 @@ export async function GET(request: Request) {
         visitorIsolation: siteContext.visitorIsolation,
         requiresSiteSelection: false,
         legacyNullVisible: items.some((item) => item.scope.isLegacyTenantGlobal),
+        legacyNullHidden:
+          siteContext.state === "multi_site" &&
+          Boolean(siteContext.selectedInstallId) &&
+          parsed.some((item) => item.installId == null),
       },
     });
   } catch {

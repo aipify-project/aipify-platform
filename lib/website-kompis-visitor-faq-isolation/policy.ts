@@ -53,7 +53,7 @@ export function shouldIncludeFaqRowForVisitor(input: {
 }
 
 export const WEBSITE_KOMPIS_VISITOR_FAQ_ISOLATION_STATUS = {
-  appAdminIsolation: "verified_phase1",
+  appAdminIsolation: "multi_site_legacy_null_hidden",
   coreVisitorIsolation: "blocked_requires_sql",
   wholeChainIsolation: "partial",
 } as const;

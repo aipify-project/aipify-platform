@@ -134,6 +134,7 @@ export function buildWebsiteKompisFaqLabels(t: TranslateFn) {
       selectRequired: t(`${prefix}.siteContext.selectRequired`),
       legacyBadge: t(`${prefix}.siteContext.legacyBadge`),
       legacyWarning: t(`${prefix}.siteContext.legacyWarning`),
+      legacyHidden: t(`${prefix}.siteContext.legacyHidden`),
       siteScopedBadge: t(`${prefix}.siteContext.siteScopedBadge`),
       noSites: t(`${prefix}.siteContext.noSites`),
       visitorPartialNote: t(`${prefix}.siteContext.visitorPartialNote`),

@@ -7030,7 +7030,8 @@
       "hint": "FAQ for the selected website installation. One account can manage several websites.",
       "selectRequired": "Select a website to view or create public FAQ items.",
       "legacyBadge": "Shared (legacy)",
-      "legacyWarning": "Some FAQ items are not tied to a specific website (legacy). They stay visible for all installations until a separate migration is approved. New items are saved to the selected website.",
+      "legacyWarning": "Some FAQ items have no installation. They stay visible because this account has one website. That is not a confirmed assignment to the website.",
+      "legacyHidden": "This account has FAQ items with no installation. They are hidden for every website so they are not treated as belonging to the selected website. They are not deleted.",
       "siteScopedBadge": "This website",
       "noSites": "No verified website installation is linked yet. Connect a domain under Connection before scoping FAQ by website.",
       "visitorPartialNote": "Visitor answers may still include shared legacy FAQ until a Core isolation update is authorized."
@@ -7795,6 +7796,7 @@
     "verificationPendingExplain": "Pending means the domain is not verified. A primary flag does not count as verification.",
     "publicInstallId": "Public installation ID",
     "managePermissionRequired": "You can view status. An owner or admin must add or change websites.",
+    "openKnowledge": "Open knowledge for this website",
     "manageDomains": "Manage domains and install settings",
     "activeLicenseRuntimeUnavailable": "The license is active. APP has not observed the public view, so this is not a verified runtime.",
     "runtimeNotObserved": "Not observed",

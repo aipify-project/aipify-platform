@@ -282,6 +282,7 @@ export function WebsiteKompisFaqAdminPanel({
     "loading",
   );
   const [legacyNullVisible, setLegacyNullVisible] = useState(false);
+  const [legacyNullHidden, setLegacyNullHidden] = useState(false);
   const [requiresSiteSelection, setRequiresSiteSelection] = useState(false);
   const searchParams = useSearchParams();
 
@@ -372,6 +373,7 @@ export function WebsiteKompisFaqAdminPanel({
         sites?: OwnedSiteOption[];
         requiresSiteSelection?: boolean;
         legacyNullVisible?: boolean;
+        legacyNullHidden?: boolean;
       };
     };
     if (!res.ok) {
@@ -399,6 +401,7 @@ export function WebsiteKompisFaqAdminPanel({
 
     setRequiresSiteSelection(body.siteContext?.requiresSiteSelection === true);
     setLegacyNullVisible(body.siteContext?.legacyNullVisible === true);
+    setLegacyNullHidden(body.siteContext?.legacyNullHidden === true);
     const nextItems = body.items ?? [];
     setItems(nextItems);
     setListWindow(
@@ -422,6 +425,8 @@ export function WebsiteKompisFaqAdminPanel({
     statusFilter,
   ]);
 
+  const requestedSite = (searchParams.get("site") || searchParams.get("installId") || "").trim().toLowerCase();
+
   useEffect(() => {
     void (async () => {
       const res = await fetch("/api/website-kompis/sites");
@@ -436,11 +441,14 @@ export function WebsiteKompisFaqAdminPanel({
       const nextSites = body.sites ?? [];
       setSites(nextSites);
       setSiteState(body.state ?? (nextSites.length === 0 ? "no_sites" : nextSites.length === 1 ? "single_site" : "multi_site"));
-      if (nextSites.length === 1) {
+      const owned = nextSites.find((site) => site.installId.toLowerCase() === requestedSite);
+      if (owned) {
+        setSelectedInstallId(owned.installId);
+      } else if (nextSites.length === 1) {
         setSelectedInstallId(nextSites[0]!.installId);
       }
     })();
-  }, []);
+  }, [requestedSite]);
 
   useEffect(() => {
     void refresh();
@@ -801,6 +809,11 @@ export function WebsiteKompisFaqAdminPanel({
         {legacyNullVisible ? (
           <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
             {labels.siteContext.legacyWarning}
+          </p>
+        ) : null}
+        {legacyNullHidden ? (
+          <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
+            {labels.siteContext.legacyHidden}
           </p>
         ) : null}
         <p className="text-xs text-slate-500">{labels.siteContext.visitorPartialNote}</p>

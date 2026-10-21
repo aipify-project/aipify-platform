@@ -2129,6 +2129,8 @@
     "available": "Available Domain Licenses",
     "addDomain": "Add Domain",
     "purchaseLicense": "Purchase Additional Domain License",
+    "purchaseUnavailable": "This page cannot grant a domain license. A license requires confirmed payment outside this action.",
+    "domainAddedPending": "The domain was added as pending. This did not create an installation, verify the domain, or open a knowledge area.",
     "platform": "Platform",
     "status": "Status",
     "packs": "Installed Packs",

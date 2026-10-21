@@ -6018,6 +6018,8 @@
     "available": "Available Domain Licenses",
     "addDomain": "Add Domain",
     "purchaseLicense": "Purchase Additional Domain License",
+    "purchaseUnavailable": "Den här sidan kan inte ge en domänlicens. En licens kräver bekräftad betalning utanför den här åtgärden.",
+    "domainAddedPending": "Domänen lades till som väntande. Det skapade ingen installation, verifierade inte domänen och öppnade inget kunskapsområde.",
     "platform": "Platform",
     "status": "Status",
     "packs": "Installed Packs",

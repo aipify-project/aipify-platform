@@ -296,6 +296,12 @@ export function WebsiteKompisConnectionCenterPanel({
             <p className="break-all text-xs text-[#657089]">
               {labels.publicInstallId}: {workspace.selected.installId}
             </p>
+            <Link
+              href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?site=${encodeURIComponent(workspace.selected.installId)}`}
+              className="inline-flex min-h-11 items-center text-sm font-semibold text-[#7055EE] underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7055EE]"
+            >
+              {labels.openKnowledge}
+            </Link>
             {workspace.snippet ? (
               <div className="space-y-2">
                 <pre className="max-h-48 overflow-x-auto rounded-2xl bg-[#20243A] p-4 text-xs leading-relaxed text-white">

@@ -508,7 +508,8 @@
       "hint": "FAQ dla wybranej instalacji witryny. Jedno konto może zarządzać wieloma witrynami.",
       "selectRequired": "Wybierz witrynę, aby wyświetlić lub utworzyć publiczne FAQ.",
       "legacyBadge": "Współdzielone (starsze)",
-      "legacyWarning": "Niektóre elementy FAQ nie są powiązane z konkretną witryną (starsze). Pozostają widoczne dla wszystkich instalacji, dopóki nie zostanie zatwierdzona osobna migracja. Nowe elementy są zapisywane dla wybranej witryny.",
+      "legacyWarning": "Niektóre elementy FAQ nie mają instalacji. Są widoczne, ponieważ konto ma jedną witrynę. To nie jest potwierdzone przypisanie do witryny.",
+      "legacyHidden": "Konto ma elementy FAQ bez instalacji. Są ukryte dla wszystkich witryn, aby nie były traktowane jako należące do wybranej witryny. Nie są usuwane.",
       "siteScopedBadge": "Ta witryna",
       "noSites": "Nie powiązano jeszcze zweryfikowanej instalacji witryny. Połącz domenę w Połączeniu, zanim FAQ będzie zakresowane per witryna.",
       "visitorPartialNote": "Odpowiedzi dla odwiedzających mogą nadal zawierać współdzielone starsze FAQ, dopóki nie zostanie autoryzowana aktualizacja izolacji w Core."
@@ -1273,6 +1274,7 @@
     "verificationPendingExplain": "Oczekuje oznacza, że domena nie jest zweryfikowana. Flaga główna nie jest weryfikacją.",
     "publicInstallId": "Publiczny identyfikator instalacji",
     "managePermissionRequired": "Możesz zobaczyć status. Właściciel lub administrator musi dodać albo zmienić witryny.",
+    "openKnowledge": "Otwórz wiedzę dla tej witryny",
     "manageDomains": "Zarządzaj domenami i ustawieniami instalacji",
     "activeLicenseRuntimeUnavailable": "Licencja jest aktywna. APP nie zaobserwowała widoku publicznego, więc to nie jest potwierdzone środowisko.",
     "runtimeNotObserved": "Nie zaobserwowano",

@@ -7041,7 +7041,8 @@
       "hint": "FAQ for den valgte webstedinstallation. Én konto kan administrere flere websteder.",
       "selectRequired": "Vælg et websted for at vise eller oprette offentlig FAQ.",
       "legacyBadge": "Delt (ældre)",
-      "legacyWarning": "Nogle FAQ-elementer er ikke knyttet til et bestemt websted (ældre). De forbliver synlige for alle installationer, indtil en separat migrering er godkendt. Nye elementer gemmes på det valgte websted.",
+      "legacyWarning": "Nogle FAQ-elementer har ingen installation. De vises, fordi kontoen har ét websted. Det er ikke en bekræftet tilknytning til webstedet.",
+      "legacyHidden": "Kontoen har FAQ-elementer uden installation. De er skjult for alle websteder, så de ikke behandles som tilhørende det valgte websted. De slettes ikke.",
       "siteScopedBadge": "Dette websted",
       "noSites": "Ingen verificeret webstedinstallation er knyttet endnu. Tilslut et domæne under Forbindelse, før FAQ scopes pr. websted.",
       "visitorPartialNote": "Besøgendes svar kan stadig inkludere delt ældre FAQ, indtil en Core-isoleringsopdatering er autoriseret."
@@ -7806,6 +7807,7 @@
     "verificationPendingExplain": "Afventende betyder, at domænet ikke er verificeret. Et primærflag tæller ikke som verificering.",
     "publicInstallId": "Offentligt installations-ID",
     "managePermissionRequired": "Du kan se status. En ejer eller administrator skal tilføje eller ændre websteder.",
+    "openKnowledge": "Åbn viden for dette websted",
     "manageDomains": "Administrer domæner og installationsindstillinger",
     "activeLicenseRuntimeUnavailable": "Licensen er aktiv. APP har ikke observeret den offentlige visning, så dette er ikke en bekræftet runtime.",
     "runtimeNotObserved": "Ikke observeret",
