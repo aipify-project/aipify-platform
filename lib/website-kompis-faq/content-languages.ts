@@ -62,8 +62,10 @@ const NAME_ALIASES: Record<string, FaqContentLanguageCode> = {
   swedish: "sv",
   svensk: "sv",
   svenska: "sv",
+  se: "sv",
   danish: "da",
   dansk: "da",
+  dk: "da",
   polish: "pl",
   polski: "pl",
   ukrainian: "uk",
@@ -161,6 +163,8 @@ export function canonicalFaqContentLanguage(value: string): FaqContentLanguageCo
   if (named) return named;
   const region = /^([a-z]{2})-([a-z]{2})$/.exec(key);
   if (!region) return null;
+  const primaryAlias = NAME_ALIASES[region[1]];
+  if (primaryAlias) return primaryAlias;
   const primary = region[1] as FaqContentLanguageCode;
   if (!CODE_SET.has(primary) || REGION_EXCLUDED.has(primary)) return null;
   return primary;

@@ -56,6 +56,10 @@ const exampleDomain = "example-a.test";
 
 assert.equal(sanitizeWebsiteKompisEmbedLocale(undefined), "no");
 assert.equal(sanitizeWebsiteKompisEmbedLocale("sv"), "sv");
+assert.equal(sanitizeWebsiteKompisEmbedLocale("se"), "sv");
+assert.equal(sanitizeWebsiteKompisEmbedLocale("se-SE"), "sv");
+assert.equal(sanitizeWebsiteKompisEmbedLocale("dk"), "da");
+assert.equal(sanitizeWebsiteKompisEmbedLocale("da"), "da");
 assert.equal(sanitizeWebsiteKompisEmbedLocale("nb"), "no");
 assert.equal(sanitizeWebsiteKompisEmbedLocale("de"), "en");
 assert.equal(sanitizeWebsiteKompisEmbedLocale("de-DE"), "en");

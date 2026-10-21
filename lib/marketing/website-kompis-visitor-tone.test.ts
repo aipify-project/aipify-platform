@@ -38,6 +38,18 @@ assert.equal(compactLabels.placeholder, "Skriv en melding…");
 assert.equal(compactLabels.productName, "Kompis");
 assert.equal(compactLabels.credit, "Drevet av Aipify");
 assert.equal(compactLabels.sourceFromSite, "Kilde fra nettstedet");
+
+const swedishFromHostCode = buildWebsiteKompisWarmSafeFallbackCopy("se", null, "professional-friendly");
+assert.match(swedishFromHostCode, /Jag hittar inte tillräckligt publicerad information/);
+assert.doesNotMatch(swedishFromHostCode, /Jeg finner ikke/);
+const danishFromHostCode = buildWebsiteKompisWarmSafeFallbackCopy("dk", null, "professional-friendly");
+assert.match(danishFromHostCode, /Jeg finder ikke nok offentliggjort information/);
+const swedishShell = resolveWebsiteKompisEmbedUiLabels({ locale: "se", welcomeMessageVariant: "compact" });
+assert.equal(swedishShell.productName, "Kompis");
+assert.equal(swedishShell.placeholder, "Skriv ett meddelande…");
+const englishShell = resolveWebsiteKompisEmbedUiLabels({ locale: "en", welcomeMessageVariant: "compact" });
+assert.equal(englishShell.productName, "Kompis");
+assert.equal(englishShell.title, "Website Kompis");
 assert.equal(compactLabels.quickActions.length, 2);
 assert.ok(!compactLabels.quickActions.some((action) => /kontakt/i.test(action.label)));
 

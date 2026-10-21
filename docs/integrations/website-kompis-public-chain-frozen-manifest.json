@@ -65,7 +65,7 @@
     {
       "path": "public/embed/website-kompis.js",
       "role": "Host loader lifecycle",
-      "sha256": "0ba977a01b24c4fb0c3997f9f51a5cc247b554174c26da1f465f01851a6ebba9"
+      "sha256": "43de4c31c99a562cac0971db9e1b8cca3a715a53923f1d3df308e987b3895de2"
     },
     {
       "path": "lib/marketing/public-companion-ask.ts",
@@ -115,7 +115,7 @@
     {
       "path": "lib/marketing/website-kompis-visitor-tone.ts",
       "role": "Visitor tone / safe fallback copy",
-      "sha256": "7bca9ce4120c390e80766283bf0c85747aa4b7cd5731b11ea837454a2c98ffb1"
+      "sha256": "df4380639d491272abe1d5a5ef8ee22ea46e12b9c9ab9cafb99f373d78b59b7b"
     },
     {
       "path": "lib/marketing/website-kompis-site-label.ts",
@@ -185,7 +185,7 @@
     {
       "path": "lib/marketing/website-kompis-embed.ts",
       "role": "Embed sizing + loader constants",
-      "sha256": "a255a0c2d55a1bd39f18b265c71766e0ffa3ba42af3630497d756cbf92afb353"
+      "sha256": "281aa87d7ee4f8beb2a14e652f3f074f286ac7f82b1841e47bde2487a3837057"
     },
     {
       "path": "lib/marketing/website-kompis-embed-session.ts",
@@ -230,7 +230,7 @@
     {
       "path": "lib/marketing/website-kompis-public-site-index/answer.ts",
       "role": "Site-index ranking + answer",
-      "sha256": "5ceca1a79ed884a2d2d2b496102db8cf0a5a962cb8fd490434202edc528c8b5a"
+      "sha256": "f26397d141397d7a87906279e1f191b06afbb68f042a1e6342f0e3d5f7b71643"
     },
     {
       "path": "lib/marketing/website-kompis-public-site-index/index.ts",
@@ -244,8 +244,8 @@
     },
     {
       "path": "lib/marketing/website-kompis-public-site-index/locale-contract.ts",
-      "role": "no\u2194nb / nn locale expand",
-      "sha256": "5add299f1bc64d6208a1e9340a032830fb96fee73d68f323dff67fda5e5b8fa7"
+      "role": "no/nb, se/sv, and dk/da locale expand",
+      "sha256": "31896795dbd209e3906279618685048d79ae1ec752b20b31cba2cf03ac5fa4c3"
     },
     {
       "path": "lib/marketing/website-kompis-public-site-index/url-policy.ts",

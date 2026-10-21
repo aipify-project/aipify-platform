@@ -7788,8 +7788,9 @@
     "technicalDetails": "Tekniske detaljer",
     "supportReference": "Supportreferanse",
     "manageDomains": "Administrer domener og installasjonsinnstillinger",
-    "activeLicenseRuntimeUnavailable": "Lisensen er aktiv, men offentlig Kompis Web-visning er ikke tilgjengelig ennå.",
-    "runtimeUnavailable": "Sist sett for offentlig runtime er ikke tilgjengelig i APP ennå.",
+    "activeLicenseRuntimeUnavailable": "Lisensen er aktiv. APP har ikke observert den offentlige visningen, så dette er ikke en bekreftet runtime.",
+    "runtimeNotObserved": "Ikke observert",
+    "runtimeUnavailable": "APP har ikke observert den offentlige visningen. Det betyr ikke at installasjonen mangler.",
     "dashboardTitle": "Tilkoblingsstatus",
     "dashboardDescription": "Om Kompis Web er autorisert og tilkoblet — samme sammendrag som Tilkobling/lisens.",
     "openConnection": "Åpne tilkobling"

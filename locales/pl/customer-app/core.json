@@ -1255,8 +1255,9 @@
     "technicalDetails": "Szczegóły techniczne",
     "supportReference": "Referencja supportu",
     "manageDomains": "Zarządzaj domenami i ustawieniami instalacji",
-    "activeLicenseRuntimeUnavailable": "Licencja jest aktywna, ale publiczny widok Kompis Web nie jest jeszcze dostępny.",
-    "runtimeUnavailable": "Ostatnie widzenie publicznego runtime nie jest jeszcze dostępne w APP.",
+    "activeLicenseRuntimeUnavailable": "Licencja jest aktywna. APP nie zaobserwowała widoku publicznego, więc to nie jest potwierdzone środowisko.",
+    "runtimeNotObserved": "Nie zaobserwowano",
+    "runtimeUnavailable": "APP nie zaobserwowała widoku publicznego. To nie oznacza, że instalacji brakuje.",
     "dashboardTitle": "Status połączenia",
     "dashboardDescription": "Czy Kompis Web jest autoryzowany i połączony — to samo podsumowanie co Połączenie/licencja.",
     "openConnection": "Otwórz połączenie"

@@ -84,7 +84,9 @@
     nb: true,
     nn: true,
     sv: true,
+    se: true,
     da: true,
+    dk: true,
     pl: true,
     uk: true,
     es: true,
@@ -106,6 +108,11 @@
   var TOKEN_PATTERN =
     /\b(?:eyJ[A-Za-z0-9_-]{10,}|Bearer\s+[A-Za-z0-9._-]{10,}|session[_-]?id\s*[:=]\s*\S+|api[_-]?key\s*[:=]\s*\S+)\b/gi;
 
+  function localePathPrimary(segment) {
+    var primary = String(segment || "").split("-")[0];
+    return LOCALE_SEGMENTS[primary] ? primary : "";
+  }
+
   function normalizeText(value, maxLength) {
     return String(value || "")
       .replace(/<[^>]+>/g, " ")
@@ -124,6 +131,8 @@
     if (!normalized) return "";
     var base = normalized.split("-")[0] || normalized;
     if (base === "nb" || base === "nn") return "no";
+    if (base === "se") return "sv";
+    if (base === "dk") return "da";
     return base;
   }
 
@@ -169,7 +178,7 @@
   function resolveRuntimeLocale() {
     var path = String(window.location.pathname || "").toLowerCase();
     var parts = path.split("/").filter(Boolean);
-    if (parts.length > 0 && LOCALE_SEGMENTS[parts[0]]) {
+    if (parts.length > 0 && localePathPrimary(parts[0])) {
       return sanitizeEmbedLocale(parts[0]);
     }
     var htmlLang = document.documentElement && document.documentElement.getAttribute
@@ -337,7 +346,7 @@
     if (parts.length === 0) {
       return "/";
     }
-    if (!LOCALE_SEGMENTS[parts[0]]) {
+    if (!localePathPrimary(parts[0])) {
       return normalized;
     }
     var rest = parts.slice(1);

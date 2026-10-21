@@ -7788,8 +7788,9 @@
     "technicalDetails": "Tekniska detaljer",
     "supportReference": "Supportreferens",
     "manageDomains": "Hantera domäner och installationsinställningar",
-    "activeLicenseRuntimeUnavailable": "Licensen är aktiv, men den offentliga Kompis Web-vyn är inte tillgänglig ännu.",
-    "runtimeUnavailable": "Senast sedd för offentlig runtime är inte tillgänglig i APP ännu.",
+    "activeLicenseRuntimeUnavailable": "Licensen är aktiv. APP har inte observerat den offentliga vyn, så detta är inte en verifierad runtime.",
+    "runtimeNotObserved": "Inte observerad",
+    "runtimeUnavailable": "APP har inte observerat den offentliga vyn. Det betyder inte att installationen saknas.",
     "dashboardTitle": "Anslutningsstatus",
     "dashboardDescription": "Om Kompis Web är auktoriserad och ansluten — samma sammanfattning som Anslutning/licens.",
     "openConnection": "Öppna anslutning"

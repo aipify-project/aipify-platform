@@ -233,7 +233,9 @@ export function WebsiteKompisConnectionCenterPanel({
                   ) : checkpoint.id === "public_runtime" && checkpoint.state === "unavailable" ? (
                     <AlertCircle aria-hidden className="size-4 shrink-0" strokeWidth={2} />
                   ) : null}
-                  {labels.checkpointState[checkpoint.state]}
+                  {checkpoint.id === "public_runtime" && checkpoint.state === "unavailable"
+                    ? labels.runtimeNotObserved
+                    : labels.checkpointState[checkpoint.state]}
                 </p>
                 {checkpoint.id === "public_runtime" && checkpoint.state === "unavailable" ? (
                   <p className="mt-3 text-sm leading-relaxed text-[#657089]">{labels.runtimeUnavailable}</p>

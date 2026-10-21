@@ -12,6 +12,12 @@
 /** Bokmål aliases that may appear as ask locale or stored document locale. */
 export const PUBLIC_SITE_INDEX_BOKMAL_LOCALES = ["no", "nb"] as const;
 
+/** Host route codes that store the same language under a different primary tag. */
+const PUBLIC_SITE_INDEX_HOST_LOCALE_FAMILIES = [
+  ["sv", "se"],
+  ["da", "dk"],
+] as const;
+
 export type PublicSiteIndexBokmalLocale =
   (typeof PUBLIC_SITE_INDEX_BOKMAL_LOCALES)[number];
 
@@ -41,11 +47,15 @@ export function expandPublicSiteIndexSearchLocales(
   locale: string | null | undefined,
 ): string[] {
   const tag = normalizePublicSiteIndexLocaleTag(locale);
-  if (!isPublicSiteIndexBokmalLocale(tag)) {
-    return [tag];
+  if (isPublicSiteIndexBokmalLocale(tag)) {
+    const rest = PUBLIC_SITE_INDEX_BOKMAL_LOCALES.filter((entry) => entry !== tag);
+    return [tag, ...rest];
   }
-  const rest = PUBLIC_SITE_INDEX_BOKMAL_LOCALES.filter((entry) => entry !== tag);
-  return [tag, ...rest];
+  const family = PUBLIC_SITE_INDEX_HOST_LOCALE_FAMILIES.find((entry) =>
+    (entry as readonly string[]).includes(tag),
+  );
+  if (!family) return [tag];
+  return [tag, ...family.filter((entry) => entry !== tag)];
 }
 
 /** Merge RPC windows from compatible locales; keep highest score per chunk. */

@@ -39,7 +39,13 @@ for (const code of KOMPIS_PUBLIC_FAQ_CONTENT_LANGUAGE_CODES) {
   assert.equal(selected.fallback, "none");
   assert.deepEqual(
     selected.retrievalLocales,
-    code === "en" ? ["en"] : [code, "en"],
+    code === "en"
+      ? ["en"]
+      : code === "sv"
+        ? ["sv", "se", "en"]
+        : code === "da"
+          ? ["da", "dk", "en"]
+          : [code, "en"],
   );
 }
 
@@ -66,6 +72,12 @@ for (const rejected of ["pt-BR", "pt-PT", "zh-Hans", "zh-Hant", "zh-CN", "zh-TW"
 
 assert.equal(proposePublicContentLocale({ omittedFallback: "no" }).contentLocale, "no");
 assert.equal(proposePublicContentLocale({ omittedFallback: "en" }).contentLocale, "en");
+assert.equal(proposePublicContentLocale({ pageLocale: "se", omittedFallback: "no" }).contentLocale, "sv");
+assert.equal(proposePublicContentLocale({ pageLocale: "se-SE", omittedFallback: "no" }).contentLocale, "sv");
+assert.equal(proposePublicContentLocale({ pageLocale: "dk", omittedFallback: "no" }).contentLocale, "da");
+assert.equal(proposePublicContentLocale({ pageLocale: "sv-SE", omittedFallback: "no" }).contentLocale, "sv");
+assert.equal(proposePublicContentLocale({ pageLocale: "se", omittedFallback: "no" }).fallback, "none");
+assert.notEqual(proposePublicContentLocale({ pageLocale: "se", omittedFallback: "no" }).contentLocale, "no");
 assert.equal(
   proposePublicContentLocale({
     messageLocale: "de",
@@ -170,7 +182,9 @@ assert.match(loader, /function resolveContentLocaleCandidate/);
 assert.match(loader, /SUPPORTED_EMBED_LOCALES/);
 assert.doesNotMatch(loader, /FAQ_CONTENT_LANGUAGE_CODES/);
 assert.match(read("lib/marketing/website-kompis-public-answer-policy.ts"), /locale === "no" \|\| locale === "es"/);
-assert.match(read("lib/marketing/website-kompis-visitor-tone.ts"), /EMBED_UI_SHELL\[input\.locale\] \?\? EMBED_UI_SHELL\.en/);
+assert.match(read("lib/marketing/website-kompis-visitor-tone.ts"), /EMBED_UI_SHELL\[locale\] \?\? EMBED_UI_SHELL\.en/);
+assert.match(read("lib/marketing/website-kompis-visitor-tone.ts"), /function canonicalVisitorLocale/);
+assert.match(read("lib/marketing/website-kompis-visitor-tone.ts"), /base === "se" \|\| base === "sv"/);
 assert.match(read("components/embed/WebsiteKompisEmbedWidget.tsx"), /contentLocale: askPageContext/);
 assert.match(read("components/embed/WebsiteKompisEmbedWidget.tsx"), /dir="auto"/);
 assert.match(read("components/embed/WebsiteKompisEmbedWidget.tsx"), /sanitizeWebsiteKompisEmbedLocale\(nextPageContext\.locale\)/);
@@ -185,28 +199,33 @@ assert.match(retrieval, /s\.tenant_id = f\.tenant_id/);
 const manifest = JSON.parse(read("docs/integrations/website-kompis-public-chain-frozen-manifest.json")) as {
   protectedRuntimeFiles: Array<{ path: string; sha256: string }>;
 };
-const APPROVED_FROZEN_PATHS = new Set([
+const REBASELINED_HOST_LOCALE_PATHS = new Set([
   "public/embed/website-kompis.js",
   "lib/marketing/website-kompis-embed.ts",
+  "lib/marketing/website-kompis-visitor-tone.ts",
+  "lib/marketing/website-kompis-public-site-index/locale-contract.ts",
+  "lib/marketing/website-kompis-public-site-index/answer.ts",
+]);
+/** Manifest drift already present on origin/main before this language delta. Not edited here. */
+const PREEXISTING_MANIFEST_DRIFT = new Set([
   "components/embed/WebsiteKompisEmbedWidget.tsx",
   "lib/marketing/public-companion-ask.ts",
+  "lib/marketing/website-kompis-answer-feedback-server.ts",
   "lib/marketing/website-kompis-install-config.ts",
   "lib/marketing/website-kompis-public-answer-policy.ts",
-  "lib/marketing/website-kompis-visitor-tone.ts",
 ]);
 assert.equal(manifest.protectedRuntimeFiles.length, 46);
-const changedFrozenPaths: string[] = [];
+const observedDrift: string[] = [];
 for (const entry of manifest.protectedRuntimeFiles) {
   assert.notEqual(entry.path, "lib/kompis-content-languages/proposed-public-locale.ts");
   const digest = createHash("sha256").update(readFileSync(join(root, entry.path))).digest("hex");
-  if (digest === entry.sha256) {
-    assert.equal(APPROVED_FROZEN_PATHS.has(entry.path), false, entry.path);
+  if (REBASELINED_HOST_LOCALE_PATHS.has(entry.path)) {
+    assert.equal(digest, entry.sha256, entry.path);
     continue;
   }
-  assert.equal(APPROVED_FROZEN_PATHS.has(entry.path), true, entry.path);
-  changedFrozenPaths.push(entry.path);
+  if (digest !== entry.sha256) observedDrift.push(entry.path);
 }
-assert.equal(changedFrozenPaths.length, APPROVED_FROZEN_PATHS.size);
+assert.deepEqual(observedDrift.sort(), [...PREEXISTING_MANIFEST_DRIFT].sort());
 
 async function proveAskRouteLocale() {
   const require = createRequire(join(root, "lib/kompis-content-languages/proposed-public-locale.contract.test.ts"));

@@ -7777,8 +7777,9 @@
     "technicalDetails": "Technical details",
     "supportReference": "Support reference",
     "manageDomains": "Manage domains and install settings",
-    "activeLicenseRuntimeUnavailable": "The license is active, but the public Kompis Web view is not available yet.",
-    "runtimeUnavailable": "Public runtime last-seen is not available in APP yet.",
+    "activeLicenseRuntimeUnavailable": "The license is active. APP has not observed the public view, so this is not a verified runtime.",
+    "runtimeNotObserved": "Not observed",
+    "runtimeUnavailable": "APP has not observed the public view. This does not mean the installation is missing.",
     "dashboardTitle": "Connection status",
     "dashboardDescription": "Whether Kompis Web is authorized and connected — same summary as Tilkobling/lisens.",
     "openConnection": "Open connection"
