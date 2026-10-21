@@ -283,6 +283,8 @@ export function normalizeWebsiteKompisEmbedLocaleTag(value: string): string {
   if (!normalized) return "";
   const base = normalized.split("-")[0] ?? normalized;
   if (base === "nb" || base === "nn") return "no";
+  if (base === "se") return "sv";
+  if (base === "dk") return "da";
   return base;
 }
 

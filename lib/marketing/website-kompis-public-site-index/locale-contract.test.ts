@@ -77,7 +77,10 @@ async function main() {
   assert.deepEqual(expandPublicSiteIndexSearchLocales("nb"), ["nb", "no"]);
   assert.deepEqual(expandPublicSiteIndexSearchLocales("NB-NO"), ["nb", "no"]);
   assert.deepEqual(expandPublicSiteIndexSearchLocales("nn"), ["nn"]);
-  assert.deepEqual(expandPublicSiteIndexSearchLocales("sv"), ["sv"]);
+  assert.deepEqual(expandPublicSiteIndexSearchLocales("sv"), ["sv", "se"]);
+  assert.deepEqual(expandPublicSiteIndexSearchLocales("se"), ["se", "sv"]);
+  assert.deepEqual(expandPublicSiteIndexSearchLocales("da"), ["da", "dk"]);
+  assert.deepEqual(expandPublicSiteIndexSearchLocales("dk"), ["dk", "da"]);
   assert.deepEqual(expandPublicSiteIndexSearchLocales("en"), ["en"]);
   assert.deepEqual(expandPublicSiteIndexSearchLocales("xx"), ["xx"]);
   assert.equal(normalizePublicSiteIndexLocaleTag(""), "no");

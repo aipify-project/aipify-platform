@@ -46,7 +46,14 @@ function finish(
     source,
     contentLocale,
     responseLocale: contentLocale,
-    retrievalLocales: contentLocale === "en" ? ["en"] : [contentLocale, "en"],
+    retrievalLocales:
+      contentLocale === "en"
+        ? ["en"]
+        : contentLocale === "sv"
+          ? ["sv", "se", "en"]
+          : contentLocale === "da"
+            ? ["da", "dk", "en"]
+            : [contentLocale, "en"],
     fallback,
     englishKnowledgeAlsoEligible: contentLocale !== "en",
   };

@@ -41,6 +41,7 @@ export function buildWebsiteKompisConnectionLabels(t: TranslateFn) {
       unavailable: t(`${prefix}.checkpointState.unavailable`),
       unconfigured: t(`${prefix}.checkpointState.unconfigured`),
     },
+    runtimeNotObserved: t(`${prefix}.runtimeNotObserved`),
     domainsTitle: t(`${prefix}.domainsTitle`),
     domainsHint: t(`${prefix}.domainsHint`),
     domainVerified: t(`${prefix}.domainVerified`),

@@ -129,6 +129,7 @@ const panel = readFileSync(
 );
 assert.match(panel, /"help"/);
 assert.match(panel, /activeLicenseRuntimeUnavailable/);
+assert.match(panel, /runtimeNotObserved/);
 assert.match(panel, /websiteKompisLicenseStatusKey/);
 assert.doesNotMatch(panel, /summary\.licenseStatus \?\?/);
 assert.match(panel, /pageVisibilityNoRules/);
@@ -161,8 +162,9 @@ const norwegianConnection = JSON.parse(
 ).websiteKompisConnection;
 assert.equal(
   norwegianConnection.activeLicenseRuntimeUnavailable,
-  "Lisensen er aktiv, men offentlig Kompis Web-visning er ikke tilgjengelig ennå.",
+  "Lisensen er aktiv. APP har ikke observert den offentlige visningen, så dette er ikke en bekreftet runtime.",
 );
+assert.equal(norwegianConnection.runtimeNotObserved, "Ikke observert");
 assert.equal(norwegianConnection.checkpoints.public_runtime, "Offentlig visning");
 assert.equal(norwegianConnection.licenseStatusValue.active, "Aktiv");
 

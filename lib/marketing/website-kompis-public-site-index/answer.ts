@@ -555,7 +555,9 @@ export function composePublicSiteIndexAnswerText(
     primary.title.trim().length > 0
       ? locale === "en"
         ? `Source page: ${primary.title.trim()}.`
-        : `Kilde: ${primary.title.trim()}.`
+        : locale === "sv"
+          ? `Källa: ${primary.title.trim()}.`
+          : `Kilde: ${primary.title.trim()}.`
       : null;
 
   return { directAnswer, explanation };

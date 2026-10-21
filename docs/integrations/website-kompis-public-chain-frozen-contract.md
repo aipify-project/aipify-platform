@@ -50,6 +50,22 @@ Database responsibility for public retrieval is tenant-scoped visitor knowledge 
 
 ---
 
+## Authorized language delta (local, not deployed)
+
+Owner approval on 2026-10-21 named this public chain for one minimal host-code alias. The baseline deploy above is unchanged. This delta is not a Production release.
+
+| Path | Change |
+|------|--------|
+| `public/embed/website-kompis.js` | Path segments `se` and `dk` are locale segments. `se` maps to `sv` and `dk` maps to `da` before the embed shell locale. |
+| `lib/marketing/website-kompis-embed.ts` | The same alias is applied in the embed locale normalizer. |
+| `lib/marketing/website-kompis-visitor-tone.ts` | Safe fallback and shell labels follow `sv` or `da` when the raw tag is `se` or `dk`. |
+| `lib/marketing/website-kompis-public-site-index/locale-contract.ts` | Swedish and Danish host codes stay in the same search family as `sv` and `da`. `nn` stays separate. |
+| `lib/marketing/website-kompis-public-site-index/answer.ts` | A Swedish site-index source line uses the Swedish label. |
+
+Manifest SHA256 for these paths matches this working tree. No other protected file is part of this delta. Empty candidates still use the caller default. Message text is not used to choose a language.
+
+---
+
 ## Frozen chain (call graph)
 
 ```
@@ -58,7 +74,7 @@ Host loader (website-kompis.js)
   → embed iframe lifecycle (closed 72×72 / open 450×800)
   → POST /api/marketing/companion/ask
   → askPublicPlatformCompanion
-  → tenant + locale (no↔nb; nn separate)
+  → tenant + locale (no↔nb; se↔sv; dk↔da; nn separate)
   → fresh pageContext (when current-page source enabled / deictic ask)
   → rewriteWebsiteKompisRetrievalIntent (bounded; last topic only for follow-ups)
   → FAQ RPC + public site-index search + optional current-page evidence

@@ -1255,8 +1255,9 @@
     "technicalDetails": "Технічні деталі",
     "supportReference": "Посилання підтримки",
     "manageDomains": "Керувати доменами та налаштуваннями встановлення",
-    "activeLicenseRuntimeUnavailable": "Ліцензія активна, але публічний перегляд Kompis Web ще недоступний.",
-    "runtimeUnavailable": "Останнє бачення публічного runtime ще недоступне в APP.",
+    "activeLicenseRuntimeUnavailable": "Ліцензія активна. APP не спостерігала публічний перегляд, тож це не підтверджене середовище.",
+    "runtimeNotObserved": "Не спостерігалося",
+    "runtimeUnavailable": "APP не спостерігала публічний перегляд. Це не означає, що інсталяція відсутня.",
     "dashboardTitle": "Статус підключення",
     "dashboardDescription": "Чи Kompis Web авторизований і підключений — той самий підсумок, що й Підключення/ліцензія.",
     "openConnection": "Відкрити підключення"

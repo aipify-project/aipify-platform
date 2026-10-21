@@ -62,11 +62,21 @@ export type WebsiteKompisEmbedUiLabels = {
   quickActions: WebsiteKompisEmbedQuickAction[];
 };
 
+function canonicalVisitorLocale(locale: string): string {
+  const base = locale.trim().toLowerCase().replace(/_/g, "-").split("-")[0] || "";
+  if (base === "se" || base === "sv") return "sv";
+  if (base === "dk" || base === "da") return "da";
+  if (base === "nb" || base === "nn" || base === "no") return "no";
+  if (base === "en" || base === "pl" || base === "uk") return base;
+  return locale;
+}
+
 export function buildWebsiteKompisWarmSafeFallbackCopy(
   locale: string,
   siteLabel: string | null,
   fallbackTone: WebsiteKompisFallbackTone = "professional-friendly",
 ): string {
+  locale = canonicalVisitorLocale(locale);
   const named = siteLabel?.trim() || null;
 
   if (fallbackTone === "short-direct") {
@@ -113,6 +123,7 @@ export function buildWebsiteKompisWarmSafeFallbackCopy(
 }
 
 function currentPageIntro(locale: string, fallbackTone: WebsiteKompisFallbackTone): string | null {
+  locale = canonicalVisitorLocale(locale);
   if (fallbackTone === "short-direct") {
     return null;
   }
@@ -593,14 +604,15 @@ const EMBED_UI_SHELL: Record<
 export const WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE = "/website-kompis/design-v1" as const;
 
 export function resolveWebsiteKompisEmbedUiLabels(input: {
-  locale: WebsiteKompisEmbedLocale;
+  locale: WebsiteKompisEmbedLocale | "se" | "dk";
   welcomeMessageVariant?: WebsiteKompisWelcomeMessageVariant | string | null;
 }): WebsiteKompisEmbedUiLabels {
+  const locale = canonicalVisitorLocale(input.locale) as WebsiteKompisEmbedLocale;
   const variant =
     input.welcomeMessageVariant === "compact" ? "compact" : ("standard" as const);
-  const shell = EMBED_UI_SHELL[input.locale] ?? EMBED_UI_SHELL.en;
-  const feedback = EMBED_FEEDBACK_SHELL[input.locale] ?? EMBED_FEEDBACK_SHELL.en;
-  const welcome = EMBED_UI_COPY[input.locale]?.[variant] ?? EMBED_UI_COPY.en[variant];
+  const shell = EMBED_UI_SHELL[locale] ?? EMBED_UI_SHELL.en;
+  const feedback = EMBED_FEEDBACK_SHELL[locale] ?? EMBED_FEEDBACK_SHELL.en;
+  const welcome = EMBED_UI_COPY[locale]?.[variant] ?? EMBED_UI_COPY.en[variant];
 
   return {
     ...shell,
