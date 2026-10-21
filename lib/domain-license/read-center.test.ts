@@ -37,6 +37,11 @@ assert.match(actionSource, /performDomainLicenseAction/);
 assert.doesNotMatch(actionSource, /get_domain_license_center|getDomainLicenseCenter/);
 
 type Row = Record<string, unknown>;
+type QueryValue = { data: unknown; error: { message: string } | null };
+
+function queryValue(data: unknown): QueryValue {
+  return { data, error: null };
+}
 
 function memoryAdmin(seed: { domains: Row[]; packs: Row[]; assignments: Row[]; pool: Row | null }) {
   const writes: string[] = [];
@@ -53,10 +58,16 @@ function memoryAdmin(seed: { domains: Row[]; packs: Row[]; assignments: Row[]; p
             },
             maybeSingle() {
               const org = filters.find(([column]) => column === "organization_id")?.[1];
-              const data = table === "organization_domain_license_pool" && seed.pool?.organization_id === org ? seed.pool : null;
-              return Promise.resolve({ data, error: null });
+              const data =
+                table === "organization_domain_license_pool" && seed.pool?.organization_id === org
+                  ? seed.pool
+                  : null;
+              return Promise.resolve(queryValue(data));
             },
-            then(onFulfilled: (value: { data: unknown; error: null }) => unknown, onRejected?: (reason: unknown) => unknown) {
+            then<TResult1 = QueryValue, TResult2 = never>(
+              onfulfilled?: ((value: QueryValue) => TResult1 | PromiseLike<TResult1>) | null,
+              onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null,
+            ): PromiseLike<TResult1 | TResult2> {
               const org = filters.find(([column]) => column === "organization_id")?.[1];
               const sourceRows =
                 table === "organization_domains"
@@ -67,7 +78,7 @@ function memoryAdmin(seed: { domains: Row[]; packs: Row[]; assignments: Row[]; p
                       ? seed.assignments
                       : [];
               const data = sourceRows.filter((row) => row.organization_id === org);
-              return Promise.resolve({ data, error: null }).then(onFulfilled, onRejected);
+              return Promise.resolve(queryValue(data)).then(onfulfilled, onrejected);
             },
           };
           return builder;
@@ -233,7 +244,7 @@ await performDomainLicenseAction(
       mutationCalls.push(name);
       return { data: { ok: true, domain_id: "00000000-0000-4000-8000-0000000000d4" }, error: null };
     },
-  } as RpcClient,
+  } as unknown as RpcClient,
   "create_domain",
   { domain: "new.example", connected_platform: "custom_website" },
 );
