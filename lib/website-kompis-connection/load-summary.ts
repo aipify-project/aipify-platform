@@ -1,7 +1,8 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { getDomainLicenseCenter, parseDomainLicenseCenter } from "@/lib/domain-license";
+import { parseDomainLicenseCenter } from "@/lib/domain-license";
+import { readOrganizationDomainCenter, type OrganizationDomainReadClient } from "@/lib/domain-license/read-center";
 import { resolveWebsiteKompisCustomerDomainBinding } from "@/lib/marketing/website-kompis-domain-settings-server";
 import { loadWebsiteKompisEntitlementForAppTenant } from "@/lib/marketing/website-kompis-licensed-availability-server";
 import { canManageWebsiteKompisDomainSettings } from "@/lib/marketing/website-kompis-licensed-availability";
@@ -28,6 +29,7 @@ async function loadOrgContext(supabase: SupabaseClient): Promise<AppOrganization
 
 export async function loadWebsiteKompisConnectionSummary(
   supabase: SupabaseClient,
+  options?: { admin?: OrganizationDomainReadClient },
 ): Promise<WebsiteKompisConnectionLoadResult> {
   const context = await loadOrgContext(supabase);
   const canManage = canManageWebsiteKompisDomainSettings(context);
@@ -61,8 +63,7 @@ export async function loadWebsiteKompisConnectionSummary(
   let pendingDomainCount = 0;
 
   try {
-    const raw = await getDomainLicenseCenter(supabase);
-    const center = parseDomainLicenseCenter(raw);
+    const center = parseDomainLicenseCenter(await readOrganizationDomainCenter(supabase, options));
     domainCenterLoaded = true;
     if (center?.found === false) {
       domainCenterLoaded = true;

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDomainLicenseCenter } from "@/lib/domain-license";
+import { DomainCenterAccessError, readOrganizationDomainCenter } from "@/lib/domain-license/read-center";
 import {
   activateWebsiteKompisForDomain,
   deactivateWebsiteKompisForDomain,
@@ -68,7 +68,7 @@ async function buildDomainSettingsResponse(input: {
     return access.response;
   }
 
-  const center = (await getDomainLicenseCenter(input.supabase)) as Record<string, unknown>;
+  const center = (await readOrganizationDomainCenter(input.supabase)) as Record<string, unknown>;
   const record = findDomainRecord(center, input.domainId);
   if (!record) {
     return NextResponse.json({ error: "domain_not_found", found: false }, { status: 404 });
@@ -169,6 +169,9 @@ export async function GET(request: Request) {
       origin: url.origin,
     });
   } catch (err) {
+    if (err instanceof DomainCenterAccessError) {
+      return NextResponse.json({ error: "forbidden", found: false }, { status: 403 });
+    }
     const message = err instanceof Error ? err.message : "Failed to load Website Kompis settings";
     return NextResponse.json({ error: message, found: false }, { status: 500 });
   }
@@ -201,7 +204,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "domain_id_required" }, { status: 400 });
     }
 
-    const center = (await getDomainLicenseCenter(supabase)) as Record<string, unknown>;
+    const center = (await readOrganizationDomainCenter(supabase)) as Record<string, unknown>;
     const record = findDomainRecord(center, domainId);
     if (!record) {
       return NextResponse.json({ error: "domain_not_found", found: false }, { status: 404 });
@@ -327,6 +330,9 @@ export async function POST(request: Request) {
       origin: url.origin,
     });
   } catch (err) {
+    if (err instanceof DomainCenterAccessError) {
+      return NextResponse.json({ error: "forbidden", found: false }, { status: 403 });
+    }
     const message = err instanceof Error ? err.message : "Failed to update Website Kompis settings";
     return NextResponse.json({ error: message, found: false }, { status: 500 });
   }

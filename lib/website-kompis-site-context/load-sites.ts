@@ -1,7 +1,8 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { getDomainLicenseCenter, parseDomainLicenseCenter } from "@/lib/domain-license";
+import { parseDomainLicenseCenter } from "@/lib/domain-license";
+import { readOrganizationDomainCenter, type OrganizationDomainReadClient } from "@/lib/domain-license/read-center";
 import { resolveWebsiteKompisCustomerDomainBinding } from "@/lib/marketing/website-kompis-domain-settings-server";
 import { sanitizePublicCompanionInstallId } from "@/lib/marketing/public-companion-tenant-faq";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
@@ -39,6 +40,7 @@ function upsertOwnedSite(
  */
 export async function loadWebsiteKompisOwnedSites(
   supabase: SupabaseClient,
+  options?: { admin?: OrganizationDomainReadClient },
 ): Promise<{ context: AppOrganizationContext; sites: WebsiteKompisOwnedSite[] }> {
   const context = await loadOrgContext(supabase);
   if (!context.authenticated || !context.customer_id) {
@@ -83,8 +85,7 @@ export async function loadWebsiteKompisOwnedSites(
   }
 
   try {
-    const raw = await getDomainLicenseCenter(supabase);
-    const center = parseDomainLicenseCenter(raw);
+    const center = parseDomainLicenseCenter(await readOrganizationDomainCenter(supabase, options));
     const candidates = [
       ...(center?.active_domains ?? []),
       ...(center?.pending_domains ?? []),
