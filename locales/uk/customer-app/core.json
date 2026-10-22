@@ -1289,7 +1289,30 @@
     "runtimeUnavailable": "APP не спостерігала публічний перегляд. Це не означає, що інсталяція відсутня.",
     "dashboardTitle": "Статус підключення",
     "dashboardDescription": "Чи Kompis Web авторизований і підключений — той самий підсумок, що й Підключення/ліцензія.",
-    "openConnection": "Відкрити підключення"
+    "openConnection": "Відкрити підключення",
+    "provisionCodes": {
+      "provision_unavailable": "Встановлення вебсайту ще недоступне.",
+      "confirmation_required": "Підтвердьте вебсайт, перш ніж Aipify створить встановлення.",
+      "not_authenticated": "Увійдіть знову, перш ніж продовжити.",
+      "management_role_required": "Це має зробити власник або адміністратор цієї організації.",
+      "domain_not_available": "Цей домен недоступний для цієї організації.",
+      "domain_not_verified": "Підтвердьте домен, перш ніж створювати встановлення.",
+      "domain_not_active": "Домен неактивний.",
+      "domain_license_not_valid": "Ліцензія домену недійсна.",
+      "domain_license_capacity_unrecorded": "Кількість доменів не зафіксована для цієї організації.",
+      "domain_license_capacity_exceeded": "У цієї організації немає вільних місць для доменів.",
+      "website_kompis_not_entitled": "Kompis Web не увімкнено для цієї організації.",
+      "hostname_not_available": "Це ім’я хоста вже використовується.",
+      "company_not_recorded": "Організацію не пов’язано з компанією.",
+      "installation_not_usable": "Наявне встановлення не можна використати знову.",
+      "installation_binding_failed": "Не вдалося створити встановлення. Спробуйте ще раз.",
+      "provision_failed": "Не вдалося завершити встановлення.",
+      "license_service_paused": "Ліцензійну службу призупинено.",
+      "subscription_missing": "Активну угоду не знайдено.",
+      "subscription_inactive": "Угода неактивна.",
+      "installation_limit_reached": "Досягнуто ліміту встановлень для цієї угоди.",
+      "domain_limit_reached": "Досягнуто ліміту доменів для цієї угоди."
+    }
   },
   "enterpriseInvoicing": {
     "title": "Invoice details",

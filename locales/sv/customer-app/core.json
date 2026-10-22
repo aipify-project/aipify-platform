@@ -7822,7 +7822,30 @@
     "runtimeUnavailable": "APP har inte observerat den offentliga vyn. Det betyder inte att installationen saknas.",
     "dashboardTitle": "Anslutningsstatus",
     "dashboardDescription": "Om Kompis Web är auktoriserad och ansluten — samma sammanfattning som Anslutning/licens.",
-    "openConnection": "Öppna anslutning"
+    "openConnection": "Öppna anslutning",
+    "provisionCodes": {
+      "provision_unavailable": "Installation av webbplatsen är inte tillgänglig ännu.",
+      "confirmation_required": "Bekräfta webbplatsen innan Aipify skapar installationen.",
+      "not_authenticated": "Logga in igen innan du fortsätter.",
+      "management_role_required": "En ägare eller administratör i den här organisationen måste göra detta.",
+      "domain_not_available": "Domänen är inte tillgänglig för den här organisationen.",
+      "domain_not_verified": "Verifiera domänen innan installationen skapas.",
+      "domain_not_active": "Domänen är inte aktiv.",
+      "domain_license_not_valid": "Domänlicensen är inte giltig.",
+      "domain_license_capacity_unrecorded": "Domänplatser är inte registrerade för den här organisationen.",
+      "domain_license_capacity_exceeded": "Den här organisationen har inga lediga domänplatser.",
+      "website_kompis_not_entitled": "Kompis Web är inte aktiverat för den här organisationen.",
+      "hostname_not_available": "Värdnamnet används redan.",
+      "company_not_recorded": "Organisationen är inte kopplad till ett företag.",
+      "installation_not_usable": "Den befintliga installationen kan inte återanvändas.",
+      "installation_binding_failed": "Installationen kunde inte skapas. Försök igen.",
+      "provision_failed": "Installationen kunde inte slutföras.",
+      "license_service_paused": "Licenstjänsten är pausad.",
+      "subscription_missing": "Inget aktivt avtal hittades.",
+      "subscription_inactive": "Avtalet är inte aktivt.",
+      "installation_limit_reached": "Installationsgränsen för det här avtalet är nådd.",
+      "domain_limit_reached": "Domängränsen för det här avtalet är nådd."
+    }
   },
   "websiteKompisPlans": {
     "title": "Kompis Web-planer",

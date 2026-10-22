@@ -7822,7 +7822,30 @@
     "runtimeUnavailable": "APP har ikke observeret den offentlige visning. Det betyder ikke, at installationen mangler.",
     "dashboardTitle": "Forbindelsesstatus",
     "dashboardDescription": "Om Kompis Web er autoriseret og forbundet — samme oversigt som Forbindelse/licens.",
-    "openConnection": "Åbn forbindelse"
+    "openConnection": "Åbn forbindelse",
+    "provisionCodes": {
+      "provision_unavailable": "Installation af webstedet er ikke tilgængelig endnu.",
+      "confirmation_required": "Bekræft webstedet, før Aipify opretter installationen.",
+      "not_authenticated": "Log ind igen, før du fortsætter.",
+      "management_role_required": "En ejer eller administrator i denne organisation skal gøre dette.",
+      "domain_not_available": "Domænet er ikke tilgængeligt for denne organisation.",
+      "domain_not_verified": "Verificer domænet, før installationen oprettes.",
+      "domain_not_active": "Domænet er ikke aktivt.",
+      "domain_license_not_valid": "Domænelicensen er ikke gyldig.",
+      "domain_license_capacity_unrecorded": "Domænepladser er ikke registreret for denne organisation.",
+      "domain_license_capacity_exceeded": "Denne organisation har ingen ledige domænepladser.",
+      "website_kompis_not_entitled": "Kompis Web er ikke aktiveret for denne organisation.",
+      "hostname_not_available": "Værtsnavnet er allerede i brug.",
+      "company_not_recorded": "Organisationen er ikke knyttet til et selskab.",
+      "installation_not_usable": "Den eksisterende installation kan ikke genbruges.",
+      "installation_binding_failed": "Installationen kunne ikke oprettes. Prøv igen.",
+      "provision_failed": "Installationen kunne ikke gennemføres.",
+      "license_service_paused": "Licenstjenesten er sat på pause.",
+      "subscription_missing": "Der blev ikke fundet en aktiv aftale.",
+      "subscription_inactive": "Aftalen er ikke aktiv.",
+      "installation_limit_reached": "Installationsgrænsen for denne aftale er nået.",
+      "domain_limit_reached": "Domænegrænsen for denne aftale er nået."
+    }
   },
   "websiteKompisPlans": {
     "title": "Kompis Web-planer",

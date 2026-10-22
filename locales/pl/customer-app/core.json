@@ -1289,7 +1289,30 @@
     "runtimeUnavailable": "APP nie zaobserwowała widoku publicznego. To nie oznacza, że instalacji brakuje.",
     "dashboardTitle": "Status połączenia",
     "dashboardDescription": "Czy Kompis Web jest autoryzowany i połączony — to samo podsumowanie co Połączenie/licencja.",
-    "openConnection": "Otwórz połączenie"
+    "openConnection": "Otwórz połączenie",
+    "provisionCodes": {
+      "provision_unavailable": "Instalacja witryny nie jest jeszcze dostępna.",
+      "confirmation_required": "Potwierdź witrynę, zanim Aipify utworzy instalację.",
+      "not_authenticated": "Zaloguj się ponownie, zanim przejdziesz dalej.",
+      "management_role_required": "Właściciel lub administrator tej organizacji musi to zrobić.",
+      "domain_not_available": "Ta domena nie jest dostępna dla tej organizacji.",
+      "domain_not_verified": "Zweryfikuj domenę, zanim instalacja zostanie utworzona.",
+      "domain_not_active": "Domena nie jest aktywna.",
+      "domain_license_not_valid": "Licencja domeny jest nieważna.",
+      "domain_license_capacity_unrecorded": "Miejsca na domeny nie są zapisane dla tej organizacji.",
+      "domain_license_capacity_exceeded": "Ta organizacja nie ma wolnych miejsc na domeny.",
+      "website_kompis_not_entitled": "Kompis Web nie jest włączony dla tej organizacji.",
+      "hostname_not_available": "Ta nazwa hosta jest już używana.",
+      "company_not_recorded": "Organizacja nie jest powiązana z firmą.",
+      "installation_not_usable": "Istniejącej instalacji nie można użyć ponownie.",
+      "installation_binding_failed": "Nie udało się utworzyć instalacji. Spróbuj ponownie.",
+      "provision_failed": "Nie udało się dokończyć instalacji.",
+      "license_service_paused": "Usługa licencji jest wstrzymana.",
+      "subscription_missing": "Nie znaleziono aktywnej umowy.",
+      "subscription_inactive": "Umowa nie jest aktywna.",
+      "installation_limit_reached": "Osiągnięto limit instalacji dla tej umowy.",
+      "domain_limit_reached": "Osiągnięto limit domen dla tej umowy."
+    }
   },
   "enterpriseInvoicing": {
     "title": "Invoice details",

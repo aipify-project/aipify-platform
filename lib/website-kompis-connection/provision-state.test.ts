@@ -80,6 +80,37 @@ void requestWebsiteKompisSiteProvision(
   assert.equal(interpretProvisionRpcResult({ installation_token: "aipify_secret", token_returned: false }).ok, false);
   assert.equal(mapProvisionError("syntax error at or near select"), "provision_failed");
   assert.equal(mapProvisionError("domain_not_verified"), "domain_not_verified");
+assert.equal(mapProvisionError("management_role_required"), "management_role_required");
+assert.equal(
+  mapProvisionError("Aipify services are paused. Please update billing to continue."),
+  "license_service_paused",
+);
+assert.equal(
+  mapProvisionError("Installation limit reached. Upgrade your plan to add more websites."),
+  "installation_limit_reached",
+);
+
+const panel = readFileSync(
+  join(process.cwd(), "components/app/website-kompis/WebsiteKompisConnectionCenterPanel.tsx"),
+  "utf8",
+);
+assert.match(panel, /installationNotCreated/);
+assert.doesNotMatch(panel, /provisionCodes/);
+
+const enCodes = JSON.parse(
+  readFileSync(join(process.cwd(), "locales/en/customer-app/core.json"), "utf8"),
+).websiteKompisConnection.provisionCodes as Record<string, string>;
+for (const locale of ["no", "sv", "da", "pl", "uk"]) {
+  const codes = JSON.parse(
+    readFileSync(join(process.cwd(), `locales/${locale}/customer-app/core.json`), "utf8"),
+  ).websiteKompisConnection.provisionCodes as Record<string, string>;
+  assert.deepEqual(Object.keys(codes).sort(), Object.keys(enCodes).sort(), locale);
+  for (const [key, value] of Object.entries(codes)) {
+    assert.equal(typeof value, "string");
+    assert.notEqual(value, key, `${locale}.${key}`);
+    assert.notEqual(value, enCodes[key], `${locale}.${key}`);
+  }
+}
   console.log("provision-state.test.ts: OK");
 }).catch((error: unknown) => {
   console.error(error);

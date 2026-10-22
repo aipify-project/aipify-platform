@@ -20,7 +20,12 @@ const KNOWN_PROVISION_ERRORS = new Set([
   "company_not_recorded",
   "installation_not_usable",
   "installation_binding_failed",
-  "Owner or admin role required",
+  "management_role_required",
+  "license_service_paused",
+  "subscription_missing",
+  "subscription_inactive",
+  "installation_limit_reached",
+  "domain_limit_reached",
 ]);
 
 export type WebsiteKompisProvisionRpc = {
@@ -64,7 +69,21 @@ export function interpretProvisionRpcResult(data: unknown): WebsiteKompisProvisi
 }
 
 export function mapProvisionError(message: string): string {
-  if (message === "Owner or admin role required") return "management_role_required";
+  if (message === "Owner or admin role required" || message === "management_role_required") {
+    return "management_role_required";
+  }
+  if (message === "Aipify services are paused. Please update billing to continue.") {
+    return "license_service_paused";
+  }
+  if (message === "No active subscription") return "subscription_missing";
+  if (message === "Subscription is not active") return "subscription_inactive";
+  if (message === "Installation limit reached. Upgrade your plan to add more websites.") {
+    return "installation_limit_reached";
+  }
+  if (message === "Domain limit reached. Upgrade your plan to add more domains.") {
+    return "domain_limit_reached";
+  }
+  if (message === "Invalid domain") return "domain_not_available";
   if (KNOWN_PROVISION_ERRORS.has(message)) return message;
   return "provision_failed";
 }

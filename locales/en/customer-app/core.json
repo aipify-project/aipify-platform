@@ -7811,7 +7811,30 @@
     "runtimeUnavailable": "APP has not observed the public view. This does not mean the installation is missing.",
     "dashboardTitle": "Connection status",
     "dashboardDescription": "Whether Kompis Web is authorized and connected — same summary as Tilkobling/lisens.",
-    "openConnection": "Open connection"
+    "openConnection": "Open connection",
+    "provisionCodes": {
+      "provision_unavailable": "Website installation is not available yet.",
+      "confirmation_required": "Confirm the website before Aipify creates the installation.",
+      "not_authenticated": "Sign in again before continuing.",
+      "management_role_required": "An owner or administrator of this organization must do this.",
+      "domain_not_available": "That domain is not available for this organization.",
+      "domain_not_verified": "Verify the domain before creating the installation.",
+      "domain_not_active": "The domain is not active.",
+      "domain_license_not_valid": "The domain license is not valid.",
+      "domain_license_capacity_unrecorded": "Domain capacity is not recorded for this organization.",
+      "domain_license_capacity_exceeded": "This organization has no free domain capacity.",
+      "website_kompis_not_entitled": "Kompis Web is not enabled for this organization.",
+      "hostname_not_available": "That hostname is already in use.",
+      "company_not_recorded": "The organization is not linked to a company record.",
+      "installation_not_usable": "The existing installation cannot be reused.",
+      "installation_binding_failed": "The installation could not be created. Try again.",
+      "provision_failed": "The installation could not be completed.",
+      "license_service_paused": "License service is paused.",
+      "subscription_missing": "No active subscription was found.",
+      "subscription_inactive": "The subscription is not active.",
+      "installation_limit_reached": "The installation limit for this plan is reached.",
+      "domain_limit_reached": "The domain limit for this plan is reached."
+    }
   },
   "websiteKompisPlans": {
     "title": "Kompis Web plans",
