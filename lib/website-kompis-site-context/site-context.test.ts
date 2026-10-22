@@ -9,6 +9,7 @@ import {
 } from "./filter";
 import { planLegacyFaqAssignment } from "./legacy-assignment";
 import type { WebsiteKompisOwnedSite } from "./types";
+import { ownedSiteIsVerifiedActive } from "./primary-candidate";
 import { WEBSITE_KOMPIS_SITE_SCOPE_FUTURE_SQL_CHANGESET } from "./contract";
 
 const siteA: WebsiteKompisOwnedSite = {
@@ -221,5 +222,20 @@ assert.equal(WEBSITE_KOMPIS_SITE_SCOPE_FUTURE_SQL_CHANGESET.status, "blocked_unt
   assert.equal(ok.ok, true);
   if (ok.ok) assert.equal(ok.installId, siteA.installId);
 }
+
+assert.equal(ownedSiteIsVerifiedActive({ verificationStatus: "verified", domainStatus: "active" }), true);
+assert.equal(ownedSiteIsVerifiedActive({ verificationStatus: "pending", domainStatus: "pending" }), false);
+assert.equal(ownedSiteIsVerifiedActive({ verificationStatus: "verified", domainStatus: "pending" }), false);
+assert.equal(
+  ownedSiteIsVerifiedActive({ verificationStatus: "pending", domainStatus: "active" }),
+  false,
+);
+
+const loadSites = readFileSync(join(process.cwd(), "lib/website-kompis-site-context/load-sites.ts"), "utf8");
+assert.match(loadSites, /ownedSiteIsVerifiedActive/);
+assert.doesNotMatch(loadSites, /isPrimaryCandidate: verified \|\| row\.is_primary/);
+
+const actionRoute = readFileSync(join(process.cwd(), "app/api/app/domains/action/route.ts"), "utf8");
+assert.match(actionRoute, /domainActionPayload/);
 
 console.log("website-kompis-site-context/site-context.test.ts: all assertions passed");

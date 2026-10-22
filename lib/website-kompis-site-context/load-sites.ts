@@ -12,6 +12,7 @@ import {
   type AppOrganizationContext,
 } from "@/lib/tenant/resolve-app-organization-context";
 import { resolveWebsiteKompisSiteContextState } from "./filter";
+import { ownedSiteIsVerifiedActive } from "./primary-candidate";
 import type { WebsiteKompisOwnedSite, WebsiteKompisSiteContext } from "./types";
 
 async function loadOrgContext(supabase: SupabaseClient): Promise<AppOrganizationContext> {
@@ -73,8 +74,10 @@ export async function loadWebsiteKompisOwnedSites(
         const installId = sanitizePublicCompanionInstallId(record.installation_id ?? null);
         const domain = typeof record.domain === "string" ? record.domain.trim().toLowerCase() : "";
         if (!installId || !domain || !occupying.has(installId)) continue;
-        const verified =
-          record.verification_status === "verified" && record.status === "active";
+        const verified = ownedSiteIsVerifiedActive({
+          verificationStatus: record.verification_status,
+          domainStatus: record.status,
+        });
         upsertOwnedSite(byInstall, {
           installId,
           domain,
@@ -110,14 +113,13 @@ export async function loadWebsiteKompisOwnedSites(
       const installId = sanitizePublicCompanionInstallId(binding.installId);
       if (!installId) continue;
 
-      const verified =
-        binding.verificationStatus === "verified" && binding.domainStatus === "active";
+      const verified = ownedSiteIsVerifiedActive(binding);
       upsertOwnedSite(byInstall, {
         installId,
         domain: binding.domain,
         verificationStatus: binding.verificationStatus,
         domainStatus: binding.domainStatus,
-        isPrimaryCandidate: verified || row.is_primary === true,
+        isPrimaryCandidate: verified,
       });
     }
   } catch {

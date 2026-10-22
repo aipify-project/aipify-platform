@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { domainActionRefusal } from "./action-guard";
+import { domainActionPayload, domainActionRefusal } from "./action-guard";
 
 const ROOT = process.cwd();
 
@@ -9,6 +9,27 @@ assert.equal(domainActionRefusal("purchase_domain_license"), "payment_not_confir
 assert.equal(domainActionRefusal("activate_domain"), "verification_not_recorded");
 assert.equal(domainActionRefusal("create_domain"), null);
 assert.equal(domainActionRefusal("remove_domain"), "domain_removal_not_available");
+
+const createPayload = domainActionPayload("create_domain", {
+  domain: "  Example.COM ",
+  display_name: "Example",
+  connected_platform: "custom_website",
+  organization_id: "foreign",
+  customer_id: "foreign",
+  quantity: 4,
+});
+assert.deepEqual(createPayload, {
+  domain: "Example.COM",
+  display_name: "Example",
+  connected_platform: "custom_website",
+});
+
+const otherPayload = domainActionPayload("assign_user", {
+  domain_id: "11111111-1111-4111-8111-111111111111",
+  organization_id: "foreign",
+  customerId: "foreign",
+});
+assert.deepEqual(otherPayload, { domain_id: "11111111-1111-4111-8111-111111111111" });
 
 const migration = readFileSync(
   join(
