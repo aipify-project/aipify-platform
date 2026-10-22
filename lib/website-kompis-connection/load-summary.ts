@@ -6,7 +6,7 @@ import { readOrganizationDomainCenter, type OrganizationDomainReadClient } from 
 import { resolveWebsiteKompisCustomerDomainBinding } from "@/lib/marketing/website-kompis-domain-settings-server";
 import { filterOccupyingInstallId } from "@/lib/website-kompis-connection/occupying-installation-server";
 import { loadWebsiteKompisEntitlementForAppTenant } from "@/lib/marketing/website-kompis-licensed-availability-server";
-import { canManageWebsiteKompisDomainSettings } from "@/lib/marketing/website-kompis-licensed-availability";
+import { organizationMembershipCanManageDomains } from "@/lib/domain-license/membership-role";
 import {
   parseAppOrganizationContext,
   type AppOrganizationContext,
@@ -33,7 +33,7 @@ export async function loadWebsiteKompisConnectionSummary(
   options?: { admin?: OrganizationDomainReadClient },
 ): Promise<WebsiteKompisConnectionLoadResult> {
   const context = await loadOrgContext(supabase);
-  const canManage = canManageWebsiteKompisDomainSettings(context);
+  const canManage = organizationMembershipCanManageDomains(context);
 
   if (!context.authenticated || context.state === "unauthenticated") {
     return {

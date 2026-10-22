@@ -79,6 +79,8 @@ assert.match(panel, /purchaseUnavailable/);
 const actionRoute = readFileSync(join(ROOT, "app/api/app/domains/action/route.ts"), "utf8");
 assert.match(actionRoute, /domainActionRefusal/);
 assert.match(actionRoute, /domainActionHttpError/);
+assert.match(actionRoute, /organizationMembershipCanManageDomains/);
+assert.doesNotMatch(actionRoute, /context\.user_role/);
 assert.doesNotMatch(actionRoute, /error: message/);
 
 const proposal = readFileSync(
