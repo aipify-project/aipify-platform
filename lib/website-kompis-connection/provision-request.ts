@@ -80,7 +80,10 @@ export function mapProvisionError(message: string): string {
   if (message === "Installation limit reached. Upgrade your plan to add more websites.") {
     return "installation_limit_reached";
   }
-  if (message === "Domain limit reached. Upgrade your plan to add more domains.") {
+  if (
+    message === "Domain limit reached. Upgrade your plan to add more websites."
+    || message === "Domain limit reached. Upgrade your plan to add more domains."
+  ) {
     return "domain_limit_reached";
   }
   if (message === "Invalid domain") return "domain_not_available";

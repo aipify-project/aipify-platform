@@ -89,12 +89,21 @@ assert.equal(
   mapProvisionError("Installation limit reached. Upgrade your plan to add more websites."),
   "installation_limit_reached",
 );
+assert.equal(
+  mapProvisionError("Domain limit reached. Upgrade your plan to add more websites."),
+  "domain_limit_reached",
+);
 
 const panel = readFileSync(
   join(process.cwd(), "components/app/website-kompis/WebsiteKompisConnectionCenterPanel.tsx"),
   "utf8",
 );
 assert.match(panel, /installationNotCreated/);
+const selectedUnverified = panel.slice(
+  panel.indexOf("workspace.selected.verified"),
+  panel.indexOf("labels.publicInstallId"),
+);
+assert.doesNotMatch(selectedUnverified, /installationNotCreated/);
 assert.doesNotMatch(panel, /provisionCodes/);
 
 const enCodes = JSON.parse(
