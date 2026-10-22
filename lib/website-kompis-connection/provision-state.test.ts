@@ -57,10 +57,13 @@ const provisionRequest = readFileSync(
 assert.doesNotMatch(provisionRoute, /customerId|organizationId|p_customer_id/);
 assert.match(provisionRoute, /requestWebsiteKompisSiteProvision/);
 assert.match(provisionGate, /provision_unavailable/);
-assert.match(provisionRequest, /if \(!websiteKompisSiteProvisionIsLive\(\)\)/);
-const liveGuard = provisionRequest.indexOf("if (!websiteKompisSiteProvisionIsLive())");
+assert.match(provisionRequest, /websiteKompisSiteProvisionIsLive\(\)/);
+const liveGuard = provisionRequest.indexOf("websiteKompisSiteProvisionIsLive()");
+const membershipGuard = provisionRequest.indexOf("membershipCanManage !== true");
 const rpcCall = provisionRequest.indexOf('rpc("provision_website_kompis_site"');
-assert.ok(liveGuard > 0 && rpcCall > liveGuard);
+assert.ok(liveGuard > 0 && membershipGuard > liveGuard && rpcCall > membershipGuard);
+assert.doesNotMatch(provisionRoute, /live:\s*true/);
+assert.match(provisionRoute, /organizationMembershipCanManageDomains/);
 
 let rpcCalls = 0;
 void requestWebsiteKompisSiteProvision(
@@ -74,9 +77,84 @@ void requestWebsiteKompisSiteProvision(
     domainId: "11111111-1111-4111-8111-111111111101",
     confirmation: true,
   },
-).then((blocked) => {
+).then(async (blocked) => {
   assert.equal(rpcCalls, 0);
   assert.deepEqual(blocked, websiteKompisSiteProvisionDecision());
+
+  const denied = await requestWebsiteKompisSiteProvision(
+    {
+      async rpc() {
+        rpcCalls += 1;
+        return { data: null, error: null };
+      },
+    },
+    {
+      domainId: "11111111-1111-4111-8111-111111111101",
+      confirmation: true,
+      membershipCanManage: false,
+    },
+    { live: true },
+  );
+  assert.equal(rpcCalls, 0);
+  assert.deepEqual(denied, { ok: false, code: "management_role_required", httpStatus: 403 });
+
+  const unconfirmed = await requestWebsiteKompisSiteProvision(
+    {
+      async rpc() {
+        rpcCalls += 1;
+        return { data: null, error: null };
+      },
+    },
+    { domainId: "11111111-1111-4111-8111-111111111101", confirmation: false, membershipCanManage: true },
+    { live: true },
+  );
+  assert.equal(rpcCalls, 0);
+  assert.equal(unconfirmed.ok, false);
+  if (!unconfirmed.ok) assert.equal(unconfirmed.code, "confirmation_required");
+
+  const createdTwice = await requestWebsiteKompisSiteProvision(
+    {
+      async rpc() {
+        rpcCalls += 1;
+        return {
+          data: {
+            installation_id: "22222222-2222-4222-8222-222222222222",
+            domain: "example.com",
+            created: rpcCalls === 1,
+            token_returned: false,
+          },
+          error: null,
+        };
+      },
+    },
+    { domainId: "11111111-1111-4111-8111-111111111101", confirmation: true, membershipCanManage: true },
+    { live: true },
+  );
+  const repeated = await requestWebsiteKompisSiteProvision(
+    {
+      async rpc() {
+        rpcCalls += 1;
+        return {
+          data: {
+            installation_id: "22222222-2222-4222-8222-222222222222",
+            domain: "example.com",
+            created: false,
+            token_returned: false,
+          },
+          error: null,
+        };
+      },
+    },
+    { domainId: "11111111-1111-4111-8111-111111111101", confirmation: true, membershipCanManage: true },
+    { live: true },
+  );
+  assert.equal(createdTwice.ok && repeated.ok, true);
+  if (createdTwice.ok && repeated.ok) {
+    assert.equal(createdTwice.created, true);
+    assert.equal(repeated.created, false);
+    assert.equal(repeated.installationId, createdTwice.installationId);
+  }
+
   assert.equal(interpretProvisionRpcResult({ installation_token: "aipify_secret", token_returned: false }).ok, false);
   assert.equal(mapProvisionError("syntax error at or near select"), "provision_failed");
   assert.equal(mapProvisionError("domain_not_verified"), "domain_not_verified");

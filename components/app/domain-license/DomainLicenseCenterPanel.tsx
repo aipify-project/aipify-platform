@@ -15,6 +15,7 @@ import {
 } from "@/lib/domain-license/labels";
 import { AipifyModuleAccessDenied } from "@/components/ui/aipify-module-access-denied";
 import { WebsiteKompisDomainSettingsCard } from "@/components/app/domain-license/WebsiteKompisDomainSettingsCard";
+import { createSingleFlight } from "@/lib/domain-license/single-flight";
 import { classifyDomainActionResult } from "@/lib/website-kompis-connection/provision-state";
 
 type Tab = "overview" | "active" | "pending" | "licenses" | "packs";
@@ -30,6 +31,7 @@ export function DomainLicenseCenterPanel({
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>("overview");
   const [busy, setBusy] = useState(false);
+  const [addDomainOnce] = useState(() => createSingleFlight());
   const [newDomain, setNewDomain] = useState("");
   const [platform, setPlatform] = useState("custom_website");
   const [domainNotice, setDomainNotice] = useState<string | null>(null);
@@ -65,31 +67,36 @@ export function DomainLicenseCenterPanel({
   useEffect(() => { void load(); }, [load]);
 
   async function addDomain() {
-    if (!newDomain.trim()) return;
-    setBusy(true);
-    setDomainNotice(null);
-    const res = await fetch("/api/app/domains/action", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action_type: "create_domain",
-        payload: { domain: newDomain.trim(), connected_platform: platform },
-      }),
+    await addDomainOnce(async () => {
+      if (!newDomain.trim()) return;
+      setBusy(true);
+      setDomainNotice(null);
+      try {
+        const res = await fetch("/api/app/domains/action", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action_type: "create_domain",
+            payload: { domain: newDomain.trim(), connected_platform: platform },
+          }),
+        });
+        const body = (await res.json().catch(() => null)) as { ok?: unknown; code?: string } | null;
+        const outcome = classifyDomainActionResult("create_domain", res.ok, body);
+        if (outcome.notice === "pending_without_installation") {
+          setDomainNotice(labels.domainAddedPending);
+        } else if (body?.code === "management_role_required") {
+          setDomainNotice(labels.managementRoleRequired);
+        } else if (body?.code === "license_unavailable") {
+          setDomainNotice(labels.licenseUnavailable);
+        } else {
+          setDomainNotice(labels.domainActionFailed);
+        }
+        setNewDomain("");
+        await load();
+      } finally {
+        setBusy(false);
+      }
     });
-    const body = (await res.json().catch(() => null)) as { ok?: unknown; code?: string } | null;
-    const outcome = classifyDomainActionResult("create_domain", res.ok, body);
-    if (outcome.notice === "pending_without_installation") {
-      setDomainNotice(labels.domainAddedPending);
-    } else if (body?.code === "management_role_required") {
-      setDomainNotice(labels.managementRoleRequired);
-    } else if (body?.code === "license_unavailable") {
-      setDomainNotice(labels.licenseUnavailable);
-    } else {
-      setDomainNotice(labels.domainActionFailed);
-    }
-    setNewDomain("");
-    setBusy(false);
-    await load();
   }
 
   if (loading && !center) {

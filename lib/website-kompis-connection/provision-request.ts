@@ -95,13 +95,20 @@ export function mapProvisionError(message: string): string {
  * Calls provision_website_kompis_site only when the live gate is on.
  * The gate is off until the migration is in Production and a later approval enables it.
  * Customer and organization ids in the input are ignored. The database resolves the tenant.
+ * `options.live` exists only so tests can exercise the live checks while the production
+ * constant stays false. The HTTP route must not pass it.
  */
 export async function requestWebsiteKompisSiteProvision(
   supabase: WebsiteKompisProvisionRpc,
-  input: { domainId?: unknown; confirmation?: unknown },
+  input: { domainId?: unknown; confirmation?: unknown; membershipCanManage?: boolean },
+  options?: { live?: boolean },
 ): Promise<WebsiteKompisProvisionResult> {
-  if (!websiteKompisSiteProvisionIsLive()) {
+  const live = options?.live === true || websiteKompisSiteProvisionIsLive();
+  if (!live) {
     return websiteKompisSiteProvisionDecision();
+  }
+  if (input.membershipCanManage !== true) {
+    return { ok: false, code: "management_role_required", httpStatus: 403 };
   }
   if (input.confirmation !== true) {
     return { ok: false, code: "confirmation_required", httpStatus: 409 };
