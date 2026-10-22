@@ -6,6 +6,11 @@ import {
   WEBSITE_KOMPIS_SITE_PROVISION_LIVE,
   websiteKompisSiteProvisionDecision,
 } from "./provision-gate";
+import {
+  interpretProvisionRpcResult,
+  mapProvisionError,
+  requestWebsiteKompisSiteProvision,
+} from "./provision-request";
 
 const created = classifyDomainActionResult("create_domain", true, { ok: true });
 assert.equal(created.installationCreated, false);
@@ -45,8 +50,38 @@ const provisionGate = readFileSync(
   join(process.cwd(), "lib/website-kompis-connection/provision-gate.ts"),
   "utf8",
 );
-assert.doesNotMatch(provisionRoute, /\.rpc\(|provision_website_kompis_site/);
-assert.match(provisionRoute, /websiteKompisSiteProvisionDecision/);
+const provisionRequest = readFileSync(
+  join(process.cwd(), "lib/website-kompis-connection/provision-request.ts"),
+  "utf8",
+);
+assert.doesNotMatch(provisionRoute, /customerId|organizationId|p_customer_id/);
+assert.match(provisionRoute, /requestWebsiteKompisSiteProvision/);
 assert.match(provisionGate, /provision_unavailable/);
+assert.match(provisionRequest, /if \(!websiteKompisSiteProvisionIsLive\(\)\)/);
+const liveGuard = provisionRequest.indexOf("if (!websiteKompisSiteProvisionIsLive())");
+const rpcCall = provisionRequest.indexOf('rpc("provision_website_kompis_site"');
+assert.ok(liveGuard > 0 && rpcCall > liveGuard);
 
-console.log("provision-state.test.ts: OK");
+let rpcCalls = 0;
+void requestWebsiteKompisSiteProvision(
+  {
+    async rpc() {
+      rpcCalls += 1;
+      return { data: null, error: null };
+    },
+  },
+  {
+    domainId: "11111111-1111-4111-8111-111111111101",
+    confirmation: true,
+  },
+).then((blocked) => {
+  assert.equal(rpcCalls, 0);
+  assert.deepEqual(blocked, websiteKompisSiteProvisionDecision());
+  assert.equal(interpretProvisionRpcResult({ installation_token: "aipify_secret", token_returned: false }).ok, false);
+  assert.equal(mapProvisionError("syntax error at or near select"), "provision_failed");
+  assert.equal(mapProvisionError("domain_not_verified"), "domain_not_verified");
+  console.log("provision-state.test.ts: OK");
+}).catch((error: unknown) => {
+  console.error(error);
+  process.exit(1);
+});
