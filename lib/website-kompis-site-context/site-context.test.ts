@@ -7,7 +7,9 @@ import {
   requireInstallIdForFaqWrite,
   resolveWebsiteKompisSiteContextState,
 } from "./filter";
+import { planLegacyFaqAssignment } from "./legacy-assignment";
 import type { WebsiteKompisOwnedSite } from "./types";
+import { ownedSiteIsVerifiedActive } from "./primary-candidate";
 import { WEBSITE_KOMPIS_SITE_SCOPE_FUTURE_SQL_CHANGESET } from "./contract";
 
 const siteA: WebsiteKompisOwnedSite = {
@@ -51,14 +53,14 @@ const items = [
   assert.deepEqual(filterWebsiteKompisFaqItemsForSiteContext(items, ctx), []);
 }
 
-// multi site with selection — site + legacy only
+// multi site with selection — selected installation only; legacy NULL stays stored and hidden
 {
   const ctx = resolveWebsiteKompisSiteContextState([siteA, siteB], siteB.installId);
   assert.equal(ctx.selectedInstallId, siteB.installId);
   const filtered = filterWebsiteKompisFaqItemsForSiteContext(items, ctx);
   assert.deepEqual(
     filtered.map((i) => i.id),
-    ["2", "3"],
+    ["2"],
   );
 }
 
@@ -108,10 +110,22 @@ const items = [
   }
 }
 
-// preserve legacy NULL on update without reassignment
+// multi-site must not keep a legacy NULL row editable as shared knowledge
+{
+  const denied = requireInstallIdForFaqWrite({
+    sites: [siteA, siteB],
+    requestedInstallId: null,
+    isUpdate: true,
+    existingInstallId: null,
+  });
+  assert.equal(denied.ok, false);
+  if (!denied.ok) assert.equal(denied.reason, "legacy_unassigned");
+}
+
+// one website may keep an existing NULL row without assigning it
 {
   const preserved = requireInstallIdForFaqWrite({
-    sites: [siteA, siteB],
+    sites: [siteA],
     requestedInstallId: null,
     isUpdate: true,
     existingInstallId: null,
@@ -155,6 +169,73 @@ assert.equal(WEBSITE_KOMPIS_SITE_SCOPE_FUTURE_SQL_CHANGESET.status, "blocked_unt
   );
   assert.match(faqRoute, /resolveWebsiteKompisSiteContextForRequest|filterWebsiteKompisFaqItemsForSiteContext/);
   assert.doesNotMatch(faqRoute, /employee_knowledge|eke_/i);
+  assert.match(faqRoute, /planLegacyFaqAssignment/);
+  assert.match(faqRoute, /scope=unassigned|scope" === "unassigned"|get\("scope"\) === "unassigned"/);
 }
+
+{
+  const silent = requireInstallIdForFaqWrite({
+    sites: [siteA, siteB],
+    requestedInstallId: siteA.installId,
+    isUpdate: true,
+    existingInstallId: null,
+  });
+  assert.equal(silent.ok, false);
+  if (!silent.ok) assert.equal(silent.reason, "legacy_assignment_requires_confirmation");
+}
+
+{
+  const denied = planLegacyFaqAssignment({
+    sites: [siteA, siteB],
+    existingInstallId: null,
+    targetInstallId: siteA.installId,
+    confirmed: false,
+  });
+  assert.equal(denied.ok, false);
+  const foreign = planLegacyFaqAssignment({
+    sites: [siteA],
+    existingInstallId: null,
+    targetInstallId: siteB.installId,
+    confirmed: true,
+  });
+  assert.equal(foreign.ok, false);
+  const pending = planLegacyFaqAssignment({
+    sites: [{ ...siteA, verificationStatus: "pending", domainStatus: "pending" }],
+    existingInstallId: null,
+    targetInstallId: siteA.installId,
+    confirmed: true,
+  });
+  assert.equal(pending.ok, false);
+  const assigned = planLegacyFaqAssignment({
+    sites: [siteA, siteB],
+    existingInstallId: siteB.installId,
+    targetInstallId: siteA.installId,
+    confirmed: true,
+  });
+  assert.equal(assigned.ok, false);
+  const ok = planLegacyFaqAssignment({
+    sites: [siteA, siteB],
+    existingInstallId: null,
+    targetInstallId: siteA.installId,
+    confirmed: true,
+  });
+  assert.equal(ok.ok, true);
+  if (ok.ok) assert.equal(ok.installId, siteA.installId);
+}
+
+assert.equal(ownedSiteIsVerifiedActive({ verificationStatus: "verified", domainStatus: "active" }), true);
+assert.equal(ownedSiteIsVerifiedActive({ verificationStatus: "pending", domainStatus: "pending" }), false);
+assert.equal(ownedSiteIsVerifiedActive({ verificationStatus: "verified", domainStatus: "pending" }), false);
+assert.equal(
+  ownedSiteIsVerifiedActive({ verificationStatus: "pending", domainStatus: "active" }),
+  false,
+);
+
+const loadSites = readFileSync(join(process.cwd(), "lib/website-kompis-site-context/load-sites.ts"), "utf8");
+assert.match(loadSites, /ownedSiteIsVerifiedActive/);
+assert.doesNotMatch(loadSites, /isPrimaryCandidate: verified \|\| row\.is_primary/);
+
+const actionRoute = readFileSync(join(process.cwd(), "app/api/app/domains/action/route.ts"), "utf8");
+assert.match(actionRoute, /domainActionPayload/);
 
 console.log("website-kompis-site-context/site-context.test.ts: all assertions passed");

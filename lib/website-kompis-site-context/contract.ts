@@ -11,7 +11,7 @@ export const WEBSITE_KOMPIS_SITE_SCOPE_CONTRACT = {
   locale: "per FAQ row (tenant_public_companion_faq_items.locale); not inferred from Bedrift",
   published: "status=published AND public_safe AND surface=website_kompis for visitor retrieval",
   legacyNullInstallId:
-    "install_id IS NULL = legacy tenant-global FAQ; preserved; shown with warning; not auto-migrated",
+    "install_id IS NULL is kept and is not assigned to a website. One website may still show it. More than one website hides it in APP.",
   bedrift:
     "employee_knowledge_items / Kompis Bedrift never feed public Website Kompis FAQ or ask",
   appListRpc:
@@ -45,7 +45,7 @@ export const WEBSITE_KOMPIS_SITE_SCOPE_FUTURE_SQL_CHANGESET = {
   goals: [
     "Add optional p_install_id to list_tenant_public_companion_faq_items with server-side ownership check",
     "Validate upsert p_install_id belongs to tenant via customer_domains/installations",
-    "Visitor search policy decision: either stop matching NULL for multi-install tenants OR migrate NULL rows per site",
+    "Visitor search: include NULL install_id only when the tenant has at most one verified active installation. Do not bulk-assign existing NULL rows.",
   ],
   frozenRisk:
     "Changing search_tenant_public_visitor_knowledge / ask path may require named Website Kompis Public Chain reopen",

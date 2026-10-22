@@ -12,6 +12,8 @@ import {
 import { buildDomainLicenseLabels } from "@/lib/domain-license/labels";
 import { buildWebsiteKompisConnectionLabels } from "@/lib/website-kompis-connection/labels";
 import { loadWebsiteKompisConnectionSummary } from "@/lib/website-kompis-connection/load-summary";
+import { buildConnectionSiteWorkspace } from "@/lib/website-kompis-connection/site-workspace";
+import { loadWebsiteKompisOwnedSites } from "@/lib/website-kompis-site-context/load-sites";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -22,7 +24,12 @@ import Link from "next/link";
  * Kompis Web — connection / license / domain visibility hub (job 66).
  * Composes existing domain license writes; does not mutate frozen public runtime.
  */
-export default async function WebsiteKompisConnectionPage() {
+type ConnectionPageProps = {
+  searchParams: Promise<{ site?: string }>;
+};
+
+export default async function WebsiteKompisConnectionPage({ searchParams }: ConnectionPageProps) {
+  const { site } = await searchParams;
   const locale = await getLocale();
   const dict = await getCustomerAppDictionaryForSplits(locale, [
     "core",
@@ -35,7 +42,15 @@ export default async function WebsiteKompisConnectionPage() {
   const connectionLabels = buildWebsiteKompisConnectionLabels(t);
   const domainLabels = buildDomainLicenseLabels(t);
   const supabase = await createClient();
-  const { summary } = await loadWebsiteKompisConnectionSummary(supabase);
+  const [{ summary }, owned] = await Promise.all([
+    loadWebsiteKompisConnectionSummary(supabase),
+    loadWebsiteKompisOwnedSites(supabase),
+  ]);
+  const workspace = buildConnectionSiteWorkspace({
+    sites: owned.sites,
+    requestedInstallId: site ?? null,
+    locale,
+  });
 
   const statusTone =
     summary.aggregate === "active"
@@ -66,6 +81,7 @@ export default async function WebsiteKompisConnectionPage() {
         <WebsiteKompisConnectionCenterPanel
           labels={connectionLabels}
           summary={summary}
+          workspace={workspace}
           pageTitle={t("customerApp.portalStructure.nav.kompisWebConnection")}
           contextLabel={formatHubContextLine(common, ctx)}
           statusTone={statusTone}

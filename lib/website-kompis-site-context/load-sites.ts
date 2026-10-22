@@ -4,6 +4,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { parseDomainLicenseCenter } from "@/lib/domain-license";
 import { readOrganizationDomainCenter, type OrganizationDomainReadClient } from "@/lib/domain-license/read-center";
 import { resolveWebsiteKompisCustomerDomainBinding } from "@/lib/marketing/website-kompis-domain-settings-server";
+import { occupyingInstallIdSet } from "@/lib/website-kompis-connection/occupying-installation-server";
 import { sanitizePublicCompanionInstallId } from "@/lib/marketing/public-companion-tenant-faq";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
 import {
@@ -11,6 +12,7 @@ import {
   type AppOrganizationContext,
 } from "@/lib/tenant/resolve-app-organization-context";
 import { resolveWebsiteKompisSiteContextState } from "./filter";
+import { ownedSiteIsVerifiedActive } from "./primary-candidate";
 import type { WebsiteKompisOwnedSite, WebsiteKompisSiteContext } from "./types";
 
 async function loadOrgContext(supabase: SupabaseClient): Promise<AppOrganizationContext> {
@@ -59,6 +61,9 @@ export async function loadWebsiteKompisOwnedSites(
       .neq("status", "removed");
 
     if (Array.isArray(customerDomains)) {
+      const occupying = await occupyingInstallIdSet(
+        customerDomains.map((row) => (row as { installation_id?: string | null }).installation_id),
+      );
       for (const row of customerDomains) {
         const record = row as {
           domain?: string;
@@ -68,9 +73,11 @@ export async function loadWebsiteKompisOwnedSites(
         };
         const installId = sanitizePublicCompanionInstallId(record.installation_id ?? null);
         const domain = typeof record.domain === "string" ? record.domain.trim().toLowerCase() : "";
-        if (!installId || !domain) continue;
-        const verified =
-          record.verification_status === "verified" && record.status === "active";
+        if (!installId || !domain || !occupying.has(installId)) continue;
+        const verified = ownedSiteIsVerifiedActive({
+          verificationStatus: record.verification_status,
+          domainStatus: record.status,
+        });
         upsertOwnedSite(byInstall, {
           installId,
           domain,
@@ -100,18 +107,19 @@ export async function loadWebsiteKompisOwnedSites(
         domainName,
       });
       if (!binding?.installId) continue;
+      const occupyingBinding = await occupyingInstallIdSet([binding.installId]);
+      if (!occupyingBinding.has(binding.installId)) continue;
 
       const installId = sanitizePublicCompanionInstallId(binding.installId);
       if (!installId) continue;
 
-      const verified =
-        binding.verificationStatus === "verified" && binding.domainStatus === "active";
+      const verified = ownedSiteIsVerifiedActive(binding);
       upsertOwnedSite(byInstall, {
         installId,
         domain: binding.domain,
         verificationStatus: binding.verificationStatus,
         domainStatus: binding.domainStatus,
-        isPrimaryCandidate: verified || row.is_primary === true,
+        isPrimaryCandidate: verified,
       });
     }
   } catch {

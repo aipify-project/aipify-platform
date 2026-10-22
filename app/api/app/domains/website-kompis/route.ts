@@ -24,6 +24,7 @@ import {
   loadWebsiteKompisInstallIdForTenantDomain,
   resolveWebsiteKompisCustomerDomainBinding,
 } from "@/lib/marketing/website-kompis-domain-settings-server";
+import { filterOccupyingInstallId } from "@/lib/website-kompis-connection/occupying-installation-server";
 import { discoverWebsiteKompisPublicContactUrl } from "@/lib/marketing/website-kompis-public-contact-server";
 import { validateWebsiteKompisConfiguredSupportContactUrl } from "@/lib/marketing/website-kompis-public-contact";
 import {
@@ -88,7 +89,7 @@ async function buildDomainSettingsResponse(input: {
         customerBinding.domainStatus === "active"
       : isWebsiteKompisDomainVerified(record);
 
-  const installId =
+  const rawInstallId =
     customerBinding?.installId ??
     (access.context.customer_id
       ? await loadWebsiteKompisInstallIdForTenantDomain({
@@ -96,6 +97,7 @@ async function buildDomainSettingsResponse(input: {
           domainName: record.domain,
         })
       : null);
+  const installId = await filterOccupyingInstallId(rawInstallId);
 
   const availability = await resolveWebsiteKompisAppLicensedAvailability({
     context: access.context,

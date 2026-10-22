@@ -27,6 +27,7 @@ import {
   resolveWebsiteKompisSiteContextForRequest,
   loadWebsiteKompisOwnedSites,
 } from "@/lib/website-kompis-site-context";
+import { planLegacyFaqAssignment } from "@/lib/website-kompis-site-context/legacy-assignment";
 
 async function requireAuthenticatedSupabase() {
   const supabase = await createClient();
@@ -90,7 +91,7 @@ export async function GET(request: Request) {
     const locale = url.searchParams.get("locale")?.trim() || null;
     const contentType = sanitizeContentType(url.searchParams.get("contentType"));
     const query = url.searchParams.get("query")?.trim().slice(0, WPKF_QUERY_MAX_LENGTH) || null;
-    const requestedInstallId = url.searchParams.get("installId");
+    const requestedInstallId = url.searchParams.get("installId") || url.searchParams.get("site");
     const offset = clampFaqListOffset(url.searchParams.get("offset"));
     const limit = clampFaqListLimit(url.searchParams.get("limit"), WPKF_LIST_LIMIT_DEFAULT);
 
@@ -110,7 +111,8 @@ export async function GET(request: Request) {
       );
     }
 
-    if (siteContext.state === "multi_site" && !siteContext.selectedInstallId) {
+    const unassignedScope = url.searchParams.get("scope") === "unassigned";
+    if (siteContext.state === "multi_site" && !siteContext.selectedInstallId && !unassignedScope) {
       return NextResponse.json({
         items: [],
         listWindow: buildFaqListWindow({
@@ -145,6 +147,21 @@ export async function GET(request: Request) {
     }
 
     const parsed = parseWebsiteKompisFaqList(data);
+    if (url.searchParams.get("scope") === "unassigned") {
+      return NextResponse.json({
+        scope: "unassigned",
+        publicIsolation: "exact_one_null",
+        items: parsed
+          .filter((item) => item.installId == null)
+          .map((item) => ({
+            id: item.id,
+            title: item.title,
+            locale: item.locale,
+            status: item.status,
+            installId: null,
+          })),
+      });
+    }
     const filtered = filterWebsiteKompisFaqItemsForSiteContext(parsed, siteContext);
     const items = filtered.map((item) => ({
       ...item,
@@ -167,6 +184,10 @@ export async function GET(request: Request) {
         visitorIsolation: siteContext.visitorIsolation,
         requiresSiteSelection: false,
         legacyNullVisible: items.some((item) => item.scope.isLegacyTenantGlobal),
+        legacyNullHidden:
+          siteContext.state === "multi_site" &&
+          Boolean(siteContext.selectedInstallId) &&
+          parsed.some((item) => item.installId == null),
       },
     });
   } catch {
@@ -180,6 +201,82 @@ export async function POST(request: Request) {
     if ("error" in auth) return auth.error;
 
     const body = (await request.json()) as Record<string, unknown>;
+
+    if (body.assignLegacy === true) {
+      const itemId = sanitizeOptionalUuid(body.itemId);
+      const targetInstallId = sanitizeOptionalUuid(body.installId);
+      if (!itemId) {
+        return NextResponse.json({ ok: false, code: "item_required" }, { status: 400 });
+      }
+      const { sites } = await loadWebsiteKompisOwnedSites(auth.supabase);
+      const lookupPageSize = 500;
+      const lookupPageCap = 40;
+      let existing: ReturnType<typeof parseWebsiteKompisFaqList>[number] | undefined;
+      for (let page = 0; page < lookupPageCap && !existing; page += 1) {
+        const { data: existingRows, error: existingError } = await auth.supabase.rpc(
+          "list_tenant_public_companion_faq_items",
+          {
+            p_status: null,
+            p_locale: null,
+            p_content_type: null,
+            p_query: null,
+            p_limit: lookupPageSize,
+            p_offset: page * lookupPageSize,
+          },
+        );
+        if (existingError) {
+          const statusCode = /owner or admin/i.test(existingError.message) ? 403 : 400;
+          return NextResponse.json(
+            { ok: false, code: statusCode === 403 ? "management_role_required" : "faq_lookup_failed" },
+            { status: statusCode },
+          );
+        }
+        existing = parseWebsiteKompisFaqList(existingRows).find((row) => row.id === itemId);
+      }
+      if (!existing) {
+        return NextResponse.json({ ok: false, code: "not_found" }, { status: 404 });
+      }
+      const assignment = planLegacyFaqAssignment({
+        sites,
+        existingInstallId: existing.installId,
+        targetInstallId,
+        confirmed: body.confirmAssignment === true,
+      });
+      if (!assignment.ok) {
+        return NextResponse.json({ ok: false, code: assignment.reason }, { status: 409 });
+      }
+      const { error } = await auth.supabase.rpc("upsert_tenant_public_companion_faq_item", {
+        p_item_id: existing.id,
+        p_install_id: assignment.installId,
+        p_domain: assignment.domain,
+        p_locale: existing.locale,
+        p_title: existing.title,
+        p_question: existing.question,
+        p_answer: existing.answer,
+        p_category: existing.category,
+        p_content_type: existing.contentType,
+        p_public_safe: existing.publicSafe,
+        p_priority: existing.priority,
+        p_tags: existing.tags,
+        p_source_url: existing.sourceUrl,
+        p_valid_from: existing.validFrom,
+        p_valid_until: existing.validUntil,
+        p_last_reviewed_at: existing.lastReviewedAt,
+      });
+      if (error) {
+        const statusCode = /owner or admin/i.test(error.message) ? 403 : 400;
+        return NextResponse.json(
+          { ok: false, code: statusCode === 403 ? "management_role_required" : "assignment_failed" },
+          { status: statusCode },
+        );
+      }
+      return NextResponse.json({
+        ok: true,
+        id: existing.id,
+        installId: assignment.installId,
+        publicIsolation: "exact_one_null",
+      });
+    }
 
     const locale = typeof body.locale === "string" ? body.locale.trim() : "";
     const title = typeof body.title === "string" ? body.title.trim().slice(0, WPKF_TITLE_MAX_LENGTH) : "";

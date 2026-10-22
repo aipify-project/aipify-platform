@@ -15,6 +15,7 @@ import {
 } from "@/lib/domain-license/labels";
 import { AipifyModuleAccessDenied } from "@/components/ui/aipify-module-access-denied";
 import { WebsiteKompisDomainSettingsCard } from "@/components/app/domain-license/WebsiteKompisDomainSettingsCard";
+import { classifyDomainActionResult } from "@/lib/website-kompis-connection/provision-state";
 
 type Tab = "overview" | "active" | "pending" | "licenses" | "packs";
 
@@ -31,6 +32,7 @@ export function DomainLicenseCenterPanel({
   const [busy, setBusy] = useState(false);
   const [newDomain, setNewDomain] = useState("");
   const [platform, setPlatform] = useState("custom_website");
+  const [domainNotice, setDomainNotice] = useState<string | null>(null);
   const [expandedDomainId, setExpandedDomainId] = useState<string | null>(null);
   const centerRef = useRef<DomainLicenseCenter | null>(center);
   centerRef.current = center;
@@ -65,7 +67,8 @@ export function DomainLicenseCenterPanel({
   async function addDomain() {
     if (!newDomain.trim()) return;
     setBusy(true);
-    await fetch("/api/app/domains/action", {
+    setDomainNotice(null);
+    const res = await fetch("/api/app/domains/action", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -73,18 +76,18 @@ export function DomainLicenseCenterPanel({
         payload: { domain: newDomain.trim(), connected_platform: platform },
       }),
     });
+    const body = (await res.json().catch(() => null)) as { ok?: unknown; code?: string } | null;
+    const outcome = classifyDomainActionResult("create_domain", res.ok, body);
+    if (outcome.notice === "pending_without_installation") {
+      setDomainNotice(labels.domainAddedPending);
+    } else if (body?.code === "management_role_required") {
+      setDomainNotice(labels.managementRoleRequired);
+    } else if (body?.code === "license_unavailable") {
+      setDomainNotice(labels.licenseUnavailable);
+    } else {
+      setDomainNotice(labels.domainActionFailed);
+    }
     setNewDomain("");
-    setBusy(false);
-    await load();
-  }
-
-  async function purchaseLicense() {
-    setBusy(true);
-    await fetch("/api/app/domains/action", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action_type: "purchase_domain_license", payload: { quantity: 1 } }),
-    });
     setBusy(false);
     await load();
   }
@@ -270,9 +273,10 @@ export function DomainLicenseCenterPanel({
               .replace("{{included}}", String(summary?.included ?? 1))
               .replace("{{additional}}", String(summary?.purchased_additional ?? 0))}
           </p>
-          <button type="button" disabled={busy} onClick={() => void purchaseLicense()} className="text-sm font-medium text-indigo-700 hover:underline disabled:opacity-60">
-            {labels.purchaseLicense}
-          </button>
+          <p className="text-sm text-gray-600">{labels.purchaseUnavailable}</p>
+          {domainNotice ? (
+            <p className="text-sm text-gray-800">{domainNotice}</p>
+          ) : null}
           <div className="border-t border-gray-100 pt-4">
             <p className="text-sm font-medium text-gray-900">{labels.addDomain}</p>
             <div className="mt-2 flex flex-wrap gap-2">

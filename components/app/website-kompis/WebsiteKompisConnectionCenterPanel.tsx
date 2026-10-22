@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   AlertCircle,
@@ -20,6 +20,10 @@ import {
   websiteKompisLicenseStatusKey,
 } from "@/lib/website-kompis-connection/customer-copy";
 import type { WebsiteKompisConnectionLabels } from "@/lib/website-kompis-connection/labels";
+import {
+  connectionDomainsForSelection,
+  type ConnectionSiteWorkspace,
+} from "@/lib/website-kompis-connection/site-workspace";
 import type { ConnectionStatusSummary } from "@/lib/website-kompis-connection/status-model";
 
 export type ConnectionCenterSection =
@@ -33,6 +37,7 @@ export type ConnectionCenterSection =
 type WebsiteKompisConnectionCenterPanelProps = {
   labels: WebsiteKompisConnectionLabels;
   summary: ConnectionStatusSummary;
+  workspace: ConnectionSiteWorkspace;
   pageTitle: string;
   contextLabel: string | null;
   statusTone: "emerald" | "amber" | "slate" | "purple";
@@ -89,9 +94,24 @@ function SectionButton({
   );
 }
 
+function snippetBlockMessage(
+  workspace: ConnectionSiteWorkspace,
+  labels: WebsiteKompisConnectionLabels,
+): string | null {
+  if (workspace.snippetBlock === "unverified") return labels.snippetUnverified;
+  if (workspace.snippetBlock === "duplicate_domain") return labels.snippetDuplicateDomain;
+  if (workspace.snippetBlock === "invalid_domain") return labels.snippetInvalidDomain;
+  if (workspace.snippetBlock === "choose_site") return labels.snippetChooseSite;
+  if (workspace.snippetBlock === "rejected") return labels.siteRejected;
+  if (workspace.snippetBlock === "no_sites") return labels.emptySitesBody;
+  if (!workspace.snippet) return labels.snippetUnavailable;
+  return null;
+}
+
 export function WebsiteKompisConnectionCenterPanel({
   labels,
   summary,
+  workspace,
   pageTitle,
   contextLabel,
   statusTone,
@@ -100,6 +120,7 @@ export function WebsiteKompisConnectionCenterPanel({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [scriptCopied, setScriptCopied] = useState(false);
   const raw = searchParams.get("section");
   const section: ConnectionCenterSection =
     raw === "domains" ||
@@ -111,13 +132,40 @@ export function WebsiteKompisConnectionCenterPanel({
       ? raw
       : "overview";
 
-  function setSection(next: ConnectionCenterSection) {
+  function replaceQuery(mutate: (params: URLSearchParams) => void) {
     const params = new URLSearchParams(searchParams.toString());
-    if (next === "overview") params.delete("section");
-    else params.set("section", next);
+    mutate(params);
     const qs = params.toString();
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
+
+  function setSection(next: ConnectionCenterSection) {
+    replaceQuery((params) => {
+      if (next === "overview") params.delete("section");
+      else params.set("section", next);
+    });
+  }
+
+  function selectSite(installId: string) {
+    replaceQuery((params) => {
+      params.set("site", installId);
+      params.set("section", "install");
+    });
+  }
+
+  async function copyScript() {
+    if (!workspace.snippet) return;
+    try {
+      await navigator.clipboard.writeText(workspace.snippet);
+      setScriptCopied(true);
+      window.setTimeout(() => setScriptCopied(false), 2000);
+    } catch {
+      setScriptCopied(false);
+    }
+  }
+
+  const visibleDomains = connectionDomainsForSelection(summary.domains, workspace);
+  const scriptMessage = snippetBlockMessage(workspace, labels);
 
   const aggregateLabel = labels.aggregate[summary.aggregate];
   const publicViewUnavailable = connectionShowsActiveLicenseWithoutPublicView(summary);
@@ -176,6 +224,105 @@ export function WebsiteKompisConnectionCenterPanel({
             {labels.openSubscription}
           </Link>
         </p>
+      </section>
+
+      <section
+        className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)] sm:p-6"
+        aria-labelledby="wk-conn-sites"
+      >
+        <h2 id="wk-conn-sites" className="text-lg font-semibold text-[#20243A]">
+          {labels.sitesTitle}
+        </h2>
+        <p className="mt-1 max-w-3xl text-sm leading-relaxed text-[#657089]">{labels.sitesHint}</p>
+        {workspace.state === "no_sites" ? (
+          <div className="mt-4 rounded-2xl bg-[#F8F9FD] p-4">
+            <p className="font-medium text-[#20243A]">{labels.emptySitesTitle}</p>
+            <p className="mt-1 text-sm leading-relaxed text-[#657089]">{labels.emptySitesBody}</p>
+            <p className="mt-2 text-sm leading-relaxed text-[#657089]">{labels.installationNotCreated}</p>
+            {summary.canManage ? (
+              <button
+                type="button"
+                onClick={() => setSection("domains")}
+                className="mt-3 inline-flex min-h-11 items-center rounded-full bg-[#7055EE] px-4 text-sm font-semibold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7055EE]"
+              >
+                {labels.addWebsite}
+              </button>
+            ) : (
+              <p className="mt-3 text-sm text-[#657089]">{labels.managePermissionRequired}</p>
+            )}
+          </div>
+        ) : null}
+        {workspace.state === "choose_site" ? (
+          <div className="mt-4 rounded-2xl border border-[#EEC58C] bg-[#FFF4E5] p-4">
+            <p className="font-medium text-[#945A15]">{labels.chooseSiteTitle}</p>
+            <p className="mt-1 text-sm leading-relaxed text-[#945A15]">{labels.chooseSiteBody}</p>
+          </div>
+        ) : null}
+        {workspace.state === "rejected" ? (
+          <p className="mt-4 rounded-2xl border border-[#D3C7FF] bg-[#F3EDFF] px-4 py-3 text-sm leading-relaxed text-[#5538D3]" role="alert">
+            {labels.siteRejected}
+          </p>
+        ) : null}
+        {workspace.sites.length > 0 ? (
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            {workspace.sites.map((site) => {
+              const selected = workspace.selected?.installId === site.installId;
+              return (
+                <button
+                  key={site.installId}
+                  type="button"
+                  aria-pressed={selected}
+                  onClick={() => selectSite(site.installId)}
+                  className={`rounded-2xl border p-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7055EE] ${
+                    selected ? "border-[#7055EE] bg-[#F5F1FF]" : "border-[#E3E6F1] bg-white"
+                  }`}
+                >
+                  <p className="break-all font-semibold text-[#20243A]">{site.domain}</p>
+                  <p className="mt-2 text-sm text-[#657089]">
+                    {site.verified ? labels.domainVerified : labels.domainPending}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
+        {workspace.selected ? (
+          <div className="mt-4 space-y-3">
+            <p className="text-sm font-medium text-[#20243A]">
+              {labels.selectedSite}: <span className="break-all">{workspace.selected.domain}</span>
+            </p>
+            {workspace.selected.verified ? null : (
+              <p className="text-sm text-[#657089]">{labels.verificationPendingExplain}</p>
+            )}
+            <p className="break-all text-xs text-[#657089]">
+              {labels.publicInstallId}: {workspace.selected.installId}
+            </p>
+            <Link
+              href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?site=${encodeURIComponent(workspace.selected.installId)}`}
+              className="inline-flex min-h-11 items-center text-sm font-semibold text-[#7055EE] underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7055EE]"
+            >
+              {labels.openKnowledge}
+            </Link>
+            {workspace.snippet ? (
+              <div className="space-y-2">
+                <pre className="max-h-48 overflow-x-auto rounded-2xl bg-[#20243A] p-4 text-xs leading-relaxed text-white">
+                  <code>{workspace.snippet}</code>
+                </pre>
+                <button
+                  type="button"
+                  onClick={() => void copyScript()}
+                  className="inline-flex min-h-11 items-center rounded-full bg-[#7055EE] px-4 text-sm font-semibold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7055EE]"
+                >
+                  {scriptCopied ? labels.scriptCopied : labels.copyScript}
+                </button>
+              </div>
+            ) : scriptMessage ? (
+              <p className="text-sm leading-relaxed text-[#657089]">{scriptMessage}</p>
+            ) : null}
+          </div>
+        ) : scriptMessage && workspace.state !== "no_sites" ? (
+          <p className="mt-4 text-sm leading-relaxed text-[#657089]">{scriptMessage}</p>
+        ) : null}
       </section>
 
       <div className="flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label={pageTitle}>
@@ -284,14 +431,14 @@ export function WebsiteKompisConnectionCenterPanel({
             </h3>
             <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.domainsHint}</p>
           </div>
-          {summary.domains.length === 0 ? (
+          {visibleDomains.length === 0 ? (
             <div className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)]">
               <p className="font-medium text-[var(--app-text)]">{labels.noDomainsTitle}</p>
               <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.noDomainsBody}</p>
             </div>
           ) : (
             <ul className="grid gap-4 md:grid-cols-2">
-              {summary.domains.map((domain) => (
+              {visibleDomains.map((domain) => (
                 <li key={domain.domainId} className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)]">
                   <p className="break-all font-semibold text-[#20243A]">{domain.domain}</p>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -316,7 +463,11 @@ export function WebsiteKompisConnectionCenterPanel({
           {section === "domains" ? (
             <div className="space-y-2">
               <p className="text-sm font-medium text-[var(--app-text)]">{labels.manageDomains}</p>
-              {domainPanel}
+              {summary.canManage ? (
+                domainPanel
+              ) : (
+                <p className="text-sm text-[var(--app-text-muted)]">{labels.managePermissionRequired}</p>
+              )}
             </div>
           ) : (
             <button
@@ -338,6 +489,9 @@ export function WebsiteKompisConnectionCenterPanel({
           <p className="text-sm text-[var(--app-text-muted)]">{labels.installBody}</p>
           <p className="text-sm text-[var(--app-text-muted)]">{labels.installSnippetHint}</p>
           <p className="text-sm text-[var(--app-text)]">{labels.installNeverSecrets}</p>
+          {workspace.snippet ? (
+            <p className="text-sm text-[var(--app-text)]">{labels.copyScript}</p>
+          ) : null}
           <p className="text-sm text-[var(--app-text-muted)]">{labels.runtimeUnavailable}</p>
           <button
             type="button"
