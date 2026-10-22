@@ -14,9 +14,7 @@ import {
   loadWebsiteKompisInstallConfigForApp,
   updateWebsiteKompisInstallConfigInStorage,
 } from "@/lib/marketing/website-kompis-install-config-storage";
-import {
-  canManageWebsiteKompisDomainSettings,
-} from "@/lib/marketing/website-kompis-licensed-availability";
+import { organizationMembershipCanManageDomains } from "@/lib/domain-license/membership-role";
 import {
   resolveWebsiteKompisAppLicensedAvailability,
 } from "@/lib/marketing/website-kompis-licensed-availability-server";
@@ -107,7 +105,7 @@ async function buildDomainSettingsResponse(input: {
   });
 
   const canManage =
-    canManageWebsiteKompisDomainSettings(access.context) && availability.available;
+    organizationMembershipCanManageDomains(access.context) && availability.available;
 
   const rpcResult =
     installId != null
@@ -194,7 +192,7 @@ export async function POST(request: Request) {
       return access.response;
     }
 
-    if (!canManageWebsiteKompisDomainSettings(access.context)) {
+    if (!organizationMembershipCanManageDomains(access.context)) {
       return appPortalAccessDeniedResponse("permission_missing");
     }
 

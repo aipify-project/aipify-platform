@@ -95,7 +95,12 @@ function memoryAdmin(seed: { domains: Row[]; packs: Row[]; assignments: Row[]; p
   };
 }
 
-function session(userRole: string | null, organizationRole: string | null, organizationId: string | null = ORG): RpcClient {
+function session(
+  userRole: string | null,
+  organizationRole: string | null,
+  organizationId: string | null = ORG,
+  hasMembership = true,
+): RpcClient {
   const calls: string[] = [];
   const client = {
     calls,
@@ -107,14 +112,14 @@ function session(userRole: string | null, organizationRole: string | null, organ
       return {
         data: {
           authenticated: true,
-          state: "ready",
+          state: hasMembership ? "ready" : "membership_missing",
           user_role: userRole,
           organization_role: organizationRole,
           organization_id: organizationId,
           customer_id: organizationId,
           has_customer: true,
-          has_organization_membership: true,
-          has_app_access: true,
+          has_organization_membership: hasMembership,
+          has_app_access: hasMembership,
         },
         error: null,
       };
@@ -202,14 +207,17 @@ assert.equal(owner.license_summary?.used, 2);
 assert.equal(owner.installed_packs?.length, 1);
 assert.equal(owner.active_domains?.some((row) => row.domain === "other.example"), false);
 
-const administrator = await readAs("admin", "administrator");
+const administrator = await readAs("staff", "administrator");
 assert.equal(administrator.found, true);
 assert.equal(administrator.active_domains?.length, 1);
 
+const mappedAdmin = await readAs("staff", "organization_admin");
+assert.equal(mappedAdmin.found, true);
+
 for (const [userRole, organizationRole] of [
-  ["staff", "viewer"],
-  ["staff", "admin"],
-  ["staff", "administrator"],
+  ["admin", "viewer"],
+  ["admin", "organization_member"],
+  ["owner", "organization_manager"],
 ] as const) {
   const client = session(userRole, organizationRole) as RpcClient & { calls: string[] };
   const store = memoryAdmin(seed);
@@ -221,8 +229,13 @@ for (const [userRole, organizationRole] of [
   assert.equal(store.unchanged(), true);
 }
 
-const globalOwnerOrgViewer = await readAs("owner", "viewer");
-assert.equal(globalOwnerOrgViewer.found, true);
+const globalAdminWithoutMembership = session("admin", "organization_admin", ORG, false);
+const deniedStore = memoryAdmin(seed);
+await assert.rejects(
+  () => readOrganizationDomainCenter(globalAdminWithoutMembership, { admin: deniedStore.admin }),
+  (error: unknown) => error instanceof DomainCenterAccessError,
+);
+assert.equal(deniedStore.unchanged(), true);
 
 const emptyStore = memoryAdmin({ domains: [], packs: [], assignments: [], pool: null });
 const empty = await readOrganizationDomainCenter(session("owner", "owner"), { admin: emptyStore.admin });

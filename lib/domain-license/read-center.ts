@@ -1,6 +1,7 @@
 import type { RpcClient } from "@/lib/core/rpc-client";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
 import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
+import { organizationMembershipCanManageDomains } from "./membership-role";
 import type { DomainLicenseCenter, DomainRecord } from "./types";
 
 /**
@@ -9,8 +10,6 @@ import type { DomainLicenseCenter, DomainRecord } from "./types";
  * This reader only selects rows for the organization already chosen for the signed-in user.
  * Domain creation stays on perform_domain_license_action.
  */
-const CANONICAL_DOMAIN_CENTER_ROLES = new Set(["owner", "admin"]);
-
 const SUPPORTED_PLATFORMS = [
   "wordpress",
   "shopify",
@@ -97,7 +96,7 @@ export async function readOrganizationDomainCenter(
   if (!context.authenticated || context.state === "unauthenticated" || !context.organization_id) {
     return { found: false };
   }
-  if (!CANONICAL_DOMAIN_CENTER_ROLES.has(context.user_role ?? "")) {
+  if (!organizationMembershipCanManageDomains(context)) {
     throw new DomainCenterAccessError();
   }
 
