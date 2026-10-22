@@ -4,6 +4,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { parseDomainLicenseCenter } from "@/lib/domain-license";
 import { readOrganizationDomainCenter, type OrganizationDomainReadClient } from "@/lib/domain-license/read-center";
 import { resolveWebsiteKompisCustomerDomainBinding } from "@/lib/marketing/website-kompis-domain-settings-server";
+import { filterOccupyingInstallId } from "@/lib/website-kompis-connection/occupying-installation-server";
 import { loadWebsiteKompisEntitlementForAppTenant } from "@/lib/marketing/website-kompis-licensed-availability-server";
 import { canManageWebsiteKompisDomainSettings } from "@/lib/marketing/website-kompis-licensed-availability";
 import {
@@ -89,8 +90,9 @@ export async function loadWebsiteKompisConnectionSummary(
             hasCustomerBinding = true;
             bindingVerified =
               binding.verificationStatus === "verified" && binding.domainStatus === "active";
-            hasInstallId = Boolean(binding.installId);
-            installIdMasked = maskWebsiteKompisInstallId(binding.installId);
+            const occupyingInstallId = await filterOccupyingInstallId(binding.installId);
+            hasInstallId = Boolean(occupyingInstallId);
+            installIdMasked = maskWebsiteKompisInstallId(occupyingInstallId);
           }
         }
 
