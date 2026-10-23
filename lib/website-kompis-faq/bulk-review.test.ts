@@ -4,6 +4,7 @@ import {
   authoritativeMatchAllowed,
   chunkFaqIds,
   faqLibraryWalk,
+  faqLookupStop,
   planPublicSafeReview,
   selectionAfterPublicSafeReview,
 } from "@/lib/website-kompis-faq/bulk-review";
@@ -50,6 +51,19 @@ assert.equal(chunkFaqIds(Array.from({ length: 60 }, (_, index) => String(index))
 assert.equal(authoritativeMatchAllowed({ countAvailable: false, reportedTotal: 10, collectedIds: 10 }), false);
 assert.equal(authoritativeMatchAllowed({ countAvailable: true, reportedTotal: 3500, collectedIds: 3499 }), false);
 assert.equal(authoritativeMatchAllowed({ countAvailable: true, reportedTotal: 3500, collectedIds: 3500 }), true);
+assert.equal(
+  faqLookupStop({ pageReturned: 500, pageSize: 500, pagesRead: 1, pageCap: 20, wanted: 25, foundWanted: 25 }),
+  "complete",
+);
+assert.equal(
+  faqLookupStop({ pageReturned: 500, pageSize: 500, pagesRead: 20, pageCap: 20, wanted: 1500, foundWanted: 400 }),
+  "capped",
+);
+assert.equal(
+  faqLookupStop({ pageReturned: 40, pageSize: 500, pagesRead: 2, pageCap: 20, wanted: 1500, foundWanted: 140 }),
+  "complete",
+);
+assert.equal(authoritativeMatchAllowed({ countAvailable: true, reportedTotal: 1500, collectedIds: 400 }), false);
 
 const window = buildFaqListWindow({ offset: 0, limit: 100, tenantReturned: 100, visibleReturned: 100 });
 assert.equal(window.selectAllSupported, false);
@@ -68,6 +82,19 @@ assert.equal(faqCountContractMissing({ code: "PGRST202", message: "missing" }), 
 assert.equal(faqCountContractMissing(null), false);
 assert.equal(parseFaqCountTotal({ total: 1500 }), 1500);
 assert.equal(parseFaqCountTotal({ total: -1 }), null);
+
+const panel = readFileSync("components/app/website-kompis/WebsiteKompisFaqAdminPanel.tsx", "utf8");
+assert.match(panel, /resetListScope\(\);\s*setSelectedInstallId/);
+assert.match(panel, /status: statusFilter/);
+assert.match(panel, /reviewBodySelection/);
+assert.match(panel, /selectedAcrossFilters/);
+assert.match(panel, /matchModeRef\.current = false/);
+const reviewRoute = readFileSync("app/api/website-kompis/faq/public-safe/route.ts", "utf8");
+assert.match(reviewRoute, /p_status: lookup\.status/);
+assert.doesNotMatch(reviewRoute, /p_status: null/);
+const matchRoute = readFileSync("app/api/website-kompis/faq/match-ids/route.ts", "utf8");
+assert.match(matchRoute, /snapshot_incomplete/);
+assert.match(matchRoute, /authoritativeMatchAllowed/);
 
 const sql = readFileSync("docs/platform/NOT_APPLIED_website_kompis_faq_list_count_v1.sql", "utf8");
 assert.match(sql, /NOT APPLIED/);

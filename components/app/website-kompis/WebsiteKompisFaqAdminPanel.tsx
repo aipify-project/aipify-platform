@@ -153,6 +153,7 @@ function ListWindowBar({
   onSelectAll,
   canPublish,
   canReview,
+  matchSelection,
   explanation,
 }: {
   labels: WebsiteKompisFaqLabels;
@@ -171,6 +172,7 @@ function ListWindowBar({
   onSelectAll: () => void;
   canPublish: boolean;
   canReview: boolean;
+  matchSelection: boolean;
   explanation: string | null;
 }) {
   const range = visibleRowRange(listWindow);
@@ -182,7 +184,7 @@ function ListWindowBar({
           total: listWindow.siteTotal,
         })
       : fillLabel(labels.listWindow.showingWindow, { count: listWindow.visibleReturned });
-  const pageChecked = items.length > 0 && selectedIds.length === items.length;
+  const pageChecked = !matchSelection && items.length > 0 && selectedIds.length === items.length;
 
   return (
     <section className="space-y-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -206,7 +208,10 @@ function ListWindowBar({
           {labels.listWindow.selectPage}
         </label>
         <span className="text-sm text-slate-600">
-          {fillLabel(labels.listWindow.selectedCount, { count: selectedIds.length })}
+          {fillLabel(
+            matchSelection ? labels.listWindow.selectedAcrossFilters : labels.listWindow.selectedCount,
+            { count: selectedIds.length },
+          )}
         </span>
         <button
           type="button"
@@ -659,6 +664,10 @@ export function WebsiteKompisFaqAdminPanel({
           body: JSON.stringify({
             confirm: true,
             installId: selectedInstallId || null,
+            status: statusFilter || null,
+            locale: localeFilter || null,
+            contentType: contentTypeFilter || null,
+            query: searchQuery.trim() || null,
             itemIds: chunks[index],
           }),
         });
@@ -1155,11 +1164,13 @@ export function WebsiteKompisFaqAdminPanel({
             items={items}
             busy={busy}
             onPrevious={() => {
+              matchModeRef.current = false;
               setSelectedIds([]);
               setPagePublishOpen(false);
               setListOffset((current) => Math.max(0, current - FAQ_LIST_PAGE_SIZE));
             }}
             onNext={() => {
+              matchModeRef.current = false;
               setSelectedIds([]);
               setPagePublishOpen(false);
               setListOffset((current) => current + FAQ_LIST_PAGE_SIZE);
@@ -1169,7 +1180,11 @@ export function WebsiteKompisFaqAdminPanel({
               setPendingPublishIds([]);
               setSelectedIds(checked ? items.map((item) => item.id) : []);
             }}
-            onClear={() => setSelectedIds([])}
+            onClear={() => {
+              matchModeRef.current = false;
+              setSelectedIds([]);
+            }}
+            matchSelection={matchModeRef.current}
             onShowDrafts={() => {
               resetListScope();
               setStatusFilter("draft");
@@ -1342,12 +1357,19 @@ export function WebsiteKompisFaqAdminPanel({
             open={reviewOpen}
             riskyWords={[]}
             title={labels.listWindow.reviewTitle}
-            body={`${labels.listWindow.publicExposureWarning} ${fillLabel(labels.listWindow.reviewBody, {
-              site: selectedSite?.domain ?? labels.filters.all,
-              ready: matchModeRef.current ? selectedIds.length : reviewPlan.readyIds.length,
-              manual: matchModeRef.current ? 0 : reviewPlan.manualIds.length,
-              already: matchModeRef.current ? 0 : reviewPlan.alreadySafeIds.length,
-            })}`}
+            body={`${labels.listWindow.publicExposureWarning} ${
+              matchModeRef.current
+                ? fillLabel(labels.listWindow.reviewBodySelection, {
+                    site: selectedSite?.domain ?? labels.filters.all,
+                    selected: selectedIds.length,
+                  })
+                : fillLabel(labels.listWindow.reviewBody, {
+                    site: selectedSite?.domain ?? labels.filters.all,
+                    ready: reviewPlan.readyIds.length,
+                    manual: reviewPlan.manualIds.length,
+                    already: reviewPlan.alreadySafeIds.length,
+                  })
+            }`}
             confirmLabel={labels.listWindow.reviewConfirm}
             acknowledgementLabel={labels.listWindow.reviewConfirmLabel}
             acknowledged={reviewAck}

@@ -111,6 +111,28 @@ export function faqLibraryWalk(total: number, pageSize = 100): Array<{ offset: n
   return pages;
 }
 
+export type FaqReviewLookup = {
+  status: string | null;
+  locale: string | null;
+  contentType: string | null;
+  query: string | null;
+};
+
+/** Stop when every requested id is loaded, the list ends, or the page cap is hit. */
+export function faqLookupStop(input: {
+  pageReturned: number;
+  pageSize: number;
+  pagesRead: number;
+  pageCap: number;
+  wanted: number;
+  foundWanted: number;
+}): "continue" | "complete" | "capped" {
+  if (input.wanted > 0 && input.foundWanted >= input.wanted) return "complete";
+  if (input.pageReturned < input.pageSize) return "complete";
+  if (input.pagesRead >= input.pageCap) return "capped";
+  return "continue";
+}
+
 export function authoritativeMatchAllowed(input: {
   countAvailable: boolean;
   reportedTotal: number | null;

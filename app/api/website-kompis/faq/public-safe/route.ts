@@ -4,8 +4,11 @@ import {
   FAQ_MATCH_PAGE_CAP,
   FAQ_MATCH_PAGE_SIZE,
   FAQ_PUBLIC_SAFE_BATCH_SIZE,
+  faqLookupStop,
   planPublicSafeReview,
+  type FaqReviewLookup,
 } from "@/lib/website-kompis-faq/bulk-review";
+import { WPKF_CONTENT_TYPES, WPKF_STATUSES, type WpkfContentType, type WpkfStatus } from "@/lib/website-kompis-faq/constants";
 import { parseWebsiteKompisFaqList } from "@/lib/website-kompis-faq/parse";
 import {
   filterWebsiteKompisFaqItemsForSiteContext,
@@ -16,17 +19,31 @@ import type { WebsiteKompisFaqItem } from "@/lib/website-kompis-faq/types";
 const UUID =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
+function lookupFromBody(body: Record<string, unknown>): FaqReviewLookup {
+  const statusRaw = typeof body.status === "string" ? body.status : "";
+  const contentRaw = typeof body.contentType === "string" ? body.contentType : "";
+  return {
+    status: WPKF_STATUSES.includes(statusRaw as WpkfStatus) ? statusRaw : null,
+    locale: typeof body.locale === "string" && body.locale.trim() ? body.locale.trim() : null,
+    contentType: WPKF_CONTENT_TYPES.includes(contentRaw as WpkfContentType) ? contentRaw : null,
+    query: typeof body.query === "string" && body.query.trim() ? body.query.trim() : null,
+  };
+}
+
 async function loadVisibleRows(
   supabase: Awaited<ReturnType<typeof createClient>>,
   siteContext: Parameters<typeof filterWebsiteKompisFaqItemsForSiteContext>[1],
+  lookup: FaqReviewLookup,
+  wanted: ReadonlySet<string>,
 ): Promise<{ rows: WebsiteKompisFaqItem[]; error: string | null; status: number }> {
   const found: WebsiteKompisFaqItem[] = [];
+  const foundWanted = new Set<string>();
   for (let page = 0; page < FAQ_MATCH_PAGE_CAP; page += 1) {
     const { data, error } = await supabase.rpc("list_tenant_public_companion_faq_items", {
-      p_status: null,
-      p_locale: null,
-      p_content_type: null,
-      p_query: null,
+      p_status: lookup.status,
+      p_locale: lookup.locale,
+      p_content_type: lookup.contentType,
+      p_query: lookup.query,
       p_limit: FAQ_MATCH_PAGE_SIZE,
       p_offset: page * FAQ_MATCH_PAGE_SIZE,
     });
@@ -35,8 +52,20 @@ async function loadVisibleRows(
       return { rows: [], error: error.message, status };
     }
     const parsed = parseWebsiteKompisFaqList(data);
-    found.push(...filterWebsiteKompisFaqItemsForSiteContext(parsed, siteContext));
-    if (parsed.length < FAQ_MATCH_PAGE_SIZE) break;
+    const visible = filterWebsiteKompisFaqItemsForSiteContext(parsed, siteContext);
+    for (const row of visible) {
+      found.push(row);
+      if (wanted.has(row.id)) foundWanted.add(row.id);
+    }
+    const stop = faqLookupStop({
+      pageReturned: parsed.length,
+      pageSize: FAQ_MATCH_PAGE_SIZE,
+      pagesRead: page + 1,
+      pageCap: FAQ_MATCH_PAGE_CAP,
+      wanted: wanted.size,
+      foundWanted: foundWanted.size,
+    });
+    if (stop !== "continue") break;
   }
   return { rows: found, error: null, status: 200 };
 }
@@ -49,7 +78,7 @@ export async function POST(request: Request) {
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const body = (await request.json()) as { confirm?: unknown; installId?: unknown; itemIds?: unknown };
+    const body = (await request.json()) as Record<string, unknown>;
     if (body.confirm !== true) {
       return NextResponse.json({ error: "Confirmation is required", code: "confirmation_required" }, { status: 400 });
     }
@@ -73,7 +102,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid website selection", code: "invalid_site_selection" }, { status: 400 });
     }
 
-    const loaded = await loadVisibleRows(supabase, siteContext);
+    const loaded = await loadVisibleRows(supabase, siteContext, lookupFromBody(body), new Set(itemIds));
     if (loaded.error) {
       return NextResponse.json({ error: loaded.error }, { status: loaded.status });
     }

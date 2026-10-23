@@ -56,6 +56,7 @@ export async function GET(request: Request) {
     }
 
     const ids: string[] = [];
+    let listEnded = false;
     for (let page = 0; page < FAQ_MATCH_PAGE_CAP; page += 1) {
       const { data, error } = await supabase.rpc("list_tenant_public_companion_faq_items", {
         p_status: status,
@@ -68,11 +69,18 @@ export async function GET(request: Request) {
       if (error) {
         return NextResponse.json({ code: "count_mismatch" }, { status: 409 });
       }
-      const parsed = filterWebsiteKompisFaqItemsForSiteContext(parseWebsiteKompisFaqList(data), siteContext);
+      const rows = parseWebsiteKompisFaqList(data);
+      const parsed = filterWebsiteKompisFaqItemsForSiteContext(rows, siteContext);
       ids.push(...parsed.map((row) => row.id));
-      if (parseWebsiteKompisFaqList(data).length < FAQ_MATCH_PAGE_SIZE) break;
+      if (rows.length < FAQ_MATCH_PAGE_SIZE) {
+        listEnded = true;
+        break;
+      }
     }
 
+    if (!listEnded && ids.length !== total) {
+      return NextResponse.json({ code: "snapshot_incomplete", total }, { status: 409 });
+    }
     if (!authoritativeMatchAllowed({ countAvailable: true, reportedTotal: total, collectedIds: ids.length })) {
       return NextResponse.json({ code: "count_mismatch", total }, { status: 409 });
     }
