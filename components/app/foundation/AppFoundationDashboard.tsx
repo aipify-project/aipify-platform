@@ -7,6 +7,7 @@ import {
   AppPageHeader,
 } from "@/components/app/design";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
+import { bedriftHomeCardState } from "@/lib/app/foundation-product-card";
 import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { AppVisualClasses } from "@/lib/design/app-visual-system";
 
@@ -22,6 +23,7 @@ export type AppFoundationDashboardLabels = {
   webTitle: string;
   webDescription: string;
   webUnavailable: string;
+  bedriftUnavailable: string;
   bedriftTitle: string;
   bedriftDescription: string;
   setupTitle: string;
@@ -50,6 +52,7 @@ export type AppFoundationDashboardProps = {
   labels: AppFoundationDashboardLabels;
   organizationName: string | null;
   websiteKompisAvailable: boolean | null;
+  kompisBedriftAvailable: boolean | null;
   planLabel: string | null;
   licenseStatusLabel: string | null;
 };
@@ -66,6 +69,7 @@ export function AppFoundationDashboard({
   labels,
   organizationName,
   websiteKompisAvailable,
+  kompisBedriftAvailable,
   planLabel,
   licenseStatusLabel,
 }: AppFoundationDashboardProps) {
@@ -126,17 +130,26 @@ export function AppFoundationDashboard({
               }
             />
           )}
-          <AppIconActionCard
-            href={FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard}
-            title={labels.bedriftTitle}
-            description={labels.bedriftDescription}
-            tone="blue"
-            statusLabel={labels.statusReady}
-            statusTone="emerald"
-            icon={
-              <DashboardIcon path="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
-            }
-          />
+          {bedriftHomeCardState(kompisBedriftAvailable) === "open" ? (
+            <AppIconActionCard
+              href={FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard}
+              title={labels.bedriftTitle}
+              description={labels.bedriftDescription}
+              tone="blue"
+              statusLabel={labels.statusAvailable}
+              statusTone="emerald"
+              icon={
+                <DashboardIcon path="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+              }
+            />
+          ) : (
+            <div className={AppLayoutClasses.cardMuted}>
+              <h3 className="text-base font-semibold text-aipify-text">{labels.bedriftTitle}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-aipify-text-secondary">
+                {labels.bedriftUnavailable}
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

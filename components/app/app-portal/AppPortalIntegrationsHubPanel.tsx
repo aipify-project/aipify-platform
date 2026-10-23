@@ -52,7 +52,7 @@ export function AppPortalIntegrationsHubPanel({
   }
 
   if (!hub) {
-    return <p className="p-6 text-sm text-red-600">{labels.hub.loading}</p>;
+    return <p className="p-6 text-sm text-red-700">{labels.hub.loadError}</p>;
   }
 
   return (

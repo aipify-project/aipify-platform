@@ -370,6 +370,7 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
       title: t(`${h}.title`),
       subtitle: t(`${h}.subtitle`),
       loading: t(`${h}.loading`),
+      loadError: t(`${h}.loadError`),
       readOnlyPrinciple: t(`${h}.readOnlyPrinciple`),
       privacyNote: t(`${h}.privacyNote`),
       canManageNote: t(`${h}.canManageNote`),

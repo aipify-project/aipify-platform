@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { isModuleUsableInSnapshot } from "@/lib/core/access-control-plane";
+import { loadRequestAccessControlPlaneSnapshot } from "@/lib/core/access-control-plane/load-snapshot-request";
 import { loadWebsiteKompisEntitlementForAppTenant } from "@/lib/marketing/website-kompis-licensed-availability-server";
 import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 
@@ -18,6 +20,7 @@ export default async function AppPortalHomePage() {
   let planLabel: string | null = null;
   let licenseStatusLabel: string | null = null;
   let websiteKompisAvailable: boolean | null = null;
+  let kompisBedriftAvailable: boolean | null = null;
 
   try {
     const supabase = await createClient();
@@ -31,9 +34,12 @@ export default async function AppPortalHomePage() {
         supabase,
         context.customer_id
       );
+      const snapshot = await loadRequestAccessControlPlaneSnapshot();
+      kompisBedriftAvailable = isModuleUsableInSnapshot(snapshot, "kompis_bedrift");
     }
   } catch {
     websiteKompisAvailable = null;
+    kompisBedriftAvailable = null;
   }
 
   return (
@@ -41,6 +47,7 @@ export default async function AppPortalHomePage() {
       labels={labels}
       organizationName={organizationName}
       websiteKompisAvailable={websiteKompisAvailable}
+      kompisBedriftAvailable={kompisBedriftAvailable}
       planLabel={planLabel}
       licenseStatusLabel={licenseStatusLabel}
     />

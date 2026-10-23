@@ -7049,7 +7049,7 @@
     "languageCollation": "en"
   },
   "kompisOperator": {
-    "title": "Kompis",
+    "title": "Tasks",
     "subtitle": "Get help with tasks, checks, and work in your organization.",
     "sendTask": "Send task",
     "describeTask": "Describe the task",

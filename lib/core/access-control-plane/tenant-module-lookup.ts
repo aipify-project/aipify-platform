@@ -34,3 +34,13 @@ export function isKompisBedriftProductPath(pathname: string | null | undefined):
   const path = pathname.split("?")[0]?.split("#")[0] ?? "";
   return path === "/app/kompis-bedrift" || path.startsWith("/app/kompis-bedrift/");
 }
+
+/** Internal knowledge workspace. Same product gate as Kompis Bedrift, different URL. */
+export function isKompisBedriftInternalKnowledgePath(pathname: string | null | undefined): boolean {
+  if (!pathname) return false;
+  const path = pathname.split("?")[0]?.split("#")[0] ?? "";
+  return (
+    path === "/app/settings/employee-knowledge" ||
+    path.startsWith("/app/settings/employee-knowledge/")
+  );
+}
