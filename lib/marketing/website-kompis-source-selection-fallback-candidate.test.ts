@@ -53,9 +53,11 @@ async function main() {
   const { buildWebsiteKompisSafeFallbackResponse } = await import(
     "@/lib/marketing/website-kompis-public-boundary"
   );
-  const { tryBuildWebsiteKompisCurrentPublicPageAnswer } = await import(
-    "@/lib/marketing/website-kompis-public-page-context"
-  );
+  const {
+    isWebsiteKompisExplicitCurrentPageQuestion,
+    tryBuildWebsiteKompisCurrentPublicPageAnswer,
+    websiteKompisPublicPageSourceRoute,
+  } = await import("@/lib/marketing/website-kompis-public-page-context");
   const { mapWebsiteCompanionApiResponse } = await import(
     "@/lib/marketing/website-companion-chat"
   );
@@ -140,6 +142,47 @@ async function main() {
   assert.equal(connieCards[0]?.href, `${HOST}/profiles/connie`);
   assert.notEqual(connieCards[0]?.href, angelCards[0]?.href);
 
+  const profileQuestions = [
+    { question: "Hvilken modell ser jeg på nå?", page: angel, name: "Angel", locale: "no" },
+    { question: "Hvilken model kigger jeg på nu?", page: connie, name: "Connie", locale: "da" },
+    { question: "Which model am I looking at now?", page: angel, name: "Angel", locale: "en" },
+  ];
+  for (const item of profileQuestions) {
+    assert.equal(isWebsiteKompisExplicitCurrentPageQuestion(item.question), true);
+    const answer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
+      question: item.question,
+      pageContext: item.page,
+      locale: item.locale,
+    });
+    assert.ok(answer);
+    assert.match(answer!.answer.directAnswer, new RegExp(item.name));
+    assert.notEqual(answer!.sources[0]?.route, "website-kompis-current-page");
+    const cards = widgetSources(answer!.sources, answer!.answer.directAnswer);
+    assert.equal(cards[0]?.href, item.page.canonicalUrl);
+    const pack = buildWebsiteKompisEvidencePack({
+      question: item.question,
+      locale: item.locale,
+      faqRows: [imageFaq, countryFaq, unrelatedModelFaq, otherTenantFaq],
+      pageContext: item.page,
+    });
+    assert.equal(pack.evidence.some((entry) => entry.title === "Nakenbilder"), false);
+    assert.ok(pack.evidence.some((entry) => entry.kind === "current-page" && entry.url === item.page.canonicalUrl));
+  }
+  assert.equal(
+    websiteKompisPublicPageSourceRoute({
+      canonicalUrl: "javascript:alert(1)",
+      pathname: "/profiles/angel",
+    }),
+    "/profiles/angel",
+  );
+  assert.equal(
+    websiteKompisPublicPageSourceRoute({
+      canonicalUrl: "website-kompis-current-page",
+      pathname: "/profiles/angel",
+    }),
+    "/profiles/angel",
+  );
+
   const consentQuestion = "Hvilke regler gjelder for samtykke og rettigheter?";
   assert.equal(
     isRelevantPublicCompanionTenantFaqResult([unrelatedModelFaq, otherTenantFaq], consentQuestion),
@@ -166,6 +209,7 @@ async function main() {
     "Can the model function be used in all countries?",
   ];
   for (const question of countryQuestions) {
+    assert.equal(isWebsiteKompisExplicitCurrentPageQuestion(question), false);
     assert.equal(isRelevantPublicCompanionTenantFaqResult([imageFaq], question), false);
     assert.equal(isRelevantPublicCompanionTenantFaqResult([countryFaq], question), true);
     const pack = buildWebsiteKompisEvidencePack({
@@ -178,6 +222,27 @@ async function main() {
     assert.equal(pack.evidence.some((item) => item.title === "Other tenant notice"), false);
     assert.ok(pack.evidence.some((item) => item.url === countryFaq.source_url));
   }
+
+  const imageQuestion = "Hva gjelder for nakenbilder?";
+  assert.equal(isRelevantPublicCompanionTenantFaqResult([imageFaq], imageQuestion), true);
+  assert.equal(isRelevantPublicCompanionTenantFaqResult([countryFaq], imageQuestion), false);
+  const imagePack = buildWebsiteKompisEvidencePack({
+    question: imageQuestion,
+    locale: "no",
+    faqRows: [imageFaq, countryFaq, otherTenantFaq],
+    pageContext: angel,
+  });
+  assert.ok(imagePack.evidence.some((entry) => entry.url === imageFaq.source_url));
+  assert.equal(imagePack.evidence.some((entry) => entry.url === countryFaq.source_url), false);
+  const imageCards = widgetSources(
+    [{ title: imageFaq.title, route: imageFaq.source_url! }],
+    imageFaq.answer,
+  );
+  assert.equal(imageCards[0]?.href, `${HOST}/faq/images`);
+
+  const danishQuestion = "Kan Model-funktionen bruges i alle lande?";
+  assert.equal(countryFaq.locale, "no");
+  assert.equal(isRelevantPublicCompanionTenantFaqResult([countryFaq], danishQuestion), true);
 
   const positive = buildPublicCompanionTenantFaqResponse([countryFaq], "no");
   const positiveCards = widgetSources(positive.sources, positive.answer.directAnswer);

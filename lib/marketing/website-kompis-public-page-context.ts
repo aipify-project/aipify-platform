@@ -331,6 +331,9 @@ export function isWebsiteKompisExplicitCurrentPageQuestion(question: string): bo
     ) ||
     /(?:^|\s)(hvilken side er jeg på|which page am i on|what page am i on)(?:\?|$|[\s,])/.test(
       ` ${normalized} `,
+    ) ||
+    /(?:^|[^\p{L}\p{N}])(ser jeg på|kigger jeg på|am i looking at|am i viewing)(?=$|[^\p{L}\p{N}])/u.test(
+      normalized,
     )
   );
 }
