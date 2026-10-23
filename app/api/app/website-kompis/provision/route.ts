@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { requestWebsiteKompisSiteProvision } from "@/lib/website-kompis-connection/provision-request";
+import { organizationMembershipCanManageDomains } from "@/lib/domain-license/membership-role";
+import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
+import {
+  requestWebsiteKompisSiteProvision,
+  websiteKompisSiteProvisionIsLive,
+} from "@/lib/website-kompis-connection/provision-request";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
@@ -20,6 +25,18 @@ export async function POST(request: Request) {
     confirmation = undefined;
   }
 
+  let membershipCanManage = false;
+  if (websiteKompisSiteProvisionIsLive()) {
+    const { data: contextData, error: contextError } = await supabase.rpc(
+      "get_app_organization_context",
+    );
+    if (!contextError) {
+      membershipCanManage = organizationMembershipCanManageDomains(
+        parseAppOrganizationContext(contextData),
+      );
+    }
+  }
+
   const result = await requestWebsiteKompisSiteProvision(
     {
       rpc: async (_fn, args) => {
@@ -30,7 +47,7 @@ export async function POST(request: Request) {
         return call("provision_website_kompis_site", args);
       },
     },
-    { domainId, confirmation },
+    { domainId, confirmation, membershipCanManage },
   );
   if (!result.ok) {
     return NextResponse.json({ ok: false, code: result.code }, { status: result.httpStatus });
