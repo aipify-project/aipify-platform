@@ -73,6 +73,7 @@ export default async function KompisBedriftDashboardPage() {
 
   return (
     <AppHubShell
+      breadcrumbLabel={common.breadcrumb}
       breadcrumb={[
         { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
         { label: t("customerApp.portalStructure.navGroups.kompisBedrift") },

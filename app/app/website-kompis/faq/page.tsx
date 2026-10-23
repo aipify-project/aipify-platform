@@ -33,6 +33,7 @@ export default async function WebsiteKompisFaqPage() {
 
   return (
     <AppHubShell
+      breadcrumbLabel={common.breadcrumb}
       breadcrumb={[
         { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
         {

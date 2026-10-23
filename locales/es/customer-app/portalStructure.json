@@ -6203,6 +6203,21 @@
         "subtitle": "Connect external platforms to Aipify — self-service setup with read-only access by default.",
         "loading": "Loading integrations…",
         "loadError": "No se pudieron cargar las integraciones. Inténtalo de nuevo.",
+        "categoryFallback": "Otro",
+        "categories": {
+          "productivity": "Productividad",
+          "commerce": "Comercio",
+          "finance": "Finanzas",
+          "crm": "Relaciones con clientes",
+          "support": "Soporte",
+          "marketing": "Marketing",
+          "storage": "Almacenamiento",
+          "communication": "Comunicación",
+          "analytics": "Analítica",
+          "development": "Desarrollo",
+          "custom": "Personalizado",
+          "general": "General"
+        },
         "readOnlyPrinciple": "Aipify only requests the access needed to help your organization. Read-only access is preferred whenever possible.",
         "privacyNote": "Credentials are encrypted at rest. Full secrets are never shown after saving.",
         "canManageNote": "You can connect, test, replace, and remove integrations for your organization.",
@@ -7242,6 +7257,7 @@
     "productHubs": {
       "common": {
         "home": "Inicio",
+        "breadcrumb": "Ruta de navegación",
         "orgFallback": "Su organización",
         "backToBedrift": "Volver a Kompis Bedrift",
         "backToAccount": "Volver a Cuenta",
@@ -7249,7 +7265,7 @@
         "openWorkspace": "Abrir espacio de trabajo"
       },
       "web": {
-        "modulesCard": "See software and modules available for your website companion.",
+        "modulesCard": "Vea el software y los módulos disponibles para el compañero del sitio.",
         "connectionDescription": "Compruebe si Kompis Web está conectado, activado y válido para esta cuenta. Los cambios de plan están en Suscripción.",
         "connectionDomainsTitle": "Dominios e instalaciones",
         "connectionDomainsCard": "Revise dominios y acceso de visitantes para el compañero del sitio.",
@@ -7258,12 +7274,12 @@
       },
       "bedrift": {
         "dashboardTitle": "Resumen de Kompis Bedrift",
-        "dashboardDescription": "A calm starting point for employees, documents, internal knowledge, and collaboration.",
+        "dashboardDescription": "Un punto de partida tranquilo para empleados, documentos, conocimiento interno y colaboración.",
         "employeesCard": "Invite a las personas y revise los roles con etiquetas de acceso claras.",
-        "documentsCard": "See documents available to your organization.",
+        "documentsCard": "Vea los documentos disponibles para su organización.",
         "knowledgeCard": "FAQ y conocimiento interno para su equipo — separado del sitio web público.",
-        "commsCard": "Organize internal communication without sending messages from here.",
-        "meetingsCard": "Review meetings when they exist for your workspace.",
+        "commsCard": "Organice la comunicación interna sin enviar mensajes desde aquí.",
+        "meetingsCard": "Revise las reuniones cuando existan en su espacio de trabajo.",
         "modulesCard": "Vea los módulos disponibles para Kompis Bedrift en esta cuenta.",
         "settingsHint": "Solo ajustes del producto — la facturación y las notificaciones permanecen en Cuenta.",
         "employeesDescription": "Administre quién puede acceder a su organización. Los roles usan nombres cotidianos.",
@@ -7273,6 +7289,7 @@
         "knowledgeEmptyBody": "Use el espacio de conocimiento para empleados para orientación interna aprobada. Aquí no se inventa nada.",
         "openInternalKnowledge": "Abrir conocimiento de empleados",
         "knowledgeWorkspaceHint": "Fuentes internas aprobadas, permisos y orientación para su equipo.",
+        "knowledgeBoundaryStatus": "Conocimiento interno",
         "knowledgePublicSeparation": "La FAQ del sitio web público permanece en Kompis Web y no se mezcla en esta área.",
         "commsDescription": "Resumen de comunicación interna. Los sistemas de entrega no se modifican desde este centro.",
         "meetingsDescription": "Reuniones de su organización. Vacío cuando aún no hay datos de reuniones.",
@@ -7289,17 +7306,17 @@
         "connectionLicenseNote": "¿Necesita detalles del plan o del pago?"
       },
       "account": {
-        "overviewTitle": "Account center",
-        "overviewDescription": "Shared account settings for your workspace — subscription, invoicing entry, integrations, and notifications.",
-        "subscriptionCard": "Review plan status and billing details from the authoritative billing surface.",
+        "overviewTitle": "Centro de cuenta",
+        "overviewDescription": "Ajustes compartidos de la cuenta — suscripción, facturas, integraciones y notificaciones.",
+        "subscriptionCard": "Revise el estado del plan y los detalles de facturación en la superficie de facturación autorizada.",
         "invoicesCard": "Vea facturas de Aipify para esta cuenta cuando estén disponibles.",
-        "integrationsCard": "See connected apps and what still needs attention.",
-        "notificationsCard": "Choose how Aipify notifies your account.",
+        "integrationsCard": "Vea las aplicaciones conectadas y lo que aún necesita atención.",
+        "notificationsCard": "Elija cómo Aipify notifica a su cuenta.",
         "subscriptionDescription": "Vea la licencia, los productos y la capacidad vinculados a su espacio de trabajo.",
         "invoicesTitle": "Facturas de Aipify",
         "invoicesDescription": "Facturas y recibos de Aipify para su cuenta. Aipify no crea facturas que usted envíe a sus propios clientes.",
-        "integrationsDescription": "Connected systems for this account. Status only appears when it can be verified.",
-        "notificationsDescription": "Global notification preferences for your account.",
+        "integrationsDescription": "Sistemas conectados de esta cuenta. El estado solo aparece cuando se puede verificar.",
+        "notificationsDescription": "Preferencias globales de notificación para su cuenta.",
         "invoicesEyebrow": "Facturación de Aipify",
         "subscriptionEyebrow": "Suscripción de Aipify"
       }

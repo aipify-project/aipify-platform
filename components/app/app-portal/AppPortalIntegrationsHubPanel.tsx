@@ -12,6 +12,8 @@ import {
   type AppPortalIntegrationsLabels,
 } from "@/lib/app-portal/integrations";
 import { IntegrationConnectionRow } from "@/components/app/app-portal/IntegrationConnectionRow";
+import { AppErrorState, AppLoadingState } from "@/components/app/design";
+import { integrationCategoryLabel } from "@/lib/app-portal/integrations/category-label";
 
 type AppPortalIntegrationsHubPanelProps = {
   labels: AppPortalIntegrationsLabels;
@@ -48,11 +50,20 @@ export function AppPortalIntegrationsHubPanel({
   }, [load]);
 
   if (loading && !hub) {
-    return <p className="p-6 text-sm text-slate-500">{labels.hub.loading}</p>;
+    return <AppLoadingState message={labels.hub.loading} />;
   }
 
   if (!hub) {
-    return <p className="p-6 text-sm text-red-700">{labels.hub.loadError}</p>;
+    return (
+      <AppErrorState
+        title={labels.hub.title}
+        description={labels.hub.loadError}
+        retryLabel={labels.hub.actions.retry}
+        onRetry={() => {
+          void load();
+        }}
+      />
+    );
   }
 
   return (
@@ -141,7 +152,9 @@ export function AppPortalIntegrationsHubPanel({
           {hub.providers.map((provider) => (
             <li key={provider.provider_key} className="rounded-xl border border-slate-100 p-4">
               <p className="font-medium text-slate-900">{provider.display_name}</p>
-              <p className="mt-1 text-xs uppercase tracking-wide text-slate-500">{provider.category}</p>
+              <p className="mt-1 text-sm text-slate-600">
+                {integrationCategoryLabel(provider.category, labels.hub)}
+              </p>
               {hub.can_manage ? (
                 <Link
                   href={`/app/platform/integrations/connect/${provider.provider_key}`}
@@ -177,8 +190,9 @@ export function AppPortalIntegrationsHubPanel({
             <article key={article.slug} className="rounded-2xl border border-slate-200 bg-white shadow-sm">
               <button
                 type="button"
+                aria-expanded={isOpen}
                 onClick={() => setOpenFaq(isOpen ? null : article.slug)}
-                className="flex w-full items-center justify-between px-5 py-4 text-left"
+                className="flex w-full items-center justify-between px-5 py-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
               >
                 <span className="font-medium text-slate-900">{question}</span>
                 <span className="text-slate-400">{isOpen ? "−" : "+"}</span>

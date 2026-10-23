@@ -47,6 +47,7 @@ export default async function CompanyProfileSettingsPage() {
 
   return (
     <AppHubShell
+      breadcrumbLabel={common.breadcrumb}
       breadcrumb={[
         { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
         { label: t("customerApp.settings.operativeTitle"), href: "/app/settings" },

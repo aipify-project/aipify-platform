@@ -236,6 +236,21 @@ export type AppPortalIntegrationsLabels = {
     subtitle: string;
     loading: string;
     loadError: string;
+    categoryFallback: string;
+    categories: {
+      productivity: string;
+      commerce: string;
+      finance: string;
+      crm: string;
+      support: string;
+      marketing: string;
+      storage: string;
+      communication: string;
+      analytics: string;
+      development: string;
+      custom: string;
+      general: string;
+    };
     readOnlyPrinciple: string;
     privacyNote: string;
     canManageNote: string;

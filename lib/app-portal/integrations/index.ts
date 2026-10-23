@@ -1,4 +1,5 @@
 export * from "./types";
+export * from "./category-label";
 export * from "./parse";
 export * from "./nav-config";
 export * from "./labels";

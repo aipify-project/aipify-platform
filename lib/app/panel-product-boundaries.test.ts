@@ -19,7 +19,8 @@ const hub = readFileSync(
   "utf8",
 );
 const errorStart = hub.indexOf("if (!hub)");
-const errorBranch = hub.slice(errorStart, hub.indexOf("return (", errorStart));
+const errorBranch = hub.slice(errorStart, errorStart + 420);
+assert.match(errorBranch, /AppErrorState/);
 assert.match(errorBranch, /labels\.hub\.loadError/);
 assert.doesNotMatch(errorBranch, /labels\.hub\.loading/);
 

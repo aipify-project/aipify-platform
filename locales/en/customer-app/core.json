@@ -7051,6 +7051,7 @@
   "kompisOperator": {
     "title": "Tasks",
     "subtitle": "Get help with tasks, checks, and work in your organization.",
+    "boundaryNote": "This workspace is for your organization's tasks and website drafts. It is separate from the public website assistant and from Kompis Bedrift.",
     "sendTask": "Send task",
     "describeTask": "Describe the task",
     "understanding": "Understanding the task",

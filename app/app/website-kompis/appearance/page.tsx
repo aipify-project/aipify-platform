@@ -26,6 +26,7 @@ export default async function WebsiteKompisAppearancePage() {
 
   return (
     <AppHubShell
+      breadcrumbLabel={common.breadcrumb}
       breadcrumb={[
         {
           label: t("customerApp.portalStructure.navGroups.kompisWeb"),

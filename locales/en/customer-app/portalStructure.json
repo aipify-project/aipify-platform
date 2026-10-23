@@ -6179,6 +6179,21 @@
         "subtitle": "Connect external platforms to Aipify — self-service setup with read-only access by default.",
         "loading": "Loading integrations…",
         "loadError": "Integrations could not be loaded. Try again.",
+        "categoryFallback": "Other",
+        "categories": {
+          "productivity": "Productivity",
+          "commerce": "Commerce",
+          "finance": "Finance",
+          "crm": "Customer relationships",
+          "support": "Support",
+          "marketing": "Marketing",
+          "storage": "Storage",
+          "communication": "Communication",
+          "analytics": "Analytics",
+          "development": "Development",
+          "custom": "Custom",
+          "general": "General"
+        },
         "readOnlyPrinciple": "Aipify only requests the access needed to help your organization. Read-only access is preferred whenever possible.",
         "privacyNote": "Credentials are encrypted at rest. Full secrets are never shown after saving.",
         "canManageNote": "You can connect, test, replace, and remove integrations for your organization.",
@@ -8520,6 +8535,7 @@
     "productHubs": {
       "common": {
         "home": "Home",
+        "breadcrumb": "Breadcrumb",
         "orgFallback": "Your organization",
         "backToBedrift": "Back to Kompis Bedrift",
         "backToAccount": "Back to Account",
@@ -8551,6 +8567,7 @@
         "knowledgeEmptyBody": "Use the employee knowledge workspace for approved internal guidance. Nothing is invented here.",
         "openInternalKnowledge": "Open employee knowledge",
         "knowledgeWorkspaceHint": "Approved internal sources, permissions, and guidance for your team.",
+        "knowledgeBoundaryStatus": "Internal knowledge",
         "knowledgePublicSeparation": "Public website FAQ stays under Kompis Web and is not mixed into this area.",
         "commsDescription": "Internal communication overview. Delivery systems are not changed from this hub.",
         "meetingsDescription": "Meetings for your organization. Empty when no meeting data is available yet.",

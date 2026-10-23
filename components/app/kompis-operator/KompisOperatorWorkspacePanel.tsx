@@ -744,6 +744,9 @@ export function KompisOperatorWorkspacePanel({
         <header>
           <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">{labels.title}</h1>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{labels.subtitle}</p>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+            {labels.boundaryNote}
+          </p>
           <div className="mt-4 flex gap-2" role="tablist" aria-label={labels.websiteTab}>
             <button
               type="button"

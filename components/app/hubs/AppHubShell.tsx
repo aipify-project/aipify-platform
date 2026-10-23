@@ -23,6 +23,7 @@ const STATUS_TONE: Record<AppIconActionCardTone, string> = {
 };
 
 type AppHubShellProps = {
+  breadcrumbLabel: string;
   breadcrumb: AppHubBreadcrumbItem[];
   eyebrow: string;
   title: string;
@@ -38,6 +39,7 @@ type AppHubShellProps = {
 };
 
 export function AppHubShell({
+  breadcrumbLabel,
   breadcrumb,
   eyebrow,
   title,
@@ -53,7 +55,7 @@ export function AppHubShell({
     <AppContentWidth className="relative">
       {decorativeAccent ? <AppDecorativeOrb /> : null}
 
-      <nav aria-label="Breadcrumb" className="relative z-[1] mb-5">
+      <nav aria-label={breadcrumbLabel} className="relative z-[1] mb-5">
         <ol className="flex flex-wrap items-center gap-1.5 text-sm text-[var(--app-text-muted)]">
           {breadcrumb.map((item, index) => {
             const isLast = index === breadcrumb.length - 1;
