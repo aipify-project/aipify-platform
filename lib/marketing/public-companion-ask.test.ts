@@ -1433,11 +1433,10 @@ async function main() {
       ),
       "rejected FAQ/terms/membership routes must not reappear as sources",
     );
-    assert.ok(
-      response.sources.some((source) =>
-        source.route.includes("website-kompis-safe-fallback"),
-      ),
-      "empty pack with no topical hits must land on safe_fallback",
+    assert.equal(
+      response.sources.length,
+      0,
+      "empty pack with no topical hits must land on safe_fallback without a source card",
     );
   });
 

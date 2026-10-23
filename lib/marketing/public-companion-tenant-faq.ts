@@ -80,6 +80,12 @@ const PUBLIC_COMPANION_FAQ_STOPWORDS = new Set([
   "could",
   "would",
   "should",
+  "alle",
+  "all",
+  "hvilke",
+  "hvilken",
+  "hvilket",
+  "which",
 ]);
 
 /** Distinctive content tokens from a visitor question (stopwords removed). */
@@ -127,7 +133,66 @@ function faqRowCorpus(row: Pick<PublicCompanionTenantFaqRow, "title" | "answer" 
   return `${row.title}\n${row.answer}\n${row.category ?? ""}`.toLowerCase();
 }
 
-/** True when at least one distinctive query token appears in the FAQ corpus. */
+/** Whole words only. "model" must not match inside "modell". */
+function faqWholeTokens(text: string): string[] {
+  return text
+    .toLowerCase()
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter((token) => token.length >= 2);
+}
+
+function faqHasWholeToken(corpus: string, token: string): boolean {
+  const words = faqWholeTokens(corpus);
+  if (words.includes(token)) return true;
+  return words.some((word) => {
+    if (token.length < 6 || word.length < 6) return false;
+    const limit = Math.min(token.length, word.length);
+    let shared = 0;
+    while (shared < limit && token[shared] === word[shared]) shared += 1;
+    return shared >= 6;
+  });
+}
+
+const INSUFFICIENT_ALONE_FAQ_TOKENS = new Set([
+  "model",
+  "models",
+  "modell",
+  "function",
+  "functions",
+  "funksjon",
+  "funksjonen",
+  "funktion",
+  "funktionen",
+  "used",
+  "brukes",
+  "bruges",
+  "land",
+  "lande",
+  "country",
+  "countries",
+  "koster",
+  "kostnad",
+  "kostnaden",
+  "pris",
+  "prisen",
+  "price",
+  "cost",
+  "costs",
+  "gratis",
+]);
+
+function faqCoverageMatches(tokens: string[], hits: string[]): boolean {
+  const specific = tokens.filter((token) => !INSUFFICIENT_ALONE_FAQ_TOKENS.has(token));
+  const uniqueHits = [...new Set(hits)];
+  if (specific.some((token) => uniqueHits.includes(token))) return true;
+  return uniqueHits.filter((token) => INSUFFICIENT_ALONE_FAQ_TOKENS.has(token)).length >= 2;
+}
+
+/**
+ * Content overlap requires whole tokens.
+ * Two generic words such as model and land are not enough on their own.
+ * One specific title word, such as a named topic, can still carry the row.
+ */
 export function faqQuestionHasContentOverlap(
   question: string,
   row: Pick<PublicCompanionTenantFaqRow, "title" | "answer" | "category">,
@@ -135,16 +200,11 @@ export function faqQuestionHasContentOverlap(
   const tokens = [
     ...tokenizePublicCompanionFaqQuestion(question),
     ...expandFaqIntentTokens(question),
-  ];
+  ].filter((token) => token.length >= 4);
   if (tokens.length === 0) return false;
   const corpus = faqRowCorpus(row);
-  return tokens.some(
-    (token) =>
-      corpus.includes(token) ||
-      tokenizePublicCompanionFaqQuestion(corpus).some(
-        (corpusToken) => corpusToken.includes(token) || token.includes(corpusToken),
-      ),
-  );
+  const hits = tokens.filter((token) => faqHasWholeToken(corpus, token));
+  return faqCoverageMatches(tokens, hits);
 }
 
 export type PublicCompanionTenantFaqRow = {
@@ -250,15 +310,8 @@ export function isRelevantPublicCompanionTenantFaqResult(
   const distinctive = distinctivePublicCompanionFaqTopicTokens(trimmedQuery);
   if (distinctive.length > 0 && top) {
     const corpus = faqRowCorpus(top);
-    const corpusTokens = tokenizePublicCompanionFaqQuestion(corpus);
-    const distinctiveHit = distinctive.some(
-      (token) =>
-        corpus.includes(token) ||
-        corpusTokens.some(
-          (corpusToken) => corpusToken.includes(token) || token.includes(corpusToken),
-        ),
-    );
-    if (!distinctiveHit) {
+    const hits = distinctive.filter((token) => faqHasWholeToken(corpus, token));
+    if (!faqCoverageMatches(distinctive, hits)) {
       return false;
     }
   }
@@ -351,13 +404,10 @@ export function buildPublicCompanionTenantFaqResponse(
   const directAnswer = primary.answer.trim();
 
   const sources = dedupeCompanionSourcesByRoute(
-    [primary].map((row) => ({
-      title: row.title,
-      route:
-        row.source_url && isSafeTenantFaqSourceUrl(row.source_url)
-          ? row.source_url
-          : `website-kompis-faq:${row.content_type}`,
-    })),
+    [primary].flatMap((row) => {
+      if (!row.source_url || !isSafeTenantFaqSourceUrl(row.source_url)) return [];
+      return [{ title: row.title, route: row.source_url }];
+    }),
   );
 
   const topScore = primary.score ?? 0;

@@ -13,6 +13,29 @@ import { isPrivateWebsiteKompisSurfacePathname } from "@/lib/marketing/website-k
 
 export const WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE = "website-kompis-current-page" as const;
 
+function isSafePublicPageRoute(route: string): boolean {
+  const trimmed = route.trim();
+  if (!trimmed) return false;
+  if (trimmed.startsWith("/") && !trimmed.startsWith("//")) return true;
+  try {
+    const parsed = new URL(trimmed);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+/** Real page link for a verified current-page answer. Internal sentinels are not evidence. */
+export function websiteKompisPublicPageSourceRoute(
+  pageContext: Pick<WebsiteKompisPublicPageContext, "canonicalUrl" | "pathname">,
+): string | null {
+  const canonical = pageContext.canonicalUrl?.trim() ?? "";
+  if (canonical && isSafePublicPageRoute(canonical)) return canonical;
+  const pathname = pageContext.pathname?.trim() ?? "";
+  if (pathname.startsWith("/") && !pathname.startsWith("//")) return pathname;
+  return null;
+}
+
 export const WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_HEADINGS = 12;
 export const WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_HEADING_LENGTH = 140;
 export const WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS = 8;
@@ -525,6 +548,7 @@ export function tryBuildWebsiteKompisCurrentPublicPageAnswer(input: {
   }
 
   const sourceTitle = pageContext.title?.trim() || "Current page";
+  const sourceRoute = websiteKompisPublicPageSourceRoute(pageContext);
 
   return {
     answer: {
@@ -532,12 +556,7 @@ export function tryBuildWebsiteKompisCurrentPublicPageAnswer(input: {
       explanation,
       steps: [],
     },
-    sources: [
-      {
-        title: sourceTitle,
-        route: WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE,
-      },
-    ],
+    sources: sourceRoute ? [{ title: sourceTitle, route: sourceRoute }] : [],
     confidence: {
       level: score >= 6 || pageIntent ? "high" : "medium",
       score: Math.min(0.95, 0.55 + score * 0.05),

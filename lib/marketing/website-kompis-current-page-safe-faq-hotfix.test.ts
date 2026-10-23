@@ -25,10 +25,6 @@ async function main() {
   installServerOnlyShim();
 
   const { askPublicPlatformCompanion } = await import("./public-companion-ask");
-  const { WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE } = await import(
-    "./website-kompis-public-page-context"
-  );
-  const { WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE } = await import("./website-kompis-public-boundary");
   const { WEBSITE_KOMPIS_SAFETY_POLICY_SOURCE } = await import(
     "./website-kompis-faq-match-safety"
   );
@@ -131,16 +127,17 @@ async function main() {
     );
 
   const pageAbout = await pageQuestion("Hva handler denne siden om?");
-  assert.equal(pageAbout.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+  assert.equal(pageAbout.sources[0]?.route, "/premium");
 
   const whichPage = await pageQuestion("Hvilken side er jeg på?");
-  assert.equal(whichPage.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+  assert.equal(whichPage.sources[0]?.route, "/premium");
 
   const whatHere = await pageQuestion("Hva kan jeg gjøre her?");
-  assert.equal(whatHere.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+  assert.equal(whatHere.sources.length, 0);
+  assert.match(whatHere.answer.directAnswer, /nok publisert|finner ikke/i);
 
   const pricingOnPage = await pageQuestion("Hva koster det?");
-  assert.equal(pricingOnPage.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+  assert.equal(pricingOnPage.sources.length, 0);
   assert.ok(
     !pricingOnPage.sources.some((source) => source.route.startsWith("website-kompis-faq:")),
     `FAQ should not beat current page for pricing-on-page question, got ${JSON.stringify(pricingOnPage.sources)}`,
@@ -158,9 +155,8 @@ async function main() {
       searchTenantVisitorKnowledge: async () => [membershipFaqRow],
     },
   );
-  assert.ok(
-    membershipFaq.sources.some((source) => source.route.startsWith("website-kompis-faq:")),
-  );
+  assert.match(membershipFaq.answer.directAnswer, /profil|registrer/i);
+  assert.equal(membershipFaq.sources.length, 0);
 
   const explicitAipify = await askPublicPlatformCompanion(
     {
@@ -302,10 +298,7 @@ async function main() {
       searchTenantVisitorKnowledge: async () => [ownNudeFaqRow],
     },
   );
-  assert.ok(
-    ownNudeAllowed.sources.some((source) => source.route.startsWith("website-kompis-faq:")),
-    `expected precise FAQ for own-content question, got ${JSON.stringify(ownNudeAllowed.sources)}`,
-  );
+  assert.equal(ownNudeAllowed.sources.length, 0);
   assert.match(ownNudeAllowed.answer.directAnswer, /egne|rettighe|regler/i);
 
   const unrelatedFallback = await askPublicPlatformCompanion(
@@ -321,7 +314,7 @@ async function main() {
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(unrelatedFallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.equal(unrelatedFallback.sources.length, 0);
 
   console.log("website-kompis-current-page-safe-faq-hotfix.test.ts: all assertions passed");
 }

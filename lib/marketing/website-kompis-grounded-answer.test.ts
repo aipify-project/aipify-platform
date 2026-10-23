@@ -692,7 +692,7 @@ async function main() {
       if (synthesized.status !== "ok") return;
       assert.equal(
         synthesized.response.sources[0]?.route,
-        "website-kompis-current-page",
+        pageContext.canonicalUrl ?? pageContext.pathname,
       );
     }
   });

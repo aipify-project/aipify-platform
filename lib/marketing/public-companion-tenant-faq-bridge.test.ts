@@ -22,6 +22,12 @@ function installServerOnlyShim(): void {
   };
 }
 
+const resolveLicensedAvailability = async () => ({
+  available: true,
+  reason: "available" as const,
+  capabilityKey: "website_kompis",
+});
+
 async function main() {
   installServerOnlyShim();
 
@@ -66,6 +72,17 @@ async function main() {
     },
     {
       requestHost: "example-a.test",
+      rawInstallConfig: {
+        website_kompis: {
+          enabled: true,
+          sources: { faq: true, currentPage: true, aipifyPublic: false, publicSiteIndex: false },
+        },
+      },
+      resolveLicensedAvailability: async () => ({
+        available: true,
+        reason: "available" as const,
+        capabilityKey: "website_kompis",
+      }),
       searchTenantVisitorKnowledge: async () => {
         rpcCalled = true;
         return [
@@ -102,10 +119,22 @@ async function main() {
       installId,
     },
     {
+      requestHost: "example-a.test",
+      rawInstallConfig: {
+        website_kompis: {
+          enabled: true,
+          sources: { faq: true, currentPage: false, aipifyPublic: false, publicSiteIndex: false },
+        },
+      },
+      resolveLicensedAvailability: async () => ({
+        available: true,
+        reason: "available" as const,
+        capabilityKey: "website_kompis",
+      }),
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(fallbackResponse.sources[0]?.route, "website-kompis-safe-fallback");
+  assert.equal(fallbackResponse.sources.length, 0);
   assert.match(fallbackResponse.answer.directAnswer, /Example-a|virksomheten/i);
 
   const pageContext = {
@@ -126,6 +155,8 @@ async function main() {
       pageContext,
     },
     {
+      requestHost: "example-a.test",
+      resolveLicensedAvailability,
       searchTenantVisitorKnowledge: async () => [
         {
           item_id: "22222222-2222-4222-8222-222222222222",
@@ -158,10 +189,12 @@ async function main() {
       pageContext,
     },
     {
+      requestHost: "example-a.test",
+      resolveLicensedAvailability,
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(pageContextAnswer.sources[0]?.route, "website-kompis-current-page");
+  assert.equal(pageContextAnswer.sources[0]?.route, "/services/consulting");
   assert.match(pageContextAnswer.answer.directAnswer, /consulting/i);
 
   const unrelatedWithContext = await askPublicPlatformCompanion(
@@ -173,10 +206,12 @@ async function main() {
       pageContext,
     },
     {
+      requestHost: "example-a.test",
+      resolveLicensedAvailability,
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(unrelatedWithContext.sources[0]?.route, "website-kompis-safe-fallback");
+  assert.equal(unrelatedWithContext.sources.length, 0);
 
   const disabledResponse = await askPublicPlatformCompanion(
     {
@@ -203,13 +238,15 @@ async function main() {
       installId,
     },
     {
+      requestHost: "example-a.test",
+      resolveLicensedAvailability,
       rawInstallConfig: { website_kompis: { sources: { faq: false, currentPage: false } } },
       searchTenantVisitorKnowledge: async () => {
         throw new Error("FAQ should not run when sources.faq is false");
       },
     },
   );
-  assert.equal(faqDisabled.sources[0]?.route, "website-kompis-safe-fallback");
+  assert.equal(faqDisabled.sources.length, 0);
 
   const pageOnly = await askPublicPlatformCompanion(
     {
@@ -220,11 +257,13 @@ async function main() {
       pageContext,
     },
     {
+      requestHost: "example-a.test",
+      resolveLicensedAvailability,
       rawInstallConfig: { website_kompis: { sources: { faq: false, currentPage: true } } },
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(pageOnly.sources[0]?.route, "website-kompis-current-page");
+  assert.equal(pageOnly.sources[0]?.route, "/services/consulting");
 
   const noAipifyPublic = await askPublicPlatformCompanion(
     {
@@ -234,11 +273,13 @@ async function main() {
       installId,
     },
     {
+      requestHost: "example-a.test",
+      resolveLicensedAvailability,
       rawInstallConfig: { website_kompis: { sources: { aipifyPublic: false } } },
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(noAipifyPublic.sources[0]?.route, "website-kompis-safe-fallback");
+  assert.equal(noAipifyPublic.sources.length, 0);
   assert.ok(
     !noAipifyPublic.sources.some((source) => source.route.includes("aipify-overview")),
   );
@@ -260,6 +301,8 @@ async function main() {
       installId,
     },
     {
+      requestHost: "example-a.test",
+      resolveLicensedAvailability,
       searchTenantVisitorKnowledge: async () => {
         rpcCalled = true;
         return [];
@@ -268,7 +311,7 @@ async function main() {
   );
 
   assert.equal(rpcCalled, true);
-  assert.equal(coreResponse.sources[0]?.route, "website-kompis-safe-fallback");
+  assert.equal(coreResponse.sources.length, 0);
   assert.ok(
     !coreResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
     `expected safe fallback, got ${JSON.stringify(coreResponse.sources)}`,

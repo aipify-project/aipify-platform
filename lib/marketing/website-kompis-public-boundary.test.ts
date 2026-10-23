@@ -37,10 +37,6 @@ async function main() {
     shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite,
   } = await import("./website-kompis-public-boundary");
 
-  const { WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE } = await import(
-    "./website-kompis-public-page-context"
-  );
-
   const { askPublicPlatformCompanion } = await import("./public-companion-ask");
 
   assert.equal(isExplicitAipifyOrKompisQuestion("Hva er Aipify Kompis?"), true);
@@ -175,7 +171,7 @@ async function main() {
   const fallback = buildWebsiteKompisSafeFallbackResponse("no", "unonight.com");
   assert.match(fallback.answer.directAnswer, /Unonight/);
   assert.match(fallback.answer.directAnswer, /Ta gjerne kontakt/);
-  assert.equal(fallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.equal(fallback.sources.length, 0);
 
   const installId = "180c9d31-3340-4633-b210-3b64edf1e1be";
   let rpcCalled = false;
@@ -198,7 +194,7 @@ async function main() {
   );
 
   assert.equal(rpcCalled, true);
-  assert.equal(genericResponse.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.equal(genericResponse.sources.length, 0);
   assert.ok(
     !genericResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
   );
@@ -219,7 +215,7 @@ async function main() {
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(currentPageResponse.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+  assert.equal(currentPageResponse.sources[0]?.route, "/medlemskap");
   assert.match(
     currentPageResponse.answer.directAnswer,
     /Her er det jeg finner på denne siden:/,
@@ -238,7 +234,7 @@ async function main() {
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(benefitsHereResponse.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+  assert.equal(benefitsHereResponse.sources[0]?.route, "/medlemskap");
   assert.ok(
     !benefitsHereResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
   );
@@ -267,10 +263,8 @@ async function main() {
       ],
     },
   );
-  assert.ok(
-    faqResponse.sources.some((source) => source.route.startsWith("website-kompis-faq:")),
-    `expected website-kompis-faq source, got ${JSON.stringify(faqResponse.sources)}`,
-  );
+  assert.match(faqResponse.answer.directAnswer, /medlemskap/i);
+  assert.equal(faqResponse.sources.length, 0);
   assert.ok(
     !faqResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
   );
@@ -288,7 +282,7 @@ async function main() {
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(easterFallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.equal(easterFallback.sources.length, 0);
   assert.match(easterFallback.answer.directAnswer, /Unonight/);
   assert.match(easterFallback.answer.directAnswer, /Ta gjerne kontakt/);
 
@@ -369,7 +363,7 @@ async function main() {
     },
   );
   assert.equal(tenantBSawTenantA, false);
-  assert.equal(tenantBResponse.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.equal(tenantBResponse.sources.length, 0);
   assert.ok(
     !tenantBResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
   );
@@ -447,7 +441,7 @@ async function main() {
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(indexOffFallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.equal(indexOffFallback.sources.length, 0);
   assert.ok(
     !indexOffFallback.sources.some((source) => source.route.includes("aipify-capabilities")),
   );

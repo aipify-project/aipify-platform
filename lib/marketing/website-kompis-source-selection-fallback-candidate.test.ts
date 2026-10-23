@@ -1,0 +1,203 @@
+import assert from "node:assert/strict";
+import { createRequire } from "node:module";
+import type { PublicCompanionTenantFaqRow } from "@/lib/marketing/public-companion-tenant-faq";
+import type { WebsiteKompisPublicPageContext } from "@/lib/marketing/website-kompis-public-page-context";
+
+const require = createRequire(import.meta.url);
+const moduleApi = require("node:module") as {
+  Module: {
+    _load: (request: string, parent: unknown, isMain: boolean) => unknown;
+  };
+};
+const originalLoad = moduleApi.Module._load;
+moduleApi.Module._load = function (request, parent, isMain) {
+  if (request === "server-only") return {};
+  return originalLoad.call(this, request, parent, isMain);
+};
+
+const HOST = "https://customer.example";
+
+function faq(
+  partial: Partial<PublicCompanionTenantFaqRow> &
+    Pick<PublicCompanionTenantFaqRow, "item_id" | "title" | "answer">,
+): PublicCompanionTenantFaqRow {
+  return {
+    category: "public",
+    content_type: "faq",
+    locale: "no",
+    source_url: null,
+    score: 40,
+    matched_reason: "token_match",
+    ...partial,
+  };
+}
+
+function profilePage(name: string, slug: string): WebsiteKompisPublicPageContext {
+  return {
+    pathname: `/profiles/${slug}`,
+    title: name,
+    canonicalUrl: `${HOST}/profiles/${slug}`,
+    surface: "public",
+    locale: "no",
+    headings: [{ level: 1, text: name }],
+    textSnippets: [`${name} is the public profile on this page.`],
+  };
+}
+
+async function main() {
+  const { buildPublicCompanionTenantFaqResponse, isRelevantPublicCompanionTenantFaqResult } =
+    await import("@/lib/marketing/public-companion-tenant-faq");
+  const { buildWebsiteKompisEvidencePack } = await import(
+    "@/lib/marketing/website-kompis-grounded-answer"
+  );
+  const { buildWebsiteKompisSafeFallbackResponse } = await import(
+    "@/lib/marketing/website-kompis-public-boundary"
+  );
+  const { tryBuildWebsiteKompisCurrentPublicPageAnswer } = await import(
+    "@/lib/marketing/website-kompis-public-page-context"
+  );
+  const { mapWebsiteCompanionApiResponse } = await import(
+    "@/lib/marketing/website-companion-chat"
+  );
+
+  function widgetSources(sources: Array<{ title: string; route: string }>, directAnswer: string) {
+    return mapWebsiteCompanionApiResponse({
+      answer: { directAnswer, explanation: null, steps: [] },
+      actions: [],
+      sources,
+    }).sources;
+  }
+
+  const countryFaq = faq({
+    item_id: "11111111-1111-4111-8111-111111111111",
+    title: "Model function by country",
+    answer:
+      "Model-funksjonen kan brukes i alle land. Model-funktionen kan bruges i alle lande. The model function can be used in all countries.",
+    source_url: `${HOST}/faq/model-countries`,
+    locale: "no",
+    score: 48,
+  });
+
+  const imageFaq = faq({
+    item_id: "22222222-2222-4222-8222-222222222222",
+    title: "Nakenbilder",
+    answer: "Nakenbilder av modellen kan deles med alle.",
+    source_url: `${HOST}/faq/images`,
+    locale: "no",
+    score: 16,
+  });
+
+  const consentFaq = faq({
+    item_id: "33333333-3333-4333-8333-333333333333",
+    title: "Samtykke og rettigheter",
+    answer: "Regler som gjelder for samtykke og rettigheter står på denne siden.",
+    source_url: `${HOST}/faq/consent`,
+    locale: "no",
+    score: 44,
+  });
+
+  const unrelatedModelFaq = faq({
+    item_id: "44444444-4444-4444-8444-444444444444",
+    title: "Hvilken modell ser jeg på nå?",
+    answer: "Denne siden viser modellen.",
+    source_url: `${HOST}/faq/which-model`,
+    locale: "no",
+    score: 35,
+  });
+
+  const otherTenantFaq = faq({
+    item_id: "55555555-5555-4555-8555-555555555555",
+    title: "Other tenant notice",
+    answer: "This row belongs to another tenant and does not mention consent or countries.",
+    source_url: "https://other.example/faq/notice",
+    locale: "en",
+    score: 99,
+  });
+
+  const angel = profilePage("Angel", "angel");
+  const connie = profilePage("Connie", "connie");
+
+  const angelAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
+    question: "Who is Angel?",
+    pageContext: angel,
+    locale: "en",
+  });
+  assert.ok(angelAnswer);
+  assert.match(angelAnswer!.answer.directAnswer, /Angel/);
+  const angelCards = widgetSources(angelAnswer!.sources, angelAnswer!.answer.directAnswer);
+  assert.equal(angelCards.length, 1);
+  assert.equal(angelCards[0]?.href, `${HOST}/profiles/angel`);
+  assert.equal(angelCards[0]?.title, "Angel");
+
+  const connieAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
+    question: "Hvem er Connie?",
+    pageContext: connie,
+    locale: "da",
+  });
+  assert.ok(connieAnswer);
+  assert.match(connieAnswer!.answer.directAnswer, /Connie/);
+  const connieCards = widgetSources(connieAnswer!.sources, connieAnswer!.answer.directAnswer);
+  assert.equal(connieCards[0]?.href, `${HOST}/profiles/connie`);
+  assert.notEqual(connieCards[0]?.href, angelCards[0]?.href);
+
+  const consentQuestion = "Hvilke regler gjelder for samtykke og rettigheter?";
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([unrelatedModelFaq, otherTenantFaq], consentQuestion),
+    false,
+  );
+  const consentGap = buildWebsiteKompisSafeFallbackResponse("da", "customer.example");
+  assert.match(consentGap.answer.directAnswer, /offentliggjort|tilstrekkelig|nok/i);
+  assert.equal(consentGap.sources.length, 0);
+  assert.deepEqual(widgetSources(consentGap.sources, consentGap.answer.directAnswer), []);
+  const consentPack = buildWebsiteKompisEvidencePack({
+    question: consentQuestion,
+    locale: "da",
+    faqRows: [unrelatedModelFaq, otherTenantFaq, imageFaq],
+    pageContext: angel,
+  });
+  assert.equal(
+    consentPack.evidence.some((item) => item.title === "Nakenbilder" || item.title.includes("modell")),
+    false,
+  );
+
+  const countryQuestions = [
+    "Kan Model-funksjonen brukes i alle land?",
+    "Kan Model-funktionen bruges i alle lande?",
+    "Can the model function be used in all countries?",
+  ];
+  for (const question of countryQuestions) {
+    assert.equal(isRelevantPublicCompanionTenantFaqResult([imageFaq], question), false);
+    assert.equal(isRelevantPublicCompanionTenantFaqResult([countryFaq], question), true);
+    const pack = buildWebsiteKompisEvidencePack({
+      question,
+      locale: question.includes("bruges") ? "da" : question.includes("Can") ? "en" : "no",
+      faqRows: [imageFaq, countryFaq, otherTenantFaq],
+      pageContext: connie,
+    });
+    assert.equal(pack.evidence.some((item) => item.title === "Nakenbilder"), false);
+    assert.equal(pack.evidence.some((item) => item.title === "Other tenant notice"), false);
+    assert.ok(pack.evidence.some((item) => item.url === countryFaq.source_url));
+  }
+
+  const positive = buildPublicCompanionTenantFaqResponse([countryFaq], "no");
+  const positiveCards = widgetSources(positive.sources, positive.answer.directAnswer);
+  assert.equal(positiveCards.length, 1);
+  assert.equal(positiveCards[0]?.href, `${HOST}/faq/model-countries`);
+  assert.match(positive.answer.directAnswer, /land/);
+
+  const consentPositive = buildPublicCompanionTenantFaqResponse([consentFaq], "no");
+  assert.equal(
+    widgetSources(consentPositive.sources, consentPositive.answer.directAnswer)[0]?.href,
+    `${HOST}/faq/consent`,
+  );
+
+  const noUrl = buildPublicCompanionTenantFaqResponse([faq({ ...countryFaq, source_url: null })], "no");
+  assert.equal(noUrl.sources.length, 0);
+  assert.equal(
+    widgetSources([{ title: "nettstedet", route: "website-kompis-safe-fallback" }], "gap").length,
+    0,
+  );
+  assert.equal(isRelevantPublicCompanionTenantFaqResult([otherTenantFaq], countryQuestions[0]!), false);
+}
+
+main();
