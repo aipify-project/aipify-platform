@@ -258,6 +258,7 @@ function mapWebsiteCompanionSource(source: {
   const title = source.title.trim();
   if (!title) return null;
   const route = source.route.trim();
+  if (route === "website-kompis-safe-fallback") return null;
   let href: string | null = null;
   if (/^https?:\/\//i.test(route)) {
     try {
@@ -270,6 +271,14 @@ function mapWebsiteCompanionSource(source: {
     }
   } else if (route.startsWith("/") && !route.startsWith("//")) {
     href = route;
+  }
+  if (
+    !href &&
+    (route.startsWith("website-kompis-faq:") ||
+      route.startsWith("faq:") ||
+      route.startsWith("index:"))
+  ) {
+    return null;
   }
   return { title, href };
 }
