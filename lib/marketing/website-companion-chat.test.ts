@@ -165,6 +165,23 @@ assert.equal(mapped.directAnswer, "Svar.");
 assert.equal(mapped.explanation, "Forklaring.");
 assert.deepEqual(mapped.steps, ["Steg 1", "Steg 2"]);
 assert.deepEqual(mapped.sources, [{ title: "Kunnskapssenter", href: null }]);
+
+const sourceCards = mapWebsiteCompanionApiResponse({
+  ...response,
+  sources: [
+    { title: "nettstedet", route: "website-kompis-safe-fallback" },
+    { title: "Nakenbilder", route: "website-kompis-faq:images" },
+    { title: "Side uten lenke", route: "index:page" },
+    { title: "Samtykke", route: "https://customer.example/faq/consent" },
+    { title: "Profil", route: "/profiles/north" },
+    { title: "Gjeldende side", route: "website-kompis-current-page" },
+  ],
+});
+assert.deepEqual(sourceCards.sources, [
+  { title: "Samtykke", href: "https://customer.example/faq/consent" },
+  { title: "Profil", href: "/profiles/north" },
+  { title: "Gjeldende side", href: null },
+]);
 assert.equal(mapped.actions.length, 1);
 assert.equal(mapped.actions[0]?.href, "/app/companion");
 
