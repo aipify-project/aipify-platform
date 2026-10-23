@@ -14,6 +14,7 @@ type WebsiteKompisFaqPublishDialogProps = {
   onConfirm: () => void;
   onCancel: () => void;
   busy: boolean;
+  busyLabel?: string;
   acknowledgementLabel?: string;
   acknowledged?: boolean;
   onAcknowledge?: (checked: boolean) => void;
@@ -30,15 +31,17 @@ export function WebsiteKompisFaqPublishDialog({
   onConfirm,
   onCancel,
   busy,
+  busyLabel,
   acknowledgementLabel,
   acknowledged = false,
   onAcknowledge,
 }: WebsiteKompisFaqPublishDialogProps) {
   const confirmRef = useRef<HTMLButtonElement>(null);
+  const acknowledgeRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!open) return;
-    confirmRef.current?.focus();
+    (acknowledgeRef.current ?? confirmRef.current)?.focus();
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape" && !busy) onCancel();
     }
@@ -70,6 +73,7 @@ export function WebsiteKompisFaqPublishDialog({
         {acknowledgementLabel ? (
           <label className="mt-4 flex items-start gap-2 text-sm text-slate-800">
             <input
+              ref={acknowledgeRef}
               type="checkbox"
               className="mt-1"
               checked={acknowledged}
@@ -102,7 +106,7 @@ export function WebsiteKompisFaqPublishDialog({
             disabled={busy || (Boolean(acknowledgementLabel) && !acknowledged)}
             className="rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-50"
           >
-            {busy ? labels.publishing : confirmLabel}
+            {busy ? (busyLabel ?? labels.publishing) : confirmLabel}
           </button>
         </div>
       </div>

@@ -1191,7 +1191,7 @@ export function WebsiteKompisFaqAdminPanel({
             }}
             canPublish={pagePublishBlock === "ready" || pendingPublishIds.length > 0}
             canReview={reviewPlan.readyIds.length > 0 || (matchModeRef.current && selectedIds.length > 0)}
-            explanation={progressLabel ?? pagePublishExplanation}
+            explanation={progressLabel ?? (matchModeRef.current ? null : pagePublishExplanation)}
             onReview={() => {
               setReviewAck(false);
               setReviewOpen(true);
@@ -1337,13 +1337,20 @@ export function WebsiteKompisFaqAdminPanel({
             open={pagePublishOpen}
             riskyWords={[]}
             title={labels.listWindow.publishTitle}
-            body={fillLabel(labels.listWindow.publishBody, {
-              site: selectedSite?.domain ?? labels.filters.all,
-              filter: statusFilter ? labels.statuses[statusFilter] : labels.filters.all,
-              ready: pagePublishPlan.readyIds.length,
-              skipped: pagePublishPlan.skipped.length,
-              published: pagePublishSummaryCounts.published,
-            })}
+            body={
+              pendingPublishIds.length > 0
+                ? fillLabel(labels.listWindow.publishPendingBody, {
+                    site: selectedSite?.domain ?? labels.filters.all,
+                    ready: pendingPublishIds.length,
+                  })
+                : fillLabel(labels.listWindow.publishBody, {
+                    site: selectedSite?.domain ?? labels.filters.all,
+                    filter: statusFilter ? labels.statuses[statusFilter] : labels.filters.all,
+                    ready: pagePublishPlan.readyIds.length,
+                    skipped: pagePublishPlan.skipped.length,
+                    published: pagePublishSummaryCounts.published,
+                  })
+            }
             confirmLabel={labels.listWindow.publishConfirm}
             error={null}
             busy={busy}
@@ -1376,6 +1383,7 @@ export function WebsiteKompisFaqAdminPanel({
             onAcknowledge={setReviewAck}
             error={null}
             busy={busy}
+            busyLabel={labels.listWindow.reviewBusy}
             onCancel={() => {
               if (!busy) setReviewOpen(false);
             }}

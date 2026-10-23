@@ -6963,6 +6963,8 @@
       "reviewConfirm": "Markér som offentligt sikker",
       "reviewResult": "Markeret {marked}. Allerede sikre {already}. Til manuel vurdering {manual}. Sprunget over {skipped}. Mislykkedes {failed}.",
       "reviewProgress": "Vurderet {done} af {total}",
+      "reviewBusy": "Markerer som offentligt sikre…",
+      "publishPendingBody": "Website: {site}. {ready} kladder, der netop blev markeret som offentligt sikre, bliver publiceret. Rækker, der ikke blev markeret, forbliver kladder. Markeringen publicerede dem ikke.",
       "publishProgress": "Publiceret {done} af {total}",
       "publicExposureWarning": "Markerede udkast kan senere publiceres til anonyme besøgende. Private kunde-, medlems-, medarbejder-, booking-, support- eller økonomioplysninger må ikke komme med."
     },

@@ -6952,6 +6952,8 @@
       "reviewConfirm": "Mark as public-safe",
       "reviewResult": "Marked {marked}. Already safe {already}. Left for manual review {manual}. Skipped {skipped}. Failed {failed}.",
       "reviewProgress": "Reviewed {done} of {total}",
+      "reviewBusy": "Marking as public-safe…",
+      "publishPendingBody": "Website: {site}. {ready} drafts just marked public-safe will be published. Rows that were not marked stay drafts. Marking them safe did not publish them.",
       "publishProgress": "Published {done} of {total}",
       "publicExposureWarning": "Marked drafts can later be published to anonymous website visitors. Private customer, member, employee, booking, support, or finance details must stay out."
     },

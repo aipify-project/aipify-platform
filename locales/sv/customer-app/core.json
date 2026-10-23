@@ -6963,6 +6963,8 @@
       "reviewConfirm": "Markera som offentligt säker",
       "reviewResult": "Markerade {marked}. Redan säkra {already}. Kvar för manuell granskning {manual}. Överhoppade {skipped}. Misslyckades {failed}.",
       "reviewProgress": "Granskade {done} av {total}",
+      "reviewBusy": "Markerar som offentligt säkra…",
+      "publishPendingBody": "Webbplats: {site}. {ready} utkast som just markerades som offentligt säkra publiceras. Rader som inte markerades förblir utkast. Markeringen publicerade dem inte.",
       "publishProgress": "Publicerade {done} av {total}",
       "publicExposureWarning": "Markerade utkast kan senare publiceras för anonyma besökare. Privata kund-, medlems-, personal-, boknings-, support- eller ekonomiuppgifter ska inte följa med."
     },

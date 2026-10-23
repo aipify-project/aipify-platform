@@ -6963,6 +6963,8 @@
       "reviewConfirm": "Merk som offentlig trygg",
       "reviewResult": "Merket {marked}. Allerede trygge {already}. Til manuell vurdering {manual}. Hoppet over {skipped}. Feilet {failed}.",
       "reviewProgress": "Vurdert {done} av {total}",
+      "reviewBusy": "Merker som offentlig trygge…",
+      "publishPendingBody": "Nettsted: {site}. {ready} utkast som nettopp ble merket offentlig trygge, blir publisert. Rader som ikke ble merket, forblir utkast. Merkingen publiserte dem ikke.",
       "publishProgress": "Publisert {done} av {total}",
       "publicExposureWarning": "Merkede utkast kan senere publiseres til anonyme besøkende. Private kunde-, medlems-, ansatt-, booking-, support- eller økonomiopplysninger skal ikke bli med."
     },

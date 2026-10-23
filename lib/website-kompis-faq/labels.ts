@@ -138,6 +138,8 @@ export function buildWebsiteKompisFaqLabels(t: TranslateFn) {
       reviewConfirm: t(`${prefix}.listWindow.reviewConfirm`),
       reviewResult: t(`${prefix}.listWindow.reviewResult`),
       reviewProgress: t(`${prefix}.listWindow.reviewProgress`),
+      reviewBusy: t(`${prefix}.listWindow.reviewBusy`),
+      publishPendingBody: t(`${prefix}.listWindow.publishPendingBody`),
       publishProgress: t(`${prefix}.listWindow.publishProgress`),
       publicExposureWarning: t(`${prefix}.listWindow.publicExposureWarning`),
     },
