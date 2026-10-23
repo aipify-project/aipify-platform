@@ -6951,7 +6951,18 @@
       "alreadyPublished": "Alla {count} valda rader är redan publicerade. De publiceras inte igen. Använd Visa utkast för rader som fortfarande kan publiceras.",
       "eligibility": "{ready} kan publiceras. {published} är redan publicerade. {draftNotReady} utkast är inte markerade som redo för den offentliga webbplatsen. {archived} är arkiverade.",
       "noneReadyDetail": "Inga valda rader kan publiceras. {published} är redan publicerade. {draftNotReady} utkast är inte markerade som redo. {archived} är arkiverade. Arkiverade rader måste återställas en och en innan de kan bli utkast.",
-      "showDrafts": "Visa utkast"
+      "showDrafts": "Visa utkast",
+      "totalUnavailable": "Hela totalen är inte tillgänglig.",
+      "selectAllMatches": "Välj alla träffar",
+      "reviewPublicSafe": "Granska valda utkast som offentligt säkra",
+      "reviewTitle": "Markera valda utkast som offentligt säkra?",
+      "reviewBody": "Webbplats: {site}. {ready} utkast kan markeras som säkra för anonyma besökare. {manual} behöver en egen granskning på grund av känsligt innehåll. {already} är redan markerade. Detta publicerar dem inte.",
+      "reviewConfirmLabel": "Jag bekräftar att dessa utkast är säkra att visa på den offentliga webbplatsen.",
+      "reviewConfirm": "Markera som offentligt säker",
+      "reviewResult": "Markerade {marked}. Redan säkra {already}. Kvar för manuell granskning {manual}. Överhoppade {skipped}. Misslyckades {failed}.",
+      "reviewProgress": "Granskade {done} av {total}",
+      "publishProgress": "Publicerade {done} av {total}",
+      "publicExposureWarning": "Markerade utkast kan senare publiceras för anonyma besökare. Privata kund-, medlems-, personal-, boknings-, support- eller ekonomiuppgifter ska inte följa med."
     },
     "filters": {
       "status": "Status",

@@ -6951,7 +6951,18 @@
       "alreadyPublished": "Alle {count} valgte rækker er allerede publiceret. De publiceres ikke igen. Brug Vis udkast for rækker, der stadig kan publiceres.",
       "eligibility": "{ready} kan publiceres. {published} er allerede publiceret. {draftNotReady} udkast er ikke markeret som klar til det offentlige website. {archived} er arkiveret.",
       "noneReadyDetail": "Ingen valgte rækker kan publiceres. {published} er allerede publiceret. {draftNotReady} udkast er ikke markeret som klar. {archived} er arkiveret. Arkiverede rækker skal gendannes én ad gangen, før de kan blive udkast.",
-      "showDrafts": "Vis udkast"
+      "showDrafts": "Vis udkast",
+      "totalUnavailable": "Hele totalen er ikke tilgængelig.",
+      "selectAllMatches": "Vælg alle træff",
+      "reviewPublicSafe": "Gennemgå valgte udkast som offentligt sikre",
+      "reviewTitle": "Markér valgte udkast som offentligt sikre?",
+      "reviewBody": "Website: {site}. {ready} udkast kan markeres som sikre for anonyme besøgende. {manual} skal vurderes hver for sig på grund af følsomt indhold. {already} er allerede markeret. Dette publicerer dem ikke.",
+      "reviewConfirmLabel": "Jeg bekræfter, at disse udkast er sikre at vise på det offentlige website.",
+      "reviewConfirm": "Markér som offentligt sikker",
+      "reviewResult": "Markeret {marked}. Allerede sikre {already}. Til manuel vurdering {manual}. Sprunget over {skipped}. Mislykkedes {failed}.",
+      "reviewProgress": "Vurderet {done} af {total}",
+      "publishProgress": "Publiceret {done} af {total}",
+      "publicExposureWarning": "Markerede udkast kan senere publiceres til anonyme besøgende. Private kunde-, medlems-, medarbejder-, booking-, support- eller økonomioplysninger må ikke komme med."
     },
     "filters": {
       "status": "Status",

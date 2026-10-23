@@ -19,6 +19,11 @@ import {
 } from "@/lib/website-kompis-faq/constants";
 import type { WebsiteKompisFaqLabels } from "@/lib/website-kompis-faq/labels";
 import {
+  chunkFaqIds,
+  planPublicSafeReview,
+  selectionAfterPublicSafeReview,
+} from "@/lib/website-kompis-faq/bulk-review";
+import {
   FAQ_GLOBAL_MATCH_SELECT_SUPPORTED,
   FAQ_LIST_PAGE_SIZE,
   buildFaqListWindow,
@@ -144,7 +149,10 @@ function ListWindowBar({
   onClear,
   onPublish,
   onShowDrafts,
+  onReview,
+  onSelectAll,
   canPublish,
+  canReview,
   explanation,
 }: {
   labels: WebsiteKompisFaqLabels;
@@ -159,7 +167,10 @@ function ListWindowBar({
   onClear: () => void;
   onPublish: () => void;
   onShowDrafts: () => void;
+  onReview: () => void;
+  onSelectAll: () => void;
   canPublish: boolean;
+  canReview: boolean;
   explanation: string | null;
 }) {
   const range = visibleRowRange(listWindow);
@@ -179,8 +190,10 @@ function ListWindowBar({
       {listWindow.totalState === "at_least_tenant" ? (
         <p className="text-sm text-slate-600">{labels.listWindow.moreMayExist}</p>
       ) : null}
-      {FAQ_GLOBAL_MATCH_SELECT_SUPPORTED ? null : (
-        <p className="text-sm text-slate-600">{labels.listWindow.globalBlocked}</p>
+      {listWindow.selectAllSupported || FAQ_GLOBAL_MATCH_SELECT_SUPPORTED ? null : (
+        <p className="text-sm text-slate-600">
+          {labels.listWindow.globalBlocked} {labels.listWindow.totalUnavailable}
+        </p>
       )}
       <div className="flex flex-wrap items-center gap-3">
         <label className="inline-flex items-center gap-2 text-sm text-slate-800">
@@ -235,6 +248,22 @@ function ListWindowBar({
         >
           {labels.listWindow.publishSelected}
         </button>
+        <button
+          type="button"
+          onClick={onReview}
+          disabled={!canReview || busy}
+          className="rounded-md border border-violet-300 px-3 py-2 text-sm text-violet-800 disabled:opacity-50"
+        >
+          {labels.listWindow.reviewPublicSafe}
+        </button>
+        <button
+          type="button"
+          onClick={onSelectAll}
+          disabled={!listWindow.selectAllSupported || busy}
+          className="rounded-md border border-slate-300 px-3 py-2 text-sm disabled:opacity-50"
+        >
+          {labels.listWindow.selectAllMatches}
+        </button>
       </div>
       {explanation ? <p className="text-sm text-slate-700">{explanation}</p> : null}
       {summary ? <p className="text-sm text-slate-700">{summary}</p> : null}
@@ -258,6 +287,11 @@ export function WebsiteKompisFaqAdminPanel({
     }),
   );
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [reviewOpen, setReviewOpen] = useState(false);
+  const [reviewAck, setReviewAck] = useState(false);
+  const [pendingPublishIds, setPendingPublishIds] = useState<string[]>([]);
+  const [progressLabel, setProgressLabel] = useState<string | null>(null);
+  const matchModeRef = useRef(false);
   const [pagePublishOpen, setPagePublishOpen] = useState(false);
   const [pagePublishSummary, setPagePublishSummary] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -417,7 +451,9 @@ export function WebsiteKompisFaqAdminPanel({
           visibleReturned: nextItems.length,
         }),
     );
-    setSelectedIds((current) => pruneSelectionToVisible(current, nextItems.map((item) => item.id)));
+    setSelectedIds((current) =>
+      matchModeRef.current ? current : pruneSelectionToVisible(current, nextItems.map((item) => item.id)),
+    );
     setLoading(false);
   }, [
     contentTypeFilter,
@@ -556,26 +592,141 @@ export function WebsiteKompisFaqAdminPanel({
   function resetListScope() {
     setListOffset(0);
     setSelectedIds([]);
+    matchModeRef.current = false;
+    setPendingPublishIds([]);
+    setReviewOpen(false);
+    setReviewAck(false);
     setPagePublishOpen(false);
     setPagePublishSummary(null);
+  }
+
+  const reviewPlan = useMemo(
+    () => planPublicSafeReview(items, matchModeRef.current ? [] : selectedIds),
+    [items, selectedIds],
+  );
+
+  async function selectAllMatches() {
+    if (!listWindow.selectAllSupported || busy) return;
+    setBusy(true);
+    setError(null);
+    const params = new URLSearchParams();
+    if (statusFilter) params.set("status", statusFilter);
+    if (localeFilter) params.set("locale", localeFilter);
+    if (contentTypeFilter) params.set("contentType", contentTypeFilter);
+    if (searchQuery.trim()) params.set("query", searchQuery.trim());
+    if (selectedInstallId) params.set("installId", selectedInstallId);
+    const res = await fetch(`/api/website-kompis/faq/match-ids?${params.toString()}`);
+    setBusy(false);
+    if (!res.ok) {
+      matchModeRef.current = false;
+      setError(labels.listWindow.totalUnavailable);
+      return;
+    }
+    const body = (await res.json()) as { ids?: string[] };
+    if (!body.ids) {
+      setError(labels.listWindow.totalUnavailable);
+      return;
+    }
+    matchModeRef.current = true;
+    setSelectedIds(body.ids);
+    setPendingPublishIds([]);
+  }
+
+  async function reviewSelectedDrafts() {
+    if (publishLock.current || !reviewAck) return;
+    const ids = matchModeRef.current ? selectedIds : reviewPlan.readyIds;
+    if (ids.length === 0) return;
+    publishLock.current = true;
+    setBusy(true);
+    setError(null);
+    let marked: string[] = [];
+    let already = reviewPlan.alreadySafeIds.length;
+    let manual = reviewPlan.manualIds.length;
+    let skipped = reviewPlan.skipped.length;
+    let failed: string[] = [];
+    try {
+      const chunks = chunkFaqIds(ids);
+      for (let index = 0; index < chunks.length; index += 1) {
+        setProgressLabel(
+          fillLabel(labels.listWindow.reviewProgress, {
+            done: Math.min(ids.length, index * 25),
+            total: ids.length,
+          }),
+        );
+        const res = await fetch("/api/website-kompis/faq/public-safe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            confirm: true,
+            installId: selectedInstallId || null,
+            itemIds: chunks[index],
+          }),
+        });
+        const body = (await res.json().catch(() => null)) as {
+          marked?: string[];
+          alreadySafe?: string[];
+          manual?: string[];
+          results?: Array<{ id: string; outcome: string }>;
+        } | null;
+        if (!res.ok || !body) {
+          failed = failed.concat(chunks[index] ?? []);
+          continue;
+        }
+        marked = marked.concat(body.marked ?? []);
+        if (matchModeRef.current) {
+          already += body.alreadySafe?.length ?? 0;
+          manual += body.manual?.length ?? 0;
+          skipped += (body.results ?? []).filter((row) => row.outcome !== "marked" && row.outcome !== "failed").length;
+        }
+        failed = failed.concat((body.results ?? []).filter((row) => row.outcome === "failed").map((row) => row.id));
+      }
+      setPagePublishSummary(
+        fillLabel(labels.listWindow.reviewResult, {
+          marked: marked.length,
+          already,
+          manual,
+          skipped,
+          failed: failed.length,
+        }),
+      );
+      setPendingPublishIds(marked);
+      setSelectedIds(
+        selectionAfterPublicSafeReview({
+          selectedIds: ids,
+          markedIds: marked,
+          alreadySafeIds: matchModeRef.current ? [] : reviewPlan.alreadySafeIds,
+        }).concat(failed),
+      );
+      setReviewOpen(false);
+      setReviewAck(false);
+      await refresh();
+    } finally {
+      setProgressLabel(null);
+      publishLock.current = false;
+      setBusy(false);
+    }
   }
 
   async function publishVisibleDrafts() {
     if (publishLock.current) return;
     const plan = planVisibleDraftPublish(items, selectedIds);
-    if (plan.readyIds.length === 0) return;
+    const queue = pendingPublishIds.length > 0 ? pendingPublishIds : plan.readyIds;
+    if (queue.length === 0) return;
     publishLock.current = true;
     setBusy(true);
     setError(null);
     try {
       let passed = 0;
       const failedIds: string[] = [];
-      for (const id of plan.readyIds) {
+      for (let index = 0; index < queue.length; index += 1) {
+        const id = queue[index]!;
+        setProgressLabel(fillLabel(labels.listWindow.publishProgress, { done: index, total: queue.length }));
         const res = await fetch(`/api/website-kompis/faq/${id}/publish`, { method: "POST" });
         const body = (await res.json().catch(() => null)) as { status?: string } | null;
         if (res.ok && body?.status === "published") passed += 1;
         else failedIds.push(id);
       }
+      setPendingPublishIds(failedIds);
       setPagePublishSummary(
         fillLabel(labels.listWindow.publishResult, {
           passed,
@@ -587,6 +738,7 @@ export function WebsiteKompisFaqAdminPanel({
       setSelectedIds(selectionAfterVisiblePublish(failedIds));
       await refresh();
     } finally {
+      setProgressLabel(null);
       publishLock.current = false;
       setBusy(false);
     }
@@ -1013,6 +1165,8 @@ export function WebsiteKompisFaqAdminPanel({
               setListOffset((current) => current + FAQ_LIST_PAGE_SIZE);
             }}
             onTogglePage={(checked) => {
+              matchModeRef.current = false;
+              setPendingPublishIds([]);
               setSelectedIds(checked ? items.map((item) => item.id) : []);
             }}
             onClear={() => setSelectedIds([])}
@@ -1020,10 +1174,16 @@ export function WebsiteKompisFaqAdminPanel({
               resetListScope();
               setStatusFilter("draft");
             }}
-            canPublish={pagePublishBlock === "ready"}
-            explanation={pagePublishExplanation}
+            canPublish={pagePublishBlock === "ready" || pendingPublishIds.length > 0}
+            canReview={reviewPlan.readyIds.length > 0 || (matchModeRef.current && selectedIds.length > 0)}
+            explanation={progressLabel ?? pagePublishExplanation}
+            onReview={() => {
+              setReviewAck(false);
+              setReviewOpen(true);
+            }}
+            onSelectAll={() => void selectAllMatches()}
             onPublish={() => {
-              if (pagePublishPlan.readyIds.length === 0) return;
+              if (pagePublishPlan.readyIds.length === 0 && pendingPublishIds.length === 0) return;
               setPagePublishOpen(true);
             }}
             summary={pagePublishSummary}
@@ -1046,9 +1206,11 @@ export function WebsiteKompisFaqAdminPanel({
                         type="checkbox"
                         aria-label={labels.listWindow.selectPage}
                         checked={items.length > 0 && selectedIds.length === items.length}
-                        onChange={(event) =>
-                          setSelectedIds(event.target.checked ? items.map((item) => item.id) : [])
-                        }
+                        onChange={(event) => {
+                          matchModeRef.current = false;
+                          setPendingPublishIds([]);
+                          setSelectedIds(event.target.checked ? items.map((item) => item.id) : []);
+                        }}
                       />
                     </th>
                     <th className="px-4 py-3">{labels.columns.title}</th>
@@ -1174,6 +1336,28 @@ export function WebsiteKompisFaqAdminPanel({
               if (!busy) setPagePublishOpen(false);
             }}
             onConfirm={() => void publishVisibleDrafts()}
+          />
+          <WebsiteKompisFaqPublishDialog
+            labels={labels}
+            open={reviewOpen}
+            riskyWords={[]}
+            title={labels.listWindow.reviewTitle}
+            body={`${labels.listWindow.publicExposureWarning} ${fillLabel(labels.listWindow.reviewBody, {
+              site: selectedSite?.domain ?? labels.filters.all,
+              ready: matchModeRef.current ? selectedIds.length : reviewPlan.readyIds.length,
+              manual: matchModeRef.current ? 0 : reviewPlan.manualIds.length,
+              already: matchModeRef.current ? 0 : reviewPlan.alreadySafeIds.length,
+            })}`}
+            confirmLabel={labels.listWindow.reviewConfirm}
+            acknowledgementLabel={labels.listWindow.reviewConfirmLabel}
+            acknowledged={reviewAck}
+            onAcknowledge={setReviewAck}
+            error={null}
+            busy={busy}
+            onCancel={() => {
+              if (!busy) setReviewOpen(false);
+            }}
+            onConfirm={() => void reviewSelectedDrafts()}
           />
 
         </>

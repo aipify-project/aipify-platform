@@ -418,7 +418,18 @@
       "alreadyPublished": "Wszystkie {count} zaznaczone wiersze są już opublikowane. Nie zostaną opublikowane ponownie. Użyj Pokaż wersje robocze dla wierszy, które nadal można opublikować.",
       "eligibility": "{ready} można opublikować. {published} jest już opublikowanych. {draftNotReady} wersji roboczych nie jest oznaczonych jako gotowe na publiczną witrynę. {archived} jest zarchiwizowanych.",
       "noneReadyDetail": "Żadnego z zaznaczonych wierszy nie można opublikować. {published} jest już opublikowanych. {draftNotReady} wersji roboczych nie jest oznaczonych jako gotowe. {archived} jest zarchiwizowanych. Zarchiwizowane wiersze trzeba przywrócić pojedynczo, zanim staną się wersjami roboczymi.",
-      "showDrafts": "Pokaż wersje robocze"
+      "showDrafts": "Pokaż wersje robocze",
+      "totalUnavailable": "Pełna liczba nie jest dostępna.",
+      "selectAllMatches": "Zaznacz wszystkie trafienia",
+      "reviewPublicSafe": "Oceń wybrane wersje robocze jako bezpieczne publicznie",
+      "reviewTitle": "Oznaczyć wybrane wersje robocze jako bezpieczne publicznie?",
+      "reviewBody": "Witryna: {site}. {ready} wersji roboczych można oznaczyć jako bezpieczne dla anonimowych odwiedzających. {manual} wymaga osobnej oceny z powodu wrażliwego brzmienia. {already} jest już oznaczonych. To ich nie publikuje.",
+      "reviewConfirmLabel": "Potwierdzam, że te wersje robocze są bezpieczne do pokazania na publicznej witrynie.",
+      "reviewConfirm": "Oznacz jako bezpieczne publicznie",
+      "reviewResult": "Oznaczono {marked}. Już bezpieczne {already}. Do ręcznej oceny {manual}. Pominięto {skipped}. Niepowodzenie {failed}.",
+      "reviewProgress": "Oceniono {done} z {total}",
+      "publishProgress": "Opublikowano {done} z {total}",
+      "publicExposureWarning": "Oznaczone wersje robocze można później opublikować dla anonimowych odwiedzających. Prywatne dane klientów, członków, pracowników, rezerwacji, wsparcia lub finansów nie mogą się tam znaleźć."
     },
     "filters": {
       "status": "Status",

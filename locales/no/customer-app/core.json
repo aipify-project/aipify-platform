@@ -6951,7 +6951,18 @@
       "alreadyPublished": "Alle {count} valgte rader er allerede publisert. De publiseres ikke på nytt. Bruk Vis utkast for rader som fortsatt kan publiseres.",
       "eligibility": "{ready} kan publiseres. {published} er allerede publisert. {draftNotReady} utkast mangler merket for offentlig nettsted. {archived} er arkivert.",
       "noneReadyDetail": "Ingen valgte rader kan publiseres. {published} er allerede publisert. {draftNotReady} utkast er ikke merket klare. {archived} er arkivert. Arkiverte rader må gjenopprettes enkeltvis før de kan bli utkast.",
-      "showDrafts": "Vis utkast"
+      "showDrafts": "Vis utkast",
+      "totalUnavailable": "Hele totalen er ikke tilgjengelig.",
+      "selectAllMatches": "Velg alle treff",
+      "reviewPublicSafe": "Gå gjennom valgte utkast som offentlig trygge",
+      "reviewTitle": "Merk valgte utkast som offentlig trygge?",
+      "reviewBody": "Nettsted: {site}. {ready} utkast kan merkes trygge for anonyme besøkende. {manual} må vurderes hver for seg på grunn av sensitivt innhold. {already} er allerede merket. Dette publiserer dem ikke.",
+      "reviewConfirmLabel": "Jeg bekrefter at disse utkastene er trygge å vise på det offentlige nettstedet.",
+      "reviewConfirm": "Merk som offentlig trygg",
+      "reviewResult": "Merket {marked}. Allerede trygge {already}. Til manuell vurdering {manual}. Hoppet over {skipped}. Feilet {failed}.",
+      "reviewProgress": "Vurdert {done} av {total}",
+      "publishProgress": "Publisert {done} av {total}",
+      "publicExposureWarning": "Merkede utkast kan senere publiseres til anonyme besøkende. Private kunde-, medlems-, ansatt-, booking-, support- eller økonomiopplysninger skal ikke bli med."
     },
     "filters": {
       "status": "Status",

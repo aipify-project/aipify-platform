@@ -19,7 +19,13 @@ import {
   parseWebsiteKompisFaqUpsertResult,
 } from "@/lib/website-kompis-faq/parse";
 import { resolveFaqContentLanguageForSave } from "@/lib/website-kompis-faq/content-languages";
-import { buildFaqListWindow, clampFaqListLimit, clampFaqListOffset } from "@/lib/website-kompis-faq/list-window";
+import { faqCountContractMissing, faqCountSiteScope, parseFaqCountTotal } from "@/lib/website-kompis-faq/count-contract";
+import {
+  applyAuthoritativeFaqCount,
+  buildFaqListWindow,
+  clampFaqListLimit,
+  clampFaqListOffset,
+} from "@/lib/website-kompis-faq/list-window";
 import {
   annotateWebsiteKompisFaqScope,
   filterWebsiteKompisFaqItemsForSiteContext,
@@ -168,14 +174,35 @@ export async function GET(request: Request) {
       scope: annotateWebsiteKompisFaqScope(item, siteContext.selectedInstallId),
     }));
 
+    let listWindow = buildFaqListWindow({
+      offset,
+      limit,
+      tenantReturned: parsed.length,
+      visibleReturned: items.length,
+    });
+    const countScope = faqCountSiteScope(siteContext.state, siteContext.selectedInstallId ?? null);
+    if (countScope) {
+      const { data: countData, error: countError } = await auth.supabase.rpc(
+        "count_tenant_public_companion_faq_items",
+        {
+          p_status: status,
+          p_locale: locale,
+          p_content_type: contentType,
+          p_query: query,
+          p_install_id: countScope.installId,
+          p_site_scope: countScope.scope,
+        },
+      );
+      if (!countError) {
+        listWindow = applyAuthoritativeFaqCount(listWindow, parseFaqCountTotal(countData));
+      } else if (!faqCountContractMissing(countError)) {
+        listWindow = { ...listWindow, countAvailable: false, selectAllSupported: false };
+      }
+    }
+
     return NextResponse.json({
       items,
-      listWindow: buildFaqListWindow({
-        offset,
-        limit,
-        tenantReturned: parsed.length,
-        visibleReturned: items.length,
-      }),
+      listWindow,
       siteContext: {
         state: siteContext.state,
         selectedInstallId: siteContext.selectedInstallId,

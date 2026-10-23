@@ -9,7 +9,7 @@
 export const FAQ_LIST_PAGE_SIZE = 100;
 export const FAQ_GLOBAL_MATCH_SELECT_SUPPORTED = false;
 
-export type FaqListTotalState = "exact_tenant" | "at_least_tenant";
+export type FaqListTotalState = "exact_tenant" | "at_least_tenant" | "exact_filter";
 
 export type FaqListWindow = {
   offset: number;
@@ -27,6 +27,10 @@ export type FaqListWindow = {
    * Known only when the tenant page is short, so the filter covered every match.
    */
   siteTotal: number | null;
+  /** True only when the read-only count contract returned an exact filtered total. */
+  countAvailable: boolean;
+  /** All-match selection stays off until that exact total exists. */
+  selectAllSupported: boolean;
 };
 
 export function clampFaqListOffset(value: unknown): number {
@@ -63,6 +67,20 @@ export function buildFaqListWindow(input: {
     tenantTotal: exact ? offset + tenantReturned : null,
     tenantMinimum: offset + tenantReturned,
     siteTotal: exact && offset === 0 ? visibleReturned : null,
+    countAvailable: false,
+    selectAllSupported: false,
+  };
+}
+
+/** An exact filtered total replaces the unconfirmed window. It does not select rows. */
+export function applyAuthoritativeFaqCount(window: FaqListWindow, total: number | null): FaqListWindow {
+  if (total == null || !Number.isInteger(total) || total < 0) return window;
+  return {
+    ...window,
+    totalState: "exact_filter",
+    siteTotal: total,
+    countAvailable: true,
+    selectAllSupported: true,
   };
 }
 
