@@ -5,6 +5,7 @@ import {
   expandFaqIntentTokens,
   looksLikeFaqQuestionList,
 } from "@/lib/marketing/website-kompis-answer-relevance";
+import { publicEvidenceUrlForVerifiedHost } from "@/lib/marketing/website-kompis-public-page-context";
 import { createPublicAnonSupabaseClient } from "@/lib/supabase/public-anon";
 
 export type PublicCompanionTenantFaqAnswer = {
@@ -380,21 +381,10 @@ export async function searchPublicCompanionTenantFaq(input: {
     .filter((row): row is PublicCompanionTenantFaqRow => row !== null);
 }
 
-function isSafeTenantFaqSourceUrl(url: string): boolean {
-  const trimmed = url.trim();
-  if (!trimmed) return false;
-  if (trimmed.startsWith("/") && !trimmed.startsWith("//")) return true;
-  try {
-    const parsed = new URL(trimmed);
-    return parsed.protocol === "https:" || parsed.protocol === "http:";
-  } catch {
-    return false;
-  }
-}
-
 export function buildPublicCompanionTenantFaqResponse(
   rows: PublicCompanionTenantFaqRow[],
   locale: string,
+  verifiedHost?: string | null,
 ): PublicCompanionTenantFaqAnswer {
   const usable = rows.filter(
     (row) => !looksLikeFaqQuestionList(`${row.title}\n${row.answer}`),
@@ -405,8 +395,9 @@ export function buildPublicCompanionTenantFaqResponse(
 
   const sources = dedupeCompanionSourcesByRoute(
     [primary].flatMap((row) => {
-      if (!row.source_url || !isSafeTenantFaqSourceUrl(row.source_url)) return [];
-      return [{ title: row.title, route: row.source_url }];
+      const route = publicEvidenceUrlForVerifiedHost(row.source_url, verifiedHost);
+      if (!route) return [];
+      return [{ title: row.title, route }];
     }),
   );
 

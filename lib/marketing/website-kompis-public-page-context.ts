@@ -13,26 +13,53 @@ import { isPrivateWebsiteKompisSurfacePathname } from "@/lib/marketing/website-k
 
 export const WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE = "website-kompis-current-page" as const;
 
-function isSafePublicPageRoute(route: string): boolean {
-  const trimmed = route.trim();
-  if (!trimmed) return false;
-  if (trimmed.startsWith("/") && !trimmed.startsWith("//")) return true;
-  try {
-    const parsed = new URL(trimmed);
-    return parsed.protocol === "http:" || parsed.protocol === "https:";
-  } catch {
-    return false;
+/**
+ * A URL scheme does not prove tenant, install, or verified host.
+ * Relative public paths stay on the visitor origin.
+ * Absolute links are kept only for the resolved host when one is supplied.
+ */
+export function publicEvidenceUrlForVerifiedHost(
+  raw: string | null | undefined,
+  verifiedHost?: string | null,
+): string | null {
+  const trimmed = raw?.trim() ?? "";
+  if (!trimmed || trimmed.startsWith("//")) return null;
+  if (trimmed.startsWith("/")) {
+    if (isPrivateWebsiteKompisPathname(trimmed)) return null;
+    return trimmed;
   }
+  let parsed: URL;
+  try {
+    parsed = new URL(trimmed);
+  } catch {
+    return null;
+  }
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null;
+  if (parsed.username || parsed.password) return null;
+  if (isPrivateWebsiteKompisPathname(parsed.pathname)) return null;
+  const expected = verifiedHost?.trim().toLowerCase().replace(/\.$/, "") ?? "";
+  if (expected) {
+    const urlHost = parsed.hostname.trim().toLowerCase().replace(/\.$/, "");
+    if (urlHost !== expected) return null;
+  }
+  return parsed.toString();
 }
 
 /** Real page link for a verified current-page answer. Internal sentinels are not evidence. */
 export function websiteKompisPublicPageSourceRoute(
   pageContext: Pick<WebsiteKompisPublicPageContext, "canonicalUrl" | "pathname">,
+  verifiedHost?: string | null,
 ): string | null {
-  const canonical = pageContext.canonicalUrl?.trim() ?? "";
-  if (canonical && isSafePublicPageRoute(canonical)) return canonical;
+  const canonical = publicEvidenceUrlForVerifiedHost(pageContext.canonicalUrl, verifiedHost);
+  if (canonical) return canonical;
   const pathname = pageContext.pathname?.trim() ?? "";
-  if (pathname.startsWith("/") && !pathname.startsWith("//")) return pathname;
+  if (
+    pathname.startsWith("/") &&
+    !pathname.startsWith("//") &&
+    !isPrivateWebsiteKompisPathname(pathname)
+  ) {
+    return pathname;
+  }
   return null;
 }
 
@@ -510,6 +537,7 @@ export function tryBuildWebsiteKompisCurrentPublicPageAnswer(input: {
   question: string;
   pageContext: WebsiteKompisPublicPageContext | undefined;
   locale: string;
+  verifiedHost?: string | null;
 }): {
   answer: {
     directAnswer: string;
@@ -551,7 +579,7 @@ export function tryBuildWebsiteKompisCurrentPublicPageAnswer(input: {
   }
 
   const sourceTitle = pageContext.title?.trim() || "Current page";
-  const sourceRoute = websiteKompisPublicPageSourceRoute(pageContext);
+  const sourceRoute = websiteKompisPublicPageSourceRoute(pageContext, input.verifiedHost);
 
   return {
     answer: {
@@ -724,7 +752,7 @@ function findAssociatedDisclosureQuestion(
     const summary = details.querySelector?.("summary");
     if (summary?.textContent) return summary.textContent;
   }
-  let sibling = panel.parentElement?.querySelector?.("button, summary, h2, h3, [aria-expanded]");
+  const sibling = panel.parentElement?.querySelector?.("button, summary, h2, h3, [aria-expanded]");
   if (sibling?.textContent) return sibling.textContent;
   return "";
 }

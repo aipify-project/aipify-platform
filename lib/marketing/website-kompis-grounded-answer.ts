@@ -23,6 +23,7 @@ import {
 } from "@/lib/marketing/website-kompis-answer-relevance";
 import {
   isWebsiteKompisExplicitCurrentPageQuestion,
+  publicEvidenceUrlForVerifiedHost,
   type WebsiteKompisPublicPageContext,
 } from "@/lib/marketing/website-kompis-public-page-context";
 import { buildWebsiteKompisPublicAnswerPolicyPrompt } from "@/lib/marketing/website-kompis-public-answer-policy";
@@ -86,6 +87,7 @@ function clip(text: string, max: number): string {
 
 export function buildWebsiteKompisFaqEvidence(
   rows: PublicCompanionTenantFaqRow[],
+  verifiedHost?: string | null,
 ): WebsiteKompisEvidenceSnippet[] {
   return rows
     .slice(0, WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE * 2)
@@ -103,7 +105,7 @@ export function buildWebsiteKompisFaqEvidence(
       id: `faq:${row.item_id || index}`,
       kind: "faq" as const,
       title: row.title?.trim() || "FAQ",
-      url: row.source_url,
+      url: publicEvidenceUrlForVerifiedHost(row.source_url, verifiedHost),
       locale: row.locale || "no",
       text: clip(
         neutralizeUntrustedPageEvidence(`${row.title}\n${row.answer}`),
@@ -115,6 +117,7 @@ export function buildWebsiteKompisFaqEvidence(
 export function buildWebsiteKompisPageEvidence(
   pageContext: WebsiteKompisPublicPageContext | null | undefined,
   locale: string,
+  verifiedHost?: string | null,
 ): WebsiteKompisEvidenceSnippet[] {
   if (!pageContext) return [];
   const parts = [
@@ -126,12 +129,15 @@ export function buildWebsiteKompisPageEvidence(
     .filter((value): value is string => typeof value === "string" && value.trim().length > 0)
     .slice(0, 8);
   if (parts.length === 0) return [];
+  const url =
+    publicEvidenceUrlForVerifiedHost(pageContext.canonicalUrl, verifiedHost) ??
+    publicEvidenceUrlForVerifiedHost(pageContext.pathname, verifiedHost);
   return [
     {
       id: "page:current",
       kind: "current-page",
       title: pageContext.title?.trim() || pageContext.pathname || "Current page",
-      url: pageContext.canonicalUrl ?? pageContext.pathname ?? null,
+      url,
       locale: pageContext.locale || locale,
       text: clip(
         neutralizeUntrustedPageEvidence(parts.join("\n")),
@@ -143,12 +149,13 @@ export function buildWebsiteKompisPageEvidence(
 
 export function buildWebsiteKompisIndexEvidence(
   hits: PublicSiteIndexHit[],
+  verifiedHost?: string | null,
 ): WebsiteKompisEvidenceSnippet[] {
   return hits.slice(0, WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE).map((hit) => ({
     id: `index:${hit.chunkId || hit.documentId}`,
     kind: "public-site-index" as const,
     title: hit.title?.trim() || "Public page",
-    url: hit.canonicalUrl || null,
+    url: publicEvidenceUrlForVerifiedHost(hit.canonicalUrl, verifiedHost),
     locale: hit.locale || "no",
     text: clip(
       neutralizeUntrustedPageEvidence(hit.chunkContent || hit.excerpt || hit.title),
@@ -241,18 +248,6 @@ function tokensWrittenInQuestion(question: string): string[] {
   return distinctiveEvidenceTopics(question).filter((token) => written.has(token));
 }
 
-function isSafePublicEvidenceRoute(route: string): boolean {
-  const trimmed = route.trim();
-  if (!trimmed) return false;
-  if (trimmed.startsWith("/") && !trimmed.startsWith("//")) return true;
-  try {
-    const parsed = new URL(trimmed);
-    return parsed.protocol === "http:" || parsed.protocol === "https:";
-  } catch {
-    return false;
-  }
-}
-
 function evidenceTopicScore(
   item: WebsiteKompisEvidenceSnippet,
   topicTokens: string[],
@@ -322,14 +317,15 @@ export function buildWebsiteKompisEvidencePack(input: {
   faqRows?: PublicCompanionTenantFaqRow[];
   siteIndexHits?: PublicSiteIndexHit[];
   pageContext?: WebsiteKompisPublicPageContext | null;
+  verifiedHost?: string | null;
 }): WebsiteKompisEvidencePack {
   const question = input.question.trim();
   const topicQuestion = followUpTopicQuestion(question, input.recentContext);
   const topicTokens = topicTokensForPublicSiteIndex(topicQuestion);
   const candidates = [
-    ...buildWebsiteKompisFaqEvidence(input.faqRows ?? []),
-    ...buildWebsiteKompisIndexEvidence(input.siteIndexHits ?? []),
-    ...buildWebsiteKompisPageEvidence(input.pageContext, input.locale),
+    ...buildWebsiteKompisFaqEvidence(input.faqRows ?? [], input.verifiedHost),
+    ...buildWebsiteKompisIndexEvidence(input.siteIndexHits ?? [], input.verifiedHost),
+    ...buildWebsiteKompisPageEvidence(input.pageContext, input.locale, input.verifiedHost),
   ].filter((item) => item.text.trim().length > 0);
 
   const productQ = isProductOrPriceVisitorQuestion(question);
@@ -724,8 +720,8 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
       actions: [],
       sources: dedupeCompanionSourcesByRoute(
         validated.sources.flatMap((source) => {
-          const route = source.url?.trim() ?? "";
-          if (!isSafePublicEvidenceRoute(route)) return [];
+          const route = publicEvidenceUrlForVerifiedHost(source.url);
+          if (!route) return [];
           return [{ title: source.title, route }];
         }),
       ),

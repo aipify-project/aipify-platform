@@ -153,6 +153,7 @@ async function main() {
       question: item.question,
       pageContext: item.page,
       locale: item.locale,
+      verifiedHost: "customer.example",
     });
     assert.ok(answer);
     assert.match(answer!.answer.directAnswer, new RegExp(item.name));
@@ -164,6 +165,7 @@ async function main() {
       locale: item.locale,
       faqRows: [imageFaq, countryFaq, unrelatedModelFaq, otherTenantFaq],
       pageContext: item.page,
+      verifiedHost: "customer.example",
     });
     assert.equal(pack.evidence.some((entry) => entry.title === "Nakenbilder"), false);
     assert.ok(pack.evidence.some((entry) => entry.kind === "current-page" && entry.url === item.page.canonicalUrl));
@@ -182,6 +184,121 @@ async function main() {
     }),
     "/profiles/angel",
   );
+
+  assert.equal(
+    websiteKompisPublicPageSourceRoute(
+      {
+        canonicalUrl: "https://other.example/profiles/angel",
+        pathname: "/profiles/angel",
+      },
+      "customer.example",
+    ),
+    "/profiles/angel",
+  );
+  assert.equal(
+    websiteKompisPublicPageSourceRoute(
+      {
+        canonicalUrl: "//other.example/profiles/angel",
+        pathname: "/profiles/angel",
+      },
+      "customer.example",
+    ),
+    "/profiles/angel",
+  );
+  assert.equal(
+    websiteKompisPublicPageSourceRoute(
+      {
+        canonicalUrl: `${HOST}/admin/users`,
+        pathname: "/profiles/angel",
+      },
+      "customer.example",
+    ),
+    "/profiles/angel",
+  );
+  assert.equal(
+    tryBuildWebsiteKompisCurrentPublicPageAnswer({
+      question: "Hvilken modell ser jeg på nå?",
+      pageContext: { ...angel, pathname: "/admin/users", canonicalUrl: `${HOST}/admin/users` },
+      locale: "no",
+      verifiedHost: "customer.example",
+    }),
+    null,
+  );
+  assert.equal(
+    buildPublicCompanionTenantFaqResponse(
+      [faq({ ...countryFaq, source_url: "https://other.example/faq/model-countries" })],
+      "no",
+      "customer.example",
+    ).sources.length,
+    0,
+  );
+  assert.equal(
+    buildPublicCompanionTenantFaqResponse(
+      [faq({ ...countryFaq, source_url: "javascript:alert(1)" })],
+      "no",
+      "customer.example",
+    ).sources.length,
+    0,
+  );
+  assert.equal(
+    buildPublicCompanionTenantFaqResponse(
+      [faq({ ...countryFaq, source_url: `${HOST}/admin/users` })],
+      "no",
+      "customer.example",
+    ).sources.length,
+    0,
+  );
+
+  const priceFaq = faq({
+    item_id: "66666666-6666-4666-8666-666666666666",
+    title: "Pris for medlemskap",
+    answer: "Medlemskapet koster 100 kroner i måneden.",
+    source_url: `${HOST}/faq/price`,
+    score: 42,
+  });
+  const priceQuestion = "Hva koster medlemskapet?";
+  assert.equal(isRelevantPublicCompanionTenantFaqResult([imageFaq], priceQuestion), false);
+  assert.equal(isRelevantPublicCompanionTenantFaqResult([priceFaq], priceQuestion), true);
+  const pricePack = buildWebsiteKompisEvidencePack({
+    question: priceQuestion,
+    locale: "no",
+    verifiedHost: "customer.example",
+    faqRows: [imageFaq, countryFaq, priceFaq],
+    pageContext: angel,
+  });
+  assert.equal(pricePack.evidence.some((entry) => entry.title === "Nakenbilder"), false);
+  assert.ok(pricePack.evidence.some((entry) => entry.url === priceFaq.source_url));
+
+  const followPack = buildWebsiteKompisEvidencePack({
+    question: "Og der?",
+    locale: "no",
+    verifiedHost: "customer.example",
+    recentContext: [{ role: "user", text: "Kan Model-funksjonen brukes i alle land?" }],
+    faqRows: [imageFaq, countryFaq],
+    pageContext: connie,
+  });
+  assert.equal(followPack.evidence.some((entry) => entry.title === "Nakenbilder"), false);
+  assert.ok(followPack.evidence.some((entry) => entry.url === countryFaq.source_url));
+
+  const norwegianOnly = faq({
+    item_id: "77777777-7777-4777-8777-777777777777",
+    title: "Funksjonen",
+    answer: "Funksjonen brukes her.",
+    source_url: `${HOST}/faq/function`,
+    score: 40,
+  });
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([norwegianOnly], "Kan funktionen bruges i Danmark?"),
+    false,
+  );
+  const stemOnly = faq({
+    item_id: "88888888-8888-4888-8888-888888888888",
+    title: "Modellen",
+    answer: "Modellen vises her.",
+    source_url: `${HOST}/faq/stem`,
+    score: 40,
+  });
+  assert.equal(isRelevantPublicCompanionTenantFaqResult([stemOnly], "Which model is this?"), false);
 
   const consentQuestion = "Hvilke regler gjelder for samtykke og rettigheter?";
   assert.equal(

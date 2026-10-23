@@ -963,7 +963,11 @@ async function tryBuildPublicTenantFaqAnswer(
     return null;
   }
 
-  return buildPublicCompanionTenantFaqResponse(safeRows, locale) as PublicCompanionAskResponse;
+  return buildPublicCompanionTenantFaqResponse(
+    safeRows,
+    locale,
+    visitorContext.domain,
+  ) as PublicCompanionAskResponse;
 }
 
 function applyWebsiteKompisCustomerSiteTone(
@@ -1225,6 +1229,7 @@ export async function askPublicPlatformCompanion(
       pageContext: installConfig.sources.currentPage
         ? validated.pageContext
         : null,
+      verifiedHost: visitorContext.domain,
     });
 
     console.warn("[website-kompis-grounded]", {
@@ -1428,6 +1433,7 @@ export async function askPublicPlatformCompanion(
         question: validated.question,
         pageContext: validated.pageContext,
         locale,
+        verifiedHost: visitorContext.domain,
       });
       if (currentPageAnswer) {
         const pageResponse = applyCustomerSiteDeterministicPolicy(
