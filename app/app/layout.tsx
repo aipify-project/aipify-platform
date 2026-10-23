@@ -43,9 +43,12 @@ import { availableProductsFromBundle } from "@/lib/app-portal/product-context/av
 import {
   authorizeProductContext,
   isModuleUsableInSnapshot,
-  loadAccessControlPlaneSnapshot,
 } from "@/lib/core/access-control-plane";
-import { isKompisBedriftProductPath } from "@/lib/core/access-control-plane/tenant-module-lookup";
+import { loadRequestAccessControlPlaneSnapshot } from "@/lib/core/access-control-plane/load-snapshot-request";
+import {
+  isKompisBedriftInternalKnowledgePath,
+  isKompisBedriftProductPath,
+} from "@/lib/core/access-control-plane/tenant-module-lookup";
 
 /** Authenticated app shell — skip build-time static prerender (700+ routes). */
 export const dynamic = "force-dynamic";
@@ -143,7 +146,7 @@ export default async function AppLayout({
       const [capabilityBundle, accessSnapshot, activationGates, featureAccessRaw, dynamicRaw] =
         await Promise.all([
           loadAppMenuCapabilityBundle(supabase),
-          loadAccessControlPlaneSnapshot(supabase),
+          loadRequestAccessControlPlaneSnapshot(),
           getOrganizationBusinessPackActivationGates(supabase).catch(() => ({ found: false as const })),
           supabase.rpc("get_app_portal_feature_access", { p_feature: "business_packs" }),
           getDynamicAppNavigation(supabase).catch(() => null),
@@ -151,7 +154,8 @@ export default async function AppLayout({
 
       // Cookie is preference only — server control plane authorizes product contexts.
       if (
-        isKompisBedriftProductPath(requestPathname) &&
+        (isKompisBedriftProductPath(requestPathname) ||
+          isKompisBedriftInternalKnowledgePath(requestPathname)) &&
         !isModuleUsableInSnapshot(accessSnapshot, "kompis_bedrift")
       ) {
         redirect("/app");
@@ -207,7 +211,10 @@ export default async function AppLayout({
         }
       }
     } catch {
-      if (isKompisBedriftProductPath(requestPathname)) {
+      if (
+        isKompisBedriftProductPath(requestPathname) ||
+        isKompisBedriftInternalKnowledgePath(requestPathname)
+      ) {
         redirect("/app");
       }
       // Fail closed — never restore mega-nav or unfiltered dynamic payloads.

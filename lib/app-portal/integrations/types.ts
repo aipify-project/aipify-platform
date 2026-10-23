@@ -235,6 +235,7 @@ export type AppPortalIntegrationsLabels = {
     title: string;
     subtitle: string;
     loading: string;
+    loadError: string;
     readOnlyPrinciple: string;
     privacyNote: string;
     canManageNote: string;

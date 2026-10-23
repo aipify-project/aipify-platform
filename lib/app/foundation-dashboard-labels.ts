@@ -14,6 +14,7 @@ export function buildFoundationDashboardLabels(t: Translator): AppFoundationDash
     webTitle: t("customerApp.portalStructure.foundationDashboard.webTitle"),
     webDescription: t("customerApp.portalStructure.foundationDashboard.webDescription"),
     webUnavailable: t("customerApp.portalStructure.foundationDashboard.webUnavailable"),
+    bedriftUnavailable: t("customerApp.portalStructure.foundationDashboard.bedriftUnavailable"),
     bedriftTitle: t("customerApp.portalStructure.foundationDashboard.bedriftTitle"),
     bedriftDescription: t("customerApp.portalStructure.foundationDashboard.bedriftDescription"),
     setupTitle: t("customerApp.portalStructure.foundationDashboard.setupTitle"),

@@ -300,7 +300,7 @@
     }
   },
   "kompisOperator": {
-    "title": "Kompis",
+    "title": "Tareas",
     "subtitle": "Obtén ayuda con tareas, controles y trabajo en tu organización.",
     "sendTask": "Enviar tarea",
     "describeTask": "Describe la tarea",

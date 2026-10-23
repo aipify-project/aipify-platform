@@ -17,6 +17,7 @@ import {
 } from "@/lib/core/access-control-plane";
 import {
   applyTenantModuleLookup,
+  isKompisBedriftInternalKnowledgePath,
   isKompisBedriftProductPath,
 } from "@/lib/core/access-control-plane/tenant-module-lookup";
 import { resolveAppMenuCapabilityBundle } from "@/lib/core/app-menu-capability";
@@ -196,6 +197,8 @@ function baseSnapshotInput(
   assert.equal(directBedrift.activeProduct, "kompisWeb");
   assert.equal(isKompisBedriftProductPath("/app/kompis-bedrift/documents"), true);
   assert.equal(isKompisBedriftProductPath("/app/website-kompis"), false);
+  assert.equal(isKompisBedriftInternalKnowledgePath("/app/settings/employee-knowledge"), true);
+  assert.equal(isKompisBedriftInternalKnowledgePath("/app/website-kompis/faq"), false);
 }
 
 // Direct Web path denied when the Web module is absent
@@ -236,6 +239,7 @@ function baseSnapshotInput(
   assert.doesNotMatch(loader, /searchParams/);
   const layout = read("app/app/layout.tsx");
   assert.match(layout, /isKompisBedriftProductPath/);
+  assert.match(layout, /isKompisBedriftInternalKnowledgePath/);
   assert.match(layout, /isModuleUsableInSnapshot\(accessSnapshot, "kompis_bedrift"\)/);
   assert.match(layout, /redirect\("\/app"\)/);
 }
