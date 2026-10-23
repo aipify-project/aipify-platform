@@ -403,6 +403,21 @@
         "subtitle": "Koble eksterne plattformer til Aipify — selvbetjent oppsett med skrivebeskyttet tilgang som standard.",
         "loading": "Laster integrasjoner…",
         "loadError": "Integrasjonene kunne ikke lastes. Prøv igjen.",
+        "categoryFallback": "Annet",
+        "categories": {
+          "productivity": "Produktivitet",
+          "commerce": "Handel",
+          "finance": "Økonomi",
+          "crm": "Kunderelasjoner",
+          "support": "Brukerstøtte",
+          "marketing": "Markedsføring",
+          "storage": "Lagring",
+          "communication": "Kommunikasjon",
+          "analytics": "Analyse",
+          "development": "Utvikling",
+          "custom": "Tilpasset",
+          "general": "Generelt"
+        },
         "readOnlyPrinciple": "Aipify ber kun om tilgangen som trengs for å hjelpe organisasjonen din. Skrivebeskyttet tilgang foretrekkes når det er mulig.",
         "privacyNote": "Legitimasjon krypteres i hvile. Fullstendige hemmeligheter vises aldri etter lagring.",
         "canManageNote": "Du kan koble til, teste, erstatte og fjerne integrasjoner for organisasjonen din.",
@@ -8597,6 +8612,7 @@
     "productHubs": {
       "common": {
         "home": "Hjem",
+        "breadcrumb": "Brødsmulesti",
         "orgFallback": "Organisasjonen din",
         "backToBedrift": "Tilbake til Kompis Bedrift",
         "backToAccount": "Tilbake til Konto",
@@ -8628,6 +8644,7 @@
         "knowledgeEmptyBody": "Bruk arbeidsområdet for ansattkunnskap for godkjent intern veiledning. Ingenting oppfinnes her.",
         "openInternalKnowledge": "Åpne ansattkunnskap",
         "knowledgeWorkspaceHint": "Godkjente interne kilder, tillatelser og veiledning for teamet.",
+        "knowledgeBoundaryStatus": "Intern kunnskap",
         "knowledgePublicSeparation": "Offentlig nettsted-FAQ ligger under Kompis Web og blandes ikke inn her.",
         "commsDescription": "Oversikt over intern kommunikasjon. Leveringssystemer endres ikke fra denne huben.",
         "meetingsDescription": "Møter for organisasjonen. Tomt når møtedata mangler.",

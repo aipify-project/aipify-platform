@@ -4,11 +4,11 @@ import {
   AppDecorativeOrb,
   AppEmptyState,
   AppIconActionCard,
+  AppIconStatusCard,
   AppPageHeader,
 } from "@/components/app/design";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { bedriftHomeCardState } from "@/lib/app/foundation-product-card";
-import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { AppVisualClasses } from "@/lib/design/app-visual-system";
 
 export type AppFoundationDashboardLabels = {
@@ -111,12 +111,16 @@ export function AppFoundationDashboard({
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {websiteKompisAvailable === false ? (
-            <div className={AppLayoutClasses.cardMuted}>
-              <h3 className="text-base font-semibold text-aipify-text">{labels.webTitle}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-aipify-text-secondary">
-                {labels.webUnavailable}
-              </p>
-            </div>
+            <AppIconStatusCard
+              title={labels.webTitle}
+              description={labels.webUnavailable}
+              tone="slate"
+              statusLabel={labels.statusUnavailable}
+              statusTone="slate"
+              icon={
+                <DashboardIcon path="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+              }
+            />
           ) : (
             <AppIconActionCard
               href={FOUNDATION_NAV_BINDINGS.kompisWebDashboard}
@@ -143,12 +147,16 @@ export function AppFoundationDashboard({
               }
             />
           ) : (
-            <div className={AppLayoutClasses.cardMuted}>
-              <h3 className="text-base font-semibold text-aipify-text">{labels.bedriftTitle}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-aipify-text-secondary">
-                {labels.bedriftUnavailable}
-              </p>
-            </div>
+            <AppIconStatusCard
+              title={labels.bedriftTitle}
+              description={labels.bedriftUnavailable}
+              tone="slate"
+              statusLabel={labels.statusUnavailable}
+              statusTone="slate"
+              icon={
+                <DashboardIcon path="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+              }
+            />
           )}
         </div>
       </section>
@@ -163,15 +171,28 @@ export function AppFoundationDashboard({
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <AppIconActionCard
-            href={FOUNDATION_NAV_BINDINGS.kompisWebConnection}
-            title={labels.connectionTitle}
-            description={labels.connectionDescription}
-            tone="lavender"
-            icon={
-              <DashboardIcon path="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-            }
-          />
+          {websiteKompisAvailable === false ? (
+            <AppIconStatusCard
+              title={labels.connectionTitle}
+              description={labels.webUnavailable}
+              tone="slate"
+              statusLabel={labels.statusUnavailable}
+              statusTone="slate"
+              icon={
+                <DashboardIcon path="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+              }
+            />
+          ) : (
+            <AppIconActionCard
+              href={FOUNDATION_NAV_BINDINGS.kompisWebConnection}
+              title={labels.connectionTitle}
+              description={labels.connectionDescription}
+              tone="lavender"
+              icon={
+                <DashboardIcon path="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+              }
+            />
+          )}
           <AppIconActionCard
             href={FOUNDATION_NAV_BINDINGS.accountIntegrations}
             title={labels.integrationsTitle}

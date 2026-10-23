@@ -13,8 +13,7 @@ const TONE_CLASSES: Record<AppIconActionCardTone, string> = {
   amber: "bg-[#FFF4E5] text-[var(--app-pending)] ring-[#F5D4A3]",
 };
 
-type AppIconActionCardProps = {
-  href: string;
+type AppIconCardProps = {
   title: string;
   description: string;
   icon: ReactNode;
@@ -23,20 +22,21 @@ type AppIconActionCardProps = {
   statusTone?: AppIconActionCardTone;
 };
 
-export function AppIconActionCard({
-  href,
+type AppIconActionCardProps = AppIconCardProps & {
+  href: string;
+};
+
+function IconCardBody({
   title,
   description,
   icon,
   tone = "purple",
   statusLabel,
   statusTone = "slate",
-}: AppIconActionCardProps) {
+  interactive,
+}: AppIconCardProps & { interactive: boolean }) {
   return (
-    <Link
-      href={href}
-      className={`${AppVisualClasses.cardInteractive} group relative z-[1] flex h-full flex-col gap-5 !p-6 sm:!p-7`}
-    >
+    <>
       <div className="flex items-start justify-between gap-3">
         <span
           className={`inline-flex h-[3.25rem] w-[3.25rem] shrink-0 items-center justify-center rounded-2xl shadow-sm ring-1 ${TONE_CLASSES[tone]}`}
@@ -55,21 +55,64 @@ export function AppIconActionCard({
       </div>
       <div className="flex min-w-0 flex-1 items-start justify-between gap-4">
         <div className="min-w-0 space-y-2">
-          <h3 className="text-[1.125rem] font-semibold tracking-tight text-[var(--app-text)] group-hover:text-[var(--app-primary)] sm:text-[1.1875rem]">
+          <h3
+            className={`text-[1.125rem] font-semibold tracking-tight text-[var(--app-text)] sm:text-[1.1875rem] ${interactive ? "group-hover:text-[var(--app-primary)]" : ""}`}
+          >
             {title}
           </h3>
           <p className="text-[0.9375rem] leading-relaxed text-[var(--app-text-muted)] sm:text-base">{description}</p>
         </div>
-        <span
-          className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--app-primary-soft)] text-[var(--app-primary)] ring-1 ring-[var(--app-border-accent)] transition motion-reduce:transition-none group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0 group-hover:bg-[image:var(--app-primary-soft-fill)]"
-          aria-hidden="true"
-        >
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </span>
+        {interactive ? (
+          <span
+            className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--app-primary-soft)] text-[var(--app-primary)] ring-1 ring-[var(--app-border-accent)] transition motion-reduce:transition-none group-hover:translate-x-0.5 motion-reduce:group-hover:translate-x-0 group-hover:bg-[image:var(--app-primary-soft-fill)]"
+            aria-hidden="true"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </span>
+        ) : null}
       </div>
+    </>
+  );
+}
+
+export function AppIconActionCard({
+  href,
+  title,
+  description,
+  icon,
+  tone = "purple",
+  statusLabel,
+  statusTone = "slate",
+}: AppIconActionCardProps) {
+  return (
+    <Link
+      href={href}
+      className={`${AppVisualClasses.cardInteractive} group relative z-[1] flex h-full flex-col gap-5 !p-6 sm:!p-7`}
+    >
+      <IconCardBody
+        title={title}
+        description={description}
+        icon={icon}
+        tone={tone}
+        statusLabel={statusLabel}
+        statusTone={statusTone}
+        interactive
+      />
     </Link>
+  );
+}
+
+/** Same card as a product action, without a link. Used when the module is not usable. */
+export function AppIconStatusCard(props: AppIconCardProps) {
+  return (
+    <div
+      className={`${AppVisualClasses.card} relative z-[1] flex h-full flex-col gap-5 !p-6 sm:!p-7`}
+      aria-disabled="true"
+    >
+      <IconCardBody {...props} interactive={false} />
+    </div>
   );
 }
 

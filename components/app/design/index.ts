@@ -10,6 +10,7 @@ export { AppCanvasBackground } from "./AppCanvasBackground";
 export { AppDecorativeOrb } from "./AppDecorativeOrb";
 export {
   AppIconActionCard,
+  AppIconStatusCard,
   type AppIconActionCardTone,
 } from "./AppIconActionCard";
 export { ExecutiveMetricCard } from "./ExecutiveMetricCard";

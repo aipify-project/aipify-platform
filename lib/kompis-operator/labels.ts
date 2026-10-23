@@ -3,6 +3,7 @@ import type { Translator } from "@/lib/i18n/translate";
 export type KompisOperatorLabels = {
   title: string;
   subtitle: string;
+  boundaryNote: string;
   whatCanIHelpWith: string;
   sendTask: string;
   describeTask: string;
@@ -146,6 +147,7 @@ export function buildKompisOperatorLabels(t: Translator): KompisOperatorLabels {
   return {
     title: t(`${p}.title`),
     subtitle: t(`${p}.subtitle`),
+    boundaryNote: t(`${p}.boundaryNote`),
     whatCanIHelpWith: t(`${p}.whatCanIHelpWith`),
     sendTask: t(`${p}.sendTask`),
     describeTask: t(`${p}.describeTask`),

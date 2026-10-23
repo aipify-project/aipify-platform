@@ -302,6 +302,7 @@
   "kompisOperator": {
     "title": "Tareas",
     "subtitle": "Obtén ayuda con tareas, controles y trabajo en tu organización.",
+    "boundaryNote": "Este espacio es para las tareas y los borradores del sitio de la organización. Está separado del asistente público del sitio y de Kompis Bedrift.",
     "sendTask": "Enviar tarea",
     "describeTask": "Describe la tarea",
     "understanding": "Entendiendo la tarea",

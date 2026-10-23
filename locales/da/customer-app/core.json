@@ -7062,6 +7062,7 @@
   "kompisOperator": {
     "title": "Opgaver",
     "subtitle": "Få hjælp til opgaver, kontroller og arbejde i din virksomhed.",
+    "boundaryNote": "Dette arbejdsområde gælder organisationens opgaver og webstedsudkast. Det er adskilt fra den offentlige webstedsassistent og fra Kompis Bedrift.",
     "sendTask": "Send opgave",
     "describeTask": "Beskriv opgaven",
     "understanding": "Forstår opgaven",

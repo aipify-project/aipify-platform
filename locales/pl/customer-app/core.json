@@ -529,6 +529,7 @@
   "kompisOperator": {
     "title": "Zadania",
     "subtitle": "Uzyskaj pomoc przy zadaniach, kontrolach i pracy w organizacji.",
+    "boundaryNote": "Ten obszar dotyczy zadań i wersji roboczych witryny w organizacji. Jest oddzielony od publicznego asystenta witryny i od Kompis Bedrift.",
     "sendTask": "Wyślij zadanie",
     "describeTask": "Opisz zadanie",
     "understanding": "Rozumiem zadanie",

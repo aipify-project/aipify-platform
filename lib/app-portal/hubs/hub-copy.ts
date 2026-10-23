@@ -9,6 +9,7 @@ export function hubT(t: Translator, key: string): string {
 export function hubCommon(t: Translator) {
   return {
     home: hubT(t, "common.home"),
+    breadcrumb: hubT(t, "common.breadcrumb"),
     orgFallback: hubT(t, "common.orgFallback"),
     backToBedrift: hubT(t, "common.backToBedrift"),
     backToAccount: hubT(t, "common.backToAccount"),

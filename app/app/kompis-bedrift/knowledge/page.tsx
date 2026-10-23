@@ -30,6 +30,7 @@ export default async function KompisBedriftKnowledgePage() {
 
   return (
     <AppHubShell
+      breadcrumbLabel={common.breadcrumb}
       breadcrumb={[
         { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
         {
@@ -42,6 +43,10 @@ export default async function KompisBedriftKnowledgePage() {
       title={t("customerApp.portalStructure.nav.kompisBedriftFaq")}
       description={hubT(t, "bedrift.knowledgeDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
+      status={{
+        label: hubT(t, "bedrift.knowledgeBoundaryStatus"),
+        tone: "slate",
+      }}
       primaryAction={{
         label: hubT(t, "bedrift.openInternalKnowledge"),
         href: workspaceHref,
