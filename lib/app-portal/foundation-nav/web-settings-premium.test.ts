@@ -9,7 +9,8 @@ import { join } from "node:path";
 const ROOT = process.cwd();
 const page = readFileSync(join(ROOT, "app/app/website-kompis/settings/page.tsx"), "utf8");
 
-assert.match(page, /suppressPageHeader/);
+assert.match(page, /AppHubShell/);
+assert.doesNotMatch(page, /suppressPageHeader/);
 assert.match(page, /kompisWebAppearance/);
 assert.match(page, /accountIntegrations/);
 assert.match(page, /accountNotifications/);
@@ -19,15 +20,18 @@ assert.doesNotMatch(page, /kompisWebModules/);
 
 const appearance = readFileSync(join(ROOT, "app/app/website-kompis/appearance/page.tsx"), "utf8");
 assert.match(appearance, /DomainLicenseCenterPanel/);
-assert.match(appearance, /WebsiteKompisSettingsIntro/);
+assert.match(appearance, /AppHubShell/);
+assert.doesNotMatch(appearance, /WebsiteKompisSettingsIntro/);
 
 const integrations = readFileSync(join(ROOT, "app/app/account/integrations/page.tsx"), "utf8");
 assert.match(integrations, /renderAppPortalIntegrationsHubPage/);
-assert.match(integrations, /WebsiteKompisSettingsIntro/);
+assert.match(integrations, /AppHubShell/);
+assert.doesNotMatch(integrations, /WebsiteKompisSettingsIntro/);
 
 const notifications = readFileSync(join(ROOT, "app/app/account/notifications/page.tsx"), "utf8");
 assert.match(notifications, /NotificationSettingsPanel/);
-assert.match(notifications, /WebsiteKompisSettingsIntro/);
+assert.match(notifications, /AppHubShell/);
+assert.doesNotMatch(notifications, /WebsiteKompisSettingsIntro/);
 
 const operator = readFileSync(join(ROOT, "app/app/kompis/page.tsx"), "utf8");
 assert.match(operator, /KompisOperatorWorkspacePanel/);

@@ -83,7 +83,6 @@ export default async function KompisBedriftDashboardPage() {
       description={hubT(t, "bedrift.dashboardDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
       status={{ label: common.statusReady, tone: "emerald" }}
-      decorativeAccent
     >
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {cards.map((card) => (

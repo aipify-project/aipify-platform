@@ -1,4 +1,6 @@
 export { AppPageHeader } from "./AppPageHeader";
+export { AppWorkspaceHero, type AppWorkspaceHeroStatus } from "./AppWorkspaceHero";
+export { KompisWorkspaceMascot } from "./KompisWorkspaceMascot";
 export { AppSectionHeader } from "./AppSectionHeader";
 export {
   AppSectionTabs,

@@ -51,9 +51,9 @@ assert.ok(fs.existsSync(path.join(ROOT, "components/app/design/AppCanvasBackgrou
 assert.ok(fs.existsSync(path.join(ROOT, "components/app/design/AppDecorativeOrb.tsx")));
 
 const hub = read("components/app/hubs/AppHubShell.tsx");
-assert.match(hub, /decorativeAccent/);
-assert.match(hub, /AppDecorativeOrb/);
-assert.match(hub, /clearDecorativeOrb=\{decorativeAccent\}/);
+assert.match(hub, /AppWorkspaceHero/);
+assert.match(hub, /aria-label=\{breadcrumbLabel\}/);
+assert.doesNotMatch(hub, /AppDecorativeOrb/);
 
 const pageHeader = read("components/app/design/AppPageHeader.tsx");
 assert.match(pageHeader, /clearDecorativeOrb/);
@@ -61,9 +61,12 @@ assert.match(pageHeader, /max-w-2xl/);
 assert.match(pageHeader, /--app-border-accent/);
 assert.doesNotMatch(pageHeader, /border-b border-aipify-border/);
 
-assert.match(read("app/app/website-kompis/page.tsx"), /decorativeAccent/);
-assert.match(read("app/app/kompis-bedrift/page.tsx"), /decorativeAccent/);
-assert.match(read("components/app/foundation/AppFoundationDashboard.tsx"), /AppDecorativeOrb/);
+assert.match(read("app/app/website-kompis/page.tsx"), /AppHubShell/);
+assert.match(read("app/app/kompis-bedrift/page.tsx"), /AppHubShell/);
+assert.match(read("components/app/foundation/AppFoundationDashboard.tsx"), /AppWorkspaceHero/);
+assert.match(read("components/app/design/KompisWorkspaceMascot.tsx"), /kompis_mascot_premium_v2\.png/);
+assert.match(read("app/globals.css"), /aipify-mascot-float/);
+assert.match(read("app/globals.css"), /prefers-reduced-motion/);
 
 const card = read("components/app/design/AppIconActionCard.tsx");
 assert.match(card, /AppVisualClasses\.cardInteractive/);

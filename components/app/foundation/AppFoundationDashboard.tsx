@@ -1,11 +1,10 @@
 import Link from "next/link";
 import {
   AppContentWidth,
-  AppDecorativeOrb,
   AppEmptyState,
   AppIconActionCard,
   AppIconStatusCard,
-  AppPageHeader,
+  AppWorkspaceHero,
 } from "@/components/app/design";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { bedriftHomeCardState } from "@/lib/app/foundation-product-card";
@@ -85,18 +84,16 @@ export function AppFoundationDashboard({
 
   return (
     <AppContentWidth className="relative">
-      <AppDecorativeOrb />
-      <div className="relative z-[1] space-y-6">
-      <AppPageHeader
+      <div className="relative z-[1] space-y-8">
+      <AppWorkspaceHero
         eyebrow={labels.eyebrow}
         title={labels.title}
         description={welcome}
-        contextRow={
-          <p className="text-sm text-[var(--app-text-muted)]">
-            {organizationName?.trim() || labels.orgFallback}
-            {planLabel ? ` · ${planLabel}` : null}
-            {licenseStatusLabel ? ` · ${licenseStatusLabel}` : null}
-          </p>
+        contextLabel={[organizationName?.trim() || labels.orgFallback, planLabel].filter(Boolean).join(" · ")}
+        status={
+          licenseStatusLabel
+            ? { label: licenseStatusLabel, tone: "slate" }
+            : { label: labels.statusReady, tone: "emerald" }
         }
       />
 

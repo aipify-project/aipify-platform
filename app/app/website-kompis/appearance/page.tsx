@@ -1,6 +1,5 @@
 import { DomainLicenseCenterPanel } from "@/components/app/domain-license";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
-import { WebsiteKompisSettingsIntro } from "@/components/app/website-kompis/WebsiteKompisSettingsIntro";
 import { buildDomainLicenseLabels } from "@/lib/domain-license/labels";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon } from "@/lib/app-portal/hubs/hub-copy";
@@ -42,15 +41,8 @@ export default async function WebsiteKompisAppearancePage() {
       title={t("customerApp.portalStructure.nav.kompisWebAppearance")}
       description={t("customerApp.portalStructure.webHub.appearanceDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
-      suppressPageHeader
     >
       <div className="space-y-6">
-        <WebsiteKompisSettingsIntro
-          eyebrow={t("customerApp.portalStructure.nav.kompisWebSettings")}
-          title={t("customerApp.portalStructure.nav.kompisWebAppearance")}
-          description={t("customerApp.portalStructure.webHub.appearanceDescription")}
-          contextLabel={formatHubContextLine(common, ctx)}
-        />
         <DomainLicenseCenterPanel labels={labels} embedded />
       </div>
     </AppHubShell>

@@ -1,6 +1,5 @@
 import type { LucideIcon } from "lucide-react";
 import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 type Metric = {
@@ -27,15 +26,6 @@ type Signal = {
 };
 
 export function WebsiteKompisDashboardPremium({
-  title,
-  description,
-  productName,
-  statusLabel,
-  statusTone,
-  contextLine,
-  statusExplain,
-  presence,
-  mascotAlt,
   knowledgeTitle,
   knowledgeDescription,
   knowledgeMetrics,
@@ -52,15 +42,6 @@ export function WebsiteKompisDashboardPremium({
   operatorHref,
   operatorLabel,
 }: {
-  title: string;
-  description: string;
-  productName: string;
-  statusLabel: string;
-  statusTone: "emerald" | "amber" | "slate" | "purple";
-  contextLine: string | null;
-  statusExplain: string;
-  presence: string | null;
-  mascotAlt: string;
   knowledgeTitle: string;
   knowledgeDescription: string;
   knowledgeMetrics: Metric[] | null;
@@ -77,62 +58,8 @@ export function WebsiteKompisDashboardPremium({
   operatorHref: string;
   operatorLabel: string;
 }) {
-  const tone =
-    statusTone === "emerald"
-      ? "bg-[#E9F8F0] text-[#146C43] ring-[#B7E4CF]"
-      : statusTone === "amber"
-        ? "bg-[#FFF4E5] text-[#945A15] ring-[#EEC58C]"
-        : statusTone === "purple"
-          ? "bg-[#F3EDFF] text-[#5538D3] ring-[#D3C7FF]"
-          : "bg-[#F4F6FB] text-[#5F6788] ring-[#E6E9F5]";
-
   return (
     <div className="space-y-8">
-      <section className="relative overflow-hidden rounded-3xl border border-[#E4E6F2] bg-white shadow-[0_12px_32px_rgba(65,54,132,0.06)]">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 hidden w-[min(46%,460px)] bg-contain bg-right bg-no-repeat lg:block"
-          style={{
-            backgroundImage: "url(/website-kompis/dashboard/kompis_hero_glow_premium_v2.png)",
-            maskImage:
-              "radial-gradient(ellipse 72% 64% at 64% 42%, #000 22%, rgba(0,0,0,0.45) 48%, transparent 70%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 72% 64% at 64% 42%, #000 22%, rgba(0,0,0,0.45) 48%, transparent 70%)",
-          }}
-        />
-        <div className="relative grid gap-6 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-end lg:gap-10">
-          <div className="relative z-10 min-w-0">
-            <h1 className="text-3xl font-semibold tracking-tight text-[#20243E] sm:text-4xl">{title}</h1>
-            <p className="mt-3 max-w-xl text-base leading-relaxed text-[#65708A]">{description}</p>
-            <div className="mt-6 max-w-xl rounded-[18px] border border-[#E4E6F2] bg-white p-4 shadow-[0_6px_18px_rgba(65,54,132,0.04)]">
-              <div className="flex flex-wrap items-center gap-2">
-                <p className="text-base font-semibold text-[#20243E]">{productName}</p>
-                <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${tone}`}>
-                  <span className="size-1.5 rounded-full bg-current" aria-hidden />
-                  {statusLabel}
-                </span>
-              </div>
-              {contextLine ? <p className="mt-2 text-sm text-[#65708A]">{contextLine}</p> : null}
-              <p className="mt-2 text-sm leading-relaxed text-[#65708A]">{statusExplain}</p>
-            </div>
-          </div>
-          <div className="relative z-10 flex flex-col items-center gap-3 lg:items-end">
-            {presence ? (
-              <p className="max-w-[15rem] rounded-2xl rounded-br-md border border-[#E4E6F2] bg-white px-3 py-2 text-sm leading-snug text-[#20243E] shadow-[0_8px_20px_rgba(65,54,132,0.06)]">
-                {presence}
-              </p>
-            ) : null}
-            <Image
-              src="/website-kompis/dashboard/kompis_mascot_premium_v2.png"
-              alt={mascotAlt}
-              width={320}
-              height={320}
-              className="h-36 w-auto object-contain sm:h-44 lg:h-52"
-            />
-          </div>
-        </div>
-      </section>
-
       {knowledgeMetrics ? (
         <MetricSection
           id="wk-knowledge-status"
