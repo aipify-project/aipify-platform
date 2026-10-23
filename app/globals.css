@@ -548,84 +548,56 @@ body:has(.aipify-app-shell) .aipify-privacy-settings-trigger {
 
 .aipify-workspace-mascot {
   position: relative;
-  width: min(220px, 46vw);
-  height: min(220px, 46vw);
+  width: min(340px, 78vw);
+  aspect-ratio: 1100 / 872;
 }
 
 .aipify-workspace-mascot__figure {
   width: 100%;
   height: auto;
   object-fit: contain;
-  transform: rotate(-11deg);
-  transform-origin: 60% 70%;
-}
-
-.aipify-workspace-mascot__blink {
-  position: absolute;
-  left: 27%;
-  right: 27%;
-  top: 44%;
-  height: 11%;
-  border-radius: 999px;
-  background: #f7f4ff;
-  transform: scaleY(0);
-  transform-origin: center;
 }
 
 .aipify-workspace-mascot__bulb {
   position: absolute;
+  left: 6%;
   top: 4%;
-  left: -6%;
+  width: 30%;
+  height: 36%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 214, 130, 0.9) 0%, rgba(255, 176, 70, 0.28) 42%, transparent 72%);
   opacity: 0;
-  filter: drop-shadow(0 6px 10px rgba(226, 193, 90, 0.35));
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .aipify-workspace-mascot__figure {
-    animation: aipify-mascot-float 5.6s ease-in-out infinite;
-  }
-  .aipify-workspace-mascot__blink {
-    animation: aipify-mascot-blink 5.4s ease-in-out infinite;
+    animation: aipify-mascot-rest 6s ease-in-out infinite;
   }
   .aipify-workspace-mascot__bulb {
-    animation: aipify-mascot-idea 8.5s ease-in-out infinite;
+    animation: aipify-bulb-pulse 2.2s ease-in-out infinite;
   }
 }
 
-@keyframes aipify-mascot-float {
+@keyframes aipify-mascot-rest {
   0%,
   100% {
-    transform: rotate(-11deg) translateY(0);
+    transform: translateY(0);
   }
   50% {
-    transform: rotate(-11deg) translateY(-8px);
+    transform: translateY(-3px);
   }
 }
 
-@keyframes aipify-mascot-blink {
+@keyframes aipify-bulb-pulse {
   0%,
-  40%,
-  49%,
   100% {
-    transform: scaleY(0);
+    opacity: 0.28;
+    transform: scale(0.94);
   }
-  43%,
-  46% {
-    transform: scaleY(1);
-  }
-}
-
-@keyframes aipify-mascot-idea {
-  0%,
-  74%,
-  100% {
-    opacity: 0;
-    transform: translateY(6px) scale(0.86);
-  }
-  80%,
-  90% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
   }
 }
 

@@ -64,8 +64,8 @@ assert.doesNotMatch(pageHeader, /border-b border-aipify-border/);
 assert.match(read("app/app/website-kompis/page.tsx"), /AppHubShell/);
 assert.match(read("app/app/kompis-bedrift/page.tsx"), /AppHubShell/);
 assert.match(read("components/app/foundation/AppFoundationDashboard.tsx"), /AppWorkspaceHero/);
-assert.match(read("components/app/design/KompisWorkspaceMascot.tsx"), /kompis_mascot_premium_v2\.png/);
-assert.match(read("app/globals.css"), /aipify-mascot-float/);
+assert.match(read("components/app/design/KompisWorkspaceMascot.tsx"), /kompis_mascot_idea_facing_in\.png/);
+assert.match(read("app/globals.css"), /aipify-bulb-pulse/);
 assert.match(read("app/globals.css"), /prefers-reduced-motion/);
 
 const card = read("components/app/design/AppIconActionCard.tsx");

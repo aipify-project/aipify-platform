@@ -42,7 +42,7 @@ export function AppWorkspaceHero({
   return (
     <section className="aipify-workspace-hero relative overflow-hidden rounded-3xl border border-[#E4E6F2] bg-white shadow-[0_16px_40px_rgba(65,54,132,0.07)]">
       <div className="aipify-workspace-hero__glow" aria-hidden="true" />
-      <div className="relative grid gap-6 p-6 sm:p-8 lg:min-h-[280px] lg:grid-cols-[minmax(0,1fr)_240px] lg:items-center lg:gap-8 lg:p-10">
+      <div className="relative grid gap-6 p-6 sm:p-8 lg:min-h-[280px] lg:grid-cols-[minmax(0,1fr)_minmax(220px,340px)] lg:items-center lg:gap-8 lg:p-10">
         <div className="relative z-10 min-w-0">
           <p className="text-sm font-semibold tracking-wide text-[#7055EE]">{eyebrow}</p>
           <h1 className="mt-2 max-w-4xl text-4xl font-semibold tracking-tight text-[#20243E] sm:text-5xl">
