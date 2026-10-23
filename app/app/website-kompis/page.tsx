@@ -95,18 +95,19 @@ export default async function WebsiteKompisHubPage() {
       eyebrow={t("customerApp.portalStructure.navGroups.kompisWeb")}
       title={t("customerApp.portalStructure.nav.kompisWebDashboard")}
       description={t("customerApp.portalStructure.webHub.description")}
-      suppressPageHeader
+      contextLabel={contextParts.length > 0 ? contextParts.join(" · ") : formatHubContextLine(common, ctx)}
+      status={{ label: connectionLabels.aggregate[aggregate], tone: statusTone }}
+      note={
+        aggregate === "active"
+          ? t("customerApp.portalStructure.webHub.presenceReady")
+          : connectionLabels.aggregateExplain[aggregate]
+      }
+      primaryAction={{
+        label: connectionLabels.openConnection,
+        href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
+      }}
     >
       <WebsiteKompisDashboardPremium
-        title={t("customerApp.portalStructure.nav.kompisWebDashboard")}
-        description={t("customerApp.portalStructure.webHub.description")}
-        productName={t("customerApp.portalStructure.navGroups.kompisWeb")}
-        statusLabel={connectionLabels.aggregate[aggregate]}
-        statusTone={statusTone}
-        contextLine={contextParts.length > 0 ? contextParts.join(" · ") : formatHubContextLine(common, ctx)}
-        statusExplain={connectionLabels.aggregateExplain[aggregate]}
-        presence={aggregate === "active" ? t("customerApp.portalStructure.webHub.presenceReady") : null}
-        mascotAlt={t("customerApp.portalStructure.navGroups.kompisWeb")}
         knowledgeTitle={knowledgeLabels.dashboardTitle}
         knowledgeDescription={knowledgeLabels.dashboardDescription}
         knowledgeMetrics={

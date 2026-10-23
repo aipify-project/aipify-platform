@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
+import { AppWorkspaceHero } from "@/components/app/design/AppWorkspaceHero";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { createKompisOperatorIdempotencyKey } from "@/lib/kompis-operator/ids";
 import type { KompisOperatorLabels } from "@/lib/kompis-operator/labels";
@@ -739,14 +740,16 @@ export function KompisOperatorWorkspacePanel({
   const risk = (activeRun?.risk_class ?? 0) as 0 | 1 | 2 | 3;
 
   return (
-    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 px-4 py-6 lg:flex-row lg:items-start">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 px-4 py-6">
+      <AppWorkspaceHero
+        eyebrow={labels.title}
+        title={labels.title}
+        description={labels.subtitle}
+        note={labels.boundaryNote}
+      />
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
       <section className="min-w-0 flex-1 space-y-4">
         <header>
-          <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">{labels.title}</h1>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{labels.subtitle}</p>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-            {labels.boundaryNote}
-          </p>
           <div className="mt-4 flex gap-2" role="tablist" aria-label={labels.websiteTab}>
             <button
               type="button"
@@ -1736,6 +1739,7 @@ export function KompisOperatorWorkspacePanel({
           )}
         </div>
       </aside>
+      </div>
     </div>
   );
 }

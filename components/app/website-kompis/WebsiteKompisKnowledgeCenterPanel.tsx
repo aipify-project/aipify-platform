@@ -15,7 +15,6 @@ type WebsiteKompisKnowledgeCenterPanelProps = {
   labels: WebsiteKompisKnowledgeLabels;
   summary: WebsiteKompisKnowledgeSummary;
   faqPanel: ReactNode;
-  contextLabel?: string | null;
 };
 
 function formatWhen(value: string | null): string {
@@ -64,7 +63,6 @@ export function WebsiteKompisKnowledgeCenterPanel({
   labels,
   summary,
   faqPanel,
-  contextLabel,
 }: WebsiteKompisKnowledgeCenterPanelProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -106,12 +104,6 @@ export function WebsiteKompisKnowledgeCenterPanel({
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-[#E8E4FB] bg-gradient-to-br from-white to-[#F5F1FF] p-6 shadow-[0_12px_32px_rgba(49,38,112,0.055)] sm:p-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-[#20243A] sm:text-4xl">{labels.title}</h1>
-        <p className="mt-3 max-w-3xl text-base leading-relaxed text-[#657089]">{labels.subtitle}</p>
-        {contextLabel ? <p className="mt-3 text-sm text-[#657089]">{contextLabel}</p> : null}
-      </section>
-
       <section className="space-y-3" aria-labelledby="wk-kc-overview">
         <div>
           <h2 id="wk-kc-overview" className="text-lg font-semibold text-[#20243A]">{labels.overviewTitle}</h2>

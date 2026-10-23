@@ -69,9 +69,7 @@ export function AppPortalIntegrationsHubPanel({
   return (
     <div className="w-full space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">{labels.hub.title}</h1>
-        <p className="mt-2 text-slate-600">{labels.hub.subtitle}</p>
-        <p className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50/60 px-5 py-4 text-sm text-slate-800">
+        <p className="rounded-2xl border border-indigo-100 bg-indigo-50/60 px-5 py-4 text-sm text-slate-800">
           {hub.read_only_principle || labels.hub.readOnlyPrinciple}
         </p>
         <p className="mt-2 text-xs text-slate-500">{hub.privacy_note || labels.hub.privacyNote}</p>

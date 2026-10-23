@@ -113,7 +113,8 @@ assert.equal(noDomain.aggregate, "unconfigured");
 assert.equal(noDomain.diagnosis, "no_domain");
 
 const page = readFileSync(join(ROOT, "app/app/website-kompis/connection/page.tsx"), "utf8");
-assert.match(page, /suppressPageHeader/);
+assert.match(page, /AppHubShell/);
+assert.doesNotMatch(page, /suppressPageHeader/);
 assert.match(page, /WebsiteKompisConnectionCenterPanel/);
 assert.match(page, /loadWebsiteKompisConnectionSummary/);
 assert.match(page, /DomainLicenseCenterPanel/);

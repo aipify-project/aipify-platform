@@ -39,8 +39,6 @@ type WebsiteKompisConnectionCenterPanelProps = {
   summary: ConnectionStatusSummary;
   workspace: ConnectionSiteWorkspace;
   pageTitle: string;
-  contextLabel: string | null;
-  statusTone: "emerald" | "amber" | "slate" | "purple";
   domainPanel: ReactNode;
 };
 
@@ -52,13 +50,6 @@ const CHECKPOINT_ICONS: Record<string, LucideIcon> = {
   installation: Plug,
   public_runtime: Eye,
 };
-
-function statusBadgeTone(tone: "emerald" | "amber" | "slate" | "purple"): string {
-  if (tone === "emerald") return "bg-[#E9F8F0] text-[#146C43] ring-[#B7E4CF]";
-  if (tone === "amber") return "bg-[#FFF4E5] text-[#945A15] ring-[#EEC58C]";
-  if (tone === "purple") return "bg-[#F3EDFF] text-[#5538D3] ring-[#D3C7FF]";
-  return "bg-[#F4F6FB] text-[#5F6788] ring-[#E6E9F5]";
-}
 
 function checkpointChip(state: string): string {
   if (state === "ok") return "bg-[#E9F8F0] text-[#146C43]";
@@ -113,8 +104,6 @@ export function WebsiteKompisConnectionCenterPanel({
   summary,
   workspace,
   pageTitle,
-  contextLabel,
-  statusTone,
   domainPanel,
 }: WebsiteKompisConnectionCenterPanelProps) {
   const router = useRouter();
@@ -177,28 +166,6 @@ export function WebsiteKompisConnectionCenterPanel({
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-[#E8E4FB] bg-gradient-to-br from-white to-[#F5F1FF] p-6 shadow-[0_12px_32px_rgba(49,38,112,0.055)] sm:p-8">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-          <div className="min-w-0">
-            <h1 className="text-3xl font-semibold tracking-tight text-[#20243A] sm:text-4xl">{pageTitle}</h1>
-            <p className="mt-3 max-w-3xl text-base leading-relaxed text-[#657089]">{labels.subtitle}</p>
-            <div className="mt-4 flex flex-wrap items-center gap-3">
-              {contextLabel ? <p className="text-sm text-[#657089]">{contextLabel}</p> : null}
-              <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${statusBadgeTone(statusTone)}`}>
-                <span className="size-1.5 rounded-full bg-current" aria-hidden />
-                {aggregateLabel}
-              </span>
-            </div>
-          </div>
-          <Link
-            href={FOUNDATION_NAV_BINDINGS.accountSubscription}
-            className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-[#E3E6F1] bg-white px-4 text-sm font-semibold text-[#20243A] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7055EE]"
-          >
-            {labels.openSubscription}
-          </Link>
-        </div>
-      </section>
-
       <section
         className="rounded-[18px] border border-[#E3E6F1] bg-white p-5 shadow-[0_8px_22px_rgba(38,37,104,0.05)] sm:p-6"
         aria-labelledby="wk-conn-aggregate"

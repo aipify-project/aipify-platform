@@ -1,7 +1,6 @@
 import { ArrowUpRight, Bell, Palette, PanelTop, Puzzle, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
-import { WebsiteKompisSettingsIntro } from "@/components/app/website-kompis/WebsiteKompisSettingsIntro";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon, hubT } from "@/lib/app-portal/hubs/hub-copy";
 import {
@@ -67,15 +66,8 @@ export default async function WebsiteKompisSettingsPage() {
       title={t("customerApp.portalStructure.nav.kompisWebSettings")}
       description={t("customerApp.portalStructure.webHub.settingsDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
-      suppressPageHeader
     >
       <div className="space-y-6">
-        <WebsiteKompisSettingsIntro
-          eyebrow={t("customerApp.portalStructure.navGroups.kompisWeb")}
-          title={t("customerApp.portalStructure.nav.kompisWebSettings")}
-          description={t("customerApp.portalStructure.webHub.settingsDescription")}
-          contextLabel={formatHubContextLine(common, ctx)}
-        />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {cards.map((card) => {
             const Icon = card.icon;

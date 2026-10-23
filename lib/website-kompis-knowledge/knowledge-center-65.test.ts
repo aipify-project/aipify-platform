@@ -72,7 +72,8 @@ const panel = readFileSync(
   join(ROOT, "components/app/website-kompis/WebsiteKompisKnowledgeCenterPanel.tsx"),
   "utf8",
 );
-assert.match(faqPage, /suppressPageHeader/);
+assert.match(faqPage, /AppHubShell/);
+assert.doesNotMatch(faqPage, /suppressPageHeader/);
 assert.match(panel, /overviewTitle/);
 assert.match(panel, /hintPublished/);
 assert.match(panel, /neverAutoPublish/);

@@ -76,7 +76,11 @@ export default async function WebsiteKompisConnectionPage({ searchParams }: Conn
       title={t("customerApp.portalStructure.nav.kompisWebConnection")}
       description={connectionLabels.subtitle}
       contextLabel={formatHubContextLine(common, ctx)}
-      suppressPageHeader
+      status={{ label: connectionLabels.aggregate[summary.aggregate], tone: statusTone }}
+      primaryAction={{
+        label: connectionLabels.openSubscription,
+        href: FOUNDATION_NAV_BINDINGS.accountSubscription,
+      }}
     >
       <Suspense fallback={<AipifyLoadingState />}>
         <WebsiteKompisConnectionCenterPanel
@@ -84,8 +88,6 @@ export default async function WebsiteKompisConnectionPage({ searchParams }: Conn
           summary={summary}
           workspace={workspace}
           pageTitle={t("customerApp.portalStructure.nav.kompisWebConnection")}
-          contextLabel={formatHubContextLine(common, ctx)}
-          statusTone={statusTone}
           domainPanel={<DomainLicenseCenterPanel labels={domainLabels} embedded />}
         />
       </Suspense>
