@@ -5,10 +5,22 @@ import { fileURLToPath } from "node:url";
 import { appendBuildMemoryIncident } from "../lib/build-governance/build-memory";
 import { runGovernanceScan } from "../lib/build-governance/validator";
 import { writeRouteRegistryArtifact } from "../lib/build-governance/run-governance";
+import { checkWebsiteKompisFreezeIntegrity } from "../lib/marketing/website-kompis-freeze-integrity";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
 console.log("=== Aipify deployment verification ===\n");
+
+console.log("0/4 Website Kompis public-chain freeze");
+const freezeIssues = checkWebsiteKompisFreezeIntegrity(root);
+if (freezeIssues.length > 0) {
+  for (const issue of freezeIssues) {
+    console.error(`   ✗ ${issue.path}: ${issue.reason}`);
+  }
+  console.error("\nDeployment blocked: protected Website Kompis files changed without an updated drift ledger.");
+  process.exit(1);
+}
+console.log("   ✓ Protected runtime hashes match the manifest or the observed-drift ledger");
 
 const scan = runGovernanceScan(root);
 

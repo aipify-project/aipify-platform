@@ -1,0 +1,43 @@
+{
+  "ledgerId": "website-kompis-public-chain-observed-drift-v1",
+  "recordedAgainst": "d83d74b98ce45060b4e0cd91a40caf228f32ead8",
+  "manifestCommit": "9fba6af8",
+  "note": "These hashes are observed Production drift. They are not a new freeze baseline. A later edit must update this ledger and the manifest together, in a task that names Website Kompis Public Chain.",
+  "files": [
+    {
+      "path": "components/embed/WebsiteKompisEmbedWidget.tsx",
+      "introducedBy": "c2757397576964709781b86c114a3518d7003786",
+      "manifestSha256": "73585a579de9ee5127cb4b4c0cc258202eb7c37ddff243e8ae283325c1134863",
+      "observedSha256": "4aa343c10595a8d39eb06a3badd77ddf1001792cd9dae598dc11fb6806201f4e",
+      "reason": "PR #272 sends the page content locale with the ask and marks the reply bubble. The later manifest refresh did not record this hash."
+    },
+    {
+      "path": "lib/marketing/public-companion-ask.ts",
+      "introducedBy": "c2757397576964709781b86c114a3518d7003786",
+      "manifestSha256": "4ec48ee373ab7dc11bf39f07abff0317708c89df265513517499988ae9575682",
+      "observedSha256": "ea6f4ec0250339b24a63313d5c87b5c8179b4862e14e31e1964bf9f215f52928",
+      "reason": "PR #272 carries the FAQ content-language set through the public ask path. Unknown tags no longer all collapse the way the older ask test expects."
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-answer-policy.ts",
+      "introducedBy": "c2757397576964709781b86c114a3518d7003786",
+      "manifestSha256": "ae14aacb3aff82bc803b5ec2d6ac7de7cb2242f6571564a859c4bdc65c90b42a",
+      "observedSha256": "24cde88546fa851ed726007b35a4f8d95f0c50df98bf6b57e326ec9bbb1d77f7",
+      "reason": "PR #272 uses the English missing-price sentence unless the locale is Norwegian or Spanish."
+    },
+    {
+      "path": "lib/marketing/website-kompis-install-config.ts",
+      "introducedBy": "c2757397576964709781b86c114a3518d7003786",
+      "manifestSha256": "531b06c77a3ac19dfa6fcb9022a4bdf4242f8cd4a6fe5a6290cd8d06fc59d7f9",
+      "observedSha256": "e7255b79367f0d2acd1df62ed466f76d59b03bc025ee5564653934ea302b232d",
+      "reason": "PR #272 accepts a saved site locale from the content-language set instead of the previous seven-code list."
+    },
+    {
+      "path": "lib/marketing/website-kompis-answer-feedback-server.ts",
+      "introducedBy": "c20fd8a20686afd73fcf6b1e50475b7b78ffee5e",
+      "manifestSha256": "00600726e501ec59661660a229b996deff085d9c412687cafa4bf4e4348e0f0a",
+      "observedSha256": "1c4b273e59f2c2c7e4072a089080a8d2e4ad3e72648cd3035debb3349f64e14a",
+      "reason": "PR #275 reads review status on the feedback overview. Closing a review stays gated, and the manifest hash was not updated."
+    }
+  ]
+}
