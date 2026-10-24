@@ -378,6 +378,108 @@ async function main() {
     false,
   );
 
+  const englishMembership = faq({
+    item_id: "88888888-8888-4888-8888-888888888881",
+    locale: "en",
+    title: "Membership prices",
+    answer: "Membership renews once a year.",
+    source_url: `${HOST}/faq/membership-en`,
+  });
+  const englishMember = faq({
+    item_id: "88888888-8888-4888-8888-888888888882",
+    locale: "en",
+    title: "Member invites",
+    answer: "A member receives one invite.",
+    source_url: `${HOST}/faq/member-en`,
+  });
+  const englishInternational = faq({
+    item_id: "88888888-8888-4888-8888-888888888883",
+    locale: "en",
+    title: "International shipping",
+    answer: "International shipping is available to registered countries.",
+    source_url: `${HOST}/faq/international-en`,
+  });
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([englishInternational], "How do I connect to the internet?"),
+    false,
+  );
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([englishMembership], "How many members can I invite?"),
+    false,
+  );
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([englishMember], "How many members can I invite?"),
+    true,
+  );
+
+  const swedishMembership = faq({
+    item_id: "99999999-9999-4999-8999-999999999991",
+    locale: "sv",
+    title: "Medlemskap och pris",
+    answer: "Medlemskap förnyas varje år.",
+    source_url: `${HOST}/faq/membership-sv`,
+  });
+  const swedishDelivery = faq({
+    item_id: "99999999-9999-4999-8999-999999999992",
+    locale: "sv",
+    title: "Leveranser",
+    answer: "Leveranser går varje vecka.",
+    source_url: `${HOST}/faq/delivery-sv`,
+  });
+  const swedishInternational = faq({
+    item_id: "99999999-9999-4999-8999-999999999993",
+    locale: "sv",
+    title: "Internationella leveranser",
+    answer: "Internationella leveranser når registrerade länder.",
+    source_url: `${HOST}/faq/international-sv`,
+  });
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([swedishInternational], "Hur ansluter jag till internet?"),
+    false,
+  );
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([swedishMembership], "Hur många medlemmar kan jag bjuda in?"),
+    false,
+  );
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([swedishDelivery], "När går nästa leverans?"),
+    true,
+  );
+
+  const danishMembership = faq({
+    item_id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+    locale: "da",
+    title: "Medlemskab og pris",
+    answer: "Medlemskab fornys hvert år.",
+    source_url: `${HOST}/faq/membership-da`,
+  });
+  const danishImage = faq({
+    item_id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2",
+    locale: "da",
+    title: "Billede",
+    answer: "Et billede på profilen følger disse regler.",
+    source_url: `${HOST}/faq/image-da`,
+  });
+  const danishInternational = faq({
+    item_id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3",
+    locale: "da",
+    title: "Internationale leverancer",
+    answer: "Internationale leverancer sendes til registrerede lande.",
+    source_url: `${HOST}/faq/international-da`,
+  });
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([danishInternational], "Hvordan forbinder jeg internet?"),
+    false,
+  );
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([danishMembership], "Hvor mange medlemmer kan jeg invitere?"),
+    false,
+  );
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([danishImage], "Hvad gælder for billeder?"),
+    true,
+  );
+
   const imageQuestion = "Hva gjelder for nakenbilder?";
   assert.equal(isRelevantPublicCompanionTenantFaqResult([imageFaq], imageQuestion), true);
   assert.equal(isRelevantPublicCompanionTenantFaqResult([countryFaq], imageQuestion), false);
