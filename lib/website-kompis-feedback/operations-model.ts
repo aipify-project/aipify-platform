@@ -18,7 +18,7 @@ export type FeedbackOpsRow = {
   locale: string | null;
   createdAt: string;
   reviewStatus?: "open" | "closed" | null;
-  reviewDisposition?: "open" | "published" | "rejected" | null;
+  reviewDisposition?: "open" | "published" | "retrieval_unresolved" | "rejected" | "duplicate" | null;
   reviewedAt?: string | null;
   installId?: string | null;
   publishedFaqItemId?: string | null;
@@ -41,7 +41,9 @@ export type FeedbackOpsStatus = {
     | "noFeedbackSignal"
     | "closed"
     | "published"
-    | "rejected";
+    | "rejected"
+    | "duplicate"
+    | "retrievalFollowUp";
 };
 
 export type FeedbackOpsNextAction = {
@@ -140,6 +142,12 @@ export function resolveFeedbackOpsStatus(row: FeedbackOpsRow): FeedbackOpsStatus
   }
   if (row.reviewDisposition === "rejected") {
     return { tone: "slate", key: "rejected" };
+  }
+  if (row.reviewDisposition === "duplicate") {
+    return { tone: "slate", key: "duplicate" };
+  }
+  if (row.reviewDisposition === "retrieval_unresolved") {
+    return { tone: "amber", key: "retrievalFollowUp" };
   }
   if (row.reviewStatus === "closed") {
     return { tone: "slate", key: "closed" };

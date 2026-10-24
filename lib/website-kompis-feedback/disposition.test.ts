@@ -63,13 +63,15 @@ assert.equal(
 assert.equal(retryFaqId(faqId), faqId);
 assert.equal(retryFaqId("not-an-id"), null);
 
-const rejected = buildRejectDispositionCall(feedbackId);
+const rejected = buildRejectDispositionCall(feedbackId, "spam report");
 assert.equal(rejected.ok, true);
 if (rejected.ok) {
   assert.equal(rejected.rpc, "reject_website_kompis_feedback_review");
   assert.equal(rejected.args.p_confirmation, true);
+  assert.equal(rejected.args.p_reason, "spam report");
   assert.equal("p_faq_item_id" in rejected.args, false);
 }
+assert.equal(buildRejectDispositionCall(feedbackId, "no").ok, false);
 
 assert.equal(shouldRemoveReviewCard({ httpOk: true, reviewDisposition: "published", expected: "published" }), true);
 assert.equal(shouldRemoveReviewCard({ httpOk: false, reviewDisposition: "published", expected: "published" }), false);
@@ -178,12 +180,16 @@ const readyClient = {
     return { data: { review_disposition: "rejected" }, error: null };
   },
 };
-const rejectResult = await runFeedbackDisposition(readyClient as never, { feedbackId, action: "rejected" }, true);
+const rejectResult = await runFeedbackDisposition(
+  readyClient as never,
+  { feedbackId, action: "rejected", reason: "spam report" },
+  true,
+);
 assert.equal(rejectResult.status, 200);
 assert.equal(rejectResult.body.reviewDisposition, "rejected");
 const forbidden = await runFeedbackDisposition(
   { rpc: async () => ({ data: null, error: { code: "P0001", message: "owner or admin required" } }) } as never,
-  { feedbackId, action: "rejected" },
+  { feedbackId, action: "rejected", reason: "spam report" },
   true,
 );
 assert.equal(forbidden.status, 403);
@@ -197,6 +203,10 @@ assert.match(editor, /presentReviewAfterFaqPublish/);
 assert.doesNotMatch(editor, /onPublished/);
 assert.match(editor, /retryFaqId/);
 assert.equal((editor.match(/\/api\/website-kompis\/feedback\/\$\{row\.id\}\/disposition/g) ?? []).length, 2);
+assert.match(editor, /proposedFaqAnswerSeed\(\)/);
+assert.doesNotMatch(editor, /useState\(row\.answerPreview\)/);
+assert.match(editor, /action: "rejected"/);
+assert.match(editor, /reason: call\.args\.p_reason/);
 assert.doesNotMatch(editor, /DELETE FROM/);
 assert.doesNotMatch(editor, /FEEDBACK_REVIEW_DISPOSITION_READY = true/);
 assert.doesNotMatch(editor, /FEEDBACK_REVIEW_CLOSE_READY = true/);

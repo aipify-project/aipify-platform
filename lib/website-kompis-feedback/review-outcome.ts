@@ -91,3 +91,8 @@ export function queueAfterDisposition(
 export function followUpStaysOpen(disposition: ReviewCaseScope["disposition"]): boolean {
   return disposition === "retrieval_unresolved";
 }
+
+/** The visitor's received answer is context. It is not the proposed FAQ answer. */
+export function proposedFaqAnswerSeed(): "" {
+  return "";
+}
