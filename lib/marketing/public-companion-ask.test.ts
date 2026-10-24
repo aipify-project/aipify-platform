@@ -432,7 +432,9 @@ async function main() {
       "@/lib/companion-platform-knowledge/route-registry"
     );
     const live = getPlatformRouteByKey("kompisWebFaq");
-    assert.ok(live?.href.startsWith("/app/"));
+    if (!live || !live.href.startsWith("/app/")) {
+      throw new Error("kompisWebFaq is not an internal route");
+    }
     const sanitized = sanitizePublicCompanionActions([
       {
         labelKey: "x",
