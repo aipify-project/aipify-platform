@@ -1,9 +1,6 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
 
-const root = path.dirname(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const require = createRequire(import.meta.url);
 
 const EASTER_FAQ = {

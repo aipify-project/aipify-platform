@@ -196,15 +196,6 @@ const openDetails = {
     "How do workshop bookings work? Bookings open each Monday. Bring a photo ID and arrive 10 minutes early.",
   closest: makeClosest({}),
 };
-const closedDetails = {
-  tagName: "DETAILS",
-  open: false,
-  getAttribute: () => null,
-  querySelector: (selector: string) =>
-    selector === "summary" ? { textContent: "Hidden refund policy details" } : null,
-  textContent: "Hidden refund policy details Secret refund clause must not leak.",
-  closest: makeClosest({}),
-};
 const expandedButton = {
   tagName: "BUTTON",
   textContent: "What languages are supported?",

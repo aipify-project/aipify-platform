@@ -75,7 +75,7 @@
     {
       "path": "lib/marketing/public-companion-tenant-faq.ts",
       "role": "Tenant FAQ retrieval + relevance",
-      "sha256": "c3bc317ee311c365805855955a39e7da982612dc7741a3fd438359d8d6160737"
+      "sha256": "2aff5fc9b817b74f62e5eb2c9e18d430a5a633a8b7cdc0a6f0f21e635892f8ae"
     },
     {
       "path": "lib/marketing/website-kompis-retrieval-intent.ts",
@@ -95,12 +95,12 @@
     {
       "path": "lib/marketing/website-kompis-public-page-context.ts",
       "role": "Current-page context + extract",
-      "sha256": "7361d006eee4c4ee71a4a31ec2c0cf7886372e14bbbb5b8fd0a8f65cde0abfe8"
+      "sha256": "998c6297826e264681dc5cefc1e52231a5a561bd644e9cb5145836c03f0bd01b"
     },
     {
       "path": "lib/marketing/website-kompis-grounded-answer.ts",
       "role": "Evidence pack + provider grounded path",
-      "sha256": "15286ffff337f0b48a9d33229e8f0fea71baee14bdaa07806e249ce912004168"
+      "sha256": "e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82"
     },
     {
       "path": "lib/marketing/website-kompis-public-answer-policy.ts",
@@ -205,7 +205,7 @@
     {
       "path": "lib/marketing/website-kompis-public-boundary.ts",
       "role": "Public/private boundary",
-      "sha256": "f09e3a1c89d6efd7fb4a7dad905a222330d5c1490df197734945eb52982e1e01"
+      "sha256": "33d11e807f80f2458d23b82b26aa9fdb793c5a6a56051923f2f2ca1e14ff79ca"
     },
     {
       "path": "lib/marketing/website-kompis-domain-activation.ts",
