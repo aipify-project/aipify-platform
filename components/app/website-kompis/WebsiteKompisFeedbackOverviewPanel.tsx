@@ -31,6 +31,7 @@ import {
   type FeedbackOpsVoteFilter,
 } from "@/lib/website-kompis-feedback/operations-model";
 import { explicitBulkIds, reviewReasonOk } from "@/lib/website-kompis-feedback/review-outcome";
+import { feedbackListFiltersActive, feedbackQueueEmptyKind, presentFeedbackStatCards } from "@/lib/website-kompis-feedback/stat-truth";
 
 type OverviewPayload = {
   ok?: boolean;
@@ -325,13 +326,31 @@ export function WebsiteKompisFeedbackOverviewPanel({
 
   const persistenceReady = data?.persistenceReady === true;
   const totals = data?.totals ?? { answers: 0, helpful: 0, notHelpful: 0, withComment: 0, needsReview: null };
+  const filtersActive = feedbackListFiltersActive(rowFilters);
+  const openReviewIsQueue = usingServerQueue || typeof totals.needsReview === "number";
   const reviewTotal = usingServerQueue ? (data?.reviewPage?.openReviewCount ?? reviewQueue.length) : (totals.needsReview ?? totals.notHelpful);
+  const statCards = presentFeedbackStatCards({
+    answers: totals.answers,
+    helpful: totals.helpful,
+    notHelpful: totals.notHelpful,
+    withComment: totals.withComment,
+    openReview: reviewTotal,
+    openReviewIsQueue,
+    filtersActive,
+  });
   const tiles = [
-    { label: labels.totals.answers, value: totals.answers, icon: MessageCircle, chip: "bg-[var(--app-primary-soft)] text-[var(--app-primary)]" },
-    { label: labels.totals.helpful, value: totals.helpful, icon: ThumbsUp, chip: "bg-[#E8F7F0] text-[#146C43]" },
-    { label: labels.totals.notHelpful, value: totals.notHelpful, icon: ThumbsDown, chip: "bg-[#FDECEC] text-[#9F1239]" },
-    { label: labels.totals.withComment, value: totals.withComment, icon: MessageSquareText, chip: "bg-[var(--app-primary-soft)] text-[var(--app-primary)]" },
-    { label: labels.totals.needsReview, value: reviewTotal, icon: ClipboardCheck, chip: FEEDBACK_REVIEW_BADGE_CLASS },
+    { id: "answers", label: labels.totals.answers, hint: labels.totals.answersHint, value: statCards.answers, icon: MessageCircle, chip: "bg-[var(--app-primary-soft)] text-[var(--app-primary)]" },
+    { id: "helpful", label: labels.totals.helpful, hint: labels.totals.helpfulHint, value: statCards.helpful, icon: ThumbsUp, chip: "bg-[#E8F7F0] text-[#146C43]" },
+    { id: "notHelpful", label: labels.totals.notHelpful, hint: labels.totals.notHelpfulHint, value: statCards.notHelpful, icon: ThumbsDown, chip: "bg-[#FDECEC] text-[#9F1239]" },
+    { id: "withComment", label: labels.totals.withComment, hint: labels.totals.withCommentHint, value: statCards.withComment, icon: MessageSquareText, chip: "bg-[var(--app-primary-soft)] text-[var(--app-primary)]" },
+    {
+      id: "openReview",
+      label: statCards.openReviewIsQueue ? labels.totals.openReview : labels.totals.needsReview,
+      hint: statCards.openReviewIsQueue ? labels.totals.openReviewHint : labels.totals.notHelpfulHint,
+      value: statCards.openReview,
+      icon: ClipboardCheck,
+      chip: FEEDBACK_REVIEW_BADGE_CLASS,
+    },
   ];
   const tabs: Array<{ id: ViewId; label: string; count: number | null }> = [
     { id: "review", label: labels.quality.tabs.review, count: reviewTotal },
@@ -348,18 +367,21 @@ export function WebsiteKompisFeedbackOverviewPanel({
         </div>
       ) : null}
 
+      <p className="max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.totals.scope}</p>
+
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         {tiles.map((item) => {
           const Icon = item.icon;
           return (
-            <div key={item.label} className="rounded-[18px] border border-[#E4E6F2] bg-white p-5 shadow-[0_8px_24px_rgba(65,54,132,0.055)]">
-              <div className="flex items-center gap-2">
-                <span className={`inline-flex size-8 items-center justify-center rounded-full ${item.chip}`}>
+            <div key={item.id} className="min-w-0 rounded-[18px] border border-[#E4E6F2] bg-white p-5 shadow-[0_8px_24px_rgba(65,54,132,0.055)]">
+              <div className="flex items-start gap-2">
+                <span className={`inline-flex size-8 shrink-0 items-center justify-center rounded-full ${item.chip}`}>
                   <Icon aria-hidden className="size-4" strokeWidth={2} />
                 </span>
-                <p className="text-sm text-[var(--app-text-muted)]">{item.label}</p>
+                <p className="min-w-0 text-sm leading-snug text-[var(--app-text-muted)]">{item.label}</p>
               </div>
               <p className="mt-3 text-[1.95rem] font-semibold tabular-nums tracking-tight text-[#20243E]">{item.value}</p>
+              <p className="mt-1 text-xs leading-snug text-[var(--app-text-muted)]">{item.hint}</p>
             </div>
           );
         })}
@@ -489,7 +511,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
                 {view === "history" ? labels.quality.tabs.history : labels.sectionReviewQueue}
               </h2>
               <p className="mt-1 max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">
-                {view === "history" ? labels.scopeNote : labels.sectionReviewQueueHint}
+                {view === "history" ? labels.quality.historyHint : labels.sectionReviewQueueHint}
               </p>
               {view === "review" && !FEEDBACK_REVIEW_DISPOSITION_READY ? (
                 <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.quality.removalUnavailable}</p>
@@ -530,27 +552,69 @@ export function WebsiteKompisFeedbackOverviewPanel({
                 </div>
               ) : null}
             </div>
-            {(!usingServerQueue && recent.length === 0) ||
-            (usingServerQueue &&
-              reviewQueue.length === 0 &&
-              historyRows.length === 0 &&
-              !reviewNext &&
-              !historyNext &&
-              totals.answers === 0 &&
-              totals.helpful === 0 &&
-              totals.notHelpful === 0) ? (
-              <PlatformEmptyState
-                title={labels.emptyTitle}
-                message={labels.emptyDescription}
-                primaryAction={{ label: labels.retry, onClick: () => void load() }}
-              />
-            ) : page.items.length === 0 ? (
-              <PlatformEmptyState
-                title={view === "history" ? labels.quality.historyEmpty : labels.quality.reviewEmpty}
-                message={labels.noResultsDescription}
-                primaryAction={{ label: labels.clearFilters, onClick: clearFilters }}
-              />
-            ) : (
+            {(() => {
+              const datasetEmpty =
+                (!usingServerQueue && recent.length === 0) ||
+                (usingServerQueue &&
+                  reviewQueue.length === 0 &&
+                  historyRows.length === 0 &&
+                  !reviewNext &&
+                  !historyNext &&
+                  totals.answers === 0 &&
+                  totals.helpful === 0 &&
+                  totals.notHelpful === 0);
+              const emptyKind = feedbackQueueEmptyKind({
+                view: view === "history" ? "history" : "review",
+                visibleCount: page.items.length,
+                openReview: reviewTotal,
+                filtersActive,
+                datasetEmpty,
+              });
+              if (emptyKind === "dataset") {
+                return (
+                  <PlatformEmptyState
+                    title={labels.emptyTitle}
+                    message={labels.emptyDescription}
+                    primaryAction={{ label: labels.retry, onClick: () => void load() }}
+                  />
+                );
+              }
+              if (emptyKind === "filtered") {
+                return (
+                  <PlatformEmptyState
+                    title={labels.noResultsTitle}
+                    message={labels.noResultsDescription}
+                    primaryAction={{ label: labels.clearFilters, onClick: clearFilters }}
+                  />
+                );
+              }
+              if (emptyKind === "review_clear") {
+                return (
+                  <PlatformEmptyState
+                    title={labels.quality.reviewCleared}
+                    message={labels.quality.reviewClearedBody}
+                  />
+                );
+              }
+              if (emptyKind === "history_clear") {
+                return (
+                  <PlatformEmptyState
+                    title={labels.quality.historyEmpty}
+                    message={labels.quality.historyHint}
+                  />
+                );
+              }
+              if (emptyKind === "outside_window") {
+                return (
+                  <PlatformEmptyState
+                    title={labels.quality.reviewEmpty}
+                    message={labels.quality.windowGap}
+                  />
+                );
+              }
+              return null;
+            })()}
+            {page.items.length > 0 ? (
               <ul className="grid gap-4 lg:grid-cols-2">
                 {page.items.map((row) => (
                   <li key={row.id} className="flex flex-col gap-3.5 rounded-[20px] border border-[#E4E6F2] bg-white p-5 shadow-[0_8px_25px_rgba(65,54,132,0.045)]">
@@ -623,7 +687,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
                   </li>
                 ))}
               </ul>
-            )}
+            ) : null}
             {page.hasMore || (usingServerQueue && serverCursor) ? (
               <button
                 type="button"
