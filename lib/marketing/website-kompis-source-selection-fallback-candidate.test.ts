@@ -340,6 +340,44 @@ async function main() {
     assert.ok(pack.evidence.some((item) => item.url === countryFaq.source_url));
   }
 
+  const internationalFaq = faq({
+    item_id: "55555555-5555-4555-8555-555555555555",
+    title: "Internasjonale leveranser",
+    answer: "Vi sender internasjonale leveranser til registrerte land.",
+    source_url: `${HOST}/faq/international`,
+  });
+  const membershipFaq = faq({
+    item_id: "66666666-6666-4666-8666-666666666666",
+    title: "Medlemskap og priser",
+    answer: "Medlemskap fornyes årlig.",
+    source_url: `${HOST}/faq/membership`,
+  });
+  const imageStemFaq = faq({
+    item_id: "77777777-7777-4777-8777-777777777777",
+    title: "Nakenbilde",
+    answer: "Regler for ett nakenbilde på egen profil.",
+    source_url: `${HOST}/faq/image-stem`,
+  });
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([internationalFaq], "Hvordan kobler jeg til internett?"),
+    false,
+  );
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([membershipFaq], "Hvor mange medlemmer kan jeg invitere?"),
+    false,
+  );
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult([imageStemFaq], "Hva gjelder for nakenbilder?"),
+    true,
+  );
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult(
+      [faq({ ...countryFaq, title: "Modell", answer: "En modell er et eksempel." })],
+      "Which model is used?",
+    ),
+    false,
+  );
+
   const imageQuestion = "Hva gjelder for nakenbilder?";
   assert.equal(isRelevantPublicCompanionTenantFaqResult([imageFaq], imageQuestion), true);
   assert.equal(isRelevantPublicCompanionTenantFaqResult([countryFaq], imageQuestion), false);

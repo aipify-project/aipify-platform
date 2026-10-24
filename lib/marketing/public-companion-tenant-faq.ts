@@ -142,16 +142,28 @@ function faqWholeTokens(text: string): string[] {
     .filter((token) => token.length >= 2);
 }
 
+const FAQ_INFLECTION_SUFFIX =
+  /^(e|en|er|ene|et|s|es|ed|ing|ne|na|a|ar|or|n|t|r|te|de)$/;
+
+/**
+ * Whole word, or the shorter word plus one short inflection.
+ * A shared six-character prefix is not enough: "internett" must not hit
+ * "internasjonale", and "medlemmer" must not hit "medlemskap".
+ */
+function faqInflectionMatch(token: string, word: string): boolean {
+  if (token === word) return true;
+  const shorter = token.length <= word.length ? token : word;
+  const longer = token.length <= word.length ? word : token;
+  if (shorter.length < 6) return false;
+  if (shorter.endsWith("y") && longer === `${shorter.slice(0, -1)}ies`) return true;
+  if (!longer.startsWith(shorter)) return false;
+  return FAQ_INFLECTION_SUFFIX.test(longer.slice(shorter.length));
+}
+
 function faqHasWholeToken(corpus: string, token: string): boolean {
   const words = faqWholeTokens(corpus);
   if (words.includes(token)) return true;
-  return words.some((word) => {
-    if (token.length < 6 || word.length < 6) return false;
-    const limit = Math.min(token.length, word.length);
-    let shared = 0;
-    while (shared < limit && token[shared] === word[shared]) shared += 1;
-    return shared >= 6;
-  });
+  return words.some((word) => faqInflectionMatch(token, word));
 }
 
 const INSUFFICIENT_ALONE_FAQ_TOKENS = new Set([
