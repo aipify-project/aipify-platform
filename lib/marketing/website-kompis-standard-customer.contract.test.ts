@@ -372,7 +372,7 @@ async function main() {
   );
   assert.equal(wrongDomain.locale, "sv");
   assert.match(wrongDomain.answer.directAnswer, /Jag hittar inte tillräckligt publicerad information/);
-  assert.ok(wrongDomain.sources.every((source) => source.route === "website-kompis-safe-fallback"));
+  assert.equal(wrongDomain.sources.length, 0);
   assert.doesNotMatch(wrongDomain.answer.directAnswer, /Butikken|FAQ-A2/);
 
   calls.length = 0;

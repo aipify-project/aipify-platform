@@ -316,7 +316,7 @@ export function buildWebsiteKompisSafeFallbackResponse(
       steps: [],
     },
     actions: [],
-    sources: [{ title: siteLabel ?? "nettstedet", route: WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE }],
+    sources: [],
     confidence: { level: "low" as const, score: 0.2 },
     supportEscalation: { offered: true as const, reason: "knowledge_gap" as const },
     locale,

@@ -3,6 +3,27 @@
   "recordedAgainst": "d83d74b98ce45060b4e0cd91a40caf228f32ead8",
   "manifestCommit": "9fba6af8",
   "note": "These hashes are observed Production drift. They are not a new freeze baseline. A later edit must update this ledger and the manifest together, in a task that names Website Kompis Public Chain.",
+  "sourceSelectionApproval": {
+    "date": "2026-10-24",
+    "names": "Website Kompis Public Chain",
+    "productPatchSha256": "ebfe937e840e230b84cbbba1b96744070199862080a991ae7f1f696d85d40e12",
+    "manifestBaselineUpdated": [
+      "lib/marketing/public-companion-tenant-faq.ts",
+      "lib/marketing/website-kompis-public-page-context.ts",
+      "lib/marketing/website-kompis-grounded-answer.ts",
+      "lib/marketing/website-kompis-public-boundary.ts"
+    ],
+    "ledgerObservedHashUpdated": [
+      "lib/marketing/public-companion-ask.ts"
+    ],
+    "historicalDriftNotRebaselined": [
+      "components/embed/WebsiteKompisEmbedWidget.tsx",
+      "lib/marketing/public-companion-ask.ts",
+      "lib/marketing/website-kompis-public-answer-policy.ts",
+      "lib/marketing/website-kompis-install-config.ts",
+      "lib/marketing/website-kompis-answer-feedback-server.ts"
+    ]
+  },
   "files": [
     {
       "path": "components/embed/WebsiteKompisEmbedWidget.tsx",
@@ -15,8 +36,9 @@
       "path": "lib/marketing/public-companion-ask.ts",
       "introducedBy": "c2757397576964709781b86c114a3518d7003786",
       "manifestSha256": "4ec48ee373ab7dc11bf39f07abff0317708c89df265513517499988ae9575682",
-      "observedSha256": "ea6f4ec0250339b24a63313d5c87b5c8179b4862e14e31e1964bf9f215f52928",
-      "reason": "PR #272 carries the FAQ content-language set through the public ask path. Unknown tags no longer all collapse the way the older ask test expects."
+      "previousObservedSha256": "ea6f4ec0250339b24a63313d5c87b5c8179b4862e14e31e1964bf9f215f52928",
+      "observedSha256": "0fdb705237747f0c6be089e388f4558aa63a431f7c66b7531cb22aeef083fe3a",
+      "reason": "PR #272 carries the FAQ content-language set through the public ask path. Unknown tags no longer all collapse the way the older ask test expects. The observed hash is the owner-approved source-selection file from 2026-10-24. The manifest hash stays the older baseline, so this row is not a rebaseline of the PR #272 drift."
     },
     {
       "path": "lib/marketing/website-kompis-public-answer-policy.ts",

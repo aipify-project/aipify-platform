@@ -13,6 +13,56 @@ import { isPrivateWebsiteKompisSurfacePathname } from "@/lib/marketing/website-k
 
 export const WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE = "website-kompis-current-page" as const;
 
+/**
+ * A URL scheme does not prove tenant, install, or verified host.
+ * Relative public paths stay on the visitor origin.
+ * Absolute links are kept only for the resolved host when one is supplied.
+ */
+export function publicEvidenceUrlForVerifiedHost(
+  raw: string | null | undefined,
+  verifiedHost?: string | null,
+): string | null {
+  const trimmed = raw?.trim() ?? "";
+  if (!trimmed || trimmed.startsWith("//")) return null;
+  if (trimmed.startsWith("/")) {
+    if (isPrivateWebsiteKompisPathname(trimmed)) return null;
+    return trimmed;
+  }
+  let parsed: URL;
+  try {
+    parsed = new URL(trimmed);
+  } catch {
+    return null;
+  }
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null;
+  if (parsed.username || parsed.password) return null;
+  if (isPrivateWebsiteKompisPathname(parsed.pathname)) return null;
+  const expected = verifiedHost?.trim().toLowerCase().replace(/\.$/, "") ?? "";
+  if (expected) {
+    const urlHost = parsed.hostname.trim().toLowerCase().replace(/\.$/, "");
+    if (urlHost !== expected) return null;
+  }
+  return parsed.toString();
+}
+
+/** Real page link for a verified current-page answer. Internal sentinels are not evidence. */
+export function websiteKompisPublicPageSourceRoute(
+  pageContext: Pick<WebsiteKompisPublicPageContext, "canonicalUrl" | "pathname">,
+  verifiedHost?: string | null,
+): string | null {
+  const canonical = publicEvidenceUrlForVerifiedHost(pageContext.canonicalUrl, verifiedHost);
+  if (canonical) return canonical;
+  const pathname = pageContext.pathname?.trim() ?? "";
+  if (
+    pathname.startsWith("/") &&
+    !pathname.startsWith("//") &&
+    !isPrivateWebsiteKompisPathname(pathname)
+  ) {
+    return pathname;
+  }
+  return null;
+}
+
 export const WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_HEADINGS = 12;
 export const WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_HEADING_LENGTH = 140;
 export const WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS = 8;
@@ -308,6 +358,9 @@ export function isWebsiteKompisExplicitCurrentPageQuestion(question: string): bo
     ) ||
     /(?:^|\s)(hvilken side er jeg på|which page am i on|what page am i on)(?:\?|$|[\s,])/.test(
       ` ${normalized} `,
+    ) ||
+    /(?:^|[^\p{L}\p{N}])(ser jeg på|kigger jeg på|am i looking at|am i viewing)(?=$|[^\p{L}\p{N}])/u.test(
+      normalized,
     )
   );
 }
@@ -484,6 +537,7 @@ export function tryBuildWebsiteKompisCurrentPublicPageAnswer(input: {
   question: string;
   pageContext: WebsiteKompisPublicPageContext | undefined;
   locale: string;
+  verifiedHost?: string | null;
 }): {
   answer: {
     directAnswer: string;
@@ -525,6 +579,7 @@ export function tryBuildWebsiteKompisCurrentPublicPageAnswer(input: {
   }
 
   const sourceTitle = pageContext.title?.trim() || "Current page";
+  const sourceRoute = websiteKompisPublicPageSourceRoute(pageContext, input.verifiedHost);
 
   return {
     answer: {
@@ -532,12 +587,7 @@ export function tryBuildWebsiteKompisCurrentPublicPageAnswer(input: {
       explanation,
       steps: [],
     },
-    sources: [
-      {
-        title: sourceTitle,
-        route: WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE,
-      },
-    ],
+    sources: sourceRoute ? [{ title: sourceTitle, route: sourceRoute }] : [],
     confidence: {
       level: score >= 6 || pageIntent ? "high" : "medium",
       score: Math.min(0.95, 0.55 + score * 0.05),
@@ -702,7 +752,7 @@ function findAssociatedDisclosureQuestion(
     const summary = details.querySelector?.("summary");
     if (summary?.textContent) return summary.textContent;
   }
-  let sibling = panel.parentElement?.querySelector?.("button, summary, h2, h3, [aria-expanded]");
+  const sibling = panel.parentElement?.querySelector?.("button, summary, h2, h3, [aria-expanded]");
   if (sibling?.textContent) return sibling.textContent;
   return "";
 }

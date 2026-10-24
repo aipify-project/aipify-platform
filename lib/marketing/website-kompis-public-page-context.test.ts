@@ -6,7 +6,6 @@ import {
   sanitizeWebsiteKompisPublicPageContext,
   scoreWebsiteKompisPublicPageContextMatch,
   tryBuildWebsiteKompisCurrentPublicPageAnswer,
-  WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE,
 } from "@/lib/marketing/website-kompis-public-page-context";
 
 assert.throws(
@@ -93,7 +92,7 @@ const pageAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
 });
 assert.ok(pageAnswer);
 assert.match(pageAnswer!.answer.directAnswer, /consulting/i);
-assert.equal(pageAnswer!.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+assert.equal(pageAnswer!.sources[0]?.route, "https://example-a.com/services/consulting");
 assert.equal(pageAnswer!.sources[0]?.title, "Consulting Services");
 
 const weakMatch = tryBuildWebsiteKompisCurrentPublicPageAnswer({
@@ -117,7 +116,7 @@ const deicticPageAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
   locale: "no",
 });
 assert.ok(deicticPageAnswer);
-assert.equal(deicticPageAnswer!.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+assert.equal(deicticPageAnswer!.sources[0]?.route, "/medlemskap");
 
 const collected = collectWebsiteKompisEmbedParentPageContext({
   location: { pathname: "/services", href: "https://example-a.com/services" },
@@ -195,15 +194,6 @@ const openDetails = {
   querySelector: (selector: string) => (selector === "summary" ? openDetailsSummary : null),
   textContent:
     "How do workshop bookings work? Bookings open each Monday. Bring a photo ID and arrive 10 minutes early.",
-  closest: makeClosest({}),
-};
-const closedDetails = {
-  tagName: "DETAILS",
-  open: false,
-  getAttribute: () => null,
-  querySelector: (selector: string) =>
-    selector === "summary" ? { textContent: "Hidden refund policy details" } : null,
-  textContent: "Hidden refund policy details Secret refund clause must not leak.",
   closest: makeClosest({}),
 };
 const expandedButton = {

@@ -227,6 +227,31 @@ for (const entry of manifest.protectedRuntimeFiles) {
 }
 assert.deepEqual(observedDrift.sort(), [...PREEXISTING_MANIFEST_DRIFT].sort());
 
+const APPROVED_SOURCE_SELECTION_SHA256: Record<string, string> = {
+  "lib/marketing/public-companion-ask.ts": "0fdb705237747f0c6be089e388f4558aa63a431f7c66b7531cb22aeef083fe3a",
+  "lib/marketing/public-companion-tenant-faq.ts": "2aff5fc9b817b74f62e5eb2c9e18d430a5a633a8b7cdc0a6f0f21e635892f8ae",
+  "lib/marketing/website-kompis-public-page-context.ts": "998c6297826e264681dc5cefc1e52231a5a561bd644e9cb5145836c03f0bd01b",
+  "lib/marketing/website-kompis-grounded-answer.ts": "e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82",
+  "lib/marketing/website-kompis-public-boundary.ts": "33d11e807f80f2458d23b82b26aa9fdb793c5a6a56051923f2f2ca1e14ff79ca",
+};
+const manifestByPath = Object.fromEntries(manifest.protectedRuntimeFiles.map((entry) => [entry.path, entry.sha256]));
+for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_SHA256)) {
+  const digest = createHash("sha256").update(read(filePath)).digest("hex");
+  assert.equal(digest, approvedSha, filePath);
+  if (filePath === "lib/marketing/public-companion-ask.ts") {
+    assert.equal(manifestByPath[filePath], "4ec48ee373ab7dc11bf39f07abff0317708c89df265513517499988ae9575682");
+  } else {
+    assert.equal(manifestByPath[filePath], approvedSha, filePath);
+  }
+}
+const driftLedger = JSON.parse(read("docs/integrations/website-kompis-public-chain-observed-drift.json")) as {
+  files: Array<{ path: string; manifestSha256: string; observedSha256: string; previousObservedSha256?: string }>;
+};
+const askDrift = driftLedger.files.find((file) => file.path === "lib/marketing/public-companion-ask.ts");
+assert.equal(askDrift?.observedSha256, APPROVED_SOURCE_SELECTION_SHA256["lib/marketing/public-companion-ask.ts"]);
+assert.equal(askDrift?.previousObservedSha256, "ea6f4ec0250339b24a63313d5c87b5c8179b4862e14e31e1964bf9f215f52928");
+assert.equal(askDrift?.manifestSha256, "4ec48ee373ab7dc11bf39f07abff0317708c89df265513517499988ae9575682");
+
 async function proveAskRouteLocale() {
   const require = createRequire(join(root, "lib/kompis-content-languages/proposed-public-locale.contract.test.ts"));
   const moduleWithResolve = Module as unknown as {

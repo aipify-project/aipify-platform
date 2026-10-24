@@ -112,7 +112,12 @@ assert.equal(
   const faqHash = createHash("sha256").update(readFileSync(join(ROOT, faqPath))).digest("hex");
   const askHash = createHash("sha256").update(readFileSync(join(ROOT, askPath))).digest("hex");
   assert.equal(faqHash, byPath[faqPath]);
-  assert.equal(askHash, byPath[askPath]);
+  const driftLedger = JSON.parse(
+    readFileSync(join(ROOT, "docs/integrations/website-kompis-public-chain-observed-drift.json"), "utf8"),
+  ) as { files: Array<{ path: string; manifestSha256: string; observedSha256: string }> };
+  const askDrift = driftLedger.files.find((file) => file.path === askPath);
+  assert.equal(askHash, askDrift?.observedSha256);
+  assert.equal(byPath[askPath], askDrift?.manifestSha256);
 }
 
 // Phase 1 APP filter still fail-closed for multi-site (not re-implemented here)

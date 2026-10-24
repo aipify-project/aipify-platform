@@ -22,8 +22,8 @@ import {
   textLooksLikePublishedPrice,
 } from "@/lib/marketing/website-kompis-answer-relevance";
 import {
-  WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE,
   isWebsiteKompisExplicitCurrentPageQuestion,
+  publicEvidenceUrlForVerifiedHost,
   type WebsiteKompisPublicPageContext,
 } from "@/lib/marketing/website-kompis-public-page-context";
 import { buildWebsiteKompisPublicAnswerPolicyPrompt } from "@/lib/marketing/website-kompis-public-answer-policy";
@@ -87,6 +87,7 @@ function clip(text: string, max: number): string {
 
 export function buildWebsiteKompisFaqEvidence(
   rows: PublicCompanionTenantFaqRow[],
+  verifiedHost?: string | null,
 ): WebsiteKompisEvidenceSnippet[] {
   return rows
     .slice(0, WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE * 2)
@@ -104,7 +105,7 @@ export function buildWebsiteKompisFaqEvidence(
       id: `faq:${row.item_id || index}`,
       kind: "faq" as const,
       title: row.title?.trim() || "FAQ",
-      url: row.source_url,
+      url: publicEvidenceUrlForVerifiedHost(row.source_url, verifiedHost),
       locale: row.locale || "no",
       text: clip(
         neutralizeUntrustedPageEvidence(`${row.title}\n${row.answer}`),
@@ -116,6 +117,7 @@ export function buildWebsiteKompisFaqEvidence(
 export function buildWebsiteKompisPageEvidence(
   pageContext: WebsiteKompisPublicPageContext | null | undefined,
   locale: string,
+  verifiedHost?: string | null,
 ): WebsiteKompisEvidenceSnippet[] {
   if (!pageContext) return [];
   const parts = [
@@ -127,12 +129,15 @@ export function buildWebsiteKompisPageEvidence(
     .filter((value): value is string => typeof value === "string" && value.trim().length > 0)
     .slice(0, 8);
   if (parts.length === 0) return [];
+  const url =
+    publicEvidenceUrlForVerifiedHost(pageContext.canonicalUrl, verifiedHost) ??
+    publicEvidenceUrlForVerifiedHost(pageContext.pathname, verifiedHost);
   return [
     {
       id: "page:current",
       kind: "current-page",
       title: pageContext.title?.trim() || pageContext.pathname || "Current page",
-      url: pageContext.canonicalUrl ?? pageContext.pathname ?? null,
+      url,
       locale: pageContext.locale || locale,
       text: clip(
         neutralizeUntrustedPageEvidence(parts.join("\n")),
@@ -144,12 +149,13 @@ export function buildWebsiteKompisPageEvidence(
 
 export function buildWebsiteKompisIndexEvidence(
   hits: PublicSiteIndexHit[],
+  verifiedHost?: string | null,
 ): WebsiteKompisEvidenceSnippet[] {
   return hits.slice(0, WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE).map((hit) => ({
     id: `index:${hit.chunkId || hit.documentId}`,
     kind: "public-site-index" as const,
     title: hit.title?.trim() || "Public page",
-    url: hit.canonicalUrl || null,
+    url: publicEvidenceUrlForVerifiedHost(hit.canonicalUrl, verifiedHost),
     locale: hit.locale || "no",
     text: clip(
       neutralizeUntrustedPageEvidence(hit.chunkContent || hit.excerpt || hit.title),
@@ -158,17 +164,102 @@ export function buildWebsiteKompisIndexEvidence(
   }));
 }
 
+/** Whole words that must not qualify a source by themselves. */
+const INSUFFICIENT_ALONE_TOPIC_TOKENS = new Set([
+  "model",
+  "models",
+  "modell",
+  "function",
+  "functions",
+  "funksjon",
+  "funksjonen",
+  "funktion",
+  "funktionen",
+  "used",
+  "brukes",
+  "bruges",
+  "land",
+  "lande",
+  "country",
+  "countries",
+  "koster",
+  "kostnad",
+  "kostnaden",
+  "pris",
+  "prisen",
+  "price",
+  "cost",
+  "costs",
+  "gratis",
+]);
+const WEAK_PUBLIC_TOPIC_TOKENS = new Set([
+  "alle",
+  "all",
+  "kan",
+  "hvilke",
+  "hvilken",
+  "hvilket",
+  "which",
+  "betyr",
+  "mean",
+  "means",
+]);
+
+function followUpTopicQuestion(
+  question: string,
+  recentContext: Array<{ role: "user" | "assistant"; text: string }> | null | undefined,
+): string {
+  const topics = tokensWrittenInQuestion(question);
+  if (topics.length > 0) return question;
+  const previousUser = [...(recentContext ?? [])].reverse().find((entry) => entry.role === "user");
+  const previous = previousUser?.text.trim() ?? "";
+  if (!previous) return question;
+  return `${previous} ${question}`;
+}
+
+function wholeTopicTokens(text: string): string[] {
+  return text
+    .toLowerCase()
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter((token) => token.length >= 2);
+}
+
+/** Whole word only. model/modell does not match. medlem/medlemskap does. */
+function textHasWholeTopicToken(text: string, token: string): boolean {
+  const words = wholeTopicTokens(text);
+  if (words.includes(token)) return true;
+  return words.some((word) => {
+    if (token.length < 6 || word.length < 6) return false;
+    const limit = Math.min(token.length, word.length);
+    let shared = 0;
+    while (shared < limit && token[shared] === word[shared]) shared += 1;
+    return shared >= 6;
+  });
+}
+
+function distinctiveEvidenceTopics(question: string): string[] {
+  return topicTokensForPublicSiteIndex(question).filter(
+    (token) => token.length >= 4 && !WEAK_PUBLIC_TOPIC_TOKENS.has(token),
+  );
+}
+
+function tokensWrittenInQuestion(question: string): string[] {
+  const written = new Set(wholeTopicTokens(question));
+  return distinctiveEvidenceTopics(question).filter((token) => written.has(token));
+}
+
 function evidenceTopicScore(
   item: WebsiteKompisEvidenceSnippet,
   topicTokens: string[],
 ): number {
   if (topicTokens.length === 0) return 0;
-  const corpus = `${item.title} ${item.url ?? ""} ${item.text}`.toLowerCase();
+  const corpus = `${item.title} ${item.url ?? ""} ${item.text}`;
   let score = 0;
   for (const token of topicTokens) {
-    if (item.title.toLowerCase().includes(token)) score += 4;
-    if ((item.url ?? "").toLowerCase().includes(token)) score += 3;
-    if (corpus.includes(token)) score += 1;
+    if (WEAK_PUBLIC_TOPIC_TOKENS.has(token)) continue;
+    if (textHasWholeTopicToken(item.title, token)) score += 4;
+    if (textHasWholeTopicToken(item.url ?? "", token)) score += 3;
+    if (textHasWholeTopicToken(corpus, token)) score += 1;
   }
   return score;
 }
@@ -202,31 +293,21 @@ export function evidenceSnippetMatchesQuestionTopic(
     return item.kind === "current-page";
   }
 
-  const topics = topicTokensForPublicSiteIndex(question);
+  const topics = tokensWrittenInQuestion(question);
   if (topics.length === 0) return true;
-  const score = evidenceTopicScore(item, topics);
-  if (score <= 0) return false;
-  if (topics.length >= 2) {
-    const titlePath = `${item.title} ${item.url ?? ""}`.toLowerCase();
-    const corpus = `${titlePath} ${item.text}`.toLowerCase();
-    const matched = topics.filter((t) => corpus.includes(t)).length;
-    const titlePathHit = topics.some((t) => titlePath.includes(t));
-    const stemHit = topics.some((topic) => {
-      if (topic.length < 4) return false;
-      const stem = topic.slice(0, Math.min(5, topic.length));
-      return titlePath
-        .split(/[^\p{L}\p{N}]+/u)
-        .some(
-          (word) =>
-            word.length >= 4 &&
-            (word.startsWith(stem) || topic.startsWith(word.slice(0, 4))),
-        );
-    });
-    if (matched < 1 && !stemHit) return false;
-    if (score >= 2) return true;
-    return titlePathHit || stemHit;
+  const corpus = `${item.title} ${item.url ?? ""} ${item.text}`;
+  const specific = topics.filter((token) => !INSUFFICIENT_ALONE_TOPIC_TOKENS.has(token));
+  const specificHits = specific.filter((token) => textHasWholeTopicToken(corpus, token));
+  if (specific.length >= 2) {
+    const titleHits = specific.filter(
+      (token) =>
+        textHasWholeTopicToken(item.title, token) || textHasWholeTopicToken(item.url ?? "", token),
+    );
+    return specificHits.length >= 2 || titleHits.length >= 1;
   }
-  return score >= 1;
+  if (specific.length === 1) return specificHits.length === 1;
+  const hits = topics.filter((token) => textHasWholeTopicToken(corpus, token));
+  return new Set(hits).size >= 2;
 }
 
 export function buildWebsiteKompisEvidencePack(input: {
@@ -236,13 +317,15 @@ export function buildWebsiteKompisEvidencePack(input: {
   faqRows?: PublicCompanionTenantFaqRow[];
   siteIndexHits?: PublicSiteIndexHit[];
   pageContext?: WebsiteKompisPublicPageContext | null;
+  verifiedHost?: string | null;
 }): WebsiteKompisEvidencePack {
   const question = input.question.trim();
-  const topicTokens = topicTokensForPublicSiteIndex(question);
+  const topicQuestion = followUpTopicQuestion(question, input.recentContext);
+  const topicTokens = topicTokensForPublicSiteIndex(topicQuestion);
   const candidates = [
-    ...buildWebsiteKompisFaqEvidence(input.faqRows ?? []),
-    ...buildWebsiteKompisIndexEvidence(input.siteIndexHits ?? []),
-    ...buildWebsiteKompisPageEvidence(input.pageContext, input.locale),
+    ...buildWebsiteKompisFaqEvidence(input.faqRows ?? [], input.verifiedHost),
+    ...buildWebsiteKompisIndexEvidence(input.siteIndexHits ?? [], input.verifiedHost),
+    ...buildWebsiteKompisPageEvidence(input.pageContext, input.locale, input.verifiedHost),
   ].filter((item) => item.text.trim().length > 0);
 
   const productQ = isProductOrPriceVisitorQuestion(question);
@@ -258,17 +341,15 @@ export function buildWebsiteKompisEvidencePack(input: {
         if ((productQ || purchaseQ) && !textLooksLikePublishedPrice(item.text)) {
           return false;
         }
+        if (isWebsiteKompisExplicitCurrentPageQuestion(question)) return true;
+        const distinctive = tokensWrittenInQuestion(topicQuestion);
+        if (distinctive.length >= 2 && !evidenceSnippetMatchesQuestionTopic(item, topicQuestion)) {
+          return false;
+        }
         return true;
       }
       if (topicTokens.length === 0) return true;
-      if (!evidenceSnippetMatchesQuestionTopic(item, question)) return false;
-      // Weak FAQ lexical hits must not crowd out stronger public pages.
-      // Require at least 2 topic hits when the question has ≥2 topics (not 3 —
-      // short distinctive pairs like Bronze/Gold would otherwise never qualify).
-      if (item.kind === "faq" && topicTokens.length >= 2) {
-        const faqScore = evidenceTopicScore(item, topicTokens);
-        if (faqScore < 2) return false;
-      }
+      if (!evidenceSnippetMatchesQuestionTopic(item, topicQuestion)) return false;
       return true;
     })
     .sort((a, b) => {
@@ -479,6 +560,9 @@ export function validateWebsiteKompisGroundedPayloadForQuestion(
   const topical = base.sources.filter((source) =>
     evidenceSnippetMatchesQuestionTopic(source, question),
   );
+  if (!payload.covered) {
+    return { ok: true, sources: topical };
+  }
   if (topical.length === 0) {
     return { ok: false, reason: "sources_off_topic" };
   }
@@ -530,15 +614,15 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
   organizationId?: string | null;
 }): Promise<WebsiteKompisGroundedSynthesizeResult> {
   const pack = input.pack;
-  if (pack.evidence.length === 0) {
-    return { status: "skipped", reason: "no_evidence", evidenceCount: 0 };
-  }
   if (detectWebsiteKompisPromptInjection(pack.question)) {
     return {
       status: "skipped",
       reason: "injection",
       evidenceCount: pack.evidence.length,
     };
+  }
+  if (pack.evidence.length === 0) {
+    return { status: "skipped", reason: "no_evidence", evidenceCount: 0 };
   }
   console.warn("[website-kompis-grounded]", {
     event: "synthesize_start",
@@ -635,13 +719,11 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
       },
       actions: [],
       sources: dedupeCompanionSourcesByRoute(
-        validated.sources.map((source) => ({
-          title: source.title,
-          route:
-            source.kind === "current-page"
-              ? WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE
-              : source.url || source.id,
-        })),
+        validated.sources.flatMap((source) => {
+          const route = publicEvidenceUrlForVerifiedHost(source.url);
+          if (!route) return [];
+          return [{ title: source.title, route }];
+        }),
       ),
       confidence: payload.covered
         ? {

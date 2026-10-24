@@ -1,7 +1,5 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
 import {
   WebsiteKompisPositiveAvailabilityCache,
   resolveWebsiteKompisPublicAvailabilityWithResilience,
@@ -29,9 +27,6 @@ async function main() {
 
   const { askPublicPlatformCompanion } = await import("./public-companion-ask");
   const { WEBSITE_KOMPIS_DISABLED_SOURCE } = await import("./website-kompis-install-config");
-  const { WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE } = await import(
-    "./website-kompis-public-page-context"
-  );
   const { WEBSITE_KOMPIS_SAFETY_POLICY_SOURCE } = await import(
     "./website-kompis-faq-match-safety"
   );
@@ -100,16 +95,16 @@ async function main() {
     );
 
   const first = await pageQuestion("Hva handler denne siden om?");
-  assert.equal(first.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+  assert.equal(first.sources[0]?.route, "/premium");
   assert.equal(resolveOnceCalls, 2);
 
   const callsBeforeSecondAsk = resolveOnceCalls;
   const second = await pageQuestion("Hva koster det?");
-  assert.equal(second.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+  assert.equal(second.sources.length, 0);
   assert.equal(resolveOnceCalls, callsBeforeSecondAsk);
 
   const third = await pageQuestion("Hva handler denne siden om?");
-  assert.equal(third.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+  assert.equal(third.sources[0]?.route, "/premium");
   assert.notEqual(third.sources[0]?.route, WEBSITE_KOMPIS_DISABLED_SOURCE);
   assert.equal(resolveOnceCalls, callsBeforeSecondAsk);
 

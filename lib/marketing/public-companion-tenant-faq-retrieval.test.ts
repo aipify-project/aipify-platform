@@ -1,9 +1,6 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
 
-const root = path.dirname(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const require = createRequire(import.meta.url);
 
 const EASTER_FAQ = {
@@ -31,6 +28,7 @@ function installServerOnlyShim(): void {
 }
 
 async function main() {
+  installServerOnlyShim();
   const {
     isRelevantPublicCompanionTenantFaqResult,
     buildPublicCompanionTenantFaqResponse,
@@ -94,10 +92,7 @@ async function main() {
     assert.equal(isRelevantPublicCompanionTenantFaqResult([fixtureRow], query), true);
     const response = buildPublicCompanionTenantFaqResponse([fixtureRow], "no");
     assert.match(response.answer.directAnswer, /stengt 17/);
-    assert.ok(
-      response.sources.some((source) => source.route === "website-kompis-faq:holiday_notice"),
-      `expected website-kompis-faq source for ${query}`,
-    );
+    assert.equal(response.sources.length, 0);
   }
 
   assert.equal(matchesPublicCompanionTenantFaqQuery("Hvilken løsninger har dere?", EASTER_FAQ), false);
@@ -111,10 +106,22 @@ async function main() {
       installId,
     },
     {
+      requestHost: "example-a.test",
+      rawInstallConfig: {
+        website_kompis: {
+          enabled: true,
+          sources: { faq: true, currentPage: false, aipifyPublic: false, publicSiteIndex: false },
+        },
+      },
+      resolveLicensedAvailability: async () => ({
+        available: true,
+        reason: "available" as const,
+        capabilityKey: "website_kompis",
+      }),
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(fallbackResponse.sources[0]?.route, "website-kompis-safe-fallback");
+  assert.equal(fallbackResponse.sources.length, 0, JSON.stringify(fallbackResponse.sources));
   assert.ok(
     !fallbackResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
   );
@@ -127,6 +134,18 @@ async function main() {
       installId,
     },
     {
+      requestHost: "aipify.ai",
+      rawInstallConfig: {
+        website_kompis: {
+          enabled: true,
+          sources: { faq: false, currentPage: false, aipifyPublic: true, publicSiteIndex: false },
+        },
+      },
+      resolveLicensedAvailability: async () => ({
+        available: true,
+        reason: "available" as const,
+        capabilityKey: "website_kompis",
+      }),
       searchTenantVisitorKnowledge: async () => [],
     },
   );
@@ -148,6 +167,18 @@ async function main() {
       installId,
     },
     {
+      requestHost: "example-a.test",
+      rawInstallConfig: {
+        website_kompis: {
+          enabled: true,
+          sources: { faq: false, currentPage: false, aipifyPublic: true, publicSiteIndex: false },
+        },
+      },
+      resolveLicensedAvailability: async () => ({
+        available: true,
+        reason: "available" as const,
+        capabilityKey: "website_kompis",
+      }),
       searchTenantVisitorKnowledge: async () => [],
     },
   );

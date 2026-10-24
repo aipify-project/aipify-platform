@@ -5,6 +5,7 @@ import {
   expandFaqIntentTokens,
   looksLikeFaqQuestionList,
 } from "@/lib/marketing/website-kompis-answer-relevance";
+import { publicEvidenceUrlForVerifiedHost } from "@/lib/marketing/website-kompis-public-page-context";
 import { createPublicAnonSupabaseClient } from "@/lib/supabase/public-anon";
 
 export type PublicCompanionTenantFaqAnswer = {
@@ -80,6 +81,12 @@ const PUBLIC_COMPANION_FAQ_STOPWORDS = new Set([
   "could",
   "would",
   "should",
+  "alle",
+  "all",
+  "hvilke",
+  "hvilken",
+  "hvilket",
+  "which",
 ]);
 
 /** Distinctive content tokens from a visitor question (stopwords removed). */
@@ -127,7 +134,78 @@ function faqRowCorpus(row: Pick<PublicCompanionTenantFaqRow, "title" | "answer" 
   return `${row.title}\n${row.answer}\n${row.category ?? ""}`.toLowerCase();
 }
 
-/** True when at least one distinctive query token appears in the FAQ corpus. */
+/** Whole words only. "model" must not match inside "modell". */
+function faqWholeTokens(text: string): string[] {
+  return text
+    .toLowerCase()
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter((token) => token.length >= 2);
+}
+
+const FAQ_INFLECTION_SUFFIX =
+  /^(e|en|er|ene|et|s|es|ed|ing|ne|na|a|ar|or|n|t|r|te|de)$/;
+
+/**
+ * Whole word, or the shorter word plus one short inflection.
+ * A shared six-character prefix is not enough: "internett" must not hit
+ * "internasjonale", and "medlemmer" must not hit "medlemskap".
+ */
+function faqInflectionMatch(token: string, word: string): boolean {
+  if (token === word) return true;
+  const shorter = token.length <= word.length ? token : word;
+  const longer = token.length <= word.length ? word : token;
+  if (shorter.length < 6) return false;
+  if (shorter.endsWith("y") && longer === `${shorter.slice(0, -1)}ies`) return true;
+  if (!longer.startsWith(shorter)) return false;
+  return FAQ_INFLECTION_SUFFIX.test(longer.slice(shorter.length));
+}
+
+function faqHasWholeToken(corpus: string, token: string): boolean {
+  const words = faqWholeTokens(corpus);
+  if (words.includes(token)) return true;
+  return words.some((word) => faqInflectionMatch(token, word));
+}
+
+const INSUFFICIENT_ALONE_FAQ_TOKENS = new Set([
+  "model",
+  "models",
+  "modell",
+  "function",
+  "functions",
+  "funksjon",
+  "funksjonen",
+  "funktion",
+  "funktionen",
+  "used",
+  "brukes",
+  "bruges",
+  "land",
+  "lande",
+  "country",
+  "countries",
+  "koster",
+  "kostnad",
+  "kostnaden",
+  "pris",
+  "prisen",
+  "price",
+  "cost",
+  "costs",
+  "gratis",
+]);
+
+function faqCoverageMatches(tokens: string[], hits: string[]): boolean {
+  const specific = tokens.filter((token) => !INSUFFICIENT_ALONE_FAQ_TOKENS.has(token));
+  const uniqueHits = [...new Set(hits)];
+  if (specific.some((token) => uniqueHits.includes(token))) return true;
+  return uniqueHits.filter((token) => INSUFFICIENT_ALONE_FAQ_TOKENS.has(token)).length >= 2;
+}
+
+/**
+ * Content overlap requires whole tokens.
+ * Two generic words such as model and land are not enough on their own.
+ * One specific title word, such as a named topic, can still carry the row.
+ */
 export function faqQuestionHasContentOverlap(
   question: string,
   row: Pick<PublicCompanionTenantFaqRow, "title" | "answer" | "category">,
@@ -135,16 +213,11 @@ export function faqQuestionHasContentOverlap(
   const tokens = [
     ...tokenizePublicCompanionFaqQuestion(question),
     ...expandFaqIntentTokens(question),
-  ];
+  ].filter((token) => token.length >= 4);
   if (tokens.length === 0) return false;
   const corpus = faqRowCorpus(row);
-  return tokens.some(
-    (token) =>
-      corpus.includes(token) ||
-      tokenizePublicCompanionFaqQuestion(corpus).some(
-        (corpusToken) => corpusToken.includes(token) || token.includes(corpusToken),
-      ),
-  );
+  const hits = tokens.filter((token) => faqHasWholeToken(corpus, token));
+  return faqCoverageMatches(tokens, hits);
 }
 
 export type PublicCompanionTenantFaqRow = {
@@ -250,15 +323,8 @@ export function isRelevantPublicCompanionTenantFaqResult(
   const distinctive = distinctivePublicCompanionFaqTopicTokens(trimmedQuery);
   if (distinctive.length > 0 && top) {
     const corpus = faqRowCorpus(top);
-    const corpusTokens = tokenizePublicCompanionFaqQuestion(corpus);
-    const distinctiveHit = distinctive.some(
-      (token) =>
-        corpus.includes(token) ||
-        corpusTokens.some(
-          (corpusToken) => corpusToken.includes(token) || token.includes(corpusToken),
-        ),
-    );
-    if (!distinctiveHit) {
+    const hits = distinctive.filter((token) => faqHasWholeToken(corpus, token));
+    if (!faqCoverageMatches(distinctive, hits)) {
       return false;
     }
   }
@@ -327,21 +393,10 @@ export async function searchPublicCompanionTenantFaq(input: {
     .filter((row): row is PublicCompanionTenantFaqRow => row !== null);
 }
 
-function isSafeTenantFaqSourceUrl(url: string): boolean {
-  const trimmed = url.trim();
-  if (!trimmed) return false;
-  if (trimmed.startsWith("/") && !trimmed.startsWith("//")) return true;
-  try {
-    const parsed = new URL(trimmed);
-    return parsed.protocol === "https:" || parsed.protocol === "http:";
-  } catch {
-    return false;
-  }
-}
-
 export function buildPublicCompanionTenantFaqResponse(
   rows: PublicCompanionTenantFaqRow[],
   locale: string,
+  verifiedHost?: string | null,
 ): PublicCompanionTenantFaqAnswer {
   const usable = rows.filter(
     (row) => !looksLikeFaqQuestionList(`${row.title}\n${row.answer}`),
@@ -351,13 +406,11 @@ export function buildPublicCompanionTenantFaqResponse(
   const directAnswer = primary.answer.trim();
 
   const sources = dedupeCompanionSourcesByRoute(
-    [primary].map((row) => ({
-      title: row.title,
-      route:
-        row.source_url && isSafeTenantFaqSourceUrl(row.source_url)
-          ? row.source_url
-          : `website-kompis-faq:${row.content_type}`,
-    })),
+    [primary].flatMap((row) => {
+      const route = publicEvidenceUrlForVerifiedHost(row.source_url, verifiedHost);
+      if (!route) return [];
+      return [{ title: row.title, route }];
+    }),
   );
 
   const topScore = primary.score ?? 0;

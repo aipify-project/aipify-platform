@@ -14,7 +14,7 @@ File freeze, behavior freeze, and a fresh site index are different. A stale inde
 
 ## Observed drift, not a new baseline
 
-Five protected files on current main do not match the manifest. The mismatch was already present when `9fba6af8` committed the manifest. No later commit edited those five files. The ledger is `website-kompis-public-chain-observed-drift.json`.
+Five protected files did not match the manifest when `9fba6af8` committed it. Four of them are still only observations. `public-companion-ask.ts` has one later owner-approved edit, and its manifest hash is still the older baseline. The ledger is `website-kompis-public-chain-observed-drift.json`.
 
 | File | Introduced by | What changed |
 |---|---|---|
@@ -24,7 +24,19 @@ Five protected files on current main do not match the manifest. The mismatch was
 | `lib/marketing/website-kompis-install-config.ts` | PR #272 `c2757397` | Saved site locale uses the content-language set |
 | `lib/marketing/website-kompis-answer-feedback-server.ts` | PR #275 `c20fd8a2` | Feedback overview reads review status; close stays gated |
 
-These rows are an observation so the next edit fails the gate. They do not re-accept the chain.
+These rows are an observation so the next edit fails the gate. They do not re-accept the chain. The 2026-10-24 source-selection approval changes the observed hash of `public-companion-ask.ts` only. It does not move the other four rows onto a new baseline.
+
+## Owner-approved source selection, 2026-10-24
+
+The task names Website Kompis Public Chain. The product patch against both `6cbbbe89` and fresh main `5114dcff` is SHA256 `ebfe937e840e230b84cbbba1b96744070199862080a991ae7f1f696d85d40e12`.
+
+| File | Approved SHA256 | Where it is recorded |
+|---|---|---|
+| `lib/marketing/public-companion-tenant-faq.ts` | `2aff5fc9b817b74f62e5eb2c9e18d430a5a633a8b7cdc0a6f0f21e635892f8ae` | Manifest baseline |
+| `lib/marketing/website-kompis-public-page-context.ts` | `998c6297826e264681dc5cefc1e52231a5a561bd644e9cb5145836c03f0bd01b` | Manifest baseline |
+| `lib/marketing/website-kompis-grounded-answer.ts` | `e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82` | Manifest baseline |
+| `lib/marketing/website-kompis-public-boundary.ts` | `33d11e807f80f2458d23b82b26aa9fdb793c5a6a56051923f2f2ca1e14ff79ca` | Manifest baseline |
+| `lib/marketing/public-companion-ask.ts` | `0fdb705237747f0c6be089e388f4558aa63a431f7c66b7531cb22aeef083fe3a` | Drift ledger observed hash. Manifest stays `4ec48ee373ab7dc11bf39f07abff0317708c89df265513517499988ae9575682`. |
 
 ## Gate
 
@@ -37,8 +49,6 @@ These rows are an observation so the next edit fails the gate. They do not re-ac
 3. The manifest hash and this drift ledger are updated together.
 4. SQL, ingest, secrets, and Production data stay out unless that task approves them separately.
 
-## Not live
+## Not part of this approval
 
-The local source-selection candidate `8cb60db8` is not on main. Its patch against `3ea17025` is 16 files, SHA256 `2be4cd5ed80a503ce8c68dec537c2f5f823e1376c539fb3bf752934d5387aa50`. It changes five protected product files so published FAQ and the current page stay on the verified host, private paths stay out, and the safe fallback has no fake source chip. It is not a Production release.
-
-The alias SQL candidate is not applied. It does not refresh stale documents.
+The site-index alias SQL is not applied. Its SHA256 `f132117cc7ccdbaaff3e251e38ce456b33135bcc41d914c39eeb19b5b4fdef71` is outside this approval. It does not refresh stale documents.
