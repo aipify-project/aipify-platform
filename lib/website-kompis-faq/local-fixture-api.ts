@@ -51,7 +51,7 @@ export function createFixtureRows(count: number): FixtureRow[] {
     let answer = "Public opening hours for the synthetic website.";
     if (index === 0) {
       title = "Staff desk";
-      answer = "Ask the employee at the desk.";
+      answer = "Internal note: member id A-48291. Do not publish.";
     } else if (index === 1) {
       status = "published";
       publicSafe = true;

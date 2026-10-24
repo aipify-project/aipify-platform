@@ -15,11 +15,11 @@ import { parseWebsiteKompisFaqItem, parseWebsiteKompisFaqList } from "@/lib/webs
 const root = path.dirname(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 
 function main() {
-  assert.deepEqual(detectWebsiteKompisFaqRiskyWords("Intern support case for member id"), [
-    "member id",
-    "support case",
-    "intern",
-  ]);
+  assert.deepEqual(detectWebsiteKompisFaqRiskyWords("Intern support case for member id"), []);
+  assert.deepEqual(
+    detectWebsiteKompisFaqRiskyWords("Internal note: member id A-48291. Do not publish."),
+    ["personal_identifier", "internal_note"],
+  );
 
   assert.equal(
     canPublishWebsiteKompisFaqDraft({

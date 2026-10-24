@@ -109,15 +109,16 @@ export async function POST(request: Request) {
 
     const plan = planPublicSafeReview(loaded.rows, itemIds);
     const byId = new Map(loaded.rows.map((row) => [row.id, row]));
-    const results: Array<{ id: string; outcome: string }> = plan.skipped.map((row) => ({
+    const results: Array<{ id: string; outcome: string; disclosures: string[] }> = plan.skipped.map((row) => ({
       id: row.id,
       outcome: row.reason,
+      disclosures: row.disclosures ?? [],
     }));
 
     for (const id of plan.readyIds) {
       const row = byId.get(id);
       if (!row) {
-        results.push({ id, outcome: "not_visible" });
+        results.push({ id, outcome: "not_visible", disclosures: [] });
         continue;
       }
       const { error } = await supabase.rpc("upsert_tenant_public_companion_faq_item", {
@@ -138,7 +139,7 @@ export async function POST(request: Request) {
         p_valid_until: row.validUntil,
         p_last_reviewed_at: new Date().toISOString(),
       });
-      results.push({ id, outcome: error ? "failed" : "marked" });
+      results.push({ id, outcome: error ? "failed" : "marked", disclosures: [] });
     }
 
     return NextResponse.json({

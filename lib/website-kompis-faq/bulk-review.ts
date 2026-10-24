@@ -1,4 +1,7 @@
-import { detectWebsiteKompisFaqRiskyWords } from "@/lib/website-kompis-faq/safety";
+import {
+  classifyWebsiteKompisFaqDisclosure,
+  type FaqDisclosureReason,
+} from "@/lib/website-kompis-faq/disclosure";
 
 export const FAQ_PUBLIC_SAFE_BATCH_SIZE = 25;
 export const FAQ_MATCH_PAGE_SIZE = 500;
@@ -24,7 +27,7 @@ export type PublicSafeReviewPlan = {
   readyIds: string[];
   alreadySafeIds: string[];
   manualIds: string[];
-  skipped: Array<{ id: string; reason: PublicSafeSkipReason }>;
+  skipped: Array<{ id: string; reason: PublicSafeSkipReason; disclosures?: FaqDisclosureReason[] }>;
 };
 
 export function chunkFaqIds(ids: readonly string[], size = FAQ_PUBLIC_SAFE_BATCH_SIZE): string[][] {
@@ -64,12 +67,12 @@ export function planPublicSafeReview(
       skipped.push({ id, reason: "not_draft" });
       continue;
     }
-    const risky = detectWebsiteKompisFaqRiskyWords(
+    const disclosures = classifyWebsiteKompisFaqDisclosure(
       `${item.title}\n${item.question ?? ""}\n${item.answer}`,
     );
-    if (risky.length > 0) {
+    if (disclosures.length > 0) {
       manualIds.push(id);
-      skipped.push({ id, reason: "manual_review" });
+      skipped.push({ id, reason: "manual_review", disclosures });
       continue;
     }
     if (item.publicSafe === true) {

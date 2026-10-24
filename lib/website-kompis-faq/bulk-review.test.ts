@@ -25,7 +25,14 @@ for (const total of [0, 1, 99, 100, 101, 1500, 3500]) {
 const drafts = [
   { id: "ready", status: "draft", publicSafe: false, title: "Hours", question: null, answer: "Open" },
   { id: "safe", status: "draft", publicSafe: true, title: "Map", question: null, answer: "Here" },
-  { id: "private", status: "draft", publicSafe: false, title: "Staff", question: null, answer: "employee desk" },
+  {
+    id: "private",
+    status: "draft",
+    publicSafe: false,
+    title: "Staff",
+    question: null,
+    answer: "Internal note: member id A-48291. Do not publish.",
+  },
   { id: "live", status: "published", publicSafe: true, title: "Live", question: null, answer: "Live" },
   { id: "old", status: "archived", publicSafe: false, title: "Old", question: null, answer: "Old" },
 ];
@@ -33,6 +40,8 @@ const plan = planPublicSafeReview(drafts, ["ready", "safe", "private", "live", "
 assert.deepEqual(plan.readyIds, ["ready"]);
 assert.deepEqual(plan.alreadySafeIds, ["safe"]);
 assert.deepEqual(plan.manualIds, ["private"]);
+assert.equal(plan.skipped.find((row) => row.id === "private")?.disclosures?.includes("personal_identifier"), true);
+assert.equal(plan.skipped.find((row) => row.id === "private")?.disclosures?.includes("internal_note"), true);
 assert.equal(plan.skipped.some((row) => row.id === "live" && row.reason === "not_draft"), true);
 assert.equal(plan.skipped.some((row) => row.id === "old" && row.reason === "archived"), true);
 assert.equal(plan.skipped.some((row) => row.id === "missing" && row.reason === "not_visible"), true);
@@ -126,6 +135,8 @@ const matchRoute = readFileSync("app/api/website-kompis/faq/match-ids/route.ts",
 assert.match(panel, /fullSetHint/);
 assert.match(panel, /draftQualification/);
 assert.match(panel, /readyToPublish/);
+assert.match(panel, /showHeld/);
+assert.match(panel, /reviewScope/);
 assert.match(matchRoute, /classifyFaqMatch/);
 assert.match(matchRoute, /snapshot_incomplete/);
 
