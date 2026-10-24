@@ -2,7 +2,9 @@ import "server-only";
 
 import { createClient } from "@/lib/supabase/server";
 import { sanitizePublicCompanionDomain } from "@/lib/marketing/public-companion-tenant-faq";
+import { parsePlatformPortalCustomerDomainsPayload } from "@/lib/platform-portal/domain-installation";
 import { parsePlatformPortalWebsiteKompisStatus } from "@/lib/platform-portal/website-kompis-activation";
+import { selectVerifiedRobotsHosts } from "./robots-alias-redirect";
 
 export type PublicSiteIndexOperatorTrust =
   | {
@@ -10,6 +12,7 @@ export type PublicSiteIndexOperatorTrust =
       tenantId: string;
       installId: string;
       verifiedHost: string;
+      verifiedAliasHosts: string[];
       websiteKompisEnabled: boolean;
     }
   | {
@@ -82,11 +85,50 @@ export async function resolvePublicSiteIndexOperatorTrust(input: {
     return { ok: false, reason: "host_mismatch" };
   }
 
+  const verifiedAliasHosts = await loadVerifiedAliasHosts({
+    supabase,
+    customerId: status.customerId,
+    installId: installId.toLowerCase(),
+    primaryHost: verifiedHost,
+  });
+
   return {
     ok: true,
     tenantId: status.customerId,
     installId: installId.toLowerCase(),
     verifiedHost,
+    verifiedAliasHosts,
     websiteKompisEnabled: true,
   };
+}
+
+async function loadVerifiedAliasHosts(input: {
+  supabase: Awaited<ReturnType<typeof createClient>>;
+  customerId: string;
+  installId: string;
+  primaryHost: string;
+}): Promise<string[]> {
+  const fallback = [input.primaryHost];
+  const { data, error } = await input.supabase.rpc(
+    "get_platform_portal_customer_domains",
+    { p_customer_id: input.customerId },
+  );
+  if (error || data == null) return fallback;
+  const parsed = parsePlatformPortalCustomerDomainsPayload(data);
+  if (
+    parsed.customerId &&
+    parsed.customerId.toLowerCase() !== input.customerId.toLowerCase()
+  ) {
+    return fallback;
+  }
+  return selectVerifiedRobotsHosts({
+    primaryHost: input.primaryHost,
+    installId: input.installId,
+    records: parsed.domains.map((domain) => ({
+      hostname: domain.hostname,
+      verificationStatus: domain.verificationStatus,
+      status: domain.status,
+      installId: domain.installId,
+    })),
+  });
 }
