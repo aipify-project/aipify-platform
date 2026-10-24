@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { fetchVerifiedPublicSiteUrl } from "./fetch-safe";
 import { fetchRobotsTxtWithinVerifiedAliases } from "./robots-alias-redirect";
+import { evaluateSeedUrlOnTrustedHosts, trustedSeedHosts } from "./seed-host";
 import {
   evaluatePublicSiteIndexUrl,
   normalizePublicSiteIndexCanonicalUrl,
@@ -296,8 +297,12 @@ export async function discoverPublicSiteIndexUrls(input: {
         seedRejectReasons: [{ url: host, reason: "seed_urls_required" }],
       };
     }
+    const trustedHosts = trustedSeedHosts({
+      primaryHost: host,
+      verifiedAliasHosts: input.verifiedAliasHosts,
+    });
     for (const seed of rawSeeds) {
-      const decision = evaluatePublicSiteIndexUrl(seed, host);
+      const decision = evaluateSeedUrlOnTrustedHosts(seed, trustedHosts);
       if (!decision.ok) {
         seedRejectReasons.push({ url: seed, reason: decision.reason });
         if (
