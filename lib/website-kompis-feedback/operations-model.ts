@@ -22,6 +22,8 @@ export type FeedbackOpsRow = {
   reviewedAt?: string | null;
   installId?: string | null;
   publishedFaqItemId?: string | null;
+  reviewReason?: string | null;
+  followUpStatus?: "open" | "none" | null;
 };
 
 export type FeedbackOpsStatusTone = "emerald" | "amber" | "slate" | "purple" | "review";

@@ -313,6 +313,8 @@ export function mapReviewQueueItem(raw: unknown): FeedbackOpsRow | null {
     reviewedAt: typeof row.reviewed_at === "string" ? row.reviewed_at : null,
     installId: typeof row.install_id === "string" ? row.install_id : null,
     publishedFaqItemId: typeof row.published_faq_item_id === "string" ? row.published_faq_item_id : null,
+    reviewReason: typeof row.review_reason === "string" ? row.review_reason : null,
+    followUpStatus: row.follow_up_status === "open" ? "open" : "none",
   };
 }
 

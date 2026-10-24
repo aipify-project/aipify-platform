@@ -206,6 +206,12 @@ assert.equal((editor.match(/\/api\/website-kompis\/feedback\/\$\{row\.id\}\/disp
 assert.match(editor, /proposedFaqAnswerSeed\(\)/);
 assert.doesNotMatch(editor, /useState\(row\.answerPreview\)/);
 assert.match(editor, /action: "rejected"/);
+assert.match(editor, /existingPublishedFaqOutcome\("resolved"\)/);
+assert.match(editor, /existingPublishedFaqOutcome\("search_miss"\)/);
+assert.match(editor, /labels\.quality\.markResolved/);
+assert.match(editor, /labels\.quality\.searchMiss/);
+assert.match(editor, /presentDispositionFailure/);
+assert.doesNotMatch(editor, /FEEDBACK_REVIEW_CLOSE_READY = true/);
 assert.match(editor, /reason: call\.args\.p_reason/);
 assert.doesNotMatch(editor, /DELETE FROM/);
 assert.doesNotMatch(editor, /FEEDBACK_REVIEW_DISPOSITION_READY = true/);

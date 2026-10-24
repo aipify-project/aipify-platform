@@ -92,6 +92,35 @@ export function followUpStaysOpen(disposition: ReviewCaseScope["disposition"]): 
   return disposition === "retrieval_unresolved";
 }
 
+/**
+ * An existing published FAQ never becomes a new FAQ and never copies the visitor answer.
+ * Resolved closes the case. A search miss stays visible as open follow-up in history.
+ */
+export function existingPublishedFaqOutcome(kind: "resolved" | "search_miss"): {
+  action: "published" | "retrieval_unresolved";
+  queue: "history";
+  followUpOpen: boolean;
+  requiresReason: boolean;
+  writesFaq: false;
+} {
+  if (kind === "search_miss") {
+    return {
+      action: "retrieval_unresolved",
+      queue: "history",
+      followUpOpen: true,
+      requiresReason: true,
+      writesFaq: false,
+    };
+  }
+  return {
+    action: "published",
+    queue: "history",
+    followUpOpen: false,
+    requiresReason: false,
+    writesFaq: false,
+  };
+}
+
 /** The visitor's received answer is context. It is not the proposed FAQ answer. */
 export function proposedFaqAnswerSeed(): "" {
   return "";

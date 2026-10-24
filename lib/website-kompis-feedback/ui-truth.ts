@@ -95,6 +95,22 @@ export function presentReviewAfterFaqPublish(input: {
   return reviewStaysOpen("still_open");
 }
 
+export type DispositionFailureNotice = "unavailable" | "forbidden" | "still_open";
+
+/** A failed disposition keeps the case in the active queue. Success is a separate check. */
+export function presentDispositionFailure(input: {
+  httpOk: boolean;
+  httpStatus: number;
+  code?: string | null;
+  reviewDisposition?: string | null;
+  expected: string;
+}): DispositionFailureNotice | null {
+  if (input.httpOk && input.reviewDisposition === input.expected) return null;
+  if (input.httpStatus === 501 || input.code === "disposition_unavailable") return "unavailable";
+  if (input.httpStatus === 403 || input.code === "forbidden") return "forbidden";
+  return "still_open";
+}
+
 export function removalStatusWhileDispositionOff(input: {
   dispositionReady: boolean;
   vote?: string | null;

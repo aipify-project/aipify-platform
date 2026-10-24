@@ -12,6 +12,7 @@ import {
   buildFeedbackFaqWriteBody,
   feedbackFaqWriteAllowed,
   normalizeFeedbackFaqSourceUrl,
+  presentDispositionFailure,
   presentReviewAfterFaqPublish,
   removalStatusWhileDispositionOff,
   selectFaqMatchForInstall,
@@ -105,6 +106,33 @@ const completed = presentReviewAfterFaqPublish({
 assert.equal(completed.reviewDispositionState, "completed");
 assert.equal(completed.removeReviewCard, true);
 assert.equal(completed.closeDrawer, true);
+
+assert.equal(
+  presentDispositionFailure({
+    httpOk: false,
+    httpStatus: 501,
+    code: "disposition_unavailable",
+    expected: "published",
+  }),
+  "unavailable",
+);
+assert.equal(
+  presentDispositionFailure({ httpOk: false, httpStatus: 403, code: "forbidden", expected: "rejected" }),
+  "forbidden",
+);
+assert.equal(
+  presentDispositionFailure({ httpOk: false, httpStatus: 409, code: "not_eligible", expected: "duplicate" }),
+  "still_open",
+);
+assert.equal(
+  presentDispositionFailure({
+    httpOk: true,
+    httpStatus: 200,
+    reviewDisposition: "published",
+    expected: "published",
+  }),
+  null,
+);
 
 const stillOpen = presentReviewAfterFaqPublish({
   dispositionReady: true,

@@ -199,10 +199,14 @@ export function WebsiteKompisFeedbackOverviewPanel({
           confirmation: true,
         }),
       });
-      const payload = (await response.json()) as { results?: Array<{ ok?: boolean }> };
+      const payload = (await response.json()) as { results?: Array<{ ok?: boolean }>; code?: string };
       const results = Array.isArray(payload.results) ? payload.results : [];
       const failed = results.filter((item) => item.ok !== true).length;
-      if (!response.ok || failed > 0 || results.length !== picked.ids.length) {
+      if (response.status === 501 || payload.code === "disposition_unavailable") {
+        setBulkNotice(labels.quality.dispositionUnavailable);
+      } else if (response.status === 403 || payload.code === "forbidden") {
+        setBulkNotice(labels.quality.dispositionForbidden);
+      } else if (!response.ok || failed > 0 || results.length !== picked.ids.length) {
         setBulkNotice(labels.quality.bulkPartial);
       } else {
         setBulkIds([]);
@@ -591,6 +595,11 @@ export function WebsiteKompisFeedbackOverviewPanel({
                     {row.reviewedAt ? (
                       <p className="text-xs text-[#65708A]">
                         {labels.quality.reviewedAt}: {formatWhen(row.reviewedAt, locale)}
+                      </p>
+                    ) : null}
+                    {row.reviewReason ? (
+                      <p className="text-sm text-[#20243E]">
+                        {labels.quality.reviewReason}: {row.reviewReason}
                       </p>
                     ) : null}
                     <div className="mt-auto flex flex-wrap gap-2.5">

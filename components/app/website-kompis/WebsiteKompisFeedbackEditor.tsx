@@ -22,10 +22,11 @@ import {
   FEEDBACK_REVIEW_DISPOSITION_READY,
   type FeedbackOpsRow,
 } from "@/lib/website-kompis-feedback/operations-model";
-import { proposedFaqAnswerSeed, reviewReasonOk } from "@/lib/website-kompis-feedback/review-outcome";
+import { existingPublishedFaqOutcome, proposedFaqAnswerSeed, reviewReasonOk } from "@/lib/website-kompis-feedback/review-outcome";
 import {
   buildFeedbackFaqWriteBody,
   feedbackFaqWriteAllowed,
+  presentDispositionFailure,
   presentReviewAfterFaqPublish,
   removalStatusWhileDispositionOff,
   selectFaqMatchForInstall,
@@ -510,6 +511,25 @@ export function WebsiteKompisFeedbackEditor({
     });
   }
 
+  function dispositionError(
+    response: Response,
+    payload: { code?: string; reviewDisposition?: string },
+    expected: string,
+    fallback: string,
+  ): string | null {
+    const notice = presentDispositionFailure({
+      httpOk: response.ok,
+      httpStatus: response.status,
+      code: payload.code,
+      reviewDisposition: payload.reviewDisposition,
+      expected,
+    });
+    if (notice === null) return null;
+    if (notice === "unavailable") return labels.quality.dispositionUnavailable;
+    if (notice === "forbidden") return labels.quality.dispositionForbidden;
+    return fallback;
+  }
+
   async function rejectSpam() {
     if (!canRejectSpam || rejecting || !reviewReasonOk(reviewReason)) return;
     const call = buildRejectDispositionCall(row.id, reviewReason);
@@ -525,15 +545,17 @@ export function WebsiteKompisFeedbackEditor({
         reason: call.args.p_reason,
         confirmation: true,
       });
-      const payload = (await response.json()) as { reviewDisposition?: string };
+      const payload = (await response.json()) as { reviewDisposition?: string; code?: string };
+      const failure = dispositionError(response, payload, "rejected", labels.quality.rejectSpamError);
       if (
+        failure ||
         !shouldRemoveReviewCard({
           httpOk: response.ok,
           reviewDisposition: payload.reviewDisposition,
           expected: "rejected",
         })
       ) {
-        setError(labels.quality.rejectSpamError);
+        setError(failure ?? labels.quality.rejectSpamError);
         return;
       }
       setConfirmReject(false);
@@ -555,15 +577,17 @@ export function WebsiteKompisFeedbackEditor({
         reason: reviewReason.trim(),
         confirmation: true,
       });
-      const payload = (await response.json()) as { reviewDisposition?: string };
+      const payload = (await response.json()) as { reviewDisposition?: string; code?: string };
+      const failure = dispositionError(response, payload, "duplicate", labels.quality.rejectSpamError);
       if (
+        failure ||
         !shouldRemoveReviewCard({
           httpOk: response.ok,
           reviewDisposition: payload.reviewDisposition,
           expected: "duplicate",
         })
       ) {
-        setError(labels.quality.rejectSpamError);
+        setError(failure ?? labels.quality.rejectSpamError);
         return;
       }
       setConfirmDuplicate(false);
@@ -575,26 +599,75 @@ export function WebsiteKompisFeedbackEditor({
     }
   }
 
+  async function completeWithExistingFaq() {
+    const outcome = existingPublishedFaqOutcome("resolved");
+    if (!canRejectSpam || !matchingPublishedId || linkingExisting || outcome.writesFaq) return;
+    const call = buildPublishedDispositionCall({
+      feedbackId: row.id,
+      faqItemId: matchingPublishedId,
+      feedbackInstallId: row.installId ?? "",
+      faqInstallId: installId || row.installId || "",
+      publishStatus: "published",
+    });
+    if (!call.ok) {
+      setError(labels.quality.linkExistingError);
+      return;
+    }
+    setLinkingExisting(true);
+    setError(null);
+    try {
+      const response = await postCaseDisposition({
+        action: outcome.action,
+        faqItemId: call.args.p_faq_item_id,
+        feedbackInstallId: row.installId ?? "",
+        faqInstallId: installId || row.installId || "",
+        publishStatus: "published",
+        confirmation: true,
+      });
+      const payload = (await response.json()) as { reviewDisposition?: string; code?: string };
+      const failure = dispositionError(response, payload, outcome.action, labels.quality.linkExistingError);
+      if (
+        failure ||
+        !shouldRemoveReviewCard({
+          httpOk: response.ok,
+          reviewDisposition: payload.reviewDisposition,
+          expected: outcome.action,
+        })
+      ) {
+        setError(failure ?? labels.quality.linkExistingError);
+        return;
+      }
+      await onReviewClosed?.();
+    } catch {
+      setError(labels.quality.linkExistingError);
+    } finally {
+      setLinkingExisting(false);
+    }
+  }
+
   async function linkExistingFaq() {
+    const outcome = existingPublishedFaqOutcome("search_miss");
     if (!canRejectSpam || !matchingPublishedId || linkingExisting || !reviewReasonOk(reviewReason)) return;
     setLinkingExisting(true);
     setError(null);
     try {
       const response = await postCaseDisposition({
-        action: "retrieval_unresolved",
+        action: outcome.action,
         faqItemId: matchingPublishedId,
         reason: reviewReason.trim(),
         confirmation: true,
       });
-      const payload = (await response.json()) as { reviewDisposition?: string };
+      const payload = (await response.json()) as { reviewDisposition?: string; code?: string };
+      const failure = dispositionError(response, payload, outcome.action, labels.quality.linkExistingError);
       if (
+        failure ||
         !shouldRemoveReviewCard({
           httpOk: response.ok,
           reviewDisposition: payload.reviewDisposition,
-          expected: "retrieval_unresolved",
+          expected: outcome.action,
         })
       ) {
-        setError(labels.quality.linkExistingError);
+        setError(failure ?? labels.quality.linkExistingError);
         return;
       }
       await onReviewClosed?.();
@@ -788,11 +861,20 @@ export function WebsiteKompisFeedbackEditor({
                     </label>
                     <button
                       type="button"
+                      disabled={linkingExisting || !installId}
+                      onClick={() => void completeWithExistingFaq()}
+                      className="inline-flex min-h-11 items-center rounded-xl bg-[#7357e8] px-3 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+                    >
+                      {labels.quality.markResolved}
+                    </button>
+                    <p className="text-sm text-slate-600">{labels.quality.searchMissHelp}</p>
+                    <button
+                      type="button"
                       disabled={linkingExisting || !reviewReasonOk(reviewReason)}
                       onClick={() => void linkExistingFaq()}
                       className="inline-flex min-h-11 items-center rounded-xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
                     >
-                      {labels.quality.linkExistingFaq}
+                      {labels.quality.searchMiss}
                     </button>
                   </div>
                 ) : null}
