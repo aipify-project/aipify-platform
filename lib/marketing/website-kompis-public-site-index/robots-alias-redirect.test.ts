@@ -314,9 +314,22 @@ async function main() {
   assert.equal(cleared.robotsStatus, "ok");
   assert.equal(cleared.robotsFinalHost, WWW);
   assert.equal(pageFetches, 0);
-  assert.deepEqual(cleared.urls, [`https://${APEX}/about`]);
+  assert.deepEqual(
+    cleared.urls.sort(),
+    [`https://${APEX}/about`, `https://${WWW}/about`].sort(),
+  );
+  const apexOnly = await discoverPublicSiteIndexUrls({
+    verifiedHost: APEX,
+    discoveryMode: "seed_only",
+    seedUrls: [`https://${WWW}/about`],
+    verifiedAliasHosts: [APEX],
+    robotsDnsAssert: dnsOk,
+    robotsFetchImpl: async () => response(200, ROBOTS),
+    fetchImpl: async () => ({ ok: false, reason: "network_error" }),
+  });
+  assert.deepEqual(apexOnly.urls, []);
   assert.equal(
-    cleared.seedRejectReasons?.some((item) => item.reason === "host_mismatch"),
+    apexOnly.seedRejectReasons?.some((item) => item.reason === "host_mismatch"),
     true,
   );
   const wwwSeed = evaluatePublicSiteIndexUrl(`https://${WWW}/about`, APEX);

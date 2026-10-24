@@ -16,6 +16,7 @@ import {
   isIndexableExtractedPage,
 } from "./extract";
 import { fetchVerifiedPublicSiteUrl } from "./fetch-safe";
+import { evaluateSeedUrlOnTrustedHosts, trustedSeedHosts } from "./seed-host";
 import {
   WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_PAGES,
   evaluatePublicSiteIndexUrl,
@@ -263,8 +264,12 @@ export async function ingestTenantPublicSiteIndex(
     });
   };
 
+  const trustedHosts = trustedSeedHosts({
+    primaryHost: host,
+    verifiedAliasHosts: input.verifiedAliasHosts,
+  });
   for (const url of batchUrls) {
-    const decision = evaluatePublicSiteIndexUrl(url, host);
+    const decision = evaluateSeedUrlOnTrustedHosts(url, trustedHosts);
     if (!decision.ok) {
       rejected += 1;
       errors.push({ url, reason: decision.reason });
@@ -281,7 +286,8 @@ export async function ingestTenantPublicSiteIndex(
       continue;
     }
 
-    const fetched = await fetchImpl({ url, verifiedHost: host });
+    const seedHost = decision.url.hostname;
+    const fetched = await fetchImpl({ url, verifiedHost: seedHost });
     if (!fetched.ok) {
       rejected += 1;
       errors.push({ url, reason: fetched.reason });
@@ -311,7 +317,7 @@ export async function ingestTenantPublicSiteIndex(
       continue;
     }
 
-    const finalDecision = evaluatePublicSiteIndexUrl(fetched.finalUrl, host);
+    const finalDecision = evaluatePublicSiteIndexUrl(fetched.finalUrl, seedHost);
     if (!finalDecision.ok) {
       rejected += 1;
       errors.push({ url, reason: finalDecision.reason });
