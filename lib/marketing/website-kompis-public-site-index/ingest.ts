@@ -350,7 +350,7 @@ export async function ingestTenantPublicSiteIndex(
     const { error } = await supabase.rpc("replace_tenant_public_site_index_document", {
       p_tenant_id: input.tenantId,
       p_install_id: installId,
-      p_verified_host: host,
+      p_verified_host: finalDecision.url.hostname,
       p_canonical_url: canonical,
       p_pathname: finalDecision.pathname,
       p_locale: extracted.locale || input.localeHint || "no",
