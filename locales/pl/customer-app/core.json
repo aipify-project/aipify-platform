@@ -566,7 +566,18 @@
     "localeUnsavedBody": "Ta wersja językowa ma niezapisane zmiany. Zmiana języka nie publikuje.",
     "localeUnsavedKeep": "Kontynuuj edycję",
     "localeUnsavedSave": "Zapisz szkic",
-    "localeUnsavedDiscard": "Odrzuć zmiany"
+    "localeUnsavedDiscard": "Odrzuć zmiany",
+    "localeMissingInFamily": "Ta rodzina nie ma wersji w tym języku. Starszy wpis może nadal istnieć osobno.",
+    "localeLinkAction": "Połącz istniejące tłumaczenie",
+    "localeLinkSearch": "Szukaj w tym języku",
+    "localeLinkEmpty": "Żaden wpis w tym języku nie pasuje na tej witrynie.",
+    "localeLinkConfirmTitle": "Połącz to tłumaczenie",
+    "localeLinkConfirmBody": "Wpis zachowuje treść, adres i stan publikacji. Dołącza do tej rodziny językowej.",
+    "localeLinkConfirm": "Połącz tłumaczenie",
+    "localeLinkCancel": "Anuluj",
+    "localeLinkConflict": "Ten wpis należy już do innej rodziny językowej. Nie został przeniesiony.",
+    "localeLinkError": "Nie udało się połączyć tłumaczenia. Nic nie zostało zmienione.",
+    "localeCreateInstead": "Albo napisz nowe tłumaczenie w polach powyżej."
   },
   "kompisOperator": {
     "title": "Zadania",

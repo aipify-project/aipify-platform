@@ -7088,7 +7088,18 @@
     "localeUnsavedBody": "This language version has unsaved changes. Switching language does not publish.",
     "localeUnsavedKeep": "Keep editing",
     "localeUnsavedSave": "Save draft",
-    "localeUnsavedDiscard": "Discard changes"
+    "localeUnsavedDiscard": "Discard changes",
+    "localeMissingInFamily": "This family has no version in this language. An older entry may still exist on its own.",
+    "localeLinkAction": "Link an existing translation",
+    "localeLinkSearch": "Search this language",
+    "localeLinkEmpty": "No entry in this language matches on this website.",
+    "localeLinkConfirmTitle": "Link this translation",
+    "localeLinkConfirmBody": "The existing entry keeps its text, address, and publication state. It joins this language family.",
+    "localeLinkConfirm": "Link translation",
+    "localeLinkCancel": "Cancel",
+    "localeLinkConflict": "This entry already belongs to another language family. It was not moved.",
+    "localeLinkError": "The translation could not be linked. Nothing was changed.",
+    "localeCreateInstead": "Or write a new translation in the fields above."
   },
   "kompisOperator": {
     "title": "Tasks",

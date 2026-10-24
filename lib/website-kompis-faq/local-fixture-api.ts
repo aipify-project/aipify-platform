@@ -4,7 +4,12 @@
  */
 import { FAQ_MATCH_PAGE_CAP, FAQ_MATCH_PAGE_SIZE, FAQ_PUBLIC_SAFE_BATCH_SIZE, authoritativeMatchAllowed, planPublicSafeReview } from "@/lib/website-kompis-faq/bulk-review";
 import type { WpkfContentType, WpkfStatus } from "@/lib/website-kompis-faq/constants";
-import { lookupExplicitFaqLocale } from "@/lib/website-kompis-faq/locale-family";
+import {
+  applyExplicitFaqLocaleLink,
+  lookupExplicitFaqLocale,
+  planExplicitFaqLocaleLink,
+  searchExplicitFaqLocaleCandidates,
+} from "@/lib/website-kompis-faq/locale-family";
 import type { WebsiteKompisFaqItem } from "@/lib/website-kompis-faq/types";
 import { applyAuthoritativeFaqCount, buildFaqListWindow, type FaqListWindow } from "@/lib/website-kompis-faq/list-window";
 import { filterWebsiteKompisFaqItemsForSiteContext } from "@/lib/website-kompis-site-context/filter";
@@ -431,6 +436,42 @@ export class FaqLocalFixture {
     };
     this.rows.push(created);
     return { status: 200, body: { id: created.id, status: "draft", created: true } };
+  }
+
+  searchLocaleLink(sourceId: string, locale: string, query: string): FixtureResult {
+    const denied = this.denied();
+    if (denied) return denied;
+    const found = searchExplicitFaqLocaleCandidates(this.rows, sourceId, locale, query);
+    if (!Array.isArray(found)) {
+      if (found.outcome === "unlinked") {
+        return { status: 503, body: { error: "FAQ language family is not available", code: "translation_group_unavailable" } };
+      }
+      return { status: 404, body: { error: "FAQ item not found" } };
+    }
+    return { status: 200, body: { candidates: found } };
+  }
+
+  linkLocaleMember(body: { sourceItemId?: string; candidateId?: string; locale?: string; confirmed?: boolean }): FixtureResult {
+    const denied = this.denied();
+    if (denied) return denied;
+    const sourceId = body.sourceItemId ?? "";
+    const candidateId = body.candidateId ?? "";
+    const locale = (body.locale ?? "").trim().toLowerCase();
+    const plan = planExplicitFaqLocaleLink(this.rows, sourceId, candidateId, locale);
+    if (!plan.ok) {
+      if (plan.reason === "unlinked") {
+        return { status: 503, body: { error: "FAQ language family is not available", code: "translation_group_unavailable" } };
+      }
+      if (plan.reason === "not_found") return { status: 404, body: { error: "FAQ item not found" } };
+      return { status: 409, body: { error: "FAQ translation was not linked", code: plan.reason } };
+    }
+    if (body.confirmed !== true) {
+      return { status: 400, body: { error: "Confirmation is required", code: "confirmation_required" } };
+    }
+    const applied = applyExplicitFaqLocaleLink(this.rows, sourceId, candidateId, locale);
+    if (!applied.ok) return { status: 409, body: { error: "FAQ translation was not linked", code: applied.reason } };
+    const linked = this.rows.find((row) => row.id === applied.candidateId);
+    return { status: 200, body: { outcome: applied.outcome, item: linked } };
   }
 
   stats() {

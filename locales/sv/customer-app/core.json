@@ -7099,7 +7099,18 @@
     "localeUnsavedBody": "Den här språkversionen har osparade ändringar. Språkbyte publicerar inte.",
     "localeUnsavedKeep": "Fortsätt redigera",
     "localeUnsavedSave": "Spara utkast",
-    "localeUnsavedDiscard": "Förkasta ändringar"
+    "localeUnsavedDiscard": "Förkasta ändringar",
+    "localeMissingInFamily": "Den här familjen har ingen version på det här språket. En äldre post kan ändå finnas för sig själv.",
+    "localeLinkAction": "Koppla befintlig översättning",
+    "localeLinkSearch": "Sök i det här språket",
+    "localeLinkEmpty": "Ingen post på det här språket matchar på den här webbplatsen.",
+    "localeLinkConfirmTitle": "Koppla den här översättningen",
+    "localeLinkConfirmBody": "Posten behåller text, adress och publiceringsstatus. Den går in i den här språkfamiljen.",
+    "localeLinkConfirm": "Koppla översättning",
+    "localeLinkCancel": "Avbryt",
+    "localeLinkConflict": "Posten tillhör redan en annan språkfamilj. Den flyttades inte.",
+    "localeLinkError": "Översättningen kunde inte kopplas. Ingenting ändrades.",
+    "localeCreateInstead": "Eller skriv en ny översättning i fälten ovan."
   },
   "kompisOperator": {
     "title": "Uppgifter",

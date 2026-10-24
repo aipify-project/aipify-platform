@@ -162,4 +162,134 @@ assert.match(route, /get_tenant_public_companion_faq_locale_version/);
 assert.match(route, /insert_tenant_public_companion_faq_locale_version/);
 assert.doesNotMatch(route, /p_public_safe:\s*true/);
 
+const deId = "00000000-0000-4000-8000-0000000000de";
+const noId = "00000000-0000-4000-8000-0000000000a2";
+const twinId = "00000000-0000-4000-8000-0000000000d8";
+const occupiedGroup = "33333333-3333-4333-8333-333333333333";
+const independent = new FaqLocalFixture({ count: 0 });
+const standaloneGerman = row({
+  id: deId,
+  locale: "de",
+  title: "Deutscher Titel",
+  answer: "Deutsche Antwort",
+  translationGroupId: deId,
+  sourceUrl: "https://customer.example/de",
+});
+const standaloneNorwegian = row({
+  id: noId,
+  locale: "no",
+  title: "Gammel norsk",
+  answer: "Gammelt svar",
+  translationGroupId: noId,
+  sourceUrl: "https://customer.example/no",
+});
+const sameTitle = row({
+  id: twinId,
+  locale: "no",
+  title: "Gammel norsk",
+  answer: "Tvilling",
+  translationGroupId: twinId,
+  sourceUrl: "https://customer.example/no",
+});
+const otherInstall = row({
+  id: "00000000-0000-4000-8000-0000000000b9",
+  locale: "no",
+  title: "Gammel norsk",
+  answer: "Annet nettsted",
+  translationGroupId: "00000000-0000-4000-8000-0000000000b9",
+  installId: FIXTURE_SITE_B,
+  domain: "beta.example",
+  sourceUrl: "https://customer.example/no",
+});
+const occupied = row({
+  id: "00000000-0000-4000-8000-0000000000c8",
+  locale: "fr",
+  title: "Occupe",
+  answer: "Famille",
+  translationGroupId: occupiedGroup,
+});
+const occupiedSibling = row({
+  id: "00000000-0000-4000-8000-0000000000c9",
+  locale: "sv",
+  title: "Svensk",
+  answer: "Svar",
+  translationGroupId: occupiedGroup,
+});
+const archived = row({
+  id: "00000000-0000-4000-8000-0000000000e8",
+  locale: "no",
+  title: "Arkiv",
+  answer: "Arkiv",
+  translationGroupId: "00000000-0000-4000-8000-0000000000e8",
+  status: "archived",
+});
+independent.rows.push(standaloneGerman, standaloneNorwegian, sameTitle, otherInstall, occupied, occupiedSibling, archived);
+
+assert.equal((independent.localeVersion(deId, "no").body as { outcome: string }).outcome, "missing");
+const found = independent.searchLocaleLink(deId, "no", "Gammel") ;
+assert.equal(found.status, 200);
+const choices = (found.body as { candidates: Array<{ id: string; installId: string | null }> }).candidates;
+assert.deepEqual(choices.map((choice) => choice.id).sort(), [noId, twinId].sort());
+assert.equal(choices.every((choice) => choice.installId === FIXTURE_SITE_A), true);
+assert.equal(independent.linkLocaleMember({ sourceItemId: deId, candidateId: noId, locale: "no", confirmed: false }).status, 400);
+assert.equal(standaloneNorwegian.translationGroupId, noId);
+assert.equal(sameTitle.translationGroupId, twinId);
+const linked = independent.linkLocaleMember({ sourceItemId: deId, candidateId: noId, locale: "no", confirmed: true });
+assert.equal(linked.status, 200);
+assert.equal((linked.body as { item: WebsiteKompisFaqItem }).item.id, noId);
+assert.equal(standaloneNorwegian.title, "Gammel norsk");
+assert.equal(standaloneNorwegian.answer, "Gammelt svar");
+assert.equal(standaloneNorwegian.sourceUrl, "https://customer.example/no");
+assert.equal(standaloneNorwegian.status, "published");
+assert.equal(standaloneNorwegian.publicSafe, true);
+assert.equal(standaloneNorwegian.translationGroupId, deId);
+assert.equal(standaloneGerman.title, "Deutscher Titel");
+assert.equal(standaloneGerman.answer, "Deutsche Antwort");
+assert.equal((independent.localeVersion(deId, "no").body as { item: WebsiteKompisFaqItem }).item.id, noId);
+assert.equal(independent.linkLocaleMember({ sourceItemId: deId, candidateId: occupied.id, locale: "fr", confirmed: true }).status, 409);
+assert.equal(
+  (independent.linkLocaleMember({ sourceItemId: deId, candidateId: occupied.id, locale: "fr", confirmed: true }).body as { code: string }).code,
+  "family_conflict",
+);
+assert.equal(occupied.translationGroupId, occupiedGroup);
+assert.equal(
+  (independent.linkLocaleMember({ sourceItemId: deId, candidateId: otherInstall.id, locale: "no", confirmed: true }).body as { code: string }).code,
+  "website",
+);
+assert.equal(
+  (independent.linkLocaleMember({ sourceItemId: deId, candidateId: archived.id, locale: "no", confirmed: true }).body as { code: string }).code,
+  "archived",
+);
+assert.equal(independent.linkLocaleMember({ sourceItemId: deId, candidateId: noId, locale: "", confirmed: true }).status, 409);
+
+const linkViewer = new FaqLocalFixture({ count: 1, role: "viewer" });
+assert.equal(linkViewer.searchLocaleLink(linkViewer.rows[0]!.id, "no", "").status, 403);
+assert.equal(linkViewer.linkLocaleMember({ sourceItemId: linkViewer.rows[0]!.id, candidateId: noId, locale: "no", confirmed: true }).status, 403);
+const linkAnonymous = new FaqLocalFixture({ count: 1, role: "anonymous" });
+assert.equal(linkAnonymous.searchLocaleLink(linkAnonymous.rows[0]!.id, "no", "").status, 401);
+
+const linkSql = readFileSync("docs/platform/NOT_APPLIED_website_kompis_faq_locale_family_link_v1.sql", "utf8");
+assert.match(linkSql, /NOT APPLIED/);
+assert.match(linkSql, /translation_group_id = id/);
+assert.match(linkSql, /set translation_group_id = v_source\.translation_group_id/);
+assert.match(linkSql, /family_conflict/);
+assert.match(linkSql, /wpkf\.faq_family_link/);
+assert.match(linkSql, /f\.tenant_id = v_tenant/);
+assert.match(linkSql, /revoke all on function public\.link_tenant_public_companion_faq_locale_member/);
+assert.match(linkSql, /grant execute on function public\.link_tenant_public_companion_faq_locale_member/);
+assert.doesNotMatch(linkSql, /set title|set answer|set public_safe|set status|set source_url/);
+assert.equal(readdirSync("supabase/migrations").some((name) => name.includes("locale_family")), false);
+
+assert.match(panel, /localeMissingInFamily/);
+assert.match(panel, /localeLinkAction/);
+assert.match(panel, /localeCreateInstead/);
+assert.match(panel, /\/api\/website-kompis\/faq\/locale-link/);
+assert.equal(panel.split("<FaqContentLanguagePicker").length - 1, 2);
+
+const linkRoute = readFileSync("app/api/website-kompis/faq/locale-link/route.ts", "utf8");
+assert.match(linkRoute, /getUser/);
+assert.match(linkRoute, /search_tenant_public_companion_faq_locale_candidates/);
+assert.match(linkRoute, /link_tenant_public_companion_faq_locale_member/);
+assert.match(linkRoute, /confirmed !== true/);
+
 console.log("locale-family.test.ts: ok");

@@ -131,3 +131,132 @@ export function localeDraftIsDirty(current: LocaleDraftSnapshot, baseline: Local
 export function acceptLocaleResponse(requestId: number, latestRequestId: number): boolean {
   return requestId === latestRequestId;
 }
+
+export type FaqLocaleLinkCandidate = {
+  id: string;
+  title: string;
+  questionExcerpt: string;
+  locale: string;
+  status: WpkfStatus;
+  domain: string | null;
+  installId: string | null;
+};
+
+export type FaqLocaleLinkRefusal =
+  | "not_found"
+  | "unlinked"
+  | "invalid_locale"
+  | "same_row"
+  | "website"
+  | "archived"
+  | "locale_mismatch"
+  | "locale_taken"
+  | "family_conflict";
+
+export type FaqLocaleLinkPlan =
+  | { ok: true; outcome: "ready" | "already_linked"; sourceId: string; candidateId: string; translationGroupId: string }
+  | { ok: false; reason: FaqLocaleLinkRefusal };
+
+const LINK_RESULT_LIMIT = 25;
+const QUESTION_EXCERPT = 140;
+
+function liveFamily<T extends FaqLocaleMember>(rows: readonly T[], anchor: FaqLocaleMember, groupId: string): T[] {
+  return rows.filter(
+    (row) =>
+      row.translationGroupId === groupId &&
+      sameWebsite(anchor, row) &&
+      row.status !== "archived",
+  );
+}
+
+/** Search stays inside the caller's tenant. Nothing here is selected. */
+export function searchExplicitFaqLocaleCandidates<
+  T extends FaqLocaleMember & { title: string; question?: string | null },
+>(rows: readonly T[], sourceId: string, locale: string, query: string): FaqLocaleLinkCandidate[] | { outcome: "not_found" | "unlinked" } {
+  const source = rows.find((row) => row.id === sourceId);
+  if (!source) return { outcome: "not_found" };
+  if (!source.translationGroupId) return { outcome: "unlinked" };
+  const requested = locale.trim().toLowerCase();
+  if (!requested) return [];
+  const needle = query.trim().toLowerCase();
+  return rows
+    .filter((row) => {
+      if (row.id === source.id || row.status === "archived") return false;
+      if (!sameWebsite(source, row) || row.locale.trim().toLowerCase() !== requested) return false;
+      if (!needle) return true;
+      return `${row.title}\n${row.question ?? ""}`.toLowerCase().includes(needle);
+    })
+    .slice(0, LINK_RESULT_LIMIT)
+    .map((row) => ({
+      id: row.id,
+      title: row.title,
+      questionExcerpt: (row.question ?? "").trim().slice(0, QUESTION_EXCERPT),
+      locale: row.locale.trim().toLowerCase(),
+      status: row.status,
+      domain: row.domain,
+      installId: row.installId,
+    }));
+}
+
+/**
+ * A link may join a singleton row to the source family.
+ * A family that already has another live language version is refused.
+ * The plan does not change any row.
+ */
+export function planExplicitFaqLocaleLink<T extends FaqLocaleMember>(
+  rows: readonly T[],
+  sourceId: string,
+  candidateId: string,
+  locale: string,
+): FaqLocaleLinkPlan {
+  const requested = locale.trim().toLowerCase();
+  if (!requested) return { ok: false, reason: "invalid_locale" };
+  const source = rows.find((row) => row.id === sourceId);
+  const candidate = rows.find((row) => row.id === candidateId);
+  if (!source || !candidate) return { ok: false, reason: "not_found" };
+  if (!source.translationGroupId) return { ok: false, reason: "unlinked" };
+  if (candidate.id === source.id) return { ok: false, reason: "same_row" };
+  if (candidate.status === "archived") return { ok: false, reason: "archived" };
+  if (!sameWebsite(source, candidate)) return { ok: false, reason: "website" };
+  if (candidate.locale.trim().toLowerCase() !== requested) return { ok: false, reason: "locale_mismatch" };
+
+  const sourceFamily = liveFamily(rows, source, source.translationGroupId);
+  if (sourceFamily.some((row) => row.id !== candidate.id && row.locale.trim().toLowerCase() === requested)) {
+    return { ok: false, reason: "locale_taken" };
+  }
+  if (candidate.translationGroupId === source.translationGroupId) {
+    return {
+      ok: true,
+      outcome: "already_linked",
+      sourceId: source.id,
+      candidateId: candidate.id,
+      translationGroupId: source.translationGroupId,
+    };
+  }
+  if (candidate.translationGroupId) {
+    const otherMembers = liveFamily(rows, candidate, candidate.translationGroupId).filter((row) => row.id !== candidate.id);
+    if (otherMembers.length > 0) return { ok: false, reason: "family_conflict" };
+  }
+  return {
+    ok: true,
+    outcome: "ready",
+    sourceId: source.id,
+    candidateId: candidate.id,
+    translationGroupId: source.translationGroupId,
+  };
+}
+
+/** Changes only the family id. Content, status, URL, and publication stay as they were. */
+export function applyExplicitFaqLocaleLink<T extends FaqLocaleMember>(
+  rows: readonly T[],
+  sourceId: string,
+  candidateId: string,
+  locale: string,
+): FaqLocaleLinkPlan {
+  const plan = planExplicitFaqLocaleLink(rows, sourceId, candidateId, locale);
+  if (!plan.ok || plan.outcome === "already_linked") return plan;
+  const candidate = rows.find((row) => row.id === plan.candidateId);
+  if (!candidate) return { ok: false, reason: "not_found" };
+  candidate.translationGroupId = plan.translationGroupId;
+  return plan;
+}

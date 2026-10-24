@@ -5,6 +5,7 @@ import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
 import { WebsiteKompisFaqPreviewPanel } from "@/components/app/website-kompis/WebsiteKompisFaqPreviewPanel";
 import { WebsiteKompisFaqImportWorkspace } from "@/components/app/website-kompis/WebsiteKompisFaqImportWorkspace";
 import { FaqContentLanguagePicker } from "@/components/app/website-kompis/FaqContentLanguagePicker";
+import { WebsiteKompisFaqLocaleLinkDialog, type FaqLocaleLinkChoice } from "@/components/app/website-kompis/WebsiteKompisFaqLocaleLinkDialog";
 import { FaqPermanentExpiryFields } from "@/components/app/website-kompis/FaqPermanentExpiryFields";
 import { Download, FileUp, Plus } from "lucide-react";
 import { WebsiteKompisFaqPublishDialog } from "@/components/app/website-kompis/WebsiteKompisFaqPublishDialog";
@@ -342,6 +343,12 @@ export function WebsiteKompisFaqAdminPanel({
   const openedEditRef = useRef("");
   draftRef.current = draft;
   const [localeLoading, setLocaleLoading] = useState(false);
+  const [localeMissing, setLocaleMissing] = useState(false);
+  const [linkOpen, setLinkOpen] = useState(false);
+  const [linkQuery, setLinkQuery] = useState("");
+  const [linkChoices, setLinkChoices] = useState<FaqLocaleLinkChoice[]>([]);
+  const [linkSelected, setLinkSelected] = useState<string | null>(null);
+  const [linkError, setLinkError] = useState<string | null>(null);
   const [pendingLocale, setPendingLocale] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<WpkfStatus | "">("");
   const [localeFilter, setLocaleFilter] = useState("");
@@ -904,6 +911,8 @@ export function WebsiteKompisFaqAdminPanel({
     familySourceIdRef.current = null;
     localeRequestRef.current += 1;
     setLocaleLoading(false);
+    setLocaleMissing(false);
+    setLinkOpen(false);
     setPendingLocale(null);
     setDraft(createEmptyDraft(selectedSite));
   }
@@ -1010,6 +1019,8 @@ export function WebsiteKompisFaqAdminPanel({
     localeRequestRef.current = requestId;
     const previous = draftRef.current;
     setLocaleLoading(true);
+    setLocaleMissing(false);
+    setLinkOpen(false);
     setError(null);
     setDraft(
       emptyLocaleVersion(
@@ -1042,6 +1053,8 @@ export function WebsiteKompisFaqAdminPanel({
         persistedIdRef.current = next.itemId ?? null;
         familySourceIdRef.current = next.itemId ?? sourceId;
         localeBaselineRef.current = next;
+        setLocaleMissing(false);
+        setLinkOpen(false);
         setDraft(next);
         return;
       }
@@ -1058,6 +1071,10 @@ export function WebsiteKompisFaqAdminPanel({
         persistedIdRef.current = null;
         familySourceIdRef.current = sourceId;
         localeBaselineRef.current = next;
+        setLocaleMissing(true);
+        setLinkOpen(false);
+        setLinkChoices([]);
+        setLinkSelected(null);
         setDraft(next);
         return;
       }
@@ -1097,6 +1114,56 @@ export function WebsiteKompisFaqAdminPanel({
     }
     setPendingLocale(null);
     await applyLocale(locale);
+  }
+
+  async function searchLocaleLinks() {
+    const sourceId = familySourceIdRef.current;
+    if (!sourceId) return;
+    setBusy(true);
+    setLinkError(null);
+    setLinkSelected(null);
+    const params = new URLSearchParams({ itemId: sourceId, locale: draftRef.current.locale, q: linkQuery });
+    const res = await fetch(`/api/website-kompis/faq/locale-link?${params.toString()}`);
+    const body = (await res.json().catch(() => null)) as { candidates?: FaqLocaleLinkChoice[]; code?: string } | null;
+    setBusy(false);
+    if (!res.ok || !body?.candidates) {
+      setLinkChoices([]);
+      setLinkError(body?.code === "translation_group_unavailable" ? labels.localeSwitchUnavailable : labels.localeLinkError);
+      return;
+    }
+    setLinkChoices(body.candidates);
+  }
+
+  async function confirmLocaleLink() {
+    const sourceId = familySourceIdRef.current;
+    if (!sourceId || !linkSelected) return;
+    const before = draftRef.current;
+    setBusy(true);
+    setLinkError(null);
+    const res = await fetch("/api/website-kompis/faq/locale-link", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sourceItemId: sourceId,
+        candidateId: linkSelected,
+        locale: before.locale,
+        confirmed: true,
+      }),
+    });
+    const body = (await res.json().catch(() => null)) as { item?: WebsiteKompisFaqItem; code?: string } | null;
+    setBusy(false);
+    if (!res.ok || !body?.item) {
+      setDraft(before);
+      setLinkError(body?.code === "family_conflict" ? labels.localeLinkConflict : labels.localeLinkError);
+      return;
+    }
+    const next = itemToDraft(body.item);
+    persistedIdRef.current = next.itemId ?? null;
+    familySourceIdRef.current = next.itemId ?? sourceId;
+    localeBaselineRef.current = next;
+    setLocaleMissing(false);
+    setLinkOpen(false);
+    setDraft(next);
   }
 
   async function runAction(action: "unpublish" | "archive" | "restore", itemId: string) {
@@ -1796,6 +1863,37 @@ export function WebsiteKompisFaqAdminPanel({
                   listLabel={labels.languageList}
                   collationLocale={labels.languageCollation}
                 />
+                {localeMissing ? (
+                  <div className="mt-2 text-sm text-slate-700">
+                    <p>{labels.localeMissingInFamily}</p>
+                    <p className="mt-1">{labels.localeCreateInstead}</p>
+                    <button
+                      type="button"
+                      className="mt-2 text-sm text-violet-800 underline"
+                      onClick={() => {
+                        setLinkOpen(true);
+                        setLinkError(null);
+                      }}
+                    >
+                      {labels.localeLinkAction}
+                    </button>
+                    {linkOpen ? (
+                      <WebsiteKompisFaqLocaleLinkDialog
+                        labels={labels}
+                        query={linkQuery}
+                        candidates={linkChoices}
+                        selectedId={linkSelected}
+                        error={linkError}
+                        busy={busy}
+                        onQuery={setLinkQuery}
+                        onSearch={() => void searchLocaleLinks()}
+                        onSelect={setLinkSelected}
+                        onClose={() => setLinkOpen(false)}
+                        onConfirm={() => void confirmLocaleLink()}
+                      />
+                    ) : null}
+                  </div>
+                ) : null}
                 {pendingLocale ? (
                   <div className="mt-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800">
                     <p className="font-medium">{labels.localeUnsavedTitle}</p>

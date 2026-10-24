@@ -566,7 +566,18 @@
     "localeUnsavedBody": "У цієї мовної версії є незбережені зміни. Зміна мови не публікує.",
     "localeUnsavedKeep": "Продовжити редагування",
     "localeUnsavedSave": "Зберегти чернетку",
-    "localeUnsavedDiscard": "Відхилити зміни"
+    "localeUnsavedDiscard": "Відхилити зміни",
+    "localeMissingInFamily": "У цій родині немає версії цією мовою. Старіший запис може існувати окремо.",
+    "localeLinkAction": "Зв’язати наявний переклад",
+    "localeLinkSearch": "Шукати цією мовою",
+    "localeLinkEmpty": "Жоден запис цією мовою не збігається на цьому сайті.",
+    "localeLinkConfirmTitle": "Зв’язати цей переклад",
+    "localeLinkConfirmBody": "Запис зберігає текст, адресу і стан публікації. Він приєднується до цієї мовної родини.",
+    "localeLinkConfirm": "Зв’язати переклад",
+    "localeLinkCancel": "Скасувати",
+    "localeLinkConflict": "Цей запис уже належить до іншої мовної родини. Його не переміщено.",
+    "localeLinkError": "Переклад не вдалося зв’язати. Нічого не змінено.",
+    "localeCreateInstead": "Або напишіть новий переклад у полях вище."
   },
   "kompisOperator": {
     "title": "Завдання",
