@@ -21,7 +21,7 @@ const feedbackId = "66666666-6666-4666-8666-666666666661";
 const installId = "33333333-3333-4333-8333-333333333333";
 
 assert.equal(FEEDBACK_REVIEW_CLOSE_READY, false);
-assert.equal(FEEDBACK_REVIEW_DISPOSITION_READY, false);
+assert.equal(FEEDBACK_REVIEW_DISPOSITION_READY, true);
 
 const published = buildPublishedDispositionCall({
   feedbackId,
