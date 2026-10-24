@@ -1,8 +1,11 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { FEEDBACK_REVIEW_DISPOSITION_READY } from "@/lib/website-kompis-feedback/operations-model";
 import {
+  buildBulkDispositionCall,
+  buildDuplicateDispositionCall,
   buildPublishedDispositionCall,
   buildRejectDispositionCall,
+  buildRetrievalDispositionCall,
   buildReviewQueueRpcArgs,
   cursorFromQueuePage,
   mapReviewQueueItem,
@@ -23,15 +26,27 @@ function mapRpcFailure(error: RpcError, rpcName: string): { status: number; erro
   if (/owner or admin|forbidden/i.test(message)) return { status: 403, error: "Forbidden", code: "forbidden" };
   if (/feedback not found/i.test(message)) return { status: 404, error: "Feedback not found", code: "missing" };
   if (/not eligible/i.test(message)) return { status: 409, error: "This case cannot take that outcome.", code: "not_eligible" };
+  if (/faq locale mismatch/i.test(message)) return { status: 409, error: "The FAQ language does not match this case.", code: "locale_mismatch" };
   if (/faq not published/i.test(message)) return { status: 409, error: "The FAQ is not published for this site.", code: "faq_not_published" };
+  if (/batch limit/i.test(message)) return { status: 400, error: "Select at most 25 cases.", code: "batch_limit" };
+  if (/reason/i.test(message)) return { status: 400, error: "A reason is required.", code: "reason" };
   if (/confirmation required/i.test(message)) return { status: 400, error: "Confirmation is required.", code: "confirmation_required" };
   return { status: 400, error: "Review disposition failed", code: "failed" };
 }
 
-function readDisposition(data: unknown): string | null {
+function readDisposition(data: unknown): DispositionAction | "open" | null {
   if (!data || typeof data !== "object") return null;
   const value = (data as { review_disposition?: unknown }).review_disposition;
-  return value === "published" || value === "rejected" || value === "open" ? value : null;
+  if (
+    value === "published" ||
+    value === "rejected" ||
+    value === "duplicate" ||
+    value === "retrieval_unresolved" ||
+    value === "open"
+  ) {
+    return value;
+  }
+  return null;
 }
 
 export async function runFeedbackDisposition(
@@ -43,6 +58,7 @@ export async function runFeedbackDisposition(
     feedbackInstallId?: string | null;
     faqInstallId?: string | null;
     publishStatus?: string | null;
+    reason?: string | null;
   },
   ready = FEEDBACK_REVIEW_DISPOSITION_READY,
 ): Promise<{ status: number; body: Record<string, unknown> }> {
@@ -50,19 +66,46 @@ export async function runFeedbackDisposition(
     return { status: 501, body: { error: "Review disposition is not available.", code: "disposition_unavailable" } };
   }
 
-  if (input.action === "rejected") {
-    const call = buildRejectDispositionCall(input.feedbackId);
-    if (!call.ok) return { status: 400, body: { error: "Invalid feedback id", code: "invalid_id" } };
+  if (input.action === "rejected" || input.action === "duplicate") {
+    const call =
+      input.action === "rejected"
+        ? buildRejectDispositionCall(input.feedbackId, input.reason ?? "")
+        : buildDuplicateDispositionCall(input.feedbackId, input.reason ?? "");
+    if (!call.ok) {
+      return { status: 400, body: { error: "A reason is required.", code: call.reason } };
+    }
     const { data, error } = await supabase.rpc(call.rpc, call.args);
     if (error) {
       const mapped = mapRpcFailure(error, call.rpc);
       return { status: mapped.status, body: { error: mapped.error, code: mapped.code } };
     }
     const reviewDisposition = readDisposition(data);
-    if (reviewDisposition !== "rejected") {
-      return { status: 400, body: { error: "Rejection was not confirmed", code: "unconfirmed" } };
+    if (reviewDisposition !== input.action) {
+      return { status: 400, body: { error: "The outcome was not confirmed", code: "unconfirmed" } };
     }
     return { status: 200, body: { ok: true, id: call.args.p_feedback_id, reviewDisposition } };
+  }
+
+  if (input.action === "retrieval_unresolved") {
+    const call = buildRetrievalDispositionCall({
+      feedbackId: input.feedbackId,
+      faqItemId: input.faqItemId ?? "",
+      reason: input.reason ?? "",
+    });
+    if (!call.ok) return { status: 400, body: { error: "The existing FAQ could not be linked.", code: call.reason } };
+    const { data, error } = await supabase.rpc(call.rpc, call.args);
+    if (error) {
+      const mapped = mapRpcFailure(error, call.rpc);
+      return { status: mapped.status, body: { error: mapped.error, code: mapped.code } };
+    }
+    const reviewDisposition = readDisposition(data);
+    if (reviewDisposition !== "retrieval_unresolved") {
+      return { status: 400, body: { error: "The follow-up was not confirmed", code: "unconfirmed" } };
+    }
+    return {
+      status: 200,
+      body: { ok: true, id: call.args.p_feedback_id, reviewDisposition, faqItemId: call.args.p_faq_item_id },
+    };
   }
 
   const call = buildPublishedDispositionCall({
@@ -131,6 +174,28 @@ export async function loadReviewQueuePage(
       rejectedCount: readCount(data, "rejected_count"),
     },
   };
+}
+
+export async function runFeedbackBulkDisposition(
+  supabase: SupabaseClient,
+  input: { feedbackIds: readonly string[]; action: "rejected" | "duplicate"; reason: string },
+  ready = FEEDBACK_REVIEW_DISPOSITION_READY,
+): Promise<{ status: number; body: Record<string, unknown> }> {
+  if (ready !== true) {
+    return { status: 501, body: { error: "Review disposition is not available.", code: "disposition_unavailable" } };
+  }
+  const call = buildBulkDispositionCall(input);
+  if (!call.ok) return { status: 400, body: { error: "Select at most 25 cases.", code: call.reason } };
+  const { data, error } = await supabase.rpc(call.rpc, call.args);
+  if (error) {
+    const mapped = mapRpcFailure(error, call.rpc);
+    return { status: mapped.status, body: { error: mapped.error, code: mapped.code } };
+  }
+  const results = data && typeof data === "object" && Array.isArray((data as { results?: unknown }).results)
+    ? (data as { results: unknown[] }).results
+    : null;
+  if (!results) return { status: 400, body: { error: "Review disposition failed", code: "unconfirmed" } };
+  return { status: 200, body: { ok: true, results } };
 }
 
 export async function loadOpenReviewQueue(

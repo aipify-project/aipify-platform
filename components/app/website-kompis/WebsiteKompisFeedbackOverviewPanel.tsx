@@ -30,6 +30,7 @@ import {
   type FeedbackOpsRow,
   type FeedbackOpsVoteFilter,
 } from "@/lib/website-kompis-feedback/operations-model";
+import { explicitBulkIds, reviewReasonOk } from "@/lib/website-kompis-feedback/review-outcome";
 
 type OverviewPayload = {
   ok?: boolean;
@@ -107,6 +108,10 @@ export function WebsiteKompisFeedbackOverviewPanel({
   const [reviewNext, setReviewNext] = useState<{ before: string; beforeId: string } | null>(null);
   const [historyNext, setHistoryNext] = useState<{ before: string; beforeId: string } | null>(null);
   const [paging, setPaging] = useState(false);
+  const [bulkIds, setBulkIds] = useState<string[]>([]);
+  const [bulkReason, setBulkReason] = useState("");
+  const [bulkBusy, setBulkBusy] = useState(false);
+  const [bulkNotice, setBulkNotice] = useState<string | null>(null);
 
   const viewParam = searchParams.get("view");
   const view: ViewId =
@@ -173,6 +178,43 @@ export function WebsiteKompisFeedbackOverviewPanel({
   useEffect(() => {
     void load();
   }, [load]);
+
+  async function submitBulk(action: "rejected" | "duplicate") {
+    if (!FEEDBACK_REVIEW_DISPOSITION_READY || bulkBusy) return;
+    const picked = explicitBulkIds(bulkIds);
+    if (!picked.ok || !reviewReasonOk(bulkReason)) {
+      setBulkNotice(labels.quality.bulkPartial);
+      return;
+    }
+    setBulkBusy(true);
+    setBulkNotice(null);
+    try {
+      const response = await fetch("/api/website-kompis/feedback/disposition/bulk", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          feedbackIds: picked.ids,
+          action,
+          reason: bulkReason.trim(),
+          confirmation: true,
+        }),
+      });
+      const payload = (await response.json()) as { results?: Array<{ ok?: boolean }> };
+      const results = Array.isArray(payload.results) ? payload.results : [];
+      const failed = results.filter((item) => item.ok !== true).length;
+      if (!response.ok || failed > 0 || results.length !== picked.ids.length) {
+        setBulkNotice(labels.quality.bulkPartial);
+      } else {
+        setBulkIds([]);
+        setBulkReason("");
+      }
+      await load();
+    } catch {
+      setBulkNotice(labels.quality.bulkPartial);
+    } finally {
+      setBulkBusy(false);
+    }
+  }
 
   const recent = useMemo(() => data?.recent ?? [], [data]);
   const rowFilters = useMemo(
@@ -445,8 +487,43 @@ export function WebsiteKompisFeedbackOverviewPanel({
               <p className="mt-1 max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">
                 {view === "history" ? labels.scopeNote : labels.sectionReviewQueueHint}
               </p>
+              {view === "review" && !FEEDBACK_REVIEW_DISPOSITION_READY ? (
+                <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.quality.removalUnavailable}</p>
+              ) : null}
               {view === "review" && !usingServerQueue && reviewTotal > reviewQueue.length ? (
                 <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.quality.windowGap}</p>
+              ) : null}
+              {view === "review" && FEEDBACK_REVIEW_DISPOSITION_READY ? (
+                <div className="mt-3 space-y-2 rounded-xl border border-[#E4E6F2] bg-white p-3">
+                  <label className="block text-sm">
+                    <span className="mb-1 block font-medium text-[#20243E]">{labels.quality.bulkReason}</span>
+                    <textarea
+                      value={bulkReason}
+                      onChange={(event) => setBulkReason(event.target.value)}
+                      rows={2}
+                      className="w-full rounded-xl border border-[#DFE3F1] px-3 py-2 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                    />
+                  </label>
+                  {bulkNotice ? <p className="text-sm text-[#20243E]">{bulkNotice}</p> : null}
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      disabled={bulkBusy || !reviewReasonOk(bulkReason)}
+                      onClick={() => void submitBulk("rejected")}
+                      className="inline-flex min-h-11 items-center rounded-xl border border-[#DFE3F1] bg-white px-3 text-sm font-semibold text-[#20243E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+                    >
+                      {labels.quality.bulkReject}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={bulkBusy || !reviewReasonOk(bulkReason)}
+                      onClick={() => void submitBulk("duplicate")}
+                      className="inline-flex min-h-11 items-center rounded-xl border border-[#DFE3F1] bg-white px-3 text-sm font-semibold text-[#20243E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+                    >
+                      {labels.quality.bulkDuplicate}
+                    </button>
+                  </div>
+                </div>
               ) : null}
             </div>
             {(!usingServerQueue && recent.length === 0) ||
@@ -474,6 +551,22 @@ export function WebsiteKompisFeedbackOverviewPanel({
                 {page.items.map((row) => (
                   <li key={row.id} className="flex flex-col gap-3.5 rounded-[20px] border border-[#E4E6F2] bg-white p-5 shadow-[0_8px_25px_rgba(65,54,132,0.045)]">
                     <div className="flex items-start justify-between gap-3">
+                      {view === "review" && FEEDBACK_REVIEW_DISPOSITION_READY ? (
+                        <label className="inline-flex min-h-11 items-center gap-2 text-sm text-[#20243E]">
+                          <input
+                            type="checkbox"
+                            checked={bulkIds.includes(row.id)}
+                            onChange={(event) => {
+                              setBulkIds((current) => {
+                                if (!event.target.checked) return current.filter((id) => id !== row.id);
+                                if (current.includes(row.id) || current.length >= 25) return current;
+                                return [...current, row.id];
+                              });
+                            }}
+                          />
+                          {labels.quality.bulkSelect}
+                        </label>
+                      ) : null}
                       <StatusBadge labels={labels} row={row} />
                       <span className="text-xs text-[#65708A]">{formatWhen(row.createdAt, locale)}</span>
                     </div>

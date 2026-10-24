@@ -22,6 +22,7 @@ import {
   FEEDBACK_REVIEW_DISPOSITION_READY,
   type FeedbackOpsRow,
 } from "@/lib/website-kompis-feedback/operations-model";
+import { proposedFaqAnswerSeed, reviewReasonOk } from "@/lib/website-kompis-feedback/review-outcome";
 import {
   buildFeedbackFaqWriteBody,
   feedbackFaqWriteAllowed,
@@ -58,7 +59,7 @@ export function WebsiteKompisFeedbackEditor({
   const restoreFocus = useRef<HTMLElement | null>(null);
   const busy = useRef(false);
   const [question, setQuestion] = useState(row.questionPreview);
-  const [answer, setAnswer] = useState(row.answerPreview);
+  const [answer, setAnswer] = useState<string>(proposedFaqAnswerSeed());
   const [locale, setLocale] = useState(row.locale?.trim() || "");
   const [publicSafe, setPublicSafe] = useState(false);
   const [category, setCategory] = useState("");
@@ -82,6 +83,9 @@ export function WebsiteKompisFeedbackEditor({
   const [closingReview, setClosingReview] = useState(false);
   const [confirmReject, setConfirmReject] = useState(false);
   const [rejecting, setRejecting] = useState(false);
+  const [reviewReason, setReviewReason] = useState("");
+  const [confirmDuplicate, setConfirmDuplicate] = useState(false);
+  const [linkingExisting, setLinkingExisting] = useState(false);
   const reviewCloseLock = useRef(false);
   const canCloseReview = canOfferFeedbackReviewClose(row, closeReady);
   const removalUnavailable =
@@ -95,11 +99,13 @@ export function WebsiteKompisFeedbackEditor({
     FEEDBACK_REVIEW_DISPOSITION_READY &&
     row.vote === "not_helpful" &&
     row.reviewDisposition !== "published" &&
+    row.reviewDisposition !== "retrieval_unresolved" &&
     row.reviewDisposition !== "rejected" &&
+    row.reviewDisposition !== "duplicate" &&
     row.reviewStatus !== "closed";
   const openedFields = useRef({
     question: row.questionPreview,
-    answer: row.answerPreview,
+    answer: proposedFaqAnswerSeed(),
     locale: row.locale?.trim() || "",
     publicSafe: false,
     category: "",
@@ -496,9 +502,17 @@ export function WebsiteKompisFeedbackEditor({
     }
   }
 
+  async function postCaseDisposition(body: Record<string, unknown>) {
+    return fetch(`/api/website-kompis/feedback/${row.id}/disposition`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  }
+
   async function rejectSpam() {
-    if (!canRejectSpam || rejecting) return;
-    const call = buildRejectDispositionCall(row.id);
+    if (!canRejectSpam || rejecting || !reviewReasonOk(reviewReason)) return;
+    const call = buildRejectDispositionCall(row.id, reviewReason);
     if (!call.ok) {
       setError(labels.quality.rejectSpamError);
       return;
@@ -506,10 +520,10 @@ export function WebsiteKompisFeedbackEditor({
     setRejecting(true);
     setError(null);
     try {
-      const response = await fetch(`/api/website-kompis/feedback/${row.id}/disposition`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ action: "rejected", confirmation: true }),
+      const response = await postCaseDisposition({
+        action: "rejected",
+        reason: call.args.p_reason,
+        confirmation: true,
       });
       const payload = (await response.json()) as { reviewDisposition?: string };
       if (
@@ -528,6 +542,66 @@ export function WebsiteKompisFeedbackEditor({
       setError(labels.quality.rejectSpamError);
     } finally {
       setRejecting(false);
+    }
+  }
+
+  async function markDuplicate() {
+    if (!canRejectSpam || rejecting || !reviewReasonOk(reviewReason)) return;
+    setRejecting(true);
+    setError(null);
+    try {
+      const response = await postCaseDisposition({
+        action: "duplicate",
+        reason: reviewReason.trim(),
+        confirmation: true,
+      });
+      const payload = (await response.json()) as { reviewDisposition?: string };
+      if (
+        !shouldRemoveReviewCard({
+          httpOk: response.ok,
+          reviewDisposition: payload.reviewDisposition,
+          expected: "duplicate",
+        })
+      ) {
+        setError(labels.quality.rejectSpamError);
+        return;
+      }
+      setConfirmDuplicate(false);
+      await onReviewClosed?.();
+    } catch {
+      setError(labels.quality.rejectSpamError);
+    } finally {
+      setRejecting(false);
+    }
+  }
+
+  async function linkExistingFaq() {
+    if (!canRejectSpam || !matchingPublishedId || linkingExisting || !reviewReasonOk(reviewReason)) return;
+    setLinkingExisting(true);
+    setError(null);
+    try {
+      const response = await postCaseDisposition({
+        action: "retrieval_unresolved",
+        faqItemId: matchingPublishedId,
+        reason: reviewReason.trim(),
+        confirmation: true,
+      });
+      const payload = (await response.json()) as { reviewDisposition?: string };
+      if (
+        !shouldRemoveReviewCard({
+          httpOk: response.ok,
+          reviewDisposition: payload.reviewDisposition,
+          expected: "retrieval_unresolved",
+        })
+      ) {
+        setError(labels.quality.linkExistingError);
+        return;
+      }
+      await onReviewClosed?.();
+    } catch {
+      setError(labels.quality.linkExistingError);
+    } finally {
+      setLinkingExisting(false);
     }
   }
 
@@ -581,6 +655,12 @@ export function WebsiteKompisFeedbackEditor({
                 className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
               />
             </label>
+            {row.answerPreview.trim() ? (
+              <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm">
+                <p className="font-medium text-slate-900">{labels.quality.originalAnswer}</p>
+                <p className="mt-1 whitespace-pre-wrap text-slate-700">{row.answerPreview}</p>
+              </div>
+            ) : null}
             <label className="block text-sm">
               <span className="mb-1 block font-medium text-slate-900">{labels.quality.proposedAnswer}</span>
               <textarea
@@ -695,6 +775,27 @@ export function WebsiteKompisFeedbackEditor({
                 >
                   {labels.quality.openExistingFaq}
                 </Link>
+                {canRejectSpam ? (
+                  <div className="mt-3 space-y-2">
+                    <label className="block text-sm">
+                      <span className="mb-1 block font-medium text-slate-900">{labels.quality.reviewReason}</span>
+                      <textarea
+                        value={reviewReason}
+                        onChange={(event) => setReviewReason(event.target.value)}
+                        rows={2}
+                        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                      />
+                    </label>
+                    <button
+                      type="button"
+                      disabled={linkingExisting || !reviewReasonOk(reviewReason)}
+                      onClick={() => void linkExistingFaq()}
+                      className="inline-flex min-h-11 items-center rounded-xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+                    >
+                      {labels.quality.linkExistingFaq}
+                    </button>
+                  </div>
+                ) : null}
               </div>
             ) : null}
             {message ? (
@@ -736,6 +837,16 @@ export function WebsiteKompisFeedbackEditor({
               >
                 <Ban aria-hidden className="size-4" strokeWidth={2} />
                 {labels.quality.rejectSpam}
+              </button>
+            ) : null}
+            {canRejectSpam ? (
+              <button
+                type="button"
+                disabled={saving || publishing || rejecting}
+                onClick={() => setConfirmDuplicate(true)}
+                className="inline-flex min-h-11 items-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+              >
+                {labels.quality.markDuplicate}
               </button>
             ) : null}
             {canCloseReview ? (
@@ -796,6 +907,15 @@ export function WebsiteKompisFeedbackEditor({
                 {labels.quality.rejectSpamTitle}
               </h3>
               <p className="mt-2 text-sm text-slate-700">{labels.quality.rejectSpamBody}</p>
+              <label className="mt-3 block text-sm">
+                <span className="mb-1 block font-medium text-slate-900">{labels.quality.reviewReason}</span>
+                <textarea
+                  value={reviewReason}
+                  onChange={(event) => setReviewReason(event.target.value)}
+                  rows={3}
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                />
+              </label>
               <div className="mt-4 flex flex-wrap gap-2">
                 <button
                   type="button"
@@ -806,11 +926,52 @@ export function WebsiteKompisFeedbackEditor({
                 </button>
                 <button
                   type="button"
-                  disabled={rejecting}
+                  disabled={rejecting || !reviewReasonOk(reviewReason)}
                   onClick={() => void rejectSpam()}
                   className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
                 >
                   {labels.quality.rejectSpamConfirm}
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
+        {confirmDuplicate ? (
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby={`${titleId}-duplicate`}
+            className="absolute inset-0 z-30 flex items-end bg-white p-4 sm:items-center sm:justify-center"
+          >
+            <div className="w-full rounded-xl border border-slate-200 bg-white p-4 shadow-lg">
+              <h3 id={`${titleId}-duplicate`} className="text-base font-semibold text-slate-900">
+                {labels.quality.markDuplicateTitle}
+              </h3>
+              <p className="mt-2 text-sm text-slate-700">{labels.quality.markDuplicateBody}</p>
+              <label className="mt-3 block text-sm">
+                <span className="mb-1 block font-medium text-slate-900">{labels.quality.reviewReason}</span>
+                <textarea
+                  value={reviewReason}
+                  onChange={(event) => setReviewReason(event.target.value)}
+                  rows={3}
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                />
+              </label>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setConfirmDuplicate(false)}
+                  className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8]"
+                >
+                  {labels.quality.removeFromReviewCancel}
+                </button>
+                <button
+                  type="button"
+                  disabled={rejecting || !reviewReasonOk(reviewReason)}
+                  onClick={() => void markDuplicate()}
+                  className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7357e8] disabled:opacity-60"
+                >
+                  {labels.quality.markDuplicate}
                 </button>
               </div>
             </div>

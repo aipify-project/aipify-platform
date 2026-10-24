@@ -20,19 +20,26 @@ export async function POST(request: Request, context: RouteContext) {
       feedbackInstallId?: string;
       faqInstallId?: string;
       publishStatus?: string;
+      reason?: string;
       confirmation?: boolean;
     } | null;
-    if (body?.confirmation !== true || (body.action !== "published" && body.action !== "rejected")) {
+    const action = body?.action;
+    if (
+      !body ||
+      body.confirmation !== true ||
+      (action !== "published" && action !== "rejected" && action !== "duplicate" && action !== "retrieval_unresolved")
+    ) {
       return NextResponse.json({ error: "Confirmation is required.", code: "confirmation_required" }, { status: 400 });
     }
 
     const result = await runFeedbackDisposition(supabase, {
       feedbackId: id,
-      action: body.action,
+      action,
       faqItemId: body.faqItemId,
       feedbackInstallId: body.feedbackInstallId,
       faqInstallId: body.faqInstallId,
       publishStatus: body.publishStatus,
+      reason: body.reason,
     });
     return NextResponse.json(result.body, { status: result.status });
   } catch {
