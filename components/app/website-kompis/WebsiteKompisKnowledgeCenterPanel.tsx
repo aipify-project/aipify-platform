@@ -82,11 +82,13 @@ export function WebsiteKompisKnowledgeCenterPanel({
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
 
-  const windowNote = summary.faqLoadOk
-    ? summary.faqWindow.totalState === "exact_tenant"
-      ? labels.counts.windowExact.replace("{total}", String(summary.faqWindow.tenantTotal ?? 0))
-      : labels.counts.windowLimited.replace("{minimum}", String(summary.faqWindow.tenantMinimum))
-    : labels.counts.unavailable;
+  const windowNote = !summary.faqLoadOk
+    ? labels.counts.unavailable
+    : summary.faqWindow.countAvailable
+      ? labels.counts.libraryExact
+      : summary.faqWindow.totalState === "exact_tenant"
+        ? labels.counts.windowExact.replace("{total}", String(summary.faqWindow.tenantTotal ?? 0))
+        : labels.counts.windowLimited.replace("{minimum}", String(summary.faqWindow.tenantMinimum));
 
   const faqMeta = summary.faqLoadOk
     ? `${summary.faq.published} ${labels.counts.published} · ${summary.faq.draft} ${labels.counts.draft}`

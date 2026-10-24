@@ -3,12 +3,13 @@ import { readFileSync } from "node:fs";
 import {
   authoritativeMatchAllowed,
   chunkFaqIds,
+  classifyFaqMatch,
   faqLibraryWalk,
   faqLookupStop,
   planPublicSafeReview,
   selectionAfterPublicSafeReview,
 } from "@/lib/website-kompis-faq/bulk-review";
-import { faqCountContractMissing, faqCountSiteScope, parseFaqCountTotal } from "@/lib/website-kompis-faq/count-contract";
+import { faqCountContractMissing, faqCountSiteScope, parseFaqCountBreakdown, parseFaqCountTotal } from "@/lib/website-kompis-faq/count-contract";
 import { applyAuthoritativeFaqCount, buildFaqListWindow } from "@/lib/website-kompis-faq/list-window";
 
 for (const total of [0, 1, 99, 100, 101, 1500, 3500]) {
@@ -64,6 +65,29 @@ assert.equal(
   "complete",
 );
 assert.equal(authoritativeMatchAllowed({ countAvailable: true, reportedTotal: 1500, collectedIds: 400 }), false);
+assert.equal(classifyFaqMatch({ listEnded: true, reportedTotal: 495, collectedIds: 495 }), "full");
+assert.equal(classifyFaqMatch({ listEnded: true, reportedTotal: 495, collectedIds: 490 }), "readable_subset");
+assert.equal(classifyFaqMatch({ listEnded: false, reportedTotal: 495, collectedIds: 100 }), "reject");
+assert.equal(classifyFaqMatch({ listEnded: false, reportedTotal: 495, collectedIds: 495 }), "full");
+assert.equal(parseFaqCountBreakdown({ total: 2903 }) , null);
+assert.deepEqual(
+  parseFaqCountBreakdown({
+    total: 3398,
+    published: 2903,
+    draft: 495,
+    archived: 0,
+    draftPublicSafe: 20,
+    draftNeedsReview: 475,
+  }),
+  {
+    total: 3398,
+    published: 2903,
+    draft: 495,
+    archived: 0,
+    draftPublicSafe: 20,
+    draftNeedsReview: 475,
+  },
+);
 
 const window = buildFaqListWindow({ offset: 0, limit: 100, tenantReturned: 100, visibleReturned: 100 });
 assert.equal(window.selectAllSupported, false);
@@ -86,7 +110,7 @@ assert.equal(parseFaqCountTotal({ total: -1 }), null);
 const panel = readFileSync("components/app/website-kompis/WebsiteKompisFaqAdminPanel.tsx", "utf8");
 assert.match(panel, /resetListScope\(\);\s*setSelectedInstallId/);
 assert.match(panel, /status: statusFilter/);
-assert.match(panel, /matchModeRef\.current \? null : pagePublishExplanation/);
+assert.match(panel, /matchSelection \? null : pagePublishExplanation/);
 assert.match(panel, /reviewBodySelection/);
 assert.match(panel, /publishPendingBody/);
 assert.match(panel, /labels\.listWindow\.reviewBusy/);
@@ -99,8 +123,11 @@ const reviewRoute = readFileSync("app/api/website-kompis/faq/public-safe/route.t
 assert.match(reviewRoute, /p_status: lookup\.status/);
 assert.doesNotMatch(reviewRoute, /p_status: null/);
 const matchRoute = readFileSync("app/api/website-kompis/faq/match-ids/route.ts", "utf8");
+assert.match(panel, /fullSetHint/);
+assert.match(panel, /draftQualification/);
+assert.match(panel, /readyToPublish/);
+assert.match(matchRoute, /classifyFaqMatch/);
 assert.match(matchRoute, /snapshot_incomplete/);
-assert.match(matchRoute, /authoritativeMatchAllowed/);
 
 const sql = readFileSync("docs/platform/NOT_APPLIED_website_kompis_faq_list_count_v1.sql", "utf8");
 assert.match(sql, /NOT APPLIED/);

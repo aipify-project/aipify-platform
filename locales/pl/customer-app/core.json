@@ -433,7 +433,13 @@
       "reviewBusy": "Oznaczanie jako bezpieczne publicznie…",
       "publishPendingBody": "Witryna: {site}. {ready} wersji roboczych właśnie oznaczonych jako bezpieczne publicznie zostanie opublikowanych. Wiersze, które nie zostały oznaczone, pozostają wersjami roboczymi. Oznaczenie ich nie opublikowało ich.",
       "publishProgress": "Opublikowano {done} z {total}",
-      "publicExposureWarning": "Oznaczone wersje robocze można później opublikować dla anonimowych odwiedzających. Prywatne dane klientów, członków, pracowników, rezerwacji, wsparcia lub finansów nie mogą się tam znaleźć."
+      "publicExposureWarning": "Oznaczone wersje robocze można później opublikować dla anonimowych odwiedzających. Prywatne dane klientów, członków, pracowników, rezerwacji, wsparcia lub finansów nie mogą się tam znaleźć.",
+      "fullSetHint": "Ta strona pokazuje {visible} z {total} przefiltrowanych trafień. Wybierz wszystkie trafienia, aby opracować cały zestaw. Nie trzeba przechodzić strona po stronie.",
+      "matchSelected": "Wybrano {selected} przefiltrowanych trafień, także wiersze spoza tej strony.",
+      "reviewBeforePublish": "Sprawdź cały wybór i oznacz go jako bezpieczny publicznie przed publikacją. Wrażliwe treści zostają do osobnej oceny. Oznaczenie nie publikuje.",
+      "readyToPublish": "{ready} wybranych wersji roboczych można teraz opublikować. Wiersze bez oznaczenia pozostają wersjami roboczymi.",
+      "matchGap": "{readable} trafień można opracować. {unreadable} przefiltrowanych wierszy nie udało się odczytać i pozostają bez zmian.",
+      "draftQualification": "{already} przefiltrowanych wersji roboczych jest już oznaczonych jako bezpieczne dla publicznej witryny. {needs} wymaga tego oznaczenia przed publikacją. Wrażliwe treści są wstrzymywane podczas sprawdzenia."
     },
     "filters": {
       "status": "Status",
@@ -1152,7 +1158,8 @@
       "lastUpdated": "Ostatnia aktualizacja",
       "unavailable": "Jeszcze niedostępne",
       "windowExact": "Liczby obejmują całą listę na koncie: {total}.",
-      "windowLimited": "Liczby to najnowsze {minimum} na koncie, a nie cała biblioteka."
+      "windowLimited": "Liczby to najnowsze {minimum} na koncie, a nie cała biblioteka.",
+      "libraryExact": "Te liczby obejmują całą bibliotekę wybranej witryny."
     },
     "pagesUnavailableTitle": "Inwentarz stron nie jest jeszcze dostępny w APP",
     "pagesUnavailableBody": "Website Kompis nadal używa zatwierdzonej publicznej treści stron przy odpowiedziach. Lista statusu crawl dla właścicieli wymaga osobnej umowy odczytu Core — nie utworzonej w tym zadaniu.",

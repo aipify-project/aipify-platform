@@ -6966,7 +6966,13 @@
       "reviewBusy": "Markerar som offentligt säkra…",
       "publishPendingBody": "Webbplats: {site}. {ready} utkast som just markerades som offentligt säkra publiceras. Rader som inte markerades förblir utkast. Markeringen publicerade dem inte.",
       "publishProgress": "Publicerade {done} av {total}",
-      "publicExposureWarning": "Markerade utkast kan senare publiceras för anonyma besökare. Privata kund-, medlems-, personal-, boknings-, support- eller ekonomiuppgifter ska inte följa med."
+      "publicExposureWarning": "Markerade utkast kan senare publiceras för anonyma besökare. Privata kund-, medlems-, personal-, boknings-, support- eller ekonomiuppgifter ska inte följa med.",
+      "fullSetHint": "Den här sidan visar {visible} av {total} filtrerade träffar. Välj alla träffar för att hantera hela urvalet. Du behöver inte gå sida för sida.",
+      "matchSelected": "{selected} filtrerade träffar är valda, även rader som inte finns på den här sidan.",
+      "reviewBeforePublish": "Granska hela urvalet och märk det som offentligt säkert innan publicering. Känslig text blir kvar för egen bedömning. Märkningen publicerar inte.",
+      "readyToPublish": "{ready} valda utkast kan publiceras nu. Rader som inte märktes förblir utkast.",
+      "matchGap": "{readable} träffar kan hanteras. {unreadable} filtrerade rader kunde inte läsas och lämnas oförändrade.",
+      "draftQualification": "{already} filtrerade utkast är redan märkta som säkra för den offentliga webbplatsen. {needs} saknar den märkningen innan de kan publiceras. Känslig text hålls tillbaka i kontrollen."
     },
     "filters": {
       "status": "Status",
@@ -7685,7 +7691,8 @@
       "lastUpdated": "Senast uppdaterad",
       "unavailable": "Inte tillgängligt ännu",
       "windowExact": "Siffrorna täcker hela listan i kontot: {total}.",
-      "windowLimited": "Siffrorna är de senaste {minimum} i kontot, inte hela biblioteket."
+      "windowLimited": "Siffrorna är de senaste {minimum} i kontot, inte hela biblioteket.",
+      "libraryExact": "Siffrorna gäller hela biblioteket för den valda webbplatsen."
     },
     "pagesUnavailableTitle": "Webbsideöversikt är inte tillgänglig i APP ännu",
     "pagesUnavailableBody": "Website Kompis använder fortfarande godkänt offentligt sidinnehåll vid svar. Listning av crawl-status för ägare kräver ett eget Core-läskontrakt — skapat inte i detta jobb.",

@@ -142,6 +142,12 @@ export function buildWebsiteKompisFaqLabels(t: TranslateFn) {
       publishPendingBody: t(`${prefix}.listWindow.publishPendingBody`),
       publishProgress: t(`${prefix}.listWindow.publishProgress`),
       publicExposureWarning: t(`${prefix}.listWindow.publicExposureWarning`),
+      fullSetHint: t(`${prefix}.listWindow.fullSetHint`),
+      matchSelected: t(`${prefix}.listWindow.matchSelected`),
+      reviewBeforePublish: t(`${prefix}.listWindow.reviewBeforePublish`),
+      readyToPublish: t(`${prefix}.listWindow.readyToPublish`),
+      matchGap: t(`${prefix}.listWindow.matchGap`),
+      draftQualification: t(`${prefix}.listWindow.draftQualification`),
     },
     siteContext: {
       label: t(`${prefix}.siteContext.label`),

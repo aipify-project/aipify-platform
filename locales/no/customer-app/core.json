@@ -6966,7 +6966,13 @@
       "reviewBusy": "Merker som offentlig trygge…",
       "publishPendingBody": "Nettsted: {site}. {ready} utkast som nettopp ble merket offentlig trygge, blir publisert. Rader som ikke ble merket, forblir utkast. Merkingen publiserte dem ikke.",
       "publishProgress": "Publisert {done} av {total}",
-      "publicExposureWarning": "Merkede utkast kan senere publiseres til anonyme besøkende. Private kunde-, medlems-, ansatt-, booking-, support- eller økonomiopplysninger skal ikke bli med."
+      "publicExposureWarning": "Merkede utkast kan senere publiseres til anonyme besøkende. Private kunde-, medlems-, ansatt-, booking-, support- eller økonomiopplysninger skal ikke bli med.",
+      "fullSetHint": "Denne siden viser {visible} av {total} filtrerte treff. Velg alle treff for å behandle hele settet. Du trenger ikke gå side for side.",
+      "matchSelected": "{selected} filtrerte treff er valgt, også rader som ikke er på denne siden.",
+      "reviewBeforePublish": "Gå gjennom hele utvalget og merk det offentlig trygt før publisering. Sensitiv tekst blir stående til egen vurdering. Merkingen publiserer ikke.",
+      "readyToPublish": "{ready} valgte utkast kan publiseres nå. Rader som ikke ble merket, forblir utkast.",
+      "matchGap": "{readable} treff kan behandles. {unreadable} filtrerte rader kunne ikke leses og blir stående.",
+      "draftQualification": "{already} filtrerte utkast er allerede merket trygge for det offentlige nettstedet. {needs} mangler den merkingen før de kan publiseres. Sensitiv tekst holdes tilbake i sjekken."
     },
     "filters": {
       "status": "Status",
@@ -7685,7 +7691,8 @@
       "lastUpdated": "Sist oppdatert",
       "unavailable": "Ikke tilgjengelig ennå",
       "windowExact": "Tallene dekker hele listen i kontoen: {total}.",
-      "windowLimited": "Tallene er de nyeste {minimum} i kontoen, ikke hele biblioteket."
+      "windowLimited": "Tallene er de nyeste {minimum} i kontoen, ikke hele biblioteket.",
+      "libraryExact": "Tallene gjelder hele biblioteket for valgt nettsted."
     },
     "pagesUnavailableTitle": "Nettsideoversikt er ikke tilgjengelig i APP ennå",
     "pagesUnavailableBody": "Website Kompis bruker fortsatt godkjent offentlig sideinnhold ved svar. Listing av crawl-status for eiere krever egen Core-lesekontrakt — ikke opprettet i denne jobben.",

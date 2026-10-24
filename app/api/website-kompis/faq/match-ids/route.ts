@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { FAQ_MATCH_PAGE_CAP, FAQ_MATCH_PAGE_SIZE, authoritativeMatchAllowed } from "@/lib/website-kompis-faq/bulk-review";
+import { FAQ_MATCH_PAGE_CAP, FAQ_MATCH_PAGE_SIZE, classifyFaqMatch } from "@/lib/website-kompis-faq/bulk-review";
 import { faqCountContractMissing, faqCountSiteScope, parseFaqCountTotal } from "@/lib/website-kompis-faq/count-contract";
 import { parseWebsiteKompisFaqList } from "@/lib/website-kompis-faq/parse";
 import {
@@ -81,10 +81,15 @@ export async function GET(request: Request) {
     if (!listEnded && ids.length !== total) {
       return NextResponse.json({ code: "snapshot_incomplete", total }, { status: 409 });
     }
-    if (!authoritativeMatchAllowed({ countAvailable: true, reportedTotal: total, collectedIds: ids.length })) {
+    const decision = classifyFaqMatch({
+      listEnded,
+      reportedTotal: total,
+      collectedIds: ids.length,
+    });
+    if (decision === "reject") {
       return NextResponse.json({ code: "count_mismatch", total }, { status: 409 });
     }
-    return NextResponse.json({ ids, total });
+    return NextResponse.json({ ids, total, unreadable: total - ids.length });
   } catch {
     return NextResponse.json({ error: "FAQ match request failed" }, { status: 500 });
   }

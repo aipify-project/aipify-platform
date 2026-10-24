@@ -26,6 +26,7 @@ export function buildWebsiteKompisKnowledgeLabels(t: TranslateFn) {
       unavailable: t(`${prefix}.counts.unavailable`),
       windowExact: t(`${prefix}.counts.windowExact`),
       windowLimited: t(`${prefix}.counts.windowLimited`),
+      libraryExact: t(`${prefix}.counts.libraryExact`),
     },
     pagesUnavailableTitle: t(`${prefix}.pagesUnavailableTitle`),
     pagesUnavailableBody: t(`${prefix}.pagesUnavailableBody`),

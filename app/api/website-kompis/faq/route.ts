@@ -19,7 +19,7 @@ import {
   parseWebsiteKompisFaqUpsertResult,
 } from "@/lib/website-kompis-faq/parse";
 import { resolveFaqContentLanguageForSave } from "@/lib/website-kompis-faq/content-languages";
-import { faqCountContractMissing, faqCountSiteScope, parseFaqCountTotal } from "@/lib/website-kompis-faq/count-contract";
+import { faqCountContractMissing, faqCountSiteScope, parseFaqCountBreakdown, parseFaqCountTotal } from "@/lib/website-kompis-faq/count-contract";
 import {
   applyAuthoritativeFaqCount,
   buildFaqListWindow,
@@ -180,29 +180,50 @@ export async function GET(request: Request) {
       tenantReturned: parsed.length,
       visibleReturned: items.length,
     });
+    let libraryCounts: ReturnType<typeof parseFaqCountBreakdown> = null;
+    let qualification: ReturnType<typeof parseFaqCountBreakdown> = null;
     const countScope = faqCountSiteScope(siteContext.state, siteContext.selectedInstallId ?? null);
     if (countScope) {
-      const { data: countData, error: countError } = await auth.supabase.rpc(
-        "count_tenant_public_companion_faq_items",
-        {
+      const countArgs = {
+        p_locale: locale,
+        p_content_type: contentType,
+        p_query: query,
+        p_install_id: countScope.installId,
+        p_site_scope: countScope.scope,
+      };
+      const unfilteredNeeded = Boolean(status || locale || contentType || query);
+      const [filteredCount, libraryCount] = await Promise.all([
+        auth.supabase.rpc("count_tenant_public_companion_faq_items", {
+          ...countArgs,
           p_status: status,
-          p_locale: locale,
-          p_content_type: contentType,
-          p_query: query,
-          p_install_id: countScope.installId,
-          p_site_scope: countScope.scope,
-        },
-      );
-      if (!countError) {
-        listWindow = applyAuthoritativeFaqCount(listWindow, parseFaqCountTotal(countData));
-      } else if (!faqCountContractMissing(countError)) {
+        }),
+        unfilteredNeeded
+          ? auth.supabase.rpc("count_tenant_public_companion_faq_items", {
+              p_status: null,
+              p_locale: null,
+              p_content_type: null,
+              p_query: null,
+              p_install_id: countScope.installId,
+              p_site_scope: countScope.scope,
+            })
+          : Promise.resolve(null),
+      ]);
+      if (!filteredCount.error) {
+        listWindow = applyAuthoritativeFaqCount(listWindow, parseFaqCountTotal(filteredCount.data));
+        qualification = parseFaqCountBreakdown(filteredCount.data);
+      } else if (!faqCountContractMissing(filteredCount.error)) {
         listWindow = { ...listWindow, countAvailable: false, selectAllSupported: false };
       }
+      const libraryPayload = libraryCount ? libraryCount.data : filteredCount.data;
+      const libraryError = libraryCount ? libraryCount.error : filteredCount.error;
+      if (!libraryError) libraryCounts = parseFaqCountBreakdown(libraryPayload);
     }
 
     return NextResponse.json({
       items,
       listWindow,
+      libraryCounts,
+      qualification,
       siteContext: {
         state: siteContext.state,
         selectedInstallId: siteContext.selectedInstallId,

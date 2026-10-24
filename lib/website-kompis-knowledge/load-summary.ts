@@ -2,10 +2,16 @@ import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { WPKF_LIST_LIMIT_DEFAULT } from "@/lib/website-kompis-faq/constants";
+import {
+  faqCountContractMissing,
+  faqCountSiteScope,
+  parseFaqCountBreakdown,
+} from "@/lib/website-kompis-faq/count-contract";
 import { parseWebsiteKompisFaqList } from "@/lib/website-kompis-faq/parse";
 import { getWebsiteKompisAnswerFeedbackOverview } from "@/lib/marketing/website-kompis-answer-feedback-server";
-import { buildFaqListWindow, type FaqListWindow } from "@/lib/website-kompis-faq/list-window";
+import { applyAuthoritativeFaqCount, buildFaqListWindow, type FaqListWindow } from "@/lib/website-kompis-faq/list-window";
 import { summarizeFaqItems, type FaqKnowledgeCounts } from "@/lib/website-kompis-knowledge/source-inventory";
+import { resolveWebsiteKompisSiteContextForRequest } from "@/lib/website-kompis-site-context";
 
 export type WebsiteKompisKnowledgeSummary = {
   faq: FaqKnowledgeCounts;
@@ -17,6 +23,7 @@ export type WebsiteKompisKnowledgeSummary = {
 
 export async function loadWebsiteKompisKnowledgeSummary(
   supabase: SupabaseClient,
+  requestedInstallId?: string | null,
 ): Promise<WebsiteKompisKnowledgeSummary> {
   const emptyFaq: FaqKnowledgeCounts = {
     total: 0,
@@ -26,7 +33,13 @@ export async function loadWebsiteKompisKnowledgeSummary(
     lastUpdatedAt: null,
   };
 
-  const [faqResult, feedback] = await Promise.all([
+  const siteContext = await resolveWebsiteKompisSiteContextForRequest(supabase, requestedInstallId);
+  const countScope =
+    siteContext.state === "unauthenticated"
+      ? null
+      : faqCountSiteScope(siteContext.state, siteContext.selectedInstallId ?? null);
+
+  const [faqResult, feedback, countResult] = await Promise.all([
     supabase.rpc("list_tenant_public_companion_faq_items", {
       p_status: null,
       p_locale: null,
@@ -36,6 +49,16 @@ export async function loadWebsiteKompisKnowledgeSummary(
       p_offset: 0,
     }),
     getWebsiteKompisAnswerFeedbackOverview(supabase, { limit: 1 }),
+    countScope
+      ? supabase.rpc("count_tenant_public_companion_faq_items", {
+          p_status: null,
+          p_locale: null,
+          p_content_type: null,
+          p_query: null,
+          p_install_id: countScope.installId,
+          p_site_scope: countScope.scope,
+        })
+      : Promise.resolve({ data: null, error: null }),
   ]);
 
   let faq = emptyFaq;
@@ -46,20 +69,36 @@ export async function loadWebsiteKompisKnowledgeSummary(
     visibleReturned: 0,
   });
   let faqLoadOk = false;
-  if (!faqResult.error) {
-    try {
-      const items = parseWebsiteKompisFaqList(faqResult.data);
-      faq = summarizeFaqItems(items);
-      faqWindow = buildFaqListWindow({
+  const breakdown =
+    countResult.error && !faqCountContractMissing(countResult.error)
+      ? null
+      : parseFaqCountBreakdown(countResult.data);
+  if (breakdown) {
+    let lastUpdatedAt: string | null = null;
+    if (!faqResult.error) {
+      try {
+        lastUpdatedAt = summarizeFaqItems(parseWebsiteKompisFaqList(faqResult.data)).lastUpdatedAt;
+      } catch {
+        lastUpdatedAt = null;
+      }
+    }
+    faq = {
+      total: breakdown.total,
+      published: breakdown.published,
+      draft: breakdown.draft,
+      archived: breakdown.archived,
+      lastUpdatedAt,
+    };
+    faqWindow = applyAuthoritativeFaqCount(
+      buildFaqListWindow({
         offset: 0,
         limit: WPKF_LIST_LIMIT_DEFAULT,
-        tenantReturned: items.length,
-        visibleReturned: items.length,
-      });
-      faqLoadOk = true;
-    } catch {
-      faqLoadOk = false;
-    }
+        tenantReturned: 0,
+        visibleReturned: 0,
+      }),
+      breakdown.total,
+    );
+    faqLoadOk = true;
   }
 
   return {
