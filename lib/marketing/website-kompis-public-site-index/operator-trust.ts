@@ -5,6 +5,8 @@ import { sanitizePublicCompanionDomain } from "@/lib/marketing/public-companion-
 import { parsePlatformPortalCustomerDomainsPayload } from "@/lib/platform-portal/domain-installation";
 import { parsePlatformPortalWebsiteKompisStatus } from "@/lib/platform-portal/website-kompis-activation";
 import { selectVerifiedRobotsHosts } from "./robots-alias-redirect";
+import { selectInstallBoundCustomerDomains } from "./verified-domain-trust";
+import { readInstallBoundCustomerDomainRows } from "./verified-domain-trust-read";
 
 export type PublicSiteIndexOperatorTrust =
   | {
@@ -108,27 +110,56 @@ async function loadVerifiedAliasHosts(input: {
   installId: string;
   primaryHost: string;
 }): Promise<string[]> {
-  const fallback = [input.primaryHost];
+  const organizationRecords = await loadOrganizationDomainRecords(input);
+  let installBoundRecords: ReturnType<typeof selectInstallBoundCustomerDomains> = [];
+  try {
+    const rows = await readInstallBoundCustomerDomainRows({
+      customerId: input.customerId,
+      installId: input.installId,
+    });
+    installBoundRecords = selectInstallBoundCustomerDomains({
+      customerId: input.customerId,
+      installId: input.installId,
+      rows,
+    });
+  } catch {
+    installBoundRecords = [];
+  }
+
+  return selectVerifiedRobotsHosts({
+    primaryHost: input.primaryHost,
+    installId: input.installId,
+    records: [...organizationRecords, ...installBoundRecords],
+  });
+}
+
+async function loadOrganizationDomainRecords(input: {
+  supabase: Awaited<ReturnType<typeof createClient>>;
+  customerId: string;
+}): Promise<
+  Array<{
+    hostname: string;
+    verificationStatus: string | null;
+    status: string | null;
+    installId: string | null;
+  }>
+> {
   const { data, error } = await input.supabase.rpc(
     "get_platform_portal_customer_domains",
     { p_customer_id: input.customerId },
   );
-  if (error || data == null) return fallback;
+  if (error || data == null) return [];
   const parsed = parsePlatformPortalCustomerDomainsPayload(data);
   if (
     parsed.customerId &&
     parsed.customerId.toLowerCase() !== input.customerId.toLowerCase()
   ) {
-    return fallback;
+    return [];
   }
-  return selectVerifiedRobotsHosts({
-    primaryHost: input.primaryHost,
-    installId: input.installId,
-    records: parsed.domains.map((domain) => ({
-      hostname: domain.hostname,
-      verificationStatus: domain.verificationStatus,
-      status: domain.status,
-      installId: domain.installId,
-    })),
-  });
+  return parsed.domains.map((domain) => ({
+    hostname: domain.hostname,
+    verificationStatus: domain.verificationStatus,
+    status: domain.status,
+    installId: domain.installId,
+  }));
 }
