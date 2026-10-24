@@ -3,6 +3,8 @@ import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 
+const persistCalls: Array<{ name: string; args: Record<string, unknown> }> = [];
+
 function installServerOnlyShim(): void {
   const moduleApi = require("node:module") as {
     Module: { _load: (request: string, parent: unknown, isMain: boolean) => unknown };
@@ -10,6 +12,16 @@ function installServerOnlyShim(): void {
   const originalLoad = moduleApi.Module._load;
   moduleApi.Module._load = function (request, parent, isMain) {
     if (request === "server-only") return {};
+    if (request === "@/lib/supabase/service-role") {
+      return {
+        createServiceRoleClient: () => ({
+          rpc: async (name: string, args: Record<string, unknown>) => {
+            persistCalls.push({ name, args });
+            return { error: null };
+          },
+        }),
+      };
+    }
     return originalLoad.call(this, request, parent, isMain);
   };
 }
@@ -229,6 +241,45 @@ async function main() {
   });
   assert.equal(disallowed.indexed, 0);
   assert.equal(disallowed.errors[0]?.reason, "robots_disallow");
+
+  const previousWrites = process.env.AIPIFY_PUBLIC_SITE_INDEX_WRITES_ENABLED;
+  process.env.AIPIFY_PUBLIC_SITE_INDEX_WRITES_ENABLED = "true";
+  try {
+    const persisted = await ingestTenantPublicSiteIndex({
+      tenantId: TENANT,
+      installId: INSTALL,
+      verifiedHost: APEX,
+      verifiedAliasHosts: hosts,
+      discoveryMode: "seed_only",
+      seedUrls: [`https://${WWW}/about`],
+      dryRun: false,
+      confirmation: true,
+      maxPages: 1,
+      robotsDnsAssert: async () => ({ ok: true }),
+      robotsFetchImpl: async () => response(200, ROBOTS),
+      fetchImpl: async (input) => ({
+        ok: true,
+        finalUrl: input.url,
+        status: 200,
+        body: PAGE,
+        contentType: "text/html",
+        xRobotsTag: null,
+        decodedBytes: PAGE.length,
+      }),
+    });
+    assert.equal(persisted.persistAttempted, true);
+    assert.equal(persisted.indexed, 1);
+    assert.equal(persistCalls.length, 1);
+    assert.equal(persistCalls[0]?.name, "replace_tenant_public_site_index_document");
+    assert.equal(persistCalls[0]?.args.p_verified_host, WWW);
+    assert.equal(persistCalls[0]?.args.p_canonical_url, `https://${WWW}/about`);
+  } finally {
+    if (previousWrites === undefined) {
+      delete process.env.AIPIFY_PUBLIC_SITE_INDEX_WRITES_ENABLED;
+    } else {
+      process.env.AIPIFY_PUBLIC_SITE_INDEX_WRITES_ENABLED = previousWrites;
+    }
+  }
 }
 
 main().catch((error) => {
