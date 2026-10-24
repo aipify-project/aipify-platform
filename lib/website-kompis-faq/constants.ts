@@ -19,20 +19,6 @@ export type WpkfStatus = (typeof WPKF_STATUSES)[number];
 
 export const WPKF_LOCALES = FAQ_CONTENT_LANGUAGE_CODES;
 
-export const WPKF_RISKY_WORDS = [
-  "internal",
-  "member id",
-  "booking",
-  "invoice",
-  "employee",
-  "support case",
-  "økonomi",
-  "medlem",
-  "ansatt",
-  "faktura",
-  "intern",
-] as const;
-
 export const WPKF_TITLE_MAX_LENGTH = 200;
 export const WPKF_QUESTION_MAX_LENGTH = 500;
 export const WPKF_ANSWER_MAX_LENGTH = 4000;

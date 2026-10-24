@@ -1,9 +1,9 @@
-import { WPKF_RISKY_WORDS } from "@/lib/website-kompis-faq/constants";
+import { classifyWebsiteKompisFaqDisclosure } from "@/lib/website-kompis-faq/disclosure";
 import type { WebsiteKompisFaqUpsertInput } from "@/lib/website-kompis-faq/types";
 
+/** Reason codes that keep a draft in individual review. Ordinary product words are not included. */
 export function detectWebsiteKompisFaqRiskyWords(text: string): string[] {
-  const normalized = text.toLowerCase();
-  return WPKF_RISKY_WORDS.filter((word) => normalized.includes(word.toLowerCase()));
+  return classifyWebsiteKompisFaqDisclosure(text);
 }
 
 export type WebsiteKompisFaqPublishPlan = "publish_draft" | "revise_published" | "blocked";

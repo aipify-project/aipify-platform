@@ -129,6 +129,13 @@ function fillLabel(template: string, values: Record<string, string | number>): s
   );
 }
 
+function disclosureReasonLabel(labels: WebsiteKompisFaqLabels, code: string): string | null {
+  if (code in labels.disclosureReasons) {
+    return labels.disclosureReasons[code as keyof WebsiteKompisFaqLabels["disclosureReasons"]];
+  }
+  return null;
+}
+
 function formatDate(value: string | null): string {
   if (!value) return "—";
   const parsed = Date.parse(value);
@@ -309,6 +316,8 @@ export function WebsiteKompisFaqAdminPanel({
   const matchModeRef = useRef(false);
   const [pagePublishOpen, setPagePublishOpen] = useState(false);
   const [pagePublishSummary, setPagePublishSummary] = useState<string | null>(null);
+  const [heldById, setHeldById] = useState<Record<string, string>>({});
+  const [showHeldOnly, setShowHeldOnly] = useState(false);
   const [loading, setLoading] = useState(true);
   const [accessDenied, setAccessDenied] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -401,6 +410,9 @@ export function WebsiteKompisFaqAdminPanel({
       ),
     [draft.answer, draft.category, draft.question, draft.title],
   );
+  const disclosureLabels = riskyWords
+    .map((code) => disclosureReasonLabel(labels, code))
+    .filter((label): label is string => Boolean(label));
 
   const expiryPreview = resolveFaqExpiryForSave(draft);
   const publishPlan = expiryPreview.ok
@@ -660,6 +672,8 @@ export function WebsiteKompisFaqAdminPanel({
     setReviewAck(false);
     setPagePublishOpen(false);
     setPagePublishSummary(null);
+    setHeldById({});
+    setShowHeldOnly(false);
     setSelectionNote(null);
   }
 
@@ -729,6 +743,15 @@ export function WebsiteKompisFaqAdminPanel({
     let manual = reviewPlan.manualIds.length;
     let skipped = reviewPlan.skipped.length;
     let failed: string[] = [];
+    const held: Record<string, string> = {};
+    const reasonCodes: string[] = [];
+    if (!matchModeRef.current) {
+      for (const row of reviewPlan.skipped) {
+        if (row.reason !== "manual_review" || !row.disclosures?.length) continue;
+        held[row.id] = row.disclosures[0] ?? "";
+        reasonCodes.push(...row.disclosures);
+      }
+    }
     try {
       const chunks = chunkFaqIds(ids);
       for (let index = 0; index < chunks.length; index += 1) {
@@ -755,7 +778,7 @@ export function WebsiteKompisFaqAdminPanel({
           marked?: string[];
           alreadySafe?: string[];
           manual?: string[];
-          results?: Array<{ id: string; outcome: string }>;
+          results?: Array<{ id: string; outcome: string; disclosures?: string[] }>;
         } | null;
         if (!res.ok || !body) {
           failed = failed.concat(chunks[index] ?? []);
@@ -769,16 +792,31 @@ export function WebsiteKompisFaqAdminPanel({
           skipped += (body.results ?? []).filter((row) => row.outcome !== "marked" && row.outcome !== "failed").length;
         }
         failed = failed.concat((body.results ?? []).filter((row) => row.outcome === "failed").map((row) => row.id));
+        for (const row of body.results ?? []) {
+          if (row.outcome !== "manual_review" || !row.disclosures?.length) continue;
+          held[row.id] = row.disclosures[0] ?? "";
+          reasonCodes.push(...row.disclosures);
+        }
       }
-      setPagePublishSummary(
-        fillLabel(labels.listWindow.reviewResult, {
-          marked: marked.length,
-          already,
-          manual,
-          skipped,
-          failed: failed.length,
-        }),
-      );
+      const counts = new Map<string, number>();
+      for (const code of reasonCodes) counts.set(code, (counts.get(code) ?? 0) + 1);
+      const summary = [...counts.entries()]
+        .map(([code, count]) => {
+          const label = disclosureReasonLabel(labels, code);
+          return label ? `${count} ${label}` : null;
+        })
+        .filter((part): part is string => Boolean(part))
+        .join(", ");
+      const result = fillLabel(labels.listWindow.reviewResult, {
+        marked: marked.length,
+        already,
+        manual,
+        skipped,
+        failed: failed.length,
+      });
+      setPagePublishSummary(summary ? `${result} ${fillLabel(labels.listWindow.holdReasons, { summary })}` : result);
+      setHeldById(held);
+      setShowHeldOnly(false);
       setPendingPublishIds(matchModeRef.current ? [...new Set([...marked, ...alreadyIds])] : marked);
       setSelectedIds(
         selectionAfterPublicSafeReview({
@@ -1293,6 +1331,25 @@ export function WebsiteKompisFaqAdminPanel({
           />
           )}
 
+          {Object.keys(heldById).length > 0 ? (
+            <div className="flex flex-wrap items-center gap-3 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
+              <button
+                type="button"
+                onClick={() => setShowHeldOnly((current) => !current)}
+                className="font-medium underline"
+              >
+                {showHeldOnly ? labels.listWindow.showAllRows : labels.listWindow.showHeld}
+              </button>
+              {Object.keys(heldById).length > items.filter((item) => heldById[item.id]).length ? (
+                <span>
+                  {fillLabel(labels.listWindow.heldOffPage, {
+                    count: Object.keys(heldById).length - items.filter((item) => heldById[item.id]).length,
+                  })}
+                </span>
+              ) : null}
+            </div>
+          ) : null}
+
           {items.length === 0 && !listWindow.hasMore ? (
             <PlatformEmptyState
               title={labels.emptyTitle}
@@ -1330,7 +1387,7 @@ export function WebsiteKompisFaqAdminPanel({
                   </tr>
                 </thead>
                 <tbody>
-                  {items.map((item) => (
+                  {(showHeldOnly ? items.filter((item) => heldById[item.id]) : items).map((item) => (
                     <tr key={item.id} className="border-b border-[#EEF0F6] hover:bg-[#FAF9FF]">
                       <td className="px-4 py-3">
                         <input
@@ -1361,6 +1418,13 @@ export function WebsiteKompisFaqAdminPanel({
                       <td className="px-4 py-3 font-medium text-slate-900">
                         <div className="flex flex-wrap items-center gap-2">
                           <span>{item.title}</span>
+                          {heldById[item.id] && disclosureReasonLabel(labels, heldById[item.id] ?? "") ? (
+                            <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-950">
+                              {fillLabel(labels.listWindow.heldOnRow, {
+                                reason: disclosureReasonLabel(labels, heldById[item.id] ?? "") ?? "",
+                              })}
+                            </span>
+                          ) : null}
                           {item.scope?.isLegacyTenantGlobal ? (
                             <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-900">
                               {labels.siteContext.legacyBadge}
@@ -1467,7 +1531,7 @@ export function WebsiteKompisFaqAdminPanel({
             open={reviewOpen}
             riskyWords={[]}
             title={labels.listWindow.reviewTitle}
-            body={`${labels.listWindow.publicExposureWarning} ${
+            body={`${labels.listWindow.publicExposureWarning} ${labels.listWindow.reviewScope} ${
               matchModeRef.current
                 ? fillLabel(labels.listWindow.reviewBodySelection, {
                     site: selectedSite?.domain ?? labels.filters.all,
@@ -1693,9 +1757,9 @@ export function WebsiteKompisFaqAdminPanel({
               </label>
             </div>
 
-            {riskyWords.length > 0 ? (
+            {disclosureLabels.length > 0 ? (
               <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
-                {labels.riskyWordsWarning}: {riskyWords.join(", ")}
+                {labels.riskyWordsWarning}: {disclosureLabels.join(", ")}
               </p>
             ) : null}
 
@@ -1732,7 +1796,7 @@ export function WebsiteKompisFaqAdminPanel({
       <WebsiteKompisFaqPublishDialog
         labels={labels}
         open={publishDialogOpen}
-        riskyWords={riskyWords}
+        riskyWords={disclosureLabels}
         title={revisingPublished ? labels.confirmReviseTitle : labels.confirmPublishTitle}
         body={revisingPublished ? labels.confirmReviseBody : labels.confirmPublishBody}
         confirmLabel={revisingPublished ? labels.publishChanges : labels.confirmPublishAction}
