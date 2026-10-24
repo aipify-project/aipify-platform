@@ -282,6 +282,12 @@ assert.equal(readdirSync("supabase/migrations").some((name) => name.includes("lo
 
 assert.match(panel, /localeMissingInFamily/);
 assert.match(panel, /localeLinkAction/);
+assert.match(panel, /collationLocale=\{labels\.languageCollation\}\s+disabled=\{localeLoading\}/);
+assert.match(panel, /disabled=\{busy \|\| localeLoading \|\| !isWebsiteKompisFaqEditorValid\(draft\)\}/);
+assert.match(panel, /setLinkSearched\(false\)/);
+const linkDialog = readFileSync("components/app/website-kompis/WebsiteKompisFaqLocaleLinkDialog.tsx", "utf8");
+assert.match(linkDialog, /searched && !error && candidates\.length === 0/);
+assert.match(linkDialog, /aria-label=\{labels\.localeLinkSearch\}/);
 assert.match(panel, /localeCreateInstead/);
 assert.match(panel, /\/api\/website-kompis\/faq\/locale-link/);
 assert.equal(panel.split("<FaqContentLanguagePicker").length - 1, 2);

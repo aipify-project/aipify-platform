@@ -345,6 +345,7 @@ export function WebsiteKompisFaqAdminPanel({
   const [localeLoading, setLocaleLoading] = useState(false);
   const [localeMissing, setLocaleMissing] = useState(false);
   const [linkOpen, setLinkOpen] = useState(false);
+  const [linkSearched, setLinkSearched] = useState(false);
   const [linkQuery, setLinkQuery] = useState("");
   const [linkChoices, setLinkChoices] = useState<FaqLocaleLinkChoice[]>([]);
   const [linkSelected, setLinkSelected] = useState<string | null>(null);
@@ -913,6 +914,7 @@ export function WebsiteKompisFaqAdminPanel({
     setLocaleLoading(false);
     setLocaleMissing(false);
     setLinkOpen(false);
+    setLinkSearched(false);
     setPendingLocale(null);
     setDraft(createEmptyDraft(selectedSite));
   }
@@ -1073,6 +1075,7 @@ export function WebsiteKompisFaqAdminPanel({
         localeBaselineRef.current = next;
         setLocaleMissing(true);
         setLinkOpen(false);
+        setLinkSearched(false);
         setLinkChoices([]);
         setLinkSelected(null);
         setDraft(next);
@@ -1128,9 +1131,11 @@ export function WebsiteKompisFaqAdminPanel({
     setBusy(false);
     if (!res.ok || !body?.candidates) {
       setLinkChoices([]);
+      setLinkSearched(true);
       setLinkError(body?.code === "translation_group_unavailable" ? labels.localeSwitchUnavailable : labels.localeLinkError);
       return;
     }
+    setLinkSearched(true);
     setLinkChoices(body.candidates);
   }
 
@@ -1845,6 +1850,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.category}</span>
                 <input
                   value={draft.category ?? ""}
+                  disabled={localeLoading}
                   onChange={(event) =>
                     setDraft((current) => ({ ...current, category: event.target.value }))
                   }
@@ -1862,6 +1868,7 @@ export function WebsiteKompisFaqAdminPanel({
                   noMatchLabel={labels.languageNoMatch}
                   listLabel={labels.languageList}
                   collationLocale={labels.languageCollation}
+                  disabled={localeLoading}
                 />
                 {localeMissing ? (
                   <div className="mt-2 text-sm text-slate-700">
@@ -1872,6 +1879,9 @@ export function WebsiteKompisFaqAdminPanel({
                       className="mt-2 text-sm text-violet-800 underline"
                       onClick={() => {
                         setLinkOpen(true);
+                        setLinkSearched(false);
+                        setLinkChoices([]);
+                        setLinkSelected(null);
                         setLinkError(null);
                       }}
                     >
@@ -1884,6 +1894,7 @@ export function WebsiteKompisFaqAdminPanel({
                         candidates={linkChoices}
                         selectedId={linkSelected}
                         error={linkError}
+                        searched={linkSearched}
                         busy={busy}
                         onQuery={setLinkQuery}
                         onSearch={() => void searchLocaleLinks()}
@@ -1919,6 +1930,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.contentType}</span>
                 <select
                   value={draft.contentType}
+                  disabled={localeLoading}
                   onChange={(event) =>
                     setDraft((current) => ({
                       ...current,
@@ -1942,6 +1954,7 @@ export function WebsiteKompisFaqAdminPanel({
                   min={1}
                   max={9999}
                   value={draft.priority}
+                  disabled={localeLoading}
                   onChange={(event) =>
                     setDraft((current) => ({
                       ...current,
@@ -1956,6 +1969,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.tags}</span>
                 <input
                   value={draft.tags.join(", ")}
+                  disabled={localeLoading}
                   onChange={(event) =>
                     setDraft((current) => ({
                       ...current,
@@ -1973,6 +1987,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.sourceUrl}</span>
                 <input
                   value={draft.sourceUrl ?? ""}
+                  disabled={localeLoading}
                   onChange={(event) =>
                     setDraft((current) => ({ ...current, sourceUrl: event.target.value }))
                   }
@@ -2000,6 +2015,7 @@ export function WebsiteKompisFaqAdminPanel({
                   }
                   onValidFromChange={(validFrom) => setDraft((current) => ({ ...current, validFrom }))}
                   onValidUntilChange={(validUntil) => setDraft((current) => ({ ...current, validUntil }))}
+                  disabled={localeLoading}
                 />
               </div>
 
@@ -2010,6 +2026,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <input
                   type="datetime-local"
                   value={draft.lastReviewedAt ? draft.lastReviewedAt.slice(0, 16) : ""}
+                  disabled={localeLoading}
                   onChange={(event) =>
                     setDraft((current) => ({
                       ...current,
@@ -2026,6 +2043,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <input
                   type="checkbox"
                   checked={draft.publicSafe}
+                  disabled={localeLoading}
                   onChange={(event) =>
                     setDraft((current) => ({ ...current, publicSafe: event.target.checked }))
                   }
@@ -2047,7 +2065,7 @@ export function WebsiteKompisFaqAdminPanel({
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
-                disabled={busy || !isWebsiteKompisFaqEditorValid(draft)}
+                disabled={busy || localeLoading || !isWebsiteKompisFaqEditorValid(draft)}
                 onClick={() => void saveDraft()}
                 className="rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50"
               >
@@ -2055,7 +2073,7 @@ export function WebsiteKompisFaqAdminPanel({
               </button>
               <button
                 type="button"
-                disabled={busy || !canPublish}
+                disabled={busy || localeLoading || !canPublish}
                 title={!canPublish ? labels.publishDisabledHint : undefined}
                 onClick={() => setPublishDialogOpen(true)}
                 className="rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-50"
