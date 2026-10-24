@@ -18,6 +18,7 @@ type WebsiteKompisFaqLocaleLinkDialogProps = {
   candidates: FaqLocaleLinkChoice[];
   selectedId: string | null;
   error: string | null;
+  searched: boolean;
   busy: boolean;
   onQuery: (value: string) => void;
   onSearch: () => void;
@@ -32,6 +33,7 @@ export function WebsiteKompisFaqLocaleLinkDialog({
   candidates,
   selectedId,
   error,
+  searched,
   busy,
   onQuery,
   onSearch,
@@ -48,13 +50,16 @@ export function WebsiteKompisFaqLocaleLinkDialog({
           value={query}
           onChange={(event) => onQuery(event.target.value)}
           placeholder={labels.localeLinkSearch}
+          aria-label={labels.localeLinkSearch}
           className="w-full rounded-md border border-slate-300 bg-white px-2 py-1"
         />
         <button type="button" className="rounded-md border border-slate-300 bg-white px-2 py-1" onClick={onSearch} disabled={busy}>
           {labels.localeLinkSearch}
         </button>
       </div>
-      {candidates.length === 0 ? <p className="mt-2 text-slate-600">{labels.localeLinkEmpty}</p> : null}
+      {searched && !error && candidates.length === 0 ? (
+        <p className="mt-2 text-slate-600">{labels.localeLinkEmpty}</p>
+      ) : null}
       <ul className="mt-2 space-y-1">
         {candidates.map((row) => (
           <li key={row.id}>

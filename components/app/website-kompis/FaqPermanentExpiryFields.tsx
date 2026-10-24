@@ -15,6 +15,7 @@ export function FaqPermanentExpiryFields({
   onPermanentChange,
   onValidFromChange,
   onValidUntilChange,
+  disabled = false,
 }: {
   permanent: boolean;
   validFrom: string | null;
@@ -23,6 +24,7 @@ export function FaqPermanentExpiryFields({
   onPermanentChange: (permanent: boolean) => void;
   onValidFromChange: (value: string | null) => void;
   onValidUntilChange: (value: string | null) => void;
+  disabled?: boolean;
 }) {
   return (
     <fieldset className="space-y-3">
@@ -30,6 +32,7 @@ export function FaqPermanentExpiryFields({
         <input
           type="checkbox"
           checked={permanent}
+          disabled={disabled}
           onChange={(event) => onPermanentChange(event.target.checked)}
           className="mt-1 h-4 w-4 rounded border-[var(--app-border)] accent-[#7357e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
         />
@@ -47,6 +50,7 @@ export function FaqPermanentExpiryFields({
             <input
               type="datetime-local"
               value={isoToDateTimeLocal(validFrom)}
+              disabled={disabled}
               onChange={(event) =>
                 onValidFromChange(event.target.value ? new Date(event.target.value).toISOString() : null)
               }
@@ -58,6 +62,7 @@ export function FaqPermanentExpiryFields({
             <input
               type="datetime-local"
               value={isoToDateTimeLocal(validUntil)}
+              disabled={disabled}
               onChange={(event) =>
                 onValidUntilChange(event.target.value ? new Date(event.target.value).toISOString() : null)
               }

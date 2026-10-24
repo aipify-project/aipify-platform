@@ -84,6 +84,10 @@ export function FaqContentLanguagePicker({
     setActiveIndex(0);
   }, [query, open]);
 
+  useEffect(() => {
+    if (disabled) setOpen(false);
+  }, [disabled]);
+
   const selectedName = value ? (labels[value] ?? value) : (emptyLabel ?? "");
 
   function choose(code: string) {
