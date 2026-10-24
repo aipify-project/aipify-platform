@@ -38,8 +38,8 @@ const publishedFaq: ReviewFaqCandidate = {
   surface: "public_faq",
 };
 
-assert.equal(FEEDBACK_REVIEW_DISPOSITION_READY, false);
-assert.equal(reviewDispositionIsLive(), false);
+assert.equal(FEEDBACK_REVIEW_DISPOSITION_READY, true);
+assert.equal(reviewDispositionIsLive(), true);
 assert.equal(draftSaveClosesReview(), false);
 
 assert.equal(canLinkPublishedFaq(openCase, publishedFaq).ok, true);
@@ -123,7 +123,7 @@ const operations = fs.readFileSync(
   path.join(root, "lib/website-kompis-feedback/operations-model.ts"),
   "utf8",
 );
-assert.match(operations, /FEEDBACK_REVIEW_DISPOSITION_READY = false/);
+assert.match(operations, /FEEDBACK_REVIEW_DISPOSITION_READY = true/);
 assert.match(operations, /FEEDBACK_REVIEW_CLOSE_READY = false/);
 
 const editor = fs.readFileSync(

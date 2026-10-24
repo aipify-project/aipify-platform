@@ -179,7 +179,7 @@ const publishedRow: FeedbackOpsRow = { ...helpful, reviewDisposition: "published
 assert.equal(resolveFeedbackOpsStatus(publishedRow).key, "published");
 assert.equal(resolveFeedbackOpsStatus(publishedRow).tone, "emerald");
 
-assert.equal(FEEDBACK_REVIEW_DISPOSITION_READY, false);
+assert.equal(FEEDBACK_REVIEW_DISPOSITION_READY, true);
 assert.equal(FEEDBACK_REVIEW_CLOSE_READY, false);
 
 const root = process.cwd();

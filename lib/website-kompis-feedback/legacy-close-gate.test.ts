@@ -10,7 +10,7 @@ const feedbackId = "66666666-6666-4666-8666-666666666661";
 const helpfulId = "77777777-7777-4777-8777-777777777771";
 
 assert.equal(FEEDBACK_REVIEW_CLOSE_READY, false);
-assert.equal(FEEDBACK_REVIEW_DISPOSITION_READY, false);
+assert.equal(FEEDBACK_REVIEW_DISPOSITION_READY, true);
 assert.equal(legacyFeedbackCloseIsBlocked(), true);
 assert.equal(legacyFeedbackCloseIsBlocked(false), true);
 assert.equal(legacyFeedbackCloseIsBlocked(true), false);
@@ -49,6 +49,7 @@ const dispositionCalls: string[] = [];
 const dispositionBlocked = await runFeedbackDisposition(
   { rpc: async (name: string) => { dispositionCalls.push(name); return { data: null, error: null }; } } as never,
   { feedbackId, action: "rejected" },
+  false,
 );
 assert.equal(dispositionBlocked.status, 501);
 assert.deepEqual(dispositionCalls, []);

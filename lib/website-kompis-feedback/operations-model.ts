@@ -247,17 +247,17 @@ export function selectKnowledgeGapCandidates(rows: FeedbackOpsRow[]): FeedbackOp
 export const OWNER_REVIEW_APPROVAL_SUPPORTED = false;
 
 /**
- * The close RPC is not in Core yet. The button stays off until the owner
- * applies the reviewed SQL file and this flag is turned on in a later change.
+ * The legacy close RPC is not part of disposition v3. That button stays off.
+ * Published, rejected, duplicate, and retrieval follow-up use the disposition flag.
  */
 export const FEEDBACK_REVIEW_CLOSE_READY = false;
 
 /**
- * The disposition RPCs are not in Core yet. Review completion and spam
- * rejection stay off until the owner applies the disposition SQL and a later
- * change turns this flag on. The existing overview remains the live queue.
+ * Disposition v3 is installed. An owner can link a published FAQ, mark a search
+ * miss for follow-up, reject, mark a duplicate, or bulk-close at most 25
+ * explicitly selected rows. A draft save does not close the feedback.
  */
-export const FEEDBACK_REVIEW_DISPOSITION_READY = false;
+export const FEEDBACK_REVIEW_DISPOSITION_READY = true;
 
 export function canOfferFeedbackReviewClose(
   row: Pick<FeedbackOpsRow, "vote" | "reviewStatus">,
