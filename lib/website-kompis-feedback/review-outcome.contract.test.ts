@@ -8,6 +8,7 @@ import {
   canRejectOrDuplicate,
   draftSaveClosesReview,
   explicitBulkIds,
+  existingPublishedFaqOutcome,
   followUpStaysOpen,
   queueAfterDisposition,
   reviewDispositionIsLive,
@@ -93,6 +94,17 @@ assert.equal(queueAfterDisposition("rejected"), "history");
 assert.equal(queueAfterDisposition("duplicate"), "history");
 assert.equal(queueAfterDisposition("open"), "review");
 assert.equal(queueAfterDisposition("published"), "history");
+const resolved = existingPublishedFaqOutcome("resolved");
+assert.equal(resolved.action, "published");
+assert.equal(resolved.queue, "history");
+assert.equal(resolved.followUpOpen, false);
+assert.equal(resolved.requiresReason, false);
+assert.equal(resolved.writesFaq, false);
+const searchMiss = existingPublishedFaqOutcome("search_miss");
+assert.equal(searchMiss.action, "retrieval_unresolved");
+assert.equal(searchMiss.followUpOpen, true);
+assert.equal(searchMiss.requiresReason, true);
+assert.equal(searchMiss.writesFaq, false);
 
 const ids = Array.from({ length: 25 }, (_, index) =>
   `55555555-5555-4555-8555-${String(index + 1).padStart(12, "0")}`,
