@@ -1,13 +1,19 @@
 import { createHash } from "node:crypto";
 import { fetchVerifiedPublicSiteUrl } from "./fetch-safe";
+import { fetchRobotsTxtWithinVerifiedAliases } from "./robots-alias-redirect";
 import {
   evaluatePublicSiteIndexUrl,
   normalizePublicSiteIndexCanonicalUrl,
   parseRobotsTxtDisallowPaths,
 } from "./url-policy";
 export type RobotsPolicyResult =
-  | { ok: true; disallow: string[]; body?: string }
-  | { ok: false; reason: "robots_fetch_failed" | "robots_empty_ambiguous" };
+  | { ok: true; disallow: string[]; body?: string; finalHost?: string }
+  | {
+      ok: false;
+      reason: "robots_fetch_failed" | "robots_empty_ambiguous";
+      detail?: string;
+      finalHost?: string;
+    };
 
 /** Hard ceiling on discovered URL set size (multi-batch covers the set). */
 export const WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_DISCOVERED = 5_000;
@@ -32,6 +38,8 @@ export type PublicSiteDiscoveryResult = {
   rejectedPrivateSample: string[];
   /** Seed-only: reasons seeds were rejected before any page fetch. */
   seedRejectReasons?: Array<{ url: string; reason: string }>;
+  robotsFinalHost?: string;
+  robotsDetail?: string;
 };
 
 function uniquePreserve(urls: string[]): string[] {
@@ -91,19 +99,57 @@ function parseRobotsSitemapDirectives(robotsTxt: string): string[] {
 export async function loadRobotsPolicyFailClosed(
   verifiedHost: string,
   fetchImpl: typeof fetchVerifiedPublicSiteUrl = fetchVerifiedPublicSiteUrl,
+  options?: {
+    verifiedAliasHosts?: readonly string[];
+    fetchImpl?: typeof fetch;
+    dnsAssert?: (hostname: string) => Promise<{ ok: true } | { ok: false; detail: string }>;
+    maxRedirects?: number;
+  },
 ): Promise<RobotsPolicyResult & { body?: string }> {
+  if (options?.verifiedAliasHosts) {
+    const fetched = await fetchRobotsTxtWithinVerifiedAliases({
+      verifiedHost,
+      verifiedAliasHosts: options.verifiedAliasHosts,
+      fetchImpl: options.fetchImpl,
+      dnsAssert: options.dnsAssert,
+      maxRedirects: options.maxRedirects,
+    });
+    if (!fetched.ok) {
+      return {
+        ok: false,
+        reason: "robots_fetch_failed",
+        detail: fetched.detail ?? fetched.reason,
+        finalHost: fetched.finalHost,
+      };
+    }
+    const body = fetched.body.trim();
+    if (!body || body.length < 8) {
+      return {
+        ok: false,
+        reason: "robots_empty_ambiguous",
+        finalHost: fetched.finalHost,
+      };
+    }
+    return {
+      ok: true,
+      disallow: parseRobotsTxtDisallowPaths(body),
+      body,
+      finalHost: fetched.finalHost,
+    };
+  }
+
   const fetched = await fetchImpl({
     url: `https://${verifiedHost}/robots.txt`,
     verifiedHost,
   });
   if (!fetched.ok) {
-    return { ok: false, reason: "robots_fetch_failed" };
+    return { ok: false, reason: "robots_fetch_failed", detail: fetched.reason };
   }
   const body = fetched.body.trim();
   if (!body || body.length < 8) {
     return { ok: false, reason: "robots_empty_ambiguous" };
   }
-  return { ok: true, disallow: parseRobotsTxtDisallowPaths(body), body };
+  return { ok: true, disallow: parseRobotsTxtDisallowPaths(body), body, finalHost: verifiedHost };
 }
 
 async function collectFromSitemapDocument(input: {
@@ -196,17 +242,32 @@ export async function discoverPublicSiteIndexUrls(input: {
   seedUrls?: string[];
   discoveryMode?: PublicSiteIndexDiscoveryMode;
   fetchImpl?: typeof fetchVerifiedPublicSiteUrl;
+  verifiedAliasHosts?: readonly string[];
+  robotsFetchImpl?: typeof fetch;
+  robotsDnsAssert?: (hostname: string) => Promise<{ ok: true } | { ok: false; detail: string }>;
 }): Promise<PublicSiteDiscoveryResult> {
   const host = input.verifiedHost.trim().toLowerCase();
   const discoveryMode = normalizePublicSiteIndexDiscoveryMode(input.discoveryMode);
   const fetchImpl = input.fetchImpl ?? fetchVerifiedPublicSiteUrl;
   const rejectedPrivateSample: string[] = [];
 
-  const robots = await loadRobotsPolicyFailClosed(host, fetchImpl);
+  const robots = await loadRobotsPolicyFailClosed(
+    host,
+    fetchImpl,
+    input.verifiedAliasHosts
+      ? {
+          verifiedAliasHosts: input.verifiedAliasHosts,
+          fetchImpl: input.robotsFetchImpl,
+          dnsAssert: input.robotsDnsAssert,
+        }
+      : undefined,
+  );
   if (!robots.ok) {
     return {
       robotsStatus: "fail_closed",
       robotsReason: robots.reason,
+      robotsDetail: robots.detail,
+      robotsFinalHost: robots.finalHost,
       disallow: [],
       urls: [],
       discoveryFingerprint: fingerprintDiscoveredUrls([], discoveryMode),
@@ -224,6 +285,7 @@ export async function discoverPublicSiteIndexUrls(input: {
     if (rawSeeds.length === 0) {
       return {
         robotsStatus: "ok",
+        robotsFinalHost: robots.finalHost,
         disallow: robots.disallow,
         urls: [],
         discoveryFingerprint: fingerprintDiscoveredUrls([], "seed_only"),
@@ -258,6 +320,7 @@ export async function discoverPublicSiteIndexUrls(input: {
     );
     return {
       robotsStatus: "ok",
+      robotsFinalHost: robots.finalHost,
       disallow: robots.disallow,
       urls,
       discoveryFingerprint: fingerprintDiscoveredUrls(urls, "seed_only"),
@@ -318,6 +381,7 @@ export async function discoverPublicSiteIndexUrls(input: {
 
   return {
     robotsStatus: "ok",
+    robotsFinalHost: robots.finalHost,
     disallow: robots.disallow,
     urls,
     discoveryFingerprint: fingerprintDiscoveredUrls(urls, "standard"),

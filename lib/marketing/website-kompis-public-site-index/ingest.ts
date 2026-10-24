@@ -49,6 +49,11 @@ export type PublicSiteIndexIngestInput = {
   /** Required with dryRun=false; still blocked unless persist env gate is on. */
   confirmation?: boolean;
   fetchImpl?: typeof fetchVerifiedPublicSiteUrl;
+  /** Server-resolved verified hosts for this tenant and installation. */
+  verifiedAliasHosts?: readonly string[];
+  /** Test seam. Production ingest leaves this unset and uses the platform fetch. */
+  robotsFetchImpl?: typeof fetch;
+  robotsDnsAssert?: (hostname: string) => Promise<{ ok: true } | { ok: false; detail: string }>;
 };
 
 export type PublicSiteIndexIngestResult = {
@@ -67,6 +72,8 @@ export type PublicSiteIndexIngestResult = {
   dryRun: boolean;
   persistAttempted: boolean;
   robotsStatus: "ok" | "fail_closed";
+  robotsFinalHost?: string | null;
+  robotsDetail?: string | null;
   discoveryMode: PublicSiteIndexDiscoveryMode;
   errors: Array<{ url: string; reason: string }>;
   indexedUrls: string[];
@@ -100,6 +107,8 @@ function emptyResult(
     discoveryFingerprint: "",
     discoveryTruncated: false,
     persistAttempted: false,
+    robotsFinalHost: null,
+    robotsDetail: null,
     discoveryMode: "standard",
     errors: [],
     indexedUrls: [],
@@ -149,12 +158,17 @@ export async function ingestTenantPublicSiteIndex(
     seedUrls: input.seedUrls ?? [],
     discoveryMode,
     fetchImpl: input.fetchImpl,
+    verifiedAliasHosts: input.verifiedAliasHosts,
+    robotsFetchImpl: input.robotsFetchImpl,
+    robotsDnsAssert: input.robotsDnsAssert,
   });
 
   if (discovery.robotsStatus !== "ok") {
     return emptyResult({
       dryRun,
       robotsStatus: "fail_closed",
+      robotsFinalHost: discovery.robotsFinalHost ?? null,
+      robotsDetail: discovery.robotsDetail ?? null,
       runStatus: "fail_closed",
       discoveryMode,
       discoveryFingerprint: discovery.discoveryFingerprint,
@@ -162,7 +176,7 @@ export async function ingestTenantPublicSiteIndex(
       errors: [
         {
           url: `https://${host}/robots.txt`,
-          reason: discovery.robotsReason ?? "robots_fetch_failed",
+          reason: discovery.robotsDetail ?? discovery.robotsReason ?? "robots_fetch_failed",
         },
       ],
     });
@@ -390,6 +404,7 @@ export async function ingestTenantPublicSiteIndex(
     dryRun,
     persistAttempted,
     robotsStatus: "ok",
+    robotsFinalHost: discovery.robotsFinalHost ?? host,
     discoveryMode,
     errors: errors.slice(0, 40),
     indexedUrls,
