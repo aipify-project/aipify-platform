@@ -17,7 +17,9 @@ import {
   type WpkfContentType,
   type WpkfStatus,
 } from "@/lib/website-kompis-faq/constants";
+import type { FaqCountBreakdown } from "@/lib/website-kompis-faq/count-contract";
 import type { WebsiteKompisFaqLabels } from "@/lib/website-kompis-faq/labels";
+import type { FaqKnowledgeCounts } from "@/lib/website-kompis-knowledge/source-inventory";
 import {
   chunkFaqIds,
   planPublicSafeReview,
@@ -53,6 +55,7 @@ type WebsiteKompisFaqAdminPanelProps = {
   embedded?: boolean;
   /** Job 64 — shown when opening a draft suggested from visitor feedback. */
   suggestFromFeedbackWarning?: string;
+  onLibraryCounts?: (counts: FaqKnowledgeCounts) => void;
 };
 
 const STATUS_STYLES: Record<WpkfStatus, string> = {
@@ -151,6 +154,7 @@ function ListWindowBar({
   onShowDrafts,
   onReview,
   onSelectAll,
+  detail,
   canPublish,
   canReview,
   matchSelection,
@@ -170,6 +174,7 @@ function ListWindowBar({
   onShowDrafts: () => void;
   onReview: () => void;
   onSelectAll: () => void;
+  detail: string | null;
   canPublish: boolean;
   canReview: boolean;
   matchSelection: boolean;
@@ -192,6 +197,7 @@ function ListWindowBar({
       {listWindow.totalState === "at_least_tenant" ? (
         <p className="text-sm text-slate-600">{labels.listWindow.moreMayExist}</p>
       ) : null}
+      {detail ? <p className="text-sm text-slate-700">{detail}</p> : null}
       {listWindow.selectAllSupported || FAQ_GLOBAL_MATCH_SELECT_SUPPORTED ? null : (
         <p className="text-sm text-slate-600">
           {labels.listWindow.globalBlocked} {labels.listWindow.totalUnavailable}
@@ -280,6 +286,7 @@ export function WebsiteKompisFaqAdminPanel({
   labels,
   embedded = false,
   suggestFromFeedbackWarning,
+  onLibraryCounts,
 }: WebsiteKompisFaqAdminPanelProps) {
   const [items, setItems] = useState<WebsiteKompisFaqItem[]>([]);
   const [listOffset, setListOffset] = useState(0);
@@ -296,6 +303,9 @@ export function WebsiteKompisFaqAdminPanel({
   const [reviewAck, setReviewAck] = useState(false);
   const [pendingPublishIds, setPendingPublishIds] = useState<string[]>([]);
   const [progressLabel, setProgressLabel] = useState<string | null>(null);
+  const [matchSelection, setMatchSelection] = useState(false);
+  const [qualification, setQualification] = useState<FaqCountBreakdown | null>(null);
+  const [selectionNote, setSelectionNote] = useState<string | null>(null);
   const matchModeRef = useRef(false);
   const [pagePublishOpen, setPagePublishOpen] = useState(false);
   const [pagePublishSummary, setPagePublishSummary] = useState<string | null>(null);
@@ -360,6 +370,30 @@ export function WebsiteKompisFaqAdminPanel({
             })
           : null;
 
+  const listDetail = [
+    qualification &&
+    (statusFilter === "" || statusFilter === "draft") &&
+    (qualification.draftPublicSafe > 0 || qualification.draftNeedsReview > 0)
+      ? fillLabel(labels.listWindow.draftQualification, {
+          already: qualification.draftPublicSafe,
+          needs: qualification.draftNeedsReview,
+        })
+      : null,
+    selectionNote,
+    matchSelection && pendingPublishIds.length > 0
+      ? fillLabel(labels.listWindow.readyToPublish, { ready: pendingPublishIds.length })
+      : matchSelection && selectedIds.length > 0
+        ? `${fillLabel(labels.listWindow.matchSelected, { selected: selectedIds.length })} ${labels.listWindow.reviewBeforePublish}`
+        : listWindow.selectAllSupported && listWindow.siteTotal != null && listWindow.siteTotal > items.length
+          ? fillLabel(labels.listWindow.fullSetHint, {
+              visible: items.length,
+              total: listWindow.siteTotal,
+            })
+          : null,
+  ]
+    .filter((part): part is string => Boolean(part))
+    .join(" ");
+
   const riskyWords = useMemo(
     () =>
       detectWebsiteKompisFaqRiskyWords(
@@ -409,6 +443,8 @@ export function WebsiteKompisFaqAdminPanel({
     const body = (await res.json()) as {
       items?: WebsiteKompisFaqItem[];
       listWindow?: FaqListWindow;
+      libraryCounts?: FaqCountBreakdown | null;
+      qualification?: FaqCountBreakdown | null;
       error?: string;
       siteContext?: {
         state?: "no_sites" | "single_site" | "multi_site";
@@ -459,6 +495,16 @@ export function WebsiteKompisFaqAdminPanel({
     setSelectedIds((current) =>
       matchModeRef.current ? current : pruneSelectionToVisible(current, nextItems.map((item) => item.id)),
     );
+    setQualification(body.qualification ?? null);
+    if (body.libraryCounts) {
+      onLibraryCounts?.({
+        total: body.libraryCounts.total,
+        published: body.libraryCounts.published,
+        draft: body.libraryCounts.draft,
+        archived: body.libraryCounts.archived,
+        lastUpdatedAt: null,
+      });
+    }
     setLoading(false);
   }, [
     contentTypeFilter,
@@ -468,6 +514,7 @@ export function WebsiteKompisFaqAdminPanel({
     searchQuery,
     selectedInstallId,
     statusFilter,
+    onLibraryCounts,
   ]);
 
   const requestedSite = (searchParams.get("site") || searchParams.get("installId") || "").trim().toLowerCase();
@@ -594,15 +641,26 @@ export function WebsiteKompisFaqAdminPanel({
     setNotice(null);
   }
 
+  function leaveMatchMode() {
+    matchModeRef.current = false;
+    setMatchSelection(false);
+  }
+
+  function enterMatchMode() {
+    matchModeRef.current = true;
+    setMatchSelection(true);
+  }
+
   function resetListScope() {
     setListOffset(0);
     setSelectedIds([]);
-    matchModeRef.current = false;
+    leaveMatchMode();
     setPendingPublishIds([]);
     setReviewOpen(false);
     setReviewAck(false);
     setPagePublishOpen(false);
     setPagePublishSummary(null);
+    setSelectionNote(null);
   }
 
   const reviewPlan = useMemo(
@@ -623,18 +681,39 @@ export function WebsiteKompisFaqAdminPanel({
     const res = await fetch(`/api/website-kompis/faq/match-ids?${params.toString()}`);
     setBusy(false);
     if (!res.ok) {
-      matchModeRef.current = false;
+      leaveMatchMode();
+      setSelectionNote(null);
       setError(labels.listWindow.totalUnavailable);
       return;
     }
-    const body = (await res.json()) as { ids?: string[] };
+    const body = (await res.json()) as { ids?: string[]; unreadable?: number };
     if (!body.ids) {
+      leaveMatchMode();
       setError(labels.listWindow.totalUnavailable);
       return;
     }
-    matchModeRef.current = true;
+    if (body.ids.length === 0) {
+      leaveMatchMode();
+      setSelectedIds([]);
+      setSelectionNote(
+        fillLabel(labels.listWindow.matchGap, {
+          readable: 0,
+          unreadable: body.unreadable ?? 0,
+        }),
+      );
+      return;
+    }
+    enterMatchMode();
     setSelectedIds(body.ids);
     setPendingPublishIds([]);
+    setSelectionNote(
+      (body.unreadable ?? 0) > 0
+        ? fillLabel(labels.listWindow.matchGap, {
+            readable: body.ids.length,
+            unreadable: body.unreadable ?? 0,
+          })
+        : null,
+    );
   }
 
   async function reviewSelectedDrafts() {
@@ -645,6 +724,7 @@ export function WebsiteKompisFaqAdminPanel({
     setBusy(true);
     setError(null);
     let marked: string[] = [];
+    let alreadyIds: string[] = [];
     let already = reviewPlan.alreadySafeIds.length;
     let manual = reviewPlan.manualIds.length;
     let skipped = reviewPlan.skipped.length;
@@ -683,6 +763,7 @@ export function WebsiteKompisFaqAdminPanel({
         }
         marked = marked.concat(body.marked ?? []);
         if (matchModeRef.current) {
+          alreadyIds = alreadyIds.concat(body.alreadySafe ?? []);
           already += body.alreadySafe?.length ?? 0;
           manual += body.manual?.length ?? 0;
           skipped += (body.results ?? []).filter((row) => row.outcome !== "marked" && row.outcome !== "failed").length;
@@ -698,12 +779,12 @@ export function WebsiteKompisFaqAdminPanel({
           failed: failed.length,
         }),
       );
-      setPendingPublishIds(marked);
+      setPendingPublishIds(matchModeRef.current ? [...new Set([...marked, ...alreadyIds])] : marked);
       setSelectedIds(
         selectionAfterPublicSafeReview({
           selectedIds: ids,
           markedIds: marked,
-          alreadySafeIds: matchModeRef.current ? [] : reviewPlan.alreadySafeIds,
+          alreadySafeIds: matchModeRef.current ? alreadyIds : reviewPlan.alreadySafeIds,
         }).concat(failed),
       );
       setReviewOpen(false);
@@ -745,6 +826,7 @@ export function WebsiteKompisFaqAdminPanel({
       );
       setPagePublishOpen(false);
       setSelectedIds(selectionAfterVisiblePublish(failedIds));
+      leaveMatchMode();
       await refresh();
     } finally {
       setProgressLabel(null);
@@ -1164,41 +1246,47 @@ export function WebsiteKompisFaqAdminPanel({
             items={items}
             busy={busy}
             onPrevious={() => {
-              matchModeRef.current = false;
+              leaveMatchMode();
               setSelectedIds([]);
               setPagePublishOpen(false);
               setListOffset((current) => Math.max(0, current - FAQ_LIST_PAGE_SIZE));
             }}
             onNext={() => {
-              matchModeRef.current = false;
+              leaveMatchMode();
               setSelectedIds([]);
               setPagePublishOpen(false);
               setListOffset((current) => current + FAQ_LIST_PAGE_SIZE);
             }}
             onTogglePage={(checked) => {
-              matchModeRef.current = false;
+              leaveMatchMode();
               setPendingPublishIds([]);
               setSelectedIds(checked ? items.map((item) => item.id) : []);
             }}
             onClear={() => {
-              matchModeRef.current = false;
+              leaveMatchMode();
               setSelectedIds([]);
+              setSelectionNote(null);
             }}
-            matchSelection={matchModeRef.current}
+            matchSelection={matchSelection}
             onShowDrafts={() => {
               resetListScope();
               setStatusFilter("draft");
             }}
-            canPublish={pagePublishBlock === "ready" || pendingPublishIds.length > 0}
-            canReview={reviewPlan.readyIds.length > 0 || (matchModeRef.current && selectedIds.length > 0)}
-            explanation={progressLabel ?? (matchModeRef.current ? null : pagePublishExplanation)}
+            canPublish={pendingPublishIds.length > 0 || (!matchSelection && pagePublishBlock === "ready")}
+            canReview={reviewPlan.readyIds.length > 0 || (matchSelection && selectedIds.length > 0)}
+            explanation={progressLabel ?? (matchSelection ? null : pagePublishExplanation)}
+            detail={listDetail || null}
             onReview={() => {
               setReviewAck(false);
               setReviewOpen(true);
             }}
             onSelectAll={() => void selectAllMatches()}
             onPublish={() => {
-              if (pagePublishPlan.readyIds.length === 0 && pendingPublishIds.length === 0) return;
+              if (matchSelection) {
+                if (pendingPublishIds.length === 0) return;
+              } else if (pagePublishPlan.readyIds.length === 0 && pendingPublishIds.length === 0) {
+                return;
+              }
               setPagePublishOpen(true);
             }}
             summary={pagePublishSummary}
@@ -1220,10 +1308,11 @@ export function WebsiteKompisFaqAdminPanel({
                       <input
                         type="checkbox"
                         aria-label={labels.listWindow.selectPage}
-                        checked={items.length > 0 && selectedIds.length === items.length}
+                        checked={!matchSelection && items.length > 0 && selectedIds.length === items.length}
                         onChange={(event) => {
-                          matchModeRef.current = false;
+                          leaveMatchMode();
                           setPendingPublishIds([]);
+                          setSelectionNote(null);
                           setSelectedIds(event.target.checked ? items.map((item) => item.id) : []);
                         }}
                       />
@@ -1248,13 +1337,25 @@ export function WebsiteKompisFaqAdminPanel({
                           type="checkbox"
                           aria-label={fillLabel(labels.listWindow.selectRow, { title: item.title })}
                           checked={selectedIds.includes(item.id)}
-                          onChange={(event) =>
+                          onChange={(event) => {
+                            if (matchModeRef.current) {
+                              leaveMatchMode();
+                              setPendingPublishIds([]);
+                              setSelectionNote(null);
+                              const pageIds = items.map((row) => row.id);
+                              setSelectedIds(
+                                event.target.checked
+                                  ? pageIds
+                                  : pageIds.filter((id) => id !== item.id),
+                              );
+                              return;
+                            }
                             setSelectedIds((current) =>
                               event.target.checked
                                 ? [...current, item.id]
                                 : current.filter((id) => id !== item.id),
-                            )
-                          }
+                            );
+                          }}
                         />
                       </td>
                       <td className="px-4 py-3 font-medium text-slate-900">
@@ -1338,7 +1439,9 @@ export function WebsiteKompisFaqAdminPanel({
             riskyWords={[]}
             title={labels.listWindow.publishTitle}
             body={
-              pendingPublishIds.length > 0
+              matchSelection && pendingPublishIds.length > 0
+                ? fillLabel(labels.listWindow.readyToPublish, { ready: pendingPublishIds.length })
+                : pendingPublishIds.length > 0
                 ? fillLabel(labels.listWindow.publishPendingBody, {
                     site: selectedSite?.domain ?? labels.filters.all,
                     ready: pendingPublishIds.length,

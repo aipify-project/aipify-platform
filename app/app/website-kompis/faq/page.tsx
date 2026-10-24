@@ -1,7 +1,5 @@
 import { Suspense } from "react";
-import { WebsiteKompisFaqAdminPanel } from "@/components/app/website-kompis/WebsiteKompisFaqAdminPanel";
-import { WebsiteKompisKnowledgeCenterPanel } from "@/components/app/website-kompis/WebsiteKompisKnowledgeCenterPanel";
-import { AppHubShell } from "@/components/app/hubs/AppHubShell";
+import { WebsiteKompisKnowledgeCenterScreen } from "@/components/app/website-kompis/WebsiteKompisKnowledgeCenterScreen";
 import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon } from "@/lib/app-portal/hubs/hub-copy";
@@ -32,39 +30,28 @@ export default async function WebsiteKompisFaqPage() {
   const summary = await loadWebsiteKompisKnowledgeSummary(supabase);
 
   return (
-    <AppHubShell
-      breadcrumbLabel={common.breadcrumb}
-      breadcrumb={[
-        { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
-        {
-          label: t("customerApp.portalStructure.navGroups.kompisWeb"),
-          href: FOUNDATION_NAV_BINDINGS.kompisWebDashboard,
-        },
-        { label: knowledgeLabels.title },
-      ]}
-      eyebrow={t("customerApp.portalStructure.navGroups.kompisWeb")}
-      title={knowledgeLabels.title}
-      description={knowledgeLabels.subtitle}
-      contextLabel={formatHubContextLine(common, ctx)}
-      status={
-        summary.faqLoadOk
-          ? { label: `${summary.faq.published} ${knowledgeLabels.counts.published}`, tone: "emerald" }
-          : { label: knowledgeLabels.counts.unavailable, tone: "slate" }
-      }
-    >
-      <Suspense fallback={<AipifyLoadingState />}>
-        <WebsiteKompisKnowledgeCenterPanel
-          labels={knowledgeLabels}
-          summary={summary}
-          faqPanel={
-            <WebsiteKompisFaqAdminPanel
-              labels={faqLabels}
-              embedded
-              suggestFromFeedbackWarning={feedbackLabels.suggestFaqWarning}
-            />
-          }
-        />
-      </Suspense>
-    </AppHubShell>
+    <Suspense fallback={<AipifyLoadingState />}>
+      <WebsiteKompisKnowledgeCenterScreen
+        breadcrumbLabel={common.breadcrumb}
+        breadcrumb={[
+          { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
+          {
+            label: t("customerApp.portalStructure.navGroups.kompisWeb"),
+            href: FOUNDATION_NAV_BINDINGS.kompisWebDashboard,
+          },
+          { label: knowledgeLabels.title },
+        ]}
+        eyebrow={t("customerApp.portalStructure.navGroups.kompisWeb")}
+        title={knowledgeLabels.title}
+        description={knowledgeLabels.subtitle}
+        contextLabel={formatHubContextLine(common, ctx)}
+        publishedWord={knowledgeLabels.counts.published}
+        unavailableLabel={knowledgeLabels.counts.unavailable}
+        knowledgeLabels={knowledgeLabels}
+        faqLabels={faqLabels}
+        suggestFromFeedbackWarning={feedbackLabels.suggestFaqWarning}
+        initialSummary={summary}
+      />
+    </Suspense>
   );
 }

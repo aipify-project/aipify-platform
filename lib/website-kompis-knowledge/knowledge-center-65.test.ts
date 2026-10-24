@@ -56,10 +56,14 @@ assert.deepEqual(
 );
 
 const faqPage = readFileSync(join(ROOT, "app/app/website-kompis/faq/page.tsx"), "utf8");
-assert.match(faqPage, /WebsiteKompisKnowledgeCenterPanel/);
+const knowledgeScreen = readFileSync(
+  join(ROOT, "components/app/website-kompis/WebsiteKompisKnowledgeCenterScreen.tsx"),
+  "utf8",
+);
+assert.match(knowledgeScreen, /WebsiteKompisKnowledgeCenterPanel/);
 assert.match(faqPage, /loadWebsiteKompisKnowledgeSummary/);
-assert.match(faqPage, /WebsiteKompisFaqAdminPanel/);
-assert.match(faqPage, /embedded/);
+assert.match(knowledgeScreen, /WebsiteKompisFaqAdminPanel/);
+assert.match(knowledgeScreen, /embedded/);
 assert.doesNotMatch(faqPage, /kompis-bedrift\/documents/i);
 
 const hubPage = readFileSync(join(ROOT, "app/app/website-kompis/page.tsx"), "utf8");
@@ -72,7 +76,7 @@ const panel = readFileSync(
   join(ROOT, "components/app/website-kompis/WebsiteKompisKnowledgeCenterPanel.tsx"),
   "utf8",
 );
-assert.match(faqPage, /AppHubShell/);
+assert.match(knowledgeScreen, /AppHubShell/);
 assert.doesNotMatch(faqPage, /suppressPageHeader/);
 assert.match(panel, /overviewTitle/);
 assert.match(panel, /hintPublished/);

@@ -6955,7 +6955,13 @@
       "reviewBusy": "Marking as public-safe…",
       "publishPendingBody": "Website: {site}. {ready} drafts just marked public-safe will be published. Rows that were not marked stay drafts. Marking them safe did not publish them.",
       "publishProgress": "Published {done} of {total}",
-      "publicExposureWarning": "Marked drafts can later be published to anonymous website visitors. Private customer, member, employee, booking, support, or finance details must stay out."
+      "publicExposureWarning": "Marked drafts can later be published to anonymous website visitors. Private customer, member, employee, booking, support, or finance details must stay out.",
+      "fullSetHint": "This page shows {visible} of {total} filtered matches. Select all matches to work with the whole set. You do not need to open every page.",
+      "matchSelected": "{selected} filtered matches are selected, including rows that are not on this page.",
+      "reviewBeforePublish": "Review the full selection as public-safe before publishing. Sensitive wording stays for individual review. Marking does not publish.",
+      "readyToPublish": "{ready} selected drafts can be published now. Rows that were not marked stay drafts.",
+      "matchGap": "{readable} matches can be handled. {unreadable} filtered rows could not be read and stay unchanged.",
+      "draftQualification": "{already} filtered drafts are already marked safe for the public website. {needs} still need that check before publishing. Sensitive wording stays for individual review."
     },
     "filters": {
       "status": "Status",
@@ -7674,7 +7680,8 @@
       "lastUpdated": "Last updated",
       "unavailable": "Not available yet",
       "windowExact": "These figures cover the whole account list: {total}.",
-      "windowLimited": "These figures are the newest {minimum} in the account, not the whole library."
+      "windowLimited": "These figures are the newest {minimum} in the account, not the whole library.",
+      "libraryExact": "These figures are the whole library for the selected website."
     },
     "pagesUnavailableTitle": "Website page inventory is not available in APP yet",
     "pagesUnavailableBody": "Website Kompis still uses approved public site content at answer time. Listing crawl status and pages for owners requires a dedicated Core read contract — not created in this job.",

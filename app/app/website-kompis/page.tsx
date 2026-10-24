@@ -121,9 +121,11 @@ export default async function WebsiteKompisHubPage() {
         }
         knowledgeNote={
           knowledge.faqLoadOk
-            ? knowledge.faqWindow.totalState === "exact_tenant"
-              ? knowledgeLabels.counts.windowExact.replace("{total}", String(knowledge.faqWindow.tenantTotal ?? 0))
-              : t("customerApp.portalStructure.webHub.knowledgeWindowNote").replace("{minimum}", String(knowledge.faqWindow.tenantMinimum))
+            ? knowledge.faqWindow.countAvailable
+              ? knowledgeLabels.counts.libraryExact
+              : knowledge.faqWindow.totalState === "exact_tenant"
+                ? knowledgeLabels.counts.windowExact.replace("{total}", String(knowledge.faqWindow.tenantTotal ?? 0))
+                : t("customerApp.portalStructure.webHub.knowledgeWindowNote").replace("{minimum}", String(knowledge.faqWindow.tenantMinimum))
             : null
         }
         qualityTitle={feedbackLabels.dashboard.title}

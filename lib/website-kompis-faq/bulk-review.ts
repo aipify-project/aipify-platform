@@ -146,3 +146,20 @@ export function authoritativeMatchAllowed(input: {
     input.collectedIds === input.reportedTotal
   );
 }
+
+/**
+ * A finished read may return the rows that could be parsed.
+ * An unfinished page must not be treated as the whole filtered set.
+ */
+export function classifyFaqMatch(input: {
+  listEnded: boolean;
+  reportedTotal: number;
+  collectedIds: number;
+}): "full" | "readable_subset" | "reject" {
+  if (!Number.isInteger(input.reportedTotal) || input.reportedTotal < 0) return "reject";
+  if (!Number.isInteger(input.collectedIds) || input.collectedIds < 0) return "reject";
+  if (input.collectedIds > input.reportedTotal) return "reject";
+  if (input.collectedIds === input.reportedTotal) return "full";
+  if (!input.listEnded) return "reject";
+  return "readable_subset";
+}

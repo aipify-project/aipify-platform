@@ -6966,7 +6966,13 @@
       "reviewBusy": "Markerer som offentligt sikre…",
       "publishPendingBody": "Website: {site}. {ready} kladder, der netop blev markeret som offentligt sikre, bliver publiceret. Rækker, der ikke blev markeret, forbliver kladder. Markeringen publicerede dem ikke.",
       "publishProgress": "Publiceret {done} af {total}",
-      "publicExposureWarning": "Markerede udkast kan senere publiceres til anonyme besøgende. Private kunde-, medlems-, medarbejder-, booking-, support- eller økonomioplysninger må ikke komme med."
+      "publicExposureWarning": "Markerede udkast kan senere publiceres til anonyme besøgende. Private kunde-, medlems-, medarbejder-, booking-, support- eller økonomioplysninger må ikke komme med.",
+      "fullSetHint": "Denne side viser {visible} af {total} filtrerede træf. Vælg alle træf for at behandle hele sættet. Du behøver ikke gå side for side.",
+      "matchSelected": "{selected} filtrerede træf er valgt, også rækker der ikke er på denne side.",
+      "reviewBeforePublish": "Gennemgå hele udvalget og markér det som offentligt sikkert før publicering. Følsom tekst bliver stående til særskilt vurdering. Markeringen publicerer ikke.",
+      "readyToPublish": "{ready} valgte udkast kan publiceres nu. Rækker der ikke blev markeret, forbliver udkast.",
+      "matchGap": "{readable} træf kan behandles. {unreadable} filtrerede rækker kunne ikke læses og forbliver uændrede.",
+      "draftQualification": "{already} filtrerede udkast er allerede markeret som sikre for det offentlige websted. {needs} mangler den markering, før de kan publiceres. Følsom tekst holdes tilbage i kontrollen."
     },
     "filters": {
       "status": "Status",
@@ -7685,7 +7691,8 @@
       "lastUpdated": "Sidst opdateret",
       "unavailable": "Ikke tilgængelig endnu",
       "windowExact": "Tallene dækker hele listen i kontoen: {total}.",
-      "windowLimited": "Tallene er de nyeste {minimum} i kontoen, ikke hele biblioteket."
+      "windowLimited": "Tallene er de nyeste {minimum} i kontoen, ikke hele biblioteket.",
+      "libraryExact": "Tallene gælder hele biblioteket for det valgte websted."
     },
     "pagesUnavailableTitle": "Sideoversigt er ikke tilgængelig i APP endnu",
     "pagesUnavailableBody": "Website Kompis bruger stadig godkendt offentligt sideindhold ved svar. Listing af crawl-status for ejere kræver en egen Core-læsekontrakt — ikke oprettet i dette job.",
