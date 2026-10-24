@@ -557,7 +557,16 @@
     "languageSearch": "Szukaj języka lub kodu",
     "languageNoMatch": "Żaden język nie pasuje do wyszukiwania.",
     "languageList": "Język treści",
-    "languageCollation": "pl"
+    "languageCollation": "pl",
+    "localeSwitchLoading": "Wczytywanie tej wersji językowej",
+    "localeSwitchError": "Nie udało się wczytać wersji językowej. Bieżąca wersja pozostała bez zmian.",
+    "localeSwitchUnavailable": "Wersje językowe nie są jeszcze połączone. Bieżąca wersja pozostała bez zmian.",
+    "localeVersionNew": "Nowa",
+    "localeUnsavedTitle": "Zapisać zmiany przed zmianą języka?",
+    "localeUnsavedBody": "Ta wersja językowa ma niezapisane zmiany. Zmiana języka nie publikuje.",
+    "localeUnsavedKeep": "Kontynuuj edycję",
+    "localeUnsavedSave": "Zapisz szkic",
+    "localeUnsavedDiscard": "Odrzuć zmiany"
   },
   "kompisOperator": {
     "title": "Zadania",

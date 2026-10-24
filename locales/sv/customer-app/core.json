@@ -7090,7 +7090,16 @@
     "languageSearch": "Sök på språk eller kod",
     "languageNoMatch": "Inget språk matchar sökningen.",
     "languageList": "Innehållsspråk",
-    "languageCollation": "sv"
+    "languageCollation": "sv",
+    "localeSwitchLoading": "Läser in den här språkversionen",
+    "localeSwitchError": "Språkversionen kunde inte läsas in. Den aktuella versionen är oförändrad.",
+    "localeSwitchUnavailable": "Språkversioner är inte kopplade ännu. Den aktuella versionen är oförändrad.",
+    "localeVersionNew": "Ny",
+    "localeUnsavedTitle": "Spara ändringar innan språkbyte?",
+    "localeUnsavedBody": "Den här språkversionen har osparade ändringar. Språkbyte publicerar inte.",
+    "localeUnsavedKeep": "Fortsätt redigera",
+    "localeUnsavedSave": "Spara utkast",
+    "localeUnsavedDiscard": "Förkasta ändringar"
   },
   "kompisOperator": {
     "title": "Uppgifter",

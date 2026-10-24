@@ -137,6 +137,17 @@ const server = createServer(async (request, response) => {
       send(response, result.status, result.body);
       return;
     }
+    if (url.pathname === "/api/website-kompis/faq/locale-version" && request.method === "GET") {
+      const result = current.localeVersion(url.searchParams.get("itemId") ?? "", url.searchParams.get("locale") ?? "");
+      send(response, result.status, result.body);
+      return;
+    }
+    if (url.pathname === "/api/website-kompis/faq/locale-version" && request.method === "POST") {
+      const body = await readBody(request);
+      const result = current.createLocaleVersion(body as Parameters<FaqLocalFixture["createLocaleVersion"]>[0]);
+      send(response, result.status, result.body);
+      return;
+    }
     if (url.pathname === "/api/website-kompis/faq" && request.method === "GET") {
       const result = current.list(url);
       send(response, result.status, result.body);

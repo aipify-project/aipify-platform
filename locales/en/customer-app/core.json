@@ -7079,7 +7079,16 @@
     "languageSearch": "Search by language or code",
     "languageNoMatch": "No language matches that search.",
     "languageList": "Content language",
-    "languageCollation": "en"
+    "languageCollation": "en",
+    "localeSwitchLoading": "Loading this language version",
+    "localeSwitchError": "This language version could not be loaded. The current version is unchanged.",
+    "localeSwitchUnavailable": "Language versions are not linked yet. The current version is unchanged.",
+    "localeVersionNew": "New",
+    "localeUnsavedTitle": "Save changes before switching language?",
+    "localeUnsavedBody": "This language version has unsaved changes. Switching language does not publish.",
+    "localeUnsavedKeep": "Keep editing",
+    "localeUnsavedSave": "Save draft",
+    "localeUnsavedDiscard": "Discard changes"
   },
   "kompisOperator": {
     "title": "Tasks",

@@ -26,6 +26,11 @@ import {
   selectionAfterPublicSafeReview,
 } from "@/lib/website-kompis-faq/bulk-review";
 import {
+  acceptLocaleResponse,
+  emptyLocaleVersion,
+  localeDraftIsDirty,
+} from "@/lib/website-kompis-faq/locale-family";
+import {
   FAQ_GLOBAL_MATCH_SELECT_SUPPORTED,
   FAQ_LIST_PAGE_SIZE,
   buildFaqListWindow,
@@ -330,7 +335,14 @@ export function WebsiteKompisFaqAdminPanel({
   const [importOpen, setImportOpen] = useState(false);
   const publishLock = useRef(false);
   const persistedIdRef = useRef<string | null>(null);
+  const familySourceIdRef = useRef<string | null>(null);
+  const localeBaselineRef = useRef<FaqEditorState>(createEmptyDraft());
+  const localeRequestRef = useRef(0);
+  const draftRef = useRef<FaqEditorState>(createEmptyDraft());
   const openedEditRef = useRef("");
+  draftRef.current = draft;
+  const [localeLoading, setLocaleLoading] = useState(false);
+  const [pendingLocale, setPendingLocale] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<WpkfStatus | "">("");
   const [localeFilter, setLocaleFilter] = useState("");
   const [contentTypeFilter, setContentTypeFilter] = useState<WpkfContentType | "">("");
@@ -603,14 +615,17 @@ export function WebsiteKompisFaqAdminPanel({
     if (suggestQuestion) {
       const suggestLocale = searchParams.get("suggestLocale")?.trim() || "no";
       const fromFeedback = searchParams.get("fromFeedback") === "1";
-      setDraft({
+      const suggested = {
         ...createEmptyDraft(selectedSite),
         locale: suggestLocale.slice(0, 16),
         title: suggestQuestion.slice(0, 120),
         question: suggestQuestion.slice(0, 2000),
         answer: "",
-      });
+      };
       persistedIdRef.current = null;
+      familySourceIdRef.current = null;
+      localeBaselineRef.current = suggested;
+      setDraft(suggested);
       setSuggestFromFeedback(fromFeedback);
       setEditorOpen(true);
       setError(null);
@@ -638,7 +653,11 @@ export function WebsiteKompisFaqAdminPanel({
 
   function openCreate() {
     persistedIdRef.current = null;
-    setDraft(createEmptyDraft(selectedSite));
+    familySourceIdRef.current = null;
+    const next = createEmptyDraft(selectedSite);
+    localeBaselineRef.current = next;
+    setDraft(next);
+    setPendingLocale(null);
     setSuggestFromFeedback(false);
     setEditorOpen(true);
     setError(null);
@@ -647,7 +666,11 @@ export function WebsiteKompisFaqAdminPanel({
 
   function openEdit(item: WebsiteKompisFaqItem) {
     persistedIdRef.current = item.id;
-    setDraft(itemToDraft(item));
+    familySourceIdRef.current = item.id;
+    const next = itemToDraft(item);
+    localeBaselineRef.current = next;
+    setDraft(next);
+    setPendingLocale(null);
     setEditorOpen(true);
     setError(null);
     setNotice(null);
@@ -878,6 +901,10 @@ export function WebsiteKompisFaqAdminPanel({
     setPublishDialogOpen(false);
     setSuggestFromFeedback(false);
     persistedIdRef.current = null;
+    familySourceIdRef.current = null;
+    localeRequestRef.current += 1;
+    setLocaleLoading(false);
+    setPendingLocale(null);
     setDraft(createEmptyDraft(selectedSite));
   }
 
@@ -892,27 +919,50 @@ export function WebsiteKompisFaqAdminPanel({
       return null;
     }
 
-    const res = await fetch("/api/website-kompis/faq", {
+    const creatingLocaleVersion = draft.editorStatus === "new" && familySourceIdRef.current && !persistedIdRef.current;
+    if (!creatingLocaleVersion && persistedIdRef.current && draft.locale !== localeBaselineRef.current.locale) {
+      setError(labels.localeSwitchError);
+      return null;
+    }
+
+    const res = await fetch(creatingLocaleVersion ? "/api/website-kompis/faq/locale-version" : "/api/website-kompis/faq", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        itemId: persistedIdRef.current,
-        installId: draft.installId,
-        domain: draft.domain,
-        locale: draft.locale,
-        title: draft.title,
-        question: draft.question,
-        answer: draft.answer,
-        category: draft.category,
-        contentType: draft.contentType,
-        publicSafe: draft.publicSafe,
-        priority: draft.priority,
-        tags: draft.tags,
-        sourceUrl: draft.sourceUrl,
-        validFrom: expiry.validFrom,
-        validUntil: expiry.validUntil,
-        lastReviewedAt: draft.lastReviewedAt,
-      }),
+      body: JSON.stringify(
+        creatingLocaleVersion
+          ? {
+              sourceItemId: familySourceIdRef.current,
+              locale: draft.locale,
+              title: draft.title,
+              question: draft.question,
+              answer: draft.answer,
+              category: draft.category,
+              contentType: draft.contentType,
+              priority: draft.priority,
+              tags: draft.tags,
+              sourceUrl: draft.sourceUrl,
+              validFrom: expiry.validFrom,
+              validUntil: expiry.validUntil,
+            }
+          : {
+              itemId: persistedIdRef.current,
+              installId: draft.installId,
+              domain: draft.domain,
+              locale: draft.locale,
+              title: draft.title,
+              question: draft.question,
+              answer: draft.answer,
+              category: draft.category,
+              contentType: draft.contentType,
+              publicSafe: draft.publicSafe,
+              priority: draft.priority,
+              tags: draft.tags,
+              sourceUrl: draft.sourceUrl,
+              validFrom: expiry.validFrom,
+              validUntil: expiry.validUntil,
+              lastReviewedAt: draft.lastReviewedAt,
+            },
+      ),
     });
 
     const body = (await res.json()) as { id?: string; status?: WpkfStatus; error?: string };
@@ -922,14 +972,17 @@ export function WebsiteKompisFaqAdminPanel({
     }
 
     persistedIdRef.current = body.id;
-    setDraft((current) => ({
-      ...current,
-      itemId: body.id ?? current.itemId,
-      editorStatus: body.status ?? current.editorStatus,
+    familySourceIdRef.current = body.id;
+    const savedDraft: FaqEditorState = {
+      ...draft,
+      itemId: body.id,
+      editorStatus: body.status,
       validFrom: expiry.validFrom,
       validUntil: expiry.validUntil,
       permanent: expiry.validUntil == null,
-    }));
+    };
+    localeBaselineRef.current = savedDraft;
+    setDraft(savedDraft);
     return { id: body.id, status: body.status };
   }
 
@@ -945,6 +998,105 @@ export function WebsiteKompisFaqAdminPanel({
       await refresh();
     }
     setBusy(false);
+  }
+
+  async function applyLocale(locale: string) {
+    const sourceId = persistedIdRef.current ?? familySourceIdRef.current;
+    if (!sourceId) {
+      setDraft((current) => ({ ...current, locale }));
+      return;
+    }
+    const requestId = localeRequestRef.current + 1;
+    localeRequestRef.current = requestId;
+    const previous = draftRef.current;
+    setLocaleLoading(true);
+    setError(null);
+    setDraft(
+      emptyLocaleVersion(
+        {
+          installId: previous.installId ?? null,
+          domain: previous.domain ?? null,
+          contentType: previous.contentType,
+          priority: previous.priority,
+        },
+        locale,
+      ),
+    );
+    try {
+      const res = await fetch(
+        `/api/website-kompis/faq/locale-version?itemId=${encodeURIComponent(sourceId)}&locale=${encodeURIComponent(locale)}`,
+      );
+      const body = (await res.json().catch(() => null)) as {
+        outcome?: string;
+        code?: string;
+        item?: WebsiteKompisFaqItem;
+      } | null;
+      if (!acceptLocaleResponse(requestId, localeRequestRef.current)) return;
+      if (!res.ok || !body) {
+        setDraft(previous);
+        setError(body?.code === "translation_group_unavailable" ? labels.localeSwitchUnavailable : labels.localeSwitchError);
+        return;
+      }
+      if (body.outcome === "found" && body.item) {
+        const next = itemToDraft(body.item);
+        persistedIdRef.current = next.itemId ?? null;
+        familySourceIdRef.current = next.itemId ?? sourceId;
+        localeBaselineRef.current = next;
+        setDraft(next);
+        return;
+      }
+      if (body.outcome === "missing") {
+        const next: FaqEditorState = emptyLocaleVersion(
+          {
+            installId: previous.installId ?? null,
+            domain: previous.domain ?? null,
+            contentType: previous.contentType,
+            priority: previous.priority,
+          },
+          locale,
+        );
+        persistedIdRef.current = null;
+        familySourceIdRef.current = sourceId;
+        localeBaselineRef.current = next;
+        setDraft(next);
+        return;
+      }
+      setDraft(previous);
+      setError(labels.localeSwitchError);
+    } finally {
+      if (acceptLocaleResponse(requestId, localeRequestRef.current)) setLocaleLoading(false);
+    }
+  }
+
+  function requestLocaleSwitch(locale: string) {
+    if (locale === draft.locale || localeLoading) return;
+    if (!persistedIdRef.current && !familySourceIdRef.current) {
+      setDraft((current) => ({ ...current, locale }));
+      return;
+    }
+    if (localeDraftIsDirty(draft, localeBaselineRef.current)) {
+      setPendingLocale(locale);
+      return;
+    }
+    void applyLocale(locale);
+  }
+
+  async function confirmLocaleSwitch(action: "keep" | "save" | "discard") {
+    const locale = pendingLocale;
+    if (!locale) return;
+    if (action === "keep") {
+      setPendingLocale(null);
+      return;
+    }
+    if (action === "save") {
+      if (draft.editorStatus === "published") return;
+      setBusy(true);
+      const saved = await persistEditor(labels.errorGeneric);
+      setBusy(false);
+      if (!saved) return;
+    }
+    setPendingLocale(null);
+    await applyLocale(locale);
   }
 
   async function runAction(action: "unpublish" | "archive" | "restore", itemId: string) {
@@ -1562,9 +1714,18 @@ export function WebsiteKompisFaqAdminPanel({
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="flex items-center justify-between gap-3">
-              <h2 className="text-lg font-semibold text-slate-900">
-                {draft.itemId ? labels.edit : labels.create}
-              </h2>
+              <div>
+                <h2 className="text-lg font-semibold text-slate-900">
+                  {draft.itemId ? labels.edit : labels.create}
+                </h2>
+                <p className="text-sm text-slate-600">
+                  {localeLoading
+                    ? labels.localeSwitchLoading
+                    : draft.editorStatus === "new"
+                      ? labels.localeVersionNew
+                      : labels.statuses[draft.editorStatus]}
+                </p>
+              </div>
               <button
                 type="button"
                 onClick={closeEditor}
@@ -1584,6 +1745,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.title}</span>
                 <input
                   value={draft.title}
+                  disabled={localeLoading}
                   onChange={(event) => setDraft((current) => ({ ...current, title: event.target.value }))}
                   className="w-full rounded-md border border-slate-300 px-3 py-2"
                 />
@@ -1593,6 +1755,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.question}</span>
                 <input
                   value={draft.question ?? ""}
+                  disabled={localeLoading}
                   onChange={(event) =>
                     setDraft((current) => ({ ...current, question: event.target.value }))
                   }
@@ -1604,6 +1767,7 @@ export function WebsiteKompisFaqAdminPanel({
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.answer}</span>
                 <textarea
                   value={draft.answer}
+                  disabled={localeLoading}
                   onChange={(event) => setDraft((current) => ({ ...current, answer: event.target.value }))}
                   rows={6}
                   className="w-full rounded-md border border-slate-300 px-3 py-2"
@@ -1625,13 +1789,32 @@ export function WebsiteKompisFaqAdminPanel({
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.locale}</span>
                 <FaqContentLanguagePicker
                   value={draft.locale}
-                  onChange={(locale) => setDraft((current) => ({ ...current, locale }))}
+                  onChange={requestLocaleSwitch}
                   labels={labels.locales}
                   searchLabel={labels.languageSearch}
                   noMatchLabel={labels.languageNoMatch}
                   listLabel={labels.languageList}
                   collationLocale={labels.languageCollation}
                 />
+                {pendingLocale ? (
+                  <div className="mt-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800">
+                    <p className="font-medium">{labels.localeUnsavedTitle}</p>
+                    <p className="mt-1">{labels.localeUnsavedBody}</p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      <button type="button" className="rounded-md border border-slate-300 px-2 py-1" onClick={() => void confirmLocaleSwitch("keep")}>
+                        {labels.localeUnsavedKeep}
+                      </button>
+                      {draft.editorStatus === "published" ? null : (
+                        <button type="button" className="rounded-md border border-slate-300 px-2 py-1" onClick={() => void confirmLocaleSwitch("save")}>
+                          {labels.localeUnsavedSave}
+                        </button>
+                      )}
+                      <button type="button" className="rounded-md border border-slate-300 px-2 py-1" onClick={() => void confirmLocaleSwitch("discard")}>
+                        {labels.localeUnsavedDiscard}
+                      </button>
+                    </div>
+                  </div>
+                ) : null}
               </div>
 
               <label className="text-sm">

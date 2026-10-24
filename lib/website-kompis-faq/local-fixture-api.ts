@@ -3,7 +3,8 @@
  * Not imported by the Customer App. Production builds must not serve it.
  */
 import { FAQ_MATCH_PAGE_CAP, FAQ_MATCH_PAGE_SIZE, FAQ_PUBLIC_SAFE_BATCH_SIZE, authoritativeMatchAllowed, planPublicSafeReview } from "@/lib/website-kompis-faq/bulk-review";
-import type { WpkfStatus } from "@/lib/website-kompis-faq/constants";
+import type { WpkfContentType, WpkfStatus } from "@/lib/website-kompis-faq/constants";
+import { lookupExplicitFaqLocale } from "@/lib/website-kompis-faq/locale-family";
 import type { WebsiteKompisFaqItem } from "@/lib/website-kompis-faq/types";
 import { applyAuthoritativeFaqCount, buildFaqListWindow, type FaqListWindow } from "@/lib/website-kompis-faq/list-window";
 import { filterWebsiteKompisFaqItemsForSiteContext } from "@/lib/website-kompis-site-context/filter";
@@ -87,6 +88,7 @@ export function createFixtureRows(count: number): FixtureRow[] {
       publishedAt: status === "published" ? nowIso() : null,
       createdAt: nowIso(),
       updatedAt: nowIso(),
+      translationGroupId: fixtureId(index),
     });
   }
   return rows;
@@ -347,6 +349,88 @@ export class FaqLocalFixture {
     row.status = "published";
     row.publishedAt = nowIso();
     return { status: 200, body: { id: row.id, status: "published" } };
+  }
+
+  localeVersion(sourceId: string, locale: string): FixtureResult {
+    const denied = this.denied();
+    if (denied) return denied;
+    const lookup = lookupExplicitFaqLocale(this.rows, sourceId, locale);
+    if (lookup.outcome === "not_found") return { status: 404, body: { error: "FAQ item not found" } };
+    if (lookup.outcome === "unlinked") {
+      return { status: 503, body: { error: "FAQ language family is not available", code: "translation_group_unavailable" } };
+    }
+    if (lookup.outcome === "ambiguous") {
+      return { status: 409, body: { error: "FAQ language version could not be loaded", code: "locale_version_failed" } };
+    }
+    if (lookup.outcome === "missing") {
+      return {
+        status: 200,
+        body: {
+          outcome: "missing",
+          sourceItemId: lookup.sourceId,
+          translationGroupId: lookup.translationGroupId,
+        },
+      };
+    }
+    return { status: 200, body: { outcome: "found", item: lookup.row } };
+  }
+
+  createLocaleVersion(body: {
+    sourceItemId?: string;
+    locale?: string;
+    title?: string;
+    question?: string | null;
+    answer?: string;
+    category?: string | null;
+    contentType?: WpkfContentType;
+    priority?: number;
+    tags?: string[];
+    sourceUrl?: string | null;
+    publicSafe?: boolean;
+  }): FixtureResult {
+    const denied = this.denied();
+    if (denied) return denied;
+    const sourceId = body.sourceItemId ?? "";
+    const locale = (body.locale ?? "").trim().toLowerCase();
+    const title = (body.title ?? "").trim();
+    const answer = (body.answer ?? "").trim();
+    if (!sourceId || !locale || !title || !answer) {
+      return { status: 400, body: { error: "FAQ language version is invalid", code: "invalid_locale_version" } };
+    }
+    const lookup = lookupExplicitFaqLocale(this.rows, sourceId, locale);
+    if (lookup.outcome === "not_found") return { status: 404, body: { error: "FAQ item not found" } };
+    if (lookup.outcome === "unlinked") {
+      return { status: 503, body: { error: "FAQ language family is not available", code: "translation_group_unavailable" } };
+    }
+    if (lookup.outcome !== "missing") {
+      return { status: 409, body: { error: "FAQ language version already exists", code: "locale_version_exists" } };
+    }
+    const source = this.rows.find((row) => row.id === sourceId)!;
+    const created: FixtureRow = {
+      id: `10000000-0000-4000-8000-${(this.rows.length + 1).toString(16).padStart(12, "0")}`,
+      installId: source.installId,
+      domain: source.domain,
+      locale,
+      title,
+      question: body.question?.trim() || null,
+      answer,
+      category: body.category?.trim() || null,
+      contentType: body.contentType ?? source.contentType,
+      status: "draft",
+      publicSafe: false,
+      priority: body.priority ?? source.priority,
+      tags: body.tags ?? [],
+      sourceUrl: body.sourceUrl?.trim() || null,
+      validFrom: null,
+      validUntil: null,
+      lastReviewedAt: null,
+      publishedAt: null,
+      createdAt: nowIso(),
+      updatedAt: nowIso(),
+      translationGroupId: source.translationGroupId,
+    };
+    this.rows.push(created);
+    return { status: 200, body: { id: created.id, status: "draft", created: true } };
   }
 
   stats() {

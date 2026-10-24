@@ -21,6 +21,7 @@ export type WebsiteKompisFaqItem = {
   publishedAt: string | null;
   createdAt: string;
   updatedAt: string;
+  translationGroupId?: string | null;
   scope?: {
     scopeKind: "site_scoped" | "legacy_tenant_global";
     isLegacyTenantGlobal: boolean;

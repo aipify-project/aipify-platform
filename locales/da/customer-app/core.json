@@ -7090,7 +7090,16 @@
     "languageSearch": "Søg efter sprog eller kode",
     "languageNoMatch": "Intet sprog matcher søgningen.",
     "languageList": "Indholdssprog",
-    "languageCollation": "da"
+    "languageCollation": "da",
+    "localeSwitchLoading": "Indlæser denne sprogversion",
+    "localeSwitchError": "Sprogversionen kunne ikke indlæses. Den nuværende version er uændret.",
+    "localeSwitchUnavailable": "Sprogversioner er ikke knyttet endnu. Den nuværende version er uændret.",
+    "localeVersionNew": "Ny",
+    "localeUnsavedTitle": "Gem ændringer før sprogskift?",
+    "localeUnsavedBody": "Denne sprogversion har ugemte ændringer. Sprogskift publicerer ikke.",
+    "localeUnsavedKeep": "Fortsæt med at redigere",
+    "localeUnsavedSave": "Gem kladde",
+    "localeUnsavedDiscard": "Kassér ændringer"
   },
   "kompisOperator": {
     "title": "Opgaver",

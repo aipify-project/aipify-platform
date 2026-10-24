@@ -557,7 +557,16 @@
     "languageSearch": "Шукати мову або код",
     "languageNoMatch": "Жодна мова не відповідає пошуку.",
     "languageList": "Мова вмісту",
-    "languageCollation": "uk"
+    "languageCollation": "uk",
+    "localeSwitchLoading": "Завантаження цієї мовної версії",
+    "localeSwitchError": "Не вдалося завантажити мовну версію. Поточна версія не змінена.",
+    "localeSwitchUnavailable": "Мовні версії ще не пов’язані. Поточна версія не змінена.",
+    "localeVersionNew": "Нова",
+    "localeUnsavedTitle": "Зберегти зміни перед зміною мови?",
+    "localeUnsavedBody": "У цієї мовної версії є незбережені зміни. Зміна мови не публікує.",
+    "localeUnsavedKeep": "Продовжити редагування",
+    "localeUnsavedSave": "Зберегти чернетку",
+    "localeUnsavedDiscard": "Відхилити зміни"
   },
   "kompisOperator": {
     "title": "Завдання",
