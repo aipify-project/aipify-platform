@@ -44,6 +44,12 @@ const SYNONYM_FAMILIES: Array<{ match: RegExp; tokens: string[] }> = [
     match: /\b(sikkerhet\w*|trygg\w*|safety|secure|verification|verifiser\w*)\b/i,
     tokens: ["sikkerhet", "safety", "trygg", "verifisering", "verification"],
   },
+  {
+    // Narrow gift paraphrase across NO/EN/SV/DA. Not English "gave up".
+    match:
+      /\b(presang\w*|gåv(?:a|or|an)|gaver|gaven|gave(?!\s+up\b)|gifts?|gifting|presents?)\b/i,
+    tokens: ["presang", "gave", "gåva", "gift", "gavekort", "present"],
+  },
 ];
 
 function tokenize(text: string): string[] {

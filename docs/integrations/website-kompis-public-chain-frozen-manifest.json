@@ -80,7 +80,7 @@
     {
       "path": "lib/marketing/website-kompis-retrieval-intent.ts",
       "role": "Bounded intent/retrieval rewrite",
-      "sha256": "c1877f442499bc81390d80a8e64663fe10d99a8627f7de54a4e50264f618e53c"
+      "sha256": "b37d7558f9a5903da6cb73c742870ce07457d1bb02bc02a2928378d342f29940"
     },
     {
       "path": "lib/marketing/website-kompis-answer-relevance.ts",
@@ -230,7 +230,7 @@
     {
       "path": "lib/marketing/website-kompis-public-site-index/answer.ts",
       "role": "Site-index ranking + answer",
-      "sha256": "f26397d141397d7a87906279e1f191b06afbb68f042a1e6342f0e3d5f7b71643"
+      "sha256": "ca986a921136408a09b142c21d52bf84398948073aa6f3084432010515277ce4"
     },
     {
       "path": "lib/marketing/website-kompis-public-site-index/index.ts",
