@@ -3,6 +3,16 @@
   "recordedAgainst": "d83d74b98ce45060b4e0cd91a40caf228f32ead8",
   "manifestCommit": "9fba6af8",
   "note": "These hashes are observed Production drift. They are not a new freeze baseline. A later edit must update this ledger and the manifest together, in a task that names Website Kompis Public Chain.",
+  "pendingOwnerCandidate": {
+    "status": "pending owner approval",
+    "date": "2026-10-25",
+    "file": "lib/marketing/website-kompis-grounded-answer.ts",
+    "baselineSha256": "e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82",
+    "proposedSha256": "aa8a0ed816cfac3bccb0beb97595a905b5eafa8e04044092b888a6dfb818932f",
+    "productPatchSha256": "19eb6f4104e9d98c532abcb653595f66e24a08c5f95e7ba17d177de48d158b19",
+    "reason": "Candidate only. One written content token may match a controlled synonym when the verified URL and the snippet both carry that family. This object is not an owner approval. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate.",
+    "filesArrayUnchanged": true
+  },
   "sourceSelectionApproval": {
     "date": "2026-10-24",
     "names": "Website Kompis Public Chain",

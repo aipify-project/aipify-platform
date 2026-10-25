@@ -100,7 +100,7 @@
     {
       "path": "lib/marketing/website-kompis-grounded-answer.ts",
       "role": "Evidence pack + provider grounded path",
-      "sha256": "e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82"
+      "sha256": "aa8a0ed816cfac3bccb0beb97595a905b5eafa8e04044092b888a6dfb818932f"
     },
     {
       "path": "lib/marketing/website-kompis-public-answer-policy.ts",
