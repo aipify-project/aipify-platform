@@ -228,6 +228,94 @@ function isSpecificPublicFaqArticlePath(pathname: string): boolean {
 }
 
 /**
+ * Definite -en/-et on long compounds only, for the search string.
+ * "medlemskapsguiden" can match a title "Medlemskapsguide".
+ * "sikkerhetssenteret" can match "Sikkerhetssenter".
+ * Tokens shorter than 14 stay whole, so "medlemskapet" does not become "medlemskap".
+ */
+function definiteCompoundStem(token: string): string | null {
+  const lower = token.toLowerCase();
+  if (lower.length < 14) return null;
+  if (!lower.endsWith("en") && !lower.endsWith("et")) return null;
+  const stem = lower.slice(0, -2);
+  if (stem.length < 12) return null;
+  return stem;
+}
+
+function isExplanatoryPublicPath(pathname: string): boolean {
+  const path = pathname.toLowerCase().replace(/\/+$/, "") || "/";
+  return /\/(?:how-it-works|about|om-oss)$/.test(path);
+}
+
+function isCommerceHubPath(pathname: string): boolean {
+  return /\/shop(?:\/|$)/i.test(pathname);
+}
+
+function questionAsksForShop(question: string): boolean {
+  return /\b(shop|butikk\w*|stores?|kjøp\w*|kjop\w*|buy|purchase)\b/i.test(question);
+}
+
+function isDefinitionalOrHowItWorksQuestion(question: string): boolean {
+  const trimmed = question.trim();
+  if (/^(?:hva er|what is|what's|vad är|vad ar|hvad er)\b/i.test(trimmed)) return true;
+  return /\b(hvordan fungerer|hur fungerar|hvordan virker|sådan fungerer|how it works|how does it work)\b/i.test(
+    trimmed,
+  );
+}
+
+function hitCoversToken(hit: PublicSiteIndexHit, token: string): boolean {
+  return textHasTopicToken(
+    `${hit.title} ${hit.pathname} ${hit.excerpt} ${hit.chunkContent}`,
+    token,
+  );
+}
+
+/**
+ * When an explanatory page is already in the candidate window, do not let
+ * shop, terms, or a generic FAQ hub outrank it. Pages outside that window
+ * are not visible here.
+ */
+function preferExplanatoryCandidate(
+  scored: Array<{ hit: PublicSiteIndexHit; topicScore: number }>,
+  topics: string[],
+  question: string,
+): Array<{ hit: PublicSiteIndexHit; topicScore: number }> {
+  if (questionAsksForShop(question)) return scored;
+  const explanatory = scored.filter(
+    (entry) =>
+      isExplanatoryPublicPath(entry.hit.pathname) &&
+      entry.topicScore >= PUBLIC_SITE_INDEX_MIN_TOPIC_OVERLAP,
+  );
+  if (explanatory.length === 0) return scored;
+
+  const keepGuide = (entry: { hit: PublicSiteIndexHit }) =>
+    !isPublicSiteIndexHubPath(entry.hit.pathname) &&
+    !isCommerceHubPath(entry.hit.pathname);
+
+  if (isDefinitionalOrHowItWorksQuestion(question)) {
+    return scored.filter(keepGuide);
+  }
+
+  const longTokens = topics.filter((token) => token.length >= 8);
+  const explained = new Set(
+    longTokens.filter((token) =>
+      explanatory.some((entry) => hitCoversToken(entry.hit, token)),
+    ),
+  );
+  if (explained.size === 0) return scored;
+
+  return scored.filter((entry) => {
+    const hubOrShop =
+      isPublicSiteIndexHubPath(entry.hit.pathname) ||
+      isCommerceHubPath(entry.hit.pathname);
+    if (!hubOrShop) return true;
+    return longTokens.some(
+      (token) => hitCoversToken(entry.hit, token) && !explained.has(token),
+    );
+  });
+}
+
+/**
  * Narrow long natural-language questions to topic tokens so RPC ranking
  * is not dominated by process verbs ("fungerer"/"works") matching boilerplate titles.
  */
@@ -236,7 +324,12 @@ export function focusPublicSiteIndexQuery(question: string): string {
   if (trimmed.length < 2) return trimmed;
   const topics = topicTokensForPublicSiteIndex(trimmed);
   if (topics.length === 0) return trimmed;
-  const focused = topics.join(" ");
+  const stems = topics.flatMap((token) => {
+    const stem = definiteCompoundStem(token);
+    if (stem === null || topics.includes(stem)) return [];
+    return [stem];
+  });
+  const focused = [...topics, ...stems].join(" ");
   // Keep original when focusing would drop too much signal (very short queries).
   if (focused.length < 3) return trimmed;
   return focused;
@@ -347,14 +440,17 @@ export function filterAndRankPublicSiteIndexHits(
 
   if (scored.length === 0) return [];
 
+  const narrowed = preferExplanatoryCandidate(scored, topics, question);
+  if (narrowed.length === 0) return [];
+
   // When a clear topical winner exists, drop weak keyword-only companions (terms/faq).
-  const best = scored[0].topicScore;
+  const best = narrowed[0].topicScore;
   const floor =
     best >= 6
       ? Math.max(PUBLIC_SITE_INDEX_MIN_TOPIC_OVERLAP, Math.floor(best * 0.35))
       : PUBLIC_SITE_INDEX_MIN_TOPIC_OVERLAP;
 
-  return scored.filter((entry) => entry.topicScore >= floor).map((entry) => entry.hit);
+  return narrowed.filter((entry) => entry.topicScore >= floor).map((entry) => entry.hit);
 }
 
 export function isRelevantPublicSiteIndexResult(
