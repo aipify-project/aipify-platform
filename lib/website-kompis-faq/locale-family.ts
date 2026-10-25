@@ -55,6 +55,7 @@ export type LocaleDraftSnapshot = {
   validFrom?: string | null;
   validUntil?: string | null;
   permanent: boolean;
+  lastReviewedAt?: string | null;
 };
 
 function sameWebsite(left: FaqLocaleMember, right: FaqLocaleMember): boolean {
@@ -124,7 +125,8 @@ export function localeDraftIsDirty(current: LocaleDraftSnapshot, baseline: Local
     (current.sourceUrl ?? "") !== (baseline.sourceUrl ?? "") ||
     current.permanent !== baseline.permanent ||
     (current.validFrom ?? "") !== (baseline.validFrom ?? "") ||
-    (current.validUntil ?? "") !== (baseline.validUntil ?? "")
+    (current.validUntil ?? "") !== (baseline.validUntil ?? "") ||
+    (current.lastReviewedAt ?? "") !== (baseline.lastReviewedAt ?? "")
   );
 }
 

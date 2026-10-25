@@ -136,6 +136,17 @@ assert.equal(anonymous.localeVersion(anonymous.rows[0]!.id, "es").status, 401);
 
 assert.equal(localeDraftIsDirty({ ...blank, title: "Ulagret" }, blank), true);
 assert.equal(localeDraftIsDirty(blank, blank), false);
+assert.equal(
+  localeDraftIsDirty({ ...blank, lastReviewedAt: "2026-10-25T10:00:00.000Z" }, blank),
+  true,
+);
+assert.equal(
+  localeDraftIsDirty(
+    { ...blank, lastReviewedAt: "2026-10-25T10:00:00.000Z" },
+    { ...blank, lastReviewedAt: "2026-10-25T10:00:00.000Z" },
+  ),
+  false,
+);
 assert.equal(acceptLocaleResponse(2, 2), true);
 assert.equal(acceptLocaleResponse(1, 2), false);
 
