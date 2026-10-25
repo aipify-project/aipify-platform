@@ -234,9 +234,22 @@ const APPROVED_SOURCE_SELECTION_SHA256: Record<string, string> = {
   "lib/marketing/website-kompis-grounded-answer.ts": "e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82",
   "lib/marketing/website-kompis-public-boundary.ts": "33d11e807f80f2458d23b82b26aa9fdb793c5a6a56051923f2f2ca1e14ff79ca",
 };
+/** Pending Evidence Gate candidate. Not an owner approval of the new hash. */
+const EVIDENCE_GATE_CANDIDATE_PATH = "lib/marketing/website-kompis-grounded-answer.ts";
+const EVIDENCE_GATE_CANDIDATE_SHA256 =
+  "aa8a0ed816cfac3bccb0beb97595a905b5eafa8e04044092b888a6dfb818932f";
+const EVIDENCE_GATE_CANDIDATE_PATCH_SHA256 =
+  "19eb6f4104e9d98c532abcb653595f66e24a08c5f95e7ba17d177de48d158b19";
 const manifestByPath = Object.fromEntries(manifest.protectedRuntimeFiles.map((entry) => [entry.path, entry.sha256]));
 for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_SHA256)) {
   const digest = createHash("sha256").update(read(filePath)).digest("hex");
+  if (filePath === EVIDENCE_GATE_CANDIDATE_PATH) {
+    assert.equal(approvedSha, "e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82", filePath);
+    assert.notEqual(digest, approvedSha, filePath);
+    assert.equal(digest, EVIDENCE_GATE_CANDIDATE_SHA256, filePath);
+    assert.equal(manifestByPath[filePath], EVIDENCE_GATE_CANDIDATE_SHA256, filePath);
+    continue;
+  }
   assert.equal(digest, approvedSha, filePath);
   if (filePath === "lib/marketing/public-companion-ask.ts") {
     assert.equal(manifestByPath[filePath], "4ec48ee373ab7dc11bf39f07abff0317708c89df265513517499988ae9575682");
@@ -245,8 +258,24 @@ for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_S
   }
 }
 const driftLedger = JSON.parse(read("docs/integrations/website-kompis-public-chain-observed-drift.json")) as {
+  pendingOwnerCandidate?: {
+    status: string;
+    file: string;
+    baselineSha256: string;
+    proposedSha256: string;
+    productPatchSha256: string;
+  };
   files: Array<{ path: string; manifestSha256: string; observedSha256: string; previousObservedSha256?: string }>;
 };
+assert.equal(driftLedger.pendingOwnerCandidate?.status, "pending owner approval");
+assert.equal(driftLedger.pendingOwnerCandidate?.file, EVIDENCE_GATE_CANDIDATE_PATH);
+assert.equal(
+  driftLedger.pendingOwnerCandidate?.baselineSha256,
+  APPROVED_SOURCE_SELECTION_SHA256[EVIDENCE_GATE_CANDIDATE_PATH],
+);
+assert.equal(driftLedger.pendingOwnerCandidate?.proposedSha256, EVIDENCE_GATE_CANDIDATE_SHA256);
+assert.equal(driftLedger.pendingOwnerCandidate?.productPatchSha256, EVIDENCE_GATE_CANDIDATE_PATCH_SHA256);
+assert.equal(driftLedger.files.some((file) => file.path === EVIDENCE_GATE_CANDIDATE_PATH), false);
 const askDrift = driftLedger.files.find((file) => file.path === "lib/marketing/public-companion-ask.ts");
 assert.equal(askDrift?.observedSha256, APPROVED_SOURCE_SELECTION_SHA256["lib/marketing/public-companion-ask.ts"]);
 assert.equal(askDrift?.previousObservedSha256, "ea6f4ec0250339b24a63313d5c87b5c8179b4862e14e31e1964bf9f215f52928");

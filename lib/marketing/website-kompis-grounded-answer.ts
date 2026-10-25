@@ -13,6 +13,7 @@ import {
   neutralizeUntrustedPageEvidence,
   topicTokensForPublicSiteIndex,
 } from "@/lib/marketing/website-kompis-public-site-index";
+import { expandWebsiteKompisTopicBoostTokens } from "@/lib/marketing/website-kompis-retrieval-intent";
 import {
   dedupeCompanionSourcesByRoute,
   isProductOrPriceVisitorQuestion,
@@ -248,6 +249,47 @@ function tokensWrittenInQuestion(question: string): string[] {
   return distinctiveEvidenceTopics(question).filter((token) => written.has(token));
 }
 
+/**
+ * Inflection after a controlled family token.
+ * gave/gaver and gift/gifting stay in the family.
+ * presentation and giftig do not.
+ */
+const CONTROLLED_SYNONYM_INFLECTION = /^(?:e|en|et|er|ene|a|or|an|s|ing|r)$/;
+
+function wordCarriesControlledSynonym(word: string, token: string): boolean {
+  if (word === token) return true;
+  if (token.length < 4 || word.length <= token.length) return false;
+  if (!word.startsWith(token)) return false;
+  return CONTROLLED_SYNONYM_INFLECTION.test(word.slice(token.length));
+}
+
+function textCarriesControlledSynonym(text: string, tokens: string[]): boolean {
+  const words = wholeTopicTokens(text);
+  return tokens.some((token) =>
+    words.some((word) => wordCarriesControlledSynonym(word, token)),
+  );
+}
+
+/**
+ * Retrieval already expands a triggered synonym family into the search string.
+ * Evidence may use that same family only when the verified URL and the snippet
+ * each carry a family token. A body-only mention, a missing URL, or a wrong
+ * host (URL stripped upstream) is not evidence.
+ */
+function snippetHasControlledSynonymEvidence(
+  item: WebsiteKompisEvidenceSnippet,
+  question: string,
+): boolean {
+  if (!item.url) return false;
+  const tokens = expandWebsiteKompisTopicBoostTokens(question);
+  if (tokens.length === 0) return false;
+  const titleAndUrl = `${item.title} ${item.url}`;
+  return (
+    textCarriesControlledSynonym(titleAndUrl, tokens) &&
+    textCarriesControlledSynonym(item.text, tokens)
+  );
+}
+
 function evidenceTopicScore(
   item: WebsiteKompisEvidenceSnippet,
   topicTokens: string[],
@@ -305,7 +347,9 @@ export function evidenceSnippetMatchesQuestionTopic(
     );
     return specificHits.length >= 2 || titleHits.length >= 1;
   }
-  if (specific.length === 1) return specificHits.length === 1;
+  if (specific.length === 1) {
+    return specificHits.length === 1 || snippetHasControlledSynonymEvidence(item, question);
+  }
   const hits = topics.filter((token) => textHasWholeTopicToken(corpus, token));
   return new Set(hits).size >= 2;
 }
