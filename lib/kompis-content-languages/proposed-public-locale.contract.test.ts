@@ -234,20 +234,22 @@ const APPROVED_SOURCE_SELECTION_SHA256: Record<string, string> = {
   "lib/marketing/website-kompis-grounded-answer.ts": "e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82",
   "lib/marketing/website-kompis-public-boundary.ts": "33d11e807f80f2458d23b82b26aa9fdb793c5a6a56051923f2f2ca1e14ff79ca",
 };
-/** Pending Evidence Gate candidate. Not an owner approval of the new hash. */
-const EVIDENCE_GATE_CANDIDATE_PATH = "lib/marketing/website-kompis-grounded-answer.ts";
-const EVIDENCE_GATE_CANDIDATE_SHA256 =
+/** Delivered Evidence Gate hash. The 2026-10-24 map above stays the older baseline. */
+const EVIDENCE_GATE_DELIVERED_PATH = "lib/marketing/website-kompis-grounded-answer.ts";
+const EVIDENCE_GATE_DELIVERED_SHA256 =
   "aa8a0ed816cfac3bccb0beb97595a905b5eafa8e04044092b888a6dfb818932f";
-const EVIDENCE_GATE_CANDIDATE_PATCH_SHA256 =
+const EVIDENCE_GATE_DELIVERED_PATCH_SHA256 =
   "19eb6f4104e9d98c532abcb653595f66e24a08c5f95e7ba17d177de48d158b19";
+const EVIDENCE_GATE_DELIVERED_DIFF_SHA256 =
+  "1d43f5ad36200c5638ab945c7cd631bfebe68fda1fc1e3058f043655b5d5305b";
 const manifestByPath = Object.fromEntries(manifest.protectedRuntimeFiles.map((entry) => [entry.path, entry.sha256]));
 for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_SHA256)) {
   const digest = createHash("sha256").update(read(filePath)).digest("hex");
-  if (filePath === EVIDENCE_GATE_CANDIDATE_PATH) {
+  if (filePath === EVIDENCE_GATE_DELIVERED_PATH) {
     assert.equal(approvedSha, "e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82", filePath);
     assert.notEqual(digest, approvedSha, filePath);
-    assert.equal(digest, EVIDENCE_GATE_CANDIDATE_SHA256, filePath);
-    assert.equal(manifestByPath[filePath], EVIDENCE_GATE_CANDIDATE_SHA256, filePath);
+    assert.equal(digest, EVIDENCE_GATE_DELIVERED_SHA256, filePath);
+    assert.equal(manifestByPath[filePath], EVIDENCE_GATE_DELIVERED_SHA256, filePath);
     continue;
   }
   assert.equal(digest, approvedSha, filePath);
@@ -258,24 +260,65 @@ for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_S
   }
 }
 const driftLedger = JSON.parse(read("docs/integrations/website-kompis-public-chain-observed-drift.json")) as {
-  pendingOwnerCandidate?: {
+  pendingOwnerCandidate?: { status: string };
+  closedOwnerCandidate?: {
     status: string;
     file: string;
     baselineSha256: string;
     proposedSha256: string;
     productPatchSha256: string;
+    combinedDiffSha256: string;
+    pullRequest: string;
+    mergeCommit: string;
+    productionDeployment: string;
+    productionAlias: string;
+    productionReadyState: string;
+    publicQa: { questions: string[]; verifiedRoutes: string[] };
   };
+  sourceSelectionApproval: { productPatchSha256: string };
   files: Array<{ path: string; manifestSha256: string; observedSha256: string; previousObservedSha256?: string }>;
 };
-assert.equal(driftLedger.pendingOwnerCandidate?.status, "pending owner approval");
-assert.equal(driftLedger.pendingOwnerCandidate?.file, EVIDENCE_GATE_CANDIDATE_PATH);
+assert.equal(driftLedger.pendingOwnerCandidate, undefined);
+assert.equal(driftLedger.closedOwnerCandidate?.status, "owner approved and live");
+assert.equal(driftLedger.closedOwnerCandidate?.file, EVIDENCE_GATE_DELIVERED_PATH);
 assert.equal(
-  driftLedger.pendingOwnerCandidate?.baselineSha256,
-  APPROVED_SOURCE_SELECTION_SHA256[EVIDENCE_GATE_CANDIDATE_PATH],
+  driftLedger.closedOwnerCandidate?.baselineSha256,
+  APPROVED_SOURCE_SELECTION_SHA256[EVIDENCE_GATE_DELIVERED_PATH],
 );
-assert.equal(driftLedger.pendingOwnerCandidate?.proposedSha256, EVIDENCE_GATE_CANDIDATE_SHA256);
-assert.equal(driftLedger.pendingOwnerCandidate?.productPatchSha256, EVIDENCE_GATE_CANDIDATE_PATCH_SHA256);
-assert.equal(driftLedger.files.some((file) => file.path === EVIDENCE_GATE_CANDIDATE_PATH), false);
+assert.equal(driftLedger.closedOwnerCandidate?.proposedSha256, EVIDENCE_GATE_DELIVERED_SHA256);
+assert.equal(driftLedger.closedOwnerCandidate?.productPatchSha256, EVIDENCE_GATE_DELIVERED_PATCH_SHA256);
+assert.equal(driftLedger.closedOwnerCandidate?.combinedDiffSha256, EVIDENCE_GATE_DELIVERED_DIFF_SHA256);
+assert.equal(
+  driftLedger.closedOwnerCandidate?.pullRequest,
+  "https://github.com/aipify-project/aipify-platform/pull/324",
+);
+assert.equal(driftLedger.closedOwnerCandidate?.mergeCommit, "4e730cc33c508e60f70fedeaf7e040eb0a795142");
+assert.equal(driftLedger.closedOwnerCandidate?.productionDeployment, "dpl_J7mup54A4Nxhv9wbeEDdZcgyWuFb");
+assert.equal(driftLedger.closedOwnerCandidate?.productionAlias, "aipify.ai");
+assert.equal(driftLedger.closedOwnerCandidate?.productionReadyState, "READY");
+assert.deepEqual(driftLedger.closedOwnerCandidate?.publicQa.questions, [
+  "Hvordan gir jeg en presang?",
+  "presang",
+]);
+assert.deepEqual(driftLedger.closedOwnerCandidate?.publicQa.verifiedRoutes, [
+  "/no/gift-guide",
+  "/no/how-gifting-works",
+]);
+assert.equal(
+  driftLedger.sourceSelectionApproval.productPatchSha256,
+  "ebfe937e840e230b84cbbba1b96744070199862080a991ae7f1f696d85d40e12",
+);
+assert.deepEqual(
+  driftLedger.files.map((file) => file.path),
+  [
+    "components/embed/WebsiteKompisEmbedWidget.tsx",
+    "lib/marketing/public-companion-ask.ts",
+    "lib/marketing/website-kompis-public-answer-policy.ts",
+    "lib/marketing/website-kompis-install-config.ts",
+    "lib/marketing/website-kompis-answer-feedback-server.ts",
+  ],
+);
+assert.equal(driftLedger.files.some((file) => file.path === EVIDENCE_GATE_DELIVERED_PATH), false);
 const askDrift = driftLedger.files.find((file) => file.path === "lib/marketing/public-companion-ask.ts");
 assert.equal(askDrift?.observedSha256, APPROVED_SOURCE_SELECTION_SHA256["lib/marketing/public-companion-ask.ts"]);
 assert.equal(askDrift?.previousObservedSha256, "ea6f4ec0250339b24a63313d5c87b5c8179b4862e14e31e1964bf9f215f52928");
