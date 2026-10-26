@@ -249,6 +249,14 @@ const CONTEXT_EVIDENCE_LIVE_PATCH_SHA256 =
   "1490dc6991082886c7e7ef1693e6d7615a91031ea272f28962470b5ebca16456";
 const CONTEXT_EVIDENCE_LIVE_DIFF_SHA256 =
   "d763b6c670fa13e399c571533a98a111e3869790803c2f51363446b3e128eeec";
+/** Prepared Safety Intent hashes. Context Evidence stays the previous live baseline. */
+const SAFETY_INTENT_RETRIEVAL_PATH = "lib/marketing/website-kompis-retrieval-intent.ts";
+const SAFETY_INTENT_PREPARED_RETRIEVAL_SHA256 =
+  "ae945bfcb4c8292ab103bbb54ed6b8f0023f2bd50feb6c03892f31b3529fd8c9";
+const SAFETY_INTENT_PREPARED_GROUNDED_SHA256 =
+  "ad156f3d5edde47e684def3d3b0434502d0174c4e4eaac2cfbba33390f2c5391";
+const SAFETY_INTENT_PRODUCT_PATCH_SHA256 =
+  "f1687308908056cbc3175bb6ec6a2bbf7a29aa27cee2f9ed6dfba7987235a21b";
 const manifestByPath = Object.fromEntries(manifest.protectedRuntimeFiles.map((entry) => [entry.path, entry.sha256]));
 for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_SHA256)) {
   const digest = createHash("sha256").update(read(filePath)).digest("hex");
@@ -256,8 +264,9 @@ for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_S
     assert.equal(approvedSha, "e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82", filePath);
     assert.notEqual(digest, approvedSha, filePath);
     assert.notEqual(digest, EVIDENCE_GATE_DELIVERED_SHA256, filePath);
-    assert.equal(digest, CONTEXT_EVIDENCE_LIVE_SHA256, filePath);
-    assert.equal(manifestByPath[filePath], CONTEXT_EVIDENCE_LIVE_SHA256, filePath);
+    assert.notEqual(digest, CONTEXT_EVIDENCE_LIVE_SHA256, filePath);
+    assert.equal(digest, SAFETY_INTENT_PREPARED_GROUNDED_SHA256, filePath);
+    assert.equal(manifestByPath[filePath], SAFETY_INTENT_PREPARED_GROUNDED_SHA256, filePath);
     continue;
   }
   assert.equal(digest, approvedSha, filePath);
@@ -267,9 +276,27 @@ for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_S
     assert.equal(manifestByPath[filePath], approvedSha, filePath);
   }
 }
+assert.equal(
+  createHash("sha256").update(read(SAFETY_INTENT_RETRIEVAL_PATH)).digest("hex"),
+  SAFETY_INTENT_PREPARED_RETRIEVAL_SHA256,
+);
+assert.equal(manifestByPath[SAFETY_INTENT_RETRIEVAL_PATH], SAFETY_INTENT_PREPARED_RETRIEVAL_SHA256);
 const driftLedger = JSON.parse(read("docs/integrations/website-kompis-public-chain-observed-drift.json")) as {
   pendingOwnerCandidate?: { status: string };
   contextEvidencePreparation?: { live?: boolean };
+  pendingSafetyIntentCandidate?: {
+    status: string;
+    names: string;
+    live: boolean;
+    filesArrayUnchanged: boolean;
+    runtimeFiles: string[];
+    baselineSha256: Record<string, string>;
+    proposedSha256: Record<string, string>;
+    productPatchSha256: string;
+    ownerApproval?: string;
+    pullRequest?: string;
+    productionDeployment?: string;
+  };
   closedContextEvidenceCandidate?: {
     status: string;
     file: string;
@@ -314,6 +341,41 @@ const driftLedger = JSON.parse(read("docs/integrations/website-kompis-public-cha
   files: Array<{ path: string; manifestSha256: string; observedSha256: string; previousObservedSha256?: string }>;
 };
 assert.equal(driftLedger.pendingOwnerCandidate, undefined);
+assert.equal(driftLedger.pendingSafetyIntentCandidate?.status, "pending exact owner approval");
+assert.equal(driftLedger.pendingSafetyIntentCandidate?.names, "Website Kompis Public Chain");
+assert.equal(driftLedger.pendingSafetyIntentCandidate?.live, false);
+assert.equal(driftLedger.pendingSafetyIntentCandidate?.filesArrayUnchanged, true);
+assert.equal(driftLedger.pendingSafetyIntentCandidate?.ownerApproval, undefined);
+assert.equal(driftLedger.pendingSafetyIntentCandidate?.pullRequest, undefined);
+assert.equal(driftLedger.pendingSafetyIntentCandidate?.productionDeployment, undefined);
+assert.deepEqual(driftLedger.pendingSafetyIntentCandidate?.runtimeFiles, [
+  SAFETY_INTENT_RETRIEVAL_PATH,
+  EVIDENCE_GATE_DELIVERED_PATH,
+]);
+assert.equal(
+  driftLedger.pendingSafetyIntentCandidate?.baselineSha256[SAFETY_INTENT_RETRIEVAL_PATH],
+  "b37d7558f9a5903da6cb73c742870ce07457d1bb02bc02a2928378d342f29940",
+);
+assert.equal(
+  driftLedger.pendingSafetyIntentCandidate?.baselineSha256[EVIDENCE_GATE_DELIVERED_PATH],
+  CONTEXT_EVIDENCE_LIVE_SHA256,
+);
+assert.equal(
+  driftLedger.pendingSafetyIntentCandidate?.proposedSha256[SAFETY_INTENT_RETRIEVAL_PATH],
+  SAFETY_INTENT_PREPARED_RETRIEVAL_SHA256,
+);
+assert.equal(
+  driftLedger.pendingSafetyIntentCandidate?.proposedSha256[EVIDENCE_GATE_DELIVERED_PATH],
+  SAFETY_INTENT_PREPARED_GROUNDED_SHA256,
+);
+assert.equal(
+  driftLedger.pendingSafetyIntentCandidate?.productPatchSha256,
+  SAFETY_INTENT_PRODUCT_PATCH_SHA256,
+);
+assert.equal(
+  driftLedger.files.some((file) => file.path === SAFETY_INTENT_RETRIEVAL_PATH),
+  false,
+);
 assert.equal(driftLedger.contextEvidencePreparation, undefined);
 assert.equal(driftLedger.closedContextEvidenceCandidate?.status, "owner approved and live");
 assert.equal(driftLedger.closedContextEvidenceCandidate?.file, EVIDENCE_GATE_DELIVERED_PATH);
