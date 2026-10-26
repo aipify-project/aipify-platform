@@ -12,14 +12,9 @@ import { createWebsiteKompisAnswerReceipt } from "@/lib/marketing/website-kompis
 export type PublicCompanionAskResponseWithFeedback = PublicCompanionAskResponse &
   WebsiteKompisAskFeedbackFields;
 
-type CreateReceiptFn = typeof createWebsiteKompisAnswerReceipt;
-
 /**
  * Attaches a tenant-bound answer receipt when install/domain trust is present.
  * Fail-closed: missing schema → feedbackPersistenceReady false, no fake answerId.
- *
- * Optional `createReceipt` / `createServiceRoleClient` are test-only injection points.
- * Production route omits them → real service-role client + RPC INSERT path unchanged.
  */
 export async function attachWebsiteKompisAnswerFeedbackReceipt(input: {
   response: PublicCompanionAskResponse;
@@ -27,8 +22,6 @@ export async function attachWebsiteKompisAnswerFeedbackReceipt(input: {
   installId?: string | null;
   domain?: string | null;
   pagePathname?: string | null;
-  createReceipt?: CreateReceiptFn;
-  createServiceRoleClient?: typeof createServiceRoleClient;
 }): Promise<PublicCompanionAskResponseWithFeedback> {
   const installId = sanitizePublicCompanionInstallId(input.installId ?? null);
   const domain = sanitizePublicCompanionDomain(input.domain ?? null);
@@ -49,10 +42,9 @@ export async function attachWebsiteKompisAnswerFeedbackReceipt(input: {
     return input.response;
   }
 
-  const resolveAdmin = input.createServiceRoleClient ?? createServiceRoleClient;
   let admin;
   try {
-    admin = resolveAdmin();
+    admin = createServiceRoleClient();
   } catch {
     return {
       ...input.response,
@@ -61,8 +53,7 @@ export async function attachWebsiteKompisAnswerFeedbackReceipt(input: {
     };
   }
 
-  const createReceipt = input.createReceipt ?? createWebsiteKompisAnswerReceipt;
-  const receipt = await createReceipt(admin, {
+  const receipt = await createWebsiteKompisAnswerReceipt(admin, {
     installId,
     domain,
     locale: input.response.locale,
