@@ -206,14 +206,51 @@ const WEAK_PUBLIC_TOPIC_TOKENS = new Set([
   "means",
 ]);
 
+/**
+ * Same pronoun list and token cap as retrieval's referential follow-up.
+ * Kept local so this evidence rule does not edit the retrieval module.
+ * "it" is intentionally absent: retrieval does not treat it as a reference.
+ */
+const REFERENTIAL_EVIDENCE_FOLLOW_UP_RE =
+  /\b(det|dette|den|denne|that|this|those|these|der|there)\b/i;
+
+function referentialEvidenceTokenCount(question: string): number {
+  return question
+    .toLowerCase()
+    .split(/[^\p{L}\p{N}]+/u)
+    .map((token) => token.trim())
+    .filter((token) => token.length >= 2).length;
+}
+
+function isReferentialEvidenceFollowUp(question: string): boolean {
+  const count = referentialEvidenceTokenCount(question);
+  return count > 0 && count <= 8 && REFERENTIAL_EVIDENCE_FOLLOW_UP_RE.test(question);
+}
+
+function previousUserQuestion(
+  recentContext: Array<{ role: "user" | "assistant"; text: string }> | null | undefined,
+): string {
+  const previousUser = [...(recentContext ?? [])].reverse().find((entry) => entry.role === "user");
+  return previousUser?.text.trim() ?? "";
+}
+
 function followUpTopicQuestion(
   question: string,
   recentContext: Array<{ role: "user" | "assistant"; text: string }> | null | undefined,
 ): string {
   const topics = tokensWrittenInQuestion(question);
-  if (topics.length > 0) return question;
-  const previousUser = [...(recentContext ?? [])].reverse().find((entry) => entry.role === "user");
-  const previous = previousUser?.text.trim() ?? "";
+  const previous = previousUserQuestion(recentContext);
+  if (topics.length > 0) {
+    const insufficientAlone =
+      topics.every((token) => INSUFFICIENT_ALONE_TOPIC_TOKENS.has(token));
+    // A written price/function word must not hide the referent. Attach only the
+    // last user turn, and only for a short referential follow-up. Assistant
+    // text is never a topic source. An explicit specific word stays on its own.
+    if (previous && insufficientAlone && isReferentialEvidenceFollowUp(question)) {
+      return `${previous} ${question}`;
+    }
+    return question;
+  }
   if (!previous) return question;
   return `${previous} ${question}`;
 }
@@ -724,7 +761,7 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
   const validated = validateWebsiteKompisGroundedPayloadForQuestion(
     payload,
     pack.evidence,
-    pack.question,
+    followUpTopicQuestion(pack.question, pack.recentContext),
   );
   if (!validated.ok) {
     console.warn("[website-kompis-grounded]", {
