@@ -25,19 +25,43 @@
     "reason": "Owner approved this exact Evidence Gate candidate. PR #324 merged it, and Production on aipify.ai kept the documented gift guide for both gift questions. This record closes that candidate only. It does not finish commission coverage, «Er det sikkert?», or Conversation Intelligence, and it does not freeze the wider Kompis Core. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate.",
     "filesArrayUnchanged": true
   },
-  "contextEvidencePreparation": {
-    "status": "owner approved for preparation",
-    "releaseStatus": "awaiting separate release approval",
+  "closedContextEvidenceCandidate": {
+    "status": "owner approved and live",
     "date": "2026-10-26",
-    "approval": "AIPIFY_KOMPIS_CORE_CONTEXT_EVIDENCE_V1_APPROVED_PREP_AND_BUILD_20261026",
-    "names": "Website Kompis Public Chain",
+    "closedOn": "2026-10-26",
     "file": "lib/marketing/website-kompis-grounded-answer.ts",
     "baselineSha256": "aa8a0ed816cfac3bccb0beb97595a905b5eafa8e04044092b888a6dfb818932f",
-    "preparedSha256": "23275200aa4fa298d86a04223cf5ae0bab2819ace50ba5c21a9087aacd40ce26",
+    "proposedSha256": "23275200aa4fa298d86a04223cf5ae0bab2819ace50ba5c21a9087aacd40ce26",
     "productPatchSha256": "1490dc6991082886c7e7ef1693e6d7615a91031ea272f28962470b5ebca16456",
-    "live": false,
-    "filesArrayUnchanged": true,
-    "reason": "Owner approved this exact Context Evidence V1 product patch for preparation and testing. The manifest hash now matches the prepared file so the freeze gate can see it. This record is not a Production release. PR, merge, and LIVE stay closed until a separate approval of the combined candidate diff."
+    "combinedDiffSha256": "d763b6c670fa13e399c571533a98a111e3869790803c2f51363446b3e128eeec",
+    "preparationApproval": "AIPIFY_KOMPIS_CORE_CONTEXT_EVIDENCE_V1_APPROVED_PREP_AND_BUILD_20261026",
+    "ownerApproval": "AIPIFY_KOMPIS_CORE_CONTEXT_EVIDENCE_V1_APPROVED_RELEASE_LIVE_20261026",
+    "pullRequest": "https://github.com/aipify-project/aipify-platform/pull/326",
+    "mergeCommit": "73679611fc50aacb4094808f2aaa8ec7eabcd85d",
+    "productionDeployment": "dpl_7CSrWyAHWH9WhWnvjVvEweAwHpMg",
+    "productionAlias": "aipify.ai",
+    "productionReadyState": "READY",
+    "publicQa": {
+      "questions": [
+        "Hva er medlemskap?",
+        "Hva koster den?",
+        "Hvordan gir jeg en presang?",
+        "presang"
+      ],
+      "verifiedRoutes": [
+        "/no/premium",
+        "/no/membership-guide",
+        "/no/gift-guide",
+        "/no/how-gifting-works"
+      ],
+      "membershipFollowUpAlsoReturned": "/no/faq/marketplace-listing-push",
+      "isolatedPriceQuestionSourceCount": 0,
+      "inventedPrice": false,
+      "answerPath": "NOT_MEASURED",
+      "visualWidgetQa": "BROWSER_BLOCKED"
+    },
+    "reason": "Owner approved this exact Context Evidence V1 candidate. PR #326 merged it, and Production on aipify.ai kept membership sources for the short price follow-up, returned no sources for the same question without history, and kept the published gift guides for both gift questions. No price digit was invented. answerPath was absent from the public response. Visual widget QA stays blocked. This record closes that candidate only. It does not finish commission coverage or «Er det sikkert?», and it does not freeze the wider Kompis Core. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate. The preparation approval remains a historical fact and is no longer the current status.",
+    "filesArrayUnchanged": true
   },
   "sourceSelectionApproval": {
     "date": "2026-10-24",
