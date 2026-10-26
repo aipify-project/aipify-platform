@@ -242,11 +242,13 @@ const EVIDENCE_GATE_DELIVERED_PATCH_SHA256 =
   "19eb6f4104e9d98c532abcb653595f66e24a08c5f95e7ba17d177de48d158b19";
 const EVIDENCE_GATE_DELIVERED_DIFF_SHA256 =
   "1d43f5ad36200c5638ab945c7cd631bfebe68fda1fc1e3058f043655b5d5305b";
-/** Prepared Context Evidence file. Not a release, and not a replacement of the Evidence Gate record. */
-const CONTEXT_EVIDENCE_PREP_SHA256 =
+/** Live Context Evidence file. The Evidence Gate record stays the older closed candidate. */
+const CONTEXT_EVIDENCE_LIVE_SHA256 =
   "23275200aa4fa298d86a04223cf5ae0bab2819ace50ba5c21a9087aacd40ce26";
-const CONTEXT_EVIDENCE_PREP_PATCH_SHA256 =
+const CONTEXT_EVIDENCE_LIVE_PATCH_SHA256 =
   "1490dc6991082886c7e7ef1693e6d7615a91031ea272f28962470b5ebca16456";
+const CONTEXT_EVIDENCE_LIVE_DIFF_SHA256 =
+  "d763b6c670fa13e399c571533a98a111e3869790803c2f51363446b3e128eeec";
 const manifestByPath = Object.fromEntries(manifest.protectedRuntimeFiles.map((entry) => [entry.path, entry.sha256]));
 for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_SHA256)) {
   const digest = createHash("sha256").update(read(filePath)).digest("hex");
@@ -254,8 +256,8 @@ for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_S
     assert.equal(approvedSha, "e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82", filePath);
     assert.notEqual(digest, approvedSha, filePath);
     assert.notEqual(digest, EVIDENCE_GATE_DELIVERED_SHA256, filePath);
-    assert.equal(digest, CONTEXT_EVIDENCE_PREP_SHA256, filePath);
-    assert.equal(manifestByPath[filePath], CONTEXT_EVIDENCE_PREP_SHA256, filePath);
+    assert.equal(digest, CONTEXT_EVIDENCE_LIVE_SHA256, filePath);
+    assert.equal(manifestByPath[filePath], CONTEXT_EVIDENCE_LIVE_SHA256, filePath);
     continue;
   }
   assert.equal(digest, approvedSha, filePath);
@@ -267,15 +269,32 @@ for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_S
 }
 const driftLedger = JSON.parse(read("docs/integrations/website-kompis-public-chain-observed-drift.json")) as {
   pendingOwnerCandidate?: { status: string };
-  contextEvidencePreparation?: {
+  contextEvidencePreparation?: { live?: boolean };
+  closedContextEvidenceCandidate?: {
     status: string;
-    releaseStatus: string;
     file: string;
     baselineSha256: string;
-    preparedSha256: string;
+    proposedSha256: string;
     productPatchSha256: string;
-    live: boolean;
+    combinedDiffSha256: string;
+    preparationApproval: string;
+    ownerApproval: string;
+    pullRequest: string;
+    mergeCommit: string;
+    productionDeployment: string;
+    productionAlias: string;
+    productionReadyState: string;
     filesArrayUnchanged: boolean;
+    live?: boolean;
+    publicQa: {
+      questions: string[];
+      verifiedRoutes: string[];
+      membershipFollowUpAlsoReturned: string;
+      isolatedPriceQuestionSourceCount: number;
+      inventedPrice: boolean;
+      answerPath: string;
+      visualWidgetQa: string;
+    };
   };
   closedOwnerCandidate?: {
     status: string;
@@ -295,20 +314,69 @@ const driftLedger = JSON.parse(read("docs/integrations/website-kompis-public-cha
   files: Array<{ path: string; manifestSha256: string; observedSha256: string; previousObservedSha256?: string }>;
 };
 assert.equal(driftLedger.pendingOwnerCandidate, undefined);
-assert.equal(driftLedger.contextEvidencePreparation?.status, "owner approved for preparation");
+assert.equal(driftLedger.contextEvidencePreparation, undefined);
+assert.equal(driftLedger.closedContextEvidenceCandidate?.status, "owner approved and live");
+assert.equal(driftLedger.closedContextEvidenceCandidate?.file, EVIDENCE_GATE_DELIVERED_PATH);
 assert.equal(
-  driftLedger.contextEvidencePreparation?.releaseStatus,
-  "awaiting separate release approval",
+  driftLedger.closedContextEvidenceCandidate?.baselineSha256,
+  EVIDENCE_GATE_DELIVERED_SHA256,
 );
-assert.equal(driftLedger.contextEvidencePreparation?.file, EVIDENCE_GATE_DELIVERED_PATH);
-assert.equal(driftLedger.contextEvidencePreparation?.baselineSha256, EVIDENCE_GATE_DELIVERED_SHA256);
-assert.equal(driftLedger.contextEvidencePreparation?.preparedSha256, CONTEXT_EVIDENCE_PREP_SHA256);
 assert.equal(
-  driftLedger.contextEvidencePreparation?.productPatchSha256,
-  CONTEXT_EVIDENCE_PREP_PATCH_SHA256,
+  driftLedger.closedContextEvidenceCandidate?.proposedSha256,
+  CONTEXT_EVIDENCE_LIVE_SHA256,
 );
-assert.equal(driftLedger.contextEvidencePreparation?.live, false);
-assert.equal(driftLedger.contextEvidencePreparation?.filesArrayUnchanged, true);
+assert.equal(
+  driftLedger.closedContextEvidenceCandidate?.productPatchSha256,
+  CONTEXT_EVIDENCE_LIVE_PATCH_SHA256,
+);
+assert.equal(
+  driftLedger.closedContextEvidenceCandidate?.combinedDiffSha256,
+  CONTEXT_EVIDENCE_LIVE_DIFF_SHA256,
+);
+assert.equal(
+  driftLedger.closedContextEvidenceCandidate?.preparationApproval,
+  "AIPIFY_KOMPIS_CORE_CONTEXT_EVIDENCE_V1_APPROVED_PREP_AND_BUILD_20261026",
+);
+assert.equal(
+  driftLedger.closedContextEvidenceCandidate?.ownerApproval,
+  "AIPIFY_KOMPIS_CORE_CONTEXT_EVIDENCE_V1_APPROVED_RELEASE_LIVE_20261026",
+);
+assert.equal(
+  driftLedger.closedContextEvidenceCandidate?.pullRequest,
+  "https://github.com/aipify-project/aipify-platform/pull/326",
+);
+assert.equal(
+  driftLedger.closedContextEvidenceCandidate?.mergeCommit,
+  "73679611fc50aacb4094808f2aaa8ec7eabcd85d",
+);
+assert.equal(
+  driftLedger.closedContextEvidenceCandidate?.productionDeployment,
+  "dpl_7CSrWyAHWH9WhWnvjVvEweAwHpMg",
+);
+assert.equal(driftLedger.closedContextEvidenceCandidate?.productionAlias, "aipify.ai");
+assert.equal(driftLedger.closedContextEvidenceCandidate?.productionReadyState, "READY");
+assert.equal(driftLedger.closedContextEvidenceCandidate?.live, undefined);
+assert.equal(driftLedger.closedContextEvidenceCandidate?.filesArrayUnchanged, true);
+assert.deepEqual(driftLedger.closedContextEvidenceCandidate?.publicQa.questions, [
+  "Hva er medlemskap?",
+  "Hva koster den?",
+  "Hvordan gir jeg en presang?",
+  "presang",
+]);
+assert.deepEqual(driftLedger.closedContextEvidenceCandidate?.publicQa.verifiedRoutes, [
+  "/no/premium",
+  "/no/membership-guide",
+  "/no/gift-guide",
+  "/no/how-gifting-works",
+]);
+assert.equal(
+  driftLedger.closedContextEvidenceCandidate?.publicQa.membershipFollowUpAlsoReturned,
+  "/no/faq/marketplace-listing-push",
+);
+assert.equal(driftLedger.closedContextEvidenceCandidate?.publicQa.isolatedPriceQuestionSourceCount, 0);
+assert.equal(driftLedger.closedContextEvidenceCandidate?.publicQa.inventedPrice, false);
+assert.equal(driftLedger.closedContextEvidenceCandidate?.publicQa.answerPath, "NOT_MEASURED");
+assert.equal(driftLedger.closedContextEvidenceCandidate?.publicQa.visualWidgetQa, "BROWSER_BLOCKED");
 assert.equal(driftLedger.closedOwnerCandidate?.status, "owner approved and live");
 assert.equal(driftLedger.closedOwnerCandidate?.file, EVIDENCE_GATE_DELIVERED_PATH);
 assert.equal(
