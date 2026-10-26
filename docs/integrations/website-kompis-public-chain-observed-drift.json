@@ -63,6 +63,27 @@
     "reason": "Owner approved this exact Context Evidence V1 candidate. PR #326 merged it, and Production on aipify.ai kept membership sources for the short price follow-up, returned no sources for the same question without history, and kept the published gift guides for both gift questions. No price digit was invented. answerPath was absent from the public response. Visual widget QA stays blocked. This record closes that candidate only. It does not finish commission coverage or «Er det sikkert?», and it does not freeze the wider Kompis Core. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate. The preparation approval remains a historical fact and is no longer the current status.",
     "filesArrayUnchanged": true
   },
+  "pendingSafetyIntentCandidate": {
+    "status": "pending exact owner approval",
+    "date": "2026-10-26",
+    "names": "Website Kompis Public Chain",
+    "live": false,
+    "filesArrayUnchanged": true,
+    "runtimeFiles": [
+      "lib/marketing/website-kompis-retrieval-intent.ts",
+      "lib/marketing/website-kompis-grounded-answer.ts"
+    ],
+    "baselineSha256": {
+      "lib/marketing/website-kompis-retrieval-intent.ts": "b37d7558f9a5903da6cb73c742870ce07457d1bb02bc02a2928378d342f29940",
+      "lib/marketing/website-kompis-grounded-answer.ts": "23275200aa4fa298d86a04223cf5ae0bab2819ace50ba5c21a9087aacd40ce26"
+    },
+    "proposedSha256": {
+      "lib/marketing/website-kompis-retrieval-intent.ts": "ae945bfcb4c8292ab103bbb54ed6b8f0023f2bd50feb6c03892f31b3529fd8c9",
+      "lib/marketing/website-kompis-grounded-answer.ts": "ad156f3d5edde47e684def3d3b0434502d0174c4e4eaac2cfbba33390f2c5391"
+    },
+    "productPatchSha256": "f1687308908056cbc3175bb6ec6a2bbf7a29aa27cee2f9ed6dfba7987235a21b",
+    "reason": "Pending exact owner approval for this Safety Intent V1 candidate. It is not approved and not live. The runtime files stay out of files[] because their prepared hashes match this manifest candidate, and a ledger row whose hash matches the manifest fails the freeze gate. Historical Evidence Gate and Context Evidence records stay closed. This post does not finish commission coverage or visual widget QA, and it does not freeze the wider Kompis Core."
+  },
   "sourceSelectionApproval": {
     "date": "2026-10-24",
     "names": "Website Kompis Public Chain",

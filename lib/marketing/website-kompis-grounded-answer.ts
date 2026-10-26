@@ -13,7 +13,10 @@ import {
   neutralizeUntrustedPageEvidence,
   topicTokensForPublicSiteIndex,
 } from "@/lib/marketing/website-kompis-public-site-index";
-import { expandWebsiteKompisTopicBoostTokens } from "@/lib/marketing/website-kompis-retrieval-intent";
+import {
+  expandWebsiteKompisTopicBoostTokens,
+  shouldDeferAmbiguousSafetyCitation,
+} from "@/lib/marketing/website-kompis-retrieval-intent";
 import {
   dedupeCompanionSourcesByRoute,
   isProductOrPriceVisitorQuestion,
@@ -192,6 +195,8 @@ const INSUFFICIENT_ALONE_TOPIC_TOKENS = new Set([
   "cost",
   "costs",
   "gratis",
+  "dette",
+  "denne",
 ]);
 const WEAK_PUBLIC_TOPIC_TOKENS = new Set([
   "alle",
@@ -232,6 +237,17 @@ function previousUserQuestion(
 ): string {
   const previousUser = [...(recentContext ?? [])].reverse().find((entry) => entry.role === "user");
   return previousUser?.text.trim() ?? "";
+}
+
+function snippetCarriesPreviousUserTopic(
+  item: WebsiteKompisEvidenceSnippet,
+  recentContext: Array<{ role: "user" | "assistant"; text: string }> | null | undefined,
+): boolean {
+  const previous = previousUserQuestion(recentContext);
+  const corpus = `${item.title} ${item.url ?? ""} ${item.text}`;
+  return wholeTopicTokens(previous)
+    .filter((token) => token.length >= 5)
+    .some((token) => textHasWholeTopicToken(corpus, token));
 }
 
 function followUpTopicQuestion(
@@ -295,6 +311,8 @@ const CONTROLLED_SYNONYM_INFLECTION = /^(?:e|en|et|er|ene|a|or|an|s|ing|r)$/;
 
 function wordCarriesControlledSynonym(word: string, token: string): boolean {
   if (word === token) return true;
+  // Neuter "trygt" is the same adjective as "trygg".
+  if (token === "trygg" && word === "trygt") return true;
   if (token.length < 4 || word.length <= token.length) return false;
   if (!word.startsWith(token)) return false;
   return CONTROLLED_SYNONYM_INFLECTION.test(word.slice(token.length));
@@ -428,6 +446,12 @@ export function buildWebsiteKompisEvidencePack(input: {
           return false;
         }
         return true;
+      }
+      if (
+        shouldDeferAmbiguousSafetyCitation(question, input.recentContext) &&
+        !snippetCarriesPreviousUserTopic(item, input.recentContext)
+      ) {
+        return false;
       }
       if (topicTokens.length === 0) return true;
       if (!evidenceSnippetMatchesQuestionTopic(item, topicQuestion)) return false;

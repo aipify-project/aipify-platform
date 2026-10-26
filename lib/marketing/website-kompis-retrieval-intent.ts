@@ -20,6 +20,18 @@ const LOW_SIGNAL_FOLLOW_UP_RE =
 const REFERENTIAL_FOLLOW_UP_RE =
   /\b(det|dette|den|denne|that|this|those|these|der|there)\b/i;
 
+/**
+ * Clear safety wording, plus the neuter "trygt".
+ * "sikkert" is separate: it also means "certainly".
+ */
+const CLEAR_SAFETY_INTENT_RE =
+  /\b(sikkerhet\w*|trygg\w*|trygt|safety|secure|verification|verifiser\w*)\b/i;
+
+const SAFETY_SYNONYM_FAMILY = {
+  match: /\b(sikkerhet\w*|sikkert|trygg\w*|trygt|safety|secure|verification|verifiser\w*)\b/i,
+  tokens: ["sikkerhet", "safety", "trygg", "verifisering", "verification"],
+};
+
 /** Soft synonym families — generic commerce/site language, not tenant copy. */
 const SYNONYM_FAMILIES: Array<{ match: RegExp; tokens: string[] }> = [
   {
@@ -40,10 +52,7 @@ const SYNONYM_FAMILIES: Array<{ match: RegExp; tokens: string[] }> = [
     match: /\b(pris\w*|koster|kostnad\w*|price\w*|cost\w*|poeng\w*|points?)\b/i,
     tokens: ["pris", "price", "kost", "cost", "poeng", "points"],
   },
-  {
-    match: /\b(sikkerhet\w*|trygg\w*|safety|secure|verification|verifiser\w*)\b/i,
-    tokens: ["sikkerhet", "safety", "trygg", "verifisering", "verification"],
-  },
+  SAFETY_SYNONYM_FAMILY,
   {
     // Narrow gift paraphrase across NO/EN/SV/DA. Not English "gave up".
     match:
@@ -72,12 +81,35 @@ export function isLowSignalWebsiteKompisFollowUp(question: string): boolean {
   );
 }
 
+/**
+ * "sikkert" alone is a safety question. The same word beside another concrete
+ * topic, including a prior user turn, stays with that topic.
+ */
+function ambiguousCertaintyHasCompetingTopic(question: string): boolean {
+  if (!/\bsikkert\b/i.test(question) || CLEAR_SAFETY_INTENT_RE.test(question)) return false;
+  return tokenize(question).some((token) => token !== "sikkert" && token.length >= 5);
+}
+
+export function shouldDeferAmbiguousSafetyCitation(
+  question: string,
+  recentContext?: Array<{ role: string; text: string }> | null,
+): boolean {
+  const trimmed = question.trim();
+  if (!/\bsikkert\b/i.test(trimmed) || CLEAR_SAFETY_INTENT_RE.test(trimmed)) return false;
+  if (!REFERENTIAL_FOLLOW_UP_RE.test(trimmed) || tokenize(trimmed).length > 8) return false;
+  const previous = lastUserTopic(recentContext);
+  if (!previous || CLEAR_SAFETY_INTENT_RE.test(previous)) return false;
+  return tokenize(previous).some((token) => token.length >= 5);
+}
+
 export function expandWebsiteKompisRetrievalSynonymTokens(question: string): string[] {
   const extras: string[] = [];
   for (const family of SYNONYM_FAMILIES) {
-    if (family.match.test(question)) {
-      extras.push(...family.tokens);
+    if (!family.match.test(question)) continue;
+    if (family === SAFETY_SYNONYM_FAMILY && ambiguousCertaintyHasCompetingTopic(question)) {
+      continue;
     }
+    extras.push(...family.tokens);
   }
   return extras;
 }
@@ -147,6 +179,15 @@ export function rewriteWebsiteKompisRetrievalIntent(input: {
   let retrievalQuery = question;
   if (attachPrior) {
     retrievalQuery = `${priorTopic}\n${question}`.trim().slice(0, 900);
+  }
+  // "sikkert" and "trygt" are not the stem the search already indexes.
+  // Add that stem only when this question is still a safety question.
+  const safetyStem =
+    (/\btrygt\b/i.test(question) ||
+      (/\bsikkert\b/i.test(question) && !ambiguousCertaintyHasCompetingTopic(retrievalQuery))) &&
+    !/\bsikkerhet/i.test(retrievalQuery);
+  if (safetyStem) {
+    retrievalQuery = `${retrievalQuery} sikkerhet`.slice(0, 900);
   }
 
   const normalizedIntent =

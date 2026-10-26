@@ -80,7 +80,7 @@
     {
       "path": "lib/marketing/website-kompis-retrieval-intent.ts",
       "role": "Bounded intent/retrieval rewrite",
-      "sha256": "b37d7558f9a5903da6cb73c742870ce07457d1bb02bc02a2928378d342f29940"
+      "sha256": "ae945bfcb4c8292ab103bbb54ed6b8f0023f2bd50feb6c03892f31b3529fd8c9"
     },
     {
       "path": "lib/marketing/website-kompis-answer-relevance.ts",
@@ -100,7 +100,7 @@
     {
       "path": "lib/marketing/website-kompis-grounded-answer.ts",
       "role": "Evidence pack + provider grounded path",
-      "sha256": "23275200aa4fa298d86a04223cf5ae0bab2819ace50ba5c21a9087aacd40ce26"
+      "sha256": "ad156f3d5edde47e684def3d3b0434502d0174c4e4eaac2cfbba33390f2c5391"
     },
     {
       "path": "lib/marketing/website-kompis-public-answer-policy.ts",
