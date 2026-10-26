@@ -6,5 +6,191 @@
         "becomePartner": "Hazte partner"
       }
     }
+  },
+  "kompisWebSales": {
+    "meta": {
+      "title": "Kompis Web — asistente de IA para visitantes del sitio | Aipify",
+      "description": "Kompis Web responde preguntas de visitantes con el contenido de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
+    },
+    "nav": {
+      "product": "Producto",
+      "how": "Cómo funciona",
+      "pricing": "Precios",
+      "faq": "FAQ",
+      "login": "Iniciar sesión",
+      "startFree": "Empezar gratis",
+      "language": "Idioma"
+    },
+    "hero": {
+      "eyebrow": "Aipify Kompis Web",
+      "titleBefore": "Tu asistente de IA para",
+      "titleHighlight": "visitantes del sitio",
+      "subtitle": "Kompis Web responde preguntas, guía a los visitantes y convierte la información de tu sitio en conversaciones útiles — para que los clientes obtengan respuestas claras al instante.",
+      "primaryCta": "Empezar gratis",
+      "secondaryCta": "Reservar demo",
+      "trustNoCard": "Sin tarjeta de crédito",
+      "trustSetup": "Conecta tu sitio cuando estés listo",
+      "trustFreeQuota": "{quota} respuestas gratis",
+      "mascotAlt": "Mascota Aipify Kompis"
+    },
+    "signupCard": {
+      "title": "Crea tu cuenta gratis",
+      "emailLabel": "Correo de trabajo",
+      "emailPlaceholder": "tu@empresa.com",
+      "websiteLabel": "URL del sitio",
+      "websitePlaceholder": "https://",
+      "companyLabel": "Nombre de la empresa",
+      "companyPlaceholder": "Tu empresa",
+      "languageLabel": "Idioma",
+      "submit": "Crear cuenta gratis",
+      "continueHint": "Continúa al registro real de Aipify. No se requiere tarjeta para la cuota gratuita de respuestas."
+    },
+    "benefits": {
+      "title": "Por qué los dueños de sitios eligen Kompis Web",
+      "items": [
+        {
+          "title": "Respuestas basadas en fuentes",
+          "body": "Las respuestas se basan en el contenido publicado y el conocimiento aprobado."
+        },
+        {
+          "title": "Consciente de la página actual",
+          "body": "Los visitantes pueden recibir ayuda respetando la página que están leyendo."
+        },
+        {
+          "title": "Multilingüe",
+          "body": "Atiende visitantes en los idiomas que tu espacio Aipify ya admite."
+        },
+        {
+          "title": "Control humano",
+          "body": "Tú decides qué puede usar Kompis — revisa fuentes y mantén el control."
+        },
+        {
+          "title": "Configuración rápida",
+          "body": "Conecta el sitio, publica conocimiento e instala el asistente cuando estés listo."
+        }
+      ]
+    },
+    "how": {
+      "title": "De tu contenido a conversaciones útiles",
+      "steps": [
+        {
+          "title": "Conecta tu sitio",
+          "body": "Añade tu dominio y deja que Aipify aprenda de las páginas que apruebas."
+        },
+        {
+          "title": "Los visitantes preguntan",
+          "body": "Kompis responde con información basada en fuentes de tu sitio."
+        },
+        {
+          "title": "Tú mantienes el control",
+          "body": "Revisa el conocimiento, ajusta respuestas y decide qué se publica."
+        },
+        {
+          "title": "Visitantes más satisfechos, menos carga de soporte",
+          "body": "Los visitantes obtienen respuestas más rápido mientras el equipo atiende las excepciones."
+        }
+      ]
+    },
+    "demo": {
+      "title": "Ve Kompis Web en contexto",
+      "subtitle": "Vistas ilustrativas del asistente y del centro de control — no consultas Production en vivo ni métricas inventadas.",
+      "illustrationBadge": "Ilustración — no es una consulta Production en vivo",
+      "widgetTitle": "El asistente en tu sitio",
+      "widgetStatus": "En línea",
+      "widgetVisitor": "¿Qué incluye la membresía?",
+      "widgetReply": "Puedo explicar la membresía con las páginas publicadas aquí — pregunta por planes, funciones o cómo empezar.",
+      "controlTitle": "Tu centro de control",
+      "controlBody": "Gestiona conexión, conocimiento, apariencia y conversaciones en Aipify — las personas siguen al mando.",
+      "controlItems": [
+        "Conocimiento y FAQ que apruebas",
+        "Conexión y ajustes de dominio",
+        "Apariencia del asistente para visitantes",
+        "Revisión de conversaciones cuando la necesites"
+      ]
+    },
+    "pricing": {
+      "title": "Empieza gratis. Mejora cuando necesites más respuestas.",
+      "subtitle": "Paquetes Kompis Web decididos por el propietario. El gratis empieza sin tarjeta. Standard de pago es la ruta de mejora planificada que se muestra aquí.",
+      "plannedNote": "Estos paquetes siguen el catálogo de Kompis Web. El checkout en vivo aún no está activo — regístrate gratis o reserva una demo.",
+      "free": {
+        "badge": "Mejor punto de partida",
+        "name": "Gratis",
+        "quota": "{quota} respuestas en total",
+        "price": "Sin tarjeta · total de por vida por licencia de sitio",
+        "features": [
+          "Total de respuestas de por vida por licencia de sitio",
+          "Sin registro de tarjeta y sin renovación automática",
+          "Mejora cuando necesites más respuestas"
+        ],
+        "cta": "Empezar gratis"
+      },
+      "paid": {
+        "name": "Standard",
+        "quota": "{quota} respuestas al mes",
+        "priceMonthly": "{currency} {amount} / mes",
+        "priceAnnual": "{currency} {amount} / año",
+        "features": [
+          "Respuestas que se renuevan mensualmente por licencia de sitio",
+          "Lo necesario para operar Kompis Web a diario",
+          "Se activa tras pago verificado y puerta de producto"
+        ],
+        "cta": "Reservar demo",
+        "checkoutUnavailable": "El checkout de pago aún no está activo. Regístrate o reserva una demo."
+      }
+    },
+    "faq": {
+      "title": "Preguntas de dueños de sitios",
+      "items": [
+        {
+          "question": "¿Dónde obtengo Kompis Web?",
+          "answer": "Empieza en aipify.ai — crea tu cuenta Aipify, conecta y activa Kompis Web para tu sitio."
+        },
+        {
+          "question": "¿Cómo lo instalo?",
+          "answer": "Cuando el espacio de trabajo esté listo, sigue la conexión e instalación guiadas en Aipify. Tú decides cuándo el asistente se publica."
+        },
+        {
+          "question": "¿De dónde saca las respuestas Kompis?",
+          "answer": "Del contenido publicado y el conocimiento que apruebas — no de conjeturas abiertas de toda la web."
+        },
+        {
+          "question": "¿Qué idiomas se admiten?",
+          "answer": "El marketing público y el producto de Aipify admiten noruego, sueco, danés, inglés, español, polaco y ucraniano. El asistente del visitante sigue los idiomas configurados para tu sitio."
+        },
+        {
+          "question": "¿Necesito tarjeta para el plan gratis?",
+          "answer": "No. El paquete gratis son 150 respuestas de por vida por licencia de sitio sin tarjeta."
+        },
+        {
+          "question": "¿Qué pasa cuando se acaban las respuestas gratis?",
+          "answer": "Las nuevas respuestas se pausan hasta que mejores a un paquete de pago. No hay cargos automáticos."
+        },
+        {
+          "question": "¿Están seguros mis datos?",
+          "answer": "Aipify está diseñado para uso empresarial gobernado. Tú controlas las fuentes aprobadas; privacidad y términos están en aipify.ai."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Dale a tu sitio un colega útil de Aipify",
+      "subtitle": "Empieza con 150 respuestas gratis — sin tarjeta. Mejora cuando el sitio necesite más capacidad.",
+      "primary": "Empezar gratis",
+      "secondary": "Reservar demo"
+    },
+    "footer": {
+      "product": "Producto",
+      "how": "Cómo funciona",
+      "pricing": "Precios",
+      "faq": "FAQ",
+      "privacy": "Privacidad",
+      "terms": "Términos",
+      "contact": "Contacto",
+      "home": "Inicio Aipify",
+      "tagline": "Aipify Kompis Web"
+    }
+  },
+  "meta": {
+    "kompisWebTitle": "Kompis Web — asistente de IA para visitantes del sitio | Aipify",
+    "kompisWebDescription": "Kompis Web responde preguntas de visitantes con el contenido de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
   }
 }

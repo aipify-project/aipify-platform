@@ -30,7 +30,9 @@
     "privacyDescription": "How Aipify handles data, privacy, and customer ownership.",
     "termsTitle": "Terms of Service — Aipify",
     "getStartedTitle": "Get Started — Aipify",
-    "getStartedDescription": "A structured path from first login to operational value. See your first 30 days, implementation journey, and time-to-value outcomes."
+    "getStartedDescription": "A structured path from first login to operational value. See your first 30 days, implementation journey, and time-to-value outcomes.",
+    "kompisWebTitle": "Kompis Web — AI-hjelper for nettsidebesøkende | Aipify",
+    "kompisWebDescription": "Kompis Web svarer på besøkendes spørsmål fra innholdet på nettsiden din. Start med 150 gratis svar — uten betalingskort."
   },
   "nav": {
     "platform": "Plattform",
@@ -8481,5 +8483,187 @@
     "ctaButton": "Book en demo",
     "availableNowLabel": "Tilgjengelig nå",
     "plannedLabel": "Planlagt"
+  },
+  "kompisWebSales": {
+    "meta": {
+      "title": "Kompis Web — AI-hjelper for nettsidebesøkende | Aipify",
+      "description": "Kompis Web svarer på besøkendes spørsmål fra innholdet på nettsiden din. Start med 150 gratis svar — uten betalingskort."
+    },
+    "nav": {
+      "product": "Produkt",
+      "how": "Slik fungerer det",
+      "pricing": "Priser",
+      "faq": "FAQ",
+      "login": "Logg inn",
+      "startFree": "Start gratis",
+      "language": "Språk"
+    },
+    "hero": {
+      "eyebrow": "Aipify Kompis Web",
+      "titleBefore": "Din AI-hjelper for",
+      "titleHighlight": "nettsidebesøkende",
+      "subtitle": "Kompis Web svarer på spørsmål, veileder besøkende og gjør informasjonen på nettsiden din om til nyttige samtaler — slik at kundene får tydelige svar med en gang.",
+      "primaryCta": "Start gratis",
+      "secondaryCta": "Bestill demo",
+      "trustNoCard": "Ingen betalingskort kreves",
+      "trustSetup": "Koble til nettsiden når du er klar",
+      "trustFreeQuota": "{quota} gratis svar",
+      "mascotAlt": "Aipify Kompis-maskot"
+    },
+    "signupCard": {
+      "title": "Opprett gratis konto",
+      "emailLabel": "Jobb-e-post",
+      "emailPlaceholder": "deg@firma.no",
+      "websiteLabel": "Nettadresse",
+      "websitePlaceholder": "https://",
+      "companyLabel": "Firmanavn",
+      "companyPlaceholder": "Ditt firma",
+      "languageLabel": "Språk",
+      "submit": "Opprett gratis konto",
+      "continueHint": "Fortsetter til ekte Aipify-registrering. Ingen kort kreves for den gratis svarkvoten."
+    },
+    "benefits": {
+      "title": "Derfor velger nettstedeiere Kompis Web",
+      "items": [
+        {
+          "title": "Kildebaserte svar",
+          "body": "Svarene bygger på publisert nettsideinnhold og godkjent kunnskap."
+        },
+        {
+          "title": "Kjenner siden du er på",
+          "body": "Besøkende kan få hjelp som tar hensyn til siden de leser."
+        },
+        {
+          "title": "Flerspråklig",
+          "body": "Betjen besøkende på språkene Aipify-arbeidsområdet allerede støtter."
+        },
+        {
+          "title": "Mennesket styrer",
+          "body": "Du bestemmer hva Kompis kan bruke — gjennomgå kilder og behold kontrollen."
+        },
+        {
+          "title": "Rask oppsett",
+          "body": "Koble til siden, publiser kunnskap og installer hjelperen når du er klar."
+        }
+      ]
+    },
+    "how": {
+      "title": "Fra innholdet ditt til nyttige samtaler",
+      "steps": [
+        {
+          "title": "Koble til nettsiden",
+          "body": "Legg til domenet og la Aipify lære av sidene du godkjenner."
+        },
+        {
+          "title": "Besøkende stiller spørsmål",
+          "body": "Kompis svarer med kildebasert informasjon fra siden din."
+        },
+        {
+          "title": "Du beholder kontrollen",
+          "body": "Gå gjennom kunnskap, juster svar og bestem hva som går live."
+        },
+        {
+          "title": "Fornøyde besøkende, mindre supporttrykk",
+          "body": "Besøkende får svar raskere mens teamet tar unntakene."
+        }
+      ]
+    },
+    "demo": {
+      "title": "Se Kompis Web i kontekst",
+      "subtitle": "Illustrative forhåndsvisninger av besøkshjelperen og kontrollsenteret — ikke live Production-spørsmål eller oppdiktede nøkkeltall.",
+      "illustrationBadge": "Illustrasjon — ikke et live Production-spørsmål",
+      "widgetTitle": "Hjelperen på nettsiden din",
+      "widgetStatus": "På nett",
+      "widgetVisitor": "Hva inkluderer medlemskapet?",
+      "widgetReply": "Jeg kan forklare medlemskap ut fra sidene som er publisert her — spør meg om planer, funksjoner eller hvordan du kommer i gang.",
+      "controlTitle": "Ditt kontrollsenter",
+      "controlBody": "Administrer tilkobling, kunnskap, utseende og samtaler i Aipify — mennesker beholder styringen.",
+      "controlItems": [
+        "Kunnskap og FAQ du godkjenner",
+        "Tilkobling og domeninnstillinger",
+        "Utseende for besøkshjelperen",
+        "Samtalegjennomgang når du trenger det"
+      ]
+    },
+    "pricing": {
+      "title": "Start gratis. Oppgrader når du trenger flere svar.",
+      "subtitle": "Eierbesluttede Kompis Web-pakker. Gratis starter uten kort. Betalt Standard er den planlagte oppgraderingen som vises her.",
+      "plannedNote": "Pakkene følger Kompis Web-katalogen. Live kjøpskasse er ikke aktiv ennå — registrer deg gratis eller bestill demo for å gå videre.",
+      "free": {
+        "badge": "Beste sted å starte",
+        "name": "Gratis",
+        "quota": "{quota} svar totalt",
+        "price": "Ingen kort · livstids total per nettsidlisens",
+        "features": [
+          "Livstids svartotal per nettsidlisens",
+          "Ingen kortregistrering og ingen automatisk fornyelse",
+          "Oppgrader når du trenger flere svar"
+        ],
+        "cta": "Start gratis"
+      },
+      "paid": {
+        "name": "Standard",
+        "quota": "{quota} svar per måned",
+        "priceMonthly": "{currency} {amount} / måned",
+        "priceAnnual": "{currency} {amount} / år",
+        "features": [
+          "Månedlig fornyende svar per nettsidlisens",
+          "Det du trenger for å drive Kompis Web daglig",
+          "Aktiveres etter verifisert betaling og produktport"
+        ],
+        "cta": "Bestill demo",
+        "checkoutUnavailable": "Betalt kasse er ikke live ennå. Registrer deg eller bestill demo for å fortsette."
+      }
+    },
+    "faq": {
+      "title": "Spørsmål nettstedeiere stiller",
+      "items": [
+        {
+          "question": "Hvor får jeg Kompis Web?",
+          "answer": "Start på aipify.ai — opprett Aipify-konto, koble til og aktiver Kompis Web for nettsiden din."
+        },
+        {
+          "question": "Hvordan installerer jeg den?",
+          "answer": "Når arbeidsområdet er klart, følger du veiledet tilkobling og installasjon i Aipify. Du bestemmer når hjelperen går live."
+        },
+        {
+          "question": "Hva bruker Kompis til svar?",
+          "answer": "Kompis bruker publisert nettsideinnhold og kunnskap du godkjenner — ikke ubegrenset gjetting fra hele nettet."
+        },
+        {
+          "question": "Hvilke språk støttes?",
+          "answer": "Aipifys offentlige markedsføring og produktopplevelse støtter norsk, svensk, dansk, engelsk, spansk, polsk og ukrainsk. Besøkshjelperen følger språkene som er satt for siden din."
+        },
+        {
+          "question": "Trenger jeg kort for gratis?",
+          "answer": "Nei. Gratis-pakken er 150 livstidssvar per nettsidlisens uten kort."
+        },
+        {
+          "question": "Hva skjer når gratis-svarene er brukt?",
+          "answer": "Nye svar settes på pause til du oppgraderer til en betalt pakke. Ingenting belastes automatisk."
+        },
+        {
+          "question": "Er dataene mine trygge?",
+          "answer": "Aipify er bygget for styrt virksomhetsbruk. Du kontrollerer godkjente kilder; personvern og vilkår ligger på aipify.ai."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Gi nettsiden en nyttig Aipify-kollega",
+      "subtitle": "Start med 150 gratis svar — uten betalingskort. Oppgrader når siden trenger mer kapasitet.",
+      "primary": "Start gratis",
+      "secondary": "Bestill demo"
+    },
+    "footer": {
+      "product": "Produkt",
+      "how": "Slik fungerer det",
+      "pricing": "Priser",
+      "faq": "FAQ",
+      "privacy": "Personvern",
+      "terms": "Vilkår",
+      "contact": "Kontakt",
+      "home": "Aipify hjem",
+      "tagline": "Aipify Kompis Web"
+    }
   }
 }
