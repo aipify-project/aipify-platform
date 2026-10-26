@@ -257,6 +257,8 @@ const SAFETY_INTENT_PREPARED_GROUNDED_SHA256 =
   "ad156f3d5edde47e684def3d3b0434502d0174c4e4eaac2cfbba33390f2c5391";
 const SAFETY_INTENT_PRODUCT_PATCH_SHA256 =
   "f1687308908056cbc3175bb6ec6a2bbf7a29aa27cee2f9ed6dfba7987235a21b";
+const SAFETY_INTENT_FULL_PATCH_SHA256 =
+  "04ce3d72506390533c8b7ed65436bdb96e035fc1ac56f0c8c4294a00a33d18d6";
 const manifestByPath = Object.fromEntries(manifest.protectedRuntimeFiles.map((entry) => [entry.path, entry.sha256]));
 for (const [filePath, approvedSha] of Object.entries(APPROVED_SOURCE_SELECTION_SHA256)) {
   const digest = createHash("sha256").update(read(filePath)).digest("hex");
@@ -284,18 +286,37 @@ assert.equal(manifestByPath[SAFETY_INTENT_RETRIEVAL_PATH], SAFETY_INTENT_PREPARE
 const driftLedger = JSON.parse(read("docs/integrations/website-kompis-public-chain-observed-drift.json")) as {
   pendingOwnerCandidate?: { status: string };
   contextEvidencePreparation?: { live?: boolean };
-  pendingSafetyIntentCandidate?: {
+  pendingSafetyIntentCandidate?: { status: string };
+  closedSafetyIntentCandidate?: {
     status: string;
     names: string;
-    live: boolean;
+    preparationStatus: string;
     filesArrayUnchanged: boolean;
+    live?: boolean;
     runtimeFiles: string[];
     baselineSha256: Record<string, string>;
     proposedSha256: Record<string, string>;
     productPatchSha256: string;
-    ownerApproval?: string;
-    pullRequest?: string;
-    productionDeployment?: string;
+    combinedDiffSha256: string;
+    ownerApproval: string;
+    pullRequest: string;
+    pullRequestHead: string;
+    mergeCommit: string;
+    productionDeployment: string;
+    productionAlias: string;
+    productionReadyState: string;
+    productionReadyAt: string;
+    publicQa: {
+      safetyRoutes: Record<string, string[]>;
+      giftRoutes: string[];
+      membershipRoutes: string[];
+      membershipFollowUpAlsoReturned: string;
+      isolatedPriceQuestionSourceCount: number;
+      commissionSourceCount: number;
+      inventedPrice: boolean;
+      answerPath: string;
+      visualWidgetQa: string;
+    };
   };
   closedContextEvidenceCandidate?: {
     status: string;
@@ -341,37 +362,98 @@ const driftLedger = JSON.parse(read("docs/integrations/website-kompis-public-cha
   files: Array<{ path: string; manifestSha256: string; observedSha256: string; previousObservedSha256?: string }>;
 };
 assert.equal(driftLedger.pendingOwnerCandidate, undefined);
-assert.equal(driftLedger.pendingSafetyIntentCandidate?.status, "pending exact owner approval");
-assert.equal(driftLedger.pendingSafetyIntentCandidate?.names, "Website Kompis Public Chain");
-assert.equal(driftLedger.pendingSafetyIntentCandidate?.live, false);
-assert.equal(driftLedger.pendingSafetyIntentCandidate?.filesArrayUnchanged, true);
-assert.equal(driftLedger.pendingSafetyIntentCandidate?.ownerApproval, undefined);
-assert.equal(driftLedger.pendingSafetyIntentCandidate?.pullRequest, undefined);
-assert.equal(driftLedger.pendingSafetyIntentCandidate?.productionDeployment, undefined);
-assert.deepEqual(driftLedger.pendingSafetyIntentCandidate?.runtimeFiles, [
+assert.equal(driftLedger.pendingSafetyIntentCandidate, undefined);
+assert.equal(driftLedger.closedSafetyIntentCandidate?.status, "owner approved and live");
+assert.equal(driftLedger.closedSafetyIntentCandidate?.names, "Website Kompis Public Chain");
+assert.equal(driftLedger.closedSafetyIntentCandidate?.preparationStatus, "pending exact owner approval");
+assert.equal(driftLedger.closedSafetyIntentCandidate?.live, undefined);
+assert.equal(driftLedger.closedSafetyIntentCandidate?.filesArrayUnchanged, true);
+assert.deepEqual(driftLedger.closedSafetyIntentCandidate?.runtimeFiles, [
   SAFETY_INTENT_RETRIEVAL_PATH,
   EVIDENCE_GATE_DELIVERED_PATH,
 ]);
 assert.equal(
-  driftLedger.pendingSafetyIntentCandidate?.baselineSha256[SAFETY_INTENT_RETRIEVAL_PATH],
+  driftLedger.closedSafetyIntentCandidate?.baselineSha256[SAFETY_INTENT_RETRIEVAL_PATH],
   "b37d7558f9a5903da6cb73c742870ce07457d1bb02bc02a2928378d342f29940",
 );
 assert.equal(
-  driftLedger.pendingSafetyIntentCandidate?.baselineSha256[EVIDENCE_GATE_DELIVERED_PATH],
+  driftLedger.closedSafetyIntentCandidate?.baselineSha256[EVIDENCE_GATE_DELIVERED_PATH],
   CONTEXT_EVIDENCE_LIVE_SHA256,
 );
 assert.equal(
-  driftLedger.pendingSafetyIntentCandidate?.proposedSha256[SAFETY_INTENT_RETRIEVAL_PATH],
+  driftLedger.closedSafetyIntentCandidate?.proposedSha256[SAFETY_INTENT_RETRIEVAL_PATH],
   SAFETY_INTENT_PREPARED_RETRIEVAL_SHA256,
 );
 assert.equal(
-  driftLedger.pendingSafetyIntentCandidate?.proposedSha256[EVIDENCE_GATE_DELIVERED_PATH],
+  driftLedger.closedSafetyIntentCandidate?.proposedSha256[EVIDENCE_GATE_DELIVERED_PATH],
   SAFETY_INTENT_PREPARED_GROUNDED_SHA256,
 );
 assert.equal(
-  driftLedger.pendingSafetyIntentCandidate?.productPatchSha256,
+  driftLedger.closedSafetyIntentCandidate?.productPatchSha256,
   SAFETY_INTENT_PRODUCT_PATCH_SHA256,
 );
+assert.equal(
+  driftLedger.closedSafetyIntentCandidate?.combinedDiffSha256,
+  SAFETY_INTENT_FULL_PATCH_SHA256,
+);
+assert.equal(
+  driftLedger.closedSafetyIntentCandidate?.ownerApproval,
+  "AIPIFY_KOMPIS_CORE_SAFETY_INTENT_V1_APPROVED_RELEASE_LIVE_20261026",
+);
+assert.equal(
+  driftLedger.closedSafetyIntentCandidate?.pullRequest,
+  "https://github.com/aipify-project/aipify-platform/pull/328",
+);
+assert.equal(
+  driftLedger.closedSafetyIntentCandidate?.pullRequestHead,
+  "75cad5f84f2ef34dd1d9a4b08fc76afa42b9f3d9",
+);
+assert.equal(
+  driftLedger.closedSafetyIntentCandidate?.mergeCommit,
+  "c938a68255d995331eeaa9b217e1082643de04f2",
+);
+assert.equal(
+  driftLedger.closedSafetyIntentCandidate?.productionDeployment,
+  "dpl_6mvuJq1hG5DjHAshtpW3sgHWeVTP",
+);
+assert.equal(driftLedger.closedSafetyIntentCandidate?.productionAlias, "aipify.ai");
+assert.equal(driftLedger.closedSafetyIntentCandidate?.productionReadyState, "READY");
+assert.equal(driftLedger.closedSafetyIntentCandidate?.productionReadyAt, "2026-10-26T04:40:35Z");
+assert.deepEqual(driftLedger.closedSafetyIntentCandidate?.publicQa.safetyRoutes["Er det sikkert?"], [
+  "/no/verification-guide",
+  "/no/safety",
+]);
+assert.deepEqual(driftLedger.closedSafetyIntentCandidate?.publicQa.safetyRoutes["Er dette trygt?"], [
+  "/no/verification-guide",
+  "/no/community-guidelines",
+  "/en/safety",
+]);
+assert.deepEqual(
+  driftLedger.closedSafetyIntentCandidate?.publicQa.safetyRoutes["Hvordan ivaretas sikkerheten?"],
+  ["/no/safety"],
+);
+assert.deepEqual(driftLedger.closedSafetyIntentCandidate?.publicQa.safetyRoutes["How is safety handled?"], [
+  "/en/safety",
+  "/no/safety",
+  "/fi/safety",
+]);
+assert.deepEqual(driftLedger.closedSafetyIntentCandidate?.publicQa.giftRoutes, [
+  "/no/gift-guide",
+  "/no/how-gifting-works",
+]);
+assert.deepEqual(driftLedger.closedSafetyIntentCandidate?.publicQa.membershipRoutes, [
+  "/no/premium",
+  "/no/membership-guide",
+]);
+assert.equal(
+  driftLedger.closedSafetyIntentCandidate?.publicQa.membershipFollowUpAlsoReturned,
+  "/no/faq/marketplace-listing-push",
+);
+assert.equal(driftLedger.closedSafetyIntentCandidate?.publicQa.isolatedPriceQuestionSourceCount, 0);
+assert.equal(driftLedger.closedSafetyIntentCandidate?.publicQa.commissionSourceCount, 0);
+assert.equal(driftLedger.closedSafetyIntentCandidate?.publicQa.inventedPrice, false);
+assert.equal(driftLedger.closedSafetyIntentCandidate?.publicQa.answerPath, "NOT_MEASURED");
+assert.equal(driftLedger.closedSafetyIntentCandidate?.publicQa.visualWidgetQa, "BROWSER_BLOCKED");
 assert.equal(
   driftLedger.files.some((file) => file.path === SAFETY_INTENT_RETRIEVAL_PATH),
   false,

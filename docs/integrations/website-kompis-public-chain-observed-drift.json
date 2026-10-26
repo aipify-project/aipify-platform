@@ -63,12 +63,12 @@
     "reason": "Owner approved this exact Context Evidence V1 candidate. PR #326 merged it, and Production on aipify.ai kept membership sources for the short price follow-up, returned no sources for the same question without history, and kept the published gift guides for both gift questions. No price digit was invented. answerPath was absent from the public response. Visual widget QA stays blocked. This record closes that candidate only. It does not finish commission coverage or «Er det sikkert?», and it does not freeze the wider Kompis Core. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate. The preparation approval remains a historical fact and is no longer the current status.",
     "filesArrayUnchanged": true
   },
-  "pendingSafetyIntentCandidate": {
-    "status": "pending exact owner approval",
+  "closedSafetyIntentCandidate": {
+    "status": "owner approved and live",
     "date": "2026-10-26",
+    "closedOn": "2026-10-26",
     "names": "Website Kompis Public Chain",
-    "live": false,
-    "filesArrayUnchanged": true,
+    "preparationStatus": "pending exact owner approval",
     "runtimeFiles": [
       "lib/marketing/website-kompis-retrieval-intent.ts",
       "lib/marketing/website-kompis-grounded-answer.ts"
@@ -82,7 +82,43 @@
       "lib/marketing/website-kompis-grounded-answer.ts": "ad156f3d5edde47e684def3d3b0434502d0174c4e4eaac2cfbba33390f2c5391"
     },
     "productPatchSha256": "f1687308908056cbc3175bb6ec6a2bbf7a29aa27cee2f9ed6dfba7987235a21b",
-    "reason": "Pending exact owner approval for this Safety Intent V1 candidate. It is not approved and not live. The runtime files stay out of files[] because their prepared hashes match this manifest candidate, and a ledger row whose hash matches the manifest fails the freeze gate. Historical Evidence Gate and Context Evidence records stay closed. This post does not finish commission coverage or visual widget QA, and it does not freeze the wider Kompis Core."
+    "combinedDiffSha256": "04ce3d72506390533c8b7ed65436bdb96e035fc1ac56f0c8c4294a00a33d18d6",
+    "ownerApproval": "AIPIFY_KOMPIS_CORE_SAFETY_INTENT_V1_APPROVED_RELEASE_LIVE_20261026",
+    "pullRequest": "https://github.com/aipify-project/aipify-platform/pull/328",
+    "pullRequestHead": "75cad5f84f2ef34dd1d9a4b08fc76afa42b9f3d9",
+    "mergeCommit": "c938a68255d995331eeaa9b217e1082643de04f2",
+    "productionDeployment": "dpl_6mvuJq1hG5DjHAshtpW3sgHWeVTP",
+    "productionAlias": "aipify.ai",
+    "productionReadyState": "READY",
+    "productionReadyAt": "2026-10-26T04:40:35Z",
+    "publicQa": {
+      "questions": [
+        "Er det sikkert?",
+        "Er dette trygt?",
+        "Hvordan ivaretas sikkerheten?",
+        "How is safety handled?",
+        "Hvordan gir jeg en presang?",
+        "presang",
+        "Hva er medlemskap?",
+        "Hva koster den?"
+      ],
+      "safetyRoutes": {
+        "Er det sikkert?": ["/no/verification-guide", "/no/safety"],
+        "Er dette trygt?": ["/no/verification-guide", "/no/community-guidelines", "/en/safety"],
+        "Hvordan ivaretas sikkerheten?": ["/no/safety"],
+        "How is safety handled?": ["/en/safety", "/no/safety", "/fi/safety"]
+      },
+      "giftRoutes": ["/no/gift-guide", "/no/how-gifting-works"],
+      "membershipRoutes": ["/no/premium", "/no/membership-guide"],
+      "membershipFollowUpAlsoReturned": "/no/faq/marketplace-listing-push",
+      "isolatedPriceQuestionSourceCount": 0,
+      "commissionSourceCount": 0,
+      "inventedPrice": false,
+      "answerPath": "NOT_MEASURED",
+      "visualWidgetQa": "BROWSER_BLOCKED"
+    },
+    "reason": "Owner approved this exact Safety Intent V1 candidate. PR #328 merged it, and Production on aipify.ai cited published safety pages for the short safety questions, kept the gift guides, and kept membership sources for the short price follow-up without inventing a price. Commission coverage still returned no sources. answerPath was absent from the public response. Visual widget QA stays blocked. This record closes that candidate only. It does not finish commission coverage, and it does not freeze the wider Kompis Core. The runtime files stay out of files[] because a ledger row whose hash matches the manifest fails the freeze gate. The earlier pending status remains a historical fact and is no longer the current status.",
+    "filesArrayUnchanged": true
   },
   "sourceSelectionApproval": {
     "date": "2026-10-24",
