@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, useTransition, type FormEvent } from "react";
 import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labels";
+import { kompisWebSalesHelperDisplayName } from "@/lib/marketing/kompis-web-sales/locale";
 import {
   isPublicFooterEnabledLocale,
   publicFooterLocaleOptions,
@@ -13,7 +14,9 @@ import {
 import { marketingDataAttr } from "@/lib/marketing/analytics";
 import "./kompis-web-sales.css";
 
-const MASCOT_SRC = "/brand/aipify-kompis-avatar.png";
+const BRAND_MARK = "/brand/aipify-kompis-avatar.png";
+const HERO_MASCOT = "/website-kompis/dashboard/kompis_mascot_premium_v2.png";
+const HERO_GLOW = "/website-kompis/dashboard/kompis_hero_glow_premium_v2.png";
 
 type Props = {
   labels: KompisWebSalesLabels;
@@ -21,11 +24,57 @@ type Props = {
   appName: string;
 };
 
+const BENEFIT_ICONS = [
+  // source
+  <path key="s" d="M7 4h10v4H7V4Zm0 6h10v10H7V10Zm2 2v6h6v-6H9Z" fill="currentColor" />,
+  // page
+  <path key="p" d="M6 3h8l4 4v14H6V3Zm8 1.5V8h3.5L14 4.5ZM8 12h8v2H8v-2Zm0 4h6v2H8v-2Z" fill="currentColor" />,
+  // multilingual
+  <path key="m" d="M4 5h7v2H8.8A13 13 0 0 1 12 14.2V16a15 15 0 0 0-4.4-7.2A15 15 0 0 0 3.2 16H1a17 17 0 0 1 4.4-8.5A11 11 0 0 1 4 5Zm9 2h10v2h-3.1A15 15 0 0 1 22 16h-2a13 13 0 0 0-2.4-6.2A13 13 0 0 0 15.2 16H13a15 15 0 0 1 2.8-7H13V7Z" fill="currentColor" />,
+  // human
+  <path key="h" d="M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 10c4.4 0 8 2.2 8 5v1H4v-1c0-2.8 3.6-5 8-5Z" fill="currentColor" />,
+  // fast
+  <path key="f" d="M13 2 4 14h7l-1 8 10-14h-7l1-6Z" fill="currentColor" />,
+];
+
+function ChevronDown() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  const [langOpen, setLangOpen] = useState(false);
   const [langError, setLangError] = useState<string | null>(null);
+  const menuId = useId();
+  const langRef = useRef<HTMLDivElement>(null);
   const localeOptions = publicFooterLocaleOptions();
+  const activeLocale = localeOptions.find((opt) => opt.locale === locale) ?? localeOptions[0];
+  const helperName = kompisWebSalesHelperDisplayName(locale);
+  const [signupLanguage, setSignupLanguage] = useState(locale);
+
+  useEffect(() => {
+    setSignupLanguage(locale);
+  }, [locale]);
+
+  useEffect(() => {
+    function onPointerDown(event: MouseEvent) {
+      if (!langRef.current?.contains(event.target as Node)) setLangOpen(false);
+    }
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setLangOpen(false);
+    }
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, []);
 
   function goRegister(event?: FormEvent) {
     event?.preventDefault();
@@ -35,6 +84,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
   function switchLocale(next: string) {
     if (!isPublicFooterEnabledLocale(next) || next === locale || pending) return;
     setLangError(null);
+    setLangOpen(false);
     startTransition(async () => {
       try {
         const res = await fetch("/api/locale", {
@@ -43,12 +93,12 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
           body: JSON.stringify({ locale: next }),
         });
         if (!res.ok) {
-          setLangError("Language switch failed");
+          setLangError(labels.nav.languageSwitchFailed);
           return;
         }
         window.location.assign("/kompis-web");
       } catch {
-        setLangError("Language switch failed");
+        setLangError(labels.nav.languageSwitchFailed);
       }
     });
   }
@@ -57,8 +107,8 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
     <div className="kompis-web-sales">
       <header className="kompis-web-sales-nav">
         <div className="kompis-web-sales-shell kompis-web-sales-nav-inner">
-          <Link href={labels.hrefs.aipify} className="kompis-web-sales-brand" aria-label={appName}>
-            <Image src={MASCOT_SRC} alt="" width={36} height={36} priority />
+          <Link href={labels.hrefs.home} className="kompis-web-sales-brand" aria-label={appName}>
+            <Image src={BRAND_MARK} alt="" width={40} height={40} priority />
             <span>{appName}</span>
           </Link>
 
@@ -70,23 +120,42 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
           </nav>
 
           <div className="kompis-web-sales-nav-actions">
-            <div className="kompis-web-sales-lang">
-              <label className="sr-only" htmlFor="kompis-web-sales-lang">
-                {labels.nav.language}
-              </label>
-              <select
-                id="kompis-web-sales-lang"
-                value={locale}
+            <div className="kompis-web-sales-lang" ref={langRef}>
+              <button
+                type="button"
+                className="kompis-web-sales-lang-trigger"
+                aria-haspopup="listbox"
+                aria-expanded={langOpen}
+                aria-controls={menuId}
+                aria-label={labels.nav.languageMenu}
                 disabled={pending}
-                onChange={(e) => switchLocale(e.target.value)}
-                aria-busy={pending}
+                onClick={() => setLangOpen((open) => !open)}
+              >
+                <Image src={activeLocale.flagSrc} alt="" width={20} height={14} />
+                <span className="kompis-web-sales-lang-label">{activeLocale.nativeLabel}</span>
+                <ChevronDown />
+              </button>
+              <div
+                id={menuId}
+                className="kompis-web-sales-lang-menu"
+                role="listbox"
+                aria-label={labels.nav.languageMenu}
+                hidden={!langOpen}
               >
                 {localeOptions.map((opt) => (
-                  <option key={opt.locale} value={opt.locale}>
-                    {opt.nativeLabel}
-                  </option>
+                  <button
+                    key={opt.locale}
+                    type="button"
+                    role="option"
+                    className="kompis-web-sales-lang-option"
+                    aria-current={opt.locale === locale ? "true" : undefined}
+                    onClick={() => switchLocale(opt.locale)}
+                  >
+                    <Image src={opt.flagSrc} alt="" width={22} height={15} />
+                    <span>{opt.nativeLabel}</span>
+                  </button>
                 ))}
-              </select>
+              </div>
             </div>
             <Link href={labels.hrefs.login} className="kompis-web-sales-secondary">
               {labels.nav.login}
@@ -107,7 +176,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
           <a href="#faq">{labels.nav.faq}</a>
         </div>
         {langError ? (
-          <p className="kompis-web-sales-shell" role="alert" style={{ color: "#b42318", paddingBottom: 8 }}>
+          <p className="kompis-web-sales-shell kompis-web-sales-alert" role="alert">
             {langError}
           </p>
         ) : null}
@@ -143,14 +212,23 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
               <span>{labels.hero.trustSetup}</span>
               <span>{labels.hero.trustFreeQuota}</span>
             </div>
-            <div className="kompis-web-sales-mascot-wrap" aria-hidden="true">
+            <div className="kompis-web-sales-mascot-stage" aria-hidden="true">
               <div className="kompis-web-sales-mascot-glow" />
               <Image
+                src={HERO_GLOW}
+                alt=""
+                width={520}
+                height={292}
                 className="kompis-web-sales-mascot"
-                src={MASCOT_SRC}
+                style={{ position: "absolute", opacity: 0.55, width: "min(460px, 96%)", zIndex: 0 }}
+                priority
+              />
+              <Image
+                className="kompis-web-sales-mascot"
+                src={HERO_MASCOT}
                 alt={labels.hero.mascotAlt}
-                width={320}
-                height={320}
+                width={340}
+                height={340}
                 priority
               />
             </div>
@@ -172,7 +250,15 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             </div>
             <div className="kompis-web-sales-field">
               <label htmlFor="kws-language">{labels.signupCard.languageLabel}</label>
-              <select id="kws-language" name="language" defaultValue={locale}>
+              <select
+                id="kws-language"
+                name="language"
+                value={signupLanguage}
+                onChange={(e) => {
+                  const next = e.target.value;
+                  if (isPublicFooterEnabledLocale(next)) setSignupLanguage(next);
+                }}
+              >
                 {localeOptions.map((opt) => (
                   <option key={opt.locale} value={opt.locale}>
                     {opt.nativeLabel}
@@ -192,33 +278,42 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
           </form>
         </section>
 
-        <section className="kompis-web-sales-shell kompis-web-sales-section" aria-labelledby="kompis-web-sales-benefits-title">
-          <h2 id="kompis-web-sales-benefits-title">{labels.benefits.title}</h2>
-          <div className="kompis-web-sales-feature-grid">
-            {labels.benefits.items.map((item) => (
-              <article key={item.title} className="kompis-web-sales-feature-card">
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
+        <section className="kompis-web-sales-shell kompis-web-sales-section" aria-label={labels.benefits.title}>
+          <div className="kompis-web-sales-feature-strip">
+            {labels.benefits.items.map((item, index) => (
+              <article key={item.title} className="kompis-web-sales-feature-item">
+                <span className="kompis-web-sales-feature-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">{BENEFIT_ICONS[index]}</svg>
+                </span>
+                <strong>{item.title}</strong>
+                <span>{item.body}</span>
               </article>
             ))}
           </div>
         </section>
 
         <section className="kompis-web-sales-shell kompis-web-sales-section" id="how" aria-labelledby="kompis-web-sales-how-title">
-          <h2 id="kompis-web-sales-how-title">{labels.how.title}</h2>
-          <div className="kompis-web-sales-how-grid">
-            {labels.how.steps.map((step, index) => (
-              <article key={step.title} className="kompis-web-sales-how-card">
-                <span className="kompis-web-sales-step-index">{index + 1}</span>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </article>
-            ))}
+          <div className="kompis-web-sales-how">
+            <div className="kompis-web-sales-how-copy">
+              <h2 id="kompis-web-sales-how-title">{labels.how.title}</h2>
+              <p>{labels.how.intro}</p>
+            </div>
+            <div className="kompis-web-sales-how-grid">
+              {labels.how.steps.map((step, index) => (
+                <article key={step.title} className="kompis-web-sales-how-card">
+                  <span className="kompis-web-sales-step-index">{index + 1}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
         <section className="kompis-web-sales-shell kompis-web-sales-section" aria-labelledby="kompis-web-sales-demo-title">
-          <h2 id="kompis-web-sales-demo-title">{labels.demo.title}</h2>
+          <h2 id="kompis-web-sales-demo-title" className="kompis-web-sales-section-title">
+            {labels.demo.title}
+          </h2>
           <p className="kompis-web-sales-section-lead">{labels.demo.subtitle}</p>
           <div className="kompis-web-sales-demo-grid">
             <article className="kompis-web-sales-panel">
@@ -226,7 +321,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
               <h3>{labels.demo.widgetTitle}</h3>
               <div className="kompis-web-sales-chat">
                 <div className="kompis-web-sales-chat-head">
-                  <span>{appName}</span>
+                  <span>{helperName}</span>
                   <span>{labels.demo.widgetStatus}</span>
                 </div>
                 <div className="kompis-web-sales-chat-body">
@@ -238,98 +333,124 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             <article className="kompis-web-sales-panel">
               <span className="kompis-web-sales-badge">{labels.demo.illustrationBadge}</span>
               <h3>{labels.demo.controlTitle}</h3>
-              <p style={{ color: "var(--sales-muted)", margin: 0, lineHeight: 1.5 }}>{labels.demo.controlBody}</p>
-              <ul className="kompis-web-sales-control-list">
-                {labels.demo.controlItems.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+              <div className="kompis-web-sales-control-shell">
+                <div className="kompis-web-sales-control-nav" aria-hidden="true">
+                  {labels.demo.controlItems.slice(0, 4).map((item, index) => (
+                    <span key={item} data-active={index === 0 ? "true" : undefined}>
+                      {item}
+                    </span>
+                  ))}
+                </div>
+                <div className="kompis-web-sales-control-main">
+                  <p>{labels.demo.controlBody}</p>
+                  <ul className="kompis-web-sales-control-list">
+                    {labels.demo.controlItems.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </article>
           </div>
         </section>
 
         <section className="kompis-web-sales-shell kompis-web-sales-section" id="pricing" aria-labelledby="kompis-web-sales-pricing-title">
-          <h2 id="kompis-web-sales-pricing-title">{labels.pricing.title}</h2>
-          <p className="kompis-web-sales-section-lead">{labels.pricing.subtitle}</p>
-          <div className="kompis-web-sales-plans">
-            <article className="kompis-web-sales-plan kompis-web-sales-plan-featured">
-              <span className="kompis-web-sales-plan-badge">{labels.pricing.free.badge}</span>
-              <h3>{labels.pricing.free.name}</h3>
-              <p className="quota">{labels.pricing.free.quota}</p>
-              <p className="price">{labels.pricing.free.price}</p>
-              <ul>
-                {labels.pricing.free.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-              <Link
-                href={labels.hrefs.register}
-                className="kompis-web-sales-primary"
-                style={{ width: "100%" }}
-                {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_free")}
-              >
-                {labels.pricing.free.cta}
-              </Link>
-            </article>
-            <article className="kompis-web-sales-plan">
-              <h3>{labels.pricing.paid.name}</h3>
-              <p className="quota">{labels.pricing.paid.quota}</p>
-              <p className="price">
-                {labels.pricing.paid.priceMonthly}
-                <br />
-                {labels.pricing.paid.priceAnnual}
-              </p>
-              <ul>
-                {labels.pricing.paid.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-              <Link
-                href={labels.hrefs.bookDemo}
-                className="kompis-web-sales-secondary"
-                style={{ width: "100%" }}
-                {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_paid")}
-              >
-                {labels.pricing.paid.cta}
-              </Link>
-              <p className="kompis-web-sales-hint">{labels.pricing.paid.checkoutUnavailable}</p>
-            </article>
+          <div className="kompis-web-sales-pricing">
+            <div className="kompis-web-sales-pricing-copy">
+              <h2 id="kompis-web-sales-pricing-title">{labels.pricing.title}</h2>
+              <p>{labels.pricing.asideBody}</p>
+              <p className="kompis-web-sales-note">{labels.pricing.plannedNote}</p>
+            </div>
+            <div className="kompis-web-sales-plans">
+              <article className="kompis-web-sales-plan kompis-web-sales-plan-featured">
+                <span className="kompis-web-sales-plan-badge">{labels.pricing.free.badge}</span>
+                <h3>{labels.pricing.free.name}</h3>
+                <p className="quota">{labels.pricing.free.quota}</p>
+                <p className="price">{labels.pricing.free.price}</p>
+                <ul>
+                  {labels.pricing.free.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+                <Link
+                  href={labels.hrefs.register}
+                  className="kompis-web-sales-primary"
+                  style={{ width: "100%" }}
+                  {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_free")}
+                >
+                  {labels.pricing.free.cta}
+                </Link>
+              </article>
+              <article className="kompis-web-sales-plan">
+                <h3>{labels.pricing.paid.name}</h3>
+                <p className="quota">{labels.pricing.paid.quota}</p>
+                <p className="price">
+                  {labels.pricing.paid.priceMonthly}
+                  <br />
+                  {labels.pricing.paid.priceAnnual}
+                </p>
+                <ul>
+                  {labels.pricing.paid.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+                <Link
+                  href={labels.hrefs.bookDemo}
+                  className="kompis-web-sales-secondary"
+                  style={{ width: "100%" }}
+                  {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_paid")}
+                >
+                  {labels.pricing.paid.cta}
+                </Link>
+                <p className="kompis-web-sales-hint">{labels.pricing.paid.checkoutUnavailable}</p>
+              </article>
+            </div>
           </div>
-          <p className="kompis-web-sales-note">{labels.pricing.plannedNote}</p>
         </section>
 
         <section className="kompis-web-sales-shell kompis-web-sales-section" id="faq" aria-labelledby="kompis-web-sales-faq-title">
-          <h2 id="kompis-web-sales-faq-title">{labels.faq.title}</h2>
+          <h2 id="kompis-web-sales-faq-title" className="kompis-web-sales-section-title">
+            {labels.faq.title}
+          </h2>
           <div className="kompis-web-sales-faq-grid">
             {labels.faq.items.map((item) => (
-              <article key={item.question} className="kompis-web-sales-faq-item">
-                <h3>{item.question}</h3>
+              <details key={item.question} className="kompis-web-sales-faq-item">
+                <summary>{item.question}</summary>
                 <p>{item.answer}</p>
-              </article>
+              </details>
             ))}
           </div>
         </section>
 
         <section className="kompis-web-sales-shell kompis-web-sales-section">
           <div className="kompis-web-sales-final">
-            <h2>{labels.finalCta.title}</h2>
-            <p>{labels.finalCta.subtitle}</p>
-            <div className="kompis-web-sales-cta-row">
-              <Link
-                href={labels.hrefs.register}
-                className="kompis-web-sales-primary"
-                {...marketingDataAttr("cta_click", "kompis_web_sales_final_start_free")}
-              >
-                {labels.finalCta.primary}
-              </Link>
-              <Link
-                href={labels.hrefs.bookDemo}
-                className="kompis-web-sales-secondary"
-                {...marketingDataAttr("cta_click", "kompis_web_sales_final_book_demo")}
-              >
-                {labels.finalCta.secondary}
-              </Link>
+            <div>
+              <h2>{labels.finalCta.title}</h2>
+              <p>{labels.finalCta.subtitle}</p>
+              <div className="kompis-web-sales-cta-row">
+                <Link
+                  href={labels.hrefs.register}
+                  className="kompis-web-sales-primary"
+                  {...marketingDataAttr("cta_click", "kompis_web_sales_final_start_free")}
+                >
+                  {labels.finalCta.primary}
+                </Link>
+                <Link
+                  href={labels.hrefs.bookDemo}
+                  className="kompis-web-sales-secondary"
+                  {...marketingDataAttr("cta_click", "kompis_web_sales_final_book_demo")}
+                >
+                  {labels.finalCta.secondary}
+                </Link>
+              </div>
             </div>
+            <Image
+              className="kompis-web-sales-final-mascot"
+              src={HERO_MASCOT}
+              alt=""
+              width={220}
+              height={220}
+            />
           </div>
         </section>
       </main>
@@ -337,7 +458,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
       <footer className="kompis-web-sales-footer">
         <div className="kompis-web-sales-shell kompis-web-sales-footer-inner">
           <Link href={labels.hrefs.home} className="kompis-web-sales-brand">
-            <Image src={MASCOT_SRC} alt="" width={32} height={32} />
+            <Image src={BRAND_MARK} alt="" width={32} height={32} />
             <span>{labels.footer.tagline}</span>
           </Link>
           <nav className="kompis-web-sales-footer-links" aria-label="Footer">
@@ -348,7 +469,6 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             <Link href={labels.hrefs.privacy}>{labels.footer.privacy}</Link>
             <Link href={labels.hrefs.terms}>{labels.footer.terms}</Link>
             <Link href={labels.hrefs.contact}>{labels.footer.contact}</Link>
-            <Link href={labels.hrefs.home}>{labels.footer.home}</Link>
             <a href={labels.hrefs.aipify} rel="noreferrer">
               aipify.ai
             </a>

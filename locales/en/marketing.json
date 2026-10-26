@@ -8071,7 +8071,9 @@
       "faq": "FAQ",
       "login": "Login",
       "startFree": "Start free",
-      "language": "Language"
+      "language": "Language",
+      "languageMenu": "Choose language",
+      "languageSwitchFailed": "Language switch failed. Please try again."
     },
     "hero": {
       "eyebrow": "Aipify Kompis Web",
@@ -8141,7 +8143,8 @@
           "title": "Happier visitors, less support load",
           "body": "Visitors get answers faster while your team focuses on the exceptions."
         }
-      ]
+      ],
+      "intro": "Connect your site, let visitors ask, stay in control, and reduce repetitive support — in four clear steps."
     },
     "demo": {
       "title": "See Kompis Web in context",
@@ -8188,7 +8191,9 @@
         ],
         "cta": "Book demo",
         "checkoutUnavailable": "Paid checkout is not live yet. Register or book a demo to continue."
-      }
+      },
+      "asideTitle": "Simple packages for website owners",
+      "asideBody": "Begin with a free lifetime answer allowance. Move to Standard when your site needs monthly capacity — checkout goes live in a later billing gate."
     },
     "faq": {
       "title": "Questions website owners ask",

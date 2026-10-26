@@ -8481,7 +8481,9 @@
       "faq": "FAQ",
       "login": "Logga in",
       "startFree": "Börja gratis",
-      "language": "Språk"
+      "language": "Språk",
+      "languageMenu": "Välj språk",
+      "languageSwitchFailed": "Språkbytet misslyckades. Försök igen."
     },
     "hero": {
       "eyebrow": "Aipify Kompis Web",
@@ -8551,7 +8553,8 @@
           "title": "Nöjdare besökare, mindre supporttryck",
           "body": "Besökare får svar snabbare medan teamet tar undantagen."
         }
-      ]
+      ],
+      "intro": "Anslut sajten, låt besökare fråga, behåll kontrollen och minska repetitiv support — i fyra tydliga steg."
     },
     "demo": {
       "title": "Se Kompis Web i sitt sammanhang",
@@ -8598,7 +8601,9 @@
         ],
         "cta": "Boka demo",
         "checkoutUnavailable": "Betald kassa är inte live ännu. Registrera dig eller boka demo för att fortsätta."
-      }
+      },
+      "asideTitle": "Enkla paket för webbplatsägare",
+      "asideBody": "Börja med en gratis livstidskvot. Gå till Standard när sajten behöver månatlig kapacitet — kassan aktiveras i en senare betalningsgrind."
     },
     "faq": {
       "title": "Frågor webbplatsägare ställer",

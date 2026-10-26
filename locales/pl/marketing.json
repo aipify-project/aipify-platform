@@ -687,7 +687,9 @@
       "faq": "FAQ",
       "login": "Logowanie",
       "startFree": "Zacznij za darmo",
-      "language": "Język"
+      "language": "Język",
+      "languageMenu": "Wybierz język",
+      "languageSwitchFailed": "Zmiana języka nie powiodła się. Spróbuj ponownie."
     },
     "hero": {
       "eyebrow": "Aipify Kompis Web",
@@ -757,7 +759,8 @@
           "title": "Zadowoleni odwiedzający, mniej obciążenia supportu",
           "body": "Odwiedzający dostają odpowiedzi szybciej, a zespół zajmuje się wyjątkami."
         }
-      ]
+      ],
+      "intro": "Podłącz stronę, pozwól odwiedzającym pytać, zachowaj kontrolę i ogranicz powtarzalne wsparcie — w czterech jasnych krokach."
     },
     "demo": {
       "title": "Zobacz Kompis Web w kontekście",
@@ -804,7 +807,9 @@
         ],
         "cta": "Umów demo",
         "checkoutUnavailable": "Płatny checkout nie jest jeszcze dostępny. Zarejestruj się lub umów demo."
-      }
+      },
+      "asideTitle": "Proste pakiety dla właścicieli stron",
+      "asideBody": "Zacznij od darmowego limitu lifetime. Przejdź na Standard, gdy strona potrzebuje miesięcznej pojemności — checkout włączy się w późniejszej bramce płatności."
     },
     "faq": {
       "title": "Pytania właścicieli stron",

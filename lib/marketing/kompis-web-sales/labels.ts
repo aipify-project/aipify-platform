@@ -12,6 +12,8 @@ export type KompisWebSalesLabels = {
     login: string;
     startFree: string;
     language: string;
+    languageMenu: string;
+    languageSwitchFailed: string;
   };
   hero: {
     eyebrow: string;
@@ -43,6 +45,7 @@ export type KompisWebSalesLabels = {
   };
   how: {
     title: string;
+    intro: string;
     steps: Array<{ title: string; body: string }>;
   };
   demo: {
@@ -60,6 +63,8 @@ export type KompisWebSalesLabels = {
   pricing: {
     title: string;
     subtitle: string;
+    asideTitle: string;
+    asideBody: string;
     plannedNote: string;
     free: {
       badge: string;
@@ -195,6 +200,8 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       login: asString(nav.login, "Login"),
       startFree: asString(nav.startFree, "Start free"),
       language: asString(nav.language, "Language"),
+      languageMenu: asString(nav.languageMenu, "Choose language"),
+      languageSwitchFailed: asString(nav.languageSwitchFailed, "Language switch failed. Please try again."),
     },
     hero: {
       eyebrow: asString(hero.eyebrow, "Aipify Kompis Web"),
@@ -232,6 +239,10 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
     },
     how: {
       title: asString(how.title, "From your content to helpful conversations"),
+      intro: asString(
+        how.intro,
+        "Connect your site, let visitors ask, stay in control, and reduce repetitive support — in four clear steps.",
+      ),
       steps: howSteps,
     },
     demo: {
@@ -252,6 +263,11 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
     pricing: {
       title: asString(pricing.title, "Start free. Upgrade when you need more answers."),
       subtitle: asString(pricing.subtitle),
+      asideTitle: asString(pricing.asideTitle, "Simple packages for website owners"),
+      asideBody: asString(
+        pricing.asideBody,
+        "Begin with a free lifetime answer allowance. Move to Standard when your site needs monthly capacity — checkout goes live in a later billing gate.",
+      ),
       plannedNote: asString(
         pricing.plannedNote,
         "Packages below follow the owner-decided Kompis Web catalog. Live checkout is not enabled yet — start free registration or book a demo.",

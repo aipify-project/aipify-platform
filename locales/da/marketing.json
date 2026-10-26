@@ -8481,7 +8481,9 @@
       "faq": "FAQ",
       "login": "Log ind",
       "startFree": "Start gratis",
-      "language": "Sprog"
+      "language": "Sprog",
+      "languageMenu": "Vælg sprog",
+      "languageSwitchFailed": "Sprogskift mislykkedes. Prøv igen."
     },
     "hero": {
       "eyebrow": "Aipify Kompis Web",
@@ -8551,7 +8553,8 @@
           "title": "Gladere besøgende, mindre supporttryk",
           "body": "Besøgende får svar hurtigere, mens teamet tager undtagelserne."
         }
-      ]
+      ],
+      "intro": "Tilslut sitet, lad besøgende spørge, behold kontrollen og reducer gentagen support — i fire tydelige trin."
     },
     "demo": {
       "title": "Se Kompis Web i kontekst",
@@ -8598,7 +8601,9 @@
         ],
         "cta": "Book demo",
         "checkoutUnavailable": "Betalt checkout er endnu ikke live. Registrér dig eller book demo for at fortsætte."
-      }
+      },
+      "asideTitle": "Enkle pakker til websiteejere",
+      "asideBody": "Start med en gratis livstidskvote. Gå til Standard, når sitet har brug for månedlig kapacitet — checkout aktiveres i en senere betalingsport."
     },
     "faq": {
       "title": "Spørgsmål websiteejere stiller",

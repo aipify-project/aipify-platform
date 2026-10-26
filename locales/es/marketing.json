@@ -19,7 +19,9 @@
       "faq": "FAQ",
       "login": "Iniciar sesión",
       "startFree": "Empezar gratis",
-      "language": "Idioma"
+      "language": "Idioma",
+      "languageMenu": "Elegir idioma",
+      "languageSwitchFailed": "El cambio de idioma falló. Inténtalo de nuevo."
     },
     "hero": {
       "eyebrow": "Aipify Kompis Web",
@@ -89,7 +91,8 @@
           "title": "Visitantes más satisfechos, menos carga de soporte",
           "body": "Los visitantes obtienen respuestas más rápido mientras el equipo atiende las excepciones."
         }
-      ]
+      ],
+      "intro": "Conecta tu sitio, deja que los visitantes pregunten, mantén el control y reduce el soporte repetitivo — en cuatro pasos claros."
     },
     "demo": {
       "title": "Ve Kompis Web en contexto",
@@ -136,7 +139,9 @@
         ],
         "cta": "Reservar demo",
         "checkoutUnavailable": "El checkout de pago aún no está activo. Regístrate o reserva una demo."
-      }
+      },
+      "asideTitle": "Paquetes simples para dueños de sitios",
+      "asideBody": "Empieza con una cuota gratuita de por vida. Pasa a Standard cuando el sitio necesite capacidad mensual — el checkout se activa en una puerta de facturación posterior."
     },
     "faq": {
       "title": "Preguntas de dueños de sitios",
