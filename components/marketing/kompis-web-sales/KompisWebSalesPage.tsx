@@ -92,9 +92,21 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
     };
   }, []);
 
-  function goRegister(event?: FormEvent) {
+  function goStart(event?: FormEvent) {
     event?.preventDefault();
-    router.push(labels.hrefs.register);
+    const form = event?.currentTarget;
+    if (form instanceof HTMLFormElement) {
+      const data = new FormData(form);
+      const params = new URLSearchParams();
+      for (const key of ["email", "website", "company", "language"] as const) {
+        const value = String(data.get(key) ?? "").trim();
+        if (value) params.set(key, value);
+      }
+      const qs = params.toString();
+      router.push(qs ? `${labels.hrefs.start}?${qs}` : labels.hrefs.start);
+      return;
+    }
+    router.push(labels.hrefs.start);
   }
 
   function switchLocale(next: string) {
@@ -112,7 +124,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
           setLangError(labels.nav.languageSwitchFailed);
           return;
         }
-        window.location.assign("/kompis-web");
+        window.location.assign("/");
       } catch {
         setLangError(labels.nav.languageSwitchFailed);
       }
@@ -177,7 +189,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
               {labels.nav.login}
             </Link>
             <Link
-              href={labels.hrefs.register}
+              href={labels.hrefs.start}
               className="kompis-web-sales-primary"
               {...marketingDataAttr("cta_click", "kompis_web_sales_nav_start_free")}
             >
@@ -209,19 +221,19 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             <p className="kompis-web-sales-lead">{labels.hero.subtitle}</p>
             <div className="kompis-web-sales-cta-row">
               <Link
-                href={labels.hrefs.register}
+                href={labels.hrefs.start}
                 className="kompis-web-sales-primary"
                 {...marketingDataAttr("cta_click", "kompis_web_sales_hero_start_free")}
               >
                 {labels.hero.primaryCta}
               </Link>
-              <Link
-                href={labels.hrefs.bookDemo}
+              <a
+                href={labels.hrefs.contactMailto}
                 className="kompis-web-sales-cta-quiet"
-                {...marketingDataAttr("cta_click", "kompis_web_sales_hero_book_demo")}
+                {...marketingDataAttr("cta_click", "kompis_web_sales_hero_contact")}
               >
                 {labels.hero.secondaryCta}
-              </Link>
+              </a>
             </div>
             <div className="kompis-web-sales-trust">
               <span>{labels.hero.trustNoCard}</span>
@@ -250,7 +262,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             />
           </div>
 
-          <form className="kompis-web-sales-panel kompis-web-sales-signup" onSubmit={goRegister} noValidate>
+          <form className="kompis-web-sales-panel kompis-web-sales-signup" onSubmit={goStart} noValidate>
             <h2>{labels.signupCard.title}</h2>
             <div className="kompis-web-sales-field">
               <label htmlFor="kws-email">{labels.signupCard.emailLabel}</label>
@@ -411,7 +423,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                   ))}
                 </ul>
                 <Link
-                  href={labels.hrefs.register}
+                  href={labels.hrefs.start}
                   className="kompis-web-sales-primary kompis-web-sales-plan-cta"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_free")}
                 >
@@ -439,7 +451,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                   ))}
                 </ul>
                 <Link
-                  href={labels.hrefs.bookDemo}
+                  href={labels.hrefs.start}
                   className="kompis-web-sales-secondary kompis-web-sales-plan-cta"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_paid")}
                 >
@@ -475,19 +487,19 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
               <p>{labels.finalCta.subtitle}</p>
               <div className="kompis-web-sales-cta-row">
                 <Link
-                  href={labels.hrefs.register}
+                  href={labels.hrefs.start}
                   className="kompis-web-sales-primary"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_final_start_free")}
                 >
                   {labels.finalCta.primary}
                 </Link>
-                <Link
-                  href={labels.hrefs.bookDemo}
+                <a
+                  href={labels.hrefs.contactMailto}
                   className="kompis-web-sales-cta-quiet"
-                  {...marketingDataAttr("cta_click", "kompis_web_sales_final_book_demo")}
+                  {...marketingDataAttr("cta_click", "kompis_web_sales_final_contact")}
                 >
                   {labels.finalCta.secondary}
-                </Link>
+                </a>
               </div>
             </div>
             <Image
@@ -511,10 +523,10 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             <a href="#product">{labels.footer.product}</a>
             <a href="#how">{labels.footer.how}</a>
             <a href="#pricing">{labels.footer.pricing}</a>
-            <a href="#faq">{labels.footer.faq}</a>
+            <a href={labels.hrefs.faq}>{labels.footer.faq}</a>
             <Link href={labels.hrefs.privacy}>{labels.footer.privacy}</Link>
             <Link href={labels.hrefs.terms}>{labels.footer.terms}</Link>
-            <Link href={labels.hrefs.contact}>{labels.footer.contact}</Link>
+            <a href={labels.hrefs.contactMailto}>{labels.footer.contact}</a>
             <a href={labels.hrefs.aipify} rel="noreferrer">
               aipify.ai
             </a>

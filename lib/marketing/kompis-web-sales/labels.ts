@@ -112,13 +112,42 @@ export type KompisWebSalesLabels = {
     home: string;
     tagline: string;
   };
+  start: {
+    metaTitle: string;
+    metaDescription: string;
+    backHome: string;
+    collectTitle: string;
+    collectSubtitle: string;
+    accountTitle: string;
+    accountSubtitle: string;
+    fullNameLabel: string;
+    fullNamePlaceholder: string;
+    passwordLabel: string;
+    confirmPasswordLabel: string;
+    termsLabel: string;
+    continue: string;
+    createAccount: string;
+    back: string;
+    successTitle: string;
+    successBody: string;
+    loginCta: string;
+    homeCta: string;
+    errorRequired: string;
+    errorEmail: string;
+    errorPasswordShort: string;
+    errorPasswordMismatch: string;
+    errorTerms: string;
+    errorGeneric: string;
+    errorExists: string;
+    errorRateLimit: string;
+  };
   hrefs: {
-    register: "/register";
-    bookDemo: "/book-demo";
+    start: "/start";
     login: "/login";
     privacy: "/privacy";
     terms: "/terms";
-    contact: "/contact";
+    contactMailto: "mailto:hello@aipify.ai";
+    faq: "/#faq";
     home: "/";
     aipify: "https://aipify.ai";
   };
@@ -179,6 +208,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
   const finalCta = (raw.finalCta ?? {}) as Record<string, unknown>;
   const footer = (raw.footer ?? {}) as Record<string, unknown>;
   const meta = (raw.meta ?? {}) as Record<string, unknown>;
+  const start = (raw.start ?? {}) as Record<string, unknown>;
 
   const benefitItems = asPairs(benefits.items);
   const howSteps = asPairs(how.steps);
@@ -196,7 +226,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
 
   return {
     meta: {
-      title: asString(meta.title, "Aipify — AI helper for website visitors | Kompis Web"),
+      title: asString(meta.title, "Aipify works for you | Kompis Web"),
       description: asString(
         meta.description,
         "Kompis Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card. Part of Aipify.",
@@ -222,7 +252,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
         "Kompis Web answers questions, guides visitors, and makes approved content on your website easier to find.",
       ),
       primaryCta: asString(hero.primaryCta, "Start free"),
-      secondaryCta: asString(hero.secondaryCta, "Book demo"),
+      secondaryCta: asString(hero.secondaryCta, "Questions? Contact us"),
       trustNoCard: asString(hero.trustNoCard, "No credit card required"),
       trustSetup: asString(hero.trustSetup, "Connect your website when you are ready"),
       trustFreeQuota: asString(
@@ -325,10 +355,10 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
           .replace("{currency}", truth.paidCurrency),
         priceNote: asString(paid.priceNote, "Listed planned price · checkout not live yet"),
         features: asStringList(paid.features),
-        cta: asString(paid.cta, "Book demo"),
+        cta: asString(paid.cta, "Start free"),
         checkoutUnavailable: asString(
           paid.checkoutUnavailable,
-          "Paid checkout is not live yet. Register or book a demo to continue.",
+          "Paid checkout is not live yet. Start free to continue, then upgrade when Standard checkout opens.",
         ),
       },
     },
@@ -340,7 +370,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       title: asString(finalCta.title, "Give your website a helpful Aipify colleague"),
       subtitle: asString(finalCta.subtitle),
       primary: asString(finalCta.primary, "Start free"),
-      secondary: asString(finalCta.secondary, "Book demo"),
+      secondary: asString(finalCta.secondary, "Questions? Contact us"),
     },
     footer: {
       product: asString(footer.product, "Product"),
@@ -353,13 +383,51 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       home: asString(footer.home, "Aipify home"),
       tagline: asString(footer.tagline, "Aipify works for you · Kompis Web"),
     },
+    start: {
+      metaTitle: asString(start.metaTitle, "Start free | Kompis Web"),
+      metaDescription: asString(
+        start.metaDescription,
+        "Create your free Kompis Web account with work email, website, company, and language.",
+      ),
+      backHome: asString(start.backHome, "Back to Kompis Web"),
+      collectTitle: asString(start.collectTitle, "Create your free account"),
+      collectSubtitle: asString(start.collectSubtitle, "Four details to begin. No credit card required."),
+      accountTitle: asString(start.accountTitle, "Secure your account"),
+      accountSubtitle: asString(
+        start.accountSubtitle,
+        "Set a password to finish signup. You can connect your website after email confirmation.",
+      ),
+      fullNameLabel: asString(start.fullNameLabel, "Your name"),
+      fullNamePlaceholder: asString(start.fullNamePlaceholder, "Full name"),
+      passwordLabel: asString(start.passwordLabel, "Password"),
+      confirmPasswordLabel: asString(start.confirmPasswordLabel, "Confirm password"),
+      termsLabel: asString(start.termsLabel, "I accept the Terms and Privacy Policy"),
+      continue: asString(start.continue, "Continue"),
+      createAccount: asString(start.createAccount, "Create free account"),
+      back: asString(start.back, "Back"),
+      successTitle: asString(start.successTitle, "Check your email"),
+      successBody: asString(
+        start.successBody,
+        "We sent a confirmation link to {email}. After confirming, sign in to continue with Kompis Web.",
+      ),
+      loginCta: asString(start.loginCta, "Go to login"),
+      homeCta: asString(start.homeCta, "Back to home"),
+      errorRequired: asString(start.errorRequired, "Please fill in all required fields."),
+      errorEmail: asString(start.errorEmail, "Enter a valid work email."),
+      errorPasswordShort: asString(start.errorPasswordShort, "Password must be at least 8 characters."),
+      errorPasswordMismatch: asString(start.errorPasswordMismatch, "Passwords do not match."),
+      errorTerms: asString(start.errorTerms, "Accept Terms and Privacy to continue."),
+      errorGeneric: asString(start.errorGeneric, "Something went wrong. Please try again."),
+      errorExists: asString(start.errorExists, "An account with this email already exists. Sign in instead."),
+      errorRateLimit: asString(start.errorRateLimit, "Too many attempts. Please wait and try again."),
+    },
     hrefs: {
-      register: "/register",
-      bookDemo: "/book-demo",
+      start: "/start",
       login: "/login",
       privacy: "/privacy",
       terms: "/terms",
-      contact: "/contact",
+      contactMailto: "mailto:hello@aipify.ai",
+      faq: "/#faq",
       home: "/",
       aipify: "https://aipify.ai",
     },
