@@ -7,8 +7,8 @@ import { buildAnalyticsConsentLabels } from "@/lib/product-analytics/consent";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 
 /**
- * Isolated sales shell — simplified page owns its own header/footer.
- * Does not replace the main marketing layout or public Home.
+ * Isolated sales shell for `/` and `/kompis-web` — page owns its own header/footer.
+ * Other marketing routes keep `app/(marketing)/layout.tsx`.
  */
 export default async function KompisSalesLayout({
   children,

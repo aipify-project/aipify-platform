@@ -7,7 +7,7 @@ import {
  * Sales-page locale policy (owner gate):
  * - Explicit cookie preference wins.
  * - Anonymous visitors without a cookie default to English.
- * - Accept-Language / IP / geo are intentionally ignored on /kompis-web
+ * - Accept-Language / IP / geo are intentionally ignored on `/` and `/kompis-web`
  *   so Nordic browsers do not auto-force Norwegian on first international visit.
  */
 export function resolveKompisWebSalesLocale(input: {
