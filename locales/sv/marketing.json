@@ -31,7 +31,7 @@
     "termsTitle": "Terms of Service — Aipify",
     "getStartedTitle": "Get Started — Aipify",
     "getStartedDescription": "A structured path from first login to operational value. See your first 30 days, implementation journey, and time-to-value outcomes.",
-    "kompisWebTitle": "Aipify – AI-hjälparen för dina webbplatsbesökare | Kompis Web",
+    "kompisWebTitle": "Aipify works for you | Kompis Web",
     "kompisWebDescription": "Kompis Web svarar på besökares frågor utifrån godkänt innehåll på din webbplats. Börja med 150 gratis svar — utan betalkort."
   },
   "nav": {
@@ -8471,7 +8471,7 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Aipify – AI-hjälparen för dina webbplatsbesökare | Kompis Web",
+      "title": "Aipify works for you | Kompis Web",
       "description": "Kompis Web svarar på besökares frågor utifrån godkänt innehåll på din webbplats. Börja med 150 gratis svar — utan betalkort."
     },
     "nav": {
@@ -8491,7 +8491,7 @@
       "titleHighlight": "webbplatsbesökare",
       "subtitle": "Kompis Web svarar på frågor, vägleder besökare och gör godkänt innehåll på din webbplats enklare att hitta.",
       "primaryCta": "Börja gratis",
-      "secondaryCta": "Boka demo",
+      "secondaryCta": "Frågor? Kontakta oss",
       "trustNoCard": "Inget betalkort krävs",
       "trustSetup": "Anslut webbplatsen när du är redo",
       "trustFreeQuota": "{quota} gratis svar",
@@ -8507,7 +8507,7 @@
       "companyPlaceholder": "Ditt företag",
       "languageLabel": "Språk",
       "submit": "Skapa gratis konto",
-      "continueHint": "Fortsätter till riktig Aipify-registrering. Inget kort krävs för den gratis svarskvoten."
+      "continueHint": "Fortsätter till enkel Kompis Web-registrering. Inget kort krävs för den gratis svarkvoten."
     },
     "benefits": {
       "title": "Därför väljer webbplatsägare Kompis Web",
@@ -8576,7 +8576,7 @@
     "pricing": {
       "title": "Börja gratis. Uppgradera när du behöver fler svar.",
       "subtitle": "Ägarbeslutade Kompis Web-paket. Gratis startar utan kort. Betald Standard är den planerade uppgraderingen som visas här.",
-      "plannedNote": "Paketen följer Kompis Web-katalogen. Live kassa är inte aktiverad ännu — registrera dig gratis eller boka demo för att gå vidare.",
+      "plannedNote": "Paketen följer Kompis Web-katalogen. Live köpkassa är inte aktiv ännu — starta gratis för att fortsätta.",
       "free": {
         "badge": "Bästa starten",
         "name": "Gratis",
@@ -8601,8 +8601,8 @@
           "Samma Kompis Web-produkt — mer månadskapacitet",
           "Aktiveras efter verifierad betalning när checkout öppnar"
         ],
-        "cta": "Boka demo",
-        "checkoutUnavailable": "Betald kassa är inte live ännu. Registrera dig eller boka demo för att fortsätta.",
+        "cta": "Starta gratis",
+        "checkoutUnavailable": "Betald kassa är inte live ännu. Starta gratis för att fortsätta, och uppgradera när Standard-kassan öppnar.",
         "tagline": "För växande webbplatser",
         "quotaUnit": "svar varje månad",
         "priceNote": "Angivet planerat pris · checkout är inte live ännu"
@@ -8615,7 +8615,7 @@
       "items": [
         {
           "question": "Var får jag Kompis Web?",
-          "answer": "Börja på aipify.ai — skapa Aipify-konto, anslut och aktivera Kompis Web för din webbplats."
+          "answer": "Börja på aipify.ai — skapa gratis konto med Starta gratis, anslut och aktivera Kompis Web för din webbplats."
         },
         {
           "question": "Hur installerar jag den?",
@@ -8647,7 +8647,7 @@
       "title": "Ge din webbplats en hjälpsam Aipify-kollega",
       "subtitle": "Börja med 150 gratis svar — utan betalkort. Uppgradera när sajten behöver mer kapacitet.",
       "primary": "Börja gratis",
-      "secondary": "Boka demo"
+      "secondary": "Frågor? Kontakta oss"
     },
     "footer": {
       "product": "Produkt",
@@ -8659,6 +8659,35 @@
       "contact": "Kontakt",
       "home": "Aipify hem",
       "tagline": "Aipify works for you · Kompis Web"
+    },
+    "start": {
+      "metaTitle": "Starta gratis | Kompis Web",
+      "metaDescription": "Skapa ditt gratis Kompis Web-konto med jobbmejl, webbadress, företagsnamn och språk.",
+      "backHome": "Tillbaka till Kompis Web",
+      "collectTitle": "Skapa gratis konto",
+      "collectSubtitle": "Fyra uppgifter för att börja. Inget betalkort krävs.",
+      "accountTitle": "Säkra ditt konto",
+      "accountSubtitle": "Ange ett lösenord för att slutföra. Du ansluter webbplatsen efter e-postbekräftelse.",
+      "fullNameLabel": "Namn",
+      "fullNamePlaceholder": "Fullständigt namn",
+      "passwordLabel": "Lösenord",
+      "confirmPasswordLabel": "Bekräfta lösenord",
+      "termsLabel": "Jag godkänner villkor och integritetspolicy",
+      "continue": "Fortsätt",
+      "createAccount": "Skapa gratis konto",
+      "back": "Tillbaka",
+      "successTitle": "Kolla din e-post",
+      "successBody": "Vi skickade en bekräftelselänk till {email}. Efter bekräftelse loggar du in för att fortsätta med Kompis Web.",
+      "loginCta": "Gå till inloggning",
+      "homeCta": "Tillbaka till startsidan",
+      "errorRequired": "Fyll i alla obligatoriska fält.",
+      "errorEmail": "Ange en giltig jobbmejl.",
+      "errorPasswordShort": "Lösenordet måste vara minst 8 tecken.",
+      "errorPasswordMismatch": "Lösenorden matchar inte.",
+      "errorTerms": "Godkänn villkor och integritet för att fortsätta.",
+      "errorGeneric": "Något gick fel. Försök igen.",
+      "errorExists": "Det finns redan ett konto med den här e-postadressen. Logga in i stället.",
+      "errorRateLimit": "För många försök. Vänta och försök igen."
     }
   }
 }

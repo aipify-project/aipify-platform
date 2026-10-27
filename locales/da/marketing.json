@@ -31,7 +31,7 @@
     "termsTitle": "Terms of Service — Aipify",
     "getStartedTitle": "Get Started — Aipify",
     "getStartedDescription": "A structured path from first login to operational value. See your first 30 days, implementation journey, and time-to-value outcomes.",
-    "kompisWebTitle": "Aipify – AI-hjælperen til dine webstedsbesøgende | Kompis Web",
+    "kompisWebTitle": "Aipify works for you | Kompis Web",
     "kompisWebDescription": "Kompis Web besvarer besøgendes spørgsmål ud fra godkendt indhold på dit website. Start med 150 gratis svar — uden betalingskort."
   },
   "nav": {
@@ -8471,7 +8471,7 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Aipify – AI-hjælperen til dine webstedsbesøgende | Kompis Web",
+      "title": "Aipify works for you | Kompis Web",
       "description": "Kompis Web besvarer besøgendes spørgsmål ud fra godkendt indhold på dit website. Start med 150 gratis svar — uden betalingskort."
     },
     "nav": {
@@ -8491,7 +8491,7 @@
       "titleHighlight": "webstedsbesøgende",
       "subtitle": "Kompis Web besvarer spørgsmål, guider besøgende og gør godkendt indhold på dit website nemmere at finde.",
       "primaryCta": "Start gratis",
-      "secondaryCta": "Book demo",
+      "secondaryCta": "Spørgsmål? Kontakt os",
       "trustNoCard": "Intet betalingskort påkrævet",
       "trustSetup": "Tilslut dit website, når du er klar",
       "trustFreeQuota": "{quota} gratis svar",
@@ -8507,7 +8507,7 @@
       "companyPlaceholder": "Dit firma",
       "languageLabel": "Sprog",
       "submit": "Opret gratis konto",
-      "continueHint": "Fortsætter til rigtig Aipify-registrering. Intet kort kræves til den gratis svarkvote."
+      "continueHint": "Fortsætter til enkel Kompis Web-registrering. Intet kort kræves for den gratis svarkvote."
     },
     "benefits": {
       "title": "Derfor vælger websiteejere Kompis Web",
@@ -8576,7 +8576,7 @@
     "pricing": {
       "title": "Start gratis. Opgrader, når du har brug for flere svar.",
       "subtitle": "Ejerbesluttede Kompis Web-pakker. Gratis starter uden kort. Betalt Standard er den planlagte opgradering, der vises her.",
-      "plannedNote": "Pakkerne følger Kompis Web-kataloget. Live checkout er endnu ikke aktiveret — registrér dig gratis eller book en demo for at fortsætte.",
+      "plannedNote": "Pakkerne følger Kompis Web-kataloget. Live betaling er ikke aktiv endnu — start gratis for at fortsætte.",
       "free": {
         "badge": "Bedste sted at starte",
         "name": "Gratis",
@@ -8601,8 +8601,8 @@
           "Samme Kompis Web-produkt — mere månedlig kapacitet",
           "Aktiveres efter verificeret betaling, når checkout åbner"
         ],
-        "cta": "Book demo",
-        "checkoutUnavailable": "Betalt checkout er endnu ikke live. Registrér dig eller book demo for at fortsætte.",
+        "cta": "Start gratis",
+        "checkoutUnavailable": "Betalt kasse er ikke live endnu. Start gratis for at fortsætte, og opgrader når Standard-kassen åbner.",
         "tagline": "Til voksende websites",
         "quotaUnit": "svar hver måned",
         "priceNote": "Opført planlagt pris · checkout er ikke live endnu"
@@ -8615,7 +8615,7 @@
       "items": [
         {
           "question": "Hvor får jeg Kompis Web?",
-          "answer": "Start på aipify.ai — opret Aipify-konto, tilslut og aktivér Kompis Web til dit website."
+          "answer": "Start på aipify.ai — opret gratis konto med Start gratis, tilslut og aktiver Kompis Web til dit website."
         },
         {
           "question": "Hvordan installerer jeg den?",
@@ -8647,7 +8647,7 @@
       "title": "Giv dit website en nyttig Aipify-kollega",
       "subtitle": "Start med 150 gratis svar — uden betalingskort. Opgrader, når sitet har brug for mere kapacitet.",
       "primary": "Start gratis",
-      "secondary": "Book demo"
+      "secondary": "Spørgsmål? Kontakt os"
     },
     "footer": {
       "product": "Produkt",
@@ -8659,6 +8659,35 @@
       "contact": "Kontakt",
       "home": "Aipify hjem",
       "tagline": "Aipify works for you · Kompis Web"
+    },
+    "start": {
+      "metaTitle": "Start gratis | Kompis Web",
+      "metaDescription": "Opret din gratis Kompis Web-konto med arbejdsmail, website, firmanavn og sprog.",
+      "backHome": "Tilbage til Kompis Web",
+      "collectTitle": "Opret gratis konto",
+      "collectSubtitle": "Fire oplysninger for at starte. Intet betalingskort kræves.",
+      "accountTitle": "Sikre din konto",
+      "accountSubtitle": "Angiv en adgangskode for at afslutte. Du tilslutter websitet efter e-mailbekræftelse.",
+      "fullNameLabel": "Navn",
+      "fullNamePlaceholder": "Fulde navn",
+      "passwordLabel": "Adgangskode",
+      "confirmPasswordLabel": "Bekræft adgangskode",
+      "termsLabel": "Jeg accepterer vilkår og privatlivspolitik",
+      "continue": "Fortsæt",
+      "createAccount": "Opret gratis konto",
+      "back": "Tilbage",
+      "successTitle": "Tjek din e-mail",
+      "successBody": "Vi sendte et bekræftelseslink til {email}. Efter bekræftelse logger du ind for at fortsætte med Kompis Web.",
+      "loginCta": "Gå til login",
+      "homeCta": "Tilbage til forsiden",
+      "errorRequired": "Udfyld alle obligatoriske felter.",
+      "errorEmail": "Angiv en gyldig arbejdsmail.",
+      "errorPasswordShort": "Adgangskoden skal være mindst 8 tegn.",
+      "errorPasswordMismatch": "Adgangskoderne matcher ikke.",
+      "errorTerms": "Acceptér vilkår og privatliv for at fortsætte.",
+      "errorGeneric": "Noget gik galt. Prøv igen.",
+      "errorExists": "Der findes allerede en konto med denne e-mail. Log ind i stedet.",
+      "errorRateLimit": "For mange forsøg. Vent og prøv igen."
     }
   }
 }

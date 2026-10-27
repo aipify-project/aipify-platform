@@ -677,7 +677,7 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Aipify — asystent AI dla odwiedzających stronę | Kompis Web",
+      "title": "Aipify works for you | Kompis Web",
       "description": "Kompis Web odpowiada na pytania odwiedzających na podstawie zatwierdzonych treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
     },
     "nav": {
@@ -697,7 +697,7 @@
       "titleHighlight": "odwiedzających stronę",
       "subtitle": "Kompis Web odpowiada na pytania, prowadzi odwiedzających i ułatwia znalezienie zatwierdzonych treści na Twojej stronie.",
       "primaryCta": "Zacznij za darmo",
-      "secondaryCta": "Umów demo",
+      "secondaryCta": "Pytania? Skontaktuj się",
       "trustNoCard": "Bez karty płatniczej",
       "trustSetup": "Podłącz stronę, gdy będziesz gotowy",
       "trustFreeQuota": "{quota} darmowych odpowiedzi",
@@ -713,7 +713,7 @@
       "companyPlaceholder": "Twoja firma",
       "languageLabel": "Język",
       "submit": "Utwórz darmowe konto",
-      "continueHint": "Przechodzi do prawdziwej rejestracji Aipify. Karta nie jest wymagana do darmowego limitu odpowiedzi."
+      "continueHint": "Przechodzi do prostej rejestracji Kompis Web. Karta nie jest wymagana do darmowego limitu."
     },
     "benefits": {
       "title": "Dlaczego właściciele stron wybierają Kompis Web",
@@ -782,7 +782,7 @@
     "pricing": {
       "title": "Zacznij za darmo. Ulepsz, gdy potrzebujesz więcej odpowiedzi.",
       "subtitle": "Pakiety Kompis Web ustalone przez właściciela. Darmowy start bez karty. Płatny Standard to planowana ścieżka aktualizacji pokazana tutaj.",
-      "plannedNote": "Pakiety pochodzą z katalogu Kompis Web. Live checkout nie jest jeszcze włączony — zarejestruj się za darmo lub umów demo.",
+      "plannedNote": "Pakiety zgodne z katalogiem Kompis Web. Płatny checkout nie jest jeszcze aktywny — zacznij za darmo, aby kontynuować.",
       "free": {
         "badge": "Najlepszy start",
         "name": "Darmowy",
@@ -807,8 +807,8 @@
           "Ten sam produkt Kompis Web — większa miesięczna pojemność",
           "Aktywacja po zweryfikowanej płatności, gdy checkout będzie gotowy"
         ],
-        "cta": "Umów demo",
-        "checkoutUnavailable": "Płatny checkout nie jest jeszcze dostępny. Zarejestruj się lub umów demo.",
+        "cta": "Zacznij za darmo",
+        "checkoutUnavailable": "Płatny checkout nie jest jeszcze aktywny. Zacznij za darmo, a ulepszysz, gdy otworzy się Standard.",
         "tagline": "Dla rozwijających się stron",
         "quotaUnit": "odpowiedzi co miesiąc",
         "priceNote": "Podana cena planowana · checkout nie jest jeszcze aktywny"
@@ -821,7 +821,7 @@
       "items": [
         {
           "question": "Gdzie uzyskać Kompis Web?",
-          "answer": "Zacznij na aipify.ai — utwórz konto Aipify, połącz i aktywuj Kompis Web dla swojej strony."
+          "answer": "Zacznij na aipify.ai — utwórz darmowe konto przez Zacznij za darmo, potem połącz i aktywuj Kompis Web na swojej stronie."
         },
         {
           "question": "Jak zainstalować?",
@@ -853,7 +853,7 @@
       "title": "Daj swojej stronie pomocnego kolegę Aipify",
       "subtitle": "Zacznij od 150 darmowych odpowiedzi — bez karty. Ulepsz, gdy strona potrzebuje większej pojemności.",
       "primary": "Zacznij za darmo",
-      "secondary": "Umów demo"
+      "secondary": "Pytania? Skontaktuj się"
     },
     "footer": {
       "product": "Produkt",
@@ -865,10 +865,39 @@
       "contact": "Kontakt",
       "home": "Strona Aipify",
       "tagline": "Aipify works for you · Kompis Web"
+    },
+    "start": {
+      "metaTitle": "Zacznij za darmo | Kompis Web",
+      "metaDescription": "Utwórz darmowe konto Kompis Web: email służbowy, strona, firma i język.",
+      "backHome": "Wróć do Kompis Web",
+      "collectTitle": "Utwórz darmowe konto",
+      "collectSubtitle": "Cztery dane na start. Bez karty.",
+      "accountTitle": "Zabezpiecz konto",
+      "accountSubtitle": "Ustaw hasło, aby dokończyć. Stronę połączysz po potwierdzeniu emaila.",
+      "fullNameLabel": "Imię i nazwisko",
+      "fullNamePlaceholder": "Pełne imię i nazwisko",
+      "passwordLabel": "Hasło",
+      "confirmPasswordLabel": "Potwierdź hasło",
+      "termsLabel": "Akceptuję Regulamin i Politykę prywatności",
+      "continue": "Dalej",
+      "createAccount": "Utwórz darmowe konto",
+      "back": "Wstecz",
+      "successTitle": "Sprawdź email",
+      "successBody": "Wysłaliśmy link potwierdzający na {email}. Po potwierdzeniu zaloguj się, aby kontynuować z Kompis Web.",
+      "loginCta": "Przejdź do logowania",
+      "homeCta": "Wróć do strony głównej",
+      "errorRequired": "Wypełnij wszystkie wymagane pola.",
+      "errorEmail": "Podaj prawidłowy email służbowy.",
+      "errorPasswordShort": "Hasło musi mieć co najmniej 8 znaków.",
+      "errorPasswordMismatch": "Hasła nie są zgodne.",
+      "errorTerms": "Zaakceptuj Regulamin i prywatność, aby kontynuować.",
+      "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie.",
+      "errorExists": "Konto z tym emailem już istnieje. Zaloguj się.",
+      "errorRateLimit": "Zbyt wiele prób. Poczekaj i spróbuj ponownie."
     }
   },
   "meta": {
-    "kompisWebTitle": "Aipify — asystent AI dla odwiedzających stronę | Kompis Web",
+    "kompisWebTitle": "Aipify works for you | Kompis Web",
     "kompisWebDescription": "Kompis Web odpowiada na pytania odwiedzających na podstawie zatwierdzonych treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
   }
 }

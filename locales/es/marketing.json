@@ -9,7 +9,7 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Aipify — asistente de IA para visitantes del sitio | Kompis Web",
+      "title": "Aipify works for you | Kompis Web",
       "description": "Kompis Web responde preguntas de visitantes con el contenido aprobado de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
     },
     "nav": {
@@ -29,7 +29,7 @@
       "titleHighlight": "visitantes del sitio",
       "subtitle": "Kompis Web responde preguntas, guía a los visitantes y hace que el contenido aprobado de tu sitio sea más fácil de encontrar.",
       "primaryCta": "Empezar gratis",
-      "secondaryCta": "Reservar demo",
+      "secondaryCta": "¿Preguntas? Contáctanos",
       "trustNoCard": "Sin tarjeta de crédito",
       "trustSetup": "Conecta tu sitio cuando estés listo",
       "trustFreeQuota": "{quota} respuestas gratis",
@@ -45,7 +45,7 @@
       "companyPlaceholder": "Tu empresa",
       "languageLabel": "Idioma",
       "submit": "Crear cuenta gratis",
-      "continueHint": "Continúa al registro real de Aipify. No se requiere tarjeta para la cuota gratuita de respuestas."
+      "continueHint": "Continúa a un registro sencillo de Kompis Web. No se requiere tarjeta para la cuota gratis."
     },
     "benefits": {
       "title": "Por qué los dueños de sitios eligen Kompis Web",
@@ -114,7 +114,7 @@
     "pricing": {
       "title": "Empieza gratis. Mejora cuando necesites más respuestas.",
       "subtitle": "Paquetes Kompis Web decididos por el propietario. El gratis empieza sin tarjeta. Standard de pago es la ruta de mejora planificada que se muestra aquí.",
-      "plannedNote": "Estos paquetes siguen el catálogo de Kompis Web. El checkout en vivo aún no está activo — regístrate gratis o reserva una demo.",
+      "plannedNote": "Estos paquetes siguen el catálogo de Kompis Web. El checkout de compra aún no está activo — empieza gratis para continuar.",
       "free": {
         "badge": "Mejor punto de partida",
         "name": "Gratis",
@@ -139,8 +139,8 @@
           "El mismo producto Kompis Web — más capacidad mensual",
           "Se activa tras el pago verificado cuando abra el checkout"
         ],
-        "cta": "Reservar demo",
-        "checkoutUnavailable": "El checkout de pago aún no está activo. Regístrate o reserva una demo.",
+        "cta": "Empezar gratis",
+        "checkoutUnavailable": "El checkout de pago aún no está activo. Empieza gratis para continuar y mejora cuando abra Standard.",
         "tagline": "Para sitios en crecimiento",
         "quotaUnit": "respuestas cada mes",
         "priceNote": "Precio previsto listado · el pago aún no está activo"
@@ -153,7 +153,7 @@
       "items": [
         {
           "question": "¿Dónde obtengo Kompis Web?",
-          "answer": "Empieza en aipify.ai — crea tu cuenta Aipify, conecta y activa Kompis Web para tu sitio."
+          "answer": "Empieza en aipify.ai — crea una cuenta gratis con Empezar gratis, luego conecta y activa Kompis Web en tu sitio."
         },
         {
           "question": "¿Cómo lo instalo?",
@@ -185,7 +185,7 @@
       "title": "Dale a tu sitio un colega útil de Aipify",
       "subtitle": "Empieza con 150 respuestas gratis — sin tarjeta. Mejora cuando el sitio necesite más capacidad.",
       "primary": "Empezar gratis",
-      "secondary": "Reservar demo"
+      "secondary": "¿Preguntas? Contáctanos"
     },
     "footer": {
       "product": "Producto",
@@ -197,10 +197,39 @@
       "contact": "Contacto",
       "home": "Inicio Aipify",
       "tagline": "Aipify works for you · Kompis Web"
+    },
+    "start": {
+      "metaTitle": "Empezar gratis | Kompis Web",
+      "metaDescription": "Crea tu cuenta gratis de Kompis Web con email de trabajo, sitio, empresa e idioma.",
+      "backHome": "Volver a Kompis Web",
+      "collectTitle": "Crea tu cuenta gratis",
+      "collectSubtitle": "Cuatro datos para empezar. Sin tarjeta.",
+      "accountTitle": "Protege tu cuenta",
+      "accountSubtitle": "Define una contraseña para terminar. Conectarás el sitio tras confirmar el email.",
+      "fullNameLabel": "Nombre",
+      "fullNamePlaceholder": "Nombre completo",
+      "passwordLabel": "Contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "termsLabel": "Acepto los Términos y la Política de privacidad",
+      "continue": "Continuar",
+      "createAccount": "Crear cuenta gratis",
+      "back": "Atrás",
+      "successTitle": "Revisa tu email",
+      "successBody": "Enviamos un enlace de confirmación a {email}. Tras confirmar, inicia sesión para continuar con Kompis Web.",
+      "loginCta": "Ir al inicio de sesión",
+      "homeCta": "Volver al inicio",
+      "errorRequired": "Completa todos los campos obligatorios.",
+      "errorEmail": "Introduce un email de trabajo válido.",
+      "errorPasswordShort": "La contraseña debe tener al menos 8 caracteres.",
+      "errorPasswordMismatch": "Las contraseñas no coinciden.",
+      "errorTerms": "Acepta Términos y Privacidad para continuar.",
+      "errorGeneric": "Algo salió mal. Inténtalo de nuevo.",
+      "errorExists": "Ya existe una cuenta con este email. Inicia sesión.",
+      "errorRateLimit": "Demasiados intentos. Espera e inténtalo de nuevo."
     }
   },
   "meta": {
-    "kompisWebTitle": "Aipify — asistente de IA para visitantes del sitio | Kompis Web",
+    "kompisWebTitle": "Aipify works for you | Kompis Web",
     "kompisWebDescription": "Kompis Web responde preguntas de visitantes con el contenido aprobado de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
   }
 }

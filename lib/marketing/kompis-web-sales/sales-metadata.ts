@@ -3,19 +3,21 @@ import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labe
 
 export type KompisWebSalesRoutePath = "/" | "/kompis-web";
 
-/** Canonical home for the shared sales experience — both routes stay live; only one indexes. */
+/** Canonical home for the shared sales experience. */
 export const KOMPIS_WEB_SALES_CANONICAL_URL = "https://aipify.ai/";
 
+/** Established brand SEO title — never replaced by a localized translation. */
+export const KOMPIS_WEB_SALES_BROWSER_TITLE = "Aipify works for you | Kompis Web";
+
 /**
- * Metadata for `/` and `/kompis-web` (same labels, shared UI).
- * Alias `/kompis-web` keeps working without redirect; canonical + OG/Twitter point at `/`
- * so search engines prefer one URL (sitemap already omits `/kompis-web`).
+ * Metadata for Kompis Web sales.
+ * Browser title keeps the established English brand phrase; description stays localized.
  */
 export function buildKompisWebSalesMetadata(
   labels: KompisWebSalesLabels,
-  _path: KompisWebSalesRoutePath,
+  _path: KompisWebSalesRoutePath = "/",
 ): Metadata {
-  const title = labels.meta.title;
+  const title = KOMPIS_WEB_SALES_BROWSER_TITLE;
   const description = labels.meta.description;
   return {
     title,
@@ -30,9 +32,18 @@ export function buildKompisWebSalesMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      // Preserve established brand SEO phrase; page-specific product title stays in <title>/OG.
       title: "Aipify works for you",
       description,
     },
+  };
+}
+
+export function buildKompisWebStartMetadata(labels: KompisWebSalesLabels): Metadata {
+  const start = labels.start;
+  return {
+    title: start.metaTitle,
+    description: start.metaDescription,
+    robots: { index: false, follow: true },
+    alternates: { canonical: "https://aipify.ai/start" },
   };
 }

@@ -31,7 +31,7 @@
     "termsTitle": "Terms of Service — Aipify",
     "getStartedTitle": "Get Started — Aipify",
     "getStartedDescription": "A structured path from first login to operational value. See your first 30 days, implementation journey, and time-to-value outcomes.",
-    "kompisWebTitle": "Aipify — AI helper for website visitors | Kompis Web",
+    "kompisWebTitle": "Aipify works for you | Kompis Web",
     "kompisWebDescription": "Kompis Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card. Part of Aipify."
   },
   "nav": {
@@ -8061,7 +8061,7 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Aipify — AI helper for website visitors | Kompis Web",
+      "title": "Aipify works for you | Kompis Web",
       "description": "Kompis Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card. Part of Aipify."
     },
     "nav": {
@@ -8081,7 +8081,7 @@
       "titleHighlight": "website visitors",
       "subtitle": "Kompis Web answers questions, guides visitors, and makes approved content on your website easier to find.",
       "primaryCta": "Start free",
-      "secondaryCta": "Book demo",
+      "secondaryCta": "Questions? Contact us",
       "trustNoCard": "No credit card required",
       "trustSetup": "Connect your website when you are ready",
       "trustFreeQuota": "{quota} free answers",
@@ -8097,7 +8097,7 @@
       "companyPlaceholder": "Your company",
       "languageLabel": "Language",
       "submit": "Create free account",
-      "continueHint": "Continues to the real Aipify registration. No card is required for the free answer allowance."
+      "continueHint": "Continues to a simple Kompis Web signup. No card is required for the free answer allowance."
     },
     "benefits": {
       "title": "Why website owners choose Kompis Web",
@@ -8166,7 +8166,7 @@
     "pricing": {
       "title": "Start free. Upgrade when you need more answers.",
       "subtitle": "Owner-decided Kompis Web packages. Free starts without a card. Paid Standard is the planned upgrade path shown here.",
-      "plannedNote": "These packages follow the Kompis Web catalog. Live purchase checkout is not enabled yet — register for free or book a demo to continue.",
+      "plannedNote": "These packages follow the Kompis Web catalog. Live purchase checkout is not enabled yet — start free to continue.",
       "free": {
         "badge": "Best place to start",
         "name": "Free",
@@ -8191,8 +8191,8 @@
           "Same Kompis Web product — more monthly capacity",
           "Activated after verified payment when checkout opens"
         ],
-        "cta": "Book demo",
-        "checkoutUnavailable": "Paid checkout is not live yet. Register or book a demo to continue.",
+        "cta": "Start free",
+        "checkoutUnavailable": "Paid checkout is not live yet. Start free to continue, then upgrade when Standard checkout opens.",
         "tagline": "For growing websites",
         "quotaUnit": "answers every month",
         "priceNote": "Listed planned price · checkout not live yet"
@@ -8205,7 +8205,7 @@
       "items": [
         {
           "question": "Where do I get Kompis Web?",
-          "answer": "Start at aipify.ai — create your Aipify account, then connect and activate Kompis Web for your website."
+          "answer": "Start at aipify.ai — create a free account with Start free, then connect and activate Kompis Web for your website."
         },
         {
           "question": "How do I install it on my site?",
@@ -8237,7 +8237,7 @@
       "title": "Give your website a helpful Aipify colleague",
       "subtitle": "Start with 150 free answers — no credit card. Upgrade when your site needs more capacity.",
       "primary": "Start free",
-      "secondary": "Book demo"
+      "secondary": "Questions? Contact us"
     },
     "footer": {
       "product": "Product",
@@ -8249,6 +8249,35 @@
       "contact": "Contact",
       "home": "Aipify home",
       "tagline": "Aipify works for you · Kompis Web"
+    },
+    "start": {
+      "metaTitle": "Start free | Kompis Web",
+      "metaDescription": "Create your free Kompis Web account with work email, website, company, and language.",
+      "backHome": "Back to Kompis Web",
+      "collectTitle": "Create your free account",
+      "collectSubtitle": "Four details to begin. No credit card required.",
+      "accountTitle": "Secure your account",
+      "accountSubtitle": "Set a password to finish signup. You can connect your website after email confirmation.",
+      "fullNameLabel": "Your name",
+      "fullNamePlaceholder": "Full name",
+      "passwordLabel": "Password",
+      "confirmPasswordLabel": "Confirm password",
+      "termsLabel": "I accept the Terms and Privacy Policy",
+      "continue": "Continue",
+      "createAccount": "Create free account",
+      "back": "Back",
+      "successTitle": "Check your email",
+      "successBody": "We sent a confirmation link to {email}. After confirming, sign in to continue with Kompis Web.",
+      "loginCta": "Go to login",
+      "homeCta": "Back to home",
+      "errorRequired": "Please fill in all required fields.",
+      "errorEmail": "Enter a valid work email.",
+      "errorPasswordShort": "Password must be at least 8 characters.",
+      "errorPasswordMismatch": "Passwords do not match.",
+      "errorTerms": "Accept Terms and Privacy to continue.",
+      "errorGeneric": "Something went wrong. Please try again.",
+      "errorExists": "An account with this email already exists. Sign in instead.",
+      "errorRateLimit": "Too many attempts. Please wait and try again."
     }
   }
 }
