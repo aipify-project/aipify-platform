@@ -31,7 +31,7 @@
     "termsTitle": "Terms of Service — Aipify",
     "getStartedTitle": "Get Started — Aipify",
     "getStartedDescription": "A structured path from first login to operational value. See your first 30 days, implementation journey, and time-to-value outcomes.",
-    "kompisWebTitle": "Aipify works for you | Kompis Web",
+    "kompisWebTitle": "Aipify works for you",
     "kompisWebDescription": "Kompis Web besvarer besøgendes spørgsmål ud fra godkendt indhold på dit website. Start med 150 gratis svar — uden betalingskort."
   },
   "nav": {
@@ -8471,7 +8471,7 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Aipify works for you | Kompis Web",
+      "title": "Aipify works for you",
       "description": "Kompis Web besvarer besøgendes spørgsmål ud fra godkendt indhold på dit website. Start med 150 gratis svar — uden betalingskort."
     },
     "nav": {

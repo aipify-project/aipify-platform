@@ -226,10 +226,10 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
 
   return {
     meta: {
-      title: asString(meta.title, "Aipify works for you | Kompis Web"),
+      title: asString(meta.title, "Aipify works for you"),
       description: asString(
         meta.description,
-        "Kompis Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card. Part of Aipify.",
+        "Buddy Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card.",
       ),
     },
     nav: {
@@ -244,12 +244,12 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       languageSwitchFailed: asString(nav.languageSwitchFailed, "Language switch failed. Please try again."),
     },
     hero: {
-      eyebrow: asString(hero.eyebrow, "Aipify Kompis Web"),
+      eyebrow: asString(hero.eyebrow, "Aipify Buddy Web"),
       titleBefore: asString(hero.titleBefore, "Aipify — the AI helper for your"),
       titleHighlight: asString(hero.titleHighlight, "website visitors"),
       subtitle: asString(
         hero.subtitle,
-        "Kompis Web answers questions, guides visitors, and makes approved content on your website easier to find.",
+        "Buddy Web answers questions, guides visitors, and makes approved content on your website easier to find.",
       ),
       primaryCta: asString(hero.primaryCta, "Start free"),
       secondaryCta: asString(hero.secondaryCta, "Questions? Contact us"),
@@ -277,7 +277,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       ),
     },
     benefits: {
-      title: asString(benefits.title, "Why website owners choose Kompis Web"),
+      title: asString(benefits.title, "Why website owners choose Buddy Web"),
       items: benefitItems,
     },
     how: {
@@ -289,7 +289,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       steps: howSteps,
     },
     demo: {
-      title: asString(demo.title, "See Kompis Web in context"),
+      title: asString(demo.title, "See Buddy Web in context"),
       subtitle: asString(demo.subtitle),
       illustrationBadge: asString(
         demo.illustrationBadge,
@@ -309,11 +309,11 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       asideTitle: asString(pricing.asideTitle, "Simple packages for website owners"),
       asideBody: asString(
         pricing.asideBody,
-        "Begin with a free lifetime answer allowance. Move to Standard when your site needs monthly capacity — checkout goes live in a later billing gate.",
+        "Start with 150 free lifetime answers per website. Move to Standard when you need monthly capacity.",
       ),
       plannedNote: asString(
         pricing.plannedNote,
-        "Packages below follow the owner-decided Kompis Web catalog. Live checkout is not enabled yet — start free registration or book a demo.",
+        "Standard purchase is not available yet — start free today, then upgrade when checkout opens.",
       ),
       free: {
         badge: asString(free.badge, "Best place to start"),
@@ -353,12 +353,12 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
         )
           .replace("{amount}", truth.paidAnnualDisplay)
           .replace("{currency}", truth.paidCurrency),
-        priceNote: asString(paid.priceNote, "Listed planned price · checkout not live yet"),
+        priceNote: asString(paid.priceNote, "Listed price · not available to purchase yet"),
         features: asStringList(paid.features),
         cta: asString(paid.cta, "Start free"),
         checkoutUnavailable: asString(
           paid.checkoutUnavailable,
-          "Paid checkout is not live yet. Start free to continue, then upgrade when Standard checkout opens.",
+          "Standard is not available to purchase yet. Start free to continue.",
         ),
       },
     },
@@ -381,15 +381,15 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       terms: asString(footer.terms, "Terms"),
       contact: asString(footer.contact, "Contact"),
       home: asString(footer.home, "Aipify home"),
-      tagline: asString(footer.tagline, "Aipify works for you · Kompis Web"),
+      tagline: asString(footer.tagline, "Aipify works for you · Buddy Web"),
     },
     start: {
-      metaTitle: asString(start.metaTitle, "Start free | Kompis Web"),
+      metaTitle: asString(start.metaTitle, "Start free | Buddy Web"),
       metaDescription: asString(
         start.metaDescription,
-        "Create your free Kompis Web account with work email, website, company, and language.",
+        "Create your free Buddy Web account with work email, website, company, and language.",
       ),
-      backHome: asString(start.backHome, "Back to Kompis Web"),
+      backHome: asString(start.backHome, "Back to Buddy Web"),
       collectTitle: asString(start.collectTitle, "Create your free account"),
       collectSubtitle: asString(start.collectSubtitle, "Four details to begin. No credit card required."),
       accountTitle: asString(start.accountTitle, "Secure your account"),
@@ -408,7 +408,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       successTitle: asString(start.successTitle, "Check your email"),
       successBody: asString(
         start.successBody,
-        "We sent a confirmation link to {email}. After confirming, sign in to continue with Kompis Web.",
+        "We sent a confirmation link to {email}. After confirming, sign in to continue with Buddy Web.",
       ),
       loginCta: asString(start.loginCta, "Go to login"),
       homeCta: asString(start.homeCta, "Back to home"),
