@@ -701,7 +701,7 @@
       "trustNoCard": "Bez karty płatniczej",
       "trustSetup": "Podłącz stronę, gdy będziesz gotowy",
       "trustFreeQuota": "{quota} darmowych odpowiedzi",
-      "mascotAlt": "Maskotka Aipify Kompis"
+      "mascotAlt": "Maskotka Aipify Buddy"
     },
     "signupCard": {
       "title": "Utwórz darmowe konto",
@@ -732,7 +732,7 @@
         },
         {
           "title": "Kontrola człowieka",
-          "body": "Ty decydujesz, z czego Kompis może korzystać — przeglądaj źródła i zachowaj kontrolę."
+          "body": "Ty decydujesz, z czego Buddy może korzystać — przeglądaj źródła i zachowaj kontrolę."
         },
         {
           "title": "Szybkie uruchomienie",
@@ -749,7 +749,7 @@
         },
         {
           "title": "Odwiedzający zadają pytania",
-          "body": "Kompis odpowiada na podstawie źródeł z Twojej strony."
+          "body": "Buddy odpowiada na podstawie źródeł z Twojej strony."
         },
         {
           "title": "Ty zachowujesz kontrolę",
@@ -764,14 +764,14 @@
     },
     "demo": {
       "title": "Zobacz Kompis Web w kontekście",
-      "subtitle": "Ilustracyjne podglądy pomocnika i centrum kontroli — nie żywe zapytania Production ani wymyślone metryki.",
+      "subtitle": "Szybki podgląd pomocnika dla odwiedzających i centrum kontroli — tylko ilustracja, nie dane Production na żywo.",
       "illustrationBadge": "Ilustracja — nie żywe zapytanie Production",
       "widgetTitle": "Pomocnik na Twojej stronie",
       "widgetStatus": "Online",
       "widgetVisitor": "Co obejmuje członkostwo?",
-      "widgetReply": "Mogę wyjaśnić członkostwo na podstawie opublikowanych stron — pytaj o plany, funkcje lub start.",
+      "widgetReply": "Mogę wyjaśnić członkostwo na podstawie opublikowanych stron — pytaj o plany lub start.",
       "controlTitle": "Twoje centrum kontroli",
-      "controlBody": "Zarządzaj połączeniem, wiedzą, wyglądem i rozmowami w Aipify — ludzie pozostają decyzyjni.",
+      "controlBody": "Połącz, zatwierdź wiedzę i przeglądaj rozmowy w Aipify.",
       "controlItems": [
         "Wiedza i FAQ, które zatwierdzasz",
         "Połączenie i ustawienia domeny",
@@ -828,8 +828,8 @@
           "answer": "Gdy przestrzeń robocza jest gotowa, przejdź przez prowadzone połączenie i instalację w Aipify. Ty decydujesz, kiedy pomocnik trafia na stronę."
         },
         {
-          "question": "Z czego Kompis bierze odpowiedzi?",
-          "answer": "Z opublikowanych treści i zatwierdzonej wiedzy — nie z nieograniczonego zgadywania z całego internetu."
+          "question": "Z czego Buddy bierze odpowiedzi?",
+          "answer": "Buddy korzysta z opublikowanych treści i zatwierdzonej wiedzy — nie z nieograniczonego zgadywania z całego internetu."
         },
         {
           "question": "Jakie języki są obsługiwane?",

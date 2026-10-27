@@ -8573,14 +8573,14 @@
     },
     "demo": {
       "title": "Se Kompis Web i kontekst",
-      "subtitle": "Illustrative forhåndsvisninger av besøkshjelperen og kontrollsenteret — ikke live Production-spørsmål eller oppdiktede nøkkeltall.",
+      "subtitle": "Et raskt blikk på besøkshjelperen og kontrollsenteret ditt — kun illustrasjon, ikke live Production-data.",
       "illustrationBadge": "Illustrasjon — ikke et live Production-spørsmål",
       "widgetTitle": "Hjelperen på nettsiden din",
       "widgetStatus": "På nett",
       "widgetVisitor": "Hva inkluderer medlemskapet?",
-      "widgetReply": "Jeg kan forklare medlemskap ut fra sidene som er publisert her — spør meg om planer, funksjoner eller hvordan du kommer i gang.",
+      "widgetReply": "Jeg kan forklare medlemskap ut fra sidene som er publisert her — spør om planer eller hvordan du kommer i gang.",
       "controlTitle": "Ditt kontrollsenter",
-      "controlBody": "Administrer tilkobling, kunnskap, utseende og samtaler i Aipify — mennesker beholder styringen.",
+      "controlBody": "Koble til, godkjenn kunnskap og gjennomgå samtaler i Aipify.",
       "controlItems": [
         "Kunnskap og FAQ du godkjenner",
         "Tilkobling og domeninnstillinger",

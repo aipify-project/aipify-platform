@@ -33,7 +33,7 @@
       "trustNoCard": "Sin tarjeta de crédito",
       "trustSetup": "Conecta tu sitio cuando estés listo",
       "trustFreeQuota": "{quota} respuestas gratis",
-      "mascotAlt": "Mascota Aipify Kompis"
+      "mascotAlt": "Mascota Aipify Buddy"
     },
     "signupCard": {
       "title": "Crea tu cuenta gratis",
@@ -64,7 +64,7 @@
         },
         {
           "title": "Control humano",
-          "body": "Tú decides qué puede usar Kompis — revisa fuentes y mantén el control."
+          "body": "Tú decides qué puede usar Buddy — revisa fuentes y mantén el control."
         },
         {
           "title": "Configuración rápida",
@@ -81,7 +81,7 @@
         },
         {
           "title": "Los visitantes preguntan",
-          "body": "Kompis responde con información basada en fuentes de tu sitio."
+          "body": "Buddy responde con información basada en fuentes de tu sitio."
         },
         {
           "title": "Tú mantienes el control",
@@ -96,14 +96,14 @@
     },
     "demo": {
       "title": "Ve Kompis Web en contexto",
-      "subtitle": "Vistas ilustrativas del asistente y del centro de control — no consultas Production en vivo ni métricas inventadas.",
+      "subtitle": "Una vista rápida del ayudante para visitantes y tu centro de control — solo ilustrativo, no datos de Production en vivo.",
       "illustrationBadge": "Ilustración — no es una consulta Production en vivo",
       "widgetTitle": "El asistente en tu sitio",
       "widgetStatus": "En línea",
       "widgetVisitor": "¿Qué incluye la membresía?",
-      "widgetReply": "Puedo explicar la membresía con las páginas publicadas aquí — pregunta por planes, funciones o cómo empezar.",
+      "widgetReply": "Puedo explicar la membresía con las páginas publicadas aquí — pregunta por planes o cómo empezar.",
       "controlTitle": "Tu centro de control",
-      "controlBody": "Gestiona conexión, conocimiento, apariencia y conversaciones en Aipify — las personas siguen al mando.",
+      "controlBody": "Conecta, aprueba conocimiento y revisa conversaciones en Aipify.",
       "controlItems": [
         "Conocimiento y FAQ que apruebas",
         "Conexión y ajustes de dominio",
@@ -160,8 +160,8 @@
           "answer": "Cuando el espacio de trabajo esté listo, sigue la conexión e instalación guiadas en Aipify. Tú decides cuándo el asistente se publica."
         },
         {
-          "question": "¿De dónde saca las respuestas Kompis?",
-          "answer": "Del contenido publicado y el conocimiento que apruebas — no de conjeturas abiertas de toda la web."
+          "question": "¿De dónde saca las respuestas Buddy?",
+          "answer": "Buddy usa el contenido publicado y el conocimiento que apruebas — no conjeturas abiertas de toda la web."
         },
         {
           "question": "¿Qué idiomas se admiten?",

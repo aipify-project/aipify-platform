@@ -16,9 +16,10 @@
   --sales-content-max: 1280px;
   color: var(--sales-ink);
   background:
-    radial-gradient(900px 480px at 78% 8%, rgba(105, 87, 241, 0.16), transparent 60%),
-    radial-gradient(700px 420px at 12% 18%, rgba(87, 92, 245, 0.1), transparent 55%),
-    linear-gradient(150deg, #f9faff 0%, #f1f2ff 45%, #fafaff 100%);
+    radial-gradient(980px 520px at 82% 6%, rgba(105, 87, 241, 0.2), transparent 58%),
+    radial-gradient(760px 460px at 10% 16%, rgba(87, 92, 245, 0.14), transparent 55%),
+    radial-gradient(640px 320px at 50% 100%, rgba(106, 124, 255, 0.08), transparent 60%),
+    linear-gradient(150deg, #f9faff 0%, #eef0ff 42%, #fafaff 100%);
   min-height: 100%;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
@@ -30,8 +31,11 @@
 }
 
 .kompis-web-sales a {
-  color: inherit;
   text-decoration: none;
+}
+
+.kompis-web-sales a:not(.kompis-web-sales-primary):not(.kompis-web-sales-secondary) {
+  color: inherit;
 }
 
 .kompis-web-sales-shell {
@@ -192,27 +196,52 @@
   font-weight: 750;
   cursor: pointer;
   white-space: nowrap;
+  letter-spacing: -0.01em;
 }
 
-.kompis-web-sales-primary {
+.kompis-web-sales-primary,
+a.kompis-web-sales-primary {
   background: linear-gradient(110deg, #7051f0, #575cf5);
-  color: #fff;
+  color: #ffffff;
   border: 0;
   box-shadow: 0 10px 24px rgba(87, 92, 245, 0.28);
 }
 
-.kompis-web-sales-primary:hover {
-  filter: brightness(1.04);
+.kompis-web-sales-primary:hover,
+a.kompis-web-sales-primary:hover {
+  filter: brightness(1.05);
+  color: #ffffff;
 }
 
-.kompis-web-sales-secondary {
+.kompis-web-sales-secondary,
+a.kompis-web-sales-secondary {
   background: #fff;
   color: var(--sales-ink);
   border: 1px solid var(--sales-stroke);
 }
 
-.kompis-web-sales-secondary:hover {
+.kompis-web-sales-secondary:hover,
+a.kompis-web-sales-secondary:hover {
   background: var(--sales-purple-pale);
+  color: var(--sales-ink);
+}
+
+/* Hero / conversion CTAs: both actions use white label text for owner readability. */
+.kompis-web-sales-hero .kompis-web-sales-secondary,
+.kompis-web-sales-hero a.kompis-web-sales-secondary,
+.kompis-web-sales-cta-row .kompis-web-sales-secondary.kompis-web-sales-cta-contrast,
+a.kompis-web-sales-cta-contrast {
+  background: linear-gradient(110deg, #4f3fe0, #3f4fe8);
+  color: #ffffff;
+  border: 0;
+  box-shadow: 0 10px 22px rgba(63, 79, 232, 0.22);
+}
+
+.kompis-web-sales-hero .kompis-web-sales-secondary:hover,
+.kompis-web-sales-hero a.kompis-web-sales-secondary:hover,
+a.kompis-web-sales-cta-contrast:hover {
+  filter: brightness(1.06);
+  color: #ffffff;
 }
 
 .kompis-web-sales-hero {
@@ -553,16 +582,39 @@
   line-height: 1.45;
 }
 
+.kompis-web-sales-demo-intro {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.kompis-web-sales-demo-intro .kompis-web-sales-section-lead {
+  margin-bottom: 14px;
+}
+
 .kompis-web-sales-demo-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+  gap: 22px;
+}
+
+.kompis-web-sales-demo-card {
+  background: var(--sales-surface);
+  border: 1px solid var(--sales-stroke);
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: 0 16px 40px rgba(80, 69, 160, 0.08);
+}
+
+.kompis-web-sales-demo-card h3 {
+  margin: 0 0 14px;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
 }
 
 .kompis-web-sales-badge {
   display: inline-flex;
-  margin-bottom: 12px;
-  padding: 6px 10px;
+  margin-bottom: 0;
+  padding: 6px 12px;
   border-radius: 999px;
   background: #fff6e8;
   color: #8a5a12;
@@ -574,8 +626,10 @@
   border: 1px solid var(--sales-stroke);
   border-radius: 18px;
   overflow: hidden;
-  background: linear-gradient(180deg, #fbfbff, #f3f4ff);
-  min-height: 280px;
+  background:
+    radial-gradient(420px 180px at 90% 0%, rgba(105, 87, 241, 0.12), transparent 60%),
+    linear-gradient(180deg, #fbfbff, #f3f4ff);
+  min-height: 260px;
 }
 
 .kompis-web-sales-chat-head {
@@ -584,14 +638,43 @@
   justify-content: space-between;
   padding: 14px 16px;
   border-bottom: 1px solid var(--sales-stroke);
-  background: #fff;
+  background: rgba(255, 255, 255, 0.92);
   font-weight: 750;
+}
+
+.kompis-web-sales-chat-identity {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kompis-web-sales-chat-identity img {
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.kompis-web-sales-chat-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--sales-success);
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.kompis-web-sales-chat-status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--sales-success);
+  box-shadow: 0 0 0 4px rgba(25, 170, 114, 0.14);
 }
 
 .kompis-web-sales-chat-body {
   display: grid;
   gap: 12px;
-  padding: 16px;
+  padding: 18px 16px 20px;
 }
 
 .kompis-web-sales-bubble {
@@ -611,6 +694,7 @@
   background: #fff;
   border: 1px solid var(--sales-stroke);
   justify-self: end;
+  box-shadow: 0 8px 18px rgba(80, 69, 160, 0.06);
 }
 
 .kompis-web-sales-control-shell {
@@ -620,11 +704,12 @@
   background: #fff;
   display: grid;
   grid-template-columns: 148px 1fr;
-  min-height: 280px;
+  min-height: 260px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .kompis-web-sales-control-nav {
-  background: #f7f7ff;
+  background: linear-gradient(180deg, #f7f7ff, #f0f1ff);
   border-right: 1px solid var(--sales-stroke);
   padding: 14px 12px;
   display: grid;
@@ -642,18 +727,39 @@
 }
 
 .kompis-web-sales-control-nav span[data-active="true"] {
-  background: var(--sales-purple-pale);
+  background: #fff;
   color: var(--sales-purple-deep);
+  box-shadow: 0 6px 14px rgba(80, 69, 160, 0.08);
 }
 
 .kompis-web-sales-control-main {
-  padding: 16px;
+  padding: 18px 16px;
+  background:
+    radial-gradient(280px 140px at 100% 0%, rgba(105, 87, 241, 0.08), transparent 55%),
+    #fff;
 }
 
-.kompis-web-sales-control-main p {
-  margin: 0 0 12px;
+.kompis-web-sales-control-kicker {
+  margin: 0 0 14px;
   color: var(--sales-muted);
-  line-height: 1.5;
+  line-height: 1.45;
+  font-size: 0.94rem;
+}
+
+.kompis-web-sales-control-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.kompis-web-sales-control-pills span {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--sales-purple-pale);
+  color: var(--sales-purple-deep);
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .kompis-web-sales-control-list {
@@ -722,11 +828,16 @@
 .kompis-web-sales-plan-featured {
   border: 2px solid var(--sales-purple);
   background:
-    radial-gradient(120% 80% at 100% 0%, rgba(105, 87, 241, 0.12), transparent 55%),
-    linear-gradient(180deg, #ffffff 0%, #f7f6ff 100%);
+    radial-gradient(120% 80% at 100% 0%, rgba(105, 87, 241, 0.16), transparent 55%),
+    radial-gradient(90% 60% at 0% 100%, rgba(79, 99, 247, 0.08), transparent 50%),
+    linear-gradient(180deg, #ffffff 0%, #f5f4ff 100%);
   box-shadow:
-    0 0 0 1px rgba(105, 87, 241, 0.08),
-    0 24px 56px rgba(85, 75, 208, 0.18);
+    0 0 0 1px rgba(105, 87, 241, 0.1),
+    0 26px 60px rgba(85, 75, 208, 0.2);
+}
+
+.kompis-web-sales-plan-featured .kompis-web-sales-plan-cta {
+  box-shadow: 0 12px 28px rgba(87, 92, 245, 0.32);
 }
 
 .kompis-web-sales-plan-standard {
@@ -962,10 +1073,31 @@
   margin-bottom: 0;
 }
 
-.kompis-web-sales-final .kompis-web-sales-secondary {
-  border-color: rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
+.kompis-web-sales-final .kompis-web-sales-primary,
+.kompis-web-sales-final a.kompis-web-sales-primary {
+  background: #ffffff;
+  color: var(--sales-purple-deep);
+  box-shadow: 0 10px 24px rgba(24, 25, 54, 0.16);
+}
+
+.kompis-web-sales-final .kompis-web-sales-primary:hover,
+.kompis-web-sales-final a.kompis-web-sales-primary:hover {
+  filter: none;
+  background: #f4f3ff;
+  color: var(--sales-purple-deep);
+}
+
+.kompis-web-sales-final .kompis-web-sales-secondary,
+.kompis-web-sales-final a.kompis-web-sales-secondary {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.kompis-web-sales-final .kompis-web-sales-secondary:hover,
+.kompis-web-sales-final a.kompis-web-sales-secondary:hover {
+  background: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
 }
 
 .kompis-web-sales-final-mascot {
@@ -1066,6 +1198,18 @@
   .kompis-web-sales-plans,
   .kompis-web-sales-final {
     grid-template-columns: 1fr;
+  }
+
+  .kompis-web-sales-control-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .kompis-web-sales-control-nav {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--sales-stroke);
   }
 
   .kompis-web-sales-mascot-stage {

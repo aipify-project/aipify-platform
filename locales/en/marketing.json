@@ -8085,7 +8085,7 @@
       "trustNoCard": "No credit card required",
       "trustSetup": "Connect your website when you are ready",
       "trustFreeQuota": "{quota} free answers",
-      "mascotAlt": "Aipify Kompis mascot"
+      "mascotAlt": "Aipify Buddy mascot"
     },
     "signupCard": {
       "title": "Create your free account",
@@ -8116,7 +8116,7 @@
         },
         {
           "title": "Human-controlled",
-          "body": "You decide what Kompis can use — review sources and keep control."
+          "body": "You decide what Buddy can use — review sources and keep control."
         },
         {
           "title": "Fast setup",
@@ -8133,7 +8133,7 @@
         },
         {
           "title": "Visitors ask questions",
-          "body": "Kompis answers with source-based information from your site."
+          "body": "Buddy answers with source-based information from your site."
         },
         {
           "title": "You stay in control",
@@ -8148,14 +8148,14 @@
     },
     "demo": {
       "title": "See Kompis Web in context",
-      "subtitle": "Illustrative previews of the visitor helper and your control center — not live Production asks or invented metrics.",
+      "subtitle": "A quick look at the visitor helper and your control center — illustrative only, not live Production data.",
       "illustrationBadge": "Illustration — not a live Production ask",
       "widgetTitle": "The helper on your website",
       "widgetStatus": "Online",
       "widgetVisitor": "What does your membership include?",
-      "widgetReply": "I can explain membership using the pages published on this website — ask me about plans, features, or how to get started.",
+      "widgetReply": "I can explain membership from the pages published here — ask about plans or how to get started.",
       "controlTitle": "Your control center",
-      "controlBody": "Manage connection, knowledge, appearance, and conversations inside Aipify — humans remain in charge.",
+      "controlBody": "Connect, approve knowledge, and review conversations in Aipify.",
       "controlItems": [
         "Knowledge and FAQ you approve",
         "Connection and domain settings",
@@ -8212,8 +8212,8 @@
           "answer": "After your workspace is ready, follow the guided connection and install steps in Aipify. You stay in control of when the helper goes live."
         },
         {
-          "question": "What does Kompis use for answers?",
-          "answer": "Kompis uses your published website content and knowledge you approve — not unrestricted open-web guessing."
+          "question": "What does Buddy use for answers?",
+          "answer": "Buddy uses your published website content and knowledge you approve — not unrestricted open-web guessing."
         },
         {
           "question": "Which languages are supported?",

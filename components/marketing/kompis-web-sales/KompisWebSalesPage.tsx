@@ -217,7 +217,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
               </Link>
               <Link
                 href={labels.hrefs.bookDemo}
-                className="kompis-web-sales-secondary"
+                className="kompis-web-sales-secondary kompis-web-sales-cta-contrast"
                 {...marketingDataAttr("cta_click", "kompis_web_sales_hero_book_demo")}
               >
                 {labels.hero.secondaryCta}
@@ -337,18 +337,23 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
         </section>
 
         <section className="kompis-web-sales-shell kompis-web-sales-section" aria-labelledby="kompis-web-sales-demo-title">
-          <h2 id="kompis-web-sales-demo-title" className="kompis-web-sales-section-title">
-            {labels.demo.title}
-          </h2>
-          <p className="kompis-web-sales-section-lead">{labels.demo.subtitle}</p>
+          <div className="kompis-web-sales-demo-intro">
+            <h2 id="kompis-web-sales-demo-title" className="kompis-web-sales-section-title">
+              {labels.demo.title}
+            </h2>
+            <p className="kompis-web-sales-section-lead">{labels.demo.subtitle}</p>
+            <span className="kompis-web-sales-badge">{labels.demo.illustrationBadge}</span>
+          </div>
           <div className="kompis-web-sales-demo-grid">
-            <article className="kompis-web-sales-panel">
-              <span className="kompis-web-sales-badge">{labels.demo.illustrationBadge}</span>
+            <article className="kompis-web-sales-demo-card">
               <h3>{labels.demo.widgetTitle}</h3>
               <div className="kompis-web-sales-chat">
                 <div className="kompis-web-sales-chat-head">
-                  <span>{helperName}</span>
-                  <span>{labels.demo.widgetStatus}</span>
+                  <span className="kompis-web-sales-chat-identity">
+                    <Image src={BRAND_MARK} alt="" width={28} height={28} />
+                    <span>{helperName}</span>
+                  </span>
+                  <span className="kompis-web-sales-chat-status">{labels.demo.widgetStatus}</span>
                 </div>
                 <div className="kompis-web-sales-chat-body">
                   <p className="kompis-web-sales-bubble visitor">{labels.demo.widgetVisitor}</p>
@@ -356,8 +361,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                 </div>
               </div>
             </article>
-            <article className="kompis-web-sales-panel">
-              <span className="kompis-web-sales-badge">{labels.demo.illustrationBadge}</span>
+            <article className="kompis-web-sales-demo-card">
               <h3>{labels.demo.controlTitle}</h3>
               <div className="kompis-web-sales-control-shell">
                 <div className="kompis-web-sales-control-nav" aria-hidden="true">
@@ -368,12 +372,12 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                   ))}
                 </div>
                 <div className="kompis-web-sales-control-main">
-                  <p>{labels.demo.controlBody}</p>
-                  <ul className="kompis-web-sales-control-list">
+                  <p className="kompis-web-sales-control-kicker">{labels.demo.controlBody}</p>
+                  <div className="kompis-web-sales-control-pills">
                     {labels.demo.controlItems.map((item) => (
-                      <li key={item}>{item}</li>
+                      <span key={item}>{item}</span>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               </div>
             </article>
