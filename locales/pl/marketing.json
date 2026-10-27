@@ -674,5 +674,201 @@
       ]
     },
     "footerNote": "Aipify Group AS · Bergen, Norway · partners@aipify.ai"
+  },
+  "kompisWebSales": {
+    "meta": {
+      "title": "Kompis Web — asystent AI dla odwiedzających stronę | Aipify",
+      "description": "Kompis Web odpowiada na pytania odwiedzających na podstawie treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
+    },
+    "nav": {
+      "product": "Produkt",
+      "how": "Jak to działa",
+      "pricing": "Cennik",
+      "faq": "FAQ",
+      "login": "Logowanie",
+      "startFree": "Zacznij za darmo",
+      "language": "Język",
+      "languageMenu": "Wybierz język",
+      "languageSwitchFailed": "Zmiana języka nie powiodła się. Spróbuj ponownie."
+    },
+    "hero": {
+      "eyebrow": "Aipify Kompis Web",
+      "titleBefore": "Twój asystent AI dla",
+      "titleHighlight": "odwiedzających stronę",
+      "subtitle": "Kompis Web odpowiada na pytania, prowadzi odwiedzających i zamienia informacje z Twojej strony w pomocne rozmowy — żeby klienci dostawali jasne odpowiedzi od razu.",
+      "primaryCta": "Zacznij za darmo",
+      "secondaryCta": "Umów demo",
+      "trustNoCard": "Bez karty płatniczej",
+      "trustSetup": "Podłącz stronę, gdy będziesz gotowy",
+      "trustFreeQuota": "{quota} darmowych odpowiedzi",
+      "mascotAlt": "Maskotka Aipify Buddy"
+    },
+    "signupCard": {
+      "title": "Utwórz darmowe konto",
+      "emailLabel": "E-mail służbowy",
+      "emailPlaceholder": "ty@firma.pl",
+      "websiteLabel": "Adres strony",
+      "websitePlaceholder": "https://",
+      "companyLabel": "Nazwa firmy",
+      "companyPlaceholder": "Twoja firma",
+      "languageLabel": "Język",
+      "submit": "Utwórz darmowe konto",
+      "continueHint": "Przechodzi do prawdziwej rejestracji Aipify. Karta nie jest wymagana do darmowego limitu odpowiedzi."
+    },
+    "benefits": {
+      "title": "Dlaczego właściciele stron wybierają Kompis Web",
+      "items": [
+        {
+          "title": "Odpowiedzi oparte na źródłach",
+          "body": "Odpowiedzi wynikają z opublikowanych treści i zatwierdzonej wiedzy."
+        },
+        {
+          "title": "Świadomość bieżącej strony",
+          "body": "Odwiedzający mogą dostać pomoc dopasowaną do strony, którą czytają."
+        },
+        {
+          "title": "Wielojęzyczność",
+          "body": "Obsługuj odwiedzających w językach już wspieranych przez Aipify."
+        },
+        {
+          "title": "Kontrola człowieka",
+          "body": "Ty decydujesz, z czego Buddy może korzystać — przeglądaj źródła i zachowaj kontrolę."
+        },
+        {
+          "title": "Szybkie uruchomienie",
+          "body": "Podłącz stronę, opublikuj wiedzę i zainstaluj pomocnika, gdy będziesz gotowy."
+        }
+      ]
+    },
+    "how": {
+      "title": "Od treści do pomocnych rozmów",
+      "steps": [
+        {
+          "title": "Podłącz stronę",
+          "body": "Dodaj domenę i pozwól Aipify uczyć się z zatwierdzonych stron."
+        },
+        {
+          "title": "Odwiedzający zadają pytania",
+          "body": "Buddy odpowiada na podstawie źródeł z Twojej strony."
+        },
+        {
+          "title": "Ty zachowujesz kontrolę",
+          "body": "Przeglądaj wiedzę, koryguj odpowiedzi i decyduj, co trafia na produkcję."
+        },
+        {
+          "title": "Zadowoleni odwiedzający, mniej obciążenia supportu",
+          "body": "Odwiedzający dostają odpowiedzi szybciej, a zespół zajmuje się wyjątkami."
+        }
+      ],
+      "intro": "Podłącz stronę, pozwól odwiedzającym pytać, zachowaj kontrolę i ogranicz powtarzalne wsparcie — w czterech jasnych krokach."
+    },
+    "demo": {
+      "title": "Zobacz Kompis Web w kontekście",
+      "subtitle": "Szybki podgląd pomocnika dla odwiedzających i centrum kontroli — tylko ilustracja, nie dane Production na żywo.",
+      "illustrationBadge": "Ilustracja — nie żywe zapytanie Production",
+      "widgetTitle": "Pomocnik na Twojej stronie",
+      "widgetStatus": "Online",
+      "widgetVisitor": "Co obejmuje członkostwo?",
+      "widgetReply": "Mogę wyjaśnić członkostwo na podstawie opublikowanych stron — pytaj o plany lub start.",
+      "controlTitle": "Twoje centrum kontroli",
+      "controlBody": "Połącz, zatwierdź wiedzę i przeglądaj rozmowy w Aipify.",
+      "controlItems": [
+        "Wiedza i FAQ, które zatwierdzasz",
+        "Połączenie i ustawienia domeny",
+        "Wygląd pomocnika dla odwiedzających",
+        "Przegląd rozmów, gdy potrzebujesz"
+      ]
+    },
+    "pricing": {
+      "title": "Zacznij za darmo. Ulepsz, gdy potrzebujesz więcej odpowiedzi.",
+      "subtitle": "Pakiety Kompis Web ustalone przez właściciela. Darmowy start bez karty. Płatny Standard to planowana ścieżka aktualizacji pokazana tutaj.",
+      "plannedNote": "Pakiety pochodzą z katalogu Kompis Web. Live checkout nie jest jeszcze włączony — zarejestruj się za darmo lub umów demo.",
+      "free": {
+        "badge": "Najlepszy start",
+        "name": "Darmowy",
+        "quota": "{quota} odpowiedzi łącznie",
+        "price": "Limit lifetime · bez karty · bez automatycznego odnawiania",
+        "features": [
+          "150 darmowych odpowiedzi przez cały okres licencji strony",
+          "Bez rejestracji karty i bez automatycznego odnawiania",
+          "Przejdź na Standard, gdy potrzebujesz miesięcznej pojemności"
+        ],
+        "cta": "Zacznij za darmo",
+        "quotaUnit": "darmowych odpowiedzi · lifetime na stronę",
+        "noCardPill": "Nie wymagamy karty kredytowej"
+      },
+      "paid": {
+        "name": "Standard",
+        "quota": "{quota} odpowiedzi miesięcznie",
+        "priceMonthly": "{currency} {amount} / miesiąc",
+        "priceAnnual": "{currency} {amount} / rok",
+        "features": [
+          "2500 odnawianych odpowiedzi miesięcznie na licencję strony",
+          "Ten sam produkt Kompis Web — większa miesięczna pojemność",
+          "Aktywacja po zweryfikowanej płatności, gdy checkout będzie gotowy"
+        ],
+        "cta": "Umów demo",
+        "checkoutUnavailable": "Płatny checkout nie jest jeszcze dostępny. Zarejestruj się lub umów demo.",
+        "tagline": "Dla rozwijających się stron",
+        "quotaUnit": "odpowiedzi co miesiąc",
+        "priceNote": "Podana cena planowana · checkout nie jest jeszcze aktywny"
+      },
+      "asideTitle": "Proste pakiety dla właścicieli stron",
+      "asideBody": "Zacznij od darmowego limitu lifetime. Przejdź na Standard, gdy strona potrzebuje miesięcznej pojemności — checkout włączy się w późniejszej bramce płatności."
+    },
+    "faq": {
+      "title": "Pytania właścicieli stron",
+      "items": [
+        {
+          "question": "Gdzie uzyskać Kompis Web?",
+          "answer": "Zacznij na aipify.ai — utwórz konto Aipify, połącz i aktywuj Kompis Web dla swojej strony."
+        },
+        {
+          "question": "Jak zainstalować?",
+          "answer": "Gdy przestrzeń robocza jest gotowa, przejdź przez prowadzone połączenie i instalację w Aipify. Ty decydujesz, kiedy pomocnik trafia na stronę."
+        },
+        {
+          "question": "Z czego Buddy bierze odpowiedzi?",
+          "answer": "Buddy korzysta z opublikowanych treści i zatwierdzonej wiedzy — nie z nieograniczonego zgadywania z całego internetu."
+        },
+        {
+          "question": "Jakie języki są obsługiwane?",
+          "answer": "Publiczny marketing i produkt Aipify obsługują norweski, szwedzki, duński, angielski, hiszpański, polski i ukraiński. Pomocnik gościa korzysta z języków skonfigurowanych dla Twojej strony."
+        },
+        {
+          "question": "Czy do darmowego planu potrzebna jest karta?",
+          "answer": "Nie. Pakiet darmowy to 150 odpowiedzi lifetime na licencję strony bez karty."
+        },
+        {
+          "question": "Co po wykorzystaniu darmowych odpowiedzi?",
+          "answer": "Nowe odpowiedzi są wstrzymywane do ulepszenia do pakietu płatnego. Nic nie jest pobierane automatycznie."
+        },
+        {
+          "question": "Czy moje dane są bezpieczne?",
+          "answer": "Aipify jest zbudowane do zarządzanego użytku biznesowego. Ty kontrolujesz zatwierdzone źródła; prywatność i warunki są na aipify.ai."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Daj swojej stronie pomocnego kolegę Aipify",
+      "subtitle": "Zacznij od 150 darmowych odpowiedzi — bez karty. Ulepsz, gdy strona potrzebuje większej pojemności.",
+      "primary": "Zacznij za darmo",
+      "secondary": "Umów demo"
+    },
+    "footer": {
+      "product": "Produkt",
+      "how": "Jak to działa",
+      "pricing": "Cennik",
+      "faq": "FAQ",
+      "privacy": "Prywatność",
+      "terms": "Warunki",
+      "contact": "Kontakt",
+      "home": "Strona Aipify",
+      "tagline": "Aipify Kompis Web"
+    }
+  },
+  "meta": {
+    "kompisWebTitle": "Kompis Web — asystent AI dla odwiedzających stronę | Aipify",
+    "kompisWebDescription": "Kompis Web odpowiada na pytania odwiedzających na podstawie treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
   }
 }
