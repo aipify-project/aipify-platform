@@ -88,17 +88,23 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  let user = isSessionAccessValid(session) ? (session?.user ?? null) : null;
-
-  if (!user) {
+  // Invalid/expired refresh cookies must not crash public auth pages into global-error.
+  let user: Awaited<ReturnType<typeof supabase.auth.getUser>>["data"]["user"] = null;
+  try {
     const {
-      data: { user: resolvedUser },
-    } = await supabase.auth.getUser();
-    user = resolvedUser;
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    user = isSessionAccessValid(session) ? (session?.user ?? null) : null;
+
+    if (!user) {
+      const {
+        data: { user: resolvedUser },
+      } = await supabase.auth.getUser();
+      user = resolvedUser;
+    }
+  } catch {
+    user = null;
   }
 
   const finish = (response: NextResponse) => withSupabaseAuthCookies(supabaseResponse, response);
