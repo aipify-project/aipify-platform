@@ -1,8 +1,12 @@
 import assert from "node:assert/strict";
+import daMarketing from "../../../locales/da/marketing.json";
 import enMarketing from "../../../locales/en/marketing.json";
 import esMarketing from "../../../locales/es/marketing.json";
 import noMarketing from "../../../locales/no/marketing.json";
+import plMarketing from "../../../locales/pl/marketing.json";
 import svMarketing from "../../../locales/sv/marketing.json";
+import ukMarketing from "../../../locales/uk/marketing.json";
+import { parseKompisWebSalesLabels } from "./labels";
 import {
   kompisWebSalesHelperDisplayName,
   resolveKompisWebSalesLocale,
@@ -40,10 +44,26 @@ for (const [locale, marketing] of [
   ["es", esMarketing],
   ["no", noMarketing],
   ["sv", svMarketing],
+  ["da", daMarketing],
+  ["pl", plMarketing],
+  ["uk", ukMarketing],
 ] as const) {
   const sales = (marketing as { kompisWebSales: unknown }).kompisWebSales;
   const leaks = helperNameLeak(locale, sales);
   assert.equal(leaks.length, 0, `${locale}: ${leaks.join("; ")}`);
+  const labels = parseKompisWebSalesLabels(marketing as Record<string, unknown>);
+  assert.ok(labels.hero.titleBefore.includes("Aipify"), `${locale}: H1 must lead with Aipify`);
+  assert.ok(labels.meta.title.includes("Aipify"), `${locale}: title must include Aipify`);
+  assert.ok(labels.meta.title.includes("Kompis Web"), `${locale}: title must include Kompis Web`);
+  assert.ok(
+    labels.footer.tagline.includes("Aipify works for you"),
+    `${locale}: preserve Aipify works for you brand SEO phrase`,
+  );
+  assert.doesNotMatch(
+    `${labels.hero.titleBefore} ${labels.hero.titleHighlight} ${labels.hero.subtitle}`,
+    /\bAI hjelper deg\b|\bAI-hjelper deg\b/i,
+    `${locale}: must not use legacy AI-hjelper-deg phrasing`,
+  );
 }
 
 console.log("kompis-web-sales locale policy: PASS");
