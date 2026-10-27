@@ -128,7 +128,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             <span>{appName}</span>
           </Link>
 
-          <nav className="kompis-web-sales-nav-links" aria-label="Sales">
+          <nav className="kompis-web-sales-nav-links" aria-label={labels.nav.product}>
             <a href="#product">{labels.nav.product}</a>
             <a href="#how">{labels.nav.how}</a>
             <a href="#pricing">{labels.nav.pricing}</a>
@@ -185,7 +185,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             </Link>
           </div>
         </div>
-        <div className="kompis-web-sales-shell kompis-web-sales-mobile-nav" aria-label="Sales sections">
+        <div className="kompis-web-sales-shell kompis-web-sales-mobile-nav" aria-label={labels.nav.product}>
           <a href="#product">{labels.nav.product}</a>
           <a href="#how">{labels.nav.how}</a>
           <a href="#pricing">{labels.nav.pricing}</a>
@@ -217,7 +217,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
               </Link>
               <Link
                 href={labels.hrefs.bookDemo}
-                className="kompis-web-sales-secondary kompis-web-sales-cta-contrast"
+                className="kompis-web-sales-cta-quiet"
                 {...marketingDataAttr("cta_click", "kompis_web_sales_hero_book_demo")}
               >
                 {labels.hero.secondaryCta}
@@ -483,7 +483,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                 </Link>
                 <Link
                   href={labels.hrefs.bookDemo}
-                  className="kompis-web-sales-secondary"
+                  className="kompis-web-sales-cta-quiet"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_final_book_demo")}
                 >
                   {labels.finalCta.secondary}
@@ -507,7 +507,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             <Image src={BRAND_MARK} alt="" width={32} height={32} />
             <span>{labels.footer.tagline}</span>
           </Link>
-          <nav className="kompis-web-sales-footer-links" aria-label="Footer">
+          <nav className="kompis-web-sales-footer-links" aria-label={labels.footer.home}>
             <a href="#product">{labels.footer.product}</a>
             <a href="#how">{labels.footer.how}</a>
             <a href="#pricing">{labels.footer.pricing}</a>

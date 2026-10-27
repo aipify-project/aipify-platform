@@ -31,8 +31,8 @@
     "termsTitle": "Terms of Service — Aipify",
     "getStartedTitle": "Get Started — Aipify",
     "getStartedDescription": "A structured path from first login to operational value. See your first 30 days, implementation journey, and time-to-value outcomes.",
-    "kompisWebTitle": "Kompis Web — AI-hjälp för webbesökare | Aipify",
-    "kompisWebDescription": "Kompis Web svarar på besökares frågor utifrån innehållet på din webbplats. Börja med 150 gratis svar — utan betalkort."
+    "kompisWebTitle": "Aipify – AI-hjälparen för dina webbplatsbesökare | Kompis Web",
+    "kompisWebDescription": "Kompis Web svarar på besökares frågor utifrån godkänt innehåll på din webbplats. Börja med 150 gratis svar — utan betalkort."
   },
   "nav": {
     "platform": "Plattform",
@@ -8471,8 +8471,8 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Kompis Web — AI-hjälp för webbesökare | Aipify",
-      "description": "Kompis Web svarar på besökares frågor utifrån innehållet på din webbplats. Börja med 150 gratis svar — utan betalkort."
+      "title": "Aipify – AI-hjälparen för dina webbplatsbesökare | Kompis Web",
+      "description": "Kompis Web svarar på besökares frågor utifrån godkänt innehåll på din webbplats. Börja med 150 gratis svar — utan betalkort."
     },
     "nav": {
       "product": "Produkt",
@@ -8487,9 +8487,9 @@
     },
     "hero": {
       "eyebrow": "Aipify Kompis Web",
-      "titleBefore": "Din AI-hjälpare för",
+      "titleBefore": "Aipify – AI-hjälparen för dina",
       "titleHighlight": "webbplatsbesökare",
-      "subtitle": "Kompis Web svarar på frågor, vägleder besökare och omsätter informationen på din webbplats till hjälpsamma samtal — så kunderna får tydliga svar direkt.",
+      "subtitle": "Kompis Web svarar på frågor, vägleder besökare och gör godkänt innehåll på din webbplats enklare att hitta.",
       "primaryCta": "Börja gratis",
       "secondaryCta": "Boka demo",
       "trustNoCard": "Inget betalkort krävs",
@@ -8658,7 +8658,7 @@
       "terms": "Villkor",
       "contact": "Kontakt",
       "home": "Aipify hem",
-      "tagline": "Aipify Kompis Web"
+      "tagline": "Aipify works for you · Kompis Web"
     }
   }
 }

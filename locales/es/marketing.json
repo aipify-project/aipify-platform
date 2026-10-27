@@ -9,8 +9,8 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Kompis Web — asistente de IA para visitantes del sitio | Aipify",
-      "description": "Kompis Web responde preguntas de visitantes con el contenido de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
+      "title": "Aipify — asistente de IA para visitantes del sitio | Kompis Web",
+      "description": "Kompis Web responde preguntas de visitantes con el contenido aprobado de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
     },
     "nav": {
       "product": "Producto",
@@ -25,9 +25,9 @@
     },
     "hero": {
       "eyebrow": "Aipify Kompis Web",
-      "titleBefore": "Tu asistente de IA para",
+      "titleBefore": "Aipify — el asistente de IA para tus",
       "titleHighlight": "visitantes del sitio",
-      "subtitle": "Kompis Web responde preguntas, guía a los visitantes y convierte la información de tu sitio en conversaciones útiles — para que los clientes obtengan respuestas claras al instante.",
+      "subtitle": "Kompis Web responde preguntas, guía a los visitantes y hace que el contenido aprobado de tu sitio sea más fácil de encontrar.",
       "primaryCta": "Empezar gratis",
       "secondaryCta": "Reservar demo",
       "trustNoCard": "Sin tarjeta de crédito",
@@ -196,11 +196,11 @@
       "terms": "Términos",
       "contact": "Contacto",
       "home": "Inicio Aipify",
-      "tagline": "Aipify Kompis Web"
+      "tagline": "Aipify works for you · Kompis Web"
     }
   },
   "meta": {
-    "kompisWebTitle": "Kompis Web — asistente de IA para visitantes del sitio | Aipify",
-    "kompisWebDescription": "Kompis Web responde preguntas de visitantes con el contenido de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
+    "kompisWebTitle": "Aipify — asistente de IA para visitantes del sitio | Kompis Web",
+    "kompisWebDescription": "Kompis Web responde preguntas de visitantes con el contenido aprobado de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
   }
 }

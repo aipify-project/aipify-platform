@@ -196,8 +196,11 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
 
   return {
     meta: {
-      title: asString(meta.title, "Kompis Web — Aipify"),
-      description: asString(meta.description),
+      title: asString(meta.title, "Aipify — AI helper for website visitors | Kompis Web"),
+      description: asString(
+        meta.description,
+        "Kompis Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card. Part of Aipify.",
+      ),
     },
     nav: {
       product: asString(nav.product, "Product"),
@@ -212,9 +215,12 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
     },
     hero: {
       eyebrow: asString(hero.eyebrow, "Aipify Kompis Web"),
-      titleBefore: asString(hero.titleBefore, "Your AI helper for"),
+      titleBefore: asString(hero.titleBefore, "Aipify — the AI helper for your"),
       titleHighlight: asString(hero.titleHighlight, "website visitors"),
-      subtitle: asString(hero.subtitle),
+      subtitle: asString(
+        hero.subtitle,
+        "Kompis Web answers questions, guides visitors, and makes approved content on your website easier to find.",
+      ),
       primaryCta: asString(hero.primaryCta, "Start free"),
       secondaryCta: asString(hero.secondaryCta, "Book demo"),
       trustNoCard: asString(hero.trustNoCard, "No credit card required"),
@@ -223,7 +229,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
         hero.trustFreeQuota,
         `${truth.freeAnswerQuota} free answers`,
       ).replace("{quota}", String(truth.freeAnswerQuota)),
-      mascotAlt: asString(hero.mascotAlt, "Aipify Kompis"),
+      mascotAlt: asString(hero.mascotAlt, "Aipify Buddy mascot"),
     },
     signupCard: {
       title: asString(signupCard.title, "Create your free account"),
@@ -345,7 +351,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       terms: asString(footer.terms, "Terms"),
       contact: asString(footer.contact, "Contact"),
       home: asString(footer.home, "Aipify home"),
-      tagline: asString(footer.tagline, "Aipify Kompis Web"),
+      tagline: asString(footer.tagline, "Aipify works for you · Kompis Web"),
     },
     hrefs: {
       register: "/register",

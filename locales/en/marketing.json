@@ -31,8 +31,8 @@
     "termsTitle": "Terms of Service — Aipify",
     "getStartedTitle": "Get Started — Aipify",
     "getStartedDescription": "A structured path from first login to operational value. See your first 30 days, implementation journey, and time-to-value outcomes.",
-    "kompisWebTitle": "Kompis Web — AI helper for website visitors | Aipify",
-    "kompisWebDescription": "Kompis Web answers visitor questions from your website content. Start with 150 free answers — no credit card. Part of Aipify."
+    "kompisWebTitle": "Aipify — AI helper for website visitors | Kompis Web",
+    "kompisWebDescription": "Kompis Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card. Part of Aipify."
   },
   "nav": {
     "platform": "Platform",
@@ -8061,8 +8061,8 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Kompis Web — AI helper for website visitors | Aipify",
-      "description": "Kompis Web answers visitor questions from your website content. Start with 150 free answers — no credit card. Part of Aipify."
+      "title": "Aipify — AI helper for website visitors | Kompis Web",
+      "description": "Kompis Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card. Part of Aipify."
     },
     "nav": {
       "product": "Product",
@@ -8077,9 +8077,9 @@
     },
     "hero": {
       "eyebrow": "Aipify Kompis Web",
-      "titleBefore": "Your AI helper for",
+      "titleBefore": "Aipify — the AI helper for your",
       "titleHighlight": "website visitors",
-      "subtitle": "Kompis Web answers questions, guides visitors, and turns information on your website into helpful conversations — so customers get clear answers, instantly.",
+      "subtitle": "Kompis Web answers questions, guides visitors, and makes approved content on your website easier to find.",
       "primaryCta": "Start free",
       "secondaryCta": "Book demo",
       "trustNoCard": "No credit card required",
@@ -8248,7 +8248,7 @@
       "terms": "Terms",
       "contact": "Contact",
       "home": "Aipify home",
-      "tagline": "Aipify Kompis Web"
+      "tagline": "Aipify works for you · Kompis Web"
     }
   }
 }

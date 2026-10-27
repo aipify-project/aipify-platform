@@ -677,8 +677,8 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Kompis Web — asystent AI dla odwiedzających stronę | Aipify",
-      "description": "Kompis Web odpowiada na pytania odwiedzających na podstawie treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
+      "title": "Aipify — asystent AI dla odwiedzających stronę | Kompis Web",
+      "description": "Kompis Web odpowiada na pytania odwiedzających na podstawie zatwierdzonych treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
     },
     "nav": {
       "product": "Produkt",
@@ -693,9 +693,9 @@
     },
     "hero": {
       "eyebrow": "Aipify Kompis Web",
-      "titleBefore": "Twój asystent AI dla",
+      "titleBefore": "Aipify — asystent AI dla Twoich",
       "titleHighlight": "odwiedzających stronę",
-      "subtitle": "Kompis Web odpowiada na pytania, prowadzi odwiedzających i zamienia informacje z Twojej strony w pomocne rozmowy — żeby klienci dostawali jasne odpowiedzi od razu.",
+      "subtitle": "Kompis Web odpowiada na pytania, prowadzi odwiedzających i ułatwia znalezienie zatwierdzonych treści na Twojej stronie.",
       "primaryCta": "Zacznij za darmo",
       "secondaryCta": "Umów demo",
       "trustNoCard": "Bez karty płatniczej",
@@ -864,11 +864,11 @@
       "terms": "Warunki",
       "contact": "Kontakt",
       "home": "Strona Aipify",
-      "tagline": "Aipify Kompis Web"
+      "tagline": "Aipify works for you · Kompis Web"
     }
   },
   "meta": {
-    "kompisWebTitle": "Kompis Web — asystent AI dla odwiedzających stronę | Aipify",
-    "kompisWebDescription": "Kompis Web odpowiada na pytania odwiedzających na podstawie treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
+    "kompisWebTitle": "Aipify — asystent AI dla odwiedzających stronę | Kompis Web",
+    "kompisWebDescription": "Kompis Web odpowiada na pytania odwiedzających na podstawie zatwierdzonych treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
   }
 }
