@@ -8581,13 +8581,15 @@
         "badge": "Bedste sted at starte",
         "name": "Gratis",
         "quota": "{quota} svar i alt",
-        "price": "Intet kort · livstidstotal pr. website-licens",
+        "price": "Livstidstotal · intet kort · ingen automatisk fornyelse",
         "features": [
-          "Livstidstotal svar pr. website-licens",
+          "150 gratis svar i hele licensens levetid",
           "Ingen kortregistrering og ingen automatisk fornyelse",
-          "Opgrader, når du har brug for flere svar"
+          "Opgrader til Standard, når du har brug for månedlig kapacitet"
         ],
-        "cta": "Start gratis"
+        "cta": "Start gratis",
+        "quotaUnit": "gratis svar · livstid pr. website",
+        "noCardPill": "Intet kreditkort kræves"
       },
       "paid": {
         "name": "Standard",
@@ -8595,12 +8597,15 @@
         "priceMonthly": "{currency} {amount} / måned",
         "priceAnnual": "{currency} {amount} / år",
         "features": [
-          "Månedligt fornyede svar pr. website-licens",
-          "Det du behøver for at drive Kompis Web dagligt",
-          "Aktiveres efter verificeret betaling og produktport"
+          "2.500 fornyende svar pr. måned pr. website-licens",
+          "Samme Kompis Web-produkt — mere månedlig kapacitet",
+          "Aktiveres efter verificeret betaling, når checkout åbner"
         ],
         "cta": "Book demo",
-        "checkoutUnavailable": "Betalt checkout er endnu ikke live. Registrér dig eller book demo for at fortsætte."
+        "checkoutUnavailable": "Betalt checkout er endnu ikke live. Registrér dig eller book demo for at fortsætte.",
+        "tagline": "Til voksende websites",
+        "quotaUnit": "svar hver måned",
+        "priceNote": "Opført planlagt pris · checkout er ikke live endnu"
       },
       "asideTitle": "Enkle pakker til websiteejere",
       "asideBody": "Start med en gratis livstidskvote. Gå til Standard, når sitet har brug for månedlig kapacitet — checkout aktiveres i en senere betalingsport."

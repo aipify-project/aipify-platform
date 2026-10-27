@@ -787,13 +787,15 @@
         "badge": "Najlepszy start",
         "name": "Darmowy",
         "quota": "{quota} odpowiedzi łącznie",
-        "price": "Bez karty · limit lifetime na licencję strony",
+        "price": "Limit lifetime · bez karty · bez automatycznego odnawiania",
         "features": [
-          "Łączny limit odpowiedzi lifetime na licencję strony",
+          "150 darmowych odpowiedzi przez cały okres licencji strony",
           "Bez rejestracji karty i bez automatycznego odnawiania",
-          "Ulepsz, gdy potrzebujesz więcej odpowiedzi"
+          "Przejdź na Standard, gdy potrzebujesz miesięcznej pojemności"
         ],
-        "cta": "Zacznij za darmo"
+        "cta": "Zacznij za darmo",
+        "quotaUnit": "darmowych odpowiedzi · lifetime na stronę",
+        "noCardPill": "Nie wymagamy karty kredytowej"
       },
       "paid": {
         "name": "Standard",
@@ -801,12 +803,15 @@
         "priceMonthly": "{currency} {amount} / miesiąc",
         "priceAnnual": "{currency} {amount} / rok",
         "features": [
-          "Miesięcznie odnawiane odpowiedzi na licencję strony",
-          "To, czego potrzebujesz do codziennej pracy z Kompis Web",
-          "Aktywacja po zweryfikowanej płatności i bramce produktu"
+          "2500 odnawianych odpowiedzi miesięcznie na licencję strony",
+          "Ten sam produkt Kompis Web — większa miesięczna pojemność",
+          "Aktywacja po zweryfikowanej płatności, gdy checkout będzie gotowy"
         ],
         "cta": "Umów demo",
-        "checkoutUnavailable": "Płatny checkout nie jest jeszcze dostępny. Zarejestruj się lub umów demo."
+        "checkoutUnavailable": "Płatny checkout nie jest jeszcze dostępny. Zarejestruj się lub umów demo.",
+        "tagline": "Dla rozwijających się stron",
+        "quotaUnit": "odpowiedzi co miesiąc",
+        "priceNote": "Podana cena planowana · checkout nie jest jeszcze aktywny"
       },
       "asideTitle": "Proste pakiety dla właścicieli stron",
       "asideBody": "Zacznij od darmowego limitu lifetime. Przejdź na Standard, gdy strona potrzebuje miesięcznej pojemności — checkout włączy się w późniejszej bramce płatności."

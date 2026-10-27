@@ -8171,13 +8171,15 @@
         "badge": "Best place to start",
         "name": "Free",
         "quota": "{quota} answers total",
-        "price": "No card · lifetime total per website license",
+        "price": "Lifetime total · no card · no automatic renewal",
         "features": [
-          "Lifetime answer total per website license",
+          "150 free answers for the life of the website license",
           "No card registration and no automatic renewal",
-          "Upgrade when you need more answers"
+          "Upgrade to Standard when you need monthly capacity"
         ],
-        "cta": "Start free"
+        "cta": "Start free",
+        "quotaUnit": "free answers · lifetime per website",
+        "noCardPill": "No credit card required"
       },
       "paid": {
         "name": "Standard",
@@ -8185,12 +8187,15 @@
         "priceMonthly": "{currency} {amount} / month",
         "priceAnnual": "{currency} {amount} / year",
         "features": [
-          "Monthly renewing answers per website license",
-          "Everything you need to run Kompis Web day to day",
-          "Activated after verified payment and product gate"
+          "2,500 renewing answers per month per website license",
+          "Same Kompis Web product — more monthly capacity",
+          "Activated after verified payment when checkout opens"
         ],
         "cta": "Book demo",
-        "checkoutUnavailable": "Paid checkout is not live yet. Register or book a demo to continue."
+        "checkoutUnavailable": "Paid checkout is not live yet. Register or book a demo to continue.",
+        "tagline": "For growing websites",
+        "quotaUnit": "answers every month",
+        "priceNote": "Listed planned price · checkout not live yet"
       },
       "asideTitle": "Simple packages for website owners",
       "asideBody": "Begin with a free lifetime answer allowance. Move to Standard when your site needs monthly capacity — checkout goes live in a later billing gate."

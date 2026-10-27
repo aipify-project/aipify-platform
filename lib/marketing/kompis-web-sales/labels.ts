@@ -70,15 +70,22 @@ export type KompisWebSalesLabels = {
       badge: string;
       name: string;
       quota: string;
+      quotaFigure: string;
+      quotaUnit: string;
+      noCardPill: string;
       price: string;
       features: string[];
       cta: string;
     };
     paid: {
       name: string;
+      tagline: string;
       quota: string;
+      quotaFigure: string;
+      quotaUnit: string;
       priceMonthly: string;
       priceAnnual: string;
+      priceNote: string;
       features: string[];
       cta: string;
       checkoutUnavailable: string;
@@ -273,22 +280,31 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
         "Packages below follow the owner-decided Kompis Web catalog. Live checkout is not enabled yet — start free registration or book a demo.",
       ),
       free: {
-        badge: asString(free.badge, "Most popular to start"),
+        badge: asString(free.badge, "Best place to start"),
         name: asString(free.name, "Free"),
         quota: asString(free.quota, `${truth.freeAnswerQuota} answers total`).replace(
           "{quota}",
           String(truth.freeAnswerQuota),
         ),
+        quotaFigure: asString(free.quotaFigure, String(truth.freeAnswerQuota)),
+        quotaUnit: asString(free.quotaUnit, "free answers · lifetime per website"),
+        noCardPill: asString(free.noCardPill, "No credit card required"),
         price: asString(free.price, "No card · lifetime total per website license"),
         features: asStringList(free.features),
         cta: asString(free.cta, "Start free"),
       },
       paid: {
         name: asString(paid.name, "Standard"),
+        tagline: asString(paid.tagline, "For growing websites"),
         quota: asString(paid.quota, `${truth.paidAnswerQuota} answers per month`).replace(
           "{quota}",
           String(truth.paidAnswerQuota),
         ),
+        quotaFigure: asString(
+          paid.quotaFigure,
+          String(truth.paidAnswerQuota).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+        ),
+        quotaUnit: asString(paid.quotaUnit, "answers per month"),
         priceMonthly: asString(
           paid.priceMonthly,
           `NOK ${truth.paidMonthlyDisplay} / month`,
@@ -301,8 +317,9 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
         )
           .replace("{amount}", truth.paidAnnualDisplay)
           .replace("{currency}", truth.paidCurrency),
+        priceNote: asString(paid.priceNote, "Listed planned price · checkout not live yet"),
         features: asStringList(paid.features),
-        cta: asString(paid.cta, "Get started"),
+        cta: asString(paid.cta, "Book demo"),
         checkoutUnavailable: asString(
           paid.checkoutUnavailable,
           "Paid checkout is not live yet. Register or book a demo to continue.",

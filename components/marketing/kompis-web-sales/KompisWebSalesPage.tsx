@@ -45,6 +45,22 @@ function ChevronDown() {
   );
 }
 
+function PlanCheckIcon() {
+  return (
+    <svg className="kompis-web-sales-plan-check" viewBox="0 0 20 20" aria-hidden="true">
+      <circle cx="10" cy="10" r="10" fill="currentColor" opacity="0.12" />
+      <path
+        d="M6.2 10.2 8.7 12.7 13.8 7.4"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -184,7 +200,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
 
       <main>
         <section className="kompis-web-sales-shell kompis-web-sales-hero" id="product" aria-labelledby="kompis-web-sales-hero-title">
-          <div>
+          <div className="kompis-web-sales-hero-copy">
             <p className="kompis-web-sales-eyebrow">{labels.hero.eyebrow}</p>
             <h1 id="kompis-web-sales-hero-title" className="kompis-web-sales-display">
               {labels.hero.titleBefore}{" "}
@@ -212,29 +228,29 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
               <span>{labels.hero.trustSetup}</span>
               <span>{labels.hero.trustFreeQuota}</span>
             </div>
-            <div className="kompis-web-sales-mascot-stage" aria-hidden="true">
-              <div className="kompis-web-sales-mascot-glow" />
-              <Image
-                src={HERO_GLOW}
-                alt=""
-                width={520}
-                height={292}
-                className="kompis-web-sales-mascot"
-                style={{ position: "absolute", opacity: 0.55, width: "min(460px, 96%)", zIndex: 0 }}
-                priority
-              />
-              <Image
-                className="kompis-web-sales-mascot"
-                src={HERO_MASCOT}
-                alt={labels.hero.mascotAlt}
-                width={340}
-                height={340}
-                priority
-              />
-            </div>
           </div>
 
-          <form className="kompis-web-sales-panel" onSubmit={goRegister} noValidate>
+          <div className="kompis-web-sales-mascot-stage">
+            <div className="kompis-web-sales-mascot-glow" aria-hidden="true" />
+            <Image
+              src={HERO_GLOW}
+              alt=""
+              width={520}
+              height={292}
+              className="kompis-web-sales-mascot-glow-img"
+              priority
+            />
+            <Image
+              className="kompis-web-sales-mascot"
+              src={HERO_MASCOT}
+              alt={labels.hero.mascotAlt}
+              width={380}
+              height={380}
+              priority
+            />
+          </div>
+
+          <form className="kompis-web-sales-panel kompis-web-sales-signup" onSubmit={goRegister} noValidate>
             <h2>{labels.signupCard.title}</h2>
             <div className="kompis-web-sales-field">
               <label htmlFor="kws-email">{labels.signupCard.emailLabel}</label>
@@ -301,9 +317,19 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             <div className="kompis-web-sales-how-grid">
               {labels.how.steps.map((step, index) => (
                 <article key={step.title} className="kompis-web-sales-how-card">
-                  <span className="kompis-web-sales-step-index">{index + 1}</span>
+                  <div className="kompis-web-sales-how-card-top">
+                    <span className="kompis-web-sales-step-index">{index + 1}</span>
+                    <span className="kompis-web-sales-how-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24">{BENEFIT_ICONS[index % BENEFIT_ICONS.length]}</svg>
+                    </span>
+                  </div>
                   <h3>{step.title}</h3>
                   <p>{step.body}</p>
+                  {index < labels.how.steps.length - 1 ? (
+                    <span className="kompis-web-sales-how-arrow" aria-hidden="true">
+                      →
+                    </span>
+                  ) : null}
                 </article>
               ))}
             </div>
@@ -358,46 +384,59 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
           <div className="kompis-web-sales-pricing">
             <div className="kompis-web-sales-pricing-copy">
               <h2 id="kompis-web-sales-pricing-title">{labels.pricing.title}</h2>
-              <p>{labels.pricing.asideBody}</p>
+              <p className="kompis-web-sales-pricing-lead">{labels.pricing.subtitle}</p>
+              <p className="kompis-web-sales-pricing-aside">{labels.pricing.asideBody}</p>
               <p className="kompis-web-sales-note">{labels.pricing.plannedNote}</p>
             </div>
             <div className="kompis-web-sales-plans">
               <article className="kompis-web-sales-plan kompis-web-sales-plan-featured">
                 <span className="kompis-web-sales-plan-badge">{labels.pricing.free.badge}</span>
                 <h3>{labels.pricing.free.name}</h3>
-                <p className="quota">{labels.pricing.free.quota}</p>
-                <p className="price">{labels.pricing.free.price}</p>
-                <ul>
+                <p className="kompis-web-sales-plan-figure" aria-label={labels.pricing.free.quota}>
+                  <span className="kompis-web-sales-plan-figure-num">{labels.pricing.free.quotaFigure}</span>
+                  <span className="kompis-web-sales-plan-figure-unit">{labels.pricing.free.quotaUnit}</span>
+                </p>
+                <p className="kompis-web-sales-plan-nocard">{labels.pricing.free.noCardPill}</p>
+                <p className="kompis-web-sales-plan-price-line">{labels.pricing.free.price}</p>
+                <ul className="kompis-web-sales-plan-features">
                   {labels.pricing.free.features.map((feature) => (
-                    <li key={feature}>{feature}</li>
+                    <li key={feature}>
+                      <PlanCheckIcon />
+                      <span>{feature}</span>
+                    </li>
                   ))}
                 </ul>
                 <Link
                   href={labels.hrefs.register}
-                  className="kompis-web-sales-primary"
-                  style={{ width: "100%" }}
+                  className="kompis-web-sales-primary kompis-web-sales-plan-cta"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_free")}
                 >
                   {labels.pricing.free.cta}
                 </Link>
               </article>
-              <article className="kompis-web-sales-plan">
+              <article className="kompis-web-sales-plan kompis-web-sales-plan-standard">
+                <span className="kompis-web-sales-plan-tagline">{labels.pricing.paid.tagline}</span>
                 <h3>{labels.pricing.paid.name}</h3>
-                <p className="quota">{labels.pricing.paid.quota}</p>
-                <p className="price">
-                  {labels.pricing.paid.priceMonthly}
-                  <br />
-                  {labels.pricing.paid.priceAnnual}
+                <p className="kompis-web-sales-plan-figure" aria-label={labels.pricing.paid.quota}>
+                  <span className="kompis-web-sales-plan-figure-num">{labels.pricing.paid.quotaFigure}</span>
+                  <span className="kompis-web-sales-plan-figure-unit">{labels.pricing.paid.quotaUnit}</span>
                 </p>
-                <ul>
+                <div className="kompis-web-sales-plan-prices">
+                  <p className="kompis-web-sales-plan-price-main">{labels.pricing.paid.priceMonthly}</p>
+                  <p className="kompis-web-sales-plan-price-alt">{labels.pricing.paid.priceAnnual}</p>
+                  <p className="kompis-web-sales-plan-price-note">{labels.pricing.paid.priceNote}</p>
+                </div>
+                <ul className="kompis-web-sales-plan-features">
                   {labels.pricing.paid.features.map((feature) => (
-                    <li key={feature}>{feature}</li>
+                    <li key={feature}>
+                      <PlanCheckIcon />
+                      <span>{feature}</span>
+                    </li>
                   ))}
                 </ul>
                 <Link
                   href={labels.hrefs.bookDemo}
-                  className="kompis-web-sales-secondary"
-                  style={{ width: "100%" }}
+                  className="kompis-web-sales-secondary kompis-web-sales-plan-cta"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_paid")}
                 >
                   {labels.pricing.paid.cta}
@@ -415,7 +454,10 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
           <div className="kompis-web-sales-faq-grid">
             {labels.faq.items.map((item) => (
               <details key={item.question} className="kompis-web-sales-faq-item">
-                <summary>{item.question}</summary>
+                <summary>
+                  <span>{item.question}</span>
+                  <ChevronDown />
+                </summary>
                 <p>{item.answer}</p>
               </details>
             ))}

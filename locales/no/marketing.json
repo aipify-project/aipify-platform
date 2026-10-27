@@ -8596,13 +8596,15 @@
         "badge": "Beste sted å starte",
         "name": "Gratis",
         "quota": "{quota} svar totalt",
-        "price": "Ingen kort · livstids total per nettsidlisens",
+        "price": "Livstids total · ingen kort · ingen automatisk fornyelse",
         "features": [
-          "Livstids svartotal per nettsidlisens",
+          "150 gratis svar for hele lisensens levetid",
           "Ingen kortregistrering og ingen automatisk fornyelse",
-          "Oppgrader når du trenger flere svar"
+          "Oppgrader til Standard når du trenger månedlig kapasitet"
         ],
-        "cta": "Start gratis"
+        "cta": "Start gratis",
+        "quotaUnit": "gratis svar · livstid per nettside",
+        "noCardPill": "Ingen kredittkort kreves"
       },
       "paid": {
         "name": "Standard",
@@ -8610,12 +8612,15 @@
         "priceMonthly": "{currency} {amount} / måned",
         "priceAnnual": "{currency} {amount} / år",
         "features": [
-          "Månedlig fornyende svar per nettsidlisens",
-          "Det du trenger for å drive Kompis Web daglig",
-          "Aktiveres etter verifisert betaling og produktport"
+          "2 500 fornyende svar per måned per nettsidlisens",
+          "Samme Kompis Web-produkt — mer månedlig kapasitet",
+          "Aktiveres etter verifisert betaling når checkout åpner"
         ],
         "cta": "Bestill demo",
-        "checkoutUnavailable": "Betalt kasse er ikke live ennå. Registrer deg eller bestill demo for å fortsette."
+        "checkoutUnavailable": "Betalt kasse er ikke live ennå. Registrer deg eller bestill demo for å fortsette.",
+        "tagline": "For voksende nettsider",
+        "quotaUnit": "svar hver måned",
+        "priceNote": "Oppført planlagt pris · betaling er ikke live ennå"
       },
       "asideTitle": "Enkle pakker for nettstedeiere",
       "asideBody": "Start med en gratis livstidskvote. Gå til Standard når siden trenger månedlig kapasitet — kasse aktiveres i en senere betalingsgate."

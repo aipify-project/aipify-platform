@@ -8581,13 +8581,15 @@
         "badge": "Bästa starten",
         "name": "Gratis",
         "quota": "{quota} svar totalt",
-        "price": "Inget kort · livstidstotal per webbplatsslicens",
+        "price": "Livstidstotal · inget kort · ingen automatisk förnyelse",
         "features": [
-          "Livstidstotal svar per webbplatsslicens",
+          "150 gratis svar under hela licensens livstid",
           "Ingen kortregistrering och ingen automatisk förnyelse",
-          "Uppgradera när du behöver fler svar"
+          "Uppgradera till Standard när du behöver månadskapacitet"
         ],
-        "cta": "Börja gratis"
+        "cta": "Börja gratis",
+        "quotaUnit": "gratis svar · livstid per webbplats",
+        "noCardPill": "Inget kreditkort krävs"
       },
       "paid": {
         "name": "Standard",
@@ -8595,12 +8597,15 @@
         "priceMonthly": "{currency} {amount} / månad",
         "priceAnnual": "{currency} {amount} / år",
         "features": [
-          "Månadsvis förnyade svar per webbplatsslicens",
-          "Det du behöver för att driva Kompis Web dagligen",
-          "Aktiveras efter verifierad betalning och produktport"
+          "2 500 förnyande svar per månad per webbplatsslicens",
+          "Samma Kompis Web-produkt — mer månadskapacitet",
+          "Aktiveras efter verifierad betalning när checkout öppnar"
         ],
         "cta": "Boka demo",
-        "checkoutUnavailable": "Betald kassa är inte live ännu. Registrera dig eller boka demo för att fortsätta."
+        "checkoutUnavailable": "Betald kassa är inte live ännu. Registrera dig eller boka demo för att fortsätta.",
+        "tagline": "För växande webbplatser",
+        "quotaUnit": "svar varje månad",
+        "priceNote": "Angivet planerat pris · checkout är inte live ännu"
       },
       "asideTitle": "Enkla paket för webbplatsägare",
       "asideBody": "Börja med en gratis livstidskvot. Gå till Standard när sajten behöver månatlig kapacitet — kassan aktiveras i en senare betalningsgrind."

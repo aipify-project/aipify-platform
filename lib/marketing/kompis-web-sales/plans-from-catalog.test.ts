@@ -24,8 +24,13 @@ assert.equal(labels.how.steps.length, 4);
 assert.ok(labels.faq.items.length >= 5);
 assert.equal(labels.hrefs.register, "/register");
 assert.ok(labels.pricing.free.quota.includes("150"));
+assert.equal(labels.pricing.free.quotaFigure, "150");
+assert.ok(labels.pricing.free.noCardPill.length > 0);
 assert.ok(labels.pricing.paid.quota.includes("2500"));
+assert.equal(labels.pricing.paid.quotaFigure, "2,500");
 assert.ok(labels.pricing.paid.priceMonthly.includes("599"));
+assert.ok(labels.pricing.paid.priceNote.length > 0);
+assert.equal(labels.hrefs.bookDemo, "/book-demo");
 assert.ok(labels.demo.illustrationBadge.toLowerCase().includes("illustration"));
 
 console.log("kompis-web-sales plans/labels: PASS");
