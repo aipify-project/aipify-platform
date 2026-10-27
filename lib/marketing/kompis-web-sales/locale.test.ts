@@ -15,11 +15,32 @@ import {
   kompisWebSalesHelperDisplayName,
   resolveKompisWebSalesLocale,
 } from "./locale";
+import { resolvePublicLocale } from "@/lib/i18n/resolve-locale";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 assert.equal(resolveKompisWebSalesLocale({ cookieLocale: null }), "en");
 assert.equal(kompisWebSalesHelperDisplayName("no"), "Kompis");
 assert.equal(kompisWebSalesHelperDisplayName("en"), "Buddy");
 assert.equal(KOMPIS_WEB_SALES_BROWSER_TITLE, "Aipify works for you");
+
+// Cookie consent on the sales shell must follow sales locale (cookie|en), not Accept-Language.
+const nordicBrowser = resolvePublicLocale({
+  cookieLocale: null,
+  acceptLanguage: "nb-NO,nb;q=0.9,en;q=0.8",
+});
+assert.equal(nordicBrowser.locale, "no");
+assert.equal(resolveKompisWebSalesLocale({ cookieLocale: null }), "en");
+assert.notEqual(nordicBrowser.locale, resolveKompisWebSalesLocale({ cookieLocale: null }));
+assert.equal(resolveKompisWebSalesLocale({ cookieLocale: "no" }), "no");
+
+const salesLayout = readFileSync(
+  join(process.cwd(), "app/(kompis-sales)/layout.tsx"),
+  "utf8",
+);
+assert.match(salesLayout, /resolveKompisWebSalesLocale/);
+assert.doesNotMatch(salesLayout, /getMarketingContext/);
+assert.doesNotMatch(salesLayout, /getLocale/);
 
 const BUDDY_LOCALES = new Set(["en", "es", "pl", "uk"]);
 

@@ -16,9 +16,14 @@ type ForgotPasswordFormProps = {
     requestFailed: string;
     generic: string;
   };
+  /** When false, omit in-form back link (page already shows the login-slot link above the title). */
+  showBackLink?: boolean;
 };
 
-export default function ForgotPasswordForm({ labels }: ForgotPasswordFormProps) {
+export default function ForgotPasswordForm({
+  labels,
+  showBackLink = true,
+}: ForgotPasswordFormProps) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -119,14 +124,16 @@ export default function ForgotPasswordForm({ labels }: ForgotPasswordFormProps) 
         {labels.sendInstructions}
       </button>
 
-      <p className="text-center text-sm text-gray-600">
-        <Link
-          href="/login"
-          className="font-semibold text-violet-600 hover:text-violet-700"
-        >
-          {labels.backToLogin}
-        </Link>
-      </p>
+      {showBackLink ? (
+        <p className="text-center text-sm text-gray-600">
+          <Link
+            href="/login"
+            className="font-semibold text-violet-600 hover:text-violet-700"
+          >
+            {labels.backToLogin}
+          </Link>
+        </p>
+      ) : null}
     </form>
   );
 }
