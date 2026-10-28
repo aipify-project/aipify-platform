@@ -3,6 +3,7 @@
 import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
 import { WebsiteKompisFaqPreviewPanel } from "@/components/app/website-kompis/WebsiteKompisFaqPreviewPanel";
+import { WebsiteKompisFaqVisibilityDiagnostic } from "@/components/app/website-kompis/WebsiteKompisFaqVisibilityDiagnostic";
 import { WebsiteKompisFaqImportWorkspace } from "@/components/app/website-kompis/WebsiteKompisFaqImportWorkspace";
 import { FaqContentLanguagePicker } from "@/components/app/website-kompis/FaqContentLanguagePicker";
 import { WebsiteKompisFaqLocaleLinkDialog, type FaqLocaleLinkChoice } from "@/components/app/website-kompis/WebsiteKompisFaqLocaleLinkDialog";
@@ -2083,12 +2084,21 @@ export function WebsiteKompisFaqAdminPanel({
             </div>
           </section>
 
-          <WebsiteKompisFaqPreviewPanel
-            labels={labels}
-            title={draft.title}
-            question={draft.question ?? ""}
-            answer={draft.answer}
-          />
+          <div className="space-y-4">
+            <WebsiteKompisFaqPreviewPanel
+              labels={labels}
+              title={draft.title}
+              question={draft.question ?? ""}
+              answer={draft.answer}
+            />
+            {draft.itemId ? (
+              <WebsiteKompisFaqVisibilityDiagnostic
+                labels={labels}
+                itemId={draft.itemId}
+                installId={draft.installId ?? (selectedInstallId || null)}
+              />
+            ) : null}
+          </div>
         </div>
       )}
 
