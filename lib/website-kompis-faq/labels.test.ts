@@ -12,6 +12,10 @@ function main() {
     labels.feedbackOverviewLink,
     "customerApp.websiteKompisFaq.feedbackOverviewLink",
   );
+  assert.equal(
+    labels.visibility.run,
+    "customerApp.websiteKompisFaq.visibility.run",
+  );
 
   console.log("website-kompis-faq-labels.test.ts: all assertions passed");
 }
