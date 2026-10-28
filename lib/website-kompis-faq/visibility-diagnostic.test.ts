@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { buildWebsiteKompisFaqLabels } from "@/lib/website-kompis-faq/labels";
 import type { WebsiteKompisFaqItem } from "@/lib/website-kompis-faq/types";
 import {
+  FAQ_VISIBILITY_VISITOR_LOCALES,
   buildFaqLocaleDryRunResult,
   buildFaqVisibilityDiagnosticReport,
   evaluateFaqVisibilityEligibility,
@@ -89,9 +90,47 @@ const expired = evaluateFaqVisibilityEligibility(
 );
 assert.ok(expired.reasons.includes("expired"));
 
+assert.deepEqual([...FAQ_VISIBILITY_VISITOR_LOCALES], ["no", "en", "da", "sv"]);
+
 assert.equal(faqLocaleMatchesVisitorLocale("no", "en"), false);
 assert.equal(faqLocaleMatchesVisitorLocale("no", "no"), true);
 assert.equal(faqLocaleMatchesVisitorLocale("en", "no"), true);
+assert.equal(faqLocaleMatchesVisitorLocale("da", "no"), false);
+assert.equal(faqLocaleMatchesVisitorLocale("da", "en"), false);
+assert.equal(faqLocaleMatchesVisitorLocale("da", "sv"), false);
+assert.equal(faqLocaleMatchesVisitorLocale("da", "da"), true);
+assert.equal(faqLocaleMatchesVisitorLocale("sv", "no"), false);
+assert.equal(faqLocaleMatchesVisitorLocale("sv", "en"), false);
+assert.equal(faqLocaleMatchesVisitorLocale("sv", "da"), false);
+assert.equal(faqLocaleMatchesVisitorLocale("sv", "sv"), true);
+assert.equal(faqLocaleMatchesVisitorLocale("no", "da"), false);
+assert.equal(faqLocaleMatchesVisitorLocale("no", "sv"), false);
+
+function localeEligible(faqLocale: string, visitorLocale: string): boolean {
+  return evaluateFaqVisibilityEligibility(item({ locale: faqLocale }), {
+    selectedInstallId: INSTALL_A,
+    faqSource: "enabled",
+    nowMs: NOW,
+    visitorLocale,
+  }).eligibleForPathA;
+}
+
+assert.equal(localeEligible("da", "da"), true);
+assert.equal(localeEligible("da", "no"), false);
+assert.equal(localeEligible("da", "en"), false);
+assert.equal(localeEligible("da", "sv"), false);
+assert.equal(localeEligible("sv", "sv"), true);
+assert.equal(localeEligible("sv", "no"), false);
+assert.equal(localeEligible("sv", "en"), false);
+assert.equal(localeEligible("sv", "da"), false);
+assert.equal(localeEligible("no", "no"), true);
+assert.equal(localeEligible("no", "en"), false);
+assert.equal(localeEligible("no", "da"), false);
+assert.equal(localeEligible("no", "sv"), false);
+assert.equal(localeEligible("en", "no"), true);
+assert.equal(localeEligible("en", "en"), true);
+assert.equal(localeEligible("en", "da"), true);
+assert.equal(localeEligible("en", "sv"), true);
 
 const enVisitor = evaluateFaqVisibilityEligibility(item({ locale: "no" }), {
   selectedInstallId: INSTALL_A,
@@ -203,6 +242,14 @@ assert.match(server, /tenant_public_companion_faq_items/);
 const labels = buildWebsiteKompisFaqLabels((key) => key);
 assert.equal(labels.visibility.title, "customerApp.websiteKompisFaq.visibility.title");
 assert.equal(
+  labels.visibility.visitorLocaleDa,
+  "customerApp.websiteKompisFaq.visibility.visitorLocaleDa",
+);
+assert.equal(
+  labels.visibility.visitorLocaleSv,
+  "customerApp.websiteKompisFaq.visibility.visitorLocaleSv",
+);
+assert.equal(
   labels.visibility.reasons.locale_not_in_visitor_set,
   "customerApp.websiteKompisFaq.visibility.reasons.locale_not_in_visitor_set",
 );
@@ -211,12 +258,32 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"]) {
   const dict = JSON.parse(
     readFileSync(`locales/${locale}/customer-app/core.json`, "utf8"),
   ) as {
-    websiteKompisFaq: { visibility: { title: string; reasons: Record<string, string> } };
+    websiteKompisFaq: {
+      visibility: {
+        title: string;
+        visitorLocaleDa: string;
+        visitorLocaleSv: string;
+        dryRunTitle: string;
+        reasons: Record<string, string>;
+      };
+    };
   };
   assert.ok(dict.websiteKompisFaq.visibility.title.length > 0);
+  assert.ok(dict.websiteKompisFaq.visibility.visitorLocaleDa.length > 0);
+  assert.ok(dict.websiteKompisFaq.visibility.visitorLocaleSv.length > 0);
+  assert.match(dict.websiteKompisFaq.visibility.dryRunTitle, /DA/);
   assert.ok(dict.websiteKompisFaq.visibility.reasons.draft);
   assert.ok(dict.websiteKompisFaq.visibility.reasons.not_public_safe);
   assert.ok(dict.websiteKompisFaq.visibility.reasons.locale_not_in_visitor_set);
 }
+
+assert.match(
+  readFileSync("components/app/website-kompis/WebsiteKompisFaqVisibilityDiagnostic.tsx", "utf8"),
+  /visitorLocaleDa/,
+);
+assert.match(
+  readFileSync("lib/website-kompis-faq/visibility-diagnostic-server.ts", "utf8"),
+  /FAQ_VISIBILITY_VISITOR_LOCALES/,
+);
 
 console.log("website-kompis-faq-visibility-diagnostic.test.ts: all assertions passed");
