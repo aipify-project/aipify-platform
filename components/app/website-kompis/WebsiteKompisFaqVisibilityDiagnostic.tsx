@@ -33,6 +33,26 @@ function formatUnknown(value: string | null | undefined, unknownLabel: string): 
   return value;
 }
 
+function visitorLocaleLabel(
+  labels: WebsiteKompisFaqLabels["visibility"],
+  visitorLocale: FaqLocaleDryRunResult["visitorLocale"],
+): string {
+  switch (visitorLocale) {
+    case "no":
+      return labels.visitorLocaleNo;
+    case "en":
+      return labels.visitorLocaleEn;
+    case "da":
+      return labels.visitorLocaleDa;
+    case "sv":
+      return labels.visitorLocaleSv;
+    default: {
+      const _exhaustive: never = visitorLocale;
+      return _exhaustive;
+    }
+  }
+}
+
 function DryRunRow({
   labels,
   run,
@@ -40,8 +60,7 @@ function DryRunRow({
   labels: WebsiteKompisFaqLabels["visibility"];
   run: FaqLocaleDryRunResult;
 }) {
-  const localeLabel =
-    run.visitorLocale === "no" ? labels.visitorLocaleNo : labels.visitorLocaleEn;
+  const localeLabel = visitorLocaleLabel(labels, run.visitorLocale);
 
   return (
     <div className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800">
@@ -229,9 +248,11 @@ export function WebsiteKompisFaqVisibilityDiagnostic({
 
           <div className="space-y-2">
             <p className="text-sm font-medium text-slate-900">{v.dryRunTitle}</p>
-            {report.dryRuns.map((run) => (
-              <DryRunRow key={run.visitorLocale} labels={v} run={run} />
-            ))}
+            <div className="grid gap-2 sm:grid-cols-2">
+              {report.dryRuns.map((run) => (
+                <DryRunRow key={run.visitorLocale} labels={v} run={run} />
+              ))}
+            </div>
           </div>
         </div>
       ) : null}

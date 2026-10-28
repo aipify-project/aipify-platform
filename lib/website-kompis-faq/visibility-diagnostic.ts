@@ -6,7 +6,8 @@
 
 import type { WebsiteKompisFaqItem } from "@/lib/website-kompis-faq/types";
 
-export const FAQ_VISIBILITY_VISITOR_LOCALES = ["no", "en"] as const;
+/** Path A dry-run visitor locales — exact match + English fallback only (no Nordic equivalence). */
+export const FAQ_VISIBILITY_VISITOR_LOCALES = ["no", "en", "da", "sv"] as const;
 export type FaqVisibilityVisitorLocale = (typeof FAQ_VISIBILITY_VISITOR_LOCALES)[number];
 
 export type FaqVisibilityBlockReason =

@@ -16,6 +16,14 @@ function main() {
     labels.visibility.run,
     "customerApp.websiteKompisFaq.visibility.run",
   );
+  assert.equal(
+    labels.visibility.visitorLocaleDa,
+    "customerApp.websiteKompisFaq.visibility.visitorLocaleDa",
+  );
+  assert.equal(
+    labels.visibility.visitorLocaleSv,
+    "customerApp.websiteKompisFaq.visibility.visitorLocaleSv",
+  );
 
   console.log("website-kompis-faq-labels.test.ts: all assertions passed");
 }

@@ -225,6 +225,8 @@ export function buildWebsiteKompisFaqLabels(t: TranslateFn) {
       dryRunTitle: t(`${prefix}.visibility.dryRunTitle`),
       visitorLocaleNo: t(`${prefix}.visibility.visitorLocaleNo`),
       visitorLocaleEn: t(`${prefix}.visibility.visitorLocaleEn`),
+      visitorLocaleDa: t(`${prefix}.visibility.visitorLocaleDa`),
+      visitorLocaleSv: t(`${prefix}.visibility.visitorLocaleSv`),
       sqlCandidate: t(`${prefix}.visibility.sqlCandidate`),
       selectedAnswer: t(`${prefix}.visibility.selectedAnswer`),
       citationCaveat: t(`${prefix}.visibility.citationCaveat`),
