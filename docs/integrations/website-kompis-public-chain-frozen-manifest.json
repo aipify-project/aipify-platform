@@ -70,7 +70,7 @@
     {
       "path": "lib/marketing/public-companion-ask.ts",
       "role": "Ask orchestration + evidence collection",
-      "sha256": "13bc78754467fbb9da6cc3cb4aad3eb76fbb455a7dff9dbb6554b9fb549a1a36"
+      "sha256": "238782a899652221d6bf62a7881a262cd05c9bcc213a421fd3de71cd80195865"
     },
     {
       "path": "lib/marketing/public-companion-tenant-faq.ts",

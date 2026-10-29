@@ -167,15 +167,27 @@
     ]
   },
   "closedFaqEmptyEvidencePackCandidate": {
-    "status": "owner approved in task \u2014 pending merge/live",
+    "status": "closed after merge",
     "date": "2026-10-29",
     "names": "Website Kompis Public Chain",
     "file": "lib/marketing/public-companion-ask.ts",
     "baselineSha256": "0fdb705237747f0c6be089e388f4558aa63a431f7c66b7531cb22aeef083fe3a",
     "proposedSha256": "13bc78754467fbb9da6cc3cb4aad3eb76fbb455a7dff9dbb6554b9fb549a1a36",
     "ownerApproval": "AIPIFY_KOMPIS_CORE_FAQ_EMPTY_EVIDENCE_PACK_FIX_V1",
-    "reason": "Owner authorized a narrow Public Chain CODE fix: when collect already retained relevant/safe FAQ rows, empty grounded evidence pack must not skip deterministic FAQ. Manifest hash for public-companion-ask.ts moves to the approved file. The file is removed from files[] because a ledger row whose hash matches the manifest fails the freeze gate. APP FAQ visibility diagnostic alignment is outside the protected runtime set.",
+    "mergeCommit": "d0fa2555bc78f388c893b84e8f0215a6092f7c83",
+    "reason": "Owner authorized a narrow Public Chain CODE fix: when collect already retained relevant/safe FAQ rows, empty grounded evidence pack must not skip deterministic FAQ. Merged as PR #338. Superseded as the ask.ts baseline by closedFaqVsSiteIndexPrecedenceRepairCandidate.",
     "filesArrayUnchangedExceptAskRemoved": true
+  },
+  "closedFaqVsSiteIndexPrecedenceRepairCandidate": {
+    "status": "owner approved in task \u2014 pending merge/live",
+    "date": "2026-10-29",
+    "names": "Website Kompis Public Chain",
+    "file": "lib/marketing/public-companion-ask.ts",
+    "baselineSha256": "13bc78754467fbb9da6cc3cb4aad3eb76fbb455a7dff9dbb6554b9fb549a1a36",
+    "proposedSha256": "238782a899652221d6bf62a7881a262cd05c9bcc213a421fd3de71cd80195865",
+    "ownerApproval": "AIPIFY_KOMPIS_CORE_FAQ_VS_SITE_INDEX_PRECEDENCE_REPAIR_V1",
+    "reason": "Owner authorized a narrow Public Chain CODE fix: strong question-overlapping collected FAQ must not lose to weakly topical current-page or public site-index extracts that only share a generic token. Explicit this-page questions keep page priority; weak/irrelevant FAQ never defers stronger on-topic competing surfaces. Manifest hash for public-companion-ask.ts moves to the approved file. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate.",
+    "filesArrayUnchanged": true
   },
   "files": [
     {
