@@ -33,61 +33,93 @@ function formatUnknown(value: string | null | undefined, unknownLabel: string): 
   return value;
 }
 
+function localeCustomerOutcome(
+  labels: WebsiteKompisFaqLabels["visibility"],
+  run: FaqLocaleDryRunResult,
+): string {
+  const unavailableLanguage =
+    !run.localeEligible && run.localeReasons.includes("locale_not_in_visitor_set");
+
+  if (run.dryRunSkipped) {
+    if (run.skipReason === "missing_context") return labels.localeOutcomeMissingContext;
+    if (run.skipReason === "rpc_unavailable") return labels.localeOutcomeCheckUnavailable;
+    if (unavailableLanguage) return labels.localeOutcomeUnavailableLanguage;
+    return labels.localeOutcomeNotReady;
+  }
+
+  if (unavailableLanguage) return labels.localeOutcomeUnavailableLanguage;
+
+  const canUse =
+    run.localeEligible &&
+    run.sqlCandidateMatch &&
+    run.relevanceQualified &&
+    run.safetyQualified &&
+    (run.wouldBeSelectedAnswer || run.evidencePackRetained || run.liveChainFaqEligible);
+
+  return canUse ? labels.localeOutcomeCanUse : labels.localeOutcomeNotReady;
+}
+
 function DryRunRow({
   labels,
   run,
+  showTechnical,
 }: {
   labels: WebsiteKompisFaqLabels["visibility"];
   run: FaqLocaleDryRunResult;
+  showTechnical: boolean;
 }) {
   const localeLabel =
     run.visitorLocale === "no" ? labels.visitorLocaleNo : labels.visitorLocaleEn;
+  const outcome = localeCustomerOutcome(labels, run);
 
   return (
     <div className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800">
-      <p className="font-medium text-slate-900">{localeLabel}</p>
-      {run.dryRunSkipped ? (
-        <p className="mt-1 text-slate-600">
-          {run.skipReason === "missing_context"
-            ? labels.dryRunMissingContext
-            : run.skipReason === "rpc_unavailable"
-              ? labels.dryRunUnavailable
-              : labels.dryRunSkippedIneligible}
-        </p>
-      ) : (
-        <ul className="mt-1 list-disc space-y-0.5 pl-4 text-slate-700">
-          <li>
-            {labels.sqlCandidate}:{" "}
-            {run.sqlCandidateMatch ? labels.resultYes : labels.resultNo}
-          </li>
-          <li>
-            {labels.relevanceQualified}:{" "}
-            {run.relevanceQualified ? labels.resultYes : labels.resultNo}
-          </li>
-          <li>
-            {labels.safetyQualified}:{" "}
-            {run.safetyQualified ? labels.resultYes : labels.resultNo}
-          </li>
-          <li>
-            {labels.evidencePackRetained}:{" "}
-            {run.evidencePackRetained ? labels.resultYes : labels.resultNo}
-          </li>
-          <li>
-            {labels.selectedAnswer}:{" "}
-            {run.wouldBeSelectedAnswer ? labels.resultYes : labels.resultNo}
-          </li>
-          <li>
-            {labels.liveChainFaqEligible}:{" "}
-            {run.liveChainFaqEligible ? labels.resultYes : labels.resultNo}
-          </li>
-        </ul>
-      )}
+      <p className="font-medium text-slate-900">
+        {localeLabel}: {outcome}
+      </p>
       {!run.localeEligible && run.localeReasons.length > 0 ? (
         <p className="mt-1 text-amber-900">
           {run.localeReasons.map((reason) => reasonLabel(labels, reason)).join(" · ")}
         </p>
       ) : null}
-      <p className="mt-1 text-xs text-slate-500">{labels.citationCaveat}</p>
+      {showTechnical ? (
+        run.dryRunSkipped ? (
+          <p className="mt-2 text-xs text-slate-600">
+            {run.skipReason === "missing_context"
+              ? labels.dryRunMissingContext
+              : run.skipReason === "rpc_unavailable"
+                ? labels.dryRunUnavailable
+                : labels.dryRunSkippedIneligible}
+          </p>
+        ) : (
+          <ul className="mt-2 list-disc space-y-0.5 pl-4 text-xs text-slate-600">
+            <li>
+              {labels.sqlCandidate}:{" "}
+              {run.sqlCandidateMatch ? labels.resultYes : labels.resultNo}
+            </li>
+            <li>
+              {labels.relevanceQualified}:{" "}
+              {run.relevanceQualified ? labels.resultYes : labels.resultNo}
+            </li>
+            <li>
+              {labels.safetyQualified}:{" "}
+              {run.safetyQualified ? labels.resultYes : labels.resultNo}
+            </li>
+            <li>
+              {labels.evidencePackRetained}:{" "}
+              {run.evidencePackRetained ? labels.resultYes : labels.resultNo}
+            </li>
+            <li>
+              {labels.selectedAnswer}:{" "}
+              {run.wouldBeSelectedAnswer ? labels.resultYes : labels.resultNo}
+            </li>
+            <li>
+              {labels.liveChainFaqEligible}:{" "}
+              {run.liveChainFaqEligible ? labels.resultYes : labels.resultNo}
+            </li>
+          </ul>
+        )
+      ) : null}
     </div>
   );
 }
@@ -102,6 +134,7 @@ export function WebsiteKompisFaqVisibilityDiagnostic({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [report, setReport] = useState<FaqVisibilityDiagnosticReport | null>(null);
+  const [showTechnical, setShowTechnical] = useState(false);
 
   const runDiagnostic = useCallback(async () => {
     setBusy(true);
@@ -135,6 +168,7 @@ export function WebsiteKompisFaqVisibilityDiagnostic({
       }
       setReport(body.report);
       setOpen(true);
+      setShowTechnical(false);
     } catch {
       setError(v.error);
       setReport(null);
@@ -165,8 +199,8 @@ export function WebsiteKompisFaqVisibilityDiagnostic({
         </button>
       </div>
 
-      <p className="mt-2 text-xs text-slate-500">{v.appLocaleNote}</p>
-      <p className="mt-1 text-xs text-slate-500">{v.notIndexedNote}</p>
+      <p className="mt-2 text-xs text-slate-500">{v.previewNote}</p>
+      <p className="mt-1 text-xs text-slate-500">{v.appLocaleNote}</p>
 
       {error ? (
         <p className="mt-3 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
@@ -176,57 +210,6 @@ export function WebsiteKompisFaqVisibilityDiagnostic({
 
       {open && report ? (
         <div className="mt-4 space-y-3">
-          <div className="rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-800">
-            <p className="font-medium text-slate-900">{v.factsTitle}</p>
-            <dl className="mt-2 grid gap-1 sm:grid-cols-2">
-              <div>
-                <dt className="text-xs text-slate-500">{v.factStatus}</dt>
-                <dd>{statusLabel}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-500">{v.factPublicSafe}</dt>
-                <dd>{report.facts.publicSafe ? v.resultYes : v.resultNo}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-500">{v.factFaqLocale}</dt>
-                <dd>
-                  {labels.locales[report.facts.faqLocale as keyof typeof labels.locales] ??
-                    report.facts.faqLocale}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-500">{v.factInstall}</dt>
-                <dd>{formatUnknown(report.facts.installId, v.unknown)}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-500">{v.factDomain}</dt>
-                <dd>{formatUnknown(report.facts.domain, v.unknown)}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-500">{v.factPublishedAt}</dt>
-                <dd>{displayInstant(report.facts.publishedAt, v.unknown)}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-500">{v.factValidFrom}</dt>
-                <dd>{displayInstant(report.facts.validFrom, v.unknown)}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-500">{v.factValidUntil}</dt>
-                <dd>{displayInstant(report.facts.validUntil, v.openEnded)}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-slate-500">{v.factFaqSource}</dt>
-                <dd>
-                  {report.facts.faqSource === "enabled"
-                    ? v.sourceEnabled
-                    : report.facts.faqSource === "disabled"
-                      ? v.sourceDisabled
-                      : v.unknown}
-                </dd>
-              </div>
-            </dl>
-          </div>
-
           <div className="rounded-md border border-slate-200 px-3 py-2 text-sm text-slate-800">
             <p className="font-medium text-slate-900">{v.eligibilityTitle}</p>
             <p className="mt-1">
@@ -246,9 +229,81 @@ export function WebsiteKompisFaqVisibilityDiagnostic({
           <div className="space-y-2">
             <p className="text-sm font-medium text-slate-900">{v.dryRunTitle}</p>
             {report.dryRuns.map((run) => (
-              <DryRunRow key={run.visitorLocale} labels={v} run={run} />
+              <DryRunRow
+                key={run.visitorLocale}
+                labels={v}
+                run={run}
+                showTechnical={showTechnical}
+              />
             ))}
           </div>
+
+          <div>
+            <button
+              type="button"
+              onClick={() => setShowTechnical((current) => !current)}
+              className="text-xs font-medium text-slate-600 underline-offset-2 hover:underline"
+            >
+              {showTechnical ? v.technicalDetailsHide : v.technicalDetailsShow}
+            </button>
+          </div>
+
+          {showTechnical ? (
+            <div className="space-y-3 rounded-md border border-dashed border-slate-300 bg-slate-50/80 p-3">
+              <p className="text-xs text-slate-500">{v.citationCaveat}</p>
+              <p className="text-xs text-slate-500">{v.notIndexedNote}</p>
+              <div className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800">
+                <p className="font-medium text-slate-900">{v.factsTitle}</p>
+                <dl className="mt-2 grid gap-1 sm:grid-cols-2">
+                  <div>
+                    <dt className="text-xs text-slate-500">{v.factStatus}</dt>
+                    <dd>{statusLabel}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-slate-500">{v.factPublicSafe}</dt>
+                    <dd>{report.facts.publicSafe ? v.resultYes : v.resultNo}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-slate-500">{v.factFaqLocale}</dt>
+                    <dd>
+                      {labels.locales[report.facts.faqLocale as keyof typeof labels.locales] ??
+                        report.facts.faqLocale}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-slate-500">{v.factInstall}</dt>
+                    <dd>{formatUnknown(report.facts.installId, v.unknown)}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-slate-500">{v.factDomain}</dt>
+                    <dd>{formatUnknown(report.facts.domain, v.unknown)}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-slate-500">{v.factPublishedAt}</dt>
+                    <dd>{displayInstant(report.facts.publishedAt, v.unknown)}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-slate-500">{v.factValidFrom}</dt>
+                    <dd>{displayInstant(report.facts.validFrom, v.unknown)}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-slate-500">{v.factValidUntil}</dt>
+                    <dd>{displayInstant(report.facts.validUntil, v.openEnded)}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-slate-500">{v.factFaqSource}</dt>
+                    <dd>
+                      {report.facts.faqSource === "enabled"
+                        ? v.sourceEnabled
+                        : report.facts.faqSource === "disabled"
+                          ? v.sourceDisabled
+                          : v.unknown}
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          ) : null}
         </div>
       ) : null}
     </section>
