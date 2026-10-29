@@ -206,10 +206,14 @@ const ui = readFileSync(
   "utf8",
 );
 assert.match(ui, /appLocaleNote/);
+assert.match(ui, /previewNote/);
+assert.match(ui, /technicalDetailsShow/);
+assert.match(ui, /localeOutcomeCanUse/);
 assert.match(ui, /citationCaveat/);
 assert.match(ui, /relevanceQualified/);
 assert.match(ui, /liveChainFaqEligible/);
 assert.match(ui, /evidencePackRetained/);
+assert.match(ui, /showTechnical/);
 
 const server = readFileSync("lib/website-kompis-faq/visibility-diagnostic-server.ts", "utf8");
 assert.match(server, /searchPublicCompanionTenantFaq/);
@@ -221,6 +225,7 @@ assert.match(server, /tenant_public_companion_faq_items/);
 
 const labels = buildWebsiteKompisFaqLabels((key) => key);
 assert.equal(labels.visibility.title, "customerApp.websiteKompisFaq.visibility.title");
+assert.equal(labels.editorBack, "customerApp.websiteKompisFaq.editorBack");
 assert.equal(
   labels.visibility.relevanceQualified,
   "customerApp.websiteKompisFaq.visibility.relevanceQualified",
@@ -228,6 +233,10 @@ assert.equal(
 assert.equal(
   labels.visibility.liveChainFaqEligible,
   "customerApp.websiteKompisFaq.visibility.liveChainFaqEligible",
+);
+assert.equal(
+  labels.visibility.previewNote,
+  "customerApp.websiteKompisFaq.visibility.previewNote",
 );
 assert.equal(
   labels.visibility.reasons.locale_not_in_visitor_set,
@@ -239,8 +248,11 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"]) {
     readFileSync(`locales/${locale}/customer-app/core.json`, "utf8"),
   ) as {
     websiteKompisFaq: {
+      editorBack: string;
       visibility: {
         title: string;
+        previewNote: string;
+        localeOutcomeCanUse: string;
         relevanceQualified: string;
         safetyQualified: string;
         evidencePackRetained: string;
@@ -249,7 +261,10 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"]) {
       };
     };
   };
+  assert.ok(dict.websiteKompisFaq.editorBack.length > 0);
   assert.ok(dict.websiteKompisFaq.visibility.title.length > 0);
+  assert.ok(dict.websiteKompisFaq.visibility.previewNote.length > 0);
+  assert.ok(dict.websiteKompisFaq.visibility.localeOutcomeCanUse.length > 0);
   assert.ok(dict.websiteKompisFaq.visibility.relevanceQualified.length > 0);
   assert.ok(dict.websiteKompisFaq.visibility.safetyQualified.length > 0);
   assert.ok(dict.websiteKompisFaq.visibility.evidencePackRetained.length > 0);
@@ -257,6 +272,27 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"]) {
   assert.ok(dict.websiteKompisFaq.visibility.reasons.draft);
   assert.ok(dict.websiteKompisFaq.visibility.reasons.not_public_safe);
   assert.ok(dict.websiteKompisFaq.visibility.reasons.locale_not_in_visitor_set);
+  assert.doesNotMatch(dict.websiteKompisFaq.visibility.title, /\bPath A\b|SQL|RPC/i);
+  assert.doesNotMatch(dict.websiteKompisFaq.visibility.previewNote, /\bPath A\b|SQL|RPC/i);
+  assert.doesNotMatch(dict.websiteKompisFaq.visibility.localeOutcomeCanUse, /\bPath A\b|SQL|RPC/i);
 }
+
+const noDict = JSON.parse(
+  readFileSync("locales/no/customer-app/core.json", "utf8"),
+) as { websiteKompisFaq: { editorBack: string; cancel: string; visibility: { title: string; run: string } } };
+assert.equal(noDict.websiteKompisFaq.editorBack, "Tilbake");
+assert.equal(noDict.websiteKompisFaq.cancel, "Avbryt");
+assert.equal(noDict.websiteKompisFaq.visibility.title, "Kan Kompis bruke denne FAQ-en?");
+assert.equal(noDict.websiteKompisFaq.visibility.run, "Test FAQ");
+
+const panelSource = readFileSync(
+  "components/app/website-kompis/WebsiteKompisFaqAdminPanel.tsx",
+  "utf8",
+);
+assert.match(panelSource, /labels\.editorBack/);
+assert.doesNotMatch(
+  panelSource.slice(panelSource.indexOf("draft.itemId ? labels.edit"), panelSource.indexOf("draft.itemId ? labels.edit") + 800),
+  /labels\.cancel/,
+);
 
 console.log("website-kompis-faq-visibility-diagnostic.test.ts: all assertions passed");

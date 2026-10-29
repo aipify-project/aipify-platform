@@ -1804,7 +1804,7 @@ export function WebsiteKompisFaqAdminPanel({
                 onClick={closeEditor}
                 className="text-sm text-slate-600 hover:underline"
               >
-                {labels.cancel}
+                {labels.editorBack}
               </button>
             </div>
             {suggestFromFeedback && suggestFromFeedbackWarning ? (
