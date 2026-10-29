@@ -129,6 +129,7 @@ export function buildWebsiteKompisFaqLabels(t: TranslateFn) {
       publicSafeHint: t(`${prefix}.fields.publicSafeHint`),
       lastReviewedAt: t(`${prefix}.fields.lastReviewedAt`),
     },
+    tagsInvalid: t(`${prefix}.tagsInvalid`),
     yes: t(`${prefix}.yes`),
     no: t(`${prefix}.no`),
     errorGeneric: t(`${prefix}.errorGeneric`),

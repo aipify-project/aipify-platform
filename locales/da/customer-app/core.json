@@ -7175,7 +7175,8 @@
         "locale_not_in_visitor_set": "FAQ-sproget matcher ikke den besøgendes sprog (besøgende kan også få engelsk, når det findes)."
       }
     },
-    "editorBack": "Tilbage"
+    "editorBack": "Tilbage",
+    "tagsInvalid": "Brug op til 20 tags, hver på højst 50 tegn. Adskil tags med komma."
   },
   "kompisOperator": {
     "title": "Opgaver",

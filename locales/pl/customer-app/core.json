@@ -642,7 +642,8 @@
         "locale_not_in_visitor_set": "Język FAQ nie pasuje do języka odwiedzającego (odwiedzający mogą też otrzymać angielski, gdy jest dostępny)."
       }
     },
-    "editorBack": "Wstecz"
+    "editorBack": "Wstecz",
+    "tagsInvalid": "Użyj maksymalnie 20 tagów, każdy do 50 znaków. Oddzielaj tagi przecinkami."
   },
   "kompisOperator": {
     "title": "Zadania",

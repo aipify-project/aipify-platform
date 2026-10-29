@@ -7164,7 +7164,8 @@
       "evidencePackRetained": "Would stay among the sources considered for this sample",
       "liveChainFaqEligible": "May be considered for a direct FAQ answer for this sample"
     },
-    "editorBack": "Back"
+    "editorBack": "Back",
+    "tagsInvalid": "Use up to 20 tags, each at most 50 characters. Separate tags with commas."
   },
   "kompisOperator": {
     "title": "Tasks",
