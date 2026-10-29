@@ -179,14 +179,38 @@
     "filesArrayUnchangedExceptAskRemoved": true
   },
   "closedFaqVsSiteIndexPrecedenceRepairCandidate": {
-    "status": "owner approved in task \u2014 pending merge/live",
+    "status": "closed after merge",
     "date": "2026-10-29",
     "names": "Website Kompis Public Chain",
     "file": "lib/marketing/public-companion-ask.ts",
     "baselineSha256": "13bc78754467fbb9da6cc3cb4aad3eb76fbb455a7dff9dbb6554b9fb549a1a36",
     "proposedSha256": "238782a899652221d6bf62a7881a262cd05c9bcc213a421fd3de71cd80195865",
     "ownerApproval": "AIPIFY_KOMPIS_CORE_FAQ_VS_SITE_INDEX_PRECEDENCE_REPAIR_V1",
-    "reason": "Owner authorized a narrow Public Chain CODE fix: strong question-overlapping collected FAQ must not lose to weakly topical current-page or public site-index extracts that only share a generic token. Explicit this-page questions keep page priority; weak/irrelevant FAQ never defers stronger on-topic competing surfaces. Manifest hash for public-companion-ask.ts moves to the approved file. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate.",
+    "mergeCommit": "0385e57faef098025dd1a67c19d516aa6a8bc034",
+    "reason": "Owner authorized a narrow Public Chain CODE fix: strong question-overlapping collected FAQ must not lose to weakly topical current-page or public site-index extracts. Merged as PR #339. Superseded as the ask/faq/trace baseline by closedFaqCollectionTraceCandidate.",
+    "filesArrayUnchanged": true
+  },
+  "closedFaqCollectionTraceCandidate": {
+    "status": "owner approved in task \u2014 pending merge/live",
+    "date": "2026-10-29",
+    "names": "Website Kompis Public Chain",
+    "files": [
+      "lib/marketing/public-companion-ask.ts",
+      "lib/marketing/public-companion-tenant-faq.ts",
+      "lib/marketing/website-kompis-public-ask-trace.ts"
+    ],
+    "baselineSha256": {
+      "lib/marketing/public-companion-ask.ts": "238782a899652221d6bf62a7881a262cd05c9bcc213a421fd3de71cd80195865",
+      "lib/marketing/public-companion-tenant-faq.ts": "2aff5fc9b817b74f62e5eb2c9e18d430a5a633a8b7cdc0a6f0f21e635892f8ae",
+      "lib/marketing/website-kompis-public-ask-trace.ts": "07af94be6b90a7cc3812d9e9f3cd7256cb25254ad7b66c49c69d4a85abe981d5"
+    },
+    "proposedSha256": {
+      "lib/marketing/public-companion-ask.ts": "a440a424ff3ba2579b487f55b2ead14bc68b9922cda303dc9471316e3fc63864",
+      "lib/marketing/public-companion-tenant-faq.ts": "ac5c9c680ac5bed0db4e6e495bc2e072ce558576cb04929384de374d35dc9991",
+      "lib/marketing/website-kompis-public-ask-trace.ts": "3ba6f1360f26eeefb786c46abeb8c0316792c5ca2273018ad09b513003d3c91c"
+    },
+    "ownerApproval": "AIPIFY_KOMPIS_FAQ_COLLECTION_TRACE_P0",
+    "reason": "Owner authorized observability-only Public Chain instrumentation: one redacted faq_collection sibling event per ask with source/fetch/RPC/relevance/safety/kept counters and skip-reason enum. No retrieval, relevance, safety, or answer-selection behavior change. Manifest hashes move to the approved files; files stay out of files[] because matching ledger rows fail the freeze gate.",
     "filesArrayUnchanged": true
   },
   "files": [

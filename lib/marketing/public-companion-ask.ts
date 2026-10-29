@@ -48,8 +48,10 @@ import {
   sanitizePublicCompanionDomain,
   sanitizePublicCompanionInstallId,
   searchPublicCompanionTenantFaq,
+  searchPublicCompanionTenantFaqDetailed,
   type PublicCompanionVisitorContext,
   type PublicCompanionTenantFaqRow,
+  type PublicCompanionTenantFaqSearchOutcome,
 } from "@/lib/marketing/public-companion-tenant-faq";
 import {
   isLowSignalWebsiteKompisFollowUp,
@@ -83,11 +85,14 @@ import {
   type WebsiteKompisPublicAnswerPath,
 } from "@/lib/marketing/website-kompis-public-answer-policy";
 import {
+  buildWebsiteKompisFaqCollectionTrace,
   buildWebsiteKompisPublicAskTracePayload,
   createWebsiteKompisPublicAskCorrelationId,
   estimatePublicPageContextChars,
   listAvailablePublicPageSignals,
+  logWebsiteKompisFaqCollectionTrace,
   logWebsiteKompisPublicAskTrace,
+  type WebsiteKompisFaqRpcErrorCodeClass,
 } from "@/lib/marketing/website-kompis-public-ask-trace";
 import {
   buildWebsiteKompisDisabledResponse,
@@ -265,9 +270,13 @@ export type PublicCompanionAskRequest = {
   installId?: string;
 };
 
+type PublicCompanionFaqSearchFn = (
+  input: Parameters<typeof searchPublicCompanionTenantFaq>[0],
+) => Promise<PublicCompanionTenantFaqRow[] | PublicCompanionTenantFaqSearchOutcome>;
+
 export type PublicCompanionAskOptions = {
   requestHost?: string | null;
-  searchTenantVisitorKnowledge?: typeof searchPublicCompanionTenantFaq;
+  searchTenantVisitorKnowledge?: PublicCompanionFaqSearchFn;
   searchTenantPublicSiteIndex?: typeof searchTenantPublicSiteIndex;
   groundedCompletion?: (input: {
     system: string;
@@ -938,14 +947,27 @@ async function tryBuildPublicSiteIndexAnswer(
   return built as PublicCompanionAskResponse;
 }
 
+function normalizePublicCompanionFaqSearchOutcome(
+  result: PublicCompanionTenantFaqRow[] | PublicCompanionTenantFaqSearchOutcome,
+): PublicCompanionTenantFaqSearchOutcome {
+  if (Array.isArray(result)) {
+    return { rows: result, errorClass: null };
+  }
+  return {
+    rows: Array.isArray(result.rows) ? result.rows : [],
+    errorClass: result.errorClass ?? null,
+  };
+}
+
 async function collectCustomerWebsiteEvidence(input: {
   question: string;
   locale: PublicCompanionAskLocale;
   validated: PublicCompanionAskRequest;
   visitorContext: PublicCompanionVisitorContext;
   installConfig: WebsiteKompisInstallConfig;
-  searchTenantVisitorKnowledge: typeof searchPublicCompanionTenantFaq;
+  searchTenantVisitorKnowledge: PublicCompanionFaqSearchFn;
   searchPublicSiteIndex: typeof searchTenantPublicSiteIndex;
+  correlationId: string;
 }): Promise<{
   faqRows: PublicCompanionTenantFaqRow[];
   siteIndexHits: PublicSiteIndexHit[];
@@ -957,28 +979,42 @@ async function collectCustomerWebsiteEvidence(input: {
     input.question,
     input.validated.recentContext,
   );
+  const faqSourceEnabled = Boolean(input.installConfig.sources.faq);
+  const hasVisitorContext = hasPublicCompanionVisitorContext(input.visitorContext);
+  let faqFetchAttempted = false;
+  let faqRpcCount = 0;
+  let faqRelevantCount = 0;
+  let faqSafeCount = 0;
+  let faqRpcErrorCodeClass: WebsiteKompisFaqRpcErrorCodeClass = null;
 
-  if (
-    input.installConfig.sources.faq &&
-    hasPublicCompanionVisitorContext(input.visitorContext) &&
-    !allowPlatform
-  ) {
-    const rows = await input.searchTenantVisitorKnowledge({
-      installId: input.visitorContext.installId,
-      domain: input.visitorContext.domain,
-      locale: input.locale,
-      query: input.question,
-      pathname: input.validated.pageContext?.pathname ?? null,
-      limit: 5,
-    });
-    if (isRelevantPublicCompanionTenantFaqResult(rows, input.question)) {
-      faqRows.push(...filterWebsiteKompisSafeFaqRows(input.question, rows));
+  if (faqSourceEnabled && hasVisitorContext && !allowPlatform) {
+    faqFetchAttempted = true;
+    const outcome = normalizePublicCompanionFaqSearchOutcome(
+      await input.searchTenantVisitorKnowledge({
+        installId: input.visitorContext.installId,
+        domain: input.visitorContext.domain,
+        locale: input.locale,
+        query: input.question,
+        pathname: input.validated.pageContext?.pathname ?? null,
+        limit: 5,
+      }),
+    );
+    faqRpcErrorCodeClass = outcome.errorClass;
+    faqRpcCount = outcome.rows.length;
+    if (
+      !outcome.errorClass &&
+      isRelevantPublicCompanionTenantFaqResult(outcome.rows, input.question)
+    ) {
+      faqRelevantCount = outcome.rows.length;
+      const safeRows = filterWebsiteKompisSafeFaqRows(input.question, outcome.rows);
+      faqSafeCount = safeRows.length;
+      faqRows.push(...safeRows);
     }
   }
 
   if (
     input.installConfig.sources.publicSiteIndex &&
-    hasPublicCompanionVisitorContext(input.visitorContext) &&
+    hasVisitorContext &&
     !allowPlatform
   ) {
     const hits = await input.searchPublicSiteIndex({
@@ -993,11 +1029,28 @@ async function collectCustomerWebsiteEvidence(input: {
     }
   }
 
-  return preferStrongSiteIndexOverSparseFaq({
+  const preferred = preferStrongSiteIndexOverSparseFaq({
     question: input.question,
     faqRows,
     siteIndexHits,
   });
+
+  logWebsiteKompisFaqCollectionTrace(
+    buildWebsiteKompisFaqCollectionTrace({
+      correlationId: input.correlationId,
+      faqSourceEnabled,
+      hasVisitorContext,
+      platformKnowledgeRoute: allowPlatform,
+      faqFetchAttempted,
+      faqRpcErrorCodeClass,
+      faqRpcCount,
+      faqRelevantCount,
+      faqSafeCount,
+      faqKeptCount: preferred.faqRows.length,
+    }),
+  );
+
+  return preferred;
 }
 
 async function tryBuildPublicTenantFaqAnswer(
@@ -1005,7 +1058,7 @@ async function tryBuildPublicTenantFaqAnswer(
   locale: PublicCompanionAskLocale,
   validated: PublicCompanionAskRequest,
   requestHost: string | null | undefined,
-  searchTenantVisitorKnowledge: typeof searchPublicCompanionTenantFaq,
+  searchTenantVisitorKnowledge: PublicCompanionFaqSearchFn,
   visitorContext: PublicCompanionVisitorContext,
   onCustomerWebsite: boolean,
   installConfig: WebsiteKompisInstallConfig,
@@ -1031,14 +1084,17 @@ async function tryBuildPublicTenantFaqAnswer(
     validated.recentContext,
   );
 
-  const rows = await searchTenantVisitorKnowledge({
-    installId: visitorContext.installId,
-    domain: visitorContext.domain,
-    locale,
-    query: retrievalQuestion,
-    pathname: validated.pageContext?.pathname ?? null,
-    limit: 5,
-  });
+  const outcome = normalizePublicCompanionFaqSearchOutcome(
+    await searchTenantVisitorKnowledge({
+      installId: visitorContext.installId,
+      domain: visitorContext.domain,
+      locale,
+      query: retrievalQuestion,
+      pathname: validated.pageContext?.pathname ?? null,
+      limit: 5,
+    }),
+  );
+  const rows = outcome.rows;
 
   if (!isRelevantPublicCompanionTenantFaqResult(rows, retrievalQuestion)) {
     return null;
@@ -1164,7 +1220,7 @@ export async function askPublicPlatformCompanion(
 ): Promise<PublicCompanionAskResponse> {
   const validated = validatePublicCompanionAskRequest(input);
   const searchTenantVisitorKnowledge =
-    options?.searchTenantVisitorKnowledge ?? searchPublicCompanionTenantFaq;
+    options?.searchTenantVisitorKnowledge ?? searchPublicCompanionTenantFaqDetailed;
   const searchPublicSiteIndex =
     options?.searchTenantPublicSiteIndex ?? searchTenantPublicSiteIndex;
 
@@ -1304,6 +1360,7 @@ export async function askPublicPlatformCompanion(
       installConfig,
       searchTenantVisitorKnowledge,
       searchPublicSiteIndex,
+      correlationId: askCorrelationId,
     });
 
     const buildEvidencePack =

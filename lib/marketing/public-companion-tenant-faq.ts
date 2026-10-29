@@ -362,14 +362,21 @@ function mapRpcRow(row: Record<string, unknown>): PublicCompanionTenantFaqRow | 
   };
 }
 
-export async function searchPublicCompanionTenantFaq(input: {
+/** Non-sensitive FAQ search outcome for collection observability (no error bodies). */
+export type PublicCompanionTenantFaqSearchOutcome = {
+  rows: PublicCompanionTenantFaqRow[];
+  /** Distinguishes RPC failure from legitimate empty hits. Never includes messages. */
+  errorClass: null | "rpc_error" | "invalid_payload";
+};
+
+export async function searchPublicCompanionTenantFaqDetailed(input: {
   installId?: string | null;
   domain?: string | null;
   locale: string;
   query: string;
   pathname?: string | null;
   limit?: number;
-}): Promise<PublicCompanionTenantFaqRow[]> {
+}): Promise<PublicCompanionTenantFaqSearchOutcome> {
   const client = createPublicAnonSupabaseClient();
   const { data, error } = await client.rpc(PUBLIC_COMPANION_TENANT_FAQ_RPC, {
     p_install_id: input.installId ?? null,
@@ -381,16 +388,31 @@ export async function searchPublicCompanionTenantFaq(input: {
   });
 
   if (error) {
-    return [];
+    return { rows: [], errorClass: "rpc_error" };
   }
 
   if (!Array.isArray(data)) {
-    return [];
+    return { rows: [], errorClass: "invalid_payload" };
   }
 
-  return data
+  const rows = data
     .map((row) => mapRpcRow(row as Record<string, unknown>))
     .filter((row): row is PublicCompanionTenantFaqRow => row !== null);
+
+  return { rows, errorClass: null };
+}
+
+export async function searchPublicCompanionTenantFaq(input: {
+  installId?: string | null;
+  domain?: string | null;
+  locale: string;
+  query: string;
+  pathname?: string | null;
+  limit?: number;
+}): Promise<PublicCompanionTenantFaqRow[]> {
+  // Behavior unchanged: errors and invalid payloads still surface as [].
+  const outcome = await searchPublicCompanionTenantFaqDetailed(input);
+  return outcome.rows;
 }
 
 export function buildPublicCompanionTenantFaqResponse(
