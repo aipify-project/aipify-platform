@@ -61,8 +61,24 @@ function DryRunRow({
             {run.sqlCandidateMatch ? labels.resultYes : labels.resultNo}
           </li>
           <li>
+            {labels.relevanceQualified}:{" "}
+            {run.relevanceQualified ? labels.resultYes : labels.resultNo}
+          </li>
+          <li>
+            {labels.safetyQualified}:{" "}
+            {run.safetyQualified ? labels.resultYes : labels.resultNo}
+          </li>
+          <li>
+            {labels.evidencePackRetained}:{" "}
+            {run.evidencePackRetained ? labels.resultYes : labels.resultNo}
+          </li>
+          <li>
             {labels.selectedAnswer}:{" "}
             {run.wouldBeSelectedAnswer ? labels.resultYes : labels.resultNo}
+          </li>
+          <li>
+            {labels.liveChainFaqEligible}:{" "}
+            {run.liveChainFaqEligible ? labels.resultYes : labels.resultNo}
           </li>
         </ul>
       )}

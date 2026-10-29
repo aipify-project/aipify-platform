@@ -14,17 +14,16 @@ File freeze, behavior freeze, and a fresh site index are different. A stale inde
 
 ## Observed drift, not a new baseline
 
-Five protected files did not match the manifest when `9fba6af8` committed it. Four of them are still only observations. `public-companion-ask.ts` has one later owner-approved edit, and its manifest hash is still the older baseline. The ledger is `website-kompis-public-chain-observed-drift.json`.
+Five protected files did not match the manifest when `9fba6af8` committed it. Four of them remain observations. `public-companion-ask.ts` was rebaselined to the owner-approved empty-evidence-pack FAQ fix (`AIPIFY_KOMPIS_CORE_FAQ_EMPTY_EVIDENCE_PACK_FIX_V1`) and removed from the drift `files[]` list. The ledger is `website-kompis-public-chain-observed-drift.json`.
 
 | File | Introduced by | What changed |
 |---|---|---|
 | `components/embed/WebsiteKompisEmbedWidget.tsx` | PR #272 `c2757397` | Page content locale is sent and shown on the reply |
-| `lib/marketing/public-companion-ask.ts` | PR #272 `c2757397` | Ask locale follows the content-language set |
 | `lib/marketing/website-kompis-public-answer-policy.ts` | PR #272 `c2757397` | Missing-price sentence is English unless the locale is `no` or `es` |
 | `lib/marketing/website-kompis-install-config.ts` | PR #272 `c2757397` | Saved site locale uses the content-language set |
 | `lib/marketing/website-kompis-answer-feedback-server.ts` | PR #275 `c20fd8a2` | Feedback overview reads review status; close stays gated |
 
-These rows are an observation so the next edit fails the gate. They do not re-accept the chain. The 2026-10-24 source-selection approval changes the observed hash of `public-companion-ask.ts` only. It does not move the other four rows onto a new baseline.
+These remaining rows are an observation so the next edit fails the gate. They do not re-accept the chain.
 
 ## Owner-approved source selection, 2026-10-24
 
@@ -36,7 +35,7 @@ The task names Website Kompis Public Chain. The product patch against both `6cbb
 | `lib/marketing/website-kompis-public-page-context.ts` | `998c6297826e264681dc5cefc1e52231a5a561bd644e9cb5145836c03f0bd01b` | Manifest baseline |
 | `lib/marketing/website-kompis-grounded-answer.ts` | `e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82` | Manifest baseline |
 | `lib/marketing/website-kompis-public-boundary.ts` | `33d11e807f80f2458d23b82b26aa9fdb793c5a6a56051923f2f2ca1e14ff79ca` | Manifest baseline |
-| `lib/marketing/public-companion-ask.ts` | `0fdb705237747f0c6be089e388f4558aa63a431f7c66b7531cb22aeef083fe3a` | Drift ledger observed hash. Manifest stays `4ec48ee373ab7dc11bf39f07abff0317708c89df265513517499988ae9575682`. |
+| `lib/marketing/public-companion-ask.ts` | `13bc78754467fbb9da6cc3cb4aad3eb76fbb455a7dff9dbb6554b9fb549a1a36` | Manifest baseline after empty-evidence-pack FAQ fix (`AIPIFY_KOMPIS_CORE_FAQ_EMPTY_EVIDENCE_PACK_FIX_V1`). |
 
 ## Gate
 

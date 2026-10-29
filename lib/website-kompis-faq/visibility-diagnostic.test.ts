@@ -133,24 +133,37 @@ const selected = buildFaqLocaleDryRunResult({
   visitorLocale: "no",
   eligibility: eligible,
   sqlCandidateMatch: true,
+  relevanceQualified: true,
+  safetyQualified: true,
+  evidencePackRetained: false,
   wouldBeSelectedAnswer: true,
+  liveChainFaqEligible: true,
   topMatchedItemId: item().id,
   topScore: 40,
 });
 assert.equal(selected.sqlCandidateMatch, true);
+assert.equal(selected.relevanceQualified, true);
+assert.equal(selected.safetyQualified, true);
+assert.equal(selected.evidencePackRetained, false);
 assert.equal(selected.wouldBeSelectedAnswer, true);
+assert.equal(selected.liveChainFaqEligible, true);
 assert.equal(selected.citationNotGuaranteed, true);
 
 const candidateOnly = buildFaqLocaleDryRunResult({
   visitorLocale: "no",
   eligibility: eligible,
   sqlCandidateMatch: true,
+  relevanceQualified: true,
+  safetyQualified: true,
+  evidencePackRetained: true,
   wouldBeSelectedAnswer: false,
+  liveChainFaqEligible: false,
   topMatchedItemId: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
   topScore: 50,
 });
 assert.equal(candidateOnly.sqlCandidateMatch, true);
 assert.equal(candidateOnly.wouldBeSelectedAnswer, false);
+assert.equal(candidateOnly.liveChainFaqEligible, false);
 
 const skipped = buildFaqLocaleDryRunResult({
   visitorLocale: "en",
@@ -194,14 +207,28 @@ const ui = readFileSync(
 );
 assert.match(ui, /appLocaleNote/);
 assert.match(ui, /citationCaveat/);
+assert.match(ui, /relevanceQualified/);
+assert.match(ui, /liveChainFaqEligible/);
+assert.match(ui, /evidencePackRetained/);
 
 const server = readFileSync("lib/website-kompis-faq/visibility-diagnostic-server.ts", "utf8");
 assert.match(server, /searchPublicCompanionTenantFaq/);
 assert.match(server, /isRelevantPublicCompanionTenantFaqResult/);
+assert.match(server, /filterWebsiteKompisSafeFaqRows/);
+assert.match(server, /buildWebsiteKompisEvidencePack/);
+assert.match(server, /liveChainFaqEligible/);
 assert.match(server, /tenant_public_companion_faq_items/);
 
 const labels = buildWebsiteKompisFaqLabels((key) => key);
 assert.equal(labels.visibility.title, "customerApp.websiteKompisFaq.visibility.title");
+assert.equal(
+  labels.visibility.relevanceQualified,
+  "customerApp.websiteKompisFaq.visibility.relevanceQualified",
+);
+assert.equal(
+  labels.visibility.liveChainFaqEligible,
+  "customerApp.websiteKompisFaq.visibility.liveChainFaqEligible",
+);
 assert.equal(
   labels.visibility.reasons.locale_not_in_visitor_set,
   "customerApp.websiteKompisFaq.visibility.reasons.locale_not_in_visitor_set",
@@ -211,9 +238,22 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"]) {
   const dict = JSON.parse(
     readFileSync(`locales/${locale}/customer-app/core.json`, "utf8"),
   ) as {
-    websiteKompisFaq: { visibility: { title: string; reasons: Record<string, string> } };
+    websiteKompisFaq: {
+      visibility: {
+        title: string;
+        relevanceQualified: string;
+        safetyQualified: string;
+        evidencePackRetained: string;
+        liveChainFaqEligible: string;
+        reasons: Record<string, string>;
+      };
+    };
   };
   assert.ok(dict.websiteKompisFaq.visibility.title.length > 0);
+  assert.ok(dict.websiteKompisFaq.visibility.relevanceQualified.length > 0);
+  assert.ok(dict.websiteKompisFaq.visibility.safetyQualified.length > 0);
+  assert.ok(dict.websiteKompisFaq.visibility.evidencePackRetained.length > 0);
+  assert.ok(dict.websiteKompisFaq.visibility.liveChainFaqEligible.length > 0);
   assert.ok(dict.websiteKompisFaq.visibility.reasons.draft);
   assert.ok(dict.websiteKompisFaq.visibility.reasons.not_public_safe);
   assert.ok(dict.websiteKompisFaq.visibility.reasons.locale_not_in_visitor_set);

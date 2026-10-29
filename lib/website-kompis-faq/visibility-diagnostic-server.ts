@@ -4,6 +4,8 @@ import {
   isRelevantPublicCompanionTenantFaqResult,
   searchPublicCompanionTenantFaq,
 } from "@/lib/marketing/public-companion-tenant-faq";
+import { filterWebsiteKompisSafeFaqRows } from "@/lib/marketing/website-kompis-faq-match-safety";
+import { buildWebsiteKompisEvidencePack } from "@/lib/marketing/website-kompis-grounded-answer";
 import { normalizeWebsiteKompisInstallConfig } from "@/lib/marketing/website-kompis-install-config";
 import { loadWebsiteKompisInstallConfigForApp } from "@/lib/marketing/website-kompis-install-config-storage";
 import { parseWebsiteKompisFaqItem } from "@/lib/website-kompis-faq/parse";
@@ -120,12 +122,37 @@ async function runLocaleDryRun(input: {
   const candidate = rows.find((row) => row.item_id === input.item.id) ?? null;
   const relevant = isRelevantPublicCompanionTenantFaqResult(rows, input.probeQuery);
   const top = relevant ? rows[0] ?? null : null;
+  const safeRows = filterWebsiteKompisSafeFaqRows(input.probeQuery, rows);
+  const safetyQualified = Boolean(
+    candidate && safeRows.some((row) => row.item_id === input.item.id),
+  );
+  const evidencePack = buildWebsiteKompisEvidencePack({
+    question: input.probeQuery,
+    locale: input.visitorLocale,
+    faqRows: safeRows,
+    siteIndexHits: [],
+    pageContext: null,
+    verifiedHost: domain,
+  });
+  const evidencePackRetained = evidencePack.evidence.some(
+    (snippet) => snippet.id === `faq:${input.item.id}`,
+  );
+  const wouldBeSelectedAnswer = Boolean(relevant && top?.item_id === input.item.id);
+  const liveChainFaqEligible = Boolean(
+    input.faqSource !== "disabled" &&
+      wouldBeSelectedAnswer &&
+      safetyQualified,
+  );
 
   return buildFaqLocaleDryRunResult({
     visitorLocale: input.visitorLocale,
     eligibility,
     sqlCandidateMatch: candidate != null,
-    wouldBeSelectedAnswer: Boolean(relevant && top?.item_id === input.item.id),
+    relevanceQualified: relevant,
+    safetyQualified,
+    evidencePackRetained,
+    wouldBeSelectedAnswer,
+    liveChainFaqEligible,
     topMatchedItemId: top?.item_id ?? null,
     topScore: top?.score ?? candidate?.score ?? null,
   });

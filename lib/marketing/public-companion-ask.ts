@@ -115,6 +115,24 @@ import {
 } from "@/lib/marketing/website-kompis-public-site-index";
 import type { PublicCompanionTenantFaqRow } from "@/lib/marketing/public-companion-tenant-faq";
 
+/**
+ * Empty grounded pack must not open a looser FAQ re-search when collect retained
+ * no FAQ rows (avoids reintroducing index/FAQ material that already failed the
+ * visitor topic bar). When collect already kept relevant + safety-filtered FAQ
+ * rows, those rows remain eligible for the deterministic FAQ path even if they
+ * failed grounded-pack citation topic filtering.
+ */
+export function shouldAttemptDeterministicFaqAfterEmptyGroundedPack(input: {
+  groundedPackEmpty: boolean;
+  providerHonestGapRetry: boolean;
+  collectedFaqRowCount: number;
+}): boolean {
+  if (!input.groundedPackEmpty || input.providerHonestGapRetry) {
+    return true;
+  }
+  return input.collectedFaqRowCount > 0;
+}
+
 /** Prefer strong site-index evidence over thin/stale structured FAQ without source URL. */
 export function preferStrongSiteIndexOverSparseFaq(input: {
   question: string;
@@ -193,6 +211,12 @@ export type PublicCompanionAskOptions = {
     system: string;
     user: string;
   }) => Promise<KompisGroundedCompletionResult>;
+  /**
+   * Test harness only — never accept from request body/query.
+   * Lets deterministic ask tests force an empty grounded pack while collect still
+   * returns FAQ rows (empty-pack FAQ skip regression).
+   */
+  buildEvidencePack?: typeof buildWebsiteKompisEvidencePack;
   rawInstallConfig?: unknown;
   loadInstallConfig?: GetWebsiteKompisInstallConfigOptions["loadInstallConfig"];
   resolveLicensedAvailability?: (
@@ -1220,7 +1244,9 @@ export async function askPublicPlatformCompanion(
       searchPublicSiteIndex,
     });
 
-    const evidencePack = buildWebsiteKompisEvidencePack({
+    const buildEvidencePack =
+      options?.buildEvidencePack ?? buildWebsiteKompisEvidencePack;
+    const evidencePack = buildEvidencePack({
       question: validated.question,
       locale,
       recentContext: validated.recentContext,
@@ -1525,20 +1551,24 @@ export async function askPublicPlatformCompanion(
       }
     }
 
-    // Same rule for FAQ: empty pack → do not re-search a looser FAQ path.
-    const customerFaqAnswer =
-      groundedPackEmpty && !providerHonestGapRetry
-        ? null
-        : await tryBuildPublicTenantFaqAnswer(
-            validated.question,
-            locale,
-            validated,
-            options?.requestHost,
-            searchTenantVisitorKnowledge,
-            visitorContext,
-            onCustomerWebsite,
-            installConfig,
-          );
+    // Empty pack blocks a looser FAQ re-search only when collect kept no FAQ rows.
+    // Relevant/safe collected FAQ rows may still use the deterministic FAQ path.
+    const customerFaqAnswer = shouldAttemptDeterministicFaqAfterEmptyGroundedPack({
+      groundedPackEmpty,
+      providerHonestGapRetry,
+      collectedFaqRowCount: faqRows.length,
+    })
+      ? await tryBuildPublicTenantFaqAnswer(
+          validated.question,
+          locale,
+          validated,
+          options?.requestHost,
+          searchTenantVisitorKnowledge,
+          visitorContext,
+          onCustomerWebsite,
+          installConfig,
+        )
+      : null;
     if (customerFaqAnswer) {
       const faqResponse = applyCustomerSiteDeterministicPolicy(
         applyWebsiteKompisCustomerSiteTone(customerFaqAnswer, {

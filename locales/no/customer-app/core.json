@@ -7138,8 +7138,8 @@
       "visitorLocaleNo": "Besøkendes språk: norsk (no)",
       "visitorLocaleEn": "Besøkendes språk: engelsk (en)",
       "sqlCandidate": "Viser seg som Path A SQL-kandidat for FAQ-ens eget spørsmål/tittel",
-      "selectedAnswer": "Ville blitt valgt som topp-svar etter relevanssjekk",
-      "citationCaveat": "Et kandidattreff garanterer ikke at Website Kompis siterer eller bruker denne FAQ-en for alle besøksspørsmål.",
+      "selectedAnswer": "Ville rangere først etter Path A-relevans (ikke live besøkssitering)",
+      "citationCaveat": "Dry-run Path A er ikke et live besøkssvar. Leverandør, aktuell side, nettstedindeks, tom evidence pack og svarpolicy kan fortsatt endre utfallet.",
       "dryRunSkippedIneligible": "Sjekk hoppet over fordi FAQ-en ikke er klar for Path A for dette besøksspråket.",
       "dryRunMissingContext": "Sjekk hoppet over — installasjon eller domene mangler.",
       "dryRunUnavailable": "Søk mot besøkskunnskap var utilgjengelig. Faktaene over gjelder fortsatt.",
@@ -7161,7 +7161,11 @@
         "faq_source_disabled": "FAQ-kilden er slått av for Website Kompis på dette nettstedet.",
         "missing_visitor_context": "Ingen installasjon eller domene er tilgjengelig for besøkssjekk.",
         "locale_not_in_visitor_set": "FAQ-innholdsspråket matcher ikke dette besøksspråket (Path A tillater besøkendes språk og engelsk reservedel)."
-      }
+      },
+      "relevanceQualified": "Består Path A-relevanssjekk for denne FAQ-ens eget spørsmål/tittel",
+      "safetyQualified": "Består FAQ-sikkerhetsfiltrering for dette probespørsmålet",
+      "evidencePackRetained": "Ville blitt værende i grounded evidence pack for denne proben (emnesitering)",
+      "liveChainFaqEligible": "Live besøkskjede kan forsøke deterministisk FAQ for dette elementet (fortsatt ikke siteringsbevis)"
     }
   },
   "kompisOperator": {
