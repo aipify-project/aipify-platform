@@ -39,14 +39,17 @@ import {
 } from "@/lib/marketing/website-companion-chat";
 import {
   buildPublicCompanionTenantFaqResponse,
+  distinctivePublicCompanionFaqTopicTokens,
   faqQuestionHasContentOverlap,
   hasPublicCompanionVisitorContext,
   isRelevantPublicCompanionTenantFaqResult,
+  PUBLIC_COMPANION_TENANT_FAQ_WEAK_MATCH_MIN_SCORE,
   resolvePublicCompanionVisitorContext,
   sanitizePublicCompanionDomain,
   sanitizePublicCompanionInstallId,
   searchPublicCompanionTenantFaq,
   type PublicCompanionVisitorContext,
+  type PublicCompanionTenantFaqRow,
 } from "@/lib/marketing/public-companion-tenant-faq";
 import {
   isLowSignalWebsiteKompisFollowUp,
@@ -63,7 +66,11 @@ import {
   filterWebsiteKompisSafeFaqRows,
   tryBuildWebsiteKompisSafetyPolicyAnswer,
 } from "@/lib/marketing/website-kompis-faq-match-safety";
-import { tryBuildWebsiteKompisCurrentPublicPageAnswer } from "@/lib/marketing/website-kompis-public-page-context";
+import {
+  isWebsiteKompisExplicitCurrentPageQuestion,
+  scoreWebsiteKompisPublicPageContextMatch,
+  tryBuildWebsiteKompisCurrentPublicPageAnswer,
+} from "@/lib/marketing/website-kompis-public-page-context";
 import {
   presentWebsiteKompisCustomerSiteAnswer,
   type WebsiteKompisVisitorAnswerSource,
@@ -113,8 +120,6 @@ import {
   topicTokensForPublicSiteIndex,
   type PublicSiteIndexHit,
 } from "@/lib/marketing/website-kompis-public-site-index";
-import type { PublicCompanionTenantFaqRow } from "@/lib/marketing/public-companion-tenant-faq";
-
 /**
  * Empty grounded pack must not open a looser FAQ re-search when collect retained
  * no FAQ rows (avoids reintroducing index/FAQ material that already failed the
@@ -131,6 +136,63 @@ export function shouldAttemptDeterministicFaqAfterEmptyGroundedPack(input: {
     return true;
   }
   return input.collectedFaqRowCount > 0;
+}
+
+function countDistinctiveTopicHits(question: string, corpus: string): number {
+  const distinctive = distinctivePublicCompanionFaqTopicTokens(question);
+  if (distinctive.length === 0) return 0;
+  const words = new Set(
+    corpus
+      .toLowerCase()
+      .split(/[^\p{L}\p{N}]+/u)
+      .filter((token) => token.length >= 2),
+  );
+  return distinctive.filter((token) => words.has(token)).length;
+}
+
+/**
+ * Strong, question-overlapping collected FAQ must not lose to weakly topical
+ * current-page / site-index extracts that only share a generic token (e.g. "e-post"
+ * on a verification homepage). Explicit "this page" questions keep page priority.
+ * Weak/irrelevant FAQ never defers a stronger on-topic competing surface.
+ */
+export function shouldDeferCompetingSurfaceForStrongCollectedFaq(input: {
+  question: string;
+  faqRows: PublicCompanionTenantFaqRow[];
+  competingText: string;
+  competingTopicScore: number;
+  competingWinFloor: number;
+}): boolean {
+  if (isWebsiteKompisExplicitCurrentPageQuestion(input.question)) {
+    return false;
+  }
+  if (input.faqRows.length === 0) {
+    return false;
+  }
+  if (!isRelevantPublicCompanionTenantFaqResult(input.faqRows, input.question)) {
+    return false;
+  }
+  const top = input.faqRows[0];
+  if (!top) return false;
+  const faqScore = top.score ?? 0;
+  if (
+    faqScore < PUBLIC_COMPANION_TENANT_FAQ_WEAK_MATCH_MIN_SCORE ||
+    !faqQuestionHasContentOverlap(input.question, top)
+  ) {
+    return false;
+  }
+
+  const faqCorpus = `${top.title}\n${top.answer}\n${top.category ?? ""}`;
+  const faqHits = countDistinctiveTopicHits(input.question, faqCorpus);
+  const competingHits = countDistinctiveTopicHits(input.question, input.competingText);
+
+  if (faqHits > competingHits) {
+    return true;
+  }
+  if (faqHits >= 2 && competingHits <= 1 && input.competingTopicScore < input.competingWinFloor) {
+    return true;
+  }
+  return false;
 }
 
 /** Prefer strong site-index evidence over thin/stale structured FAQ without source URL. */
@@ -1462,34 +1524,53 @@ export async function askPublicPlatformCompanion(
         verifiedHost: visitorContext.domain,
       });
       if (currentPageAnswer) {
-        const pageResponse = applyCustomerSiteDeterministicPolicy(
-          applyWebsiteKompisCustomerSiteTone(
-            {
-              answer: currentPageAnswer.answer,
-              actions: [],
-              sources: currentPageAnswer.sources,
-              confidence: {
-                level: currentPageAnswer.confidence.level,
-                score: currentPageAnswer.confidence.score,
+        const pageTopicScore = validated.pageContext
+          ? scoreWebsiteKompisPublicPageContextMatch(
+              validated.question,
+              validated.pageContext,
+            )
+          : 0;
+        const deferPageForFaq = shouldDeferCompetingSurfaceForStrongCollectedFaq({
+          question: validated.question,
+          faqRows,
+          competingText: [
+            currentPageAnswer.answer.directAnswer,
+            currentPageAnswer.answer.explanation ?? "",
+            validated.pageContext?.title ?? "",
+          ].join("\n"),
+          competingTopicScore: pageTopicScore,
+          competingWinFloor: 6,
+        });
+        if (!deferPageForFaq) {
+          const pageResponse = applyCustomerSiteDeterministicPolicy(
+            applyWebsiteKompisCustomerSiteTone(
+              {
+                answer: currentPageAnswer.answer,
+                actions: [],
+                sources: currentPageAnswer.sources,
+                confidence: {
+                  level: currentPageAnswer.confidence.level,
+                  score: currentPageAnswer.confidence.score,
+                },
+                supportEscalation: { offered: false, reason: null },
+                locale,
               },
-              supportEscalation: { offered: false, reason: null },
-              locale,
-            },
-            { ...customerSiteTone, source: "current-page" },
-          ),
-          validated.question,
-        );
-        if (pageResponse) {
-          return finishCustomerWebsiteAskWithTrace(
-            withPreviewDiagnostic(
-              tagCustomerSiteAnswerPath(pageResponse, "current_page", isPreviewEnv),
+              { ...customerSiteTone, source: "current-page" },
             ),
-            {
-              ...traceBase,
-              answerPath: "current_page",
-              pageSignalsUsed: pageSignalsAvailable,
-            },
+            validated.question,
           );
+          if (pageResponse) {
+            return finishCustomerWebsiteAskWithTrace(
+              withPreviewDiagnostic(
+                tagCustomerSiteAnswerPath(pageResponse, "current_page", isPreviewEnv),
+              ),
+              {
+                ...traceBase,
+                answerPath: "current_page",
+                pageSignalsUsed: pageSignalsAvailable,
+              },
+            );
+          }
         }
       }
     }
@@ -1528,26 +1609,48 @@ export async function askPublicPlatformCompanion(
       );
     }
     if (siteIndexAnswer) {
-      const indexResponse = applyCustomerSiteDeterministicPolicy(
-        applyWebsiteKompisCustomerSiteTone(siteIndexAnswer, {
-          ...customerSiteTone,
-          source: "public-site-index",
-        }),
-        validated.question,
-      );
-      if (indexResponse) {
-        return finishCustomerWebsiteAskWithTrace(
-          withPreviewDiagnostic(
-            tagCustomerSiteAnswerPath(indexResponse, "public_site_index", isPreviewEnv),
-          ),
-          {
-            ...traceBase,
-            answerPath: "public_site_index",
-            pageSignalsUsed: pageSignalsAvailable.includes("pathname")
-              ? ["pathname"]
-              : [],
-          },
+      const topIndexHit = siteIndexHits[0] ?? null;
+      const indexTopicScore = topIndexHit
+        ? scorePublicSiteIndexHitTopicOverlap(
+            topIndexHit,
+            topicTokensForPublicSiteIndex(validated.question),
+          )
+        : 0;
+      const deferIndexForFaq = shouldDeferCompetingSurfaceForStrongCollectedFaq({
+        question: validated.question,
+        faqRows,
+        competingText: [
+          siteIndexAnswer.answer.directAnswer,
+          siteIndexAnswer.answer.explanation ?? "",
+          topIndexHit?.title ?? "",
+          topIndexHit?.chunkContent ?? "",
+          topIndexHit?.excerpt ?? "",
+        ].join("\n"),
+        competingTopicScore: indexTopicScore,
+        competingWinFloor: 4,
+      });
+      if (!deferIndexForFaq) {
+        const indexResponse = applyCustomerSiteDeterministicPolicy(
+          applyWebsiteKompisCustomerSiteTone(siteIndexAnswer, {
+            ...customerSiteTone,
+            source: "public-site-index",
+          }),
+          validated.question,
         );
+        if (indexResponse) {
+          return finishCustomerWebsiteAskWithTrace(
+            withPreviewDiagnostic(
+              tagCustomerSiteAnswerPath(indexResponse, "public_site_index", isPreviewEnv),
+            ),
+            {
+              ...traceBase,
+              answerPath: "public_site_index",
+              pageSignalsUsed: pageSignalsAvailable.includes("pathname")
+                ? ["pathname"]
+                : [],
+            },
+          );
+        }
       }
     }
 

@@ -14,7 +14,7 @@ File freeze, behavior freeze, and a fresh site index are different. A stale inde
 
 ## Observed drift, not a new baseline
 
-Five protected files did not match the manifest when `9fba6af8` committed it. Four of them remain observations. `public-companion-ask.ts` was rebaselined to the owner-approved empty-evidence-pack FAQ fix (`AIPIFY_KOMPIS_CORE_FAQ_EMPTY_EVIDENCE_PACK_FIX_V1`) and removed from the drift `files[]` list. The ledger is `website-kompis-public-chain-observed-drift.json`.
+Five protected files did not match the manifest when `9fba6af8` committed it. Four of them remain observations. `public-companion-ask.ts` was rebaselined again for the owner-approved FAQ-versus-site-index/current-page precedence repair (`AIPIFY_KOMPIS_CORE_FAQ_VS_SITE_INDEX_PRECEDENCE_REPAIR_V1`) and stays out of the drift `files[]` list. The ledger is `website-kompis-public-chain-observed-drift.json`.
 
 | File | Introduced by | What changed |
 |---|---|---|
@@ -35,7 +35,7 @@ The task names Website Kompis Public Chain. The product patch against both `6cbb
 | `lib/marketing/website-kompis-public-page-context.ts` | `998c6297826e264681dc5cefc1e52231a5a561bd644e9cb5145836c03f0bd01b` | Manifest baseline |
 | `lib/marketing/website-kompis-grounded-answer.ts` | `e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82` | Manifest baseline |
 | `lib/marketing/website-kompis-public-boundary.ts` | `33d11e807f80f2458d23b82b26aa9fdb793c5a6a56051923f2f2ca1e14ff79ca` | Manifest baseline |
-| `lib/marketing/public-companion-ask.ts` | `13bc78754467fbb9da6cc3cb4aad3eb76fbb455a7dff9dbb6554b9fb549a1a36` | Manifest baseline after empty-evidence-pack FAQ fix (`AIPIFY_KOMPIS_CORE_FAQ_EMPTY_EVIDENCE_PACK_FIX_V1`). |
+| `lib/marketing/public-companion-ask.ts` | `238782a899652221d6bf62a7881a262cd05c9bcc213a421fd3de71cd80195865` | Manifest baseline after FAQ-versus-site-index/current-page precedence repair (`AIPIFY_KOMPIS_CORE_FAQ_VS_SITE_INDEX_PRECEDENCE_REPAIR_V1`). |
 
 ## Gate
 
