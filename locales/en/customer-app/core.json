@@ -7127,8 +7127,8 @@
       "visitorLocaleNo": "Visitor language: Norwegian (no)",
       "visitorLocaleEn": "Visitor language: English (en)",
       "sqlCandidate": "Appears as a Path A SQL candidate for this FAQ’s own question/title",
-      "selectedAnswer": "Would be selected as the top answer after relevance checks",
-      "citationCaveat": "A candidate match does not guarantee Website Kompis will cite or use this FAQ for every visitor question.",
+      "selectedAnswer": "Would rank first after Path A relevance checks (not a live visitor citation)",
+      "citationCaveat": "Dry-run Path A checks are not a live visitor answer. Provider, current page, site index, empty evidence pack, and answer policy can still change the outcome.",
       "dryRunSkippedIneligible": "Retrieval check skipped because this FAQ is not eligible for Path A for this visitor language.",
       "dryRunMissingContext": "Retrieval check skipped — installation or domain context is missing.",
       "dryRunUnavailable": "Retrieval check could not reach the visitor knowledge search. Eligibility facts above still apply.",
@@ -7150,7 +7150,11 @@
         "faq_source_disabled": "FAQ source is disabled for this website’s Website Kompis settings.",
         "missing_visitor_context": "No installation or domain context is available for a visitor check.",
         "locale_not_in_visitor_set": "FAQ content language does not match this visitor language (Path A allows the visitor language and English fallback)."
-      }
+      },
+      "relevanceQualified": "Passes Path A relevance checks for this FAQ’s own question/title",
+      "safetyQualified": "Passes FAQ match-safety filtering for this probe question",
+      "evidencePackRetained": "Would remain in the grounded evidence pack for this probe (topic citation bar)",
+      "liveChainFaqEligible": "Live visitor chain may attempt deterministic FAQ for this item (still not a citation proof)"
     }
   },
   "kompisOperator": {

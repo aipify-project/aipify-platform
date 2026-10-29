@@ -52,8 +52,27 @@ export type FaqLocaleDryRunResult = {
   localeReasons: FaqVisibilityBlockReason[];
   /** True when the FAQ item_id appeared in the Path A RPC candidate set. */
   sqlCandidateMatch: boolean;
-  /** True when candidates passed the APP relevance gate and this item ranked first. */
+  /** True when Path A candidates passed the APP relevance gate (not live citation). */
+  relevanceQualified: boolean;
+  /** True when this item survives FAQ match-safety filtering for the probe question. */
+  safetyQualified: boolean;
+  /**
+   * True when this item would remain inside the grounded evidence pack for the
+   * probe question (pack topic bar). Empty pack alone does not block deterministic FAQ
+   * when collect already retained safe/relevant rows.
+   */
+  evidencePackRetained: boolean;
+  /**
+   * Path A relevance rank only: relevant candidates and this item ranked first.
+   * Does not mean the live visitor widget cited or answered from this FAQ.
+   */
   wouldBeSelectedAnswer: boolean;
+  /**
+   * Live customer-website chain may still attempt deterministic FAQ for this item
+   * (relevance + safety + top rank). Not a citation proof; provider/page/index
+   * precedence and deterministic policy can still win or reject.
+   */
+  liveChainFaqEligible: boolean;
   /** Candidate hit does not guarantee Kompis cites this FAQ. */
   citationNotGuaranteed: true;
   topMatchedItemId: string | null;
@@ -199,7 +218,11 @@ export function buildFaqLocaleDryRunResult(input: {
   visitorLocale: FaqVisibilityVisitorLocale;
   eligibility: FaqEligibilityResult;
   sqlCandidateMatch?: boolean;
+  relevanceQualified?: boolean;
+  safetyQualified?: boolean;
+  evidencePackRetained?: boolean;
   wouldBeSelectedAnswer?: boolean;
+  liveChainFaqEligible?: boolean;
   topMatchedItemId?: string | null;
   topScore?: number | null;
   dryRunSkipped?: boolean;
@@ -214,7 +237,11 @@ export function buildFaqLocaleDryRunResult(input: {
       localeEligible,
       localeReasons: input.eligibility.reasons,
       sqlCandidateMatch: false,
+      relevanceQualified: false,
+      safetyQualified: false,
+      evidencePackRetained: false,
       wouldBeSelectedAnswer: false,
+      liveChainFaqEligible: false,
       citationNotGuaranteed: true,
       topMatchedItemId: null,
       topScore: null,
@@ -225,12 +252,23 @@ export function buildFaqLocaleDryRunResult(input: {
     };
   }
 
+  const relevanceQualified = input.relevanceQualified === true;
+  const safetyQualified = input.safetyQualified === true;
+  const wouldBeSelectedAnswer = input.wouldBeSelectedAnswer === true;
+  const liveChainFaqEligible =
+    input.liveChainFaqEligible === true ||
+    (wouldBeSelectedAnswer && safetyQualified && relevanceQualified);
+
   return {
     visitorLocale: input.visitorLocale,
     localeEligible: true,
     localeReasons: [],
     sqlCandidateMatch: input.sqlCandidateMatch === true,
-    wouldBeSelectedAnswer: input.wouldBeSelectedAnswer === true,
+    relevanceQualified,
+    safetyQualified,
+    evidencePackRetained: input.evidencePackRetained === true,
+    wouldBeSelectedAnswer,
+    liveChainFaqEligible,
     citationNotGuaranteed: true,
     topMatchedItemId: input.topMatchedItemId ?? null,
     topScore: input.topScore ?? null,

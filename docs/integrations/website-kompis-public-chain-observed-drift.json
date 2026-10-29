@@ -19,10 +19,16 @@
     "productionAlias": "aipify.ai",
     "productionReadyState": "READY",
     "publicQa": {
-      "questions": ["Hvordan gir jeg en presang?", "presang"],
-      "verifiedRoutes": ["/no/gift-guide", "/no/how-gifting-works"]
+      "questions": [
+        "Hvordan gir jeg en presang?",
+        "presang"
+      ],
+      "verifiedRoutes": [
+        "/no/gift-guide",
+        "/no/how-gifting-works"
+      ]
     },
-    "reason": "Owner approved this exact Evidence Gate candidate. PR #324 merged it, and Production on aipify.ai kept the documented gift guide for both gift questions. This record closes that candidate only. It does not finish commission coverage, «Er det sikkert?», or Conversation Intelligence, and it does not freeze the wider Kompis Core. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate.",
+    "reason": "Owner approved this exact Evidence Gate candidate. PR #324 merged it, and Production on aipify.ai kept the documented gift guide for both gift questions. This record closes that candidate only. It does not finish commission coverage, \u00abEr det sikkert?\u00bb, or Conversation Intelligence, and it does not freeze the wider Kompis Core. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate.",
     "filesArrayUnchanged": true
   },
   "closedContextEvidenceCandidate": {
@@ -60,7 +66,7 @@
       "answerPath": "NOT_MEASURED",
       "visualWidgetQa": "BROWSER_BLOCKED"
     },
-    "reason": "Owner approved this exact Context Evidence V1 candidate. PR #326 merged it, and Production on aipify.ai kept membership sources for the short price follow-up, returned no sources for the same question without history, and kept the published gift guides for both gift questions. No price digit was invented. answerPath was absent from the public response. Visual widget QA stays blocked. This record closes that candidate only. It does not finish commission coverage or «Er det sikkert?», and it does not freeze the wider Kompis Core. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate. The preparation approval remains a historical fact and is no longer the current status.",
+    "reason": "Owner approved this exact Context Evidence V1 candidate. PR #326 merged it, and Production on aipify.ai kept membership sources for the short price follow-up, returned no sources for the same question without history, and kept the published gift guides for both gift questions. No price digit was invented. answerPath was absent from the public response. Visual widget QA stays blocked. This record closes that candidate only. It does not finish commission coverage or \u00abEr det sikkert?\u00bb, and it does not freeze the wider Kompis Core. The file stays out of files[] because a ledger row whose hash matches the manifest fails the freeze gate. The preparation approval remains a historical fact and is no longer the current status.",
     "filesArrayUnchanged": true
   },
   "closedSafetyIntentCandidate": {
@@ -103,13 +109,32 @@
         "Hva koster den?"
       ],
       "safetyRoutes": {
-        "Er det sikkert?": ["/no/verification-guide", "/no/safety"],
-        "Er dette trygt?": ["/no/verification-guide", "/no/community-guidelines", "/en/safety"],
-        "Hvordan ivaretas sikkerheten?": ["/no/safety"],
-        "How is safety handled?": ["/en/safety", "/no/safety", "/fi/safety"]
+        "Er det sikkert?": [
+          "/no/verification-guide",
+          "/no/safety"
+        ],
+        "Er dette trygt?": [
+          "/no/verification-guide",
+          "/no/community-guidelines",
+          "/en/safety"
+        ],
+        "Hvordan ivaretas sikkerheten?": [
+          "/no/safety"
+        ],
+        "How is safety handled?": [
+          "/en/safety",
+          "/no/safety",
+          "/fi/safety"
+        ]
       },
-      "giftRoutes": ["/no/gift-guide", "/no/how-gifting-works"],
-      "membershipRoutes": ["/no/premium", "/no/membership-guide"],
+      "giftRoutes": [
+        "/no/gift-guide",
+        "/no/how-gifting-works"
+      ],
+      "membershipRoutes": [
+        "/no/premium",
+        "/no/membership-guide"
+      ],
       "membershipFollowUpAlsoReturned": "/no/faq/marketplace-listing-push",
       "isolatedPriceQuestionSourceCount": 0,
       "commissionSourceCount": 0,
@@ -141,6 +166,17 @@
       "lib/marketing/website-kompis-answer-feedback-server.ts"
     ]
   },
+  "closedFaqEmptyEvidencePackCandidate": {
+    "status": "owner approved in task \u2014 pending merge/live",
+    "date": "2026-10-29",
+    "names": "Website Kompis Public Chain",
+    "file": "lib/marketing/public-companion-ask.ts",
+    "baselineSha256": "0fdb705237747f0c6be089e388f4558aa63a431f7c66b7531cb22aeef083fe3a",
+    "proposedSha256": "13bc78754467fbb9da6cc3cb4aad3eb76fbb455a7dff9dbb6554b9fb549a1a36",
+    "ownerApproval": "AIPIFY_KOMPIS_CORE_FAQ_EMPTY_EVIDENCE_PACK_FIX_V1",
+    "reason": "Owner authorized a narrow Public Chain CODE fix: when collect already retained relevant/safe FAQ rows, empty grounded evidence pack must not skip deterministic FAQ. Manifest hash for public-companion-ask.ts moves to the approved file. The file is removed from files[] because a ledger row whose hash matches the manifest fails the freeze gate. APP FAQ visibility diagnostic alignment is outside the protected runtime set.",
+    "filesArrayUnchangedExceptAskRemoved": true
+  },
   "files": [
     {
       "path": "components/embed/WebsiteKompisEmbedWidget.tsx",
@@ -148,14 +184,6 @@
       "manifestSha256": "73585a579de9ee5127cb4b4c0cc258202eb7c37ddff243e8ae283325c1134863",
       "observedSha256": "4aa343c10595a8d39eb06a3badd77ddf1001792cd9dae598dc11fb6806201f4e",
       "reason": "PR #272 sends the page content locale with the ask and marks the reply bubble. The later manifest refresh did not record this hash."
-    },
-    {
-      "path": "lib/marketing/public-companion-ask.ts",
-      "introducedBy": "c2757397576964709781b86c114a3518d7003786",
-      "manifestSha256": "4ec48ee373ab7dc11bf39f07abff0317708c89df265513517499988ae9575682",
-      "previousObservedSha256": "ea6f4ec0250339b24a63313d5c87b5c8179b4862e14e31e1964bf9f215f52928",
-      "observedSha256": "0fdb705237747f0c6be089e388f4558aa63a431f7c66b7531cb22aeef083fe3a",
-      "reason": "PR #272 carries the FAQ content-language set through the public ask path. Unknown tags no longer all collapse the way the older ask test expects. The observed hash is the owner-approved source-selection file from 2026-10-24. The manifest hash stays the older baseline, so this row is not a rebaseline of the PR #272 drift."
     },
     {
       "path": "lib/marketing/website-kompis-public-answer-policy.ts",

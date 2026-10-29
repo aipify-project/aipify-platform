@@ -7138,8 +7138,8 @@
       "visitorLocaleNo": "Besökarens språk: norska (no)",
       "visitorLocaleEn": "Besökarens språk: engelska (en)",
       "sqlCandidate": "Visas som Path A SQL-kandidat för FAQ:ns egen fråga/titel",
-      "selectedAnswer": "Skulle väljas som topp-svar efter relevanskontroller",
-      "citationCaveat": "En kandidatträff garanterar inte att Website Kompis citerar eller använder denna FAQ för varje besökarfråga.",
+      "selectedAnswer": "Skulle rankas först efter Path A-relevans (inte live besökarcitering)",
+      "citationCaveat": "Dry-run Path A är inte ett live besökarsvar. Leverantör, aktuell sida, webbplatsindex, tom evidence pack och svarspolicy kan fortfarande ändra utfallet.",
       "dryRunSkippedIneligible": "Kontrollen hoppades över eftersom FAQ:n inte är klar för Path A för detta besökarspråk.",
       "dryRunMissingContext": "Kontrollen hoppades över — installation eller domän saknas.",
       "dryRunUnavailable": "Sökningen mot besökarkunskap var otillgänglig. Fakta ovan gäller fortfarande.",
@@ -7161,7 +7161,11 @@
         "faq_source_disabled": "FAQ-källan är avstängd för Website Kompis på denna webbplats.",
         "missing_visitor_context": "Ingen installation eller domän finns för besökarkontroll.",
         "locale_not_in_visitor_set": "FAQ-innehållsspråket matchar inte detta besökarspråk (Path A tillåter besökarens språk och engelsk reserv)."
-      }
+      },
+      "relevanceQualified": "Klarar Path A-relevanskontroller för denna FAQ:s egen fråga/titel",
+      "safetyQualified": "Klarar FAQ-säkerhetsfiltrering för denna probesfråga",
+      "evidencePackRetained": "Skulle behållas i grounded evidence pack för denna probe (ämnescitering)",
+      "liveChainFaqEligible": "Live besökskedja kan försöka deterministisk FAQ för detta objekt (fortfarande inte citeringsbevis)"
     }
   },
   "kompisOperator": {

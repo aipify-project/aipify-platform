@@ -605,8 +605,8 @@
       "visitorLocaleNo": "Język odwiedzającego: norweski (no)",
       "visitorLocaleEn": "Język odwiedzającego: angielski (en)",
       "sqlCandidate": "Pojawia się jako kandydat SQL Path A dla własnego pytania/tytułu tego FAQ",
-      "selectedAnswer": "Zostałoby wybrane jako najlepsza odpowiedź po sprawdzeniu trafności",
-      "citationCaveat": "Trafienie kandydata nie gwarantuje, że Website Kompis zacytuje lub użyje tego FAQ przy każdym pytaniu.",
+      "selectedAnswer": "Byłaby pierwsza po relewancji Path A (to nie jest cytowanie na żywo)",
+      "citationCaveat": "Dry-run Path A nie jest odpowiedzią odwiedzającego na żywo. Dostawca, bieżąca strona, indeks witryny, pusty evidence pack i polityka odpowiedzi mogą nadal zmienić wynik.",
       "dryRunSkippedIneligible": "Sprawdzenie pominięte, ponieważ FAQ nie kwalifikuje się do Path A dla tego języka odwiedzającego.",
       "dryRunMissingContext": "Sprawdzenie pominięte — brak instalacji lub domeny.",
       "dryRunUnavailable": "Wyszukiwanie wiedzy dla odwiedzających było niedostępne. Powyższe fakty nadal obowiązują.",
@@ -628,7 +628,11 @@
         "faq_source_disabled": "Źródło FAQ jest wyłączone w ustawieniach Website Kompis dla tej witryny.",
         "missing_visitor_context": "Brak instalacji lub domeny do sprawdzenia dla odwiedzających.",
         "locale_not_in_visitor_set": "Język treści FAQ nie pasuje do tego języka odwiedzającego (Path A dopuszcza język odwiedzającego i angielski zapasowy)."
-      }
+      },
+      "relevanceQualified": "Przechodzi kontrole relewancji Path A dla własnego pytania/tytułu tej FAQ",
+      "safetyQualified": "Przechodzi filtrowanie bezpieczeństwa dopasowania FAQ dla tego pytania sondy",
+      "evidencePackRetained": "Pozostałaby w grounded evidence pack dla tej sondy (pasek cytowania tematu)",
+      "liveChainFaqEligible": "Łańcuch odwiedzającego na żywo może próbować deterministycznej FAQ dla tej pozycji (nadal nie dowód cytowania)"
     }
   },
   "kompisOperator": {
