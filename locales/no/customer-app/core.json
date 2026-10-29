@@ -7175,7 +7175,8 @@
       "evidencePackRetained": "Ville blitt værende blant kildene som vurderes for dette eksempelet",
       "liveChainFaqEligible": "Kan vurderes for et direkte FAQ-svar for dette eksempelet"
     },
-    "editorBack": "Tilbake"
+    "editorBack": "Tilbake",
+    "tagsInvalid": "Bruk opptil 20 tagger, hver på maks 50 tegn. Skill taggene med komma."
   },
   "kompisOperator": {
     "title": "Oppgaver",

@@ -7175,7 +7175,8 @@
         "locale_not_in_visitor_set": "FAQ-språket matchar inte besökarens språk (besökare kan också få engelska när det finns)."
       }
     },
-    "editorBack": "Tillbaka"
+    "editorBack": "Tillbaka",
+    "tagsInvalid": "Använd upp till 20 taggar, var och en högst 50 tecken. Separera taggar med kommatecken."
   },
   "kompisOperator": {
     "title": "Uppgifter",

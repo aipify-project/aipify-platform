@@ -51,10 +51,22 @@ import {
   planWebsiteKompisFaqPublish,
   resolveFaqExpiryForSave,
 } from "@/lib/website-kompis-faq/safety";
+import {
+  formatFaqTagsInput,
+  parseFaqTagsInput,
+} from "@/lib/website-kompis-faq/tags";
 import type {
   WebsiteKompisFaqItem,
   WebsiteKompisFaqUpsertInput,
 } from "@/lib/website-kompis-faq/types";
+
+/** Soft split for live draft sync — keeps comma typing in the text buffer. */
+function softSplitFaqTags(value: string): string[] {
+  return value
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+}
 
 type WebsiteKompisFaqAdminPanelProps = {
   labels: WebsiteKompisFaqLabels;
@@ -333,6 +345,8 @@ export function WebsiteKompisFaqAdminPanel({
   const [busy, setBusy] = useState(false);
   const [editorOpen, setEditorOpen] = useState(false);
   const [draft, setDraft] = useState<FaqEditorState>(createEmptyDraft());
+  const [tagsText, setTagsText] = useState("");
+  const [tagsFieldError, setTagsFieldError] = useState<string | null>(null);
   const [publishDialogOpen, setPublishDialogOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
   const publishLock = useRef(false);
@@ -635,13 +649,18 @@ export function WebsiteKompisFaqAdminPanel({
       familySourceIdRef.current = null;
       localeBaselineRef.current = suggested;
       setDraft(suggested);
+      setTagsText(formatFaqTagsInput(suggested.tags));
+      setTagsFieldError(null);
       setSuggestFromFeedback(fromFeedback);
       setEditorOpen(true);
       setError(null);
       return;
     }
     if (searchParams.get("create") === "1") {
-      setDraft(createEmptyDraft(selectedSite));
+      const next = createEmptyDraft(selectedSite);
+      setDraft(next);
+      setTagsText("");
+      setTagsFieldError(null);
       setSuggestFromFeedback(false);
       setEditorOpen(true);
       setError(null);
@@ -666,6 +685,8 @@ export function WebsiteKompisFaqAdminPanel({
     const next = createEmptyDraft(selectedSite);
     localeBaselineRef.current = next;
     setDraft(next);
+    setTagsText("");
+    setTagsFieldError(null);
     setPendingLocale(null);
     setSuggestFromFeedback(false);
     setEditorOpen(true);
@@ -679,10 +700,18 @@ export function WebsiteKompisFaqAdminPanel({
     const next = itemToDraft(item);
     localeBaselineRef.current = next;
     setDraft(next);
+    setTagsText(formatFaqTagsInput(next.tags));
+    setTagsFieldError(null);
     setPendingLocale(null);
     setEditorOpen(true);
     setError(null);
     setNotice(null);
+  }
+
+  function applyEditorDraft(next: FaqEditorState) {
+    setDraft(next);
+    setTagsText(formatFaqTagsInput(next.tags));
+    setTagsFieldError(null);
   }
 
   function leaveMatchMode() {
@@ -917,22 +946,41 @@ export function WebsiteKompisFaqAdminPanel({
     setLinkOpen(false);
     setLinkSearched(false);
     setPendingLocale(null);
+    setTagsText("");
+    setTagsFieldError(null);
     setDraft(createEmptyDraft(selectedSite));
   }
 
   async function persistEditor(failureMessage: string): Promise<{ id: string; status: WpkfStatus } | null> {
-    if (!isWebsiteKompisFaqEditorValid(draft)) {
+    const parsedTags = parseFaqTagsInput(tagsText);
+    if (!parsedTags.ok) {
+      setTagsFieldError(labels.tagsInvalid);
+      setError(labels.tagsInvalid);
+      return null;
+    }
+    setTagsFieldError(null);
+    const draftWithTags: FaqEditorState = { ...draft, tags: parsedTags.tags };
+    setDraft(draftWithTags);
+    setTagsText(formatFaqTagsInput(parsedTags.tags));
+    draftRef.current = draftWithTags;
+
+    if (!isWebsiteKompisFaqEditorValid(draftWithTags)) {
       setError(labels.errorGeneric);
       return null;
     }
-    const expiry = resolveFaqExpiryForSave(draft);
+    const expiry = resolveFaqExpiryForSave(draftWithTags);
     if (!expiry.ok) {
       setError(expiry.reason === "window" ? labels.validityInvalidWindow : labels.permanentEndRequired);
       return null;
     }
 
-    const creatingLocaleVersion = draft.editorStatus === "new" && familySourceIdRef.current && !persistedIdRef.current;
-    if (!creatingLocaleVersion && persistedIdRef.current && draft.locale !== localeBaselineRef.current.locale) {
+    const creatingLocaleVersion =
+      draftWithTags.editorStatus === "new" && familySourceIdRef.current && !persistedIdRef.current;
+    if (
+      !creatingLocaleVersion &&
+      persistedIdRef.current &&
+      draftWithTags.locale !== localeBaselineRef.current.locale
+    ) {
       setError(labels.localeSwitchError);
       return null;
     }
@@ -944,35 +992,35 @@ export function WebsiteKompisFaqAdminPanel({
         creatingLocaleVersion
           ? {
               sourceItemId: familySourceIdRef.current,
-              locale: draft.locale,
-              title: draft.title,
-              question: draft.question,
-              answer: draft.answer,
-              category: draft.category,
-              contentType: draft.contentType,
-              priority: draft.priority,
-              tags: draft.tags,
-              sourceUrl: draft.sourceUrl,
+              locale: draftWithTags.locale,
+              title: draftWithTags.title,
+              question: draftWithTags.question,
+              answer: draftWithTags.answer,
+              category: draftWithTags.category,
+              contentType: draftWithTags.contentType,
+              priority: draftWithTags.priority,
+              tags: draftWithTags.tags,
+              sourceUrl: draftWithTags.sourceUrl,
               validFrom: expiry.validFrom,
               validUntil: expiry.validUntil,
             }
           : {
               itemId: persistedIdRef.current,
-              installId: draft.installId,
-              domain: draft.domain,
-              locale: draft.locale,
-              title: draft.title,
-              question: draft.question,
-              answer: draft.answer,
-              category: draft.category,
-              contentType: draft.contentType,
-              publicSafe: draft.publicSafe,
-              priority: draft.priority,
-              tags: draft.tags,
-              sourceUrl: draft.sourceUrl,
+              installId: draftWithTags.installId,
+              domain: draftWithTags.domain,
+              locale: draftWithTags.locale,
+              title: draftWithTags.title,
+              question: draftWithTags.question,
+              answer: draftWithTags.answer,
+              category: draftWithTags.category,
+              contentType: draftWithTags.contentType,
+              publicSafe: draftWithTags.publicSafe,
+              priority: draftWithTags.priority,
+              tags: draftWithTags.tags,
+              sourceUrl: draftWithTags.sourceUrl,
               validFrom: expiry.validFrom,
               validUntil: expiry.validUntil,
-              lastReviewedAt: draft.lastReviewedAt,
+              lastReviewedAt: draftWithTags.lastReviewedAt,
             },
       ),
     });
@@ -986,7 +1034,7 @@ export function WebsiteKompisFaqAdminPanel({
     persistedIdRef.current = body.id;
     familySourceIdRef.current = body.id;
     const savedDraft: FaqEditorState = {
-      ...draft,
+      ...draftWithTags,
       itemId: body.id,
       editorStatus: body.status,
       validFrom: expiry.validFrom,
@@ -994,7 +1042,7 @@ export function WebsiteKompisFaqAdminPanel({
       permanent: expiry.validUntil == null,
     };
     localeBaselineRef.current = savedDraft;
-    setDraft(savedDraft);
+    applyEditorDraft(savedDraft);
     return { id: body.id, status: body.status };
   }
 
@@ -1058,7 +1106,7 @@ export function WebsiteKompisFaqAdminPanel({
         localeBaselineRef.current = next;
         setLocaleMissing(false);
         setLinkOpen(false);
-        setDraft(next);
+        applyEditorDraft(next);
         return;
       }
       if (body.outcome === "missing") {
@@ -1079,10 +1127,10 @@ export function WebsiteKompisFaqAdminPanel({
         setLinkSearched(false);
         setLinkChoices([]);
         setLinkSelected(null);
-        setDraft(next);
+        applyEditorDraft(next);
         return;
       }
-      setDraft(previous);
+      applyEditorDraft(previous);
       setError(labels.localeSwitchError);
     } finally {
       if (acceptLocaleResponse(requestId, localeRequestRef.current)) setLocaleLoading(false);
@@ -1159,7 +1207,7 @@ export function WebsiteKompisFaqAdminPanel({
     const body = (await res.json().catch(() => null)) as { item?: WebsiteKompisFaqItem; code?: string } | null;
     setBusy(false);
     if (!res.ok || !body?.item) {
-      setDraft(before);
+      applyEditorDraft(before);
       setLinkError(body?.code === "family_conflict" ? labels.localeLinkConflict : labels.localeLinkError);
       return;
     }
@@ -1169,7 +1217,7 @@ export function WebsiteKompisFaqAdminPanel({
     localeBaselineRef.current = next;
     setLocaleMissing(false);
     setLinkOpen(false);
-    setDraft(next);
+    applyEditorDraft(next);
   }
 
   async function runAction(action: "unpublish" | "archive" | "restore", itemId: string) {
@@ -1969,19 +2017,32 @@ export function WebsiteKompisFaqAdminPanel({
               <label className="text-sm md:col-span-2">
                 <span className="mb-1 block font-medium text-slate-700">{labels.fields.tags}</span>
                 <input
-                  value={draft.tags.join(", ")}
+                  value={tagsText}
                   disabled={localeLoading}
-                  onChange={(event) =>
+                  onChange={(event) => {
+                    const raw = event.target.value;
+                    setTagsText(raw);
+                    setTagsFieldError(null);
                     setDraft((current) => ({
                       ...current,
-                      tags: event.target.value
-                        .split(",")
-                        .map((tag) => tag.trim())
-                        .filter(Boolean),
-                    }))
-                  }
+                      tags: softSplitFaqTags(raw),
+                    }));
+                  }}
+                  onBlur={() => {
+                    const parsed = parseFaqTagsInput(tagsText);
+                    if (!parsed.ok) {
+                      setTagsFieldError(labels.tagsInvalid);
+                      return;
+                    }
+                    setTagsFieldError(null);
+                    setDraft((current) => ({ ...current, tags: parsed.tags }));
+                    setTagsText(formatFaqTagsInput(parsed.tags));
+                  }}
                   className="w-full rounded-md border border-slate-300 px-3 py-2"
                 />
+                {tagsFieldError ? (
+                  <p className="mt-1 text-xs text-amber-800">{tagsFieldError}</p>
+                ) : null}
               </label>
 
               <label className="text-sm md:col-span-2">
