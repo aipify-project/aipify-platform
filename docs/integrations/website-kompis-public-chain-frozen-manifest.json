@@ -70,12 +70,12 @@
     {
       "path": "lib/marketing/public-companion-ask.ts",
       "role": "Ask orchestration + evidence collection",
-      "sha256": "238782a899652221d6bf62a7881a262cd05c9bcc213a421fd3de71cd80195865"
+      "sha256": "a440a424ff3ba2579b487f55b2ead14bc68b9922cda303dc9471316e3fc63864"
     },
     {
       "path": "lib/marketing/public-companion-tenant-faq.ts",
       "role": "Tenant FAQ retrieval + relevance",
-      "sha256": "2aff5fc9b817b74f62e5eb2c9e18d430a5a633a8b7cdc0a6f0f21e635892f8ae"
+      "sha256": "ac5c9c680ac5bed0db4e6e495bc2e072ce558576cb04929384de374d35dc9991"
     },
     {
       "path": "lib/marketing/website-kompis-retrieval-intent.ts",
@@ -110,7 +110,7 @@
     {
       "path": "lib/marketing/website-kompis-public-ask-trace.ts",
       "role": "Ask trace surface policy (outer)",
-      "sha256": "07af94be6b90a7cc3812d9e9f3cd7256cb25254ad7b66c49c69d4a85abe981d5"
+      "sha256": "3ba6f1360f26eeefb786c46abeb8c0316792c5ca2273018ad09b513003d3c91c"
     },
     {
       "path": "lib/marketing/website-kompis-visitor-tone.ts",

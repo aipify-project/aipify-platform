@@ -35,7 +35,9 @@ The task names Website Kompis Public Chain. The product patch against both `6cbb
 | `lib/marketing/website-kompis-public-page-context.ts` | `998c6297826e264681dc5cefc1e52231a5a561bd644e9cb5145836c03f0bd01b` | Manifest baseline |
 | `lib/marketing/website-kompis-grounded-answer.ts` | `e5ae1f56289c7892d93bd5d729038ed153c2fd4a1ac09c31ad8d0782daed6c82` | Manifest baseline |
 | `lib/marketing/website-kompis-public-boundary.ts` | `33d11e807f80f2458d23b82b26aa9fdb793c5a6a56051923f2f2ca1e14ff79ca` | Manifest baseline |
-| `lib/marketing/public-companion-ask.ts` | `238782a899652221d6bf62a7881a262cd05c9bcc213a421fd3de71cd80195865` | Manifest baseline after FAQ-versus-site-index/current-page precedence repair (`AIPIFY_KOMPIS_CORE_FAQ_VS_SITE_INDEX_PRECEDENCE_REPAIR_V1`). |
+| `lib/marketing/public-companion-ask.ts` | `a440a424ff3ba2579b487f55b2ead14bc68b9922cda303dc9471316e3fc63864` | Manifest baseline after FAQ collection observability trace (`AIPIFY_KOMPIS_FAQ_COLLECTION_TRACE_P0`). |
+| `lib/marketing/public-companion-tenant-faq.ts` | `ac5c9c680ac5bed0db4e6e495bc2e072ce558576cb04929384de374d35dc9991` | Manifest baseline after FAQ collection observability trace (`AIPIFY_KOMPIS_FAQ_COLLECTION_TRACE_P0`). |
+| `lib/marketing/website-kompis-public-ask-trace.ts` | `3ba6f1360f26eeefb786c46abeb8c0316792c5ca2273018ad09b513003d3c91c` | Manifest baseline after FAQ collection observability trace (`AIPIFY_KOMPIS_FAQ_COLLECTION_TRACE_P0`). |
 
 ## Gate
 

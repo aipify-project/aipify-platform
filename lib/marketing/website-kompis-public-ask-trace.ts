@@ -208,3 +208,114 @@ export function logWebsiteKompisPublicAskTrace(
   );
   console.info(WEBSITE_KOMPIS_PUBLIC_ASK_TRACE_EVENT, payload);
 }
+
+/**
+ * First dropping gate inside Path A FAQ collect (source → RPC → relevance →
+ * safety → prefer-strong-index). Counters are counts only — never FAQ bodies.
+ *
+ * - faqRpcCount: mapped RPC rows before relevance
+ * - faqRelevantCount: rows kept after relevance gate (0 if top set rejected)
+ * - faqSafeCount: rows kept after safety filter
+ * - faqKeptCount: rows after preferStrongSiteIndexOverSparseFaq
+ */
+export type WebsiteKompisFaqCollectionSkipReason =
+  | "none"
+  | "source_disabled"
+  | "visitor_context_missing"
+  | "platform_knowledge_route"
+  | "rpc_error"
+  | "rpc_empty"
+  | "relevance_rejected"
+  | "safety_rejected"
+  | "prefer_strong_index";
+
+export type WebsiteKompisFaqRpcErrorCodeClass =
+  | null
+  | "rpc_error"
+  | "invalid_payload";
+
+export type WebsiteKompisFaqCollectionTracePayload = {
+  event: "faq_collection";
+  correlationId: string;
+  faqSourceEnabled: boolean;
+  faqFetchAttempted: boolean;
+  faqRpcCount: number;
+  faqRelevantCount: number;
+  faqSafeCount: number;
+  faqKeptCount: number;
+  faqSkipReason: WebsiteKompisFaqCollectionSkipReason;
+  faqRpcErrorCodeClass: WebsiteKompisFaqRpcErrorCodeClass;
+};
+
+export function resolveWebsiteKompisFaqCollectionSkipReason(input: {
+  faqSourceEnabled: boolean;
+  hasVisitorContext: boolean;
+  platformKnowledgeRoute: boolean;
+  faqFetchAttempted: boolean;
+  faqRpcErrorCodeClass: WebsiteKompisFaqRpcErrorCodeClass;
+  faqRpcCount: number;
+  faqRelevantCount: number;
+  faqSafeCount: number;
+  faqKeptCount: number;
+}): WebsiteKompisFaqCollectionSkipReason {
+  if (!input.faqSourceEnabled) return "source_disabled";
+  if (!input.hasVisitorContext) return "visitor_context_missing";
+  if (input.platformKnowledgeRoute) return "platform_knowledge_route";
+  if (input.faqRpcErrorCodeClass) return "rpc_error";
+  if (!input.faqFetchAttempted) return "source_disabled";
+  if (input.faqRpcCount <= 0) return "rpc_empty";
+  if (input.faqRelevantCount <= 0) return "relevance_rejected";
+  if (input.faqSafeCount <= 0) return "safety_rejected";
+  if (input.faqKeptCount <= 0) return "prefer_strong_index";
+  return "none";
+}
+
+export function buildWebsiteKompisFaqCollectionTrace(input: {
+  correlationId: string;
+  faqSourceEnabled: boolean;
+  hasVisitorContext: boolean;
+  platformKnowledgeRoute: boolean;
+  faqFetchAttempted: boolean;
+  faqRpcErrorCodeClass?: WebsiteKompisFaqRpcErrorCodeClass;
+  faqRpcCount: number;
+  faqRelevantCount: number;
+  faqSafeCount: number;
+  faqKeptCount: number;
+}): WebsiteKompisFaqCollectionTracePayload {
+  const faqRpcErrorCodeClass = input.faqRpcErrorCodeClass ?? null;
+  const faqRpcCount = Math.max(0, Math.floor(input.faqRpcCount));
+  const faqRelevantCount = Math.max(0, Math.floor(input.faqRelevantCount));
+  const faqSafeCount = Math.max(0, Math.floor(input.faqSafeCount));
+  const faqKeptCount = Math.max(0, Math.floor(input.faqKeptCount));
+  return {
+    event: "faq_collection",
+    correlationId: input.correlationId.trim() || "unknown",
+    faqSourceEnabled: Boolean(input.faqSourceEnabled),
+    faqFetchAttempted: Boolean(input.faqFetchAttempted),
+    faqRpcCount,
+    faqRelevantCount,
+    faqSafeCount,
+    faqKeptCount,
+    faqSkipReason: resolveWebsiteKompisFaqCollectionSkipReason({
+      faqSourceEnabled: Boolean(input.faqSourceEnabled),
+      hasVisitorContext: Boolean(input.hasVisitorContext),
+      platformKnowledgeRoute: Boolean(input.platformKnowledgeRoute),
+      faqFetchAttempted: Boolean(input.faqFetchAttempted),
+      faqRpcErrorCodeClass,
+      faqRpcCount,
+      faqRelevantCount,
+      faqSafeCount,
+      faqKeptCount,
+    }),
+    faqRpcErrorCodeClass,
+  };
+}
+
+export function logWebsiteKompisFaqCollectionTrace(
+  payload: WebsiteKompisFaqCollectionTracePayload,
+): void {
+  assertWebsiteKompisPublicAskTraceRedacted(
+    payload as unknown as Record<string, unknown>,
+  );
+  console.info(WEBSITE_KOMPIS_PUBLIC_ASK_TRACE_EVENT, payload);
+}
