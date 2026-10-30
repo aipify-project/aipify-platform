@@ -7176,7 +7176,13 @@
       "liveChainFaqEligible": "Kan vurderes for et direkte FAQ-svar for dette eksempelet"
     },
     "editorBack": "Tilbake",
-    "tagsInvalid": "Bruk opptil 20 tagger, hver på maks 50 tegn. Skill taggene med komma."
+    "tagsInvalid": "Bruk opptil 20 tagger, hver på maks 50 tegn. Skill taggene med komma.",
+    "answerWordGuidance": {
+      "remaining": "{count} ord igjen",
+      "warning": "Nærmer seg anbefalingen på {target} ord — {count} ord igjen",
+      "over": "{count} ord over anbefalingen — du kan fortsatt lagre",
+      "progressAria": "Svarlengde: {count} av {target} anbefalte ord"
+    }
   },
   "kompisOperator": {
     "title": "Oppgaver",

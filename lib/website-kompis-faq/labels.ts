@@ -130,6 +130,12 @@ export function buildWebsiteKompisFaqLabels(t: TranslateFn) {
       lastReviewedAt: t(`${prefix}.fields.lastReviewedAt`),
     },
     tagsInvalid: t(`${prefix}.tagsInvalid`),
+    answerWordGuidance: {
+      remaining: t(`${prefix}.answerWordGuidance.remaining`),
+      warning: t(`${prefix}.answerWordGuidance.warning`),
+      over: t(`${prefix}.answerWordGuidance.over`),
+      progressAria: t(`${prefix}.answerWordGuidance.progressAria`),
+    },
     yes: t(`${prefix}.yes`),
     no: t(`${prefix}.no`),
     errorGeneric: t(`${prefix}.errorGeneric`),

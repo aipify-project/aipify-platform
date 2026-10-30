@@ -7176,7 +7176,13 @@
       }
     },
     "editorBack": "Tillbaka",
-    "tagsInvalid": "Använd upp till 20 taggar, var och en högst 50 tecken. Separera taggar med kommatecken."
+    "tagsInvalid": "Använd upp till 20 taggar, var och en högst 50 tecken. Separera taggar med kommatecken.",
+    "answerWordGuidance": {
+      "remaining": "{count} ord kvar",
+      "warning": "Närmar sig rekommendationen på {target} ord — {count} ord kvar",
+      "over": "{count} ord över rekommendationen — du kan fortfarande spara",
+      "progressAria": "Svarlängd: {count} av {target} rekommenderade ord"
+    }
   },
   "kompisOperator": {
     "title": "Uppgifter",
