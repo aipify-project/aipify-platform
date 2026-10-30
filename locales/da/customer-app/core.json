@@ -7176,7 +7176,13 @@
       }
     },
     "editorBack": "Tilbage",
-    "tagsInvalid": "Brug op til 20 tags, hver på højst 50 tegn. Adskil tags med komma."
+    "tagsInvalid": "Brug op til 20 tags, hver på højst 50 tegn. Adskil tags med komma.",
+    "answerWordGuidance": {
+      "remaining": "{count} ord tilbage",
+      "warning": "Nærmer sig anbefalingen på {target} ord — {count} ord tilbage",
+      "over": "{count} ord over anbefalingen — du kan stadig gemme",
+      "progressAria": "Svarlængde: {count} af {target} anbefalede ord"
+    }
   },
   "kompisOperator": {
     "title": "Opgaver",

@@ -7165,7 +7165,13 @@
       "liveChainFaqEligible": "May be considered for a direct FAQ answer for this sample"
     },
     "editorBack": "Back",
-    "tagsInvalid": "Use up to 20 tags, each at most 50 characters. Separate tags with commas."
+    "tagsInvalid": "Use up to 20 tags, each at most 50 characters. Separate tags with commas.",
+    "answerWordGuidance": {
+      "remaining": "{count} words remaining",
+      "warning": "Approaching the {target}-word recommendation — {count} words left",
+      "over": "{count} words over the recommendation — you can still save",
+      "progressAria": "Answer length: {count} of {target} recommended words"
+    }
   },
   "kompisOperator": {
     "title": "Tasks",

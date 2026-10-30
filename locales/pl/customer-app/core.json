@@ -643,7 +643,13 @@
       }
     },
     "editorBack": "Wstecz",
-    "tagsInvalid": "Użyj maksymalnie 20 tagów, każdy do 50 znaków. Oddzielaj tagi przecinkami."
+    "tagsInvalid": "Użyj maksymalnie 20 tagów, każdy do 50 znaków. Oddzielaj tagi przecinkami.",
+    "answerWordGuidance": {
+      "remaining": "Pozostało {count} słów",
+      "warning": "Zbliżasz się do zalecanych {target} słów — pozostało {count}",
+      "over": "{count} słów powyżej zalecenia — nadal możesz zapisać",
+      "progressAria": "Długość odpowiedzi: {count} z {target} zalecanych słów"
+    }
   },
   "kompisOperator": {
     "title": "Zadania",

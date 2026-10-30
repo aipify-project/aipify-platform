@@ -8,6 +8,7 @@ import { WebsiteKompisFaqImportWorkspace } from "@/components/app/website-kompis
 import { FaqContentLanguagePicker } from "@/components/app/website-kompis/FaqContentLanguagePicker";
 import { WebsiteKompisFaqLocaleLinkDialog, type FaqLocaleLinkChoice } from "@/components/app/website-kompis/WebsiteKompisFaqLocaleLinkDialog";
 import { FaqPermanentExpiryFields } from "@/components/app/website-kompis/FaqPermanentExpiryFields";
+import { FaqAnswerWordGuidance } from "@/components/app/website-kompis/FaqAnswerWordGuidance";
 import { Download, FileUp, Plus } from "lucide-react";
 import { WebsiteKompisFaqPublishDialog } from "@/components/app/website-kompis/WebsiteKompisFaqPublishDialog";
 import Link from "next/link";
@@ -1893,6 +1894,7 @@ export function WebsiteKompisFaqAdminPanel({
                   rows={6}
                   className="w-full rounded-md border border-slate-300 px-3 py-2"
                 />
+                <FaqAnswerWordGuidance answer={draft.answer} labels={labels.answerWordGuidance} />
               </label>
 
               <label className="text-sm">
