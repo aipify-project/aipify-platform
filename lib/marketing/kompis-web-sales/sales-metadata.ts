@@ -6,8 +6,8 @@ export type KompisWebSalesRoutePath = "/" | "/kompis-web";
 /** Canonical home for the shared sales experience. */
 export const KOMPIS_WEB_SALES_CANONICAL_URL = "https://aipify.ai/";
 
-/** Established brand SEO title — never replaced by a localized translation. */
-export const KOMPIS_WEB_SALES_BROWSER_TITLE = "Aipify works for you | Kompis Web";
+/** Established brand SEO title — never replaced by a localized translation or product suffix. */
+export const KOMPIS_WEB_SALES_BROWSER_TITLE = "Aipify works for you";
 
 /**
  * Metadata for Kompis Web sales.

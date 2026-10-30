@@ -31,8 +31,8 @@
     "termsTitle": "Terms of Service — Aipify",
     "getStartedTitle": "Get Started — Aipify",
     "getStartedDescription": "A structured path from first login to operational value. See your first 30 days, implementation journey, and time-to-value outcomes.",
-    "kompisWebTitle": "Aipify works for you | Kompis Web",
-    "kompisWebDescription": "Kompis Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card. Part of Aipify."
+    "kompisWebTitle": "Aipify works for you",
+    "kompisWebDescription": "Buddy Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card."
   },
   "nav": {
     "platform": "Platform",
@@ -8061,8 +8061,8 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Aipify works for you | Kompis Web",
-      "description": "Kompis Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card. Part of Aipify."
+      "title": "Aipify works for you",
+      "description": "Buddy Web answers visitor questions from approved content on your website. Start with 150 free answers — no credit card."
     },
     "nav": {
       "product": "Product",
@@ -8076,10 +8076,10 @@
       "languageSwitchFailed": "Language switch failed. Please try again."
     },
     "hero": {
-      "eyebrow": "Aipify Kompis Web",
+      "eyebrow": "Aipify Buddy Web",
       "titleBefore": "Aipify — the AI helper for your",
       "titleHighlight": "website visitors",
-      "subtitle": "Kompis Web answers questions, guides visitors, and makes approved content on your website easier to find.",
+      "subtitle": "Buddy Web answers questions, guides visitors, and makes approved content on your website easier to find.",
       "primaryCta": "Start free",
       "secondaryCta": "Questions? Contact us",
       "trustNoCard": "No credit card required",
@@ -8097,10 +8097,10 @@
       "companyPlaceholder": "Your company",
       "languageLabel": "Language",
       "submit": "Create free account",
-      "continueHint": "Continues to a simple Kompis Web signup. No card is required for the free answer allowance."
+      "continueHint": "Continues to a simple Buddy Web signup. No card is required for the free answer allowance."
     },
     "benefits": {
-      "title": "Why website owners choose Kompis Web",
+      "title": "Why website owners choose Buddy Web",
       "items": [
         {
           "title": "Source-based answers",
@@ -8147,8 +8147,8 @@
       "intro": "Connect your site, let visitors ask, stay in control, and reduce repetitive support — in four clear steps."
     },
     "demo": {
-      "title": "See Kompis Web in context",
-      "subtitle": "A quick look at the visitor helper and your control center — illustrative only, not live Production data.",
+      "title": "See Buddy Web in context",
+      "subtitle": "A quick look at the visitor helper and your control center — illustrative only.",
       "illustrationBadge": "Illustration — not a live Production ask",
       "widgetTitle": "The helper on your website",
       "widgetStatus": "Online",
@@ -8165,8 +8165,8 @@
     },
     "pricing": {
       "title": "Start free. Upgrade when you need more answers.",
-      "subtitle": "Owner-decided Kompis Web packages. Free starts without a card. Paid Standard is the planned upgrade path shown here.",
-      "plannedNote": "These packages follow the Kompis Web catalog. Live purchase checkout is not enabled yet — start free to continue.",
+      "subtitle": "Begin free with no card. Standard is ready when your site needs more monthly answers.",
+      "plannedNote": "Standard purchase is not available yet — start free today, then upgrade when checkout opens.",
       "free": {
         "badge": "Best place to start",
         "name": "Free",
@@ -8188,24 +8188,24 @@
         "priceAnnual": "{currency} {amount} / year",
         "features": [
           "2,500 renewing answers per month per website license",
-          "Same Kompis Web product — more monthly capacity",
+          "Same Buddy Web product — more monthly capacity",
           "Activated after verified payment when checkout opens"
         ],
         "cta": "Start free",
-        "checkoutUnavailable": "Paid checkout is not live yet. Start free to continue, then upgrade when Standard checkout opens.",
+        "checkoutUnavailable": "Standard is not available to purchase yet. Start free to continue.",
         "tagline": "For growing websites",
         "quotaUnit": "answers every month",
-        "priceNote": "Listed planned price · checkout not live yet"
+        "priceNote": "Listed price · not available to purchase yet"
       },
       "asideTitle": "Simple packages for website owners",
-      "asideBody": "Begin with a free lifetime answer allowance. Move to Standard when your site needs monthly capacity — checkout goes live in a later billing gate."
+      "asideBody": "Start with 150 free lifetime answers per website. Move to Standard when you need monthly capacity."
     },
     "faq": {
       "title": "Questions website owners ask",
       "items": [
         {
-          "question": "Where do I get Kompis Web?",
-          "answer": "Start at aipify.ai — create a free account with Start free, then connect and activate Kompis Web for your website."
+          "question": "Where do I get Buddy Web?",
+          "answer": "Start at aipify.ai — create a free account with Start free, then connect and activate Buddy Web for your website."
         },
         {
           "question": "How do I install it on my site?",
@@ -8248,12 +8248,12 @@
       "terms": "Terms",
       "contact": "Contact",
       "home": "Aipify home",
-      "tagline": "Aipify works for you · Kompis Web"
+      "tagline": "Aipify works for you · Buddy Web"
     },
     "start": {
-      "metaTitle": "Start free | Kompis Web",
-      "metaDescription": "Create your free Kompis Web account with work email, website, company, and language.",
-      "backHome": "Back to Kompis Web",
+      "metaTitle": "Start free | Buddy Web",
+      "metaDescription": "Create your free Buddy Web account with work email, website, company, and language.",
+      "backHome": "Back to Buddy Web",
       "collectTitle": "Create your free account",
       "collectSubtitle": "Four details to begin. No credit card required.",
       "accountTitle": "Secure your account",
@@ -8267,7 +8267,7 @@
       "createAccount": "Create free account",
       "back": "Back",
       "successTitle": "Check your email",
-      "successBody": "We sent a confirmation link to {email}. After confirming, sign in to continue with Kompis Web.",
+      "successBody": "We sent a confirmation link to {email}. After confirming, sign in to continue with Buddy Web.",
       "loginCta": "Go to login",
       "homeCta": "Back to home",
       "errorRequired": "Please fill in all required fields.",

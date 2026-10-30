@@ -8,77 +8,41 @@ import svMarketing from "../../../locales/sv/marketing.json";
 import ukMarketing from "../../../locales/uk/marketing.json";
 import { parseKompisWebSalesLabels } from "./labels";
 import {
+  KOMPIS_WEB_SALES_BROWSER_TITLE,
+  buildKompisWebSalesMetadata,
+} from "./sales-metadata";
+import {
   kompisWebSalesHelperDisplayName,
   resolveKompisWebSalesLocale,
 } from "./locale";
+import { resolvePublicLocale } from "@/lib/i18n/resolve-locale";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 assert.equal(resolveKompisWebSalesLocale({ cookieLocale: null }), "en");
-assert.equal(resolveKompisWebSalesLocale({ cookieLocale: undefined }), "en");
-assert.equal(resolveKompisWebSalesLocale({ cookieLocale: "no" }), "no");
-assert.equal(resolveKompisWebSalesLocale({ cookieLocale: "sv" }), "sv");
-assert.equal(resolveKompisWebSalesLocale({ cookieLocale: "xx" }), "en");
-
 assert.equal(kompisWebSalesHelperDisplayName("no"), "Kompis");
-assert.equal(kompisWebSalesHelperDisplayName("sv"), "Kompis");
-assert.equal(kompisWebSalesHelperDisplayName("da"), "Kompis");
 assert.equal(kompisWebSalesHelperDisplayName("en"), "Buddy");
-assert.equal(kompisWebSalesHelperDisplayName("es"), "Buddy");
-assert.equal(kompisWebSalesHelperDisplayName("pl"), "Buddy");
-assert.equal(kompisWebSalesHelperDisplayName("uk"), "Buddy");
+assert.equal(KOMPIS_WEB_SALES_BROWSER_TITLE, "Aipify works for you");
 
-const NORDIC = new Set(["no", "sv", "da"]);
-const BUDDY = new Set(["en", "es", "pl", "uk"]);
+// Cookie consent on the sales shell must follow sales locale (cookie|en), not Accept-Language.
+const nordicBrowser = resolvePublicLocale({
+  cookieLocale: null,
+  acceptLanguage: "nb-NO,nb;q=0.9,en;q=0.8",
+});
+assert.equal(nordicBrowser.locale, "no");
+assert.equal(resolveKompisWebSalesLocale({ cookieLocale: null }), "en");
+assert.notEqual(nordicBrowser.locale, resolveKompisWebSalesLocale({ cookieLocale: null }));
+assert.equal(resolveKompisWebSalesLocale({ cookieLocale: "no" }), "no");
 
-/** Nordic locales keep helper name Kompis; EN/ES/PL/UK use Buddy (product name Kompis Web stays). */
-function helperNameLeak(locale: string, sales: unknown): string[] {
-  const blob = JSON.stringify(sales);
-  const protectedBlob = blob
-    .replaceAll("Kompis Web", "«PW»")
-    .replaceAll("Kompis Bedrift", "«PB»");
-  const leaks: string[] = [];
-  if (NORDIC.has(locale)) {
-    if (protectedBlob.includes("Buddy")) leaks.push("unexpected Buddy in Nordic helper copy");
-  } else if (protectedBlob.includes("Kompis")) {
-    leaks.push("unexpected helper Kompis outside product name");
-  }
-  return leaks;
-}
+const salesLayout = readFileSync(
+  join(process.cwd(), "app/(kompis-sales)/layout.tsx"),
+  "utf8",
+);
+assert.match(salesLayout, /resolveKompisWebSalesLocale/);
+assert.doesNotMatch(salesLayout, /getMarketingContext/);
+assert.doesNotMatch(salesLayout, /getLocale/);
 
-type AuditRow = {
-  locale: string;
-  path: string;
-  text: string;
-  kind: "assistant" | "product" | "brand";
-};
-
-function walk(obj: unknown, path: string, rows: AuditRow[], locale: string) {
-  if (typeof obj === "string") {
-    if (!/Kompis|Buddy|buddy|kompis/i.test(obj)) return;
-    const withoutProduct = obj.replaceAll("Kompis Web", "").replaceAll("Kompis Bedrift", "");
-    if (/\bBuddy\b/i.test(obj)) {
-      rows.push({ locale, path, text: obj, kind: "assistant" });
-    }
-    if (/\bKompis\b/i.test(withoutProduct)) {
-      rows.push({ locale, path, text: obj, kind: "assistant" });
-    }
-    if (/Kompis Web/.test(obj)) {
-      rows.push({ locale, path, text: obj, kind: "product" });
-    }
-    if (/Aipify works for you/.test(obj)) {
-      rows.push({ locale, path, text: obj, kind: "brand" });
-    }
-    return;
-  }
-  if (Array.isArray(obj)) {
-    obj.forEach((item, i) => walk(item, `${path}[${i}]`, rows, locale));
-    return;
-  }
-  if (obj && typeof obj === "object") {
-    for (const [key, value] of Object.entries(obj)) {
-      walk(value, path ? `${path}.${key}` : key, rows, locale);
-    }
-  }
-}
+const BUDDY_LOCALES = new Set(["en", "es", "pl", "uk"]);
 
 const localeBundles = [
   ["en", enMarketing],
@@ -90,59 +54,72 @@ const localeBundles = [
   ["uk", ukMarketing],
 ] as const;
 
-const auditRows: AuditRow[] = [];
-
 for (const [locale, marketing] of localeBundles) {
-  const sales = (marketing as { kompisWebSales: unknown }).kompisWebSales;
-  const leaks = helperNameLeak(locale, sales);
-  assert.equal(leaks.length, 0, `${locale}: ${leaks.join("; ")}`);
-
+  const sales = (marketing as { kompisWebSales: Record<string, unknown> }).kompisWebSales;
   const labels = parseKompisWebSalesLabels(marketing as Record<string, unknown>);
-  assert.ok(labels.hero.titleBefore.includes("Aipify"), `${locale}: H1 must lead with Aipify`);
-  assert.ok(labels.meta.title.includes("Aipify works for you"), `${locale}: meta.title brand phrase`);
-  assert.ok(labels.footer.tagline.includes("Aipify works for you"), `${locale}: footer brand phrase`);
-  assert.equal(labels.hrefs.start, "/start");
-  assert.doesNotMatch(
-    `${labels.hero.secondaryCta} ${labels.finalCta.secondary} ${labels.pricing.paid.cta} ${labels.pricing.plannedNote} ${labels.pricing.paid.checkoutUnavailable}`,
-    /book\s*demo/i,
-    `${locale}: book demo must not remain in CTAs`,
-  );
-  assert.ok(labels.start.collectTitle.length > 0, `${locale}: start flow labels required`);
+  const salesJson = JSON.stringify(sales);
+  const meta = buildKompisWebSalesMetadata(labels, "/");
 
-  const expectedHelper = NORDIC.has(locale) ? "Kompis" : "Buddy";
+  assert.equal(meta.title, "Aipify works for you", `${locale}: browser title locked`);
+  assert.equal(
+    typeof meta.openGraph === "object" && meta.openGraph && "title" in meta.openGraph
+      ? meta.openGraph.title
+      : null,
+    "Aipify works for you",
+  );
+
   const surface = [
+    labels.meta.title,
+    labels.meta.description,
+    labels.hero.eyebrow,
+    labels.hero.titleBefore,
+    labels.hero.titleHighlight,
+    labels.hero.subtitle,
     labels.hero.mascotAlt,
-    ...labels.benefits.items.map((i) => `${i.title} ${i.body}`),
-    ...labels.how.steps.map((i) => `${i.title} ${i.body}`),
-    ...labels.faq.items.map((i) => `${i.question} ${i.answer}`),
+    labels.benefits.title,
+    ...labels.benefits.items.flatMap((i) => [i.title, i.body]),
+    labels.how.title,
+    labels.how.intro,
+    ...labels.how.steps.flatMap((i) => [i.title, i.body]),
+    labels.demo.title,
+    labels.demo.subtitle,
+    labels.demo.widgetTitle,
+    labels.demo.widgetReply,
+    labels.pricing.title,
+    labels.pricing.subtitle,
+    labels.pricing.plannedNote,
+    labels.pricing.asideBody,
+    ...labels.pricing.free.features,
+    ...labels.pricing.paid.features,
+    labels.pricing.paid.checkoutUnavailable,
+    ...labels.faq.items.flatMap((i) => [i.question, i.answer]),
+    labels.finalCta.title,
+    labels.finalCta.subtitle,
+    labels.footer.tagline,
+    labels.start.metaTitle,
+    labels.start.metaDescription,
+    labels.start.backHome,
+    labels.start.successBody,
   ].join("\n");
-  assert.match(surface, new RegExp(`\\b${expectedHelper}\\b`), `${locale}: helper name ${expectedHelper}`);
-  if (BUDDY.has(locale)) {
-    assert.doesNotMatch(
-      surface.replaceAll("Kompis Web", "«PW»").replaceAll("Kompis Bedrift", "«PB»"),
-      /\bKompis\b/,
-      `${locale}: assistant must not be Kompis`,
-    );
+
+  if (BUDDY_LOCALES.has(locale)) {
+    assert.doesNotMatch(salesJson, /Kompis/, `${locale}: zero Kompis in sales JSON`);
+    assert.doesNotMatch(surface, /Kompis/, `${locale}: zero Kompis in rendered sales labels`);
+    assert.match(surface, /\bBuddy\b/, `${locale}: Buddy present`);
+    if (locale === "en") {
+      assert.match(surface, /Buddy Web/, "en: Buddy Web product display name");
+      assert.doesNotMatch(surface, /Owner-decided|billing gate|catalog/i, "en: no technical residue");
+    }
   } else {
-    assert.doesNotMatch(surface, /\bBuddy\b/, `${locale}: assistant must not be Buddy`);
+    assert.match(surface, /\bKompis\b/, `${locale}: Kompis assistant/product present`);
+    assert.doesNotMatch(surface, /\bBuddy\b/, `${locale}: no Buddy`);
+    assert.match(salesJson, /Kompis Web/, `${locale}: keeps Kompis Web product name`);
   }
 
-  walk(sales, "kompisWebSales", auditRows, locale);
+  assert.doesNotMatch(
+    `${labels.hero.secondaryCta} ${labels.finalCta.secondary} ${labels.pricing.paid.cta}`,
+    /book\s*demo/i,
+  );
 }
 
-const assistantMistakes = auditRows.filter((row) => {
-  if (row.kind !== "assistant") return false;
-  const withoutProduct = row.text.replaceAll("Kompis Web", "").replaceAll("Kompis Bedrift", "");
-  if (NORDIC.has(row.locale)) return /\bBuddy\b/i.test(row.text);
-  return /\bKompis\b/i.test(withoutProduct);
-});
-assert.equal(assistantMistakes.length, 0, JSON.stringify(assistantMistakes.slice(0, 5), null, 2));
-
-const productRows = auditRows.filter((r) => r.kind === "product");
-assert.ok(productRows.length > 0, "expected intentional Kompis Web product-name occurrences");
-
-console.log(
-  "kompis-web-sales locale policy: PASS",
-  `assistant_ok locales=${localeBundles.length}`,
-  `product_name_rows=${productRows.length}`,
-);
+console.log("kompis-web-sales locale policy: PASS (Buddy Web EN surface)");

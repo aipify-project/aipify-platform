@@ -100,6 +100,17 @@ test("portal auth paths include password recovery routes", () => {
   assert.equal(isPortalAuthPath("/forgot-password"), true);
 });
 
+test("session proxy includes forgot-password so recovery routes share login session handling", () => {
+  const proxySource = require("node:fs").readFileSync("proxy.ts", "utf8") as string;
+  assert.match(proxySource, /pathname\.startsWith\("\/forgot-password"\)/);
+  assert.match(proxySource, /pathname\.startsWith\("\/reset-password"\)/);
+  const updateSessionSource = require("node:fs").readFileSync(
+    "lib/supabase/update-session.ts",
+    "utf8",
+  ) as string;
+  assert.match(updateSessionSource, /Invalid\/expired refresh cookies must not crash/);
+});
+
 test("portal auth paths include neutral MFA routes", () => {
   assert.equal(isPortalAuthPath("/auth/two-factor/enroll"), true);
   assert.equal(isPortalAuthPath("/auth/two-factor/verify"), true);

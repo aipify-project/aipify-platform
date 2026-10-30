@@ -13,14 +13,23 @@ const labels = parseKompisWebSalesLabels(enMarketing as Record<string, unknown>)
 
 const root = buildKompisWebSalesMetadata(labels, "/");
 assert.equal(root.title, KOMPIS_WEB_SALES_BROWSER_TITLE);
+assert.equal(root.title, "Aipify works for you");
+assert.doesNotMatch(String(root.title), /Kompis/i);
 assert.equal(root.alternates?.canonical, KOMPIS_WEB_SALES_CANONICAL_URL);
-assert.ok(String(root.title).includes("Aipify works for you"));
+assert.equal(
+  typeof root.openGraph === "object" && root.openGraph && "title" in root.openGraph
+    ? root.openGraph.title
+    : null,
+  "Aipify works for you",
+);
 assert.equal(
   typeof root.twitter === "object" && root.twitter && "title" in root.twitter
     ? root.twitter.title
     : null,
   "Aipify works for you",
 );
+assert.doesNotMatch(labels.hero.eyebrow + labels.hero.subtitle + labels.demo.title, /Kompis/);
+assert.match(labels.hero.eyebrow, /Buddy Web/);
 
 const startMeta = buildKompisWebStartMetadata(labels);
 assert.equal(
