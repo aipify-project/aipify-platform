@@ -9,6 +9,9 @@ export type CspRegistrationInput = {
   legalBusinessName?: unknown;
   /** Free-form text — formats differ per country. */
   businessRegistrationNumber?: unknown;
+  phone?: unknown;
+  preferredLocale?: unknown;
+  address?: unknown;
   registeredBusinessConfirmed?: unknown;
   termsAccepted?: unknown;
   certificationUnderstood?: unknown;
@@ -21,6 +24,9 @@ export type CspRegistrationPayload = {
   country: string;
   legalBusinessName: string;
   businessRegistrationNumber: string;
+  phone: string | null;
+  preferredLocale: string | null;
+  address: string | null;
   registeredBusinessConfirmed: true;
   termsAccepted: true;
   certificationUnderstood: true;
@@ -69,6 +75,10 @@ export function validateCspRegistration(input: CspRegistrationInput): CspRegistr
     return fail("infoAccurateConfirmed", "accuracy_confirmation_required");
   }
 
+  const phone = text(input?.phone) || null;
+  const preferredLocale = text(input?.preferredLocale) || null;
+  const address = text(input?.address) || null;
+
   return {
     ok: true,
     payload: {
@@ -77,6 +87,9 @@ export function validateCspRegistration(input: CspRegistrationInput): CspRegistr
       country: country.toUpperCase(),
       legalBusinessName,
       businessRegistrationNumber,
+      phone,
+      preferredLocale,
+      address,
       registeredBusinessConfirmed: true,
       termsAccepted: true,
       certificationUnderstood: true,
