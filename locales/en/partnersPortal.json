@@ -405,6 +405,61 @@
     "kompis": {
       "honestBlockedTitle": "Kompis help unavailable here",
       "honestBlockedBody": "Kompis help is disabled during partner certification and test flows. Use Academy materials instead."
+    },
+    "workspace": {
+      "loading": "Loading partner workspace…",
+      "notReadyTitle": "Partner backend not active yet",
+      "notReadyBody": "Certified Sales Partner Core storage is not active until the approved database migration is applied. No fake sales or commissions are shown.",
+      "retry": "Try again",
+      "errorTitle": "Something unexpected happened. Please try again."
+    },
+    "pages": {
+      "home": {
+        "title": "Certified Sales Partner home",
+        "subtitle": "Your Aipify sales workspace for certified products, links and commissions.",
+        "readyHint": "When Core is active, overview metrics for products, sales and payouts appear here."
+      },
+      "products": {
+        "title": "Products for sale",
+        "subtitle": "Approved Aipify products with customer price and fixed one-time commission. Partners cannot purchase here.",
+        "noBuy": "There is no purchase button for partners. Generate a tracking link after certification."
+      },
+      "links": {
+        "title": "My sales links",
+        "subtitle": "Create personal product links by channel. First valid touch wins for 90 days."
+      },
+      "sales": {
+        "title": "My sales",
+        "subtitle": "Registered sales stay neutral until the customer’s second successful paid period.",
+        "awaitingHint": "Payment #1 shows as registered / awaiting month 2 — commission is not earned yet."
+      },
+      "settlement": {
+        "title": "Commission and payouts",
+        "subtitle": "Read-only view of monthly settlements. Aipify Group AS pays manually in bank.",
+        "readOnlyHint": "You can view upcoming and historical payouts. You cannot change ledger amounts."
+      },
+      "academy": {
+        "title": "Growth Academy",
+        "subtitle": "Product training and certification. Pass mark is 80%. Kompis help is disabled during the test."
+      }
+    },
+    "links": {
+      "panelTitle": "Generate a sales link",
+      "productId": "Product id",
+      "channel": "Channel",
+      "submit": "Create link",
+      "howItWorks": "Attribution uses first valid touch within 90 days. Commission is earned only after two successful paid periods — never on renewals.",
+      "success": "Link request accepted by the API.",
+      "gatesHint": "Confirm partner approval, published product, certification and agreement before requesting a live link."
+    },
+    "exam": {
+      "title": "Product certification test",
+      "courseId": "Course id",
+      "answersJson": "Answers (server scored)",
+      "submit": "Submit test",
+      "kompisBlocked": "Kompis help is disabled during this test. No hints are available from Aipify during the exam.",
+      "passed": "Passed",
+      "failed": "Not passed yet"
     }
   }
 }
