@@ -33622,5 +33622,97 @@
       "failed": "Mislyktes"
     },
     "principle": "Unonight-piloten opererer i skrivebeskyttet oppdagelse — Aipify observerer metadata og forbereder anbefalinger uten å utføre endringer."
+  },
+  "certifiedSalesPartner": {
+    "brand": "Certified Aipify Sales Partner",
+    "title": "Sertifisert salgspartner",
+    "subtitle": "Selg Aipify-produkter med sertifisert opplæring, sporbare lenker og rettferdig engangsprovisjon.",
+    "backendNotReady": "Selgerledger og oppgjørs-API er ikke aktive i dette miljøet ennå. Plattformkontroller forblir stengt til Core-migrasjonen er godkjent og anvendt.",
+    "kompisHelpDisabled": "Kompis-hjelp er deaktivert under partnersertifisering og tester. Bruk Academy-materiell i stedet.",
+    "portal": {
+      "badge": "Partnerportal",
+      "title": "Sertifisert salgspartner",
+      "subtitle": "Ditt Aipify-salgsområde"
+    },
+    "backend": {
+      "notReadyTitle": "Backend er ikke aktivert",
+      "notReadyBody": "Selgerledger og oppgjørs-API er ikke aktive i dette miljøet ennå. Plattformkontroller forblir stengt til Core-migrasjonen er godkjent og anvendt."
+    },
+    "kompis": {
+      "honestBlockedTitle": "Kompis-hjelp er utilgjengelig her",
+      "honestBlockedBody": "Kompis-hjelp er deaktivert under partnersertifisering og tester. Bruk Academy-materiell i stedet."
+    },
+    "recruitment": {
+      "cta": "Bli Certified Aipify Sales Partner",
+      "independentNote": "Du arbeider som selvstendig partner — ikke som ansatt i Aipify.",
+      "noIncomeGuarantee": "Provisjon opptjenes først etter kundens andre vellykkede betalte abonnementsperiode. Inntekter er aldri garantert."
+    },
+    "catalog": {
+      "getMyLink": "Hent min lenke",
+      "share": "Del",
+      "takeTest": "Ta testen",
+      "noBuyButton": "Partnere kjøper ikke produkter her."
+    },
+    "saleStatus": {
+      "registered_awaiting_second_payment": "Awaiting second payment",
+      "pending_possible": "Possible — not earned",
+      "earned": "Earned",
+      "approved_for_payout": "Approved for payout",
+      "queued_for_payout": "Queued for payout",
+      "paid": "Paid",
+      "reversed": "Reversed",
+      "rejected": "Rejected"
+    },
+    "partnerStatus": {
+      "registered": "Registered",
+      "under_review": "Under review",
+      "needs_information": "Needs information",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "suspended": "Suspended"
+    },
+    "channelOrigin": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "x": "X",
+      "snapchat": "Snapchat",
+      "tiktok": "TikTok",
+      "linkedin": "LinkedIn",
+      "email": "Email",
+      "qr": "QR",
+      "other": "Other",
+      "referral_link": "Referral link",
+      "partner_code": "Partner code",
+      "manual_platform_assignment": "Manual assignment"
+    },
+    "settlementStatus": {
+      "open": "Open",
+      "closed": "Closed",
+      "approved": "Approved",
+      "paid": "Paid",
+      "voided": "Voided"
+    },
+    "navGroups": {
+      "home": "Hjem",
+      "pipeline": "Kunder",
+      "economy": "Provisjon",
+      "academy": "Academy",
+      "account": "Konto"
+    },
+    "nav": {
+      "home": "Hjem",
+      "products": "Produkter",
+      "salesLinks": "Mine salgslenker",
+      "leads": "Leads",
+      "customers": "Mine kunder",
+      "sales": "Mine salg",
+      "commissionPayouts": "Provisjon og utbetalinger",
+      "growthAcademy": "Growth Academy",
+      "certifications": "Sertifiseringer",
+      "salesTools": "Salgsverktøy",
+      "notifications": "Varsler",
+      "help": "Hjelp",
+      "profile": "Min profil"
+    }
   }
 }

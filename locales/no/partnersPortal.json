@@ -369,5 +369,42 @@
       "reports": "Rapporter",
       "auditRecent": "Nylige revisjonshendelser"
     }
+  },
+  "certifiedSalesPartner": {
+    "navGroups": {
+      "home": "Hjem",
+      "pipeline": "Kunder",
+      "economy": "Provisjon",
+      "academy": "Academy",
+      "account": "Konto"
+    },
+    "nav": {
+      "home": "Hjem",
+      "products": "Produkter",
+      "salesLinks": "Mine salgslenker",
+      "leads": "Leads",
+      "customers": "Mine kunder",
+      "sales": "Mine salg",
+      "commissionPayouts": "Provisjon og utbetalinger",
+      "growthAcademy": "Growth Academy",
+      "certifications": "Sertifiseringer",
+      "salesTools": "Salgsverktøy",
+      "notifications": "Varsler",
+      "help": "Hjelp",
+      "profile": "Min profil"
+    },
+    "portal": {
+      "badge": "Partnerportal",
+      "title": "Sertifisert salgspartner",
+      "subtitle": "Ditt Aipify-salgsområde"
+    },
+    "backend": {
+      "notReadyTitle": "Backend er ikke aktivert",
+      "notReadyBody": "Selgerledger og oppgjørs-API er ikke aktive i dette miljøet ennå. Plattformkontroller forblir stengt til Core-migrasjonen er godkjent og anvendt."
+    },
+    "kompis": {
+      "honestBlockedTitle": "Kompis-hjelp er utilgjengelig her",
+      "honestBlockedBody": "Kompis-hjelp er deaktivert under partnersertifisering og tester. Bruk Academy-materiell i stedet."
+    }
   }
 }

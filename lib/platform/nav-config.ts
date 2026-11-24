@@ -63,6 +63,17 @@ export type PlatformNavId =
   | "paymentProviders"
   | "growthPartnerAttribution"
   | "commissions"
+  | "sellersOverview"
+  | "sellersPartners"
+  | "sellersProducts"
+  | "sellersCommissionRates"
+  | "sellersAttribution"
+  | "sellersAcademy"
+  | "sellersMaterials"
+  | "sellersLeadsSales"
+  | "sellersSettlements"
+  | "sellersAudit"
+  | "sellersSettings"
   | "installations"
   | "installEngine"
   | "updates"
@@ -481,6 +492,61 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.commissions",
   },
   {
+    id: "sellersOverview",
+    href: "/platform/sellers",
+    labelKey: "platform.nav.sellersOverview",
+  },
+  {
+    id: "sellersPartners",
+    href: "/platform/sellers/partners",
+    labelKey: "platform.nav.sellersPartners",
+  },
+  {
+    id: "sellersProducts",
+    href: "/platform/sellers/products",
+    labelKey: "platform.nav.sellersProducts",
+  },
+  {
+    id: "sellersCommissionRates",
+    href: "/platform/sellers/commission-rates",
+    labelKey: "platform.nav.sellersCommissionRates",
+  },
+  {
+    id: "sellersAttribution",
+    href: "/platform/sellers/attribution",
+    labelKey: "platform.nav.sellersAttribution",
+  },
+  {
+    id: "sellersAcademy",
+    href: "/platform/sellers/academy",
+    labelKey: "platform.nav.sellersAcademy",
+  },
+  {
+    id: "sellersMaterials",
+    href: "/platform/sellers/materials",
+    labelKey: "platform.nav.sellersMaterials",
+  },
+  {
+    id: "sellersLeadsSales",
+    href: "/platform/sellers/leads-sales",
+    labelKey: "platform.nav.sellersLeadsSales",
+  },
+  {
+    id: "sellersSettlements",
+    href: "/platform/sellers/settlements",
+    labelKey: "platform.nav.sellersSettlements",
+  },
+  {
+    id: "sellersAudit",
+    href: "/platform/sellers/audit",
+    labelKey: "platform.nav.sellersAudit",
+  },
+  {
+    id: "sellersSettings",
+    href: "/platform/sellers/settings",
+    labelKey: "platform.nav.sellersSettings",
+  },
+  {
     id: "installations",
     href: "/platform/installations",
     labelKey: "platform.nav.installations",
@@ -636,6 +702,19 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
     return "growthPartnerAttribution";
   }
   if (pathname.startsWith("/platform/billing/commissions")) return "commissions";
+  if (pathname.startsWith("/platform/sellers/partners")) return "sellersPartners";
+  if (pathname.startsWith("/platform/sellers/products")) return "sellersProducts";
+  if (pathname.startsWith("/platform/sellers/commission-rates")) return "sellersCommissionRates";
+  if (pathname.startsWith("/platform/sellers/attribution")) return "sellersAttribution";
+  if (pathname.startsWith("/platform/sellers/academy")) return "sellersAcademy";
+  if (pathname.startsWith("/platform/sellers/materials")) return "sellersMaterials";
+  if (pathname.startsWith("/platform/sellers/leads-sales")) return "sellersLeadsSales";
+  if (pathname.startsWith("/platform/sellers/settlements")) return "sellersSettlements";
+  if (pathname.startsWith("/platform/sellers/audit")) return "sellersAudit";
+  if (pathname.startsWith("/platform/sellers/settings")) return "sellersSettings";
+  if (pathname === "/platform/sellers" || pathname.startsWith("/platform/sellers/")) {
+    return "sellersOverview";
+  }
   if (
     pathname.startsWith("/platform/billing/invoices") ||
     pathname.startsWith("/platform/billing/enterprise-invoices") ||

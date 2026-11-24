@@ -8689,5 +8689,27 @@
       "errorExists": "Der findes allerede en konto med denne e-mail. Log ind i stedet.",
       "errorRateLimit": "For mange forsøg. Vent og prøv igen."
     }
+  },
+  "certifiedSalesPartner": {
+    "meta": {
+      "title": "Certified Aipify Sales Partner",
+      "description": "Join Aipify Group AS as an independent certified sales partner."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "current": "Certified Sales Partner"
+    },
+    "hero": {
+      "title": "Sell Aipify with certification, trackable links and fair commission",
+      "subtitle": "Become a Certified Aipify Sales Partner. Complete product training, share approved links, and earn a one-time commission after a customer’s second successful paid period.",
+      "cta": "Become a Certified Aipify Sales Partner",
+      "secondaryCta": "Learn about Growth Partners"
+    },
+    "points": {
+      "independent": "Independent partner model — not employment.",
+      "certification": "Product-specific Academy certification at 80% pass mark before selling.",
+      "commission": "Admin-set fixed one-time commission per product — never recurring renewals.",
+      "noGuarantee": "No income guarantees. Commission requires two verified paid subscription periods."
+    }
   }
 }

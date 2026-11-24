@@ -297,7 +297,18 @@
     "growthPartnerAttribution": "Sales links & attribution",
     "commissions": "Seller commissions",
     "communications": "Communication",
-    "superRoleAccess": "Roles & access"
+    "superRoleAccess": "Roles & access",
+    "sellersOverview": "Sellers overview",
+    "sellersPartners": "Partners & approval",
+    "sellersProducts": "Products for sale",
+    "sellersCommissionRates": "Commission rates",
+    "sellersAttribution": "Sales links & attribution",
+    "sellersAcademy": "Academy & tests",
+    "sellersMaterials": "Sales materials & email",
+    "sellersLeadsSales": "Leads & sales",
+    "sellersSettlements": "Settlements & payouts",
+    "sellersAudit": "Exceptions & audit",
+    "sellersSettings": "Seller settings"
   },
   "executive": {
     "title": "Executive Center",
@@ -7782,6 +7793,57 @@
         "description": "Preview planned plan catalog and draft customer emails. Preview only — no messages are sent.",
         "cta": "Open plan message drafts"
       }
+    }
+  },
+  "sellers": {
+    "overview": {
+      "title": "Certified Sales Partners",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements.",
+      "openPartners": "Partners & approval"
+    },
+    "partners": {
+      "title": "Partners & approval",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+    },
+    "products": {
+      "title": "Products for sale",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+    },
+    "commissionRates": {
+      "title": "Commission rates",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+    },
+    "attribution": {
+      "title": "Sales links & attribution",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+    },
+    "academy": {
+      "title": "Academy & tests",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+    },
+    "materials": {
+      "title": "Sales materials & email",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+    },
+    "leadsSales": {
+      "title": "Leads & sales",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+    },
+    "settlements": {
+      "title": "Settlements & payouts",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+    },
+    "audit": {
+      "title": "Exceptions & audit",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+    },
+    "settings": {
+      "title": "Seller settings",
+      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+    },
+    "backend": {
+      "notReadyTitle": "Backend not activated",
+      "notReadyBody": "Seller ledger and settlement APIs are not active yet. Controls stay fail-closed until the Core CSP migration is approved and applied."
     }
   }
 }

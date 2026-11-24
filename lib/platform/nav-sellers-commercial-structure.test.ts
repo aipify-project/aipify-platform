@@ -29,14 +29,28 @@ test("sidebar group order matches IA polish: sellers last", () => {
   assert.equal(PLATFORM_NAV_GROUPS.at(-1)?.id, "sellers");
 });
 
-test("sellers group collects growth partner routes; commercial starts with finance overview", () => {
+test("sellers group collects certified sales partner routes; commercial starts with finance overview", () => {
   const sellers = PLATFORM_NAV_GROUPS.find((g) => g.id === "sellers");
   const commercial = PLATFORM_NAV_GROUPS.find((g) => g.id === "commercial");
   const product = PLATFORM_NAV_GROUPS.find((g) => g.id === "product");
   assert.ok(sellers);
   assert.deepEqual(
     sellers!.items.map((i) => i.id),
-    ["growthPartners", "growthPartnerAttribution", "commissions"],
+    [
+      "sellersOverview",
+      "sellersPartners",
+      "sellersProducts",
+      "sellersCommissionRates",
+      "sellersAttribution",
+      "sellersAcademy",
+      "sellersMaterials",
+      "sellersLeadsSales",
+      "sellersSettlements",
+      "sellersAudit",
+      "sellersSettings",
+      "growthPartnerAttribution",
+      "commissions",
+    ],
   );
   assert.ok(commercial);
   assert.deepEqual(
@@ -80,6 +94,8 @@ test("active nav resolves payments, invoices, and sellers routes", () => {
     "growthPartnerAttribution",
   );
   assert.equal(getPlatformActiveNavId("/platform/billing/commissions"), "commissions");
+  assert.equal(getPlatformActiveNavId("/platform/sellers"), "sellersOverview");
+  assert.equal(getPlatformActiveNavId("/platform/sellers/partners"), "sellersPartners");
   assert.equal(getPlatformActiveNavId("/platform/pilot-operations"), "growthPartners");
   assert.equal(getPlatformActiveNavId("/platform/subscriptions"), "subscriptions");
 });
@@ -96,6 +112,8 @@ test("locale parity for sellers group and clearer economy labels", () => {
         growthPartners?: string;
         growthPartnerAttribution?: string;
         commissions?: string;
+        sellersOverview?: string;
+        sellersPartners?: string;
       };
     };
     assert.ok(data.navGroups?.sellers, `missing navGroups.sellers for ${locale}`);
@@ -103,6 +121,8 @@ test("locale parity for sellers group and clearer economy labels", () => {
     assert.ok(data.nav?.payments, `missing nav.payments for ${locale}`);
     assert.ok(data.nav?.growthPartnerAttribution, `missing attribution for ${locale}`);
     assert.ok(data.nav?.commissions, `missing commissions for ${locale}`);
+    assert.ok(data.nav?.sellersOverview, `missing sellersOverview for ${locale}`);
+    assert.ok(data.nav?.sellersPartners, `missing sellersPartners for ${locale}`);
   }
 
   const no = JSON.parse(
