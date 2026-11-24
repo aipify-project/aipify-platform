@@ -297,7 +297,18 @@
     "growthPartnerAttribution": "Linki sprzedażowe i atrybucja",
     "commissions": "Prowizje sprzedawców",
     "communications": "Komunikacja",
-    "superRoleAccess": "Role i dostępy"
+    "superRoleAccess": "Role i dostępy",
+    "sellersOverview": "Przegląd sprzedawców",
+    "sellersPartners": "Partnerzy i zatwierdzanie",
+    "sellersProducts": "Produkty do sprzedaży",
+    "sellersCommissionRates": "Stawki prowizji",
+    "sellersAttribution": "Linki sprzedażowe i atrybucja",
+    "sellersAcademy": "Akademia i testy",
+    "sellersMaterials": "Materiały i e-mail",
+    "sellersLeadsSales": "Leady i sprzedaż",
+    "sellersSettlements": "Rozliczenia i wypłaty",
+    "sellersAudit": "Odchylenia i audyt",
+    "sellersSettings": "Ustawienia sprzedawców"
   },
   "executive": {
     "title": "Centrum wykonawcze",
@@ -7782,6 +7793,57 @@
         "description": "Podgląd planowanego katalogu planów i szkiców e-mail do klientów. Tylko podgląd — wiadomości nie są wysyłane.",
         "cta": "Otwórz szkice wiadomości planów"
       }
+    }
+  },
+  "sellers": {
+    "overview": {
+      "title": "Certified Sales Partners",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami.",
+      "openPartners": "Partnerzy i zatwierdzanie"
+    },
+    "partners": {
+      "title": "Partnerzy i zatwierdzanie",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+    },
+    "products": {
+      "title": "Produkty do sprzedaży",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+    },
+    "commissionRates": {
+      "title": "Stawki prowizji",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+    },
+    "attribution": {
+      "title": "Linki sprzedażowe i atrybucja",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+    },
+    "academy": {
+      "title": "Akademia i testy",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+    },
+    "materials": {
+      "title": "Materiały i e-mail",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+    },
+    "leadsSales": {
+      "title": "Leady i sprzedaż",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+    },
+    "settlements": {
+      "title": "Rozliczenia i wypłaty",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+    },
+    "audit": {
+      "title": "Odchylenia i audyt",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+    },
+    "settings": {
+      "title": "Ustawienia sprzedawców",
+      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+    },
+    "backend": {
+      "notReadyTitle": "Backend nieaktywny",
+      "notReadyBody": "Ledger sprzedawców i API rozliczeń nie są jeszcze aktywne. Kontrolki pozostają zamknięte do zatwierdzenia i zastosowania migracji Core CSP."
     }
   }
 }

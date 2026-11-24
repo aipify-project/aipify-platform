@@ -369,5 +369,42 @@
       "reports": "Rapporter",
       "auditRecent": "Senaste revisionshändelser"
     }
+  },
+  "certifiedSalesPartner": {
+    "navGroups": {
+      "home": "Home",
+      "pipeline": "Customers",
+      "economy": "Commission",
+      "academy": "Academy",
+      "account": "Account"
+    },
+    "nav": {
+      "home": "Home",
+      "products": "Products",
+      "salesLinks": "My sales links",
+      "leads": "Leads",
+      "customers": "My customers",
+      "sales": "My sales",
+      "commissionPayouts": "Commission & payouts",
+      "growthAcademy": "Growth Academy",
+      "certifications": "Certifications",
+      "salesTools": "Sales tools",
+      "notifications": "Notifications",
+      "help": "Help",
+      "profile": "My profile"
+    },
+    "portal": {
+      "badge": "Partner portal",
+      "title": "Certified Sales Partner",
+      "subtitle": "Your Aipify sales workspace"
+    },
+    "backend": {
+      "notReadyTitle": "Backend not activated",
+      "notReadyBody": "Seller ledger and settlement APIs are not active in this environment yet. Platform controls remain fail-closed until Core migration is approved and applied."
+    },
+    "kompis": {
+      "honestBlockedTitle": "Kompis help unavailable here",
+      "honestBlockedBody": "Kompis help is disabled during partner certification and test flows. Use Academy materials instead."
+    }
   }
 }

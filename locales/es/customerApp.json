@@ -8560,5 +8560,97 @@
       "whyUse": "Why use Executive Companion?",
       "whyUseAnswer": "Executive Companion reduces information overload and helps leaders focus on what matters most."
     }
+  },
+  "certifiedSalesPartner": {
+    "brand": "Certified Aipify Sales Partner",
+    "title": "Certified Sales Partner",
+    "subtitle": "Sell Aipify products with certified training, trackable links and fair one-time commission.",
+    "backendNotReady": "Seller ledger and settlement APIs are not active in this environment yet. Platform controls remain fail-closed until Core migration is approved and applied.",
+    "kompisHelpDisabled": "Kompis help is disabled during partner certification and test flows. Use Academy materials instead.",
+    "portal": {
+      "badge": "Partner portal",
+      "title": "Certified Sales Partner",
+      "subtitle": "Your Aipify sales workspace"
+    },
+    "backend": {
+      "notReadyTitle": "Backend not activated",
+      "notReadyBody": "Seller ledger and settlement APIs are not active in this environment yet. Platform controls remain fail-closed until Core migration is approved and applied."
+    },
+    "kompis": {
+      "honestBlockedTitle": "Kompis help unavailable here",
+      "honestBlockedBody": "Kompis help is disabled during partner certification and test flows. Use Academy materials instead."
+    },
+    "recruitment": {
+      "cta": "Become a Certified Aipify Sales Partner",
+      "independentNote": "You work as an independent partner — not as an Aipify employee.",
+      "noIncomeGuarantee": "Commission is earned only after a customer’s second successful paid subscription period. Income is never guaranteed."
+    },
+    "catalog": {
+      "getMyLink": "Get my link",
+      "share": "Share",
+      "takeTest": "Take the test",
+      "noBuyButton": "Partners do not purchase products here."
+    },
+    "saleStatus": {
+      "registered_awaiting_second_payment": "Awaiting second payment",
+      "pending_possible": "Possible — not earned",
+      "earned": "Earned",
+      "approved_for_payout": "Approved for payout",
+      "queued_for_payout": "Queued for payout",
+      "paid": "Paid",
+      "reversed": "Reversed",
+      "rejected": "Rejected"
+    },
+    "partnerStatus": {
+      "registered": "Registered",
+      "under_review": "Under review",
+      "needs_information": "Needs information",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "suspended": "Suspended"
+    },
+    "channelOrigin": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "x": "X",
+      "snapchat": "Snapchat",
+      "tiktok": "TikTok",
+      "linkedin": "LinkedIn",
+      "email": "Email",
+      "qr": "QR",
+      "other": "Other",
+      "referral_link": "Referral link",
+      "partner_code": "Partner code",
+      "manual_platform_assignment": "Manual assignment"
+    },
+    "settlementStatus": {
+      "open": "Open",
+      "closed": "Closed",
+      "approved": "Approved",
+      "paid": "Paid",
+      "voided": "Voided"
+    },
+    "navGroups": {
+      "home": "Home",
+      "pipeline": "Customers",
+      "economy": "Commission",
+      "academy": "Academy",
+      "account": "Account"
+    },
+    "nav": {
+      "home": "Home",
+      "products": "Products",
+      "salesLinks": "My sales links",
+      "leads": "Leads",
+      "customers": "My customers",
+      "sales": "My sales",
+      "commissionPayouts": "Commission & payouts",
+      "growthAcademy": "Growth Academy",
+      "certifications": "Certifications",
+      "salesTools": "Sales tools",
+      "notifications": "Notifications",
+      "help": "Help",
+      "profile": "My profile"
+    }
   }
 }

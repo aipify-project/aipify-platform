@@ -278,7 +278,18 @@
     "growthPartnerAttribution": "Salgslenker og attribusjon",
     "commissions": "Selgerprovisjoner",
     "communications": "Kommunikasjon",
-    "superRoleAccess": "Roller og tilganger"
+    "superRoleAccess": "Roller og tilganger",
+    "sellersOverview": "Selgeroversikt",
+    "sellersPartners": "Partnere og godkjenning",
+    "sellersProducts": "Produkter til salg",
+    "sellersCommissionRates": "Provisjonspriser",
+    "sellersAttribution": "Salgslenker og attribusjon",
+    "sellersAcademy": "Academy og tester",
+    "sellersMaterials": "Salgsmateriell og e-post",
+    "sellersLeadsSales": "Leads og salg",
+    "sellersSettlements": "Oppgjør og utbetalinger",
+    "sellersAudit": "Avvik og audit",
+    "sellersSettings": "Selgerinnstillinger"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -7511,6 +7522,57 @@
         "description": "Forhåndsvis planlagt plankatalog og e-postutkast til kunder. Kun forhåndsvisning — ingen meldinger sendes.",
         "cta": "Åpne planmeldingsutkast"
       }
+    }
+  },
+  "sellers": {
+    "overview": {
+      "title": "Certified Sales Partners",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør.",
+      "openPartners": "Partnere og godkjenning"
+    },
+    "partners": {
+      "title": "Partnere og godkjenning",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+    },
+    "products": {
+      "title": "Produkter til salg",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+    },
+    "commissionRates": {
+      "title": "Provisjonspriser",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+    },
+    "attribution": {
+      "title": "Salgslenker og attribusjon",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+    },
+    "academy": {
+      "title": "Academy og tester",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+    },
+    "materials": {
+      "title": "Salgsmateriell og e-post",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+    },
+    "leadsSales": {
+      "title": "Leads og salg",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+    },
+    "settlements": {
+      "title": "Oppgjør og utbetalinger",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+    },
+    "audit": {
+      "title": "Avvik og audit",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+    },
+    "settings": {
+      "title": "Selgerinnstillinger",
+      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+    },
+    "backend": {
+      "notReadyTitle": "Backend er ikke aktivert",
+      "notReadyBody": "Selgerledger og oppgjørs-API er ikke aktive ennå. Kontroller forblir stengt til Core CSP-migrasjonen er godkjent og anvendt."
     }
   }
 }

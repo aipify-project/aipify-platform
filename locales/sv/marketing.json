@@ -8689,5 +8689,48 @@
       "errorExists": "Det finns redan ett konto med den här e-postadressen. Logga in i stället.",
       "errorRateLimit": "För många försök. Vänta och försök igen."
     }
+  },
+  "certifiedSalesPartner": {
+    "meta": {
+      "title": "Certified Aipify Sales Partner",
+      "description": "Join Aipify Group AS as an independent certified sales partner."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "current": "Certified Sales Partner"
+    },
+    "hero": {
+      "title": "Sell Aipify with certification, trackable links and fair commission",
+      "subtitle": "Become a Certified Aipify Sales Partner. Complete product training, share approved links, and earn a one-time commission after a customer’s second successful paid period.",
+      "cta": "Become a Certified Aipify Sales Partner",
+      "secondaryCta": "Learn about Growth Partners"
+    },
+    "points": {
+      "independent": "Independent partner model — not employment.",
+      "certification": "Product-specific Academy certification at 80% pass mark before selling.",
+      "commission": "Admin-set fixed one-time commission per product — never recurring renewals.",
+      "noGuarantee": "No income guarantees. Commission requires two verified paid subscription periods."
+    },
+    "registration": {
+      "title": "Ansök som Certified Aipify Sales Partner",
+      "fullName": "Fullständigt juridiskt namn",
+      "email": "Arbets-e-post",
+      "country": "Land (ISO-kod, t.ex. NO, SE, US)",
+      "legalBusinessName": "Juridiskt företagsnamn",
+      "businessRegistrationNumber": "Organisations-/registreringsnummer",
+      "phone": "Telefon (valfritt)",
+      "address": "Företagsadress (valfritt)",
+      "confirmBusiness": "Jag bekräftar att jag driver lagligt registrerad självständig verksamhet i mitt land.",
+      "confirmTerms": "Jag godkänner partnervillkoren och förstår att detta inte är anställning.",
+      "confirmCertification": "Jag förstår att produktcertifiering (80 %) krävs före försäljning.",
+      "confirmAccuracy": "Jag bekräftar att uppgifterna är korrekta.",
+      "submit": "Skicka ansökan",
+      "submitting": "Skickar…",
+      "successTitle": "Ansökan mottagen",
+      "successBody": "Aipify granskar din ansökan. Du kan inte sälja förrän du är godkänd och certifierad.",
+      "backendClosedTitle": "Registrering förberedd — backend är inte aktiv ännu",
+      "backendClosedBody": "Uppgifterna validerades, men Core CSP-lagring är inte aktiv förrän godkänd databas­migrering tillämpas. Ingen falsk acceptans sparades.",
+      "errorGeneric": "Något oväntat hände. Försök igen."
+    }
   }
 }

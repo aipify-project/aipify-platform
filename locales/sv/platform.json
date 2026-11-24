@@ -297,7 +297,18 @@
     "growthPartnerAttribution": "Försäljningslänkar och attribution",
     "commissions": "Säljarprovisioner",
     "communications": "Kommunikation",
-    "superRoleAccess": "Roller och behörigheter"
+    "superRoleAccess": "Roller och behörigheter",
+    "sellersOverview": "Säljaröversikt",
+    "sellersPartners": "Partner och godkännande",
+    "sellersProducts": "Produkter till försäljning",
+    "sellersCommissionRates": "Provisionspriser",
+    "sellersAttribution": "Säljlänkar och attribuering",
+    "sellersAcademy": "Academy och tester",
+    "sellersMaterials": "Säljmaterial och e-post",
+    "sellersLeadsSales": "Leads och försäljning",
+    "sellersSettlements": "Avräkning och utbetalningar",
+    "sellersAudit": "Avvikelser och revision",
+    "sellersSettings": "Säljarinställningar"
   },
   "executive": {
     "title": "Executive Center",
@@ -7782,6 +7793,57 @@
         "description": "Förhandsvisa planerad plankatalog och e-postutkast till kunder. Endast förhandsvisning — inga meddelanden skickas.",
         "cta": "Öppna planmeddelandeutkast"
       }
+    }
+  },
+  "sellers": {
+    "overview": {
+      "title": "Certified Sales Partners",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar.",
+      "openPartners": "Partner och godkännande"
+    },
+    "partners": {
+      "title": "Partner och godkännande",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+    },
+    "products": {
+      "title": "Produkter till försäljning",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+    },
+    "commissionRates": {
+      "title": "Provisionspriser",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+    },
+    "attribution": {
+      "title": "Säljlänkar och attribuering",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+    },
+    "academy": {
+      "title": "Academy och tester",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+    },
+    "materials": {
+      "title": "Säljmaterial och e-post",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+    },
+    "leadsSales": {
+      "title": "Leads och försäljning",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+    },
+    "settlements": {
+      "title": "Avräkning och utbetalningar",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+    },
+    "audit": {
+      "title": "Avvikelser och revision",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+    },
+    "settings": {
+      "title": "Säljarinställningar",
+      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+    },
+    "backend": {
+      "notReadyTitle": "Backend är inte aktiverad",
+      "notReadyBody": "Säljarledger och avräknings-API är inte aktiva ännu. Kontroller förblir stängda tills Core CSP-migrationen är godkänd och tillämpad."
     }
   }
 }
