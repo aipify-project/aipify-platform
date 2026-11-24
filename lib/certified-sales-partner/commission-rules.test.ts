@@ -10,7 +10,9 @@ import {
   snapshotCommissionAtFirstConfirmedSale,
   wouldDoubleCommission,
 } from "./commission-rules";
-import { CSP_CERTIFICATION_PASS_SCORE } from "./constants";
+import { CSP_BACKEND_PROBE_RPC, CSP_CERTIFICATION_PASS_SCORE } from "./constants";
+import { isCertifiedSalesPartnerBackendReady, isCspProbeResultReady } from "./feature-gate";
+import { isKompisHelpAvailableInPartnerContext } from "./kompis-help";
 
 test("earns only after two paid periods", () => {
   assert.equal(hasReachedEarnThreshold(1), false);
@@ -48,6 +50,20 @@ test("blocks double commission on same partner/customer/product", () => {
   assert.equal(qualifyingSaleKey("a", "c", "p"), "a:c:p");
   assert.equal(isWithinAttributionWindow("2026-01-01", "2026-02-01"), true);
   assert.ok(CSP_CERTIFICATION_PASS_SCORE === 80);
+});
+
+test("feature gate stays fail-closed and probes csp_get_backend_status", async () => {
+  assert.equal(CSP_BACKEND_PROBE_RPC, "csp_get_backend_status");
+  assert.equal(await isCertifiedSalesPartnerBackendReady({ env: {} }), false);
+  assert.equal(
+    await isCertifiedSalesPartnerBackendReady({
+      env: {},
+      probe: async () => ({ found: false, error: "csp_backend_not_applied" }),
+    }),
+    false,
+  );
+  assert.equal(isCspProbeResultReady({ found: true, ready: true }), true);
+  assert.equal(isKompisHelpAvailableInPartnerContext(), false);
 });
 
 console.log("certified-sales-partner-commission-rules: all tests passed");

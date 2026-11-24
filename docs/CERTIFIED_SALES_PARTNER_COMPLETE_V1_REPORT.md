@@ -23,7 +23,7 @@
 1. **Domain** `lib/certified-sales-partner/` — constants, types, commission rules (one-time / 2 periods / no renewals), feature gate, Kompis honest-blocked helper, labels.
 2. **Migration candidate** `supabase/migrations/20261941000000_certified_sales_partner_core_v1.sql`  
    SHA-256: `ea676d4a53125114d2aebad5a4f404b8537744a46810db178bf177f2cd993b95`  
-   Tables + RLS revoke + `get_csp_platform_overview` / `get_csp_partner_portal_bundle`.
+   Tables + RLS revoke + fail-closed stubs `csp_get_backend_status` / `csp_get_platform_overview` / `csp_get_partner_overview` (real logic needs a later approved migration).
 3. **Platform Admin → Selgere** routes under `/platform/sellers/*` (overview, partners, products, rates, attribution, academy, materials, leads/sales, settlements, audit, settings) with honest backend-not-ready states.
 4. **Partner portal** Light Enterprise shell + CSP nav IA (`lib/partners-portal/csp-nav.ts`).
 5. **Public recruitment** `/certified-sales-partner`.

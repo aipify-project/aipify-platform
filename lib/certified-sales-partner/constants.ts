@@ -72,7 +72,7 @@ export type CspLedgerEntryType = (typeof CSP_LEDGER_ENTRY_TYPES)[number];
 export const CSP_BACKEND_READY_ENV = "AIPIFY_CSP_BACKEND_READY";
 
 /** Read-only RPC probed to detect an applied backend. */
-export const CSP_BACKEND_PROBE_RPC = "get_csp_platform_overview";
+export const CSP_BACKEND_PROBE_RPC = "csp_get_backend_status";
 
 /** Stable error code returned by stub RPCs until the migration is approved/applied. */
 export const CSP_BACKEND_NOT_APPLIED_ERROR = "csp_backend_not_applied";
