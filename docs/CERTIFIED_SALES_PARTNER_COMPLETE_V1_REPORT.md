@@ -2,6 +2,8 @@
 
 **Date:** 2026-11-24  
 **Branch:** `feat/certified-sales-partner-complete-v1`  
+**PR:** https://github.com/aipify-project/aipify-platform/pull/345  
+**Commit:** `910066489`  
 **Base:** `origin/main` @ `c7995407cdb310bc8bdf03c070818a69f5bf5147`  
 **Worktree:** `/Users/veltrix/Development/aipify-certified-sales-partner-complete-v1`
 
@@ -55,7 +57,7 @@
 | I RBAC/IDOR | Schema revoke+DEFINER stubs prepared; live proof after SQL |
 | J Responsive / i18n | PASS for new surfaces (core locales + es nav) |
 | K Kompis chain untouched | PASS |
-| L CI/Preview/Production READY | Pending PR |
+| L CI/Preview/Production READY | PR #345 open — Vercel preview green; merge only as fail-closed APP |
 
 ## Owner decisions needed next
 
@@ -65,8 +67,9 @@
    on Staging and/or Production (Staging may lack partner tables — expect Production-first or seed plan).
 2. After SQL: set env probe / confirm RPC, then continue Stripe #2 earn wiring + settlement batch under a follow-on exact approval.
 3. Ordinary APP PR may merge with fail-closed UI **without** claiming LIVE sales/commission.
+4. **Do not** treat merge as commercially LIVE; SQL apply remains a separate named approval.
 
 ## End state
 
-**APP scaffolding + domain rules + Platform Selgere + recruitment + attribution path: READY FOR PR.**  
+**APP scaffolding + domain rules + Platform Selgere + recruitment + attribution path: PR #345 READY.**  
 **Commercially LIVE certified sales/commission/payout flow: NOT COMPLETE until SQL + payment E2E gates pass.**
