@@ -920,6 +920,27 @@
       "certification": "Product-specific Academy certification at 80% pass mark before selling.",
       "commission": "Admin-set fixed one-time commission per product — never recurring renewals.",
       "noGuarantee": "No income guarantees. Commission requires two verified paid subscription periods."
+    },
+    "registration": {
+      "title": "Aplikuj jako Certified Aipify Sales Partner",
+      "fullName": "Pełne imię i nazwisko prawne",
+      "email": "E-mail służbowy",
+      "country": "Kraj (kod ISO, np. NO, SE, US)",
+      "legalBusinessName": "Prawna nazwa firmy",
+      "businessRegistrationNumber": "Numer rejestracyjny firmy",
+      "phone": "Telefon (opcjonalnie)",
+      "address": "Adres firmowy (opcjonalnie)",
+      "confirmBusiness": "Potwierdzam, że prowadzę legalnie zarejestrowaną niezależną działalność w swoim kraju.",
+      "confirmTerms": "Akceptuję warunki partnerskie i rozumiem, że to nie jest zatrudnienie.",
+      "confirmCertification": "Rozumiem, że certyfikacja produktu (80%) jest wymagana przed sprzedażą.",
+      "confirmAccuracy": "Potwierdzam, że podane informacje są prawdziwe.",
+      "submit": "Wyślij wniosek",
+      "submitting": "Wysyłanie…",
+      "successTitle": "Wniosek otrzymany",
+      "successBody": "Aipify rozpatrzy wniosek. Nie możesz sprzedawać, dopóki nie zostaniesz zatwierdzony i certyfikowany.",
+      "backendClosedTitle": "Rejestracja przygotowana — backend jeszcze nieaktywny",
+      "backendClosedBody": "Dane zweryfikowano, ale magazyn Core CSP nie jest aktywny do czasu zatwierdzonej migracji. Nie zapisano fałszywej akceptacji.",
+      "errorGeneric": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
     }
   }
 }

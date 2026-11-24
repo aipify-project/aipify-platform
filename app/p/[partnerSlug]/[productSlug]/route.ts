@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isBotLikeUserAgent, normalizeChannel } from "@/lib/certified-sales-partner";
 import { createClient } from "@/lib/supabase/server";
 import {
   GROWTH_PARTNER_ATTRIBUTION_COOKIE,
@@ -20,7 +21,8 @@ export async function GET(
 ) {
   const { partnerSlug, productSlug } = await context.params;
   const url = new URL(request.url);
-  const channel = url.searchParams.get("channel") ?? "other";
+  const channel = normalizeChannel(url.searchParams.get("channel"));
+  const botLike = isBotLikeUserAgent(request.headers.get("user-agent"));
 
   const supabase = await createClient();
   const { data: resolved, error } = await supabase.rpc("resolve_growth_partner_public_link", {
@@ -35,19 +37,21 @@ export async function GET(
     request.headers.get("cookie")?.match(/aipify_gp_session=([^;]+)/)?.[1] ??
     crypto.randomUUID();
 
-  await supabase.rpc("capture_growth_partner_attribution", {
-    p_payload: {
-      partner_slug: partnerSlug,
-      session_key: existingSession,
-      campaign_id: productSlug,
-      utm_source: channel,
-      utm_medium: "partner_link",
-      utm_campaign: productSlug,
-      landing_page: url.pathname,
-      referrer: request.headers.get("referer") ?? "",
-      destination_key: productSlug,
-    },
-  });
+  if (!botLike) {
+    await supabase.rpc("capture_growth_partner_attribution", {
+      p_payload: {
+        partner_slug: partnerSlug,
+        session_key: existingSession,
+        campaign_id: productSlug,
+        utm_source: channel,
+        utm_medium: "partner_link",
+        utm_campaign: productSlug,
+        landing_page: url.pathname,
+        referrer: request.headers.get("referer") ?? "",
+        destination_key: productSlug,
+      },
+    });
+  }
 
   const destination = resolvePartnerLinkDestination(productSlug, productSlug);
   const redirectUrl = new URL(destination, request.url);

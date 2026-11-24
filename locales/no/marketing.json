@@ -8725,6 +8725,27 @@
       "certification": "Produktspesifikk Academy-sertifisering med 80 % beståttkrav før salg.",
       "commission": "Adminfastsatt engangsprovisjon per produkt — aldri gjentakende fornyelser.",
       "noGuarantee": "Ingen inntektsgaranti. Provisjon krever to verifiserte betalte abonnementsperioder."
+    },
+    "registration": {
+      "title": "Søk som Certified Aipify Sales Partner",
+      "fullName": "Fullt juridisk navn",
+      "email": "Jobb-e-post",
+      "country": "Land (ISO-kode, f.eks. NO, SE, US)",
+      "legalBusinessName": "Juridisk foretaksnavn",
+      "businessRegistrationNumber": "Organisasjons-/registreringsnummer",
+      "phone": "Telefon (valgfritt)",
+      "address": "Forretningsadresse (valgfritt)",
+      "confirmBusiness": "Jeg bekrefter at jeg driver lovlig registrert selvstendig virksomhet i mitt land.",
+      "confirmTerms": "Jeg godtar partnervilkårene og forstår at dette ikke er ansettelse.",
+      "confirmCertification": "Jeg forstår at produktsertifisering (80 %) kreves før salg.",
+      "confirmAccuracy": "Jeg bekrefter at opplysningene er korrekte.",
+      "submit": "Send søknad",
+      "submitting": "Sender…",
+      "successTitle": "Søknad mottatt",
+      "successBody": "Aipify vurderer søknaden. Du kan ikke selge før du er godkjent og sertifisert.",
+      "backendClosedTitle": "Registrering klargjort — backend er ikke aktiv ennå",
+      "backendClosedBody": "Opplysningene er validert, men Core CSP-lagring er ikke aktiv før godkjent databasemigrasjon er anvendt. Ingen falsk aksept er lagret.",
+      "errorGeneric": "Noe uventet skjedde. Prøv igjen."
     }
   }
 }

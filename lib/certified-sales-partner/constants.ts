@@ -65,6 +65,24 @@ export type CspCertificationStatus = (typeof CSP_CERTIFICATION_STATUSES)[number]
 export const CSP_SETTLEMENT_STATUSES = ["open", "closed", "approved", "paid", "voided"] as const;
 export type CspSettlementStatus = (typeof CSP_SETTLEMENT_STATUSES)[number];
 
+/** Business-facing settlement states (presentation only — DB enum strings are unchanged). */
+export const CSP_SETTLEMENT_BUSINESS_STATUSES = [
+  "in_review",
+  "sent_to_payout",
+  "approved",
+  "paid",
+  "rejected",
+] as const;
+export type CspSettlementBusinessLabel = (typeof CSP_SETTLEMENT_BUSINESS_STATUSES)[number];
+
+export const CSP_SETTLEMENT_BUSINESS_LABELS: Readonly<Record<CspSettlementStatus, CspSettlementBusinessLabel>> = {
+  open: "in_review",
+  approved: "approved",
+  closed: "sent_to_payout",
+  paid: "paid",
+  voided: "rejected",
+};
+
 export const CSP_LEDGER_ENTRY_TYPES = ["earned", "payout", "reversal", "adjustment"] as const;
 export type CspLedgerEntryType = (typeof CSP_LEDGER_ENTRY_TYPES)[number];
 

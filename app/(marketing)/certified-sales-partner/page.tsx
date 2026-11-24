@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CertifiedSalesPartnerRegistrationForm } from "@/components/marketing/CertifiedSalesPartnerRegistrationForm";
 import PublicBreadcrumbs from "@/components/marketing/public/PublicBreadcrumbs";
 import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -58,6 +59,37 @@ export default async function CertifiedSalesPartnerRecruitmentPage() {
             <li>{t("marketing.certifiedSalesPartner.points.commission")}</li>
             <li>{t("marketing.certifiedSalesPartner.points.noGuarantee")}</li>
           </ul>
+          <CertifiedSalesPartnerRegistrationForm
+            labels={{
+              title: t("marketing.certifiedSalesPartner.registration.title"),
+              fullName: t("marketing.certifiedSalesPartner.registration.fullName"),
+              email: t("marketing.certifiedSalesPartner.registration.email"),
+              country: t("marketing.certifiedSalesPartner.registration.country"),
+              legalBusinessName: t("marketing.certifiedSalesPartner.registration.legalBusinessName"),
+              businessRegistrationNumber: t(
+                "marketing.certifiedSalesPartner.registration.businessRegistrationNumber",
+              ),
+              phone: t("marketing.certifiedSalesPartner.registration.phone"),
+              address: t("marketing.certifiedSalesPartner.registration.address"),
+              confirmBusiness: t("marketing.certifiedSalesPartner.registration.confirmBusiness"),
+              confirmTerms: t("marketing.certifiedSalesPartner.registration.confirmTerms"),
+              confirmCertification: t(
+                "marketing.certifiedSalesPartner.registration.confirmCertification",
+              ),
+              confirmAccuracy: t("marketing.certifiedSalesPartner.registration.confirmAccuracy"),
+              submit: t("marketing.certifiedSalesPartner.registration.submit"),
+              submitting: t("marketing.certifiedSalesPartner.registration.submitting"),
+              successTitle: t("marketing.certifiedSalesPartner.registration.successTitle"),
+              successBody: t("marketing.certifiedSalesPartner.registration.successBody"),
+              backendClosedTitle: t(
+                "marketing.certifiedSalesPartner.registration.backendClosedTitle",
+              ),
+              backendClosedBody: t(
+                "marketing.certifiedSalesPartner.registration.backendClosedBody",
+              ),
+              errorGeneric: t("marketing.certifiedSalesPartner.registration.errorGeneric"),
+            }}
+          />
         </div>
       </div>
     </div>

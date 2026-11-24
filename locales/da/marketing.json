@@ -8710,6 +8710,27 @@
       "certification": "Product-specific Academy certification at 80% pass mark before selling.",
       "commission": "Admin-set fixed one-time commission per product — never recurring renewals.",
       "noGuarantee": "No income guarantees. Commission requires two verified paid subscription periods."
+    },
+    "registration": {
+      "title": "Ansøg som Certified Aipify Sales Partner",
+      "fullName": "Fulde juridiske navn",
+      "email": "Arbejds-e-mail",
+      "country": "Land (ISO-kode, f.eks. NO, SE, US)",
+      "legalBusinessName": "Juridisk firmanavn",
+      "businessRegistrationNumber": "CVR-/registreringsnummer",
+      "phone": "Telefon (valgfrit)",
+      "address": "Forretningsadresse (valgfrit)",
+      "confirmBusiness": "Jeg bekræfter, at jeg driver lovligt registreret selvstændig virksomhed i mit land.",
+      "confirmTerms": "Jeg accepterer partnervilkårene og forstår, at dette ikke er ansættelse.",
+      "confirmCertification": "Jeg forstår, at produktcertificering (80 %) kræves før salg.",
+      "confirmAccuracy": "Jeg bekræfter, at oplysningerne er korrekte.",
+      "submit": "Send ansøgning",
+      "submitting": "Sender…",
+      "successTitle": "Ansøgning modtaget",
+      "successBody": "Aipify vurderer din ansøgning. Du kan ikke sælge, før du er godkendt og certificeret.",
+      "backendClosedTitle": "Registrering forberedt — backend er ikke aktiv endnu",
+      "backendClosedBody": "Oplysningerne er valideret, men Core CSP-lagring er ikke aktiv, før godkendt databasemigrering er anvendt. Ingen falsk accept er gemt.",
+      "errorGeneric": "Noget uventet skete. Prøv igen."
     }
   }
 }
