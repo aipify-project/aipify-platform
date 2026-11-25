@@ -26,6 +26,8 @@ type ResetPasswordFormProps = {
   };
   initialSessionReady?: boolean;
   recoveryError?: AuthRecoveryErrorCode | null;
+  /** Safe in-app path after a successful password update. */
+  successHref?: string;
 };
 
 function hasImplicitRecoveryTokens(): boolean {
@@ -60,11 +62,18 @@ function resolveRecoveryErrorMessage(
   }
 }
 
+function sanitizeSuccessHref(value: string | undefined): string {
+  if (!value || !value.startsWith("/") || value.startsWith("//")) return "/login";
+  return value;
+}
+
 export default function ResetPasswordForm({
   labels,
   initialSessionReady = false,
   recoveryError = null,
+  successHref = "/login",
 }: ResetPasswordFormProps) {
+  const safeSuccessHref = sanitizeSuccessHref(successHref);
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -204,7 +213,7 @@ export default function ResetPasswordForm({
       setSuccess(labels.success);
 
       window.setTimeout(() => {
-        router.push("/login");
+        router.push(safeSuccessHref);
       }, 2000);
     } catch {
       setError(labels.generic);

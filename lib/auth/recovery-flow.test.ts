@@ -14,7 +14,7 @@ function test(name: string, fn: () => void) {
   }
 }
 
-test("password reset redirect uses callback with next update-password", () => {
+test("legacy password reset redirect helper still targets callback + update-password", () => {
   const url = buildPasswordResetRedirectUrl({ requestHost: "app.aipify.ai" });
   assert.ok(url.includes("/auth/callback"));
   assert.ok(url.includes("type=recovery"));

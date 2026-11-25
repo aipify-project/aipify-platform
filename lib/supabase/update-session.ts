@@ -142,6 +142,7 @@ export async function updateSession(request: NextRequest) {
 
     if (
       pathname.startsWith("/auth/update-password") ||
+      pathname.startsWith("/auth/activate") ||
       pathname.startsWith("/auth/reset-password") ||
       pathname.startsWith("/forgot-password")
     ) {

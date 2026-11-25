@@ -77,13 +77,13 @@ const no: CspOnboardingEmailLocaleCopy = {
       cta: "Åpne partnerportalen",
     },
     approved: {
-      subject: "Søknaden din er godkjent",
+      subject: "Gratulerer – søknaden din er godkjent!",
       paragraphs: [
-        "Søknaden din er godkjent. Velkommen som Certified Aipify Sales Partner.",
-        "Logg inn for å starte produktopplæringen. Du kan dele personlige salgslenker når du har bestått den aktuelle produktsertifiseringen.",
-        "Bruk den samme e-postadressen du søkte med. Hvis du trenger å sette eller tilbakestille passord, bruk «Glemt passord» på innloggingssiden — vi sender aldri passord på e-post.",
+        "Vi har gleden av å ønske deg velkommen som Certified Aipify Sales Partner.",
+        "Logg inn på Selgerpanelet og start opplæringen i Aipify Academy. Personlige salgslenker blir tilgjengelige først når du har bestått den aktuelle produktsertifiseringen.",
+        "Bruk den samme e-postadressen du søkte med. Vi sender aldri passord på e-post.",
       ],
-      cta: "Logg inn som partner",
+      cta: "Logg inn på Selgerpanelet",
     },
     rejected: {
       subject: "Oppdatering om søknaden din",
@@ -155,13 +155,13 @@ const en: CspOnboardingEmailLocaleCopy = {
       cta: "Open the partner portal",
     },
     approved: {
-      subject: "Your application has been approved",
+      subject: "Congratulations — your application is approved!",
       paragraphs: [
-        "Your application has been approved. Welcome as a Certified Aipify Sales Partner.",
-        "Sign in to start product training. You can share personal sales links after you pass the relevant product certification.",
-        "Use the same email address you applied with. To set or reset a password, use Forgot password on the sign-in page — we never email passwords.",
+        "We are pleased to welcome you as a Certified Aipify Sales Partner.",
+        "Sign in to the Seller panel and start training in Aipify Academy. Personal sales links become available only after you pass the relevant product certification.",
+        "Use the same email address you applied with. We never send passwords by email.",
       ],
-      cta: "Sign in as a partner",
+      cta: "Sign in to the Seller panel",
     },
     rejected: {
       subject: "An update on your application",
@@ -233,12 +233,13 @@ const sv: CspOnboardingEmailLocaleCopy = {
       cta: "Öppna partnerportalen",
     },
     approved: {
-      subject: "Din ansökan är godkänd",
+      subject: "Grattis – din ansökan är godkänd!",
       paragraphs: [
-        "Aipify Group AS har godkänt din ansökan.",
-        "Logga in i partnerportalen för att starta akademin. Du blir certifierad först när utbildningen och provet är slutförda.",
+        "Vi har nöjet att välkomna dig som Certified Aipify Sales Partner.",
+        "Logga in på Säljarpanelen och börja utbildningen i Aipify Academy. Personliga säljlänkar blir tillgängliga först när du har klarat aktuell produktcertifiering.",
+        "Använd samma e-postadress som i ansökan. Vi skickar aldrig lösenord via e-post.",
       ],
-      cta: "Logga in som partner",
+      cta: "Logga in på Säljarpanelen",
     },
     rejected: {
       subject: "Besked om din ansökan",
@@ -310,12 +311,13 @@ const da: CspOnboardingEmailLocaleCopy = {
       cta: "Åbn partnerportalen",
     },
     approved: {
-      subject: "Din ansøgning er godkendt",
+      subject: "Tillykke – din ansøgning er godkendt!",
       paragraphs: [
-        "Aipify Group AS har godkendt din ansøgning.",
-        "Log ind i partnerportalen for at starte akademiet. Du bliver først certificeret, når uddannelsen og eksamen er gennemført.",
+        "Vi har fornøjelsen af at byde dig velkommen som Certified Aipify Sales Partner.",
+        "Log ind på Sælgerpanelet og start træningen i Aipify Academy. Personlige salgslinks bliver først tilgængelige, når du har bestået den relevante produktcertificering.",
+        "Brug den samme e-mailadresse, som du søgte med. Vi sender aldrig adgangskoder på e-mail.",
       ],
-      cta: "Log ind som partner",
+      cta: "Log ind på Sælgerpanelet",
     },
     rejected: {
       subject: "Opdatering om din ansøgning",
@@ -387,12 +389,13 @@ const pl: CspOnboardingEmailLocaleCopy = {
       cta: "Otwórz portal partnera",
     },
     approved: {
-      subject: "Twoje zgłoszenie zostało zatwierdzone",
+      subject: "Gratulacje — wniosek zatwierdzony!",
       paragraphs: [
-        "Aipify Group AS zatwierdziło Twoje zgłoszenie.",
-        "Zaloguj się do portalu partnera, aby rozpocząć akademię. Certyfikat otrzymasz dopiero po ukończeniu szkolenia i egzaminu.",
+        "Z przyjemnością witamy Cię jako Certified Aipify Sales Partner.",
+        "Zaloguj się do Panelu sprzedawcy i rozpocznij szkolenie w Aipify Academy. Osobiste linki sprzedażowe będą dostępne dopiero po zdaniu odpowiedniej certyfikacji produktowej.",
+        "Użyj tego samego adresu e-mail, którym składałeś wniosek. Nigdy nie wysyłamy haseł e-mailem.",
       ],
-      cta: "Zaloguj się jako partner",
+      cta: "Zaloguj się do Panelu sprzedawcy",
     },
     rejected: {
       subject: "Informacja o Twoim zgłoszeniu",
@@ -464,12 +467,13 @@ const uk: CspOnboardingEmailLocaleCopy = {
       cta: "Відкрити портал партнера",
     },
     approved: {
-      subject: "Вашу заявку схвалено",
+      subject: "Вітаємо — вашу заявку схвалено!",
       paragraphs: [
-        "Aipify Group AS схвалило вашу заявку.",
-        "Увійдіть до порталу партнера, щоб розпочати академію. Сертифікацію буде завершено лише після проходження навчання та іспиту.",
+        "Ми раді вітати вас як Certified Aipify Sales Partner.",
+        "Увійдіть до Панелі продавця та почніть навчання в Aipify Academy. Особисті посилання для продажу стануть доступні лише після проходження відповідної сертифікації продукту.",
+        "Використовуйте ту саму електронну адресу, з якою подавали заявку. Ми ніколи не надсилаємо паролі електронною поштою.",
       ],
-      cta: "Увійти як партнер",
+      cta: "Увійти до Панелі продавця",
     },
     rejected: {
       subject: "Оновлення щодо вашої заявки",
@@ -541,12 +545,13 @@ const es: CspOnboardingEmailLocaleCopy = {
       cta: "Abrir el portal de partners",
     },
     approved: {
-      subject: "Tu solicitud ha sido aprobada",
+      subject: "¡Enhorabuena — tu solicitud está aprobada!",
       paragraphs: [
-        "Aipify Group AS ha aprobado tu solicitud.",
-        "Inicia sesión en el portal de partners para comenzar la academia. Quedarás certificado solo cuando completes la formación y el examen.",
+        "Nos complace darte la bienvenida como Certified Aipify Sales Partner.",
+        "Inicia sesión en el Panel de vendedor y empieza la formación en Aipify Academy. Los enlaces de venta personales estarán disponibles solo cuando apruebes la certificación del producto correspondiente.",
+        "Usa la misma dirección de correo con la que solicitaste. Nunca enviamos contraseñas por correo.",
       ],
-      cta: "Iniciar sesión como partner",
+      cta: "Iniciar sesión en el Panel de vendedor",
     },
     rejected: {
       subject: "Novedades sobre tu solicitud",
