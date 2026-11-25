@@ -132,9 +132,10 @@ export async function inspectPartnerAuthCapability(authUserId: string | null | u
   try {
     const admin = createServiceRoleClient();
     const { data, error } = await admin.auth.admin.getUserById(authUserId);
-    if (error || !data?.user?.email) return { kind: "not_found" };
+    if (error || !data?.user) return { kind: "not_found" };
     const user = data.user;
-    const email: string = data.user.email;
+    const email = typeof user.email === "string" ? user.email.trim() : "";
+    if (!email) return { kind: "not_found" };
     const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
     const locale = readMetaLocale(meta);
     const displayName = readDisplayName(meta, email);
