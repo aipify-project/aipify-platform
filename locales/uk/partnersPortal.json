@@ -276,7 +276,7 @@
     },
     "backend": {
       "notReadyTitle": "Backend not activated",
-      "notReadyBody": "Seller ledger and settlement APIs are not active in this environment yet. Platform controls remain fail-closed until Core migration is approved and applied."
+      "notReadyBody": "Журнал продавця та розрахунки ще не активні в цьому середовищі. Функції залишаються недоступними, доки Aipify їх не ввімкне."
     },
     "kompis": {
       "honestBlockedTitle": "Kompis help unavailable here",
