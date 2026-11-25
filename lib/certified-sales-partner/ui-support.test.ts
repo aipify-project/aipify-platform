@@ -22,7 +22,9 @@ test("classify: auth and validation statuses", () => {
   assert.equal(classifyCspApiResponse(403, { error: "sales_link_gates_not_met" }).kind, "forbidden");
   const bad = classifyCspApiResponse(400, { error: "reason_required" });
   assert.equal(bad.kind, "invalid");
-  assert.equal(bad.kind !== "ready" && bad.code, "reason_required");
+  if (bad.kind !== "ready") {
+    assert.equal(bad.code, "reason_required");
+  }
   assert.equal(classifyCspApiResponse(500, null).kind, "error");
 });
 
