@@ -1077,7 +1077,45 @@
       "submitProduct": "Save product",
       "success": "Request accepted.",
       "failClosed": "Core CSP backend is not active. No change was stored.",
-      "error": "Request failed. Please try again."
+      "error": "Request failed. Please try again.",
+      "partnersHint": "Usa el ID del socio o deja vacío para ver el resumen de la plataforma.",
+      "partnerIdHint": "UUID del perfil del socio certificado.",
+      "settlementsHint": "Selecciona un estado objetivo y aporta evidencia cuando sea necesario.",
+      "settlementIdHint": "UUID del asiento de liquidación mensual.",
+      "reasonHint": "Obligatorio al rechazar o suspender (3–500 caracteres).",
+      "rejectionReasonHint": "Obligatorio al anular una liquidación.",
+      "paidEvidenceHint": "Obligatorio al marcar como pagado: fecha ISO, referencia bancaria y tu ID de administrador.",
+      "statusOptions": {
+        "approved": "Aprobado",
+        "rejected": "Rechazado",
+        "suspended": "Suspendido",
+        "under_review": "En revisión",
+        "needs_information": "Necesita información",
+        "registered": "Registrado",
+        "terminated": "Finalizado"
+      },
+      "settlementStatusOptions": {
+        "open": "En revisión",
+        "approved": "Aprobado",
+        "closed": "Enviado a pago",
+        "paid": "Pagado",
+        "voided": "Rechazado"
+      },
+      "errors": {
+        "rejection_reason_required": "Se requiere un motivo al rechazar.",
+        "paid_at_required": "Se requiere la fecha de pago.",
+        "payment_reference_required": "Se requiere la referencia de pago.",
+        "admin_id_required": "Se requiere el ID del administrador.",
+        "invalid_settlement_transition": "Transición de liquidación no permitida.",
+        "partner_id_required": "Se requiere el ID del socio.",
+        "status_required": "Se requiere el estado.",
+        "settlement_id_required": "Se requiere el ID de liquidación.",
+        "generic": "No se pudo completar la acción. Inténtalo de nuevo.",
+        "reason_required": "Add a reason of at least 3 characters.",
+        "settlement_transition_fields_required": "Fill in the settlement reference and both steps.",
+        "partner_not_found": "Partner not found.",
+        "forbidden": "You do not have permission for this action."
+      }
     }
   }
 }

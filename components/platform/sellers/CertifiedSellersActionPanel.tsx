@@ -1,21 +1,36 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { validateSettlementTransition } from "@/lib/certified-sales-partner/settlement-rules";
+import type { CspSettlementStatus } from "@/lib/certified-sales-partner/constants";
+
+export type SellersActionOption = { value: string; label: string };
 
 export type SellersActionLabels = {
   partnersTitle: string;
   settlementsTitle: string;
   productsTitle: string;
+  partnersHint: string;
+  settlementsHint: string;
   partnerId: string;
+  partnerIdHint: string;
   status: string;
   reason: string;
+  reasonHint: string;
+  /** Business labels for partner decisions; `value` is the Core status code sent to the API. */
+  partnerStatusOptions: SellersActionOption[];
   submitPartner: string;
   settlementId: string;
+  settlementIdHint: string;
   fromStatus: string;
   toStatus: string;
+  /** Business labels for settlement steps; `value` is the Core status code sent to the API. */
+  settlementStatusOptions: SellersActionOption[];
   rejectionReason: string;
+  rejectionReasonHint: string;
   paidAt: string;
   paymentReference: string;
+  paidEvidenceHint: string;
   submitSettlement: string;
   productKey: string;
   productTitle: string;
@@ -26,6 +41,8 @@ export type SellersActionLabels = {
   success: string;
   failClosed: string;
   error: string;
+  /** Translated messages for known API error codes; unknown codes fall back to `error`. */
+  errors: Record<string, string>;
 };
 
 type Section = "partners" | "settlements" | "products";
@@ -38,6 +55,11 @@ type Props = {
 export function CertifiedSellersActionPanel({ section, labels }: Props) {
   const [message, setMessage] = useState<{ kind: "ok" | "closed" | "error"; text: string } | null>(null);
   const [pending, setPending] = useState(false);
+
+  /** Known codes map to translated copy; raw codes are never shown. */
+  function errorText(code?: string): string {
+    return (code && labels.errors[code]) || labels.error;
+  }
 
   async function post(url: string, body: Record<string, unknown>) {
     setPending(true);
@@ -58,7 +80,7 @@ export function CertifiedSellersActionPanel({ section, labels }: Props) {
         return;
       }
       if (!res.ok) {
-        setMessage({ kind: "error", text: data.error ?? labels.error });
+        setMessage({ kind: "error", text: errorText(data.error) });
         return;
       }
       setMessage({ kind: "ok", text: labels.success });
@@ -72,23 +94,45 @@ export function CertifiedSellersActionPanel({ section, labels }: Props) {
   function onPartners(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
+    const reason = String(fd.get("reason") ?? "").trim();
+    if (reason.length < 3) {
+      setMessage({ kind: "error", text: errorText("reason_required") });
+      return;
+    }
     void post("/api/platform/sellers/partners", {
-      partner_id: String(fd.get("partner_id") ?? ""),
+      partner_id: String(fd.get("partner_id") ?? "").trim(),
       status: String(fd.get("status") ?? ""),
-      reason: String(fd.get("reason") ?? ""),
+      reason,
     });
   }
 
   function onSettlements(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
+    const from = String(fd.get("from_status") ?? "");
+    const to = String(fd.get("to_status") ?? "");
+    const rejectionReason = String(fd.get("rejection_reason") ?? "").trim();
+    const paidAtRaw = String(fd.get("paid_at") ?? "").trim();
+    const paymentReference = String(fd.get("payment_reference") ?? "").trim();
+    // Early, friendly pre-check with the same pure rules the API enforces. The server re-validates
+    // and supplies the admin identity, so "server" below is only a client-side placeholder.
+    const check = validateSettlementTransition(from as CspSettlementStatus, to as CspSettlementStatus, {
+      rejectionReason,
+      paidAt: paidAtRaw,
+      paymentReference,
+      adminId: "server",
+    });
+    if (!check.ok) {
+      setMessage({ kind: "error", text: errorText(check.error) });
+      return;
+    }
     void post("/api/platform/sellers/settlements", {
-      settlement_id: String(fd.get("settlement_id") ?? ""),
-      from_status: String(fd.get("from_status") ?? ""),
-      to_status: String(fd.get("to_status") ?? ""),
-      rejection_reason: String(fd.get("rejection_reason") ?? ""),
-      paid_at: String(fd.get("paid_at") ?? ""),
-      payment_reference: String(fd.get("payment_reference") ?? ""),
+      settlement_id: String(fd.get("settlement_id") ?? "").trim(),
+      from_status: from,
+      to_status: to,
+      rejection_reason: rejectionReason,
+      paid_at: paidAtRaw ? new Date(paidAtRaw).toISOString() : "",
+      payment_reference: paymentReference,
     });
   }
 
@@ -116,28 +160,21 @@ export function CertifiedSellersActionPanel({ section, labels }: Props) {
       <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{title}</h2>
       {section === "partners" ? (
         <form className="mt-4 grid max-w-xl gap-3" onSubmit={onPartners}>
-          <Field name="partner_id" label={labels.partnerId} required />
-          <label className="text-sm">
-            <span className="font-medium">{labels.status}</span>
-            <select name="status" className="mt-1 w-full rounded-xl border px-3 py-2" required>
-              <option value="under_review">under_review</option>
-              <option value="needs_information">needs_information</option>
-              <option value="approved">approved</option>
-              <option value="rejected">rejected</option>
-              <option value="suspended">suspended</option>
-            </select>
-          </label>
-          <Field name="reason" label={labels.reason} />
+          <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.partnersHint}</p>
+          <Field name="partner_id" label={labels.partnerId} hint={labels.partnerIdHint} required />
+          <Select name="status" label={labels.status} options={labels.partnerStatusOptions} />
+          <Field name="reason" label={labels.reason} hint={labels.reasonHint} required minLength={3} maxLength={500} />
           <Submit pending={pending} label={labels.submitPartner} />
         </form>
       ) : null}
       {section === "settlements" ? (
         <form className="mt-4 grid max-w-xl gap-3" onSubmit={onSettlements}>
-          <Field name="settlement_id" label={labels.settlementId} required />
-          <Field name="from_status" label={labels.fromStatus} placeholder="open" required />
-          <Field name="to_status" label={labels.toStatus} placeholder="approved" required />
-          <Field name="rejection_reason" label={labels.rejectionReason} />
-          <Field name="paid_at" label={labels.paidAt} />
+          <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.settlementsHint}</p>
+          <Field name="settlement_id" label={labels.settlementId} hint={labels.settlementIdHint} required />
+          <Select name="from_status" label={labels.fromStatus} options={labels.settlementStatusOptions} />
+          <Select name="to_status" label={labels.toStatus} options={labels.settlementStatusOptions} defaultIndex={1} />
+          <Field name="rejection_reason" label={labels.rejectionReason} hint={labels.rejectionReasonHint} />
+          <Field name="paid_at" label={labels.paidAt} type="datetime-local" hint={labels.paidEvidenceHint} />
           <Field name="payment_reference" label={labels.paymentReference} />
           <Submit pending={pending} label={labels.submitSettlement} />
         </form>
@@ -171,6 +208,8 @@ function Field({
   placeholder,
   type = "text",
   maxLength,
+  minLength,
+  hint,
 }: {
   name: string;
   label: string;
@@ -178,6 +217,8 @@ function Field({
   placeholder?: string;
   type?: string;
   maxLength?: number;
+  minLength?: number;
+  hint?: string;
 }) {
   return (
     <label className="text-sm">
@@ -188,8 +229,40 @@ function Field({
         required={required}
         placeholder={placeholder}
         maxLength={maxLength}
+        minLength={minLength}
         className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2"
       />
+      {hint ? <span className="mt-1 block text-xs text-[color:var(--aipify-text-secondary)]">{hint}</span> : null}
+    </label>
+  );
+}
+
+function Select({
+  name,
+  label,
+  options,
+  defaultIndex = 0,
+}: {
+  name: string;
+  label: string;
+  options: SellersActionOption[];
+  defaultIndex?: number;
+}) {
+  return (
+    <label className="text-sm">
+      <span className="font-medium">{label}</span>
+      <select
+        name={name}
+        defaultValue={options[defaultIndex]?.value}
+        className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2"
+        required
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
     </label>
   );
 }

@@ -7846,20 +7846,41 @@
       "notReadyBody": "Seller ledger and settlement APIs are not active yet. Controls stay fail-closed until the Core CSP migration is approved and applied."
     },
     "actions": {
-      "partnersTitle": "Review partner status",
-      "settlementsTitle": "Update settlement status",
+      "partnersTitle": "Review partner applications",
+      "settlementsTitle": "Settlement approval and payout",
       "productsTitle": "Publish product and fixed commission",
-      "partnerId": "Partner id",
-      "status": "Status",
-      "reason": "Reason",
-      "submitPartner": "Save partner status",
-      "settlementId": "Settlement id",
-      "fromStatus": "From status",
-      "toStatus": "To status",
-      "rejectionReason": "Rejection reason",
-      "paidAt": "Paid at",
+      "partnersHint": "Approve, reject or pause a certified sales partner. Every decision needs a reason and is written to the audit trail.",
+      "settlementsHint": "Move a monthly settlement forward step by step: in review → approved → sent to payout → paid. Rejecting a settlement needs a reason; marking it paid needs payment evidence.",
+      "partnerId": "Partner reference",
+      "partnerIdHint": "Copy the partner reference from the application record. No partner list is shown until Core is active.",
+      "status": "Decision",
+      "reason": "Reason for decision",
+      "reasonHint": "Required, at least 3 characters. Stored in the audit trail.",
+      "statusOptions": {
+        "under_review": "Start review",
+        "needs_information": "Request more information",
+        "approved": "Approve partner",
+        "rejected": "Reject application",
+        "suspended": "Suspend partner"
+      },
+      "submitPartner": "Save decision",
+      "settlementId": "Settlement reference",
+      "settlementIdHint": "Copy the settlement reference from the monthly settlement record.",
+      "fromStatus": "Current step",
+      "toStatus": "Move to",
+      "settlementStatusOptions": {
+        "open": "In review",
+        "approved": "Approved",
+        "closed": "Sent to payout",
+        "paid": "Paid",
+        "voided": "Rejected"
+      },
+      "rejectionReason": "Reason for rejection",
+      "rejectionReasonHint": "Required when rejecting a settlement.",
+      "paidAt": "Payment date and time",
       "paymentReference": "Bank payment reference",
-      "submitSettlement": "Save settlement transition",
+      "paidEvidenceHint": "Required when marking as paid. Your admin identity is recorded automatically.",
+      "submitSettlement": "Save settlement step",
       "productKey": "Canonical product key",
       "productTitle": "Sales title",
       "currency": "Currency",
@@ -7867,8 +7888,19 @@
       "published": "Published for partners",
       "submitProduct": "Save product",
       "success": "Request accepted.",
-      "failClosed": "Core CSP backend is not active. No change was stored.",
-      "error": "Request failed. Please try again."
+      "failClosed": "The certified sales partner service is not active yet. No change was stored.",
+      "error": "Request failed. Please try again.",
+      "errors": {
+        "reason_required": "Add a reason of at least 3 characters.",
+        "rejection_reason_required": "Add a reason for the rejection.",
+        "paid_at_required": "Add the payment date and time.",
+        "payment_reference_required": "Add the bank payment reference.",
+        "admin_id_required": "Admin identity is missing. Sign in again.",
+        "invalid_settlement_transition": "This step is not allowed from the current settlement step.",
+        "settlement_transition_fields_required": "Fill in the settlement reference and both steps.",
+        "partner_not_found": "Partner not found.",
+        "forbidden": "You do not have permission for this action."
+      }
     }
   }
 }

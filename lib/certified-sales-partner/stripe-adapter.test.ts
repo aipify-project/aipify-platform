@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   CSP_STRIPE_LIVE_WIRING_ENABLED,
+  buildPaidPeriodEventFromStripeFixture,
   mapVerifiedStripeEventToPaidPeriod,
   type CspStripeVerifiedEventInput,
 } from "./stripe-adapter";
@@ -124,4 +125,17 @@ test("refund before earn creates no commission", () => {
     assert.equal(r.state.commissionEarned, false);
     assert.equal(r.state.reason, "refund_before_earn_no_commission");
   }
+});
+
+test("fixture builder maps offline events without enabling live wiring", () => {
+  const input = buildPaidPeriodEventFromStripeFixture(
+    { eventId: "evt_fx_1", eventType: "invoice.paid", amountPaid: 4900, periodOrdinal: 1 },
+    { paidPeriods: 0 },
+  );
+  assert.equal(input.signatureVerified, true);
+  assert.equal(input.currentPaidPeriods, 0);
+  const mapped = mapVerifiedStripeEventToPaidPeriod(input);
+  assert.equal(mapped.mapped, true);
+  if (mapped.mapped) assert.equal(mapped.state.reason, "first_period_paid");
+  assert.equal(CSP_STRIPE_LIVE_WIRING_ENABLED, false);
 });

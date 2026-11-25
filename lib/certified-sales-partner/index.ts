@@ -20,3 +20,5 @@ export * from "./ui-support";
 export * from "./signature-badge";
 export * from "./product-catalog-display";
 export * from "./partner-overview";
+export * from "./bank-crypto";
+export * from "./integration-fixture";
