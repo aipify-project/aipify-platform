@@ -409,7 +409,7 @@
     "workspace": {
       "loading": "Loading partner workspace…",
       "notReadyTitle": "Partner backend not active yet",
-      "notReadyBody": "Certified Sales Partner Core storage is not active until the approved database migration is applied. No fake sales or commissions are shown.",
+      "notReadyBody": "The partner area is not available yet. No sales or commissions are shown until the service is ready.",
       "retry": "Try again",
       "errorTitle": "Something unexpected happened. Please try again.",
       "unauthorizedTitle": "Sign in to open your partner workspace",

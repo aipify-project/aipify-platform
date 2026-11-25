@@ -285,7 +285,7 @@
     "workspace": {
       "loading": "Wczytywanie obszaru partnera…",
       "notReadyTitle": "Zaplecze partnera nie jest jeszcze aktywne",
-      "notReadyBody": "Magazyn danych Certified Sales Partner nie jest aktywny do czasu zastosowania zatwierdzonej migracji bazy danych. Nie pokazujemy fikcyjnej sprzedaży ani prowizji.",
+      "notReadyBody": "Obszar partnera nie jest jeszcze dostępny. Sprzedaż i prowizje będą widoczne dopiero, gdy usługa będzie gotowa.",
       "retry": "Spróbuj ponownie",
       "errorTitle": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie.",
       "unauthorizedTitle": "Zaloguj się, aby otworzyć przestrzeń partnera",

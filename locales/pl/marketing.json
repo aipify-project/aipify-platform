@@ -901,6 +901,24 @@
     "kompisWebDescription": "Kompis Web odpowiada na pytania odwiedzających na podstawie zatwierdzonych treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
   },
   "certifiedSalesPartner": {
+    "verifyEmail": {
+      "meta": {
+        "title": "Zweryfikuj e-mail — Certified Aipify Sales Partner",
+        "description": "Potwierdź adres e-mail za pomocą wysłanego linku."
+      },
+      "title": "Zweryfikuj swój adres e-mail",
+      "body": "Wysłaliśmy link weryfikacyjny na adres e-mail użyty w zgłoszeniu. Otwórz link w tej wiadomości, aby potwierdzić, że adres należy do Ciebie.",
+      "hint": "Nie możesz znaleźć wiadomości? Sprawdź folder spam lub poproś o nowy link poniżej.",
+      "invalidTitle": "Link weryfikacyjny jest nieprawidłowy lub wygasł",
+      "invalidBody": "Linki weryfikacyjne można użyć tylko raz i wygasają po krótkim czasie. Poproś o nowy link, aby kontynuować.",
+      "resendCta": "Poproś o nowy link weryfikacyjny",
+      "resendAccepted": "Nowy link weryfikacyjny został zamówiony. Dotarcie wiadomości może potrwać kilka minut.",
+      "resendAlreadyVerified": "Twój adres e-mail jest już zweryfikowany.",
+      "resendRateLimited": "Poczekaj minutę przed kolejną prośbą o link.",
+      "resendFailed": "Nie udało się teraz zamówić nowego linku. Spróbuj ponownie za chwilę.",
+      "loginCta": "Zaloguj się, aby poprosić o nowy link",
+      "backCta": "Wróć do programu partnerskiego"
+    },
     "meta": {
       "title": "Certified Aipify Sales Partner",
       "description": "Dołącz do Aipify Group AS jako niezależny certyfikowany partner sprzedaży."
@@ -941,7 +959,7 @@
     "howItWorks": {
       "title": "Jak to działa",
       "subtitle": "Wniosek, zatwierdzenie, certyfikacja, linki śledzące, sprzedaż i ręczne miesięczne rozliczenie.",
-      "honesty": "Wnioski pozostają fail-closed, dopóki magazyn Core nie jest aktywny. Aipify nie wymyśla akceptacji, sprzedaży ani prowizji na tej stronie.",
+      "honesty": "Złożenie wniosku nie gwarantuje zatwierdzenia. Sprzedaż jest możliwa dopiero po zatwierdzeniu i wymaganej certyfikacji produktu.",
       "steps": {
         "apply": "Wyślij wniosek z danymi prawnymi i rejestracyjnymi firmy.",
         "review": "Aipify weryfikuje i zatwierdza kwalifikowanych partnerów.",
@@ -966,7 +984,7 @@
       "email": "Służbowy e-mail",
       "country": "Kraj",
       "countryPlaceholder": "Wybierz kraj",
-      "countryHint": "Wybierz kraj. Kod ISO kraju jest bezpiecznie zapisywany we wniosku.",
+      "countryHint": "Wybierz kraj, w którym zarejestrowana jest Twoja firma.",
       "legalBusinessName": "Prawna nazwa firmy",
       "businessRegistrationNumber": "Numer rejestracyjny firmy",
       "phone": "Telefon",
@@ -979,10 +997,10 @@
       "confirmAccuracy": "Potwierdzam, że podane informacje są prawdziwe.",
       "submit": "Wyślij wniosek",
       "submitting": "Wysyłanie…",
-      "successTitle": "Wniosek otrzymany",
-      "successBody": "Aipify otrzymało Twoje zgłoszenie. Oczekuje ono teraz na zatwierdzenie przez Platform. Nie możesz sprzedawać, dopóki nie zostaniesz zatwierdzony i zdobędziesz certyfikat.",
-      "backendClosedTitle": "Rejestracja przygotowana — backend nie jest jeszcze aktywny",
-      "backendClosedBody": "Dane zostały zweryfikowane, ale magazyn Core CSP nie jest aktywny, dopóki zatwierdzona migracja bazy nie zostanie zastosowana. Nie zapisano fałszywej akceptacji.",
+      "successTitle": "Twój wniosek został przyjęty",
+      "successBody": "Dziękujemy za zainteresowanie programem Certified Aipify Sales Partner. Otrzymaliśmy Twój wniosek i sprawdzimy dane. Otrzymasz e-mail z informacją o kolejnym kroku.",
+      "backendClosedTitle": "Nie mogliśmy teraz dokończyć wniosku",
+      "backendClosedBody": "Dane zostały sprawdzone, ale wniosku nie udało się teraz zapisać. Spróbuj ponownie później lub skontaktuj się z Aipify Group AS.",
       "errorGeneric": "Wystąpił nieoczekiwany problem. Spróbuj ponownie.",
       "loginRequiredTitle": "Zaloguj się, aby wysłać zgłoszenie",
       "loginRequiredBody": "Zgłoszenie jest powiązane z Twoim kontem Aipify, abyś mógł śledzić jego status. Nic nie zostało jeszcze wysłane. Zaloguj się, a wrócisz do tego formularza.",
@@ -990,13 +1008,13 @@
       "createAccountCta": "Utwórz konto",
       "existing": {
         "title": "Zgłoszenie zostało już wysłane",
-        "registered": "Twoje zgłoszenie oczekuje na zatwierdzenie przez Platform. Nie musisz zgłaszać się ponownie.",
-        "under_review": "Twoje zgłoszenie oczekuje na zatwierdzenie przez Platform. Nie musisz zgłaszać się ponownie.",
-        "needs_information": "Aipify potrzebuje dodatkowych informacji. Sprawdź e-mail, aby poznać szczegóły. Nie musisz zgłaszać się ponownie.",
-        "approved": "Twoje zgłoszenie zostało zatwierdzone. Otwórz przestrzeń partnera, aby kontynuować szkolenie i certyfikację.",
-        "rejected": "Twoje wcześniejsze zgłoszenie nie zostało zatwierdzone. Skontaktuj się z Aipify, jeśli masz pytania.",
-        "suspended": "Twoje konto partnera jest obecnie nieaktywne. Skontaktuj się z Aipify, jeśli masz pytania.",
-        "other": "Dla Twojego konta istnieje już zgłoszenie. Nie musisz zgłaszać się ponownie.",
+        "registered": "Twój wniosek jest w trakcie rozpatrywania. Poinformujemy Cię e-mailem o aktualizacji. Nie musisz składać wniosku ponownie.",
+        "under_review": "Twój wniosek jest w trakcie rozpatrywania. Poinformujemy Cię e-mailem o aktualizacji. Nie musisz składać wniosku ponownie.",
+        "needs_information": "Aipify potrzebuje dodatkowych informacji. Sprawdź e-mail. Nie musisz składać wniosku ponownie.",
+        "approved": "Twój wniosek został zatwierdzony. Witamy jako Certified Aipify Sales Partner. Zaloguj się, aby rozpocząć szkolenie produktowe. Linki sprzedażowe udostępnisz po zdaniu odpowiedniej certyfikacji.",
+        "rejected": "Wcześniejszy wniosek nie został zatwierdzony. Skontaktuj się z Aipify Group AS w razie pytań.",
+        "suspended": "Konto partnerskie nie jest obecnie aktywne. Skontaktuj się z Aipify Group AS w razie pytań.",
+        "other": "Dla Twojego konta istnieje już wniosek. Nie musisz składać go ponownie.",
         "openPortalCta": "Otwórz przestrzeń partnera"
       },
       "errors": {
@@ -1020,10 +1038,14 @@
       },
       "phoneDial": "Numer kierunkowy kraju",
       "phoneNational": "Numer telefonu",
-      "phoneHint": "Opcjonalnie. Wybierz numer kierunkowy kraju i wpisz same cyfry. Numer jest zapisywany w formacie międzynarodowym.",
-      "companyPersistenceNote": "Platforma weryfikuje każde zgłoszenie. Nazwa prawna firmy i numer rejestracyjny są sprawdzane podczas wysyłania. Zostaną zapisane w Aipify Core po włączeniu osobno zatwierdzonej aktualizacji przechowywania danych; do tego czasu Aipify Core zapisuje wyłącznie imię i nazwisko osoby kontaktowej oraz kraj.",
+      "phoneHint": "Opcjonalnie. Wybierz numer kierunkowy kraju i wpisz swój numer telefonu.",
+      "companyPersistenceNote": "Podaj dokładne dane kontaktowe i firmowe. Aipify Group AS weryfikuje każdy wniosek przed zatwierdzeniem.",
       "errorSummaryTitle": "Sprawdź zaznaczone pola",
-      "supportRefLabel": "Numer referencyjny dla wsparcia"
+      "supportRefLabel": "Numer referencyjny dla wsparcia",
+      "processTitle": "Jak rozpatrujemy Twój wniosek",
+      "processBody": "Aipify Group AS rozpatruje każdy wniosek indywidualnie. Sprawdzamy dane firmy i informujemy Cię e-mailem o kolejnych krokach.",
+      "successUnverifiedAddon": "Potwierdź adres e-mail za pomocą wysłanego linku. Jeśli nie widzisz wiadomości, sprawdź spam lub poproś o nowy link.",
+      "pendingBody": "Twoje zgłoszenie jest w trakcie rozpatrywania. Powiadomimy Cię e-mailem, gdy pojawi się aktualizacja."
     }
   }
 }

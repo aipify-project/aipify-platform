@@ -9,6 +9,11 @@ import {
   parseCspRegistrationApplication,
   validateCspRegistration,
 } from "@/lib/certified-sales-partner";
+import { notifyCspAdminsOfNewApplication } from "@/lib/certified-sales-partner/admin-notify";
+import {
+  deliverCspOnboardingEmailThrottled,
+  type CspOnboardingEmailOutcome,
+} from "@/lib/certified-sales-partner/onboarding-email";
 import {
   assertPublicFormSubmission,
   logSuspiciousSubmission,
@@ -130,10 +135,62 @@ export async function POST(request: Request) {
     }
 
     const application = parseCspRegistrationApplication(data);
+
+    // Application is already stored — email problems are reported, never turned into a failure.
+    const emailVerified = Boolean(user.email_confirmed_at);
+    const emailDelivery: {
+      receipt: CspOnboardingEmailOutcome | "no_email";
+      verify?: CspOnboardingEmailOutcome;
+      admin?: CspOnboardingEmailOutcome | "no_recipients";
+    } = {
+      receipt: "no_email",
+    };
+    let emailWarning: "auth_email_used" | undefined;
+    const locale = validated.payload.preferredLocale;
+    if (user.email) {
+      if (user.email.toLowerCase() !== validated.payload.email.toLowerCase()) emailWarning = "auth_email_used";
+      const vars = { name: validated.payload.fullName, emailVerified };
+      // Idempotent per user: retries must not spam receipt mail.
+      emailDelivery.receipt = (
+        await deliverCspOnboardingEmailThrottled({
+          kind: "application_received",
+          to: user.email,
+          locale,
+          vars,
+          idempotencyKey: `csp-application_received-${user.id}`,
+        })
+      ).outcome;
+      if (!emailVerified) {
+        emailDelivery.verify = (
+          await deliverCspOnboardingEmailThrottled({
+            kind: "verify_email_nudge",
+            to: user.email,
+            locale,
+            vars,
+            idempotencyKey: `csp-verify_email_nudge-${user.id}`,
+          })
+        ).outcome;
+      }
+    }
+
+    // Admin notify only on newly created applications (not existing resubmits).
+    if (application.created && application.partnerId) {
+      const adminNotify = await notifyCspAdminsOfNewApplication({
+        partnerId: application.partnerId,
+        displayName: validated.payload.fullName,
+        country: validated.payload.country,
+        locale,
+      });
+      emailDelivery.admin = adminNotify.outcome;
+    }
+
     return NextResponse.json({
       ...(data && typeof data === "object" ? (data as Record<string, unknown>) : { data }),
       created: application.created,
       status: application.partnerStatus,
+      email_verified: emailVerified,
+      email_delivery: emailDelivery,
+      ...(emailWarning ? { email_warning: emailWarning } : {}),
     });
   } catch (error) {
     const supportRef = newSupportRef();

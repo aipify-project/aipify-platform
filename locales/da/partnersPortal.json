@@ -409,7 +409,7 @@
     "workspace": {
       "loading": "Indlæser partnerarbejdsområde…",
       "notReadyTitle": "Partner-backend er ikke aktiv endnu",
-      "notReadyBody": "Certified Sales Partner Core-lagring er ikke aktiv, før godkendt databasemigrering er anvendt. Ingen falske salg eller provisioner vises.",
+      "notReadyBody": "Partnerområdet er ikke tilgængeligt endnu. Der vises ingen salg eller provisioner, før tjenesten er klar.",
       "retry": "Prøv igen",
       "errorTitle": "Noget uventet skete. Prøv igen.",
       "unauthorizedTitle": "Log ind for at åbne partnerarbejdsområdet",

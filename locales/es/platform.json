@@ -1051,8 +1051,8 @@
       "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
     },
     "backend": {
-      "notReadyTitle": "Backend not activated",
-      "notReadyBody": "Seller ledger and settlement APIs are not active yet. Controls stay fail-closed until the Core CSP migration is approved and applied."
+      "notReadyTitle": "Servicio no activado",
+      "notReadyBody": "El resumen de vendedores y las liquidaciones aún no están disponibles. Los controles se abrirán cuando el servicio esté listo."
     },
     "actions": {
       "partnersTitle": "Review partner status",
@@ -1075,10 +1075,10 @@
       "fixedCommission": "Fixed one-time commission",
       "published": "Published for partners",
       "submitProduct": "Save product",
-      "success": "Request accepted.",
-      "failClosed": "Core CSP backend is not active. No change was stored.",
-      "error": "Request failed. Please try again.",
-      "partnersHint": "Usa el ID del socio o deja vacío para ver el resumen de la plataforma.",
+      "success": "Solicitud aceptada.",
+      "failClosed": "El servicio de socios de venta certificados aún no está activo. No se guardó ningún cambio.",
+      "error": "La solicitud falló. Inténtalo de nuevo.",
+      "partnersHint": "Abre una solicitud para revisar los datos y aprobar, pedir más información, rechazar o suspender. Cada decisión requiere un motivo y queda registrada en el registro de auditoría.",
       "partnerIdHint": "Elige un socio en el directorio de arriba o pega la referencia del socio desde la solicitud.",
       "settlementsHint": "Selecciona un estado objetivo y aporta evidencia cuando sea necesario.",
       "settlementIdHint": "UUID del asiento de liquidación mensual.",
@@ -1111,10 +1111,10 @@
         "status_required": "Se requiere el estado.",
         "settlement_id_required": "Se requiere el ID de liquidación.",
         "generic": "No se pudo completar la acción. Inténtalo de nuevo.",
-        "reason_required": "Add a reason of at least 3 characters.",
-        "settlement_transition_fields_required": "Fill in the settlement reference and both steps.",
-        "partner_not_found": "Partner not found.",
-        "forbidden": "You do not have permission for this action."
+        "reason_required": "Añade un motivo de al menos 3 caracteres.",
+        "settlement_transition_fields_required": "Completa la referencia de liquidación y ambos pasos.",
+        "partner_not_found": "No se encontró el socio.",
+        "forbidden": "No tienes permiso para realizar esta acción."
       }
     },
     "live": {
@@ -1146,7 +1146,7 @@
       "sectionAcademyBody": "Sigue las pruebas y certificaciones de los socios comerciales.",
       "sectionOpen": "Abrir",
       "statusBreakdownTitle": "Socios por estado",
-      "statusBreakdownNote": "Las cifras provienen directamente de Core.",
+      "statusBreakdownNote": "Los totales reflejan el estado actual de las solicitudes de partners.",
       "filterLabel": "Filtrar por estado",
       "filterAll": "Todos los estados",
       "colPartner": "Socio",
@@ -1164,8 +1164,8 @@
       "referenceLabel": "Referencia",
       "dateEmpty": "—",
       "dateInvalid": "Fecha no disponible",
-      "partnersListMissingTitle": "Core aún no devuelve la lista de socios",
-      "partnersListMissingBody": "Core informa por ahora solo el número de socios por estado, no socios individuales. Hasta que exista la lista, pega la referencia del socio desde la solicitud en el formulario de abajo para aprobar, rechazar o suspender.",
+      "partnersListMissingTitle": "Directorio de partners no disponible",
+      "partnersListMissingBody": "No se pudo cargar el directorio de partners. Inténtalo de nuevo o abre una solicitud conocida desde el registro de soporte.",
       "partnersEmptyTitle": "Aún no hay socios",
       "partnersEmptyBody": "No se han recibido solicitudes de socios comerciales. Las nuevas solicitudes aparecerán aquí para su revisión.",
       "partnersFilterEmpty": "Ningún socio tiene este estado.",
@@ -1195,7 +1195,54 @@
         "rejected": "Rechazado",
         "suspended": "Suspendido",
         "unknown": "Estado no disponible"
-      }
+      },
+      "viewApplication": "Ver solicitud"
+    },
+    "drawer": {
+      "title": "Detalles de la solicitud",
+      "close": "Cerrar",
+      "loading": "Cargando solicitud",
+      "errorTitle": "No se pudo cargar la solicitud",
+      "errorBody": "Algo salió mal. Inténtalo de nuevo.",
+      "retry": "Reintentar",
+      "notFoundTitle": "Solicitud no encontrada",
+      "notFoundBody": "El partner ya no existe o no tienes acceso.",
+      "sectionContact": "Contacto",
+      "sectionCompany": "Empresa",
+      "sectionStatus": "Estado",
+      "sectionActivity": "Actividad",
+      "fieldName": "Nombre",
+      "fieldEmail": "Correo",
+      "fieldEmailVerified": "Verificación de correo",
+      "fieldPhone": "Teléfono",
+      "fieldCountry": "País",
+      "fieldLegalBusiness": "Razón social",
+      "fieldRegistration": "Número de registro / organización",
+      "fieldAddress": "Dirección",
+      "fieldStatus": "Status",
+      "fieldApplied": "Solicitado",
+      "fieldUpdated": "Actualizado",
+      "emailVerifiedYes": "Verificado",
+      "emailVerifiedNo": "No verificado",
+      "notSavedYet": "Aún no guardado",
+      "emptyValue": "No indicado",
+      "activityEmpty": "Todavía no hay actividad registrada.",
+      "actionsTitle": "Decisión",
+      "actionsHint": "Elige una acción para esta solicitud. Las decisiones sensibles requieren un motivo breve.",
+      "approve": "Aprobar",
+      "requestInfo": "Pedir más información",
+      "reject": "Rechazar",
+      "suspend": "Suspender",
+      "reason": "Motivo",
+      "reasonHint": "Escribe un motivo breve y factual (obligatorio para rechazo, más información y suspensión).",
+      "confirmApprove": "Confirma la aprobación de esta solicitud.",
+      "confirmReject": "Confirma el rechazo de la solicitud.",
+      "confirmNeedsInfo": "Confirma que solicitas más información.",
+      "confirmSuspend": "Confirma la suspensión del partner.",
+      "confirmSubmit": "Confirmar",
+      "submitting": "Guardando…",
+      "success": "La decisión se ha guardado.",
+      "failClosed": "No se pudo completar la acción ahora. Inténtalo más tarde."
     }
   }
 }

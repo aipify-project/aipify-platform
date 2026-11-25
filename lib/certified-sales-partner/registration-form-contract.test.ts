@@ -26,6 +26,9 @@ const NEW_KEYS = [
   "phoneNational",
   "phoneHint",
   "companyPersistenceNote",
+  "processTitle",
+  "processBody",
+  "successUnverifiedAddon",
   "errorSummaryTitle",
   "supportRefLabel",
 ];
@@ -159,16 +162,56 @@ test("all core locales translate the new keys and error codes (no English fallba
   }
 });
 
-test("persistence note never claims the registration number is stored and does not use browser storage", () => {
-  const en = JSON.parse(
-    readFileSync(path.join(process.cwd(), "locales/en/marketing.json"), "utf8"),
-  ).certifiedSalesPartner.registration.companyPersistenceNote as string;
-  assert.match(en, /until then/i);
-  assert.match(en, /only your contact name and country/i);
+test("customer copy uses business language in every core locale (no Core / Platform / migration jargon)", () => {
+  const JARGON = /\bCore\b|\bPlatform\b|migra|backend|fail-closed|\bISO\b|CSP/i;
+  const KEYS = [
+    "processTitle",
+    "processBody",
+    "successTitle",
+    "successBody",
+    "successUnverifiedAddon",
+    "pendingBody",
+    "companyPersistenceNote",
+    "backendClosedTitle",
+    "backendClosedBody",
+    "countryHint",
+    "phoneHint",
+  ];
+  for (const locale of CORE_LOCALES) {
+    const copy = JSON.parse(
+      readFileSync(path.join(process.cwd(), "locales", locale, "marketing.json"), "utf8"),
+    ).certifiedSalesPartner as { registration: Record<string, string>; howItWorks: { honesty: string } };
+    for (const key of KEYS) {
+      assert.ok(copy.registration[key]?.length > 0, `${locale}.${key}`);
+      assert.ok(!JARGON.test(copy.registration[key]!), `${locale}.${key} contains technical jargon`);
+    }
+    assert.ok(!JARGON.test(copy.howItWorks.honesty), `${locale}.howItWorks.honesty contains technical jargon`);
+  }
+});
+
+test("Norwegian customer copy matches the job baseline", () => {
+  const no = JSON.parse(readFileSync(path.join(process.cwd(), "locales/no/marketing.json"), "utf8"))
+    .certifiedSalesPartner.registration as Record<string, string>;
+  assert.equal(no.processTitle, "Slik behandler vi søknaden din");
+  assert.equal(
+    no.processBody,
+    "Aipify Group AS vurderer hver søknad individuelt. Vi kontrollerer virksomhetsopplysningene og gir deg beskjed på e-post om videre behandling.",
+  );
+  assert.equal(no.successTitle, "Søknaden din er mottatt");
+  assert.equal(
+    no.pendingBody,
+    "Søknaden din er under behandling. Vi gir deg beskjed på e-post når vi har en oppdatering.",
+  );
+});
+
+test("registration form uses the process box and stays closed after a confirmed success", () => {
   const form = readFileSync(
     path.join(process.cwd(), "components/marketing/CertifiedSalesPartnerRegistrationForm.tsx"),
     "utf8",
   );
+  assert.ok(/labels\.processTitle/.test(form) && /labels\.processBody/.test(form));
+  assert.ok(/successUnverifiedAddon/.test(form) && /email_verified/.test(form));
+  assert.ok(/disabled=\{pending \|\| submitted\}/.test(form));
   assert.ok(!/localStorage|sessionStorage/.test(form));
   assert.ok(!/Date\.now\(\)\s*-\s*3000/.test(form));
   assert.ok(/requireVerification\(\)/.test(form) && /guardFields\(/.test(form) && /PublicFormHoneypot/.test(form));

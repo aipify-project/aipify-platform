@@ -8691,6 +8691,24 @@
     }
   },
   "certifiedSalesPartner": {
+    "verifyEmail": {
+      "meta": {
+        "title": "Bekræft din e-mail — Certified Aipify Sales Partner",
+        "description": "Bekræft din e-mailadresse med linket, vi har sendt dig."
+      },
+      "title": "Bekræft din e-mailadresse",
+      "body": "Vi har sendt et bekræftelseslink til den e-mailadresse, du brugte i ansøgningen. Åbn linket i den e-mail for at bekræfte, at adressen er din.",
+      "hint": "Kan du ikke finde den? Tjek spam-mappen, eller bed om et nyt link nedenfor.",
+      "invalidTitle": "Bekræftelseslinket er ugyldigt eller udløbet",
+      "invalidBody": "Bekræftelseslinks kan kun bruges én gang og udløber efter kort tid. Bed om et nyt link for at fortsætte.",
+      "resendCta": "Bed om et nyt bekræftelseslink",
+      "resendAccepted": "Et nyt bekræftelseslink er bestilt. Det kan tage et par minutter, før det når frem.",
+      "resendAlreadyVerified": "Din e-mailadresse er allerede bekræftet.",
+      "resendRateLimited": "Vent et minut, før du beder om et nyt link.",
+      "resendFailed": "Vi kunne ikke bestille et nyt link lige nu. Prøv igen om lidt.",
+      "loginCta": "Log ind for at bede om et nyt link",
+      "backCta": "Tilbage til partnerprogrammet"
+    },
     "meta": {
       "title": "Certified Aipify Sales Partner",
       "description": "Bliv uafhængig certificeret salgspartner for Aipify Group AS."
@@ -8731,7 +8749,7 @@
     "howItWorks": {
       "title": "Sådan fungerer det",
       "subtitle": "Ansøgning, godkendelse, certificering, sporbare links, salg og manuel månedlig afregning.",
-      "honesty": "Ansøgninger forbliver fail-closed, indtil Core-lagring er aktiv. Aipify opfinder ikke accept, salg eller provisionstal på denne side.",
+      "honesty": "At søge er ikke en garanti for godkendelse. Du kan sælge først efter godkendelse og den nødvendige produktcertificering.",
       "steps": {
         "apply": "Send ansøgning med juridisk navn og registrerede virksomhedsoplysninger.",
         "review": "Aipify vurderer og godkender kvalificerede partnere.",
@@ -8756,7 +8774,7 @@
       "email": "Arbejds-e-mail",
       "country": "Land",
       "countryPlaceholder": "Vælg land",
-      "countryHint": "Vælg dit land. ISO-landekoden gemmes sikkert til ansøgningen.",
+      "countryHint": "Vælg det land, hvor din virksomhed er registreret.",
       "legalBusinessName": "Juridisk firmanavn",
       "businessRegistrationNumber": "CVR-/registreringsnummer",
       "phone": "Telefon",
@@ -8769,10 +8787,10 @@
       "confirmAccuracy": "Jeg bekræfter, at oplysningerne er korrekte.",
       "submit": "Send ansøgning",
       "submitting": "Sender…",
-      "successTitle": "Ansøgning modtaget",
-      "successBody": "Aipify har modtaget din ansøgning. Den afventer nu godkendelse fra Platform. Du kan ikke sælge, før du er godkendt og certificeret.",
-      "backendClosedTitle": "Registrering forberedt — backend er ikke aktiv endnu",
-      "backendClosedBody": "Oplysningerne er valideret, men Core CSP-lagring er ikke aktiv, før godkendt databasmigrering er anvendt. Ingen falsk accept er registreret.",
+      "successTitle": "Din ansøgning er modtaget",
+      "successBody": "Tak for interessen for at blive Certified Aipify Sales Partner. Vi har modtaget din ansøgning og vil gennemgå oplysningerne. Du får en e-mail med information om næste skridt.",
+      "backendClosedTitle": "Vi kunne ikke fuldføre din ansøgning lige nu",
+      "backendClosedBody": "Oplysningerne blev kontrolleret, men ansøgningen kunne ikke gemmes lige nu. Prøv igen senere, eller kontakt Aipify Group AS.",
       "errorGeneric": "Der skete noget uventet. Prøv igen.",
       "loginRequiredTitle": "Log ind for at sende din ansøgning",
       "loginRequiredBody": "Din ansøgning knyttes til din Aipify-konto, så du kan følge status. Intet er sendt endnu. Log ind, så vender du tilbage til denne formular.",
@@ -8780,13 +8798,13 @@
       "createAccountCta": "Opret konto",
       "existing": {
         "title": "Du har allerede ansøgt",
-        "registered": "Din ansøgning afventer godkendelse fra Platform. Du behøver ikke ansøge igen.",
-        "under_review": "Din ansøgning afventer godkendelse fra Platform. Du behøver ikke ansøge igen.",
-        "needs_information": "Aipify har brug for lidt mere information. Tjek din e-mail for detaljer. Du behøver ikke ansøge igen.",
-        "approved": "Din ansøgning er godkendt. Åbn partnerarbejdsområdet for at fortsætte med uddannelse og certificering.",
-        "rejected": "Din tidligere ansøgning blev ikke godkendt. Kontakt Aipify, hvis du har spørgsmål.",
-        "suspended": "Din partnerkonto er ikke aktiv i øjeblikket. Kontakt Aipify, hvis du har spørgsmål.",
-        "other": "Der findes allerede en ansøgning for din konto. Du behøver ikke ansøge igen.",
+        "registered": "Din ansøgning er under behandling. Vi giver dig besked på e-mail, når vi har en opdatering. Du behøver ikke søge igen.",
+        "under_review": "Din ansøgning er under behandling. Vi giver dig besked på e-mail, når vi har en opdatering. Du behøver ikke søge igen.",
+        "needs_information": "Aipify har brug for lidt flere oplysninger. Tjek din e-mail for detaljer. Du behøver ikke søge igen.",
+        "approved": "Din ansøgning er godkendt. Velkommen som Certified Aipify Sales Partner. Log ind for at starte produktuddannelsen. Du kan dele personlige salgslinks, når du har bestået den relevante produktcertificering.",
+        "rejected": "Din tidligere ansøgning blev ikke godkendt. Kontakt Aipify Group AS, hvis du har spørgsmål.",
+        "suspended": "Din partnerkonto er ikke aktiv lige nu. Kontakt Aipify Group AS, hvis du har spørgsmål.",
+        "other": "Der findes allerede en ansøgning for din konto. Du behøver ikke søge igen.",
         "openPortalCta": "Åbn partnerarbejdsområde"
       },
       "errors": {
@@ -8810,10 +8828,14 @@
       },
       "phoneDial": "Landekode",
       "phoneNational": "Telefonnummer",
-      "phoneHint": "Valgfrit. Vælg landekode og indtast kun cifre. Nummeret gemmes i internationalt format.",
-      "companyPersistenceNote": "Platformen gennemgår hver ansøgning. Juridisk firmanavn og registreringsnummer kontrolleres, når du sender ind. De gemmes i Aipify Core, når den særskilt godkendte lagringsopdatering er aktiveret. Indtil da gemmer Aipify Core kun kontaktnavn og land.",
+      "phoneHint": "Valgfrit. Vælg landekode, og indtast dit telefonnummer.",
+      "companyPersistenceNote": "Angiv korrekte kontakt- og virksomhedsoplysninger. Aipify Group AS vurderer hver ansøgning før godkendelse.",
       "errorSummaryTitle": "Gennemgå de markerede felter",
-      "supportRefLabel": "Supportreference"
+      "supportRefLabel": "Supportreference",
+      "processTitle": "Sådan behandler vi din ansøgning",
+      "processBody": "Aipify Group AS vurderer hver ansøgning individuelt. Vi kontrollerer virksomhedsoplysningerne og giver dig besked på e-mail om næste skridt.",
+      "successUnverifiedAddon": "Bekræft din e-mailadresse via linket, vi har sendt dig. Finder du ikke e-mailen, tjek spam eller bed om et nyt link.",
+      "pendingBody": "Din ansøgning er under behandling. Vi giver dig besked på e-mail, når vi har en opdatering."
     }
   }
 }

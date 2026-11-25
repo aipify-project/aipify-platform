@@ -409,7 +409,7 @@
     "workspace": {
       "loading": "Laddar partnerarbetsyta…",
       "notReadyTitle": "Partnerbackend är inte aktiv ännu",
-      "notReadyBody": "Certified Sales Partner Core-lagring är inte aktiv förrän godkänd databas­migrering tillämpas. Inga fejkade försäljningar eller provisioner visas.",
+      "notReadyBody": "Partnerområdet är inte tillgängligt ännu. Inga försäljningar eller provisioner visas förrän tjänsten är redo.",
       "retry": "Försök igen",
       "errorTitle": "Något oväntat hände. Försök igen.",
       "unauthorizedTitle": "Logga in för att öppna partnerarbetsytan",

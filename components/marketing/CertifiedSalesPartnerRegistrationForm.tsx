@@ -44,8 +44,13 @@ export type CspRegistrationFormLabels = {
   confirmTerms: string;
   confirmCertification: string;
   confirmAccuracy: string;
-  /** Honest note: what Platform reviews and what Core stores today. */
+  /** Short business note on how company details are used. */
   companyPersistenceNote: string;
+  /** Process info box shown above the submit button. */
+  processTitle: string;
+  processBody: string;
+  /** Appended to the success body when the account email is not verified yet. */
+  successUnverifiedAddon: string;
   submit: string;
   submitting: string;
   successTitle: string;
@@ -144,6 +149,8 @@ const inputBad = "border-[#B42318] bg-[#FEF3F2]";
 
 export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabels, locale }: Props) {
   const [pending, setPending] = useState(false);
+  /** Set after a confirmed new application — the form stays closed so it cannot be sent twice. */
+  const [submitted, setSubmitted] = useState(false);
   const [message, setMessage] = useState<FormMessage | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [country, setCountry] = useState("");
@@ -200,6 +207,7 @@ export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabe
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submitted) return;
     // React nulls `currentTarget` once the handler yields — keep the form element for the async tail.
     const formElement = event.currentTarget;
     const form = new FormData(formElement);
@@ -313,14 +321,21 @@ export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabe
           });
           return;
         }
-        case "created":
-          setMessage({ kind: "ok", title: labels.successTitle, text: labels.successBody });
+        case "created": {
+          const unverified = (data as { email_verified?: unknown } | null)?.email_verified === false;
+          setMessage({
+            kind: "ok",
+            title: labels.successTitle,
+            text: unverified ? `${labels.successBody} ${labels.successUnverifiedAddon}` : labels.successBody,
+          });
+          setSubmitted(true);
           formElement.reset();
           setCountry("");
           setDialCountry("");
           setDialTouched(false);
           resetVerification();
           return;
+        }
       }
     } catch {
       setMessage({ kind: "error", text: labels.errorGeneric });
@@ -483,11 +498,10 @@ export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabe
           className="sm:col-span-2"
         />
         <p
-          className="flex items-start gap-2 rounded-xl border border-aipify-border bg-aipify-canvas px-3 py-2.5 text-xs leading-relaxed text-aipify-text-secondary sm:col-span-2"
+          className="sm:col-span-2 text-xs leading-relaxed text-aipify-text-muted"
           data-testid="csp-company-persistence-note"
         >
-          <InfoIcon />
-          <span>{labels.companyPersistenceNote}</span>
+          {labels.companyPersistenceNote}
         </p>
 
         <p className="sm:col-span-2 mt-2 text-sm font-semibold text-aipify-text">{labels.sectionTerms}</p>
@@ -539,6 +553,19 @@ export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabe
           ) : null}
         </div>
 
+        <div
+          className="flex items-start gap-2.5 rounded-xl border border-aipify-border bg-aipify-canvas px-4 py-3 text-sm sm:col-span-2"
+          data-testid="csp-process-info"
+        >
+          <span className="mt-0.5 shrink-0 text-aipify-text-secondary">
+            <InfoIcon />
+          </span>
+          <div>
+            <p className="font-semibold text-aipify-text">{labels.processTitle}</p>
+            <p className="mt-1 leading-relaxed text-aipify-text-secondary">{labels.processBody}</p>
+          </div>
+        </div>
+
         {message ? (
           <div className="sm:col-span-2" ref={messageRef}>
             <MessageBox message={message} supportRefLabel={labels.supportRefLabel} />
@@ -548,10 +575,11 @@ export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabe
         <div className="sm:col-span-2">
           <button
             type="submit"
-            disabled={pending}
+            disabled={pending || submitted}
+            aria-disabled={pending || submitted}
             className="inline-flex w-full items-center justify-center rounded-xl bg-[color:var(--aipify-companion-purple)] px-5 py-3 text-sm font-semibold text-white disabled:opacity-60 sm:w-auto"
           >
-            {pending ? labels.submitting : labels.submit}
+            {pending ? labels.submitting : submitted ? labels.successTitle : labels.submit}
           </button>
         </div>
       </form>
