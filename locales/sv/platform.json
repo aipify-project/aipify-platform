@@ -8029,7 +8029,7 @@
       "success": "Beslutet har sparats.",
       "failClosed": "Åtgärden kunde inte slutföras just nu. Försök igen senare.",
       "approveRequiresVerifiedEmail": "Godkännande blockeras tills sökanden har verifierat e-postadressen.",
-      "companyIdentityPendingSql": "Juridiskt företagsnamn och registreringsnummer sparas ännu inte i plattformen. Fälten visas som «Inte sparad ännu» tills den godkända lagringsuppdateringen är aktiverad.",
+      "companyIdentityPendingSql": "Juridiskt företagsnamn och registreringsnummer är ännu inte tillgängliga för denna ansökan. Fälten visas som «Inte sparad ännu» tills företagsuppgifterna kan sparas för granskning.",
       "approveCompanyDetailsMissing": "Godkännande kräver sparat juridiskt företagsnamn och registreringsnummer. Be sökanden om mer information."
     },
     "commissions": {

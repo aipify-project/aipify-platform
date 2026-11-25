@@ -1015,7 +1015,7 @@
         "rejected": "Wcześniejszy wniosek nie został zatwierdzony. Skontaktuj się z Aipify Group AS w razie pytań.",
         "suspended": "Konto partnerskie nie jest obecnie aktywne. Skontaktuj się z Aipify Group AS w razie pytań.",
         "other": "Dla Twojego konta istnieje już wniosek. Nie musisz składać go ponownie.",
-        "openPortalCta": "Otwórz przestrzeń partnera"
+        "openPortalCta": "Otwórz panel sprzedawcy"
       },
       "errors": {
         "full_name_required": "Podaj pełne imię i nazwisko.",
@@ -1046,8 +1046,8 @@
       "processBody": "Aipify Group AS rozpatruje wniosek i sprawdza dane firmy. Otrzymasz wiadomość e-mail, gdy ocena zostanie zakończona.",
       "successUnverifiedAddon": "Potwierdź adres e-mail za pomocą wysłanego linku. Jeśli nie widzisz wiadomości, sprawdź spam lub poproś o nowy link.",
       "pendingBody": "Twoje zgłoszenie jest w trakcie rozpatrywania. Powiadomimy Cię e-mailem, gdy pojawi się aktualizacja.",
-      "successEmailAcceptedAddon": "Wysłaliśmy e-mail na Twój adres. Dostarczenie do skrzynki może potrwać kilka minut.",
-      "successEmailNotConfiguredAddon": "Wniosek został zapisany. Wysyłka e-mail nie jest jeszcze skonfigurowana na tej stronie, więc możesz nie otrzymać potwierdzenia, dopóki Aipify nie dokończy konfiguracji poczty."
+      "successEmailAcceptedAddon": "Wysłaliśmy do Ciebie e-mail. Dostarczenie do skrzynki może potrwać kilka minut.",
+      "successEmailNotConfiguredAddon": "Wniosek został zapisany. Potwierdzenie e-mail będzie dostępne, gdy Aipify Group AS zakończy konfigurację poczty."
     }
   }
 }

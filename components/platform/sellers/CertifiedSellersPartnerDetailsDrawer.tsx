@@ -277,7 +277,7 @@ export function CertifiedSellersPartnerDetailsDrawer({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="flex h-full w-full max-w-3xl flex-col border-l border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface,#fff)] shadow-xl"
+        className="flex h-full w-full max-w-[720px] flex-col border-l border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface,#fff)] shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <header className="flex items-start justify-between gap-4 border-b border-[color:var(--aipify-border)] px-6 py-4">

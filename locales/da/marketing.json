@@ -8805,7 +8805,7 @@
         "rejected": "Din tidligere ansøgning blev ikke godkendt. Kontakt Aipify Group AS, hvis du har spørgsmål.",
         "suspended": "Din partnerkonto er ikke aktiv lige nu. Kontakt Aipify Group AS, hvis du har spørgsmål.",
         "other": "Der findes allerede en ansøgning for din konto. Du behøver ikke søge igen.",
-        "openPortalCta": "Åbn partnerarbejdsområde"
+        "openPortalCta": "Åbn sælgerpanelet"
       },
       "errors": {
         "full_name_required": "Indtast dit fulde juridiske navn.",
@@ -8836,8 +8836,8 @@
       "processBody": "Aipify Group AS gennemgår ansøgningen og kontrollerer virksomhedsoplysningerne. Du får besked på e-mail, når vurderingen er færdig.",
       "successUnverifiedAddon": "Bekræft din e-mailadresse via linket, vi har sendt dig. Finder du ikke e-mailen, tjek spam eller bed om et nyt link.",
       "pendingBody": "Din ansøgning er under behandling. Vi giver dig besked på e-mail, når vi har en opdatering.",
-      "successEmailAcceptedAddon": "Vi har sendt en e-mail til din adresse. Levering til indbakken kan tage nogle minutter.",
-      "successEmailNotConfiguredAddon": "Din ansøgning er gemt. E-mailafsendelse er ikke konfigureret på dette site endnu, så du får måske ikke en bekræftelse, før Aipify færdiggør e-mailopsætningen."
+      "successEmailAcceptedAddon": "Vi har sendt dig en e-mail. Levering til indbakken kan tage nogle minutter.",
+      "successEmailNotConfiguredAddon": "Din ansøgning er gemt. Du får en bekræftelse på e-mail, når Aipify Group AS har færdiggjort e-mailopsætningen."
     }
   }
 }

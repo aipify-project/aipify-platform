@@ -1244,7 +1244,7 @@
       "success": "La decisión se ha guardado.",
       "failClosed": "No se pudo completar la acción ahora. Inténtalo más tarde.",
       "approveRequiresVerifiedEmail": "La aprobación está bloqueada hasta que el solicitante verifique su correo.",
-      "companyIdentityPendingSql": "La razón social y el número de registro aún no se guardan en la plataforma. Los campos muestran «Aún no guardado» hasta que se active la actualización de almacenamiento aprobada.",
+      "companyIdentityPendingSql": "La razón social y el número de registro aún no están disponibles para esta solicitud. Los campos muestran «Aún no guardado» hasta que se puedan guardar los datos de la empresa para revisión.",
       "approveCompanyDetailsMissing": "La aprobación requiere razón social y número de registro guardados. Solicita más información al solicitante."
     },
     "commissions": {

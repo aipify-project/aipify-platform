@@ -8029,7 +8029,7 @@
       "success": "The decision was saved.",
       "failClosed": "The action could not be completed right now. Please try again later.",
       "approveRequiresVerifiedEmail": "Approval is blocked until the applicant verifies their email address.",
-      "companyIdentityPendingSql": "Legal company name and registration number are not stored in the platform yet. They appear as “Not saved yet” until the approved storage update is applied.",
+      "companyIdentityPendingSql": "Legal company name and registration number are not available for this application yet. Fields show “Not saved yet” until company details can be stored for review.",
       "approveCompanyDetailsMissing": "Approval requires a saved legal company name and registration number. Request more information from the applicant."
     },
     "commissions": {

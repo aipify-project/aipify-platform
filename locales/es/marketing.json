@@ -347,7 +347,7 @@
         "rejected": "Tu solicitud anterior no fue aprobada. Contacta con Aipify Group AS si tienes preguntas.",
         "suspended": "Tu cuenta de partner no está activa ahora. Contacta con Aipify Group AS si tienes preguntas.",
         "other": "Ya existe una solicitud para tu cuenta. No necesitas volver a solicitar.",
-        "openPortalCta": "Abrir espacio de trabajo de socio"
+        "openPortalCta": "Abrir el panel de vendedor"
       },
       "errors": {
         "full_name_required": "Introduce tu nombre legal completo.",
@@ -378,8 +378,8 @@
       "processBody": "Aipify Group AS revisa la solicitud y comprueba los datos de la empresa. Te avisaremos por correo cuando finalice la evaluación.",
       "successUnverifiedAddon": "Confirma tu correo con el enlace que te enviamos. Si no lo encuentras, revisa el spam o solicita un nuevo enlace.",
       "pendingBody": "Tu solicitud está en trámite. Te avisaremos por correo electrónico cuando tengamos novedades.",
-      "successEmailAcceptedAddon": "Hemos enviado un correo a tu dirección. La entrega a la bandeja de entrada puede tardar unos minutos.",
-      "successEmailNotConfiguredAddon": "Tu solicitud está guardada. El envío de correo aún no está configurado en este sitio, por lo que puede que no recibas confirmación hasta que Aipify complete la configuración de correo."
+      "successEmailAcceptedAddon": "Te hemos enviado un correo. La entrega a la bandeja de entrada puede tardar unos minutos.",
+      "successEmailNotConfiguredAddon": "Tu solicitud está guardada. Recibirás confirmación por correo cuando Aipify Group AS complete la configuración de correo."
     }
   }
 }

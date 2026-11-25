@@ -8029,7 +8029,7 @@
       "success": "Decyzja została zapisana.",
       "failClosed": "Nie udało się teraz wykonać działania. Spróbuj ponownie później.",
       "approveRequiresVerifiedEmail": "Zatwierdzenie jest zablokowane, dopóki wnioskodawca nie potwierdzi adresu e-mail.",
-      "companyIdentityPendingSql": "Prawna nazwa firmy i numer rejestracyjny nie są jeszcze przechowywane w platformie. Pola pokazują „Jeszcze nie zapisano”, dopóki zatwierdzona aktualizacja przechowywania nie zostanie włączona.",
+      "companyIdentityPendingSql": "Prawna nazwa firmy i numer rejestracyjny nie są jeszcze dostępne dla tego wniosku. Pola pokazują „Jeszcze nie zapisano”, dopóki dane firmy nie będą mogły być zapisane do weryfikacji.",
       "approveCompanyDetailsMissing": "Zatwierdzenie wymaga zapisanej prawnej nazwy firmy i numeru rejestracyjnego. Poproś wnioskodawcę o więcej informacji."
     },
     "commissions": {

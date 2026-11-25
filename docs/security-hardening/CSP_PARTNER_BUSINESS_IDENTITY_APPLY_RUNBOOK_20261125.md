@@ -8,6 +8,19 @@
 
 Re-compute before any apply (`shasum -a 256 <file>`). If the hash differs, stop and re-review.
 
+## Gate S / Gate P — single owner decision pack
+
+| Gate | Target | Exact approval phrase required | Apply command (after approval only) |
+|---|---|---|---|
+| **Gate S** | Staging Core | `APPROVE APPLY Gate S CSP_PARTNER_BUSINESS_IDENTITY_PERSISTENCE_PREPARED_ONLY_20261125.sql SHA bc124756a7ab6a9da64a6f90b93d4244ff7687f0538f6be456b7f7c11b269d09` | `npm run supabase:sql:apply -- --file docs/security-hardening/CSP_PARTNER_BUSINESS_IDENTITY_PERSISTENCE_PREPARED_ONLY_20261125.sql` against Staging |
+| **Gate P** | Production Core `qbcqoixhrvhnuwphefvw` | `APPROVE APPLY Gate P CSP_PARTNER_BUSINESS_IDENTITY_PERSISTENCE_PREPARED_ONLY_20261125.sql SHA bc124756a7ab6a9da64a6f90b93d4244ff7687f0538f6be456b7f7c11b269d09` | Same file/command against Production only after Gate S verify PASS |
+
+**Readback after each gate:** four new columns on `csp_partner_profiles`; platform-admin `csp_get_platform_overview()` returns business identity + email flags on `partners[]`; non-admin → `forbidden`; one Staging/Production test application shows legal name + registration in SELGERE drawer.
+
+**Rollback:** restore prior `csp_register_partner_application` / `csp_get_platform_overview` function bodies from preflight capture; leave additive columns in place if any data written.
+
+**Do not apply** this SQL as part of ordinary PR #354 merge. Code remains fail-closed / honest (“Not saved yet”) until Gate S then Gate P.
+
 ## What it changes
 
 | Object | Change |

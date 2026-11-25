@@ -7758,7 +7758,7 @@
       "success": "Beslutningen er lagret.",
       "failClosed": "Handlingen kunne ikke fullføres akkurat nå. Prøv igjen senere.",
       "approveRequiresVerifiedEmail": "Godkjenning er blokkert til søkeren har bekreftet e-postadressen.",
-      "companyIdentityPendingSql": "Juridisk foretaksnavn og registreringsnummer lagres ikke i plattformen ennå. Feltene vises som «Ikke lagret ennå» til den godkjente lagringsoppdateringen er aktivert.",
+      "companyIdentityPendingSql": "Juridisk foretaksnavn og registreringsnummer er ikke tilgjengelig for denne søknaden ennå. Feltene vises som «Ikke lagret ennå» til virksomhetsopplysningene kan lagres for gjennomgang.",
       "approveCompanyDetailsMissing": "Godkjenning krever lagret juridisk foretaksnavn og registreringsnummer. Be søkeren om mer informasjon."
     },
     "commissions": {

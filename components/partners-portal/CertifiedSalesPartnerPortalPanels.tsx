@@ -547,8 +547,13 @@ export function CertifiedSalesPartnerMarketingPanel({
 }) {
   const portal = useCspPortal();
   const [product, setProduct] = useState<"kompis_web" | "kompis_bedrift" | "aipify_voice">("kompis_web");
+  const [origin, setOrigin] = useState("");
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
   const activeLink = portal?.links.find((l) => l.active && l.code) ?? null;
   const publicPath = activeLink?.code ? `/p/${activeLink.code}/${product}` : null;
+  const publicUrl = publicPath ? `${origin || ""}${publicPath}` : null;
 
   return (
     <div className="space-y-6">
@@ -564,7 +569,9 @@ export function CertifiedSalesPartnerMarketingPanel({
         </h3>
         {publicPath ? (
           <p className="mt-3 break-all rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface-muted)] px-3 py-2 font-mono text-sm text-[color:var(--aipify-text-primary)]">
-            {publicPath}
+            <a href={publicPath} className="underline-offset-2 hover:underline">
+              {publicUrl || publicPath}
+            </a>
           </p>
         ) : (
           <EmptyState title={labels.linkEmpty} body={labels.linkEmpty} cta={labels.linkCta} href="/partners/referrals/links" />

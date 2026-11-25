@@ -8395,7 +8395,7 @@
         "rejected": "Your earlier application was not approved. Contact Aipify Group AS if you have questions.",
         "suspended": "Your partner account is not active right now. Contact Aipify Group AS if you have questions.",
         "other": "An application already exists for your account. You do not need to apply again.",
-        "openPortalCta": "Open partner workspace"
+        "openPortalCta": "Open Seller Portal"
       },
       "errors": {
         "full_name_required": "Enter your full legal name.",
@@ -8426,8 +8426,8 @@
       "processBody": "Aipify Group AS reviews the application and checks the business details. You will be notified by email when the review is complete.",
       "successUnverifiedAddon": "Confirm your email address using the link we sent you. If you cannot find the email, check spam or request a new link.",
       "pendingBody": "Your application is being reviewed. We will let you know by email when we have an update.",
-      "successEmailAcceptedAddon": "We have accepted an email for delivery to your address. Inbox delivery can take a few minutes.",
-      "successEmailNotConfiguredAddon": "Your application is saved. Email delivery is not configured on this site yet, so you may not receive a confirmation message until Aipify completes email setup."
+      "successEmailAcceptedAddon": "We have sent you an email. Delivery to your inbox can take a few minutes.",
+      "successEmailNotConfiguredAddon": "Your application is saved. A confirmation email will be available once Aipify Group AS finishes email setup for this site."
     }
   }
 }

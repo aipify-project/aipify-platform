@@ -7503,7 +7503,7 @@
       "success": "Beslutningen er gemt.",
       "failClosed": "Handlingen kunne ikke fuldføres lige nu. Prøv igen senere.",
       "approveRequiresVerifiedEmail": "Godkendelse er blokeret, indtil ansøgeren har bekræftet e-mailadressen.",
-      "companyIdentityPendingSql": "Juridisk firmanavn og registreringsnummer gemmes endnu ikke i platformen. Felterne vises som «Ikke gemt endnu», indtil den godkendte lagringsopdatering er aktiveret.",
+      "companyIdentityPendingSql": "Juridisk firmanavn og registreringsnummer er endnu ikke tilgængelige for denne ansøgning. Felterne vises som «Ikke gemt endnu», indtil virksomhedsoplysningerne kan gemmes til gennemgang.",
       "approveCompanyDetailsMissing": "Godkendelse kræver gemt juridisk firmanavn og registreringsnummer. Bed ansøgeren om flere oplysninger."
     },
     "commissions": {
