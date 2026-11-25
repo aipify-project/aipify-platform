@@ -88,6 +88,7 @@ export type PlatformNavId =
   | "websiteIntelligence"
   | "websiteGovernance"
   | "websiteReleaseVerification"
+  | "analyticsOverview"
   | "analyticsCustomerJourneys"
   | "stats"
   | "support"
@@ -173,7 +174,7 @@ export const INTELLIGENCE_NAV: IntelligenceNavItem[] = [
   },
 ];
 
-export type AnalyticsNavId = "customerJourneys";
+export type AnalyticsNavId = "overview" | "customerJourneys";
 
 export type AnalyticsNavItem = {
   id: AnalyticsNavId;
@@ -182,6 +183,11 @@ export type AnalyticsNavItem = {
 };
 
 export const ANALYTICS_NAV: AnalyticsNavItem[] = [
+  {
+    id: "overview",
+    href: "/platform/analytics",
+    labelKey: "platform.analytics.nav.overview",
+  },
   {
     id: "customerJourneys",
     href: "/platform/analytics/customer-journeys",
@@ -617,6 +623,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.marketingSeo",
   },
   {
+    id: "analyticsOverview",
+    href: "/platform/analytics",
+    labelKey: "platform.nav.analyticsOverview",
+  },
+  {
     id: "analyticsCustomerJourneys",
     href: "/platform/analytics/customer-journeys",
     labelKey: "platform.nav.analyticsCustomerJourneys",
@@ -767,7 +778,9 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/install/unonight")) return "pilotInstall";
   if (pathname.startsWith("/platform/installations")) return "installations";
   if (pathname.startsWith("/platform/analytics/customer-journeys")) return "analyticsCustomerJourneys";
-  if (pathname.startsWith("/platform/analytics")) return "analyticsCustomerJourneys";
+  if (pathname === "/platform/analytics" || pathname.startsWith("/platform/analytics/")) {
+    return pathname.includes("customer-journeys") ? "analyticsCustomerJourneys" : "analyticsOverview";
+  }
   if (pathname.startsWith("/platform/website-intelligence")) return "websiteIntelligence";
   if (pathname.startsWith("/platform/website-verification")) return "websiteReleaseVerification";
   if (pathname.startsWith("/platform/website-governance")) return "websiteGovernance";
@@ -807,6 +820,7 @@ export function getProductActiveNavId(pathname: string): ProductNavId {
 
 export function getAnalyticsActiveNavId(pathname: string): AnalyticsNavId {
   if (pathname.startsWith("/platform/analytics/customer-journeys")) return "customerJourneys";
+  if (pathname === "/platform/analytics" || pathname.startsWith("/platform/analytics/")) return "overview";
   return "customerJourneys";
 }
 

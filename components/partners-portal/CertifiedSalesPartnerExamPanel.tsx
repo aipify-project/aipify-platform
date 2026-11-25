@@ -151,6 +151,12 @@ export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: Csp
         setCurrent(0);
         setNextAttempt(attemptIndex + 1);
         setPhase("in_progress");
+        try {
+          const { trackAcademyStarted } = await import("@/lib/product-analytics/track");
+          trackAcademyStarted(COURSE_PRODUCT_KEY);
+        } catch {
+          // Analytics must never block academy start.
+        }
       } catch {
         setMessage(labels.error);
         setPhase("idle");
@@ -183,6 +189,12 @@ export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: Csp
       }
       setResult(data as ExamResultPayload);
       setPhase("result");
+      try {
+        const { trackAcademyExamCompleted } = await import("@/lib/product-analytics/track");
+        trackAcademyExamCompleted(data.passed === true, COURSE_PRODUCT_KEY);
+      } catch {
+        // Analytics must never block exam submit.
+      }
     } catch {
       setMessage(labels.error);
       setPhase("in_progress");

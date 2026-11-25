@@ -308,7 +308,8 @@
     "sellersLeadsSales": "Leads & sales",
     "sellersSettlements": "Settlements & payouts",
     "sellersAudit": "Exceptions & audit",
-    "sellersSettings": "Seller settings"
+    "sellersSettings": "Seller settings",
+    "analyticsOverview": "Analytics"
   },
   "executive": {
     "title": "Executive Center",
@@ -3018,7 +3019,40 @@
   },
   "analytics": {
     "nav": {
-      "customerJourneys": "Customer Journeys"
+      "customerJourneys": "Customer Journeys",
+      "overview": "Overview"
+    },
+    "overview": {
+      "title": "Platform analytics",
+      "subtitle": "Authorised Core aggregates for customers, subscriptions, partners, and module usage. Traffic detail stays in Google Analytics.",
+      "loading": "Preparing analytics…",
+      "errorTitle": "Analytics unavailable",
+      "errorBody": "Something unexpected happened while loading analytics. Please try again.",
+      "retry": "Try again",
+      "privacyNote": "Aggregates only. No customer emails, chat content, or payment instrument details are shown.",
+      "lastChecked": "Last checked",
+      "unavailable": "Not available",
+      "ga4Title": "Google Analytics 4",
+      "ga4Configured": "Measurement is configured for consented public and product surfaces.",
+      "ga4NotConfigured": "Measurement ID is not configured in this environment.",
+      "ga4DataApiNote": "GA4 DebugView and reports remain in Google Analytics. Importing GA4 report data into Platform Admin requires a separate Analytics Data API credential — not provisioned without owner approval.",
+      "modulesTitle": "Most used modules",
+      "modulesEmpty": "No module usage summary is available yet.",
+      "cards": {
+        "customerRegistrations30d": "Customer registrations (30 days)",
+        "activeAppCustomers": "Active APP customers",
+        "activeBusinesses": "Active businesses / installs",
+        "activeGrowthPartners": "Active Growth Partners",
+        "activeSubscriptions": "Active subscriptions",
+        "revenueMrr": "Monthly recurring revenue",
+        "moduleUsage": "Module usage signal",
+        "academyPartners": "Growth Academy partners"
+      },
+      "links": {
+        "metrics": "Open detailed metrics",
+        "customerJourneys": "Customer journeys",
+        "sellers": "Seller partners"
+      }
     }
   },
   "customerJourneyAnalytics": {

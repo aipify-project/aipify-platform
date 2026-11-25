@@ -308,7 +308,8 @@
     "sellersLeadsSales": "Ліди та продажі",
     "sellersSettlements": "Розрахунки та виплати",
     "sellersAudit": "Відхилення та аудит",
-    "sellersSettings": "Налаштування продавців"
+    "sellersSettings": "Налаштування продавців",
+    "analyticsOverview": "Аналітика"
   },
   "executive": {
     "title": "Виконавчий центр",
@@ -3018,7 +3019,40 @@
   },
   "analytics": {
     "nav": {
-      "customerJourneys": "Подорожі клієнтів"
+      "customerJourneys": "Подорожі клієнтів",
+      "overview": "Огляд"
+    },
+    "overview": {
+      "title": "Аналітика платформи",
+      "subtitle": "Авторизовані агрегати Core для клієнтів, підписок, партнерів і використання модулів. Деталі трафіку залишаються в Google Analytics.",
+      "loading": "Підготовка аналітики…",
+      "errorTitle": "Аналітика недоступна",
+      "errorBody": "Сталася неочікувана помилка під час завантаження аналітики. Спробуйте ще раз.",
+      "retry": "Спробувати знову",
+      "privacyNote": "Лише агрегати. Без email клієнтів, чату чи платіжних даних.",
+      "lastChecked": "Останній раз перевірено",
+      "unavailable": "Недоступно",
+      "ga4Title": "Google Analytics 4",
+      "ga4Configured": "Вимірювання налаштовано для поверхонь із згодою.",
+      "ga4NotConfigured": "Measurement ID не налаштовано в цьому середовищі.",
+      "ga4DataApiNote": "GA4 DebugView і звіти залишаються в Google Analytics. Імпорт у Platform Admin потребує окремого Analytics Data API доступу — не створюється без схвалення власника.",
+      "modulesTitle": "Найуживаніші модулі",
+      "modulesEmpty": "Підсумок використання модулів ще недоступний.",
+      "cards": {
+        "customerRegistrations30d": "Реєстрації клієнтів (30 днів)",
+        "activeAppCustomers": "Активні клієнти APP",
+        "activeBusinesses": "Активні бізнеси / інсталяції",
+        "activeGrowthPartners": "Активні Growth Partners",
+        "activeSubscriptions": "Активні підписки",
+        "revenueMrr": "Щомісячний регулярний дохід",
+        "moduleUsage": "Сигнал використання модулів",
+        "academyPartners": "Партнери Growth Academy"
+      },
+      "links": {
+        "metrics": "Відкрити детальні метрики",
+        "customerJourneys": "Шляхи клієнтів",
+        "sellers": "Партнери продажів"
+      }
     }
   },
   "customerJourneyAnalytics": {

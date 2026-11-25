@@ -338,6 +338,12 @@ export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabe
             parts.push(labels.successEmailNotConfiguredAddon);
           }
           if (unverified) parts.push(labels.successUnverifiedAddon);
+          try {
+            const { trackPartnerApplicationSubmit } = await import("@/lib/product-analytics/track");
+            trackPartnerApplicationSubmit(checks.country);
+          } catch {
+            // Analytics must never block registration UX.
+          }
           setMessage({
             kind: "ok",
             title: labels.successTitle,

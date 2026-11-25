@@ -282,7 +282,8 @@
     "sellersLeadsSales": "Leads og salg",
     "sellersSettlements": "Afregning og udbetalinger",
     "sellersAudit": "Afvigelser og audit",
-    "sellersSettings": "Sælgerindstillinger"
+    "sellersSettings": "Sælgerindstillinger",
+    "analyticsOverview": "Analyse"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -4441,7 +4442,40 @@
   },
   "analytics": {
     "nav": {
-      "customerJourneys": "Kunderejser"
+      "customerJourneys": "Kunderejser",
+      "overview": "Oversigt"
+    },
+    "overview": {
+      "title": "Platformanalyse",
+      "subtitle": "Autoriserede Core-aggregater for kunder, abonnementer, partnere og modulbrug. Trafikdetaljer ligger i Google Analytics.",
+      "loading": "Forbereder analyse…",
+      "errorTitle": "Analyse utilgængelig",
+      "errorBody": "Noget uventet skete under indlæsning af analyse. Prøv igen.",
+      "retry": "Prøv igen",
+      "privacyNote": "Kun aggregater. Ingen kundemails, chat eller betalingsdetaljer vises.",
+      "lastChecked": "Sidst kontrolleret",
+      "unavailable": "Ikke tilgængelig",
+      "ga4Title": "Google Analytics 4",
+      "ga4Configured": "Måling er konfigureret for flader med samtykke.",
+      "ga4NotConfigured": "Measurement ID er ikke konfigureret i dette miljø.",
+      "ga4DataApiNote": "GA4 DebugView og rapporter ligger i Google Analytics. Import til Platform Admin kræver separat Analytics Data API-legitimationsoplysninger — ikke provisioneret uden ejergodkendelse.",
+      "modulesTitle": "Mest brugte moduler",
+      "modulesEmpty": "Ingen oversigt over modulbrug er tilgængelig endnu.",
+      "cards": {
+        "customerRegistrations30d": "Kunderegistreringer (30 dage)",
+        "activeAppCustomers": "Aktive APP-kunder",
+        "activeBusinesses": "Aktive virksomheder / installationer",
+        "activeGrowthPartners": "Aktive Growth Partners",
+        "activeSubscriptions": "Aktive abonnementer",
+        "revenueMrr": "Månedlig tilbagevendende omsætning",
+        "moduleUsage": "Modulbrug-signal",
+        "academyPartners": "Growth Academy-partnere"
+      },
+      "links": {
+        "metrics": "Åbn detaljerede nøgletal",
+        "customerJourneys": "Kunderejser",
+        "sellers": "Sælgerpartnere"
+      }
     }
   },
   "customerJourneyAnalytics": {

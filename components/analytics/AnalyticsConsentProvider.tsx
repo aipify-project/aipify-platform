@@ -2,6 +2,7 @@
 
 import {
   createContext,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
@@ -11,6 +12,7 @@ import {
 } from "react";
 import AnalyticsConsentBanner from "./AnalyticsConsentBanner";
 import ConsentGatedGoogleAnalytics from "./ConsentGatedGoogleAnalytics";
+import ProductAnalyticsPageViewTracker from "./ProductAnalyticsPageViewTracker";
 import type {
   AnalyticsConsentDecision,
   AnalyticsConsentLabels,
@@ -99,6 +101,9 @@ export default function AnalyticsConsentProvider({
   return (
     <AnalyticsConsentContext.Provider value={contextValue}>
       <ConsentGatedGoogleAnalytics consent={consent} hydrated={hydrated} />
+      <Suspense fallback={null}>
+        <ProductAnalyticsPageViewTracker />
+      </Suspense>
       {children}
       {showInitialBanner ? (
         <AnalyticsConsentBanner
