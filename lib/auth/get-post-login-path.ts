@@ -1,6 +1,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { sanitizeNextPath } from "@/lib/auth/safe-next-path";
-import { userHasCspPartnerAccess } from "@/lib/certified-sales-partner/partner-access";
+import {
+  authUserHasActiveCustomerMembership,
+  userHasCspPartnerAccess,
+} from "@/lib/certified-sales-partner/partner-access";
 import {
   CUSTOMER_PORTAL_ROUTE,
   PLATFORM_ADMIN_ROUTE,
@@ -12,8 +15,11 @@ const PARTNERS_HOME = "/partners";
 
 /**
  * Resolve post-login destination.
- * Explicit safe `next` wins. Platform admins default to Platform. Approved CSP sellers
- * (without an explicit customer next) land on /partners — never customer APP org bootstrap.
+ * Explicit safe `next` wins. Platform admins default to Platform.
+ * Partner portal is only the default when:
+ *  - login explicitly requested the partner portal, or
+ *  - the user is an approved/active CSP partner without an active APP customer membership.
+ * Ordinary APP customers (including dual-identity accounts) stay on the customer APP.
  */
 export async function getPostLoginPath(
   supabase: SupabaseClient,
@@ -43,8 +49,18 @@ export async function getPostLoginPath(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (user?.id && (await userHasCspPartnerAccess(supabase, user.id))) {
-    return resolvePostLoginRedirectUrl(PARTNERS_HOME, host);
+
+  if (user?.id) {
+    // APP customer membership wins over partner auto-routing so Unonight-style
+    // dual identities keep landing in the customer APP after ordinary login.
+    if (await authUserHasActiveCustomerMembership(user.id)) {
+      const destination = resolvePostLoginPath(host, null);
+      return resolvePostLoginRedirectUrl(destination, host);
+    }
+
+    if (await userHasCspPartnerAccess(supabase, user.id)) {
+      return resolvePostLoginRedirectUrl(PARTNERS_HOME, host);
+    }
   }
 
   const destination = resolvePostLoginPath(host, null);

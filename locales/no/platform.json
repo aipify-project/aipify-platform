@@ -7628,7 +7628,9 @@
         "invalid_settlement_transition": "Dette steget er ikke tillatt fra nåværende oppgjørssteg.",
         "settlement_transition_fields_required": "Fyll ut oppgjørsreferanse og begge steg.",
         "partner_not_found": "Partner ble ikke funnet.",
-        "forbidden": "Du har ikke tilgang til denne handlingen."
+        "forbidden": "Du har ikke tilgang til denne handlingen.",
+        "confirm_active_app_customer_required": "Bekreft at denne aktive APP-kunden også skal få selgerrettigheter.",
+        "email_verification_required": "Godkjenning er blokkert til søkeren har bekreftet e-postadressen."
       }
     },
     "live": {
@@ -7759,7 +7761,9 @@
       "failClosed": "Handlingen kunne ikke fullføres akkurat nå. Prøv igjen senere.",
       "approveRequiresVerifiedEmail": "Godkjenning er blokkert til søkeren har bekreftet e-postadressen.",
       "companyIdentityPendingSql": "Juridisk foretaksnavn og registreringsnummer er ikke tilgjengelig for denne søknaden ennå. Feltene vises som «Ikke lagret ennå» til virksomhetsopplysningene kan lagres for gjennomgang.",
-      "approveCompanyDetailsMissing": "Godkjenning krever lagret juridisk foretaksnavn og registreringsnummer. Be søkeren om mer informasjon."
+      "approveCompanyDetailsMissing": "Godkjenning krever lagret juridisk foretaksnavn og registreringsnummer. Be søkeren om mer informasjon.",
+      "approveActiveAppCustomerWarning": "Denne kontoen er allerede en aktiv APP-kunde. Bekreft eksplisitt før selgerrettigheter gis — APP-medlemskap alene skal aldri bli partnerrettigheter.",
+      "confirmActiveAppCustomer": "Jeg bekrefter at denne APP-kunden også skal bli godkjent Growth Partner-selger."
     },
     "commissions": {
       "title": "Provisjoner",

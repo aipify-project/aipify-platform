@@ -7899,7 +7899,9 @@
         "invalid_settlement_transition": "This step is not allowed from the current settlement step.",
         "settlement_transition_fields_required": "Fill in the settlement reference and both steps.",
         "partner_not_found": "Partner not found.",
-        "forbidden": "You do not have permission for this action."
+        "forbidden": "You do not have permission for this action.",
+        "confirm_active_app_customer_required": "Confirm that this active APP customer should also receive seller access.",
+        "email_verification_required": "Approval is blocked until the applicant verifies their email address."
       }
     },
     "live": {
@@ -8030,7 +8032,9 @@
       "failClosed": "The action could not be completed right now. Please try again later.",
       "approveRequiresVerifiedEmail": "Approval is blocked until the applicant verifies their email address.",
       "companyIdentityPendingSql": "Legal company name and registration number are not available for this application yet. Fields show “Not saved yet” until company details can be stored for review.",
-      "approveCompanyDetailsMissing": "Approval requires a saved legal company name and registration number. Request more information from the applicant."
+      "approveCompanyDetailsMissing": "Approval requires a saved legal company name and registration number. Request more information from the applicant.",
+      "approveActiveAppCustomerWarning": "This account is already an active APP customer. Confirm explicitly before granting seller access — APP membership alone must never become partner rights.",
+      "confirmActiveAppCustomer": "I confirm this APP customer should also become an approved Growth Partner seller."
     },
     "commissions": {
       "title": "Seller commissions",

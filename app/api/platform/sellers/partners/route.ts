@@ -17,6 +17,7 @@ import {
   type CspOnboardingEmailOutcome,
 } from "@/lib/certified-sales-partner/onboarding-email";
 import type { CspOnboardingEmailKind } from "@/lib/certified-sales-partner/onboarding-email-copy";
+import { partnerAuthUserHasActiveCustomerMembership } from "@/lib/certified-sales-partner/partner-access";
 import {
   fetchCspPartnerEmailContact,
   listCspPlatformPartners,
@@ -81,6 +82,8 @@ export async function POST(request: Request) {
       partner_id?: string;
       status?: string;
       reason?: string;
+      /** Required when approving a partner who also has an active APP customer membership. */
+      confirm_active_app_customer?: boolean;
     };
     if (!body.partner_id || !body.status) {
       return NextResponse.json({ error: "partner_id_and_status_required" }, { status: 400 });
@@ -99,6 +102,20 @@ export async function POST(request: Request) {
       const contact = await fetchCspPartnerEmailContact(body.partner_id);
       if (contact && contact.emailVerified === false) {
         return NextResponse.json({ error: "email_verification_required" }, { status: 409 });
+      }
+      // APP customer membership must never silently become seller approval.
+      // Operators must explicitly confirm dual-identity approvals.
+      if (await partnerAuthUserHasActiveCustomerMembership(contact?.authUserId)) {
+        if (body.confirm_active_app_customer !== true) {
+          return NextResponse.json(
+            {
+              error: "confirm_active_app_customer_required",
+              message:
+                "This account is an active APP customer. Confirm explicitly before granting seller access.",
+            },
+            { status: 409 },
+          );
+        }
       }
     }
 
