@@ -1,7 +1,13 @@
 /**
  * CSP locked email templates — partners cannot edit the body; dynamic fields are escaped.
  */
-export const CSP_LOCKED_TEMPLATE_FIELDS = ["partnerName", "productName", "trackingUrl", "signature"] as const;
+export const CSP_LOCKED_TEMPLATE_FIELDS = [
+  "partnerName",
+  "productName",
+  "trackingUrl",
+  "signature",
+  "certifiedBadge",
+] as const;
 export type CspLockedTemplateField = (typeof CSP_LOCKED_TEMPLATE_FIELDS)[number];
 
 export type CspLockedTemplateInput = {

@@ -42,10 +42,6 @@ export function CertifiedSalesPartnerLinkPanel({ labels }: { labels: CspLinkLabe
         body: JSON.stringify({
           product_id: String(fd.get("product_id") ?? ""),
           channel: String(fd.get("channel") ?? "other"),
-          partner_approved: fd.get("partner_approved") === "on",
-          product_published: fd.get("product_published") === "on",
-          certification_passed: fd.get("certification_passed") === "on",
-          agreement_accepted: fd.get("agreement_accepted") === "on",
         }),
       });
       const data = (await res.json().catch(() => ({}))) as {
@@ -56,8 +52,12 @@ export function CertifiedSalesPartnerLinkPanel({ labels }: { labels: CspLinkLabe
         setMessage(labels.failClosed);
         return;
       }
+      if (res.status === 403) {
+        setMessage(labels.gatesHint);
+        return;
+      }
       if (!res.ok) {
-        setMessage(data.error ?? labels.error);
+        setMessage(labels.error);
         return;
       }
       setMessage(labels.success);
@@ -88,14 +88,6 @@ export function CertifiedSalesPartnerLinkPanel({ labels }: { labels: CspLinkLabe
             ))}
           </select>
         </label>
-        {(["partner_approved", "product_published", "certification_passed", "agreement_accepted"] as const).map(
-          (name) => (
-            <label key={name} className="flex items-center gap-2 text-sm">
-              <input name={name} type="checkbox" />
-              <span>{name}</span>
-            </label>
-          ),
-        )}
         <button
           type="submit"
           disabled={pending}

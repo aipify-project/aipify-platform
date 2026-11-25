@@ -296,9 +296,9 @@
         "readyHint": "When Core is active, overview metrics for products, sales and payouts appear here."
       },
       "products": {
-        "title": "Products for sale",
-        "subtitle": "Approved Aipify products with customer price and fixed one-time commission. Partners cannot purchase here.",
-        "noBuy": "There is no purchase button for partners. Generate a tracking link after certification."
+        "title": "Продукти для продажу",
+        "subtitle": "Продукти Aipify, які ви можете продавати, із запланованими довідковими цінами та фіксованою одноразовою комісією після їх публікації Aipify. Партнери не можуть тут купувати.",
+        "noBuy": "Для партнерів немає кнопки купівлі. Створіть посилання для відстеження після сертифікації."
       },
       "links": {
         "title": "My sales links",
@@ -315,27 +315,86 @@
         "readOnlyHint": "You can view upcoming and historical payouts. You cannot change ledger amounts."
       },
       "academy": {
-        "title": "Growth Academy",
-        "subtitle": "Product training and certification. Pass mark is 80%. Kompis help is disabled during the test."
+        "title": "Академія зростання",
+        "subtitle": "Навчання за продуктом і сертифікація. Прохідний бал — 80%. Допомога Kompis вимкнена під час тесту."
       }
     },
     "links": {
-      "panelTitle": "Generate a sales link",
-      "productId": "Product id",
-      "channel": "Channel",
-      "submit": "Create link",
-      "howItWorks": "Attribution uses first valid touch within 90 days. Commission is earned only after two successful paid periods — never on renewals.",
-      "success": "Link request accepted by the API.",
-      "gatesHint": "Confirm partner approval, published product, certification and agreement before requesting a live link."
+      "panelTitle": "Створити посилання для продажів",
+      "productId": "Продукт (ключ або ідентифікатор)",
+      "channel": "Канал",
+      "submit": "Створити посилання",
+      "howItWorks": "Атрибуція враховує перший дійсний контакт протягом 90 днів. Комісія нараховується лише після двох успішних платних періодів — ніколи за поновлення.",
+      "success": "Ваше посилання для продажів створено.",
+      "gatesHint": "Aipify перевіряє ваше схвалення, опублікований продукт, сертифікацію та угоду, перш ніж видати активне посилання."
     },
     "exam": {
-      "title": "Product certification test",
-      "courseId": "Course id",
-      "answersJson": "Answers (server scored)",
-      "submit": "Submit test",
-      "kompisBlocked": "Kompis help is disabled during this test. No hints are available from Aipify during the exam.",
-      "passed": "Passed",
-      "failed": "Not passed yet"
+      "title": "Сертифікаційний тест за продуктом",
+      "intro": "Дайте відповідь на 15 запитань, по одному. Перед надсиланням можна повернутися й змінити відповіді. Прохідний бал — 80%.",
+      "start": "Почати тест",
+      "starting": "Запуск тесту",
+      "kompisBlocked": "Допомога Kompis вимкнена під час цього тесту. Aipify не дає підказок під час іспиту.",
+      "progress": "Запитання {current} із {total}",
+      "answered": "Відповідей: {count} із {total}",
+      "previous": "Назад",
+      "next": "Далі",
+      "submit": "Надіслати тест",
+      "submitting": "Надсилання",
+      "submitDisabledHint": "Дайте відповідь на всі запитання, щоб надіслати тест. Скористайтеся кнопкою «Назад», щоб знайти пропущені.",
+      "questionRegion": "Запитання іспиту",
+      "passedTitle": "Тест складено — чудова робота",
+      "passedBody": "Ви досягли прохідного балу. Дякуємо, що знайшли час ґрунтовно вивчити продукт.",
+      "failedTitle": "Продовжуйте вчитися — можна спробувати ще раз",
+      "failedBody": "Цього разу прохідного балу не досягнуто. Це частина навчання. Перегляньте уроки нижче й спробуйте ще раз, коли будете готові.",
+      "passed": "Складено",
+      "failed": "Ще не складено",
+      "score": "Правильних відповідей: {correct} із {total} ({score}%)",
+      "passMark": "Прохідний бал: {pass}%",
+      "reviewLessons": "Уроки, які варто повторити",
+      "retake": "Пройти тест ще раз",
+      "practiceNotice": "Цей результат лише тренувальний. Сертифікацію не зареєстровано й не видано, оскільки партнерська система її не підтвердила. Сертифікація та посилання для продажів стануть доступними після реєстрації результату.",
+      "certificationRecorded": "Вашу сертифікацію зареєстровано.",
+      "downloadCertificate": "Завантажити сертифікат (PDF)"
+    },
+    "lessons": {
+      "title": "Уроки про Kompis Web",
+      "intro": "Шість коротких уроків підготують вас до тесту. Читайте їх у власному темпі. Допомога Kompis недоступна під час тесту.",
+      "lessonNumber": "Урок {number}",
+      "plannedCatalogNote": "Пакети й ціни в цьому уроці — це запланований каталог, який ще не діє в білінгу. Ніколи не подавайте їх як обов’язкові пропозиції."
+    },
+    "catalog": {
+      "title": "Продукти",
+      "intro": "Дізнайтеся, як описано кожен продукт, його заплановану довідкову ціну та вашу комісію після публікації Aipify.",
+      "filterLabel": "Фільтр за категорією",
+      "filterAll": "Усі",
+      "filterKompis": "Kompis",
+      "filterVoice": "Aipify Voice (майбутнє)",
+      "sellable": "Доступний для продажу",
+      "future": "Майбутній",
+      "futureNote": "Ще недоступний для продажу чи сертифікації.",
+      "plannedPrice": "Від {price} / місяць",
+      "plannedPriceNote": "Ціна для клієнта (запланована довідкова)",
+      "noPlannedPrice": "Планову ціну ще не опубліковано",
+      "commissionLabel": "Ваша комісія",
+      "commissionAmount": "{amount} одноразово за кваліфікований продаж",
+      "commissionPending": "Комісія з’явиться після публікації продукту Платформою",
+      "certificationLabel": "Ваша сертифікація",
+      "certNotStarted": "Не розпочато",
+      "certInProgress": "У процесі",
+      "certPassed": "Складено",
+      "certExpired": "Термін дії завершився",
+      "certRevoked": "Скасовано",
+      "certUnknown": "Відображається, коли партнерська система активна",
+      "certNotApplicable": "Ще не застосовується",
+      "copyLink": "Копіювати посилання для продажів",
+      "copyingLink": "Створення посилання",
+      "linkCopied": "Посилання для продажів скопійовано.",
+      "linkCreated": "Посилання для продажів створено: {path}",
+      "linkGatesNotMet": "Посилання для продажів стає доступним, коли вас схвалено, продукт опубліковано, а сертифікацію складено.",
+      "linkUnavailable": "Посилання для продажів недоступні, доки партнерська система не активна.",
+      "takeTraining": "Пройти навчання",
+      "trainingNotPublished": "Навчання ще не опубліковано",
+      "empty": "У цій категорії немає продуктів."
     }
   }
 }

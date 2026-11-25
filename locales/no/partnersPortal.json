@@ -420,9 +420,9 @@
         "readyHint": "When Core is active, overview metrics for products, sales and payouts appear here."
       },
       "products": {
-        "title": "Products for sale",
-        "subtitle": "Approved Aipify products with customer price and fixed one-time commission. Partners cannot purchase here.",
-        "noBuy": "There is no purchase button for partners. Generate a tracking link after certification."
+        "title": "Produkter for salg",
+        "subtitle": "Aipify-produkter du kan selge, med planlagte referansepriser og en fast engangsprovisjon når Aipify har publisert dem. Partnere kan ikke kjøpe her.",
+        "noBuy": "Partnere har ingen kjøpsknapp. Lag en sporingslenke etter sertifisering."
       },
       "links": {
         "title": "My sales links",
@@ -439,27 +439,86 @@
         "readOnlyHint": "You can view upcoming and historical payouts. You cannot change ledger amounts."
       },
       "academy": {
-        "title": "Growth Academy",
-        "subtitle": "Product training and certification. Pass mark is 80%. Kompis help is disabled during the test."
+        "title": "Vekstakademiet",
+        "subtitle": "Produktopplæring og sertifisering. Beståttgrensen er 80 %. Kompis-hjelp er slått av under testen."
       }
     },
     "links": {
-      "panelTitle": "Generate a sales link",
-      "productId": "Product id",
-      "channel": "Channel",
-      "submit": "Create link",
-      "howItWorks": "Attribution uses first valid touch within 90 days. Commission is earned only after two successful paid periods — never on renewals.",
-      "success": "Link request accepted by the API.",
-      "gatesHint": "Confirm partner approval, published product, certification and agreement before requesting a live link."
+      "panelTitle": "Lag en salgslenke",
+      "productId": "Produkt (nøkkel eller id)",
+      "channel": "Kanal",
+      "submit": "Lag lenke",
+      "howItWorks": "Tilordning bruker første gyldige kontakt innen 90 dager. Provisjon opptjenes først etter to vellykkede betalte perioder – aldri på fornyelser.",
+      "success": "Salgslenken din er opprettet.",
+      "gatesHint": "Aipify kontrollerer godkjenningen din, det publiserte produktet, sertifiseringen og avtalen før en aktiv lenke utstedes."
     },
     "exam": {
-      "title": "Product certification test",
-      "courseId": "Course id",
-      "answersJson": "Answers (server scored)",
-      "submit": "Submit test",
-      "kompisBlocked": "Kompis help is disabled during this test. No hints are available from Aipify during the exam.",
-      "passed": "Passed",
-      "failed": "Not passed yet"
+      "title": "Produktsertifiseringstest",
+      "intro": "Svar på 15 spørsmål, ett om gangen. Du kan gå tilbake og endre svar før du sender inn. Beståttgrensen er 80 %.",
+      "start": "Start testen",
+      "starting": "Starter testen",
+      "kompisBlocked": "Kompis-hjelp er slått av under denne testen. Aipify gir ingen hint under eksamen.",
+      "progress": "Spørsmål {current} av {total}",
+      "answered": "{count} av {total} besvart",
+      "previous": "Forrige",
+      "next": "Neste",
+      "submit": "Send inn testen",
+      "submitting": "Sender inn",
+      "submitDisabledHint": "Svar på alle spørsmålene for å sende inn. Bruk Forrige for å finne de du hoppet over.",
+      "questionRegion": "Eksamensspørsmål",
+      "passedTitle": "Du bestod – godt jobbet",
+      "passedBody": "Du nådde beståttgrensen. Takk for at du tok deg tid til å lære produktet ordentlig.",
+      "failedTitle": "Fortsett å lære – du kan prøve igjen",
+      "failedBody": "Du nådde ikke beståttgrensen denne gangen. Det er en del av læringen. Se gjennom leksjonene under og prøv igjen når du er klar.",
+      "passed": "Bestått",
+      "failed": "Ikke bestått ennå",
+      "score": "{correct} av {total} riktige ({score} %)",
+      "passMark": "Beståttgrense: {pass} %",
+      "reviewLessons": "Leksjoner det lønner seg å se på igjen",
+      "retake": "Ta testen på nytt",
+      "practiceNotice": "Dette resultatet er kun øving. Ingen sertifisering er registrert eller utstedt, fordi partnerløsningen ikke har bekreftet den. Sertifisering og salgslenker blir tilgjengelige når resultatet er registrert.",
+      "certificationRecorded": "Sertifiseringen din er registrert.",
+      "downloadCertificate": "Last ned sertifikat (PDF)"
+    },
+    "lessons": {
+      "title": "Leksjoner om Kompis Web",
+      "intro": "Seks korte leksjoner forbereder deg til testen. Les dem i ditt eget tempo. Kompis-hjelp er ikke tilgjengelig under testen.",
+      "lessonNumber": "Leksjon {number}",
+      "plannedCatalogNote": "Pakker og priser i denne leksjonen er den planlagte katalogen og er ikke aktive i fakturering ennå. Presenter dem aldri som bindende tilbud."
+    },
+    "catalog": {
+      "title": "Produkter",
+      "intro": "Se hvordan hvert produkt beskrives, planlagt referansepris og provisjonen din når Aipify har publisert det.",
+      "filterLabel": "Filtrer etter kategori",
+      "filterAll": "Alle",
+      "filterKompis": "Kompis",
+      "filterVoice": "Aipify Voice (fremtidig)",
+      "sellable": "Kan selges",
+      "future": "Fremtidig",
+      "futureNote": "Ikke tilgjengelig for salg eller sertifisering ennå.",
+      "plannedPrice": "Fra {price} / måned",
+      "plannedPriceNote": "Kundepris (planlagt referanse)",
+      "noPlannedPrice": "Ingen planlagt pris er publisert ennå",
+      "commissionLabel": "Din provisjon",
+      "commissionAmount": "{amount} engangsbeløp per kvalifisert salg",
+      "commissionPending": "Provisjon vises etter at Plattformen har publisert produktet",
+      "certificationLabel": "Din sertifisering",
+      "certNotStarted": "Ikke startet",
+      "certInProgress": "Pågår",
+      "certPassed": "Bestått",
+      "certExpired": "Utløpt",
+      "certRevoked": "Trukket tilbake",
+      "certUnknown": "Vises når partnerløsningen er aktiv",
+      "certNotApplicable": "Ikke aktuelt ennå",
+      "copyLink": "Kopier salgslenke",
+      "copyingLink": "Lager lenke",
+      "linkCopied": "Salgslenken er kopiert.",
+      "linkCreated": "Salgslenke opprettet: {path}",
+      "linkGatesNotMet": "En salgslenke er tilgjengelig når du er godkjent, produktet er publisert og du har bestått sertifiseringen.",
+      "linkUnavailable": "Salgslenker er ikke tilgjengelige før partnerløsningen er aktiv.",
+      "takeTraining": "Ta opplæring",
+      "trainingNotPublished": "Opplæring er ikke publisert ennå",
+      "empty": "Ingen produkter i denne kategorien."
     }
   }
 }

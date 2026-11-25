@@ -420,9 +420,9 @@
         "readyHint": "When Core is active, overview metrics for products, sales and payouts appear here."
       },
       "products": {
-        "title": "Products for sale",
-        "subtitle": "Approved Aipify products with customer price and fixed one-time commission. Partners cannot purchase here.",
-        "noBuy": "There is no purchase button for partners. Generate a tracking link after certification."
+        "title": "Produkter att sälja",
+        "subtitle": "Aipify-produkter som du kan sälja, med planerade referenspriser och en fast engångsprovision när Aipify har publicerat dem. Partners kan inte köpa här.",
+        "noBuy": "Partners har ingen köpknapp. Skapa en spårningslänk efter certifiering."
       },
       "links": {
         "title": "My sales links",
@@ -439,27 +439,86 @@
         "readOnlyHint": "You can view upcoming and historical payouts. You cannot change ledger amounts."
       },
       "academy": {
-        "title": "Growth Academy",
-        "subtitle": "Product training and certification. Pass mark is 80%. Kompis help is disabled during the test."
+        "title": "Tillväxtakademin",
+        "subtitle": "Produktutbildning och certifiering. Godkäntgränsen är 80 %. Kompis-hjälp är avstängd under provet."
       }
     },
     "links": {
-      "panelTitle": "Generate a sales link",
-      "productId": "Product id",
-      "channel": "Channel",
-      "submit": "Create link",
-      "howItWorks": "Attribution uses first valid touch within 90 days. Commission is earned only after two successful paid periods — never on renewals.",
-      "success": "Link request accepted by the API.",
-      "gatesHint": "Confirm partner approval, published product, certification and agreement before requesting a live link."
+      "panelTitle": "Skapa en säljlänk",
+      "productId": "Produkt (nyckel eller id)",
+      "channel": "Kanal",
+      "submit": "Skapa länk",
+      "howItWorks": "Tillskrivning använder första giltiga kontakt inom 90 dagar. Provision intjänas först efter två lyckade betalda perioder – aldrig på förnyelser.",
+      "success": "Din säljlänk har skapats.",
+      "gatesHint": "Aipify kontrollerar ditt godkännande, den publicerade produkten, din certifiering och avtalet innan en aktiv länk utfärdas."
     },
     "exam": {
-      "title": "Product certification test",
-      "courseId": "Course id",
-      "answersJson": "Answers (server scored)",
-      "submit": "Submit test",
-      "kompisBlocked": "Kompis help is disabled during this test. No hints are available from Aipify during the exam.",
-      "passed": "Passed",
-      "failed": "Not passed yet"
+      "title": "Produktcertifieringsprov",
+      "intro": "Svara på 15 frågor, en i taget. Du kan gå tillbaka och ändra svar innan du skickar in. Godkäntgränsen är 80 %.",
+      "start": "Starta provet",
+      "starting": "Startar provet",
+      "kompisBlocked": "Kompis-hjälp är avstängd under det här provet. Aipify ger inga tips under provet.",
+      "progress": "Fråga {current} av {total}",
+      "answered": "{count} av {total} besvarade",
+      "previous": "Föregående",
+      "next": "Nästa",
+      "submit": "Skicka in provet",
+      "submitting": "Skickar in",
+      "submitDisabledHint": "Svara på alla frågor för att skicka in. Använd Föregående för att hitta dem du hoppade över.",
+      "questionRegion": "Provfråga",
+      "passedTitle": "Du klarade det – bra jobbat",
+      "passedBody": "Du nådde godkäntgränsen. Tack för att du tog dig tid att lära dig produkten ordentligt.",
+      "failedTitle": "Fortsätt lära – du kan försöka igen",
+      "failedBody": "Du nådde inte godkäntgränsen den här gången. Det är en del av lärandet. Gå igenom lektionerna nedan och försök igen när du är redo.",
+      "passed": "Godkänd",
+      "failed": "Inte godkänd ännu",
+      "score": "{correct} av {total} rätt ({score} %)",
+      "passMark": "Godkäntgräns: {pass} %",
+      "reviewLessons": "Lektioner värda att gå igenom igen",
+      "retake": "Gör provet igen",
+      "practiceNotice": "Det här resultatet är endast övning. Ingen certifiering har registrerats eller utfärdats, eftersom partnerlösningen inte har bekräftat den. Certifiering och säljlänkar blir tillgängliga när resultatet är registrerat.",
+      "certificationRecorded": "Din certifiering har registrerats.",
+      "downloadCertificate": "Ladda ner certifikat (PDF)"
+    },
+    "lessons": {
+      "title": "Lektioner om Kompis Web",
+      "intro": "Sex korta lektioner förbereder dig inför provet. Läs dem i din egen takt. Kompis-hjälp är inte tillgänglig under provet.",
+      "lessonNumber": "Lektion {number}",
+      "plannedCatalogNote": "Paket och priser i den här lektionen är den planerade katalogen och är ännu inte aktiva i faktureringen. Presentera dem aldrig som bindande erbjudanden."
+    },
+    "catalog": {
+      "title": "Produkter",
+      "intro": "Se hur varje produkt beskrivs, planerat referenspris och din provision när Aipify har publicerat den.",
+      "filterLabel": "Filtrera efter kategori",
+      "filterAll": "Alla",
+      "filterKompis": "Kompis",
+      "filterVoice": "Aipify Voice (framtida)",
+      "sellable": "Kan säljas",
+      "future": "Framtida",
+      "futureNote": "Ännu inte tillgänglig för försäljning eller certifiering.",
+      "plannedPrice": "Från {price} / månad",
+      "plannedPriceNote": "Kundpris (planerad referens)",
+      "noPlannedPrice": "Inget planerat pris har publicerats ännu",
+      "commissionLabel": "Din provision",
+      "commissionAmount": "{amount} engångsbelopp per kvalificerad försäljning",
+      "commissionPending": "Provision visas efter att plattformen har publicerat produkten",
+      "certificationLabel": "Din certifiering",
+      "certNotStarted": "Inte påbörjad",
+      "certInProgress": "Pågår",
+      "certPassed": "Godkänd",
+      "certExpired": "Utgången",
+      "certRevoked": "Återkallad",
+      "certUnknown": "Visas när partnerlösningen är aktiv",
+      "certNotApplicable": "Inte aktuellt ännu",
+      "copyLink": "Kopiera säljlänk",
+      "copyingLink": "Skapar länk",
+      "linkCopied": "Säljlänken har kopierats.",
+      "linkCreated": "Säljlänk skapad: {path}",
+      "linkGatesNotMet": "En säljlänk är tillgänglig när du är godkänd, produkten är publicerad och du har klarat certifieringen.",
+      "linkUnavailable": "Säljlänkar är inte tillgängliga förrän partnerlösningen är aktiv.",
+      "takeTraining": "Gå utbildningen",
+      "trainingNotPublished": "Utbildningen är inte publicerad ännu",
+      "empty": "Inga produkter i den här kategorin."
     }
   }
 }

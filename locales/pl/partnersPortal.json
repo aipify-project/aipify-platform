@@ -296,9 +296,9 @@
         "readyHint": "When Core is active, overview metrics for products, sales and payouts appear here."
       },
       "products": {
-        "title": "Products for sale",
-        "subtitle": "Approved Aipify products with customer price and fixed one-time commission. Partners cannot purchase here.",
-        "noBuy": "There is no purchase button for partners. Generate a tracking link after certification."
+        "title": "Produkty do sprzedaży",
+        "subtitle": "Produkty Aipify, które możesz sprzedawać, z planowanymi cenami referencyjnymi i stałą jednorazową prowizją po ich opublikowaniu przez Aipify. Partnerzy nie mogą tu kupować.",
+        "noBuy": "Partnerzy nie mają przycisku zakupu. Wygeneruj link śledzący po certyfikacji."
       },
       "links": {
         "title": "My sales links",
@@ -315,27 +315,86 @@
         "readOnlyHint": "You can view upcoming and historical payouts. You cannot change ledger amounts."
       },
       "academy": {
-        "title": "Growth Academy",
-        "subtitle": "Product training and certification. Pass mark is 80%. Kompis help is disabled during the test."
+        "title": "Akademia Wzrostu",
+        "subtitle": "Szkolenie produktowe i certyfikacja. Próg zaliczenia to 80%. Pomoc Kompis jest wyłączona podczas testu."
       }
     },
     "links": {
-      "panelTitle": "Generate a sales link",
-      "productId": "Product id",
-      "channel": "Channel",
-      "submit": "Create link",
-      "howItWorks": "Attribution uses first valid touch within 90 days. Commission is earned only after two successful paid periods — never on renewals.",
-      "success": "Link request accepted by the API.",
-      "gatesHint": "Confirm partner approval, published product, certification and agreement before requesting a live link."
+      "panelTitle": "Utwórz link sprzedażowy",
+      "productId": "Produkt (klucz lub identyfikator)",
+      "channel": "Kanał",
+      "submit": "Utwórz link",
+      "howItWorks": "Przypisanie opiera się na pierwszym ważnym kontakcie w ciągu 90 dni. Prowizja jest naliczana dopiero po dwóch udanych płatnych okresach – nigdy za odnowienia.",
+      "success": "Twój link sprzedażowy został utworzony.",
+      "gatesHint": "Aipify sprawdza Twoje zatwierdzenie, opublikowany produkt, certyfikację i umowę, zanim wyda aktywny link."
     },
     "exam": {
-      "title": "Product certification test",
-      "courseId": "Course id",
-      "answersJson": "Answers (server scored)",
-      "submit": "Submit test",
-      "kompisBlocked": "Kompis help is disabled during this test. No hints are available from Aipify during the exam.",
-      "passed": "Passed",
-      "failed": "Not passed yet"
+      "title": "Test certyfikacyjny produktu",
+      "intro": "Odpowiedz na 15 pytań, jedno po drugim. Przed wysłaniem możesz wrócić i zmienić odpowiedzi. Próg zaliczenia to 80%.",
+      "start": "Rozpocznij test",
+      "starting": "Rozpoczynanie testu",
+      "kompisBlocked": "Pomoc Kompis jest wyłączona podczas tego testu. Aipify nie udziela podpowiedzi w trakcie egzaminu.",
+      "progress": "Pytanie {current} z {total}",
+      "answered": "Odpowiedzi: {count} z {total}",
+      "previous": "Wstecz",
+      "next": "Dalej",
+      "submit": "Wyślij test",
+      "submitting": "Wysyłanie",
+      "submitDisabledHint": "Odpowiedz na wszystkie pytania, aby wysłać test. Użyj przycisku Wstecz, aby znaleźć pominięte.",
+      "questionRegion": "Pytanie egzaminacyjne",
+      "passedTitle": "Zaliczone – dobra robota",
+      "passedBody": "Osiągnięto próg zaliczenia. Dziękujemy, że poświęciłeś czas na dokładne poznanie produktu.",
+      "failedTitle": "Uczysz się dalej – możesz spróbować ponownie",
+      "failedBody": "Tym razem nie osiągnięto progu zaliczenia. To część nauki. Przejrzyj poniższe lekcje i spróbuj ponownie, gdy będziesz gotowy.",
+      "passed": "Zaliczone",
+      "failed": "Jeszcze niezaliczone",
+      "score": "Poprawne odpowiedzi: {correct} z {total} ({score}%)",
+      "passMark": "Próg zaliczenia: {pass}%",
+      "reviewLessons": "Lekcje warte powtórzenia",
+      "retake": "Rozwiąż test ponownie",
+      "practiceNotice": "Ten wynik ma charakter wyłącznie treningowy. Nie zarejestrowano ani nie wydano żadnej certyfikacji, ponieważ system partnerski jej nie potwierdził. Certyfikacja i linki sprzedażowe będą dostępne po zarejestrowaniu wyniku.",
+      "certificationRecorded": "Twoja certyfikacja została zarejestrowana.",
+      "downloadCertificate": "Pobierz certyfikat (PDF)"
+    },
+    "lessons": {
+      "title": "Lekcje o Kompis Web",
+      "intro": "Sześć krótkich lekcji przygotuje Cię do testu. Czytaj je we własnym tempie. Pomoc Kompis nie jest dostępna podczas testu.",
+      "lessonNumber": "Lekcja {number}",
+      "plannedCatalogNote": "Pakiety i ceny w tej lekcji pochodzą z planowanego katalogu i nie są jeszcze aktywne w rozliczeniach. Nigdy nie przedstawiaj ich jako wiążących ofert."
+    },
+    "catalog": {
+      "title": "Produkty",
+      "intro": "Zobacz opis każdego produktu, planowaną cenę referencyjną i swoją prowizję po opublikowaniu go przez Aipify.",
+      "filterLabel": "Filtruj według kategorii",
+      "filterAll": "Wszystkie",
+      "filterKompis": "Kompis",
+      "filterVoice": "Aipify Voice (przyszłość)",
+      "sellable": "Do sprzedaży",
+      "future": "Przyszły",
+      "futureNote": "Jeszcze niedostępny do sprzedaży ani certyfikacji.",
+      "plannedPrice": "Od {price} / miesiąc",
+      "plannedPriceNote": "Cena dla klienta (planowana referencja)",
+      "noPlannedPrice": "Planowana cena nie została jeszcze opublikowana",
+      "commissionLabel": "Twoja prowizja",
+      "commissionAmount": "{amount} jednorazowo za kwalifikowaną sprzedaż",
+      "commissionPending": "Prowizja pojawi się po opublikowaniu produktu przez Platformę",
+      "certificationLabel": "Twoja certyfikacja",
+      "certNotStarted": "Nierozpoczęta",
+      "certInProgress": "W toku",
+      "certPassed": "Zaliczona",
+      "certExpired": "Wygasła",
+      "certRevoked": "Cofnięta",
+      "certUnknown": "Wyświetlane, gdy system partnerski jest aktywny",
+      "certNotApplicable": "Jeszcze nie dotyczy",
+      "copyLink": "Kopiuj link sprzedażowy",
+      "copyingLink": "Tworzenie linku",
+      "linkCopied": "Link sprzedażowy został skopiowany.",
+      "linkCreated": "Utworzono link sprzedażowy: {path}",
+      "linkGatesNotMet": "Link sprzedażowy jest dostępny po zatwierdzeniu Twojego konta, opublikowaniu produktu i zaliczeniu certyfikacji.",
+      "linkUnavailable": "Linki sprzedażowe nie są dostępne, dopóki system partnerski nie zostanie aktywowany.",
+      "takeTraining": "Rozpocznij szkolenie",
+      "trainingNotPublished": "Szkolenie nie zostało jeszcze opublikowane",
+      "empty": "Brak produktów w tej kategorii."
     }
   }
 }

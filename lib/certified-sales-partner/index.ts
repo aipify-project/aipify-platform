@@ -5,6 +5,8 @@ export * from "./feature-gate";
 export * from "./labels";
 export * from "./kompis-help";
 export * from "./academy-quiz";
+// Academy content (client-safe). The answer key is SERVER-ONLY: import it from "./academy/server".
+export * from "./academy";
 export * from "./settlement-rules";
 export * from "./payment-periods";
 export * from "./registration";
@@ -15,3 +17,6 @@ export * from "./core-rpc";
 export * from "./stripe-adapter";
 export * from "./product-input";
 export * from "./ui-support";
+export * from "./signature-badge";
+export * from "./product-catalog-display";
+export * from "./partner-overview";
