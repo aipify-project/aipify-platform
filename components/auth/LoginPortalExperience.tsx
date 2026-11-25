@@ -135,6 +135,7 @@ export function LoginPortalExperience({
           pwaLabels={pwaLabels}
           hideRegisterLink
           postLoginNext={postLoginNext}
+          portalIntent={selection === "partner" ? "partner" : null}
           showInstallLinks={false}
         />
       </div>

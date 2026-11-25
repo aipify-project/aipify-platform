@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { authUserHasCspPartnerProfile } from "@/lib/certified-sales-partner/partner-admin-detail";
+import { userHasCspPartnerAccess } from "@/lib/certified-sales-partner/partner-access";
 import { parsePartnersPortalAccess } from "@/lib/partners-portal";
 import { createClient } from "@/lib/supabase/server";
 
@@ -24,7 +24,7 @@ export async function GET() {
       if (growth.has_access) return NextResponse.json(growth);
     }
 
-    const hasCsp = await authUserHasCspPartnerProfile(user.id);
+    const hasCsp = await userHasCspPartnerAccess(supabase, user.id);
     if (hasCsp) {
       return NextResponse.json({ has_access: true, role: "csp_partner", access_source: "csp" });
     }

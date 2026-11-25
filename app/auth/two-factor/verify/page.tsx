@@ -2,7 +2,10 @@ import { Suspense } from "react";
 import AuthLayout from "@/components/auth/AuthLayout";
 import TwoFactorVerifyForm from "@/components/auth/TwoFactorVerifyForm";
 import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
-import { resolveMfaSuccessDestination } from "@/lib/auth/two-factor/mfa-portal-routing";
+import {
+  resolveMfaPortalKind,
+  resolveMfaSuccessDestination,
+} from "@/lib/auth/two-factor/mfa-portal-routing";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -17,13 +20,15 @@ export default async function NeutralTwoFactorVerifyPage({
   const dict = await getDictionary(locale, ["common", "auth"]);
   const t = createTranslator(dict);
   const p = "auth.twoFactor";
-  const defaultDestination = resolveMfaSuccessDestination(params.next, "platform");
+  const portalKind = resolveMfaPortalKind(params.next);
+  const defaultDestination = resolveMfaSuccessDestination(params.next, portalKind);
 
   return (
     <AuthLayout
       appName={t("common.appName")}
       title={t(`${p}.verifyTitle`)}
       subtitle={t(`${p}.verifySubtitle`)}
+      alignTop
     >
       <Suspense
         fallback={

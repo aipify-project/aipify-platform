@@ -134,8 +134,11 @@ export async function updateSession(request: NextRequest) {
 
     if (pathname === "/login" || pathname === "/register") {
       const next = request.nextUrl.searchParams.get("next");
+      const portal = request.nextUrl.searchParams.get("portal");
+      const effectiveNext =
+        next ?? (portal === "partner" && pathname === "/login" ? "/partners" : null);
       const redirectUrl = request.nextUrl.clone();
-      redirectUrl.pathname = resolvePostLoginPath(host, access.role, next);
+      redirectUrl.pathname = resolvePostLoginPath(host, access.role, effectiveNext);
       redirectUrl.search = "";
       return finish(NextResponse.redirect(redirectUrl));
     }

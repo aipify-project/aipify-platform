@@ -42,6 +42,7 @@ async function signInViaServerRoute(
   email: string,
   password: string,
   nextPath: string | null,
+  portalIntent: string | null = null,
 ): Promise<SignInAttemptResult> {
   const signInResponse = await fetch("/api/auth/sign-in", {
     method: "POST",
@@ -51,6 +52,7 @@ async function signInViaServerRoute(
       email: normalizeSignInEmail(email),
       password,
       next: nextPath,
+      ...(portalIntent ? { portal: portalIntent } : {}),
     }),
   });
 
@@ -82,8 +84,9 @@ async function signInWithFallback(
   email: string,
   password: string,
   nextPath: string | null,
+  portalIntent: string | null = null,
 ): Promise<SignInAttemptResult> {
-  return signInViaServerRoute(email, password, nextPath);
+  return signInViaServerRoute(email, password, nextPath, portalIntent);
 }
 
 type LoginFormProps = {
@@ -111,6 +114,8 @@ type LoginFormProps = {
   pwaLabels: PwaInstallLabels;
   hideRegisterLink?: boolean;
   postLoginNext?: string;
+  /** When set (e.g. partner login), prefer /partners over customer APP home. */
+  portalIntent?: string | null;
   showInstallLinks?: boolean;
 };
 
@@ -119,6 +124,7 @@ export default function LoginForm({
   pwaLabels,
   hideRegisterLink = false,
   postLoginNext,
+  portalIntent = null,
   showInstallLinks = true,
 }: LoginFormProps) {
   const searchParams = useSearchParams();
@@ -142,7 +148,8 @@ export default function LoginForm({
 
     try {
       const nextPath = postLoginNext ?? searchParams.get("next");
-      const result = await signInWithFallback(email, password, nextPath);
+      const portal = portalIntent ?? searchParams.get("portal");
+      const result = await signInWithFallback(email, password, nextPath, portal);
 
       if (!result.ok) {
         const mapped = mapSignInFailure(result.error, labels);

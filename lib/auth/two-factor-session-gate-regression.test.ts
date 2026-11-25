@@ -41,6 +41,23 @@ assert.equal(
   "/verify-2fa?next=%2Fapp%2Fcommand-center",
 );
 
+assert.equal(
+  twoFactorRedirectPath(authenticatedNeedsVerification, "/partners"),
+  "/auth/two-factor/verify?next=%2Fpartners",
+);
+assert.equal(
+  twoFactorRedirectPath(
+    {
+      ...authenticatedNeedsVerification,
+      needs_enrollment: true,
+      needs_verification: false,
+      enabled: false,
+    },
+    "/partners",
+  ),
+  "/auth/two-factor/enroll?required=1&next=%2Fpartners",
+);
+
 const verified: TwoFactorStatus = {
   ...authenticatedNeedsVerification,
   session_verified: true,
