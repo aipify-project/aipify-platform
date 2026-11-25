@@ -1,5 +1,6 @@
 /**
- * CSP Academy — certificate metadata and a minimal hand-rolled PDF (pure, no dependencies).
+ * CSP Academy — certificate metadata and reversible IDs (client-safe).
+ * PDF rendering lives in `certificate-pdf.ts` (server-only: node:fs + pdf-lib).
  *
  * Issuer identity comes ONLY from `COMPANY_CONFIG` (authoritative legal name, org number, country).
  * If the organization number is missing the certificate is blocked (fail closed) — a certificate
@@ -50,7 +51,7 @@ export type CspCertificateInput = {
   derivationSeed?: string;
 };
 
-const CERTIFICATE_ID_PATTERN = /^[0-9a-zA-Z-]{8,64}$/;
+const CERTIFICATE_ID_PATTERN = /^[0-9a-zA-Z_-]{8,64}$/;
 const MAX_NAME_LENGTH = 120;
 
 /** FNV-1a 32-bit hash with a salt so four independent words can be produced. */
@@ -79,12 +80,36 @@ export function deriveCertificateId(seed: string): string {
   ].join("-");
 }
 
+const PARTNER_UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const PRODUCT_KEY_RE = /^[a-z0-9_]{2,32}$/;
+
 /**
- * Stable certificate id for a partner + product (UUID-shaped, deterministic).
- * Used by both the submit response and the certificate download so the id never diverges.
+ * Stable, reversible certificate id: `{productKey}-{partnerUuid}`.
+ * Enables O(1) public verify without scanning certification rows.
+ * Used by submit, download, Admin drawer, and public verification so the id never diverges.
  */
 export function deriveCspCertificateId(partnerId: string, productKey: string): string {
-  return deriveCertificateId(`csp-certificate|${partnerId}|${productKey}`);
+  const partner = partnerId.trim();
+  const product = productKey.trim().toLowerCase();
+  if (!PARTNER_UUID_RE.test(partner) || !PRODUCT_KEY_RE.test(product)) {
+    // Fail closed to a deterministic but non-reversible legacy shape only for invalid inputs
+    // (tests / defensive); production callers always pass a UUID partner id.
+    return deriveCertificateId(`csp-certificate|${partner}|${product}`);
+  }
+  return `${product}-${partner}`;
+}
+
+/** Parses a reversible certificate id into product key + partner id. */
+export function parseCspCertificateId(
+  certificateId: string,
+): { productKey: string; partnerId: string } | null {
+  const id = certificateId.trim();
+  const match = /^([a-z0-9_]{2,32})-([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i.exec(
+    id,
+  );
+  if (!match) return null;
+  return { productKey: match[1].toLowerCase(), partnerId: match[2].toLowerCase() };
 }
 
 function normaliseLocale(locale: string | undefined): Locale {
@@ -136,115 +161,94 @@ export function buildCertificateMeta(
   };
 }
 
-// ───────────────────────── Minimal PDF writer ─────────────────────────
+// ───────────────────────── Localized PDF copy ─────────────────────────
 
-const CYRILLIC_TO_LATIN: Readonly<Record<string, string>> = {
-  а: "a", б: "b", в: "v", г: "h", ґ: "g", д: "d", е: "e", є: "ye", ж: "zh", з: "z", и: "y", і: "i",
-  ї: "yi", й: "y", к: "k", л: "l", м: "m", н: "n", о: "o", п: "p", р: "r", с: "s", т: "t", у: "u",
-  ф: "f", х: "kh", ц: "ts", ч: "ch", ш: "sh", щ: "shch", ь: "", ю: "yu", я: "ya", ы: "y", э: "e", ё: "yo", ъ: "",
+export type CertificatePdfCopy = {
+  title: string;
+  certifiesThat: string;
+  completedAssessment: string;
+  certificateId: string;
+  datePassed: string;
+  issuedBy: string;
+  verify: string;
 };
 
-/**
- * Standard PDF fonts only cover WinAnsi (Latin-1 + a few symbols). Characters outside it are
- * transliterated (Cyrillic) or stripped of diacritics (Polish, etc.); anything left becomes "?".
- * Latin-1 letters such as æ ø å ä ö ü é are kept as-is.
- */
+export function certificatePdfCopy(locale: Locale): CertificatePdfCopy {
+  switch (locale) {
+    case "no":
+      return {
+        title: "Sertifikat for produktsertifisering",
+        certifiesThat: "Dette bekrefter at",
+        completedAssessment: "har bestått godkjent produktsertifisering for",
+        certificateId: "Sertifikat-ID",
+        datePassed: "Dato",
+        issuedBy: "Utstedt av",
+        verify: "Verifiser",
+      };
+    case "sv":
+      return {
+        title: "Intyg om produktcertifiering",
+        certifiesThat: "Detta intygar att",
+        completedAssessment: "har klarat godkänd produktcertifiering för",
+        certificateId: "Certifikat-ID",
+        datePassed: "Datum",
+        issuedBy: "Utfärdat av",
+        verify: "Verifiera",
+      };
+    case "da":
+      return {
+        title: "Certifikat for produktcertificering",
+        certifiesThat: "Dette bekræfter, at",
+        completedAssessment: "har bestået godkendt produktcertificering for",
+        certificateId: "Certifikat-ID",
+        datePassed: "Dato",
+        issuedBy: "Udstedt af",
+        verify: "Verificér",
+      };
+    case "pl":
+      return {
+        title: "Certyfikat ukończenia produktu",
+        certifiesThat: "Niniejszym potwierdza się, że",
+        completedAssessment: "pomyślnie ukończył(a) certyfikację produktu",
+        certificateId: "ID certyfikatu",
+        datePassed: "Data",
+        issuedBy: "Wystawca",
+        verify: "Weryfikuj",
+      };
+    case "uk":
+      return {
+        title: "Сертифікат про сертифікацію продукту",
+        certifiesThat: "Цим підтверджується, що",
+        completedAssessment: "успішно пройшов(ла) сертифікацію продукту",
+        certificateId: "ID сертифіката",
+        datePassed: "Дата",
+        issuedBy: "Видавець",
+        verify: "Перевірити",
+      };
+    case "es":
+      return {
+        title: "Certificado de certificación de producto",
+        certifiesThat: "Se certifica que",
+        completedAssessment: "ha completado con éxito la certificación de producto de",
+        certificateId: "ID del certificado",
+        datePassed: "Fecha",
+        issuedBy: "Emitido por",
+        verify: "Verificar",
+      };
+    default:
+      return {
+        title: "Certificate of Completion",
+        certifiesThat: "This certifies that",
+        completedAssessment: "has successfully completed the product certification assessment for",
+        certificateId: "Certificate ID",
+        datePassed: "Date passed",
+        issuedBy: "Issued by",
+        verify: "Verify",
+      };
+  }
+}
+
+/** Identity helper for Unicode certificate text (no transliteration). */
 export function toPdfSafeText(value: string): string {
-  let out = "";
-  for (const ch of value.normalize("NFC")) {
-    const code = ch.charCodeAt(0);
-    if (ch === "–") {
-      out += ch; // en dash — encoded as WinAnsi 0x96
-    } else if (code < 32) {
-      out += " ";
-    } else if (code <= 255) {
-      out += ch;
-    } else {
-      const lower = ch.toLowerCase();
-      const cyr = CYRILLIC_TO_LATIN[lower];
-      if (cyr !== undefined) {
-        out += ch === lower ? cyr : cyr.charAt(0).toUpperCase() + cyr.slice(1);
-      } else if (ch === "ł" || ch === "Ł") {
-        out += ch === "ł" ? "l" : "L";
-      } else {
-        const base = ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        out += base.length > 0 && base.charCodeAt(0) <= 255 ? base : "?";
-      }
-    }
-  }
-  return out;
-}
-
-/** Encodes text as an ASCII-only PDF literal string body (non-ASCII as octal escapes). */
-function pdfLiteral(value: string): string {
-  let out = "";
-  for (const ch of toPdfSafeText(value)) {
-    if (ch === "–") out += "\\226";
-    else if (ch === "\\" || ch === "(" || ch === ")") out += `\\${ch}`;
-    else {
-      const code = ch.charCodeAt(0);
-      out += code < 127 ? ch : `\\${code.toString(8).padStart(3, "0")}`;
-    }
-  }
-  return out;
-}
-
-type PdfLine = { text: string; size: number; bold?: boolean; y: number };
-
-function centeredTextOps(line: PdfLine, pageWidth: number): string {
-  const approxWidth = toPdfSafeText(line.text).length * line.size * (line.bold ? 0.56 : 0.5);
-  const x = Math.max(36, Math.round((pageWidth - approxWidth) / 2));
-  return `BT /${line.bold ? "F2" : "F1"} ${line.size} Tf ${x} ${line.y} Td (${pdfLiteral(line.text)}) Tj ET`;
-}
-
-/**
- * Generates a minimal, valid single-page PDF (A4 landscape, standard Helvetica fonts) as bytes.
- * No dependencies. Contains: title, name, product, certificate id, date, issuer + org number.
- */
-export function buildCertificatePdfText(meta: CspCertificateMeta): Uint8Array {
-  const pageWidth = 842;
-  const pageHeight = 595;
-  const lines: PdfLine[] = [
-    { text: "Certificate of Completion", size: 32, bold: true, y: 470 },
-    { text: "This certifies that", size: 14, y: 410 },
-    { text: meta.fullName, size: 28, bold: true, y: 365 },
-    { text: "has completed the Aipify Partner Academy and passed the examination for", size: 14, y: 320 },
-    { text: meta.productLabel, size: 22, bold: true, y: 280 },
-    { text: `Certificate ID: ${meta.certificateId}`, size: 11, y: 205 },
-    { text: `Date passed: ${meta.passedAt.slice(0, 10)} (UTC)`, size: 11, y: 185 },
-    { text: `Issued by ${meta.issuer} - Org. no. ${meta.orgNumber} - ${meta.country}`, size: 11, y: 165 },
-    { text: `Verify: ${meta.verifyPath}`, size: 10, y: 130 },
-  ];
-
-  const content = [
-    "0.486 0.227 0.929 RG 2 w 24 24 794 547 re S",
-    "0 g",
-    ...lines.map((line) => centeredTextOps(line, pageWidth)),
-  ].join("\n");
-
-  const objects = [
-    "<< /Type /Catalog /Pages 2 0 R >>",
-    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-    `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageWidth} ${pageHeight}] ` +
-      "/Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>",
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>",
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>",
-    `<< /Length ${content.length} >>\nstream\n${content}\nendstream`,
-  ];
-
-  // Everything written is ASCII, so string length equals byte length (valid xref offsets).
-  let pdf = "%PDF-1.4\n";
-  const offsets: number[] = [];
-  objects.forEach((body, index) => {
-    offsets.push(pdf.length);
-    pdf += `${index + 1} 0 obj\n${body}\nendobj\n`;
-  });
-  const xrefOffset = pdf.length;
-  pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
-  for (const offset of offsets) pdf += `${String(offset).padStart(10, "0")} 00000 n \n`;
-  pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`;
-
-  const bytes = new Uint8Array(pdf.length);
-  for (let i = 0; i < pdf.length; i += 1) bytes[i] = pdf.charCodeAt(i) & 0x7f;
-  return bytes;
+  return value.normalize("NFC");
 }

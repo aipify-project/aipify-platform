@@ -7541,6 +7541,24 @@
       "approveRequiresVerifiedEmail": "Godkendelse er blokeret, indtil ansøgeren har bekræftet e-mailadressen.",
       "companyIdentityPendingSql": "Juridisk firmanavn og registreringsnummer er endnu ikke tilgængelige for denne ansøgning. Felterne vises som «Ikke gemt endnu», indtil virksomhedsoplysningerne kan gemmes til gennemgang.",
       "approveCompanyDetailsMissing": "Godkendelse kræver gemt juridisk firmanavn og registreringsnummer. Bed ansøgeren om flere oplysninger.",
+      "sectionCertifications": "Certificeringer",
+      "certificationsEmpty": "Ingen produktcertificeringer er registreret endnu.",
+      "fieldProduct": "Produkt",
+      "fieldCertStatus": "Certificeringsstatus",
+      "fieldScore": "Score",
+      "fieldPassedAt": "Bestået",
+      "fieldCertificateId": "Certifikat-ID",
+      "productLabels": {
+        "kompis_web": "Kompis Web",
+        "unknown": "Produkt"
+      },
+      "certStatusLabels": {
+        "not_started": "Ikke startet",
+        "in_progress": "I gang",
+        "passed": "Bestået",
+        "expired": "Udløbet",
+        "revoked": "Tilbagekaldt"
+      },
       "approveActiveAppCustomerWarning": "Denne konto er allerede en aktiv APP-kunde. Bekræft eksplicit før sælgeradgang gives — APP-medlemskab alene må aldrig blive partnerrettigheder.",
       "confirmActiveAppCustomer": "Jeg bekræfter, at denne APP-kunde også skal blive godkendt Growth Partner-sælger."
     },

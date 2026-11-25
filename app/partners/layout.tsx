@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import {
   PartnersPortalAuthGuard,
@@ -15,11 +16,23 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
+function isPublicCertificateVerifyPath(pathname: string): boolean {
+  return pathname === "/partners/academy/verify" || pathname.startsWith("/partners/academy/verify/");
+}
+
 export default async function PartnersPortalLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headerStore = await headers();
+  const pathname = headerStore.get("x-pathname") ?? "";
+
+  // Public certificate verification must not require partner session or portal shell.
+  if (isPublicCertificateVerifyPath(pathname)) {
+    return <>{children}</>;
+  }
+
   // Server-side gate — direct URLs cannot rely on the client AuthGuard alone.
   const access = await resolvePartnersPortalServerAccess();
   if (access.kind === "unauthorized") {
@@ -58,19 +71,19 @@ export default async function PartnersPortalLayout({
 
   return (
     <AnalyticsConsentProvider labels={analyticsConsentLabels} privacyHref="/privacy">
-    <PartnersPortalAuthGuard loadingLabel={labels.shell.loading}>
-      <PartnersPortalShell
-        portalBadge={t("partnersPortal.certifiedSalesPartner.portal.badge")}
-        portalTitle={t("partnersPortal.certifiedSalesPartner.portal.title")}
-        portalSubtitle={t("partnersPortal.certifiedSalesPartner.portal.subtitle")}
-        signOutLabel={t("auth.logout.signOut")}
-        governanceNote={labels.shell.governanceNote}
-        navLabels={cspNavLabels}
-        certifiedSalesPartnerMode
-      >
-        {children}
-      </PartnersPortalShell>
-    </PartnersPortalAuthGuard>
+      <PartnersPortalAuthGuard loadingLabel={labels.shell.loading}>
+        <PartnersPortalShell
+          portalBadge={t("partnersPortal.certifiedSalesPartner.portal.badge")}
+          portalTitle={t("partnersPortal.certifiedSalesPartner.portal.title")}
+          portalSubtitle={t("partnersPortal.certifiedSalesPartner.portal.subtitle")}
+          signOutLabel={t("auth.logout.signOut")}
+          governanceNote={labels.shell.governanceNote}
+          navLabels={cspNavLabels}
+          certifiedSalesPartnerMode
+        >
+          {children}
+        </PartnersPortalShell>
+      </PartnersPortalAuthGuard>
     </AnalyticsConsentProvider>
   );
 }

@@ -1248,6 +1248,24 @@
       "approveRequiresVerifiedEmail": "La aprobación está bloqueada hasta que el solicitante verifique su correo.",
       "companyIdentityPendingSql": "La razón social y el número de registro aún no están disponibles para esta solicitud. Los campos muestran «Aún no guardado» hasta que se puedan guardar los datos de la empresa para revisión.",
       "approveCompanyDetailsMissing": "La aprobación requiere razón social y número de registro guardados. Solicita más información al solicitante.",
+      "sectionCertifications": "Certificaciones",
+      "certificationsEmpty": "Aún no hay certificaciones de producto registradas.",
+      "fieldProduct": "Producto",
+      "fieldCertStatus": "Estado de certificación",
+      "fieldScore": "Puntuación",
+      "fieldPassedAt": "Aprobado",
+      "fieldCertificateId": "ID del certificado",
+      "productLabels": {
+        "kompis_web": "Kompis Web",
+        "unknown": "Producto"
+      },
+      "certStatusLabels": {
+        "not_started": "No iniciado",
+        "in_progress": "En curso",
+        "passed": "Aprobado",
+        "expired": "Caducado",
+        "revoked": "Revocado"
+      },
       "approveActiveAppCustomerWarning": "Esta cuenta ya es un cliente APP activo. Confirma explícitamente antes de conceder acceso de vendedor: la membresía APP por sí sola nunca debe convertirse en derechos de partner.",
       "confirmActiveAppCustomer": "Confirmo que este cliente APP también debe convertirse en vendedor Growth Partner aprobado."
     },

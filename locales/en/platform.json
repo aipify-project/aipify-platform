@@ -8067,6 +8067,24 @@
       "approveRequiresVerifiedEmail": "Approval is blocked until the applicant verifies their email address.",
       "companyIdentityPendingSql": "Legal company name and registration number are not available for this application yet. Fields show “Not saved yet” until company details can be stored for review.",
       "approveCompanyDetailsMissing": "Approval requires a saved legal company name and registration number. Request more information from the applicant.",
+      "sectionCertifications": "Certifications",
+      "certificationsEmpty": "No product certifications recorded yet.",
+      "fieldProduct": "Product",
+      "fieldCertStatus": "Certification status",
+      "fieldScore": "Score",
+      "fieldPassedAt": "Passed",
+      "fieldCertificateId": "Certificate ID",
+      "productLabels": {
+        "kompis_web": "Kompis Web",
+        "unknown": "Product"
+      },
+      "certStatusLabels": {
+        "not_started": "Not started",
+        "in_progress": "In progress",
+        "passed": "Passed",
+        "expired": "Expired",
+        "revoked": "Revoked"
+      },
       "approveActiveAppCustomerWarning": "This account is already an active APP customer. Confirm explicitly before granting seller access — APP membership alone must never become partner rights.",
       "confirmActiveAppCustomer": "I confirm this APP customer should also become an approved Growth Partner seller."
     },

@@ -28,13 +28,13 @@ export const KOMPIS_WEB_LESSONS: readonly CspAcademyLesson[] = [
     order: 1,
     containsPlannedCatalogFacts: false,
     title: L(
-      "Product and value",
-      "Produkt og verdi",
-      "Produkt och värde",
-      "Produkt og værdi",
-      "Produkt i wartość",
-      "Продукт і цінність",
-      "Producto y valor",
+      "What is Kompis Web?",
+      "Hva er Kompis Web?",
+      "Vad är Kompis Web?",
+      "Hvad er Kompis Web?",
+      "Czym jest Kompis Web?",
+      "Що таке Kompis Web?",
+      "¿Qué es Kompis Web?",
     ),
     body: [
       L(
@@ -71,7 +71,15 @@ export const KOMPIS_WEB_LESSONS: readonly CspAcademyLesson[] = [
     productId: "kompis_web",
     order: 2,
     containsPlannedCatalogFacts: false,
-    title: L("Use cases", "Bruksområder", "Användningsområden", "Anvendelsesområder", "Zastosowania", "Сценарії використання", "Casos de uso"),
+    title: L(
+      "Who is it for?",
+      "Hvem passer det for?",
+      "Vem passar det för?",
+      "Hvem passer det til?",
+      "Dla kogo jest przeznaczone?",
+      "Для кого це підходить?",
+      "¿Para quién es?",
+    ),
     body: [
       L(
         "Typical fits are websites where visitors repeatedly ask about the same things: opening hours, services, prices that are already published, delivery or booking information, and how to contact the business.",
@@ -108,13 +116,13 @@ export const KOMPIS_WEB_LESSONS: readonly CspAcademyLesson[] = [
     order: 3,
     containsPlannedCatalogFacts: false,
     title: L(
-      "Setup and connection",
-      "Oppsett og tilkobling",
-      "Installation och anslutning",
-      "Opsætning og tilslutning",
-      "Konfiguracja i połączenie",
-      "Налаштування та підключення",
-      "Configuración y conexión",
+      "Features, content and clear limits",
+      "Funksjoner, innhold og klare begrensninger",
+      "Funktioner, innehåll och tydliga gränser",
+      "Funktioner, indhold og klare begrænsninger",
+      "Funkcje, treści i jasne ograniczenia",
+      "Функції, вміст і чіткі обмеження",
+      "Funciones, contenido y límites claros",
     ),
     body: [
       L(
@@ -152,13 +160,13 @@ export const KOMPIS_WEB_LESSONS: readonly CspAcademyLesson[] = [
     order: 4,
     containsPlannedCatalogFacts: false,
     title: L(
-      "Privacy and boundaries",
-      "Personvern og grenser",
-      "Integritet och gränser",
-      "Privatliv og grænser",
-      "Prywatność i granice",
-      "Приватність і межі",
-      "Privacidad y límites",
+      "Privacy, trust and honest limits",
+      "Personvern, tillit og ærlige grenser",
+      "Integritet, tillit och ärliga gränser",
+      "Privatliv, tillid og ærlige grænser",
+      "Prywatność, zaufanie i uczciwe granice",
+      "Приватність, довіра і чесні межі",
+      "Privacidad, confianza y límites honestos",
     ),
     body: [
       L(
@@ -196,13 +204,13 @@ export const KOMPIS_WEB_LESSONS: readonly CspAcademyLesson[] = [
     order: 5,
     containsPlannedCatalogFacts: true,
     title: L(
-      "Packages, free tier and capacity",
-      "Pakker, gratisnivå og kapasitet",
-      "Paket, gratisnivå och kapacitet",
-      "Pakker, gratisniveau og kapacitet",
-      "Pakiety, poziom bezpłatny i pojemność",
-      "Пакети, безкоштовний рівень і ємність",
-      "Paquetes, nivel gratuito y capacidad",
+      "Packages, free model and pricing",
+      "Pakker, gratismodell og pris",
+      "Paket, gratisnivå och pris",
+      "Pakker, gratismodel og pris",
+      "Pakiety, model bezpłatny i ceny",
+      "Пакети, безкоштовна модель і ціна",
+      "Paquetes, modelo gratuito y precios",
     ),
     body: [
       L(
@@ -240,13 +248,13 @@ export const KOMPIS_WEB_LESSONS: readonly CspAcademyLesson[] = [
     order: 6,
     containsPlannedCatalogFacts: false,
     title: L(
-      "Sales, objections and ethical representation",
-      "Salg, innvendinger og etisk representasjon",
-      "Försäljning, invändningar och etisk representation",
-      "Salg, indvendinger og etisk repræsentation",
-      "Sprzedaż, zastrzeżenia i etyczne reprezentowanie",
-      "Продажі, заперечення та етичне представлення",
-      "Ventas, objeciones y representación ética",
+      "Ethics, privacy, commission and certification",
+      "Etikk, privatliv, provisjon og sertifisering",
+      "Etik, integritet, provision och certifiering",
+      "Etik, privatliv, provision og certificering",
+      "Etyka, prywatność, prowizja i certyfikacja",
+      "Етика, приватність, комісія та сертифікація",
+      "Ética, privacidad, comisión y certificación",
     ),
     body: [
       L(

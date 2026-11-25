@@ -20,7 +20,16 @@ export type PartnerDetailsDrawerLabels = {
   sectionContact: string;
   sectionCompany: string;
   sectionStatus: string;
+  sectionCertifications: string;
   sectionActivity: string;
+  certificationsEmpty: string;
+  fieldProduct: string;
+  fieldCertStatus: string;
+  fieldScore: string;
+  fieldPassedAt: string;
+  fieldCertificateId: string;
+  productLabels: Record<string, string>;
+  certStatusLabels: Record<string, string>;
   fieldName: string;
   fieldEmail: string;
   fieldEmailVerified: string;
@@ -93,6 +102,14 @@ type ActivityRow = {
   createdAt: string | null;
 };
 
+type CertificationRow = {
+  productKey: string;
+  status: string;
+  score: number | null;
+  passedAt: string | null;
+  certificateId: string | null;
+};
+
 type Props = {
   partnerId: string;
   locale: string;
@@ -127,6 +144,7 @@ export function CertifiedSellersPartnerDetailsDrawer({
   const [phase, setPhase] = useState<LoadPhase>("loading");
   const [partner, setPartner] = useState<PartnerDetail | null>(null);
   const [activity, setActivity] = useState<ActivityRow[]>([]);
+  const [certifications, setCertifications] = useState<CertificationRow[]>([]);
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState<{ kind: "ok" | "closed" | "error"; text: string } | null>(null);
   const [confirmStatus, setConfirmStatus] = useState<string | null>(null);
@@ -185,6 +203,25 @@ export function CertifiedSellersPartnerDetailsDrawer({
               action,
               actorKind: typeof r.actorKind === "string" ? r.actorKind : null,
               createdAt: typeof r.createdAt === "string" ? r.createdAt : null,
+            },
+          ];
+        }),
+      );
+      const certRows = Array.isArray(body.certifications) ? body.certifications : [];
+      setCertifications(
+        certRows.flatMap((row) => {
+          if (!row || typeof row !== "object") return [];
+          const r = row as Record<string, unknown>;
+          const productKey = typeof r.productKey === "string" ? r.productKey : null;
+          const status = typeof r.status === "string" ? r.status : null;
+          if (!productKey || !status) return [];
+          return [
+            {
+              productKey,
+              status,
+              score: typeof r.score === "number" ? r.score : null,
+              passedAt: typeof r.passedAt === "string" ? r.passedAt : null,
+              certificateId: typeof r.certificateId === "string" ? r.certificateId : null,
             },
           ];
         }),
@@ -375,6 +412,49 @@ export function CertifiedSellersPartnerDetailsDrawer({
                     label={labels.fieldUpdated}
                     value={formatPlatformDateTimeFull(partner.updatedAt, dateOpts)}
                   />
+                </DetailCard>
+
+                <DetailCard title={labels.sectionCertifications}>
+                  {certifications.length === 0 ? (
+                    <p className="text-sm text-[color:var(--aipify-text-secondary)]">
+                      {labels.certificationsEmpty}
+                    </p>
+                  ) : (
+                    <ul className="space-y-3 text-sm">
+                      {certifications.map((row, i) => (
+                        <li
+                          key={`${row.productKey}-${row.status}-${row.passedAt ?? i}`}
+                          className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-3"
+                        >
+                          <p className="font-medium text-[#1F2937]">
+                            {labels.productLabels[row.productKey] ?? row.productKey}
+                          </p>
+                          <div className="mt-2 space-y-1 text-[color:var(--aipify-text-secondary)]">
+                            <p>
+                              {labels.fieldCertStatus}:{" "}
+                              {labels.certStatusLabels[row.status] ?? row.status}
+                            </p>
+                            {row.score != null ? (
+                              <p>
+                                {labels.fieldScore}: {row.score}
+                              </p>
+                            ) : null}
+                            {row.passedAt ? (
+                              <p>
+                                {labels.fieldPassedAt}:{" "}
+                                {formatPlatformDateTimeFull(row.passedAt, dateOpts)}
+                              </p>
+                            ) : null}
+                            {row.certificateId ? (
+                              <p className="break-all font-mono text-xs text-[#1F2937]">
+                                {labels.fieldCertificateId}: {row.certificateId}
+                              </p>
+                            ) : null}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </DetailCard>
 
                 <DetailCard title={labels.sectionActivity}>
