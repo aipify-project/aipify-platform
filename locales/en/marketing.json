@@ -8390,8 +8390,20 @@
         "certification_acknowledgement_required": "Confirm that you understand certification is required before selling.",
         "accuracy_confirmation_required": "Confirm that the information provided is accurate.",
         "forbidden": "This account cannot submit a partner application. Contact Aipify if you need help.",
-        "registration_failed": "Something unexpected happened. Please try again."
-      }
+        "registration_failed": "Something unexpected happened. Please try again.",
+        "invalid_phone": "Enter a valid phone number: digits only, 8–15 digits including the country code.",
+        "submission_blocked": "This submission could not be accepted. Reload the page and try again.",
+        "rate_limited": "Too many attempts. Please wait a few minutes and try again.",
+        "form_too_fast": "Please take a moment to complete the form, then submit again.",
+        "verification_required": "Complete the security check and submit again.",
+        "duplicate_recent": "A recent submission for this email was already received. Please wait a minute before trying again."
+      },
+      "phoneDial": "Country code",
+      "phoneNational": "Phone number",
+      "phoneHint": "Optional. Choose a country code and enter digits only. The number is stored in international format.",
+      "companyPersistenceNote": "Platform reviews every application. Your legal business name and registration number are validated when you submit. They will be stored in Aipify Core once the separately approved storage update is enabled; until then, Aipify Core stores only your contact name and country.",
+      "errorSummaryTitle": "Please review the highlighted fields",
+      "supportRefLabel": "Support reference"
     }
   }
 }

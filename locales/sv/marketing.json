@@ -8800,8 +8800,20 @@
         "certification_acknowledgement_required": "Bekräfta att du förstår att certifiering krävs före försäljning.",
         "accuracy_confirmation_required": "Bekräfta att uppgifterna är korrekta.",
         "forbidden": "Det här kontot kan inte skicka en partneransökan. Kontakta Aipify om du behöver hjälp.",
-        "registration_failed": "Något oväntat hände. Försök igen."
-      }
+        "registration_failed": "Något oväntat hände. Försök igen.",
+        "invalid_phone": "Ange ett giltigt telefonnummer: endast siffror, 8–15 siffror inklusive landskod.",
+        "submission_blocked": "Inskickningen kunde inte godtas. Ladda om sidan och försök igen.",
+        "rate_limited": "För många försök. Vänta några minuter och försök igen.",
+        "form_too_fast": "Ta en stund på dig att fylla i formuläret och skicka sedan in igen.",
+        "verification_required": "Slutför säkerhetskontrollen och skicka in igen.",
+        "duplicate_recent": "Vi har nyligen tagit emot en inskickning för den här e-postadressen. Vänta en minut innan du försöker igen."
+      },
+      "phoneDial": "Landskod",
+      "phoneNational": "Telefonnummer",
+      "phoneHint": "Valfritt. Välj landskod och ange endast siffror. Numret sparas i internationellt format.",
+      "companyPersistenceNote": "Plattformen granskar varje ansökan. Juridiskt företagsnamn och registreringsnummer kontrolleras när du skickar in. De sparas i Aipify Core när den separat godkända lagringsuppdateringen är aktiverad. Tills dess sparar Aipify Core endast kontaktnamn och land.",
+      "errorSummaryTitle": "Kontrollera de markerade fälten",
+      "supportRefLabel": "Supportreferens"
     }
   }
 }

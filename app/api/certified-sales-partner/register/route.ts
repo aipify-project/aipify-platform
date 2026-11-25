@@ -9,8 +9,17 @@ import {
   parseCspRegistrationApplication,
   validateCspRegistration,
 } from "@/lib/certified-sales-partner";
-import { assertPublicFormSubmission, logSuspiciousSubmission } from "@/lib/public-forms/bot-protection";
+import {
+  assertPublicFormSubmission,
+  logSuspiciousSubmission,
+  resolvePublicFormGuardCode,
+} from "@/lib/public-forms/bot-protection";
 import { createClient } from "@/lib/supabase/server";
+
+/** Opaque reference the customer can quote to support — carries no personal data. */
+function newSupportRef(): string {
+  return `CSP-${crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase()}`;
+}
 
 function loginRequiredResponse() {
   return NextResponse.json(
@@ -42,7 +51,9 @@ export async function POST(request: Request) {
           request.headers.get("x-forwarded-for") ?? "unknown",
         );
       }
-      return NextResponse.json({ error: guard.error }, { status: guard.status });
+      // Stable code for the UI; `error` mirrors it so no English sentence reaches the form.
+      const guardCode = resolvePublicFormGuardCode(guard) ?? "submission_blocked";
+      return NextResponse.json({ error: guardCode, code: guardCode }, { status: guard.status });
     }
 
     const supabase = await createClient();
@@ -59,6 +70,8 @@ export async function POST(request: Request) {
       businessRegistrationNumber:
         body.business_registration_number ?? body.businessRegistrationNumber,
       phone: body.phone,
+      phoneDial: body.phone_dial ?? body.phoneDial,
+      phoneNational: body.phone_national ?? body.phoneNational,
       preferredLocale: body.preferred_locale ?? body.preferredLocale,
       address: body.address,
       registeredBusinessConfirmed:
@@ -104,8 +117,14 @@ export async function POST(request: Request) {
     if (typeof coreError === "string" && coreError) {
       const mapped = mapCspRegistrationRpcError(coreError);
       if (mapped?.code === "login_required") return loginRequiredResponse();
+      const unmappedRef = mapped ? undefined : newSupportRef();
+      if (unmappedRef) console.error("[csp-register] unmapped core error", { support_ref: unmappedRef });
       return NextResponse.json(
-        { error: mapped?.code ?? "registration_failed", code: mapped?.code ?? "registration_failed" },
+        {
+          error: mapped?.code ?? "registration_failed",
+          code: mapped?.code ?? "registration_failed",
+          ...(unmappedRef ? { support_ref: unmappedRef } : {}),
+        },
         { status: mapped?.status ?? 422 },
       );
     }
@@ -116,7 +135,15 @@ export async function POST(request: Request) {
       created: application.created,
       status: application.partnerStatus,
     });
-  } catch {
-    return NextResponse.json({ error: "registration_failed" }, { status: 500 });
+  } catch (error) {
+    const supportRef = newSupportRef();
+    console.error("[csp-register] unexpected failure", {
+      support_ref: supportRef,
+      name: error instanceof Error ? error.name : "unknown",
+    });
+    return NextResponse.json(
+      { error: "registration_failed", code: "registration_failed", support_ref: supportRef },
+      { status: 500 },
+    );
   }
 }

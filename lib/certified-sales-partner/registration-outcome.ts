@@ -92,8 +92,14 @@ export type CspRegistrationUiOutcome =
   | { kind: "existing"; partnerStatus: string | null }
   | { kind: "login_required"; loginUrl: string }
   | { kind: "backend_closed" }
-  | { kind: "invalid"; code: string }
-  | { kind: "error"; code: string };
+  | { kind: "invalid"; code: string; supportRef?: string }
+  | { kind: "error"; code: string; supportRef?: string };
+
+/** Opaque support reference from the API — accepted only in a strict, display-safe shape. */
+export function parseCspSupportRef(body: unknown): string | undefined {
+  const raw = rec(body).support_ref;
+  return typeof raw === "string" && /^[A-Za-z0-9-]{4,40}$/.test(raw) ? raw : undefined;
+}
 
 function safeLoginUrl(body: Record<string, unknown>): string {
   const candidate = body.login_url;
@@ -111,25 +117,26 @@ function safeLoginUrl(body: Record<string, unknown>): string {
 export function classifyCspRegistrationResponse(status: number, body: unknown): CspRegistrationUiOutcome {
   const b = rec(body);
   const code = norm(b.code) || norm(b.error);
+  const supportRef = parseCspSupportRef(b);
 
   if (status === 401 || isCspUnauthorizedCode(code)) {
     return { kind: "login_required", loginUrl: safeLoginUrl(b) };
   }
   if (status === 503 || b.backend_ready === false) return { kind: "backend_closed" };
-  if (status === 400 || status === 422) return { kind: "invalid", code: code || "invalid" };
-  if (status === 403) return { kind: "error", code: code || "forbidden" };
+  if (status === 400 || status === 422) return { kind: "invalid", code: code || "invalid", supportRef };
+  if (status === 403) return { kind: "error", code: code || "forbidden", supportRef };
 
   if (status >= 200 && status < 300) {
     if (typeof b.error === "string" && b.error.trim()) {
       const mapped = mapCspRegistrationRpcError(b.error);
       if (mapped?.status === 400) return { kind: "invalid", code: mapped.code };
-      return { kind: "error", code: mapped?.code ?? norm(b.error) };
+      return { kind: "error", code: mapped?.code ?? norm(b.error), supportRef };
     }
     const app = parseCspRegistrationApplication(body);
     if (app.created === false) return { kind: "existing", partnerStatus: app.partnerStatus };
     return { kind: "created", partnerStatus: app.partnerStatus };
   }
-  return { kind: "error", code: code || `http_${status}` };
+  return { kind: "error", code: code || `http_${status}`, supportRef };
 }
 
 /** Partner statuses the existing-application message distinguishes; everything else uses `other`. */

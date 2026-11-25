@@ -1010,8 +1010,20 @@
         "certification_acknowledgement_required": "Potwierdź, że rozumiesz, iż certyfikacja jest wymagana przed sprzedażą.",
         "accuracy_confirmation_required": "Potwierdź, że podane informacje są prawdziwe.",
         "forbidden": "To konto nie może wysłać zgłoszenia partnerskiego. Skontaktuj się z Aipify, jeśli potrzebujesz pomocy.",
-        "registration_failed": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
-      }
+        "registration_failed": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie.",
+        "invalid_phone": "Wpisz prawidłowy numer telefonu: same cyfry, 8–15 cyfr łącznie z numerem kierunkowym kraju.",
+        "submission_blocked": "Nie można przyjąć tego zgłoszenia. Odśwież stronę i spróbuj ponownie.",
+        "rate_limited": "Zbyt wiele prób. Odczekaj kilka minut i spróbuj ponownie.",
+        "form_too_fast": "Poświęć chwilę na wypełnienie formularza, a następnie wyślij go ponownie.",
+        "verification_required": "Ukończ kontrolę bezpieczeństwa i wyślij formularz ponownie.",
+        "duplicate_recent": "Niedawno otrzymaliśmy zgłoszenie z tego adresu e-mail. Odczekaj minutę przed kolejną próbą."
+      },
+      "phoneDial": "Numer kierunkowy kraju",
+      "phoneNational": "Numer telefonu",
+      "phoneHint": "Opcjonalnie. Wybierz numer kierunkowy kraju i wpisz same cyfry. Numer jest zapisywany w formacie międzynarodowym.",
+      "companyPersistenceNote": "Platforma weryfikuje każde zgłoszenie. Nazwa prawna firmy i numer rejestracyjny są sprawdzane podczas wysyłania. Zostaną zapisane w Aipify Core po włączeniu osobno zatwierdzonej aktualizacji przechowywania danych; do tego czasu Aipify Core zapisuje wyłącznie imię i nazwisko osoby kontaktowej oraz kraj.",
+      "errorSummaryTitle": "Sprawdź zaznaczone pola",
+      "supportRefLabel": "Numer referencyjny dla wsparcia"
     }
   }
 }

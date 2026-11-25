@@ -8800,8 +8800,20 @@
         "certification_acknowledgement_required": "Bekræft, at du forstår, at certificering kræves før salg.",
         "accuracy_confirmation_required": "Bekræft, at oplysningerne er korrekte.",
         "forbidden": "Denne konto kan ikke sende en partneransøgning. Kontakt Aipify, hvis du har brug for hjælp.",
-        "registration_failed": "Noget uventet skete. Prøv igen."
-      }
+        "registration_failed": "Noget uventet skete. Prøv igen.",
+        "invalid_phone": "Indtast et gyldigt telefonnummer: kun cifre, 8–15 cifre inklusive landekode.",
+        "submission_blocked": "Indsendelsen kunne ikke accepteres. Genindlæs siden, og prøv igen.",
+        "rate_limited": "For mange forsøg. Vent et par minutter, og prøv igen.",
+        "form_too_fast": "Tag dig tid til at udfylde formularen, og send derefter igen.",
+        "verification_required": "Gennemfør sikkerhedskontrollen, og send igen.",
+        "duplicate_recent": "Vi har for nylig modtaget en indsendelse for denne e-mailadresse. Vent et minut, før du prøver igen."
+      },
+      "phoneDial": "Landekode",
+      "phoneNational": "Telefonnummer",
+      "phoneHint": "Valgfrit. Vælg landekode og indtast kun cifre. Nummeret gemmes i internationalt format.",
+      "companyPersistenceNote": "Platformen gennemgår hver ansøgning. Juridisk firmanavn og registreringsnummer kontrolleres, når du sender ind. De gemmes i Aipify Core, når den særskilt godkendte lagringsopdatering er aktiveret. Indtil da gemmer Aipify Core kun kontaktnavn og land.",
+      "errorSummaryTitle": "Gennemgå de markerede felter",
+      "supportRefLabel": "Supportreference"
     }
   }
 }

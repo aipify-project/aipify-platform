@@ -7,6 +7,7 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildCspRegistrationFormLabels } from "@/lib/partners-portal/csp-workspace-labels";
+import { buildHumanVerificationLabels } from "@/lib/system-notice/labels";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -182,6 +183,7 @@ export default async function CertifiedSalesPartnerRecruitmentPage() {
               <CertifiedSalesPartnerRegistrationForm
                 locale={String(locale)}
                 labels={buildCspRegistrationFormLabels(t)}
+                verificationLabels={buildHumanVerificationLabels(t)}
               />
             </div>
           </div>
