@@ -134,8 +134,8 @@ export async function inspectPartnerAuthCapability(authUserId: string | null | u
     const { data, error } = await admin.auth.admin.getUserById(authUserId);
     if (error || !data?.user?.email) return { kind: "not_found" };
     const user = data.user;
+    const email: string = data.user.email;
     const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
-    const email = user.email;
     const locale = readMetaLocale(meta);
     const displayName = readDisplayName(meta, email);
 
