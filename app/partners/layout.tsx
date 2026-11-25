@@ -1,13 +1,16 @@
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import {
   PartnersPortalAuthGuard,
   PartnersPortalShell,
 } from "@/components/partners-portal";
 import AnalyticsConsentProvider from "@/components/analytics/AnalyticsConsentProvider";
+import { AipifySystemNotice } from "@/components/ui/aipify-system-notice";
 import {
   buildPartnersPortalLabels,
   buildPartnersPortalNavLabels,
 } from "@/lib/partners-portal/labels";
+import { resolvePartnersPortalServerAccess } from "@/lib/partners-portal/server-access";
 import { buildAnalyticsConsentLabels } from "@/lib/product-analytics/consent";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -28,6 +31,15 @@ export default async function PartnersPortalLayout({
   // Public certificate verification must not require partner session or portal shell.
   if (isPublicCertificateVerifyPath(pathname)) {
     return <>{children}</>;
+  }
+
+  // Server-side gate — direct URLs cannot rely on the client AuthGuard alone.
+  const access = await resolvePartnersPortalServerAccess();
+  if (access.kind === "unauthorized") {
+    redirect("/login?portal=partner&next=/partners");
+  }
+  if (access.kind === "denied") {
+    return <AipifySystemNotice status="csp_partner_required" />;
   }
 
   const dict = await getDictionary(await getLocale(), ["common", "auth", "partnersPortal", "analyticsConsent"]);

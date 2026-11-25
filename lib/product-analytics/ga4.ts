@@ -1,6 +1,6 @@
 import type { AnalyticsConsentState } from "@/lib/product-analytics/consent";
 
-export type GtagCommand = "js" | "config" | "consent";
+export type GtagCommand = "js" | "config" | "consent" | "event";
 export type GtagFn = ((...args: unknown[]) => void) & {
   (command: GtagCommand, ...args: unknown[]): void;
 };
@@ -122,7 +122,8 @@ export function configureGa4Once(
   windowLike[gaDisableFlagKey(measurementId)] = false;
   windowLike.gtag!("consent", "update", { analytics_storage: "granted" });
   windowLike.gtag!("js", now);
-  windowLike.gtag!("config", measurementId, { send_page_view: true });
+  // SPA navigations send page_view via ProductAnalyticsPageViewTracker — avoid double counts.
+  windowLike.gtag!("config", measurementId, { send_page_view: false });
   runtime.configCalled = true;
   runtime.measurementId = measurementId;
   return true;

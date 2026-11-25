@@ -11,7 +11,7 @@ export default async function PlatformCustomerJourneyAnalyticsPage() {
 
   return (
     <CustomerJourneyAnalyticsPanel
-      backHref="/platform/metrics"
+      backHref="/platform/analytics"
       labels={buildCustomerJourneyAnalyticsLabels(t)}
     />
   );

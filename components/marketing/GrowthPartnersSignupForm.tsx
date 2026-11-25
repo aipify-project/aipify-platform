@@ -137,6 +137,12 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
       if (!res.ok || !result.ok) throw new Error(result.error ?? labels.errorGeneric);
 
       trackEvent("growth_partner_signup", { country });
+      try {
+        const { trackPartnerApplicationSubmit } = await import("@/lib/product-analytics/track");
+        trackPartnerApplicationSubmit(country);
+      } catch {
+        // Analytics must never block signup UX.
+      }
       router.push(result.redirectPath ?? "/app/growth-partner");
     } catch (err) {
       setStatus("error");

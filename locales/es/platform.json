@@ -1114,7 +1114,9 @@
         "reason_required": "Añade un motivo de al menos 3 caracteres.",
         "settlement_transition_fields_required": "Completa la referencia de liquidación y ambos pasos.",
         "partner_not_found": "No se encontró el socio.",
-        "forbidden": "No tienes permiso para realizar esta acción."
+        "forbidden": "No tienes permiso para realizar esta acción.",
+        "confirm_active_app_customer_required": "Confirma que este cliente APP activo también debe recibir acceso de vendedor.",
+        "email_verification_required": "La aprobación está bloqueada hasta que el solicitante verifique su correo."
       }
     },
     "live": {
@@ -1263,7 +1265,9 @@
         "passed": "Aprobado",
         "expired": "Caducado",
         "revoked": "Revocado"
-      }
+      },
+      "approveActiveAppCustomerWarning": "Esta cuenta ya es un cliente APP activo. Confirma explícitamente antes de conceder acceso de vendedor: la membresía APP por sí sola nunca debe convertirse en derechos de partner.",
+      "confirmActiveAppCustomer": "Confirmo que este cliente APP también debe convertirse en vendedor Growth Partner aprobado."
     },
     "commissions": {
       "title": "Comisiones de vendedores",

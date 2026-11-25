@@ -33,6 +33,8 @@ export type CspPartnerAdminDetail = {
     updatedAt: string | null;
     email: string | null;
     emailVerified: boolean;
+    /** True when this auth user also has an active APP customer membership. */
+    hasActiveAppMembership: boolean;
     /** `null` = not persisted (UI shows "Not saved yet"). */
     legalBusinessName: string | null;
     businessRegistrationNumber: string | null;
@@ -193,9 +195,21 @@ export async function fetchCspPartnerAdminDetail(partnerId: string): Promise<Csp
     if (!row) return { kind: "not_found" };
 
     const optional = await loadOptionalColumns(admin, partnerId);
-    const identity = await loadAuthIdentity(admin, str(row.auth_user_id));
+    const authUserId = str(row.auth_user_id);
+    const identity = await loadAuthIdentity(admin, authUserId);
     const activity = await loadActivity(admin, partnerId);
     const certifications = await loadCertifications(admin, partnerId);
+    let hasActiveAppMembership = false;
+    if (authUserId) {
+      const membership = await admin
+        .from("company_users")
+        .select("id")
+        .eq("auth_user_id", authUserId)
+        .eq("status", "active")
+        .limit(1)
+        .maybeSingle();
+      hasActiveAppMembership = !membership.error && Boolean(membership.data);
+    }
 
     return {
       kind: "found",
@@ -209,6 +223,7 @@ export async function fetchCspPartnerAdminDetail(partnerId: string): Promise<Csp
           updatedAt: str(row.updated_at),
           email: identity.email,
           emailVerified: identity.emailVerified,
+          hasActiveAppMembership,
           legalBusinessName: str(optional?.legal_business_name),
           businessRegistrationNumber: str(optional?.business_registration_number),
           businessAddress: str(optional?.business_address),

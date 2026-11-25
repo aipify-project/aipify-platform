@@ -1,12 +1,21 @@
 import { NextResponse } from "next/server";
-import { userHasCspPartnerAccess } from "@/lib/certified-sales-partner/partner-access";
+import {
+  isGrowthPortalAccessGranted,
+  userHasCspPartnerAccess,
+} from "@/lib/certified-sales-partner/partner-access";
 import { parsePartnersPortalAccess } from "@/lib/partners-portal";
 import { createClient } from "@/lib/supabase/server";
 
 /**
- * Partner portal access: Growth Portal membership OR an existing CSP partner profile.
- * CSP applicants/approved partners must reach /partners without legacy Growth membership.
- * Never grants Platform Admin privileges.
+ * Seller portal access (`/partners`).
+ *
+ * ALLOWED only when Core confirms:
+ *  - active Growth Portal membership / super_admin growth role, or
+ *  - an approved/active Certified Sales Partner profile.
+ *
+ * Never grants access from customer company membership, email address,
+ * client-supplied roles, or a pending/rejected partner application.
+ * Never elevates Platform Admin privileges.
  */
 export async function GET() {
   try {
@@ -19,14 +28,17 @@ export async function GET() {
     }
 
     const { data, error } = await supabase.rpc("get_growth_portal_access");
-    if (!error) {
-      const growth = parsePartnersPortalAccess(data);
-      if (growth.has_access) return NextResponse.json(growth);
+    if (!error && isGrowthPortalAccessGranted(data)) {
+      return NextResponse.json(parsePartnersPortalAccess(data));
     }
 
     const hasCsp = await userHasCspPartnerAccess(supabase, user.id);
     if (hasCsp) {
-      return NextResponse.json({ has_access: true, role: "csp_partner", access_source: "csp" });
+      return NextResponse.json({
+        has_access: true,
+        role: "csp_partner",
+        access_source: "csp",
+      });
     }
 
     return NextResponse.json({ has_access: false, role: "none" }, { status: 403 });
