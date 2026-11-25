@@ -16,10 +16,7 @@ import {
 // SERVER-ONLY: the answer key may only be imported by server routes — never by client components.
 import { getAnswerKeyForQuestions } from "@/lib/certified-sales-partner/academy/server";
 import { resolveCoreAcademyCourseId } from "@/lib/certified-sales-partner/academy/core-course";
-import {
-  corePositionToLocalQuestionId,
-  toCoreAnswersByPosition,
-} from "@/lib/certified-sales-partner/academy/core-mapping";
+import { toCoreAnswersByPosition } from "@/lib/certified-sales-partner/academy/core-mapping";
 import { DEFAULT_LOCALE, LOCALES } from "@/lib/i18n/config";
 import { createClient } from "@/lib/supabase/server";
 
@@ -34,47 +31,15 @@ function rec(v: unknown): Record<string, unknown> {
 }
 
 /**
- * Extracts a Core answer key. Supports the `csp_get_academy_answer_key` shape
- * (`questions: [{ question_id, position, answer_key }]`) and a flat `answer_key` map.
- * Core questions are matched to local ids directly or by position (`kw_q01` = position 1).
- * Returns null when the payload is unusable.
- */
-function parseCoreAnswerKey(data: unknown): Record<string, string> | null {
-  const root = rec(data);
-  const out: Record<string, string> = {};
-  const flat = rec(root.answer_key);
-  for (const [id, value] of Object.entries(flat)) {
-    if (typeof value === "string") out[id] = value;
-  }
-  if (Array.isArray(root.questions)) {
-    for (const item of root.questions) {
-      const q = rec(item);
-      const raw = q.answer_key;
-      const value = typeof raw === "string" ? raw : rec(raw).correct;
-      if (typeof value !== "string") continue;
-      if (typeof q.question_id === "string") out[q.question_id] = value;
-      if (typeof q.position === "number") {
-        const localId = corePositionToLocalQuestionId(q.position);
-        if (localId) out[localId] = value;
-      }
-    }
-  }
-  return Object.keys(out).length > 0 ? out : null;
-}
-
-/**
  * Exam submit — the server ALWAYS scores. Client scores are never trusted.
  *
- * Scoring key: Core's answer key when Core is ready AND covers every question of the exam;
- * otherwise the Academy answer key from `academy/server` for the exam variant derived from
- * `attempt_index` (never from client-chosen question ids — a client cannot shrink the exam).
+ * Answer key: SERVER-ONLY Academy module (`getAnswerKeyForQuestions`). Never call
+ * `csp_get_academy_answer_key` (retired / partner-leakage risk). Core persists via
+ * `csp_record_academy_attempt`, which recomputes score from stored keys.
  *
- * Persistence: `csp_record_academy_attempt` runs only when Core is ready and a Core course id (UUID)
- * resolves (server-side lookup of the published `kompis_web_v1` course). Core re-scores over ALL loaded
- * course questions; when its score differs from ours the attempt is reported as `core_score_mismatch`
- * (practice) and never as certified. Without Core the score is still returned (HTTP 200, honest practice mode) with
- * `certification_persisted:false` and `backend_ready:false` — certification is NEVER claimed
- * without a Core record. The full answer key is never returned.
+ * Without a published Core course the score is still returned (practice) with
+ * `certification_persisted:false`. Certification is NEVER claimed without a Core record.
+ * The answer key is never returned to the client.
  */
 export async function POST(request: Request) {
   try {
@@ -138,86 +103,73 @@ export async function POST(request: Request) {
     }));
 
     const kompis = assertKompisBlockedDuringExam();
-    // Core course id: resolved server-side from the course key (Core validates it is published).
-    // A client-supplied UUID is only a fallback and is re-validated by Core.
     const courseId =
       (await resolveCoreAcademyCourseId(CSP_KOMPIS_WEB_COURSE_KEY)) ??
       (typeof body.course_id === "string" && UUID_PATTERN.test(body.course_id) ? body.course_id : null);
 
-    // 1) Answer key — prefer Core when ready and complete for this exam; else Academy server key.
-    let coreReady = false;
-    let answerKey: Record<string, string> | null = null;
-    let answerSource: "core" | "academy_local" = "academy_local";
-    if (courseId) {
-      const keyResult = await callCspRpc(supabase, "csp_get_academy_answer_key", { p_course_id: courseId });
-      coreReady = keyResult.ready;
-      if (keyResult.ready) {
-        const coreKey = parseCoreAnswerKey(keyResult.data);
-        if (coreKey && variant.questionIds.every((id) => typeof coreKey[id] === "string")) {
-          answerKey = Object.fromEntries(variant.questionIds.map((id) => [id, coreKey[id]]));
-          answerSource = "core";
-        }
-      }
-    }
-    if (!answerKey) {
-      try {
-        answerKey = getAnswerKeyForQuestions(variant.questionIds);
-      } catch {
-        return NextResponse.json({ error: "answer_key_unavailable", kompis_help: kompis }, { status: 503 });
-      }
+    // 1) Server-only local answer key for the exam variant (never Core fasit RPC).
+    let answerKey: Record<string, string>;
+    try {
+      answerKey = getAnswerKeyForQuestions(variant.questionIds);
+    } catch {
+      return NextResponse.json({ error: "answer_key_unavailable", kompis_help: kompis }, { status: 503 });
     }
 
     // 2) Always server-score against the full exam (unanswered counts wrong).
     const scored = scoreExam(answers, answerKey);
 
-    // Pedagogical hint: which lessons to revisit — aggregated per lesson, never per-question answers.
+    // Pedagogical hint: lessons to revisit — never per-question correct answers.
     const lessonsToReview = Array.from(
       new Set(
         KOMPIS_WEB_QUESTION_BANK.filter(
-          (q) => examIds.has(q.id) && latest.get(q.id) !== answerKey![q.id],
+          (q) => examIds.has(q.id) && latest.get(q.id) !== answerKey[q.id],
         ).map((q) => q.lessonId),
       ),
     ).sort();
 
-    // 3) Persist via Core when possible. Never claim certification without a Core record.
+    // 3) Persist via Core when a published course id resolves. Core recomputes the score.
     let persistenceStatus: PersistenceStatus = courseId ? "core_not_ready" : "core_course_unavailable";
     let backendReady = false;
     let certificationPersisted = false;
     let attemptRecorded = false;
     let attemptId: string | null = null;
 
-    if (courseId && coreReady) {
+    if (courseId) {
       const persist = await callCspRpc(supabase, "csp_record_academy_attempt", {
         p_course_id: courseId,
         p_score_pct: scored.scorePct,
         p_passed: scored.passed,
-        // Core recomputes the score from this object, keyed by question position -> chosen option.
         p_answers: toCoreAnswersByPosition(latest),
       });
       if (persist.ready) {
         backendReady = true;
         const core = rec(persist.data);
-        attemptId = typeof core.attempt_id === "string" ? core.attempt_id : null;
-        attemptRecorded = attemptId !== null;
-        const corePassed = core.passed === true;
-        const coreScore = typeof core.score_pct === "number" ? core.score_pct : null;
-        if (coreScore !== null && Math.round(coreScore) !== Math.round(scored.scorePct)) {
-          // Core scored against its own question set — its record is authoritative, ours is practice.
-          persistenceStatus = "core_score_mismatch";
+        if (core.error === "forbidden" || core.error === "unauthorized") {
+          persistenceStatus = "core_not_ready";
+        } else if (core.found === false) {
+          persistenceStatus = "core_not_ready";
         } else {
-          persistenceStatus = "persisted";
+          attemptId = typeof core.attempt_id === "string" ? core.attempt_id : null;
+          attemptRecorded = attemptId !== null;
+          const corePassed = core.passed === true;
+          const coreScore = typeof core.score_pct === "number" ? core.score_pct : null;
+          if (coreScore !== null && Math.round(coreScore) !== Math.round(scored.scorePct)) {
+            persistenceStatus = "core_score_mismatch";
+          } else {
+            persistenceStatus = "persisted";
+          }
+          certificationPersisted =
+            persistenceStatus === "persisted" &&
+            scored.passed &&
+            corePassed &&
+            core.certification_status === "passed";
         }
-        certificationPersisted =
-          persistenceStatus === "persisted" &&
-          scored.passed &&
-          corePassed &&
-          core.certification_status === "passed";
       } else {
         persistenceStatus = "core_not_ready";
       }
     }
 
-    // 4) Certificate meta only after a Core-confirmed pass and with a known display name.
+    // 4) Certificate meta only after a Core-confirmed pass.
     let certificate: ReturnType<typeof buildCertificateMeta> | null = null;
     if (certificationPersisted) {
       try {
@@ -241,7 +193,7 @@ export async function POST(request: Request) {
           });
         }
       } catch {
-        certificate = null; // fail closed — no certificate without a verifiable issuer and name
+        certificate = null;
       }
     }
 
@@ -250,7 +202,6 @@ export async function POST(request: Request) {
       variantId: variant.variantId,
       attemptIndex,
       scored,
-      // Flat copies for simple clients.
       passed: scored.passed,
       scorePct: scored.scorePct,
       correct: scored.correct,
@@ -262,7 +213,7 @@ export async function POST(request: Request) {
         total: scored.total,
         lessons_to_review: lessonsToReview,
       },
-      answer_source: answerSource,
+      answer_source: "academy_local",
       backend_ready: backendReady,
       persistence_status: persistenceStatus,
       attempt_recorded: attemptRecorded,
