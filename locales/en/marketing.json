@@ -8283,33 +8283,73 @@
   "certifiedSalesPartner": {
     "meta": {
       "title": "Certified Aipify Sales Partner",
-      "description": "Join Aipify Group AS as an independent certified sales partner."
+      "description": "Join Aipify Group AS as an independent Certified Aipify Sales Partner."
     },
     "breadcrumbs": {
       "home": "Home",
       "current": "Certified Sales Partner"
     },
     "hero": {
+      "eyebrow": "Certified Aipify Sales Partner",
       "title": "Sell Aipify with certification, trackable links and fair commission",
-      "subtitle": "Become a Certified Aipify Sales Partner. Complete product training, share approved links, and earn a one-time commission after a customer’s second successful paid period.",
-      "cta": "Become a Certified Aipify Sales Partner",
-      "secondaryCta": "Learn about Growth Partners"
+      "subtitle": "Apply as an independent B2B partner of Aipify Group AS. Complete product training, share approved links, and earn a one-time commission after a customer’s second successful paid period.",
+      "programNote": "This is Aipify Group AS’s own Certified Aipify Sales Partner program — not a customer Growth Partners product.",
+      "cta": "Apply now",
+      "secondaryCta": "How it works"
+    },
+    "aside": {
+      "title": "From application to payout",
+      "body": "A clear path for registered independent businesses. Approval and certification come before selling.",
+      "seeFullPath": "See the full path"
     },
     "points": {
       "independent": "Independent partner model — not employment.",
-      "certification": "Product-specific Academy certification at 80% pass mark before selling.",
+      "certification": "Product-specific Growth Academy certification at 80% before selling.",
       "commission": "Admin-set fixed one-time commission per product — never recurring renewals.",
       "noGuarantee": "No income guarantees. Commission requires two verified paid subscription periods."
     },
-    "registration": {
+    "whoFor": {
+      "title": "Who this program is for",
+      "subtitle": "Built for registered independent businesses that want to sell Aipify professionally.",
+      "items": {
+        "registered": "You operate a legally registered independent business.",
+        "b2b": "You sell B2B software or services and can explain Aipify calmly.",
+        "certify": "You are willing to complete product certification before issuing links.",
+        "ethical": "You market with approved materials and respect consent and attribution rules."
+      }
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "subtitle": "Application, approval, certification, trackable links, sales, and manual monthly settlement.",
+      "honesty": "Applications stay fail-closed until Core storage is active. Aipify never invents acceptance, sales or commission figures on this page.",
+      "steps": {
+        "apply": "Submit your application with legal name and registered business details.",
+        "review": "Aipify reviews and approves qualified partners.",
+        "academy": "Complete Growth Academy training and pass the product test at 80%.",
+        "links": "Generate personal trackable links per product and channel.",
+        "sale": "First paid period registers the sale neutrally — commission is not earned yet.",
+        "commission": "After the second successful paid period, exactly one fixed commission may be earned.",
+        "settlement": "Monthly settlement is reviewed and paid manually by Aipify Group AS in bank."
+      }
+    },
+    "applyIntro": {
       "title": "Apply as Certified Aipify Sales Partner",
+      "body": "Tell us who you are and which registered business you represent. Selling starts only after approval and certification.",
+      "bankLater": "Bank details for payouts are collected later in a secure partner profile — not on this public form."
+    },
+    "registration": {
+      "title": "Partner application",
       "fullName": "Full legal name",
       "email": "Work email",
-      "country": "Country (ISO code, e.g. NO, SE, US)",
+      "country": "Country",
+      "countryPlaceholder": "Select country",
+      "countryHint": "Choose your country. The ISO country code is stored securely for the application.",
       "legalBusinessName": "Legal business name",
       "businessRegistrationNumber": "Business registration number",
-      "phone": "Phone (optional)",
-      "address": "Business address (optional)",
+      "phone": "Phone",
+      "address": "Business address",
+      "optional": "optional",
+      "required": "required",
       "confirmBusiness": "I confirm I operate a legally registered independent business in my country.",
       "confirmTerms": "I accept the partner terms and understand this is not employment.",
       "confirmCertification": "I understand product certification (80%) is required before selling.",
