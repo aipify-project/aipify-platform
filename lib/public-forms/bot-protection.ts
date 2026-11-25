@@ -41,9 +41,34 @@ function duplicateKey(form: string, email: string): string {
   return `${form}:${email.toLowerCase()}`;
 }
 
+/** Stable, locale-independent failure codes. UI maps these to translated copy. */
+export type PublicFormGuardCode =
+  | "submission_blocked"
+  | "rate_limited"
+  | "form_too_fast"
+  | "verification_required"
+  | "duplicate_recent";
+
+/** Guard log reason → stable code. */
+export const PUBLIC_FORM_GUARD_CODE_BY_LOG: Readonly<Record<string, PublicFormGuardCode>> = {
+  honeypot: "submission_blocked",
+  rate_limit: "rate_limited",
+  timing: "form_too_fast",
+  verification: "verification_required",
+  duplicate: "duplicate_recent",
+};
+
 export type PublicFormGuardResult =
   | { ok: true }
-  | { ok: false; error: string; status: number; log?: string };
+  | { ok: false; error: string; status: number; log?: string; code?: PublicFormGuardCode };
+
+/** Resolves the stable code for a failed guard result (explicit `code`, else derived from `log`). */
+export function resolvePublicFormGuardCode(
+  guard: Extract<PublicFormGuardResult, { ok: false }>,
+): PublicFormGuardCode | null {
+  if (guard.code) return guard.code;
+  return guard.log ? (PUBLIC_FORM_GUARD_CODE_BY_LOG[guard.log] ?? null) : null;
+}
 
 export function assertPublicFormSubmission(
   request: Request,
@@ -53,22 +78,22 @@ export function assertPublicFormSubmission(
   const ip = clientIp(request);
 
   if (typeof body._honeypot === "string" && body._honeypot.trim()) {
-    return { ok: false, error: "Submission blocked", status: 400, log: "honeypot" };
+    return { ok: false, error: "Submission blocked", status: 400, log: "honeypot", code: "submission_blocked" };
   }
 
   if (!rateLimit(ip)) {
-    return { ok: false, error: "Too many requests. Please try again later.", status: 429, log: "rate_limit" };
+    return { ok: false, error: "Too many requests. Please try again later.", status: 429, log: "rate_limit", code: "rate_limited" };
   }
 
   const startedAt = Number(body._form_started_at);
   if (!Number.isFinite(startedAt) || Date.now() - startedAt < MIN_SUBMIT_MS) {
-    return { ok: false, error: "Please complete the form before submitting.", status: 400, log: "timing" };
+    return { ok: false, error: "Please complete the form before submitting.", status: 400, log: "timing", code: "form_too_fast" };
   }
 
   const token = typeof body._verification_token === "string" ? body._verification_token : "";
   const answer = Number(body._verification_answer);
   if (!verifyHumanChallenge(token, answer)) {
-    return { ok: false, error: "Verification required. Complete the security check and try again.", status: 400, log: "verification" };
+    return { ok: false, error: "Verification required. Complete the security check and try again.", status: 400, log: "verification", code: "verification_required" };
   }
 
   const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
@@ -77,7 +102,7 @@ export function assertPublicFormSubmission(
     const last = duplicateMap.get(key);
     const now = Date.now();
     if (last && now - last < DUPLICATE_WINDOW_MS) {
-      return { ok: false, error: "A recent submission was already received.", status: 429, log: "duplicate" };
+      return { ok: false, error: "A recent submission was already received.", status: 429, log: "duplicate", code: "duplicate_recent" };
     }
     duplicateMap.set(key, now);
   }

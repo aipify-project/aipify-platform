@@ -25,3 +25,4 @@ export * from "./integration-fixture";
 export * from "./portal-view";
 export * from "./registration-outcome";
 export * from "./portal-gate";
+export * from "./phone";

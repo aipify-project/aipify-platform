@@ -342,8 +342,20 @@
         "certification_acknowledgement_required": "Confirma que entiendes que la certificación es necesaria antes de vender.",
         "accuracy_confirmation_required": "Confirma que la información proporcionada es correcta.",
         "forbidden": "Esta cuenta no puede enviar una solicitud de socio. Contacta con Aipify si necesitas ayuda.",
-        "registration_failed": "Ha ocurrido algo inesperado. Inténtalo de nuevo."
-      }
+        "registration_failed": "Ha ocurrido algo inesperado. Inténtalo de nuevo.",
+        "invalid_phone": "Introduce un número de teléfono válido: solo dígitos, de 8 a 15 dígitos incluido el prefijo del país.",
+        "submission_blocked": "No se pudo aceptar este envío. Recarga la página e inténtalo de nuevo.",
+        "rate_limited": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
+        "form_too_fast": "Tómate un momento para completar el formulario y vuelve a enviarlo.",
+        "verification_required": "Completa la comprobación de seguridad y vuelve a enviar.",
+        "duplicate_recent": "Hemos recibido recientemente un envío con este correo electrónico. Espera un minuto antes de volver a intentarlo."
+      },
+      "phoneDial": "Prefijo del país",
+      "phoneNational": "Número de teléfono",
+      "phoneHint": "Opcional. Elige un prefijo de país e introduce solo dígitos. El número se guarda en formato internacional.",
+      "companyPersistenceNote": "La plataforma revisa cada solicitud. La razón social y el número de registro se validan al enviar. Se guardarán en Aipify Core cuando se active la actualización de almacenamiento aprobada por separado; hasta entonces, Aipify Core solo guarda el nombre de contacto y el país.",
+      "errorSummaryTitle": "Revisa los campos resaltados",
+      "supportRefLabel": "Referencia de soporte"
     }
   }
 }
