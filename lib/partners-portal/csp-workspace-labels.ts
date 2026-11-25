@@ -463,6 +463,9 @@ export function buildCspLessonsLabels(t: Translator): CspLessonsLabels {
     continueLesson: k("continueLesson"),
     startExamCta: k("startExamCta"),
     plannedCatalogNote: k("plannedCatalogNote"),
+    examLockNote: k("examLockNote"),
+    viewedStatus: k("viewedStatus"),
+    readingStatus: k("readingStatus"),
   };
 }
 

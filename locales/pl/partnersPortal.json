@@ -425,9 +425,12 @@
       "eyebrow": "Growth Academy · Kompis Web",
       "heroTitle": "Get certified in Kompis Web",
       "heroBody": "Learn to present Kompis Web in a safe and professional way. Read the six chapters, then take the certification test (at least 12 of 15 correct).",
-      "chapterProgress": "Chapter {completed} of {total}",
+      "chapterProgress": "Przejrzane rozdziały: {viewed} z {total}",
       "continueLesson": "Continue training",
-      "startExamCta": "Start the certification test"
+      "startExamCta": "Start the certification test",
+      "examLockNote": "Egzamin certyfikacyjny trwa. Treść lekcji jest ukryta, aby test pozostał uczciwy. Nazwy rozdziałów pozostają widoczne orientacyjnie.",
+      "viewedStatus": "Przejrzany",
+      "readingStatus": "Czytanie"
     },
     "catalog": {
       "title": "Produkty",

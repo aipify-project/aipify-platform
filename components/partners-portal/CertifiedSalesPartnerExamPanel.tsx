@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   isPracticeExamPersistence,
   isRecordedExamAttempt,
@@ -13,6 +13,8 @@ import {
  * Client-safe imports only: this panel never touches the answer key. Questions arrive from the
  * start route without answers and scoring happens on the server.
  */
+
+export type CspExamPhase = "idle" | "starting" | "in_progress" | "submitting" | "result";
 
 export type CspExamLabels = {
   title: string;
@@ -71,8 +73,6 @@ type StartPayload = {
   total: number;
 };
 
-type Phase = "idle" | "starting" | "in_progress" | "submitting" | "result";
-
 const COURSE_PRODUCT_KEY = "kompis_web";
 
 function fill(template: string, values: Record<string, string | number>): string {
@@ -110,14 +110,32 @@ function ShieldIcon() {
  * One-question-at-a-time certification exam. Answers are retained while navigating, submission is
  * explicit, and the result never claims certification unless Core persisted it.
  */
-export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: CspExamLabels; locale: string }) {
-  const [phase, setPhase] = useState<Phase>("idle");
+export function CertifiedSalesPartnerExamPanel({
+  labels,
+  locale,
+  autoStart = false,
+  compact = false,
+  onPhaseChange,
+}: {
+  labels: CspExamLabels;
+  locale: string;
+  /** Start the first attempt as soon as the panel mounts (right-column exam workspace). */
+  autoStart?: boolean;
+  /** Slightly denser chrome for the desktop exam column. */
+  compact?: boolean;
+  onPhaseChange?: (phase: CspExamPhase) => void;
+}) {
+  const [phase, setPhase] = useState<CspExamPhase>("idle");
   const [exam, setExam] = useState<StartPayload | null>(null);
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<ExamResultPayload | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [nextAttempt, setNextAttempt] = useState(0);
+
+  useEffect(() => {
+    onPhaseChange?.(phase);
+  }, [phase, onPhaseChange]);
 
   const questions = exam?.questions ?? [];
   const total = questions.length;
@@ -159,6 +177,14 @@ export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: Csp
     [labels.error, labels.failClosed, locale],
   );
 
+  useEffect(() => {
+    if (!autoStart) return;
+    if (phase !== "idle" || exam) return;
+    void startExam(0);
+    // Mount-only auto start for the right-column workspace.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional one-shot
+  }, [autoStart]);
+
   async function submitExam() {
     if (!exam || !allAnswered) return;
     setPhase("submitting");
@@ -196,7 +222,7 @@ export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: Csp
 
   return (
     <section
-      className="rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-6 shadow-sm"
+      className={`rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] shadow-sm ${compact ? "p-5" : "p-6"}`}
       aria-labelledby="csp-exam-title"
     >
       <h2 id="csp-exam-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
@@ -213,18 +239,22 @@ export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: Csp
         <span>{labels.kompisBlocked}</span>
       </p>
 
-      {phase === "idle" || phase === "starting" ? (
+      {(phase === "idle" || phase === "starting") && !autoStart ? (
         <div className="mt-4 space-y-4">
           <p className="max-w-2xl text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
           <button
             type="button"
             onClick={() => void startExam(nextAttempt)}
             disabled={phase === "starting"}
-            className="inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white hover:bg-[color:var(--aipify-companion-purple-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--aipify-focus-ring)] disabled:opacity-60"
+            className="inline-flex rounded-xl bg-[#7253EA] px-4 py-2 text-sm font-semibold text-white hover:bg-[#5f42d1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--aipify-focus-ring)] disabled:opacity-60"
           >
             {phase === "starting" ? labels.starting : labels.start}
           </button>
         </div>
+      ) : null}
+
+      {phase === "starting" && autoStart ? (
+        <p className="mt-4 text-sm text-[color:var(--aipify-text-secondary)]">{labels.starting}</p>
       ) : null}
 
       {(phase === "in_progress" || phase === "submitting") && question ? (

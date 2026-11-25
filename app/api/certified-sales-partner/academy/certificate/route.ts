@@ -59,7 +59,7 @@ export async function GET(request: Request) {
         locale,
         derivationSeed: `preview|${user.id}`,
       });
-      return pdfResponse(buildCertificatePdfText(meta), meta.certificateId);
+      return pdfResponse(await buildCertificatePdfText(meta), meta.certificateId);
     }
 
     const overview = await callCspRpc(supabase, "csp_get_partner_overview");
@@ -87,7 +87,7 @@ export async function GET(request: Request) {
       locale,
       certificateId,
     });
-    return pdfResponse(buildCertificatePdfText(meta), meta.certificateId);
+    return pdfResponse(await buildCertificatePdfText(meta), meta.certificateId);
   } catch (e) {
     const message = e instanceof Error ? e.message : "";
     if (message.startsWith("csp_certificate_blocked")) {

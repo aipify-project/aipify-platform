@@ -1,18 +1,17 @@
 /**
  * Public certificate verification — SERVER-ONLY.
- * Looks up a derived certificate id against passed, non-revoked Core certifications.
+ * Looks up a reversible certificate id (`{productKey}-{partnerUuid}`) with direct Core reads.
  * Returns minimal public fields only (no bank, commission, email, or private partner data).
  */
 import { COMPANY_CONFIG } from "@/lib/company/company.config";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
 import {
   CSP_CERTIFICATE_PRODUCT_LABEL,
-  deriveCspCertificateId,
+  parseCspCertificateId,
 } from "./certificate";
 
-const CERTIFICATE_ID_PATTERN = /^[0-9a-zA-Z-]{8,64}$/;
+const CERTIFICATE_ID_PATTERN = /^[0-9a-zA-Z_-]{8,64}$/;
 const PRODUCT_KEY = "kompis_web";
-const MAX_SCAN = 500;
 
 export type CspPublicCertificateStatus = "valid" | "revoked" | "not_found" | "unavailable";
 
@@ -41,6 +40,7 @@ function initialsFromName(name: string): string {
 
 /**
  * Verifies a certificate id against Core. Fail-closed on config/service errors.
+ * Uses direct partner+product lookup — no table scan.
  */
 export async function verifyCspCertificatePublic(
   certificateId: string,
@@ -63,66 +63,69 @@ export async function verifyCspCertificatePublic(
     return { ...base, status: "unavailable" };
   }
 
+  const parsed = parseCspCertificateId(id);
+  if (!parsed || parsed.productKey !== PRODUCT_KEY) {
+    // Legacy UUID-shaped ids cannot be resolved without a persisted indexed column.
+    // Do not scan the certifications table — return not_found until Core stores certificate_id.
+    return { ...base, status: "not_found" };
+  }
+
   try {
     const admin = createServiceRoleClient();
     const { data: product, error: productError } = await admin
       .from("csp_sales_products")
       .select("id")
-      .eq("product_key", PRODUCT_KEY)
+      .eq("product_key", parsed.productKey)
       .maybeSingle();
     if (productError || !product?.id) {
       return { ...base, status: "unavailable" };
     }
 
-    const { data: rows, error } = await admin
+    const { data: row, error } = await admin
       .from("csp_product_certifications")
       .select("partner_id, status, passed_at, score")
       .eq("product_id", product.id)
-      .in("status", ["passed", "revoked"])
-      .order("passed_at", { ascending: false })
-      .limit(MAX_SCAN);
+      .eq("partner_id", parsed.partnerId)
+      .maybeSingle();
 
-    if (error || !rows) {
+    if (error) {
       return { ...base, status: "unavailable" };
     }
-
-    for (const row of rows) {
-      const partnerId = typeof row.partner_id === "string" ? row.partner_id : "";
-      if (!partnerId) continue;
-      const derived = deriveCspCertificateId(partnerId, PRODUCT_KEY);
-      if (derived !== id) continue;
-
-      const issuedOn =
-        typeof row.passed_at === "string" && row.passed_at.length >= 10
-          ? row.passed_at.slice(0, 10)
-          : null;
-
-      if (row.status === "revoked") {
-        return { ...base, status: "revoked", issuedOn };
-      }
-
-      const { data: partner } = await admin
-        .from("csp_partner_profiles")
-        .select("display_name, status")
-        .eq("id", partnerId)
-        .maybeSingle();
-
-      const displayName =
-        partner && typeof partner.display_name === "string" ? partner.display_name : "";
-      const partnerStatus = partner && typeof partner.status === "string" ? partner.status : "";
-      if (["suspended", "rejected", "terminated"].includes(partnerStatus)) {
-        return { ...base, status: "revoked", issuedOn };
-      }
-
-      return {
-        ...base,
-        status: "valid",
-        issuedOn,
-        holderInitials: initialsFromName(displayName),
-      };
+    if (!row) {
+      return { ...base, status: "not_found" };
     }
 
-    return { ...base, status: "not_found" };
+    const issuedOn =
+      typeof row.passed_at === "string" && row.passed_at.length >= 10
+        ? row.passed_at.slice(0, 10)
+        : null;
+
+    if (row.status === "revoked") {
+      return { ...base, status: "revoked", issuedOn };
+    }
+    if (row.status !== "passed") {
+      return { ...base, status: "not_found" };
+    }
+
+    const { data: partner } = await admin
+      .from("csp_partner_profiles")
+      .select("display_name, status")
+      .eq("id", parsed.partnerId)
+      .maybeSingle();
+
+    const displayName =
+      partner && typeof partner.display_name === "string" ? partner.display_name : "";
+    const partnerStatus = partner && typeof partner.status === "string" ? partner.status : "";
+    if (["suspended", "rejected", "terminated"].includes(partnerStatus)) {
+      return { ...base, status: "revoked", issuedOn };
+    }
+
+    return {
+      ...base,
+      status: "valid",
+      issuedOn,
+      holderInitials: initialsFromName(displayName),
+    };
   } catch {
     return { ...base, status: "unavailable" };
   }

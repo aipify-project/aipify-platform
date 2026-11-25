@@ -549,9 +549,12 @@
       "eyebrow": "Growth Academy · Kompis Web",
       "heroTitle": "Bli certifierad i Kompis Web",
       "heroBody": "Lär dig presentera Kompis Web på ett tryggt och professionellt sätt. Läs de sex kapitlen och gör sedan certifieringstestet (minst 12 av 15 rätt).",
-      "chapterProgress": "Kapitel {completed} av {total}",
+      "chapterProgress": "Kapitel visade: {viewed} av {total}",
       "continueLesson": "Fortsätt utbildningen",
-      "startExamCta": "Starta certifieringstestet"
+      "startExamCta": "Starta certifieringstestet",
+      "examLockNote": "Certifieringsprovet pågår. Lektionsinnehåll är dolt så att provet förblir rättvist. Kapitelnamn syns fortfarande för översikt.",
+      "viewedStatus": "Visad",
+      "readingStatus": "Läser"
     },
     "catalog": {
       "title": "Produkter",

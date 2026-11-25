@@ -425,9 +425,12 @@
       "eyebrow": "Growth Academy · Kompis Web",
       "heroTitle": "Get certified in Kompis Web",
       "heroBody": "Learn to present Kompis Web in a safe and professional way. Read the six chapters, then take the certification test (at least 12 of 15 correct).",
-      "chapterProgress": "Chapter {completed} of {total}",
+      "chapterProgress": "Переглянуто розділів: {viewed} з {total}",
       "continueLesson": "Continue training",
-      "startExamCta": "Start the certification test"
+      "startExamCta": "Start the certification test",
+      "examLockNote": "Сертифікаційний іспит триває. Вміст уроків приховано, щоб тест залишався чесним. Назви розділів доступні для орієнтації.",
+      "viewedStatus": "Переглянуто",
+      "readingStatus": "Читання"
     },
     "catalog": {
       "title": "Продукти",
