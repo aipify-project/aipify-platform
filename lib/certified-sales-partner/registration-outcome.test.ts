@@ -116,7 +116,11 @@ test("registration response: created vs existing is status-aware", () => {
   assert.deepEqual(created, { kind: "created", partnerStatus: "under_review" });
   const existing = classifyCspRegistrationResponse(200, { created: false, partner: { status: "approved" } });
   assert.deepEqual(existing, { kind: "existing", partnerStatus: "approved" });
-  assert.deepEqual(parseCspRegistrationApplication({}), { created: null, partnerStatus: null });
+  assert.deepEqual(parseCspRegistrationApplication({}), {
+    created: null,
+    partnerStatus: null,
+    partnerId: null,
+  });
   assert.equal(resolveCspExistingStatusKey("under_review"), "under_review");
   assert.equal(resolveCspExistingStatusKey("certified"), "approved");
   assert.equal(resolveCspExistingStatusKey("brand_new_status"), "other");

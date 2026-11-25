@@ -46,6 +46,17 @@ export const SYSTEM_NOTICE_PRESETS: Record<SystemNoticeStatus, SystemNoticePrese
     secondaryHref: APP_OVERVIEW,
     layout: { hideSecondary: true, ghostDashboard: true, dashboardHref: APP_OVERVIEW },
   },
+  csp_partner_required: {
+    status: "csp_partner_required",
+    icon: "🔒",
+    titleKey: "cspPartner.title",
+    messageKey: "cspPartner.message",
+    primaryLabelKey: "applyCertifiedSalesPartner",
+    primaryHref: "/certified-sales-partner#apply",
+    secondaryLabelKey: "returnToDashboard",
+    secondaryHref: APP_OVERVIEW,
+    layout: { hideSecondary: true, ghostDashboard: true, dashboardHref: APP_OVERVIEW },
+  },
   business_pack_required: {
     status: "business_pack_required",
     icon: "🔒",

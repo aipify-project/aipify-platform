@@ -193,14 +193,7 @@ export const BILLING_COMMERCE_NAV: BillingCommerceNavItem[] = [
     placement: "relatedSellers",
     icon: "users",
   },
-  {
-    id: "commissions",
-    href: "/platform/billing/commissions",
-    labelKey: "platform.billingCommerceCenter.nav.commissions",
-    section: "commissions",
-    placement: "relatedSellers",
-    icon: "percent",
-  },
+  // Seller commissions live under /platform/sellers/commissions (SELGERE), not customer billing.
 ];
 
 /** Grouped primary finance sub-nav (replaces 17 equal pills). */
@@ -264,7 +257,8 @@ export function getBillingCommerceActiveNavId(pathname: string): BillingCommerce
     return "growthPartnerAttribution";
   }
   if (pathname.startsWith("/platform/billing/licenses")) return "licenses";
-  if (pathname.startsWith("/platform/billing/commissions")) return "commissions";
+  // /platform/billing/commissions permanently redirects to /platform/sellers/commissions —
+  // never treat it as an active customer-billing nav item.
   if (pathname.startsWith("/platform/billing/accounting-export")) return "accountingExport";
   if (pathname.startsWith("/platform/billing/disputes")) return "disputes";
   if (pathname.startsWith("/platform/billing/reports")) return "reports";

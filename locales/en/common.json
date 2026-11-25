@@ -154,8 +154,15 @@
         "message": "This organization subscription has been cancelled. Contact support if you need to restore access.",
         "primaryLabel": "Contact Support",
         "secondaryLabel": "Back to Aipify"
+      },
+      "csp_partner_required": {
+        "title": "Seller panel access required",
+        "message": "This is the Certified Aipify Sales Partner seller panel. Sign in with the account you used to apply, or submit a partner application first.",
+        "primaryLabel": "Apply as Certified Sales Partner",
+        "secondaryLabel": "Return to Dashboard"
       }
-    }
+    },
+    "applyCertifiedSalesPartner": "Apply as Certified Sales Partner"
   },
   "humanVerification": {
     "title": "Quick verification",

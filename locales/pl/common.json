@@ -47,5 +47,16 @@
       "attention": "Wymaga uwagi",
       "info": "Informacja"
     }
+  },
+  "systemNotice": {
+    "applyCertifiedSalesPartner": "Złóż wniosek Certified Sales Partner",
+    "presets": {
+      "csp_partner_required": {
+        "title": "Wymagany dostęp do panelu sprzedawcy",
+        "message": "To panel sprzedawcy Certified Aipify Sales Partner. Zaloguj się kontem użytym we wniosku lub najpierw złóż wniosek partnerski.",
+        "primaryLabel": "Złóż wniosek Certified Sales Partner",
+        "secondaryLabel": "Wróć do pulpitu"
+      }
+    }
   }
 }

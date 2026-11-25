@@ -386,7 +386,7 @@
       "customers": "My customers",
       "sales": "My sales",
       "commissionPayouts": "Commission & payouts",
-      "growthAcademy": "Growth Academy",
+      "growthAcademy": "Aipify Academy",
       "certifications": "Certifications",
       "salesTools": "Sales tools",
       "notifications": "Notifications",
@@ -400,7 +400,7 @@
     },
     "backend": {
       "notReadyTitle": "Backend not activated",
-      "notReadyBody": "Seller ledger and settlement APIs are not active in this environment yet. Platform controls remain fail-closed until Core migration is approved and applied."
+      "notReadyBody": "Säljarledger och avräkning är ännu inte aktiva i den här miljön. Funktionerna förblir otillgängliga tills Aipify aktiverar dem."
     },
     "kompis": {
       "honestBlockedTitle": "Kompis help unavailable here",
@@ -409,7 +409,7 @@
     "workspace": {
       "loading": "Laddar partnerarbetsyta…",
       "notReadyTitle": "Partnerbackend är inte aktiv ännu",
-      "notReadyBody": "Certified Sales Partner Core-lagring är inte aktiv förrän godkänd databas­migrering tillämpas. Inga fejkade försäljningar eller provisioner visas.",
+      "notReadyBody": "Partnerområdet är inte tillgängligt ännu. Inga försäljningar eller provisioner visas förrän tjänsten är redo.",
       "retry": "Försök igen",
       "errorTitle": "Något oväntat hände. Försök igen.",
       "unauthorizedTitle": "Logga in för att öppna partnerarbetsytan",
@@ -609,12 +609,12 @@
         "awaiting_approval": "Aipify granskar din ansökan. Du kan utbilda dig och skapa försäljningslänkar när du är godkänd.",
         "provide_information": "Aipify behöver lite mer information innan din ansökan kan godkännas. Se din e-post för detaljer.",
         "not_active": "Ditt partnerkonto är inte aktivt just nu. Kontakta Aipify om du har frågor.",
-        "train": "Starta Growth Academy. När du har klarat produktprovet kan du skapa dina egna försäljningslänkar.",
+        "train": "Starta Aipify Academy. När du har klarat produktprovet kan du skapa dina egna försäljningslänkar.",
         "create_link": "Du är certifierad. Skapa en försäljningslänk för en produkt och dela den i den kanal som passar dig.",
         "view_sales": "Dina försäljningslänkar är aktiva. Följ din registrerade försäljning och dess framsteg under Min försäljning."
       },
       "nextCta": {
-        "train": "Gå till Growth Academy",
+        "train": "Gå till Aipify Academy",
         "create_link": "Skapa en försäljningslänk",
         "view_sales": "Visa min försäljning"
       }
@@ -635,8 +635,8 @@
         "unknown": "Status inte tillgänglig"
       },
       "emptyTitle": "Inga produkter att certifiera ännu",
-      "emptyBody": "Produkter visas här när Aipify har publicerat dem. Du kan redan läsa lektionerna och öva i Growth Academy.",
-      "emptyCta": "Gå till Growth Academy",
+      "emptyBody": "Produkter visas här när Aipify har publicerat dem. Du kan redan läsa lektionerna och öva i Aipify Academy.",
+      "emptyCta": "Gå till Aipify Academy",
       "unknownProduct": "Produkt"
     },
     "salesList": {

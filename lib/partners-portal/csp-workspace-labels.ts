@@ -14,6 +14,7 @@ import type {
   CspSettlementsLabels,
 } from "@/components/partners-portal/CertifiedSalesPartnerPortalPanels";
 import type { SellersActionLabels } from "@/components/platform/sellers/CertifiedSellersActionPanel";
+import type { PartnerDetailsDrawerLabels } from "@/components/platform/sellers/CertifiedSellersPartnerDetailsDrawer";
 
 export function buildCspWorkspaceLabels(t: Translator, titleKey: string, subtitleKey: string): CspWorkspaceLabels {
   return {
@@ -98,6 +99,11 @@ export function buildCspRegistrationFormLabels(t: Translator): CspRegistrationFo
     phoneNational: k("phoneNational"),
     phoneHint: k("phoneHint"),
     companyPersistenceNote: k("companyPersistenceNote"),
+    processTitle: k("processTitle"),
+    processBody: k("processBody"),
+    successUnverifiedAddon: k("successUnverifiedAddon"),
+    successEmailAcceptedAddon: k("successEmailAcceptedAddon"),
+    successEmailNotConfiguredAddon: k("successEmailNotConfiguredAddon"),
     errorSummaryTitle: k("errorSummaryTitle"),
     supportRefLabel: k("supportRefLabel"),
     address: k("address"),
@@ -226,6 +232,7 @@ const SELLERS_LIVE_TEXT_KEYS = [
   "colTotal",
   "colLines",
   "selectAction",
+  "viewApplication",
   "partnerUnnamed",
   "referenceLabel",
   "dateEmpty",
@@ -293,6 +300,91 @@ export function buildSellersLiveLabels(t: Translator): SellersLiveLabels {
       settlements: t("platform.sellers.settlements.title"),
       academy: t("platform.sellers.academy.title"),
     },
+  };
+}
+
+const SELLERS_DRAWER_TEXT_KEYS = [
+  "title",
+  "close",
+  "loading",
+  "errorTitle",
+  "errorBody",
+  "retry",
+  "notFoundTitle",
+  "notFoundBody",
+  "sectionContact",
+  "sectionCompany",
+  "sectionStatus",
+  "sectionActivity",
+  "fieldName",
+  "fieldEmail",
+  "fieldEmailVerified",
+  "fieldPhone",
+  "fieldCountry",
+  "fieldLegalBusiness",
+  "fieldRegistration",
+  "fieldAddress",
+  "fieldStatus",
+  "fieldApplied",
+  "fieldUpdated",
+  "emailVerifiedYes",
+  "emailVerifiedNo",
+  "notSavedYet",
+  "emptyValue",
+  "activityEmpty",
+  "activityUnknown",
+  "actionsTitle",
+  "actionsHint",
+  "approve",
+  "requestInfo",
+  "reject",
+  "suspend",
+  "reason",
+  "reasonHint",
+  "confirmApprove",
+  "confirmReject",
+  "confirmNeedsInfo",
+  "confirmSuspend",
+  "confirmSubmit",
+  "submitting",
+  "success",
+  "failClosed",
+  "approveRequiresVerifiedEmail",
+  "companyIdentityPendingSql",
+  "approveCompanyDetailsMissing",
+] as const;
+
+const SELLERS_DRAWER_ERROR_CODES = [
+  "reason_required",
+  "partner_not_found",
+  "forbidden",
+] as const;
+
+const SELLERS_DRAWER_ACTIVITY_KEYS = [
+  "partner_application_registered",
+  "partner_status_changed",
+  "partner_status_set",
+  "csp_set_partner_status",
+  "academy_attempt_recorded",
+  "certification_awarded",
+] as const;
+
+/** Labels for the partner application details drawer (`platform.sellers.drawer.*`). */
+export function buildSellersPartnerDrawerLabels(t: Translator): PartnerDetailsDrawerLabels {
+  const k = (key: string) => t(`platform.sellers.drawer.${key}`);
+  const text = Object.fromEntries(SELLERS_DRAWER_TEXT_KEYS.map((key) => [key, k(key)])) as Record<
+    (typeof SELLERS_DRAWER_TEXT_KEYS)[number],
+    string
+  >;
+  return {
+    ...text,
+    activityLabels: Object.fromEntries(
+      SELLERS_DRAWER_ACTIVITY_KEYS.map((key) => [key, t(`platform.sellers.drawer.activityLabels.${key}`)]),
+    ),
+    errors: Object.fromEntries(SELLERS_DRAWER_ERROR_CODES.map((code) => [code, t(`platform.sellers.actions.errors.${code}`)])),
+    partnerStatus: Object.fromEntries(
+      SELLERS_PARTNER_STATUS_KEYS.map((key) => [key, t(`platform.sellers.live.partnerStatus.${key}`)]),
+    ),
   };
 }
 

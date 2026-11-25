@@ -154,8 +154,15 @@
         "message": "Prenumerationen för denna organisation har avslutats. Kontakta support om du behöver återställa åtkomst.",
         "primaryLabel": "Kontakta support",
         "secondaryLabel": "Tillbaka till Aipify"
+      },
+      "csp_partner_required": {
+        "title": "Åtkomst till säljarpanelen krävs",
+        "message": "Detta är säljarpanelen för Certified Aipify Sales Partner. Logga in med kontot du använde i ansökan, eller skicka in en partneransökan först.",
+        "primaryLabel": "Ansök som Certified Sales Partner",
+        "secondaryLabel": "Tillbaka till översikten"
       }
-    }
+    },
+    "applyCertifiedSalesPartner": "Ansök som Certified Sales Partner"
   },
   "humanVerification": {
     "title": "Snabb verifiering",

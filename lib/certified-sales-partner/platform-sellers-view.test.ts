@@ -51,6 +51,42 @@ test("overview: partner rows include country when Core returns it", () => {
   assert.equal(o.partners?.[0]?.name, "Acme");
 });
 
+test("overview: enriched partner fields are parsed; missing ones stay null", () => {
+  const o = parseSellersOverview({
+    partners: [
+      {
+        id: "p1",
+        status: "under_review",
+        display_name: "Acme",
+        country: "NO",
+        created_at: "2026-11-01T00:00:00Z",
+        updated_at: "2026-11-02T00:00:00Z",
+        legal_business_name: "Acme AS",
+        business_registration_number: "123456789",
+        business_address: "Storgata 1",
+        phone: "+4791234567",
+        auth_user_id: "u1",
+        email: "partner@example.com",
+        email_verified: false,
+      },
+      { id: "p2", status: "approved", legal_business_name: "  " },
+    ],
+  });
+  const [full, bare] = o.partners ?? [];
+  assert.equal(full?.legalBusinessName, "Acme AS");
+  assert.equal(full?.businessRegistrationNumber, "123456789");
+  assert.equal(full?.businessAddress, "Storgata 1");
+  assert.equal(full?.phone, "+4791234567");
+  assert.equal(full?.authUserId, "u1");
+  assert.equal(full?.email, "partner@example.com");
+  assert.equal(full?.emailVerified, false);
+  assert.equal(full?.updatedAt, "2026-11-02T00:00:00Z");
+  assert.equal(bare?.legalBusinessName, null);
+  assert.equal(bare?.email, null);
+  assert.equal(bare?.emailVerified, null);
+  assert.equal(bare?.authUserId, null);
+});
+
 test("overview: academy summary only when Core returns it", () => {
   const o = parseSellersOverview({ academy: { attempts_total: 10, attempts_passed: 7, certifications_active: 5 } });
   assert.equal(o.academy?.attemptsTotal, 10);

@@ -233,6 +233,24 @@
     "kompisWebDescription": "Kompis Web responde preguntas de visitantes con el contenido aprobado de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
   },
   "certifiedSalesPartner": {
+    "verifyEmail": {
+      "meta": {
+        "title": "Verifica tu correo — Certified Aipify Sales Partner",
+        "description": "Confirma tu correo electrónico con el enlace que te enviamos."
+      },
+      "title": "Verifica tu correo electrónico",
+      "body": "Hemos enviado un enlace de verificación al correo que usaste en la solicitud. Abre el enlace de ese mensaje para confirmar que la dirección es tuya.",
+      "hint": "¿No lo encuentras? Revisa la carpeta de spam o solicita un nuevo enlace más abajo.",
+      "invalidTitle": "El enlace de verificación no es válido o ha caducado",
+      "invalidBody": "Los enlaces de verificación solo se pueden usar una vez y caducan pronto. Solicita un nuevo enlace para continuar.",
+      "resendCta": "Solicitar un nuevo enlace de verificación",
+      "resendAccepted": "Se ha solicitado un nuevo enlace de verificación. Puede tardar unos minutos en llegar.",
+      "resendAlreadyVerified": "Tu correo electrónico ya está verificado.",
+      "resendRateLimited": "Espera un minuto antes de solicitar otro enlace.",
+      "resendFailed": "No pudimos solicitar un nuevo enlace ahora. Inténtalo de nuevo en un momento.",
+      "loginCta": "Inicia sesión para solicitar un nuevo enlace",
+      "backCta": "Volver al programa de partners"
+    },
     "meta": {
       "title": "Certified Aipify Sales Partner",
       "description": "Únete a Aipify Group AS como socio de ventas certificado e independiente."
@@ -256,7 +274,7 @@
     },
     "points": {
       "independent": "Modelo de socio independiente — no es empleo.",
-      "certification": "Certificación Growth Academy por producto con 80% antes de vender.",
+      "certification": "Certificación Aipify Academy por producto con 80% antes de vender.",
       "commission": "Comisión única fija definida por admin — nunca renovaciones.",
       "noGuarantee": "Sin garantías de ingresos. La comisión requiere dos periodos de suscripción pagados y verificados."
     },
@@ -273,11 +291,11 @@
     "howItWorks": {
       "title": "Cómo funciona",
       "subtitle": "Solicitud, aprobación, certificación, enlaces rastreables, ventas y liquidación mensual manual.",
-      "honesty": "Las solicitudes permanecen fail-closed hasta que el almacenamiento Core esté activo. Aipify no inventa aceptación, ventas ni comisiones en esta página.",
+      "honesty": "Presentar una solicitud no garantiza la aprobación. Solo puedes vender tras la aprobación y la certificación de producto requerida.",
       "steps": {
         "apply": "Envía la solicitud con nombre legal y datos de negocio registrado.",
         "review": "Aipify revisa y aprueba a los socios cualificados.",
-        "academy": "Completa la formación Growth Academy y aprueba el test del producto con un 80%.",
+        "academy": "Completa la formación de Aipify Academy y aprueba la prueba del producto con un 80%.",
         "links": "Genera enlaces rastreables personales por producto y canal.",
         "sale": "El primer periodo pagado registra la venta de forma neutral — la comisión aún no se ha ganado.",
         "commission": "Tras el segundo periodo pagado con éxito, puede ganarse exactamente una comisión fija.",
@@ -298,7 +316,7 @@
       "email": "Correo de trabajo",
       "country": "País",
       "countryPlaceholder": "Selecciona el país",
-      "countryHint": "Elige tu país. El código ISO del país se guarda de forma segura en la solicitud.",
+      "countryHint": "Elige el país en el que está registrada tu empresa.",
       "legalBusinessName": "Nombre legal de la empresa",
       "businessRegistrationNumber": "Número de registro mercantil",
       "phone": "Teléfono",
@@ -311,10 +329,10 @@
       "confirmAccuracy": "Confirmo que la información facilitada es exacta.",
       "submit": "Enviar solicitud",
       "submitting": "Enviando…",
-      "successTitle": "Solicitud recibida",
-      "successBody": "Aipify ha recibido tu solicitud. Ahora está pendiente de aprobación por parte de Platform. No puedes vender hasta que seas aprobado y certificado.",
-      "backendClosedTitle": "Registro preparado — el backend aún no está activo",
-      "backendClosedBody": "Los datos se validaron, pero el almacenamiento Core CSP no está activo hasta que se aplique la migración de base de datos aprobada. No se registró ninguna aceptación falsa.",
+      "successTitle": "Hemos recibido tu solicitud",
+      "successBody": "Gracias por tu interés en ser Certified Aipify Sales Partner. Estamos revisando tu solicitud. Recibirás información sobre los siguientes pasos cuando finalice el proceso.",
+      "backendClosedTitle": "No pudimos completar tu solicitud ahora",
+      "backendClosedBody": "Los datos se comprobaron, pero la solicitud no se pudo guardar en este momento. Inténtalo más tarde o contacta con Aipify Group AS.",
       "errorGeneric": "Ocurrió algo inesperado. Inténtalo de nuevo.",
       "loginRequiredTitle": "Inicia sesión para enviar tu solicitud",
       "loginRequiredBody": "Tu solicitud se vincula a tu cuenta de Aipify para que puedas seguir su estado. Todavía no se ha enviado nada. Inicia sesión y volverás a este formulario.",
@@ -322,14 +340,14 @@
       "createAccountCta": "Crear una cuenta",
       "existing": {
         "title": "Ya has enviado una solicitud",
-        "registered": "Tu solicitud está pendiente de aprobación por parte de Platform. No necesitas volver a solicitarla.",
-        "under_review": "Tu solicitud está pendiente de aprobación por parte de Platform. No necesitas volver a solicitarla.",
-        "needs_information": "Aipify necesita un poco más de información. Revisa tu correo electrónico para ver los detalles. No necesitas volver a solicitarla.",
-        "approved": "Tu solicitud ha sido aprobada. Abre tu espacio de trabajo de socio para continuar con la formación y la certificación.",
-        "rejected": "Tu solicitud anterior no fue aprobada. Contacta con Aipify si tienes preguntas.",
-        "suspended": "Tu cuenta de socio no está activa en este momento. Contacta con Aipify si tienes preguntas.",
-        "other": "Ya existe una solicitud para tu cuenta. No necesitas volver a solicitarla.",
-        "openPortalCta": "Abrir espacio de trabajo de socio"
+        "registered": "Tu solicitud está en revisión. Te avisaremos por correo cuando haya una actualización. No necesitas volver a solicitar.",
+        "under_review": "Tu solicitud está en revisión. Te avisaremos por correo cuando haya una actualización. No necesitas volver a solicitar.",
+        "needs_information": "Aipify necesita algo más de información. Revisa tu correo. No necesitas volver a solicitar.",
+        "approved": "Tu solicitud ha sido aprobada. Bienvenido como Certified Aipify Sales Partner. Inicia sesión para comenzar la formación. Podrás compartir enlaces de venta tras aprobar la certificación del producto.",
+        "rejected": "Tu solicitud anterior no fue aprobada. Contacta con Aipify Group AS si tienes preguntas.",
+        "suspended": "Tu cuenta de partner no está activa ahora. Contacta con Aipify Group AS si tienes preguntas.",
+        "other": "Ya existe una solicitud para tu cuenta. No necesitas volver a solicitar.",
+        "openPortalCta": "Abrir el panel de vendedor"
       },
       "errors": {
         "full_name_required": "Introduce tu nombre legal completo.",
@@ -352,10 +370,16 @@
       },
       "phoneDial": "Prefijo del país",
       "phoneNational": "Número de teléfono",
-      "phoneHint": "Opcional. Elige un prefijo de país e introduce solo dígitos. El número se guarda en formato internacional.",
-      "companyPersistenceNote": "La plataforma revisa cada solicitud. La razón social y el número de registro se validan al enviar. Se guardarán en Aipify Core cuando se active la actualización de almacenamiento aprobada por separado; hasta entonces, Aipify Core solo guarda el nombre de contacto y el país.",
+      "phoneHint": "Opcional. Elige un prefijo de país e introduce tu número de teléfono.",
+      "companyPersistenceNote": "Facilita datos de contacto y de empresa correctos. Aipify Group AS revisa cada solicitud antes de aprobarla.",
       "errorSummaryTitle": "Revisa los campos resaltados",
-      "supportRefLabel": "Referencia de soporte"
+      "supportRefLabel": "Referencia de soporte",
+      "processTitle": "Cómo tratamos tu solicitud",
+      "processBody": "Aipify Group AS revisa la solicitud y comprueba los datos de la empresa. Te avisaremos por correo cuando finalice la evaluación.",
+      "successUnverifiedAddon": "Confirma tu correo con el enlace que te enviamos. Si no lo encuentras, revisa el spam o solicita un nuevo enlace.",
+      "pendingBody": "Tu solicitud está en trámite. Te avisaremos por correo electrónico cuando tengamos novedades.",
+      "successEmailAcceptedAddon": "Te hemos enviado un correo. La entrega a la bandeja de entrada puede tardar unos minutos.",
+      "successEmailNotConfiguredAddon": "Tu solicitud está guardada. Recibirás confirmación por correo cuando Aipify Group AS complete la configuración de correo."
     }
   }
 }

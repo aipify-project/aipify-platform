@@ -46,6 +46,16 @@ export type SellersPartnerRow = {
   name: string | null;
   country: string | null;
   createdAt: string | null;
+  updatedAt: string | null;
+  /** Business identity — `null` when Core did not return it (UI shows "not saved yet"). */
+  legalBusinessName: string | null;
+  businessRegistrationNumber: string | null;
+  businessAddress: string | null;
+  phone: string | null;
+  email: string | null;
+  /** `null` = Core did not report it. */
+  emailVerified: boolean | null;
+  authUserId: string | null;
 };
 
 export type SellersProductRow = {
@@ -132,6 +142,14 @@ export function parseSellersOverview(payload: unknown): SellersOverview {
               name: str(p, "display_name", "company_name", "name", "full_name"),
               country: str(p, "country"),
               createdAt: str(p, "created_at", "applied_at"),
+              updatedAt: str(p, "updated_at"),
+              legalBusinessName: str(p, "legal_business_name"),
+              businessRegistrationNumber: str(p, "business_registration_number"),
+              businessAddress: str(p, "business_address"),
+              phone: str(p, "phone"),
+              email: str(p, "email"),
+              emailVerified: typeof p.email_verified === "boolean" ? p.email_verified : null,
+              authUserId: str(p, "auth_user_id"),
             },
           ];
         })

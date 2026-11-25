@@ -8691,6 +8691,24 @@
     }
   },
   "certifiedSalesPartner": {
+    "verifyEmail": {
+      "meta": {
+        "title": "Verifiera din e-post — Certified Aipify Sales Partner",
+        "description": "Bekräfta din e-postadress med länken vi skickade till dig."
+      },
+      "title": "Verifiera din e-postadress",
+      "body": "Vi har skickat en verifieringslänk till e-postadressen du använde i ansökan. Öppna länken i det meddelandet för att bekräfta att adressen är din.",
+      "hint": "Hittar du den inte? Kontrollera skräpposten eller begär en ny länk nedan.",
+      "invalidTitle": "Verifieringslänken är ogiltig eller har gått ut",
+      "invalidBody": "Verifieringslänkar kan bara användas en gång och går ut efter kort tid. Begär en ny länk för att fortsätta.",
+      "resendCta": "Begär en ny verifieringslänk",
+      "resendAccepted": "En ny verifieringslänk har begärts. Det kan ta några minuter innan den kommer fram.",
+      "resendAlreadyVerified": "Din e-postadress är redan verifierad.",
+      "resendRateLimited": "Vänta en minut innan du begär en ny länk.",
+      "resendFailed": "Vi kunde inte begära en ny länk just nu. Försök igen om en stund.",
+      "loginCta": "Logga in för att begära en ny länk",
+      "backCta": "Tillbaka till partnerprogrammet"
+    },
     "meta": {
       "title": "Certified Aipify Sales Partner",
       "description": "Bli en oberoende certifierad säljpartner för Aipify Group AS."
@@ -8714,7 +8732,7 @@
     },
     "points": {
       "independent": "Oberoende partnermodell — inte anställning.",
-      "certification": "Produktspecifik Growth Academy-certifiering med 80 % innan försäljning.",
+      "certification": "Produktspecifik Aipify Academy-certifiering med 80 % innan försäljning.",
       "commission": "Adminfast engångsprovision per produkt — aldrig återkommande förnyelser.",
       "noGuarantee": "Inga inkomstgarantier. Provision kräver två verifierade betalda prenumerationsperioder."
     },
@@ -8731,11 +8749,11 @@
     "howItWorks": {
       "title": "Så fungerar det",
       "subtitle": "Ansökan, godkännande, certifiering, spårbara länkar, försäljning och manuell månatlig avräkning.",
-      "honesty": "Ansökningar förblir fail-closed tills Core-lagring är aktiv. Aipify hittar inte på acceptans, försäljning eller provisionstal på den här sidan.",
+      "honesty": "Att ansöka är ingen garanti för godkännande. Du kan sälja först efter godkännande och erforderlig produktcertifiering.",
       "steps": {
         "apply": "Skicka ansökan med juridiskt namn och registrerade företagsuppgifter.",
         "review": "Aipify granskar och godkänner kvalificerade partners.",
-        "academy": "Genomför Growth Academy-utbildning och klar produkttestet med 80 %.",
+        "academy": "Slutför Aipify Academy-utbildning och klara produkttestet med 80 %.",
         "links": "Skapa personliga spårbara länkar per produkt och kanal.",
         "sale": "Första betalda perioden registrerar försäljningen neutralt — provision är inte intjänad ännu.",
         "commission": "Efter den andra lyckade betalda perioden kan exakt en fast provision intjänas.",
@@ -8756,7 +8774,7 @@
       "email": "Jobb-e-post",
       "country": "Land",
       "countryPlaceholder": "Välj land",
-      "countryHint": "Välj ditt land. ISO-landskoden lagras säkert för ansökan.",
+      "countryHint": "Välj landet där ditt företag är registrerat.",
       "legalBusinessName": "Juridiskt företagsnamn",
       "businessRegistrationNumber": "Organisations-/registreringsnummer",
       "phone": "Telefon",
@@ -8769,10 +8787,10 @@
       "confirmAccuracy": "Jag bekräftar att uppgifterna är korrekta.",
       "submit": "Skicka ansökan",
       "submitting": "Skickar…",
-      "successTitle": "Ansökan mottagen",
-      "successBody": "Aipify har tagit emot din ansökan. Den väntar nu på godkännande från Platform. Du kan inte sälja förrän du är godkänd och certifierad.",
-      "backendClosedTitle": "Registrering förberedd — backend är inte aktiv ännu",
-      "backendClosedBody": "Uppgifterna validerades, men Core CSP-lagring är inte aktiv förrän godkänd databasmigrering har tillämpats. Ingen falsk acceptans registrerades.",
+      "successTitle": "Din ansökan har mottagits",
+      "successBody": "Tack för ditt intresse för att bli Certified Aipify Sales Partner. Vi granskar nu din ansökan. Du får information om nästa steg när behandlingen är klar.",
+      "backendClosedTitle": "Vi kunde inte slutföra din ansökan just nu",
+      "backendClosedBody": "Uppgifterna kontrollerades, men ansökan kunde inte sparas just nu. Försök igen senare eller kontakta Aipify Group AS.",
       "errorGeneric": "Något oväntat hände. Försök igen.",
       "loginRequiredTitle": "Logga in för att skicka din ansökan",
       "loginRequiredBody": "Din ansökan kopplas till ditt Aipify-konto så att du kan följa statusen. Inget har skickats in ännu. Logga in så kommer du tillbaka till det här formuläret.",
@@ -8780,14 +8798,14 @@
       "createAccountCta": "Skapa konto",
       "existing": {
         "title": "Du har redan ansökt",
-        "registered": "Din ansökan väntar på godkännande från Platform. Du behöver inte ansöka igen.",
-        "under_review": "Din ansökan väntar på godkännande från Platform. Du behöver inte ansöka igen.",
+        "registered": "Din ansökan är under behandling. Vi meddelar dig via e-post när vi har en uppdatering. Du behöver inte ansöka igen.",
+        "under_review": "Din ansökan är under behandling. Vi meddelar dig via e-post när vi har en uppdatering. Du behöver inte ansöka igen.",
         "needs_information": "Aipify behöver lite mer information. Kontrollera din e-post för detaljer. Du behöver inte ansöka igen.",
-        "approved": "Din ansökan är godkänd. Öppna partnerarbetsytan för att fortsätta med utbildning och certifiering.",
-        "rejected": "Din tidigare ansökan godkändes inte. Kontakta Aipify om du har frågor.",
-        "suspended": "Ditt partnerkonto är inte aktivt just nu. Kontakta Aipify om du har frågor.",
+        "approved": "Din ansökan är godkänd. Välkommen som Certified Aipify Sales Partner. Logga in för att starta produktutbildningen. Du kan dela personliga säljlänkar när du har klarat den aktuella produktcertifieringen.",
+        "rejected": "Din tidigare ansökan godkändes inte. Kontakta Aipify Group AS om du har frågor.",
+        "suspended": "Ditt partnerkonto är inte aktivt just nu. Kontakta Aipify Group AS om du har frågor.",
         "other": "Det finns redan en ansökan för ditt konto. Du behöver inte ansöka igen.",
-        "openPortalCta": "Öppna partnerarbetsyta"
+        "openPortalCta": "Öppna säljarpanelen"
       },
       "errors": {
         "full_name_required": "Ange ditt fullständiga juridiska namn.",
@@ -8810,10 +8828,16 @@
       },
       "phoneDial": "Landskod",
       "phoneNational": "Telefonnummer",
-      "phoneHint": "Valfritt. Välj landskod och ange endast siffror. Numret sparas i internationellt format.",
-      "companyPersistenceNote": "Plattformen granskar varje ansökan. Juridiskt företagsnamn och registreringsnummer kontrolleras när du skickar in. De sparas i Aipify Core när den separat godkända lagringsuppdateringen är aktiverad. Tills dess sparar Aipify Core endast kontaktnamn och land.",
+      "phoneHint": "Valfritt. Välj landskod och ange ditt telefonnummer.",
+      "companyPersistenceNote": "Ange korrekta kontakt- och företagsuppgifter. Aipify Group AS granskar varje ansökan före godkännande.",
       "errorSummaryTitle": "Kontrollera de markerade fälten",
-      "supportRefLabel": "Supportreferens"
+      "supportRefLabel": "Supportreferens",
+      "processTitle": "Så här hanterar vi din ansökan",
+      "processBody": "Aipify Group AS granskar ansökan och kontrollerar verksamhetsuppgifterna. Du får besked via e-post när bedömningen är klar.",
+      "successUnverifiedAddon": "Bekräfta din e-postadress via länken vi har skickat. Hittar du inte mejlet, kontrollera skräpposten eller begär en ny länk.",
+      "pendingBody": "Din ansökan behandlas. Vi meddelar dig via e-post när vi har en uppdatering.",
+      "successEmailAcceptedAddon": "Vi har skickat dig ett e-postmeddelande. Leverans till inkorgen kan ta några minuter.",
+      "successEmailNotConfiguredAddon": "Din ansökan är sparad. Du får en bekräftelse via e-post när Aipify Group AS har slutfört e-postinställningen."
     }
   }
 }

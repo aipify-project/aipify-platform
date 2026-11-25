@@ -17,6 +17,7 @@ import {
 import { getAnswerKeyForQuestions } from "@/lib/certified-sales-partner/academy/server";
 import { resolveCoreAcademyCourseId } from "@/lib/certified-sales-partner/academy/core-course";
 import { toCoreAnswersByPosition } from "@/lib/certified-sales-partner/academy/core-mapping";
+import { deliverCspOnboardingEmailThrottled } from "@/lib/certified-sales-partner/onboarding-email";
 import { DEFAULT_LOCALE, LOCALES } from "@/lib/i18n/config";
 import { createClient } from "@/lib/supabase/server";
 
@@ -171,6 +172,7 @@ export async function POST(request: Request) {
 
     // 4) Certificate meta only after a Core-confirmed pass.
     let certificate: ReturnType<typeof buildCertificateMeta> | null = null;
+    let certificateEmail: string | undefined;
     if (certificationPersisted) {
       try {
         const overview = await callCspRpc(supabase, "csp_get_partner_overview");
@@ -180,17 +182,28 @@ export async function POST(request: Request) {
           parsed?.displayName ??
           (typeof metadata.full_name === "string" ? metadata.full_name : null) ??
           (typeof metadata.name === "string" ? metadata.name : null);
+        const locale =
+          typeof body.locale === "string" && (LOCALES as readonly string[]).includes(body.locale)
+            ? body.locale
+            : DEFAULT_LOCALE;
         if (displayName && parsed?.partnerId) {
-          const locale =
-            typeof body.locale === "string" && (LOCALES as readonly string[]).includes(body.locale)
-              ? body.locale
-              : DEFAULT_LOCALE;
           certificate = buildCertificateMeta({
             fullName: displayName,
             passedAt: new Date(),
             locale,
             certificateId: deriveCspCertificateId(parsed.partnerId, "kompis_web"),
           });
+        }
+        if (user.email && parsed?.partnerId) {
+          certificateEmail = (
+            await deliverCspOnboardingEmailThrottled({
+              kind: "certificate_awarded",
+              to: user.email,
+              locale,
+              vars: { name: displayName, emailVerified: Boolean(user.email_confirmed_at) },
+              idempotencyKey: `csp-certificate_awarded-${parsed.partnerId}-kompis_web`,
+            })
+          ).outcome;
         }
       } catch {
         certificate = null;
@@ -219,6 +232,7 @@ export async function POST(request: Request) {
       attempt_recorded: attemptRecorded,
       certification_persisted: certificationPersisted,
       certificate,
+      ...(certificateEmail ? { certificate_email: certificateEmail } : {}),
       kompis_help: kompis,
     });
   } catch {

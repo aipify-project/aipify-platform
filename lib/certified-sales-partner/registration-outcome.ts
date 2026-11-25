@@ -74,6 +74,8 @@ export type CspRegistrationApplication = {
   /** `true` = new application stored, `false` = application already existed, `null` = Core did not say. */
   created: boolean | null;
   partnerStatus: string | null;
+  /** Partner profile id when Core returned it (for admin notify / support). */
+  partnerId: string | null;
 };
 
 /** Reads `created` and the partner status from the Core RPC payload — only what Core returned. */
@@ -81,9 +83,11 @@ export function parseCspRegistrationApplication(data: unknown): CspRegistrationA
   const root = rec(data);
   const partner = rec(root.partner);
   const rawStatus = root.status ?? root.partner_status ?? partner.status;
+  const rawId = root.partner_id ?? root.id ?? partner.id ?? partner.partner_id;
   return {
     created: typeof root.created === "boolean" ? root.created : null,
     partnerStatus: typeof rawStatus === "string" && rawStatus.trim() ? rawStatus.trim() : null,
+    partnerId: typeof rawId === "string" && rawId.trim() ? rawId.trim() : null,
   };
 }
 

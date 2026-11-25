@@ -9,6 +9,7 @@ export const SYSTEM_NOTICE_LABELS_EN: SystemNoticeLabels = {
   contactSupport: "Contact Support",
   becomeGrowthPartner: "Become a Growth Partner",
   registerGrowthPartnerAccount: "Register Growth Partner Account",
+  applyCertifiedSalesPartner: "Apply as Certified Sales Partner",
   returnToDashboard: "Return to Dashboard",
   viewBusinessPacks: "View Business Packs",
   upgradePlan: "Upgrade Plan",
@@ -42,6 +43,13 @@ export const SYSTEM_NOTICE_LABELS_EN: SystemNoticeLabels = {
       message:
         "You need an approved Growth Partner account to access this area.\n\nBecome a certified Aipify Growth Partner and gain access to partner tools, commissions, training, lead management and business resources.",
       primaryLabel: "Register Growth Partner Account",
+      secondaryLabel: "Return to Dashboard",
+    },
+    csp_partner_required: {
+      title: "Seller panel access required",
+      message:
+        "This is the Certified Aipify Sales Partner seller panel. Sign in with the account you used to apply, or submit a partner application first.",
+      primaryLabel: "Apply as Certified Sales Partner",
       secondaryLabel: "Return to Dashboard",
     },
     business_pack_required: {

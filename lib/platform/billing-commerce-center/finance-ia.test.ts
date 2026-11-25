@@ -29,7 +29,7 @@ test("primary finance sub-nav excludes product, sellers, and customer identity p
     "accountingIntegration",
   ]);
   assert.equal(getBillingCommerceNavByPlacement("relatedProduct").length, 4);
-  assert.equal(getBillingCommerceNavByPlacement("relatedSellers").length, 2);
+  assert.equal(getBillingCommerceNavByPlacement("relatedSellers").length, 1);
   assert.equal(getBillingCommerceNavByPlacement("relatedCustomers").length, 1);
   assert.ok(!primary.includes("businessPacks"));
   assert.ok(!primary.includes("commissions"));
@@ -47,7 +47,9 @@ test("billing routes and active ids are preserved", () => {
   assert.equal(getBillingCommerceActiveNavId("/platform/billing"), "overview");
   assert.equal(getBillingCommerceActiveNavId("/platform/billing/invoices"), "invoices");
   assert.equal(getBillingCommerceActiveNavId("/platform/billing/tax-rules"), "taxRules");
-  assert.equal(getBillingCommerceActiveNavId("/platform/billing/commissions"), "commissions");
+  // Seller commissions left customer billing; legacy path must not activate billing nav.
+  assert.notEqual(getBillingCommerceActiveNavId("/platform/billing/commissions"), "commissions");
+  assert.ok(!BILLING_COMMERCE_NAV.some((item) => item.id === "commissions"));
   assert.equal(
     getBillingCommerceActiveNavId("/platform/billing/growth-partner-attribution"),
     "growthPartnerAttribution",

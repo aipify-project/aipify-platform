@@ -8,6 +8,11 @@ import {
   CertifiedSellersActionPanel,
   type SellersActionLabels,
 } from "@/components/platform/sellers/CertifiedSellersActionPanel";
+import {
+  CertifiedSellersPartnerDetailsDrawer,
+  partnerRowKeyDown,
+  type PartnerDetailsDrawerLabels,
+} from "@/components/platform/sellers/CertifiedSellersPartnerDetailsDrawer";
 import { CertifiedSellersSectionPanel } from "@/components/platform/sellers/CertifiedSellersSectionPanel";
 import { classifyCspApiResponse } from "@/lib/certified-sales-partner/ui-support";
 import {
@@ -19,7 +24,6 @@ import {
   partnerStatusKind,
   settlementStatusKind,
   shortReference,
-  suggestedPartnerStatus,
   type SellersOverview,
   type SellersSettlementRow,
 } from "@/lib/certified-sales-partner/platform-sellers-view";
@@ -38,6 +42,8 @@ type Props = {
   notReadyBody: string;
   labels: SellersLiveLabels;
   actionLabels: SellersActionLabels;
+  /** Labels for the partner application details drawer (partners section). */
+  drawerLabels: PartnerDetailsDrawerLabels;
 };
 
 type Phase = "loading" | "ready" | "closed" | "forbidden" | "error";
@@ -121,13 +127,14 @@ export function CertifiedSellersLivePanel({
   notReadyBody,
   labels,
   actionLabels,
+  drawerLabels,
 }: Props) {
   const [state, setState] = useState<LoadState>(EMPTY_STATE);
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(null);
   const [selection, setSelection] = useState<{
     id: string;
     seq: number;
-    partnerStatus?: string;
     fromStatus?: string;
     toStatus?: string;
   } | null>(null);
@@ -244,7 +251,13 @@ export function CertifiedSellersLivePanel({
         notReadyBody={notReadyBody}
         metrics={metrics}
       />
-      <div className="space-y-6 px-6 pb-8 lg:px-8">
+      <div
+        className={
+          section === "partners"
+            ? "mx-auto w-full max-w-[1440px] space-y-6 px-6 pb-8 lg:px-8"
+            : "space-y-6 px-6 pb-8 lg:px-8"
+        }
+      >
         {phase === "loading" ? <AipifyLoader centered size="sm" label={l.loading} /> : null}
 
         {phase === "forbidden" ? (
@@ -338,54 +351,68 @@ export function CertifiedSellersLivePanel({
                           : [l.colPartner, l.colStatus, l.colApplied, l.colAction]
                       }
                     >
-                      {rows.map((p) => (
-                        <tr key={p.id} className="border-t border-[color:var(--aipify-border)]">
-                          <td className="px-3 py-2">
-                            <p className="font-medium text-[color:var(--aipify-text-primary)]">{p.name ?? l.partnerUnnamed}</p>
-                            <p className="text-xs text-[color:var(--aipify-text-secondary)]">
-                              {l.referenceLabel}: {shortReference(p.id)}
-                            </p>
-                          </td>
-                          {showCountry ? (
-                            <td className="px-3 py-2">{formatCountry(p.country, locale, l.dateEmpty)}</td>
-                          ) : null}
-                          <td className="px-3 py-2">
-                            <AipifyStatusBadge
-                              kind={partnerStatusKind(p.status)}
-                              label={labels.partnerStatus[p.status] ?? labels.partnerStatus.unknown}
-                            />
-                          </td>
-                          <td className="px-3 py-2">{formatPlatformDateTimeShort(p.createdAt, dateOptions)}</td>
-                          <td className="px-3 py-2">
-                            <button
-                              type="button"
-                              className={LINK_BUTTON}
-                              onClick={() =>
-                                setSelection((s) => ({
-                                  id: p.id,
-                                  seq: (s?.seq ?? 0) + 1,
-                                  partnerStatus: suggestedPartnerStatus(p.status),
-                                }))
-                              }
-                            >
-                              {l.selectAction}
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                      {rows.map((p) => {
+                        const openPartner = () => setSelectedPartnerId(p.id);
+                        return (
+                          <tr
+                            key={p.id}
+                            tabIndex={0}
+                            aria-haspopup="dialog"
+                            onClick={openPartner}
+                            onKeyDown={(e) => {
+                              // Ignore keys bubbling up from the row's own button.
+                              if (e.target !== e.currentTarget) return;
+                              partnerRowKeyDown(e, openPartner);
+                            }}
+                            className="cursor-pointer border-t border-[color:var(--aipify-border)] hover:bg-[color:var(--aipify-canvas,#F7F6F3)] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[color:var(--aipify-focus-ring)]"
+                          >
+                            <td className="px-3 py-2">
+                              <p className="font-medium text-[color:var(--aipify-text-primary)]">{p.name ?? l.partnerUnnamed}</p>
+                              <p className="text-xs text-[color:var(--aipify-text-secondary)]">
+                                {l.referenceLabel}: {shortReference(p.id)}
+                              </p>
+                            </td>
+                            {showCountry ? (
+                              <td className="px-3 py-2">{formatCountry(p.country, locale, l.dateEmpty)}</td>
+                            ) : null}
+                            <td className="px-3 py-2">
+                              <AipifyStatusBadge
+                                kind={partnerStatusKind(p.status)}
+                                label={labels.partnerStatus[p.status] ?? labels.partnerStatus.unknown}
+                              />
+                            </td>
+                            <td className="px-3 py-2">{formatPlatformDateTimeShort(p.createdAt, dateOptions)}</td>
+                            <td className="px-3 py-2">
+                              <button
+                                type="button"
+                                className={LINK_BUTTON}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openPartner();
+                                }}
+                              >
+                                {l.viewApplication}
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </DataTable>
                   );
                 })()}
               </Card>
             )}
-            <CertifiedSellersActionPanel
-              key={selection ? `${selection.id}:${selection.seq}` : "partner-form"}
-              section="partners"
-              labels={actionLabels}
-              initialPartnerId={selection?.id}
-              initialPartnerStatus={selection?.partnerStatus}
-              onSuccess={() => void load()}
-            />
+            {selectedPartnerId ? (
+              <CertifiedSellersPartnerDetailsDrawer
+                key={selectedPartnerId}
+                partnerId={selectedPartnerId}
+                locale={locale}
+                labels={drawerLabels}
+                actionLabels={actionLabels}
+                onClose={() => setSelectedPartnerId(null)}
+                onDecisionSuccess={() => void load()}
+              />
+            ) : null}
           </>
         ) : null}
 

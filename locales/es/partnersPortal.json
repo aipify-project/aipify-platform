@@ -262,7 +262,7 @@
       "customers": "My customers",
       "sales": "My sales",
       "commissionPayouts": "Commission & payouts",
-      "growthAcademy": "Growth Academy",
+      "growthAcademy": "Aipify Academy",
       "certifications": "Certifications",
       "salesTools": "Sales tools",
       "notifications": "Notifications",
@@ -276,7 +276,7 @@
     },
     "backend": {
       "notReadyTitle": "Backend not activated",
-      "notReadyBody": "Seller ledger and settlement APIs are not active in this environment yet. Platform controls remain fail-closed until Core migration is approved and applied."
+      "notReadyBody": "El libro de vendedores y las liquidaciones aún no están activos en este entorno. Las funciones permanecen no disponibles hasta que Aipify las active."
     },
     "kompis": {
       "honestBlockedTitle": "Kompis help unavailable here",
@@ -285,7 +285,7 @@
     "workspace": {
       "loading": "Cargando el espacio de socio…",
       "notReadyTitle": "El sistema de socios aún no está activo",
-      "notReadyBody": "El almacenamiento de Certified Sales Partner no está activo hasta que se aplique la migración de base de datos aprobada. No se muestran ventas ni comisiones ficticias.",
+      "notReadyBody": "El área de socios aún no está disponible. No se muestran ventas ni comisiones hasta que el servicio esté listo.",
       "retry": "Intentar de nuevo",
       "errorTitle": "Ocurrió algo inesperado. Inténtalo de nuevo.",
       "unauthorizedTitle": "Inicia sesión para abrir tu espacio de trabajo de socio",
@@ -485,12 +485,12 @@
         "awaiting_approval": "Aipify está revisando tu solicitud. Podrás formarte y crear enlaces de venta cuando te aprueben.",
         "provide_information": "Aipify necesita algo más de información antes de aprobar tu solicitud. Revisa tu correo para ver los detalles.",
         "not_active": "Tu cuenta de socio no está activa por ahora. Contacta con Aipify si tienes preguntas.",
-        "train": "Empieza la Growth Academy. Cuando apruebes el test del producto, podrás crear tus propios enlaces de venta.",
+        "train": "Empieza la Aipify Academy. Cuando apruebes el test del producto, podrás crear tus propios enlaces de venta.",
         "create_link": "Ya estás certificado. Crea un enlace de venta para un producto y compártelo en el canal que prefieras.",
         "view_sales": "Tus enlaces de venta están activos. Sigue tus ventas registradas y su progreso en Mis ventas."
       },
       "nextCta": {
-        "train": "Ir a Growth Academy",
+        "train": "Ir a Aipify Academy",
         "create_link": "Crear un enlace de venta",
         "view_sales": "Ver mis ventas"
       }
@@ -511,8 +511,8 @@
         "unknown": "Estado no disponible"
       },
       "emptyTitle": "Aún no hay productos para certificar",
-      "emptyBody": "Los productos aparecerán aquí cuando Aipify los publique. Ya puedes leer las lecciones y practicar en la Growth Academy.",
-      "emptyCta": "Ir a Growth Academy",
+      "emptyBody": "Los productos aparecerán aquí cuando Aipify los publique. Ya puedes leer las lecciones y practicar en la Aipify Academy.",
+      "emptyCta": "Ir a Aipify Academy",
       "unknownProduct": "Producto"
     },
     "salesList": {

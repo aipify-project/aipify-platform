@@ -8281,6 +8281,24 @@
     }
   },
   "certifiedSalesPartner": {
+    "verifyEmail": {
+      "meta": {
+        "title": "Verify your email — Certified Aipify Sales Partner",
+        "description": "Confirm your email address using the link we sent you."
+      },
+      "title": "Verify your email address",
+      "body": "We sent a verification link to the email address you used to apply. Open the link in that email to confirm the address is yours.",
+      "hint": "Cannot find it? Check your spam folder, or request a new link below.",
+      "invalidTitle": "This verification link is invalid or has expired",
+      "invalidBody": "Verification links can only be used once and expire after a short time. Request a new link to continue.",
+      "resendCta": "Request a new verification link",
+      "resendAccepted": "A new verification link has been requested. It can take a few minutes to arrive.",
+      "resendAlreadyVerified": "Your email address is already verified.",
+      "resendRateLimited": "Please wait a minute before requesting another link.",
+      "resendFailed": "We could not request a new link right now. Please try again shortly.",
+      "loginCta": "Sign in to request a new link",
+      "backCta": "Back to the partner program"
+    },
     "meta": {
       "title": "Certified Aipify Sales Partner",
       "description": "Join Aipify Group AS as an independent Certified Aipify Sales Partner."
@@ -8304,7 +8322,7 @@
     },
     "points": {
       "independent": "Independent partner model — not employment.",
-      "certification": "Product-specific Growth Academy certification at 80% before selling.",
+      "certification": "Product-specific Aipify Academy certification at 80% before selling.",
       "commission": "Admin-set fixed one-time commission per product — never recurring renewals.",
       "noGuarantee": "No income guarantees. Commission requires two verified paid subscription periods."
     },
@@ -8321,11 +8339,11 @@
     "howItWorks": {
       "title": "How it works",
       "subtitle": "Application, approval, certification, trackable links, sales, and manual monthly settlement.",
-      "honesty": "Applications stay fail-closed until Core storage is active. Aipify never invents acceptance, sales or commission figures on this page.",
+      "honesty": "Applying does not guarantee approval. You can sell only after approval and the required product certification.",
       "steps": {
         "apply": "Submit your application with legal name and registered business details.",
         "review": "Aipify reviews and approves qualified partners.",
-        "academy": "Complete Growth Academy training and pass the product test at 80%.",
+        "academy": "Complete Aipify Academy training and pass the product test at 80%.",
         "links": "Generate personal trackable links per product and channel.",
         "sale": "First paid period registers the sale neutrally — commission is not earned yet.",
         "commission": "After the second successful paid period, exactly one fixed commission may be earned.",
@@ -8346,7 +8364,7 @@
       "email": "Work email",
       "country": "Country",
       "countryPlaceholder": "Select country",
-      "countryHint": "Choose your country. The ISO country code is stored securely for the application.",
+      "countryHint": "Choose the country where your business is registered.",
       "legalBusinessName": "Legal business name",
       "businessRegistrationNumber": "Business registration number",
       "phone": "Phone",
@@ -8359,10 +8377,10 @@
       "confirmAccuracy": "I confirm the information provided is accurate.",
       "submit": "Submit application",
       "submitting": "Submitting…",
-      "successTitle": "Application received",
-      "successBody": "Aipify has received your application. It is now awaiting Platform approval. You cannot sell until you are approved and certified.",
-      "backendClosedTitle": "Registration prepared — backend not active yet",
-      "backendClosedBody": "Your details were validated, but Core CSP storage is not active until the approved database migration is applied. No fake acceptance was recorded.",
+      "successTitle": "Your application has been received",
+      "successBody": "Thank you for your interest in becoming a Certified Aipify Sales Partner. We are now reviewing your application. You will receive information about next steps when the review is complete.",
+      "backendClosedTitle": "We could not complete your application right now",
+      "backendClosedBody": "Your details were checked, but the application could not be stored at this moment. Please try again later or contact Aipify Group AS.",
       "errorGeneric": "Something unexpected happened. Please try again.",
       "loginRequiredTitle": "Sign in to submit your application",
       "loginRequiredBody": "Your application is linked to your Aipify account so you can follow its status. Nothing has been submitted yet. Sign in and you will return to this form.",
@@ -8370,14 +8388,14 @@
       "createAccountCta": "Create an account",
       "existing": {
         "title": "You have already applied",
-        "registered": "Your application is awaiting Platform approval. You do not need to apply again.",
-        "under_review": "Your application is awaiting Platform approval. You do not need to apply again.",
-        "needs_information": "Aipify needs a little more information. Please check your email for details. You do not need to apply again.",
-        "approved": "Your application is approved. Open your partner workspace to continue with training and certification.",
-        "rejected": "Your earlier application was not approved. Contact Aipify if you have questions.",
-        "suspended": "Your partner account is not active at the moment. Contact Aipify if you have questions.",
+        "registered": "Your application is under review. We will email you when we have an update. You do not need to apply again.",
+        "under_review": "Your application is under review. We will email you when we have an update. You do not need to apply again.",
+        "needs_information": "Aipify needs a little more information. Check your email for details. You do not need to apply again.",
+        "approved": "Your application has been approved. Welcome as a Certified Aipify Sales Partner. Sign in to start product training. You can share personal sales links after you pass the relevant product certification.",
+        "rejected": "Your earlier application was not approved. Contact Aipify Group AS if you have questions.",
+        "suspended": "Your partner account is not active right now. Contact Aipify Group AS if you have questions.",
         "other": "An application already exists for your account. You do not need to apply again.",
-        "openPortalCta": "Open partner workspace"
+        "openPortalCta": "Open Seller Portal"
       },
       "errors": {
         "full_name_required": "Enter your full legal name.",
@@ -8400,10 +8418,16 @@
       },
       "phoneDial": "Country code",
       "phoneNational": "Phone number",
-      "phoneHint": "Optional. Choose a country code and enter digits only. The number is stored in international format.",
-      "companyPersistenceNote": "Platform reviews every application. Your legal business name and registration number are validated when you submit. They will be stored in Aipify Core once the separately approved storage update is enabled; until then, Aipify Core stores only your contact name and country.",
+      "phoneHint": "Optional. Choose a country code and enter your phone number.",
+      "companyPersistenceNote": "Provide accurate contact and business details. Aipify Group AS reviews every application before approval.",
       "errorSummaryTitle": "Please review the highlighted fields",
-      "supportRefLabel": "Support reference"
+      "supportRefLabel": "Support reference",
+      "processTitle": "How we handle your application",
+      "processBody": "Aipify Group AS reviews the application and checks the business details. You will be notified by email when the review is complete.",
+      "successUnverifiedAddon": "Confirm your email address using the link we sent you. If you cannot find the email, check spam or request a new link.",
+      "pendingBody": "Your application is being reviewed. We will let you know by email when we have an update.",
+      "successEmailAcceptedAddon": "We have sent you an email. Delivery to your inbox can take a few minutes.",
+      "successEmailNotConfiguredAddon": "Your application is saved. A confirmation email will be available once Aipify Group AS finishes email setup for this site."
     }
   }
 }
