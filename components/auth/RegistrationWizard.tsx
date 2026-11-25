@@ -309,6 +309,14 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
         return;
       }
 
+      try {
+        const { trackSignUp, trackTrialStart } = await import("@/lib/product-analytics/track");
+        trackSignUp("workspace");
+        trackTrialStart(draft.package.selectedPlan ?? draft.package.billingPath, true);
+      } catch {
+        // Analytics must never block registration.
+      }
+
       clearDraft();
       setRedirectPath(data.redirect_path ?? "/app/install?onboarding=welcome");
       setCompleted(true);

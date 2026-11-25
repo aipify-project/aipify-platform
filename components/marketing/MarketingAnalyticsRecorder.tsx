@@ -58,6 +58,22 @@ export default function MarketingAnalyticsRecorder() {
     storeLeadSource(leadSource);
     const campaign = resolveCampaignSource(window.location.search);
     if (campaign) storeCampaignSource(campaign);
+
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const ref =
+        params.get("ref") ||
+        params.get("partner") ||
+        params.get("partner_ref") ||
+        params.get("csp_ref");
+      if (ref && ref.trim()) {
+        void import("@/lib/product-analytics/track").then(({ trackPartnerReferralVisit }) => {
+          trackPartnerReferralVisit(ref.trim().slice(0, 80));
+        });
+      }
+    } catch {
+      // Analytics must never block marketing pages.
+    }
   }, []);
 
   useEffect(() => {

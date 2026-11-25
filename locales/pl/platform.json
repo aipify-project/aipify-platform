@@ -308,7 +308,8 @@
     "sellersLeadsSales": "Leady i sprzedaż",
     "sellersSettlements": "Rozliczenia i wypłaty",
     "sellersAudit": "Odchylenia i audyt",
-    "sellersSettings": "Ustawienia sprzedawców"
+    "sellersSettings": "Ustawienia sprzedawców",
+    "analyticsOverview": "Analityka"
   },
   "executive": {
     "title": "Centrum wykonawcze",
@@ -3018,7 +3019,40 @@
   },
   "analytics": {
     "nav": {
-      "customerJourneys": "Ścieżki klientów"
+      "customerJourneys": "Ścieżki klientów",
+      "overview": "Przegląd"
+    },
+    "overview": {
+      "title": "Analityka platformy",
+      "subtitle": "Autoryzowane agregaty Core dla klientów, subskrypcji, partnerów i użycia modułów. Szczegóły ruchu pozostają w Google Analytics.",
+      "loading": "Przygotowywanie analityki…",
+      "errorTitle": "Analityka niedostępna",
+      "errorBody": "Wystąpił nieoczekiwany błąd podczas ładowania analityki. Spróbuj ponownie.",
+      "retry": "Spróbuj ponownie",
+      "privacyNote": "Tylko agregaty. Bez e-maili klientów, czatu ani danych płatności.",
+      "lastChecked": "Ostatnio sprawdzono",
+      "unavailable": "Niedostępne",
+      "ga4Title": "Google Analytics 4",
+      "ga4Configured": "Pomiar jest skonfigurowany dla powierzchni z zgodą.",
+      "ga4NotConfigured": "Measurement ID nie jest skonfigurowany w tym środowisku.",
+      "ga4DataApiNote": "GA4 DebugView i raporty pozostają w Google Analytics. Import do Platform Admin wymaga osobnych poświadczeń Analytics Data API — nie provisionowane bez zgody właściciela.",
+      "modulesTitle": "Najczęściej używane moduły",
+      "modulesEmpty": "Brak podsumowania użycia modułów.",
+      "cards": {
+        "customerRegistrations30d": "Rejestracje klientów (30 dni)",
+        "activeAppCustomers": "Aktywni klienci APP",
+        "activeBusinesses": "Aktywne firmy / instalacje",
+        "activeGrowthPartners": "Aktywni Growth Partners",
+        "activeSubscriptions": "Aktywne subskrypcje",
+        "revenueMrr": "Miesięczny przychód cykliczny",
+        "moduleUsage": "Sygnał użycia modułów",
+        "academyPartners": "Partnerzy Growth Academy"
+      },
+      "links": {
+        "metrics": "Otwórz szczegółowe metryki",
+        "customerJourneys": "Ścieżki klientów",
+        "sellers": "Partnerzy sprzedaży"
+      }
     }
   },
   "customerJourneyAnalytics": {

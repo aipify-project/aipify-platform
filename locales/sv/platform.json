@@ -308,7 +308,8 @@
     "sellersLeadsSales": "Leads och försäljning",
     "sellersSettlements": "Avräkning och utbetalningar",
     "sellersAudit": "Avvikelser och revision",
-    "sellersSettings": "Säljarinställningar"
+    "sellersSettings": "Säljarinställningar",
+    "analyticsOverview": "Analys"
   },
   "executive": {
     "title": "Executive Center",
@@ -3018,7 +3019,40 @@
   },
   "analytics": {
     "nav": {
-      "customerJourneys": "Kundresor"
+      "customerJourneys": "Kundresor",
+      "overview": "Översikt"
+    },
+    "overview": {
+      "title": "Plattformsanalys",
+      "subtitle": "Auktoriserade Core-aggregat för kunder, prenumerationer, partners och modulusage. Trafikdetaljer finns i Google Analytics.",
+      "loading": "Förbereder analys…",
+      "errorTitle": "Analys otillgänglig",
+      "errorBody": "Något oväntat hände vid inläsning av analys. Försök igen.",
+      "retry": "Försök igen",
+      "privacyNote": "Endast aggregat. Inga kundmejl, chatt eller betalningsdetaljer visas.",
+      "lastChecked": "Senast kontrollerat",
+      "unavailable": "Inte tillgängligt",
+      "ga4Title": "Google Analytics 4",
+      "ga4Configured": "Mätning är konfigurerad för ytor med samtycke.",
+      "ga4NotConfigured": "Measurement ID är inte konfigurerat i den här miljön.",
+      "ga4DataApiNote": "GA4 DebugView och rapporter finns i Google Analytics. Import till Platform Admin kräver separat Analytics Data API-uppgift — ej provisionerad utan ägargodkännande.",
+      "modulesTitle": "Mest använda moduler",
+      "modulesEmpty": "Ingen sammanfattning av modulusage finns ännu.",
+      "cards": {
+        "customerRegistrations30d": "Kundregistreringar (30 dagar)",
+        "activeAppCustomers": "Aktiva APP-kunder",
+        "activeBusinesses": "Aktiva företag / installationer",
+        "activeGrowthPartners": "Aktiva Growth Partners",
+        "activeSubscriptions": "Aktiva prenumerationer",
+        "revenueMrr": "Månatlig återkommande intäkt",
+        "moduleUsage": "Modulusage-signal",
+        "academyPartners": "Growth Academy-partners"
+      },
+      "links": {
+        "metrics": "Öppna detaljerade mätvärden",
+        "customerJourneys": "Kundresor",
+        "sellers": "Säljarpartners"
+      }
     }
   },
   "customerJourneyAnalytics": {

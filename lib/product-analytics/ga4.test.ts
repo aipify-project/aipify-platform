@@ -81,7 +81,7 @@ function expectQueuedInit(windowLike: Ga4Window & { gtagCalls: IArguments[] }): 
   assert.deepEqual(argsLikeToArray(windowLike.gtagCalls[3]), [
     "config",
     MEASUREMENT_ID,
-    { send_page_view: true },
+    { send_page_view: false },
   ]);
   for (const entry of windowLike.dataLayer ?? []) {
     assert.equal(isArgumentsLike(entry), true, "dataLayer entries must be Arguments");
@@ -99,7 +99,7 @@ async function main() {
   await test("official gtag stub pushes arguments not rest arrays", async () => {
     const dataLayer: unknown[] = [];
     const gtag = createOfficialGtagStub(dataLayer);
-    gtag("config", MEASUREMENT_ID, { send_page_view: true });
+    gtag("config", MEASUREMENT_ID, { send_page_view: false });
     assert.equal(dataLayer.length, 1);
     assert.equal(isArgumentsLike(dataLayer[0]), true);
     assert.equal(Array.isArray(dataLayer[0]), false);

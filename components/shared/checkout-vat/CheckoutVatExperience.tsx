@@ -191,9 +191,21 @@ export function CheckoutVatExperience({
     if (!payRes.ok) return;
     const payData = (await payRes.json()) as { checkout_url?: string; demo_mode?: boolean };
     onConfirmed?.(key);
+    try {
+      const { trackBeginCheckout } = await import("@/lib/product-analytics/track");
+      trackBeginCheckout("starter", true);
+    } catch {
+      // Analytics must never block checkout.
+    }
     if (payData.checkout_url) {
       window.location.href = payData.checkout_url;
       return;
+    }
+    try {
+      const { trackPurchase } = await import("@/lib/product-analytics/track");
+      trackPurchase("starter", undefined, undefined, true);
+    } catch {
+      // Analytics must never block checkout.
     }
     window.location.href = "/app/settings/billing/packages?checkout=success";
   };

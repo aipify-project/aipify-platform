@@ -66,6 +66,12 @@ async function signInViaServerRoute(
     | null;
 
   if (signInResponse.ok && signInPayload?.ok && signInPayload.destination) {
+    try {
+      const { trackLogin } = await import("@/lib/product-analytics/track");
+      trackLogin("password");
+    } catch {
+      // Analytics must never block sign-in.
+    }
     return { ok: true, destination: signInPayload.destination };
   }
 
