@@ -3,6 +3,14 @@ import type { CspWorkspaceLabels } from "@/components/partners-portal/CertifiedS
 import type { CspExamLabels } from "@/components/partners-portal/CertifiedSalesPartnerExamPanel";
 import type { CspLessonsLabels } from "@/components/partners-portal/CertifiedSalesPartnerLessonsPanel";
 import type { CspCatalogLabels } from "@/components/partners-portal/CertifiedSalesPartnerProductCatalogPanel";
+import type { CspLinkLabels } from "@/components/partners-portal/CertifiedSalesPartnerLinkPanel";
+import type {
+  CspCertificationsLabels,
+  CspMarketingLabels,
+  CspOverviewLabels,
+  CspSalesLabels,
+  CspSettlementsLabels,
+} from "@/components/partners-portal/CertifiedSalesPartnerPortalPanels";
 import type { SellersActionLabels } from "@/components/platform/sellers/CertifiedSellersActionPanel";
 
 export function buildCspWorkspaceLabels(t: Translator, titleKey: string, subtitleKey: string): CspWorkspaceLabels {
@@ -72,6 +80,118 @@ export function buildSellersActionLabels(t: Translator): SellersActionLabels {
   };
 }
 
+const SELLERS_LIVE_TEXT_KEYS = [
+  "loading",
+  "retry",
+  "errorTitle",
+  "errorBody",
+  "forbiddenTitle",
+  "forbiddenBody",
+  "notReported",
+  "notReportedNote",
+  "kpiApplications",
+  "kpiApplicationsNote",
+  "kpiApprovedPartners",
+  "kpiPartnersTotal",
+  "kpiCertified",
+  "kpiSales",
+  "kpiOpenSettlements",
+  "kpiUnpaidSettlements",
+  "kpiProductsPublished",
+  "kpiProductsTotal",
+  "kpiInReview",
+  "kpiAwaitingPayout",
+  "kpiPaid",
+  "sectionsTitle",
+  "sectionPartnersBody",
+  "sectionProductsBody",
+  "sectionSettlementsBody",
+  "sectionAcademyBody",
+  "sectionOpen",
+  "statusBreakdownTitle",
+  "statusBreakdownNote",
+  "filterLabel",
+  "filterAll",
+  "colPartner",
+  "colStatus",
+  "colApplied",
+  "colAction",
+  "colProduct",
+  "colCommission",
+  "colPeriod",
+  "colTotal",
+  "colLines",
+  "selectAction",
+  "partnerUnnamed",
+  "referenceLabel",
+  "dateEmpty",
+  "dateInvalid",
+  "partnersListMissingTitle",
+  "partnersListMissingBody",
+  "partnersEmptyTitle",
+  "partnersEmptyBody",
+  "partnersFilterEmpty",
+  "productsListMissingTitle",
+  "productsListMissingBody",
+  "productsEmptyTitle",
+  "productsEmptyBody",
+  "productPublished",
+  "productDraft",
+  "settlementsEmptyTitle",
+  "settlementsEmptyBody",
+  "settlementsNoFurtherSteps",
+  "settlementsOpenByCurrency",
+  "academyAttempts",
+  "academyPassed",
+  "academyFailed",
+  "academyCertifications",
+  "academyEmptyTitle",
+  "academyEmptyBody",
+  "academyNoteTitle",
+  "academyNoteBody",
+] as const;
+
+const SELLERS_PARTNER_STATUS_KEYS = [
+  "registered",
+  "under_review",
+  "needs_information",
+  "approved",
+  "rejected",
+  "suspended",
+  "unknown",
+] as const;
+
+const SELLERS_SETTLEMENT_STATUS_KEYS = ["open", "approved", "closed", "paid", "voided", "unknown"] as const;
+
+export type SellersLiveLabels = {
+  text: Record<(typeof SELLERS_LIVE_TEXT_KEYS)[number], string>;
+  /** Business labels for partner status codes; unknown codes use `unknown`. */
+  partnerStatus: Record<string, string>;
+  /** Business labels for settlement status codes; unknown codes use `unknown`. */
+  settlementStatus: Record<string, string>;
+  sectionTitles: { partners: string; products: string; settlements: string; academy: string };
+};
+
+export function buildSellersLiveLabels(t: Translator): SellersLiveLabels {
+  const k = (key: string) => t(`platform.sellers.live.${key}`);
+  return {
+    text: Object.fromEntries(SELLERS_LIVE_TEXT_KEYS.map((key) => [key, k(key)])) as SellersLiveLabels["text"],
+    partnerStatus: Object.fromEntries(SELLERS_PARTNER_STATUS_KEYS.map((key) => [key, k(`partnerStatus.${key}`)])),
+    settlementStatus: Object.fromEntries(
+      SELLERS_SETTLEMENT_STATUS_KEYS.map((key) => [
+        key,
+        key === "unknown" ? k("partnerStatus.unknown") : t(`platform.sellers.actions.settlementStatusOptions.${key}`),
+      ]),
+    ),
+    sectionTitles: {
+      partners: t("platform.sellers.partners.title"),
+      products: t("platform.sellers.products.title"),
+      settlements: t("platform.sellers.settlements.title"),
+      academy: t("platform.sellers.academy.title"),
+    },
+  };
+}
+
 const CSP_NS = "partnersPortal.certifiedSalesPartner";
 
 export function buildCspExamLabels(t: Translator): CspExamLabels {
@@ -101,6 +221,7 @@ export function buildCspExamLabels(t: Translator): CspExamLabels {
     reviewLessons: k("reviewLessons"),
     retake: k("retake"),
     practiceNotice: k("practiceNotice"),
+    attemptRecorded: k("attemptRecorded"),
     certificationRecorded: k("certificationRecorded"),
     downloadCertificate: k("downloadCertificate"),
     failClosed: t(`${CSP_NS}.workspace.notReadyBody`),
@@ -155,5 +276,177 @@ export function buildCspCatalogLabels(t: Translator): CspCatalogLabels {
     trainingNotPublished: k("trainingNotPublished"),
     noBuy: t(`${CSP_NS}.pages.products.noBuy`),
     empty: k("empty"),
+  };
+}
+
+function group(t: Translator, base: string, keys: readonly string[]): Record<string, string> {
+  return Object.fromEntries(keys.map((key) => [key, t(`${base}.${key}`)]));
+}
+
+const PARTNER_STATUS_KEYS = [
+  "registered",
+  "under_review",
+  "needs_information",
+  "approved",
+  "active",
+  "certified",
+  "in_academy",
+  "rejected",
+  "suspended",
+  "unknown",
+] as const;
+const NEXT_ACTION_KEYS = [
+  "awaiting_approval",
+  "provide_information",
+  "not_active",
+  "train",
+  "create_link",
+  "view_sales",
+] as const;
+const CERT_STATUS_KEYS = ["not_started", "in_progress", "passed", "expired", "revoked", "unknown"] as const;
+const SALE_STATUS_KEYS = [
+  "registered_awaiting_second_payment",
+  "pending_possible",
+  "earned",
+  "approved_for_payout",
+  "queued_for_payout",
+  "paid",
+  "reversed",
+  "rejected",
+  "unknown",
+] as const;
+const SETTLEMENT_STATUS_KEYS = ["open", "approved", "closed", "paid", "voided", "unknown"] as const;
+const SELF_SERVICE_CHANNEL_KEYS = [
+  "facebook",
+  "instagram",
+  "x",
+  "snapchat",
+  "tiktok",
+  "linkedin",
+  "email",
+  "qr",
+  "other",
+  "referral_link",
+  "partner_code",
+] as const;
+
+export function buildCspOverviewLabels(t: Translator): CspOverviewLabels {
+  const k = (key: string) => t(`${CSP_NS}.overview.${key}`);
+  return {
+    title: k("title"),
+    statusLabel: k("statusLabel"),
+    partnerStatus: group(t, `${CSP_NS}.overview.partnerStatus`, PARTNER_STATUS_KEYS),
+    certificationsLabel: k("certificationsLabel"),
+    certificationsValue: k("certificationsValue"),
+    certificationsNone: k("certificationsNone"),
+    linksLabel: k("linksLabel"),
+    salesLabel: k("salesLabel"),
+    salesNone: k("salesNone"),
+    balanceLabel: k("balanceLabel"),
+    balanceNone: k("balanceNone"),
+    nextTitle: k("nextTitle"),
+    nextBody: group(t, `${CSP_NS}.overview.nextBody`, NEXT_ACTION_KEYS),
+    nextCta: group(t, `${CSP_NS}.overview.nextCta`, ["train", "create_link", "view_sales"]),
+  };
+}
+
+export function buildCspCertificationsLabels(t: Translator): CspCertificationsLabels {
+  const k = (key: string) => t(`${CSP_NS}.certifications.${key}`);
+  return {
+    title: k("title"),
+    intro: k("intro"),
+    productCol: k("productCol"),
+    statusCol: k("statusCol"),
+    scoreCol: k("scoreCol"),
+    passedOnCol: k("passedOnCol"),
+    status: group(t, `${CSP_NS}.certifications.status`, CERT_STATUS_KEYS),
+    download: t(`${CSP_NS}.exam.downloadCertificate`),
+    emptyTitle: k("emptyTitle"),
+    emptyBody: k("emptyBody"),
+    emptyCta: k("emptyCta"),
+    unknownProduct: k("unknownProduct"),
+  };
+}
+
+export function buildCspSalesLabels(t: Translator): CspSalesLabels {
+  const k = (key: string) => t(`${CSP_NS}.salesList.${key}`);
+  return {
+    title: k("title"),
+    intro: t(`${CSP_NS}.pages.sales.awaitingHint`),
+    productCol: k("productCol"),
+    statusCol: k("statusCol"),
+    periodsCol: k("periodsCol"),
+    commissionCol: k("commissionCol"),
+    registeredCol: k("registeredCol"),
+    status: group(t, `${CSP_NS}.salesList.status`, SALE_STATUS_KEYS),
+    commissionPending: k("commissionPending"),
+    emptyTitle: k("emptyTitle"),
+    emptyBody: k("emptyBody"),
+    emptyCta: k("emptyCta"),
+    loadError: k("loadError"),
+    retry: t(`${CSP_NS}.workspace.retry`),
+  };
+}
+
+export function buildCspSettlementsLabels(t: Translator): CspSettlementsLabels {
+  const k = (key: string) => t(`${CSP_NS}.settlements.${key}`);
+  return {
+    title: k("title"),
+    intro: t(`${CSP_NS}.pages.settlement.readOnlyHint`),
+    periodCol: k("periodCol"),
+    statusCol: k("statusCol"),
+    linesCol: k("linesCol"),
+    totalCol: k("totalCol"),
+    status: group(t, `${CSP_NS}.settlements.status`, SETTLEMENT_STATUS_KEYS),
+    balanceTitle: k("balanceTitle"),
+    balanceNone: k("balanceNone"),
+    emptyTitle: k("emptyTitle"),
+    emptyBody: k("emptyBody"),
+    loadError: k("loadError"),
+    retry: t(`${CSP_NS}.workspace.retry`),
+  };
+}
+
+export function buildCspLinkLabels(t: Translator): CspLinkLabels {
+  const k = (key: string) => t(`${CSP_NS}.links.${key}`);
+  return {
+    title: k("panelTitle"),
+    product: k("product"),
+    productPlaceholder: k("productPlaceholder"),
+    certificationNeeded: k("certificationNeeded"),
+    noProducts: k("noProducts"),
+    channel: k("channel"),
+    channels: group(t, `${CSP_NS}.links.channels`, SELF_SERVICE_CHANNEL_KEYS),
+    submit: k("submit"),
+    creating: k("creating"),
+    howItWorks: k("howItWorks"),
+    failClosed: t(`${CSP_NS}.workspace.notReadyBody`),
+    error: t(`${CSP_NS}.workspace.errorTitle`),
+    success: k("success"),
+    copy: k("copy"),
+    copied: k("copied"),
+    gatesHint: k("gatesHint"),
+    productNotYet: k("productNotYet"),
+  };
+}
+
+export function buildCspMarketingLabels(t: Translator): CspMarketingLabels {
+  const k = (key: string) => t(`${CSP_NS}.marketing.${key}`);
+  return {
+    title: k("title"),
+    intro: k("intro"),
+    linkTitle: k("linkTitle"),
+    linkEmpty: k("linkEmpty"),
+    linkCta: k("linkCta"),
+    assetsTitle: k("assetsTitle"),
+    assetsEmptyTitle: k("assetsEmptyTitle"),
+    assetsEmptyBody: k("assetsEmptyBody"),
+    productTabs: k("productTabs"),
+    localeTabs: k("localeTabs"),
+    voiceNote: k("voiceNote"),
+    signatureNote: k("signatureNote"),
+    filterKompisWeb: k("filterKompisWeb"),
+    filterKompisBedrift: k("filterKompisBedrift"),
+    filterVoice: k("filterVoice"),
   };
 }

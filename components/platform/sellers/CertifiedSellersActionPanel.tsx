@@ -50,9 +50,26 @@ type Section = "partners" | "settlements" | "products";
 type Props = {
   section: Section;
   labels: SellersActionLabels;
+  /** Prefill from a directory row. Re-mount (via `key`) to apply a new selection. */
+  initialPartnerId?: string;
+  initialPartnerStatus?: string;
+  initialSettlementId?: string;
+  initialFromStatus?: string;
+  initialToStatus?: string;
+  /** Called after Core accepted the request so the surrounding list can reload. */
+  onSuccess?: () => void;
 };
 
-export function CertifiedSellersActionPanel({ section, labels }: Props) {
+export function CertifiedSellersActionPanel({
+  section,
+  labels,
+  initialPartnerId,
+  initialPartnerStatus,
+  initialSettlementId,
+  initialFromStatus,
+  initialToStatus,
+  onSuccess,
+}: Props) {
   const [message, setMessage] = useState<{ kind: "ok" | "closed" | "error"; text: string } | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -75,6 +92,14 @@ export function CertifiedSellersActionPanel({ section, labels }: Props) {
         backend_ready?: boolean;
         message?: string;
       };
+      if (res.status === 401 || res.status === 403) {
+        setMessage({ kind: "error", text: errorText("forbidden") });
+        return;
+      }
+      if (data.error === "forbidden") {
+        setMessage({ kind: "error", text: errorText("forbidden") });
+        return;
+      }
       if (res.status === 503 || data.backend_ready === false) {
         setMessage({ kind: "closed", text: labels.failClosed });
         return;
@@ -84,6 +109,7 @@ export function CertifiedSellersActionPanel({ section, labels }: Props) {
         return;
       }
       setMessage({ kind: "ok", text: labels.success });
+      onSuccess?.();
     } catch {
       setMessage({ kind: "error", text: labels.error });
     } finally {
@@ -161,8 +187,19 @@ export function CertifiedSellersActionPanel({ section, labels }: Props) {
       {section === "partners" ? (
         <form className="mt-4 grid max-w-xl gap-3" onSubmit={onPartners}>
           <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.partnersHint}</p>
-          <Field name="partner_id" label={labels.partnerId} hint={labels.partnerIdHint} required />
-          <Select name="status" label={labels.status} options={labels.partnerStatusOptions} />
+          <Field
+            name="partner_id"
+            label={labels.partnerId}
+            hint={labels.partnerIdHint}
+            required
+            defaultValue={initialPartnerId}
+          />
+          <Select
+            name="status"
+            label={labels.status}
+            options={labels.partnerStatusOptions}
+            defaultValue={initialPartnerStatus}
+          />
           <Field name="reason" label={labels.reason} hint={labels.reasonHint} required minLength={3} maxLength={500} />
           <Submit pending={pending} label={labels.submitPartner} />
         </form>
@@ -170,9 +207,26 @@ export function CertifiedSellersActionPanel({ section, labels }: Props) {
       {section === "settlements" ? (
         <form className="mt-4 grid max-w-xl gap-3" onSubmit={onSettlements}>
           <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.settlementsHint}</p>
-          <Field name="settlement_id" label={labels.settlementId} hint={labels.settlementIdHint} required />
-          <Select name="from_status" label={labels.fromStatus} options={labels.settlementStatusOptions} />
-          <Select name="to_status" label={labels.toStatus} options={labels.settlementStatusOptions} defaultIndex={1} />
+          <Field
+            name="settlement_id"
+            label={labels.settlementId}
+            hint={labels.settlementIdHint}
+            required
+            defaultValue={initialSettlementId}
+          />
+          <Select
+            name="from_status"
+            label={labels.fromStatus}
+            options={labels.settlementStatusOptions}
+            defaultValue={initialFromStatus}
+          />
+          <Select
+            name="to_status"
+            label={labels.toStatus}
+            options={labels.settlementStatusOptions}
+            defaultIndex={1}
+            defaultValue={initialToStatus}
+          />
           <Field name="rejection_reason" label={labels.rejectionReason} hint={labels.rejectionReasonHint} />
           <Field name="paid_at" label={labels.paidAt} type="datetime-local" hint={labels.paidEvidenceHint} />
           <Field name="payment_reference" label={labels.paymentReference} />
@@ -210,6 +264,7 @@ function Field({
   maxLength,
   minLength,
   hint,
+  defaultValue,
 }: {
   name: string;
   label: string;
@@ -219,6 +274,7 @@ function Field({
   maxLength?: number;
   minLength?: number;
   hint?: string;
+  defaultValue?: string;
 }) {
   return (
     <label className="text-sm">
@@ -226,6 +282,7 @@ function Field({
       <input
         name={name}
         type={type}
+        defaultValue={defaultValue}
         required={required}
         placeholder={placeholder}
         maxLength={maxLength}
@@ -242,18 +299,22 @@ function Select({
   label,
   options,
   defaultIndex = 0,
+  defaultValue,
 }: {
   name: string;
   label: string;
   options: SellersActionOption[];
   defaultIndex?: number;
+  defaultValue?: string;
 }) {
+  const initial =
+    defaultValue && options.some((o) => o.value === defaultValue) ? defaultValue : options[defaultIndex]?.value;
   return (
     <label className="text-sm">
       <span className="font-medium">{label}</span>
       <select
         name={name}
-        defaultValue={options[defaultIndex]?.value}
+        defaultValue={initial}
         className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2"
         required
       >

@@ -15,6 +15,11 @@ import {
 } from "@/lib/certified-sales-partner";
 // SERVER-ONLY: the answer key may only be imported by server routes — never by client components.
 import { getAnswerKeyForQuestions } from "@/lib/certified-sales-partner/academy/server";
+import { resolveCoreAcademyCourseId } from "@/lib/certified-sales-partner/academy/core-course";
+import {
+  corePositionToLocalQuestionId,
+  toCoreAnswersByPosition,
+} from "@/lib/certified-sales-partner/academy/core-mapping";
 import { DEFAULT_LOCALE, LOCALES } from "@/lib/i18n/config";
 import { createClient } from "@/lib/supabase/server";
 
@@ -30,7 +35,8 @@ function rec(v: unknown): Record<string, unknown> {
 
 /**
  * Extracts a Core answer key. Supports the `csp_get_academy_answer_key` shape
- * (`questions: [{ question_id, answer_key }]`) and a flat `answer_key` map.
+ * (`questions: [{ question_id, position, answer_key }]`) and a flat `answer_key` map.
+ * Core questions are matched to local ids directly or by position (`kw_q01` = position 1).
  * Returns null when the payload is unusable.
  */
 function parseCoreAnswerKey(data: unknown): Record<string, string> | null {
@@ -43,10 +49,14 @@ function parseCoreAnswerKey(data: unknown): Record<string, string> | null {
   if (Array.isArray(root.questions)) {
     for (const item of root.questions) {
       const q = rec(item);
-      const id = typeof q.question_id === "string" ? q.question_id : null;
       const raw = q.answer_key;
       const value = typeof raw === "string" ? raw : rec(raw).correct;
-      if (id && typeof value === "string") out[id] = value;
+      if (typeof value !== "string") continue;
+      if (typeof q.question_id === "string") out[q.question_id] = value;
+      if (typeof q.position === "number") {
+        const localId = corePositionToLocalQuestionId(q.position);
+        if (localId) out[localId] = value;
+      }
     }
   }
   return Object.keys(out).length > 0 ? out : null;
@@ -60,7 +70,9 @@ function parseCoreAnswerKey(data: unknown): Record<string, string> | null {
  * `attempt_index` (never from client-chosen question ids — a client cannot shrink the exam).
  *
  * Persistence: `csp_record_academy_attempt` runs only when Core is ready and a Core course id (UUID)
- * is supplied. Without Core the score is still returned (HTTP 200, honest practice mode) with
+ * resolves (server-side lookup of the published `kompis_web_v1` course). Core re-scores over ALL loaded
+ * course questions; when its score differs from ours the attempt is reported as `core_score_mismatch`
+ * (practice) and never as certified. Without Core the score is still returned (HTTP 200, honest practice mode) with
  * `certification_persisted:false` and `backend_ready:false` — certification is NEVER claimed
  * without a Core record. The full answer key is never returned.
  */
@@ -126,7 +138,11 @@ export async function POST(request: Request) {
     }));
 
     const kompis = assertKompisBlockedDuringExam();
-    const courseId = typeof body.course_id === "string" && UUID_PATTERN.test(body.course_id) ? body.course_id : null;
+    // Core course id: resolved server-side from the course key (Core validates it is published).
+    // A client-supplied UUID is only a fallback and is re-validated by Core.
+    const courseId =
+      (await resolveCoreAcademyCourseId(CSP_KOMPIS_WEB_COURSE_KEY)) ??
+      (typeof body.course_id === "string" && UUID_PATTERN.test(body.course_id) ? body.course_id : null);
 
     // 1) Answer key — prefer Core when ready and complete for this exam; else Academy server key.
     let coreReady = false;
@@ -175,8 +191,8 @@ export async function POST(request: Request) {
         p_course_id: courseId,
         p_score_pct: scored.scorePct,
         p_passed: scored.passed,
-        // Core recomputes the score from this object (question id -> chosen option).
-        p_answers: Object.fromEntries(latest),
+        // Core recomputes the score from this object, keyed by question position -> chosen option.
+        p_answers: toCoreAnswersByPosition(latest),
       });
       if (persist.ready) {
         backendReady = true;

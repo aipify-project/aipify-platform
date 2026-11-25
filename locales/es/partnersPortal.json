@@ -283,16 +283,16 @@
       "honestBlockedBody": "Kompis help is disabled during partner certification and test flows. Use Academy materials instead."
     },
     "workspace": {
-      "loading": "Loading partner workspace…",
-      "notReadyTitle": "Partner backend not active yet",
-      "notReadyBody": "Certified Sales Partner Core storage is not active until the approved database migration is applied. No fake sales or commissions are shown.",
-      "retry": "Try again",
-      "errorTitle": "Something unexpected happened. Please try again."
+      "loading": "Cargando el espacio de socio…",
+      "notReadyTitle": "El sistema de socios aún no está activo",
+      "notReadyBody": "El almacenamiento de Certified Sales Partner no está activo hasta que se aplique la migración de base de datos aprobada. No se muestran ventas ni comisiones ficticias.",
+      "retry": "Intentar de nuevo",
+      "errorTitle": "Ocurrió algo inesperado. Inténtalo de nuevo."
     },
     "pages": {
       "home": {
-        "title": "Certified Sales Partner home",
-        "subtitle": "Your Aipify sales workspace for certified products, links and commissions.",
+        "title": "Resumen del socio",
+        "subtitle": "Tu estado, tus certificaciones y tu siguiente paso como Certified Sales Partner.",
         "readyHint": "When Core is active, overview metrics for products, sales and payouts appear here."
       },
       "products": {
@@ -301,22 +301,30 @@
         "noBuy": "Los socios no tienen botón de compra. Genere un enlace de seguimiento tras la certificación."
       },
       "links": {
-        "title": "My sales links",
-        "subtitle": "Create personal product links by channel. First valid touch wins for 90 days."
+        "title": "Mis enlaces de venta",
+        "subtitle": "Crea enlaces personales de producto por canal. El primer contacto válido cuenta durante 90 días."
       },
       "sales": {
-        "title": "My sales",
-        "subtitle": "Registered sales stay neutral until the customer’s second successful paid period.",
-        "awaitingHint": "Payment #1 shows as registered / awaiting month 2 — commission is not earned yet."
+        "title": "Mis ventas",
+        "subtitle": "Las ventas registradas son neutrales hasta el segundo periodo de pago correcto del cliente.",
+        "awaitingHint": "El pago n.º 1 aparece como registrado / a la espera del mes 2: la comisión aún no se ha ganado."
       },
       "settlement": {
-        "title": "Commission and payouts",
-        "subtitle": "Read-only view of monthly settlements. Aipify Group AS pays manually in bank.",
-        "readOnlyHint": "You can view upcoming and historical payouts. You cannot change ledger amounts."
+        "title": "Comisión y pagos",
+        "subtitle": "Vista de solo lectura de las liquidaciones mensuales. Aipify Group AS paga manualmente por banco.",
+        "readOnlyHint": "Puedes ver los pagos futuros e históricos. No puedes modificar los importes del libro mayor."
       },
       "academy": {
         "title": "Academia de crecimiento",
         "subtitle": "Formación de producto y certificación. La nota de aprobado es el 80 %. La ayuda de Kompis está desactivada durante la prueba."
+      },
+      "certifications": {
+        "title": "Mis certificaciones",
+        "subtitle": "Tu estado de certificación para cada producto. Aipify registra la certificación cuando apruebas el test."
+      },
+      "marketing": {
+        "title": "Herramientas de venta",
+        "subtitle": "Diseños de marketing aprobados y su enlace personal — nunca una URL de ejemplo incrustada."
       }
     },
     "links": {
@@ -325,8 +333,29 @@
       "channel": "Canal",
       "submit": "Crear enlace",
       "howItWorks": "La atribución usa el primer contacto válido dentro de 90 días. La comisión solo se devenga tras dos periodos de pago correctos, nunca en renovaciones.",
-      "success": "Su enlace de ventas se ha creado.",
-      "gatesHint": "Aipify verifica su aprobación, el producto publicado, su certificación y el acuerdo antes de emitir un enlace activo."
+      "success": "Tu enlace de venta está listo: {url}",
+      "gatesHint": "Aipify verifica su aprobación, el producto publicado, su certificación y el acuerdo antes de emitir un enlace activo.",
+      "product": "Producto",
+      "productPlaceholder": "Elige un producto",
+      "certificationNeeded": "requiere certificación",
+      "noProducts": "Aún no hay productos disponibles para enlaces de venta. Los productos aparecerán aquí cuando Aipify los publique.",
+      "creating": "Creando enlace",
+      "copy": "Copiar enlace",
+      "copied": "Enlace copiado.",
+      "productNotYet": "Este producto aún no tiene una página de venta pública, por lo que no se ha creado ningún enlace.",
+      "channels": {
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "x": "X",
+        "snapchat": "Snapchat",
+        "tiktok": "TikTok",
+        "linkedin": "LinkedIn",
+        "email": "Correo electrónico",
+        "qr": "Código QR",
+        "other": "Otro",
+        "referral_link": "Enlace personal de recomendación",
+        "partner_code": "Código de socio"
+      }
     },
     "exam": {
       "title": "Prueba de certificación del producto",
@@ -354,7 +383,8 @@
       "retake": "Repetir la prueba",
       "practiceNotice": "Este resultado es solo de práctica. No se ha registrado ni emitido ninguna certificación porque el sistema de socios no la ha confirmado. La certificación y los enlaces de ventas estarán disponibles cuando se registre el resultado.",
       "certificationRecorded": "Su certificación se ha registrado.",
-      "downloadCertificate": "Descargar certificado (PDF)"
+      "downloadCertificate": "Descargar certificado (PDF)",
+      "attemptRecorded": "Tu intento se ha registrado. Repasa las lecciones e inténtalo de nuevo cuando quieras."
     },
     "lessons": {
       "title": "Lecciones de Kompis Web",
@@ -370,8 +400,8 @@
       "filterKompis": "Kompis",
       "filterVoice": "Aipify Voice (futuro)",
       "sellable": "Vendible",
-      "future": "Futuro",
-      "futureNote": "Aún no disponible para la venta ni la certificación.",
+      "future": "Próximamente",
+      "futureNote": "Próximamente — aún no disponible para la venta ni la certificación.",
       "plannedPrice": "Desde {price} / mes",
       "plannedPriceNote": "Precio para el cliente (referencia prevista)",
       "noPlannedPrice": "Aún no se ha publicado un precio previsto",
@@ -395,6 +425,125 @@
       "takeTraining": "Hacer la formación",
       "trainingNotPublished": "La formación aún no está publicada",
       "empty": "No hay productos en esta categoría."
+    },
+    "overview": {
+      "title": "Tu resumen de socio",
+      "statusLabel": "Estado del socio",
+      "partnerStatus": {
+        "registered": "Registrado",
+        "under_review": "En revisión",
+        "needs_information": "Se necesita más información",
+        "approved": "Aprobado",
+        "active": "Activo",
+        "certified": "Certificado",
+        "in_academy": "En la Academia",
+        "rejected": "No aprobado",
+        "suspended": "Suspendido",
+        "unknown": "Estado no disponible"
+      },
+      "certificationsLabel": "Certificaciones",
+      "certificationsValue": "{passed} de {total} productos certificados",
+      "certificationsNone": "Aún no hay productos publicados",
+      "linksLabel": "Enlaces de venta activos",
+      "salesLabel": "Ventas registradas",
+      "salesNone": "Aún no hay ventas",
+      "balanceLabel": "Saldo de comisión",
+      "balanceNone": "Aún no hay comisión registrada",
+      "nextTitle": "Siguiente paso recomendado",
+      "nextBody": {
+        "awaiting_approval": "Aipify está revisando tu solicitud. Podrás formarte y crear enlaces de venta cuando te aprueben.",
+        "provide_information": "Aipify necesita algo más de información antes de aprobar tu solicitud. Revisa tu correo para ver los detalles.",
+        "not_active": "Tu cuenta de socio no está activa por ahora. Contacta con Aipify si tienes preguntas.",
+        "train": "Empieza la Growth Academy. Cuando apruebes el test del producto, podrás crear tus propios enlaces de venta.",
+        "create_link": "Ya estás certificado. Crea un enlace de venta para un producto y compártelo en el canal que prefieras.",
+        "view_sales": "Tus enlaces de venta están activos. Sigue tus ventas registradas y su progreso en Mis ventas."
+      },
+      "nextCta": {
+        "train": "Ir a Growth Academy",
+        "create_link": "Crear un enlace de venta",
+        "view_sales": "Ver mis ventas"
+      }
+    },
+    "certifications": {
+      "title": "Estado de certificación por producto",
+      "intro": "Una certificación solo aparece como aprobada cuando Aipify la ha registrado. La nota de aprobado es 80 %.",
+      "productCol": "Producto",
+      "statusCol": "Estado",
+      "scoreCol": "Resultado",
+      "passedOnCol": "Aprobado el",
+      "status": {
+        "not_started": "Sin empezar",
+        "in_progress": "En curso",
+        "passed": "Aprobado",
+        "expired": "Caducado",
+        "revoked": "Revocado",
+        "unknown": "Estado no disponible"
+      },
+      "emptyTitle": "Aún no hay productos para certificar",
+      "emptyBody": "Los productos aparecerán aquí cuando Aipify los publique. Ya puedes leer las lecciones y practicar en la Growth Academy.",
+      "emptyCta": "Ir a Growth Academy",
+      "unknownProduct": "Producto"
+    },
+    "salesList": {
+      "title": "Ventas registradas",
+      "productCol": "Producto",
+      "statusCol": "Estado",
+      "periodsCol": "Periodos pagados",
+      "commissionCol": "Comisión",
+      "registeredCol": "Registrada",
+      "status": {
+        "registered_awaiting_second_payment": "Registrada — a la espera del mes 2",
+        "pending_possible": "En verificación",
+        "earned": "Comisión ganada",
+        "approved_for_payout": "Aprobada para el pago",
+        "queued_for_payout": "En cola de pago",
+        "paid": "Pagada",
+        "reversed": "Revertida",
+        "rejected": "No válida",
+        "unknown": "Estado no disponible"
+      },
+      "commissionPending": "Aún no ganada",
+      "emptyTitle": "Aún no hay ventas registradas",
+      "emptyBody": "Cuando un cliente que hayas recomendado inicie una suscripción de pago, la venta aparecerá aquí. Comparte tu enlace de venta para empezar.",
+      "emptyCta": "Crear un enlace de venta",
+      "loadError": "No se han podido cargar tus ventas ahora mismo. Inténtalo de nuevo."
+    },
+    "settlements": {
+      "title": "Liquidaciones mensuales",
+      "periodCol": "Mes",
+      "statusCol": "Estado",
+      "linesCol": "Ventas incluidas",
+      "totalCol": "Total",
+      "status": {
+        "open": "Abierta",
+        "approved": "Aprobada",
+        "closed": "Cerrada — pendiente de pago",
+        "paid": "Pagada",
+        "voided": "Anulada",
+        "unknown": "Estado no disponible"
+      },
+      "balanceTitle": "Saldo de comisión",
+      "balanceNone": "Aún no hay comisión registrada",
+      "emptyTitle": "Aún no hay liquidaciones",
+      "emptyBody": "Tu primera liquidación mensual aparecerá aquí cuando hayas ganado comisión. No se muestra nada hasta que Aipify lo registre.",
+      "loadError": "No se han podido cargar tus liquidaciones ahora mismo. Inténtalo de nuevo."
+    },
+    "marketing": {
+      "title": "Herramientas de venta",
+      "intro": "Descargue diseños de marketing de Aipify para los productos que está certificado para vender. Su enlace personal se muestra por separado; nunca va incrustado en los banners.",
+      "linkTitle": "Su enlace personal de venta",
+      "linkEmpty": "Cree un enlace de venta cuando esté aprobado y certificado. Aparecerá aquí para copiar y compartir.",
+      "linkCta": "Crear enlace de venta",
+      "assetsTitle": "Biblioteca de banners y plantillas",
+      "assetsEmptyTitle": "Los materiales de marketing aún no se han importado",
+      "assetsEmptyBody": "Los banners Budda/Buddy del propietario todavía no están en este repositorio. Importe banners de producto aprobados a la biblioteca de socios; entonces aparecerán aquí por producto e idioma. Mientras tanto, use solo su enlace personal con texto aprobado.",
+      "productTabs": "Producto",
+      "localeTabs": "Idioma",
+      "voiceNote": "Aipify Voice estará disponible pronto y no admite banners de venta activos.",
+      "signatureNote": "Las insignias de certificación y el texto de producto bloqueado los controla Aipify. Solo puede añadir nombre, foto y enlace autenticado en los campos permitidos.",
+      "filterKompisWeb": "Kompis Web",
+      "filterKompisBedrift": "Kompis Bedrift",
+      "filterVoice": "Aipify Voice"
     }
   }
 }

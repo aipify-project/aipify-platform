@@ -22,3 +22,4 @@ export * from "./product-catalog-display";
 export * from "./partner-overview";
 export * from "./bank-crypto";
 export * from "./integration-fixture";
+export * from "./portal-view";

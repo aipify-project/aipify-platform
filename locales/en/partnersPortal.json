@@ -415,8 +415,8 @@
     },
     "pages": {
       "home": {
-        "title": "Certified Sales Partner home",
-        "subtitle": "Your Aipify sales workspace for certified products, links and commissions.",
+        "title": "Partner overview",
+        "subtitle": "Your status, certifications and next step as a Certified Sales Partner.",
         "readyHint": "When Core is active, overview metrics for products, sales and payouts appear here."
       },
       "products": {
@@ -430,7 +430,7 @@
       },
       "sales": {
         "title": "My sales",
-        "subtitle": "Registered sales stay neutral until the customer’s second successful paid period.",
+        "subtitle": "Registered sales stay neutral until the customer's second successful paid period.",
         "awaitingHint": "Payment #1 shows as registered / awaiting month 2 — commission is not earned yet."
       },
       "settlement": {
@@ -441,6 +441,14 @@
       "academy": {
         "title": "Growth Academy",
         "subtitle": "Product training and certification. Pass mark is 80%. Kompis help is disabled during the test."
+      },
+      "certifications": {
+        "title": "My certifications",
+        "subtitle": "Your certification status for each product. Certification is recorded by Aipify once you pass the test."
+      },
+      "marketing": {
+        "title": "Sales tools",
+        "subtitle": "Approved marketing layouts and your personal sales link — never a baked-in sample URL."
       }
     },
     "links": {
@@ -449,8 +457,29 @@
       "channel": "Channel",
       "submit": "Create link",
       "howItWorks": "Attribution uses first valid touch within 90 days. Commission is earned only after two successful paid periods — never on renewals.",
-      "success": "Your sales link has been created.",
-      "gatesHint": "Aipify verifies your approval, the published product, your certification and the agreement before a live link is issued."
+      "success": "Your sales link is ready: {url}",
+      "gatesHint": "Aipify verifies your approval, the published product, your certification and the agreement before a live link is issued.",
+      "product": "Product",
+      "productPlaceholder": "Choose a product",
+      "certificationNeeded": "certification needed",
+      "noProducts": "No products are available for sales links yet. Products appear here once Aipify has published them.",
+      "creating": "Creating link",
+      "copy": "Copy link",
+      "copied": "Link copied.",
+      "productNotYet": "This product does not have a public sales page yet, so no link was created.",
+      "channels": {
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "x": "X",
+        "snapchat": "Snapchat",
+        "tiktok": "TikTok",
+        "linkedin": "LinkedIn",
+        "email": "Email",
+        "qr": "QR code",
+        "other": "Other",
+        "referral_link": "Personal referral link",
+        "partner_code": "Partner code"
+      }
     },
     "exam": {
       "title": "Product certification test",
@@ -478,7 +507,8 @@
       "retake": "Take the test again",
       "practiceNotice": "This result is practice only. No certification has been recorded or issued, because the partner backend did not confirm it. Certification and sales links become available once the result is recorded.",
       "certificationRecorded": "Your certification has been recorded.",
-      "downloadCertificate": "Download certificate (PDF)"
+      "downloadCertificate": "Download certificate (PDF)",
+      "attemptRecorded": "Your attempt has been recorded. Review the lessons and try again when you are ready."
     },
     "lessons": {
       "title": "Kompis Web lessons",
@@ -494,8 +524,8 @@
       "filterKompis": "Kompis",
       "filterVoice": "Aipify Voice (future)",
       "sellable": "Sellable",
-      "future": "Future",
-      "futureNote": "Not available for sale or certification yet.",
+      "future": "Coming soon",
+      "futureNote": "Coming soon — not available for sale or certification yet.",
       "plannedPrice": "From {price} / month",
       "plannedPriceNote": "Customer price (planned reference)",
       "noPlannedPrice": "No planned price published yet",
@@ -519,6 +549,125 @@
       "takeTraining": "Take training",
       "trainingNotPublished": "Training not published yet",
       "empty": "No products in this category."
+    },
+    "overview": {
+      "title": "Your partner overview",
+      "statusLabel": "Partner status",
+      "partnerStatus": {
+        "registered": "Registered",
+        "under_review": "Under review",
+        "needs_information": "More information needed",
+        "approved": "Approved",
+        "active": "Active",
+        "certified": "Certified",
+        "in_academy": "In the Academy",
+        "rejected": "Not approved",
+        "suspended": "Suspended",
+        "unknown": "Status not available"
+      },
+      "certificationsLabel": "Certifications",
+      "certificationsValue": "{passed} of {total} products certified",
+      "certificationsNone": "No published products yet",
+      "linksLabel": "Active sales links",
+      "salesLabel": "Registered sales",
+      "salesNone": "No sales yet",
+      "balanceLabel": "Commission balance",
+      "balanceNone": "No commission recorded yet",
+      "nextTitle": "Recommended next step",
+      "nextBody": {
+        "awaiting_approval": "Aipify is reviewing your application. You will be able to train and create sales links once you are approved.",
+        "provide_information": "Aipify needs a little more information before your application can be approved. Please check your email for details.",
+        "not_active": "Your partner account is not active at the moment. Contact Aipify if you have questions.",
+        "train": "Start the Growth Academy. Once you pass the product test, you can create your own sales links.",
+        "create_link": "You are certified. Create a sales link for a product and share it in the channel that suits you.",
+        "view_sales": "Your sales links are active. Follow your registered sales and their progress under My sales."
+      },
+      "nextCta": {
+        "train": "Go to Growth Academy",
+        "create_link": "Create a sales link",
+        "view_sales": "View my sales"
+      }
+    },
+    "certifications": {
+      "title": "Certification status by product",
+      "intro": "A certification is only shown as passed once Aipify has recorded it. The pass mark is 80%.",
+      "productCol": "Product",
+      "statusCol": "Status",
+      "scoreCol": "Score",
+      "passedOnCol": "Passed on",
+      "status": {
+        "not_started": "Not started",
+        "in_progress": "In progress",
+        "passed": "Passed",
+        "expired": "Expired",
+        "revoked": "Revoked",
+        "unknown": "Status not available"
+      },
+      "emptyTitle": "No products to certify yet",
+      "emptyBody": "Products appear here once Aipify has published them. You can already read the lessons and practise in the Growth Academy.",
+      "emptyCta": "Go to Growth Academy",
+      "unknownProduct": "Product"
+    },
+    "salesList": {
+      "title": "Registered sales",
+      "productCol": "Product",
+      "statusCol": "Status",
+      "periodsCol": "Paid periods",
+      "commissionCol": "Commission",
+      "registeredCol": "Registered",
+      "status": {
+        "registered_awaiting_second_payment": "Registered — awaiting month 2",
+        "pending_possible": "Being verified",
+        "earned": "Commission earned",
+        "approved_for_payout": "Approved for payout",
+        "queued_for_payout": "Queued for payout",
+        "paid": "Paid out",
+        "reversed": "Reversed",
+        "rejected": "Not qualified",
+        "unknown": "Status not available"
+      },
+      "commissionPending": "Not earned yet",
+      "emptyTitle": "No sales registered yet",
+      "emptyBody": "When a customer you referred starts a paid subscription, the sale appears here. Share your sales link to get started.",
+      "emptyCta": "Create a sales link",
+      "loadError": "Your sales could not be loaded right now. Please try again."
+    },
+    "settlements": {
+      "title": "Monthly settlements",
+      "periodCol": "Month",
+      "statusCol": "Status",
+      "linesCol": "Sales included",
+      "totalCol": "Total",
+      "status": {
+        "open": "Open",
+        "approved": "Approved",
+        "closed": "Closed — awaiting payment",
+        "paid": "Paid",
+        "voided": "Voided",
+        "unknown": "Status not available"
+      },
+      "balanceTitle": "Commission balance",
+      "balanceNone": "No commission recorded yet",
+      "emptyTitle": "No settlements yet",
+      "emptyBody": "Your first monthly settlement appears here once you have earned commission. Nothing is shown until Aipify has recorded it.",
+      "loadError": "Your settlements could not be loaded right now. Please try again."
+    },
+    "marketing": {
+      "title": "Sales tools",
+      "intro": "Download Aipify-owned marketing layouts for products you are certified to sell. Your personal sales link is shown separately — never baked into banner files.",
+      "linkTitle": "Your personal sales link",
+      "linkEmpty": "Create a sales link after you are approved and certified. It will appear here for copy and sharing.",
+      "linkCta": "Create a sales link",
+      "assetsTitle": "Banner and template library",
+      "assetsEmptyTitle": "Marketing assets not imported yet",
+      "assetsEmptyBody": "Owner-created Budda/Buddy banner files are not in this repository yet. Import approved product banners into the partner asset library, then they appear here by product and language. Until then, use your personal link with approved copy only.",
+      "productTabs": "Product",
+      "localeTabs": "Language",
+      "voiceNote": "Aipify Voice is coming soon and is not available for active sales banners.",
+      "signatureNote": "Certification badges and locked product wording are controlled by Aipify. You may add only your name, photo and authenticated sales link in allowed slots.",
+      "filterKompisWeb": "Kompis Web",
+      "filterKompisBedrift": "Kompis Bedrift",
+      "filterVoice": "Aipify Voice"
     }
   }
 }

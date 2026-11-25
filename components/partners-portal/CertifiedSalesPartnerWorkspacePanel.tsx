@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { parseCspPortalView, type CspPortalView } from "@/lib/certified-sales-partner/portal-view";
 import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 
 export type CspWorkspaceLabels = {
@@ -25,12 +26,24 @@ type PortalPayload = {
   kompis_help_enabled?: boolean;
 };
 
+/**
+ * Core portal bundle shared with child panels so the dashboard, certifications and settlement pages
+ * read ONE `GET /api/certified-sales-partner/portal` response. `null` until Core confirms it is ready.
+ */
+const CspPortalContext = createContext<CspPortalView | null>(null);
+
+export function useCspPortal(): CspPortalView | null {
+  return useContext(CspPortalContext);
+}
+
 export function CertifiedSalesPartnerWorkspacePanel({ labels, children }: Props) {
   const [state, setState] = useState<"loading" | "ready" | "closed" | "error">("loading");
+  const [portal, setPortal] = useState<CspPortalView | null>(null);
   const [detail, setDetail] = useState<string | null>(null);
 
   async function load() {
     setState("loading");
+    setPortal(null);
     try {
       const res = await fetch("/api/certified-sales-partner/portal", { cache: "no-store" });
       const data = (await res.json().catch(() => ({}))) as PortalPayload;
@@ -44,6 +57,7 @@ export function CertifiedSalesPartnerWorkspacePanel({ labels, children }: Props)
         setState("error");
         return;
       }
+      setPortal(parseCspPortalView(data));
       setState("ready");
     } catch {
       setState("error");
@@ -96,8 +110,12 @@ export function CertifiedSalesPartnerWorkspacePanel({ labels, children }: Props)
         </section>
       ) : null}
 
-      {state === "ready" ? children : null}
-      {state !== "ready" && children ? <div className="opacity-90">{children}</div> : null}
+      {/* One stable container so children are not remounted when Core finishes loading. */}
+      {children ? (
+        <CspPortalContext.Provider value={state === "ready" ? portal : null}>
+          <div className={state === "ready" ? undefined : "opacity-90"}>{children}</div>
+        </CspPortalContext.Provider>
+      ) : null}
     </div>
   );
 }

@@ -41,6 +41,7 @@ export type CspExamLabels = {
   reviewLessons: string;
   retake: string;
   practiceNotice: string;
+  attemptRecorded: string;
   certificationRecorded: string;
   downloadCertificate: string;
   failClosed: string;
@@ -55,6 +56,7 @@ type ExamResultPayload = {
   pass_score_pct?: number;
   backend_ready?: boolean;
   certification_persisted?: boolean;
+  persistence_status?: string;
   feedback?: { lessons_to_review?: string[] };
 };
 
@@ -352,7 +354,13 @@ export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: Csp
                 {labels.downloadCertificate}
               </a>
             </div>
+          ) : result.backend_ready && result.persistence_status === "persisted" ? (
+            // Core recorded a not-passed attempt: it is a real attempt, not a practice result.
+            <p className="rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-canvas)] p-3 text-sm text-[color:var(--aipify-text-secondary)]" role="status">
+              {labels.attemptRecorded}
+            </p>
           ) : (
+            // Practice-only banner: Core did not confirm a certification record.
             <p
               className="flex items-start gap-2 rounded-xl border border-orange-300 bg-orange-50 p-3 text-sm text-orange-900"
               role="status"

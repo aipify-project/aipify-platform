@@ -223,6 +223,10 @@ export function CertifiedSalesPartnerProductCatalogPanel({
         setNote(labels.linkGatesNotMet, "warn");
         return;
       }
+      if (res.status === 409) {
+        setNote(labels.futureNote, "warn");
+        return;
+      }
       if (!res.ok || typeof data.path !== "string") {
         setNote(labels.error, "warn");
         return;

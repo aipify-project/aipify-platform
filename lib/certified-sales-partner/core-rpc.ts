@@ -11,7 +11,7 @@ export type CspRpcClient = {
   ) => PromiseLike<{ data: unknown; error: { code?: string; message?: string; details?: string } | null }>;
 };
 
-export type CspRpcNotReadyReason = "csp_backend_not_applied" | "rpc_missing" | "rpc_error";
+export type CspRpcNotReadyReason = "csp_backend_not_applied" | "rpc_missing" | "rpc_error" | "forbidden";
 
 export type CspRpcResult<T = unknown> =
   | { ready: false; error: CspRpcNotReadyReason; detail?: string }
@@ -43,6 +43,10 @@ export async function callCspRpc<T = unknown>(
       const payload = data as { error?: unknown; found?: unknown; ready?: unknown };
       if (payload.error === CSP_BACKEND_NOT_APPLIED_ERROR) {
         return { ready: false, error: "csp_backend_not_applied" };
+      }
+      // Core answered but the caller lacks permission — report that honestly instead of "not applied".
+      if (payload.error === "forbidden") {
+        return { ready: false, error: "forbidden" };
       }
       if (payload.found === false && payload.ready !== true) {
         return { ready: false, error: "csp_backend_not_applied" };

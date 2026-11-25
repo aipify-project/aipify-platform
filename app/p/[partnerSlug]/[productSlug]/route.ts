@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { isBotLikeUserAgent, normalizeChannel } from "@/lib/certified-sales-partner";
+import {
+  isBotLikeUserAgent,
+  isCspLinkCode,
+  normalizeChannel,
+  resolveCspProductDestination,
+} from "@/lib/certified-sales-partner";
 import { createClient } from "@/lib/supabase/server";
 import {
   GROWTH_PARTNER_ATTRIBUTION_COOKIE,
@@ -12,8 +17,17 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 90;
 
 /**
  * Canonical CSP product attribution path: /p/{partnerSlug}/{productSlug}
- * Fail-closed to marketing home when partner/product is inactive or unresolved.
- * Does not invent open redirects — destination allowlist stays in resolvePartnerLinkDestination.
+ *
+ * Two kinds of {partnerSlug}:
+ *  1. Growth Partner slug (hybrid path, unchanged): resolved via `resolve_growth_partner_public_link`,
+ *     attribution captured via `capture_growth_partner_attribution`.
+ *  2. Core CSP link code (`csp-<12 chars>`, issued by `csp_create_attribution_link`): Core currently
+ *     exposes NO public resolve/capture RPC for these codes, so no attribution is recorded and no
+ *     attribution cookie is set — fail closed (nobody is credited). The visitor still lands on the
+ *     product's marketing page. Wire CSP capture here once Core ships a public resolve/capture RPC.
+ *
+ * Destination: known product slugs use the CSP allowlist (`resolveCspProductDestination`); otherwise the
+ * Growth Partner allowlist (`resolvePartnerLinkDestination`). Never an open redirect.
  */
 export async function GET(
   request: Request,
@@ -30,7 +44,13 @@ export async function GET(
   });
 
   if (error || !resolved?.found) {
-    return NextResponse.redirect(new URL("/", request.url));
+    const cspDestination = isCspLinkCode(partnerSlug) ? resolveCspProductDestination(productSlug) : null;
+    if (cspDestination === null) return NextResponse.redirect(new URL("/", request.url));
+    // CSP link code: land on the product page, record nothing (see route doc).
+    const cspRedirect = new URL(cspDestination, request.url);
+    cspRedirect.searchParams.set("csp_product", productSlug);
+    cspRedirect.searchParams.set("csp_channel", channel);
+    return NextResponse.redirect(cspRedirect);
   }
 
   const existingSession =
@@ -53,7 +73,8 @@ export async function GET(
     });
   }
 
-  const destination = resolvePartnerLinkDestination(productSlug, productSlug);
+  const destination =
+    resolveCspProductDestination(productSlug) ?? resolvePartnerLinkDestination(productSlug, productSlug);
   const redirectUrl = new URL(destination, request.url);
   redirectUrl.searchParams.set("gp_ref", String(resolved.partner_public_id ?? ""));
   redirectUrl.searchParams.set("csp_product", productSlug);

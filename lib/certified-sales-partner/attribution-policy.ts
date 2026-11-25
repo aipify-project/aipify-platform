@@ -78,3 +78,41 @@ export function isBotLikeUserAgent(ua: string | null | undefined): boolean {
   if (!s) return true;
   return BOT_UA_RE.test(s);
 }
+
+/** Core-issued link codes look like `csp-` + 12 lowercase hex characters (see `csp_create_attribution_link`). */
+const CSP_LINK_CODE_RE = /^csp-[a-z0-9]{12}$/;
+
+export function isCspLinkCode(value: string | null | undefined): boolean {
+  return typeof value === "string" && CSP_LINK_CODE_RE.test(value);
+}
+
+/**
+ * Public marketing destination for a CSP product slug — allowlist only, never an open redirect.
+ *  - `kompis_web`: the root sales page IS the Kompis Web page.
+ *  - `kompis_bedrift`: no public product page yet → demo booking.
+ *  - anything else (incl. future `aipify_voice`): `null` → caller fails closed to `/`.
+ */
+export function resolveCspProductDestination(productSlug: string | null | undefined): string | null {
+  switch (String(productSlug ?? "").trim().toLowerCase().replace(/-/g, "_")) {
+    case "kompis_web":
+      return "/";
+    case "kompis_bedrift":
+      return "/book-demo";
+    default:
+      return null;
+  }
+}
+
+/**
+ * Public path for a Core-issued link. Core returns the placeholder `/r/<code>`; the APP remaps it to the
+ * canonical `/p/{code}/{productKey}` attribution route.
+ */
+export function buildCspPublicLinkPath(input: {
+  code: string;
+  productKey: string;
+  channel: string;
+}): string | null {
+  if (!isCspLinkCode(input.code) || resolveCspProductDestination(input.productKey) === null) return null;
+  const channel = encodeURIComponent(input.channel);
+  return `/p/${input.code}/${input.productKey.trim().toLowerCase().replace(/-/g, "_")}?channel=${channel}`;
+}

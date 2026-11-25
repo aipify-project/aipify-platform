@@ -11,7 +11,7 @@ type Props = {
   notReadyBody: string;
   primaryActionHref?: string;
   primaryActionLabel?: string;
-  metrics?: Array<{ label: string; value: string }>;
+  metrics?: Array<{ label: string; value: string; note?: string }>;
 };
 
 export function CertifiedSellersSectionPanel({
@@ -57,6 +57,9 @@ export function CertifiedSellersSectionPanel({
               <p className="mt-2 text-2xl font-semibold text-[color:var(--aipify-text-primary)]">
                 {metric.value}
               </p>
+              {metric.note ? (
+                <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">{metric.note}</p>
+              ) : null}
             </article>
           ))}
         </section>
