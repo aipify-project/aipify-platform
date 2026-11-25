@@ -47,5 +47,16 @@
       "attention": "Потребує уваги",
       "info": "Інформація"
     }
+  },
+  "systemNotice": {
+    "applyCertifiedSalesPartner": "Подати заявку Certified Sales Partner",
+    "presets": {
+      "csp_partner_required": {
+        "title": "Потрібен доступ до панелі продавця",
+        "message": "Це панель продавця Certified Aipify Sales Partner. Увійдіть обліковим записом, який ви використали для заявки, або спочатку подайте партнерську заявку.",
+        "primaryLabel": "Подати заявку Certified Sales Partner",
+        "secondaryLabel": "Повернутися до огляду"
+      }
+    }
   }
 }

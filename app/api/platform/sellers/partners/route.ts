@@ -85,6 +85,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "reason_required" }, { status: 400 });
     }
 
+    if (body.status === "approved") {
+      const contact = await fetchCspPartnerEmailContact(body.partner_id);
+      if (contact && contact.emailVerified === false) {
+        return NextResponse.json({ error: "email_verification_required" }, { status: 409 });
+      }
+    }
+
     const result = await callCspRpc(supabase, "csp_set_partner_status", {
       p_partner_id: body.partner_id,
       p_status: body.status,

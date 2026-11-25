@@ -488,7 +488,7 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   },
   {
     id: "commissions",
-    href: "/platform/billing/commissions",
+    href: "/platform/sellers/commissions",
     labelKey: "platform.nav.commissions",
   },
   {
@@ -701,6 +701,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/billing/growth-partner-attribution")) {
     return "growthPartnerAttribution";
   }
+  if (pathname.startsWith("/platform/sellers/commissions")) return "commissions";
   if (pathname.startsWith("/platform/billing/commissions")) return "commissions";
   if (pathname.startsWith("/platform/sellers/partners")) return "sellersPartners";
   if (pathname.startsWith("/platform/sellers/products")) return "sellersProducts";

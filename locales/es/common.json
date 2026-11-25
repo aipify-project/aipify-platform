@@ -47,5 +47,16 @@
       "attention": "Requiere atención",
       "info": "Información"
     }
+  },
+  "systemNotice": {
+    "applyCertifiedSalesPartner": "Solicitar Certified Sales Partner",
+    "presets": {
+      "csp_partner_required": {
+        "title": "Se requiere acceso al panel de vendedor",
+        "message": "Este es el panel de vendedor de Certified Aipify Sales Partner. Inicia sesión con la cuenta que usaste al solicitar, o envía primero una solicitud de partner.",
+        "primaryLabel": "Solicitar Certified Sales Partner",
+        "secondaryLabel": "Volver al panel"
+      }
+    }
   }
 }

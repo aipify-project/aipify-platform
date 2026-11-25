@@ -154,8 +154,15 @@
         "message": "Abonnementet for denne organisation er annulleret. Kontakt support, hvis du har brug for at gendanne adgang.",
         "primaryLabel": "Kontakt support",
         "secondaryLabel": "Tilbage til Aipify"
+      },
+      "csp_partner_required": {
+        "title": "Adgang til sælgerpanelet kræves",
+        "message": "Dette er sælgerpanelet for Certified Aipify Sales Partner. Log ind med den konto, du brugte i ansøgningen, eller indsend en partneransøgning først.",
+        "primaryLabel": "Ansøg som Certified Sales Partner",
+        "secondaryLabel": "Tilbage til oversigten"
       }
-    }
+    },
+    "applyCertifiedSalesPartner": "Ansøg som Certified Sales Partner"
   },
   "humanVerification": {
     "title": "Hurtig verificering",

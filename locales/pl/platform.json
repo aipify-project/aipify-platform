@@ -8027,7 +8027,14 @@
       "confirmSubmit": "Potwierdź",
       "submitting": "Zapisywanie…",
       "success": "Decyzja została zapisana.",
-      "failClosed": "Nie udało się teraz wykonać działania. Spróbuj ponownie później."
+      "failClosed": "Nie udało się teraz wykonać działania. Spróbuj ponownie później.",
+      "approveRequiresVerifiedEmail": "Zatwierdzenie jest zablokowane, dopóki wnioskodawca nie potwierdzi adresu e-mail.",
+      "companyIdentityPendingSql": "Prawna nazwa firmy i numer rejestracyjny nie są jeszcze przechowywane w platformie. Pola pokazują „Jeszcze nie zapisano”, dopóki zatwierdzona aktualizacja przechowywania nie zostanie włączona.",
+      "approveCompanyDetailsMissing": "Zatwierdzenie wymaga zapisanej prawnej nazwy firmy i numeru rejestracyjnego. Poproś wnioskodawcę o więcej informacji."
+    },
+    "commissions": {
+      "title": "Prowizje sprzedawców",
+      "subtitle": "Przypisane sprzedaże, status okresów płatności i rozliczenia partnerów Certified Sales. Bez automatycznych wypłat."
     }
   }
 }

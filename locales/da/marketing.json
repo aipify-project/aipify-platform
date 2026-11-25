@@ -8788,7 +8788,7 @@
       "submit": "Send ansøgning",
       "submitting": "Sender…",
       "successTitle": "Din ansøgning er modtaget",
-      "successBody": "Tak for interessen for at blive Certified Aipify Sales Partner. Vi har modtaget din ansøgning og vil gennemgå oplysningerne. Du får en e-mail med information om næste skridt.",
+      "successBody": "Tak for interessen for at blive Certified Aipify Sales Partner. Vi gennemgår nu din ansøgning. Du får information om næste skridt, når behandlingen er færdig.",
       "backendClosedTitle": "Vi kunne ikke fuldføre din ansøgning lige nu",
       "backendClosedBody": "Oplysningerne blev kontrolleret, men ansøgningen kunne ikke gemmes lige nu. Prøv igen senere, eller kontakt Aipify Group AS.",
       "errorGeneric": "Der skete noget uventet. Prøv igen.",
@@ -8833,9 +8833,11 @@
       "errorSummaryTitle": "Gennemgå de markerede felter",
       "supportRefLabel": "Supportreference",
       "processTitle": "Sådan behandler vi din ansøgning",
-      "processBody": "Aipify Group AS vurderer hver ansøgning individuelt. Vi kontrollerer virksomhedsoplysningerne og giver dig besked på e-mail om næste skridt.",
+      "processBody": "Aipify Group AS gennemgår ansøgningen og kontrollerer virksomhedsoplysningerne. Du får besked på e-mail, når vurderingen er færdig.",
       "successUnverifiedAddon": "Bekræft din e-mailadresse via linket, vi har sendt dig. Finder du ikke e-mailen, tjek spam eller bed om et nyt link.",
-      "pendingBody": "Din ansøgning er under behandling. Vi giver dig besked på e-mail, når vi har en opdatering."
+      "pendingBody": "Din ansøgning er under behandling. Vi giver dig besked på e-mail, når vi har en opdatering.",
+      "successEmailAcceptedAddon": "Vi har sendt en e-mail til din adresse. Levering til indbakken kan tage nogle minutter.",
+      "successEmailNotConfiguredAddon": "Din ansøgning er gemt. E-mailafsendelse er ikke konfigureret på dette site endnu, så du får måske ikke en bekræftelse, før Aipify færdiggør e-mailopsætningen."
     }
   }
 }

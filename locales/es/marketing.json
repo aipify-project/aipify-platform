@@ -330,7 +330,7 @@
       "submit": "Enviar solicitud",
       "submitting": "Enviando…",
       "successTitle": "Hemos recibido tu solicitud",
-      "successBody": "Gracias por tu interés en ser Certified Aipify Sales Partner. Hemos recibido tu solicitud y revisaremos los datos. Recibirás un correo con información sobre el siguiente paso.",
+      "successBody": "Gracias por tu interés en ser Certified Aipify Sales Partner. Estamos revisando tu solicitud. Recibirás información sobre los siguientes pasos cuando finalice el proceso.",
       "backendClosedTitle": "No pudimos completar tu solicitud ahora",
       "backendClosedBody": "Los datos se comprobaron, pero la solicitud no se pudo guardar en este momento. Inténtalo más tarde o contacta con Aipify Group AS.",
       "errorGeneric": "Ocurrió algo inesperado. Inténtalo de nuevo.",
@@ -375,9 +375,11 @@
       "errorSummaryTitle": "Revisa los campos resaltados",
       "supportRefLabel": "Referencia de soporte",
       "processTitle": "Cómo tratamos tu solicitud",
-      "processBody": "Aipify Group AS revisa cada solicitud de forma individual. Comprobamos los datos de la empresa y te informamos por correo sobre los siguientes pasos.",
+      "processBody": "Aipify Group AS revisa la solicitud y comprueba los datos de la empresa. Te avisaremos por correo cuando finalice la evaluación.",
       "successUnverifiedAddon": "Confirma tu correo con el enlace que te enviamos. Si no lo encuentras, revisa el spam o solicita un nuevo enlace.",
-      "pendingBody": "Tu solicitud está en trámite. Te avisaremos por correo electrónico cuando tengamos novedades."
+      "pendingBody": "Tu solicitud está en trámite. Te avisaremos por correo electrónico cuando tengamos novedades.",
+      "successEmailAcceptedAddon": "Hemos enviado un correo a tu dirección. La entrega a la bandeja de entrada puede tardar unos minutos.",
+      "successEmailNotConfiguredAddon": "Tu solicitud está guardada. El envío de correo aún no está configurado en este sitio, por lo que puede que no recibas confirmación hasta que Aipify complete la configuración de correo."
     }
   }
 }

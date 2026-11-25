@@ -8027,7 +8027,14 @@
       "confirmSubmit": "Bekräfta",
       "submitting": "Sparar…",
       "success": "Beslutet har sparats.",
-      "failClosed": "Åtgärden kunde inte slutföras just nu. Försök igen senare."
+      "failClosed": "Åtgärden kunde inte slutföras just nu. Försök igen senare.",
+      "approveRequiresVerifiedEmail": "Godkännande blockeras tills sökanden har verifierat e-postadressen.",
+      "companyIdentityPendingSql": "Juridiskt företagsnamn och registreringsnummer sparas ännu inte i plattformen. Fälten visas som «Inte sparad ännu» tills den godkända lagringsuppdateringen är aktiverad.",
+      "approveCompanyDetailsMissing": "Godkännande kräver sparat juridiskt företagsnamn och registreringsnummer. Be sökanden om mer information."
+    },
+    "commissions": {
+      "title": "Provisioner",
+      "subtitle": "Attribuerade försäljningar, periodstatus och utbetalningar för Certified Sales Partners. Inga automatiska utbetalningar."
     }
   }
 }

@@ -8788,7 +8788,7 @@
       "submit": "Skicka ansökan",
       "submitting": "Skickar…",
       "successTitle": "Din ansökan har mottagits",
-      "successBody": "Tack för ditt intresse för att bli Certified Aipify Sales Partner. Vi har mottagit din ansökan och kommer att granska uppgifterna. Du får ett e-postmeddelande med information om nästa steg.",
+      "successBody": "Tack för ditt intresse för att bli Certified Aipify Sales Partner. Vi granskar nu din ansökan. Du får information om nästa steg när behandlingen är klar.",
       "backendClosedTitle": "Vi kunde inte slutföra din ansökan just nu",
       "backendClosedBody": "Uppgifterna kontrollerades, men ansökan kunde inte sparas just nu. Försök igen senare eller kontakta Aipify Group AS.",
       "errorGeneric": "Något oväntat hände. Försök igen.",
@@ -8833,9 +8833,11 @@
       "errorSummaryTitle": "Kontrollera de markerade fälten",
       "supportRefLabel": "Supportreferens",
       "processTitle": "Så här hanterar vi din ansökan",
-      "processBody": "Aipify Group AS granskar varje ansökan individuellt. Vi kontrollerar verksamhetsuppgifterna och meddelar dig via e-post om nästa steg.",
+      "processBody": "Aipify Group AS granskar ansökan och kontrollerar verksamhetsuppgifterna. Du får besked via e-post när bedömningen är klar.",
       "successUnverifiedAddon": "Bekräfta din e-postadress via länken vi har skickat. Hittar du inte mejlet, kontrollera skräpposten eller begär en ny länk.",
-      "pendingBody": "Din ansökan behandlas. Vi meddelar dig via e-post när vi har en uppdatering."
+      "pendingBody": "Din ansökan behandlas. Vi meddelar dig via e-post när vi har en uppdatering.",
+      "successEmailAcceptedAddon": "Vi har skickat ett e-postmeddelande till din adress. Leverans till inkorgen kan ta några minuter.",
+      "successEmailNotConfiguredAddon": "Din ansökan är sparad. E-postleverans är inte konfigurerad på den här webbplatsen ännu, så du kanske inte får en bekräftelse förrän Aipify slutför e-postkonfigurationen."
     }
   }
 }

@@ -66,7 +66,8 @@ export function PartnersPortalAuthGuard({ loadingLabel, children }: PartnersPort
   }
 
   if (!authorized) {
-    return <AipifySystemNotice status="growth_partner_required" />;
+    // Certified Sales Partner portal — never push Growth Partner signup CTAs here.
+    return <AipifySystemNotice status="csp_partner_required" />;
   }
 
   return <>{children}</>;

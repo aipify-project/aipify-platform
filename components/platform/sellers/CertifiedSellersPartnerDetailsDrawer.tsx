@@ -56,6 +56,12 @@ export type PartnerDetailsDrawerLabels = {
   submitting: string;
   success: string;
   failClosed: string;
+  /** Shown when Approve is blocked because email is not verified. */
+  approveRequiresVerifiedEmail: string;
+  /** Shown when company identity columns are not available in Core yet (SQL pending). */
+  companyIdentityPendingSql: string;
+  /** Shown when Core can store company identity but this row is missing required fields. */
+  approveCompanyDetailsMissing: string;
   errors: Record<string, string>;
   partnerStatus: Record<string, string>;
 };
@@ -73,6 +79,7 @@ type PartnerDetail = {
   businessRegistrationNumber: string | null;
   businessAddress: string | null;
   phone: string | null;
+  businessIdentityStored: boolean;
 };
 
 type ActivityRow = {
@@ -138,6 +145,10 @@ export function CertifiedSellersPartnerDetailsDrawer({
         return;
       }
       const p = body.partner as Record<string, unknown>;
+      const persistence =
+        body.persistence && typeof body.persistence === "object"
+          ? (body.persistence as Record<string, unknown>)
+          : {};
       setPartner({
         id: String(p.id ?? partnerId),
         status: String(p.status ?? "unknown"),
@@ -152,6 +163,7 @@ export function CertifiedSellersPartnerDetailsDrawer({
           typeof p.businessRegistrationNumber === "string" ? p.businessRegistrationNumber : null,
         businessAddress: typeof p.businessAddress === "string" ? p.businessAddress : null,
         phone: typeof p.phone === "string" ? p.phone : null,
+        businessIdentityStored: persistence.businessIdentityStored === true,
       });
       const rows = Array.isArray(body.activity) ? body.activity : [];
       setActivity(
@@ -196,6 +208,20 @@ export function CertifiedSellersPartnerDetailsDrawer({
     if (needsReason && reason.trim().length < 3) {
       setMessage({ kind: "error", text: errorText("reason_required") });
       return;
+    }
+    if (status === "approved" && partner) {
+      if (partner.emailVerified === false) {
+        setMessage({ kind: "error", text: labels.approveRequiresVerifiedEmail });
+        return;
+      }
+      // When Core can store company identity, require it before approval.
+      if (
+        partner.businessIdentityStored &&
+        (!partner.legalBusinessName || !partner.businessRegistrationNumber)
+      ) {
+        setMessage({ kind: "error", text: labels.approveCompanyDetailsMissing });
+        return;
+      }
     }
     setPending(true);
     setMessage(null);
@@ -305,6 +331,11 @@ export function CertifiedSellersPartnerDetailsDrawer({
                 </DetailCard>
 
                 <DetailCard title={labels.sectionCompany}>
+                  {!partner.businessIdentityStored ? (
+                    <p className="rounded-xl bg-[#F6F8FC] px-3 py-2 text-sm text-[color:var(--aipify-text-secondary)]">
+                      {labels.companyIdentityPendingSql}
+                    </p>
+                  ) : null}
                   <Field label={labels.fieldLegalBusiness} value={partner.legalBusinessName ?? labels.notSavedYet} />
                   <Field
                     label={labels.fieldRegistration}

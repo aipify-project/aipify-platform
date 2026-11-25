@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/app", destination: "/app/command-center", permanent: false },
+      // Seller commissions must never render inside customer billing (Kundeøkonomi) layout.
+      {
+        source: "/platform/billing/commissions",
+        destination: "/platform/sellers/commissions",
+        permanent: true,
+      },
       ...LEGACY_DASHBOARD_REDIRECTS,
       ...MARKETING_PUBLIC_REDIRECTS,
     ];

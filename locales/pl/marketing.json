@@ -998,7 +998,7 @@
       "submit": "Wyślij wniosek",
       "submitting": "Wysyłanie…",
       "successTitle": "Twój wniosek został przyjęty",
-      "successBody": "Dziękujemy za zainteresowanie programem Certified Aipify Sales Partner. Otrzymaliśmy Twój wniosek i sprawdzimy dane. Otrzymasz e-mail z informacją o kolejnym kroku.",
+      "successBody": "Dziękujemy za zainteresowanie programem Certified Aipify Sales Partner. Obecnie rozpatrujemy Twój wniosek. Otrzymasz informacje o kolejnych krokach po zakończeniu procesu.",
       "backendClosedTitle": "Nie mogliśmy teraz dokończyć wniosku",
       "backendClosedBody": "Dane zostały sprawdzone, ale wniosku nie udało się teraz zapisać. Spróbuj ponownie później lub skontaktuj się z Aipify Group AS.",
       "errorGeneric": "Wystąpił nieoczekiwany problem. Spróbuj ponownie.",
@@ -1043,9 +1043,11 @@
       "errorSummaryTitle": "Sprawdź zaznaczone pola",
       "supportRefLabel": "Numer referencyjny dla wsparcia",
       "processTitle": "Jak rozpatrujemy Twój wniosek",
-      "processBody": "Aipify Group AS rozpatruje każdy wniosek indywidualnie. Sprawdzamy dane firmy i informujemy Cię e-mailem o kolejnych krokach.",
+      "processBody": "Aipify Group AS rozpatruje wniosek i sprawdza dane firmy. Otrzymasz wiadomość e-mail, gdy ocena zostanie zakończona.",
       "successUnverifiedAddon": "Potwierdź adres e-mail za pomocą wysłanego linku. Jeśli nie widzisz wiadomości, sprawdź spam lub poproś o nowy link.",
-      "pendingBody": "Twoje zgłoszenie jest w trakcie rozpatrywania. Powiadomimy Cię e-mailem, gdy pojawi się aktualizacja."
+      "pendingBody": "Twoje zgłoszenie jest w trakcie rozpatrywania. Powiadomimy Cię e-mailem, gdy pojawi się aktualizacja.",
+      "successEmailAcceptedAddon": "Wysłaliśmy e-mail na Twój adres. Dostarczenie do skrzynki może potrwać kilka minut.",
+      "successEmailNotConfiguredAddon": "Wniosek został zapisany. Wysyłka e-mail nie jest jeszcze skonfigurowana na tej stronie, więc możesz nie otrzymać potwierdzenia, dopóki Aipify nie dokończy konfiguracji poczty."
     }
   }
 }

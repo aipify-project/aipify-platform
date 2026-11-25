@@ -8,6 +8,8 @@ import {
   getPlatformDefaultExpandedGroupIds,
 } from "./nav-groups";
 import { getPlatformActiveNavId, PLATFORM_ADMIN_NAV } from "./nav-config";
+
+const PLATFORM_NAV_ITEMS = PLATFORM_ADMIN_NAV;
 import { LOCALES } from "@/lib/i18n/config";
 
 const ROOT = process.cwd();
@@ -45,12 +47,15 @@ test("sellers group collects certified sales partner routes; commercial starts w
       "sellersAcademy",
       "sellersMaterials",
       "sellersLeadsSales",
+      "commissions",
       "sellersSettlements",
       "sellersAudit",
       "sellersSettings",
-      "growthPartnerAttribution",
-      "commissions",
     ],
+  );
+  assert.equal(
+    PLATFORM_NAV_ITEMS.find((i) => i.id === "commissions")?.href,
+    "/platform/sellers/commissions",
   );
   assert.ok(commercial);
   assert.deepEqual(
@@ -94,6 +99,7 @@ test("active nav resolves payments, invoices, and sellers routes", () => {
     "growthPartnerAttribution",
   );
   assert.equal(getPlatformActiveNavId("/platform/billing/commissions"), "commissions");
+  assert.equal(getPlatformActiveNavId("/platform/sellers/commissions"), "commissions");
   assert.equal(getPlatformActiveNavId("/platform/sellers"), "sellersOverview");
   assert.equal(getPlatformActiveNavId("/platform/sellers/partners"), "sellersPartners");
   assert.equal(getPlatformActiveNavId("/platform/pilot-operations"), "growthPartners");

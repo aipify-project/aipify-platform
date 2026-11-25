@@ -102,6 +102,8 @@ export function buildCspRegistrationFormLabels(t: Translator): CspRegistrationFo
     processTitle: k("processTitle"),
     processBody: k("processBody"),
     successUnverifiedAddon: k("successUnverifiedAddon"),
+    successEmailAcceptedAddon: k("successEmailAcceptedAddon"),
+    successEmailNotConfiguredAddon: k("successEmailNotConfiguredAddon"),
     errorSummaryTitle: k("errorSummaryTitle"),
     supportRefLabel: k("supportRefLabel"),
     address: k("address"),
@@ -347,6 +349,9 @@ const SELLERS_DRAWER_TEXT_KEYS = [
   "submitting",
   "success",
   "failClosed",
+  "approveRequiresVerifiedEmail",
+  "companyIdentityPendingSql",
+  "approveCompanyDetailsMissing",
 ] as const;
 
 const SELLERS_DRAWER_ERROR_CODES = [

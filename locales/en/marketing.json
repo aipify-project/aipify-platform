@@ -8378,7 +8378,7 @@
       "submit": "Submit application",
       "submitting": "Submitting…",
       "successTitle": "Your application has been received",
-      "successBody": "Thank you for your interest in becoming a Certified Aipify Sales Partner. We have received your application and will review the details. You will receive an email with information about the next step.",
+      "successBody": "Thank you for your interest in becoming a Certified Aipify Sales Partner. We are now reviewing your application. You will receive information about next steps when the review is complete.",
       "backendClosedTitle": "We could not complete your application right now",
       "backendClosedBody": "Your details were checked, but the application could not be stored at this moment. Please try again later or contact Aipify Group AS.",
       "errorGeneric": "Something unexpected happened. Please try again.",
@@ -8423,9 +8423,11 @@
       "errorSummaryTitle": "Please review the highlighted fields",
       "supportRefLabel": "Support reference",
       "processTitle": "How we handle your application",
-      "processBody": "Aipify Group AS reviews each application individually. We check the business details and email you about the next steps.",
+      "processBody": "Aipify Group AS reviews the application and checks the business details. You will be notified by email when the review is complete.",
       "successUnverifiedAddon": "Confirm your email address using the link we sent you. If you cannot find the email, check spam or request a new link.",
-      "pendingBody": "Your application is being reviewed. We will let you know by email when we have an update."
+      "pendingBody": "Your application is being reviewed. We will let you know by email when we have an update.",
+      "successEmailAcceptedAddon": "We have accepted an email for delivery to your address. Inbox delivery can take a few minutes.",
+      "successEmailNotConfiguredAddon": "Your application is saved. Email delivery is not configured on this site yet, so you may not receive a confirmation message until Aipify completes email setup."
     }
   }
 }

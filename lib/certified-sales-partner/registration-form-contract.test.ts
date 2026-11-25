@@ -29,6 +29,8 @@ const NEW_KEYS = [
   "processTitle",
   "processBody",
   "successUnverifiedAddon",
+  "successEmailAcceptedAddon",
+  "successEmailNotConfiguredAddon",
   "errorSummaryTitle",
   "supportRefLabel",
 ];
@@ -170,6 +172,8 @@ test("customer copy uses business language in every core locale (no Core / Platf
     "successTitle",
     "successBody",
     "successUnverifiedAddon",
+    "successEmailAcceptedAddon",
+    "successEmailNotConfiguredAddon",
     "pendingBody",
     "companyPersistenceNote",
     "backendClosedTitle",
@@ -195,9 +199,13 @@ test("Norwegian customer copy matches the job baseline", () => {
   assert.equal(no.processTitle, "Slik behandler vi søknaden din");
   assert.equal(
     no.processBody,
-    "Aipify Group AS vurderer hver søknad individuelt. Vi kontrollerer virksomhetsopplysningene og gir deg beskjed på e-post om videre behandling.",
+    "Aipify Group AS gjennomgår søknaden og kontrollerer virksomhetsopplysningene. Du får beskjed på e-post når vurderingen er fullført.",
   );
   assert.equal(no.successTitle, "Søknaden din er mottatt");
+  assert.equal(
+    no.successBody,
+    "Takk for interessen for å bli Certified Aipify Sales Partner. Vi gjennomgår nå søknaden din. Du får informasjon om veien videre når behandlingen er ferdig.",
+  );
   assert.equal(
     no.pendingBody,
     "Søknaden din er under behandling. Vi gir deg beskjed på e-post når vi har en oppdatering.",

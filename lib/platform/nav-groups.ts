@@ -122,11 +122,10 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
       { id: "sellersAcademy", labelKey: "platform.nav.sellersAcademy" },
       { id: "sellersMaterials", labelKey: "platform.nav.sellersMaterials" },
       { id: "sellersLeadsSales", labelKey: "platform.nav.sellersLeadsSales" },
+      { id: "commissions", labelKey: "platform.nav.commissions" },
       { id: "sellersSettlements", labelKey: "platform.nav.sellersSettlements" },
       { id: "sellersAudit", labelKey: "platform.nav.sellersAudit" },
       { id: "sellersSettings", labelKey: "platform.nav.sellersSettings" },
-      { id: "growthPartnerAttribution", labelKey: "platform.nav.growthPartnerAttribution" },
-      { id: "commissions", labelKey: "platform.nav.commissions" },
     ],
   },
 ];

@@ -3,6 +3,7 @@ export type SystemNoticeStatus =
   | "not_found"
   | "unauthorized_panel"
   | "growth_partner_required"
+  | "csp_partner_required"
   | "business_pack_required"
   | "professional_plan_required"
   | "enterprise_access_required"
@@ -43,6 +44,7 @@ export type SystemNoticeLabels = {
   contactSupport: string;
   becomeGrowthPartner: string;
   registerGrowthPartnerAccount: string;
+  applyCertifiedSalesPartner: string;
   returnToDashboard: string;
   viewBusinessPacks: string;
   upgradePlan: string;

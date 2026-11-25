@@ -8027,7 +8027,14 @@
       "confirmSubmit": "Confirm",
       "submitting": "Saving…",
       "success": "The decision was saved.",
-      "failClosed": "The action could not be completed right now. Please try again later."
+      "failClosed": "The action could not be completed right now. Please try again later.",
+      "approveRequiresVerifiedEmail": "Approval is blocked until the applicant verifies their email address.",
+      "companyIdentityPendingSql": "Legal company name and registration number are not stored in the platform yet. They appear as “Not saved yet” until the approved storage update is applied.",
+      "approveCompanyDetailsMissing": "Approval requires a saved legal company name and registration number. Request more information from the applicant."
+    },
+    "commissions": {
+      "title": "Seller commissions",
+      "subtitle": "Attributed sales, paid-period eligibility, and settlement status for Certified Sales Partners. No automatic payouts."
     }
   }
 }

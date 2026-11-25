@@ -51,6 +51,10 @@ export type CspRegistrationFormLabels = {
   processBody: string;
   /** Appended to the success body when the account email is not verified yet. */
   successUnverifiedAddon: string;
+  /** Appended only when Resend accepted the receipt email (not inbox proof). */
+  successEmailAcceptedAddon: string;
+  /** Appended when email provider is not configured — never claims mail was sent. */
+  successEmailNotConfiguredAddon: string;
   submit: string;
   submitting: string;
   successTitle: string;
@@ -322,11 +326,22 @@ export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabe
           return;
         }
         case "created": {
-          const unverified = (data as { email_verified?: unknown } | null)?.email_verified === false;
+          const body = data as {
+            email_verified?: unknown;
+            email_delivery?: { receipt?: unknown };
+          } | null;
+          const unverified = body?.email_verified === false;
+          const receipt = body?.email_delivery?.receipt;
+          const parts = [labels.successBody];
+          if (receipt === "accepted") parts.push(labels.successEmailAcceptedAddon);
+          else if (receipt === "not_configured" || receipt === "failed" || receipt === "no_email") {
+            parts.push(labels.successEmailNotConfiguredAddon);
+          }
+          if (unverified) parts.push(labels.successUnverifiedAddon);
           setMessage({
             kind: "ok",
             title: labels.successTitle,
-            text: unverified ? `${labels.successBody} ${labels.successUnverifiedAddon}` : labels.successBody,
+            text: parts.join(" "),
           });
           setSubmitted(true);
           formElement.reset();
