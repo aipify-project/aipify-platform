@@ -90,3 +90,33 @@ export function validateBankProfile(input: CspBankProfileInput): CspBankProfileR
   if (!swift) return fail("swiftBic", "swift_bic_required");
   return { ok: true };
 }
+
+const SENSITIVE_BANK_KEYS = new Set([
+  "iban",
+  "iban_full",
+  "ibanfull",
+  "account_number",
+  "accountnumber",
+  "local_account_number",
+  "localaccountnumber",
+]);
+
+/**
+ * Defensive response sanitiser: whatever Core returns, API responses never carry a
+ * plaintext full IBAN / account number — only the last 4 characters survive.
+ */
+export function sanitizeBankProfileResponse<T>(value: T): T {
+  if (Array.isArray(value)) return value.map((v) => sanitizeBankProfileResponse(v)) as unknown as T;
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [key, v] of Object.entries(value as Record<string, unknown>)) {
+      if (SENSITIVE_BANK_KEYS.has(key.toLowerCase())) {
+        out[key] = typeof v === "string" ? maskIban(v) : v == null ? v : "";
+      } else {
+        out[key] = sanitizeBankProfileResponse(v);
+      }
+    }
+    return out as T;
+  }
+  return value;
+}

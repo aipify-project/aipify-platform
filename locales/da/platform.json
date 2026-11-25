@@ -7318,6 +7318,31 @@
     "backend": {
       "notReadyTitle": "Backend er ikke aktiveret",
       "notReadyBody": "Sælgerledger og afregnings-API er ikke aktive endnu. Kontroller forbliver lukket, indtil Core CSP-migreringen er godkendt og anvendt."
+    },
+    "actions": {
+      "partnersTitle": "Review partner status",
+      "settlementsTitle": "Update settlement status",
+      "productsTitle": "Publish product and fixed commission",
+      "partnerId": "Partner id",
+      "status": "Status",
+      "reason": "Reason",
+      "submitPartner": "Save partner status",
+      "settlementId": "Settlement id",
+      "fromStatus": "From status",
+      "toStatus": "To status",
+      "rejectionReason": "Rejection reason",
+      "paidAt": "Paid at",
+      "paymentReference": "Bank payment reference",
+      "submitSettlement": "Save settlement transition",
+      "productKey": "Canonical product key",
+      "productTitle": "Sales title",
+      "currency": "Currency",
+      "fixedCommission": "Fixed one-time commission",
+      "published": "Published for partners",
+      "submitProduct": "Save product",
+      "success": "Request accepted.",
+      "failClosed": "Core CSP backend is not active. No change was stored.",
+      "error": "Request failed. Please try again."
     }
   }
 }

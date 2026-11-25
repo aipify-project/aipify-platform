@@ -1,8 +1,22 @@
-import { renderPartnersPortalFoundationPage } from "@/lib/partners-portal/render-pages";
+import { CertifiedSalesPartnerWorkspacePanel } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
+import { buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-labels";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { createTranslator } from "@/lib/i18n/translate";
 
-export default function PartnersPortalPage() {
-  return renderPartnersPortalFoundationPage(
-    "partnersPortal.pages.productCatalog.title",
-    "partnersPortal.pages.productCatalog.subtitle"
+export default async function PartnersProductCatalogPage() {
+  const dict = await getDictionary(await getLocale(), ["partnersPortal"]);
+  const t = createTranslator(dict);
+  const labels = buildCspWorkspaceLabels(
+    t,
+    "partnersPortal.certifiedSalesPartner.pages.products.title",
+    "partnersPortal.certifiedSalesPartner.pages.products.subtitle",
+  );
+  return (
+    <CertifiedSalesPartnerWorkspacePanel labels={labels}>
+      <p className="text-sm text-[color:var(--aipify-text-secondary)]">
+        {t("partnersPortal.certifiedSalesPartner.pages.products.noBuy")}
+      </p>
+    </CertifiedSalesPartnerWorkspacePanel>
   );
 }
