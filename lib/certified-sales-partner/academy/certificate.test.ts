@@ -5,11 +5,11 @@ import {
   CSP_CERTIFICATE_BLOCKED,
   CSP_CERTIFICATE_PRODUCT_LABEL,
   buildCertificateMeta,
-  buildCertificatePdfText,
   deriveCspCertificateId,
   parseCspCertificateId,
   toPdfSafeText,
 } from "./certificate";
+import { buildCertificatePdfText } from "./certificate-pdf";
 
 const passedAt = "2026-11-25T10:30:00.000Z";
 const partnerId = "00000000-0000-4000-8000-000000000001";

@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import {
   buildCertificateMeta,
-  buildCertificatePdfText,
   callCspRpc,
   deriveCspCertificateId,
   failClosedJson,
   parsePartnerOverview,
 } from "@/lib/certified-sales-partner";
+import { buildCertificatePdfText } from "@/lib/certified-sales-partner/academy/certificate-pdf";
 import { DEFAULT_LOCALE, LOCALES } from "@/lib/i18n/config";
 import { createClient } from "@/lib/supabase/server";
 
