@@ -7759,7 +7759,25 @@
       "failClosed": "Handlingen kunne ikke fullføres akkurat nå. Prøv igjen senere.",
       "approveRequiresVerifiedEmail": "Godkjenning er blokkert til søkeren har bekreftet e-postadressen.",
       "companyIdentityPendingSql": "Juridisk foretaksnavn og registreringsnummer er ikke tilgjengelig for denne søknaden ennå. Feltene vises som «Ikke lagret ennå» til virksomhetsopplysningene kan lagres for gjennomgang.",
-      "approveCompanyDetailsMissing": "Godkjenning krever lagret juridisk foretaksnavn og registreringsnummer. Be søkeren om mer informasjon."
+      "approveCompanyDetailsMissing": "Godkjenning krever lagret juridisk foretaksnavn og registreringsnummer. Be søkeren om mer informasjon.",
+      "sectionCertifications": "Sertifiseringer",
+      "certificationsEmpty": "Ingen produktsertifiseringer er registrert ennå.",
+      "fieldProduct": "Produkt",
+      "fieldCertStatus": "Sertifiseringsstatus",
+      "fieldScore": "Poeng",
+      "fieldPassedAt": "Bestått",
+      "fieldCertificateId": "Sertifikat-ID",
+      "productLabels": {
+        "kompis_web": "Kompis Web",
+        "unknown": "Produkt"
+      },
+      "certStatusLabels": {
+        "not_started": "Ikke startet",
+        "in_progress": "Pågår",
+        "passed": "Bestått",
+        "expired": "Utløpt",
+        "revoked": "Tilbakekalt"
+      }
     },
     "commissions": {
       "title": "Provisjoner",

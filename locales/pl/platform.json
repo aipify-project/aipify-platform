@@ -8030,7 +8030,25 @@
       "failClosed": "Nie udało się teraz wykonać działania. Spróbuj ponownie później.",
       "approveRequiresVerifiedEmail": "Zatwierdzenie jest zablokowane, dopóki wnioskodawca nie potwierdzi adresu e-mail.",
       "companyIdentityPendingSql": "Prawna nazwa firmy i numer rejestracyjny nie są jeszcze dostępne dla tego wniosku. Pola pokazują „Jeszcze nie zapisano”, dopóki dane firmy nie będą mogły być zapisane do weryfikacji.",
-      "approveCompanyDetailsMissing": "Zatwierdzenie wymaga zapisanej prawnej nazwy firmy i numeru rejestracyjnego. Poproś wnioskodawcę o więcej informacji."
+      "approveCompanyDetailsMissing": "Zatwierdzenie wymaga zapisanej prawnej nazwy firmy i numeru rejestracyjnego. Poproś wnioskodawcę o więcej informacji.",
+      "sectionCertifications": "Certyfikaty",
+      "certificationsEmpty": "Nie zarejestrowano jeszcze certyfikatów produktowych.",
+      "fieldProduct": "Produkt",
+      "fieldCertStatus": "Status certyfikacji",
+      "fieldScore": "Wynik",
+      "fieldPassedAt": "Zdane",
+      "fieldCertificateId": "ID certyfikatu",
+      "productLabels": {
+        "kompis_web": "Kompis Web",
+        "unknown": "Produkt"
+      },
+      "certStatusLabels": {
+        "not_started": "Nierozpoczęte",
+        "in_progress": "W toku",
+        "passed": "Zdane",
+        "expired": "Wygasłe",
+        "revoked": "Cofnięte"
+      }
     },
     "commissions": {
       "title": "Prowizje sprzedawców",

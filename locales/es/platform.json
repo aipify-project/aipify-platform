@@ -1245,7 +1245,25 @@
       "failClosed": "No se pudo completar la acción ahora. Inténtalo más tarde.",
       "approveRequiresVerifiedEmail": "La aprobación está bloqueada hasta que el solicitante verifique su correo.",
       "companyIdentityPendingSql": "La razón social y el número de registro aún no están disponibles para esta solicitud. Los campos muestran «Aún no guardado» hasta que se puedan guardar los datos de la empresa para revisión.",
-      "approveCompanyDetailsMissing": "La aprobación requiere razón social y número de registro guardados. Solicita más información al solicitante."
+      "approveCompanyDetailsMissing": "La aprobación requiere razón social y número de registro guardados. Solicita más información al solicitante.",
+      "sectionCertifications": "Certificaciones",
+      "certificationsEmpty": "Aún no hay certificaciones de producto registradas.",
+      "fieldProduct": "Producto",
+      "fieldCertStatus": "Estado de certificación",
+      "fieldScore": "Puntuación",
+      "fieldPassedAt": "Aprobado",
+      "fieldCertificateId": "ID del certificado",
+      "productLabels": {
+        "kompis_web": "Kompis Web",
+        "unknown": "Producto"
+      },
+      "certStatusLabels": {
+        "not_started": "No iniciado",
+        "in_progress": "En curso",
+        "passed": "Aprobado",
+        "expired": "Caducado",
+        "revoked": "Revocado"
+      }
     },
     "commissions": {
       "title": "Comisiones de vendedores",

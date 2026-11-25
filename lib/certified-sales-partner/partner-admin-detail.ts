@@ -1,15 +1,26 @@
+import { deriveCspCertificateId } from "@/lib/certified-sales-partner/academy/certificate";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const BASE_COLUMNS = "id, auth_user_id, display_name, country, status, created_at, updated_at";
 const OPTIONAL_COLUMNS = ["legal_business_name", "business_registration_number", "business_address", "phone"] as const;
 const ACTIVITY_LIMIT = 20;
+const CERTIFICATION_LIMIT = 20;
 
 export type CspPartnerAdminActivity = {
   id: string;
   action: string;
   actorKind: string | null;
   createdAt: string | null;
+};
+
+export type CspPartnerAdminCertification = {
+  productKey: string;
+  status: string;
+  score: number | null;
+  passedAt: string | null;
+  /** Deterministic public certificate id when product key is known; otherwise null. */
+  certificateId: string | null;
 };
 
 export type CspPartnerAdminDetail = {
@@ -29,6 +40,7 @@ export type CspPartnerAdminDetail = {
     phone: string | null;
   };
   activity: CspPartnerAdminActivity[];
+  certifications: CspPartnerAdminCertification[];
   persistence: { businessIdentityStored: boolean };
 };
 
@@ -113,6 +125,63 @@ async function loadActivity(admin: ServiceClient, partnerId: string): Promise<Cs
   }
 }
 
+async function loadCertifications(
+  admin: ServiceClient,
+  partnerId: string,
+): Promise<CspPartnerAdminCertification[]> {
+  try {
+    const { data, error } = await admin
+      .from("csp_product_certifications")
+      .select("status, score, passed_at, product_id")
+      .eq("partner_id", partnerId)
+      .order("passed_at", { ascending: false })
+      .limit(CERTIFICATION_LIMIT);
+    if (error || !Array.isArray(data)) return [];
+
+    const productIds = [
+      ...new Set(
+        (data as Row[])
+          .map((row) => str(row.product_id))
+          .filter((id): id is string => Boolean(id)),
+      ),
+    ];
+    const productKeyById = new Map<string, string>();
+    if (productIds.length > 0) {
+      const products = await admin.from("csp_sales_products").select("id, product_key").in("id", productIds);
+      if (!products.error && Array.isArray(products.data)) {
+        for (const p of products.data as Row[]) {
+          const id = str(p.id);
+          const key = str(p.product_key);
+          if (id && key) productKeyById.set(id, key);
+        }
+      }
+    }
+
+    return (data as Row[]).flatMap((row) => {
+      const productId = str(row.product_id);
+      const productKey = productId ? productKeyById.get(productId) ?? null : null;
+      const status = str(row.status);
+      if (!status) return [];
+      const scoreRaw = row.score;
+      const score = typeof scoreRaw === "number" && Number.isFinite(scoreRaw) ? scoreRaw : null;
+      return [
+        {
+          productKey: productKey ?? "unknown",
+          status,
+          score,
+          passedAt: str(row.passed_at),
+          certificateId:
+            productKey && (status === "passed" || status === "revoked")
+              ? deriveCspCertificateId(partnerId, productKey)
+              : null,
+        },
+      ];
+    });
+  } catch {
+    return [];
+  }
+}
+
 /** Server-only. Uses the service role; callers must have passed the platform privileged guard first. */
 export async function fetchCspPartnerAdminDetail(partnerId: string): Promise<CspPartnerAdminDetailResult> {
   if (!isCspPartnerId(partnerId)) return { kind: "not_found" };
@@ -126,6 +195,7 @@ export async function fetchCspPartnerAdminDetail(partnerId: string): Promise<Csp
     const optional = await loadOptionalColumns(admin, partnerId);
     const identity = await loadAuthIdentity(admin, str(row.auth_user_id));
     const activity = await loadActivity(admin, partnerId);
+    const certifications = await loadCertifications(admin, partnerId);
 
     return {
       kind: "found",
@@ -145,6 +215,7 @@ export async function fetchCspPartnerAdminDetail(partnerId: string): Promise<Csp
           phone: str(optional?.phone),
         },
         activity,
+        certifications,
         persistence: { businessIdentityStored: optional !== null },
       },
     };

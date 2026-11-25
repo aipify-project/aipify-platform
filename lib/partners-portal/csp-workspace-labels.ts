@@ -315,7 +315,9 @@ const SELLERS_DRAWER_TEXT_KEYS = [
   "sectionContact",
   "sectionCompany",
   "sectionStatus",
+  "sectionCertifications",
   "sectionActivity",
+  "certificationsEmpty",
   "fieldName",
   "fieldEmail",
   "fieldEmailVerified",
@@ -325,6 +327,11 @@ const SELLERS_DRAWER_TEXT_KEYS = [
   "fieldRegistration",
   "fieldAddress",
   "fieldStatus",
+  "fieldProduct",
+  "fieldCertStatus",
+  "fieldScore",
+  "fieldPassedAt",
+  "fieldCertificateId",
   "fieldApplied",
   "fieldUpdated",
   "emailVerifiedYes",
@@ -369,6 +376,15 @@ const SELLERS_DRAWER_ACTIVITY_KEYS = [
   "certification_awarded",
 ] as const;
 
+const SELLERS_DRAWER_PRODUCT_KEYS = ["kompis_web", "unknown"] as const;
+const SELLERS_DRAWER_CERT_STATUS_KEYS = [
+  "not_started",
+  "in_progress",
+  "passed",
+  "expired",
+  "revoked",
+] as const;
+
 /** Labels for the partner application details drawer (`platform.sellers.drawer.*`). */
 export function buildSellersPartnerDrawerLabels(t: Translator): PartnerDetailsDrawerLabels {
   const k = (key: string) => t(`platform.sellers.drawer.${key}`);
@@ -380,6 +396,15 @@ export function buildSellersPartnerDrawerLabels(t: Translator): PartnerDetailsDr
     ...text,
     activityLabels: Object.fromEntries(
       SELLERS_DRAWER_ACTIVITY_KEYS.map((key) => [key, t(`platform.sellers.drawer.activityLabels.${key}`)]),
+    ),
+    productLabels: Object.fromEntries(
+      SELLERS_DRAWER_PRODUCT_KEYS.map((key) => [key, t(`platform.sellers.drawer.productLabels.${key}`)]),
+    ),
+    certStatusLabels: Object.fromEntries(
+      SELLERS_DRAWER_CERT_STATUS_KEYS.map((key) => [
+        key,
+        t(`platform.sellers.drawer.certStatusLabels.${key}`),
+      ]),
     ),
     errors: Object.fromEntries(SELLERS_DRAWER_ERROR_CODES.map((code) => [code, t(`platform.sellers.actions.errors.${code}`)])),
     partnerStatus: Object.fromEntries(

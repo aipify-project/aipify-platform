@@ -8030,7 +8030,25 @@
       "failClosed": "Åtgärden kunde inte slutföras just nu. Försök igen senare.",
       "approveRequiresVerifiedEmail": "Godkännande blockeras tills sökanden har verifierat e-postadressen.",
       "companyIdentityPendingSql": "Juridiskt företagsnamn och registreringsnummer är ännu inte tillgängliga för denna ansökan. Fälten visas som «Inte sparad ännu» tills företagsuppgifterna kan sparas för granskning.",
-      "approveCompanyDetailsMissing": "Godkännande kräver sparat juridiskt företagsnamn och registreringsnummer. Be sökanden om mer information."
+      "approveCompanyDetailsMissing": "Godkännande kräver sparat juridiskt företagsnamn och registreringsnummer. Be sökanden om mer information.",
+      "sectionCertifications": "Certifieringar",
+      "certificationsEmpty": "Inga produktcertifieringar har registrerats ännu.",
+      "fieldProduct": "Produkt",
+      "fieldCertStatus": "Certifieringsstatus",
+      "fieldScore": "Poäng",
+      "fieldPassedAt": "Godkänd",
+      "fieldCertificateId": "Certifikat-ID",
+      "productLabels": {
+        "kompis_web": "Kompis Web",
+        "unknown": "Produkt"
+      },
+      "certStatusLabels": {
+        "not_started": "Inte påbörjad",
+        "in_progress": "Pågår",
+        "passed": "Godkänd",
+        "expired": "Utgången",
+        "revoked": "Återkallad"
+      }
     },
     "commissions": {
       "title": "Provisioner",
