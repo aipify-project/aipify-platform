@@ -10,7 +10,7 @@ import {
 
 const KEY_ENV = "AIPIFY_CSP_BANK_ENCRYPTION_KEY";
 // Ephemeral, test-only key generated at runtime — not a real secret.
-const ephemeral = (): NodeJS.ProcessEnv => ({ [KEY_ENV]: randomBytes(32).toString("hex") });
+const ephemeral = (): Record<string, string> => ({ [KEY_ENV]: randomBytes(32).toString("hex") });
 const PLAINTEXT = JSON.stringify({ iban: "NO9386011117947", account_holder: "Test Partner" });
 
 test("missing key fails closed", () => {

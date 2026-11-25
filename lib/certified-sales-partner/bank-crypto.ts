@@ -32,18 +32,21 @@ export type CspBankDecryptResult =
   | { ok: true; plaintext: string; key_version: number }
   | { ok: false; error: CspBankCryptoError };
 
+/** Injectable env map — looser than ProcessEnv so unit tests need not supply NODE_ENV. */
+export type CspBankCryptoEnv = NodeJS.Dict<string>;
+
 type KeyResult =
   | { ok: true; key: Buffer; keyVersion: number }
   | { ok: false; error: CspBankCryptoError };
 
-function resolveKeyVersion(env: NodeJS.ProcessEnv): number {
+function resolveKeyVersion(env: CspBankCryptoEnv): number {
   const raw = (env[CSP_BANK_ENCRYPTION_KEY_VERSION_ENV] ?? "").trim();
   if (/^[0-9]{1,4}$/.test(raw)) return Math.max(Number(raw), 1);
   return 1;
 }
 
 /** Accepts exactly 32 bytes encoded as 64 hex chars or base64/base64url. Otherwise fail closed. */
-function resolveKey(env: NodeJS.ProcessEnv): KeyResult {
+function resolveKey(env: CspBankCryptoEnv): KeyResult {
   const raw = (env[CSP_BANK_ENCRYPTION_KEY_ENV] ?? "").trim();
   if (raw.length === 0) return { ok: false, error: CSP_BANK_CRYPTO_ERRORS.keyMissing };
 
@@ -66,7 +69,7 @@ const b64u = (b: Buffer) => b.toString("base64url");
  */
 export function encryptBankPayload(
   plaintext: string,
-  env: NodeJS.ProcessEnv = process.env,
+  env: CspBankCryptoEnv = process.env,
 ): CspBankEncryptResult {
   const k = resolveKey(env);
   if (!k.ok) return { ok: false, error: k.error };
@@ -90,7 +93,7 @@ export function encryptBankPayload(
 /** Admin-only server callers. Fails closed without a valid key or on any tampering. */
 export function decryptBankPayload(
   encryptedPayload: string,
-  env: NodeJS.ProcessEnv = process.env,
+  env: CspBankCryptoEnv = process.env,
 ): CspBankDecryptResult {
   const k = resolveKey(env);
   if (!k.ok) return { ok: false, error: k.error };
@@ -118,6 +121,6 @@ export function decryptBankPayload(
 }
 
 /** True only when a usable key is configured (never reveals the key). */
-export function isBankEncryptionConfigured(env: NodeJS.ProcessEnv = process.env): boolean {
+export function isBankEncryptionConfigured(env: CspBankCryptoEnv = process.env): boolean {
   return resolveKey(env).ok;
 }
