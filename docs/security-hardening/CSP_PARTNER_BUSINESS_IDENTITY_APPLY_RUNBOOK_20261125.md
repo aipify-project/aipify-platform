@@ -1,7 +1,7 @@
 # CSP partner business identity — apply runbook (PREPARED ONLY)
 
 **Date:** 2026-11-25
-**Status:** Gate S APPLIED_VERIFIED on Staging `auedugihkduoaikfusqe` (2026-11-25). Production Gate P NOT APPLIED — still requires separate exact owner approval.
+**Status:** Gate S APPLIED_VERIFIED on Staging `auedugihkduoaikfusqe` (2026-11-25). Gate P APPLIED_VERIFIED on Production `qbcqoixhrvhnuwphefvw` (2026-11-25). Post-apply md5: overview `e7d1f89bb7649882524140ed09a82499`, register `2783b51e8058e0de0b425a8fe5b08fbc`.
 
 **SQL file:** `docs/security-hardening/CSP_PARTNER_BUSINESS_IDENTITY_PERSISTENCE_PREPARED_ONLY_20261125.sql`
 **SHA-256 (computed after final write):** `bc124756a7ab6a9da64a6f90b93d4244ff7687f0538f6be456b7f7c11b269d09`
