@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { callCspRpc, failClosedJson } from "@/lib/certified-sales-partner";
 import { createClient } from "@/lib/supabase/server";
 
-/** Partner qualified sales list — fail-closed; never invent commission figures. */
+/** Partner's own qualified sales — fail-closed when CSP Core is inactive. */
 export async function GET() {
   try {
     const supabase = await createClient();
@@ -16,7 +16,9 @@ export async function GET() {
       const closed = failClosedJson(result);
       return NextResponse.json(closed.body, { status: closed.status });
     }
-    return NextResponse.json(result.data);
+    return NextResponse.json(
+      Array.isArray(result.data) ? { sales: result.data } : (result.data ?? { sales: [] }),
+    );
   } catch {
     return NextResponse.json({ error: "sales_load_failed" }, { status: 500 });
   }
