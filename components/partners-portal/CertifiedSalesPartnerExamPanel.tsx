@@ -257,13 +257,13 @@ export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: Csp
             <legend className="text-base font-semibold text-[color:var(--aipify-text-primary)]">
               {question.question}
             </legend>
-            <div className="grid gap-2">
+            <div className="grid gap-2 sm:grid-cols-2">
               {question.options.map((option) => {
                 const selected = answers[question.id] === option.id;
                 return (
                   <label
                     key={option.id}
-                    className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3 text-sm transition-colors ${
+                    className={`flex min-h-[3.5rem] cursor-pointer items-start gap-3 rounded-xl border p-3 text-sm transition-colors ${
                       selected
                         ? "border-[color:var(--aipify-companion-purple)] bg-[color:var(--aipify-accent-soft)] text-[color:var(--aipify-text-primary)]"
                         : "border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] text-[color:var(--aipify-text-primary)] hover:bg-[color:var(--aipify-surface-subtle)]"

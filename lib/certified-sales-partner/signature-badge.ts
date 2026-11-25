@@ -31,9 +31,10 @@ export function buildCertifiedSellerBadge(input: CspSignatureBadgeInput): CspSig
       ? ` – ${input.productLabel.trim()}`
       : "";
   const text = `${CSP_CERTIFIED_SELLER_BADGE_TEXT}${product}`;
-  const html = `<span data-csp-certified-badge="1" style="font-weight:600;color:#167A53">${escapeAttr(
-    text,
-  )}</span>`;
+  const html =
+    `<span data-csp-certified-badge="1" style="display:inline-block;font-weight:600;color:#167A53;` +
+    `border:1px solid #7253EA;border-radius:8px;padding:4px 10px;background:#F6F8FC">` +
+    `${escapeAttr(text)}</span>`;
   return { show: true, text, html };
 }
 

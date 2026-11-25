@@ -67,10 +67,12 @@ test("PDF is a minimal valid single page with correct xref offsets and required 
   assert.ok(pdf.trimEnd().endsWith("%%EOF"));
   assert.match(pdf, /\/Count 1/);
   assert.match(pdf, /Certificate of Completion/);
+  assert.ok(pdf.includes("Certified Aipify Sales Partner"));
+  assert.ok(pdf.includes("Kompis Web"));
   assert.ok(pdf.includes(`Certificate ID: ${meta.certificateId}`));
   assert.ok(pdf.includes("Date passed: 2026-11-25"));
-  assert.ok(pdf.includes(`Issued by Aipify Group AS - Org. no. ${COMPANY_CONFIG.organizationNumber} - Norway`));
-  assert.ok(pdf.includes("Certified Aipify Sales Partner \\226 Kompis Web"));
+  assert.ok(pdf.includes(`Issued by Aipify Group AS`));
+  assert.ok(pdf.includes(`Org.nr. ${COMPANY_CONFIG.organizationNumber}`));
   assert.ok(pdf.includes("Kari Nordmann \\(Test\\) \\\\ \\306rlig"));
   assert.ok(Array.from(bytes).every((b) => b < 128), "PDF stays 7-bit ASCII");
 

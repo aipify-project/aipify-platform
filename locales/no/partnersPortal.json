@@ -513,8 +513,8 @@
       }
     },
     "exam": {
-      "title": "Produktsertifiseringstest",
-      "intro": "Svar på 15 spørsmål, ett om gangen. Du kan gå tilbake og endre svar før du sender inn. Beståttgrensen er 80 %.",
+      "title": "Sertifiseringstest",
+      "intro": "Du er klar for sertifiseringstesten. Du må svare riktig på minst 12 av 15 spørsmål for å bestå.",
       "start": "Start testen",
       "starting": "Starter testen",
       "kompisBlocked": "Kompis-hjelp er slått av under denne testen. Aipify gir ingen hint under eksamen.",
@@ -526,26 +526,32 @@
       "submitting": "Sender inn",
       "submitDisabledHint": "Svar på alle spørsmålene for å sende inn. Bruk Forrige for å finne de du hoppet over.",
       "questionRegion": "Eksamensspørsmål",
-      "passedTitle": "Du bestod – godt jobbet",
-      "passedBody": "Du nådde beståttgrensen. Takk for at du tok deg tid til å lære produktet ordentlig.",
-      "failedTitle": "Fortsett å lære – du kan prøve igjen",
-      "failedBody": "Du nådde ikke beståttgrensen denne gangen. Det er en del av læringen. Se gjennom leksjonene under og prøv igjen når du er klar.",
+      "passedTitle": "Gratulerer! Du er nå sertifisert i Kompis Web.",
+      "passedBody": "Du svarte riktig på nok spørsmål. Sertifikatet ditt er klart når Aipify har lagret resultatet.",
+      "failedTitle": "Beklager, du bestod ikke denne gangen.",
+      "failedBody": "Du trenger minst 12 av 15 riktige (80 %). Gå gjerne gjennom kapitlene før du prøver igjen med nye spørsmål.",
       "passed": "Bestått",
       "failed": "Ikke bestått ennå",
       "score": "{correct} av {total} riktige ({score} %)",
       "passMark": "Beståttgrense: {pass} %",
       "reviewLessons": "Leksjoner det lønner seg å se på igjen",
-      "retake": "Ta testen på nytt",
+      "retake": "Prøv igjen med nye spørsmål",
       "practiceNotice": "Dette resultatet er kun øving. Ingen sertifisering er registrert eller utstedt, fordi partnerløsningen ikke har bekreftet den. Sertifisering og salgslenker blir tilgjengelige når resultatet er registrert.",
       "certificationRecorded": "Sertifiseringen din er registrert.",
       "downloadCertificate": "Last ned sertifikat (PDF)",
       "attemptRecorded": "Forsøket ditt er registrert. Se gjennom leksjonene og prøv igjen når du er klar."
     },
     "lessons": {
-      "title": "Leksjoner om Kompis Web",
-      "intro": "Seks korte leksjoner forbereder deg til testen. Les dem i ditt eget tempo. Kompis-hjelp er ikke tilgjengelig under testen.",
+      "title": "Kompis Web-opplæring",
+      "intro": "Du kan gjenta kapitlene før prøven. Kompis-hjelp er ikke tilgjengelig under eksamen.",
       "lessonNumber": "Leksjon {number}",
-      "plannedCatalogNote": "Pakker og priser i denne leksjonen er den planlagte katalogen og er ikke aktive i fakturering ennå. Presenter dem aldri som bindende tilbud."
+      "plannedCatalogNote": "Pakker og priser i denne leksjonen er den planlagte katalogen og er ikke aktive i fakturering ennå. Presenter dem aldri som bindende tilbud.",
+      "eyebrow": "Growth Academy · Kompis Web",
+      "heroTitle": "Bli sertifisert i Kompis Web",
+      "heroBody": "Lær å presentere Kompis Web på en trygg og profesjonell måte. Les de seks kapitlene, og ta deretter sertifiseringstesten (minst 12 av 15 riktige).",
+      "chapterProgress": "Kapittel {completed} av {total}",
+      "continueLesson": "Fortsett opplæringen",
+      "startExamCta": "Start sertifiseringstesten"
     },
     "catalog": {
       "title": "Produkter",
@@ -637,7 +643,14 @@
       "emptyTitle": "Ingen produkter å sertifisere ennå",
       "emptyBody": "Produkter vises her når Aipify har publisert dem. Du kan allerede lese leksjonene og øve i Aipify Academy.",
       "emptyCta": "Gå til Aipify Academy",
-      "unknownProduct": "Produkt"
+      "unknownProduct": "Produkt",
+      "signatureTitle": "Låst selgersignatur",
+      "signatureIntro": "Når Kompis Web-sertifiseringen din er aktiv, setter Aipify inn Certified Aipify Sales Partner-badgen automatisk. Du kan ikke endre badge, logo eller sertifiseringspåstand.",
+      "signatureLockedNote": "Kun godkjente kontaktopplysninger og din personlige salgslenke kan oppdateres via profilen. Signatur-HTML eies av systemet.",
+      "signatureBadgeActive": "Badge aktiv for Kompis Web",
+      "signatureBadgeInactive": "Badgen vises når du har bestått og partnerkontoen fortsatt er godkjent.",
+      "signatureCopyHtml": "Kopier HTML",
+      "signatureCopied": "Kopiert"
     },
     "salesList": {
       "title": "Registrerte salg",
@@ -699,6 +712,26 @@
       "filterKompisWeb": "Kompis Web",
       "filterKompisBedrift": "Kompis Bedrift",
       "filterVoice": "Aipify Voice"
+    },
+    "verify": {
+      "pageTitle": "Sertifikatverifisering",
+      "pageSubtitle": "Bekreft at et sertifikat for Certified Aipify Sales Partner er gyldig.",
+      "statusLabel": "Status",
+      "validTitle": "Gyldig sertifikat",
+      "validBody": "Dette sertifikatet er utstedt av Aipify Group AS etter en serververifisert produktprøve.",
+      "revokedTitle": "Sertifikat tilbakekalt",
+      "revokedBody": "Dette sertifikatet er ikke lenger aktivt. Salgsrett for produktet sperres når tilbakekalling gjelder.",
+      "notFoundTitle": "Sertifikat ikke funnet",
+      "notFoundBody": "Ingen matching sertifikat ble funnet for denne ID-en.",
+      "unavailableTitle": "Verifisering utilgjengelig",
+      "unavailableBody": "Sertifikatverifisering kunne ikke fullføres akkurat nå. Prøv igjen senere.",
+      "product": "Produkt",
+      "certificateId": "Sertifikat-ID",
+      "issuedOn": "Utstedt",
+      "holder": "Innehaver (initialer)",
+      "issuer": "Utsteder",
+      "orgNumber": "Org.nr.",
+      "backToProgram": "Om Certified Sales Partner-programmet"
     }
   }
 }

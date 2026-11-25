@@ -11,6 +11,7 @@ import {
   type CspSettlementRow,
 } from "@/lib/certified-sales-partner/portal-view";
 import { readCspResponse } from "@/lib/certified-sales-partner/ui-support";
+import { CertifiedSalesPartnerSignaturePreview } from "./CertifiedSalesPartnerSignaturePreview";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
 
 /** Shared label shapes — built from `partnersPortal.certifiedSalesPartner.*` (see csp-workspace-labels.ts). */
@@ -47,6 +48,13 @@ export type CspCertificationsLabels = {
   emptyBody: string;
   emptyCta: string;
   unknownProduct: string;
+  signatureTitle: string;
+  signatureIntro: string;
+  signatureLockedNote: string;
+  signatureBadgeActive: string;
+  signatureBadgeInactive: string;
+  signatureCopyHtml: string;
+  signatureCopied: string;
 };
 
 export type CspSalesLabels = {
@@ -296,61 +304,82 @@ export function CertifiedSalesPartnerCertificationsPanel({
     };
   });
 
+  const kompisPassed = rows.some((row) => row.productKey === "kompis_web" && row.status === "passed");
+  const partnerActive = ["approved", "active", "certified"].includes(portal.overview.partnerStatus ?? "");
+
   return (
-    <section className={CARD} aria-labelledby="csp-certs-title">
-      <h2 id="csp-certs-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
-        {labels.title}
-      </h2>
-      <p className="mt-2 max-w-3xl text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
-      {rows.length === 0 ? (
-        <div className="mt-4">
-          <EmptyState title={labels.emptyTitle} body={labels.emptyBody} cta={labels.emptyCta} href="/partners/academy/training" />
-        </div>
-      ) : (
-        <div className="mt-4 overflow-x-auto">
-          <table className="min-w-full divide-y divide-[color:var(--aipify-border)]">
-            <thead>
-              <tr>
-                <th className={TH}>{labels.productCol}</th>
-                <th className={TH}>{labels.statusCol}</th>
-                <th className={TH}>{labels.scoreCol}</th>
-                <th className={TH}>{labels.passedOnCol}</th>
-                <th className={TH}>
-                  <span className="sr-only">{labels.download}</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[color:var(--aipify-border)]">
-              {rows.map((row) => {
-                const passed = row.status === "passed";
-                return (
-                  <tr key={row.key}>
-                    <td className={TD}>{names[row.key] ?? labels.unknownProduct}</td>
-                    <td className={TD}>
-                      <Pill kind={passed ? "ok" : row.status === "expired" || row.status === "revoked" ? "warn" : "info"}>
-                        {lookup(labels.status, row.status)}
-                      </Pill>
-                    </td>
-                    <td className={TD}>{row.score === null ? "—" : `${row.score}%`}</td>
-                    <td className={TD}>{formatDate(row.passedAt, locale)}</td>
-                    <td className={TD}>
-                      {passed && row.productKey === "kompis_web" ? (
-                        <a
-                          href={`/api/certified-sales-partner/academy/certificate?locale=${encodeURIComponent(locale)}`}
-                          className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
-                        >
-                          {labels.download}
-                        </a>
-                      ) : null}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </section>
+    <div className="space-y-6">
+      <section className={CARD} aria-labelledby="csp-certs-title">
+        <h2 id="csp-certs-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
+          {labels.title}
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
+        {rows.length === 0 ? (
+          <div className="mt-4">
+            <EmptyState title={labels.emptyTitle} body={labels.emptyBody} cta={labels.emptyCta} href="/partners/academy/training" />
+          </div>
+        ) : (
+          <div className="mt-4 overflow-x-auto">
+            <table className="min-w-full divide-y divide-[color:var(--aipify-border)]">
+              <thead>
+                <tr>
+                  <th className={TH}>{labels.productCol}</th>
+                  <th className={TH}>{labels.statusCol}</th>
+                  <th className={TH}>{labels.scoreCol}</th>
+                  <th className={TH}>{labels.passedOnCol}</th>
+                  <th className={TH}>
+                    <span className="sr-only">{labels.download}</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[color:var(--aipify-border)]">
+                {rows.map((row) => {
+                  const passed = row.status === "passed";
+                  return (
+                    <tr key={row.key}>
+                      <td className={TD}>{names[row.key] ?? labels.unknownProduct}</td>
+                      <td className={TD}>
+                        <Pill kind={passed ? "ok" : row.status === "expired" || row.status === "revoked" ? "warn" : "info"}>
+                          {lookup(labels.status, row.status)}
+                        </Pill>
+                      </td>
+                      <td className={TD}>{row.score === null ? "—" : `${row.score}%`}</td>
+                      <td className={TD}>{formatDate(row.passedAt, locale)}</td>
+                      <td className={TD}>
+                        {passed && row.productKey === "kompis_web" ? (
+                          <a
+                            href={`/api/certified-sales-partner/academy/certificate?locale=${encodeURIComponent(locale)}`}
+                            className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+                          >
+                            {labels.download}
+                          </a>
+                        ) : null}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+      <CertifiedSalesPartnerSignaturePreview
+        labels={{
+          title: labels.signatureTitle,
+          intro: labels.signatureIntro,
+          lockedNote: labels.signatureLockedNote,
+          badgeActive: labels.signatureBadgeActive,
+          badgeInactive: labels.signatureBadgeInactive,
+          copyHtml: labels.signatureCopyHtml,
+          copied: labels.signatureCopied,
+        }}
+        certificationActive={kompisPassed}
+        partnerActive={partnerActive}
+        partnerName={portal.overview.displayName ?? ""}
+        companyName={portal.overview.displayName ?? ""}
+        productLabel="Kompis Web"
+      />
+    </div>
   );
 }
 

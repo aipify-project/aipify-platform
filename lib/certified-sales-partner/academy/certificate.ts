@@ -136,6 +136,93 @@ export function buildCertificateMeta(
   };
 }
 
+// ───────────────────────── Localized PDF copy ─────────────────────────
+
+type CertificatePdfCopy = {
+  title: string;
+  certifiesThat: string;
+  completedAssessment: string;
+  certificateId: string;
+  datePassed: string;
+  issuedBy: string;
+  verify: string;
+};
+
+function certificatePdfCopy(locale: Locale): CertificatePdfCopy {
+  switch (locale) {
+    case "no":
+      return {
+        title: "Sertifikat for produktsertifisering",
+        certifiesThat: "Dette bekrefter at",
+        completedAssessment: "har bestått godkjent produktsertifisering for",
+        certificateId: "Sertifikat-ID",
+        datePassed: "Dato",
+        issuedBy: "Utstedt av",
+        verify: "Verifiser",
+      };
+    case "sv":
+      return {
+        title: "Intyg om produktcertifiering",
+        certifiesThat: "Detta intygar att",
+        completedAssessment: "har klarat godkänd produktcertifiering för",
+        certificateId: "Certifikat-ID",
+        datePassed: "Datum",
+        issuedBy: "Utfärdat av",
+        verify: "Verifiera",
+      };
+    case "da":
+      return {
+        title: "Certifikat for produktcertificering",
+        certifiesThat: "Dette bekræfter, at",
+        completedAssessment: "har bestået godkendt produktcertificering for",
+        certificateId: "Certifikat-ID",
+        datePassed: "Dato",
+        issuedBy: "Udstedt af",
+        verify: "Verificér",
+      };
+    case "pl":
+      return {
+        title: "Certyfikat ukończenia produktu",
+        certifiesThat: "Niniejszym potwierdza się, że",
+        completedAssessment: "pomyślnie ukończył(a) certyfikację produktu",
+        certificateId: "ID certyfikatu",
+        datePassed: "Data",
+        issuedBy: "Wystawca",
+        verify: "Weryfikuj",
+      };
+    case "uk":
+      return {
+        title: "Сертифікат про сертифікацію продукту",
+        certifiesThat: "Цим підтверджується, що",
+        completedAssessment: "успішно пройшов(ла) сертифікацію продукту",
+        certificateId: "ID сертифіката",
+        datePassed: "Дата",
+        issuedBy: "Видавець",
+        verify: "Перевірити",
+      };
+    case "es":
+      return {
+        title: "Certificado de certificación de producto",
+        certifiesThat: "Se certifica que",
+        completedAssessment: "ha completado con éxito la certificación de producto de",
+        certificateId: "ID del certificado",
+        datePassed: "Fecha",
+        issuedBy: "Emitido por",
+        verify: "Verificar",
+      };
+    default:
+      return {
+        title: "Certificate of Completion",
+        certifiesThat: "This certifies that",
+        completedAssessment: "has successfully completed the product certification assessment for",
+        certificateId: "Certificate ID",
+        datePassed: "Date passed",
+        issuedBy: "Issued by",
+        verify: "Verify",
+      };
+  }
+}
+
 // ───────────────────────── Minimal PDF writer ─────────────────────────
 
 const CYRILLIC_TO_LATIN: Readonly<Record<string, string>> = {
@@ -204,21 +291,26 @@ function centeredTextOps(line: PdfLine, pageWidth: number): string {
 export function buildCertificatePdfText(meta: CspCertificateMeta): Uint8Array {
   const pageWidth = 842;
   const pageHeight = 595;
+  const copy = certificatePdfCopy(meta.locale);
   const lines: PdfLine[] = [
-    { text: "Certificate of Completion", size: 32, bold: true, y: 470 },
-    { text: "This certifies that", size: 14, y: 410 },
-    { text: meta.fullName, size: 28, bold: true, y: 365 },
-    { text: "has completed the Aipify Partner Academy and passed the examination for", size: 14, y: 320 },
-    { text: meta.productLabel, size: 22, bold: true, y: 280 },
-    { text: `Certificate ID: ${meta.certificateId}`, size: 11, y: 205 },
-    { text: `Date passed: ${meta.passedAt.slice(0, 10)} (UTC)`, size: 11, y: 185 },
-    { text: `Issued by ${meta.issuer} - Org. no. ${meta.orgNumber} - ${meta.country}`, size: 11, y: 165 },
-    { text: `Verify: ${meta.verifyPath}`, size: 10, y: 130 },
+    { text: copy.title, size: 30, bold: true, y: 470 },
+    { text: "Certified Aipify Sales Partner", size: 14, y: 430 },
+    { text: copy.certifiesThat, size: 14, y: 390 },
+    { text: meta.fullName, size: 28, bold: true, y: 350 },
+    { text: copy.completedAssessment, size: 13, y: 305 },
+    { text: "Kompis Web", size: 22, bold: true, y: 270 },
+    { text: meta.productLabel, size: 12, y: 245 },
+    { text: `${copy.certificateId}: ${meta.certificateId}`, size: 11, y: 200 },
+    { text: `${copy.datePassed}: ${meta.passedAt.slice(0, 10)} (UTC)`, size: 11, y: 180 },
+    { text: `${copy.issuedBy} ${meta.issuer} · Org.nr. ${meta.orgNumber} · ${meta.country}`, size: 11, y: 160 },
+    { text: `${copy.verify}: ${meta.verifyPath}`, size: 10, y: 125 },
   ];
 
   const content = [
-    "0.486 0.227 0.929 RG 2 w 24 24 794 547 re S",
-    "0 g",
+    "0.95 0.96 0.99 rg 0 0 842 595 re f",
+    "0.447 0.325 0.918 RG 2.5 w 28 28 786 539 re S",
+    "0.447 0.325 0.918 RG 1 w 36 36 770 523 re S",
+    "0.118 0.137 0.216 g",
     ...lines.map((line) => centeredTextOps(line, pageWidth)),
   ].join("\n");
 

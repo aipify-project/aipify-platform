@@ -390,7 +390,7 @@
     },
     "exam": {
       "title": "Test certyfikacyjny produktu",
-      "intro": "Odpowiedz na 15 pytań, jedno po drugim. Przed wysłaniem możesz wrócić i zmienić odpowiedzi. Próg zaliczenia to 80%.",
+      "intro": "You are ready for the certification test. Answer 15 questions. You must get at least 12 of 15 correct to pass.",
       "start": "Rozpocznij test",
       "starting": "Rozpoczynanie testu",
       "kompisBlocked": "Pomoc Kompis jest wyłączona podczas tego testu. Aipify nie udziela podpowiedzi w trakcie egzaminu.",
@@ -402,16 +402,16 @@
       "submitting": "Wysyłanie",
       "submitDisabledHint": "Odpowiedz na wszystkie pytania, aby wysłać test. Użyj przycisku Wstecz, aby znaleźć pominięte.",
       "questionRegion": "Pytanie egzaminacyjne",
-      "passedTitle": "Zaliczone – dobra robota",
-      "passedBody": "Osiągnięto próg zaliczenia. Dziękujemy, że poświęciłeś czas na dokładne poznanie produktu.",
-      "failedTitle": "Uczysz się dalej – możesz spróbować ponownie",
-      "failedBody": "Tym razem nie osiągnięto progu zaliczenia. To część nauki. Przejrzyj poniższe lekcje i spróbuj ponownie, gdy będziesz gotowy.",
+      "passedTitle": "Congratulations! You are now certified in Kompis Web.",
+      "passedBody": "You answered enough questions correctly. Your certificate is ready when Aipify has recorded the result.",
+      "failedTitle": "Sorry, you did not pass this time.",
+      "failedBody": "You need at least 12 of 15 correct (80%). Review the chapters below, then try again with a new question set.",
       "passed": "Zaliczone",
       "failed": "Jeszcze niezaliczone",
       "score": "Poprawne odpowiedzi: {correct} z {total} ({score}%)",
       "passMark": "Próg zaliczenia: {pass}%",
       "reviewLessons": "Lekcje warte powtórzenia",
-      "retake": "Rozwiąż test ponownie",
+      "retake": "Try again with new questions",
       "practiceNotice": "Ten wynik ma charakter wyłącznie treningowy. Nie zarejestrowano ani nie wydano żadnej certyfikacji, ponieważ system partnerski jej nie potwierdził. Certyfikacja i linki sprzedażowe będą dostępne po zarejestrowaniu wyniku.",
       "certificationRecorded": "Twoja certyfikacja została zarejestrowana.",
       "downloadCertificate": "Pobierz certyfikat (PDF)",
@@ -419,9 +419,15 @@
     },
     "lessons": {
       "title": "Lekcje o Kompis Web",
-      "intro": "Sześć krótkich lekcji przygotuje Cię do testu. Czytaj je we własnym tempie. Pomoc Kompis nie jest dostępna podczas testu.",
+      "intro": "You can revisit any chapter before the test. Kompis help is not available during the exam.",
       "lessonNumber": "Lekcja {number}",
-      "plannedCatalogNote": "Pakiety i ceny w tej lekcji pochodzą z planowanego katalogu i nie są jeszcze aktywne w rozliczeniach. Nigdy nie przedstawiaj ich jako wiążących ofert."
+      "plannedCatalogNote": "Pakiety i ceny w tej lekcji pochodzą z planowanego katalogu i nie są jeszcze aktywne w rozliczeniach. Nigdy nie przedstawiaj ich jako wiążących ofert.",
+      "eyebrow": "Growth Academy · Kompis Web",
+      "heroTitle": "Get certified in Kompis Web",
+      "heroBody": "Learn to present Kompis Web in a safe and professional way. Read the six chapters, then take the certification test (at least 12 of 15 correct).",
+      "chapterProgress": "Chapter {completed} of {total}",
+      "continueLesson": "Continue training",
+      "startExamCta": "Start the certification test"
     },
     "catalog": {
       "title": "Produkty",
@@ -513,7 +519,14 @@
       "emptyTitle": "Brak produktów do certyfikacji",
       "emptyBody": "Produkty pojawią się tutaj po opublikowaniu przez Aipify. Lekcje i ćwiczenia są już dostępne w Aipify Academy.",
       "emptyCta": "Przejdź do Aipify Academy",
-      "unknownProduct": "Produkt"
+      "unknownProduct": "Produkt",
+      "signatureTitle": "Locked seller signature",
+      "signatureIntro": "When your Kompis Web certification is active, Aipify inserts the Certified Aipify Sales Partner badge automatically. You cannot edit the badge, logo or certification claim.",
+      "signatureLockedNote": "Only approved contact details and your personal sales link can be updated through your profile. Signature HTML stays system-owned.",
+      "signatureBadgeActive": "Badge active for Kompis Web",
+      "signatureBadgeInactive": "Badge appears after you pass and your partner account stays approved.",
+      "signatureCopyHtml": "Copy HTML",
+      "signatureCopied": "Copied"
     },
     "salesList": {
       "title": "Zarejestrowana sprzedaż",
@@ -575,6 +588,26 @@
       "filterKompisWeb": "Kompis Web",
       "filterKompisBedrift": "Kompis Bedrift",
       "filterVoice": "Aipify Voice"
+    },
+    "verify": {
+      "pageTitle": "Certificate verification",
+      "pageSubtitle": "Confirm that a Certified Aipify Sales Partner certificate is valid.",
+      "statusLabel": "Status",
+      "validTitle": "Valid certificate",
+      "validBody": "This certificate was issued by Aipify Group AS after a server-verified product assessment.",
+      "revokedTitle": "Certificate revoked",
+      "revokedBody": "This certificate is no longer active. Sales rights for the product are blocked when revocation applies.",
+      "notFoundTitle": "Certificate not found",
+      "notFoundBody": "No matching certificate was found for this ID.",
+      "unavailableTitle": "Verification unavailable",
+      "unavailableBody": "Certificate verification could not be completed right now. Please try again later.",
+      "product": "Product",
+      "certificateId": "Certificate ID",
+      "issuedOn": "Issued on",
+      "holder": "Holder (initials)",
+      "issuer": "Issuer",
+      "orgNumber": "Org. no.",
+      "backToProgram": "About the Certified Sales Partner program"
     }
   }
 }

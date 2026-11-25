@@ -430,7 +430,13 @@ export function buildCspLessonsLabels(t: Translator): CspLessonsLabels {
   return {
     title: k("title"),
     intro: k("intro"),
+    eyebrow: k("eyebrow"),
+    heroTitle: k("heroTitle"),
+    heroBody: k("heroBody"),
+    chapterProgress: k("chapterProgress"),
     lessonNumber: k("lessonNumber"),
+    continueLesson: k("continueLesson"),
+    startExamCta: k("startExamCta"),
     plannedCatalogNote: k("plannedCatalogNote"),
   };
 }
@@ -561,6 +567,13 @@ export function buildCspCertificationsLabels(t: Translator): CspCertificationsLa
     emptyBody: k("emptyBody"),
     emptyCta: k("emptyCta"),
     unknownProduct: k("unknownProduct"),
+    signatureTitle: k("signatureTitle"),
+    signatureIntro: k("signatureIntro"),
+    signatureLockedNote: k("signatureLockedNote"),
+    signatureBadgeActive: k("signatureBadgeActive"),
+    signatureBadgeInactive: k("signatureBadgeInactive"),
+    signatureCopyHtml: k("signatureCopyHtml"),
+    signatureCopied: k("signatureCopied"),
   };
 }
 

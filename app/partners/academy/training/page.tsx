@@ -1,5 +1,4 @@
-import { CertifiedSalesPartnerExamPanel } from "@/components/partners-portal/CertifiedSalesPartnerExamPanel";
-import { CertifiedSalesPartnerLessonsPanel } from "@/components/partners-portal/CertifiedSalesPartnerLessonsPanel";
+import { CertifiedSalesPartnerTrainingClient } from "@/components/partners-portal/CertifiedSalesPartnerTrainingClient";
 import { CertifiedSalesPartnerWorkspacePanel } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
 import {
   buildCspExamLabels,
@@ -21,10 +20,11 @@ export default async function PartnersAcademyTrainingPage() {
   );
   return (
     <CertifiedSalesPartnerWorkspacePanel labels={labels}>
-      <div className="space-y-6">
-        <CertifiedSalesPartnerLessonsPanel labels={buildCspLessonsLabels(t)} locale={locale} />
-        <CertifiedSalesPartnerExamPanel labels={buildCspExamLabels(t)} locale={locale} />
-      </div>
+      <CertifiedSalesPartnerTrainingClient
+        locale={locale}
+        lessonsLabels={buildCspLessonsLabels(t)}
+        examLabels={buildCspExamLabels(t)}
+      />
     </CertifiedSalesPartnerWorkspacePanel>
   );
 }
