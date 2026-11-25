@@ -43,6 +43,14 @@ test("overview: optional lists distinguish absent from empty", () => {
   assert.equal(o.products?.[0]?.published, true);
 });
 
+test("overview: partner rows include country when Core returns it", () => {
+  const o = parseSellersOverview({
+    partners: [{ id: "p1", display_name: "Acme", country: "no", status: "approved", created_at: "2026-11-01T00:00:00Z" }],
+  });
+  assert.equal(o.partners?.[0]?.country, "no");
+  assert.equal(o.partners?.[0]?.name, "Acme");
+});
+
 test("overview: academy summary only when Core returns it", () => {
   const o = parseSellersOverview({ academy: { attempts_total: 10, attempts_passed: 7, certifications_active: 5 } });
   assert.equal(o.academy?.attemptsTotal, 10);

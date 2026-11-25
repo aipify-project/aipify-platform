@@ -23,3 +23,5 @@ export * from "./partner-overview";
 export * from "./bank-crypto";
 export * from "./integration-fixture";
 export * from "./portal-view";
+export * from "./registration-outcome";
+export * from "./portal-gate";

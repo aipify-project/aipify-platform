@@ -411,7 +411,38 @@
       "notReadyTitle": "Partner backend not active yet",
       "notReadyBody": "Certified Sales Partner Core storage is not active until the approved database migration is applied. No fake sales or commissions are shown.",
       "retry": "Try again",
-      "errorTitle": "Something unexpected happened. Please try again."
+      "errorTitle": "Something unexpected happened. Please try again.",
+      "unauthorizedTitle": "Sign in to open your partner workspace",
+      "unauthorizedBody": "You are not signed in, or your session has ended. Sign in with your partner account to continue.",
+      "signIn": "Sign in",
+      "notRegisteredTitle": "No partner application found",
+      "notRegisteredBody": "This account has not applied as a Certified Sales Partner yet. Apply to get started. Selling begins only after approval and certification.",
+      "applyCta": "Apply as partner",
+      "pending": {
+        "statusLabel": "Application status",
+        "nextTitle": "What happens next",
+        "contactCta": "Contact Aipify",
+        "under_review": {
+          "title": "Your application is under review",
+          "body": "Aipify has received your application and it is awaiting Platform approval. Training, sales links and commissions open once you are approved.",
+          "next": "No action is needed from you right now. You will be notified when there is a decision, and you can return to this page at any time."
+        },
+        "needs_information": {
+          "title": "Aipify needs more information",
+          "body": "Your application cannot be approved yet because some details are missing or unclear.",
+          "next": "Check your email for what to provide, or contact Aipify. Your application stays open while we wait."
+        },
+        "rejected": {
+          "title": "Your application was not approved",
+          "body": "Aipify was not able to approve this application. Training, sales links and commissions are not available for this account.",
+          "next": "If you believe details were missing or incorrect, contact Aipify and we will take another look."
+        },
+        "suspended": {
+          "title": "Your partner account is paused",
+          "body": "Your partner account is not active at the moment, so training and sales links are unavailable.",
+          "next": "Contact Aipify to understand the reason and what is needed to reactivate the account."
+        }
+      }
     },
     "pages": {
       "home": {

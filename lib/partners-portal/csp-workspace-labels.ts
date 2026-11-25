@@ -1,4 +1,6 @@
 import type { Translator } from "@/lib/i18n/translate";
+import type { CspRegistrationFormLabels } from "@/components/marketing/CertifiedSalesPartnerRegistrationForm";
+import type { CspExistingStatusKey } from "@/lib/certified-sales-partner/registration-outcome";
 import type { CspWorkspaceLabels } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
 import type { CspExamLabels } from "@/components/partners-portal/CertifiedSalesPartnerExamPanel";
 import type { CspLessonsLabels } from "@/components/partners-portal/CertifiedSalesPartnerLessonsPanel";
@@ -22,6 +24,95 @@ export function buildCspWorkspaceLabels(t: Translator, titleKey: string, subtitl
     notReadyBody: t("partnersPortal.certifiedSalesPartner.workspace.notReadyBody"),
     retry: t("partnersPortal.certifiedSalesPartner.workspace.retry"),
     errorTitle: t("partnersPortal.certifiedSalesPartner.workspace.errorTitle"),
+    unauthorizedTitle: t("partnersPortal.certifiedSalesPartner.workspace.unauthorizedTitle"),
+    unauthorizedBody: t("partnersPortal.certifiedSalesPartner.workspace.unauthorizedBody"),
+    signIn: t("partnersPortal.certifiedSalesPartner.workspace.signIn"),
+    notRegisteredTitle: t("partnersPortal.certifiedSalesPartner.workspace.notRegisteredTitle"),
+    notRegisteredBody: t("partnersPortal.certifiedSalesPartner.workspace.notRegisteredBody"),
+    applyCta: t("partnersPortal.certifiedSalesPartner.workspace.applyCta"),
+    pending: {
+      statusLabel: t("partnersPortal.certifiedSalesPartner.workspace.pending.statusLabel"),
+      nextTitle: t("partnersPortal.certifiedSalesPartner.workspace.pending.nextTitle"),
+      contactCta: t("partnersPortal.certifiedSalesPartner.workspace.pending.contactCta"),
+      statuses: Object.fromEntries(
+        (["under_review", "needs_information", "rejected", "suspended"] as const).map((status) => [
+          status,
+          {
+            title: t(`partnersPortal.certifiedSalesPartner.workspace.pending.${status}.title`),
+            body: t(`partnersPortal.certifiedSalesPartner.workspace.pending.${status}.body`),
+            next: t(`partnersPortal.certifiedSalesPartner.workspace.pending.${status}.next`),
+          },
+        ]),
+      ) as CspWorkspaceLabels["pending"]["statuses"],
+    },
+  };
+}
+
+const CSP_REGISTRATION_ERROR_CODES = [
+  "full_name_required",
+  "valid_email_required",
+  "country_must_be_two_letter_code",
+  "legal_business_name_required",
+  "business_registration_number_required",
+  "registered_business_confirmation_required",
+  "terms_acceptance_required",
+  "certification_acknowledgement_required",
+  "accuracy_confirmation_required",
+  "forbidden",
+  "registration_failed",
+] as const;
+
+const CSP_EXISTING_KEYS = [
+  "registered",
+  "under_review",
+  "needs_information",
+  "approved",
+  "rejected",
+  "suspended",
+  "other",
+] as const;
+
+/** Public registration form labels (marketing namespace) incl. sign-in bridge, existing-status and error maps. */
+export function buildCspRegistrationFormLabels(t: Translator): CspRegistrationFormLabels {
+  const k = (key: string) => t(`marketing.certifiedSalesPartner.registration.${key}`);
+  return {
+    title: k("title"),
+    sectionContact: k("sectionContact"),
+    sectionCompany: k("sectionCompany"),
+    sectionTerms: k("sectionTerms"),
+    fullName: k("fullName"),
+    email: k("email"),
+    country: k("country"),
+    countryPlaceholder: k("countryPlaceholder"),
+    countryHint: k("countryHint"),
+    legalBusinessName: k("legalBusinessName"),
+    businessRegistrationNumber: k("businessRegistrationNumber"),
+    phone: k("phone"),
+    address: k("address"),
+    optional: k("optional"),
+    required: k("required"),
+    confirmBusiness: k("confirmBusiness"),
+    confirmTerms: k("confirmTerms"),
+    confirmCertification: k("confirmCertification"),
+    confirmAccuracy: k("confirmAccuracy"),
+    submit: k("submit"),
+    submitting: k("submitting"),
+    successTitle: k("successTitle"),
+    successBody: k("successBody"),
+    backendClosedTitle: k("backendClosedTitle"),
+    backendClosedBody: k("backendClosedBody"),
+    errorGeneric: k("errorGeneric"),
+    loginRequiredTitle: k("loginRequiredTitle"),
+    loginRequiredBody: k("loginRequiredBody"),
+    loginCta: k("loginCta"),
+    createAccountCta: k("createAccountCta"),
+    existingTitle: k("existing.title"),
+    existingBody: Object.fromEntries(CSP_EXISTING_KEYS.map((key) => [key, k(`existing.${key}`)])) as Record<
+      CspExistingStatusKey,
+      string
+    >,
+    openPortalCta: k("existing.openPortalCta"),
+    errors: Object.fromEntries(CSP_REGISTRATION_ERROR_CODES.map((code) => [code, k(`errors.${code}`)])),
   };
 }
 
@@ -113,6 +204,7 @@ const SELLERS_LIVE_TEXT_KEYS = [
   "filterLabel",
   "filterAll",
   "colPartner",
+  "colCountry",
   "colStatus",
   "colApplied",
   "colAction",

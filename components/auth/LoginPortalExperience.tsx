@@ -3,6 +3,7 @@
 import { Building2, Handshake, UserPlus } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, type ComponentProps } from "react";
+import { sanitizeNextPath } from "@/lib/auth/safe-next-path";
 import type { PwaInstallLabels } from "@/lib/pwa/types";
 import LoginForm from "./LoginForm";
 import {
@@ -109,7 +110,10 @@ export function LoginPortalExperience({
 
   const formHeading =
     selection === "partner" ? labels.forms.partnerHeading : labels.forms.customerHeading;
-  const postLoginNext = selection === "partner" ? "/partners" : undefined;
+  // Partner sign-in defaults to the partner workspace, but an explicit safe `next` (e.g. the public
+  // Certified Sales Partner apply section) wins so applicants return to where they started.
+  const requestedNext = sanitizeNextPath(searchParams.get("next"));
+  const postLoginNext = selection === "partner" ? (requestedNext ?? "/partners") : undefined;
 
   return (
     <div className="space-y-6">

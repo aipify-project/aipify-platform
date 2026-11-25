@@ -1150,6 +1150,7 @@
       "filterLabel": "Filtrar por estado",
       "filterAll": "Todos los estados",
       "colPartner": "Socio",
+      "colCountry": "País",
       "colStatus": "Estado",
       "colApplied": "Solicitado",
       "colAction": "Acción",

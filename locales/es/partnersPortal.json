@@ -287,7 +287,38 @@
       "notReadyTitle": "El sistema de socios aún no está activo",
       "notReadyBody": "El almacenamiento de Certified Sales Partner no está activo hasta que se aplique la migración de base de datos aprobada. No se muestran ventas ni comisiones ficticias.",
       "retry": "Intentar de nuevo",
-      "errorTitle": "Ocurrió algo inesperado. Inténtalo de nuevo."
+      "errorTitle": "Ocurrió algo inesperado. Inténtalo de nuevo.",
+      "unauthorizedTitle": "Inicia sesión para abrir tu espacio de trabajo de socio",
+      "unauthorizedBody": "No has iniciado sesión o tu sesión ha caducado. Inicia sesión con tu cuenta de socio para continuar.",
+      "signIn": "Iniciar sesión",
+      "notRegisteredTitle": "No se encontró ninguna solicitud de socio",
+      "notRegisteredBody": "Esta cuenta aún no ha solicitado ser Certified Sales Partner. Solicítalo para empezar. La venta solo comienza tras la aprobación y la certificación.",
+      "applyCta": "Solicitar como socio",
+      "pending": {
+        "statusLabel": "Estado de la solicitud",
+        "nextTitle": "Qué ocurre ahora",
+        "contactCta": "Contactar con Aipify",
+        "under_review": {
+          "title": "Tu solicitud está en revisión",
+          "body": "Aipify ha recibido tu solicitud y está pendiente de aprobación por parte de Platform. La formación, los enlaces de venta y las comisiones se abren cuando seas aprobado.",
+          "next": "Ahora mismo no tienes que hacer nada. Se te avisará cuando haya una decisión y puedes volver a esta página en cualquier momento."
+        },
+        "needs_information": {
+          "title": "Aipify necesita más información",
+          "body": "Tu solicitud todavía no puede aprobarse porque faltan algunos datos o no están claros.",
+          "next": "Revisa tu correo para saber qué debes aportar o contacta con Aipify. Tu solicitud sigue abierta mientras tanto."
+        },
+        "rejected": {
+          "title": "Tu solicitud no fue aprobada",
+          "body": "Aipify no pudo aprobar esta solicitud. La formación, los enlaces de venta y las comisiones no están disponibles para esta cuenta.",
+          "next": "Si crees que faltaban datos o eran incorrectos, contacta con Aipify y revisaremos el caso de nuevo."
+        },
+        "suspended": {
+          "title": "Tu cuenta de socio está en pausa",
+          "body": "Tu cuenta de socio no está activa en este momento, por lo que la formación y los enlaces de venta no están disponibles.",
+          "next": "Contacta con Aipify para conocer el motivo y lo necesario para reactivar la cuenta."
+        }
+      }
     },
     "pages": {
       "home": {

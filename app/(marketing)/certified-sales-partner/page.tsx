@@ -6,6 +6,7 @@ import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildCspRegistrationFormLabels } from "@/lib/partners-portal/csp-workspace-labels";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -180,43 +181,7 @@ export default async function CertifiedSalesPartnerRecruitmentPage() {
             <div className="lg:col-span-8">
               <CertifiedSalesPartnerRegistrationForm
                 locale={String(locale)}
-                labels={{
-                  title: t("marketing.certifiedSalesPartner.registration.title"),
-                  fullName: t("marketing.certifiedSalesPartner.registration.fullName"),
-                  email: t("marketing.certifiedSalesPartner.registration.email"),
-                  country: t("marketing.certifiedSalesPartner.registration.country"),
-                  countryPlaceholder: t(
-                    "marketing.certifiedSalesPartner.registration.countryPlaceholder",
-                  ),
-                  countryHint: t("marketing.certifiedSalesPartner.registration.countryHint"),
-                  legalBusinessName: t(
-                    "marketing.certifiedSalesPartner.registration.legalBusinessName",
-                  ),
-                  businessRegistrationNumber: t(
-                    "marketing.certifiedSalesPartner.registration.businessRegistrationNumber",
-                  ),
-                  phone: t("marketing.certifiedSalesPartner.registration.phone"),
-                  address: t("marketing.certifiedSalesPartner.registration.address"),
-                  optional: t("marketing.certifiedSalesPartner.registration.optional"),
-                  required: t("marketing.certifiedSalesPartner.registration.required"),
-                  confirmBusiness: t("marketing.certifiedSalesPartner.registration.confirmBusiness"),
-                  confirmTerms: t("marketing.certifiedSalesPartner.registration.confirmTerms"),
-                  confirmCertification: t(
-                    "marketing.certifiedSalesPartner.registration.confirmCertification",
-                  ),
-                  confirmAccuracy: t("marketing.certifiedSalesPartner.registration.confirmAccuracy"),
-                  submit: t("marketing.certifiedSalesPartner.registration.submit"),
-                  submitting: t("marketing.certifiedSalesPartner.registration.submitting"),
-                  successTitle: t("marketing.certifiedSalesPartner.registration.successTitle"),
-                  successBody: t("marketing.certifiedSalesPartner.registration.successBody"),
-                  backendClosedTitle: t(
-                    "marketing.certifiedSalesPartner.registration.backendClosedTitle",
-                  ),
-                  backendClosedBody: t(
-                    "marketing.certifiedSalesPartner.registration.backendClosedBody",
-                  ),
-                  errorGeneric: t("marketing.certifiedSalesPartner.registration.errorGeneric"),
-                }}
+                labels={buildCspRegistrationFormLabels(t)}
               />
             </div>
           </div>

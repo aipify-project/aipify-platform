@@ -93,6 +93,18 @@ function formatMoney(amount: number | null, currency: string | null, locale: str
   return new Intl.NumberFormat(bcp).format(amount) + (currency ? ` ${currency}` : "");
 }
 
+/** ISO 3166-1 alpha-2 → localized country name; falls back to the code Core returned. */
+function formatCountry(code: string | null, locale: string, fallback: string): string {
+  if (!code) return fallback;
+  const upper = code.trim().toUpperCase();
+  if (!/^[A-Z]{2}$/.test(upper)) return code;
+  try {
+    return new Intl.DisplayNames([toBcp47Locale(locale)], { type: "region" }).of(upper) ?? upper;
+  } catch {
+    return upper;
+  }
+}
+
 function formatPeriod(value: string | null, locale: string, fallback: string): string {
   if (!value) return fallback;
   const date = new Date(/^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T00:00:00Z` : value);
@@ -315,10 +327,16 @@ export function CertifiedSellersLivePanel({
                 {(() => {
                   const rows = overview.partners!.filter((p) => statusFilter === "all" || p.status === statusFilter);
                   if (rows.length === 0) return <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.partnersFilterEmpty}</p>;
+                  // Country column only when Core returned a country for at least one partner.
+                  const showCountry = rows.some((p) => p.country !== null);
                   return (
                     <DataTable
                       caption={labels.sectionTitles.partners}
-                      headers={[l.colPartner, l.colStatus, l.colApplied, l.colAction]}
+                      headers={
+                        showCountry
+                          ? [l.colPartner, l.colCountry, l.colStatus, l.colApplied, l.colAction]
+                          : [l.colPartner, l.colStatus, l.colApplied, l.colAction]
+                      }
                     >
                       {rows.map((p) => (
                         <tr key={p.id} className="border-t border-[color:var(--aipify-border)]">
@@ -328,6 +346,9 @@ export function CertifiedSellersLivePanel({
                               {l.referenceLabel}: {shortReference(p.id)}
                             </p>
                           </td>
+                          {showCountry ? (
+                            <td className="px-3 py-2">{formatCountry(p.country, locale, l.dateEmpty)}</td>
+                          ) : null}
                           <td className="px-3 py-2">
                             <AipifyStatusBadge
                               kind={partnerStatusKind(p.status)}

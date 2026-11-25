@@ -2,6 +2,8 @@
 
 import { useCallback, useMemo, useState } from "react";
 import {
+  isPracticeExamPersistence,
+  isRecordedExamAttempt,
   KOMPIS_WEB_LESSONS,
   pickLocale,
   type CspPublicExamQuestion,
@@ -57,6 +59,7 @@ type ExamResultPayload = {
   backend_ready?: boolean;
   certification_persisted?: boolean;
   persistence_status?: string;
+  attempt_recorded?: boolean;
   feedback?: { lessons_to_review?: string[] };
 };
 
@@ -344,8 +347,12 @@ export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: Csp
 
           {result.certification_persisted ? (
             <div className="space-y-2">
-              <p className="rounded-xl border border-teal-300 bg-teal-50 p-3 text-sm text-teal-900" role="status">
-                {labels.certificationRecorded}
+              <p
+                className="flex items-start gap-2 rounded-xl border border-teal-300 bg-teal-50 p-3 text-sm text-teal-900"
+                role="status"
+              >
+                <CheckIcon />
+                <span>{labels.certificationRecorded}</span>
               </p>
               <a
                 href={`/api/certified-sales-partner/academy/certificate?locale=${encodeURIComponent(locale)}`}
@@ -354,13 +361,8 @@ export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: Csp
                 {labels.downloadCertificate}
               </a>
             </div>
-          ) : result.backend_ready && result.persistence_status === "persisted" ? (
-            // Core recorded a not-passed attempt: it is a real attempt, not a practice result.
-            <p className="rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-canvas)] p-3 text-sm text-[color:var(--aipify-text-secondary)]" role="status">
-              {labels.attemptRecorded}
-            </p>
-          ) : (
-            // Practice-only banner: Core did not confirm a certification record.
+          ) : isPracticeExamPersistence(result.certification_persisted, result.persistence_status) ? (
+            // Practice only when Core could not confirm (unavailable / not ready / score mismatch).
             <p
               className="flex items-start gap-2 rounded-xl border border-orange-300 bg-orange-50 p-3 text-sm text-orange-900"
               role="status"
@@ -368,7 +370,20 @@ export function CertifiedSalesPartnerExamPanel({ labels, locale }: { labels: Csp
               <AlertIcon />
               <span>{labels.practiceNotice}</span>
             </p>
-          )}
+          ) : isRecordedExamAttempt(
+              result.certification_persisted,
+              result.persistence_status,
+              result.attempt_recorded,
+            ) ? (
+            // Core recorded a real attempt (e.g. not passed) — never label as practice.
+            <p
+              className="flex items-start gap-2 rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-canvas)] p-3 text-sm text-[color:var(--aipify-text-secondary)]"
+              role="status"
+            >
+              <ShieldIcon />
+              <span>{labels.attemptRecorded}</span>
+            </p>
+          ) : null}
 
           {!result.passed && lessonsToReview.length > 0 ? (
             <div className="text-sm text-[color:var(--aipify-text-secondary)]">

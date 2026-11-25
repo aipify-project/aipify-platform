@@ -286,8 +286,10 @@ export function CertifiedSalesPartnerProductCatalogPanel({
             const coreProduct = core.ready ? core.products[product.key] : undefined;
             const amount = coreProduct?.fixed_commission_amount;
             const currency = coreProduct?.currency;
-            const commissionText =
-              !product.future && typeof amount === "number" && typeof currency === "string" && currency
+            // Commission amounts come from Core only — never invented. Future products stay "coming soon".
+            const commissionText = product.future
+              ? labels.future
+              : typeof amount === "number" && typeof currency === "string" && currency
                 ? fill(labels.commissionAmount, { amount: formatMoney(amount, currency, locale) })
                 : labels.commissionPending;
             const note = notes[product.key];

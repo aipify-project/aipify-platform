@@ -287,7 +287,38 @@
       "notReadyTitle": "Zaplecze partnera nie jest jeszcze aktywne",
       "notReadyBody": "Magazyn danych Certified Sales Partner nie jest aktywny do czasu zastosowania zatwierdzonej migracji bazy danych. Nie pokazujemy fikcyjnej sprzedaży ani prowizji.",
       "retry": "Spróbuj ponownie",
-      "errorTitle": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
+      "errorTitle": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie.",
+      "unauthorizedTitle": "Zaloguj się, aby otworzyć przestrzeń partnera",
+      "unauthorizedBody": "Nie jesteś zalogowany lub sesja wygasła. Zaloguj się na konto partnera, aby kontynuować.",
+      "signIn": "Zaloguj się",
+      "notRegisteredTitle": "Nie znaleziono zgłoszenia partnerskiego",
+      "notRegisteredBody": "To konto nie zgłosiło się jeszcze jako Certified Sales Partner. Złóż zgłoszenie, aby zacząć. Sprzedaż rozpoczyna się dopiero po zatwierdzeniu i certyfikacji.",
+      "applyCta": "Zgłoś się jako partner",
+      "pending": {
+        "statusLabel": "Status zgłoszenia",
+        "nextTitle": "Co dalej",
+        "contactCta": "Skontaktuj się z Aipify",
+        "under_review": {
+          "title": "Twoje zgłoszenie jest w trakcie rozpatrywania",
+          "body": "Aipify otrzymało Twoje zgłoszenie i oczekuje ono na zatwierdzenie przez Platform. Szkolenia, linki sprzedażowe i prowizje zostaną odblokowane po zatwierdzeniu.",
+          "next": "Teraz nie musisz nic robić. Poinformujemy Cię o decyzji, a na tę stronę możesz wrócić w dowolnym momencie."
+        },
+        "needs_information": {
+          "title": "Aipify potrzebuje więcej informacji",
+          "body": "Zgłoszenia nie można jeszcze zatwierdzić, ponieważ brakuje niektórych danych lub są niejasne.",
+          "next": "Sprawdź e-mail, aby dowiedzieć się, co przesłać, lub skontaktuj się z Aipify. Zgłoszenie pozostaje otwarte."
+        },
+        "rejected": {
+          "title": "Twoje zgłoszenie nie zostało zatwierdzone",
+          "body": "Aipify nie mogło zatwierdzić tego zgłoszenia. Szkolenia, linki sprzedażowe i prowizje nie są dostępne dla tego konta.",
+          "next": "Jeśli uważasz, że brakowało danych lub były błędne, skontaktuj się z Aipify, a ponownie przyjrzymy się sprawie."
+        },
+        "suspended": {
+          "title": "Twoje konto partnera jest wstrzymane",
+          "body": "Twoje konto partnera jest obecnie nieaktywne, więc szkolenia i linki sprzedażowe są niedostępne.",
+          "next": "Skontaktuj się z Aipify, aby poznać powód i dowiedzieć się, co jest potrzebne do ponownej aktywacji konta."
+        }
+      }
     },
     "pages": {
       "home": {

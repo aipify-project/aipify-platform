@@ -959,6 +959,9 @@
     },
     "registration": {
       "title": "Wniosek partnerski",
+      "sectionContact": "Osoba kontaktowa",
+      "sectionCompany": "Firma",
+      "sectionTerms": "Potwierdzenia",
       "fullName": "Pełne imię i nazwisko prawne",
       "email": "Służbowy e-mail",
       "country": "Kraj",
@@ -977,10 +980,38 @@
       "submit": "Wyślij wniosek",
       "submitting": "Wysyłanie…",
       "successTitle": "Wniosek otrzymany",
-      "successBody": "Aipify rozpatrzy wniosek. Nie możesz sprzedawać, dopóki nie zostaniesz zatwierdzony i certyfikowany.",
+      "successBody": "Aipify otrzymało Twoje zgłoszenie. Oczekuje ono teraz na zatwierdzenie przez Platform. Nie możesz sprzedawać, dopóki nie zostaniesz zatwierdzony i zdobędziesz certyfikat.",
       "backendClosedTitle": "Rejestracja przygotowana — backend nie jest jeszcze aktywny",
       "backendClosedBody": "Dane zostały zweryfikowane, ale magazyn Core CSP nie jest aktywny, dopóki zatwierdzona migracja bazy nie zostanie zastosowana. Nie zapisano fałszywej akceptacji.",
-      "errorGeneric": "Wystąpił nieoczekiwany problem. Spróbuj ponownie."
+      "errorGeneric": "Wystąpił nieoczekiwany problem. Spróbuj ponownie.",
+      "loginRequiredTitle": "Zaloguj się, aby wysłać zgłoszenie",
+      "loginRequiredBody": "Zgłoszenie jest powiązane z Twoim kontem Aipify, abyś mógł śledzić jego status. Nic nie zostało jeszcze wysłane. Zaloguj się, a wrócisz do tego formularza.",
+      "loginCta": "Zaloguj się, aby kontynuować",
+      "createAccountCta": "Utwórz konto",
+      "existing": {
+        "title": "Zgłoszenie zostało już wysłane",
+        "registered": "Twoje zgłoszenie oczekuje na zatwierdzenie przez Platform. Nie musisz zgłaszać się ponownie.",
+        "under_review": "Twoje zgłoszenie oczekuje na zatwierdzenie przez Platform. Nie musisz zgłaszać się ponownie.",
+        "needs_information": "Aipify potrzebuje dodatkowych informacji. Sprawdź e-mail, aby poznać szczegóły. Nie musisz zgłaszać się ponownie.",
+        "approved": "Twoje zgłoszenie zostało zatwierdzone. Otwórz przestrzeń partnera, aby kontynuować szkolenie i certyfikację.",
+        "rejected": "Twoje wcześniejsze zgłoszenie nie zostało zatwierdzone. Skontaktuj się z Aipify, jeśli masz pytania.",
+        "suspended": "Twoje konto partnera jest obecnie nieaktywne. Skontaktuj się z Aipify, jeśli masz pytania.",
+        "other": "Dla Twojego konta istnieje już zgłoszenie. Nie musisz zgłaszać się ponownie.",
+        "openPortalCta": "Otwórz przestrzeń partnera"
+      },
+      "errors": {
+        "full_name_required": "Podaj pełne imię i nazwisko.",
+        "valid_email_required": "Podaj prawidłowy służbowy adres e-mail.",
+        "country_must_be_two_letter_code": "Wybierz kraj.",
+        "legal_business_name_required": "Podaj pełną nazwę firmy.",
+        "business_registration_number_required": "Podaj numer rejestracyjny firmy.",
+        "registered_business_confirmation_required": "Potwierdź, że prowadzisz legalnie zarejestrowaną, niezależną działalność.",
+        "terms_acceptance_required": "Zaakceptuj warunki partnerskie, aby kontynuować.",
+        "certification_acknowledgement_required": "Potwierdź, że rozumiesz, iż certyfikacja jest wymagana przed sprzedażą.",
+        "accuracy_confirmation_required": "Potwierdź, że podane informacje są prawdziwe.",
+        "forbidden": "To konto nie może wysłać zgłoszenia partnerskiego. Skontaktuj się z Aipify, jeśli potrzebujesz pomocy.",
+        "registration_failed": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
+      }
     }
   }
 }

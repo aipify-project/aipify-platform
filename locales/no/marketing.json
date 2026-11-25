@@ -8764,6 +8764,9 @@
     },
     "registration": {
       "title": "Partnersøknad",
+      "sectionContact": "Kontaktperson",
+      "sectionCompany": "Foretak",
+      "sectionTerms": "Bekreftelser",
       "fullName": "Fullt juridisk navn",
       "email": "Jobb-e-post",
       "country": "Land",
@@ -8782,10 +8785,38 @@
       "submit": "Send søknad",
       "submitting": "Sender…",
       "successTitle": "Søknad mottatt",
-      "successBody": "Aipify vurderer søknaden. Du kan ikke selge før du er godkjent og sertifisert.",
+      "successBody": "Aipify har mottatt søknaden din. Den venter nå på godkjenning fra Platform. Du kan ikke selge før du er godkjent og sertifisert.",
       "backendClosedTitle": "Registrering klargjort — backend er ikke aktiv ennå",
       "backendClosedBody": "Opplysningene er validert, men Core CSP-lagring er ikke aktiv før godkjent databasemigrasjon er anvendt. Ingen falsk aksept er lagret.",
-      "errorGeneric": "Noe uventet skjedde. Prøv igjen."
+      "errorGeneric": "Noe uventet skjedde. Prøv igjen.",
+      "loginRequiredTitle": "Logg inn for å sende søknaden",
+      "loginRequiredBody": "Søknaden knyttes til Aipify-kontoen din slik at du kan følge status. Ingenting er sendt inn ennå. Logg inn, så kommer du tilbake til dette skjemaet.",
+      "loginCta": "Logg inn for å fortsette",
+      "createAccountCta": "Opprett konto",
+      "existing": {
+        "title": "Du har allerede søkt",
+        "registered": "Søknaden din venter på godkjenning fra Platform. Du trenger ikke søke på nytt.",
+        "under_review": "Søknaden din venter på godkjenning fra Platform. Du trenger ikke søke på nytt.",
+        "needs_information": "Aipify trenger litt mer informasjon. Sjekk e-posten din for detaljer. Du trenger ikke søke på nytt.",
+        "approved": "Søknaden din er godkjent. Åpne partnerarbeidsområdet for å fortsette med opplæring og sertifisering.",
+        "rejected": "Den tidligere søknaden din ble ikke godkjent. Kontakt Aipify hvis du har spørsmål.",
+        "suspended": "Partnerkontoen din er ikke aktiv for øyeblikket. Kontakt Aipify hvis du har spørsmål.",
+        "other": "Det finnes allerede en søknad for kontoen din. Du trenger ikke søke på nytt.",
+        "openPortalCta": "Åpne partnerarbeidsområde"
+      },
+      "errors": {
+        "full_name_required": "Skriv inn fullt juridisk navn.",
+        "valid_email_required": "Skriv inn en gyldig jobb-e-postadresse.",
+        "country_must_be_two_letter_code": "Velg land.",
+        "legal_business_name_required": "Skriv inn juridisk firmanavn.",
+        "business_registration_number_required": "Skriv inn organisasjons- eller registreringsnummer.",
+        "registered_business_confirmation_required": "Bekreft at du driver en lovlig registrert, selvstendig virksomhet.",
+        "terms_acceptance_required": "Godta partnervilkårene for å fortsette.",
+        "certification_acknowledgement_required": "Bekreft at du forstår at sertifisering kreves før salg.",
+        "accuracy_confirmation_required": "Bekreft at opplysningene er riktige.",
+        "forbidden": "Denne kontoen kan ikke sende partnersøknad. Kontakt Aipify hvis du trenger hjelp.",
+        "registration_failed": "Noe uventet skjedde. Prøv igjen."
+      }
     }
   }
 }

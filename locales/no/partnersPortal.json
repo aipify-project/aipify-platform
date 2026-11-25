@@ -411,7 +411,38 @@
       "notReadyTitle": "Partner-backend er ikke aktiv ennå",
       "notReadyBody": "Certified Sales Partner Core-lagring er ikke aktiv før godkjent databasemigrasjon er anvendt. Ingen falske salg eller provisjoner vises.",
       "retry": "Prøv igjen",
-      "errorTitle": "Noe uventet skjedde. Prøv igjen."
+      "errorTitle": "Noe uventet skjedde. Prøv igjen.",
+      "unauthorizedTitle": "Logg inn for å åpne partnerarbeidsområdet",
+      "unauthorizedBody": "Du er ikke innlogget, eller økten har utløpt. Logg inn med partnerkontoen din for å fortsette.",
+      "signIn": "Logg inn",
+      "notRegisteredTitle": "Ingen partnersøknad funnet",
+      "notRegisteredBody": "Denne kontoen har ikke søkt som Certified Sales Partner ennå. Søk for å komme i gang. Salg starter først etter godkjenning og sertifisering.",
+      "applyCta": "Søk som partner",
+      "pending": {
+        "statusLabel": "Søknadsstatus",
+        "nextTitle": "Hva skjer nå",
+        "contactCta": "Kontakt Aipify",
+        "under_review": {
+          "title": "Søknaden din er til vurdering",
+          "body": "Aipify har mottatt søknaden din, og den venter på godkjenning fra Platform. Opplæring, salgslenker og provisjon åpnes når du er godkjent.",
+          "next": "Du trenger ikke gjøre noe nå. Du får beskjed når det foreligger en beslutning, og du kan komme tilbake til denne siden når som helst."
+        },
+        "needs_information": {
+          "title": "Aipify trenger mer informasjon",
+          "body": "Søknaden kan ikke godkjennes ennå fordi noen opplysninger mangler eller er uklare.",
+          "next": "Sjekk e-posten din for hva som må sendes inn, eller kontakt Aipify. Søknaden står åpen mens vi venter."
+        },
+        "rejected": {
+          "title": "Søknaden din ble ikke godkjent",
+          "body": "Aipify kunne ikke godkjenne denne søknaden. Opplæring, salgslenker og provisjon er ikke tilgjengelig for denne kontoen.",
+          "next": "Mener du at opplysninger manglet eller var feil, kan du kontakte Aipify, så ser vi på saken på nytt."
+        },
+        "suspended": {
+          "title": "Partnerkontoen din er satt på pause",
+          "body": "Partnerkontoen din er ikke aktiv for øyeblikket, så opplæring og salgslenker er utilgjengelige.",
+          "next": "Kontakt Aipify for å få vite årsaken og hva som trengs for å aktivere kontoen igjen."
+        }
+      }
     },
     "pages": {
       "home": {
