@@ -903,44 +903,84 @@
   "certifiedSalesPartner": {
     "meta": {
       "title": "Certified Aipify Sales Partner",
-      "description": "Join Aipify Group AS as an independent certified sales partner."
+      "description": "Приєднуйтесь до Aipify Group AS як незалежний сертифікований партнер із продажу."
     },
     "breadcrumbs": {
-      "home": "Home",
+      "home": "Головна",
       "current": "Certified Sales Partner"
     },
     "hero": {
-      "title": "Sell Aipify with certification, trackable links and fair commission",
-      "subtitle": "Become a Certified Aipify Sales Partner. Complete product training, share approved links, and earn a one-time commission after a customer’s second successful paid period.",
-      "cta": "Become a Certified Aipify Sales Partner",
-      "secondaryCta": "Learn about Growth Partners"
+      "eyebrow": "Certified Aipify Sales Partner",
+      "title": "Продавайте Aipify із сертифікацією, відстежуваними посиланнями та справедливою комісією",
+      "subtitle": "Подайте заявку як незалежний B2B-партнер Aipify Group AS. Пройдіть навчання, діліться схваленими посиланнями та отримуйте одноразову комісію після другого успішно оплаченого періоду клієнта.",
+      "programNote": "Це власна програма Certified Aipify Sales Partner від Aipify Group AS — не клієнтський продукт Growth Partners.",
+      "cta": "Подати заявку",
+      "secondaryCta": "Як це працює"
+    },
+    "aside": {
+      "title": "Від заявки до виплати",
+      "body": "Чіткий шлях для зареєстрованих незалежних бізнесів. Схвалення та сертифікація — перед продажем.",
+      "seeFullPath": "Переглянути весь шлях"
     },
     "points": {
-      "independent": "Independent partner model — not employment.",
-      "certification": "Product-specific Academy certification at 80% pass mark before selling.",
-      "commission": "Admin-set fixed one-time commission per product — never recurring renewals.",
-      "noGuarantee": "No income guarantees. Commission requires two verified paid subscription periods."
+      "independent": "Незалежна партнерська модель — не працевлаштування.",
+      "certification": "Сертифікація Growth Academy для продукту з 80% перед продажем.",
+      "commission": "Фіксована одноразова комісія, встановлена адміном — ніколи за поновлення.",
+      "noGuarantee": "Без гарантій доходу. Комісія потребує двох перевірених оплачених періодів підписки."
+    },
+    "whoFor": {
+      "title": "Для кого ця програма",
+      "subtitle": "Для зареєстрованих незалежних бізнесів, які хочуть професійно продавати Aipify.",
+      "items": {
+        "registered": "Ви ведете законно зареєстрований незалежний бізнес.",
+        "b2b": "Ви продаєте B2B-ПЗ або послуги й можете спокійно пояснити Aipify.",
+        "certify": "Ви готові пройти сертифікацію продукту перед видачею посилань.",
+        "ethical": "Ви просуваєте схваленими матеріалами та поважаєте згоду й атрибуцію."
+      }
+    },
+    "howItWorks": {
+      "title": "Як це працює",
+      "subtitle": "Заявка, схвалення, сертифікація, відстежувані посилання, продаж і ручний щомісячний розрахунок.",
+      "honesty": "Заявки залишаються fail-closed, доки сховище Core не активне. Aipify не вигадує прийняття, продажів чи комісій на цій сторінці.",
+      "steps": {
+        "apply": "Надішліть заявку з юридичним іменем і даними зареєстрованого бізнесу.",
+        "review": "Aipify розглядає й схвалює кваліфікованих партнерів.",
+        "academy": "Пройдіть навчання Growth Academy і складіть тест із продукту на 80%.",
+        "links": "Створюйте персональні відстежувані посилання для продукту й каналу.",
+        "sale": "Перший оплачений період реєструє продаж нейтрально — комісія ще не зароблена.",
+        "commission": "Після другого успішно оплаченого періоду може бути нарахована рівно одна фіксована комісія.",
+        "settlement": "Щомісячний розрахунок перевіряється й виплачується вручну Aipify Group AS у банку."
+      }
+    },
+    "applyIntro": {
+      "title": "Подайте заявку як Certified Aipify Sales Partner",
+      "body": "Розкажіть, хто ви і який зареєстрований бізнес представляєте. Продаж починається лише після схвалення та сертифікації.",
+      "bankLater": "Банківські реквізити для виплат збираються пізніше в безпечному профілі партнера — не в цій публічній формі."
     },
     "registration": {
-      "title": "Подати заявку як Certified Aipify Sales Partner",
+      "title": "Партнерська заявка",
       "fullName": "Повне юридичне ім’я",
-      "email": "Робочий email",
-      "country": "Країна (ISO-код, напр. NO, SE, US)",
+      "email": "Робоча електронна пошта",
+      "country": "Країна",
+      "countryPlaceholder": "Виберіть країну",
+      "countryHint": "Виберіть країну. Код ISO країни безпечно зберігається для заявки.",
       "legalBusinessName": "Юридична назва компанії",
       "businessRegistrationNumber": "Реєстраційний номер бізнесу",
-      "phone": "Телефон (необов’язково)",
-      "address": "Адреса бізнесу (необов’язково)",
+      "phone": "Телефон",
+      "address": "Адреса бізнесу",
+      "optional": "необов’язково",
+      "required": "обов’язково",
       "confirmBusiness": "Підтверджую, що веду законно зареєстрований незалежний бізнес у своїй країні.",
-      "confirmTerms": "Приймаю партнерські умови та розумію, що це не працевлаштування.",
+      "confirmTerms": "Приймаю партнерські умови й розумію, що це не працевлаштування.",
       "confirmCertification": "Розумію, що сертифікація продукту (80%) потрібна перед продажем.",
-      "confirmAccuracy": "Підтверджую правильність наданої інформації.",
+      "confirmAccuracy": "Підтверджую, що надана інформація є точною.",
       "submit": "Надіслати заявку",
       "submitting": "Надсилання…",
       "successTitle": "Заявку отримано",
-      "successBody": "Aipify розгляне заявку. Ви не можете продавати, доки вас не схвалить і не сертифікують.",
-      "backendClosedTitle": "Реєстрацію підготовлено — бекенд ще неактивний",
-      "backendClosedBody": "Дані перевірено, але сховище Core CSP неактивне до застосування схваленої міграції. Хибного прийняття не збережено.",
-      "errorGeneric": "Сталася неочікувана помилка. Спробуйте ще раз."
+      "successBody": "Aipify розгляне заявку. Ви не можете продавати, доки вас не схвалили та не сертифікували.",
+      "backendClosedTitle": "Реєстрацію підготовлено — бекенд ще не активний",
+      "backendClosedBody": "Дані перевірено, але сховище Core CSP не активне, доки не застосовано схвалену міграцію бази. Фальшивого прийняття не записано.",
+      "errorGeneric": "Сталася несподівана помилка. Спробуйте ще раз."
     }
   }
 }

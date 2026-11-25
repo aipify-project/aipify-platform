@@ -8693,34 +8693,74 @@
   "certifiedSalesPartner": {
     "meta": {
       "title": "Certified Aipify Sales Partner",
-      "description": "Join Aipify Group AS as an independent certified sales partner."
+      "description": "Bli en oberoende certifierad säljpartner för Aipify Group AS."
     },
     "breadcrumbs": {
-      "home": "Home",
+      "home": "Hem",
       "current": "Certified Sales Partner"
     },
     "hero": {
-      "title": "Sell Aipify with certification, trackable links and fair commission",
-      "subtitle": "Become a Certified Aipify Sales Partner. Complete product training, share approved links, and earn a one-time commission after a customer’s second successful paid period.",
-      "cta": "Become a Certified Aipify Sales Partner",
-      "secondaryCta": "Learn about Growth Partners"
+      "eyebrow": "Certified Aipify Sales Partner",
+      "title": "Sälj Aipify med certifiering, spårbara länkar och rättvis provision",
+      "subtitle": "Ansök som oberoende B2B-partner till Aipify Group AS. Genomför produktutbildning, dela godkända länkar och tjäna engångsprovision efter kundens andra lyckade betalda period.",
+      "programNote": "Detta är Aipify Group AS eget Certified Aipify Sales Partner-program — inte kundens Growth Partners-produkt.",
+      "cta": "Ansök nu",
+      "secondaryCta": "Så fungerar det"
+    },
+    "aside": {
+      "title": "Från ansökan till utbetalning",
+      "body": "En tydlig väg för registrerade oberoende företag. Godkännande och certifiering kommer före försäljning.",
+      "seeFullPath": "Se hela vägen"
     },
     "points": {
-      "independent": "Independent partner model — not employment.",
-      "certification": "Product-specific Academy certification at 80% pass mark before selling.",
-      "commission": "Admin-set fixed one-time commission per product — never recurring renewals.",
-      "noGuarantee": "No income guarantees. Commission requires two verified paid subscription periods."
+      "independent": "Oberoende partnermodell — inte anställning.",
+      "certification": "Produktspecifik Growth Academy-certifiering med 80 % innan försäljning.",
+      "commission": "Adminfast engångsprovision per produkt — aldrig återkommande förnyelser.",
+      "noGuarantee": "Inga inkomstgarantier. Provision kräver två verifierade betalda prenumerationsperioder."
+    },
+    "whoFor": {
+      "title": "Vem programmet passar",
+      "subtitle": "Byggt för registrerade oberoende företag som vill sälja Aipify professionellt.",
+      "items": {
+        "registered": "Du driver ett lagligt registrerat oberoende företag.",
+        "b2b": "Du säljer B2B-programvara eller tjänster och kan förklara Aipify lugnt.",
+        "certify": "Du är villig att genomföra produktcertifiering innan du utfärdar länkar.",
+        "ethical": "Du marknadsför med godkänt material och respekterar samtycke och attribueringsregler."
+      }
+    },
+    "howItWorks": {
+      "title": "Så fungerar det",
+      "subtitle": "Ansökan, godkännande, certifiering, spårbara länkar, försäljning och manuell månatlig avräkning.",
+      "honesty": "Ansökningar förblir fail-closed tills Core-lagring är aktiv. Aipify hittar inte på acceptans, försäljning eller provisionstal på den här sidan.",
+      "steps": {
+        "apply": "Skicka ansökan med juridiskt namn och registrerade företagsuppgifter.",
+        "review": "Aipify granskar och godkänner kvalificerade partners.",
+        "academy": "Genomför Growth Academy-utbildning och klar produkttestet med 80 %.",
+        "links": "Skapa personliga spårbara länkar per produkt och kanal.",
+        "sale": "Första betalda perioden registrerar försäljningen neutralt — provision är inte intjänad ännu.",
+        "commission": "Efter den andra lyckade betalda perioden kan exakt en fast provision intjänas.",
+        "settlement": "Månatlig avräkning granskas och betalas manuellt av Aipify Group AS i bank."
+      }
+    },
+    "applyIntro": {
+      "title": "Ansök som Certified Aipify Sales Partner",
+      "body": "Berätta vem du är och vilket registrerat företag du representerar. Försäljning börjar först efter godkännande och certifiering.",
+      "bankLater": "Bankuppgifter för utbetalning samlas in senare i en säker partnerprofil — inte i det här offentliga formuläret."
     },
     "registration": {
-      "title": "Ansök som Certified Aipify Sales Partner",
+      "title": "Partneransökan",
       "fullName": "Fullständigt juridiskt namn",
-      "email": "Arbets-e-post",
-      "country": "Land (ISO-kod, t.ex. NO, SE, US)",
+      "email": "Jobb-e-post",
+      "country": "Land",
+      "countryPlaceholder": "Välj land",
+      "countryHint": "Välj ditt land. ISO-landskoden lagras säkert för ansökan.",
       "legalBusinessName": "Juridiskt företagsnamn",
       "businessRegistrationNumber": "Organisations-/registreringsnummer",
-      "phone": "Telefon (valfritt)",
-      "address": "Företagsadress (valfritt)",
-      "confirmBusiness": "Jag bekräftar att jag driver lagligt registrerad självständig verksamhet i mitt land.",
+      "phone": "Telefon",
+      "address": "Företagsadress",
+      "optional": "valfritt",
+      "required": "obligatoriskt",
+      "confirmBusiness": "Jag bekräftar att jag driver ett lagligt registrerat oberoende företag i mitt land.",
       "confirmTerms": "Jag godkänner partnervillkoren och förstår att detta inte är anställning.",
       "confirmCertification": "Jag förstår att produktcertifiering (80 %) krävs före försäljning.",
       "confirmAccuracy": "Jag bekräftar att uppgifterna är korrekta.",
@@ -8729,7 +8769,7 @@
       "successTitle": "Ansökan mottagen",
       "successBody": "Aipify granskar din ansökan. Du kan inte sälja förrän du är godkänd och certifierad.",
       "backendClosedTitle": "Registrering förberedd — backend är inte aktiv ännu",
-      "backendClosedBody": "Uppgifterna validerades, men Core CSP-lagring är inte aktiv förrän godkänd databas­migrering tillämpas. Ingen falsk acceptans sparades.",
+      "backendClosedBody": "Uppgifterna validerades, men Core CSP-lagring är inte aktiv förrän godkänd databasmigrering har tillämpats. Ingen falsk acceptans registrerades.",
       "errorGeneric": "Något oväntat hände. Försök igen."
     }
   }

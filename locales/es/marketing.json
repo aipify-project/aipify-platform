@@ -235,43 +235,83 @@
   "certifiedSalesPartner": {
     "meta": {
       "title": "Certified Aipify Sales Partner",
-      "description": "Join Aipify Group AS as an independent certified sales partner."
+      "description": "Únete a Aipify Group AS como socio de ventas certificado e independiente."
     },
     "breadcrumbs": {
-      "home": "Home",
+      "home": "Inicio",
       "current": "Certified Sales Partner"
     },
     "hero": {
-      "title": "Sell Aipify with certification, trackable links and fair commission",
-      "subtitle": "Become a Certified Aipify Sales Partner. Complete product training, share approved links, and earn a one-time commission after a customer’s second successful paid period.",
-      "cta": "Become a Certified Aipify Sales Partner",
-      "secondaryCta": "Learn about Growth Partners"
+      "eyebrow": "Certified Aipify Sales Partner",
+      "title": "Vende Aipify con certificación, enlaces rastreables y comisión justa",
+      "subtitle": "Solicita ser socio B2B independiente de Aipify Group AS. Completa la formación, comparte enlaces aprobados y gana una comisión única tras el segundo periodo de pago correcto del cliente.",
+      "programNote": "Este es el programa propio Certified Aipify Sales Partner de Aipify Group AS — no el producto Growth Partners para clientes.",
+      "cta": "Solicitar ahora",
+      "secondaryCta": "Cómo funciona"
+    },
+    "aside": {
+      "title": "De la solicitud al pago",
+      "body": "Un camino claro para negocios independientes registrados. La aprobación y la certificación van antes de vender.",
+      "seeFullPath": "Ver el camino completo"
     },
     "points": {
-      "independent": "Independent partner model — not employment.",
-      "certification": "Product-specific Academy certification at 80% pass mark before selling.",
-      "commission": "Admin-set fixed one-time commission per product — never recurring renewals.",
-      "noGuarantee": "No income guarantees. Commission requires two verified paid subscription periods."
+      "independent": "Modelo de socio independiente — no es empleo.",
+      "certification": "Certificación Growth Academy por producto con 80% antes de vender.",
+      "commission": "Comisión única fija definida por admin — nunca renovaciones.",
+      "noGuarantee": "Sin garantías de ingresos. La comisión requiere dos periodos de suscripción pagados y verificados."
+    },
+    "whoFor": {
+      "title": "Para quién es este programa",
+      "subtitle": "Pensado para negocios independientes registrados que quieren vender Aipify con profesionalidad.",
+      "items": {
+        "registered": "Operas un negocio independiente legalmente registrado.",
+        "b2b": "Vendes software o servicios B2B y puedes explicar Aipify con calma.",
+        "certify": "Estás dispuesto a completar la certificación del producto antes de emitir enlaces.",
+        "ethical": "Comunicas con materiales aprobados y respetas el consentimiento y la atribución."
+      }
+    },
+    "howItWorks": {
+      "title": "Cómo funciona",
+      "subtitle": "Solicitud, aprobación, certificación, enlaces rastreables, ventas y liquidación mensual manual.",
+      "honesty": "Las solicitudes permanecen fail-closed hasta que el almacenamiento Core esté activo. Aipify no inventa aceptación, ventas ni comisiones en esta página.",
+      "steps": {
+        "apply": "Envía la solicitud con nombre legal y datos de negocio registrado.",
+        "review": "Aipify revisa y aprueba a los socios cualificados.",
+        "academy": "Completa la formación Growth Academy y aprueba el test del producto con un 80%.",
+        "links": "Genera enlaces rastreables personales por producto y canal.",
+        "sale": "El primer periodo pagado registra la venta de forma neutral — la comisión aún no se ha ganado.",
+        "commission": "Tras el segundo periodo pagado con éxito, puede ganarse exactamente una comisión fija.",
+        "settlement": "La liquidación mensual se revisa y se paga manualmente por Aipify Group AS en el banco."
+      }
+    },
+    "applyIntro": {
+      "title": "Solicita ser Certified Aipify Sales Partner",
+      "body": "Cuéntanos quién eres y qué negocio registrado representas. La venta empieza solo tras la aprobación y la certificación.",
+      "bankLater": "Los datos bancarios para pagos se recogen más adelante en un perfil de socio seguro — no en este formulario público."
     },
     "registration": {
-      "title": "Solicitar como Certified Aipify Sales Partner",
+      "title": "Solicitud de socio",
       "fullName": "Nombre legal completo",
       "email": "Correo de trabajo",
-      "country": "País (código ISO, p. ej. NO, SE, US)",
+      "country": "País",
+      "countryPlaceholder": "Selecciona el país",
+      "countryHint": "Elige tu país. El código ISO del país se guarda de forma segura en la solicitud.",
       "legalBusinessName": "Nombre legal de la empresa",
       "businessRegistrationNumber": "Número de registro mercantil",
-      "phone": "Teléfono (opcional)",
-      "address": "Dirección comercial (opcional)",
+      "phone": "Teléfono",
+      "address": "Dirección comercial",
+      "optional": "opcional",
+      "required": "obligatorio",
       "confirmBusiness": "Confirmo que opero un negocio independiente legalmente registrado en mi país.",
-      "confirmTerms": "Acepto los términos de socio y entiendo que no es un empleo.",
-      "confirmCertification": "Entiendo que se requiere certificación de producto (80 %) antes de vender.",
-      "confirmAccuracy": "Confirmo que la información es exacta.",
+      "confirmTerms": "Acepto las condiciones de socio y entiendo que esto no es un empleo.",
+      "confirmCertification": "Entiendo que la certificación del producto (80%) es necesaria antes de vender.",
+      "confirmAccuracy": "Confirmo que la información facilitada es exacta.",
       "submit": "Enviar solicitud",
       "submitting": "Enviando…",
       "successTitle": "Solicitud recibida",
       "successBody": "Aipify revisará tu solicitud. No puedes vender hasta estar aprobado y certificado.",
       "backendClosedTitle": "Registro preparado — el backend aún no está activo",
-      "backendClosedBody": "Los datos se validaron, pero el almacenamiento Core CSP no está activo hasta aplicar la migración aprobada. No se registró una aceptación falsa.",
+      "backendClosedBody": "Los datos se validaron, pero el almacenamiento Core CSP no está activo hasta que se aplique la migración de base de datos aprobada. No se registró ninguna aceptación falsa.",
       "errorGeneric": "Ocurrió algo inesperado. Inténtalo de nuevo."
     }
   }
