@@ -262,7 +262,7 @@
       "customers": "My customers",
       "sales": "My sales",
       "commissionPayouts": "Commission & payouts",
-      "growthAcademy": "Growth Academy",
+      "growthAcademy": "Aipify Academy",
       "certifications": "Certifications",
       "salesTools": "Sales tools",
       "notifications": "Notifications",
@@ -485,12 +485,12 @@
         "awaiting_approval": "Aipify rozpatruje Twoje zgłoszenie. Po zatwierdzeniu będziesz mógł się szkolić i tworzyć linki sprzedażowe.",
         "provide_information": "Aipify potrzebuje dodatkowych informacji, zanim zgłoszenie będzie mogło zostać zatwierdzone. Szczegóły znajdziesz w e-mailu.",
         "not_active": "Twoje konto partnera jest obecnie nieaktywne. Skontaktuj się z Aipify, jeśli masz pytania.",
-        "train": "Rozpocznij Growth Academy. Po zdaniu testu produktowego możesz tworzyć własne linki sprzedażowe.",
+        "train": "Rozpocznij Aipify Academy. Po zdaniu testu produktowego możesz tworzyć własne linki sprzedażowe.",
         "create_link": "Masz certyfikat. Utwórz link sprzedażowy do produktu i udostępnij go w wybranym kanale.",
         "view_sales": "Twoje linki sprzedażowe są aktywne. Śledź zarejestrowaną sprzedaż i jej postęp w sekcji Moja sprzedaż."
       },
       "nextCta": {
-        "train": "Przejdź do Growth Academy",
+        "train": "Przejdź do Aipify Academy",
         "create_link": "Utwórz link sprzedażowy",
         "view_sales": "Zobacz moją sprzedaż"
       }
@@ -511,8 +511,8 @@
         "unknown": "Status niedostępny"
       },
       "emptyTitle": "Brak produktów do certyfikacji",
-      "emptyBody": "Produkty pojawią się tutaj po opublikowaniu przez Aipify. Lekcje i ćwiczenia są już dostępne w Growth Academy.",
-      "emptyCta": "Przejdź do Growth Academy",
+      "emptyBody": "Produkty pojawią się tutaj po opublikowaniu przez Aipify. Lekcje i ćwiczenia są już dostępne w Aipify Academy.",
+      "emptyCta": "Przejdź do Aipify Academy",
       "unknownProduct": "Produkt"
     },
     "salesList": {

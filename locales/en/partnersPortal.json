@@ -386,7 +386,7 @@
       "customers": "My customers",
       "sales": "My sales",
       "commissionPayouts": "Commission & payouts",
-      "growthAcademy": "Growth Academy",
+      "growthAcademy": "Aipify Academy",
       "certifications": "Certifications",
       "salesTools": "Sales tools",
       "notifications": "Notifications",
@@ -470,7 +470,7 @@
         "readOnlyHint": "You can view upcoming and historical payouts. You cannot change ledger amounts."
       },
       "academy": {
-        "title": "Growth Academy",
+        "title": "Aipify Academy",
         "subtitle": "Product training and certification. Pass mark is 80%. Kompis help is disabled during the test."
       },
       "certifications": {
@@ -609,12 +609,12 @@
         "awaiting_approval": "Aipify is reviewing your application. You will be able to train and create sales links once you are approved.",
         "provide_information": "Aipify needs a little more information before your application can be approved. Please check your email for details.",
         "not_active": "Your partner account is not active at the moment. Contact Aipify if you have questions.",
-        "train": "Start the Growth Academy. Once you pass the product test, you can create your own sales links.",
+        "train": "Start the Aipify Academy. Once you pass the product test, you can create your own sales links.",
         "create_link": "You are certified. Create a sales link for a product and share it in the channel that suits you.",
         "view_sales": "Your sales links are active. Follow your registered sales and their progress under My sales."
       },
       "nextCta": {
-        "train": "Go to Growth Academy",
+        "train": "Go to Aipify Academy",
         "create_link": "Create a sales link",
         "view_sales": "View my sales"
       }
@@ -635,8 +635,8 @@
         "unknown": "Status not available"
       },
       "emptyTitle": "No products to certify yet",
-      "emptyBody": "Products appear here once Aipify has published them. You can already read the lessons and practise in the Growth Academy.",
-      "emptyCta": "Go to Growth Academy",
+      "emptyBody": "Products appear here once Aipify has published them. You can already read the lessons and practise in the Aipify Academy.",
+      "emptyCta": "Go to Aipify Academy",
       "unknownProduct": "Product"
     },
     "salesList": {

@@ -262,7 +262,7 @@
       "customers": "My customers",
       "sales": "My sales",
       "commissionPayouts": "Commission & payouts",
-      "growthAcademy": "Growth Academy",
+      "growthAcademy": "Aipify Academy",
       "certifications": "Certifications",
       "salesTools": "Sales tools",
       "notifications": "Notifications",
@@ -485,12 +485,12 @@
         "awaiting_approval": "Aipify розглядає вашу заявку. Після схвалення ви зможете навчатися та створювати посилання для продажу.",
         "provide_information": "Aipify потрібно трохи більше інформації, перш ніж заявку можна буде схвалити. Подробиці — у вашій електронній пошті.",
         "not_active": "Ваш партнерський акаунт наразі неактивний. Зверніться до Aipify, якщо маєте запитання.",
-        "train": "Розпочніть Growth Academy. Після складання тесту з продукту ви зможете створювати власні посилання для продажу.",
+        "train": "Розпочніть Aipify Academy. Після складання тесту з продукту ви зможете створювати власні посилання для продажу.",
         "create_link": "Ви сертифіковані. Створіть посилання для продажу продукту й поділіться ним у зручному каналі.",
         "view_sales": "Ваші посилання для продажу активні. Стежте за зареєстрованими продажами та їхнім прогресом у розділі «Мої продажі»."
       },
       "nextCta": {
-        "train": "Перейти до Growth Academy",
+        "train": "Перейти до Aipify Academy",
         "create_link": "Створити посилання для продажу",
         "view_sales": "Переглянути мої продажі"
       }
@@ -511,8 +511,8 @@
         "unknown": "Статус недоступний"
       },
       "emptyTitle": "Продуктів для сертифікації ще немає",
-      "emptyBody": "Продукти з’являться тут, щойно Aipify їх опублікує. Уроки та практику вже можна переглянути в Growth Academy.",
-      "emptyCta": "Перейти до Growth Academy",
+      "emptyBody": "Продукти з’являться тут, щойно Aipify їх опублікує. Уроки та практику вже можна переглянути в Aipify Academy.",
+      "emptyCta": "Перейти до Aipify Academy",
       "unknownProduct": "Продукт"
     },
     "salesList": {

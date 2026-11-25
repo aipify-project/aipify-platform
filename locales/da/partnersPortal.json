@@ -386,7 +386,7 @@
       "customers": "My customers",
       "sales": "My sales",
       "commissionPayouts": "Commission & payouts",
-      "growthAcademy": "Growth Academy",
+      "growthAcademy": "Aipify Academy",
       "certifications": "Certifications",
       "salesTools": "Sales tools",
       "notifications": "Notifications",
@@ -609,12 +609,12 @@
         "awaiting_approval": "Aipify vurderer din ansøgning. Du kan uddanne dig og oprette salgslinks, når du er godkendt.",
         "provide_information": "Aipify har brug for lidt mere information, før din ansøgning kan godkendes. Se din e-mail for detaljer.",
         "not_active": "Din partnerkonto er ikke aktiv i øjeblikket. Kontakt Aipify, hvis du har spørgsmål.",
-        "train": "Start Growth Academy. Når du har bestået produkttesten, kan du oprette dine egne salgslinks.",
+        "train": "Start Aipify Academy. Når du har bestået produkttesten, kan du oprette dine egne salgslinks.",
         "create_link": "Du er certificeret. Opret et salgslink til et produkt, og del det i den kanal, der passer dig.",
         "view_sales": "Dine salgslinks er aktive. Følg dine registrerede salg og deres fremdrift under Mit salg."
       },
       "nextCta": {
-        "train": "Gå til Growth Academy",
+        "train": "Gå til Aipify Academy",
         "create_link": "Opret et salgslink",
         "view_sales": "Se mit salg"
       }
@@ -635,8 +635,8 @@
         "unknown": "Status ikke tilgængelig"
       },
       "emptyTitle": "Ingen produkter at certificere endnu",
-      "emptyBody": "Produkter vises her, når Aipify har publiceret dem. Du kan allerede læse lektionerne og øve dig i Growth Academy.",
-      "emptyCta": "Gå til Growth Academy",
+      "emptyBody": "Produkter vises her, når Aipify har publiceret dem. Du kan allerede læse lektionerne og øve dig i Aipify Academy.",
+      "emptyCta": "Gå til Aipify Academy",
       "unknownProduct": "Produkt"
     },
     "salesList": {
