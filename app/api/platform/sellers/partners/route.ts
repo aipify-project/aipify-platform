@@ -1,4 +1,14 @@
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
+import {
+  isAuthLifecycleEmailConfigured,
+  sendAuthLifecycleEmail,
+} from "@/lib/auth/auth-lifecycle-email";
+import { readRequestHostFromHeaders } from "@/lib/auth/auth-redirect-urls";
+import {
+  createSecureRecoveryLink,
+  inspectPartnerAuthCapability,
+} from "@/lib/auth/secure-recovery-link";
 import { guardPrivilegedPlatformApi } from "@/lib/auth/platform-server-access";
 import { callCspRpc, failClosedJson, type CspPartnerStatus } from "@/lib/certified-sales-partner";
 import {
@@ -108,14 +118,55 @@ export async function POST(request: Request) {
     const kind = coreError ? undefined : STATUS_EMAIL_KIND[body.status];
     if (!kind) return NextResponse.json(data);
 
-    // Notification only: never invites, creates users, or generates recovery links. The applicant
-    // already authenticated when applying, so the email points to the existing partner login.
-    const emailDelivery: { status: CspOnboardingEmailOutcome | "no_recipient"; kind: string } = {
+    const emailDelivery: {
+      status: CspOnboardingEmailOutcome | "no_recipient";
+      kind: string;
+      activation?: "sent" | "login_only" | "skipped" | "failed";
+    } = {
       status: "no_recipient",
       kind,
     };
     const contact = await fetchCspPartnerEmailContact(body.partner_id);
     if (contact) {
+      let activation: "sent" | "login_only" | "skipped" | "failed" = "skipped";
+
+      if (kind === "approved") {
+        const capability = await inspectPartnerAuthCapability(contact.authUserId);
+        if (capability.kind === "needs_activation" && isAuthLifecycleEmailConfigured()) {
+          const headerStore = await headers();
+          const link = await createSecureRecoveryLink({
+            email: contact.email,
+            purpose: "partner_activation",
+            requestHost: readRequestHostFromHeaders(headerStore),
+          });
+          if (link.ok) {
+            const sent = await sendAuthLifecycleEmail({
+              to: contact.email,
+              kind: "partner_activation",
+              locale: contact.locale ?? link.locale,
+              name: contact.displayName,
+              actionUrl: link.absoluteUrl,
+              idempotencyKey: `csp-activation-${body.partner_id}`,
+            });
+            emailDelivery.status =
+              sent.status === "accepted"
+                ? "accepted"
+                : sent.status === "not_configured"
+                  ? "not_configured"
+                  : "failed";
+            activation = sent.status === "accepted" ? "sent" : "failed";
+            emailDelivery.activation = activation;
+            return NextResponse.json({
+              ...(data && typeof data === "object" ? (data as Record<string, unknown>) : { data }),
+              email_delivery: emailDelivery,
+            });
+          }
+          activation = "failed";
+        } else if (capability.kind === "credentials_ready" || capability.kind === "needs_activation") {
+          activation = "login_only";
+        }
+      }
+
       emailDelivery.status = (
         await deliverCspOnboardingEmailThrottled({
           kind,
@@ -129,6 +180,7 @@ export async function POST(request: Request) {
           idempotencyKey: `csp-${kind}-${body.partner_id}-${Date.now().toString(36)}`,
         })
       ).outcome;
+      if (kind === "approved") emailDelivery.activation = activation;
     }
     return NextResponse.json({
       ...(data && typeof data === "object" ? (data as Record<string, unknown>) : { data }),

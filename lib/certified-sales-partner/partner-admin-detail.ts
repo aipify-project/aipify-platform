@@ -43,6 +43,7 @@ export type CspPartnerEmailContact = {
   emailVerified: boolean;
   displayName: string | null;
   locale: string | null;
+  authUserId: string | null;
 };
 
 type Row = Record<string, unknown>;
@@ -237,6 +238,7 @@ export async function fetchCspPartnerEmailContact(partnerId: string): Promise<Cs
       emailVerified: identity.emailVerified,
       displayName: str(row.display_name),
       locale: identity.locale,
+      authUserId: str(row.auth_user_id),
     };
   } catch {
     return null;

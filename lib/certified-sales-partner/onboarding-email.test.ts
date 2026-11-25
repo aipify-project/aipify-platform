@@ -124,7 +124,12 @@ test("Norwegian baseline wording", () => {
     CSP_ONBOARDING_EMAIL_COPY.no.unverifiedAddon,
     "Bekreft e-postadressen din via lenken vi har sendt deg. Finner du ikke e-posten, kontroller søppelpost eller be om en ny lenke.",
   );
-  assert.match(renderCspOnboardingEmail("approved", "no").text, /Status: Godkjent/);
+  const approvedNo = renderCspOnboardingEmail("approved", "no");
+  assert.match(approvedNo.text, /Status: Godkjent/);
+  assert.match(approvedNo.subject, /Gratulerer/);
+  assert.match(approvedNo.text, /Selgerpanelet/);
+  assert.match(approvedNo.html, /aipify-logo-light\.png/);
+  assert.doesNotMatch(approvedNo.text, /Glemt passord/);
 });
 
 test("unverified add-on only when emailVerified is false and kind allows it", () => {

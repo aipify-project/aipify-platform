@@ -14,6 +14,7 @@ export default async function ForgotPasswordPage() {
       appName={t("common.appName")}
       title={t("auth.forgotPassword.title")}
       subtitle={t("auth.forgotPassword.subtitle")}
+      alignTop
     >
       <ForgotPasswordForm
         labels={{

@@ -13,10 +13,16 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const credentials = parsePasswordSignInPayload(body);
-    const nextPath =
-      body && typeof body === "object" && typeof (body as Record<string, unknown>).next === "string"
-        ? sanitizeNextPath((body as Record<string, unknown>).next as string)
+    const bodyRecord =
+      body && typeof body === "object" && !Array.isArray(body)
+        ? (body as Record<string, unknown>)
         : null;
+    const nextPath =
+      bodyRecord && typeof bodyRecord.next === "string"
+        ? sanitizeNextPath(bodyRecord.next)
+        : null;
+    const portalIntent =
+      bodyRecord && typeof bodyRecord.portal === "string" ? bodyRecord.portal : null;
 
     if (!credentials) {
       return NextResponse.json({ error: "required_fields" }, { status: 400 });
@@ -52,7 +58,9 @@ export async function POST(request: Request) {
 
     const headerStore = await headers();
     const host = headerStore.get("host");
-    const destination = await getPostLoginPath(supabase, nextPath, host);
+    const destination = await getPostLoginPath(supabase, nextPath, host, {
+      portalIntent,
+    });
 
     return applyCookies(
       NextResponse.json({

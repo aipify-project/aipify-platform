@@ -1,19 +1,26 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import {
-  buildPasswordResetRedirectUrl,
-  readRequestHostFromHeaders,
-} from "@/lib/auth/auth-redirect-urls";
+  isAuthLifecycleEmailConfigured,
+  sendAuthLifecycleEmail,
+} from "@/lib/auth/auth-lifecycle-email";
+import { readRequestHostFromHeaders } from "@/lib/auth/auth-redirect-urls";
 import {
-  isForgotPasswordUnknownAccountMessage,
   logForgotPasswordFailure,
   mapForgotPasswordProviderError,
   normalizeForgotPasswordEmail,
 } from "@/lib/auth/forgot-password";
-import { createClient } from "@/lib/supabase/server";
+import { logAuthRecoveryEvent } from "@/lib/auth/auth-recovery-log";
+import { createSecureRecoveryLink } from "@/lib/auth/secure-recovery-link";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 
+/**
+ * Password reset — cross-device safe.
+ * Uses admin generateLink + token_hash emailed via Resend (localized).
+ * Avoids the browser-bound PKCE recovery request path that fails when the
+ * email is opened on a different device than the one that started the request.
+ */
 export async function POST(request: Request) {
   try {
     let body: unknown;
@@ -39,36 +46,70 @@ export async function POST(request: Request) {
       );
     }
 
-    const supabase = await createClient();
+    const bodyLocale =
+      body && typeof body === "object" && !Array.isArray(body)
+        ? (body as Record<string, unknown>).locale
+        : null;
+
+    if (!isAuthLifecycleEmailConfigured()) {
+      logForgotPasswordFailure({ code: "delivery_failed", status: 400 });
+      return NextResponse.json(
+        { error: "delivery_failed" },
+        { status: 400, headers: NO_STORE },
+      );
+    }
+
     const headerStore = await headers();
-    const redirectTo = buildPasswordResetRedirectUrl({
-      requestHost: readRequestHostFromHeaders(headerStore),
+    const requestHost = readRequestHostFromHeaders(headerStore);
+    const cookieLocale = headerStore.get("cookie")?.match(/(?:^|;\s*)aipify-locale=([^;]+)/)?.[1] ?? null;
+    const localeHint =
+      (typeof bodyLocale === "string" && bodyLocale.trim()) ||
+      (cookieLocale ? decodeURIComponent(cookieLocale) : null);
+
+    const link = await createSecureRecoveryLink({
+      email,
+      purpose: "password_reset",
+      requestHost,
     });
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo,
-    });
+    // Anti-enumeration: unknown account looks like success publicly.
+    if (!link.ok && link.reason === "user_not_found") {
+      logAuthRecoveryEvent("forgot_password_unknown_account", { pathname: "/api/auth/forgot-password" });
+      return NextResponse.json({ ok: true }, { headers: NO_STORE });
+    }
 
-    if (error) {
-      // Anti-enumeration: unknown account must look like success publicly.
-      if (isForgotPasswordUnknownAccountMessage(error.message)) {
-        return NextResponse.json(
-          { ok: true, redirectToHost: new URL(redirectTo).host },
-          { headers: NO_STORE },
-        );
-      }
-
-      const code = mapForgotPasswordProviderError(error.message);
-      logForgotPasswordFailure({
-        code,
-        status: 400,
-        providerMessageLength: error.message?.length,
-      });
+    if (!link.ok) {
+      const code =
+        link.reason === "service_unavailable" ? "request_failed" : "delivery_failed";
+      logForgotPasswordFailure({ code, status: 400 });
       return NextResponse.json({ error: code }, { status: 400, headers: NO_STORE });
     }
 
+    const delivery = await sendAuthLifecycleEmail({
+      to: link.email,
+      kind: "password_reset",
+      locale: link.locale ?? localeHint,
+      actionUrl: link.absoluteUrl,
+      idempotencyKey: `auth-reset-${link.email}-${Date.now().toString(36).slice(0, 8)}`,
+    });
+
+    // Drop URL reference immediately — never retain in response.
+    if (delivery.status === "not_configured" || delivery.status === "failed") {
+      const code =
+        delivery.status === "failed"
+          ? mapForgotPasswordProviderError(delivery.error)
+          : "delivery_failed";
+      logForgotPasswordFailure({ code, status: 400 });
+      return NextResponse.json({ error: code }, { status: 400, headers: NO_STORE });
+    }
+
+    logAuthRecoveryEvent("forgot_password_accepted", {
+      pathname: "/api/auth/forgot-password",
+      recoveryEstablished: false,
+    });
+
     return NextResponse.json(
-      { ok: true, redirectToHost: new URL(redirectTo).host },
+      { ok: true, redirectToHost: new URL(link.absoluteUrl).host },
       { headers: NO_STORE },
     );
   } catch {

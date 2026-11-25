@@ -11,6 +11,9 @@ export const CSP_VERIFY_EMAIL_PAGE_URL = "https://aipify.ai/certified-sales-part
 export const CSP_PROGRAM_PAGE_URL = "https://aipify.ai/certified-sales-partner";
 export const CSP_PLATFORM_PARTNERS_URL = "https://app.aipify.ai/platform/sellers/partners";
 export const CSP_FORGOT_PASSWORD_URL = "https://aipify.ai/forgot-password";
+/** Official logo mark for CSP lifecycle emails (top-left). */
+export const CSP_ONBOARDING_EMAIL_LOGO_URL =
+  "https://aipify.ai/website-kompis/design-v1/brand/aipify-logo-light.png";
 
 const RESEND_EMAILS_URL = "https://api.resend.com/emails";
 const MAX_ERROR_LENGTH = 300;
@@ -85,6 +88,10 @@ export type CspOnboardingEmailVars = {
   reason?: string | null;
   /** `false` appends the unverified add-on where relevant; `true`/`null` leaves it out. */
   emailVerified?: boolean | null;
+  /** Override default CTA URL (e.g. secure one-time activation link). Never log this value. */
+  ctaUrl?: string | null;
+  /** Override default CTA label when a custom activation/login path is used. */
+  ctaLabel?: string | null;
 };
 
 export type RenderedCspOnboardingEmail = { subject: string; html: string; text: string };
@@ -140,7 +147,9 @@ export function renderCspOnboardingEmail(
       : "";
   const statusKey = KIND_STATUS[kind];
   const statusLine = statusKey ? `${copy.statusLabel}: ${copy.statuses[statusKey]}` : "";
-  const url = ctaUrlForKind(kind);
+  const customUrl = cleanText(vars.ctaUrl, 2000);
+  const url = customUrl || ctaUrlForKind(kind);
+  const ctaLabel = cleanText(vars.ctaLabel, 120) || kindCopy.cta;
 
   const htmlParts = [
     `<p style="margin:0 0 16px">${escapeHtml(greeting)}</p>`,
@@ -151,11 +160,11 @@ export function renderCspOnboardingEmail(
         ]
       : []),
     ...(statusLine ? [`<p style="margin:0 0 16px"><strong>${escapeHtml(statusLine)}</strong></p>`] : []),
-    `<p style="margin:24px 0"><a href="${url}" style="display:inline-block;padding:12px 20px;background:#7C3AED;color:#FFFFFF;text-decoration:none;border-radius:8px;font-weight:600">${escapeHtml(kindCopy.cta)}</a></p>`,
+    `<p style="margin:24px 0"><a href="${escapeHtml(url)}" style="display:inline-block;padding:12px 20px;background:#7C3AED;color:#FFFFFF;text-decoration:none;border-radius:8px;font-weight:600">${escapeHtml(ctaLabel)}</a></p>`,
     `<p style="margin:24px 0 0;font-size:12px;color:#6B7280">${escapeHtml(copy.footerNote)}<br>Aipify Group AS</p>`,
   ];
 
-  const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#F7F6F3;font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:#1F2937"><div style="max-width:560px;margin:0 auto;padding:32px;background:#FFFFFF;border-radius:12px"><h1 style="margin:0 0 20px;font-size:20px">${escapeHtml(kindCopy.subject)}</h1>${htmlParts.join("")}</div></body></html>`;
+  const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#F7F6F3;font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:#1F2937"><div style="max-width:560px;margin:0 auto;padding:32px;background:#FFFFFF;border-radius:12px"><div style="margin:0 0 24px;text-align:left"><img src="${CSP_ONBOARDING_EMAIL_LOGO_URL}" alt="Aipify" width="140" height="36" style="display:block;border:0;height:36px;width:auto" /></div><h1 style="margin:0 0 20px;font-size:20px">${escapeHtml(kindCopy.subject)}</h1>${htmlParts.join("")}</div></body></html>`;
 
   const text = [
     greeting,
@@ -163,7 +172,7 @@ export function renderCspOnboardingEmail(
     ...paragraphs.flatMap((p) => [p, ""]),
     ...(reason ? [`${copy.reasonLabel}: ${reason}`, ""] : []),
     ...(statusLine ? [statusLine, ""] : []),
-    `${kindCopy.cta}: ${url}`,
+    `${ctaLabel}: ${url}`,
     "",
     copy.footerNote,
     "Aipify Group AS",

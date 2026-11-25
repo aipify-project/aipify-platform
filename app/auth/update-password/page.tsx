@@ -57,11 +57,13 @@ export default async function AuthUpdatePasswordPage({
       appName={t("common.appName")}
       title={t("auth.resetPassword.title")}
       subtitle={t("auth.resetPassword.subtitle")}
+      alignTop
     >
       <ResetPasswordForm
         labels={getResetPasswordFormLabels(t)}
         initialSessionReady={sessionCheck.ready}
         recoveryError={recoveryError}
+        successHref={readParam(params, "portal") === "partner" ? "/login?portal=partner" : "/login"}
       />
     </AuthLayout>
   );

@@ -25,7 +25,7 @@ export default function AuthLayout({
   showMascot = true,
 }: AuthLayoutProps) {
   return (
-    <div className="relative flex min-h-screen flex-col text-[#1f2235]">
+    <div className="relative flex min-h-[100dvh] flex-col text-[#1f2235]">
       <PublicAccessAtmosphere showMascot={showMascot} />
 
       <header className="relative z-10 border-b border-[rgba(96,82,176,.12)] bg-white/85 backdrop-blur-md">
@@ -43,7 +43,9 @@ export default function AuthLayout({
 
       <main
         className={`relative z-10 flex flex-1 justify-center px-4 sm:px-6 ${
-          alignTop ? "items-start pb-8 pt-6 sm:pt-8" : "items-center py-12"
+          alignTop
+            ? "items-start pb-8 pt-6 sm:pt-10 lg:pt-12"
+            : "items-start py-10 sm:items-center sm:py-12"
         }`}
       >
         <div className={`w-full ${wide ? "max-w-[68rem]" : "max-w-md"}`}>

@@ -10,6 +10,8 @@ type TwoFactorSetupPanelProps = {
   backHref?: string;
   hideBackLink?: boolean;
   enrollmentCompleteHref?: string;
+  /** Desktop two-column enroll layout (neutral MFA shell). */
+  wideLayout?: boolean;
   labels: {
     title: string;
     subtitle: string;
@@ -95,9 +97,16 @@ export function TwoFactorSetupPanel({
   backHref = "/app/settings",
   hideBackLink = false,
   enrollmentCompleteHref,
+  wideLayout = false,
 }: TwoFactorSetupPanelProps) {
   const searchParams = useSearchParams();
   const required = searchParams.get("required") === "1";
+  const nextFromQuery = searchParams.get("next");
+  const completeHref =
+    enrollmentCompleteHref ??
+    (nextFromQuery && nextFromQuery.startsWith("/") && !nextFromQuery.startsWith("//")
+      ? nextFromQuery
+      : null);
 
   const [status, setStatus] = useState<Status | null>(null);
   const [loading, setLoading] = useState(true);
@@ -303,8 +312,12 @@ export function TwoFactorSetupPanel({
     return <p className="text-sm text-gray-500">{labels.loading}</p>;
   }
 
+  const shellClass = wideLayout
+    ? "mx-auto w-full max-w-[1080px] space-y-6"
+    : "space-y-6";
+
   return (
-    <div className="space-y-6">
+    <div className={shellClass}>
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
         {(required || status?.required) && !status?.enabled ? (
@@ -324,59 +337,71 @@ export function TwoFactorSetupPanel({
       ) : null}
 
       {recoveryCodes ? (
-        <section className="rounded-2xl border border-violet-200 bg-violet-50/60 p-8">
-          <h2 className="text-base font-semibold text-violet-950">{labels.recoveryTitle}</h2>
-          <p className="mt-2 text-sm leading-relaxed text-violet-900">{labels.recoveryNotice}</p>
-          <ul className="mt-6 grid gap-2 sm:grid-cols-2">
-            {recoveryCodes.map((code) => (
-              <li
-                key={code}
-                className="rounded-lg border border-violet-100 bg-white px-3 py-2.5 font-mono text-sm text-gray-900"
-              >
-                {code}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => void copyRecoveryCodes()}
-              className="rounded-lg border border-violet-200 bg-white px-3 py-2 text-sm font-medium text-violet-900 hover:bg-violet-100"
-            >
-              {codesCopied ? labels.copiedCodes : labels.copyCodes}
-            </button>
-            <button
-              type="button"
-              onClick={downloadRecoveryCodes}
-              className="rounded-lg border border-violet-200 bg-white px-3 py-2 text-sm font-medium text-violet-900 hover:bg-violet-100"
-            >
-              {labels.downloadCodes}
-            </button>
-            <button
-              type="button"
-              onClick={printRecoveryCodes}
-              className="rounded-lg border border-violet-200 bg-white px-3 py-2 text-sm font-medium text-violet-900 hover:bg-violet-100"
-            >
-              {labels.printCodes}
-            </button>
-          </div>
-          <p className="mt-4 text-sm font-medium text-violet-950">{labels.saveCodes}</p>
-          <button
-            type="button"
-            onClick={() => {
-              setRecoveryCodes(null);
-              if (enrollmentCompleteHref) {
-                window.location.assign(enrollmentCompleteHref);
-              }
-            }}
-            className="mt-4 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800"
+        <section className="rounded-2xl border border-violet-200 bg-violet-50/60 p-6 sm:p-8">
+          <div
+            className={
+              wideLayout
+                ? "grid gap-8 lg:grid-cols-2 lg:items-start"
+                : "space-y-4"
+            }
           >
-            {labels.done}
-          </button>
+            <div>
+              <h2 className="text-base font-semibold text-violet-950">{labels.recoveryTitle}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-violet-900">{labels.recoveryNotice}</p>
+              <ul className="mt-6 grid gap-2 sm:grid-cols-2">
+                {recoveryCodes.map((code) => (
+                  <li
+                    key={code}
+                    className="rounded-lg border border-violet-100 bg-white px-3 py-2.5 font-mono text-sm text-gray-900"
+                  >
+                    {code}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => void copyRecoveryCodes()}
+                  className="rounded-lg border border-violet-200 bg-white px-3 py-2 text-sm font-medium text-violet-900 hover:bg-violet-100"
+                >
+                  {codesCopied ? labels.copiedCodes : labels.copyCodes}
+                </button>
+                <button
+                  type="button"
+                  onClick={downloadRecoveryCodes}
+                  className="rounded-lg border border-violet-200 bg-white px-3 py-2 text-sm font-medium text-violet-900 hover:bg-violet-100"
+                >
+                  {labels.downloadCodes}
+                </button>
+                <button
+                  type="button"
+                  onClick={printRecoveryCodes}
+                  className="rounded-lg border border-violet-200 bg-white px-3 py-2 text-sm font-medium text-violet-900 hover:bg-violet-100"
+                >
+                  {labels.printCodes}
+                </button>
+              </div>
+              <p className="mt-4 text-sm font-medium text-violet-950">{labels.saveCodes}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setRecoveryCodes(null);
+                  if (completeHref) {
+                    window.location.assign(completeHref);
+                  }
+                }}
+                className="mt-4 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800"
+              >
+                {labels.done}
+              </button>
+            </div>
+          </div>
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
         {status?.enabled && !enrolling ? (
           <div className="space-y-6">
             <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 px-5 py-4">
@@ -516,109 +541,141 @@ export function TwoFactorSetupPanel({
               <p className="mt-2 text-sm leading-relaxed text-gray-500">{labels.whyExplanation}</p>
             </div>
 
-            <div className="flex flex-col items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/80 px-6 py-8">
-              <p className="text-sm font-medium text-gray-700">{labels.qrScanLabel}</p>
-              {qrDataUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={qrDataUrl}
-                  alt={labels.qrScanLabel}
-                  className="rounded-xl border border-white bg-white p-3 shadow-sm"
-                />
-              ) : null}
-              <p className="text-center text-xs text-gray-500">{labels.supportedApps}</p>
-              <p className="text-center text-xs leading-relaxed text-gray-500">
-                {labels.googleAuthenticatorHint}
-              </p>
-              {otpauthUrl ? (
-                <a
-                  href={otpauthUrl}
-                  className="text-sm font-medium text-violet-700 underline-offset-2 hover:underline"
-                >
-                  {labels.openInAuthenticator}
-                </a>
-              ) : null}
-            </div>
-
             <div
-              ref={codeSectionRef}
-              className="rounded-xl border border-violet-200 bg-violet-50/60 px-5 py-4"
+              className={
+                wideLayout
+                  ? "grid gap-8 lg:grid-cols-2 lg:items-start"
+                  : "space-y-6"
+              }
             >
-              <h3 className="text-sm font-semibold text-violet-950">{labels.codeFromAppTitle}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-violet-900">{labels.codeFromAppBody}</p>
-              <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-sm text-violet-900">
-                <li>{labels.codeFromAppStep1}</li>
-                <li>{labels.codeFromAppStep2}</li>
-                <li>{labels.codeFromAppStep3}</li>
-              </ol>
-              <p className="mt-3 text-xs leading-relaxed text-violet-800/90">{labels.applePasswordsTip}</p>
-            </div>
+              <div className="space-y-6">
+                <div className="flex flex-col items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/80 px-6 py-8">
+                  <p className="text-sm font-medium text-gray-700">{labels.qrScanLabel}</p>
+                  {qrDataUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={qrDataUrl}
+                      alt={labels.qrScanLabel}
+                      className="rounded-xl border border-white bg-white p-3 shadow-sm"
+                    />
+                  ) : null}
+                  <p className="text-center text-xs text-gray-500">{labels.supportedApps}</p>
+                  <p className="text-center text-xs leading-relaxed text-gray-500">
+                    {labels.googleAuthenticatorHint}
+                  </p>
+                  {otpauthUrl ? (
+                    <a
+                      href={otpauthUrl}
+                      className="text-sm font-medium text-violet-700 underline-offset-2 hover:underline"
+                    >
+                      {labels.openInAuthenticator}
+                    </a>
+                  ) : null}
+                </div>
 
-            <div className="rounded-xl border-2 border-violet-200 bg-white px-5 py-5">
-              <label htmlFor="confirm-code" className="block text-sm font-semibold text-gray-900">
-                {labels.confirmCode}
-              </label>
-              <input
-                id="confirm-code"
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                maxLength={6}
-                placeholder="000000"
-                value={confirmCode}
-                onChange={(e) => setConfirmCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                className="mt-3 w-full max-w-xs rounded-xl border border-violet-200 px-4 py-4 text-center font-mono text-2xl tracking-[0.35em] text-gray-900"
-              />
-              <p className="mt-2 text-xs text-gray-600">{labels.enableStepConfirm}</p>
-            </div>
+                {formattedSecret ? (
+                  <div className="rounded-xl border border-gray-100 bg-gray-50/80 px-5 py-4">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                      {labels.manualKey}
+                    </p>
+                    <div className="mt-3 flex flex-wrap items-center gap-3">
+                      <p className="font-mono text-base tracking-wide text-gray-900">
+                        {formattedSecret}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => void copyManualKey()}
+                        className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                      >
+                        {keyCopied ? labels.copiedKey : labels.copyKey}
+                      </button>
+                    </div>
+                  </div>
+                ) : null}
 
-            {formattedSecret ? (
-              <div className="rounded-xl border border-gray-100 bg-gray-50/80 px-5 py-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                  {labels.manualKey}
-                </p>
-                <div className="mt-3 flex flex-wrap items-center gap-3">
-                  <p className="font-mono text-base tracking-wide text-gray-900">{formattedSecret}</p>
+                <div
+                  ref={codeSectionRef}
+                  className="rounded-xl border-2 border-violet-200 bg-white px-5 py-5"
+                >
+                  <label
+                    htmlFor="confirm-code"
+                    className="block text-sm font-semibold text-gray-900"
+                  >
+                    {labels.confirmCode}
+                  </label>
+                  <input
+                    id="confirm-code"
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    maxLength={6}
+                    placeholder="000000"
+                    value={confirmCode}
+                    onChange={(e) =>
+                      setConfirmCode(e.target.value.replace(/\D/g, "").slice(0, 6))
+                    }
+                    className="mt-3 w-full max-w-xs rounded-xl border border-violet-200 px-4 py-4 text-center font-mono text-2xl tracking-[0.35em] text-gray-900"
+                  />
+                  <p className="mt-2 text-xs text-gray-600">{labels.enableStepConfirm}</p>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="confirm-password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    {labels.confirmPassword}
+                  </label>
+                  <input
+                    id="confirm-password"
+                    type="password"
+                    autoComplete="current-password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="mt-2 w-full max-w-sm rounded-xl border border-gray-200 px-4 py-3 text-sm"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">{labels.confirmPasswordHint}</p>
+                </div>
+
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    type="submit"
+                    disabled={busy}
+                    className="rounded-lg border border-gray-900 bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 disabled:opacity-60"
+                  >
+                    {busy ? labels.saving : labels.enable}
+                  </button>
                   <button
                     type="button"
-                    onClick={() => void copyManualKey()}
-                    className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    disabled={busy}
+                    onClick={() => void beginEnrollment(true)}
+                    className="rounded-lg border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-60"
                   >
-                    {keyCopied ? labels.copiedKey : labels.copyKey}
+                    {labels.resetEnrollment}
                   </button>
                 </div>
               </div>
-            ) : null}
 
-            <div>
-              <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">
-                {labels.confirmPassword}
-              </label>
-              <input
-                id="confirm-password"
-                type="password"
-                autoComplete="current-password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="mt-2 w-full max-w-sm rounded-xl border border-gray-200 px-4 py-3 text-sm"
-              />
-              <p className="mt-1 text-xs text-gray-500">{labels.confirmPasswordHint}</p>
+              <div className="space-y-4">
+                <div className="rounded-xl border border-violet-200 bg-violet-50/60 px-5 py-4">
+                  <h3 className="text-sm font-semibold text-violet-950">
+                    {labels.codeFromAppTitle}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-violet-900">
+                    {labels.codeFromAppBody}
+                  </p>
+                  <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-sm text-violet-900">
+                    <li>{labels.codeFromAppStep1}</li>
+                    <li>{labels.codeFromAppStep2}</li>
+                    <li>{labels.codeFromAppStep3}</li>
+                  </ol>
+                  <p className="mt-3 text-xs leading-relaxed text-violet-800/90">
+                    {labels.applePasswordsTip}
+                  </p>
+                </div>
+                <p className="text-xs leading-relaxed text-gray-500">{labels.enableStepScan}</p>
+                <p className="text-xs leading-relaxed text-gray-500">{labels.authenticatorNote}</p>
+              </div>
             </div>
-
-            <button
-              type="submit"
-              disabled={busy}
-              className="rounded-lg border border-gray-900 bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 disabled:opacity-60"
-            >
-              {busy ? labels.saving : labels.enable}
-            </button>
-            <button
-              type="button"
-              disabled={busy}
-              onClick={() => void beginEnrollment(true)}
-              className="ml-3 rounded-lg border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-60"
-            >
-              {labels.resetEnrollment}
-            </button>
           </form>
         ) : null}
       </section>

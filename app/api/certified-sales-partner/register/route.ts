@@ -19,6 +19,7 @@ import {
   logSuspiciousSubmission,
   resolvePublicFormGuardCode,
 } from "@/lib/public-forms/bot-protection";
+import { persistAuthPreferredLocale } from "@/lib/auth/secure-recovery-link";
 import { createClient } from "@/lib/supabase/server";
 
 /** Opaque reference the customer can quote to support — carries no personal data. */
@@ -147,6 +148,10 @@ export async function POST(request: Request) {
     };
     let emailWarning: "auth_email_used" | undefined;
     const locale = validated.payload.preferredLocale;
+    // Persist communication locale on the auth user so lifecycle / Auth emails stay localized.
+    if (locale) {
+      await persistAuthPreferredLocale(user.id, locale);
+    }
     if (user.email) {
       if (user.email.toLowerCase() !== validated.payload.email.toLowerCase()) emailWarning = "auth_email_used";
       const vars = { name: validated.payload.fullName, emailVerified };

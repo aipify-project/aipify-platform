@@ -72,6 +72,23 @@ test("redirect safety rejects external next values", () => {
 test("missing next resolves to platform for platform MFA verify", () => {
   assert.equal(resolveMfaSuccessDestination(null, "platform"), "/platform");
   assert.equal(resolveMfaSuccessDestination(null, "customer"), "/app/command-center");
+  assert.equal(resolveMfaSuccessDestination(null, "partner"), "/partners");
+});
+
+test("partner destinations use neutral MFA routes", () => {
+  assert.equal(
+    buildMfaEnrollPath("/partners", "partner"),
+    "/auth/two-factor/enroll?required=1&next=%2Fpartners",
+  );
+  assert.equal(
+    buildMfaVerifyPath("/partners", "partner"),
+    "/auth/two-factor/verify?next=%2Fpartners",
+  );
+  assert.equal(
+    buildMfaEnrollPath("/partners"),
+    "/auth/two-factor/enroll?required=1&next=%2Fpartners",
+  );
+  assert.equal(resolveMfaSuccessDestination("/partners"), "/partners");
 });
 
 test("privileged platform API path coverage includes alternate families", () => {

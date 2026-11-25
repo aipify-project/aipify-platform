@@ -2,7 +2,11 @@ import { Suspense } from "react";
 import AuthLayout from "@/components/auth/AuthLayout";
 import { TwoFactorSetupPanel } from "@/components/app/two-factor";
 import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
-import { buildMfaVerifyPath } from "@/lib/auth/two-factor/mfa-portal-routing";
+import {
+  buildMfaVerifyPath,
+  resolveMfaPortalKind,
+  resolveMfaSuccessDestination,
+} from "@/lib/auth/two-factor/mfa-portal-routing";
 import { getCustomerAppDictionaryForModule, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -19,13 +23,20 @@ export default async function NeutralTwoFactorEnrollPage({
   const tCommon = createTranslator(commonDict);
   const t = createTranslator(twoFactorDict);
   const p = "customerApp.twoFactor";
-  const enrollmentCompleteHref = buildMfaVerifyPath(params.next, "platform");
+  const portalKind = resolveMfaPortalKind(params.next);
+  const successDestination = resolveMfaSuccessDestination(params.next, portalKind);
+  const enrollmentCompleteHref = buildMfaVerifyPath(successDestination, portalKind);
+  const backHref =
+    portalKind === "partner" ? "/partners" : portalKind === "platform" ? "/platform" : "/app/settings";
 
   return (
     <AuthLayout
       appName={tCommon("common.appName")}
       title={t(`${p}.title`)}
       subtitle={t(`${p}.subtitle`)}
+      wide
+      alignTop
+      bare
     >
       <Suspense
         fallback={
@@ -33,9 +44,10 @@ export default async function NeutralTwoFactorEnrollPage({
         }
       >
         <TwoFactorSetupPanel
-          backHref="/platform"
-          hideBackLink={false}
+          backHref={backHref}
+          hideBackLink={portalKind === "partner"}
           enrollmentCompleteHref={enrollmentCompleteHref}
+          wideLayout
           labels={{
             title: t(`${p}.title`),
             subtitle: t(`${p}.subtitle`),

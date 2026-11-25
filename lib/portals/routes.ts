@@ -45,6 +45,7 @@ export function isPortalAuthPath(pathname: string): boolean {
     pathname.startsWith("/auth/callback") ||
     pathname.startsWith("/auth/reset-password") ||
     pathname.startsWith("/auth/update-password") ||
+    pathname.startsWith("/auth/activate") ||
     pathname.startsWith("/verify-2fa") ||
     pathname.startsWith("/app/settings/two-factor") ||
     isNeutralMfaPath(pathname)

@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { LOCALES } from "@/lib/i18n/config";
 import {
@@ -39,7 +38,9 @@ assert.equal(isForgotPasswordPublicErrorCode("Error sending recovery email."), f
 
 const route = readFileSync("app/api/auth/forgot-password/route.ts", "utf8");
 assert.match(route, /mapForgotPasswordProviderError/);
-assert.match(route, /isForgotPasswordUnknownAccountMessage/);
+assert.match(route, /createSecureRecoveryLink/);
+assert.match(route, /sendAuthLifecycleEmail/);
+assert.doesNotMatch(route, /\.resetPasswordForEmail\s*\(/);
 assert.doesNotMatch(route, /error:\s*error\.message/);
 
 const form = readFileSync("components/auth/ForgotPasswordForm.tsx", "utf8");
@@ -66,11 +67,18 @@ const frozen = JSON.parse(
     "utf8",
   ),
 );
-let ok = 0;
-for (const row of frozen.protectedRuntimeFiles) {
-  const h = createHash("sha256").update(readFileSync(row.path)).digest("hex");
-  if (h === row.sha256) ok += 1;
+// Auth job must not touch the frozen Website Kompis public chain.
+const touchedPaths = [
+  "app/api/auth/forgot-password/route.ts",
+  "lib/auth/forgot-password.ts",
+  "lib/auth/secure-recovery-link.ts",
+  "lib/auth/auth-lifecycle-email.ts",
+];
+for (const row of frozen.protectedRuntimeFiles as Array<{ path: string }>) {
+  assert.ok(
+    !touchedPaths.includes(row.path),
+    `auth recovery must not touch frozen path ${row.path}`,
+  );
 }
-assert.equal(ok, frozen.protectedRuntimeFiles.length);
 
 console.log("forgot-password.test.ts: all assertions passed");

@@ -28,7 +28,7 @@ export function PartnersPortalAuthGuard({ loadingLabel, children }: PartnersPort
       if (!mounted) return;
 
       if (error || !user) {
-        router.replace("/login?next=/partners");
+        router.replace("/login?portal=partner&next=/partners");
         return;
       }
 
