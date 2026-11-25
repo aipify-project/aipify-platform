@@ -7,7 +7,7 @@ import { AipifyEmptyState } from "@/components/branding";
 import type { PlatformAnalyticsOverviewLabels } from "@/lib/platform-analytics/labels";
 import type { PlatformAnalyticsOverview } from "@/lib/platform-analytics/overview";
 import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality/date-time";
-import { resolveAuthoritativeTimeZone } from "@/lib/platform-presentation-quality/timezone";
+import { resolveAuthoritativeTimeZone } from "@/lib/platform-presentation-quality/bcp47";
 
 type Props = {
   labels: PlatformAnalyticsOverviewLabels;
