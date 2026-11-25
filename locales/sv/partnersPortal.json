@@ -411,55 +411,294 @@
       "notReadyTitle": "Partnerbackend är inte aktiv ännu",
       "notReadyBody": "Certified Sales Partner Core-lagring är inte aktiv förrän godkänd databas­migrering tillämpas. Inga fejkade försäljningar eller provisioner visas.",
       "retry": "Försök igen",
-      "errorTitle": "Något oväntat hände. Försök igen."
+      "errorTitle": "Något oväntat hände. Försök igen.",
+      "unauthorizedTitle": "Logga in för att öppna partnerarbetsytan",
+      "unauthorizedBody": "Du är inte inloggad, eller så har sessionen gått ut. Logga in med ditt partnerkonto för att fortsätta.",
+      "signIn": "Logga in",
+      "notRegisteredTitle": "Ingen partneransökan hittades",
+      "notRegisteredBody": "Det här kontot har inte ansökt som Certified Sales Partner ännu. Ansök för att komma igång. Försäljning startar först efter godkännande och certifiering.",
+      "applyCta": "Ansök som partner",
+      "pending": {
+        "statusLabel": "Ansökningsstatus",
+        "nextTitle": "Vad händer nu",
+        "contactCta": "Kontakta Aipify",
+        "under_review": {
+          "title": "Din ansökan granskas",
+          "body": "Aipify har tagit emot din ansökan och den väntar på godkännande från Platform. Utbildning, försäljningslänkar och provision öppnas när du är godkänd.",
+          "next": "Du behöver inte göra något just nu. Du får besked när ett beslut finns, och du kan komma tillbaka till den här sidan när som helst."
+        },
+        "needs_information": {
+          "title": "Aipify behöver mer information",
+          "body": "Din ansökan kan inte godkännas ännu eftersom vissa uppgifter saknas eller är oklara.",
+          "next": "Kontrollera din e-post för vad som behövs, eller kontakta Aipify. Din ansökan förblir öppen medan vi väntar."
+        },
+        "rejected": {
+          "title": "Din ansökan godkändes inte",
+          "body": "Aipify kunde inte godkänna den här ansökan. Utbildning, försäljningslänkar och provision är inte tillgängliga för det här kontot.",
+          "next": "Om du tror att uppgifter saknades eller var fel kan du kontakta Aipify, så tittar vi på ärendet igen."
+        },
+        "suspended": {
+          "title": "Ditt partnerkonto är pausat",
+          "body": "Ditt partnerkonto är inte aktivt just nu, så utbildning och försäljningslänkar är otillgängliga.",
+          "next": "Kontakta Aipify för att få veta orsaken och vad som krävs för att aktivera kontot igen."
+        }
+      }
     },
     "pages": {
       "home": {
-        "title": "Certified Sales Partner home",
-        "subtitle": "Your Aipify sales workspace for certified products, links and commissions.",
+        "title": "Partneröversikt",
+        "subtitle": "Din status, dina certifieringar och nästa steg som Certified Sales Partner.",
         "readyHint": "When Core is active, overview metrics for products, sales and payouts appear here."
       },
       "products": {
-        "title": "Products for sale",
-        "subtitle": "Approved Aipify products with customer price and fixed one-time commission. Partners cannot purchase here.",
-        "noBuy": "There is no purchase button for partners. Generate a tracking link after certification."
+        "title": "Produkter att sälja",
+        "subtitle": "Aipify-produkter som du kan sälja, med planerade referenspriser och en fast engångsprovision när Aipify har publicerat dem. Partners kan inte köpa här.",
+        "noBuy": "Partners har ingen köpknapp. Skapa en spårningslänk efter certifiering."
       },
       "links": {
-        "title": "My sales links",
-        "subtitle": "Create personal product links by channel. First valid touch wins for 90 days."
+        "title": "Mina försäljningslänkar",
+        "subtitle": "Skapa personliga produktlänkar per kanal. Första giltiga kontakten gäller i 90 dagar."
       },
       "sales": {
-        "title": "My sales",
-        "subtitle": "Registered sales stay neutral until the customer’s second successful paid period.",
-        "awaitingHint": "Payment #1 shows as registered / awaiting month 2 — commission is not earned yet."
+        "title": "Min försäljning",
+        "subtitle": "Registrerad försäljning är neutral tills kundens andra lyckade betalda period.",
+        "awaitingHint": "Betalning nr 1 visas som registrerad / väntar på månad 2 — provisionen är inte intjänad ännu."
       },
       "settlement": {
-        "title": "Commission and payouts",
-        "subtitle": "Read-only view of monthly settlements. Aipify Group AS pays manually in bank.",
-        "readOnlyHint": "You can view upcoming and historical payouts. You cannot change ledger amounts."
+        "title": "Provision och utbetalningar",
+        "subtitle": "Skrivskyddad översikt över månatliga avräkningar. Aipify Group AS betalar manuellt via bank.",
+        "readOnlyHint": "Du kan se kommande och tidigare utbetalningar. Du kan inte ändra belopp i huvudboken."
       },
       "academy": {
-        "title": "Growth Academy",
-        "subtitle": "Product training and certification. Pass mark is 80%. Kompis help is disabled during the test."
+        "title": "Tillväxtakademin",
+        "subtitle": "Produktutbildning och certifiering. Godkäntgränsen är 80 %. Kompis-hjälp är avstängd under provet."
+      },
+      "certifications": {
+        "title": "Mina certifieringar",
+        "subtitle": "Din certifieringsstatus för varje produkt. Aipify registrerar certifieringen när du har klarat provet."
+      },
+      "marketing": {
+        "title": "Försäljningsverktyg",
+        "subtitle": "Godkända marknadsföringsmallar och din personliga säljlänk — aldrig en inbakad exempel-URL."
       }
     },
     "links": {
-      "panelTitle": "Generate a sales link",
-      "productId": "Product id",
-      "channel": "Channel",
-      "submit": "Create link",
-      "howItWorks": "Attribution uses first valid touch within 90 days. Commission is earned only after two successful paid periods — never on renewals.",
-      "success": "Link request accepted by the API.",
-      "gatesHint": "Confirm partner approval, published product, certification and agreement before requesting a live link."
+      "panelTitle": "Skapa en säljlänk",
+      "productId": "Produkt (nyckel eller id)",
+      "channel": "Kanal",
+      "submit": "Skapa länk",
+      "howItWorks": "Tillskrivning använder första giltiga kontakt inom 90 dagar. Provision intjänas först efter två lyckade betalda perioder – aldrig på förnyelser.",
+      "success": "Din försäljningslänk är klar: {url}",
+      "gatesHint": "Aipify kontrollerar ditt godkännande, den publicerade produkten, din certifiering och avtalet innan en aktiv länk utfärdas.",
+      "product": "Produkt",
+      "productPlaceholder": "Välj en produkt",
+      "certificationNeeded": "kräver certifiering",
+      "noProducts": "Inga produkter är tillgängliga för försäljningslänkar ännu. Produkter visas här när Aipify har publicerat dem.",
+      "creating": "Skapar länk",
+      "copy": "Kopiera länk",
+      "copied": "Länken är kopierad.",
+      "productNotYet": "Den här produkten har ingen offentlig försäljningssida ännu, så ingen länk skapades.",
+      "channels": {
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "x": "X",
+        "snapchat": "Snapchat",
+        "tiktok": "TikTok",
+        "linkedin": "LinkedIn",
+        "email": "E-post",
+        "qr": "QR-kod",
+        "other": "Annat",
+        "referral_link": "Personlig hänvisningslänk",
+        "partner_code": "Partnerkod"
+      }
     },
     "exam": {
-      "title": "Product certification test",
-      "courseId": "Course id",
-      "answersJson": "Answers (server scored)",
-      "submit": "Submit test",
-      "kompisBlocked": "Kompis help is disabled during this test. No hints are available from Aipify during the exam.",
-      "passed": "Passed",
-      "failed": "Not passed yet"
+      "title": "Produktcertifieringsprov",
+      "intro": "Svara på 15 frågor, en i taget. Du kan gå tillbaka och ändra svar innan du skickar in. Godkäntgränsen är 80 %.",
+      "start": "Starta provet",
+      "starting": "Startar provet",
+      "kompisBlocked": "Kompis-hjälp är avstängd under det här provet. Aipify ger inga tips under provet.",
+      "progress": "Fråga {current} av {total}",
+      "answered": "{count} av {total} besvarade",
+      "previous": "Föregående",
+      "next": "Nästa",
+      "submit": "Skicka in provet",
+      "submitting": "Skickar in",
+      "submitDisabledHint": "Svara på alla frågor för att skicka in. Använd Föregående för att hitta dem du hoppade över.",
+      "questionRegion": "Provfråga",
+      "passedTitle": "Du klarade det – bra jobbat",
+      "passedBody": "Du nådde godkäntgränsen. Tack för att du tog dig tid att lära dig produkten ordentligt.",
+      "failedTitle": "Fortsätt lära – du kan försöka igen",
+      "failedBody": "Du nådde inte godkäntgränsen den här gången. Det är en del av lärandet. Gå igenom lektionerna nedan och försök igen när du är redo.",
+      "passed": "Godkänd",
+      "failed": "Inte godkänd ännu",
+      "score": "{correct} av {total} rätt ({score} %)",
+      "passMark": "Godkäntgräns: {pass} %",
+      "reviewLessons": "Lektioner värda att gå igenom igen",
+      "retake": "Gör provet igen",
+      "practiceNotice": "Det här resultatet är endast övning. Ingen certifiering har registrerats eller utfärdats, eftersom partnerlösningen inte har bekräftat den. Certifiering och säljlänkar blir tillgängliga när resultatet är registrerat.",
+      "certificationRecorded": "Din certifiering har registrerats.",
+      "downloadCertificate": "Ladda ner certifikat (PDF)",
+      "attemptRecorded": "Ditt försök har registrerats. Gå igenom lektionerna och försök igen när du är redo."
+    },
+    "lessons": {
+      "title": "Lektioner om Kompis Web",
+      "intro": "Sex korta lektioner förbereder dig inför provet. Läs dem i din egen takt. Kompis-hjälp är inte tillgänglig under provet.",
+      "lessonNumber": "Lektion {number}",
+      "plannedCatalogNote": "Paket och priser i den här lektionen är den planerade katalogen och är ännu inte aktiva i faktureringen. Presentera dem aldrig som bindande erbjudanden."
+    },
+    "catalog": {
+      "title": "Produkter",
+      "intro": "Se hur varje produkt beskrivs, planerat referenspris och din provision när Aipify har publicerat den.",
+      "filterLabel": "Filtrera efter kategori",
+      "filterAll": "Alla",
+      "filterKompis": "Kompis",
+      "filterVoice": "Aipify Voice (framtida)",
+      "sellable": "Kan säljas",
+      "future": "Kommer snart",
+      "futureNote": "Kommer snart — inte tillgänglig för försäljning eller certifiering ännu.",
+      "plannedPrice": "Från {price} / månad",
+      "plannedPriceNote": "Kundpris (planerad referens)",
+      "noPlannedPrice": "Inget planerat pris har publicerats ännu",
+      "commissionLabel": "Din provision",
+      "commissionAmount": "{amount} engångsbelopp per kvalificerad försäljning",
+      "commissionPending": "Provision visas efter att plattformen har publicerat produkten",
+      "certificationLabel": "Din certifiering",
+      "certNotStarted": "Inte påbörjad",
+      "certInProgress": "Pågår",
+      "certPassed": "Godkänd",
+      "certExpired": "Utgången",
+      "certRevoked": "Återkallad",
+      "certUnknown": "Visas när partnerlösningen är aktiv",
+      "certNotApplicable": "Inte aktuellt ännu",
+      "copyLink": "Kopiera säljlänk",
+      "copyingLink": "Skapar länk",
+      "linkCopied": "Säljlänken har kopierats.",
+      "linkCreated": "Säljlänk skapad: {path}",
+      "linkGatesNotMet": "En säljlänk är tillgänglig när du är godkänd, produkten är publicerad och du har klarat certifieringen.",
+      "linkUnavailable": "Säljlänkar är inte tillgängliga förrän partnerlösningen är aktiv.",
+      "takeTraining": "Gå utbildningen",
+      "trainingNotPublished": "Utbildningen är inte publicerad ännu",
+      "empty": "Inga produkter i den här kategorin."
+    },
+    "overview": {
+      "title": "Din partneröversikt",
+      "statusLabel": "Partnerstatus",
+      "partnerStatus": {
+        "registered": "Registrerad",
+        "under_review": "Under granskning",
+        "needs_information": "Mer information behövs",
+        "approved": "Godkänd",
+        "active": "Aktiv",
+        "certified": "Certifierad",
+        "in_academy": "I akademin",
+        "rejected": "Inte godkänd",
+        "suspended": "Pausad",
+        "unknown": "Status inte tillgänglig"
+      },
+      "certificationsLabel": "Certifieringar",
+      "certificationsValue": "{passed} av {total} produkter certifierade",
+      "certificationsNone": "Inga publicerade produkter ännu",
+      "linksLabel": "Aktiva försäljningslänkar",
+      "salesLabel": "Registrerad försäljning",
+      "salesNone": "Ingen försäljning ännu",
+      "balanceLabel": "Provisionssaldo",
+      "balanceNone": "Ingen provision registrerad ännu",
+      "nextTitle": "Rekommenderat nästa steg",
+      "nextBody": {
+        "awaiting_approval": "Aipify granskar din ansökan. Du kan utbilda dig och skapa försäljningslänkar när du är godkänd.",
+        "provide_information": "Aipify behöver lite mer information innan din ansökan kan godkännas. Se din e-post för detaljer.",
+        "not_active": "Ditt partnerkonto är inte aktivt just nu. Kontakta Aipify om du har frågor.",
+        "train": "Starta Growth Academy. När du har klarat produktprovet kan du skapa dina egna försäljningslänkar.",
+        "create_link": "Du är certifierad. Skapa en försäljningslänk för en produkt och dela den i den kanal som passar dig.",
+        "view_sales": "Dina försäljningslänkar är aktiva. Följ din registrerade försäljning och dess framsteg under Min försäljning."
+      },
+      "nextCta": {
+        "train": "Gå till Growth Academy",
+        "create_link": "Skapa en försäljningslänk",
+        "view_sales": "Visa min försäljning"
+      }
+    },
+    "certifications": {
+      "title": "Certifieringsstatus per produkt",
+      "intro": "En certifiering visas som klarad först när Aipify har registrerat den. Gränsen för godkänt är 80 %.",
+      "productCol": "Produkt",
+      "statusCol": "Status",
+      "scoreCol": "Resultat",
+      "passedOnCol": "Klarad",
+      "status": {
+        "not_started": "Inte påbörjad",
+        "in_progress": "Pågår",
+        "passed": "Klarad",
+        "expired": "Utgången",
+        "revoked": "Återkallad",
+        "unknown": "Status inte tillgänglig"
+      },
+      "emptyTitle": "Inga produkter att certifiera ännu",
+      "emptyBody": "Produkter visas här när Aipify har publicerat dem. Du kan redan läsa lektionerna och öva i Growth Academy.",
+      "emptyCta": "Gå till Growth Academy",
+      "unknownProduct": "Produkt"
+    },
+    "salesList": {
+      "title": "Registrerad försäljning",
+      "productCol": "Produkt",
+      "statusCol": "Status",
+      "periodsCol": "Betalda perioder",
+      "commissionCol": "Provision",
+      "registeredCol": "Registrerad",
+      "status": {
+        "registered_awaiting_second_payment": "Registrerad — väntar på månad 2",
+        "pending_possible": "Under verifiering",
+        "earned": "Provision intjänad",
+        "approved_for_payout": "Godkänd för utbetalning",
+        "queued_for_payout": "I utbetalningskö",
+        "paid": "Utbetald",
+        "reversed": "Återförd",
+        "rejected": "Inte kvalificerad",
+        "unknown": "Status inte tillgänglig"
+      },
+      "commissionPending": "Inte intjänad ännu",
+      "emptyTitle": "Ingen registrerad försäljning ännu",
+      "emptyBody": "När en kund som du har hänvisat startar ett betalt abonnemang visas försäljningen här. Dela din försäljningslänk för att komma igång.",
+      "emptyCta": "Skapa en försäljningslänk",
+      "loadError": "Din försäljning kunde inte läsas in just nu. Försök igen."
+    },
+    "settlements": {
+      "title": "Månatliga avräkningar",
+      "periodCol": "Månad",
+      "statusCol": "Status",
+      "linesCol": "Inkluderad försäljning",
+      "totalCol": "Totalt",
+      "status": {
+        "open": "Öppen",
+        "approved": "Godkänd",
+        "closed": "Stängd — väntar på betalning",
+        "paid": "Utbetald",
+        "voided": "Annullerad",
+        "unknown": "Status inte tillgänglig"
+      },
+      "balanceTitle": "Provisionssaldo",
+      "balanceNone": "Ingen provision registrerad ännu",
+      "emptyTitle": "Inga avräkningar ännu",
+      "emptyBody": "Din första månatliga avräkning visas här när du har intjänat provision. Inget visas förrän Aipify har registrerat det.",
+      "loadError": "Dina avräkningar kunde inte läsas in just nu. Försök igen."
+    },
+    "marketing": {
+      "title": "Försäljningsverktyg",
+      "intro": "Ladda ner Aipify-ägda marknadsföringsmallar för produkter du är certifierad att sälja. Din personliga säljlänk visas separat — den bakas aldrig in i banderoller.",
+      "linkTitle": "Din personliga säljlänk",
+      "linkEmpty": "Skapa en säljlänk när du är godkänd och certifierad. Den visas här för kopiering och delning.",
+      "linkCta": "Skapa säljlänk",
+      "assetsTitle": "Banner- och mallbibliotek",
+      "assetsEmptyTitle": "Marknadsföringsmaterial är inte importerat ännu",
+      "assetsEmptyBody": "Ägarens Budda/Buddy-banners finns inte i detta arkiv ännu. Importera godkända produktbanners till partnerbiblioteket, sedan visas de här per produkt och språk. Använd tills vidare endast din personliga länk med godkänd text.",
+      "productTabs": "Produkt",
+      "localeTabs": "Språk",
+      "voiceNote": "Aipify Voice kommer snart och är inte tillgänglig för aktiva säljbanners.",
+      "signatureNote": "Certifieringsmärke och låst produkttext styrs av Aipify. Du får bara lägga till namn, foto och autentiserad säljlänk i tillåtna fält.",
+      "filterKompisWeb": "Kompis Web",
+      "filterKompisBedrift": "Kompis Bedrift",
+      "filterVoice": "Aipify Voice"
     }
   }
 }

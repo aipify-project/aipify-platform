@@ -8339,6 +8339,9 @@
     },
     "registration": {
       "title": "Partner application",
+      "sectionContact": "Contact person",
+      "sectionCompany": "Business",
+      "sectionTerms": "Confirmations",
       "fullName": "Full legal name",
       "email": "Work email",
       "country": "Country",
@@ -8357,10 +8360,38 @@
       "submit": "Submit application",
       "submitting": "Submitting…",
       "successTitle": "Application received",
-      "successBody": "Aipify will review your application. You cannot sell until approved and certified.",
+      "successBody": "Aipify has received your application. It is now awaiting Platform approval. You cannot sell until you are approved and certified.",
       "backendClosedTitle": "Registration prepared — backend not active yet",
       "backendClosedBody": "Your details were validated, but Core CSP storage is not active until the approved database migration is applied. No fake acceptance was recorded.",
-      "errorGeneric": "Something unexpected happened. Please try again."
+      "errorGeneric": "Something unexpected happened. Please try again.",
+      "loginRequiredTitle": "Sign in to submit your application",
+      "loginRequiredBody": "Your application is linked to your Aipify account so you can follow its status. Nothing has been submitted yet. Sign in and you will return to this form.",
+      "loginCta": "Sign in to continue",
+      "createAccountCta": "Create an account",
+      "existing": {
+        "title": "You have already applied",
+        "registered": "Your application is awaiting Platform approval. You do not need to apply again.",
+        "under_review": "Your application is awaiting Platform approval. You do not need to apply again.",
+        "needs_information": "Aipify needs a little more information. Please check your email for details. You do not need to apply again.",
+        "approved": "Your application is approved. Open your partner workspace to continue with training and certification.",
+        "rejected": "Your earlier application was not approved. Contact Aipify if you have questions.",
+        "suspended": "Your partner account is not active at the moment. Contact Aipify if you have questions.",
+        "other": "An application already exists for your account. You do not need to apply again.",
+        "openPortalCta": "Open partner workspace"
+      },
+      "errors": {
+        "full_name_required": "Enter your full legal name.",
+        "valid_email_required": "Enter a valid work email address.",
+        "country_must_be_two_letter_code": "Select your country.",
+        "legal_business_name_required": "Enter the legal business name.",
+        "business_registration_number_required": "Enter your business registration number.",
+        "registered_business_confirmation_required": "Confirm that you operate a legally registered independent business.",
+        "terms_acceptance_required": "Accept the partner terms to continue.",
+        "certification_acknowledgement_required": "Confirm that you understand certification is required before selling.",
+        "accuracy_confirmation_required": "Confirm that the information provided is accurate.",
+        "forbidden": "This account cannot submit a partner application. Contact Aipify if you need help.",
+        "registration_failed": "Something unexpected happened. Please try again."
+      }
     }
   }
 }

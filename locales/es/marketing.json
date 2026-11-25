@@ -291,6 +291,9 @@
     },
     "registration": {
       "title": "Solicitud de socio",
+      "sectionContact": "Persona de contacto",
+      "sectionCompany": "Empresa",
+      "sectionTerms": "Confirmaciones",
       "fullName": "Nombre legal completo",
       "email": "Correo de trabajo",
       "country": "País",
@@ -309,10 +312,38 @@
       "submit": "Enviar solicitud",
       "submitting": "Enviando…",
       "successTitle": "Solicitud recibida",
-      "successBody": "Aipify revisará tu solicitud. No puedes vender hasta estar aprobado y certificado.",
+      "successBody": "Aipify ha recibido tu solicitud. Ahora está pendiente de aprobación por parte de Platform. No puedes vender hasta que seas aprobado y certificado.",
       "backendClosedTitle": "Registro preparado — el backend aún no está activo",
       "backendClosedBody": "Los datos se validaron, pero el almacenamiento Core CSP no está activo hasta que se aplique la migración de base de datos aprobada. No se registró ninguna aceptación falsa.",
-      "errorGeneric": "Ocurrió algo inesperado. Inténtalo de nuevo."
+      "errorGeneric": "Ocurrió algo inesperado. Inténtalo de nuevo.",
+      "loginRequiredTitle": "Inicia sesión para enviar tu solicitud",
+      "loginRequiredBody": "Tu solicitud se vincula a tu cuenta de Aipify para que puedas seguir su estado. Todavía no se ha enviado nada. Inicia sesión y volverás a este formulario.",
+      "loginCta": "Iniciar sesión para continuar",
+      "createAccountCta": "Crear una cuenta",
+      "existing": {
+        "title": "Ya has enviado una solicitud",
+        "registered": "Tu solicitud está pendiente de aprobación por parte de Platform. No necesitas volver a solicitarla.",
+        "under_review": "Tu solicitud está pendiente de aprobación por parte de Platform. No necesitas volver a solicitarla.",
+        "needs_information": "Aipify necesita un poco más de información. Revisa tu correo electrónico para ver los detalles. No necesitas volver a solicitarla.",
+        "approved": "Tu solicitud ha sido aprobada. Abre tu espacio de trabajo de socio para continuar con la formación y la certificación.",
+        "rejected": "Tu solicitud anterior no fue aprobada. Contacta con Aipify si tienes preguntas.",
+        "suspended": "Tu cuenta de socio no está activa en este momento. Contacta con Aipify si tienes preguntas.",
+        "other": "Ya existe una solicitud para tu cuenta. No necesitas volver a solicitarla.",
+        "openPortalCta": "Abrir espacio de trabajo de socio"
+      },
+      "errors": {
+        "full_name_required": "Introduce tu nombre legal completo.",
+        "valid_email_required": "Introduce un correo electrónico de trabajo válido.",
+        "country_must_be_two_letter_code": "Selecciona tu país.",
+        "legal_business_name_required": "Introduce la razón social de la empresa.",
+        "business_registration_number_required": "Introduce el número de registro de la empresa.",
+        "registered_business_confirmation_required": "Confirma que diriges un negocio independiente legalmente registrado.",
+        "terms_acceptance_required": "Acepta los términos de socio para continuar.",
+        "certification_acknowledgement_required": "Confirma que entiendes que la certificación es necesaria antes de vender.",
+        "accuracy_confirmation_required": "Confirma que la información proporcionada es correcta.",
+        "forbidden": "Esta cuenta no puede enviar una solicitud de socio. Contacta con Aipify si necesitas ayuda.",
+        "registration_failed": "Ha ocurrido algo inesperado. Inténtalo de nuevo."
+      }
     }
   }
 }

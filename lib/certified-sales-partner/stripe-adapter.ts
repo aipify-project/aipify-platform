@@ -23,7 +23,12 @@
  */
 import { applyVerifiedPaidPeriod, type CspPaidPeriodState } from "./payment-periods";
 
-/** Wiring of this adapter into a live webhook is intentionally disabled. */
+/**
+ * `CSP_STRIPE_LIVE_WIRING_ENABLED = false` — wiring of this adapter into a live Stripe webhook is
+ * intentionally disabled. It is a compile-time constant (not an env switch); enabling it requires a
+ * separate owner payment-consent task. No Stripe keys, webhook secrets or SDK exist in this module;
+ * fixtures below are deterministic, offline, and NEVER represent live or test-mode Stripe traffic.
+ */
 export const CSP_STRIPE_LIVE_WIRING_ENABLED = false as const;
 
 export const CSP_STRIPE_SUCCESS_EVENT_TYPES = ["invoice.paid", "invoice.payment_succeeded"] as const;
@@ -120,4 +125,43 @@ export function mapVerifiedStripeEventToPaidPeriod(input: CspStripeVerifiedEvent
   }
 
   return { mapped: false, reason: "event_type_not_mapped" };
+}
+
+/**
+ * Offline fixture shape — a minimal stand-in for an already-verified Stripe invoice/charge event.
+ * Used by deterministic tests (integration fixture). Never produced from, or sent to, Stripe.
+ */
+export type CspStripeFixtureEvent = {
+  eventId: string;
+  eventType: (typeof CSP_STRIPE_SUCCESS_EVENT_TYPES | typeof CSP_STRIPE_FAILURE_EVENT_TYPES | typeof CSP_STRIPE_REVERSAL_EVENT_TYPES)[number];
+  amountPaid?: number;
+  /** 1-based subscription period this event pays (from the Aipify ledger in real flows). */
+  periodOrdinal: number;
+};
+
+export type CspStripeFixtureLedger = {
+  paidPeriods: number;
+  processedEventIds?: readonly string[];
+  needsReversalReview?: boolean;
+};
+
+/**
+ * Builds a `CspStripeVerifiedEventInput` from an offline fixture + ledger snapshot.
+ * Marks `signatureVerified: true` because the FIXTURE stands in for a verified event — callers must
+ * never pass real webhook payloads through this helper (live wiring stays disabled).
+ */
+export function buildPaidPeriodEventFromStripeFixture(
+  fixture: CspStripeFixtureEvent,
+  ledger: CspStripeFixtureLedger,
+): CspStripeVerifiedEventInput {
+  return {
+    signatureVerified: true,
+    eventType: fixture.eventType,
+    eventId: fixture.eventId,
+    amountPaid: fixture.amountPaid,
+    currentPaidPeriods: ledger.paidPeriods,
+    periodOrdinal: fixture.periodOrdinal,
+    processedEventIds: ledger.processedEventIds,
+    currentNeedsReversalReview: ledger.needsReversalReview,
+  };
 }

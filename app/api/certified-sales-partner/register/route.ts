@@ -1,14 +1,33 @@
 import { NextResponse } from "next/server";
 import {
+  buildCspLoginUrl,
   callCspRpc,
+  CSP_APPLY_NEXT_PATH,
   failClosedJson,
+  isCspUnauthorizedCode,
+  mapCspRegistrationRpcError,
+  parseCspRegistrationApplication,
   validateCspRegistration,
 } from "@/lib/certified-sales-partner";
 import { assertPublicFormSubmission, logSuspiciousSubmission } from "@/lib/public-forms/bot-protection";
 import { createClient } from "@/lib/supabase/server";
 
+function loginRequiredResponse() {
+  return NextResponse.json(
+    {
+      error: "login_required",
+      code: "login_required",
+      next: CSP_APPLY_NEXT_PATH,
+      login_url: buildCspLoginUrl(),
+    },
+    { status: 401 },
+  );
+}
+
 /**
  * CSP public registration — fail-closed until Core RPC accepts writes.
+ * `csp_register_partner_application` requires `auth.uid()`, so anonymous submits get
+ * 401 `login_required` and are never reported as stored.
  * Feature owner: PLATFORM (approval) + PARTNERS (self-serve signup).
  */
 export async function POST(request: Request) {
@@ -25,6 +44,12 @@ export async function POST(request: Request) {
       }
       return NextResponse.json({ error: guard.error }, { status: guard.status });
     }
+
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return loginRequiredResponse();
 
     const validated = validateCspRegistration({
       fullName: body.full_name ?? body.fullName,
@@ -45,14 +70,22 @@ export async function POST(request: Request) {
         body.info_accurate_confirmed ?? body.infoAccurateConfirmed,
     });
     if (!validated.ok) {
-      return NextResponse.json({ error: validated.error }, { status: 400 });
+      return NextResponse.json({ error: validated.error, code: validated.error, field: validated.field }, { status: 400 });
     }
 
-    const supabase = await createClient();
     const result = await callCspRpc(supabase, "csp_register_partner_application", {
       p_payload: validated.payload,
     });
     if (!result.ready) {
+      if (result.error === "unauthorized" || isCspUnauthorizedCode(result.detail)) return loginRequiredResponse();
+      // Core raised a known validation/confirmation error — report it as such, not as "backend closed".
+      const mappedDetail = result.error === "rpc_error" ? mapCspRegistrationRpcError(result.detail) : null;
+      if (mappedDetail) {
+        return NextResponse.json(
+          { error: mappedDetail.code, code: mappedDetail.code },
+          { status: mappedDetail.status },
+        );
+      }
       const closed = failClosedJson(result);
       return NextResponse.json(
         {
@@ -63,7 +96,26 @@ export async function POST(request: Request) {
         { status: closed.status },
       );
     }
-    return NextResponse.json(result.data);
+
+    // Core may answer an auth/confirmation problem as data — never report that as a stored application.
+    const data = result.data;
+    const coreError =
+      data && typeof data === "object" && "error" in data ? (data as { error?: unknown }).error : null;
+    if (typeof coreError === "string" && coreError) {
+      const mapped = mapCspRegistrationRpcError(coreError);
+      if (mapped?.code === "login_required") return loginRequiredResponse();
+      return NextResponse.json(
+        { error: mapped?.code ?? "registration_failed", code: mapped?.code ?? "registration_failed" },
+        { status: mapped?.status ?? 422 },
+      );
+    }
+
+    const application = parseCspRegistrationApplication(data);
+    return NextResponse.json({
+      ...(data && typeof data === "object" ? (data as Record<string, unknown>) : { data }),
+      created: application.created,
+      status: application.partnerStatus,
+    });
   } catch {
     return NextResponse.json({ error: "registration_failed" }, { status: 500 });
   }

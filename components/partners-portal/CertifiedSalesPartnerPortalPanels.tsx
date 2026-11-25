@@ -1,0 +1,617 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { getLocalizedCspCatalogProducts } from "@/lib/certified-sales-partner/product-catalog-display";
+import {
+  deriveCspNextAction,
+  parseCspSaleRows,
+  parseCspSettlementRows,
+  type CspSaleRow,
+  type CspSettlementRow,
+} from "@/lib/certified-sales-partner/portal-view";
+import { readCspResponse } from "@/lib/certified-sales-partner/ui-support";
+import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
+
+/** Shared label shapes — built from `partnersPortal.certifiedSalesPartner.*` (see csp-workspace-labels.ts). */
+export type CspStatusLabels = Record<string, string>;
+
+export type CspOverviewLabels = {
+  title: string;
+  statusLabel: string;
+  partnerStatus: CspStatusLabels;
+  certificationsLabel: string;
+  /** Template with {passed} and {total}. */
+  certificationsValue: string;
+  certificationsNone: string;
+  linksLabel: string;
+  salesLabel: string;
+  salesNone: string;
+  balanceLabel: string;
+  balanceNone: string;
+  nextTitle: string;
+  nextBody: CspStatusLabels;
+  nextCta: CspStatusLabels;
+};
+
+export type CspCertificationsLabels = {
+  title: string;
+  intro: string;
+  productCol: string;
+  statusCol: string;
+  scoreCol: string;
+  passedOnCol: string;
+  status: CspStatusLabels;
+  download: string;
+  emptyTitle: string;
+  emptyBody: string;
+  emptyCta: string;
+  unknownProduct: string;
+};
+
+export type CspSalesLabels = {
+  title: string;
+  intro: string;
+  productCol: string;
+  statusCol: string;
+  periodsCol: string;
+  commissionCol: string;
+  registeredCol: string;
+  status: CspStatusLabels;
+  commissionPending: string;
+  emptyTitle: string;
+  emptyBody: string;
+  emptyCta: string;
+  loadError: string;
+  retry: string;
+};
+
+export type CspSettlementsLabels = {
+  title: string;
+  intro: string;
+  periodCol: string;
+  statusCol: string;
+  linesCol: string;
+  totalCol: string;
+  status: CspStatusLabels;
+  balanceTitle: string;
+  balanceNone: string;
+  emptyTitle: string;
+  emptyBody: string;
+  loadError: string;
+  retry: string;
+};
+
+export type CspMarketingLabels = {
+  title: string;
+  intro: string;
+  linkTitle: string;
+  linkEmpty: string;
+  linkCta: string;
+  assetsTitle: string;
+  assetsEmptyTitle: string;
+  assetsEmptyBody: string;
+  productTabs: string;
+  localeTabs: string;
+  voiceNote: string;
+  signatureNote: string;
+  filterKompisWeb: string;
+  filterKompisBedrift: string;
+  filterVoice: string;
+};
+
+const CARD = "rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-6 shadow-sm";
+const TH = "px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]";
+const TD = "px-3 py-2 text-sm text-[color:var(--aipify-text-primary)]";
+
+function fill(template: string, values: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match));
+}
+
+function formatMoney(amount: number, currency: string, locale: string): string {
+  try {
+    return new Intl.NumberFormat(locale, { style: "currency", currency, maximumFractionDigits: 2 }).format(amount);
+  } catch {
+    return `${amount} ${currency}`;
+  }
+}
+
+function formatDate(value: string | null, locale: string, month = false): string {
+  if (!value) return "—";
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return "—";
+  try {
+    return new Intl.DateTimeFormat(locale, month ? { year: "numeric", month: "long", timeZone: "UTC" } : { dateStyle: "medium" }).format(d);
+  } catch {
+    return value;
+  }
+}
+
+function lookup(map: CspStatusLabels, key: string | null): string {
+  return (key && map[key]) || map.unknown || "—";
+}
+
+function Icon({ kind }: { kind: "ok" | "info" | "warn" }) {
+  const common = {
+    "aria-hidden": true as const,
+    viewBox: "0 0 24 24",
+    className: "h-4 w-4 shrink-0",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+  if (kind === "ok") {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="10" />
+        <path d="m8 12.5 2.8 2.8L16 9.5" />
+      </svg>
+    );
+  }
+  if (kind === "warn") {
+    return (
+      <svg {...common}>
+        <path d="M12 3 2.5 20h19L12 3Z" />
+        <path d="M12 10v4.5M12 17.5v.01" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...common}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+function Pill({ kind, children }: { kind: "ok" | "info" | "warn"; children: ReactNode }) {
+  const tone =
+    kind === "ok"
+      ? "border-teal-300 bg-teal-50 text-teal-900"
+      : kind === "warn"
+        ? "border-orange-300 bg-orange-50 text-orange-900"
+        : "border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface-muted)] text-[color:var(--aipify-text-secondary)]";
+  return (
+    <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold ${tone}`}>
+      <Icon kind={kind} />
+      {children}
+    </span>
+  );
+}
+
+function EmptyState({ title, body, cta, href }: { title: string; body: string; cta?: string; href?: string }) {
+  return (
+    <div className="rounded-xl border border-dashed border-[color:var(--aipify-border-strong)] p-6 text-center">
+      <h3 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{title}</h3>
+      <p className="mx-auto mt-2 max-w-xl text-sm text-[color:var(--aipify-text-secondary)]">{body}</p>
+      {cta && href ? (
+        <Link
+          href={href}
+          className="mt-4 inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white"
+        >
+          {cta}
+        </Link>
+      ) : null}
+    </div>
+  );
+}
+
+function Metric({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface-subtle)] p-4">
+      <dt className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">{label}</dt>
+      <dd className="mt-1 text-sm font-semibold text-[color:var(--aipify-text-primary)]">{children}</dd>
+    </div>
+  );
+}
+
+function BalanceText({ balances, none, locale }: { balances: Record<string, number>; none: string; locale: string }) {
+  const entries = Object.entries(balances);
+  if (entries.length === 0) return <>{none}</>;
+  return <>{entries.map(([currency, amount]) => formatMoney(amount, currency, locale)).join(" · ")}</>;
+}
+
+/** Partner dashboard — real metrics from the Core portal bundle; absent data is never faked. */
+export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels: CspOverviewLabels; locale: string }) {
+  const portal = useCspPortal();
+  if (!portal) return null;
+
+  const next = deriveCspNextAction(portal);
+  const status = portal.overview.partnerStatus;
+  const approved = status === "approved" || status === "active" || status === "certified";
+  const activeLinks = portal.links.filter((l) => l.active).length;
+
+  return (
+    <div className="space-y-6">
+      <section className={CARD} aria-labelledby="csp-overview-title">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 id="csp-overview-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
+            {portal.overview.displayName ?? labels.title}
+          </h2>
+          <Pill kind={approved ? "ok" : "info"}>{lookup(labels.partnerStatus, status)}</Pill>
+        </div>
+        <dl className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <Metric label={labels.certificationsLabel}>
+            {portal.publishedProductCount === 0
+              ? labels.certificationsNone
+              : fill(labels.certificationsValue, {
+                  passed: portal.passedCertificationCount,
+                  total: portal.publishedProductCount,
+                })}
+          </Metric>
+          <Metric label={labels.linksLabel}>{activeLinks}</Metric>
+          <Metric label={labels.salesLabel}>{portal.salesTotal === 0 ? labels.salesNone : portal.salesTotal}</Metric>
+          <Metric label={labels.balanceLabel}>
+            <BalanceText balances={portal.ledgerByCurrency} none={labels.balanceNone} locale={locale} />
+          </Metric>
+        </dl>
+      </section>
+
+      <section className={CARD} aria-labelledby="csp-next-title">
+        <h2 id="csp-next-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
+          {labels.nextTitle}
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm text-[color:var(--aipify-text-secondary)]">{labels.nextBody[next.key]}</p>
+        {next.href && labels.nextCta[next.key] ? (
+          <Link
+            href={next.href}
+            className="mt-4 inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white"
+          >
+            {labels.nextCta[next.key]}
+          </Link>
+        ) : null}
+      </section>
+    </div>
+  );
+}
+
+/** Certifications page — per-product status from the Core portal bundle. */
+export function CertifiedSalesPartnerCertificationsPanel({
+  labels,
+  locale,
+}: {
+  labels: CspCertificationsLabels;
+  locale: string;
+}) {
+  const portal = useCspPortal();
+  const names = useMemo(() => {
+    const map: Record<string, string> = {};
+    for (const p of getLocalizedCspCatalogProducts(locale)) map[p.key] = p.title;
+    return map;
+  }, [locale]);
+  if (!portal) return null;
+
+  const rows = portal.overview.products.map((product) => {
+    const cert = portal.overview.certifications.find(
+      (c) => (product.id !== null && c.productId === product.id) || (product.productKey !== null && c.productKey === product.productKey),
+    );
+    return {
+      key: product.productKey ?? product.id ?? "",
+      status: cert?.status ?? product.certificationStatus,
+      score: cert?.score ?? null,
+      passedAt: cert?.passedAt ?? null,
+      productKey: product.productKey,
+    };
+  });
+
+  return (
+    <section className={CARD} aria-labelledby="csp-certs-title">
+      <h2 id="csp-certs-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
+        {labels.title}
+      </h2>
+      <p className="mt-2 max-w-3xl text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
+      {rows.length === 0 ? (
+        <div className="mt-4">
+          <EmptyState title={labels.emptyTitle} body={labels.emptyBody} cta={labels.emptyCta} href="/partners/academy/training" />
+        </div>
+      ) : (
+        <div className="mt-4 overflow-x-auto">
+          <table className="min-w-full divide-y divide-[color:var(--aipify-border)]">
+            <thead>
+              <tr>
+                <th className={TH}>{labels.productCol}</th>
+                <th className={TH}>{labels.statusCol}</th>
+                <th className={TH}>{labels.scoreCol}</th>
+                <th className={TH}>{labels.passedOnCol}</th>
+                <th className={TH}>
+                  <span className="sr-only">{labels.download}</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[color:var(--aipify-border)]">
+              {rows.map((row) => {
+                const passed = row.status === "passed";
+                return (
+                  <tr key={row.key}>
+                    <td className={TD}>{names[row.key] ?? labels.unknownProduct}</td>
+                    <td className={TD}>
+                      <Pill kind={passed ? "ok" : row.status === "expired" || row.status === "revoked" ? "warn" : "info"}>
+                        {lookup(labels.status, row.status)}
+                      </Pill>
+                    </td>
+                    <td className={TD}>{row.score === null ? "—" : `${row.score}%`}</td>
+                    <td className={TD}>{formatDate(row.passedAt, locale)}</td>
+                    <td className={TD}>
+                      {passed && row.productKey === "kompis_web" ? (
+                        <a
+                          href={`/api/certified-sales-partner/academy/certificate?locale=${encodeURIComponent(locale)}`}
+                          className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+                        >
+                          {labels.download}
+                        </a>
+                      ) : null}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
+
+type ListState<T> = { phase: "loading" } | { phase: "error" } | { phase: "ready"; rows: T[] };
+
+function useCspList<T>(url: string, parse: (payload: unknown) => T[], enabled: boolean) {
+  const [state, setState] = useState<ListState<T>>({ phase: "loading" });
+  const [nonce, setNonce] = useState(0);
+  useEffect(() => {
+    if (!enabled) return;
+    let cancelled = false;
+    setState({ phase: "loading" });
+    (async () => {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        const outcome = await readCspResponse(res);
+        if (cancelled) return;
+        setState(outcome.kind === "ready" ? { phase: "ready", rows: parse(outcome.body) } : { phase: "error" });
+      } catch {
+        if (!cancelled) setState({ phase: "error" });
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // `parse` is a stable module-level function.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url, enabled, nonce]);
+  return { state, reload: () => setNonce((n) => n + 1) };
+}
+
+function ErrorState({ message, retry, onRetry }: { message: string; retry: string; onRetry: () => void }) {
+  return (
+    <div className="rounded-xl border border-orange-300 bg-orange-50 p-4 text-sm text-orange-900" role="alert">
+      <p className="flex items-start gap-2">
+        <Icon kind="warn" />
+        <span>{message}</span>
+      </p>
+      <button type="button" onClick={onRetry} className="mt-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]">
+        {retry}
+      </button>
+    </div>
+  );
+}
+
+const EARNED_STATUSES = new Set(["earned", "approved_for_payout", "queued_for_payout", "paid"]);
+
+/** Sales page — partner's own qualified sales; commission only shown once earned. */
+export function CertifiedSalesPartnerSalesPanel({ labels, locale }: { labels: CspSalesLabels; locale: string }) {
+  const portal = useCspPortal();
+  const names = useMemo(() => {
+    const map: Record<string, string> = {};
+    for (const p of getLocalizedCspCatalogProducts(locale)) map[p.key] = p.title;
+    return map;
+  }, [locale]);
+  const { state, reload } = useCspList<CspSaleRow>("/api/certified-sales-partner/sales", parseCspSaleRows, portal !== null);
+  if (!portal) return null;
+
+  return (
+    <section className={CARD} aria-labelledby="csp-sales-title">
+      <h2 id="csp-sales-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
+        {labels.title}
+      </h2>
+      <p className="mt-2 max-w-3xl text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
+      <div className="mt-4">
+        {state.phase === "error" ? <ErrorState message={labels.loadError} retry={labels.retry} onRetry={reload} /> : null}
+        {state.phase === "ready" && state.rows.length === 0 ? (
+          <EmptyState title={labels.emptyTitle} body={labels.emptyBody} cta={labels.emptyCta} href="/partners/marketing/product-catalog" />
+        ) : null}
+        {state.phase === "ready" && state.rows.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-[color:var(--aipify-border)]">
+              <thead>
+                <tr>
+                  <th className={TH}>{labels.productCol}</th>
+                  <th className={TH}>{labels.statusCol}</th>
+                  <th className={TH}>{labels.periodsCol}</th>
+                  <th className={TH}>{labels.commissionCol}</th>
+                  <th className={TH}>{labels.registeredCol}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[color:var(--aipify-border)]">
+                {state.rows.map((row, index) => {
+                  const earned = row.status !== null && EARNED_STATUSES.has(row.status);
+                  const bad = row.status === "reversed" || row.status === "rejected";
+                  return (
+                    <tr key={row.id ?? index}>
+                      <td className={TD}>{(row.productKey && names[row.productKey]) || row.productKey || "—"}</td>
+                      <td className={TD}>
+                        <Pill kind={earned ? "ok" : bad ? "warn" : "info"}>{lookup(labels.status, row.status)}</Pill>
+                      </td>
+                      <td className={TD}>{row.paidPeriodsCount ?? "—"}</td>
+                      <td className={TD}>
+                        {earned && row.snapshotAmount !== null && row.snapshotCurrency
+                          ? formatMoney(row.snapshotAmount, row.snapshotCurrency, locale)
+                          : labels.commissionPending}
+                      </td>
+                      <td className={TD}>{formatDate(row.attributedAt, locale)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
+      </div>
+    </section>
+  );
+}
+
+/** Settlement page — read-only monthly settlements and Core ledger balance. */
+export function CertifiedSalesPartnerSettlementsPanel({
+  labels,
+  locale,
+}: {
+  labels: CspSettlementsLabels;
+  locale: string;
+}) {
+  const portal = useCspPortal();
+  const { state, reload } = useCspList<CspSettlementRow>(
+    "/api/certified-sales-partner/settlements",
+    parseCspSettlementRows,
+    portal !== null,
+  );
+  if (!portal) return null;
+
+  return (
+    <div className="space-y-6">
+      <section className={CARD} aria-labelledby="csp-balance-title">
+        <h2 id="csp-balance-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
+          {labels.balanceTitle}
+        </h2>
+        <p className="mt-2 text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+          <BalanceText balances={portal.ledgerByCurrency} none={labels.balanceNone} locale={locale} />
+        </p>
+      </section>
+
+      <section className={CARD} aria-labelledby="csp-settlements-title">
+        <h2 id="csp-settlements-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
+          {labels.title}
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
+        <div className="mt-4">
+          {state.phase === "error" ? <ErrorState message={labels.loadError} retry={labels.retry} onRetry={reload} /> : null}
+          {state.phase === "ready" && state.rows.length === 0 ? (
+            <EmptyState title={labels.emptyTitle} body={labels.emptyBody} />
+          ) : null}
+          {state.phase === "ready" && state.rows.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-[color:var(--aipify-border)]">
+                <thead>
+                  <tr>
+                    <th className={TH}>{labels.periodCol}</th>
+                    <th className={TH}>{labels.statusCol}</th>
+                    <th className={TH}>{labels.linesCol}</th>
+                    <th className={TH}>{labels.totalCol}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[color:var(--aipify-border)]">
+                  {state.rows.map((row, index) => (
+                    <tr key={row.id ?? index}>
+                      <td className={TD}>{formatDate(row.periodMonth, locale, true)}</td>
+                      <td className={TD}>
+                        <Pill kind={row.status === "paid" ? "ok" : row.status === "voided" ? "warn" : "info"}>
+                          {lookup(labels.status, row.status)}
+                        </Pill>
+                      </td>
+                      <td className={TD}>{row.lineCount ?? "—"}</td>
+                      <td className={TD}>
+                        {row.totalAmount !== null && row.currency ? formatMoney(row.totalAmount, row.currency, locale) : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : null}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/**
+ * Sales tools / marketing materials — personal link from Core when present; banner library
+ * stays honestly empty until owner-approved Budda/Buddy assets are imported (not invented).
+ */
+export function CertifiedSalesPartnerMarketingPanel({
+  labels,
+  locale,
+}: {
+  labels: CspMarketingLabels;
+  locale: string;
+}) {
+  const portal = useCspPortal();
+  const [product, setProduct] = useState<"kompis_web" | "kompis_bedrift" | "aipify_voice">("kompis_web");
+  const activeLink = portal?.links.find((l) => l.active && l.code) ?? null;
+  const publicPath = activeLink?.code ? `/p/${activeLink.code}/${product}` : null;
+
+  return (
+    <div className="space-y-6">
+      <section className={CARD}>
+        <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{labels.title}</h2>
+        <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
+        <p className="mt-3 text-sm text-[color:var(--aipify-text-secondary)]">{labels.signatureNote}</p>
+      </section>
+
+      <section className={CARD} aria-labelledby="csp-marketing-link">
+        <h3 id="csp-marketing-link" className="text-base font-semibold text-[color:var(--aipify-text-primary)]">
+          {labels.linkTitle}
+        </h3>
+        {publicPath ? (
+          <p className="mt-3 break-all rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface-muted)] px-3 py-2 font-mono text-sm text-[color:var(--aipify-text-primary)]">
+            {publicPath}
+          </p>
+        ) : (
+          <EmptyState title={labels.linkEmpty} body={labels.linkEmpty} cta={labels.linkCta} href="/partners/referrals/links" />
+        )}
+      </section>
+
+      <section className={CARD} aria-labelledby="csp-marketing-assets">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <h3 id="csp-marketing-assets" className="text-base font-semibold text-[color:var(--aipify-text-primary)]">
+            {labels.assetsTitle}
+          </h3>
+          <p className="text-xs text-[color:var(--aipify-text-muted)]">
+            {labels.localeTabs}: {locale}
+          </p>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2" role="tablist" aria-label={labels.productTabs}>
+          {(
+            [
+              ["kompis_web", labels.filterKompisWeb],
+              ["kompis_bedrift", labels.filterKompisBedrift],
+              ["aipify_voice", labels.filterVoice],
+            ] as const
+          ).map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              role="tab"
+              aria-selected={product === key}
+              onClick={() => setProduct(key)}
+              className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${
+                product === key
+                  ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                  : "border border-[color:var(--aipify-border)] text-[color:var(--aipify-text-secondary)]"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        {product === "aipify_voice" ? (
+          <p className="mt-4 text-sm text-[color:var(--aipify-text-secondary)]">{labels.voiceNote}</p>
+        ) : (
+          <div className="mt-4">
+            <EmptyState title={labels.assetsEmptyTitle} body={labels.assetsEmptyBody} />
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}

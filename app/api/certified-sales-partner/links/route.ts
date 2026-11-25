@@ -1,13 +1,23 @@
 import { NextResponse } from "next/server";
 import {
+  buildCspPublicLinkPath,
   callCspRpc,
-  canIssueSalesLink,
+  evaluateSalesLinkGates,
   failClosedJson,
   normalizeChannel,
+  parsePartnerOverview,
+  resolveCspProductDestination,
 } from "@/lib/certified-sales-partner";
 import { createClient } from "@/lib/supabase/server";
 
-/** Issue personal product/channel link when partner+cert+product gates pass. */
+/**
+ * Issue a personal product/channel link.
+ *
+ * Gates (partner approved, product published, certification passed, agreement) are DERIVED SERVER-SIDE
+ * from `csp_get_partner_overview`. Any gate flags in the request body are ignored. `product_id` may be
+ * the Core product id or a product key (e.g. `kompis_web`). The returned `path` is the public
+ * `/p/{code}/{productKey}` attribution path (Core's `/r/<code>` placeholder is kept as `core_path`).
+ */
 export async function POST(request: Request) {
   try {
     const supabase = await createClient();
@@ -16,45 +26,62 @@ export async function POST(request: Request) {
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const body = (await request.json()) as {
-      product_id?: string;
-      channel?: string;
-      partner_approved?: boolean;
-      product_published?: boolean;
-      certification_passed?: boolean;
-      agreement_accepted?: boolean;
+    const body = (await request.json().catch(() => ({}))) as {
+      product_id?: unknown;
+      product_key?: unknown;
+      channel?: unknown;
     };
 
-    if (!body.product_id) {
+    const productRef =
+      typeof body.product_id === "string" && body.product_id.trim()
+        ? body.product_id.trim()
+        : typeof body.product_key === "string"
+          ? body.product_key.trim()
+          : "";
+    if (!productRef) {
       return NextResponse.json({ error: "product_id_required" }, { status: 400 });
     }
 
-    const channel = normalizeChannel(body.channel);
+    const channel = normalizeChannel(typeof body.channel === "string" ? body.channel : undefined);
     const overview = await callCspRpc(supabase, "csp_get_partner_overview");
     if (!overview.ready) {
       const closed = failClosedJson(overview);
       return NextResponse.json(closed.body, { status: closed.status });
     }
 
-    const gates = canIssueSalesLink({
-      partnerApproved: body.partner_approved === true,
-      productPublished: body.product_published === true,
-      certificationPassed: body.certification_passed === true,
-      agreementAccepted: body.agreement_accepted === true,
-    });
-    if (!gates) {
-      return NextResponse.json({ error: "sales_link_gates_not_met" }, { status: 403 });
+    const evaluation = evaluateSalesLinkGates(parsePartnerOverview(overview.data), productRef);
+    if (!evaluation.allowed || !evaluation.productId) {
+      return NextResponse.json({ error: "sales_link_gates_not_met", gates: evaluation.gates }, { status: 403 });
+    }
+
+    // Do not issue a Core link for a product without a public destination (no orphan/dead links).
+    if (resolveCspProductDestination(evaluation.productKey) === null) {
+      return NextResponse.json({ error: "product_not_sellable_yet" }, { status: 409 });
     }
 
     const created = await callCspRpc(supabase, "csp_create_attribution_link", {
-      p_product_id: body.product_id,
+      p_product_id: evaluation.productId,
       p_channel: channel,
     });
     if (!created.ready) {
       const closed = failClosedJson(created);
       return NextResponse.json(closed.body, { status: closed.status });
     }
-    return NextResponse.json(created.data);
+    // Core returns the placeholder `/r/<code>`; remap to the canonical `/p/{code}/{productKey}` route.
+    const core = (created.data && typeof created.data === "object" ? created.data : {}) as Record<string, unknown>;
+    const publicPath =
+      typeof core.code === "string"
+        ? buildCspPublicLinkPath({
+            code: core.code,
+            productKey: typeof core.product_key === "string" ? core.product_key : (evaluation.productKey ?? ""),
+            channel: typeof core.channel === "string" ? core.channel : channel,
+          })
+        : null;
+    if (!publicPath) {
+      // Link exists in Core but has no public product destination yet — never hand out a dead URL.
+      return NextResponse.json({ ...core, path: null, error: "public_link_unavailable" }, { status: 409 });
+    }
+    return NextResponse.json({ ...core, core_path: core.path ?? null, path: publicPath });
   } catch {
     return NextResponse.json({ error: "link_create_failed" }, { status: 500 });
   }

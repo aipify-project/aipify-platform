@@ -283,59 +283,298 @@
       "honestBlockedBody": "Kompis help is disabled during partner certification and test flows. Use Academy materials instead."
     },
     "workspace": {
-      "loading": "Loading partner workspace…",
-      "notReadyTitle": "Partner backend not active yet",
-      "notReadyBody": "Certified Sales Partner Core storage is not active until the approved database migration is applied. No fake sales or commissions are shown.",
-      "retry": "Try again",
-      "errorTitle": "Something unexpected happened. Please try again."
+      "loading": "Завантаження робочого простору партнера…",
+      "notReadyTitle": "Серверну частину для партнерів ще не активовано",
+      "notReadyBody": "Сховище Certified Sales Partner не активне, доки не застосовано схвалену міграцію бази даних. Вигадані продажі чи комісії не показуються.",
+      "retry": "Спробувати ще раз",
+      "errorTitle": "Сталася несподівана помилка. Спробуйте ще раз.",
+      "unauthorizedTitle": "Увійдіть, щоб відкрити робочий простір партнера",
+      "unauthorizedBody": "Ви не ввійшли або сеанс завершився. Увійдіть у партнерський обліковий запис, щоб продовжити.",
+      "signIn": "Увійти",
+      "notRegisteredTitle": "Партнерську заявку не знайдено",
+      "notRegisteredBody": "Цей обліковий запис ще не подавав заявку як Certified Sales Partner. Подайте заявку, щоб почати. Продажі починаються лише після схвалення та сертифікації.",
+      "applyCta": "Подати заявку партнера",
+      "pending": {
+        "statusLabel": "Статус заявки",
+        "nextTitle": "Що далі",
+        "contactCta": "Зв’язатися з Aipify",
+        "under_review": {
+          "title": "Вашу заявку розглядають",
+          "body": "Aipify отримало вашу заявку, і вона очікує схвалення від Platform. Навчання, посилання для продажів і комісії відкриються після схвалення.",
+          "next": "Зараз нічого робити не потрібно. Ми повідомимо вас про рішення, а на цю сторінку можна повернутися будь-коли."
+        },
+        "needs_information": {
+          "title": "Aipify потрібно більше інформації",
+          "body": "Заявку поки не можна схвалити, бо деяких даних бракує або вони нечіткі.",
+          "next": "Перегляньте електронну пошту, щоб дізнатися, що надати, або зверніться до Aipify. Заявка залишається відкритою."
+        },
+        "rejected": {
+          "title": "Вашу заявку не схвалено",
+          "body": "Aipify не змогло схвалити цю заявку. Навчання, посилання для продажів і комісії недоступні для цього облікового запису.",
+          "next": "Якщо ви вважаєте, що даних бракувало або вони були неточні, зверніться до Aipify, і ми розглянемо заявку ще раз."
+        },
+        "suspended": {
+          "title": "Ваш партнерський обліковий запис призупинено",
+          "body": "Ваш партнерський обліковий запис наразі неактивний, тому навчання та посилання для продажів недоступні.",
+          "next": "Зверніться до Aipify, щоб дізнатися причину та що потрібно для повторної активації облікового запису."
+        }
+      }
     },
     "pages": {
       "home": {
-        "title": "Certified Sales Partner home",
-        "subtitle": "Your Aipify sales workspace for certified products, links and commissions.",
+        "title": "Огляд партнера",
+        "subtitle": "Ваш статус, сертифікації та наступний крок як Certified Sales Partner.",
         "readyHint": "When Core is active, overview metrics for products, sales and payouts appear here."
       },
       "products": {
-        "title": "Products for sale",
-        "subtitle": "Approved Aipify products with customer price and fixed one-time commission. Partners cannot purchase here.",
-        "noBuy": "There is no purchase button for partners. Generate a tracking link after certification."
+        "title": "Продукти для продажу",
+        "subtitle": "Продукти Aipify, які ви можете продавати, із запланованими довідковими цінами та фіксованою одноразовою комісією після їх публікації Aipify. Партнери не можуть тут купувати.",
+        "noBuy": "Для партнерів немає кнопки купівлі. Створіть посилання для відстеження після сертифікації."
       },
       "links": {
-        "title": "My sales links",
-        "subtitle": "Create personal product links by channel. First valid touch wins for 90 days."
+        "title": "Мої посилання для продажу",
+        "subtitle": "Створюйте особисті посилання на продукти за каналами. Перший дійсний контакт діє 90 днів."
       },
       "sales": {
-        "title": "My sales",
-        "subtitle": "Registered sales stay neutral until the customer’s second successful paid period.",
-        "awaitingHint": "Payment #1 shows as registered / awaiting month 2 — commission is not earned yet."
+        "title": "Мої продажі",
+        "subtitle": "Зареєстровані продажі залишаються нейтральними до другого успішного оплаченого періоду клієнта.",
+        "awaitingHint": "Платіж №1 відображається як зареєстрований / очікує 2-го місяця — комісію ще не зароблено."
       },
       "settlement": {
-        "title": "Commission and payouts",
-        "subtitle": "Read-only view of monthly settlements. Aipify Group AS pays manually in bank.",
-        "readOnlyHint": "You can view upcoming and historical payouts. You cannot change ledger amounts."
+        "title": "Комісія та виплати",
+        "subtitle": "Перегляд місячних розрахунків лише для читання. Aipify Group AS виплачує вручну через банк.",
+        "readOnlyHint": "Ви можете переглядати майбутні та минулі виплати. Змінювати суми в книзі не можна."
       },
       "academy": {
-        "title": "Growth Academy",
-        "subtitle": "Product training and certification. Pass mark is 80%. Kompis help is disabled during the test."
+        "title": "Академія зростання",
+        "subtitle": "Навчання за продуктом і сертифікація. Прохідний бал — 80%. Допомога Kompis вимкнена під час тесту."
+      },
+      "certifications": {
+        "title": "Мої сертифікації",
+        "subtitle": "Статус вашої сертифікації для кожного продукту. Aipify фіксує сертифікацію після успішного складання тесту."
+      },
+      "marketing": {
+        "title": "Інструменти продажів",
+        "subtitle": "Затверджені маркетингові макети та ваше особисте посилання — ніколи вбудована зразкова URL-адреса."
       }
     },
     "links": {
-      "panelTitle": "Generate a sales link",
-      "productId": "Product id",
-      "channel": "Channel",
-      "submit": "Create link",
-      "howItWorks": "Attribution uses first valid touch within 90 days. Commission is earned only after two successful paid periods — never on renewals.",
-      "success": "Link request accepted by the API.",
-      "gatesHint": "Confirm partner approval, published product, certification and agreement before requesting a live link."
+      "panelTitle": "Створити посилання для продажів",
+      "productId": "Продукт (ключ або ідентифікатор)",
+      "channel": "Канал",
+      "submit": "Створити посилання",
+      "howItWorks": "Атрибуція враховує перший дійсний контакт протягом 90 днів. Комісія нараховується лише після двох успішних платних періодів — ніколи за поновлення.",
+      "success": "Ваше посилання для продажу готове: {url}",
+      "gatesHint": "Aipify перевіряє ваше схвалення, опублікований продукт, сертифікацію та угоду, перш ніж видати активне посилання.",
+      "product": "Продукт",
+      "productPlaceholder": "Оберіть продукт",
+      "certificationNeeded": "потрібна сертифікація",
+      "noProducts": "Продуктів для посилань ще немає. Вони з’являться тут, щойно Aipify їх опублікує.",
+      "creating": "Створення посилання",
+      "copy": "Копіювати посилання",
+      "copied": "Посилання скопійовано.",
+      "productNotYet": "Цей продукт ще не має публічної сторінки продажу, тому посилання не створено.",
+      "channels": {
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "x": "X",
+        "snapchat": "Snapchat",
+        "tiktok": "TikTok",
+        "linkedin": "LinkedIn",
+        "email": "Електронна пошта",
+        "qr": "QR-код",
+        "other": "Інше",
+        "referral_link": "Особисте реферальне посилання",
+        "partner_code": "Партнерський код"
+      }
     },
     "exam": {
-      "title": "Product certification test",
-      "courseId": "Course id",
-      "answersJson": "Answers (server scored)",
-      "submit": "Submit test",
-      "kompisBlocked": "Kompis help is disabled during this test. No hints are available from Aipify during the exam.",
-      "passed": "Passed",
-      "failed": "Not passed yet"
+      "title": "Сертифікаційний тест за продуктом",
+      "intro": "Дайте відповідь на 15 запитань, по одному. Перед надсиланням можна повернутися й змінити відповіді. Прохідний бал — 80%.",
+      "start": "Почати тест",
+      "starting": "Запуск тесту",
+      "kompisBlocked": "Допомога Kompis вимкнена під час цього тесту. Aipify не дає підказок під час іспиту.",
+      "progress": "Запитання {current} із {total}",
+      "answered": "Відповідей: {count} із {total}",
+      "previous": "Назад",
+      "next": "Далі",
+      "submit": "Надіслати тест",
+      "submitting": "Надсилання",
+      "submitDisabledHint": "Дайте відповідь на всі запитання, щоб надіслати тест. Скористайтеся кнопкою «Назад», щоб знайти пропущені.",
+      "questionRegion": "Запитання іспиту",
+      "passedTitle": "Тест складено — чудова робота",
+      "passedBody": "Ви досягли прохідного балу. Дякуємо, що знайшли час ґрунтовно вивчити продукт.",
+      "failedTitle": "Продовжуйте вчитися — можна спробувати ще раз",
+      "failedBody": "Цього разу прохідного балу не досягнуто. Це частина навчання. Перегляньте уроки нижче й спробуйте ще раз, коли будете готові.",
+      "passed": "Складено",
+      "failed": "Ще не складено",
+      "score": "Правильних відповідей: {correct} із {total} ({score}%)",
+      "passMark": "Прохідний бал: {pass}%",
+      "reviewLessons": "Уроки, які варто повторити",
+      "retake": "Пройти тест ще раз",
+      "practiceNotice": "Цей результат лише тренувальний. Сертифікацію не зареєстровано й не видано, оскільки партнерська система її не підтвердила. Сертифікація та посилання для продажів стануть доступними після реєстрації результату.",
+      "certificationRecorded": "Вашу сертифікацію зареєстровано.",
+      "downloadCertificate": "Завантажити сертифікат (PDF)",
+      "attemptRecorded": "Вашу спробу зафіксовано. Перегляньте уроки та спробуйте ще раз, коли будете готові."
+    },
+    "lessons": {
+      "title": "Уроки про Kompis Web",
+      "intro": "Шість коротких уроків підготують вас до тесту. Читайте їх у власному темпі. Допомога Kompis недоступна під час тесту.",
+      "lessonNumber": "Урок {number}",
+      "plannedCatalogNote": "Пакети й ціни в цьому уроці — це запланований каталог, який ще не діє в білінгу. Ніколи не подавайте їх як обов’язкові пропозиції."
+    },
+    "catalog": {
+      "title": "Продукти",
+      "intro": "Дізнайтеся, як описано кожен продукт, його заплановану довідкову ціну та вашу комісію після публікації Aipify.",
+      "filterLabel": "Фільтр за категорією",
+      "filterAll": "Усі",
+      "filterKompis": "Kompis",
+      "filterVoice": "Aipify Voice (майбутнє)",
+      "sellable": "Доступний для продажу",
+      "future": "Незабаром",
+      "futureNote": "Незабаром — ще недоступно для продажу чи сертифікації.",
+      "plannedPrice": "Від {price} / місяць",
+      "plannedPriceNote": "Ціна для клієнта (запланована довідкова)",
+      "noPlannedPrice": "Планову ціну ще не опубліковано",
+      "commissionLabel": "Ваша комісія",
+      "commissionAmount": "{amount} одноразово за кваліфікований продаж",
+      "commissionPending": "Комісія з’явиться після публікації продукту Платформою",
+      "certificationLabel": "Ваша сертифікація",
+      "certNotStarted": "Не розпочато",
+      "certInProgress": "У процесі",
+      "certPassed": "Складено",
+      "certExpired": "Термін дії завершився",
+      "certRevoked": "Скасовано",
+      "certUnknown": "Відображається, коли партнерська система активна",
+      "certNotApplicable": "Ще не застосовується",
+      "copyLink": "Копіювати посилання для продажів",
+      "copyingLink": "Створення посилання",
+      "linkCopied": "Посилання для продажів скопійовано.",
+      "linkCreated": "Посилання для продажів створено: {path}",
+      "linkGatesNotMet": "Посилання для продажів стає доступним, коли вас схвалено, продукт опубліковано, а сертифікацію складено.",
+      "linkUnavailable": "Посилання для продажів недоступні, доки партнерська система не активна.",
+      "takeTraining": "Пройти навчання",
+      "trainingNotPublished": "Навчання ще не опубліковано",
+      "empty": "У цій категорії немає продуктів."
+    },
+    "overview": {
+      "title": "Ваш огляд партнера",
+      "statusLabel": "Статус партнера",
+      "partnerStatus": {
+        "registered": "Зареєстровано",
+        "under_review": "На розгляді",
+        "needs_information": "Потрібна додаткова інформація",
+        "approved": "Схвалено",
+        "active": "Активний",
+        "certified": "Сертифіковано",
+        "in_academy": "В Академії",
+        "rejected": "Не схвалено",
+        "suspended": "Призупинено",
+        "unknown": "Статус недоступний"
+      },
+      "certificationsLabel": "Сертифікації",
+      "certificationsValue": "{passed} із {total} продуктів сертифіковано",
+      "certificationsNone": "Опублікованих продуктів ще немає",
+      "linksLabel": "Активні посилання для продажу",
+      "salesLabel": "Зареєстровані продажі",
+      "salesNone": "Продажів ще немає",
+      "balanceLabel": "Баланс комісії",
+      "balanceNone": "Комісії ще не зафіксовано",
+      "nextTitle": "Рекомендований наступний крок",
+      "nextBody": {
+        "awaiting_approval": "Aipify розглядає вашу заявку. Після схвалення ви зможете навчатися та створювати посилання для продажу.",
+        "provide_information": "Aipify потрібно трохи більше інформації, перш ніж заявку можна буде схвалити. Подробиці — у вашій електронній пошті.",
+        "not_active": "Ваш партнерський акаунт наразі неактивний. Зверніться до Aipify, якщо маєте запитання.",
+        "train": "Розпочніть Growth Academy. Після складання тесту з продукту ви зможете створювати власні посилання для продажу.",
+        "create_link": "Ви сертифіковані. Створіть посилання для продажу продукту й поділіться ним у зручному каналі.",
+        "view_sales": "Ваші посилання для продажу активні. Стежте за зареєстрованими продажами та їхнім прогресом у розділі «Мої продажі»."
+      },
+      "nextCta": {
+        "train": "Перейти до Growth Academy",
+        "create_link": "Створити посилання для продажу",
+        "view_sales": "Переглянути мої продажі"
+      }
+    },
+    "certifications": {
+      "title": "Статус сертифікації за продуктами",
+      "intro": "Сертифікацію позначено як пройдену лише після того, як Aipify її зафіксує. Прохідний бал — 80%.",
+      "productCol": "Продукт",
+      "statusCol": "Статус",
+      "scoreCol": "Результат",
+      "passedOnCol": "Складено",
+      "status": {
+        "not_started": "Не розпочато",
+        "in_progress": "У процесі",
+        "passed": "Складено",
+        "expired": "Термін дії минув",
+        "revoked": "Анульовано",
+        "unknown": "Статус недоступний"
+      },
+      "emptyTitle": "Продуктів для сертифікації ще немає",
+      "emptyBody": "Продукти з’являться тут, щойно Aipify їх опублікує. Уроки та практику вже можна переглянути в Growth Academy.",
+      "emptyCta": "Перейти до Growth Academy",
+      "unknownProduct": "Продукт"
+    },
+    "salesList": {
+      "title": "Зареєстровані продажі",
+      "productCol": "Продукт",
+      "statusCol": "Статус",
+      "periodsCol": "Оплачені періоди",
+      "commissionCol": "Комісія",
+      "registeredCol": "Зареєстровано",
+      "status": {
+        "registered_awaiting_second_payment": "Зареєстровано — очікує 2-го місяця",
+        "pending_possible": "Перевіряється",
+        "earned": "Комісію зароблено",
+        "approved_for_payout": "Схвалено до виплати",
+        "queued_for_payout": "У черзі на виплату",
+        "paid": "Виплачено",
+        "reversed": "Скасовано",
+        "rejected": "Не відповідає умовам",
+        "unknown": "Статус недоступний"
+      },
+      "commissionPending": "Ще не зароблено",
+      "emptyTitle": "Зареєстрованих продажів ще немає",
+      "emptyBody": "Коли клієнт, якого ви порекомендували, розпочне платну підписку, продаж з’явиться тут. Поділіться посиланням для продажу, щоб почати.",
+      "emptyCta": "Створити посилання для продажу",
+      "loadError": "Наразі не вдалося завантажити ваші продажі. Спробуйте ще раз."
+    },
+    "settlements": {
+      "title": "Місячні розрахунки",
+      "periodCol": "Місяць",
+      "statusCol": "Статус",
+      "linesCol": "Включені продажі",
+      "totalCol": "Разом",
+      "status": {
+        "open": "Відкрито",
+        "approved": "Схвалено",
+        "closed": "Закрито — очікує оплати",
+        "paid": "Виплачено",
+        "voided": "Анульовано",
+        "unknown": "Статус недоступний"
+      },
+      "balanceTitle": "Баланс комісії",
+      "balanceNone": "Комісії ще не зафіксовано",
+      "emptyTitle": "Розрахунків ще немає",
+      "emptyBody": "Ваш перший місячний розрахунок з’явиться тут, щойно ви заробите комісію. Нічого не показується, доки Aipify цього не зафіксує.",
+      "loadError": "Наразі не вдалося завантажити ваші розрахунки. Спробуйте ще раз."
+    },
+    "marketing": {
+      "title": "Інструменти продажів",
+      "intro": "Завантажуйте маркетингові макети Aipify для продуктів, які ви сертифіковані продавати. Ваше особисте посилання показується окремо — воно ніколи не вбудоване в банери.",
+      "linkTitle": "Ваше особисте посилання для продажів",
+      "linkEmpty": "Створіть посилання після схвалення та сертифікації. Воно з’явиться тут для копіювання та поширення.",
+      "linkCta": "Створити посилання",
+      "assetsTitle": "Бібліотека банерів і шаблонів",
+      "assetsEmptyTitle": "Маркетингові матеріали ще не імпортовано",
+      "assetsEmptyBody": "Банери Budda/Buddy власника ще відсутні в цьому репозиторії. Імпортуйте затверджені банери продуктів у партнерську бібліотеку — тоді вони з’являться тут за продуктом і мовою. Доти використовуйте лише особисте посилання із затвердженим текстом.",
+      "productTabs": "Продукт",
+      "localeTabs": "Мова",
+      "voiceNote": "Aipify Voice незабаром і недоступний для активних банерів продажів.",
+      "signatureNote": "Значки сертифікації та зафіксований текст продукту контролює Aipify. Ви можете додати лише ім’я, фото та автентифіковане посилання у дозволені поля.",
+      "filterKompisWeb": "Kompis Web",
+      "filterKompisBedrift": "Kompis Bedrift",
+      "filterVoice": "Aipify Voice"
     }
   }
 }

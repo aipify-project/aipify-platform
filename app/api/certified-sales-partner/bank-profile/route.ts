@@ -6,11 +6,14 @@ import {
   sanitizeBankProfileResponse,
   validateBankProfile,
 } from "@/lib/certified-sales-partner";
+import { encryptBankPayload } from "@/lib/certified-sales-partner/bank-crypto";
 import { createClient } from "@/lib/supabase/server";
 
 /**
  * Partner payout bank profile — fail-closed until Core RPCs exist.
  * Responses NEVER carry a plaintext full IBAN / account number (last 4 only).
+ * POST encrypts server-side (AES-256-GCM, `AIPIFY_CSP_BANK_ENCRYPTION_KEY`); without a key it
+ * returns 503 and nothing is sent to Core.
  */
 export async function GET() {
   try {
@@ -65,16 +68,34 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: validated.error, field: validated.field ?? null }, { status: 400 });
     }
 
+    const normalized = {
+      country: input.country.trim().toUpperCase(),
+      account_holder: input.accountHolder.trim(),
+      currency: input.currency.trim().toUpperCase(),
+      iban: input.iban ? input.iban.replace(/\s+/g, "").toUpperCase() : null,
+      swift_bic: input.swiftBic ? input.swiftBic.replace(/\s+/g, "").toUpperCase() : null,
+      local_account_number: input.localAccountNumber ? input.localAccountNumber.replace(/\s+/g, "") : null,
+      local_routing_code: input.localRoutingCode ? input.localRoutingCode.replace(/\s+/g, "") : null,
+    };
+
+    // FAIL-CLOSED: encrypt in this server route BEFORE any RPC. Plaintext bank data never reaches Core.
+    const encrypted = encryptBankPayload(JSON.stringify(normalized));
+    if (!encrypted.ok) {
+      return NextResponse.json(
+        { error: encrypted.error, backend_ready: false, stored: false },
+        { status: 503 },
+      );
+    }
+    const identifier = normalized.iban ?? normalized.local_account_number ?? "";
+    const maskedHint = identifier ? `****${identifier.slice(-4)}` : "";
+
     const result = await callCspRpc(supabase, "csp_save_partner_bank_profile", {
-      p_payload: {
-        country: input.country.trim().toUpperCase(),
-        account_holder: input.accountHolder.trim(),
-        currency: input.currency.trim().toUpperCase(),
-        iban: input.iban ? input.iban.replace(/\s+/g, "").toUpperCase() : null,
-        swift_bic: input.swiftBic ? input.swiftBic.replace(/\s+/g, "").toUpperCase() : null,
-        local_account_number: input.localAccountNumber ? input.localAccountNumber.replace(/\s+/g, "") : null,
-        local_routing_code: input.localRoutingCode ? input.localRoutingCode.replace(/\s+/g, "") : null,
+      p_encrypted_payload: {
+        ciphertext: encrypted.encrypted_payload,
+        key_version: encrypted.key_version,
+        masked_hint: maskedHint,
       },
+      p_fingerprint: encrypted.fingerprint,
     });
     if (!result.ready) {
       const closed = failClosedJson(result);
