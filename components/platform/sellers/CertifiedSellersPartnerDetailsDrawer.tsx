@@ -62,6 +62,10 @@ export type PartnerDetailsDrawerLabels = {
   companyIdentityPendingSql: string;
   /** Shown when Core can store company identity but this row is missing required fields. */
   approveCompanyDetailsMissing: string;
+  /** Warning when the applicant is also an active APP customer. */
+  approveActiveAppCustomerWarning: string;
+  /** Checkbox label to confirm dual-identity seller approval. */
+  confirmActiveAppCustomer: string;
   errors: Record<string, string>;
   partnerStatus: Record<string, string>;
 };
@@ -80,6 +84,7 @@ type PartnerDetail = {
   businessAddress: string | null;
   phone: string | null;
   businessIdentityStored: boolean;
+  hasActiveAppMembership: boolean;
 };
 
 type ActivityRow = {
@@ -126,6 +131,7 @@ export function CertifiedSellersPartnerDetailsDrawer({
   const [message, setMessage] = useState<{ kind: "ok" | "closed" | "error"; text: string } | null>(null);
   const [confirmStatus, setConfirmStatus] = useState<string | null>(null);
   const [reason, setReason] = useState("");
+  const [confirmActiveAppCustomer, setConfirmActiveAppCustomer] = useState(false);
 
   const load = useCallback(async () => {
     setPhase("loading");
@@ -164,7 +170,9 @@ export function CertifiedSellersPartnerDetailsDrawer({
         businessAddress: typeof p.businessAddress === "string" ? p.businessAddress : null,
         phone: typeof p.phone === "string" ? p.phone : null,
         businessIdentityStored: persistence.businessIdentityStored === true,
+        hasActiveAppMembership: p.hasActiveAppMembership === true,
       });
+      setConfirmActiveAppCustomer(false);
       const rows = Array.isArray(body.activity) ? body.activity : [];
       setActivity(
         rows.flatMap((row) => {
@@ -222,6 +230,10 @@ export function CertifiedSellersPartnerDetailsDrawer({
         setMessage({ kind: "error", text: labels.approveCompanyDetailsMissing });
         return;
       }
+      if (partner.hasActiveAppMembership && !confirmActiveAppCustomer) {
+        setMessage({ kind: "error", text: labels.approveActiveAppCustomerWarning });
+        return;
+      }
     }
     setPending(true);
     setMessage(null);
@@ -233,6 +245,9 @@ export function CertifiedSellersPartnerDetailsDrawer({
           partner_id: partnerId,
           status,
           reason: reason.trim() || "Platform decision",
+          ...(status === "approved" && partner?.hasActiveAppMembership
+            ? { confirm_active_app_customer: true }
+            : {}),
         }),
       });
       const data = (await res.json().catch(() => ({}))) as {
@@ -445,6 +460,22 @@ export function CertifiedSellersPartnerDetailsDrawer({
                           minLength={confirmStatus === "approved" ? 0 : 3}
                         />
                       </label>
+                      {confirmStatus === "approved" && partner.hasActiveAppMembership ? (
+                        <label className="flex items-start gap-2 rounded-xl border border-[#B54708]/40 bg-[#FFFAEB] px-3 py-2 text-sm text-[#1F2937]">
+                          <input
+                            type="checkbox"
+                            className="mt-1"
+                            checked={confirmActiveAppCustomer}
+                            onChange={(e) => setConfirmActiveAppCustomer(e.target.checked)}
+                          />
+                          <span>
+                            <span className="block font-medium">{labels.approveActiveAppCustomerWarning}</span>
+                            <span className="mt-1 block text-[color:var(--aipify-text-secondary)]">
+                              {labels.confirmActiveAppCustomer}
+                            </span>
+                          </span>
+                        </label>
+                      ) : null}
                       <div className="flex flex-wrap gap-2">
                         <button
                           type="submit"

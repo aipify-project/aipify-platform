@@ -7899,7 +7899,9 @@
         "invalid_settlement_transition": "Det här steget är inte tillåtet från nuvarande avräkningssteg.",
         "settlement_transition_fields_required": "Fyll i avräkningsreferens och båda stegen.",
         "partner_not_found": "Partnern hittades inte.",
-        "forbidden": "Du har inte behörighet till den här åtgärden."
+        "forbidden": "Du har inte behörighet till den här åtgärden.",
+        "confirm_active_app_customer_required": "Bekräfta att denna aktiva APP-kund också ska få säljaråtkomst.",
+        "email_verification_required": "Godkännande blockeras tills sökanden har verifierat e-postadressen."
       }
     },
     "live": {
@@ -8030,7 +8032,9 @@
       "failClosed": "Åtgärden kunde inte slutföras just nu. Försök igen senare.",
       "approveRequiresVerifiedEmail": "Godkännande blockeras tills sökanden har verifierat e-postadressen.",
       "companyIdentityPendingSql": "Juridiskt företagsnamn och registreringsnummer är ännu inte tillgängliga för denna ansökan. Fälten visas som «Inte sparad ännu» tills företagsuppgifterna kan sparas för granskning.",
-      "approveCompanyDetailsMissing": "Godkännande kräver sparat juridiskt företagsnamn och registreringsnummer. Be sökanden om mer information."
+      "approveCompanyDetailsMissing": "Godkännande kräver sparat juridiskt företagsnamn och registreringsnummer. Be sökanden om mer information.",
+      "approveActiveAppCustomerWarning": "Detta konto är redan en aktiv APP-kund. Bekräfta uttryckligen innan säljarbehörighet ges — APP-medlemskap ensamt får aldrig bli partnerbehörighet.",
+      "confirmActiveAppCustomer": "Jag bekräftar att denna APP-kund också ska bli godkänd Growth Partner-säljare."
     },
     "commissions": {
       "title": "Provisioner",

@@ -352,12 +352,16 @@ const SELLERS_DRAWER_TEXT_KEYS = [
   "approveRequiresVerifiedEmail",
   "companyIdentityPendingSql",
   "approveCompanyDetailsMissing",
+  "approveActiveAppCustomerWarning",
+  "confirmActiveAppCustomer",
 ] as const;
 
 const SELLERS_DRAWER_ERROR_CODES = [
   "reason_required",
   "partner_not_found",
   "forbidden",
+  "confirm_active_app_customer_required",
+  "email_verification_required",
 ] as const;
 
 const SELLERS_DRAWER_ACTIVITY_KEYS = [

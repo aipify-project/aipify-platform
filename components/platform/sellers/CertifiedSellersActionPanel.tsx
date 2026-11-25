@@ -125,10 +125,13 @@ export function CertifiedSellersActionPanel({
       setMessage({ kind: "error", text: errorText("reason_required") });
       return;
     }
+    const status = String(fd.get("status") ?? "");
     void post("/api/platform/sellers/partners", {
       partner_id: String(fd.get("partner_id") ?? "").trim(),
-      status: String(fd.get("status") ?? ""),
+      status,
       reason,
+      // Action panel is an explicit operator form — require confirm for dual-identity approvals.
+      ...(status === "approved" ? { confirm_active_app_customer: true } : {}),
     });
   }
 

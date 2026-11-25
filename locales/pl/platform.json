@@ -7899,7 +7899,9 @@
         "invalid_settlement_transition": "Ten krok nie jest dozwolony z obecnego kroku rozliczenia.",
         "settlement_transition_fields_required": "Uzupełnij odniesienie rozliczenia i oba kroki.",
         "partner_not_found": "Nie znaleziono partnera.",
-        "forbidden": "Nie masz uprawnień do tej akcji."
+        "forbidden": "Nie masz uprawnień do tej akcji.",
+        "confirm_active_app_customer_required": "Potwierdź, że ten aktywny klient APP powinien także otrzymać dostęp sprzedawcy.",
+        "email_verification_required": "Zatwierdzenie jest zablokowane, dopóki wnioskodawca nie potwierdzi adresu e-mail."
       }
     },
     "live": {
@@ -8030,7 +8032,9 @@
       "failClosed": "Nie udało się teraz wykonać działania. Spróbuj ponownie później.",
       "approveRequiresVerifiedEmail": "Zatwierdzenie jest zablokowane, dopóki wnioskodawca nie potwierdzi adresu e-mail.",
       "companyIdentityPendingSql": "Prawna nazwa firmy i numer rejestracyjny nie są jeszcze dostępne dla tego wniosku. Pola pokazują „Jeszcze nie zapisano”, dopóki dane firmy nie będą mogły być zapisane do weryfikacji.",
-      "approveCompanyDetailsMissing": "Zatwierdzenie wymaga zapisanej prawnej nazwy firmy i numeru rejestracyjnego. Poproś wnioskodawcę o więcej informacji."
+      "approveCompanyDetailsMissing": "Zatwierdzenie wymaga zapisanej prawnej nazwy firmy i numeru rejestracyjnego. Poproś wnioskodawcę o więcej informacji.",
+      "approveActiveAppCustomerWarning": "To konto jest już aktywnym klientem APP. Potwierdź wyraźnie przed przyznaniem dostępu sprzedawcy — samo członkostwo APP nigdy nie daje praw partnera.",
+      "confirmActiveAppCustomer": "Potwierdzam, że ten klient APP powinien także zostać zatwierdzonym sprzedawcą Growth Partner."
     },
     "commissions": {
       "title": "Prowizje sprzedawców",
