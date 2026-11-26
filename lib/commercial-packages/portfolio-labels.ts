@@ -61,6 +61,13 @@ export type PortfolioLabels = {
   exploreProductsCta: string;
   workspaceLabel: string;
   overallStatus: string;
+  tabOverview: string;
+  tabProducts: string;
+  tabStore: string;
+  tabAddons: string;
+  tabCapacity: string;
+  tabLicense: string;
+  tabInvoices: string;
   plannedCatalogNote: string;
   freeName: string;
   standardName: string;
@@ -133,6 +140,13 @@ export function buildPortfolioLabels(t: Translator): PortfolioLabels {
     exploreProductsCta: t(`${NS}.exploreProductsCta`),
     workspaceLabel: t(`${NS}.workspaceLabel`),
     overallStatus: t(`${NS}.overallStatus`),
+    tabOverview: t(`${NS}.tabOverview`),
+    tabProducts: t(`${NS}.tabProducts`),
+    tabStore: t(`${NS}.tabStore`),
+    tabAddons: t(`${NS}.tabAddons`),
+    tabCapacity: t(`${NS}.tabCapacity`),
+    tabLicense: t(`${NS}.tabLicense`),
+    tabInvoices: t(`${NS}.tabInvoices`),
     plannedCatalogNote: t(`${NS}.plannedCatalogNote`),
     freeName: t(`${NS}.freeName`),
     standardName: t(`${NS}.standardName`),

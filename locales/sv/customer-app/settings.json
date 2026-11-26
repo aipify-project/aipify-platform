@@ -1319,7 +1319,14 @@
       "viewLicenseCenter": "Licenscenter",
       "exploreProductsCta": "Utforska produkter",
       "workspaceLabel": "Arbetsyta",
-      "overallStatus": "Status"
+      "overallStatus": "Status",
+      "tabOverview": "Översikt",
+      "tabProducts": "Mina produkter",
+      "tabStore": "Produktbutik",
+      "tabAddons": "Tilläggsmoduler",
+      "tabCapacity": "Kapacitet och användning",
+      "tabLicense": "Licenscenter",
+      "tabInvoices": "Fakturor"
     },
     "pricingPhilosophy": {
       "title": "Prissättningsfilosofi",

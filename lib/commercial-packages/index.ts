@@ -9,3 +9,4 @@ export * from "./billing-presentation-copy";
 export * from "./package-presentation";
 export * from "./product-hero";
 export * from "./portfolio-presentation";
+export * from "./subscription-tabs";

@@ -177,7 +177,14 @@
       "viewLicenseCenter": "License center",
       "exploreProductsCta": "Explore products",
       "workspaceLabel": "Workspace",
-      "overallStatus": "Status"
+      "overallStatus": "Status",
+      "tabOverview": "Resumen",
+      "tabProducts": "Mis productos",
+      "tabStore": "Tienda de productos",
+      "tabAddons": "Módulos adicionales",
+      "tabCapacity": "Capacidad y uso",
+      "tabLicense": "Centro de licencias",
+      "tabInvoices": "Facturas"
     },
     "softwareShowcase": {
       "heroTitle": "Productos para tu espacio de trabajo",

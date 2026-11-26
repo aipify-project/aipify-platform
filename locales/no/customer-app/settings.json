@@ -1349,7 +1349,14 @@
       "viewLicenseCenter": "Se lisenssenter",
       "exploreProductsCta": "Utforsk produkter",
       "workspaceLabel": "Arbeidsområde",
-      "overallStatus": "Status"
+      "overallStatus": "Status",
+      "tabOverview": "Oversikt",
+      "tabProducts": "Mine produkter",
+      "tabStore": "Produktbutikk",
+      "tabAddons": "Tilleggsmoduler",
+      "tabCapacity": "Kapasitet og bruk",
+      "tabLicense": "Lisenssenter",
+      "tabInvoices": "Fakturaer"
     },
     "pricingPhilosophy": {
       "title": "Prisingsfilosofi",

@@ -42,8 +42,8 @@ function run() {
   const modulesPanel = read("components/app/settings/ModulesAdminPanel.tsx");
   const modulesPage = read("app/app/settings/modules/page.tsx");
 
-  assert.match(licensePage, /AppLayoutClasses/);
-  assert.match(licensePage, /companion/);
+  assert.match(licensePage, /redirect/);
+  assert.match(licensePage, /license/);
   assert.match(licensePanel, /\/app\/command-center/);
   assert.match(licensePanel, /\/app\/account\/subscription/);
   assert.doesNotMatch(licensePanel, /resolveAppHref\("\/app"\)/);
@@ -51,7 +51,8 @@ function run() {
   assert.doesNotMatch(licensePanel, /max-w-3xl/);
   assert.doesNotMatch(integrationsPanel, /max-w-4xl/);
   assert.match(integrationsPanel, /w-full/);
-  assert.match(modulesPage, /AppLayoutClasses/);
+  assert.match(modulesPage, /redirect/);
+  assert.match(modulesPage, /addons/);
   assert.match(modulesPanel, /unnamedModule/);
   assert.match(modulesPanel, /labels\.retry/);
   assert.match(modulesPanel, /labels\.loadError/);

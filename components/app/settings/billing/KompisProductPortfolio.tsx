@@ -18,8 +18,12 @@ type KompisProductPortfolioProps = {
   labels: PortfolioLabels;
   access: KompisProductAccessRead;
   showCatalog?: boolean;
-  /** When true, only render “mine” cards (sidebar compact). */
+  /** When true, only render verified active products. */
   mineOnly?: boolean;
+  /** When true, only render store / available products (+ optional catalog). */
+  storeOnly?: boolean;
+  /** Optional CTA when mine list is empty (e.g. open store tab). */
+  onExploreStore?: () => void;
 };
 
 function planLabel(labels: PortfolioLabels, plan: "free" | "standard" | "pro"): string {
@@ -182,34 +186,49 @@ export function KompisProductPortfolio({
   access,
   showCatalog = false,
   mineOnly = false,
+  storeOnly = false,
+  onExploreStore,
 }: KompisProductPortfolioProps) {
   const cards = buildWorkspaceProductCards(access);
   const mine = cards.filter((c) => c.inMyProducts);
   const available = cards.filter((c) => !c.inMyProducts);
+  const showMine = !storeOnly;
+  const showAvailable = !mineOnly;
 
   return (
     <div className="space-y-8">
-      <section className="space-y-4" aria-labelledby="workspace-my-products">
-        <div>
-          <h3 id="workspace-my-products" className="text-lg font-semibold text-[var(--app-text)]">
-            {labels.myProducts}
-          </h3>
-          <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.noChange}</p>
-        </div>
-        {mine.length > 0 ? (
-          <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-            {mine.map((card) => (
-              <ProductCard key={card.id} card={card} labels={labels} />
-            ))}
+      {showMine ? (
+        <section className="space-y-4" aria-labelledby="workspace-my-products">
+          <div>
+            <h3 id="workspace-my-products" className="text-lg font-semibold text-[var(--app-text)]">
+              {labels.myProducts}
+            </h3>
+            <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.noChange}</p>
           </div>
-        ) : (
-          <p className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-5 py-6 text-sm text-[var(--app-text-muted)]">
-            {labels.detailsUnavailable}
-          </p>
-        )}
-      </section>
+          {mine.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {mine.map((card) => (
+                <ProductCard key={card.id} card={card} labels={labels} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-5 py-6">
+              <p className="text-sm text-[var(--app-text-muted)]">{labels.detailsUnavailable}</p>
+              {onExploreStore ? (
+                <button
+                  type="button"
+                  onClick={onExploreStore}
+                  className={`mt-4 inline-flex min-h-11 items-center rounded-lg bg-[var(--app-primary)] px-3.5 py-2 text-sm font-medium text-white hover:opacity-95 ${AppPremiumShell.focusRing}`}
+                >
+                  {labels.exploreProductsCta}
+                </button>
+              ) : null}
+            </div>
+          )}
+        </section>
+      ) : null}
 
-      {!mineOnly && available.length > 0 ? (
+      {showAvailable && available.length > 0 ? (
         <section className="space-y-4" aria-labelledby="workspace-available-products">
           <div>
             <h3 id="workspace-available-products" className="text-lg font-semibold text-[var(--app-text)]">
@@ -217,7 +236,7 @@ export function KompisProductPortfolio({
             </h3>
             <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.exploreProducts}</p>
           </div>
-          <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {available.map((card) => (
               <ProductCard key={card.id} card={card} labels={labels} />
             ))}
