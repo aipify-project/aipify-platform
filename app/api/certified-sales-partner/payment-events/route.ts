@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
-import {
-  applyVerifiedPaidPeriod,
-  callCspRpc,
-  failClosedJson,
-} from "@/lib/certified-sales-partner";
-import { createClient } from "@/lib/supabase/server";
+import { callCspRpc, failClosedJson } from "@/lib/certified-sales-partner";
+import { createServiceRoleClient } from "@/lib/supabase/service-role";
 
 /**
  * Internal verified subscription period events for CSP commission.
- * Does NOT charge Stripe. Requires trusted server caller + active Core.
- * Live Stripe wiring and real test charges need separate owner payment consent.
+ * Does NOT charge Stripe. Requires trusted server secret + Core service role.
+ *
+ * Payload matches Core `csp_apply_paid_period_event(p_payload jsonb)`:
+ *   eventId, eventType (paid_period|refund|chargeback), customerOrgId, productKey,
+ *   periodOrdinal (paid_period), optional billingInterval (monthly|annual).
+ *
+ * Partner is resolved server-side from first-wins attribution — never from the client.
+ * Live Stripe wiring remains gated separately (`CSP_STRIPE_LIVE_WIRING_ENABLED = false`).
  */
 export async function POST(request: Request) {
   try {
@@ -20,41 +22,61 @@ export async function POST(request: Request) {
     }
 
     const body = (await request.json()) as {
-      qualified_sale_id?: string;
-      current_paid_periods?: number;
-      event_period_ordinal?: number;
-      is_successful_charge?: boolean;
-      is_duplicate?: boolean;
-      is_refund_or_chargeback?: boolean;
+      eventId?: string;
+      event_id?: string;
+      eventType?: string;
+      event_type?: string;
+      customerOrgId?: string;
+      customer_org_id?: string;
+      productKey?: string;
+      product_key?: string;
+      periodOrdinal?: number;
+      period_ordinal?: number;
+      billingInterval?: string;
+      billing_interval?: string;
     };
 
-    if (!body.qualified_sale_id || typeof body.current_paid_periods !== "number") {
-      return NextResponse.json({ error: "sale_and_periods_required" }, { status: 400 });
+    const eventId = String(body.eventId ?? body.event_id ?? "").trim();
+    const eventType = String(body.eventType ?? body.event_type ?? "").trim().toLowerCase();
+    const customerOrgId = String(body.customerOrgId ?? body.customer_org_id ?? "").trim();
+    const productKey = String(body.productKey ?? body.product_key ?? "").trim().toLowerCase();
+    const periodOrdinal = Number(body.periodOrdinal ?? body.period_ordinal);
+    const billingInterval = String(body.billingInterval ?? body.billing_interval ?? "monthly")
+      .trim()
+      .toLowerCase();
+
+    if (!eventId || !eventType || !customerOrgId || !productKey) {
+      return NextResponse.json({ error: "payload_required" }, { status: 400 });
+    }
+    if (!["paid_period", "refund", "chargeback"].includes(eventType)) {
+      return NextResponse.json({ error: "invalid_event_type" }, { status: 400 });
+    }
+    if (eventType === "paid_period" && (!Number.isInteger(periodOrdinal) || periodOrdinal < 1)) {
+      return NextResponse.json({ error: "invalid_period_ordinal" }, { status: 400 });
     }
 
-    const mapped = applyVerifiedPaidPeriod({
-      currentPaidPeriods: body.current_paid_periods,
-      eventPeriodOrdinal: Number(body.event_period_ordinal ?? 0),
-      isSuccessfulCharge: body.is_successful_charge === true,
-      isDuplicate: body.is_duplicate === true,
-      isRefundOrChargeback: body.is_refund_or_chargeback === true,
-    });
+    const payload: Record<string, unknown> = {
+      eventId,
+      eventType,
+      customerOrgId,
+      productKey,
+      billingInterval: billingInterval === "annual" || billingInterval === "year" || billingInterval === "yearly"
+        ? "annual"
+        : "monthly",
+    };
+    if (eventType === "paid_period" || Number.isInteger(periodOrdinal)) {
+      payload.periodOrdinal = periodOrdinal;
+    }
 
-    const supabase = await createClient();
+    const supabase = createServiceRoleClient();
     const result = await callCspRpc(supabase, "csp_apply_paid_period_event", {
-      p_qualified_sale_id: body.qualified_sale_id,
-      p_paid_periods_count: mapped.paidPeriods,
-      p_status: mapped.status,
-      p_commission_earned: mapped.commissionEarned,
-      p_earn_once: mapped.newlyEarned,
-      p_needs_reversal_review: mapped.needsReversalReview,
-      p_changed: mapped.changed,
+      p_payload: payload,
     });
     if (!result.ready) {
       const closed = failClosedJson(result);
-      return NextResponse.json({ ...closed.body, mapped }, { status: closed.status });
+      return NextResponse.json(closed.body, { status: closed.status });
     }
-    return NextResponse.json({ mapped, persistence: result.data });
+    return NextResponse.json({ persistence: result.data });
   } catch {
     return NextResponse.json({ error: "payment_event_failed" }, { status: 500 });
   }
