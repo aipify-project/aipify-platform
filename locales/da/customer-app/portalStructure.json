@@ -130,7 +130,8 @@
       "accountInvoices": "Fakturaer",
       "accountIntegrations": "Integrationer",
       "kompisBedriftConnection": "Forbindelse/licens",
-      "appDashboard": "Hjem"
+      "appDashboard": "Hjem",
+      "accountProfile": "Profil / Kundeforhold"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -8704,6 +8705,55 @@
       "switchProduct": "Skift produkt",
       "singleContextHint": "Dette er det eneste produkt, der er tilgængeligt på denne konto.",
       "close": "Luk"
+    },
+    "accountProfile": {
+      "eyebrow": "Konto",
+      "title": "Profil / Kundeforhold",
+      "description": "Se kontooplysninger og kundeforhold for den indloggede bruger. Felter der kræver en sikker opdateringsvej forbliver låst, indtil den findes.",
+      "personalTitle": "Personlig profil",
+      "relationshipTitle": "Kundeforhold",
+      "securityTitle": "Sikkerhed og kontolinks",
+      "fullName": "Fulde navn",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "address": "Adresse",
+      "role": "Rolle",
+      "notRegistered": "Ikke registreret",
+      "readOnlyReason": "Oplysningerne hentes fra den indloggede konto. Verificeret identitet er skrivebeskyttet, indtil en godkendt APP-opdateringsvej findes.",
+      "avatarFallback": "Initialer vises, når profilbillede mangler.",
+      "companyTitle": "Virksomhedsoplysninger",
+      "companyName": "Virksomhedsnavn",
+      "companyWebsite": "Virksomhedswebsite",
+      "companyPhone": "Virksomhedstelefon",
+      "companyAddress": "Virksomhedsadresse",
+      "companyOptionalNote": "Virksomhedsfelter vises kun, når en virksomhedsarbejdsplads er knyttet til kontoen. Privatpersoner behøver ikke en registreret virksomhed.",
+      "plan": "Plan",
+      "license": "Licensstatus",
+      "customerReference": "Kundereference",
+      "registeredAt": "Registreret",
+      "openSubscription": "Åbn abonnement",
+      "openInvoices": "Se fakturaer",
+      "openSecurity": "Login og sikkerhed",
+      "openNotifications": "Notifikationsindstillinger",
+      "openCompanySettings": "Organisationsprofil",
+      "screenLockTitle": "Lås skærmen",
+      "screenLockBody": "En sikker skærmlås er ikke aktiveret for APP. Aktivering kræver en ejergodkendt, serververificeret låsetjeneste — ikke et browser-overlay.",
+      "screenLockStatus": "Ikke aktiveret",
+      "roles": {
+        "owner": "Ejer",
+        "admin": "Administrator",
+        "support": "Support",
+        "staff": "Medarbejder",
+        "readOnly": "Skrivebeskyttet",
+        "member": "Medlem"
+      },
+      "licenses": {
+        "active": "Aktiv",
+        "paused": "Pauset",
+        "grace": "Henstandsperiode",
+        "trialing": "Prøveperiode",
+        "cancelled": "Annulleret"
+      }
     }
   }
 }

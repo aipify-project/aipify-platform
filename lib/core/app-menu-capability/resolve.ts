@@ -202,6 +202,7 @@ export const FAIL_CLOSED_SAFE_CAPABILITY_IDS = [
   "appDashboard",
   "accountNotifications",
   "accountSubscription",
+  "accountProfile",
 ] as const;
 
 export function buildFailClosedAppMenuCapabilityBundle(input: {

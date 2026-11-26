@@ -130,7 +130,8 @@
       "accountInvoices": "Fakturor",
       "accountIntegrations": "Integrationer",
       "kompisBedriftConnection": "Anslutning/licens",
-      "appDashboard": "Hem"
+      "appDashboard": "Hem",
+      "accountProfile": "Profil / Kundrelation"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -8704,6 +8705,55 @@
       "switchProduct": "Byt produkt",
       "singleContextHint": "Detta är den enda produkten som finns på det här kontot.",
       "close": "Stäng"
+    },
+    "accountProfile": {
+      "eyebrow": "Konto",
+      "title": "Profil / Kundrelation",
+      "description": "Granska kontouppgifter och kundrelation för den inloggade användaren. Fält som kräver en säker uppdateringsväg förblir låsta tills den finns.",
+      "personalTitle": "Personlig profil",
+      "relationshipTitle": "Kundrelation",
+      "securityTitle": "Säkerhet och kontolänkar",
+      "fullName": "Fullständigt namn",
+      "email": "E-post",
+      "phone": "Telefon",
+      "address": "Adress",
+      "role": "Roll",
+      "notRegistered": "Inte registrerad",
+      "readOnlyReason": "Uppgifterna hämtas från det inloggade kontot. Verifierad identitet är skrivskyddad tills en godkänd APP-uppdateringsväg finns.",
+      "avatarFallback": "Initialer visas när profilbild saknas.",
+      "companyTitle": "Företagsuppgifter",
+      "companyName": "Företagsnamn",
+      "companyWebsite": "Företagswebbplats",
+      "companyPhone": "Företagstelefon",
+      "companyAddress": "Företagsadress",
+      "companyOptionalNote": "Företagsfält visas bara när ett företagsarbetsyta är kopplat till kontot. Privatpersoner behöver inte ett registrerat företag.",
+      "plan": "Plan",
+      "license": "Licensstatus",
+      "customerReference": "Kundreferens",
+      "registeredAt": "Registrerad",
+      "openSubscription": "Öppna prenumeration",
+      "openInvoices": "Visa fakturor",
+      "openSecurity": "Inloggning och säkerhet",
+      "openNotifications": "Aviseringsinställningar",
+      "openCompanySettings": "Organisationsprofil",
+      "screenLockTitle": "Lås skärmen",
+      "screenLockBody": "En säker skärmlåsning är inte aktiverad för APP. Aktivering kräver en ägargodkänd, serververifierad låstjänst — inte en webbläsaröverläggning.",
+      "screenLockStatus": "Inte aktiverad",
+      "roles": {
+        "owner": "Ägare",
+        "admin": "Administratör",
+        "support": "Support",
+        "staff": "Medarbetare",
+        "readOnly": "Skrivskyddad",
+        "member": "Medlem"
+      },
+      "licenses": {
+        "active": "Aktiv",
+        "paused": "Pausad",
+        "grace": "Respitperiod",
+        "trialing": "Provperiod",
+        "cancelled": "Avslutad"
+      }
     }
   }
 }

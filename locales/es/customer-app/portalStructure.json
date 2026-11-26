@@ -167,7 +167,8 @@
       "accountInvoices": "Facturas",
       "accountIntegrations": "Integraciones",
       "kompisBedriftConnection": "Conexión y licencia",
-      "appDashboard": "Inicio"
+      "appDashboard": "Inicio",
+      "accountProfile": "Perfil / Relación con el cliente"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7350,6 +7351,55 @@
       "switchProduct": "Cambiar producto",
       "singleContextHint": "Este es el único producto disponible en esta cuenta.",
       "close": "Cerrar"
+    },
+    "accountProfile": {
+      "eyebrow": "Cuenta",
+      "title": "Perfil / Relación con el cliente",
+      "description": "Revisa los datos de la cuenta y la relación con el cliente de la sesión iniciada. Los campos que requieren una vía de actualización segura permanecen bloqueados hasta que exista.",
+      "personalTitle": "Perfil personal",
+      "relationshipTitle": "Relación con el cliente",
+      "securityTitle": "Seguridad y enlaces de la cuenta",
+      "fullName": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "address": "Dirección",
+      "role": "Rol",
+      "notRegistered": "No registrado",
+      "readOnlyReason": "Los datos se muestran desde la cuenta con sesión iniciada. La identidad verificada permanece de solo lectura hasta que exista una vía de actualización APP aprobada.",
+      "avatarFallback": "Se muestran las iniciales cuando no hay foto de perfil.",
+      "companyTitle": "Datos de la empresa",
+      "companyName": "Nombre de la empresa",
+      "companyWebsite": "Sitio web de la empresa",
+      "companyPhone": "Teléfono de la empresa",
+      "companyAddress": "Dirección de la empresa",
+      "companyOptionalNote": "Los campos de empresa aparecen solo cuando hay un espacio de trabajo de empresa vinculado. Los clientes particulares no necesitan una empresa registrada.",
+      "plan": "Plan",
+      "license": "Estado de la licencia",
+      "customerReference": "Referencia del cliente",
+      "registeredAt": "Registrado",
+      "openSubscription": "Abrir suscripción",
+      "openInvoices": "Ver facturas",
+      "openSecurity": "Inicio de sesión y seguridad",
+      "openNotifications": "Ajustes de notificaciones",
+      "openCompanySettings": "Perfil de la organización",
+      "screenLockTitle": "Bloquear pantalla",
+      "screenLockBody": "El bloqueo de pantalla seguro no está activado para APP. Activarlo requiere un servicio de bloqueo verificado en el servidor y aprobado por el propietario, no una superposición solo del navegador.",
+      "screenLockStatus": "No activado",
+      "roles": {
+        "owner": "Propietario",
+        "admin": "Administrador",
+        "support": "Soporte",
+        "staff": "Personal",
+        "readOnly": "Solo lectura",
+        "member": "Miembro"
+      },
+      "licenses": {
+        "active": "Activa",
+        "paused": "En pausa",
+        "grace": "Periodo de gracia",
+        "trialing": "Prueba",
+        "cancelled": "Cancelada"
+      }
     }
   }
 }

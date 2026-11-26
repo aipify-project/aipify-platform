@@ -19,6 +19,7 @@ const DEFAULT_MOBILE_IDS: AppPortalNavId[] = [
   "kompisBedriftDashboard",
   "accountInvoices",
   "accountSubscription",
+  "accountProfile",
   "kompisWebSettings",
   "kompisBedriftSettings",
 ];

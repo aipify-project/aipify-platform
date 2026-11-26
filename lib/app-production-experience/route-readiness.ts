@@ -74,10 +74,14 @@ export const APP_ROUTE_READINESS: Partial<Record<AppPortalNavId, AppRouteReadine
     status: "hidden",
     reason: "API access foundation page is not operational in customer nav.",
   },
-  // Account placeholders
+  // Legacy foundation profile id stays hidden; live surface is accountProfile.
   profile: {
     status: "hidden",
-    reason: "Profile is coming-soon placeholder — hide until real profile ships.",
+    reason: "Legacy profile placeholder — use accountProfile at /app/account/profile.",
+  },
+  accountProfile: {
+    status: "production",
+    reason: "Profil / Kundeforhold — signed-in account and customer relationship read surface.",
   },
   // Read-only software catalog (customer-ready presentation after repair)
   softwareCatalog: {
