@@ -1,10 +1,10 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import {
   PartnersPortalAuthGuard,
   PartnersPortalShell,
 } from "@/components/partners-portal";
+import { CspPortalSessionProvider } from "@/components/partners-portal/CspPortalSessionProvider";
 import { PartnersPortalTopbarActions } from "@/components/partners-portal/PartnersPortalTopbarActions";
 import AnalyticsConsentProvider from "@/components/analytics/AnalyticsConsentProvider";
 import { AipifySystemNotice } from "@/components/ui/aipify-system-notice";
@@ -15,7 +15,6 @@ import {
 import { resolvePartnersPortalServerAccess } from "@/lib/partners-portal/server-access";
 import { buildAnalyticsConsentLabels } from "@/lib/product-analytics/consent";
 import { buildPartnersPortalTopbarLabels } from "@/lib/partners-portal/shell-labels";
-import { resolvePartnersAvatarPointer } from "@/lib/partners-portal/avatar";
 import { coerceToAppLocale } from "@/lib/i18n/app-locales";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -23,18 +22,6 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 function isPublicCertificateVerifyPath(pathname: string): boolean {
   return pathname === "/partners/academy/verify" || pathname.startsWith("/partners/academy/verify/");
-}
-
-/** Own profile-photo pointer from auth metadata — only our same-origin pointer is ever rendered. */
-async function loadPartnerAvatarPointer(supabase: SupabaseClient): Promise<string | null> {
-  try {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    return resolvePartnersAvatarPointer(user?.user_metadata?.avatar_url);
-  } catch {
-    return null;
-  }
 }
 
 export default async function PartnersPortalLayout({
@@ -72,7 +59,7 @@ export default async function PartnersPortalLayout({
   const analyticsConsentLabels = buildAnalyticsConsentLabels(t);
   const appLocale = coerceToAppLocale(locale);
   const topbarLabels = buildPartnersPortalTopbarLabels(t);
-  const avatarUrl = await loadPartnerAvatarPointer(access.supabase);
+  const avatarUrl = access.avatarUrl;
   const cspNavLabels: Record<string, string> = {
     ...legacyNavLabels,
     dashboard: t("partnersPortal.certifiedSalesPartner.navGroups.home"),
@@ -98,25 +85,27 @@ export default async function PartnersPortalLayout({
 
   return (
     <AnalyticsConsentProvider labels={analyticsConsentLabels} privacyHref="/privacy">
-      <PartnersPortalAuthGuard loadingLabel={labels.shell.loading}>
-        <PartnersPortalShell
-          portalBadge={t("partnersPortal.certifiedSalesPartner.portal.badge")}
-          portalTitle={t("partnersPortal.certifiedSalesPartner.portal.title")}
-          portalSubtitle={t("partnersPortal.certifiedSalesPartner.portal.subtitle")}
-          signOutLabel={t("auth.logout.signOut")}
-          governanceNote={labels.shell.governanceNote}
-          navLabels={cspNavLabels}
-          certifiedSalesPartnerMode
-          topbarActions={
-            <PartnersPortalTopbarActions
-              locale={appLocale}
-              labels={topbarLabels}
-              avatarUrl={avatarUrl}
-            />
-          }
-        >
-          {children}
-        </PartnersPortalShell>
+      <PartnersPortalAuthGuard loadingLabel={labels.shell.loading} serverAuthorized>
+        <CspPortalSessionProvider>
+          <PartnersPortalShell
+            portalBadge={t("partnersPortal.certifiedSalesPartner.portal.badge")}
+            portalTitle={t("partnersPortal.certifiedSalesPartner.portal.title")}
+            portalSubtitle={t("partnersPortal.certifiedSalesPartner.portal.subtitle")}
+            signOutLabel={t("auth.logout.signOut")}
+            governanceNote={labels.shell.governanceNote}
+            navLabels={cspNavLabels}
+            certifiedSalesPartnerMode
+            topbarActions={
+              <PartnersPortalTopbarActions
+                locale={appLocale}
+                labels={topbarLabels}
+                avatarUrl={avatarUrl}
+              />
+            }
+          >
+            {children}
+          </PartnersPortalShell>
+        </CspPortalSessionProvider>
       </PartnersPortalAuthGuard>
     </AnalyticsConsentProvider>
   );
