@@ -1,52 +1,43 @@
-# CSP Sellerpanel Functional Matrix V4
+# CSP Sellerpanel Functional Matrix V4 → V5 update
 
-Baseline: `origin/main` @ `1d23f9640` (PR #362 LIVE). Worktree: `feat/csp-sellerpanel-functional-acceptance-v4-20261126`.
+Baseline app: `76a8e50c8` (PR #363 LIVE).  
+Staging Core: `auedugihkduoaikfusqe`. Production Core: `qbcqoixhrvhnuwphefvw` (no SQL this job).
 
-Legend: **VERIFIED** · **CODE_READY** · **CODE_READY_BLOCKED** · **PLACEHOLDER_FIXED** · **EXTERNAL_GATE**
+**Canonical V5 matrix:** `docs/platform/csp-sellerpanel-functional-matrix-v5.md`  
+**Closure report:** `docs/platform/csp-sellerpanel-final-closure-v5-staging-report.md`
 
-| Area | Status | Notes |
-|------|--------|-------|
-| Registration / status gates | CODE_READY | Server gates + portal allowlist; Unonight CSP remains suspended |
-| Academy / product rights | CODE_READY | Existing exam rules untouched |
-| Products pricing / commission display | CODE_READY | Admin rates + catalog; no fake discounts |
-| Sales links create/list | CODE_READY | Create + list + visits |
-| Sales links deactivate | CODE_READY_BLOCKED | App + UI wired; SQL candidate PREPARED_ONLY (`csp_deactivate_attribution_link_v4`) needs owner apply |
-| Social share | CODE_READY | Platforms + copy; no fake direct post |
-| Leads / Mine kunder | CODE_READY | Partner-scoped reads |
-| Sales / commission / settlements | CODE_READY / EXTERNAL_GATE | Engine in Core; no Production payouts in QA; Stripe webhook→sale still external |
-| Attribution unique visits / capture | CODE_READY / EXTERNAL_GATE | Click events counted; bot filter / session capture limited by Core contract |
-| Admin messages recipient picker | PLACEHOLDER_FIXED → CODE_READY | Searchable picker; profile compose; blocked statuses |
-| Partner messages reply/read | CODE_READY | Live since #362 |
-| Materials admin publish | CODE_READY | Register/publish/withdraw; empty until real assets |
-| Partner materials visibility | CODE_READY | Published-only RPC |
-| Profile / avatar / bank | CODE_READY | Avatar Core sync; bank panel on settlements (masked; fail-closed without encryption key) |
-| Notifications | CODE_READY | Unread admin messages only — no invented alerts |
-| Help | CODE_READY | Section CTAs live; contact → Messages |
-| Sales links per-row copy | CODE_READY | Copy uses selected/certified product path |
-| Platform SELGERE ops pages | CODE_READY | Overview, partners, products, rates, attribution, leads, messages, materials, audit, settings |
+Legend: **VERIFIED** · **CODE_READY** · **BLOCKED** · **NOT_DONE**
 
-## Ownership vs APP #361
+| Area | Status | Evidence |
+|------|--------|----------|
+| Registration / approval | CODE_READY | Prior LIVE + Core status checks |
+| 2FA | CODE_READY | Existing gates; not re-run |
+| Growth Academy | CODE_READY | ZERO DIFF |
+| Certification | CODE_READY | Existing gates |
+| Product rights | CODE_READY | Materials product filter Staging-verified |
+| Sales links create/list/copy | CODE_READY | App LIVE |
+| Sales links deactivate | **VERIFIED** (Staging) | SQL V4 applied Staging; RPC own/cross/suspended/idempotent/audit |
+| Visits / attribution capture | **BLOCKED** | No public click-capture RPC; future must honor `active=false` |
+| Leads / customers | CODE_READY | Partner-scoped reads LIVE |
+| Sales | **VERIFIED** (Staging Core) | Period fixtures via `csp_apply_paid_period_event` |
+| Commission (P1 not earned / P2 once / renewal none / replay) | **VERIFIED** (Staging) | 4/4 harness |
+| Settlements (manual) | CODE_READY | RPCs present; not exercised this run |
+| Messages | **VERIFIED** (Staging) | Admin→partner→read→reply + IDOR + suspended |
+| Notifications | CODE_READY | Unread from messages API |
+| Sales materials | **VERIFIED** (Staging) | Draft → publish → withdraw + product gate |
+| Profile / bank | CODE_READY | Prior V3/V4 |
+| Platform admin SELGERE | CODE_READY | Recipient picker LIVE |
+| Language / access control | CODE_READY | 7 locales prior; partner allowlist |
+| Stripe TEST full funnel | **BLOCKED** | Core fixtures used; no LIVE payments |
+| Production deactivate SQL | **NOT_DONE** | Separate owner approval required |
 
-| Path family | Owner |
-|-------------|-------|
-| `/partners/*`, `/platform/sellers/*`, `/api/certified-sales-partner/*`, `/api/platform/sellers/*` | This V4 job |
-| `/app/*` customer billing/catalog/nav | PR #361 — do not take over |
+## SQL V4
 
-## Production Core snapshot (qbcqoixhrvhnuwphefvw)
+| Env | Status |
+|-----|--------|
+| Staging `auedugihkduoaikfusqe` | Applied — SHA `b06db68bfab047c0385e5d7af636042aaa2933070a09dc17e0fedfe46e2815b3` |
+| Production `qbcqoixhrvhnuwphefvw` | **Not applied** — `csp_deactivate_attribution_link` absent |
 
-| Metric | Value |
-|--------|-------|
-| Partners | 2 |
-| Messageable statuses | 1 |
-| Suspended | 1 (Unonight CSP remains suspended — do not change) |
-| Published materials | 0 |
-| Partner messages | 0 |
-| `csp_deactivate_attribution_link` | missing (PREPARED_ONLY) |
+## Staging harness
 
-## SQL apply required (owner)
-
-1. `docs/platform/sql-candidates/csp_deactivate_attribution_link_v4.sql` SHA `b06db68bfab047c0385e5d7af636042aaa2933070a09dc17e0fedfe46e2815b3`
-
-## Honest E2E note
-
-No Production messages sent in V4 QA. Admin picker + profile compose are CODE_READY; full LIVE_VERIFIED for messaging requires an approved Staging/isolated test partner — not mass/Production messaging.
+28 / 28 assertions passed (`csp_v5_staging_verify_harness.sql`). Fixtures cleaned (leftover partners/materials/auth = 0). Append-only ledger retained by design.
