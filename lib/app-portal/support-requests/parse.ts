@@ -19,11 +19,14 @@ function str(v: unknown, fb = ""): string {
   return typeof v === "string" ? v : fb;
 }
 
-function parseItem(raw: unknown): SupportRequestItem {
+function parseItem(raw: unknown, includeInternalNotes: boolean): SupportRequestItem {
   const d = (raw ?? {}) as Record<string, unknown>;
   const cat = str(d.category, "general") as SupportRequestCategory;
   const pr = str(d.priority, "medium") as SupportRequestPriority;
   const st = str(d.status, "open") as SupportRequestStatus;
+  const notes = includeInternalNotes
+    ? str(d.internal_notes_full) || str(d.internal_notes) || undefined
+    : undefined;
   return {
     id: str(d.id),
     title: str(d.title),
@@ -40,8 +43,9 @@ function parseItem(raw: unknown): SupportRequestItem {
     channel: str(d.channel) || undefined,
     resolved_at: str(d.resolved_at) || undefined,
     attachments: Array.isArray(d.attachments) ? d.attachments : [],
-    internal_notes: str(d.internal_notes_full) || str(d.internal_notes) || undefined,
-    internal_notes_full: str(d.internal_notes_full) || undefined,
+    // Defense in depth — RPC must omit notes for customers; never rehydrate from payload when unauthorized.
+    internal_notes: notes,
+    internal_notes_full: includeInternalNotes ? str(d.internal_notes_full) || undefined : undefined,
     created_at: str(d.created_at),
     updated_at: str(d.updated_at),
   };
@@ -64,10 +68,12 @@ function parseAudit(raw: unknown) {
 export function parseSupportRequestList(data: unknown): SupportRequestListResponse {
   if (!data || typeof data !== "object") return { found: false, items: [] };
   const d = data as Record<string, unknown>;
+  // List responses never expose internal notes — even managers use detail for notes.
+  const items = Array.isArray(d.items) ? d.items.map((item) => parseItem(item, false)) : [];
   return {
     found: d.found === true,
     can_manage: d.can_manage === true,
-    items: Array.isArray(d.items) ? d.items.map(parseItem) : [],
+    items,
     principle: str(d.principle),
   };
 }
@@ -76,10 +82,11 @@ export function parseSupportRequestDetail(data: unknown): SupportRequestDetail {
   if (!data || typeof data !== "object") return { found: false };
   const d = data as Record<string, unknown>;
   if (d.found !== true) return { found: false };
+  const canManage = d.can_manage === true;
   const resolutionRaw = d.resolution as Record<string, unknown> | undefined;
   return {
     found: true,
-    can_manage: d.can_manage === true,
+    can_manage: canManage,
     can_reopen: d.can_reopen === true,
     is_historical: d.is_historical === true,
     resolution: resolutionRaw
@@ -89,7 +96,7 @@ export function parseSupportRequestDetail(data: unknown): SupportRequestDetail {
           summary: str(resolutionRaw.summary) || undefined,
         }
       : undefined,
-    request: d.request ? parseItem(d.request) : undefined,
+    request: d.request ? parseItem(d.request, canManage) : undefined,
     status_history: Array.isArray(d.status_history)
       ? d.status_history.map((s) => {
           const row = s as Record<string, unknown>;
@@ -105,9 +112,10 @@ export function parseSupportRequestDetail(data: unknown): SupportRequestDetail {
   };
 }
 
-export function parseSupportRequestItem(data: unknown): SupportRequestItem | null {
+export function parseSupportRequestItem(data: unknown, canManage?: boolean): SupportRequestItem | null {
   if (!data || typeof data !== "object") return null;
   const d = data as Record<string, unknown>;
-  if (d.request) return parseItem(d.request);
-  return parseItem(d);
+  const allowNotes = canManage === true || (canManage === undefined && d.can_manage === true);
+  if (d.request) return parseItem(d.request, allowNotes);
+  return parseItem(d, allowNotes);
 }
