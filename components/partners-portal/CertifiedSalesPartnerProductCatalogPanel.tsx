@@ -158,7 +158,6 @@ export function CertifiedSalesPartnerProductCatalogPanel({
   const [pendingKey, setPendingKey] = useState<string | null>(null);
   const [notes, setNotes] = useState<Record<string, { text: string; tone: StatusTone }>>({});
 
-  const products = useMemo(() => getLocalizedCspCatalogProducts(locale, filter), [locale, filter]);
   const overviewByKey = useMemo(() => {
     const map = new Map<string, { certificationStatus: string | null; commissionAmount: number | null; currency: string | null }>();
     if (!portal) return map;
@@ -172,6 +171,13 @@ export function CertifiedSalesPartnerProductCatalogPanel({
     }
     return map;
   }, [portal]);
+
+  /** SALE channel only: Core-published products + future orientation cards. Never APP-only. */
+  const products = useMemo(() => {
+    const all = getLocalizedCspCatalogProducts(locale, filter);
+    if (!portal) return all;
+    return all.filter((product) => product.future || overviewByKey.has(product.key));
+  }, [locale, filter, portal, overviewByKey]);
 
   const filterLabels: Record<CspCatalogFilter, string> = {
     all: labels.filterAll,

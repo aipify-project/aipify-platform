@@ -180,12 +180,18 @@
       "overallStatus": "Status"
     },
     "softwareShowcase": {
-      "heroTitle": "IA que trabaja con usted.",
-      "heroBody": "Encuentre el Kompis adecuado para sus clientes, su equipo y su conocimiento.",
+      "heroTitle": "Productos para tu espacio de trabajo",
+      "heroBody": "Aipify ayuda a tu empresa a elegir los productos adecuados, con estado honesto y sin botones de compra inventados.",
       "webLead": "Ofrezca a los visitantes una respuesta clara cuando la necesitan.",
       "webSupport": "Kompis usa las FAQ aprobadas y el conocimiento del sitio para que la información sea más fácil de encontrar, en el propio sitio.",
       "bedriftLead": "Haga más fácil usar el conocimiento de la organización.",
-      "bedriftSupport": "Reúna el conocimiento interno relevante y ofrezca un camino más claro hacia la respuesta, con acceso según el rol."
+      "bedriftSupport": "Reúna el conocimiento interno relevante y ofrezca un camino más claro hacia la respuesta, con acceso según el rol.",
+      "emptyTitle": "Aún no hay productos APP publicados",
+      "emptyBody": "Cuando Aipify publique productos para la tienda APP, aparecerán aquí.",
+      "seeInformation": "Ver información",
+      "contactAipify": "Contactar a Aipify",
+      "notForPurchase": "Aún no disponible para compra",
+      "plannedPriceNote": "Precio de cliente planificado desde {price}: no es una oferta de compra en vivo."
     },
     "modules": {
       "title": "Módulos complementarios",

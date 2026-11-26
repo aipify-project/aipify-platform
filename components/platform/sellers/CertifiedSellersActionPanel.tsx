@@ -39,15 +39,24 @@ export type SellersActionLabels = {
   published: string;
   submitProduct: string;
   productTabProduct: string;
-  productTabPrice: string;
+  productTabMedia: string;
   productTabLanguage: string;
-  productTabCommission: string;
-  productTabPublish: string;
+  productTabAppPanel: string;
+  productTabSalePanel: string;
+  productTabPreview: string;
+  /** @deprecated kept for older call sites — prefer app/sale panel copy */
+  productTabPrice?: string;
+  productTabCommission?: string;
+  productTabPublish?: string;
   priceNotPublished: string;
   priceNotCommission: string;
   languageNotStored: string;
   percentUnavailable: string;
   publishMeaning: string;
+  titlePersistenceNote: string;
+  mediaBlocked: string;
+  appPanelBlocked: string;
+  previewNote: string;
   success: string;
   failClosed: string;
   error: string;
@@ -265,13 +274,16 @@ function ProductAdminForm({
   pending: boolean;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }) {
-  const [tab, setTab] = useState<"product" | "price" | "language" | "commission" | "publish">("product");
+  const [tab, setTab] = useState<
+    "product" | "media" | "language" | "appPanel" | "salePanel" | "preview"
+  >("product");
   const tabs = [
     ["product", labels.productTabProduct],
-    ["price", labels.productTabPrice],
+    ["media", labels.productTabMedia],
     ["language", labels.productTabLanguage],
-    ["commission", labels.productTabCommission],
-    ["publish", labels.productTabPublish],
+    ["appPanel", labels.productTabAppPanel],
+    ["salePanel", labels.productTabSalePanel],
+    ["preview", labels.productTabPreview],
   ] as const;
   return (
     <form className="mt-4 grid max-w-3xl gap-4" onSubmit={onSubmit}>
@@ -296,25 +308,31 @@ function ProductAdminForm({
       <div hidden={tab !== "product"} className="grid gap-3">
         <Field name="product_key" label={labels.productKey} />
         <Field name="title" label={labels.productTitle} />
+        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.titlePersistenceNote}</p>
       </div>
-      <div hidden={tab !== "price"} className="grid gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
-        <p>{labels.priceNotPublished}</p>
-        <p>{labels.priceNotCommission}</p>
+      <div hidden={tab !== "media"} className="grid gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
+        <p>{labels.mediaBlocked}</p>
       </div>
       <div hidden={tab !== "language"}>
         <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.languageNotStored}</p>
       </div>
-      <div hidden={tab !== "commission"} className="grid gap-3">
+      <div hidden={tab !== "appPanel"} className="grid gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
+        <p>{labels.appPanelBlocked}</p>
+        <p>{labels.priceNotPublished}</p>
+        <p>{labels.priceNotCommission}</p>
+      </div>
+      <div hidden={tab !== "salePanel"} className="grid gap-3">
         <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.percentUnavailable}</p>
         <Field name="currency" label={labels.currency} placeholder="NOK" maxLength={3} />
         <Field name="fixed_commission_amount" label={labels.fixedCommission} type="number" />
-      </div>
-      <div hidden={tab !== "publish"} className="grid gap-3">
         <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.publishMeaning}</p>
         <label className="flex items-center gap-2 text-sm">
           <input name="published" type="checkbox" />
           <span>{labels.published}</span>
         </label>
+      </div>
+      <div hidden={tab !== "preview"} className="grid gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
+        <p>{labels.previewNote}</p>
       </div>
       <Submit pending={pending} label={labels.submitProduct} />
     </form>

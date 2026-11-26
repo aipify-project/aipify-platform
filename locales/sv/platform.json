@@ -300,7 +300,7 @@
     "superRoleAccess": "Roller och behörigheter",
     "sellersOverview": "Säljaröversikt",
     "sellersPartners": "Partner",
-    "sellersProducts": "Produkter till försäljning",
+    "sellersProducts": "Produkter",
     "sellersCommissionRates": "Provisionspriser",
     "sellersAttribution": "Säljlänkar",
     "sellersAcademy": "Academy och tester",
@@ -7841,8 +7841,8 @@
       "subtitle": "Sök ansökningar, filtrera på status och öppna den fullständiga säljarprofilen."
     },
     "products": {
-      "title": "Produkter till försäljning",
-      "subtitle": "Se vad säljare kan erbjuda. Kundpris och säljarprovision hålls isär."
+      "title": "Produktregister",
+      "subtitle": "Hantera Aipify-produkter för APP-butik och Certified Sales Partner-katalog. Kundpris och provision hålls åtskilda."
     },
     "commissionRates": {
       "title": "Provisionspriser",
@@ -7947,7 +7947,15 @@
       "priceNotCommission": "Den fasta provisionen är inte kundpriset.",
       "languageNotStored": "Godkända översättningar finns inte på produktposten ännu. Inget publiceras automatiskt.",
       "percentUnavailable": "Procentprovision kan inte sparas. Gällande regel är fortfarande ett fast engångsbelopp.",
-      "publishMeaning": "Publicerad betyder att säljare kan använda produkten. Det betyder inte att en kund kan köpa den."
+      "publishMeaning": "Publicerad betyder att säljare kan använda produkten. Det betyder inte att en kund kan köpa den.",
+      "productTabMedia": "Profil och media",
+      "productTabAppPanel": "APP-panel",
+      "productTabSalePanel": "Säljpanel",
+      "productTabPreview": "Förhandsgranskning och publicering",
+      "titlePersistenceNote": "Core sparar i dag produktnyckel, provision och säljpublicering. Titel kan accepteras utan att sparas innan dubbelkanal-SQL godkänns.",
+      "mediaBlocked": "Mediauppladdning kräver Core-lagring. Till dess använder APP och säljarkatalog godkända varumärken från det gemensamma registret.",
+      "appPanelBlocked": "APP-kanalpublicering och köpberedskap kräver Core-SQL. Produkter i APP-registret visas i /app/software utan falsk Köp-knapp.",
+      "previewNote": "Använd APP-butik och partnerkatalog för kanalspecifik förhandsgranskning. Kanalerna är oberoende."
     },
     "live": {
       "loading": "Läser in säljardata",
@@ -8086,7 +8094,19 @@
       "academyVoiceStatus": "Framtida produkt. Inga säljlänkar eller certifiering är aktiva.",
       "academyVoiceTitle": "Aipify Voice",
       "academyGenericStatus": "Certifiering för den här produkten rapporteras inte separat.",
-      "academyNotForSellers": "Inte publicerad för säljare."
+      "academyNotForSellers": "Inte publicerad för säljare.",
+      "registerColImage": "Mark",
+      "registerColName": "Product",
+      "registerColSku": "SKU",
+      "registerColType": "Type",
+      "registerColAppStatus": "APP-status",
+      "registerColSaleStatus": "Säljstatus",
+      "registerColCustomerPrice": "Kundpris",
+      "registerAppPublished": "APP publicerad",
+      "registerAppUnpublished": "Inte i APP-butik",
+      "registerSaleNotConfigured": "Försäljning ej konfigurerad",
+      "registerPricePlanned": "Planerad från {price}",
+      "registerChannelNote": "En produktidentitet med separata APP- och säljkanaler. Säljpublicering använder Core. APP-listning använder godkänt register tills kanal-SQL finns."
     },
     "drawer": {
       "title": "Ansökningsdetaljer",
@@ -8267,7 +8287,8 @@
       "settingsCurrentTitle": "Gällande programregler",
       "settingsApprovalTitle": "Kräver plattformsgodkännande",
       "settingsApprovalPercent": "Procentprovision lagras inte. Den fasta engångsregeln gäller fortfarande.",
-      "settingsApprovalMessages": "Läststatus och arkiv för meddelanden lagras inte. Historiken förblir synlig."    },
+      "settingsApprovalMessages": "Läststatus och arkiv för meddelanden lagras inte. Historiken förblir synlig."
+    },
     "messages": {
       "title": "Kommunikation",
       "subtitle": "Skicka och granska auktoriserad kommunikation med certifierade säljare."

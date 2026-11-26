@@ -1,133 +1,156 @@
-import {
-  assignedWebPlan,
-  bedriftProductTone,
-  webProductTone,
-  type KompisProductAccessRead,
-} from "@/lib/commercial-packages/portfolio-presentation";
+import { ProductHeroTile } from "@/components/app/settings/billing/ProductHeroTile";
+import { ProductStatusBadge } from "@/components/app/settings/billing/ProductStatusBadge";
 import type { PortfolioLabels } from "@/lib/commercial-packages/portfolio-labels";
 import type { buildSoftwareShowcaseLabels } from "@/lib/commercial-packages/modules-panel-labels";
-import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
+import type { WorkspaceProductHero } from "@/lib/commercial-packages/product-hero";
+import type { UnifiedCatalogProduct } from "@/lib/product-catalog";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
-import { ArrowRight, Building2, Globe, MessagesSquare, Users } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 type ShowcaseLabels = ReturnType<typeof buildSoftwareShowcaseLabels>;
 
-function StatusPill({ tone, children }: { tone: "green" | "amber" | "slate"; children: string }) {
-  const className =
-    tone === "green"
-      ? "bg-[#E8F7F0] text-[var(--app-positive)] ring-[#B7E4CF]"
-      : tone === "amber"
-        ? "bg-[#FFF4E5] text-[var(--app-pending)] ring-[#F5D4A3]"
-        : "bg-[var(--app-soft-surface)] text-[var(--app-text-muted)] ring-[var(--app-border)]";
-  return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${className}`}>
-      {children}
-    </span>
-  );
+function heroFor(product: UnifiedCatalogProduct): WorkspaceProductHero {
+  return {
+    id: product.productKey === "kompis_bedrift" ? "kompis_bedrift" : "kompis_web",
+    logoSrc: product.logoSrc,
+    accent: product.accent,
+    letter: product.letter,
+  };
 }
 
-function planLabel(labels: PortfolioLabels, plan: "free" | "standard" | "pro"): string {
-  if (plan === "free") return labels.freeName;
-  if (plan === "standard") return labels.standardName;
-  return labels.proName;
+function statusFor(
+  product: UnifiedCatalogProduct
+): "active" | "not_licensed" | "available" | "planned" | "under_review" {
+  if (product.purchaseReadiness === "active_open") return "active";
+  if (product.purchaseReadiness === "info_only") return "planned";
+  if (product.purchaseReadiness === "contact") return "not_licensed";
+  return "available";
+}
+
+function primaryCta(
+  product: UnifiedCatalogProduct,
+  labels: PortfolioLabels,
+  catalogLabels: { seeInformation: string; contactAipify: string; notForPurchase: string }
+): { href: string | null; label: string } {
+  if (product.purchaseReadiness === "active_open" && product.openHref) {
+    return {
+      href: product.openHref,
+      label: product.productKey === "kompis_bedrift" ? labels.seeBedrift : labels.seeWeb,
+    };
+  }
+  if (product.purchaseReadiness === "contact") {
+    return { href: "/app/account/subscription", label: catalogLabels.contactAipify };
+  }
+  if (product.openHref) {
+    return { href: product.openHref, label: catalogLabels.seeInformation };
+  }
+  return { href: null, label: catalogLabels.notForPurchase };
 }
 
 export function SoftwareProductShowcase({
   embedded = false,
   showcase,
   labels,
-  access,
+  products,
+  emptyTitle,
+  emptyBody,
+  seeInformation,
+  contactAipify,
+  notForPurchase,
+  plannedPriceNote,
 }: {
   embedded?: boolean;
   showcase: ShowcaseLabels;
   labels: PortfolioLabels;
-  access: KompisProductAccessRead;
+  products: UnifiedCatalogProduct[];
+  emptyTitle: string;
+  emptyBody: string;
+  seeInformation: string;
+  contactAipify: string;
+  notForPurchase: string;
+  plannedPriceNote: string;
 }) {
-  const webTone = webProductTone(access);
-  const bedriftTone = bedriftProductTone(access);
-  const webPlan = assignedWebPlan(access);
-  const webStatus =
-    webTone === "assigned" && webPlan
-      ? planLabel(labels, webPlan)
-      : webTone === "unassigned"
-        ? labels.answerPlanUnassigned
-        : webTone === "not_licensed"
-          ? labels.notLicensed
-          : labels.detailsUnavailable;
-  const bedriftStatus =
-    bedriftTone === "licensed"
-      ? labels.active
-      : bedriftTone === "not_licensed"
-        ? labels.notLicensed
-        : labels.detailsUnavailable;
+  if (products.length === 0) {
+    return (
+      <div
+        className="rounded-3xl border border-[var(--app-border)] bg-[var(--app-card)] p-6"
+        data-embedded={embedded ? "true" : "false"}
+      >
+        <h3 className="text-lg font-semibold text-[var(--app-text)]">{emptyTitle}</h3>
+        <p className="mt-2 text-sm text-[var(--app-text-muted)]">{emptyBody}</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="grid items-stretch gap-5 lg:grid-cols-2" data-embedded={embedded ? "true" : "false"}>
-        <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--app-border-accent)] bg-[var(--app-card)] shadow-[var(--app-shadow-card)] motion-safe:transition motion-safe:duration-200 motion-safe:hover:-translate-y-1 motion-reduce:transform-none">
-          <div className="relative h-28 overflow-hidden bg-[image:var(--app-primary-soft-fill)] sm:h-32">
-            <Image
-              src="/brand/kompis-web-product-visual.png"
-              alt={labels.webImageAlt}
-              fill
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-contain p-4"
+    <div
+      className="grid items-stretch gap-5 lg:grid-cols-2"
+      data-embedded={embedded ? "true" : "false"}
+      data-unified-catalog="app"
+    >
+      {products.map((product) => {
+        const status = statusFor(product);
+        const cta = primaryCta(product, labels, {
+          seeInformation,
+          contactAipify,
+          notForPurchase,
+        });
+        const price =
+          product.customerPrice.fromMonthly != null
+            ? `${product.customerPrice.fromMonthly} ${product.customerPrice.currency}`
+            : null;
+
+        return (
+          <article
+            key={product.productKey}
+            className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--app-border-accent)] bg-[var(--app-card)] shadow-[var(--app-shadow-card)] motion-safe:transition motion-safe:duration-200 motion-safe:hover:-translate-y-1 motion-reduce:transform-none"
+          >
+            <ProductHeroTile
+              hero={heroFor(product)}
+              title={product.title}
+              descriptor={product.tagline || showcase.heroBody}
+              alt={product.title}
             />
-          </div>
-          <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-            <div className="flex items-center gap-2">
-              <Globe aria-hidden className="size-4 text-[var(--app-primary)]" strokeWidth={2} />
-              <MessagesSquare aria-hidden className="size-4 text-[var(--app-primary)]" strokeWidth={2} />
-              <h3 className="text-lg font-semibold text-[var(--app-text)]">{labels.kompisWeb}</h3>
+            <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+              <p className="text-sm font-medium text-[var(--app-text)]">{product.tagline}</p>
+              <p className="text-sm leading-relaxed text-[var(--app-text-muted)]">{product.description}</p>
+              {!product.localeApproved ? (
+                <p className="text-xs text-[var(--app-pending)]">{showcase.heroBody}</p>
+              ) : null}
+              <ProductStatusBadge
+                status={status}
+                labels={{
+                  active: labels.active,
+                  notActive: labels.notLicensed,
+                  notLicensed: labels.notLicensed,
+                  underReview: labels.detailsUnavailable,
+                  planned: labels.detailsUnavailable,
+                  available: labels.availableInWorkspace,
+                  unknown: labels.detailsUnavailable,
+                }}
+              />
+              {price && product.customerPrice.status === "planned_not_stripe_live" ? (
+                <p className="text-xs text-[var(--app-text-muted)]">
+                  {plannedPriceNote.replace("{price}", price)}
+                </p>
+              ) : null}
+              {/* Never show Buy — checkout is not Production-ready for these offers. */}
+              {cta.href ? (
+                <Link
+                  href={cta.href}
+                  className={`mt-auto inline-flex min-h-11 items-center gap-2 text-sm font-medium text-[var(--app-primary)] hover:underline ${AppPremiumShell.focusRing}`}
+                >
+                  {cta.label}
+                  <ArrowRight aria-hidden className="size-4" strokeWidth={2} />
+                </Link>
+              ) : (
+                <p className="mt-auto text-sm text-[var(--app-text-muted)]">{cta.label}</p>
+              )}
             </div>
-            <p className="text-sm font-medium text-[var(--app-text)]">{showcase.webLead}</p>
-            <p className="text-sm leading-relaxed text-[var(--app-text-muted)]">{showcase.webSupport}</p>
-            {webTone === "unassigned" ? (
-              <p className="text-sm text-[var(--app-text-muted)]">{labels.availableInWorkspace}</p>
-            ) : null}
-            <StatusPill tone={webTone === "assigned" ? "green" : webTone === "unknown" ? "amber" : "slate"}>
-              {webStatus}
-            </StatusPill>
-            <Link
-              href={FOUNDATION_NAV_BINDINGS.kompisWebDashboard}
-              className={`mt-auto inline-flex min-h-11 items-center gap-2 text-sm font-medium text-[var(--app-primary)] hover:underline ${AppPremiumShell.focusRing}`}
-            >
-              {labels.seeWeb}
-              <ArrowRight aria-hidden className="size-4" strokeWidth={2} />
-            </Link>
-          </div>
-        </article>
-        <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--app-border-accent)] bg-[var(--app-card)] shadow-[var(--app-shadow-card)] motion-safe:transition motion-safe:duration-200 motion-safe:hover:-translate-y-1 motion-reduce:transform-none">
-          <div className="relative h-28 overflow-hidden bg-[image:var(--app-primary-soft-fill)] sm:h-32">
-            <Image
-              src="/brand/kompis-bedrift-product-visual.png"
-              alt={labels.bedriftImageAlt}
-              fill
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-contain p-4"
-            />
-          </div>
-          <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-            <div className="flex items-center gap-2">
-              <Building2 aria-hidden className="size-4 text-[var(--app-primary)]" strokeWidth={2} />
-              <Users aria-hidden className="size-4 text-[var(--app-primary)]" strokeWidth={2} />
-              <h3 className="text-lg font-semibold text-[var(--app-text)]">{labels.kompisBedrift}</h3>
-            </div>
-            <p className="text-sm font-medium text-[var(--app-text)]">{showcase.bedriftLead}</p>
-            <p className="text-sm leading-relaxed text-[var(--app-text-muted)]">{showcase.bedriftSupport}</p>
-            <StatusPill tone={bedriftTone === "licensed" ? "green" : bedriftTone === "unknown" ? "amber" : "slate"}>
-              {bedriftStatus}
-            </StatusPill>
-            <Link
-              href={FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard}
-              className={`mt-auto inline-flex min-h-11 items-center gap-2 text-sm font-medium text-[var(--app-primary)] hover:underline ${AppPremiumShell.focusRing}`}
-            >
-              {labels.seeBedrift}
-              <ArrowRight aria-hidden className="size-4" strokeWidth={2} />
-            </Link>
-          </div>
-        </article>
+          </article>
+        );
+      })}
     </div>
   );
 }

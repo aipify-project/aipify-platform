@@ -1376,12 +1376,18 @@
       }
     },
     "softwareShowcase": {
-      "heroTitle": "AI som jobber sammen med deg.",
-      "heroBody": "Finn riktig Kompis for kundene, teamet og kunnskapen din.",
+      "heroTitle": "Produkter for arbeidsområdet ditt",
+      "heroBody": "Aipify hjelper bedriften din med å velge riktige produkter — med ærlig status og uten oppdiktede kjøpsknapper.",
       "webLead": "Gi besøkende gode svar, akkurat når de trenger dem.",
       "webSupport": "La Kompis bruke godkjent FAQ og nettstedskunnskap til å gjøre informasjon enklere å finne — direkte på nettsiden.",
       "bedriftLead": "Gjør virksomhetens kunnskap enklere å bruke.",
-      "bedriftSupport": "Samle relevant intern kunnskap og gi medarbeidere en mer oversiktlig vei til svar, med tilgang etter rolle."
+      "bedriftSupport": "Samle relevant intern kunnskap og gi medarbeidere en mer oversiktlig vei til svar, med tilgang etter rolle.",
+      "emptyTitle": "Ingen APP-produkter er publisert ennå",
+      "emptyBody": "Når Aipify publiserer produkter for APP-butikken, vises de her. Salgs-only partnerprodukter blir i selgerkatalogen.",
+      "seeInformation": "Se informasjon",
+      "contactAipify": "Kontakt Aipify",
+      "notForPurchase": "Ikke tilgjengelig for kjøp ennå",
+      "plannedPriceNote": "Planlagt kundepris fra {price} — ikke et live kjøpstilbud."
     },
     "modules": {
       "title": "Tilleggsmoduler",

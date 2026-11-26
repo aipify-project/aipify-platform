@@ -9,6 +9,8 @@ import {
   CertifiedSellersActionPanel,
   type SellersActionLabels,
 } from "@/components/platform/sellers/CertifiedSellersActionPanel";
+import { UnifiedProductRegisterTable } from "@/components/platform/sellers/UnifiedProductRegisterTable";
+import { buildUnifiedCatalog, type ProductCatalogLocaleCode } from "@/lib/product-catalog";
 import { SELLERS_ADMIN_FRAME } from "@/lib/platform/sellers-admin-nav";
 import { CertifiedSellersOverviewRanking } from "@/components/platform/sellers/CertifiedSellersOverviewRanking";
 import { CertifiedSellersSectionPanel } from "@/components/platform/sellers/CertifiedSellersSectionPanel";
@@ -532,30 +534,44 @@ export function CertifiedSellersLivePanel({
           <>
             {overview.products === null ? (
               <EmptyCard title={l.productsListMissingTitle} body={l.productsListMissingBody} />
-            ) : overview.products.length === 0 ? (
-              <EmptyCard title={l.productsEmptyTitle} body={l.productsEmptyBody} />
             ) : (
-              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {overview.products.map((p) => (
-                  <article key={p.id} className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-5 shadow-sm">
-                    <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{p.title}</h2>
-                    <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{actionLabels.priceNotPublished}</p>
-                    <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
-                      {l.colCommission}: {formatMoney(p.fixedCommissionAmount, p.currency, locale, l.notReported)}
-                    </p>
-                    <div className="mt-3">
-                      <AipifyStatusBadge
-                        kind={p.published ? "completed" : "waiting"}
-                        label={p.published ? l.productPublished : l.productDraft}
-                      />
-                    </div>
-                    <details className="mt-3 text-xs text-[color:var(--aipify-text-secondary)]">
-                      <summary>{l.referenceLabel}</summary>
-                      <p className="mt-1 font-mono">{p.productKey}</p>
-                    </details>
-                  </article>
-                ))}
-              </div>
+              <UnifiedProductRegisterTable
+                locale={locale}
+                products={buildUnifiedCatalog({
+                  locale: (["en", "no", "sv", "da", "pl", "uk", "es"].includes(locale)
+                    ? locale
+                    : "en") as ProductCatalogLocaleCode,
+                  coreProducts: (overview.products ?? []).map((p: SellersProductRow) => ({
+                    id: p.id,
+                    productKey: p.productKey,
+                    title: p.title,
+                    currency: p.currency,
+                    fixedCommissionAmount: p.fixedCommissionAmount,
+                    published: p.published,
+                  })),
+                })}
+                labels={{
+                  colImage: l.registerColImage,
+                  colName: l.registerColName,
+                  colSku: l.registerColSku,
+                  colType: l.registerColType,
+                  colAppStatus: l.registerColAppStatus,
+                  colSaleStatus: l.registerColSaleStatus,
+                  colCustomerPrice: l.registerColCustomerPrice,
+                  colCommission: l.colCommission,
+                  appPublished: l.registerAppPublished,
+                  appUnpublished: l.registerAppUnpublished,
+                  salePublished: l.productPublished,
+                  saleDraft: l.productDraft,
+                  saleNotConfigured: l.registerSaleNotConfigured,
+                  pricePlanned: l.registerPricePlanned,
+                  priceUnavailable: actionLabels.priceNotPublished,
+                  commissionUnknown: l.notReported,
+                  percentBlocked: actionLabels.percentUnavailable,
+                  empty: l.productsEmptyBody,
+                  channelNote: l.registerChannelNote,
+                }}
+              />
             )}
             <CertifiedSellersActionPanel section="products" labels={actionLabels} onSuccess={() => void load()} />
           </>
