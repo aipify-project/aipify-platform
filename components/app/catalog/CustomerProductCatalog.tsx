@@ -197,6 +197,8 @@ export function CustomerProductCatalog({
           const description = productDescription(product, labels);
           const emphasizeMonth = !interval || interval === "month";
           const emphasizeYear = interval === "year";
+          const purchasePrice =
+            (interval === "year" ? yearPrice : monthPrice) ?? monthPrice ?? yearPrice ?? null;
 
           return (
             <article
@@ -292,9 +294,9 @@ export function CustomerProductCatalog({
                     >
                       {labels.openProduct}
                     </Link>
-                  ) : product.checkoutEnabled && selectedPrice(product, interval)?.offerId ? (
+                  ) : product.checkoutEnabled && purchasePrice?.offerId ? (
                     <CatalogPurchaseButton
-                      offerId={selectedPrice(product, interval)!.offerId!}
+                      offerId={purchasePrice.offerId}
                       label={labels.startPurchase}
                       pendingLabel={labels.purchasePending}
                       errorLabel={labels.purchaseError}

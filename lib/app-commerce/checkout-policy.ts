@@ -10,7 +10,9 @@ export type CommerceCheckoutGate = {
   reasons: string[];
 };
 
-function resolveEnvironment(env: NodeJS.ProcessEnv = process.env): CommerceCheckoutGate["environment"] {
+export type CommerceEnv = Record<string, string | undefined>;
+
+function resolveEnvironment(env: CommerceEnv = process.env): CommerceCheckoutGate["environment"] {
   const vercel = env.VERCEL_ENV;
   if (vercel === "production" || vercel === "preview" || vercel === "development") return vercel;
   if (env.NODE_ENV === "test") return "test";
@@ -25,7 +27,7 @@ function resolveEnvironment(env: NodeJS.ProcessEnv = process.env): CommerceCheck
  * - Elsewhere: only when AIPIFY_APP_COMMERCE_TEST_CHECKOUT=1.
  */
 export function resolveAppCommerceCheckoutGate(
-  env: NodeJS.ProcessEnv = process.env
+  env: CommerceEnv = process.env
 ): CommerceCheckoutGate {
   const environment = resolveEnvironment(env);
   const reasons: string[] = [];
@@ -51,7 +53,7 @@ export function resolveAppCommerceCheckoutGate(
   return { checkoutEnabled: true, productionCheckoutClosed: true, environment, reasons };
 }
 
-export function isAppCommerceCheckoutEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
+export function isAppCommerceCheckoutEnabled(env: CommerceEnv = process.env): boolean {
   return resolveAppCommerceCheckoutGate(env).checkoutEnabled;
 }
 

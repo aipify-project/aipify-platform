@@ -21,7 +21,7 @@ export type CommerceCheckoutContext = {
     periodOrdinal?: number;
     billingInterval?: "monthly" | "annual";
   } | null;
-  env?: NodeJS.ProcessEnv;
+  env?: Record<string, string | undefined>;
   hasActivePaidSubscription?: boolean;
 };
 

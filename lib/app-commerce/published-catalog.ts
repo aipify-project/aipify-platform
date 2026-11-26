@@ -183,7 +183,7 @@ function rowsFromRpcPayload(payload: unknown): Record<string, unknown>[] {
 export function buildAppCommerceCatalog(input: {
   billing?: unknown;
   coreCatalog?: unknown;
-  env?: NodeJS.ProcessEnv;
+  env?: Record<string, string | undefined>;
 }): AppCommerceCatalog {
   const blockers: string[] = [];
   const checkoutEnabled = isAppCommerceCheckoutEnabled(input.env);

@@ -9,7 +9,7 @@ import type { AppCommerceCatalog } from "./types";
 export async function loadAppCommerceCatalog(input: {
   supabase: SupabaseClient;
   billing?: unknown;
-  env?: NodeJS.ProcessEnv;
+  env?: Record<string, string | undefined>;
 }): Promise<AppCommerceCatalog> {
   let coreCatalog: unknown = null;
   try {
