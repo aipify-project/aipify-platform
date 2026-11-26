@@ -189,7 +189,7 @@ export function CertifiedSalesPartnerLinkPanel({ labels, locale }: { labels: Csp
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1600px] space-y-6">
+    <div className="w-full space-y-6">
       <section className="rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-6 shadow-sm">
         <h2 className="text-lg font-semibold">{labels.existingTitle}</h2>
         {linksState.phase === "unavailable" ? (

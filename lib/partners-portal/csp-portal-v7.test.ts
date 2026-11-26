@@ -71,6 +71,8 @@ test("payment RPC candidate revokes anon and stays unapplied", () => {
   assert.match(sql, /revoke all on function public\.register_trial_payment_method\(text\) from anon/i);
   assert.match(sql, /grant execute on function public\.handle_payment_webhook_event\(text, text, jsonb, uuid\) to service_role/i);
   assert.doesNotMatch(sql, /drop function/i);
-  assert.match(route, /createClient\(/);
-  assert.doesNotMatch(route, /service_role/);
+  // Signature gate stays fail-closed; Core mutation uses service_role only (payment hardening).
+  assert.match(route, /authorizeStripeWebhook/);
+  assert.match(route, /createServiceRoleClient/);
+  assert.doesNotMatch(route, /createClient\(/);
 });

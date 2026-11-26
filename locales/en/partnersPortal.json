@@ -830,7 +830,8 @@
         "transparencyNote": "Information you share here is collected to improve Aipify products and services.",
         "trustStatementLink": "Customer Feedback & Product Improvement Policy",
         "trustStatementLinkAria": "Open the Customer Feedback & Product Improvement Policy in a new tab"
-      }
+      },
+      "settingsMenu": "Help & settings"
     },
     "messages": {
       "title": "Messages",

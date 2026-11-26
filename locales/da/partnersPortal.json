@@ -830,7 +830,8 @@
         "transparencyNote": "Oplysninger, du deler her, indsamles for at forbedre Aipify-produkter og -tjenester.",
         "trustStatementLink": "Politik for kundefeedback og produktforbedring",
         "trustStatementLinkAria": "Åbn politikken for kundefeedback og produktforbedring i en ny fane"
-      }
+      },
+      "settingsMenu": "Hjælp og indstillinger"
     },
     "messages": {
       "title": "Beskeder",

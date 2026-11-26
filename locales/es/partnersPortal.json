@@ -706,7 +706,8 @@
         "transparencyNote": "La información que compartes aquí se recopila para mejorar los productos y servicios de Aipify.",
         "trustStatementLink": "Política de comentarios de clientes y mejora del producto",
         "trustStatementLinkAria": "Abrir la política de comentarios de clientes y mejora del producto en una pestaña nueva"
-      }
+      },
+      "settingsMenu": "Ayuda y ajustes"
     },
     "messages": {
       "title": "Mensajes",

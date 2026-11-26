@@ -830,7 +830,8 @@
         "transparencyNote": "Informasjon du deler her samles inn for å forbedre Aipify-produkter og -tjenester.",
         "trustStatementLink": "Retningslinjer for kundetilbakemelding og produktforbedring",
         "trustStatementLinkAria": "Åpne retningslinjer for kundetilbakemelding og produktforbedring i ny fane"
-      }
+      },
+      "settingsMenu": "Hjelp og innstillinger"
     },
     "messages": {
       "title": "Meldinger",

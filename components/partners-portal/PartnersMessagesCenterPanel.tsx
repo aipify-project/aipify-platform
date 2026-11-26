@@ -137,10 +137,10 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
   const showComposer = phase === "ready" || phase === "empty";
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-aipify-text">{labels.title}</h1>
-        <p className="mt-2 max-w-3xl text-aipify-text-secondary">{labels.subtitle}</p>
+        <h1 className="text-2xl font-semibold tracking-tight text-[#1E293B]">{labels.title}</h1>
+        <p className="mt-2 max-w-3xl text-sm text-[#64748B]">{labels.subtitle}</p>
       </div>
 
       {phase === "loading" ? <AipifyLoader centered size="sm" /> : null}
@@ -193,19 +193,33 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
       ) : null}
 
       {phase === "ready" ? (
-        <ul className="space-y-3">
-          {messages.map((m) => (
-            <li key={m.id} className={`${AipifyShellClasses.surfaceCard} p-5`}>
-              <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-aipify-text-secondary">
-                <span>{m.direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou}</span>
-                <span aria-hidden>·</span>
-                <time dateTime={m.created_at}>{new Date(m.created_at).toLocaleString()}</time>
-              </div>
-              {m.subject ? <p className="mt-2 text-sm font-semibold text-aipify-text">{m.subject}</p> : null}
-              <p className="mt-2 whitespace-pre-wrap text-sm text-aipify-text-secondary">{m.body}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="grid gap-4 lg:grid-cols-[minmax(240px,320px)_minmax(0,1fr)]">
+          <ul className="space-y-2">
+            {messages.map((m) => (
+              <li key={`list-${m.id}`} className={`${AipifyShellClasses.surfaceCard} p-4`}>
+                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#64748B]">
+                  <span>{m.direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou}</span>
+                  <span aria-hidden>·</span>
+                  <time dateTime={m.created_at}>{new Date(m.created_at).toLocaleString()}</time>
+                </div>
+                {m.subject ? <p className="mt-2 truncate text-sm font-semibold text-[#1E293B]">{m.subject}</p> : null}
+              </li>
+            ))}
+          </ul>
+          <ul className="space-y-3">
+            {messages.map((m) => (
+              <li key={m.id} className={`${AipifyShellClasses.surfaceCard} p-5`}>
+                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#64748B]">
+                  <span>{m.direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou}</span>
+                  <span aria-hidden>·</span>
+                  <time dateTime={m.created_at}>{new Date(m.created_at).toLocaleString()}</time>
+                </div>
+                {m.subject ? <p className="mt-2 text-sm font-semibold text-[#1E293B]">{m.subject}</p> : null}
+                <p className="mt-2 whitespace-pre-wrap text-sm text-[#64748B]">{m.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
 
       {showComposer ? (

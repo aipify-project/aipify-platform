@@ -86,6 +86,7 @@ export default async function PartnersPortalLayout({
     notifications: t("partnersPortal.certifiedSalesPartner.nav.notifications"),
     settings: t("partnersPortal.certifiedSalesPartner.nav.help"),
     profile: t("partnersPortal.certifiedSalesPartner.nav.profile"),
+    mainNavigation: topbarLabels.mainNavigation,
   };
 
   return (
