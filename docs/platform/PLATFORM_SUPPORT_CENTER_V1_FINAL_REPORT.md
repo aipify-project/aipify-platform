@@ -8,11 +8,11 @@
 | WORKTREE | `/Users/veltrix/Development/aipify-platform-support-center-v1-20261126b` |
 | BRANCH | `feat/platform-support-center-v1-20261126b` |
 | BASE_SHA | `53a23a230486d740b198478ba55122e39f312f2b` (`origin/main`) |
-| HEAD_SHA | *(pending commit)* |
-| PR | *(pending)* |
+| HEAD_SHA | `e19fa2ba2d5abcbd1702b65d18f09f3bd5256b9c` |
+| PR | https://github.com/aipify-project/aipify-platform/pull/400 |
 | MERGE_SHA | — |
 | DEPLOY_SHA | — |
-| READY | Phase A code ready for review; Core/email not live |
+| READY | Phase A code in PR; Core/email not live |
 
 **Path note:** Suggested path `…-20261126` already existed (clean, unused). Used unique suffix `b`.
 
