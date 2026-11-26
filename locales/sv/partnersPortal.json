@@ -620,7 +620,8 @@
       "linkUnavailable": "Säljlänkar är inte tillgängliga förrän partnerlösningen är aktiv.",
       "takeTraining": "Gå utbildningen",
       "trainingNotPublished": "Utbildningen är inte publicerad ännu",
-      "empty": "Inga produkter i den här kategorin."
+      "empty": "Inga produkter i den här kategorin.",
+      "shareMarketing": "Dela"
     },
     "overview": {
       "title": "Din partneröversikt",
@@ -1151,7 +1152,9 @@
       "securityAccountNote": "Lösenordsändringar och enhetssessioner ligger i ditt Aipify-inloggningskonto. Denna portal lagrar aldrig ett lokalt lösenord.",
       "openTwoFactor": "Hantera tvåfaktorsautentisering",
       "openSettlement": "Öppna provision och utbetalningar",
-      "notAvailable": "Inte tillgängligt"
+      "notAvailable": "Inte tillgängligt",
+      "lockScreenTitle": "Skärmlås (förberedd)",
+      "lockScreenBody": "Säker skärmlås kräver serververifierad återautentisering. Funktionen är inaktiv tills separat säkerhetsgodkännande — Aipify erbjuder inte ett klient-only lås."
     },
     "academyHub": {
       "productTabsLabel": "Academy-produkter",

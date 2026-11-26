@@ -47,6 +47,7 @@ export type CspCatalogLabels = {
   linkUnavailable: string;
   error: string;
   takeTraining: string;
+  shareMarketing: string;
   trainingNotPublished: string;
   noBuy: string;
   empty: string;
@@ -365,6 +366,12 @@ export function CertifiedSalesPartnerProductCatalogPanel({
                       ) : (
                         <p className="self-center text-xs text-[color:var(--aipify-text-secondary)]">{labels.linkGatesNotMet}</p>
                       )}
+                      <Link
+                        href="/partners/marketing/assets"
+                        className="inline-flex rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+                      >
+                        {labels.shareMarketing}
+                      </Link>
                       {product.hasTraining ? (
                         <Link
                           href="/partners/academy/training"

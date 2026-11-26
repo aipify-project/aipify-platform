@@ -23,6 +23,7 @@ import {
   type CspSocialPlatform,
 } from "@/lib/certified-sales-partner/social-share";
 import { LOCALES, LOCALE_LABELS, type Locale } from "@/lib/i18n/config";
+import { evaluateSalesLinkGates } from "@/lib/certified-sales-partner/partner-overview";
 import { AipifyAlert, AipifyCard, AipifyPageHeader, AipifyTabs } from "./design";
 import { CspSocialPlatformPicker } from "./CspSocialPlatformPicker";
 import { writeClipboard } from "./csp-sales-links-client";
@@ -42,11 +43,9 @@ type MaterialRow = {
   productKeys: string[];
 };
 
-function certPassed(portal: ReturnType<typeof useCspPortal>, product: ProductKey): boolean {
-  if (!portal) return false;
-  return portal.overview.products.some(
-    (p) => p.productKey === product && p.certificationStatus === "passed",
-  );
+function productSellable(portal: ReturnType<typeof useCspPortal>, product: ProductKey): boolean {
+  if (!portal || product === "aipify_voice") return false;
+  return evaluateSalesLinkGates(portal.overview, product).allowed;
 }
 
 /**
@@ -88,7 +87,7 @@ export function CertifiedSalesPartnerMarketingCenter({
     router.replace(suffix ? `${pathname}?${suffix}` : pathname, { scroll: false });
   }
 
-  const sellable = product !== "aipify_voice" && certPassed(portal, product);
+  const sellable = productSellable(portal, product);
   const activeLink = portal?.links.find((l) => l.active && l.code) ?? null;
   const publicPath =
     activeLink?.code && sellable

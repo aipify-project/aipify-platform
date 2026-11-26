@@ -620,7 +620,8 @@
       "linkUnavailable": "Sales links are not available until the partner backend is active.",
       "takeTraining": "Take training",
       "trainingNotPublished": "Training not published yet",
-      "empty": "No products in this category."
+      "empty": "No products in this category.",
+      "shareMarketing": "Share"
     },
     "overview": {
       "title": "Your partner overview",
@@ -1151,7 +1152,9 @@
       "securityAccountNote": "Password changes and device sessions stay in your Aipify sign-in account. This portal never stores a local password.",
       "openTwoFactor": "Manage two-factor authentication",
       "openSettlement": "Open commission & payouts",
-      "notAvailable": "Not available"
+      "notAvailable": "Not available",
+      "lockScreenTitle": "Screen lock (prepared)",
+      "lockScreenBody": "Secure screen lock needs server-verified re-authentication. It stays inactive until a separate security approval — Aipify will not offer a client-only lock overlay."
     },
     "academyHub": {
       "productTabsLabel": "Academy products",

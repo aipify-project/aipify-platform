@@ -27,6 +27,8 @@ export type CspProfilePageLabels = {
   securityIntro: string;
   securityAccountNote: string;
   openTwoFactor: string;
+  lockScreenTitle: string;
+  lockScreenBody: string;
   openSettlement: string;
   notAvailable: string;
   partnerStatus: Record<string, string>;
@@ -128,17 +130,22 @@ export function CertifiedSalesPartnerProfilePanel({
       ) : null}
 
       {tab === "security" ? (
-        <AipifyCard>
-          <h2 className="text-base font-semibold text-[#1E293B]">{labels.securityTab}</h2>
-          <p className="mt-2 text-sm text-[#64748B]">{labels.securityIntro}</p>
-          <p className="mt-3 text-sm text-[#64748B]">{labels.securityAccountNote}</p>
-          <Link
-            href="/app/settings/two-factor"
-            className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[#7C3AED] px-4 text-sm font-semibold text-white"
-          >
-            {labels.openTwoFactor}
-          </Link>
-        </AipifyCard>
+        <div className="space-y-4">
+          <AipifyCard>
+            <h2 className="text-base font-semibold text-[#1E293B]">{labels.securityTab}</h2>
+            <p className="mt-2 text-sm text-[#64748B]">{labels.securityIntro}</p>
+            <p className="mt-3 text-sm text-[#64748B]">{labels.securityAccountNote}</p>
+            <Link
+              href="/app/settings/two-factor"
+              className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[#7C3AED] px-4 text-sm font-semibold text-white"
+            >
+              {labels.openTwoFactor}
+            </Link>
+          </AipifyCard>
+          <AipifyAlert tone="neutral" title={labels.lockScreenTitle}>
+            {labels.lockScreenBody}
+          </AipifyAlert>
+        </div>
       ) : null}
     </div>
   );

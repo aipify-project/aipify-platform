@@ -583,6 +583,7 @@ export function buildCspCatalogLabels(t: Translator): CspCatalogLabels {
     linkUnavailable: k("linkUnavailable"),
     error: t(`${CSP_NS}.workspace.errorTitle`),
     takeTraining: k("takeTraining"),
+    shareMarketing: k("shareMarketing"),
     trainingNotPublished: k("trainingNotPublished"),
     noBuy: t(`${CSP_NS}.pages.products.noBuy`),
     empty: k("empty"),
