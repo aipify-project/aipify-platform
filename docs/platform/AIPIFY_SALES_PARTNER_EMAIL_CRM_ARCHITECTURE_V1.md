@@ -29,17 +29,44 @@
 - `lib/certified-sales-partner/email-templates/` — approved template registry, placeholders, locale gate (no silent EN fallback)
 - `lib/certified-sales-partner/email-outbound/` — send gate, idempotency, rate limit, delivery status honesty
 - `lib/certified-sales-partner/email-inbound/` — webhook signature contract, correlation token, quarantine
-- `docs/platform/sql-candidates/csp_sales_email_crm_v1.sql` — PREPARED_ONLY (canonical SHA256 `ed24863a72400676eedf7aa4c0431f80de4cc0f3a81e64fbe07f244a04ac8091`)
-- Seller UI: `/partners/marketing/email-templates`
-- Platform UI: sellers materials/templates admin + shortened nav labels
+- `docs/platform/sql-candidates/csp_sales_email_crm_v1.sql` — PREPARED_ONLY canonical V2. Hash method: `shasum -a 256` of the exact file bytes. The digest is only in `csp_sales_email_crm_v1.sql.sha256`. Do not paste it into the SQL file. The earlier recorded digest `ed24863a…` does not match any committed blob and is retired.
+- Seller UI: `/partners/marketing/email-templates` and `/partners/marketing/email-inbox`
+- Canonical API: `/api/certified-sales-partner/email/marketing-send`, `/inbound`, `/notifications`, `/thread`
+- Platform admin events: `/api/platform/sellers/sales-email/events`
 - Shared: `components/branding/PoweredByAipifyFooter.tsx`
+
+## Canonical config
+
+`CSP_SALES_EMAIL_OUTBOUND=owner_approved`  
+`CSP_SALES_EMAIL_LAWFUL_BASIS=owner_recorded`  
+`CSP_SALES_EMAIL_ALLOWLIST`  
+`CSP_SALES_EMAIL_REPLY_DOMAIN`  
+`CSP_SALES_EMAIL_TOKEN_SECRET`  
+`RESEND_WEBHOOK_SECRET` or `CSP_SALES_EMAIL_INBOUND_SECRET`  
+`RESEND_API_KEY`
+
+`CSP_MARKETING_EMAIL_SEND_ENABLED` and `CSP_EMAIL_INBOUND_WEBHOOK_SECRET` are retired and do not unlock anything.
+
+From stays `Aipify Group AS <partners@aipify.ai>`. Reply-To is `Aipify <reply+{token}@{CSP_SALES_EMAIL_REPLY_DOMAIN}>` and is set only on an authorized sales send.
+
+## Rollout
+
+Staging approval and Production approval are separate. This change does not apply SQL, does not set secrets, does not change DNS, and does not send mail.
+
+Staging, after approval: apply the SQL file whose `shasum -a 256` matches the sibling digest, on a Staging database that already has `csp_partner_profiles`, `csp_sales_products`, `csp_product_certifications`, `auth.uid()`, and `is_platform_admin()`. Then set the config above for one allowlisted recipient. Send one message. Reply once. Confirm one lead, one unread notification, no new `csp_commission_ledger` row, and no access for a second seller.
+
+Production, after Staging passes and a second approval: apply the same file bytes, then repeat one approved send and one reply. Do not call `csp_sales_email_purge_expired`.
+
+## Compensation
+
+If the new tables were applied and must be removed, drop only the `csp_sales_email_*` tables and functions created by this file, in dependency order, after exporting any rows the owner wants to keep. Do not delete historical CSP sales, settlements, or commission ledger rows. Do not run the retention function as part of rollback. The unapplied V1 table names were never created by this file.
 
 ## Production gates (owner)
 
-- SQL apply Staging → Production (`docs/platform/sql-candidates/csp_sales_email_crm_v1.sql`, content SHA256 `ed24863a…` in `.sha256`)  
-- `RESEND_API_KEY`, SPF/DKIM, inbound domain, `CSP_EMAIL_INBOUND_WEBHOOK_SECRET`  
-- `CSP_MARKETING_EMAIL_SEND_ENABLED=1` for any real outbound marketing send  
-- Exact test send to owner-approved recipient (not hardcoded in app)  
+- SQL apply Staging, then Production, as two approvals (`docs/platform/sql-candidates/csp_sales_email_crm_v1.sql`, digest from `shasum -a 256` of that file, recorded in the sibling `.sha256`)  
+- `RESEND_API_KEY`, SPF/DKIM, inbound domain, `RESEND_WEBHOOK_SECRET` or `CSP_SALES_EMAIL_INBOUND_SECRET`  
+- `CSP_SALES_EMAIL_OUTBOUND=owner_approved` plus lawful basis, allowlist, reply domain, and token secret  
+- Exact test send to an owner-approved recipient (not hardcoded in app)  
 - Consent/legal basis for marketing category  
 
 ## E2E status

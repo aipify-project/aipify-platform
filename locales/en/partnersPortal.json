@@ -1185,6 +1185,10 @@
       "consentLabel": "I confirm I have a lawful basis to contact this recipient about this product (not assumed from an email address alone).",
       "certRequired": "Complete product certification and create a personal sales link before sending.",
       "noTemplates": "No published templates for this product and type yet.",
+      "inboxLink": "Open conversations",
+      "inboxTitle": "Email conversations",
+      "inboxIntro": "Replies that belong to your sales email appear here.",
+      "inboxEmpty": "Choose a conversation from the notification bell.",
       "types": {
         "product_introduction": "Product introduction",
         "follow_up": "Follow-up",

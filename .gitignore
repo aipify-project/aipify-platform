@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+tools/csp-sales-email-sql-runner/node_modules/
 /.pnp
 .pnp.*
 .yarn/*

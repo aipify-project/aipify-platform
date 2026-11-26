@@ -1061,6 +1061,10 @@
       "consentLabel": "Potwierdzam podstawę prawną kontaktu z tym odbiorcą w sprawie tego produktu (np. wcześniejsza relacja lub udokumentowana zgoda). Marketingu nie zakłada się tylko dlatego, że znany jest adres e-mail.",
       "certRequired": "Ukończ certyfikację produktu i utwórz aktywny osobisty link sprzedażowy przed wysyłką.",
       "noTemplates": "Brak opublikowanych szablonów dla tego produktu i typu.",
+      "inboxLink": "Otwórz rozmowy",
+      "inboxTitle": "Rozmowy e-mail",
+      "inboxIntro": "Odpowiedzi należące do Twojego e-maila sprzedażowego pojawiają się tutaj.",
+      "inboxEmpty": "Wybierz rozmowę z dzwonka powiadomień.",
       "types": {
         "product_introduction": "Wprowadzenie do produktu",
         "follow_up": "Kontynuacja",

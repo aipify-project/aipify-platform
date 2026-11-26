@@ -9,6 +9,8 @@ import {
   type CspEmailTemplateLocale,
   type CspEmailTemplateType,
 } from "@/lib/certified-sales-partner/email-templates";
+import { cspMarketingProductDescription } from "@/lib/certified-sales-partner/email-templates/product-copy";
+import { publicEmailAvatarUrl, buildSalesReferralUrl } from "@/lib/certified-sales-partner/email-crm/signature";
 import { LOCALE_LABELS } from "@/lib/i18n/config";
 import { AipifyAlert, AipifyCard, AipifyPageHeader, AipifyTabs } from "./design";
 import { useCspPortal } from "./CspPortalSessionProvider";
@@ -31,6 +33,7 @@ export type CspEmailTemplatesPanelLabels = {
   certRequired: string;
   noTemplates: string;
   previewSubject: string;
+  inboxLink: string;
   types: Record<CspEmailTemplateType, string>;
   products: Record<string, string>;
 };
@@ -59,9 +62,15 @@ function certPassed(portal: ReturnType<typeof useCspPortal>, product: string): b
 export function CertifiedSalesPartnerEmailTemplatesPanel({
   labels,
   portalLocale,
+  companyName,
+  contactEmail,
+  avatarUrl,
 }: {
   labels: CspEmailTemplatesPanelLabels;
   portalLocale: string;
+  companyName: string;
+  contactEmail: string;
+  avatarUrl: string | null;
 }) {
   const portal = useCspPortal();
   const [product, setProduct] = useState("kompis_web");
@@ -84,18 +93,17 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
   const activeLink = portal?.links.find((l) => l.active && l.code) ?? null;
 
   const values: CspEmailPlaceholderValues = {
-    seller_display_name: portal?.overview.displayName || "Seller",
-    seller_avatar_url: "",
-    seller_company: "Aipify Sales Partner",
-    seller_contact: "",
+    seller_display_name: portal?.overview.displayName || "",
+    seller_avatar_url: publicEmailAvatarUrl(avatarUrl),
+    seller_company: companyName.trim(),
+    seller_contact: contactEmail.trim(),
     product_name: labels.products[product] || product,
-    product_description:
-      product === "kompis_web"
-        ? "Kompis Web answers visitor questions using content you approve."
-        : "Kompis Bedrift supports internal knowledge with approved sources.",
-    referral_url: activeLink?.code
-      ? `https://aipify.ai/p/${activeLink.code}/${product}?channel=email&lang=${marketingLocale}`
-      : "",
+    product_description: cspMarketingProductDescription(product),
+    referral_url: buildSalesReferralUrl({
+      code: activeLink?.code,
+      productKey: product,
+      locale: marketingLocale,
+    }),
     company_branding: "Aipify",
   };
 
@@ -250,6 +258,11 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
           </AipifyAlert>
         </div>
         {notice ? <p className="mt-3 text-sm text-[#64748B]">{notice}</p> : null}
+        <p className="mt-4">
+          <Link href="/partners/marketing/email-inbox" className="text-sm font-semibold text-[#7C3AED]">
+            {labels.inboxLink}
+          </Link>
+        </p>
       </AipifyCard>
     </div>
   );

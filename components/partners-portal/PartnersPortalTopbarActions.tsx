@@ -17,6 +17,7 @@ type UnreadPreview = {
   id: string;
   subject: string | null;
   created_at: string;
+  href: string;
 };
 
 type Props = {
@@ -63,10 +64,33 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
             id,
             subject: typeof row.subject === "string" ? row.subject : null,
             created_at: typeof row.created_at === "string" ? row.created_at : "",
+            href: "/partners/account/messages",
           },
         ];
       });
-      setUnread(next);
+      const emailRes = await fetch("/api/certified-sales-partner/email/notifications", { cache: "no-store" });
+      const emailBody = (await emailRes.json().catch(() => null)) as {
+        found?: boolean;
+        backend_ready?: boolean;
+        unread?: Array<Record<string, unknown>>;
+      } | null;
+      const emailRows =
+        emailRes.ok && emailBody?.found && emailBody.backend_ready === true && Array.isArray(emailBody.unread)
+          ? emailBody.unread.flatMap((row) => {
+              const id = typeof row.id === "string" ? row.id : "";
+              const leadId = typeof row.lead_id === "string" ? row.lead_id : "";
+              if (!id || !leadId) return [];
+              return [
+                {
+                  id: `email:${id}`,
+                  subject: typeof row.product_key === "string" ? row.product_key : null,
+                  created_at: typeof row.created_at === "string" ? row.created_at : "",
+                  href: `/partners/marketing/email-inbox?lead=${encodeURIComponent(leadId)}`,
+                },
+              ];
+            })
+          : [];
+      setUnread([...next, ...emailRows]);
     } catch {
       setUnread([]);
     }
@@ -182,7 +206,7 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
                   <li key={row.id}>
                     <Link
                       role="menuitem"
-                      href="/partners/account/messages"
+                      href={row.href}
                       className="block px-3 py-2.5 hover:bg-[#F6F4FB]"
                       onClick={() => setBellOpen(false)}
                     >
