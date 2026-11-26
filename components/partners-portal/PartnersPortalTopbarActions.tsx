@@ -59,7 +59,12 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
         pageContext={pathname}
         failureMessage={labels.feedbackUnavailable}
       />
-      <AppLanguageSelector currentLocale={locale} labels={labels.language} variant="header" />
+      <AppLanguageSelector
+        currentLocale={locale}
+        labels={labels.language}
+        variant="header"
+        navigationMode="soft"
+      />
       {items.map((item) => {
         const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
         return (

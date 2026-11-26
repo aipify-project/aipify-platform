@@ -4,6 +4,18 @@ import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { getLocalizedCspCatalogProducts } from "@/lib/certified-sales-partner/product-catalog-display";
 import {
+  CSP_SALES_MATERIAL_CATEGORIES,
+  getPublishedProductImage,
+  listPublishedSalesCopy,
+  listPublishedSalesMaterials,
+} from "@/lib/certified-sales-partner/sales-materials-catalog";
+import {
+  buildCspSocialShareUrl,
+  composeCspShareText,
+  cspSocialPlatformSupportsWebShare,
+  type CspSocialPlatform,
+} from "@/lib/certified-sales-partner/social-share";
+import {
   deriveCspNextAction,
   parseCspSaleRows,
   parseCspSettlementRows,
@@ -12,6 +24,8 @@ import {
 } from "@/lib/certified-sales-partner/portal-view";
 import { readCspResponse } from "@/lib/certified-sales-partner/ui-support";
 import { CertifiedSalesPartnerSignaturePreview } from "./CertifiedSalesPartnerSignaturePreview";
+import { CspSocialPlatformPicker } from "./CspSocialPlatformPicker";
+import { writeClipboard } from "./csp-sales-links-client";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
 
 /** Shared label shapes — built from `partnersPortal.certifiedSalesPartner.*` (see csp-workspace-labels.ts). */
@@ -106,17 +120,38 @@ export type CspMarketingLabels = {
   filterKompisWeb: string;
   filterKompisBedrift: string;
   filterVoice: string;
+  materialsTitle: string;
+  materialsIntro: string;
+  materialsDownload: string;
+  materialsCopy: string;
+  materialsCopied: string;
+  materialsEmptyCategory: string;
+  materialsCategories: Record<string, string>;
+  social: import("./CspSocialPlatformPicker").CspSocialPickerLabels;
+  shareWorkspaceTitle: string;
+  shareCopyText: string;
+  shareCopyLink: string;
+  shareDownloadImage: string;
+  shareOpen: string;
+  shareNoWeb: string;
+  shareTextCopied: string;
+  shareLinkCopied: string;
+  sharePickPlatform: string;
+  shareApprovedCopy: string;
+  shareNoCopy: string;
+  shareNoImage: string;
+  sharePreview: string;
 };
 
-const CARD = "rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-6 shadow-sm";
-const TH = "px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]";
-const TD = "px-3 py-2 text-sm text-[color:var(--aipify-text-primary)]";
+export const CARD = "rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-6 shadow-sm";
+export const TH = "px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]";
+export const TD = "px-3 py-2 text-sm text-[color:var(--aipify-text-primary)]";
 
 function fill(template: string, values: Record<string, string | number>): string {
   return template.replace(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match));
 }
 
-function formatMoney(amount: number, currency: string, locale: string): string {
+export function formatMoney(amount: number, currency: string, locale: string): string {
   try {
     return new Intl.NumberFormat(locale, { style: "currency", currency, maximumFractionDigits: 2 }).format(amount);
   } catch {
@@ -124,7 +159,7 @@ function formatMoney(amount: number, currency: string, locale: string): string {
   }
 }
 
-function formatDate(value: string | null, locale: string, month = false): string {
+export function formatDate(value: string | null, locale: string, month = false): string {
   if (!value) return "—";
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return "—";
@@ -135,7 +170,7 @@ function formatDate(value: string | null, locale: string, month = false): string
   }
 }
 
-function lookup(map: CspStatusLabels, key: string | null): string {
+export function lookup(map: CspStatusLabels, key: string | null): string {
   return (key && map[key]) || map.unknown || "—";
 }
 
@@ -174,7 +209,7 @@ function Icon({ kind }: { kind: "ok" | "info" | "warn" }) {
   );
 }
 
-function Pill({ kind, children }: { kind: "ok" | "info" | "warn"; children: ReactNode }) {
+export function Pill({ kind, children }: { kind: "ok" | "info" | "warn"; children: ReactNode }) {
   const tone =
     kind === "ok"
       ? "border-teal-300 bg-teal-50 text-teal-900"
@@ -189,7 +224,7 @@ function Pill({ kind, children }: { kind: "ok" | "info" | "warn"; children: Reac
   );
 }
 
-function EmptyState({ title, body, cta, href }: { title: string; body: string; cta?: string; href?: string }) {
+export function EmptyState({ title, body, cta, href }: { title: string; body: string; cta?: string; href?: string }) {
   return (
     <div className="rounded-xl border border-dashed border-[color:var(--aipify-border-strong)] p-6 text-center">
       <h3 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{title}</h3>
@@ -385,7 +420,7 @@ export function CertifiedSalesPartnerCertificationsPanel({
 
 type ListState<T> = { phase: "loading" } | { phase: "error" } | { phase: "ready"; rows: T[] };
 
-function useCspList<T>(url: string, parse: (payload: unknown) => T[], enabled: boolean) {
+export function useCspList<T>(url: string, parse: (payload: unknown) => T[], enabled: boolean) {
   const [state, setState] = useState<ListState<T>>({ phase: "loading" });
   const [nonce, setNonce] = useState(0);
   useEffect(() => {
@@ -411,7 +446,7 @@ function useCspList<T>(url: string, parse: (payload: unknown) => T[], enabled: b
   return { state, reload: () => setNonce((n) => n + 1) };
 }
 
-function ErrorState({ message, retry, onRetry }: { message: string; retry: string; onRetry: () => void }) {
+export function ErrorState({ message, retry, onRetry }: { message: string; retry: string; onRetry: () => void }) {
   return (
     <div className="rounded-xl border border-orange-300 bg-orange-50 p-4 text-sm text-orange-900" role="alert">
       <p className="flex items-start gap-2">
@@ -564,8 +599,8 @@ export function CertifiedSalesPartnerSettlementsPanel({
 }
 
 /**
- * Sales tools / marketing materials — personal link from Core when present; banner library
- * stays honestly empty until owner-approved Budda/Buddy assets are imported (not invented).
+ * Sales tools — approved materials registry + social share workspace.
+ * Never invents assets or auto-publishes; Aipify never posts on the partner's behalf.
  */
 export function CertifiedSalesPartnerMarketingPanel({
   labels,
@@ -576,16 +611,67 @@ export function CertifiedSalesPartnerMarketingPanel({
 }) {
   const portal = useCspPortal();
   const [product, setProduct] = useState<"kompis_web" | "kompis_bedrift" | "aipify_voice">("kompis_web");
+  const [platforms, setPlatforms] = useState<CspSocialPlatform[]>([]);
+  const [copyId, setCopyId] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [origin, setOrigin] = useState("");
   useEffect(() => {
     setOrigin(window.location.origin);
   }, []);
+
   const activeLink = portal?.links.find((l) => l.active && l.code) ?? null;
   const publicPath = activeLink?.code ? `/p/${activeLink.code}/${product}` : null;
   const publicUrl = publicPath ? `${origin || ""}${publicPath}` : null;
+  const materials = useMemo(
+    () => (product === "aipify_voice" ? [] : listPublishedSalesMaterials({ productKey: product, locale })),
+    [product, locale],
+  );
+  const copyItems = useMemo(
+    () => (product === "aipify_voice" ? [] : listPublishedSalesCopy({ productKey: product, locale })),
+    [product, locale],
+  );
+  const selectedCopy = copyItems.find((c) => c.id === copyId) ?? copyItems[0] ?? null;
+  const productImage = product === "aipify_voice" ? null : getPublishedProductImage(product);
+
+  async function copyText() {
+    if (!selectedCopy) {
+      setNotice(labels.shareNoCopy);
+      return;
+    }
+    const payload = publicUrl ? composeCspShareText(selectedCopy.text, publicUrl) : selectedCopy.text;
+    setNotice((await writeClipboard(payload)) ? labels.shareTextCopied : labels.shareNoCopy);
+  }
+
+  async function copyLink() {
+    if (!publicUrl) {
+      setNotice(labels.linkEmpty);
+      return;
+    }
+    setNotice((await writeClipboard(publicUrl)) ? labels.shareLinkCopied : labels.linkEmpty);
+  }
+
+  function openShare(platform: CspSocialPlatform) {
+    if (!publicUrl) {
+      setNotice(labels.linkEmpty);
+      return;
+    }
+    if (!cspSocialPlatformSupportsWebShare(platform)) {
+      setNotice(labels.shareNoWeb);
+      return;
+    }
+    const shareUrl = buildCspSocialShareUrl(platform, {
+      url: publicUrl,
+      text: selectedCopy?.text ?? "",
+    });
+    if (!shareUrl) {
+      setNotice(labels.shareNoWeb);
+      return;
+    }
+    window.open(shareUrl, "_blank", "noopener,noreferrer");
+  }
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto w-full max-w-[1600px] space-y-6">
       <section className={CARD}>
         <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{labels.title}</h2>
         <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
@@ -607,15 +693,10 @@ export function CertifiedSalesPartnerMarketingPanel({
         )}
       </section>
 
-      <section className={CARD} aria-labelledby="csp-marketing-assets">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <h3 id="csp-marketing-assets" className="text-base font-semibold text-[color:var(--aipify-text-primary)]">
-            {labels.assetsTitle}
-          </h3>
-          <p className="text-xs text-[color:var(--aipify-text-muted)]">
-            {labels.localeTabs}: {locale}
-          </p>
-        </div>
+      <section className={CARD} aria-labelledby="csp-share-workspace">
+        <h3 id="csp-share-workspace" className="text-base font-semibold text-[color:var(--aipify-text-primary)]">
+          {labels.shareWorkspaceTitle}
+        </h3>
         <div className="mt-4 flex flex-wrap gap-2" role="tablist" aria-label={labels.productTabs}>
           {(
             [
@@ -629,7 +710,11 @@ export function CertifiedSalesPartnerMarketingPanel({
               type="button"
               role="tab"
               aria-selected={product === key}
-              onClick={() => setProduct(key)}
+              onClick={() => {
+                setProduct(key);
+                setCopyId(null);
+                setNotice(null);
+              }}
               className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${
                 product === key
                   ? "bg-[color:var(--aipify-companion-purple)] text-white"
@@ -640,13 +725,139 @@ export function CertifiedSalesPartnerMarketingPanel({
             </button>
           ))}
         </div>
+
         {product === "aipify_voice" ? (
           <p className="mt-4 text-sm text-[color:var(--aipify-text-secondary)]">{labels.voiceNote}</p>
         ) : (
-          <div className="mt-4">
-            <EmptyState title={labels.assetsEmptyTitle} body={labels.assetsEmptyBody} />
+          <div className="mt-5 space-y-5">
+            <CspSocialPlatformPicker labels={labels.social} value={platforms} onChange={setPlatforms} />
+
+            <div>
+              <p className="text-sm font-medium text-[color:var(--aipify-text-primary)]">{labels.shareApprovedCopy}</p>
+              {copyItems.length === 0 ? (
+                <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.shareNoCopy}</p>
+              ) : (
+                <ul className="mt-3 space-y-2">
+                  {copyItems.map((item) => {
+                    const selected = (selectedCopy?.id ?? null) === item.id;
+                    return (
+                      <li key={item.id}>
+                        <button
+                          type="button"
+                          aria-pressed={selected}
+                          onClick={() => setCopyId(item.id)}
+                          className={`w-full rounded-xl border-2 px-3 py-3 text-left text-sm transition ${
+                            selected
+                              ? "border-emerald-600 bg-emerald-50 text-emerald-950"
+                              : "border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] text-[color:var(--aipify-text-primary)]"
+                          }`}
+                        >
+                          {item.text}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+
+            <div>
+              <p className="text-sm font-medium text-[color:var(--aipify-text-primary)]">{labels.sharePreview}</p>
+              {productImage ? (
+                // eslint-disable-next-line @next/next/no-img-element -- static brand asset
+                <img
+                  src={productImage.href}
+                  alt=""
+                  className="mt-3 h-40 w-full max-w-md rounded-xl border border-[color:var(--aipify-border)] object-cover"
+                />
+              ) : (
+                <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.shareNoImage}</p>
+              )}
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => void copyText()}
+                className="rounded-xl bg-[color:var(--aipify-companion-purple)] px-3 py-2 text-sm font-semibold text-white"
+              >
+                {labels.shareCopyText}
+              </button>
+              <button
+                type="button"
+                onClick={() => void copyLink()}
+                className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold"
+              >
+                {labels.shareCopyLink}
+              </button>
+              {productImage ? (
+                <a
+                  href={productImage.href}
+                  download
+                  className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold"
+                >
+                  {labels.shareDownloadImage}
+                </a>
+              ) : null}
+              {platforms.length === 0 ? (
+                <p className="self-center text-xs text-[color:var(--aipify-text-secondary)]">{labels.sharePickPlatform}</p>
+              ) : (
+                platforms.map((platform) => (
+                  <button
+                    key={platform}
+                    type="button"
+                    onClick={() => openShare(platform)}
+                    className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold"
+                  >
+                    {labels.shareOpen}: {labels.social.platforms[platform]}
+                  </button>
+                ))
+              )}
+            </div>
+            {notice ? (
+              <p className="text-sm text-[color:var(--aipify-text-secondary)]" role="status">
+                {notice}
+              </p>
+            ) : null}
           </div>
         )}
+      </section>
+
+      <section className={CARD} aria-labelledby="csp-materials">
+        <h3 id="csp-materials" className="text-base font-semibold text-[color:var(--aipify-text-primary)]">
+          {labels.materialsTitle}
+        </h3>
+        <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.materialsIntro}</p>
+        <div className="mt-4 space-y-4">
+          {CSP_SALES_MATERIAL_CATEGORIES.map((category) => {
+            const items = materials.filter((m) => m.category === category);
+            return (
+              <div key={category} className="rounded-xl border border-[color:var(--aipify-border)] p-4">
+                <p className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+                  {labels.materialsCategories[category] ?? category}
+                </p>
+                {items.length === 0 ? (
+                  <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.materialsEmptyCategory}</p>
+                ) : (
+                  <ul className="mt-3 space-y-2">
+                    {items.map((item) => (
+                      <li key={item.id} className="flex flex-wrap items-center justify-between gap-2 text-sm">
+                        <span className="text-[color:var(--aipify-text-primary)]">{item.id}</span>
+                        <a
+                          href={item.href}
+                          download
+                          className="font-semibold text-[color:var(--aipify-companion-purple)]"
+                        >
+                          {labels.materialsDownload}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </section>
     </div>
   );

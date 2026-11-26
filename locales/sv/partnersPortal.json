@@ -481,6 +481,14 @@
       "marketing": {
         "title": "Försäljningsverktyg",
         "subtitle": "Godkända marknadsföringsmallar och din personliga säljlänk — aldrig en inbakad exempel-URL."
+      },
+      "leads": {
+        "title": "Leads",
+        "subtitle": "Registreringar som kom via dina personliga försäljningslänkar inom attributionsfönstret på 90 dagar."
+      },
+      "customers": {
+        "title": "Mina kunder",
+        "subtitle": "Kunder som tillskrivits dig, med försäljningsstatus och provisionskvalificering."
       }
     },
     "links": {
@@ -511,7 +519,15 @@
         "other": "Annat",
         "referral_link": "Personlig hänvisningslänk",
         "partner_code": "Partnerkod"
-      }
+      },
+      "existingTitle": "Dina säljlänkar",
+      "existingEmpty": "Inga personliga säljlänkar ännu. Skapa en nedan när certifiering och produkttillstånd tillåter det.",
+      "visitsCol": "Besök",
+      "statusActive": "Aktiv",
+      "statusBlocked": "Blockerad",
+      "visitsUnknown": "Ej rapporterat",
+      "socialSection": "Sociala plattformar",
+      "otherChannels": "Andra kanaler"
     },
     "exam": {
       "title": "Produktcertifieringsprov",
@@ -831,6 +847,202 @@
       "errorGeneric": "Bilden kunde inte sparas just nu. Försök igen.",
       "errorUnavailable": "Bildlagring är inte tillgänglig ännu. Din profil är oförändrad.",
       "errorSession": "Din session har avslutats eller portalåtkomsten är inte aktiv. Logga in igen för att fortsätta."
+    },
+    "help": {
+      "title": "Hjälp för säljare",
+      "intro": "Guider för att komma igång, sälja Aipify-produkter och förstå provision.",
+      "sections": {
+        "gettingStarted": {
+          "title": "Getting started",
+          "body": "Complete your profile, finish Academy certification, then create personal sales links for published products you may sell.",
+          "cta": "Open home"
+        },
+        "academy": {
+          "title": "Academy",
+          "body": "Pass the product exam before selling. Certificates stay verifiable and synced with Platform Admin.",
+          "cta": "Open Academy"
+        },
+        "salesLinks": {
+          "title": "Sales links",
+          "body": "Create and copy personal links only for products you are certified to sell. Attribution follows the click through paid subscription.",
+          "cta": "Open sales links"
+        },
+        "commission": {
+          "title": "How commission works",
+          "body": "Monthly plans earn after the second successful paid period. Annual plans earn after the first confirmed paid year. One fixed commission per qualified sale — never on renewals.",
+          "cta": "View sales"
+        },
+        "payouts": {
+          "title": "Payouts",
+          "body": "Settlements are reviewed and paid manually. No automatic bank payouts or Stripe Connect in this program.",
+          "cta": "Open settlements"
+        },
+        "materials": {
+          "title": "Sales materials",
+          "body": "Use only approved product images, copy and templates. Do not invent marketing claims.",
+          "cta": "Open materials"
+        },
+        "contact": {
+          "title": "Contact Aipify",
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+        }
+      }
+    },
+    "notifications": {
+      "title": "Aviseringar",
+      "intro": "Auktoriserade uppdateringar om ditt säljarkonto, meddelanden, certifiering och utbetalningar.",
+      "emptyTitle": "Inga aviseringar ännu",
+      "emptyBody": "När Platform Admin skickar ett meddelande eller status för certifiering och utbetalning ändras visas uppdateringar här.",
+      "messagesCta": "Öppna meddelanden",
+      "homeCta": "Till startsidan"
+    },
+    "leads": {
+      "title": "Dina attribuerade registreringar",
+      "intro": "Varje rad är en registrering som krediterats en av dina försäljningslänkar. Endast dina egna leads visas.",
+      "searchPlaceholder": "Sök på länkkod, kanal eller produkt",
+      "emptyTitle": "Inga leads ännu",
+      "emptyBody": "När någon registrerar sig via en av dina försäljningslänkar visas registreringen här. Dela länken i den kanal som passar dig.",
+      "errorTitle": "Could not load data",
+      "errorBody": "Something unexpected happened. Please try again.",
+      "retry": "Try again",
+      "loading": "Loading",
+      "colLink": "Sales link",
+      "colProduct": "Product",
+      "colStatus": "Status",
+      "colDate": "Date",
+      "colAmount": "Commission snapshot",
+      "colPeriods": "Paid periods",
+      "notReported": "Not reported",
+      "dateEmpty": "—",
+      "dateInvalid": "Ogiltigt datum",
+      "statusAttributed": "Attributed",
+      "searchLabel": "Sök bland leads",
+      "filterLabel": "Fas",
+      "filterAll": "Alla faser",
+      "stage": {
+        "converted": "Blev kund",
+        "window_open": "Attribution öppen",
+        "window_expired": "Attribution utgången",
+        "unknown": "Fas inte tillgänglig"
+      },
+      "channels": {
+        "referral_link": "Värvningslänk",
+        "partner_code": "Partnerkod",
+        "partner_registered_customer": "Registrerad av dig",
+        "event": "Evenemang",
+        "manual_platform_assignment": "Tilldelad av Aipify",
+        "unknown": "Kanal inte tillgänglig"
+      },
+      "linkCol": "Försäljningslänk",
+      "channelCol": "Kanal",
+      "stageCol": "Fas",
+      "productCol": "Produkt",
+      "registeredCol": "Registrerad",
+      "expiresCol": "Attribution upphör",
+      "noSaleYet": "Ingen försäljning ännu",
+      "resultCount": "Visar {shown} av {total}",
+      "emptyCta": "Öppna mina försäljningslänkar",
+      "noMatchTitle": "Inga leads matchar sökningen",
+      "noMatchBody": "Prova en annan sökning eller visa alla faser.",
+      "clearFilters": "Rensa sökning och filter",
+      "loadError": "Dina leads kunde inte laddas just nu. Försök igen.",
+      "privacyNote": "Av sekretesskäl visas inte kundnamn och kontaktuppgifter."
+    },
+    "customers": {
+      "title": "Dina attribuerade kunder",
+      "intro": "Kunder vars betalda abonnemang är kopplat till dig. Fakturor och betalningssätt visas aldrig.",
+      "searchPlaceholder": "Sök på produkt eller status",
+      "emptyTitle": "Inga kunder ännu",
+      "emptyBody": "När en kund du har värvat startar ett betalt abonnemang visas kunden här med provisionsstatus.",
+      "errorTitle": "Could not load data",
+      "errorBody": "Something unexpected happened. Please try again.",
+      "retry": "Try again",
+      "loading": "Loading",
+      "colLink": "Sales link",
+      "colProduct": "Product",
+      "colStatus": "Status",
+      "colDate": "Date",
+      "colAmount": "Commission snapshot",
+      "colPeriods": "Paid periods",
+      "notReported": "Not reported",
+      "dateEmpty": "—",
+      "dateInvalid": "Ogiltigt datum",
+      "statusAttributed": "Attributed",
+      "qualificationNote": "Provision intjänas en gång per kvalificerad försäljning, efter kundens andra lyckade betalda period. Aipify sätter statusen; den kan inte ändras här.",
+      "searchLabel": "Sök bland kunder",
+      "filterLabel": "Provision",
+      "filterAll": "Alla statusar",
+      "qualification": {
+        "awaiting_second_payment": "Väntar på andra betalningen",
+        "being_verified": "Granskas",
+        "qualified": "Kvalificerad för provision",
+        "not_qualified": "Inte kvalificerad",
+        "unknown": "Status inte tillgänglig"
+      },
+      "productCol": "Produkt",
+      "statusCol": "Försäljningsstatus",
+      "qualificationCol": "Provisionskvalificering",
+      "periodsCol": "Betalda perioder",
+      "periodsValue": "{paid} av {required}",
+      "commissionCol": "Provision",
+      "commissionPending": "Inte intjänad ännu",
+      "registeredCol": "Tillskriven",
+      "confirmedCol": "Första betalningen bekräftad",
+      "resultCount": "Visar {shown} av {total}",
+      "emptyCta": "Öppna mina försäljningslänkar",
+      "noMatchTitle": "Inga kunder matchar sökningen",
+      "noMatchBody": "Prova en annan sökning eller visa alla statusar.",
+      "clearFilters": "Rensa sökning och filter",
+      "loadError": "Dina kunder kunde inte laddas just nu. Försök igen.",
+      "privacyNote": "Endast försäljning, produkt och provisionsstatus visas – aldrig kundens kontaktuppgifter, fakturor eller betalningssätt."
+    },
+    "social": {
+      "legend": "Dela på sociala medier",
+      "hint": "Välj en eller flera plattformar. Aipify publicerar aldrig åt dig — du kopierar text och öppnar stödd delningsflöde själv.",
+      "selected": "Vald",
+      "notSelected": "Ej vald",
+      "platforms": {
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "x": "X",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "snapchat": "Snapchat"
+      },
+      "workspaceTitle": "Delningsyta",
+      "copyText": "Kopiera text",
+      "copyLink": "Kopiera länk",
+      "downloadImage": "Ladda ner bild",
+      "openShare": "Öppna delning",
+      "noWebShare": "Den här plattformen har ingen webbdelning. Kopiera texten och publicera i appen.",
+      "textCopied": "Text kopierad",
+      "linkCopied": "Länk kopierad",
+      "pickPlatform": "Välj minst en plattform för att förbereda delning.",
+      "pickProduct": "Välj en produkt",
+      "approvedCopy": "Godkänd säljtext",
+      "noCopy": "Ingen godkänd säljtext är publicerad för den här produkten ännu.",
+      "noImage": "Ingen godkänd kampanjbild är publicerad för den här produkten ännu.",
+      "preview": "Förhandsgranskning"
+    },
+    "materialsUi": {
+      "materialsTitle": "Godkänt säljmaterial",
+      "materialsIntro": "Endast publicerade Aipify-tillgångar. Kategorier utan publicerade filer förblir tomma.",
+      "download": "Ladda ner",
+      "copyApproved": "Kopiera godkänd text",
+      "copied": "Kopierat",
+      "emptyCategory": "Inget publicerat material i den här kategorin ännu.",
+      "categories": {
+        "product_images": "Produktbilder",
+        "logos": "Logotyper",
+        "pdf_sheets": "Produktblad (PDF)",
+        "social": "Sociala medier",
+        "email_templates": "E-postmallar",
+        "signatures": "Certifierade signaturer"
+      }
+    },
+    "catalogMeta": {
+      "audienceLabel": "Vem passar produkten för?",
+      "benefitsLabel": "Viktigaste fördelarna"
     }
   }
 }

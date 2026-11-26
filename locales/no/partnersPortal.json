@@ -381,7 +381,7 @@
     "nav": {
       "home": "Hjem",
       "products": "Produkter",
-      "salesLinks": "Mine salgslenker",
+      "salesLinks": "Salgslenker",
       "leads": "Leads",
       "customers": "Mine kunder",
       "sales": "Mine salg",
@@ -396,8 +396,8 @@
     },
     "portal": {
       "badge": "Partnerportal",
-      "title": "Sertifisert salgspartner",
-      "subtitle": "Ditt Aipify-salgsområde"
+      "title": "Selgerpanel",
+      "subtitle": "Sertifiserte Aipify-selgere"
     },
     "backend": {
       "notReadyTitle": "Backend er ikke aktivert",
@@ -481,6 +481,14 @@
       "marketing": {
         "title": "Salgsverktøy",
         "subtitle": "Godkjente markedsføringsmaler og din personlige salgslenke — aldri en innbakt eksempel-URL."
+      },
+      "leads": {
+        "title": "Leads",
+        "subtitle": "Registreringer som kom via dine personlige salgslenker innenfor attribusjonsvinduet på 90 dager."
+      },
+      "customers": {
+        "title": "Mine kunder",
+        "subtitle": "Kunder som er tilskrevet deg, med salgsstatus og kvalifisering for provisjon."
       }
     },
     "links": {
@@ -511,7 +519,15 @@
         "other": "Annet",
         "referral_link": "Personlig henvisningslenke",
         "partner_code": "Partnerkode"
-      }
+      },
+      "existingTitle": "Dine salgslenker",
+      "existingEmpty": "Ingen personlige salgslenker ennå. Opprett en nedenfor når sertifisering og produktrettigheter tillater det.",
+      "visitsCol": "Besøk",
+      "statusActive": "Aktiv",
+      "statusBlocked": "Sperret",
+      "visitsUnknown": "Ikke rapportert",
+      "socialSection": "Sosiale plattformer",
+      "otherChannels": "Andre kanaler"
     },
     "exam": {
       "title": "Sertifiseringstest",
@@ -831,6 +847,202 @@
       "errorGeneric": "Bildet kunne ikke lagres akkurat nå. Prøv igjen.",
       "errorUnavailable": "Bildelagring er ikke tilgjengelig ennå. Profilen din er uendret.",
       "errorSession": "Økten din er avsluttet, eller portaltilgangen er ikke aktiv. Logg inn på nytt for å fortsette."
+    },
+    "help": {
+      "title": "Hjelp for selgere",
+      "intro": "Veiledning for å komme i gang, selge Aipify-produkter og forstå provisjon.",
+      "sections": {
+        "gettingStarted": {
+          "title": "Komme i gang",
+          "body": "Fullfør profilen, bestå Academy-sertifisering, og opprett deretter personlige salgslenker for publiserte produkter du har rett til å selge.",
+          "cta": "Åpne startsiden"
+        },
+        "academy": {
+          "title": "Academy",
+          "body": "Bestå produkteksamen før du selger. Sertifikater er verifiserbare og synkronisert med Platform Admin.",
+          "cta": "Åpne Academy"
+        },
+        "salesLinks": {
+          "title": "Salgslenker",
+          "body": "Opprett og kopier personlige lenker kun for produkter du er sertifisert til å selge. Attribusjon følger klikket gjennom betalt abonnement.",
+          "cta": "Åpne salgslenker"
+        },
+        "commission": {
+          "title": "Slik fungerer provisjon",
+          "body": "Månedsabonnement opptjenes etter andre vellykkede betalingsperiode. Årsabonnement opptjenes etter første bekreftede betalte årsperiode. Én fast provisjon per kvalifisert salg — aldri på fornyelser.",
+          "cta": "Se salg"
+        },
+        "payouts": {
+          "title": "Utbetalinger",
+          "body": "Oppgjør gjennomgås og betales manuelt. Ingen automatiske bankutbetalinger eller Stripe Connect i dette programmet.",
+          "cta": "Åpne oppgjør"
+        },
+        "materials": {
+          "title": "Salgsmateriell",
+          "body": "Bruk kun godkjente produktbilder, tekster og maler. Ikke finn opp markedsføringspåstander.",
+          "cta": "Åpne materiell"
+        },
+        "contact": {
+          "title": "Kontakt Aipify",
+          "body": "Bruk Meldinger i selgerpanelet for autorisert kommunikasjon med Platform Admin. For haste saker om kontoen, bruk tilbakemeldingsknappen i toppmenyen."
+        }
+      }
+    },
+    "notifications": {
+      "title": "Varsler",
+      "intro": "Autoriserte oppdateringer om selgerkontoen, meldinger, sertifisering og oppgjør.",
+      "emptyTitle": "Ingen varsler ennå",
+      "emptyBody": "Når Platform Admin sender en melding, eller sertifisering og oppgjørsstatus endres, vises oppdateringer her. Sjekk Meldinger og startsiden i mellomtiden.",
+      "messagesCta": "Åpne meldinger",
+      "homeCta": "Tilbake til start"
+    },
+    "leads": {
+      "title": "Dine attribuerte registreringer",
+      "intro": "Hver rad er en registrering som er kreditert en av salgslenkene dine. Kun dine egne leads vises.",
+      "searchPlaceholder": "Søk på lenkekode, kanal eller produkt",
+      "emptyTitle": "Ingen leads ennå",
+      "emptyBody": "Når noen registrerer seg via en av salgslenkene dine, vises registreringen her. Del lenken i kanalen som passer deg.",
+      "errorTitle": "Kunne ikke laste data",
+      "errorBody": "Noe uventet skjedde. Prøv igjen.",
+      "retry": "Prøv igjen",
+      "loading": "Laster",
+      "colLink": "Salgslenke",
+      "colProduct": "Produkt",
+      "colStatus": "Status",
+      "colDate": "Dato",
+      "colAmount": "Provisjonsbilde",
+      "colPeriods": "Betalte perioder",
+      "notReported": "Ikke rapportert",
+      "dateEmpty": "—",
+      "dateInvalid": "Ugyldig dato",
+      "statusAttributed": "Attribuert",
+      "searchLabel": "Søk i leads",
+      "filterLabel": "Fase",
+      "filterAll": "Alle faser",
+      "stage": {
+        "converted": "Ble kunde",
+        "window_open": "Attribusjon åpen",
+        "window_expired": "Attribusjon utløpt",
+        "unknown": "Fase ikke tilgjengelig"
+      },
+      "channels": {
+        "referral_link": "Henvisningslenke",
+        "partner_code": "Partnerkode",
+        "partner_registered_customer": "Registrert av deg",
+        "event": "Arrangement",
+        "manual_platform_assignment": "Tildelt av Aipify",
+        "unknown": "Kanal ikke tilgjengelig"
+      },
+      "linkCol": "Salgslenke",
+      "channelCol": "Kanal",
+      "stageCol": "Fase",
+      "productCol": "Produkt",
+      "registeredCol": "Registrert",
+      "expiresCol": "Attribusjon utløper",
+      "noSaleYet": "Ikke solgt ennå",
+      "resultCount": "Viser {shown} av {total}",
+      "emptyCta": "Åpne mine salgslenker",
+      "noMatchTitle": "Ingen leads samsvarer med søket",
+      "noMatchBody": "Prøv et annet søk eller vis alle faser.",
+      "clearFilters": "Nullstill søk og filter",
+      "loadError": "Leadsene dine kunne ikke lastes akkurat nå. Prøv igjen.",
+      "privacyNote": "Av personvernhensyn vises ikke kundenavn og kontaktopplysninger."
+    },
+    "customers": {
+      "title": "Dine attribuerte kunder",
+      "intro": "Kunder med betalt abonnement som er knyttet til deg. Fakturaer og betalingsmåter vises aldri.",
+      "searchPlaceholder": "Søk på produkt eller status",
+      "emptyTitle": "Ingen kunder ennå",
+      "emptyBody": "Når en kunde du har henvist starter et betalt abonnement, vises kunden her med provisjonsstatus.",
+      "errorTitle": "Kunne ikke laste data",
+      "errorBody": "Noe uventet skjedde. Prøv igjen.",
+      "retry": "Prøv igjen",
+      "loading": "Laster",
+      "colLink": "Salgslenke",
+      "colProduct": "Produkt",
+      "colStatus": "Status",
+      "colDate": "Dato",
+      "colAmount": "Provisjonsbilde",
+      "colPeriods": "Betalte perioder",
+      "notReported": "Ikke rapportert",
+      "dateEmpty": "—",
+      "dateInvalid": "Ugyldig dato",
+      "statusAttributed": "Attribuert",
+      "qualificationNote": "Provisjon opptjenes én gang per kvalifisert salg, etter kundens andre vellykkede betalte periode. Aipify setter statusen; den kan ikke endres her.",
+      "searchLabel": "Søk i kunder",
+      "filterLabel": "Provisjon",
+      "filterAll": "Alle statuser",
+      "qualification": {
+        "awaiting_second_payment": "Venter på andre betaling",
+        "being_verified": "Under kontroll",
+        "qualified": "Kvalifisert for provisjon",
+        "not_qualified": "Ikke kvalifisert",
+        "unknown": "Status ikke tilgjengelig"
+      },
+      "productCol": "Produkt",
+      "statusCol": "Salgsstatus",
+      "qualificationCol": "Kvalifisering for provisjon",
+      "periodsCol": "Betalte perioder",
+      "periodsValue": "{paid} av {required}",
+      "commissionCol": "Provisjon",
+      "commissionPending": "Ikke opptjent ennå",
+      "registeredCol": "Tilskrevet",
+      "confirmedCol": "Første betaling bekreftet",
+      "resultCount": "Viser {shown} av {total}",
+      "emptyCta": "Åpne mine salgslenker",
+      "noMatchTitle": "Ingen kunder samsvarer med søket",
+      "noMatchBody": "Prøv et annet søk eller vis alle statuser.",
+      "clearFilters": "Nullstill søk og filter",
+      "loadError": "Kundene dine kunne ikke lastes akkurat nå. Prøv igjen.",
+      "privacyNote": "Kun salg, produkt og provisjonsstatus vises – aldri kundens kontaktopplysninger, fakturaer eller betalingsmåter."
+    },
+    "social": {
+      "legend": "Del på sosiale medier",
+      "hint": "Velg én eller flere plattformer. Aipify publiserer aldri for deg — du kopierer tekst og åpner støttet delingsflyt selv.",
+      "selected": "Valgt",
+      "notSelected": "Ikke valgt",
+      "platforms": {
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "x": "X",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "snapchat": "Snapchat"
+      },
+      "workspaceTitle": "Delingsarbeidsflate",
+      "copyText": "Kopier tekst",
+      "copyLink": "Kopier lenke",
+      "downloadImage": "Last ned bilde",
+      "openShare": "Åpne deling",
+      "noWebShare": "Denne plattformen har ingen web-delingsflyt. Kopier teksten og publiser i appen.",
+      "textCopied": "Tekst kopiert",
+      "linkCopied": "Lenke kopiert",
+      "pickPlatform": "Velg minst én plattform for å forberede deling.",
+      "pickProduct": "Velg et produkt",
+      "approvedCopy": "Godkjent salgstekst",
+      "noCopy": "Ingen godkjent salgstekst er publisert for dette produktet ennå.",
+      "noImage": "Ingen godkjent kampanjebilde er publisert for dette produktet ennå.",
+      "preview": "Forhåndsvisning"
+    },
+    "materialsUi": {
+      "materialsTitle": "Godkjent salgsmateriell",
+      "materialsIntro": "Kun publiserte Aipify-ressurser. Kategorier uten publiserte filer forblir tomme.",
+      "download": "Last ned",
+      "copyApproved": "Kopier godkjent tekst",
+      "copied": "Kopiert",
+      "emptyCategory": "Ingen publisert materiell i denne kategorien ennå.",
+      "categories": {
+        "product_images": "Produktbilder",
+        "logos": "Logoer",
+        "pdf_sheets": "Produktark (PDF)",
+        "social": "Sosiale medier",
+        "email_templates": "E-postmaler",
+        "signatures": "Sertifiserte signaturer"
+      }
+    },
+    "catalogMeta": {
+      "audienceLabel": "Hvem passer produktet for?",
+      "benefitsLabel": "Viktigste fordeler"
     }
   }
 }

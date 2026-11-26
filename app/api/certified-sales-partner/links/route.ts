@@ -8,7 +8,64 @@ import {
   parsePartnerOverview,
   resolveCspProductDestination,
 } from "@/lib/certified-sales-partner";
+import { evaluateCspCopyLinkEligibility } from "@/lib/certified-sales-partner/copy-link-eligibility";
+import { loadOwnLinkVisitCounts, type CspLinkStatsClient } from "@/lib/certified-sales-partner/partner-link-stats";
+import { parseCspPortalView } from "@/lib/certified-sales-partner/portal-view";
+import { CSP_CATALOG_PRODUCT_KEYS } from "@/lib/certified-sales-partner/product-catalog-display";
 import { createClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/service-role";
+
+/**
+ * List the signed-in partner's OWN links (from their own Core overview) with visit counts and
+ * per-product copy-link eligibility. Visit counts are read with the service role for those link ids
+ * only; a failed read returns `visits: null` ("not reported"), never an invented 0.
+ */
+export async function GET() {
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const overview = await callCspRpc(supabase, "csp_get_partner_overview");
+    if (!overview.ready) {
+      const closed = failClosedJson(overview);
+      return NextResponse.json(closed.body, { status: closed.status });
+    }
+
+    const view = parseCspPortalView(overview.data);
+    const ownIds = view.links.map((l) => l.id).filter((id): id is string => typeof id === "string");
+    let counts: Map<string, number> | null = null;
+    try {
+      counts = await loadOwnLinkVisitCounts(createServiceRoleClient() as unknown as CspLinkStatsClient, ownIds);
+    } catch {
+      counts = null;
+    }
+
+    return NextResponse.json({
+      found: true,
+      backend_ready: true,
+      links: view.links
+        .filter((l) => l.code)
+        .map((l) => ({
+          code: l.code,
+          channel: l.channel,
+          active: l.active,
+          created_at: l.createdAt,
+          visits: counts && l.id ? (counts.get(l.id) ?? 0) : null,
+        })),
+      eligibility: Object.fromEntries(
+        CSP_CATALOG_PRODUCT_KEYS.map((key) => {
+          const e = evaluateCspCopyLinkEligibility(view.overview, key);
+          return [key, { allowed: e.allowed, reason: e.reason }];
+        }),
+      ),
+    });
+  } catch {
+    return NextResponse.json({ error: "links_load_failed" }, { status: 500 });
+  }
+}
 
 /**
  * Issue a personal product/channel link.

@@ -9,6 +9,7 @@ import {
   PARTNERS_AVATAR_MAX_BYTES,
   isPartnersAvatarMime,
 } from "@/lib/partners-portal/avatar";
+import { compressPartnersAvatar } from "@/lib/partners-portal/avatar-compress";
 import type { PartnersPortalAvatarLabels } from "@/lib/partners-portal/shell-labels";
 import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 
@@ -24,7 +25,7 @@ export function PartnersProfileAvatarPanel({ labels, initialAvatarUrl }: Props) 
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(initialAvatarUrl);
-  const [busy, setBusy] = useState<"upload" | "remove" | null>(null);
+  const [busy, setBusy] = useState<"optimize" | "upload" | "remove" | null>(null);
   const [notice, setNotice] = useState<Notice>(null);
 
   function errorTextFor(status: number, code?: string): string {
@@ -53,15 +54,28 @@ export function PartnersProfileAvatarPanel({ labels, initialAvatarUrl }: Props) 
       setNotice({ tone: "error", text: labels.errorType });
       return;
     }
-    if (file.size > PARTNERS_AVATAR_MAX_BYTES) {
+
+    // Phone photos are usually several MB: resize + re-encode in the browser (also strips EXIF)
+    // instead of rejecting. The server still enforces type, magic bytes and the size cap.
+    setBusy("optimize");
+    const prepared = await compressPartnersAvatar(file);
+    if (!prepared.ok) {
+      setNotice({ tone: "error", text: prepared.reason === "too_large" ? labels.errorSize : labels.errorImage });
+      setBusy(null);
+      if (inputRef.current) inputRef.current.value = "";
+      return;
+    }
+    if (prepared.file.size > PARTNERS_AVATAR_MAX_BYTES) {
       setNotice({ tone: "error", text: labels.errorSize });
+      setBusy(null);
+      if (inputRef.current) inputRef.current.value = "";
       return;
     }
 
     setBusy("upload");
     try {
       const form = new FormData();
-      form.set("file", file);
+      form.set("file", prepared.file);
       const res = await fetch(PARTNERS_AVATAR_API_PATH, { method: "POST", body: form });
       if (!res.ok) {
         setNotice({ tone: "error", text: await readError(res) });
@@ -143,7 +157,13 @@ export function PartnersProfileAvatarPanel({ labels, initialAvatarUrl }: Props) 
               onClick={() => inputRef.current?.click()}
               className={`${buttonBase} bg-aipify-companion text-white hover:opacity-95`}
             >
-              {busy === "upload" ? labels.uploading : avatarUrl ? labels.replace : labels.upload}
+              {busy === "optimize"
+                ? labels.optimizing
+                : busy === "upload"
+                  ? labels.uploading
+                  : avatarUrl
+                    ? labels.replace
+                    : labels.upload}
             </button>
             {avatarUrl ? (
               <button
