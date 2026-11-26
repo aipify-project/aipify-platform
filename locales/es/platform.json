@@ -1405,7 +1405,17 @@
         "attribution_link_created": "Enlace de venta creado",
         "qualified_sale_recorded": "Venta cualificada registrada"
       },
-      "ratesReadOnly": "Estas son las tasas fijas de comisión guardadas. La comisión porcentual no se puede guardar desde esta página."
+      "ratesReadOnly": "Estas son las tasas fijas de comisión guardadas. La comisión porcentual no se puede guardar desde esta página.",
+      "directionAdminToPartner": "De Aipify al vendedor",
+      "directionPartnerToAdmin": "Del vendedor a Aipify",
+      "deliveryStatus": {
+        "recorded": "Registrado",
+        "queued": "En cola",
+        "sent": "Enviado",
+        "failed": "Fallido",
+        "read": "Leído",
+        "unknown": "Estado no informado"
+      }
     },
     "messages": {
       "title": "Mensajes y comunicación",

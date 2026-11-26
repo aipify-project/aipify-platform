@@ -741,6 +741,24 @@
     "marketing": {
       "title": "Salgsværktøjer",
       "intro": "Download Aipify-ejede marketinglayouts til produkter, du er certificeret til at sælge. Dit personlige salgslink vises separat — det er aldrig indlejret i bannere.",
+      "centerTitle": "Marketingcenter",
+      "centerIntro": "Vælg et produkt, og brug derefter Bannere, Tekster eller Del med dit personlige salgslink. Kun godkendt Aipify-materiale og tekst er tilgængeligt.",
+      "tabBanners": "Bannere",
+      "tabTexts": "Tekster",
+      "tabShare": "Del",
+      "bannerIntro": "Publicerede bannerstørrelser til dette produkt. HTML er kun tilgængelig, når et hostet billede og dit personlige link findes — intet opfindes.",
+      "bannerNotPublished": "Intet publiceret banner til denne størrelse endnu. Når Aipify publicerer et, vises det her.",
+      "bannerCopyHtml": "Kopiér HTML",
+      "bannerHtmlCopied": "Banner-HTML kopieret.",
+      "bannerFormats": {
+        "format728x90": "Leaderboard (728×90)",
+        "format300x250": "Medium rektangel (300×250)",
+        "format160x600": "Skyscraper (160×600)",
+        "format1080x1080": "Kvadrat (1080×1080)"
+      },
+      "marketingLocaleNote": "Marketingsprog er adskilt fra portalsprog. Skift sprog her for at forhåndsvise og kopiere materialer til det marked.",
+      "copyTextAndLink": "Kopiér tekst og link",
+      "certRequired": "Fuldfør produktcertificering, før du bruger marketingværktøjer til dette produkt.",
       "linkTitle": "Dit personlige salgslink",
       "linkEmpty": "Opret et salgslink, når du er godkendt og certificeret. Det vises her til kopi og deling.",
       "linkCta": "Opret salgslink",
@@ -788,6 +806,8 @@
         "openMenu": "Sprogvalg"
       },
       "notifications": "Notifikationer",
+      "notificationsEmpty": "Ingen ulæste notifikationer lige nu.",
+      "notificationsViewAll": "Åbn notifikationer",
       "messages": "Beskeder",
       "profile": "Min profil",
       "avatarAlt": "Dit profilbillede",
@@ -1128,6 +1148,8 @@
       "companyUnavailableBody": "Firmafelter fra din ansøgning administreres af Aipify. Kontakt Aipify, hvis noget skal opdateres.",
       "payoutIntro": "Bankoplysninger gemmes sikkert til manuelle udbetalinger. Fuldt kontonummer vises aldrig efter lagring.",
       "securityIntro": "Login-sikkerhed (inklusive tofaktor når aktiveret) styres via din Aipify-konto.",
+      "securityAccountNote": "Adgangskodeændringer og enhedssessioner ligger i din Aipify-loginkonto. Denne portal gemmer aldrig en lokal adgangskode.",
+      "openTwoFactor": "Administrer tofaktorgodkendelse",
       "openSettlement": "Åbn provision og udbetalinger",
       "notAvailable": "Ikke tilgængelig"
     },

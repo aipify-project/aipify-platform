@@ -120,6 +120,20 @@ export type CspSettlementsLabels = {
 export type CspMarketingLabels = {
   title: string;
   intro: string;
+  centerTitle: string;
+  centerIntro: string;
+  tabBanners: string;
+  tabTexts: string;
+  tabShare: string;
+  bannerIntro: string;
+  bannerNotPublished: string;
+  bannerCopyHtml: string;
+  bannerHtmlCopied: string;
+  bannerFormats: Record<string, string>;
+  marketingLocaleNote: string;
+  copyTextAndLink: string;
+  certRequired: string;
+  productName: Record<string, string>;
   linkTitle: string;
   linkEmpty: string;
   linkCta: string;

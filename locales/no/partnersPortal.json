@@ -741,6 +741,24 @@
     "marketing": {
       "title": "Salgsverktøy",
       "intro": "Last ned Aipify-eide markedsføringsmaler for produkter du er sertifisert til å selge. Din personlige salgslenke vises separat — den er aldri bakt inn i bannere.",
+      "centerTitle": "Markedsføringssenter",
+      "centerIntro": "Velg et produkt, og bruk deretter Bannere, Tekster eller Del med din personlige salgslenke. Kun godkjent Aipify-materiell og tekst er tilgjengelig.",
+      "tabBanners": "Bannere",
+      "tabTexts": "Tekster",
+      "tabShare": "Del",
+      "bannerIntro": "Publiserte bannerstørrelser for dette produktet. HTML er tilgjengelig bare når et hostet bilde og din personlige lenke finnes — ingenting finnes opp.",
+      "bannerNotPublished": "Ingen publisert banner for denne størrelsen ennå. Når Aipify publiserer en, vises den her.",
+      "bannerCopyHtml": "Kopier HTML",
+      "bannerHtmlCopied": "Banner-HTML er kopiert.",
+      "bannerFormats": {
+        "format728x90": "Leaderboard (728×90)",
+        "format300x250": "Medium rektangel (300×250)",
+        "format160x600": "Skyscraper (160×600)",
+        "format1080x1080": "Kvadrat (1080×1080)"
+      },
+      "marketingLocaleNote": "Markedsføringsspråk er atskilt fra portalspråket. Bytt språk her for å forhåndsvise og kopiere materiell for det markedet.",
+      "copyTextAndLink": "Kopier tekst og lenke",
+      "certRequired": "Fullfør produktsertifisering før du bruker markedsføringsverktøy for dette produktet.",
       "linkTitle": "Din personlige salgslenke",
       "linkEmpty": "Opprett en salgslenke når du er godkjent og sertifisert. Den vises her for kopiering og deling.",
       "linkCta": "Opprett salgslenke",
@@ -788,6 +806,8 @@
         "openMenu": "Språkvalg"
       },
       "notifications": "Varsler",
+      "notificationsEmpty": "Ingen uleste varsler akkurat nå.",
+      "notificationsViewAll": "Åpne varsler",
       "messages": "Meldinger",
       "profile": "Min profil",
       "avatarAlt": "Ditt profilbilde",
@@ -1128,6 +1148,8 @@
       "companyUnavailableBody": "Firmafeltene fra søknaden din administreres av Aipify. Kontakt Aipify hvis noe må oppdateres.",
       "payoutIntro": "Bankdetaljer lagres sikkert for manuelle utbetalinger. Fullt kontonummer vises aldri etter lagring.",
       "securityIntro": "Påloggingssikkerhet (inkludert tofaktor når det er aktivert) styres via Aipify-kontoen din.",
+      "securityAccountNote": "Passordendringer og enhetsøkter ligger i Aipify-påloggingskontoen. Denne portalen lagrer aldri et lokalt passord.",
+      "openTwoFactor": "Administrer tofaktorautentisering",
       "openSettlement": "Åpne provisjon og utbetalinger",
       "notAvailable": "Ikke tilgjengelig"
     },

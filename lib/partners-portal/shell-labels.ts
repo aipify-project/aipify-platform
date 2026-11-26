@@ -14,6 +14,8 @@ export type PartnersPortalTopbarLabels = {
   feedback: VocWidgetLabels;
   feedbackUnavailable: string;
   notifications: string;
+  notificationsEmpty: string;
+  notificationsViewAll: string;
   messages: string;
   profile: string;
   settingsMenu: string;
@@ -72,6 +74,8 @@ export function buildPartnersPortalTopbarLabels(t: Translator): PartnersPortalTo
     },
     feedbackUnavailable: t(`${P}.feedbackUnavailable`),
     notifications: t(`${P}.notifications`),
+    notificationsEmpty: t(`${P}.notificationsEmpty`),
+    notificationsViewAll: t(`${P}.notificationsViewAll`),
     messages: t(`${P}.messages`),
     profile: t(`${P}.profile`),
     settingsMenu: t(`${P}.settingsMenu`),

@@ -25,9 +25,18 @@ type MessageRow = {
 type Phase = "loading" | "ready" | "empty" | "gated" | "error";
 type Folder = "inbox" | "sent";
 
+function initialsFor(direction: string, labels: PartnersPortalMessagesLabels): string {
+  const source = direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou;
+  const parts = source.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "A";
+  if (parts.length === 1) return parts[0]!.slice(0, 2).toUpperCase();
+  return `${parts[0]![0] ?? ""}${parts[1]![0] ?? ""}`.toUpperCase();
+}
+
 /**
  * Partner inbox — Core RPC via /api/certified-sales-partner/messages.
  * Never renders sample or other sellers' messages.
+ * Mark-read only when a thread is opened — never on mere list load.
  */
 export function PartnersMessagesCenterPanel({ labels }: Props) {
   const [phase, setPhase] = useState<Phase>("loading");
@@ -39,6 +48,7 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
   const [reply, setReply] = useState("");
   const [sending, setSending] = useState(false);
   const [sendNotice, setSendNotice] = useState<string | null>(null);
+  const [markedThreads, setMarkedThreads] = useState<Set<string>>(() => new Set());
 
   const load = useCallback(async (opts?: { silent?: boolean }) => {
     if (!opts?.silent) setPhase("loading");
@@ -70,31 +80,6 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
       const rows = Array.isArray(body.messages) ? body.messages : [];
       setMessages(rows);
       setPhase(rows.length === 0 ? "empty" : "ready");
-
-      const unread = rows.filter(
-        (row) => row.direction === "admin_to_partner" && !row.read_at && row.id,
-      );
-      if (unread.length > 0) {
-        const now = new Date().toISOString();
-        await Promise.all(
-          unread.map(async (row) => {
-            try {
-              const mark = await fetch("/api/certified-sales-partner/messages/read", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message_id: row.id }),
-              });
-              if (mark.ok) {
-                setMessages((prev) =>
-                  prev.map((m) => (m.id === row.id ? { ...m, read_at: m.read_at ?? now } : m)),
-                );
-              }
-            } catch {
-              // Keep unread locally; next load retries mark-read.
-            }
-          }),
-        );
-      }
     } catch {
       setMessages([]);
       setPhase("error");
@@ -124,8 +109,9 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
       setSelectedId(null);
       return;
     }
-    if (!selectedId || !filtered.some((m) => m.id === selectedId)) {
-      setSelectedId(filtered[0]?.id ?? null);
+    if (selectedId && !filtered.some((m) => m.id === selectedId)) {
+      setSelectedId(null);
+      setMobileThread(false);
     }
   }, [filtered, selectedId]);
 
@@ -137,6 +123,48 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
       .filter((m) => (m.thread_id || m.id) === tid)
       .sort((a, b) => (a.created_at || "").localeCompare(b.created_at || ""));
   }, [messages, selected]);
+
+  const markThreadRead = useCallback(async (threadRows: MessageRow[]) => {
+    const unread = threadRows.filter(
+      (row) => row.direction === "admin_to_partner" && !row.read_at && row.id,
+    );
+    if (unread.length === 0) return;
+    const threadKey = unread[0]!.thread_id || unread[0]!.id;
+    setMarkedThreads((prev) => {
+      if (prev.has(threadKey)) return prev;
+      return new Set(prev).add(threadKey);
+    });
+    const now = new Date().toISOString();
+    await Promise.all(
+      unread.map(async (row) => {
+        try {
+          const mark = await fetch("/api/certified-sales-partner/messages/read", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message_id: row.id }),
+          });
+          if (mark.ok) {
+            setMessages((prev) =>
+              prev.map((m) => (m.id === row.id ? { ...m, read_at: m.read_at ?? now } : m)),
+            );
+          }
+        } catch {
+          // Keep unread locally; opening again retries mark-read.
+        }
+      }),
+    );
+  }, []);
+
+  async function openThread(id: string) {
+    setSelectedId(id);
+    setMobileThread(true);
+    const row = messages.find((m) => m.id === id);
+    if (!row) return;
+    const tid = row.thread_id || row.id;
+    if (markedThreads.has(tid)) return;
+    const thread = messages.filter((m) => (m.thread_id || m.id) === tid);
+    await markThreadRead(thread);
+  }
 
   async function sendReply() {
     const text = reply.trim();
@@ -171,7 +199,7 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
     }
   }
 
-  const showComposer = phase === "ready" || phase === "empty";
+  const showComposer = (phase === "ready" || phase === "empty") && (selected != null || phase === "empty");
 
   return (
     <div className="space-y-5">
@@ -266,36 +294,44 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
                   filtered.map((m) => {
                     const unread = m.direction === "admin_to_partner" && !m.read_at;
                     const active = m.id === selectedId;
+                    const initials = initialsFor(m.direction, labels);
                     return (
                       <li key={`list-${m.id}`}>
                         <button
                           type="button"
                           role="option"
                           aria-selected={active}
-                          onClick={() => {
-                            setSelectedId(m.id);
-                            setMobileThread(true);
-                          }}
-                          className={`flex w-full flex-col gap-1 px-4 py-3 text-left transition ${
+                          onClick={() => void openThread(m.id)}
+                          className={`flex w-full items-start gap-3 px-4 py-3 text-left transition ${
                             active ? "bg-[#F3EDFF]" : "hover:bg-[#F8F7FC]"
                           }`}
                         >
-                          <div className="flex items-center gap-2 text-xs font-semibold text-[#64748B]">
-                            <MessageSquare className="h-3.5 w-3.5 text-[#7C3AED]" aria-hidden />
-                            <span>{m.direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou}</span>
-                            {unread ? (
-                              <span className="rounded-full bg-[#7C3AED]/15 px-2 py-0.5 text-[0.65rem] font-semibold text-[#7C3AED]">
-                                {labels.unread}
+                          <span
+                            className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F3EDFF] text-xs font-semibold text-[#7C3AED]"
+                            aria-hidden
+                          >
+                            {initials}
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="flex items-center gap-2 text-xs font-semibold text-[#64748B]">
+                              <MessageSquare className="h-3.5 w-3.5 text-[#7C3AED]" aria-hidden />
+                              <span>
+                                {m.direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou}
                               </span>
-                            ) : null}
-                          </div>
-                          <p className="truncate text-sm font-semibold text-[#1E293B]">
-                            {m.subject || labels.fromAdmin}
-                          </p>
-                          <p className="line-clamp-2 text-xs text-[#64748B]">{m.body}</p>
-                          <time className="text-[0.7rem] text-[#94A3B8]" dateTime={m.created_at}>
-                            {m.created_at ? new Date(m.created_at).toLocaleString() : ""}
-                          </time>
+                              {unread ? (
+                                <span className="rounded-full bg-[#7C3AED]/15 px-2 py-0.5 text-[0.65rem] font-semibold text-[#7C3AED]">
+                                  {labels.unread}
+                                </span>
+                              ) : null}
+                            </span>
+                            <p className="truncate text-sm font-semibold text-[#1E293B]">
+                              {m.subject || labels.fromAdmin}
+                            </p>
+                            <p className="line-clamp-2 text-xs text-[#64748B]">{m.body}</p>
+                            <time className="text-[0.7rem] text-[#94A3B8]" dateTime={m.created_at}>
+                              {m.created_at ? new Date(m.created_at).toLocaleString() : ""}
+                            </time>
+                          </span>
                         </button>
                       </li>
                     );
@@ -306,43 +342,87 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
 
             <AipifyCard className={!mobileThread ? "hidden lg:block" : undefined} padding="md">
               {selected ? (
-                <div className="space-y-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <button
-                        type="button"
-                        className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-[#7C3AED] lg:hidden"
-                        onClick={() => setMobileThread(false)}
-                      >
-                        <ArrowLeft className="h-4 w-4" aria-hidden />
-                        {labels.backToList}
-                      </button>
-                      <h2 className="text-lg font-semibold text-[#1E293B]">
-                        {selected.subject || labels.fromAdmin}
-                      </h2>
-                    </div>
+                <div className="flex h-full min-h-[22rem] flex-col gap-4">
+                  <div className="min-w-0">
+                    <button
+                      type="button"
+                      className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-[#7C3AED] lg:hidden"
+                      onClick={() => setMobileThread(false)}
+                    >
+                      <ArrowLeft className="h-4 w-4" aria-hidden />
+                      {labels.backToList}
+                    </button>
+                    <h2 className="text-lg font-semibold text-[#1E293B]">
+                      {selected.subject || labels.fromAdmin}
+                    </h2>
                   </div>
-                  <ul className="space-y-3">
+                  <ul className="flex-1 space-y-3 overflow-y-auto">
                     {threadMessages.map((m) => (
                       <li
                         key={m.id}
-                        className={`rounded-xl border px-4 py-3 ${
-                          m.direction === "admin_to_partner"
-                            ? "border-[#E8E4F2] bg-white"
-                            : "border-[#7C3AED]/20 bg-[#F7F4FF]"
+                        className={`flex gap-3 ${
+                          m.direction === "partner_to_admin" ? "justify-end" : "justify-start"
                         }`}
                       >
-                        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#64748B]">
-                          <span>{m.direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou}</span>
-                          <span aria-hidden>·</span>
-                          <time dateTime={m.created_at}>
-                            {m.created_at ? new Date(m.created_at).toLocaleString() : ""}
-                          </time>
+                        {m.direction === "admin_to_partner" ? (
+                          <span
+                            className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F3EDFF] text-[0.65rem] font-semibold text-[#7C3AED]"
+                            aria-hidden
+                          >
+                            {initialsFor(m.direction, labels)}
+                          </span>
+                        ) : null}
+                        <div
+                          className={`max-w-[min(100%,28rem)] rounded-2xl border px-4 py-3 ${
+                            m.direction === "admin_to_partner"
+                              ? "border-[#E8E4F2] bg-white"
+                              : "border-[#7C3AED]/20 bg-[#F7F4FF]"
+                          }`}
+                        >
+                          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#64748B]">
+                            <span>
+                              {m.direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou}
+                            </span>
+                            <span aria-hidden>·</span>
+                            <time dateTime={m.created_at}>
+                              {m.created_at ? new Date(m.created_at).toLocaleString() : ""}
+                            </time>
+                          </div>
+                          <p className="mt-2 whitespace-pre-wrap text-sm text-[#1E293B]">{m.body}</p>
                         </div>
-                        <p className="mt-2 whitespace-pre-wrap text-sm text-[#1E293B]">{m.body}</p>
                       </li>
                     ))}
                   </ul>
+
+                  {showComposer ? (
+                    <div className="space-y-3 border-t border-[#E8E4F2] pt-4">
+                      <h3 className="text-sm font-semibold text-aipify-text">{labels.replyTitle}</h3>
+                      <label className="block text-sm">
+                        <span className="sr-only">{labels.replyPlaceholder}</span>
+                        <textarea
+                          value={reply}
+                          onChange={(e) => setReply(e.target.value)}
+                          rows={3}
+                          maxLength={20000}
+                          placeholder={labels.replyPlaceholder}
+                          className="w-full rounded-xl border border-aipify-border bg-white px-3 py-2 text-aipify-text"
+                        />
+                      </label>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <button
+                          type="button"
+                          disabled={sending || !reply.trim()}
+                          onClick={() => void sendReply()}
+                          className="inline-flex min-h-[44px] items-center rounded-xl bg-aipify-companion px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+                        >
+                          {sending ? labels.sending : labels.sendReply}
+                        </button>
+                        {sendNotice ? (
+                          <p className="text-sm text-aipify-text-secondary">{sendNotice}</p>
+                        ) : null}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               ) : (
                 <div className="py-10 text-center">
@@ -355,7 +435,7 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
         </div>
       ) : null}
 
-      {showComposer ? (
+      {phase === "empty" && showComposer ? (
         <section className={`${AipifyShellClasses.surfaceCard} space-y-3 p-5`}>
           <h2 className="text-base font-semibold text-aipify-text">{labels.replyTitle}</h2>
           <label className="block text-sm">

@@ -8204,8 +8204,16 @@
       "materialWriteError": "The material update failed.",
       "folderInbox": "Inbox",
       "folderSent": "Sent",
-      "folderArchive": "Archive",
-      "archiveBlocked": "Archive is not a separate stored state. Messages stay in the history.",
+      "directionAdminToPartner": "From Aipify to seller",
+      "directionPartnerToAdmin": "From seller to Aipify",
+      "deliveryStatus": {
+        "recorded": "Recorded",
+        "queued": "Queued",
+        "sent": "Sent",
+        "failed": "Failed",
+        "read": "Read",
+        "unknown": "Status not reported"
+      },
       "auditFallback": "Recorded event",
       "materialFilterAll": "All",
       "materialFilterDraft": "Draft",

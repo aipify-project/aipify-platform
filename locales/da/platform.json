@@ -7698,7 +7698,17 @@
         "attribution_link_created": "Salgslenke opprettet",
         "qualified_sale_recorded": "Kvalifisert salg registrert"
       },
-      "ratesReadOnly": "Dette er de gemte faste provisionssatser. Procentprovision kan ikke gemmes fra denne side."
+      "ratesReadOnly": "Dette er de gemte faste provisionssatser. Procentprovision kan ikke gemmes fra denne side.",
+      "directionAdminToPartner": "Fra Aipify til sælger",
+      "directionPartnerToAdmin": "Fra sælger til Aipify",
+      "deliveryStatus": {
+        "recorded": "Registreret",
+        "queued": "I kø",
+        "sent": "Sendt",
+        "failed": "Mislykkedes",
+        "read": "Læst",
+        "unknown": "Status ikke rapporteret"
+      }
     },
     "messages": {
       "title": "Beskeder og kommunikation",
