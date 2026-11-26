@@ -1,19 +1,36 @@
 -- PREPARED_ONLY — do not apply without explicit owner approval.
 -- Package: AIPIFY_CUSTOMER_SELF_SERVICE_SUPPORT_PROFILE_SUBSCRIPTION_V1 (follow-up)
 -- Target: Production Core qbcqoixhrvhnuwphefvw
--- Purpose: Never return internal_notes / internal_notes_full to non-manager APP callers
---          on list, detail, create, update, and history (shared row helper).
--- Authorized organization managers (can_manage) retain notes on detail/update.
+-- Purpose: Customer APP support RPCs must NEVER return or accept internal notes.
+--
+-- BOUNDARY EVIDENCE (Production _apsr271_access_context):
+--   can_manage = organization_role IN
+--     ('organization_owner', 'organization_admin', 'organization_manager')
+--   That is a CUSTOMER org role gate — NOT Aipify platform support.
+--   Therefore APP list/detail/history/create/update must strip notes for
+--   owner, admin, manager, AND staff alike.
+--
+-- Aipify saksbehandlere use Platform RPCs:
+--   platform_support_post_internal_note → platform_support_ticket_messages
+--     (direction = 'internal_note', author_role = 'platform_agent')
+--   Platform detail is gated by _ppsf258_require_platform_access().
+--
+-- Published customer-visible portal replies
+--   (reply_app_portal_support_request / publish_app_portal_support_request_message)
+-- remain unchanged and do not touch internal_notes.
+--
 -- No email activation. No Staging foundation bootstrap.
 --
 -- APPROVAL TEXT (copy for owner):
 -- "Approve apply of docs/platform/sql-candidates/app_portal_support_hide_internal_notes_from_customers_v1.sql
---  to Production Core qbcqoixhrvhnuwphefvw to strip internal notes from customer APP support
---  list/detail API responses while preserving manager access. No email activation."
+--  to Production Core qbcqoixhrvhnuwphefvw so customer APP support list/detail/history/create/update
+--  never return or write internal_notes; Aipify agents keep notes via Platform RPCs only.
+--  No email activation."
 
 begin;
 
--- Shared row: customer-safe by default (no internal notes keys).
+-- Shared row: never includes internal_notes / internal_notes_full.
+-- Used by list, history, create, update, and get (via merge).
 create or replace function public._apsr271_request_row(r public.app_portal_support_requests)
 returns jsonb
 language plpgsql
@@ -46,20 +63,8 @@ begin
 end;
 $$;
 
--- Manager-only note fields (never merged into customer responses).
-create or replace function public._apsr271_internal_notes_fields(r public.app_portal_support_requests)
-returns jsonb
-language sql
-stable
-as $$
-  select jsonb_build_object(
-    'internal_notes', case when r.internal_notes = '' then null else left(r.internal_notes, 200) end,
-    'internal_notes_full', nullif(r.internal_notes, '')
-  );
-$$;
-
-revoke all on function public._apsr271_internal_notes_fields(public.app_portal_support_requests) from public, anon, authenticated;
-grant execute on function public._apsr271_internal_notes_fields(public.app_portal_support_requests) to service_role;
+-- Drop the mistaken manager-only helper if a prior candidate draft created it.
+drop function if exists public._apsr271_internal_notes_fields(public.app_portal_support_requests);
 
 create or replace function public.get_app_portal_support_request(p_id uuid)
 returns jsonb
@@ -107,14 +112,11 @@ begin
     v_related_activity := v_timeline;
   end if;
 
+  -- Customer-safe request object: description/attachments only — never notes.
   v_request := public._apsr271_request_row(v_r) || jsonb_build_object(
     'description_full', v_r.description,
     'attachments', v_r.attachments
   );
-
-  if v_can_manage then
-    v_request := v_request || public._apsr271_internal_notes_fields(v_r);
-  end if;
 
   return jsonb_build_object(
     'found', true,
@@ -125,7 +127,8 @@ begin
     'audit_history', v_timeline,
     'related_activity', v_related_activity,
     'comments_placeholder', true,
-    'internal_notes_placeholder', not v_can_manage,
+    -- Notes are Platform-only; APP always shows the placeholder (no notes body).
+    'internal_notes_placeholder', true,
     'attachments_placeholder', jsonb_array_length(v_r.attachments) = 0
   );
 end;
@@ -152,7 +155,6 @@ declare
   v_user_id uuid;
   v_new_status text;
   v_can_manage boolean := false;
-  v_request jsonb;
 begin
   v_ctx := public._apsr271_access_context();
   v_user_id := (v_ctx->>'user_id')::uuid;
@@ -161,6 +163,12 @@ begin
   if v_r.id is null then raise exception 'Support request not found'; end if;
   if not public._apsr271_can_view_request(v_r.company_id, v_r.created_by, v_ctx) then
     raise exception 'Support request access denied';
+  end if;
+
+  -- p_internal_notes is intentionally ignored on the APP portal path.
+  -- Aipify agents write internal notes via platform_support_post_internal_note.
+  if p_internal_notes is not null then
+    null;
   end if;
 
   v_new_status := coalesce(nullif(trim(p_status), ''), v_r.status);
@@ -172,10 +180,7 @@ begin
     priority = coalesce(nullif(trim(p_priority), ''), priority),
     status = v_new_status,
     related_module = case when p_related_module is not null then nullif(trim(p_related_module), '') else related_module end,
-    internal_notes = case
-      when p_internal_notes is not null and v_can_manage
-      then left(p_internal_notes, 2000) else internal_notes
-    end,
+    -- Do not mutate internal_notes from APP callers (any customer role).
     updated_at = now()
   where id = p_id;
 
@@ -186,20 +191,19 @@ begin
   end if;
 
   select * into v_r from public.app_portal_support_requests where id = p_id;
-  v_request := public._apsr271_request_row(v_r);
-  if v_can_manage then
-    v_request := v_request || public._apsr271_internal_notes_fields(v_r);
-  end if;
 
   return jsonb_build_object(
     'updated', true,
     'can_manage', v_can_manage,
-    'request', v_request
+    'request', public._apsr271_request_row(v_r)
   );
 end;
 $$;
 
--- list_app_portal_support_requests / get_app_portal_support_history / create
+-- list_app_portal_support_requests / get_app_portal_support_history / create_app_portal_support_request
 -- inherit the safe row helper (no notes) without body changes.
+--
+-- reply_app_portal_support_request / publish_app_portal_support_request_message
+-- are customer-visible portal messages only; they never read/write internal_notes.
 
 commit;
