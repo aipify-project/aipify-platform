@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
 import {
   authorizeStripeWebhook,
   mapStripeEventToPaymentEvent,
 } from "@/lib/billing/stripe-client";
 import { maybeApplyCspPaidPeriodFromAuthorizedStripeTest } from "@/lib/certified-sales-partner/stripe-test-webhook";
+import { createServiceRoleClient } from "@/lib/supabase/service-role";
 
+/**
+ * Stripe webhook — signature fail-closed (#365), then Core mutation via service_role only.
+ * Never call payment mutation RPCs with the anon/authenticated PostgREST key.
+ */
 export async function POST(request: Request) {
   try {
     const payload = await request.text();
@@ -27,7 +31,7 @@ export async function POST(request: Request) {
     };
 
     const mappedEvent = mapStripeEventToPaymentEvent(event.type);
-    const supabase = await createClient();
+    const supabase = createServiceRoleClient();
 
     if (mappedEvent) {
       const customerId =
