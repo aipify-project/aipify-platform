@@ -3,6 +3,8 @@ import { installationStatusLabels, integrationStatusLabels } from "@/lib/platfor
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { PlatformDriftHubShell } from "@/components/platform/drift/PlatformDriftHubShell";
+import { DRIFT_OPERATIONS_HUB_ID } from "@/lib/platform/drift-hub";
 
 export default async function PlatformInstallationsPage() {
   const locale = await getLocale();
@@ -10,47 +12,52 @@ export default async function PlatformInstallationsPage() {
   const t = createTranslator(dict);
 
   return (
-    <PlatformInstallationsPanel
-      locale={locale}
-      labels={{
-        title: t("platform.installations.title"),
-        subtitle: t("platform.installations.subtitle"),
-        loading: t("platform.installations.loading"),
-        empty: t("platform.installations.empty"),
-        customer: t("platform.installations.customer"),
-        domain: t("platform.installations.domain"),
-        status: t("platform.installations.status"),
-        modules: t("platform.installations.modules"),
-        lastSynced: t("platform.installations.lastSynced"),
-        actions: t("platform.installations.actions"),
-        viewCustomer: t("platform.installations.viewCustomer"),
-        detailTitle: t("platform.installations.detailTitle"),
-        integrations: t("platform.installations.integrations"),
-        webhooks: t("platform.installations.webhooks"),
-        errorLogs: t("platform.installations.errorLogs"),
-        syncHistory: t("platform.installations.syncHistory"),
-        noModules: t("platform.installations.noModules"),
-        noIntegrations: t("platform.installations.noIntegrations"),
-        webhookOperational: t("platform.installations.webhookOperational"),
-        noErrors: t("platform.installations.noErrors"),
-        lastSyncEntry: t("platform.installations.lastSyncEntry"),
-        never: t("platform.installations.never"),
-        health: t("platform.installations.health"),
-        lastAiScan: t("platform.installations.lastAiScan"),
-        issuesDetected: t("platform.installations.issuesDetected"),
-        automationStatus: t("platform.installations.automationStatus"),
-        automationActive: t("platform.installations.automationActive"),
-        automationInactive: t("platform.installations.automationInactive"),
-        minutesAgo: t("platform.installations.minutesAgo"),
-        healthLabels: {
-          healthy: t("platform.customers.healthLabels.healthy"),
-          attention: t("platform.customers.healthLabels.attention"),
-          atRisk: t("platform.customers.healthLabels.atRisk"),
-        },
-        pulseLabel: t("branding.pulseLabel"),
-        statusLabels: installationStatusLabels(t),
-        integrationStatusLabels: integrationStatusLabels(t),
-      }}
-    />
+    <PlatformDriftHubShell hub={DRIFT_OPERATIONS_HUB_ID}>
+          <PlatformInstallationsPanel
+            locale={locale}
+            labels={{
+              title: t("platform.installations.title"),
+              subtitle: t("platform.installations.subtitle"),
+              loading: t("platform.installations.loading"),
+              empty: t("platform.installations.empty"),
+              customer: t("platform.installations.customer"),
+              domain: t("platform.installations.domain"),
+              status: t("platform.installations.status"),
+              modules: t("platform.installations.modules"),
+              lastSynced: t("platform.installations.lastSynced"),
+              actions: t("platform.installations.actions"),
+              viewCustomer: t("platform.installations.viewCustomer"),
+              detailTitle: t("platform.installations.detailTitle"),
+              integrations: t("platform.installations.integrations"),
+              webhooks: t("platform.installations.webhooks"),
+              errorLogs: t("platform.installations.errorLogs"),
+              syncHistory: t("platform.installations.syncHistory"),
+              noModules: t("platform.installations.noModules"),
+              noIntegrations: t("platform.installations.noIntegrations"),
+              webhookOperational: t("platform.installations.webhookOperational"),
+              noErrors: t("platform.installations.noErrors"),
+              lastSyncEntry: t("platform.installations.lastSyncEntry"),
+              never: t("platform.installations.never"),
+              health: t("platform.installations.health"),
+              lastAiScan: t("platform.installations.lastAiScan"),
+              issuesDetected: t("platform.installations.issuesDetected"),
+              automationStatus: t("platform.installations.automationStatus"),
+              automationActive: t("platform.installations.automationActive"),
+              automationInactive: t("platform.installations.automationInactive"),
+              minutesAgo: t("platform.installations.minutesAgo"),
+              syncUnknown: t("platform.installations.syncUnknown"),
+              syncStale: t("platform.installations.syncStale"),
+              neverSynced: t("platform.installations.neverSynced"),
+              healthLabels: {
+                healthy: t("platform.customers.healthLabels.healthy"),
+                attention: t("platform.customers.healthLabels.attention"),
+                atRisk: t("platform.customers.healthLabels.atRisk"),
+              },
+              pulseLabel: t("branding.pulseLabel"),
+              statusLabels: installationStatusLabels(t),
+              integrationStatusLabels: integrationStatusLabels(t),
+            }}
+          />
+    </PlatformDriftHubShell>
   );
 }

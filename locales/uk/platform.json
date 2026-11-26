@@ -294,7 +294,7 @@
     "pilotOperations": "Нульовий центр клієнтів",
     "unonightPilot": "Пілотний контроль",
     "licenses": "Реєстр ліцензій",
-    "kompisAi": "Kompis AI",
+    "kompisAi": "Kompis",
     "websiteReleaseVerification": "Перевірка сайту",
     "providerOnboarding": "Онбординг провайдерів",
     "websiteKompisPlans": "Плани Kompis Web",
@@ -314,7 +314,8 @@
     "sellersMessages": "Комунікація",
     "sellersAudit": "Відхилення та аудит",
     "sellersSettings": "Налаштування продавців",
-    "analyticsOverview": "Аналітика"
+    "analyticsOverview": "Аналітика",
+    "publishAndVerify": "Публікація та перевірка"
   },
   "executive": {
     "title": "Виконавчий центр",
@@ -4732,7 +4733,12 @@
     "automationStatus": "автоматизація",
     "automationActive": "Активний",
     "automationInactive": "Неактивний",
-    "minutesAgo": "{count} хвилин тому"
+    "minutesAgo": "{count} хвилин тому",
+    "syncUnknown": "Час синхронізації невідомий",
+    "syncStale": "Застаріла синхронізація",
+    "syncFresh": "Нещодавно синхронізовано",
+    "lifecycleActive": "Встановлення активне",
+    "neverSynced": "Ніколи не синхронізовано"
   },
   "support": {
     "title": "Підтримка",
@@ -8440,6 +8446,35 @@
       "error": "Не вдалося перевірити записи продавців.",
       "retry": "Спробувати знову",
       "close": "Закрити"
+    }
+  },
+  "driftHub": {
+    "tabsAria": "Вкладки розділу Операції",
+    "tabs": {
+      "overview": "Огляд",
+      "platformHealth": "Статус платформи",
+      "installations": "Встановлення",
+      "auditLogs": "Журнал подій",
+      "pilot": "Пілотний контроль",
+      "deployments": "Публікації",
+      "websiteVerification": "Перевірка сайту",
+      "verificationHistory": "Історія",
+      "kompis": "Kompis"
+    },
+    "auditLogs": {
+      "title": "Журнал подій",
+      "subtitle": "Оперативна історія подій і аудиту для Platform Admin.",
+      "notConfiguredTitle": "Джерело подій не підключено",
+      "notConfiguredBody": "Ця вкладка Drift не створює події. Автентифікований канал аудиту/подій Platform ще не підключений. Використовуйте журнал активності в Управлінні, коли він доступний.",
+      "openGovernance": "Відкрити журнал активності"
+    },
+    "deployments": {
+      "title": "Публікації",
+      "subtitle": "Статус публікації лише для читання для Drift.",
+      "notConfiguredTitle": "Немає окремого джерела публікацій на цій вкладці",
+      "notConfiguredBody": "Ця поверхня не запускає публікації. Живі рядки розгортань є в Статусі платформи. Перевірка сайту має власні елементи керування.",
+      "openHealth": "Відкрити статус платформи",
+      "openVerification": "Відкрити перевірку сайту"
     }
   }
 }

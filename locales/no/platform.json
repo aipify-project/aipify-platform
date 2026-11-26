@@ -275,7 +275,7 @@
     "websiteGovernance": "Website Governance",
     "changeOperations": "Endringsoperasjoner",
     "licenses": "Lisensregister",
-    "kompisAi": "Kompis AI",
+    "kompisAi": "Kompis",
     "websiteReleaseVerification": "Nettsideverifisering",
     "providerOnboarding": "Provider-onboarding",
     "websiteKompisPlans": "Kompis Web-planer",
@@ -295,7 +295,8 @@
     "sellersMessages": "Kommunikasjon",
     "sellersAudit": "Avvik og audit",
     "sellersSettings": "Selgerinnstillinger",
-    "analyticsOverview": "Analyse"
+    "analyticsOverview": "Analyse",
+    "publishAndVerify": "Publisering og verifisering"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -2237,7 +2238,12 @@
     "automationStatus": "Automatisering",
     "automationActive": "Aktiv",
     "automationInactive": "Inaktiv",
-    "minutesAgo": "{count} minutter siden"
+    "minutesAgo": "{count} minutter siden",
+    "syncUnknown": "Synkroniseringstid ukjent",
+    "syncStale": "Utdatert synkronisering",
+    "syncFresh": "Nylig synkronisert",
+    "lifecycleActive": "Installasjon aktiv",
+    "neverSynced": "Aldri synkronisert"
   },
   "support": {
     "title": "Support",
@@ -8169,6 +8175,35 @@
       "error": "Selgerpostene kunne ikke kontrolleres.",
       "retry": "Prøv igjen",
       "close": "Lukk"
+    }
+  },
+  "driftHub": {
+    "tabsAria": "Faner i Drift",
+    "tabs": {
+      "overview": "Oversikt",
+      "platformHealth": "Plattformstatus",
+      "installations": "Installasjoner",
+      "auditLogs": "Hendelseslogg",
+      "pilot": "Pilotkontroll",
+      "deployments": "Publiseringer",
+      "websiteVerification": "Nettsideverifisering",
+      "verificationHistory": "Historikk",
+      "kompis": "Kompis"
+    },
+    "auditLogs": {
+      "title": "Hendelseslogg",
+      "subtitle": "Operativ hendelses- og revisjonshistorikk for Platform Admin.",
+      "notConfiguredTitle": "Ingen hendelseskilde er koblet",
+      "notConfiguredBody": "Denne Drift-fanen lager ikke hendelser. En autentisert Platform-revisjons-/hendelsesfeed er ikke koblet til denne flaten ennå. Bruk Aktivitetslogg under Kontroll og styring for registrerte adminhandlinger når den er tilgjengelig.",
+      "openGovernance": "Åpne aktivitetslogg"
+    },
+    "deployments": {
+      "title": "Publiseringer",
+      "subtitle": "Skrivebeskyttet publiseringsstatus for Drift.",
+      "notConfiguredTitle": "Ingen egen publiseringsfeed på denne fanen",
+      "notConfiguredBody": "Denne flaten starter ikke publiseringer. Levende utrullingsrader som finnes i dag vises under Plattformstatus. Nettsideverifisering har egne kontrollfunksjoner.",
+      "openHealth": "Åpne plattformstatus",
+      "openVerification": "Åpne nettsideverifisering"
     }
   }
 }

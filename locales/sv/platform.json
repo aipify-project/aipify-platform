@@ -294,7 +294,7 @@
     "pilotOperations": "Pilotkontroll",
     "unonightPilot": "Pilotkontroll",
     "licenses": "Licensregister",
-    "kompisAi": "Kompis AI",
+    "kompisAi": "Kompis",
     "websiteReleaseVerification": "Webbplatsverifiering",
     "providerOnboarding": "Provider-onboarding",
     "websiteKompisPlans": "Kompis Web-planer",
@@ -314,7 +314,8 @@
     "sellersMessages": "Kommunikation",
     "sellersAudit": "Avvikelser och revision",
     "sellersSettings": "Säljarinställningar",
-    "analyticsOverview": "Analys"
+    "analyticsOverview": "Analys",
+    "publishAndVerify": "Publicering och verifiering"
   },
   "executive": {
     "title": "Executive Center",
@@ -4732,7 +4733,12 @@
     "automationStatus": "Automation",
     "automationActive": "Active",
     "automationInactive": "Inactive",
-    "minutesAgo": "{count} minutes ago"
+    "minutesAgo": "{count} minutes ago",
+    "syncUnknown": "Synkroniseringstid okänd",
+    "syncStale": "Föråldrad synkronisering",
+    "syncFresh": "Nyligen synkroniserad",
+    "lifecycleActive": "Installation aktiv",
+    "neverSynced": "Aldrig synkroniserad"
   },
   "support": {
     "title": "Support",
@@ -8440,6 +8446,35 @@
       "error": "Säljarposterna kunde inte kontrolleras.",
       "retry": "Försök igen",
       "close": "Stäng"
+    }
+  },
+  "driftHub": {
+    "tabsAria": "Flikar i Drift",
+    "tabs": {
+      "overview": "Översikt",
+      "platformHealth": "Plattformsstatus",
+      "installations": "Installationer",
+      "auditLogs": "Händelselogg",
+      "pilot": "Pilotkontroll",
+      "deployments": "Publiceringar",
+      "websiteVerification": "Webbplatsverifiering",
+      "verificationHistory": "Historik",
+      "kompis": "Kompis"
+    },
+    "auditLogs": {
+      "title": "Händelselogg",
+      "subtitle": "Operativ händelse- och revisionhistorik för Platform Admin.",
+      "notConfiguredTitle": "Ingen händelsekälla ansluten",
+      "notConfiguredBody": "Den här Drift-fliken fabricerar inte händelser. Ett autentiserat Platform-revisions-/händelseflöde är ännu inte kopplat till den här ytan. Använd aktivitetsloggen under Styrning när den finns.",
+      "openGovernance": "Öppna aktivitetslogg"
+    },
+    "deployments": {
+      "title": "Publiceringar",
+      "subtitle": "Skrivskyddad publiceringsstatus för Drift.",
+      "notConfiguredTitle": "Ingen dedikerad publiceringskälla på den här fliken",
+      "notConfiguredBody": "Den här ytan startar inte publiceringar. Aktuella distributionsrader visas under Plattformsstatus. Webbplatsverifiering har egna kontroller.",
+      "openHealth": "Öppna plattformsstatus",
+      "openVerification": "Öppna webbplatsverifiering"
     }
   }
 }

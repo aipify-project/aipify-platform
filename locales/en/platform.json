@@ -294,7 +294,7 @@
     "pilotOperations": "Pilot control",
     "unonightPilot": "Pilot control",
     "licenses": "License registry",
-    "kompisAi": "Kompis AI",
+    "kompisAi": "Kompis",
     "websiteReleaseVerification": "Website verification",
     "providerOnboarding": "Provider onboarding",
     "websiteKompisPlans": "Kompis Web plans",
@@ -314,7 +314,8 @@
     "sellersMessages": "Communication",
     "sellersAudit": "Exceptions & audit",
     "sellersSettings": "Seller settings",
-    "analyticsOverview": "Analytics"
+    "analyticsOverview": "Analytics",
+    "publishAndVerify": "Publishing & verification"
   },
   "executive": {
     "title": "Executive Center",
@@ -4732,7 +4733,12 @@
     "automationStatus": "Automation",
     "automationActive": "Active",
     "automationInactive": "Inactive",
-    "minutesAgo": "{count} minutes ago"
+    "minutesAgo": "{count} minutes ago",
+    "syncUnknown": "Sync time unknown",
+    "syncStale": "Outdated sync",
+    "syncFresh": "Recently synced",
+    "lifecycleActive": "Installation active",
+    "neverSynced": "Never synced"
   },
   "support": {
     "title": "Support",
@@ -8440,6 +8446,35 @@
       "error": "The seller records could not be checked.",
       "retry": "Try again",
       "close": "Close"
+    }
+  },
+  "driftHub": {
+    "tabsAria": "Operations section tabs",
+    "tabs": {
+      "overview": "Overview",
+      "platformHealth": "Platform status",
+      "installations": "Installations",
+      "auditLogs": "Event log",
+      "pilot": "Pilot control",
+      "deployments": "Publishing",
+      "websiteVerification": "Website verification",
+      "verificationHistory": "History",
+      "kompis": "Kompis"
+    },
+    "auditLogs": {
+      "title": "Event log",
+      "subtitle": "Operational event and audit history for Platform Admin.",
+      "notConfiguredTitle": "No event source connected",
+      "notConfiguredBody": "This Drift tab does not fabricate events. An authenticated Platform audit/event feed is not wired to this surface yet. Use Governance activity logs for recorded admin actions when available.",
+      "openGovernance": "Open activity log"
+    },
+    "deployments": {
+      "title": "Publishing",
+      "subtitle": "Read-only publishing status for Platform operations.",
+      "notConfiguredTitle": "No dedicated publishing feed on this tab",
+      "notConfiguredBody": "This surface does not start publishes. Live deployment rows that exist today are shown under Platform status. Website staging verification has its own verification controls.",
+      "openHealth": "Open Platform status",
+      "openVerification": "Open website verification"
     }
   }
 }

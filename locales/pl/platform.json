@@ -294,7 +294,7 @@
     "pilotOperations": "Kontrola pilota",
     "unonightPilot": "Kontrola pilotażu",
     "licenses": "Rejestr licencji",
-    "kompisAi": "Kompis AI",
+    "kompisAi": "Kompis",
     "websiteReleaseVerification": "Weryfikacja strony",
     "providerOnboarding": "Onboarding dostawców",
     "websiteKompisPlans": "Plany Kompis Web",
@@ -314,7 +314,8 @@
     "sellersMessages": "Komunikacja",
     "sellersAudit": "Odchylenia i audyt",
     "sellersSettings": "Ustawienia sprzedawców",
-    "analyticsOverview": "Analityka"
+    "analyticsOverview": "Analityka",
+    "publishAndVerify": "Publikacja i weryfikacja"
   },
   "executive": {
     "title": "Centrum wykonawcze",
@@ -4732,7 +4733,12 @@
     "automationStatus": "Automatyzacja",
     "automationActive": "Aktywna",
     "automationInactive": "Nieaktywna",
-    "minutesAgo": "{count} min temu"
+    "minutesAgo": "{count} min temu",
+    "syncUnknown": "Czas synchronizacji nieznany",
+    "syncStale": "Przestarzała synchronizacja",
+    "syncFresh": "Niedawno zsynchronizowano",
+    "lifecycleActive": "Instalacja aktywna",
+    "neverSynced": "Nigdy nie synchronizowano"
   },
   "support": {
     "title": "Wsparcie",
@@ -8440,6 +8446,35 @@
       "error": "Nie udało się sprawdzić rekordów sprzedawców.",
       "retry": "Spróbuj ponownie",
       "close": "Zamknij"
+    }
+  },
+  "driftHub": {
+    "tabsAria": "Karty sekcji Operacje",
+    "tabs": {
+      "overview": "Przegląd",
+      "platformHealth": "Status platformy",
+      "installations": "Instalacje",
+      "auditLogs": "Dziennik zdarzeń",
+      "pilot": "Kontrola pilota",
+      "deployments": "Publikacje",
+      "websiteVerification": "Weryfikacja witryny",
+      "verificationHistory": "Historia",
+      "kompis": "Kompis"
+    },
+    "auditLogs": {
+      "title": "Dziennik zdarzeń",
+      "subtitle": "Historia zdarzeń i audytu dla Platform Admin.",
+      "notConfiguredTitle": "Brak podłączonego źródła zdarzeń",
+      "notConfiguredBody": "Ta karta Drift nie tworzy zdarzeń. Uwierzytelniony kanał audytu/zdarzeń Platform nie jest jeszcze podłączony. Użyj dziennika aktywności w Zarządzaniu, gdy jest dostępny.",
+      "openGovernance": "Otwórz dziennik aktywności"
+    },
+    "deployments": {
+      "title": "Publikacje",
+      "subtitle": "Status publikacji tylko do odczytu dla Drift.",
+      "notConfiguredTitle": "Brak osobnego źródła publikacji na tej karcie",
+      "notConfiguredBody": "Ta powierzchnia nie uruchamia publikacji. Bieżące wiersze wdrożeń są w Statusie platformy. Weryfikacja witryny ma własne kontrole.",
+      "openHealth": "Otwórz status platformy",
+      "openVerification": "Otwórz weryfikację witryny"
     }
   }
 }

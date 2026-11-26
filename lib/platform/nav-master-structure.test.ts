@@ -27,10 +27,13 @@ test("dashboard is pinned first outside collapsible groups", () => {
   );
 });
 
-test("operations owns installations; product does not", () => {
+test("operations owns three Drift hubs; product does not list installations", () => {
   const operations = PLATFORM_NAV_GROUPS.find((g) => g.id === "operations");
   const product = PLATFORM_NAV_GROUPS.find((g) => g.id === "product");
-  assert.ok(operations!.items.some((i) => i.id === "installationOversight"));
+  assert.deepEqual(
+    operations!.items.map((i) => i.id),
+    ["operationsOverview", "publishAndVerify", "kompisAi"],
+  );
   assert.equal(
     product!.items.some((i) => i.id === "installationOversight"),
     false,
@@ -68,9 +71,12 @@ test("dashboard active only on /platform exact path", () => {
   assert.notEqual(getPlatformActiveNavId("/platform/operations/overview"), "overview");
   assert.notEqual(getPlatformActiveNavId("/platform/customers"), "overview");
   assert.notEqual(getPlatformActiveNavId("/platform/billing"), "overview");
-  assert.equal(getPlatformActiveNavId("/platform/installations"), "installationOversight");
+  assert.equal(getPlatformActiveNavId("/platform/installations"), "operationsOverview");
   assert.equal(getPlatformActiveNavId("/platform/system"), "system");
-  assert.equal(getPlatformActiveNavId("/platform/unonight-pilot"), "unonightPilot");
+  assert.equal(getPlatformActiveNavId("/platform/unonight-pilot"), "operationsOverview");
+  assert.equal(getPlatformActiveNavId("/platform/website-verification"), "publishAndVerify");
+  assert.equal(getPlatformActiveNavId("/platform/operations/deployments"), "publishAndVerify");
+  assert.equal(getPlatformActiveNavId("/platform/kompis-ai"), "kompisAi");
 });
 
 test("dashboard href remains /platform", () => {
