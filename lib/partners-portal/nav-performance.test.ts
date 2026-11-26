@@ -43,4 +43,13 @@ test("server access still fail-closes suspended partners without caching grants"
   assert.match(provider, /cache: "no-store"/);
 });
 
+test("shell records soft-nav performance marks without inventing timings", () => {
+  const shell = read("components/partners-portal/PartnersPortalShell.tsx");
+  const perf = read("lib/partners-portal/soft-nav-perf.ts");
+  assert.match(shell, /markPartnersSoftNavStart/);
+  assert.match(shell, /markPartnersSoftNavReady/);
+  assert.match(perf, /performance\.mark/);
+  assert.match(perf, /performance\.measure/);
+});
+
 console.log("csp portal nav performance contract passed");

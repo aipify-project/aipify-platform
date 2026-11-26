@@ -496,7 +496,8 @@
       "linkUnavailable": "Linki sprzedażowe nie są dostępne, dopóki system partnerski nie zostanie aktywowany.",
       "takeTraining": "Rozpocznij szkolenie",
       "trainingNotPublished": "Szkolenie nie zostało jeszcze opublikowane",
-      "empty": "Brak produktów w tej kategorii."
+      "empty": "Brak produktów w tej kategorii.",
+      "shareMarketing": "Udostępnij"
     },
     "overview": {
       "title": "Twój przegląd partnera",
@@ -1027,7 +1028,9 @@
       "securityAccountNote": "Zmiany hasła i sesje urządzeń pozostają na koncie logowania Aipify. Ten portal nigdy nie przechowuje lokalnego hasła.",
       "openTwoFactor": "Zarządzaj uwierzytelnianiem dwuskładnikowym",
       "openSettlement": "Otwórz prowizje i wypłaty",
-      "notAvailable": "Niedostępne"
+      "notAvailable": "Niedostępne",
+      "lockScreenTitle": "Blokada ekranu (przygotowana)",
+      "lockScreenBody": "Bezpieczna blokada ekranu wymaga ponownego uwierzytelnienia po stronie serwera. Funkcja pozostaje nieaktywna do osobnej zgody bezpieczeństwa — Aipify nie oferuje blokady tylko po stronie klienta."
     },
     "academyHub": {
       "productTabsLabel": "Produkty Academy",

@@ -11,6 +11,7 @@ import {
 } from "@/lib/partners-portal";
 import { CSP_PARTNER_PORTAL_NAV_GROUPS } from "@/lib/partners-portal/csp-nav";
 import { SELLER_PORTAL_LAYOUT } from "@/lib/partners-portal/design-tokens";
+import { markPartnersSoftNavReady, markPartnersSoftNavStart } from "@/lib/partners-portal/soft-nav-perf";
 import GrowthPartnerPortalSignOutButton from "@/components/growth-partner-portal/GrowthPartnerPortalSignOutButton";
 
 type PartnersPortalShellProps = {
@@ -120,6 +121,14 @@ function PartnersPortalFrame({
 
   useEffect(() => {
     setMobileOpen(false);
+  }, [pathname, section]);
+
+  useEffect(() => {
+    markPartnersSoftNavStart(pathname);
+    const frame = window.requestAnimationFrame(() => {
+      markPartnersSoftNavReady(pathname);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname, section]);
 
   useEffect(() => {

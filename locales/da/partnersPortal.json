@@ -620,7 +620,8 @@
       "linkUnavailable": "Salgslinks er ikke tilgængelige, før partnerløsningen er aktiv.",
       "takeTraining": "Tag uddannelsen",
       "trainingNotPublished": "Uddannelsen er ikke publiceret endnu",
-      "empty": "Ingen produkter i denne kategori."
+      "empty": "Ingen produkter i denne kategori.",
+      "shareMarketing": "Del"
     },
     "overview": {
       "title": "Din partneroversigt",
@@ -1151,7 +1152,9 @@
       "securityAccountNote": "Adgangskodeændringer og enhedssessioner ligger i din Aipify-loginkonto. Denne portal gemmer aldrig en lokal adgangskode.",
       "openTwoFactor": "Administrer tofaktorgodkendelse",
       "openSettlement": "Åbn provision og udbetalinger",
-      "notAvailable": "Ikke tilgængelig"
+      "notAvailable": "Ikke tilgængelig",
+      "lockScreenTitle": "Skærmlås (forberedt)",
+      "lockScreenBody": "Sikker skærmlås kræver serververificeret genautentificering. Funktionen er inaktiv indtil separat sikkerhedsgodkendelse — Aipify tilbyder ikke en klient-only lås."
     },
     "academyHub": {
       "productTabsLabel": "Academy-produkter",
