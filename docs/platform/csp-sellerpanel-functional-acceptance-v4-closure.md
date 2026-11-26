@@ -14,8 +14,10 @@
 5. **Link deactivate** — App PATCH + UI fail-closed; SQL candidate PREPARED_ONLY  
    `docs/platform/sql-candidates/csp_deactivate_attribution_link_v4.sql`  
    SHA `b06db68bfab047c0385e5d7af636042aaa2933070a09dc17e0fedfe46e2815b3`
-6. Matrix: `docs/platform/csp-sellerpanel-functional-matrix-v4.md`  
-7. Ownership vs #361: `docs/platform/csp-v4-ownership-vs-app-361.md`
+6. **Sales links** — per-row copy + deactivated status label (not “Blocked”).
+7. **Bank details** — masked payout panel on `/partners/settlement`; encryption fail-closed.
+8. Matrix: `docs/platform/csp-sellerpanel-functional-matrix-v4.md`  
+9. Ownership vs #361: `docs/platform/csp-v4-ownership-vs-app-361.md`
 
 ## Hard constraints kept
 
