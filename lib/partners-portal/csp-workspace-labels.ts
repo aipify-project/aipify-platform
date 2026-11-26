@@ -16,6 +16,7 @@ import type {
 import type { CspLeadsLabels } from "@/components/partners-portal/CertifiedSalesPartnerLeadsPanel";
 import type { CspCustomersLabels } from "@/components/partners-portal/CertifiedSalesPartnerCustomersPanel";
 import type { SellersActionLabels } from "@/components/platform/sellers/CertifiedSellersActionPanel";
+import type { ProductShopifyEditorLabels } from "@/components/platform/sellers/ProductShopifyEditor";
 import type { PartnerDetailsDrawerLabels } from "@/components/platform/sellers/CertifiedSellersPartnerDetailsDrawer";
 import { buildSellerProfileLabels } from "@/lib/certified-sales-partner/seller-profile-labels";
 
@@ -214,6 +215,49 @@ export function buildSellersActionLabels(t: Translator): SellersActionLabels {
   };
 }
 
+export function buildProductShopifyEditorLabels(t: Translator): ProductShopifyEditorLabels {
+  const base = buildSellersActionLabels(t);
+  const k = (key: string) => t(`platform.sellers.actions.${key}`);
+  return {
+    ...base,
+    backToProducts: k("editorBackToProducts"),
+    createHeading: k("editorCreateHeading"),
+    editHeading: k("editorEditHeading"),
+    unsaved: k("editorUnsaved"),
+    saved: k("editorSaved"),
+    discard: k("editorDiscard"),
+    save: k("editorSave"),
+    tagline: k("editorTagline"),
+    description: k("editorDescription"),
+    descriptionHint: k("editorDescriptionHint"),
+    mediaTitle: k("editorMediaTitle"),
+    mediaUpload: k("editorMediaUpload"),
+    mediaChooseExisting: k("editorMediaChooseExisting"),
+    category: k("editorCategory"),
+    priceCardTitle: k("editorPriceCardTitle"),
+    statusCardTitle: k("editorStatusCardTitle"),
+    statusActive: k("editorStatusActive"),
+    statusDraft: k("editorStatusDraft"),
+    statusUnlisted: k("editorStatusUnlisted"),
+    statusActiveHint: k("editorStatusActiveHint"),
+    statusDraftHint: k("editorStatusDraftHint"),
+    statusUnlistedHint: k("editorStatusUnlistedHint"),
+    statusUnlistedBlocked: k("editorStatusUnlistedBlocked"),
+    channelsCardTitle: k("editorChannelsCardTitle"),
+    channelApp: k("editorChannelApp"),
+    channelSale: k("editorChannelSale"),
+    channelSearch: k("editorChannelSearch"),
+    organizationTitle: k("editorOrganizationTitle"),
+    productType: k("editorProductType"),
+    advancedSku: k("editorAdvancedSku"),
+    languageTitle: k("editorLanguageTitle"),
+    languageHint: k("editorLanguageHint"),
+    previewSecondary: k("editorPreviewSecondary"),
+    channelAppDetails: k("editorChannelAppDetails"),
+    channelSaleDetails: k("editorChannelSaleDetails"),
+  };
+}
+
 const SELLERS_LIVE_TEXT_KEYS = [
   "loading",
   "retry",
@@ -315,6 +359,11 @@ const SELLERS_LIVE_TEXT_KEYS = [
   "productCenterCountDraft",
   "productCenterColUpdated",
   "productCenterColActions",
+  "productCenterColChannels",
+  "productCenterChannelsBoth",
+  "productCenterChannelsAppOnly",
+  "productCenterChannelsSaleOnly",
+  "productCenterChannelsNone",
   "settlementsEmptyTitle",
   "settlementsEmptyBody",
   "settlementsNoFurtherSteps",

@@ -780,8 +780,6 @@ function ProductCenterWorkspace({
   const search = useSearchParams();
   const router = useRouter();
   const view = parseProductCenterView(search.get("view"));
-  const [editorMode, setEditorMode] = useState<"create" | "edit">("create");
-  const [selectedKey, setSelectedKey] = useState<string | null>(null);
 
   const catalogLocale = (
     ["en", "no", "sv", "da", "pl", "uk", "es"].includes(locale) ? locale : "en"
@@ -807,7 +805,6 @@ function ProductCenterWorkspace({
     [catalogLocale, listFromCore, overview.products],
   );
   const visible = useMemo(() => filterProductCenterView(catalog, view), [catalog, view]);
-  const selected = catalog.find((product) => product.productKey === selectedKey) ?? null;
 
   const tabLabels: Record<ProductCenterView, string> = {
     products: l.productCenterTabProducts ?? "Products",
@@ -863,12 +860,10 @@ function ProductCenterWorkspace({
           products={visible}
           listFromCore={listFromCore}
           onNewProduct={() => {
-            setEditorMode("create");
-            setSelectedKey(null);
+            router.push("/platform/sellers/products/new");
           }}
           onEditProduct={(productKey) => {
-            setEditorMode("edit");
-            setSelectedKey(productKey);
+            router.push(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
           }}
           labels={{
             colImage: l.registerColImage,
@@ -877,6 +872,7 @@ function ProductCenterWorkspace({
             colType: l.registerColType,
             colAppStatus: l.registerColAppStatus,
             colSaleStatus: l.registerColSaleStatus,
+            colChannels: l.productCenterColChannels,
             colCustomerPrice: l.registerColCustomerPrice,
             colCommission: l.colCommission,
             colUpdated: l.productCenterColUpdated,
@@ -887,6 +883,10 @@ function ProductCenterWorkspace({
             salePublished: l.productPublished,
             saleDraft: l.productDraft,
             saleNotConfigured: l.registerSaleNotConfigured,
+            channelsBoth: l.productCenterChannelsBoth,
+            channelsAppOnly: l.productCenterChannelsAppOnly,
+            channelsSaleOnly: l.productCenterChannelsSaleOnly,
+            channelsNone: l.productCenterChannelsNone,
             pricePlanned: l.registerPricePlanned,
             priceUnavailable: actionLabels.priceNotPublished,
             commissionUnknown: l.notReported,
@@ -904,24 +904,6 @@ function ProductCenterWorkspace({
           }}
         />
       ) : null}
-
-      <CertifiedSellersActionPanel
-        key={`${editorMode}:${selectedKey ?? "new"}`}
-        section="products"
-        labels={actionLabels}
-        editorMode={editorMode}
-        selectedProductKey={selectedKey}
-        selectedTitle={selected?.title ?? null}
-        selectedCurrency={
-          selected?.commission.kind === "fixed" ? selected.commission.currency : null
-        }
-        selectedCommission={
-          selected?.commission.kind === "fixed" ? selected.commission.amount : null
-        }
-        selectedPublishSale={selected ? selected.sale.visibleInStore : null}
-        selectedPublishApp={selected ? selected.app.visibleInStore && selected.app.source === "core" : null}
-        onSuccess={onReload}
-      />
     </>
   );
 }

@@ -1,8 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { validateSettlementTransition } from "@/lib/certified-sales-partner/settlement-rules";
 import type { CspSettlementStatus } from "@/lib/certified-sales-partner/constants";
+import {
+  ProductShopifyEditor,
+  type ProductShopifyEditorLabels,
+} from "@/components/platform/sellers/ProductShopifyEditor";
 
 export type SellersActionOption = { value: string; label: string };
 
@@ -90,6 +95,14 @@ type Props = {
   selectedCommission?: number | null;
   selectedPublishSale?: boolean | null;
   selectedPublishApp?: boolean | null;
+  selectedMasterActive?: boolean | null;
+  selectedLogoSrc?: string | null;
+  selectedCategory?: string | null;
+  selectedProductType?: string | null;
+  /** Shopify-layout editor labels (required when section=products). */
+  editorLabels?: ProductShopifyEditorLabels;
+  /** Standalone editor page — hide outer section chrome. */
+  standaloneEditor?: boolean;
   /** Called after Core accepted the request so the surrounding list can reload. */
   onSuccess?: () => void;
 };
@@ -109,8 +122,15 @@ export function CertifiedSellersActionPanel({
   selectedCommission = null,
   selectedPublishSale = null,
   selectedPublishApp = null,
+  selectedMasterActive = null,
+  selectedLogoSrc = null,
+  selectedCategory = null,
+  selectedProductType = null,
+  editorLabels,
+  standaloneEditor = false,
   onSuccess,
 }: Props) {
+  const router = useRouter();
   const [message, setMessage] = useState<{ kind: "ok" | "closed" | "error"; text: string } | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -221,6 +241,9 @@ export function CertifiedSellersActionPanel({
     const publishSale = fd.get("publish_sale") === "on" || fd.get("published") === "on";
     const publishAppChecked = fd.get("publish_app") === "on";
     const channelOnly = fd.get("channel_only") === "on";
+    const masterActiveRaw = String(fd.get("master_active") ?? "");
+    const masterActive =
+      masterActiveRaw === "true" ? true : masterActiveRaw === "false" ? false : undefined;
 
     setPending(true);
     setMessage(null);
@@ -232,12 +255,16 @@ export function CertifiedSellersActionPanel({
             product_key: productKey,
             publish_app: publishAppChecked,
             publish_sale: publishSale,
+            ...(masterActive === undefined ? {} : { master_active: masterActive }),
           },
           { quiet: true },
         );
         if (channelOutcome === "ok") {
           setMessage({ kind: "ok", text: labels.success });
           onSuccess?.();
+          if (standaloneEditor && editorMode === "create") {
+            router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
+          }
         } else if (channelOutcome === "closed") {
           setMessage({ kind: "closed", text: labels.failClosed });
         } else {
@@ -266,12 +293,17 @@ export function CertifiedSellersActionPanel({
         return;
       }
 
-      // APP is independent of SALE. Only touch APP when the operator checked Publisert i APP.
-      // Never POST publish_app:false on every SALE save (would clear APP once RPC exists, and
-      // would make SALE-only saves look blocked while the channel RPC is still pending).
-      if (!publishAppChecked) {
+      const needsChannelWrite =
+        publishAppChecked ||
+        masterActive === false ||
+        (masterActive === true && (publishAppChecked || publishSale));
+
+      if (!needsChannelWrite) {
         setMessage({ kind: "ok", text: labels.success });
         onSuccess?.();
+        if (standaloneEditor && editorMode === "create") {
+          router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
+        }
         return;
       }
 
@@ -279,22 +311,32 @@ export function CertifiedSellersActionPanel({
         "/api/platform/sellers/products/channels",
         {
           product_key: productKey,
-          publish_app: true,
+          ...(publishAppChecked ? { publish_app: true } : {}),
+          ...(publishSale ? { publish_sale: true } : {}),
+          ...(masterActive === undefined ? {} : { master_active: masterActive }),
         },
         { quiet: true },
       );
       if (channelOutcome === "ok") {
         setMessage({ kind: "ok", text: labels.success });
         onSuccess?.();
+        if (standaloneEditor && editorMode === "create") {
+          router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
+        }
         return;
       }
       if (channelOutcome === "closed") {
-        // SALE save already succeeded — do not pretend APP published.
         setMessage({
           kind: "closed",
-          text: labels.publishAppHint ?? labels.failClosed,
+          text:
+            publishAppChecked || masterActive === false
+              ? (labels.publishAppHint ?? labels.failClosed)
+              : labels.failClosed,
         });
         onSuccess?.();
+        if (standaloneEditor && editorMode === "create") {
+          router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
+        }
         return;
       }
       setMessage({ kind: "error", text: labels.error });
@@ -310,6 +352,37 @@ export function CertifiedSellersActionPanel({
       : section === "settlements"
         ? labels.settlementsTitle
         : labels.productsTitle;
+
+  if (section === "products" && editorLabels) {
+    return (
+      <div className={standaloneEditor ? "space-y-3" : "space-y-3"}>
+        <ProductShopifyEditor
+          labels={editorLabels}
+          mode={editorMode}
+          productKey={selectedProductKey}
+          title={selectedTitle}
+          currency={selectedCurrency}
+          commission={selectedCommission}
+          publishSale={selectedPublishSale}
+          publishApp={selectedPublishApp}
+          masterActive={selectedMasterActive}
+          logoSrc={selectedLogoSrc}
+          category={selectedCategory}
+          productType={selectedProductType}
+          pending={pending}
+          onSubmit={onProducts}
+          onDiscard={() => {
+            if (standaloneEditor) router.push("/platform/sellers/products");
+          }}
+        />
+        {message ? (
+          <p className="text-sm text-[color:var(--aipify-text-secondary)]" role="status">
+            {message.text}
+          </p>
+        ) : null}
+      </div>
+    );
+  }
 
   return (
     <section className="rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-6 shadow-sm">
@@ -363,149 +436,12 @@ export function CertifiedSellersActionPanel({
           <Submit pending={pending} label={labels.submitSettlement} />
         </form>
       ) : null}
-      {section === "products" ? (
-        <ProductAdminForm
-          labels={labels}
-          pending={pending}
-          onSubmit={onProducts}
-          selectedProductKey={selectedProductKey}
-          editorMode={editorMode}
-          selectedTitle={selectedTitle}
-          selectedCurrency={selectedCurrency}
-          selectedCommission={selectedCommission}
-          selectedPublishSale={selectedPublishSale}
-          selectedPublishApp={selectedPublishApp}
-        />
-      ) : null}
       {message ? (
         <p className="mt-4 text-sm text-[color:var(--aipify-text-secondary)]" role="status">
           {message.text}
         </p>
       ) : null}
     </section>
-  );
-}
-
-function ProductAdminForm({
-  labels,
-  pending,
-  onSubmit,
-  selectedProductKey,
-  editorMode,
-  selectedTitle,
-  selectedCurrency,
-  selectedCommission,
-  selectedPublishSale,
-  selectedPublishApp,
-}: {
-  labels: SellersActionLabels;
-  pending: boolean;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  selectedProductKey: string | null;
-  editorMode: "create" | "edit";
-  selectedTitle: string | null;
-  selectedCurrency: string | null;
-  selectedCommission: number | null;
-  selectedPublishSale: boolean | null;
-  selectedPublishApp: boolean | null;
-}) {
-  const [tab, setTab] = useState<
-    "product" | "media" | "language" | "appPanel" | "salePanel" | "preview"
-  >("product");
-  const tabs = [
-    ["product", labels.productTabProduct],
-    ["media", labels.productTabMedia],
-    ["language", labels.productTabLanguage],
-    ["appPanel", labels.productTabAppPanel],
-    ["salePanel", labels.productTabSalePanel],
-    ["preview", labels.productTabPreview],
-  ] as const;
-  const heading =
-    editorMode === "edit" && selectedProductKey
-      ? `${labels.productTitle}: ${selectedTitle || selectedProductKey}`
-      : labels.productsTitle;
-  return (
-    <form className="mt-4 grid max-w-3xl gap-4" onSubmit={onSubmit}>
-      <p className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">{heading}</p>
-      <div className="flex flex-wrap gap-2" role="tablist" aria-label={labels.productsTitle}>
-        {tabs.map(([id, label]) => (
-          <button
-            key={id}
-            type="button"
-            role="tab"
-            aria-selected={tab === id}
-            onClick={() => setTab(id)}
-            className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${
-              tab === id
-                ? "bg-[color:var(--aipify-companion-purple)] text-white"
-                : "border border-[color:var(--aipify-border)] text-[color:var(--aipify-text-secondary)]"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-      <div hidden={tab !== "product"} className="grid gap-3">
-        <Field
-          name="product_key"
-          label={labels.productKey}
-          defaultValue={selectedProductKey ?? ""}
-          required
-        />
-        <Field name="title" label={labels.productTitle} defaultValue={selectedTitle ?? ""} />
-        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.titlePersistenceNote}</p>
-      </div>
-      <div hidden={tab !== "media"} className="grid gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
-        <p>{labels.mediaBlocked}</p>
-      </div>
-      <div hidden={tab !== "language"}>
-        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.languageNotStored}</p>
-      </div>
-      <div hidden={tab !== "appPanel"} className="grid gap-3">
-        <p className="text-sm text-[color:var(--aipify-text-secondary)]">
-          {labels.publishAppHint ?? labels.appPanelBlocked}
-        </p>
-        <label className="flex items-center gap-2 text-sm">
-          <input name="publish_app" type="checkbox" defaultChecked={selectedPublishApp === true} />
-          <span>{labels.publishApp ?? labels.productTabAppPanel}</span>
-        </label>
-        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.priceNotPublished}</p>
-        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.priceNotCommission}</p>
-        <label className="flex items-center gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
-          <input name="channel_only" type="checkbox" />
-          <span>{labels.channelOnlyHint ?? labels.publishAppHint ?? labels.appPanelBlocked}</span>
-        </label>
-      </div>
-      <div hidden={tab !== "salePanel"} className="grid gap-3">
-        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.percentUnavailable}</p>
-        <Field
-          name="currency"
-          label={labels.currency}
-          placeholder="NOK"
-          maxLength={3}
-          defaultValue={selectedCurrency ?? "NOK"}
-        />
-        <Field
-          name="fixed_commission_amount"
-          label={labels.fixedCommission}
-          type="number"
-          defaultValue={
-            selectedCommission != null && Number.isFinite(selectedCommission)
-              ? String(selectedCommission)
-              : ""
-          }
-        />
-        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.publishMeaning}</p>
-        <label className="flex items-center gap-2 text-sm">
-          <input name="publish_sale" type="checkbox" defaultChecked={selectedPublishSale === true} />
-          <span>{labels.publishSale ?? labels.published}</span>
-        </label>
-      </div>
-      <div hidden={tab !== "preview"} className="grid gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
-        <p>{labels.previewNote}</p>
-      </div>
-      <Submit pending={pending} label={labels.submitProduct} />
-    </form>
   );
 }
 

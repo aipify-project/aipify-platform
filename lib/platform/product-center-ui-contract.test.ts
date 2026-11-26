@@ -1,30 +1,47 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
 
 const root = process.cwd();
 const read = (rel: string) => readFileSync(join(root, rel), "utf8");
 
-test("Product Center exposes Shopify-style top tabs on sellers products", () => {
+test("Product Center list navigates to separate create/edit routes", () => {
   const live = read("components/platform/sellers/CertifiedSellersLivePanel.tsx");
   assert.match(live, /PRODUCT_CENTER_VIEWS/);
-  assert.match(live, /productCenterTabProducts/);
-  assert.match(live, /productCenterTabCategories/);
-  assert.match(live, /productCenterTabApp/);
-  assert.match(live, /productCenterTabSale/);
-  assert.match(live, /productCenterTabMedia/);
   assert.match(live, /ProductCenterWorkspace/);
-  assert.match(live, /onEditProduct/);
-  assert.match(live, /onNewProduct/);
+  assert.match(live, /\/platform\/sellers\/products\/new/);
+  assert.match(live, /\/platform\/sellers\/products\/\$\{encodeURIComponent\(productKey\)\}/);
+  assert.doesNotMatch(live, /CertifiedSellersActionPanel[\s\S]{0,80}section="products"/);
 });
 
-test("register table supports counts, search, and edit without empty create-as-edit ambiguity", () => {
+test("Shopify product editor exists with sticky save and channel picker", () => {
+  const editor = read("components/platform/sellers/ProductShopifyEditor.tsx");
+  assert.match(editor, /sticky top-0/);
+  assert.match(editor, /Publishing channels|channelsCardTitle|channelApp/);
+  assert.match(editor, /statusActive|statusDraft|statusUnlisted/);
+  assert.match(editor, /lg:grid-cols-\[minmax\(0,2fr\)_minmax\(16rem,1fr\)\]/);
+});
+
+test("create and edit product pages are routed separately from the list", () => {
+  assert.equal(existsSync("app/platform/sellers/products/new/page.tsx"), true);
+  assert.equal(existsSync("app/platform/sellers/products/[productKey]/page.tsx"), true);
+  const create = read("app/platform/sellers/products/new/page.tsx");
+  const edit = read("app/platform/sellers/products/[productKey]/page.tsx");
+  assert.match(create, /ProductEditorPageClient/);
+  assert.match(edit, /ProductEditorPageClient/);
+  assert.match(create, /mode="create"/);
+  assert.match(edit, /mode="edit"/);
+});
+
+test("register table supports compact channels column and clickable name", () => {
   const table = read("components/platform/sellers/UnifiedProductRegisterTable.tsx");
   assert.match(table, /countProductCenterChannels/);
   assert.match(table, /onNewProduct/);
   assert.match(table, /onEditProduct/);
-  assert.match(table, /listPendingNote/);
+  assert.match(table, /colChannels/);
+  assert.match(table, /channelsBoth/);
+  assert.match(table, /hover:underline/);
 });
 
 test("partner SALE catalog filters through unified sale channel", () => {
