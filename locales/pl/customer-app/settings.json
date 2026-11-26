@@ -156,6 +156,55 @@
           }
         }
       }
+    },
+    "customerProfile": {
+      "eyebrow": "Konto",
+      "title": "Profil i relacja z klientem",
+      "subtitle": "Dane konta, które ta przestrzeń robocza już może pokazać. Firma i dane sprzedawcy nie są tutaj wymagane.",
+      "profileTitle": "Profil",
+      "relationshipTitle": "Relacja z klientem",
+      "fullName": "Imię i nazwisko",
+      "role": "Rola",
+      "address": "Adres",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "website": "Witryna",
+      "workspace": "Obszar roboczy",
+      "plan": "Aktywny plan",
+      "status": "Status",
+      "reference": "Identyfikator klienta",
+      "created": "Utworzono",
+      "updated": "Ostatnia aktualizacja",
+      "unavailable": "Niedostępne w tym widoku",
+      "notRegistered": "Nie zarejestrowano",
+      "photoNote": "Na tym koncie nie ma zapisanego zdjęcia profilowego.",
+      "actionsTitle": "Działania",
+      "editProfile": "Edytuj profil",
+      "updateContact": "Aktualizuj dane kontaktowe",
+      "changePhoto": "Zmień zdjęcie profilowe",
+      "privacy": "Ustawienia prywatności",
+      "actionBlocked": "Edycja, aktualizacja kontaktu i zmiana zdjęcia nie są jeszcze dostępne. Ta strona niczego nie zapisuje.",
+      "lockTitle": "Zablokuj ekran",
+      "lockBody": "Bezpieczna blokada ekranu wymaga ponownego logowania sprawdzonego na serwerze. Pozostaje nieaktywna do zatwierdzenia tego kroku. Ta kontrola nie blokuje ekranu.",
+      "lockStatus": "Nieaktywna",
+      "statusUnknown": "Status nie został zgłoszony",
+      "dateEmpty": "Nie zarejestrowano",
+      "dateInvalid": "Data niedostępna",
+      "roles": {
+        "owner": "Właściciel",
+        "admin": "Administrator",
+        "support": "Wsparcie",
+        "staff": "Pracownik",
+        "read_only": "Tylko odczyt",
+        "member": "Członek"
+      },
+      "statuses": {
+        "active": "Aktywny",
+        "paused": "Wstrzymany",
+        "grace": "Okres prolongaty",
+        "trialing": "Okres próbny",
+        "cancelled": "Anulowany"
+      }
     }
   },
   "expertiseOperations": {

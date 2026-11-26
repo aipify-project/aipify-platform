@@ -491,6 +491,55 @@
           }
         }
       }
+    },
+    "customerProfile": {
+      "eyebrow": "Account",
+      "title": "Profile and customer relationship",
+      "subtitle": "The account details this workspace session can already show. Company registration and seller details are not required here.",
+      "profileTitle": "Profile",
+      "relationshipTitle": "Customer relationship",
+      "fullName": "Full name",
+      "role": "Role",
+      "address": "Address",
+      "email": "Email",
+      "phone": "Phone",
+      "website": "Website",
+      "workspace": "Workspace",
+      "plan": "Active plan",
+      "status": "Status",
+      "reference": "Customer reference",
+      "created": "Created",
+      "updated": "Last updated",
+      "unavailable": "Not available in this view",
+      "notRegistered": "Not registered",
+      "photoNote": "No profile photo is stored on this account.",
+      "actionsTitle": "Actions",
+      "editProfile": "Edit profile",
+      "updateContact": "Update contact details",
+      "changePhoto": "Change profile photo",
+      "privacy": "Privacy settings",
+      "actionBlocked": "Editing, contact updates, and photo changes are not available yet. Nothing is saved from this page.",
+      "lockTitle": "Lock screen",
+      "lockBody": "A secure screen lock needs a new sign-in checked on the server. It stays inactive until that step is approved. This control does not lock the screen.",
+      "lockStatus": "Not active",
+      "statusUnknown": "Status not reported",
+      "dateEmpty": "Not registered",
+      "dateInvalid": "Date unavailable",
+      "roles": {
+        "owner": "Owner",
+        "admin": "Administrator",
+        "support": "Support",
+        "staff": "Staff",
+        "read_only": "Read only",
+        "member": "Member"
+      },
+      "statuses": {
+        "active": "Active",
+        "paused": "Paused",
+        "grace": "Grace period",
+        "trialing": "Trial",
+        "cancelled": "Cancelled"
+      }
     }
   },
   "paymentProviders": {

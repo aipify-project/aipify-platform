@@ -37,6 +37,7 @@ import AnalyticsConsentProvider from "@/components/analytics/AnalyticsConsentPro
 import { buildAnalyticsConsentLabels } from "@/lib/product-analytics/consent";
 import { redirect } from "next/navigation";
 import { cookies, headers } from "next/headers";
+import { CUSTOMER_PROFILE_ROUTE } from "@/lib/app/customer-profile/model";
 import { APP_PRODUCT_CONTEXT_COOKIE } from "@/lib/app-portal/product-context/constants";
 import type { AppProductContextId } from "@/lib/app-portal/product-context/constants";
 import { availableProductsFromBundle } from "@/lib/app-portal/product-context/available-from-bundle";
@@ -330,6 +331,10 @@ export default async function AppLayout({
             navSources: customerNavSourcesFromSearchIndex(navSearchIndex),
           }}
           pwaLabels={pwaLabels}
+          customerProfileLink={{
+            href: CUSTOMER_PROFILE_ROUTE,
+            label: t("shell.sidebar.customerProfile"),
+          }}
         >
           <NavigationUseTracker />
           {suspendedNotice ? (

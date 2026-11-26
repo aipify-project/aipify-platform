@@ -1,7 +1,8 @@
 {
   "sidebar": {
     "plan": "Business Plan",
-    "workspaceControlCenter": "Workspace Control Center"
+    "workspaceControlCenter": "Workspace Control Center",
+    "customerProfile": "Profil / Kundeforhold"
   },
   "topbar": {
     "notifications": "Notifications",

@@ -487,6 +487,55 @@
           }
         }
       }
+    },
+    "customerProfile": {
+      "eyebrow": "Konto",
+      "title": "Profil og kundeforhold",
+      "subtitle": "Kontoopplysningene denne arbeidsflaten allerede kan vise. Firma og selgeropplysninger kreves ikke her.",
+      "profileTitle": "Profil",
+      "relationshipTitle": "Kundeforhold",
+      "fullName": "Fullt navn",
+      "role": "Rolle",
+      "address": "Adresse",
+      "email": "E-post",
+      "phone": "Telefon",
+      "website": "Nettsted",
+      "workspace": "Arbeidsområde",
+      "plan": "Aktiv plan",
+      "status": "Status",
+      "reference": "Kundereferanse",
+      "created": "Opprettet",
+      "updated": "Sist oppdatert",
+      "unavailable": "Ikke tilgjengelig i denne visningen",
+      "notRegistered": "Ikke registrert",
+      "photoNote": "Ingen profilbilde er lagret på denne kontoen.",
+      "actionsTitle": "Handlinger",
+      "editProfile": "Rediger profil",
+      "updateContact": "Oppdater kontaktinfo",
+      "changePhoto": "Bytt profilbilde",
+      "privacy": "Personverninnstillinger",
+      "actionBlocked": "Redigering, kontaktoppdatering og bytte av profilbilde er ikke tilgjengelig ennå. Ingenting lagres fra denne siden.",
+      "lockTitle": "Lås skjerm",
+      "lockBody": "Sikker skjermlås krever en ny innlogging som kontrolleres på serveren. Den er inaktiv til det steget er godkjent. Denne kontrollen låser ikke skjermen.",
+      "lockStatus": "Ikke aktiv",
+      "statusUnknown": "Status er ikke rapportert",
+      "dateEmpty": "Ikke registrert",
+      "dateInvalid": "Dato ikke tilgjengelig",
+      "roles": {
+        "owner": "Eier",
+        "admin": "Administrator",
+        "support": "Support",
+        "staff": "Medarbeider",
+        "read_only": "Kun lesing",
+        "member": "Medlem"
+      },
+      "statuses": {
+        "active": "Aktiv",
+        "paused": "Satt på pause",
+        "grace": "Henstand",
+        "trialing": "Prøveperiode",
+        "cancelled": "Avsluttet"
+      }
     }
   },
   "governance": {
