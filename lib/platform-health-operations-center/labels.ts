@@ -20,9 +20,13 @@ export function buildPlatformHealthOperationsLabels(
     title: t(`${p}.title`),
     subtitle: t(`${p}.subtitle`),
     loading: t(`${p}.loading`),
+    loadErrorTitle: t(`${p}.loadErrorTitle`),
+    loadErrorMessage: t(`${p}.loadErrorMessage`),
+    retry: t(`${p}.retry`),
     back: t(`${p}.back`),
     principle: t(`${p}.principle`),
     emptyState: t(`${p}.emptyState`),
+    unknownVerified: t(`${p}.unknownVerified`),
     sections: {
       services: t(`${p}.sections.services`),
       executiveSummary: t(`${p}.sections.executiveSummary`),

@@ -12,15 +12,15 @@
       "loading": "Ładowanie przeglądu platformy…",
       "principle": "Platforma obsługuje Aipify Group. Nadzór wykonawczy należy do Super Admin.",
       "privacyNote": "Tylko zagregowane operacje platformy — bez treści biznesowych klienta.",
-      "organizationsRequiringAttention": "Organizacje wymagające uwagi",
-      "activeSubscriptions": "Aktywne umowy",
+      "organizationsRequiringAttention": "Organizacje wymagające działania",
+      "activeSubscriptions": "Aktywne umowy klientów",
       "openSupportWorkload": "Otwarte obciążenie supportu",
       "paymentStatusSummary": "Status płatności",
       "paymentActive": "Aktywne",
       "paymentPastDue": "Zaległe",
       "paymentTrialing": "Okres próbny",
       "customerSuccessIndicators": "Wskaźniki sukcesu klienta",
-      "healthyRatio": "Udział zdrowych organizacji",
+      "healthyRatio": "Udział zdrowych organizacji klientów",
       "marketplaceModeration": "Moderacja marketplace",
       "pendingReview": "Oczekuje na przegląd",
       "published": "Opublikowano",
@@ -66,7 +66,11 @@
           "attention_required": "Wymaga uwagi",
           "unknown": "Status niedostępny"
         }
-      }
+      },
+      "customerOrganizations": "Organizacje klientów",
+      "requiresActionTitle": "Wymaga działania",
+      "financeOverviewTitle": "Przegląd finansowy",
+      "partnerScopeNote": "Certyfikowani partnerzy sprzedaży są oddzieleni od organizacji klientów APP i nie są tu liczeni jako płatni klienci."
     },
     "foundation": {
       "loading": "Ładowanie…",
@@ -403,8 +407,8 @@
   "overview": {
     "title": "Aipify Platform Admin",
     "subtitle": "Kontrola wykonawcza Aipify dla Aipify Group AS — co ma znaczenie, co wymaga uwagi i co zrobić dalej.",
-    "note": "Customer Control Center znajduje się pod adresem /dashboard. Ten obszar jest przeznaczony wyłącznie do użytku wewnętrznego i obejmuje wszystkich tenantów.",
-    "loading": "Przygotowywanie briefingu wykonawczego...",
+    "note": "Operacyjny przegląd platformy dla wszystkich tenantów. Control Center klienta pozostaje w APP klienta.",
+    "loading": "Przygotowywanie przeglądu operacyjnego…",
     "briefing": {
       "title": "Briefing wykonawczy",
       "greetingMorning": "Dzień dobry, {name}.",
@@ -519,7 +523,16 @@
         "enterprise": "Enterprise"
       },
       "privacyNote": "Aipify uczy się wyłącznie na podstawie wzorców operacyjnych. Rozmowy klientów, faktury, tożsamości i treści wrażliwe nigdy nie są przechowywane w systemie uczenia."
-    }
+    },
+    "loadErrorTitle": "Nie udało się wczytać przeglądu operacyjnego",
+    "loadErrorMessage": "Sygnały operacyjne nie mogły zostać wczytane. Sprawdź dostęp i spróbuj ponownie.",
+    "retry": "Spróbuj ponownie",
+    "platformScore": "Wynik platformy: {score}% · {label}",
+    "operationalLinksTitle": "Linki operacyjne",
+    "linkPlatformHealth": "Status platformy",
+    "linkAuditLogs": "Dziennik zdarzeń",
+    "linkInstallations": "Instalacje",
+    "linkSupport": "Wsparcie"
   },
   "customerType": {
     "company": "Firma",
@@ -5667,7 +5680,11 @@
     },
     "actions": {
       "applying": "Stosowanie…"
-    }
+    },
+    "loadErrorTitle": "Nie udało się wczytać statusu platformy",
+    "loadErrorMessage": "Sygnałów zdrowia nie udało się zweryfikować. Spróbuj ponownie lub sprawdź dostęp Platform Admin.",
+    "retry": "Spróbuj ponownie",
+    "unknownVerified": "Status: nieznany / nie można zweryfikować, dopóki sygnał zdrowia nie zostanie potwierdzony."
   },
   "system": {
     "title": "Stan systemu",
@@ -7333,19 +7350,19 @@
   },
   "kompisAi": {
     "title": "Kompis AI",
-    "subtitle": "Monitoruj live AI, bezpieczne planowanie zapasowe, pojemnosc i status operacyjny.",
-    "liveAi": "Live AI",
+    "subtitle": "Dostępność providera i zarządzanie planerem dla operatora Platform Kompis — nie status licencji produktu.",
+    "liveAi": "Provider planera",
     "safeFallback": "Secure fallback planning",
-    "liveAiActive": "Live AI jest aktywne",
-    "liveAiNotEnabled": "Live AI nie jest wlaczone",
-    "liveAiTemporarilyLimited": "Live AI is temporarily limited",
+    "liveAiActive": "Provider dostępny",
+    "liveAiNotEnabled": "Provider nie skonfigurowany",
+    "liveAiTemporarilyLimited": "Provider tymczasowo ograniczony",
     "usingSafeFallback": "Kompis uzywa bezpiecznego planowania zapasowego",
     "providerStatus": "Provider status",
     "modelProfile": "Model profile",
     "systemPromptVersion": "System prompt version",
     "plannerVersion": "Planner version",
     "operationsStatus": "Operational status",
-    "ready": "Ready",
+    "ready": "Provider gotowy",
     "limited": "Limited",
     "cooldown": "Cooling down",
     "unavailable": "Unavailable",
@@ -7374,9 +7391,12 @@
     "fallback": "Fallback",
     "errors": "Errors",
     "activeOrganizations": "Active organizations",
-    "circuitBreaker": "Circuit breaker",
-    "open": "Open",
-    "closed": "Closed"
+    "circuitBreaker": "Zabezpieczenie techniczne",
+    "open": "Otwarte",
+    "closed": "Zamknięte",
+    "scopeNote": "Ta strona pokazuje tylko zdrowie planera/providera. Nie oznacza, że Kompis Web, Kompis Bedrift lub wspólny Kompis Core jest licencjonowany lub w pełni zintegrowany.",
+    "unverified": "Niesprawdzone",
+    "circuitBreakerHelp": "Techniczny wyłącznik wywołań providera — nie ogólna gwarancja bezpieczeństwa."
   },
   "websiteReleaseVerification": {
     "title": "Website Release Verification",

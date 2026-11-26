@@ -385,19 +385,19 @@
   },
   "kompisAi": {
     "title": "Kompis AI",
-    "subtitle": "Supervisa la IA en vivo, la planificacion de reserva segura, la capacidad y el estado operativo.",
-    "liveAi": "Live AI",
+    "subtitle": "Alcance del proveedor y gobernanza del planificador para el operador Platform Kompis — no es el estado de licencia del producto.",
+    "liveAi": "Proveedor del planificador",
     "safeFallback": "Secure fallback planning",
-    "liveAiActive": "La IA en vivo esta activa",
-    "liveAiNotEnabled": "La IA en vivo no esta activada",
-    "liveAiTemporarilyLimited": "Live AI is temporarily limited",
+    "liveAiActive": "Proveedor alcanzable",
+    "liveAiNotEnabled": "Proveedor no configurado",
+    "liveAiTemporarilyLimited": "Proveedor temporalmente limitado",
     "usingSafeFallback": "Kompis usa planificacion de reserva segura",
     "providerStatus": "Provider status",
     "modelProfile": "Model profile",
     "systemPromptVersion": "System prompt version",
     "plannerVersion": "Planner version",
     "operationsStatus": "Operational status",
-    "ready": "Ready",
+    "ready": "Proveedor listo",
     "limited": "Limited",
     "cooldown": "Cooling down",
     "unavailable": "Unavailable",
@@ -426,9 +426,12 @@
     "fallback": "Fallback",
     "errors": "Errors",
     "activeOrganizations": "Active organizations",
-    "circuitBreaker": "Circuit breaker",
-    "open": "Open",
-    "closed": "Closed"
+    "circuitBreaker": "Salvaguarda técnica",
+    "open": "Abierto",
+    "closed": "Cerrado",
+    "scopeNote": "Esta página solo informa la salud del planificador/proveedor. No significa que Kompis Web, Kompis Bedrift o un Kompis Core compartido esté licenciado o totalmente integrado.",
+    "unverified": "Sin verificar",
+    "circuitBreakerHelp": "Interruptor técnico de llamadas al proveedor — no es una garantía general de seguridad."
   },
   "websiteReleaseVerification": {
     "title": "Website Release Verification",
@@ -981,7 +984,14 @@
           "attention_required": "Requiere atención",
           "unknown": "Estado no disponible"
         }
-      }
+      },
+      "customerOrganizations": "Organizaciones de clientes",
+      "activeSubscriptions": "Acuerdos de cliente activos",
+      "organizationsRequiringAttention": "Organizaciones que requieren acción",
+      "requiresActionTitle": "Requiere acción",
+      "financeOverviewTitle": "Resumen financiero",
+      "partnerScopeNote": "Los vendedores certificados se separan de las organizaciones de clientes de APP y no se cuentan aquí como clientes de pago.",
+      "healthyRatio": "Proporción de organizaciones de clientes saludables"
     },
     "superRoleAccess": {
       "title": "Roles y accesos",
@@ -1602,5 +1612,24 @@
       "retry": "Intentar de nuevo",
       "close": "Cerrar"
     }
+  },
+  "overview": {
+    "note": "Vista operativa de plataforma en todos los tenants. El Control Center del cliente permanece en la APP del cliente.",
+    "loading": "Preparando vista operativa…",
+    "loadErrorTitle": "No se pudo cargar la vista operativa",
+    "loadErrorMessage": "No se pudieron cargar las señales operativas. Comprueba el acceso e inténtalo de nuevo.",
+    "retry": "Reintentar",
+    "platformScore": "Puntuación de plataforma: {score}% · {label}",
+    "operationalLinksTitle": "Enlaces operativos",
+    "linkPlatformHealth": "Estado de plataforma",
+    "linkAuditLogs": "Registro de eventos",
+    "linkInstallations": "Instalaciones",
+    "linkSupport": "Soporte"
+  },
+  "platformHealthOperationsCenter": {
+    "loadErrorTitle": "No se pudo cargar el estado de plataforma",
+    "loadErrorMessage": "No se pudieron verificar las señales de salud. Inténtalo de nuevo o comprueba el acceso de Platform Admin.",
+    "retry": "Reintentar",
+    "unknownVerified": "Estado: desconocido / no se puede verificar hasta confirmar una señal de salud."
   }
 }

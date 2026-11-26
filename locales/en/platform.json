@@ -12,15 +12,15 @@
       "loading": "Loading platform overview…",
       "principle": "Platform operates Aipify Group. Executive oversight belongs in Super Admin.",
       "privacyNote": "Aggregate platform operations only — no customer business content.",
-      "organizationsRequiringAttention": "Organizations requiring attention",
-      "activeSubscriptions": "Active agreements",
+      "organizationsRequiringAttention": "Organizations requiring action",
+      "activeSubscriptions": "Active customer agreements",
       "openSupportWorkload": "Open support workload",
       "paymentStatusSummary": "Payment status",
       "paymentActive": "Active",
       "paymentPastDue": "Past due",
       "paymentTrialing": "Trial period",
       "customerSuccessIndicators": "Customer success indicators",
-      "healthyRatio": "Healthy organization ratio",
+      "healthyRatio": "Healthy customer organizations",
       "marketplaceModeration": "Marketplace moderation",
       "pendingReview": "Pending review",
       "published": "Published",
@@ -66,7 +66,11 @@
           "attention_required": "Attention required",
           "unknown": "Status unavailable"
         }
-      }
+      },
+      "customerOrganizations": "Customer organizations",
+      "requiresActionTitle": "Requires action",
+      "financeOverviewTitle": "Finance overview",
+      "partnerScopeNote": "Sales partners are separate from APP customer organizations and are not counted as paying customers here."
     },
     "foundation": {
       "loading": "Loading…",
@@ -403,8 +407,8 @@
   "overview": {
     "title": "Aipify Platform Admin",
     "subtitle": "Aipify-powered executive control for Aipify Group AS — what matters, what needs attention, and what to do next.",
-    "note": "Customer Control Center lives at /dashboard. This area is internal-only and spans all tenants.",
-    "loading": "Preparing your executive briefing...",
+    "note": "Platform operations overview across all tenants. Customer Control Center remains in the customer APP.",
+    "loading": "Preparing operations overview…",
     "briefing": {
       "title": "Executive Briefing",
       "greetingMorning": "Good morning, {name}.",
@@ -519,7 +523,16 @@
         "enterprise": "Enterprise"
       },
       "privacyNote": "Aipify learns from operational patterns only. Customer conversations, invoices, identities, and sensitive content are never stored in the learning system."
-    }
+    },
+    "loadErrorTitle": "Could not load operations overview",
+    "loadErrorMessage": "Operational signals could not be loaded. Check access and try again.",
+    "retry": "Try again",
+    "platformScore": "Platform score: {score}% · {label}",
+    "operationalLinksTitle": "Operational links",
+    "linkPlatformHealth": "Platform status",
+    "linkAuditLogs": "Event log",
+    "linkInstallations": "Installations",
+    "linkSupport": "Support"
   },
   "customerType": {
     "company": "Company",
@@ -5667,7 +5680,11 @@
     },
     "actions": {
       "applying": "Applying…"
-    }
+    },
+    "loadErrorTitle": "Could not load platform status",
+    "loadErrorMessage": "Health signals could not be verified. Try again or check Platform Admin access.",
+    "retry": "Try again",
+    "unknownVerified": "Status: unknown / cannot be verified until a health signal is confirmed."
   },
   "system": {
     "title": "System status",
@@ -7333,19 +7350,19 @@
   },
   "kompisAi": {
     "title": "Kompis AI",
-    "subtitle": "Monitor live AI, secure fallback planning, capacity, and operational status.",
-    "liveAi": "Live AI",
+    "subtitle": "Provider reachability and planner governance for Platform Kompis operator — not product license status.",
+    "liveAi": "Planner provider",
     "safeFallback": "Secure fallback planning",
-    "liveAiActive": "Live AI is active",
-    "liveAiNotEnabled": "Live AI is not enabled",
-    "liveAiTemporarilyLimited": "Live AI is temporarily limited",
+    "liveAiActive": "Provider reachable",
+    "liveAiNotEnabled": "Provider not configured",
+    "liveAiTemporarilyLimited": "Provider temporarily limited",
     "usingSafeFallback": "Kompis is using secure fallback planning",
     "providerStatus": "Provider status",
     "modelProfile": "Model profile",
     "systemPromptVersion": "System prompt version",
     "plannerVersion": "Planner version",
     "operationsStatus": "Operational status",
-    "ready": "Ready",
+    "ready": "Provider ready",
     "limited": "Limited",
     "cooldown": "Cooling down",
     "unavailable": "Unavailable",
@@ -7374,9 +7391,12 @@
     "fallback": "Fallback",
     "errors": "Errors",
     "activeOrganizations": "Active organizations",
-    "circuitBreaker": "Circuit breaker",
+    "circuitBreaker": "Circuit safeguard",
     "open": "Open",
-    "closed": "Closed"
+    "closed": "Closed",
+    "scopeNote": "This page reports planner/provider health only. It does not mean Kompis Web, Kompis Bedrift, or a shared Kompis Core is licensed or fully integrated.",
+    "unverified": "Unverified",
+    "circuitBreakerHelp": "Technical trip switch for provider calls — not a general security guarantee."
   },
   "websiteReleaseVerification": {
     "title": "Website Release Verification",

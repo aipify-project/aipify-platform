@@ -96,9 +96,13 @@ export type PlatformHealthOperationsLabels = {
   title: string;
   subtitle: string;
   loading: string;
+  loadErrorTitle: string;
+  loadErrorMessage: string;
+  retry: string;
   back: string;
   principle: string;
   emptyState: string;
+  unknownVerified: string;
   sections: {
     services: string;
     executiveSummary: string;
