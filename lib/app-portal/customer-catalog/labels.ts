@@ -21,6 +21,9 @@ export type CustomerCatalogLabels = {
   stateComingLater: string;
   priceUnavailable: string;
   purchaseClosed: string;
+  startPurchase: string;
+  purchasePending: string;
+  purchaseError: string;
   openProduct: string;
   monthly: string;
   yearly: string;
@@ -56,6 +59,9 @@ export function buildCustomerCatalogLabels(t: Translator): CustomerCatalogLabels
     stateComingLater: pick("stateComingLater"),
     priceUnavailable: pick("priceUnavailable"),
     purchaseClosed: pick("purchaseClosed"),
+    startPurchase: pick("startPurchase"),
+    purchasePending: pick("purchasePending"),
+    purchaseError: pick("purchaseError"),
     openProduct: pick("openProduct"),
     monthly: pick("monthly"),
     yearly: pick("yearly"),

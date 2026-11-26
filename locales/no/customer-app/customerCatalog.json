@@ -29,6 +29,9 @@
     "seeAllFeatures": "Se alle funksjoner",
     "hideFeatures": "Skjul funksjoner",
     "billingUnavailable": "Fakturadetaljer kunne ikke leses. Produkttilgang over er atskilt fra pris.",
-    "exploreLink": "Utforsk Aipify-produkter"
+    "exploreLink": "Utforsk Aipify-produkter",
+    "startPurchase": "Start kjøp",
+    "purchasePending": "Åpner sikker betaling…",
+    "purchaseError": "Kjøpet kunne ikke startes. Prøv igjen."
   }
 }

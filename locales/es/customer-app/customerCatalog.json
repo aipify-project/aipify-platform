@@ -29,6 +29,9 @@
     "seeAllFeatures": "Ver todas las funciones",
     "hideFeatures": "Ocultar funciones",
     "billingUnavailable": "No se pudieron leer los datos de facturación. El acceso al producto de arriba es independiente del precio.",
-    "exploreLink": "Explorar productos Aipify"
+    "exploreLink": "Explorar productos Aipify",
+    "startPurchase": "Iniciar compra",
+    "purchasePending": "Abriendo pago seguro…",
+    "purchaseError": "No se pudo iniciar la compra. Inténtalo de nuevo."
   }
 }

@@ -67,6 +67,34 @@ assert.equal(catalog.categories.some((category) => category.id === "voice"), tru
 assert.equal(catalogHasBothIntervals(selectCatalogProducts(catalog, "kompis")), true);
 assert.equal(selectCatalogProducts(catalog, "missing").length, catalog.products.length);
 
+const purchasable = buildCustomerCatalog({
+  billing: {
+    catalog_products: [
+      {
+        id: "storage_plus",
+        category: "kompis",
+        name: "Knowledge Storage+",
+        published: true,
+        price_status: "published",
+        monthly: {
+          offer_id: "offer_storage_month",
+          price_status: "published",
+          amount: 99,
+          currency: "NOK",
+        },
+      },
+    ],
+  },
+  access: { webKind: "no_module", webPlan: null, bedrift: "not_licensed" },
+  billingUnavailable: false,
+  commerceCheckoutEnabled: true,
+});
+assert.equal(purchasable.products.find((product) => product.id === "storage_plus")?.checkoutEnabled, true);
+assert.equal(
+  purchasable.products.find((product) => product.id === "storage_plus")?.prices[0]?.offerId,
+  "offer_storage_month"
+);
+
 const unknown = buildCustomerCatalog({
   billing: null,
   access: { webKind: "unavailable", webPlan: null, bedrift: "unknown" },

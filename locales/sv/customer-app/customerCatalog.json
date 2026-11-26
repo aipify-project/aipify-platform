@@ -29,6 +29,9 @@
     "seeAllFeatures": "Se alla funktioner",
     "hideFeatures": "Dölj funktioner",
     "billingUnavailable": "Fakturauppgifter kunde inte läsas. Produktåtkomsten ovan är skild från pris.",
-    "exploreLink": "Utforska Aipify-produkter"
+    "exploreLink": "Utforska Aipify-produkter",
+    "startPurchase": "Start köp",
+    "purchasePending": "Öppnar säker betalning…",
+    "purchaseError": "Köp kunde inte startas. Försök igen."
   }
 }

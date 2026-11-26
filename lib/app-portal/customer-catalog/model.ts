@@ -32,6 +32,8 @@ export type CatalogPrice = {
   amount: number;
   currency: string;
   interval: CatalogInterval;
+  /** Server-published offer id for commerce checkout. Never a raw Stripe price. */
+  offerId?: string;
 };
 
 export type CatalogProduct = {
@@ -49,8 +51,11 @@ export type CatalogProduct = {
   features: string[];
   /** Product workspace. Null when the product is not an active entitlement. */
   openHref: string | null;
-  /** Always false until a catalog-scoped checkout path exists. The trial checkout route is not used. */
-  checkoutEnabled: false;
+  /**
+   * Purchase CTA for catalog-scoped commerce checkout.
+   * Remains false in Production; TEST requires AIPIFY_APP_COMMERCE_TEST_CHECKOUT=1.
+   */
+  checkoutEnabled: boolean;
 };
 
 export type CatalogCategory = {
@@ -70,6 +75,8 @@ export type CustomerCatalogInput = {
   billing: unknown;
   access: KompisProductAccessRead;
   billingUnavailable: boolean;
+  /** When false (default), purchase CTAs stay closed even if published prices exist. */
+  commerceCheckoutEnabled?: boolean;
 };
 
 function asRecord(value: unknown): Record<string, unknown> | null {
@@ -115,7 +122,10 @@ function publishedPrice(row: Record<string, unknown>, interval: CatalogInterval)
   const amount = finiteAmount(row.amount ?? row.price_amount);
   const currency = typeof row.currency === "string" ? row.currency.trim().toUpperCase() : "";
   if (amount == null || !/^[A-Z]{3}$/.test(currency)) return null;
-  return { amount, currency, interval };
+  const offerRaw = row.offer_id ?? row.offerId;
+  const offerId =
+    typeof offerRaw === "string" && offerRaw.trim().length > 0 ? offerRaw.trim() : undefined;
+  return { amount, currency, interval, ...(offerId ? { offerId } : {}) };
 }
 
 function pricesFromRow(row: Record<string, unknown>): CatalogPrice[] {
@@ -193,22 +203,36 @@ function bedriftState(access: KompisProductAccessRead): CatalogProductState {
   return "unknown";
 }
 
-function mergeOffer(product: CatalogProduct, row: Record<string, unknown>): CatalogProduct {
+function mergeOffer(
+  product: CatalogProduct,
+  row: Record<string, unknown>,
+  commerceCheckoutEnabled: boolean
+): CatalogProduct {
   const description = humanText(row.description);
   const features = featuresFromRow(row);
   const prices = pricesFromRow(row);
   const comingLater = row.availability === "coming_later" || row.purchasable === false;
+  const mergedPrices = prices.length > 0 ? prices : product.prices;
+  const canPurchase =
+    commerceCheckoutEnabled &&
+    !comingLater &&
+    product.state !== "active" &&
+    mergedPrices.some((price) => Boolean(price.offerId));
   return {
     ...product,
     description: description ?? product.description,
     imagePath: safeImage(row.image_path ?? row.imagePath, product.id),
     features: features.length > 0 ? features : product.features,
-    prices: prices.length > 0 ? prices : product.prices,
+    prices: mergedPrices,
     state: comingLater && product.state !== "active" ? "coming_later" : product.state,
+    checkoutEnabled: canPurchase,
   };
 }
 
-function dynamicProduct(row: Record<string, unknown>): CatalogProduct | null {
+function dynamicProduct(
+  row: Record<string, unknown>,
+  commerceCheckoutEnabled: boolean
+): CatalogProduct | null {
   const id = rowId(row);
   if (!id) return null;
   if (matchesFamily(id, "website_kompis") || matchesFamily(id, "kompis_bedrift")) return null;
@@ -216,6 +240,7 @@ function dynamicProduct(row: Record<string, unknown>): CatalogProduct | null {
   const title = humanText(row.name ?? row.title);
   if (!title) return null;
   const comingLater = row.availability === "coming_later" || row.purchasable === false;
+  const prices = pricesFromRow(row);
   return {
     id,
     categoryId: category,
@@ -225,10 +250,13 @@ function dynamicProduct(row: Record<string, unknown>): CatalogProduct | null {
     description: humanText(row.description),
     imagePath: safeImage(row.image_path ?? row.imagePath, id),
     state: comingLater ? "coming_later" : "not_licensed",
-    prices: pricesFromRow(row),
+    prices,
     features: featuresFromRow(row),
     openHref: null,
-    checkoutEnabled: false,
+    checkoutEnabled:
+      commerceCheckoutEnabled &&
+      !comingLater &&
+      prices.some((price) => Boolean(price.offerId)),
   };
 }
 
@@ -238,6 +266,7 @@ function categoryLabelKey(id: string): CatalogCategory["labelKey"] {
 }
 
 export function buildCustomerCatalog(input: CustomerCatalogInput): CustomerCatalog {
+  const commerceCheckoutEnabled = input.commerceCheckoutEnabled === true;
   const offers = offerRows(input.billing);
   const webOffer = offers.find((row) => {
     const id = rowId(row);
@@ -263,7 +292,7 @@ export function buildCustomerCatalog(input: CustomerCatalogInput): CustomerCatal
     openHref: webStateValue === "active" ? FOUNDATION_NAV_BINDINGS.kompisWebDashboard : null,
     checkoutEnabled: false,
   };
-  if (webOffer) web = mergeOffer(web, webOffer);
+  if (webOffer) web = mergeOffer(web, webOffer, commerceCheckoutEnabled);
 
   const bedriftStateValue = bedriftState(input.access);
   let bedrift: CatalogProduct = {
@@ -280,10 +309,10 @@ export function buildCustomerCatalog(input: CustomerCatalogInput): CustomerCatal
     openHref: bedriftStateValue === "active" ? FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard : null,
     checkoutEnabled: false,
   };
-  if (bedriftOffer) bedrift = mergeOffer(bedrift, bedriftOffer);
+  if (bedriftOffer) bedrift = mergeOffer(bedrift, bedriftOffer, commerceCheckoutEnabled);
 
   const dynamic = offers
-    .map(dynamicProduct)
+    .map((row) => dynamicProduct(row, commerceCheckoutEnabled))
     .filter((product): product is CatalogProduct => Boolean(product));
 
   const products = [web, bedrift, ...dynamic];
