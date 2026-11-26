@@ -22,6 +22,7 @@ function jsonError(
 /**
  * Platform Support APP SoT list — inactive until Core apply + feature gate.
  * Never invents tickets. Never uses service-role. Never trusts client role flags.
+ * Mine tab: pass assigned_to=me (or assigned_support_owner_id=<uuid>) for server filter.
  */
 export async function GET(request: NextRequest) {
   try {
@@ -35,6 +36,14 @@ export async function GET(request: NextRequest) {
     }
 
     const sp = request.nextUrl.searchParams;
+    const assignedRaw = sp.get("assigned_support_owner_id") ?? sp.get("assigned_to");
+    const assignedSupportOwnerId =
+      assignedRaw === "me" || assignedRaw === "mine"
+        ? user.id
+        : assignedRaw && /^[0-9a-f-]{36}$/i.test(assignedRaw)
+          ? assignedRaw
+          : null;
+
     const result = await listPlatformSupportTickets(supabase, {
       status: sp.get("status"),
       channel: sp.get("channel"),
@@ -47,6 +56,7 @@ export async function GET(request: NextRequest) {
       sort: sp.get("sort"),
       page: sp.get("page") ? Number(sp.get("page")) : 1,
       pageSize: sp.get("page_size") ? Number(sp.get("page_size")) : 25,
+      assignedSupportOwnerId,
     });
 
     if (!result.ok) {
@@ -55,9 +65,12 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // viewerUserId lets the Mine tab match assigned_support_owner_id (auth user only).
     return NextResponse.json(
-      { ...result, viewerUserId: user.id },
+      {
+        ...result,
+        viewerUserId: user.id,
+        mineFilterApplied: Boolean(assignedSupportOwnerId),
+      },
       { headers: NO_STORE },
     );
   } catch {

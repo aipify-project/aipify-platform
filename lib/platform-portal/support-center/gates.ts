@@ -7,17 +7,17 @@ import {
   canInvokePlatformSupportTicketsReadRpc,
 } from "@/lib/platform-portal/support-tickets-read-adapter";
 import { SUPPORT_EMAIL_SEND_CONFIGURED } from "./channel-status";
-import { SUPPORT_SIGNATURE_PERSIST_CONFIGURED } from "./signature";
-import { SUPPORT_TEMPLATE_PERSIST_CONFIGURED } from "./reply-templates";
+import { resolveSupportCenterLiveGates } from "./staging-core-activation";
 import type { SupportCenterGateState } from "./types";
 
 export function getSupportCenterGateState(): SupportCenterGateState {
   const tickets = getPlatformSupportTicketsReadGateState();
+  const live = resolveSupportCenterLiveGates();
   return {
     ticketsLive: canInvokePlatformSupportTicketsReadRpc(),
-    emailSendConfigured: SUPPORT_EMAIL_SEND_CONFIGURED,
-    signaturePersistConfigured: SUPPORT_SIGNATURE_PERSIST_CONFIGURED,
-    templatePersistConfigured: SUPPORT_TEMPLATE_PERSIST_CONFIGURED,
+    emailSendConfigured: SUPPORT_EMAIL_SEND_CONFIGURED || live.emailSendConfigured,
+    signaturePersistConfigured: live.signaturePersistConfigured,
+    templatePersistConfigured: live.templatePersistConfigured,
     rpcConnected: tickets.rpcConnected,
     featureGate: tickets.featureGate,
     uiWired: tickets.uiWired,

@@ -49,11 +49,11 @@
 
 | Item | Path | SHA-256 |
 |------|------|---------|
-| Persist + timeline + Mine filter | `docs/platform/sql-candidates/platform_support_center_persist_and_timeline_rpc_v1.sql` | `6ec7e42693c5ce044cf01468b24e3a5e6f2b4028c507213c56330535c5eaf59e` |
+| Persist + timeline + Mine filter (**complete raw SQL**) | `docs/platform/sql-candidates/platform_support_center_persist_and_timeline_rpc_v1.sql` | `7f1a499438d453ab8ab7bef441c2d3cfbdb1628177fef383ee47b4e0277c2df9` |
 | Intake create (unchanged prior residual) | `docs/platform/sql-candidates/platform_support_center_intake_rpc_v1.sql` | `e987d820b3e0818bd6f2b9b7d0ef64caaf22136f351eced8d19af6b47c3ced0d` |
 
 **Exact approval text (persist/timeline only):**  
-`YES apply platform_support_center_persist_and_timeline_rpc_v1.sql SHA 6ec7e42693c5ce044cf01468b24e3a5e6f2b4028c507213c56330535c5eaf59e on Production Core qbcqoixhrvhnuwphefvw only. No Staging foundation. No email/DNS/secrets.`
+`YES apply platform_support_center_persist_and_timeline_rpc_v1.sql SHA 7f1a499438d453ab8ab7bef441c2d3cfbdb1628177fef383ee47b4e0277c2df9 on Production Core qbcqoixhrvhnuwphefvw only. No Staging foundation. No email/DNS/secrets. No intake RPC.`
 
 **Exact approval text (intake, separate):**  
 `YES apply platform_support_center_intake_rpc_v1.sql SHA e987d820b3e0818bd6f2b9b7d0ef64caaf22136f351eced8d19af6b47c3ced0d on Production Core qbcqoixhrvhnuwphefvw only.`

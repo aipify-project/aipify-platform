@@ -1,40 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  getStoredSupportSignature,
-  resetSupportSignature,
-  saveSupportSignature,
-} from "@/lib/platform-portal/support-center/signature-store";
+  loadSupportSignatureForUser,
+  resetSupportSignatureForUser,
+  saveSupportSignatureForUser,
+} from "@/lib/platform-portal/support-center/persist-ops";
 import { createClient } from "@/lib/supabase/server";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 
-async function requireUser() {
+async function requireClient() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  return user;
+  return { supabase, user };
 }
 
-/** Current workspace signature (company defaults until one is saved). */
+/** Active signature from Core when available; workspace fallback otherwise. */
 export async function GET() {
-  const user = await requireUser();
+  const { supabase, user } = await requireClient();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: NO_STORE });
   }
-  return NextResponse.json(
-    { ok: true, ...getStoredSupportSignature() },
-    { headers: NO_STORE },
-  );
+  try {
+    const result = await loadSupportSignatureForUser({ rpc: supabase });
+    return NextResponse.json(result, { headers: NO_STORE });
+  } catch (error) {
+    if (error instanceof Error && error.message === "forbidden") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403, headers: NO_STORE });
+    }
+    return NextResponse.json({ error: "load_failed" }, { status: 500, headers: NO_STORE });
+  }
 }
 
 /**
- * Save or reset the workspace signature (in-process; Core persistence gated).
+ * Save or reset signature.
  * Body: { action: "save", signature } | { action: "reset" }.
- * Reset only runs on explicit request — the form's "restore defaults" never calls it.
+ * Uses Core upsert when persist RPCs exist; preserves workspace mirror.
  */
 export async function POST(request: NextRequest) {
-  const user = await requireUser();
+  const { supabase, user } = await requireClient();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: NO_STORE });
   }
@@ -47,17 +52,30 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "validation" }, { status: 400, headers: NO_STORE });
   }
 
-  if (body.action === "save") {
-    const result = saveSupportSignature(body.signature);
-    if (!result.ok) {
-      return NextResponse.json({ error: result.error }, { status: 400, headers: NO_STORE });
+  try {
+    if (body.action === "save") {
+      const result = await saveSupportSignatureForUser({
+        rpc: supabase,
+        signature: body.signature,
+      });
+      if (!result.ok) {
+        return NextResponse.json(
+          { error: result.error },
+          { status: result.status ?? 400, headers: NO_STORE },
+        );
+      }
+      return NextResponse.json(result, { headers: NO_STORE });
     }
-    return NextResponse.json(result, { headers: NO_STORE });
-  }
 
-  if (body.action === "reset") {
-    const result = resetSupportSignature();
-    return NextResponse.json(result, { headers: NO_STORE });
+    if (body.action === "reset") {
+      const result = await resetSupportSignatureForUser({ rpc: supabase });
+      return NextResponse.json(result, { headers: NO_STORE });
+    }
+  } catch (error) {
+    if (error instanceof Error && error.message === "forbidden") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403, headers: NO_STORE });
+    }
+    return NextResponse.json({ error: "save_failed" }, { status: 500, headers: NO_STORE });
   }
 
   return NextResponse.json({ error: "unknown_action" }, { status: 400, headers: NO_STORE });

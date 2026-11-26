@@ -1,42 +1,46 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  archiveSupportTemplate,
-  createSupportTemplate,
-  listEditableSupportTemplates,
-  updateSupportTemplate,
-} from "@/lib/platform-portal/support-center/template-store";
-import type { SupportReplyTemplateCategory } from "@/lib/platform-portal/support-center/reply-templates";
+  listSupportTemplatesForUser,
+  mutateSupportTemplateForUser,
+} from "@/lib/platform-portal/support-center/persist-ops";
 import { createClient } from "@/lib/supabase/server";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 
-async function requireUser() {
+async function requireClient() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  return user;
+  return { supabase, user };
 }
 
-/** List editable starter + workspace templates (in-process; Core persist gated). */
-export async function GET() {
-  const user = await requireUser();
+/** List templates from Core when available; workspace fallback + one-time migrate. */
+export async function GET(request: NextRequest) {
+  const { supabase, user } = await requireClient();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: NO_STORE });
   }
-  return NextResponse.json(
-    {
-      ok: true,
-      persistConfigured: false,
-      items: listEditableSupportTemplates(),
-    },
-    { headers: NO_STORE },
-  );
+  try {
+    const includeArchived =
+      request.nextUrl.searchParams.get("include_archived") === "1" ||
+      request.nextUrl.searchParams.get("include_archived") === "true";
+    const result = await listSupportTemplatesForUser({
+      rpc: supabase,
+      includeArchived,
+    });
+    return NextResponse.json(result, { headers: NO_STORE });
+  } catch (error) {
+    if (error instanceof Error && error.message === "forbidden") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403, headers: NO_STORE });
+    }
+    return NextResponse.json({ error: "list_failed" }, { status: 500, headers: NO_STORE });
+  }
 }
 
-/** Create / update / archive template workspace rows. */
+/** Create / update / archive — Core upsert/archive when persist RPCs exist. */
 export async function POST(request: NextRequest) {
-  const user = await requireUser();
+  const { supabase, user } = await requireClient();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: NO_STORE });
   }
@@ -49,50 +53,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "validation" }, { status: 400, headers: NO_STORE });
   }
 
-  if (body.action === "create") {
-    const result = createSupportTemplate({
-      name: String(body.name ?? ""),
-      category: String(body.category ?? "intake") as SupportReplyTemplateCategory,
-      subject: String(body.subject ?? ""),
-      body: String(body.body ?? ""),
-      locale: typeof body.locale === "string" ? body.locale : "no",
-    });
-    if (!result.ok) {
-      return NextResponse.json({ error: result.error }, { status: 400, headers: NO_STORE });
-    }
-    return NextResponse.json(result, { headers: NO_STORE });
+  if (
+    body.action !== "create" &&
+    body.action !== "update" &&
+    body.action !== "archive"
+  ) {
+    return NextResponse.json({ error: "unknown_action" }, { status: 400, headers: NO_STORE });
   }
 
-  if (body.action === "update") {
-    const result = updateSupportTemplate(String(body.id ?? ""), {
-      name: typeof body.name === "string" ? body.name : undefined,
-      category:
-        typeof body.category === "string"
-          ? (body.category as SupportReplyTemplateCategory)
-          : undefined,
-      subject: typeof body.subject === "string" ? body.subject : undefined,
-      body: typeof body.body === "string" ? body.body : undefined,
-      active: typeof body.active === "boolean" ? body.active : undefined,
-    });
-    if (!result.ok) {
-      return NextResponse.json(
-        { error: result.error },
-        { status: result.error === "not_found" ? 404 : 400, headers: NO_STORE },
-      );
-    }
-    return NextResponse.json(result, { headers: NO_STORE });
+  const result = await mutateSupportTemplateForUser({
+    rpc: supabase,
+    action: body.action,
+    body,
+  });
+  if (!result.ok) {
+    return NextResponse.json(
+      { error: result.error },
+      { status: "status" in result && result.status ? result.status : 400, headers: NO_STORE },
+    );
   }
-
-  if (body.action === "archive") {
-    const result = archiveSupportTemplate(String(body.id ?? ""));
-    if (!result.ok) {
-      return NextResponse.json(
-        { error: result.error },
-        { status: result.error === "not_found" ? 404 : 400, headers: NO_STORE },
-      );
-    }
-    return NextResponse.json(result, { headers: NO_STORE });
-  }
-
-  return NextResponse.json({ error: "unknown_action" }, { status: 400, headers: NO_STORE });
+  return NextResponse.json(result, { headers: NO_STORE });
 }

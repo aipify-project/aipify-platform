@@ -57,6 +57,8 @@ export type PlatformSupportTicketsListParams = {
   sort?: string | null;
   page?: number | null;
   pageSize?: number | null;
+  /** Server-side Mine filter (auth user id). Null = all tickets. */
+  assignedSupportOwnerId?: string | null;
 };
 
 export type PlatformSupportTicketsListItem = {
@@ -296,22 +298,58 @@ export async function listPlatformSupportTickets(
     return channel;
   }
 
-  const { data, error } = await supabase.rpc(
-    "list_platform_app_portal_support_requests",
-    {
-      p_status: params.status ?? null,
-      p_channel: channel,
-      p_category: params.category ?? null,
-      p_priority: params.priority ?? null,
-      p_company_id: params.companyId ?? null,
-      p_date_from: params.dateFrom ?? null,
-      p_date_to: params.dateTo ?? null,
-      p_search: params.search ?? null,
-      p_sort: params.sort ?? null,
-      p_page: clampPage(params.page),
-      p_page_size: clampPageSize(params.pageSize),
-    },
-  );
+  const assignedOwner =
+    params.assignedSupportOwnerId &&
+    /^[0-9a-f-]{36}$/i.test(params.assignedSupportOwnerId)
+      ? params.assignedSupportOwnerId
+      : null;
+
+  const baseArgs = {
+    p_status: params.status ?? null,
+    p_channel: channel,
+    p_category: params.category ?? null,
+    p_priority: params.priority ?? null,
+    p_company_id: params.companyId ?? null,
+    p_date_from: params.dateFrom ?? null,
+    p_date_to: params.dateTo ?? null,
+    p_search: params.search ?? null,
+    p_sort: params.sort ?? null,
+    p_page: clampPage(params.page),
+    p_page_size: clampPageSize(params.pageSize),
+  };
+
+  let data: unknown;
+  let error: { message?: string } | null = null;
+  let mineFilterServerApplied = false;
+
+  {
+    const first = await supabase.rpc("list_platform_app_portal_support_requests", {
+      ...baseArgs,
+      ...(assignedOwner
+        ? { p_assigned_support_owner_id: assignedOwner }
+        : {}),
+    });
+    data = first.data;
+    error = first.error;
+    if (
+      error &&
+      assignedOwner &&
+      /p_assigned_support_owner_id|could not find the function|pgrst202|42883/i.test(
+        error.message ?? "",
+      )
+    ) {
+      // Older Core without assignee param — retry and mark client filter needed.
+      const second = await supabase.rpc(
+        "list_platform_app_portal_support_requests",
+        baseArgs,
+      );
+      data = second.data;
+      error = second.error;
+      mineFilterServerApplied = false;
+    } else if (!error && assignedOwner) {
+      mineFilterServerApplied = true;
+    }
+  }
 
   if (error) {
     const message = error.message ?? "";
@@ -332,7 +370,13 @@ export async function listPlatformSupportTickets(
     return deny("unknown", "Unable to list support tickets.");
   }
 
-  const items = Array.isArray(row.items) ? row.items : [];
+  let items = Array.isArray(row.items)
+    ? (row.items as PlatformSupportTicketsListItem[])
+    : [];
+  // Fallback client Mine filter only when Core lacks assignee param.
+  if (assignedOwner && !mineFilterServerApplied) {
+    items = items.filter((item) => item.assigned_support_owner_id === assignedOwner);
+  }
   const pagination =
     row.pagination && typeof row.pagination === "object"
       ? (row.pagination as Record<string, unknown>)
@@ -347,17 +391,24 @@ export async function listPlatformSupportTickets(
         ? row.privacy_note
         : "Platform Support read of APP ticket SoT.",
     channel_values: APP_PORTAL_SUPPORT_CHANNEL_VALUES,
-    items: items as PlatformSupportTicketsListItem[],
+    items,
     pagination: {
       page: Number(pagination.page) || 1,
       page_size: Number(pagination.page_size) || 25,
-      total: Number(pagination.total) || 0,
+      total: mineFilterServerApplied
+        ? Number(pagination.total) || 0
+        : assignedOwner
+          ? items.length
+          : Number(pagination.total) || 0,
       total_pages: Number(pagination.total_pages) || 0,
     },
-    filters:
-      row.filters && typeof row.filters === "object"
+    filters: {
+      ...(row.filters && typeof row.filters === "object"
         ? (row.filters as Record<string, unknown>)
-        : {},
+        : {}),
+      assigned_support_owner_id: assignedOwner,
+      mine_filter_server_applied: mineFilterServerApplied,
+    },
   };
 }
 
