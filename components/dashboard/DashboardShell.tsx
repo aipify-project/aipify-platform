@@ -145,6 +145,11 @@ type DashboardShellProps = {
   voiceOfCustomerLabels?: VocWidgetLabels;
   notificationCenterLabels?: UnifiedNotificationCenterLabels;
   pwaLabels?: PwaInstallLabels;
+  /** Last customer-menu item, under the product list. Not part of a product menu. */
+  customerProfileLink?: {
+    href: string;
+    label: string;
+  };
   onMenuClick?: () => void;
   children: React.ReactNode;
 };
@@ -184,6 +189,7 @@ export default function DashboardShell({
   voiceOfCustomerLabels,
   notificationCenterLabels,
   pwaLabels,
+  customerProfileLink,
   children,
 }: DashboardShellProps) {
   if (commandBar) {
@@ -225,6 +231,7 @@ export default function DashboardShell({
             shellVariant === "customer" ? languageSelectorLabels : undefined
           }
           pwaLabels={pwaLabels}
+          customerProfileLink={customerProfileLink}
           shellUiLabels={shellUiLabels}
           organizationSwitcherLabels={organizationSwitcherLabels}
           productContext={productContext}
@@ -268,6 +275,7 @@ export default function DashboardShell({
       locale={locale}
       languageSelectorLabels={languageSelectorLabels}
       pwaLabels={pwaLabels}
+      customerProfileLink={customerProfileLink}
       shellUiLabels={shellUiLabels}
       organizationSwitcherLabels={organizationSwitcherLabels}
       productContext={productContext}
@@ -315,6 +323,7 @@ function DashboardShellFrame({
   voiceOfCustomerLabels,
   notificationCenterLabels,
   pwaLabels,
+  customerProfileLink,
   commandBarLabels,
   children,
 }: DashboardShellFrameProps) {
@@ -478,6 +487,13 @@ function DashboardShellFrame({
         </div>
         {shellVariant === "customer" && licensePanelLabels ? (
           <div className={AipifySidebarLayout.footerRegion}>
+            {customerProfileLink ? (
+              <CustomerProfileMenuLink
+                href={customerProfileLink.href}
+                label={customerProfileLink.label}
+                active={pathname.startsWith(customerProfileLink.href)}
+              />
+            ) : null}
             <LicenseSidebarPanel labels={licensePanelLabels} />
             <PoweredByAipifyFooter
               label={
@@ -582,6 +598,14 @@ function DashboardShellFrame({
             </div>
             {shellVariant === "customer" && licensePanelLabels ? (
               <div className={AipifySidebarLayout.footerRegion}>
+                {customerProfileLink ? (
+                  <CustomerProfileMenuLink
+                    href={customerProfileLink.href}
+                    label={customerProfileLink.label}
+                    active={pathname.startsWith(customerProfileLink.href)}
+                    onNavigate={() => setSidebarOpen(false)}
+                  />
+                ) : null}
                 <LicenseSidebarPanel labels={licensePanelLabels} />
                 <PoweredByAipifyFooter
                   label={
@@ -721,5 +745,37 @@ function DashboardShellFrame({
     <PresenceProvider surface={shellVariant} labels={presenceLabels} locale={locale}>
       {withUnifiedNotifications}
     </PresenceProvider>
+  );
+}
+
+function CustomerProfileMenuLink({
+  href,
+  label,
+  active,
+  onNavigate,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+  onNavigate?: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      aria-current={active ? "page" : undefined}
+      className={`${AipifySidebarTypography.navItemRow} mb-3 ${
+        active
+          ? `${AppVisualClasses.navItemActive} text-[15px] font-semibold leading-snug`
+          : `${AppVisualClasses.navItem} ${AipifySidebarTypography.navigationItem}`
+      } ${AppVisualClasses.focusRing}`}
+    >
+      <span className={AipifySidebarTypography.navIcon} aria-hidden>
+        <svg className="h-[21px] w-[21px]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+      </span>
+      <span className="min-w-0 flex-1">{label}</span>
+    </Link>
   );
 }

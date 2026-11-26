@@ -457,6 +457,55 @@
           }
         }
       }
+    },
+    "customerProfile": {
+      "eyebrow": "Konto",
+      "title": "Profil och kundrelation",
+      "subtitle": "Kontouppgifterna den här arbetsytan redan kan visa. Företag och säljaruppgifter krävs inte här.",
+      "profileTitle": "Profil",
+      "relationshipTitle": "Kundrelation",
+      "fullName": "Fullständigt namn",
+      "role": "Roll",
+      "address": "Adress",
+      "email": "E-post",
+      "phone": "Telefon",
+      "website": "Webbplats",
+      "workspace": "Arbetsyta",
+      "plan": "Aktiv plan",
+      "status": "Status",
+      "reference": "Kundreferens",
+      "created": "Skapad",
+      "updated": "Senast uppdaterad",
+      "unavailable": "Inte tillgänglig i den här vyn",
+      "notRegistered": "Inte registrerad",
+      "photoNote": "Ingen profilbild är sparad på det här kontot.",
+      "actionsTitle": "Åtgärder",
+      "editProfile": "Redigera profil",
+      "updateContact": "Uppdatera kontaktuppgifter",
+      "changePhoto": "Byt profilbild",
+      "privacy": "Integritetsinställningar",
+      "actionBlocked": "Redigering, kontaktuppdatering och byte av profilbild är inte tillgängliga ännu. Ingenting sparas från den här sidan.",
+      "lockTitle": "Lås skärm",
+      "lockBody": "Ett säkert skärmlås kräver en ny inloggning som kontrolleras på servern. Det är inaktivt tills det steget är godkänt. Den här kontrollen låser inte skärmen.",
+      "lockStatus": "Inte aktiv",
+      "statusUnknown": "Status har inte rapporterats",
+      "dateEmpty": "Inte registrerad",
+      "dateInvalid": "Datum inte tillgängligt",
+      "roles": {
+        "owner": "Ägare",
+        "admin": "Administratör",
+        "support": "Support",
+        "staff": "Medarbetare",
+        "read_only": "Endast läsning",
+        "member": "Medlem"
+      },
+      "statuses": {
+        "active": "Aktiv",
+        "paused": "Pausad",
+        "grace": "Respitperiod",
+        "trialing": "Provperiod",
+        "cancelled": "Avslutad"
+      }
     }
   },
   "governance": {
