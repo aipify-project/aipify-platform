@@ -9,3 +9,5 @@ export * from "./write-ops";
 export * from "./template-store";
 export * from "./signature-store";
 export * from "./ticket-view";
+export * from "./normalize-template-key";
+export * from "./persist-ops";

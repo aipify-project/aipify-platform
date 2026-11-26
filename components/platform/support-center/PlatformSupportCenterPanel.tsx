@@ -274,6 +274,8 @@ export default function PlatformSupportCenterPanel({
       if (statusFilter) params.set("status", statusFilter);
       if (priorityFilter) params.set("priority", priorityFilter);
       if (debouncedSearch) params.set("search", debouncedSearch);
+      // Server-side Mine filter (paginated). Falls back client-side if Core lacks param.
+      if (tab === "mine") params.set("assigned_to", "me");
       const [listRes, countsRes] = await Promise.all([
         fetch(`/api/platform-portal/support-requests?${params.toString()}`, {
           cache: "no-store",
@@ -329,6 +331,7 @@ export default function PlatformSupportCenterPanel({
     labels.errorBody,
     priorityFilter,
     statusFilter,
+    tab,
   ]);
 
   useEffect(() => {
