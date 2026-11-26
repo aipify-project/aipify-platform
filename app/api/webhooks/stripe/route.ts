@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import {
+  buildPaymentWebhookPayload,
+  resolveAipifyCustomerIdFromStripeObject,
+} from "@/lib/app-commerce/webhook-customer";
+import {
   authorizeStripeWebhook,
   mapStripeEventToPaymentEvent,
 } from "@/lib/billing/stripe-client";
@@ -9,6 +13,7 @@ import { createServiceRoleClient } from "@/lib/supabase/service-role";
 /**
  * Stripe webhook — signature fail-closed (#365), then Core mutation via service_role only.
  * Never call payment mutation RPCs with the anon/authenticated PostgREST key.
+ * Customer UUID comes only from verified Stripe metadata — never Stripe cus_* as uuid.
  */
 export async function POST(request: Request) {
   try {
@@ -34,15 +39,14 @@ export async function POST(request: Request) {
     const supabase = createServiceRoleClient();
 
     if (mappedEvent) {
-      const customerId =
-        (event.data.object.metadata as Record<string, string> | undefined)?.customer_id ??
-        (event.data.object.customer as string | undefined);
+      const customerId = resolveAipifyCustomerIdFromStripeObject(event.data.object);
+      const paymentPayload = buildPaymentWebhookPayload(event.data.object);
 
       await supabase.rpc("handle_payment_webhook_event", {
         p_provider: "stripe",
         p_event_type: mappedEvent,
-        p_payload: event.data.object,
-        p_customer_id: customerId ?? null,
+        p_payload: paymentPayload,
+        p_customer_id: customerId,
       });
     }
 

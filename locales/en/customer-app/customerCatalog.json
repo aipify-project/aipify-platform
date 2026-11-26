@@ -29,6 +29,9 @@
     "seeAllFeatures": "See all features",
     "hideFeatures": "Hide features",
     "billingUnavailable": "Billing details could not be read. Product access above is separate from price.",
-    "exploreLink": "Explore Aipify products"
+    "exploreLink": "Explore Aipify products",
+    "startPurchase": "Start purchase",
+    "purchasePending": "Opening secure checkout…",
+    "purchaseError": "Purchase could not be started. Please try again."
   }
 }

@@ -29,6 +29,9 @@
     "seeAllFeatures": "Zobacz wszystkie funkcje",
     "hideFeatures": "Ukryj funkcje",
     "billingUnavailable": "Nie udało się odczytać danych rozliczeniowych. Dostęp do produktu powyżej jest oddzielony od ceny.",
-    "exploreLink": "Poznaj produkty Aipify"
+    "exploreLink": "Poznaj produkty Aipify",
+    "startPurchase": "Rozpocznij zakup",
+    "purchasePending": "Otwieranie bezpiecznej płatności…",
+    "purchaseError": "Nie udało się rozpocząć zakupu. Spróbuj ponownie."
   }
 }

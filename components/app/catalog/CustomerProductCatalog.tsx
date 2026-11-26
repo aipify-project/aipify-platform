@@ -1,3 +1,4 @@
+import { CatalogPurchaseButton } from "@/components/app/catalog/CatalogPurchaseButton";
 import { CUSTOMER_CATALOG_ROUTE } from "@/lib/app-portal/customer-catalog/model";
 import type { CustomerCatalogLabels } from "@/lib/app-portal/customer-catalog/labels";
 import type {
@@ -196,6 +197,8 @@ export function CustomerProductCatalog({
           const description = productDescription(product, labels);
           const emphasizeMonth = !interval || interval === "month";
           const emphasizeYear = interval === "year";
+          const purchasePrice =
+            (interval === "year" ? yearPrice : monthPrice) ?? monthPrice ?? yearPrice ?? null;
 
           return (
             <article
@@ -291,6 +294,13 @@ export function CustomerProductCatalog({
                     >
                       {labels.openProduct}
                     </Link>
+                  ) : product.checkoutEnabled && purchasePrice?.offerId ? (
+                    <CatalogPurchaseButton
+                      offerId={purchasePrice.offerId}
+                      label={labels.startPurchase}
+                      pendingLabel={labels.purchasePending}
+                      errorLabel={labels.purchaseError}
+                    />
                   ) : (
                     <p className="rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-4 py-3 text-center text-sm text-[var(--app-text-muted)]">
                       {labels.purchaseClosed}

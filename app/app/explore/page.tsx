@@ -13,6 +13,9 @@ import {
   selectCatalogProducts,
   type CatalogInterval,
 } from "@/lib/app-portal/customer-catalog/model";
+import { isAppCommerceCheckoutEnabled } from "@/lib/app-commerce/checkout-policy";
+import { loadAppCommerceCatalog } from "@/lib/app-commerce/load-catalog";
+import { toBillingCatalogPayload } from "@/lib/app-commerce/published-catalog";
 import { getCustomerBillingCenter } from "@/lib/commercial-packages/client";
 import { loadSubscriptionProductReads } from "@/lib/commercial-packages/load-kompis-product-access";
 import { AppLayoutClasses } from "@/lib/design/app-layout";
@@ -42,9 +45,18 @@ export default async function ExploreProductsPage({ searchParams }: ExplorePageP
 
   let billing: unknown = null;
   let billingUnavailable = false;
+  let commerceCheckoutEnabled = false;
   try {
     const supabase = await createClient();
     billing = await getCustomerBillingCenter(supabase);
+    const commerceCatalog = await loadAppCommerceCatalog({ supabase, billing });
+    commerceCheckoutEnabled = isAppCommerceCheckoutEnabled() && commerceCatalog.checkoutEnabled;
+    if (commerceCatalog.products.length > 0) {
+      billing = {
+        ...(billing && typeof billing === "object" ? billing : {}),
+        ...toBillingCatalogPayload(commerceCatalog),
+      };
+    }
   } catch {
     billingUnavailable = true;
   }
@@ -53,6 +65,7 @@ export default async function ExploreProductsPage({ searchParams }: ExplorePageP
     billing,
     access: productReads.access,
     billingUnavailable,
+    commerceCheckoutEnabled,
   });
   const activeCategory = catalog.categories.some((category) => category.id === params.category)
     ? params.category ?? "all"
