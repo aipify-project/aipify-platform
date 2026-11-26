@@ -161,10 +161,10 @@ export default function SupportIntakeForm({
           <AipifyHumanVerification
             labels={verificationLabels}
             onVerified={onVerified}
-            requiredMessage={
-              verificationRequired ? labels.verificationRequired : undefined
-            }
           />
+          {verificationRequired ? (
+            <p className="text-sm text-amber-800">{labels.verificationRequired}</p>
+          ) : null}
           {error ? <p className="text-sm text-red-700">{error}</p> : null}
           <button
             type="submit"
