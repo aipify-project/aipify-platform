@@ -19,6 +19,7 @@ import {
   applyTenantModuleLookup,
   isKompisBedriftInternalKnowledgePath,
   isKompisBedriftProductPath,
+  isKompisWebOperationalPath,
 } from "@/lib/core/access-control-plane/tenant-module-lookup";
 import { resolveAppMenuCapabilityBundle } from "@/lib/core/app-menu-capability";
 import type { PlatformPortalCustomerDetail } from "@/lib/platform-portal/types";
@@ -241,7 +242,12 @@ function baseSnapshotInput(
   assert.match(layout, /isKompisBedriftProductPath/);
   assert.match(layout, /isKompisBedriftInternalKnowledgePath/);
   assert.match(layout, /isModuleUsableInSnapshot\(accessSnapshot, "kompis_bedrift"\)/);
+  assert.match(layout, /authz\.pathDenied && isKompisWebOperationalPath\(requestPathname\)/);
   assert.match(layout, /redirect\("\/app"\)/);
+  assert.equal(isKompisWebOperationalPath("/app/website-kompis/faq"), true);
+  assert.equal(isKompisWebOperationalPath("/app/software"), true);
+  assert.equal(isKompisWebOperationalPath("/app/explore"), false);
+  assert.equal(isKompisWebOperationalPath("/app/account/invoices"), false);
 }
 
 // Menu capability fail-closed aligns with control plane for unknown WK

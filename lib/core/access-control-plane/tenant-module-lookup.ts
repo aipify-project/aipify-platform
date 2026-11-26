@@ -29,6 +29,20 @@ export function applyTenantModuleLookup(
   }
 }
 
+/** Operational Kompis Web URLs. The storefront at /app/explore stays outside this gate. */
+export function isKompisWebOperationalPath(pathname: string | null | undefined): boolean {
+  if (!pathname) return false;
+  const path = pathname.split("?")[0]?.split("#")[0] ?? "";
+  return (
+    path === "/app/website-kompis" ||
+    path.startsWith("/app/website-kompis/") ||
+    path === "/app/domains" ||
+    path.startsWith("/app/domains/") ||
+    path === "/app/software" ||
+    path.startsWith("/app/software/")
+  );
+}
+
 export function isKompisBedriftProductPath(pathname: string | null | undefined): boolean {
   if (!pathname) return false;
   const path = pathname.split("?")[0]?.split("#")[0] ?? "";
