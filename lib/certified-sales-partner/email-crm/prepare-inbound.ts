@@ -1,5 +1,6 @@
 import { classifyInboundEvent, type InboundEventClass } from "./classify";
-import { extractReplyToken, hashReplyToken, inspectReplyToken, type ReplyTokenPayload } from "./token";
+import type { AuthoritativeReceivedEmail } from "./received-email";
+import { extractReplyToken, hashReplyToken, inspectReplyToken } from "./token";
 
 export type PreparedInbound =
   | { ok: false; status: number; body: Record<string, unknown> }
@@ -39,14 +40,38 @@ function normalizeEmail(value: string): string {
 }
 
 /**
+ * The webhook event id stays. Addresses, sender, headers, and text come from the
+ * received-email API, not from the webhook body.
+ */
+export function payloadFromReceivedEmail(input: {
+  providerEventId: string;
+  eventType: string;
+  email: AuthoritativeReceivedEmail;
+}): Record<string, unknown> {
+  return {
+    type: input.eventType,
+    id: input.providerEventId,
+    data: {
+      email_id: input.providerEventId,
+      from: input.email.from,
+      to: input.email.to,
+      cc: input.email.cc,
+      subject: input.email.subject,
+      text: input.email.text,
+      headers: input.email.headers,
+      message_id: input.email.messageId,
+    },
+  };
+}
+
+/**
  * Turns a verified provider body into the RPC payload.
- * The reply token is checked here. The database then checks the stored hash,
- * tenant, partner, recipient, and expiry again.
+ * The reply token is only a secret. Partner, tenant, and send are resolved
+ * from its hash. Expiry is the timestamp stored with that hash.
  */
 export function prepareInboundEvent(input: {
   payload: unknown;
   tokenSecret: string;
-  now?: number;
 }): PreparedInbound {
   const root = asRecord(input.payload);
   if (!root) return { ok: false, status: 400, body: { accepted: false, reason: "invalid_payload" } };
@@ -62,31 +87,26 @@ export function prepareInboundEvent(input: {
   const eventType = text(root.type) || text(data.type);
   const subject = text(data.subject);
   const eventClass = classifyInboundEvent({ eventType, headers: headerStrings, subject });
-  const addresses = [
-    ...addressList(data.to),
-    ...addressList(data.cc),
-    text(data.reply_to),
-    subject,
-  ];
+  const addresses = [...addressList(data.to), ...addressList(data.cc), text(data.reply_to), subject];
   const token = addresses.map(extractReplyToken).find((item): item is string => Boolean(item)) ?? null;
-  const inspected = token ? inspectReplyToken(input.tokenSecret, token, input.now) : null;
-  const payload: ReplyTokenPayload | null = inspected && "payload" in inspected ? inspected.payload : null;
+  const tokenOk = token ? inspectReplyToken(input.tokenSecret, token).ok : false;
   const sender = normalizeEmail(text(data.from) || text(data.sender));
   const bodyText = text(data.text) || text(data.body) || subject;
+  const outboundId = eventClass === "human" ? null : text(data.email_id) || text(data.message_id) || null;
 
   return {
     ok: true,
     event: {
       provider_event_id: providerEventId,
       event_class: eventClass,
-      send_id: payload?.sendId ?? null,
-      token_hash: token && payload ? hashReplyToken(token) : null,
-      token_expires_at: payload ? new Date(payload.exp).toISOString() : null,
+      send_id: null,
+      token_hash: token && tokenOk ? hashReplyToken(token) : null,
+      token_expires_at: null,
       sender_email: sender,
       body_text: bodyText.slice(0, 8000),
-      partner_id_claim: payload?.partnerId ?? null,
-      tenant_id: payload?.tenantId ?? null,
-      provider_message_id: text(data.message_id) || text(data.provider_message_id) || null,
+      partner_id_claim: null,
+      tenant_id: tokenOk ? "aipify_internal" : null,
+      provider_message_id: outboundId,
     },
   };
 }
