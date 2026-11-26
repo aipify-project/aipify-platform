@@ -8,19 +8,32 @@ import { getBrowserSupabaseClient } from "@/lib/supabase/browser-client";
 
 type PartnersPortalAuthGuardProps = {
   loadingLabel: string;
+  /**
+   * When the partners layout already resolved access server-side, skip the
+   * full-screen blocking loader and render immediately. Background recheck
+   * still enforces suspension / logout without delaying menu navigation.
+   */
+  serverAuthorized?: boolean;
   children: ReactNode;
 };
 
-export function PartnersPortalAuthGuard({ loadingLabel, children }: PartnersPortalAuthGuardProps) {
+export function PartnersPortalAuthGuard({
+  loadingLabel,
+  serverAuthorized = false,
+  children,
+}: PartnersPortalAuthGuardProps) {
   const router = useRouter();
-  const [checking, setChecking] = useState(true);
-  const [authorized, setAuthorized] = useState(false);
+  const [checking, setChecking] = useState(!serverAuthorized);
+  const [authorized, setAuthorized] = useState(serverAuthorized);
 
   useEffect(() => {
     const supabase = getBrowserSupabaseClient();
     let mounted = true;
 
-    async function verifyAccess() {
+    async function verifyAccess(opts?: { silent?: boolean }) {
+      const silent = opts?.silent === true;
+      if (!silent && !serverAuthorized) setChecking(true);
+
       const {
         data: { user },
         error,
@@ -32,11 +45,12 @@ export function PartnersPortalAuthGuard({ loadingLabel, children }: PartnersPort
         return;
       }
 
-      const res = await fetch("/api/partners-portal/access");
-      const data = (await res.json()) as { has_access?: boolean };
+      const res = await fetch("/api/partners-portal/access", { cache: "no-store" });
+      const data = (await res.json().catch(() => null)) as { has_access?: boolean } | null;
       if (!mounted) return;
 
-      if (!data.has_access) {
+      if (!data?.has_access) {
+        setAuthorized(false);
         setChecking(false);
         return;
       }
@@ -45,16 +59,23 @@ export function PartnersPortalAuthGuard({ loadingLabel, children }: PartnersPort
       setChecking(false);
     }
 
-    void verifyAccess();
-    const { data: sub } = supabase.auth.onAuthStateChange(() => {
-      void verifyAccess();
+    // Server already gated — show shell immediately; recheck without blocking UI.
+    void verifyAccess({ silent: serverAuthorized });
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
+      // Token refresh must not flash a full-screen loader during menu navigation.
+      if (event === "INITIAL_SESSION") return;
+      if (event === "TOKEN_REFRESHED") {
+        void verifyAccess({ silent: true });
+        return;
+      }
+      void verifyAccess({ silent: false });
     });
 
     return () => {
       mounted = false;
       sub.subscription.unsubscribe();
     };
-  }, [router]);
+  }, [router, serverAuthorized]);
 
   if (checking) {
     return (

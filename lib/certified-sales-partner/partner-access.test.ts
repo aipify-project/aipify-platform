@@ -235,7 +235,11 @@ async function main() {
     assert.match(accessRoute, /userHasCspPartnerAccess/);
     assert.match(layout, /resolvePartnersPortalServerAccess/);
     assert.match(layout, /csp_partner_required/);
+    assert.match(layout, /CspPortalSessionProvider/);
+    assert.match(layout, /serverAuthorized/);
     assert.match(serverAccess, /requirePartnersPortalApiAccess/);
+    assert.match(serverAccess, /Promise\.all/);
+    assert.match(serverAccess, /fetchCspPartnerStatusForAuthUser/);
     assert.match(platformPartners, /confirm_active_app_customer_required/);
     assert.match(platformPartners, /confirm_active_app_customer/);
 
