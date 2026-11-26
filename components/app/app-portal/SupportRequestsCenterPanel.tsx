@@ -160,8 +160,8 @@ export function SupportRequestsCenterPanel({ labels, locale }: Props) {
         const res = await fetch("/api/commercial-packages/billing");
         if (!res.ok) return;
         const body = (await res.json()) as {
-          products?: Array<{ id?: string; name?: string; label?: string; product_key?: string }>;
-          portfolio?: { products?: Array<{ id?: string; name?: string; label?: string; key?: string }> };
+          products?: Array<Record<string, unknown>>;
+          portfolio?: { products?: Array<Record<string, unknown>> };
         };
         const raw =
           body.products ??
