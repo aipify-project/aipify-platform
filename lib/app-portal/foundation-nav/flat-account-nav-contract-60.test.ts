@@ -42,6 +42,7 @@ const WEB_ORDER = [
   "kompisWebModules",
   "accountSubscription",
   "accountInvoices",
+  "accountProfile",
 ];
 
 const BEDRIFT_ORDER = [
@@ -57,6 +58,7 @@ const BEDRIFT_ORDER = [
   "accountSubscription",
   "kompisBedriftConnection",
   "kompisBedriftSettings",
+  "accountProfile",
 ];
 
 // 1. Exact flat order

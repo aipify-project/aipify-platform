@@ -27,6 +27,7 @@ const WEB_PAGES: Array<{ id: string; page: string }> = [
   { id: "kompisWebConnection", page: "app/app/website-kompis/connection/page.tsx" },
   { id: "accountSubscription", page: "app/app/account/subscription/page.tsx" },
   { id: "kompisWebSettings", page: "app/app/website-kompis/settings/page.tsx" },
+  { id: "accountProfile", page: "app/app/account/profile/page.tsx" },
 ];
 
 const BEDRIFT_PAGES: Array<{ id: string; page: string }> = [
@@ -41,12 +42,13 @@ const BEDRIFT_PAGES: Array<{ id: string; page: string }> = [
   { id: "accountSubscription", page: "app/app/account/subscription/page.tsx" },
   { id: "kompisBedriftConnection", page: "app/app/kompis-bedrift/connection/page.tsx" },
   { id: "kompisBedriftSettings", page: "app/app/kompis-bedrift/settings/page.tsx" },
+  { id: "accountProfile", page: "app/app/account/profile/page.tsx" },
 ];
 
-assert.equal(KOMPIS_WEB_FLAT_NAV.length, 8);
-assert.equal(KOMPIS_BEDRIFT_FLAT_NAV.length, 11);
-assert.equal(WEB_PAGES.length, 8);
-assert.equal(BEDRIFT_PAGES.length, 11);
+assert.equal(KOMPIS_WEB_FLAT_NAV.length, 10);
+assert.equal(KOMPIS_BEDRIFT_FLAT_NAV.length, 13);
+assert.equal(WEB_PAGES.length, 9);
+assert.equal(BEDRIFT_PAGES.length, 12);
 
 for (const entry of [...WEB_PAGES, ...BEDRIFT_PAGES]) {
   const src = read(entry.page);
@@ -81,6 +83,7 @@ assert.equal(getAppPortalActiveNavId("/app/website-kompis/connection"), "kompisW
 assert.equal(getAppPortalActiveNavId("/app/domains"), "kompisWebConnection");
 assert.equal(getAppPortalActiveNavId("/app/account/invoices"), "accountInvoices");
 assert.equal(getAppPortalActiveNavId("/app/account/subscription"), "accountSubscription");
+assert.equal(getAppPortalActiveNavId("/app/account/profile"), "accountProfile");
 assert.equal(getAppPortalActiveNavId("/app/kompis-bedrift/employees"), "kompisBedriftEmployees");
 
 // Flat sidebar still the customer presentation

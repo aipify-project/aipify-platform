@@ -32,6 +32,7 @@ export type AppPortalNavId =
   | "kompisBedriftSettings"
   | "accountSubscription"
   | "accountInvoices"
+  | "accountProfile"
   | "accountIntegrations"
   | "accountNotifications"
   | "sinceLastLogin"
@@ -173,6 +174,13 @@ const SHARED_ACCOUNT_SUBSCRIPTION: AppPortalNavItem = {
   featureKey: "billing",
 };
 
+/** Customer-owned profile / relationship — always at the bottom of product menus. */
+const SHARED_ACCOUNT_PROFILE: AppPortalNavItem = {
+  id: "accountProfile",
+  href: FOUNDATION_NAV_BINDINGS.accountProfile,
+  labelKey: "customerApp.portalStructure.nav.accountProfile",
+};
+
 /** Exact Kompis Web sidebar order (owner decision). Home first — distinct from product dashboard. */
 export const KOMPIS_WEB_FLAT_NAV: AppPortalNavItem[] = [
   {
@@ -225,6 +233,7 @@ export const KOMPIS_WEB_FLAT_NAV: AppPortalNavItem[] = [
     ...SHARED_ACCOUNT_INVOICES,
     menuBand: "commerce",
   },
+  SHARED_ACCOUNT_PROFILE,
 ];
 
 /** Exact Kompis Bedrift sidebar order (owner decision). Home first — distinct from product dashboard. */
@@ -290,6 +299,7 @@ export const KOMPIS_BEDRIFT_FLAT_NAV: AppPortalNavItem[] = [
     labelKey: "customerApp.portalStructure.nav.kompisBedriftSettings",
     moduleKey: "kompis_bedrift",
   },
+  SHARED_ACCOUNT_PROFILE,
 ];
 
 /**
@@ -350,6 +360,9 @@ export const APP_PORTAL_NAV: AppPortalNavItem[] = (() => {
 
 export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   // Most-specific foundation routes first (canonical hubs + legacy deep links).
+  if (pathname.startsWith("/app/account/profile")) {
+    return "accountProfile";
+  }
   if (pathname.startsWith("/app/account/invoices") || pathname.startsWith("/app/settings/billing/invoice-details")) {
     return "accountInvoices";
   }

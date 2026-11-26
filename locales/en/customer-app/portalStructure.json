@@ -130,7 +130,8 @@
       "accountInvoices": "Invoices",
       "accountIntegrations": "Integrations",
       "kompisBedriftConnection": "Connection and license",
-      "appDashboard": "Home"
+      "appDashboard": "Home",
+      "accountProfile": "Profile / Customer relationship"
     },
     "dashboard": {
       "title": "APP Dashboard",
@@ -8628,6 +8629,55 @@
       "switchProduct": "Switch product",
       "singleContextHint": "This is the only product available on this account.",
       "close": "Close"
+    },
+    "accountProfile": {
+      "eyebrow": "Account",
+      "title": "Profile / Customer relationship",
+      "description": "Review your signed-in account details and customer relationship. Changes that require a secure update path stay locked until that path is available.",
+      "personalTitle": "Personal profile",
+      "relationshipTitle": "Customer relationship",
+      "securityTitle": "Security and account links",
+      "fullName": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "role": "Role",
+      "notRegistered": "Not registered",
+      "readOnlyReason": "These details are shown from your signed-in account. Verified identity fields stay read-only until an approved APP update path exists.",
+      "avatarFallback": "Initials are shown when no profile photo is available.",
+      "companyTitle": "Company details",
+      "companyName": "Company name",
+      "companyWebsite": "Company website",
+      "companyPhone": "Company phone",
+      "companyAddress": "Company address",
+      "companyOptionalNote": "Company fields appear only when a company workspace is linked to this account. Private customers do not need a registered business.",
+      "plan": "Plan",
+      "license": "License status",
+      "customerReference": "Customer reference",
+      "registeredAt": "Registered",
+      "openSubscription": "Open subscription",
+      "openInvoices": "View invoices",
+      "openSecurity": "Sign-in and security",
+      "openNotifications": "Notification settings",
+      "openCompanySettings": "Organization profile",
+      "screenLockTitle": "Lock screen",
+      "screenLockBody": "A secure screen lock is not activated for APP. Enabling it requires an owner-approved server-verified lock service — not a browser-only overlay.",
+      "screenLockStatus": "Not activated",
+      "roles": {
+        "owner": "Owner",
+        "admin": "Admin",
+        "support": "Support",
+        "staff": "Staff",
+        "readOnly": "Read only",
+        "member": "Member"
+      },
+      "licenses": {
+        "active": "Active",
+        "paused": "Paused",
+        "grace": "Grace period",
+        "trialing": "Trial",
+        "cancelled": "Cancelled"
+      }
     }
   }
 }

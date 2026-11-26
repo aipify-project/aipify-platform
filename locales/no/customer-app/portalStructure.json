@@ -130,7 +130,8 @@
       "accountInvoices": "Fakturaer",
       "accountIntegrations": "Integrasjoner",
       "kompisBedriftConnection": "Tilkobling/lisens",
-      "appDashboard": "Hjem"
+      "appDashboard": "Hjem",
+      "accountProfile": "Profil / Kundeforhold"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -8705,6 +8706,55 @@
       "switchProduct": "Bytt produkt",
       "singleContextHint": "Dette er det eneste produktet tilgjengelig på denne kontoen.",
       "close": "Lukk"
+    },
+    "accountProfile": {
+      "eyebrow": "Konto",
+      "title": "Profil / Kundeforhold",
+      "description": "Se kontoopplysninger og kundeforhold for den innloggede brukeren. Felt som krever en sikker oppdateringsvei forblir låst til den er tilgjengelig.",
+      "personalTitle": "Personlig profil",
+      "relationshipTitle": "Kundeforhold",
+      "securityTitle": "Sikkerhet og kontolenker",
+      "fullName": "Fullt navn",
+      "email": "E-post",
+      "phone": "Telefon",
+      "address": "Adresse",
+      "role": "Rolle",
+      "notRegistered": "Ikke registrert",
+      "readOnlyReason": "Opplysningene hentes fra den innloggede kontoen. Verifisert identitet er skrivebeskyttet til en godkjent APP-oppdateringsvei finnes.",
+      "avatarFallback": "Initialer vises når profilbilde mangler.",
+      "companyTitle": "Firmaopplysninger",
+      "companyName": "Firmanavn",
+      "companyWebsite": "Firmanettsted",
+      "companyPhone": "Firmatelefon",
+      "companyAddress": "Firmaadresse",
+      "companyOptionalNote": "Firmafelter vises bare når en firmakonto er knyttet til denne brukeren. Privatpersoner trenger ikke registrert virksomhet.",
+      "plan": "Plan",
+      "license": "Lisensstatus",
+      "customerReference": "Kundereferanse",
+      "registeredAt": "Registrert",
+      "openSubscription": "Åpne abonnement",
+      "openInvoices": "Se fakturaer",
+      "openSecurity": "Innlogging og sikkerhet",
+      "openNotifications": "Varslingsinnstillinger",
+      "openCompanySettings": "Organisasjonsprofil",
+      "screenLockTitle": "Lås skjermen",
+      "screenLockBody": "Sikker skjermlås er ikke aktivert for APP. Aktivering krever eiergodkjent, serververifisert låsetjeneste — ikke et nettleser-overlay.",
+      "screenLockStatus": "Ikke aktivert",
+      "roles": {
+        "owner": "Eier",
+        "admin": "Administrator",
+        "support": "Support",
+        "staff": "Medarbeider",
+        "readOnly": "Skrivebeskyttet",
+        "member": "Medlem"
+      },
+      "licenses": {
+        "active": "Aktiv",
+        "paused": "Pauset",
+        "grace": "Grace-periode",
+        "trialing": "Prøveperiode",
+        "cancelled": "Avsluttet"
+      }
     }
   }
 }

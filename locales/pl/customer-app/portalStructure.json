@@ -277,7 +277,8 @@
       "accountInvoices": "Faktury",
       "accountIntegrations": "Integracje",
       "kompisBedriftConnection": "Połączenie i licencja",
-      "appDashboard": "Start"
+      "appDashboard": "Start",
+      "accountProfile": "Profil / Relacja z klientem"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7641,6 +7642,55 @@
       "switchProduct": "Zmień produkt",
       "singleContextHint": "To jedyny produkt dostępny na tym koncie.",
       "close": "Zamknij"
+    },
+    "accountProfile": {
+      "eyebrow": "Konto",
+      "title": "Profil / Relacja z klientem",
+      "description": "Przejrzyj dane konta i relację z klientem dla zalogowanego użytkownika. Pola wymagające bezpiecznej ścieżki aktualizacji pozostają zablokowane do czasu jej udostępnienia.",
+      "personalTitle": "Profil osobisty",
+      "relationshipTitle": "Relacja z klientem",
+      "securityTitle": "Bezpieczeństwo i łącza konta",
+      "fullName": "Imię i nazwisko",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "address": "Adres",
+      "role": "Rola",
+      "notRegistered": "Nie zarejestrowano",
+      "readOnlyReason": "Dane pochodzą z zalogowanego konta. Zweryfikowana tożsamość jest tylko do odczytu, dopóki nie powstanie zatwierdzona ścieżka aktualizacji APP.",
+      "avatarFallback": "Inicjały są pokazywane, gdy brak zdjęcia profilowego.",
+      "companyTitle": "Dane firmy",
+      "companyName": "Nazwa firmy",
+      "companyWebsite": "Strona firmy",
+      "companyPhone": "Telefon firmowy",
+      "companyAddress": "Adres firmy",
+      "companyOptionalNote": "Pola firmowe pojawiają się tylko wtedy, gdy z kontem jest powiązana przestrzeń firmowa. Osoby prywatne nie potrzebują zarejestrowanej działalności.",
+      "plan": "Plan",
+      "license": "Status licencji",
+      "customerReference": "Numer klienta",
+      "registeredAt": "Zarejestrowano",
+      "openSubscription": "Otwórz subskrypcję",
+      "openInvoices": "Zobacz faktury",
+      "openSecurity": "Logowanie i bezpieczeństwo",
+      "openNotifications": "Ustawienia powiadomień",
+      "openCompanySettings": "Profil organizacji",
+      "screenLockTitle": "Zablokuj ekran",
+      "screenLockBody": "Bezpieczna blokada ekranu nie jest aktywowana dla APP. Włączenie wymaga zatwierdzonej przez właściciela, weryfikowanej serwerowo usługi blokady — nie nakładki przeglądarki.",
+      "screenLockStatus": "Nieaktywna",
+      "roles": {
+        "owner": "Właściciel",
+        "admin": "Administrator",
+        "support": "Wsparcie",
+        "staff": "Pracownik",
+        "readOnly": "Tylko odczyt",
+        "member": "Członek"
+      },
+      "licenses": {
+        "active": "Aktywna",
+        "paused": "Wstrzymana",
+        "grace": "Okres karencji",
+        "trialing": "Okres próbny",
+        "cancelled": "Anulowana"
+      }
     }
   }
 }
