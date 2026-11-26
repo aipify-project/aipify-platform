@@ -160,6 +160,7 @@ export type AppPortalNavGroup = {
  * Integrations & notifications are settings-page cards, not primary nav.
  * Appearance remains a route under Web settings, not a sidebar row.
  */
+// Kept for deep-link / capability id stability (not a sidebar row in V3 tabs).
 const SHARED_ACCOUNT_INVOICES: AppPortalNavItem = {
   id: "accountInvoices",
   href: FOUNDATION_NAV_BINDINGS.accountInvoices,
@@ -212,18 +213,7 @@ export const KOMPIS_WEB_FLAT_NAV: AppPortalNavItem[] = [
     moduleKey: "website_kompis",
   },
   {
-    id: "kompisWebModules",
-    href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
-    labelKey: "customerApp.portalStructure.nav.kompisWebModules",
-    moduleKey: "website_kompis",
-    menuBand: "commerce",
-  },
-  {
     ...SHARED_ACCOUNT_SUBSCRIPTION,
-    menuBand: "commerce",
-  },
-  {
-    ...SHARED_ACCOUNT_INVOICES,
     menuBand: "commerce",
   },
 ];
@@ -271,14 +261,16 @@ export const KOMPIS_BEDRIFT_FLAT_NAV: AppPortalNavItem[] = [
     labelKey: "customerApp.portalStructure.nav.kompisBedriftMeetings",
     moduleKey: "kompis_bedrift",
   },
-  SHARED_ACCOUNT_INVOICES,
   {
     id: "kompisBedriftModules",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftModules,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftModules",
     moduleKey: "kompis_bedrift",
   },
-  SHARED_ACCOUNT_SUBSCRIPTION,
+  {
+    ...SHARED_ACCOUNT_SUBSCRIPTION,
+    menuBand: "commerce",
+  },
   {
     id: "kompisBedriftConnection",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftConnection,
@@ -332,6 +324,15 @@ export const APP_SETTINGS_SURFACE_ITEMS: AppPortalNavItem[] = [
     labelKey: "customerApp.portalStructure.nav.kompisWebAppearance",
     moduleKey: "website_kompis",
   },
+  /** Software surface — deep-link / store; not a sidebar commerce row in V3. */
+  {
+    id: "kompisWebModules",
+    href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
+    labelKey: "customerApp.portalStructure.nav.kompisWebModules",
+    moduleKey: "website_kompis",
+  },
+  /** Invoice deep-link target — Abonnement tab hosts the UI. */
+  SHARED_ACCOUNT_INVOICES,
 ];
 
 export const APP_PORTAL_NAV: AppPortalNavItem[] = (() => {
@@ -358,8 +359,15 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   ) {
     return "accountProfile";
   }
-  if (pathname.startsWith("/app/account/invoices") || pathname.startsWith("/app/settings/billing/invoice-details")) {
-    return "accountInvoices";
+  // Invoices / modules / license deep-links highlight the single Abonnement entry (V3 tabs).
+  if (
+    pathname.startsWith("/app/account/invoices") ||
+    pathname.startsWith("/app/settings/billing/invoice-details") ||
+    pathname.startsWith("/app/settings/modules") ||
+    pathname.startsWith("/app/license") ||
+    pathname.startsWith("/app/licenses")
+  ) {
+    return "accountSubscription";
   }
   if (pathname.startsWith("/app/account/subscription") || pathname.startsWith("/app/settings/billing")) {
     return "accountSubscription";
@@ -384,7 +392,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/kompis-bedrift/knowledge") || pathname.startsWith("/app/settings/employee-knowledge")) {
     return "kompisBedriftFaq";
   }
-  if (pathname.startsWith("/app/kompis-bedrift/modules") || pathname.startsWith("/app/settings/modules")) {
+  if (pathname.startsWith("/app/kompis-bedrift/modules")) {
     return "kompisBedriftModules";
   }
   if (pathname.startsWith("/app/kompis-bedrift/settings")) return "kompisBedriftSettings";

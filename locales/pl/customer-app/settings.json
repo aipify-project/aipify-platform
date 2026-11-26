@@ -1204,7 +1204,14 @@
       "viewLicenseCenter": "Centrum licencji",
       "exploreProductsCta": "Przeglądaj produkty",
       "workspaceLabel": "Obszar roboczy",
-      "overallStatus": "Status"
+      "overallStatus": "Status",
+      "tabOverview": "Przegląd",
+      "tabProducts": "Moje produkty",
+      "tabStore": "Sklep produktów",
+      "tabAddons": "Moduły dodatkowe",
+      "tabCapacity": "Pojemność i użycie",
+      "tabLicense": "Centrum licencji",
+      "tabInvoices": "Faktury"
     },
     "pricingPhilosophy": {
       "title": "Pricing philosophy",

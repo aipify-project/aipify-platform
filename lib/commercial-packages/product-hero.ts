@@ -87,8 +87,6 @@ export function buildWorkspaceProductCards(
   access: KompisProductAccessRead
 ): WorkspaceProductCardModel[] {
   const webActive = access.webKind === "known_plan" && Boolean(access.webPlan);
-  const webInWorkspace =
-    webActive || access.webKind === "unknown_plan" || access.webKind === "no_module";
 
   let webStatus: ProductCardStatus = "unknown";
   if (webActive) webStatus = "active";
@@ -103,11 +101,12 @@ export function buildWorkspaceProductCards(
   if (bedriftActive) bedriftStatus = "active";
   else if (access.bedrift === "not_licensed") bedriftStatus = "not_licensed";
 
+  /** Mine produkter = verified active access only — never “available in workspace”. */
   const web: WorkspaceProductCardModel = {
     id: "kompis_web",
     hero: WORKSPACE_PRODUCT_HEROES.kompis_web,
     status: webStatus,
-    inMyProducts: webInWorkspace || webActive,
+    inMyProducts: webActive,
     openHref: FOUNDATION_NAV_BINDINGS.kompisWebDashboard,
     primaryAction: webActive ? "open" : webStatus === "not_licensed" ? "contact" : "view",
     planChip: webActive ? access.webPlan : null,
@@ -117,7 +116,7 @@ export function buildWorkspaceProductCards(
     id: "kompis_bedrift",
     hero: WORKSPACE_PRODUCT_HEROES.kompis_bedrift,
     status: bedriftStatus,
-    inMyProducts: bedriftActive || access.bedrift !== "unknown",
+    inMyProducts: bedriftActive,
     openHref: FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard,
     primaryAction: bedriftActive
       ? "open"

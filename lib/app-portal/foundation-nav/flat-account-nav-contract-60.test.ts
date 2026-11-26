@@ -39,9 +39,7 @@ const WEB_ORDER = [
   "kompisWebFaq",
   "kompisWebConnection",
   "kompisWebSettings",
-  "kompisWebModules",
   "accountSubscription",
-  "accountInvoices",
 ];
 
 const BEDRIFT_ORDER = [
@@ -52,7 +50,6 @@ const BEDRIFT_ORDER = [
   "kompisBedriftFaq",
   "kompisBedriftComms",
   "kompisBedriftMeetings",
-  "accountInvoices",
   "kompisBedriftModules",
   "accountSubscription",
   "kompisBedriftConnection",
@@ -109,13 +106,15 @@ assert.deepEqual(
   WEB_ORDER
 );
 assert.equal(
-  webPresented.navConfig.find((item) => item.id === "kompisWebModules")?.sectionLabel,
+  webPresented.navConfig.find((item) => item.id === "accountSubscription")?.sectionLabel,
   "customerApp.portalStructure.navGroups.productsAndSubscription",
 );
 assert.equal(
   webPresented.navConfig.filter((item) => item.sectionLabel).length,
   1,
 );
+assert.ok(!webPresented.navConfig.some((i) => i.id === "accountInvoices"));
+assert.ok(!webPresented.navConfig.some((i) => i.id === "kompisWebModules"));
 assert.equal(
   webPresented.navConfig.find((item) => item.id === "kompisWebConnection")?.href,
   FOUNDATION_NAV_BINDINGS.kompisWebConnection,
@@ -156,8 +155,10 @@ assert.ok(deniedPresented.navConfig.every((i) => !i.id.startsWith("kompisBedrift
 assert.equal(deniedPresented.activeProduct === "kompisBedrift", false);
 
 // 7. Active state + settings remap helpers
-assert.equal(getAppPortalActiveNavId("/app/account/invoices"), "accountInvoices");
+assert.equal(getAppPortalActiveNavId("/app/account/invoices"), "accountSubscription");
 assert.equal(getAppPortalActiveNavId("/app/account/subscription"), "accountSubscription");
+assert.equal(getAppPortalActiveNavId("/app/settings/modules"), "accountSubscription");
+assert.equal(getAppPortalActiveNavId("/app/license"), "accountSubscription");
 assert.equal(getAppPortalActiveNavId("/app/account/integrations"), "accountIntegrations");
 assert.equal(getAppPortalActiveNavId("/app/account/notifications"), "accountNotifications");
 assert.equal(getAppPortalActiveNavId("/app/website-kompis/connection"), "kompisWebConnection");

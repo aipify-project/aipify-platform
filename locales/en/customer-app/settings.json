@@ -866,7 +866,14 @@
       "viewLicenseCenter": "License center",
       "exploreProductsCta": "Explore products",
       "workspaceLabel": "Workspace",
-      "overallStatus": "Status"
+      "overallStatus": "Status",
+      "tabOverview": "Overview",
+      "tabProducts": "My products",
+      "tabStore": "Product store",
+      "tabAddons": "Add-on modules",
+      "tabCapacity": "Capacity and usage",
+      "tabLicense": "License center",
+      "tabInvoices": "Invoices"
     },
     "pricingPhilosophy": {
       "title": "Pricing philosophy",

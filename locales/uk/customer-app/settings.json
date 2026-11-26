@@ -1204,7 +1204,14 @@
       "viewLicenseCenter": "Центр ліцензій",
       "exploreProductsCta": "Оглянути продукти",
       "workspaceLabel": "Робочий простір",
-      "overallStatus": "Статус"
+      "overallStatus": "Статус",
+      "tabOverview": "Огляд",
+      "tabProducts": "Мої продукти",
+      "tabStore": "Магазин продуктів",
+      "tabAddons": "Додаткові модулі",
+      "tabCapacity": "Місткість і використання",
+      "tabLicense": "Центр ліцензій",
+      "tabInvoices": "Рахунки"
     },
     "pricingPhilosophy": {
       "title": "Pricing philosophy",
