@@ -67,3 +67,45 @@ export function buildCspNotificationsLabels(t: (key: string) => string): CspNoti
     errorBody: t(`${messages}.errorBody`),
   };
 }
+
+export type CspBankPanelLabels = {
+  title: string;
+  intro: string;
+  accountHolder: string;
+  country: string;
+  currency: string;
+  iban: string;
+  swiftBic: string;
+  save: string;
+  saving: string;
+  saved: string;
+  error: string;
+  unavailable: string;
+  maskedLabel: string;
+  noneSaved: string;
+  retry: string;
+  manualPayoutNote: string;
+};
+
+/** Server-safe. Must not live in a client component module (settlement P0). */
+export function buildCspBankPanelLabels(t: (key: string) => string): CspBankPanelLabels {
+  const p = "partnersPortal.certifiedSalesPartner.bank";
+  return {
+    title: t(`${p}.title`),
+    intro: t(`${p}.intro`),
+    accountHolder: t(`${p}.accountHolder`),
+    country: t(`${p}.country`),
+    currency: t(`${p}.currency`),
+    iban: t(`${p}.iban`),
+    swiftBic: t(`${p}.swiftBic`),
+    save: t(`${p}.save`),
+    saving: t(`${p}.saving`),
+    saved: t(`${p}.saved`),
+    error: t(`${p}.error`),
+    unavailable: t(`${p}.unavailable`),
+    maskedLabel: t(`${p}.maskedLabel`),
+    noneSaved: t(`${p}.noneSaved`),
+    retry: t(`${p}.retry`),
+    manualPayoutNote: t(`${p}.manualPayoutNote`),
+  };
+}

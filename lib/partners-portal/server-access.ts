@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { NextResponse } from "next/server";
 import type { SupabaseClient, User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
@@ -27,8 +28,10 @@ export type PartnersPortalServerAccess =
  *
  * Growth RPC and CSP status lookup run in parallel after auth so CSP partners
  * are not blocked waiting for a negative growth result first.
+ *
+ * Wrapped in React `cache()` so layout + page in the same RSC request share one gate.
  */
-export async function resolvePartnersPortalServerAccess(): Promise<PartnersPortalServerAccess> {
+export const resolvePartnersPortalServerAccess = cache(async (): Promise<PartnersPortalServerAccess> => {
   try {
     const supabase = await createClient();
     const {
@@ -64,7 +67,7 @@ export async function resolvePartnersPortalServerAccess(): Promise<PartnersPorta
   } catch {
     return { kind: "denied" };
   }
-}
+});
 
 /** API helper — returns 401/403 responses when seller-portal access is not granted. */
 export async function requirePartnersPortalApiAccess(): Promise<

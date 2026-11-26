@@ -17,6 +17,9 @@ type PartnersPortalAuthGuardProps = {
   children: ReactNode;
 };
 
+/** Throttle silent access rechecks after the layout already authorized the session. */
+const SILENT_ACCESS_MIN_MS = 90_000;
+
 export function PartnersPortalAuthGuard({
   loadingLabel,
   serverAuthorized = false,
@@ -29,9 +32,12 @@ export function PartnersPortalAuthGuard({
   useEffect(() => {
     const supabase = getBrowserSupabaseClient();
     let mounted = true;
+    let lastSilentAt = 0;
 
-    async function verifyAccess(opts?: { silent?: boolean }) {
+    async function verifyAccess(opts?: { silent?: boolean; force?: boolean }) {
       const silent = opts?.silent === true;
+      const force = opts?.force === true;
+      if (silent && !force && Date.now() - lastSilentAt < SILENT_ACCESS_MIN_MS) return;
       if (!silent && !serverAuthorized) setChecking(true);
 
       const {
@@ -49,6 +55,8 @@ export function PartnersPortalAuthGuard({
       const data = (await res.json().catch(() => null)) as { has_access?: boolean } | null;
       if (!mounted) return;
 
+      if (silent) lastSilentAt = Date.now();
+
       if (!data?.has_access) {
         setAuthorized(false);
         setChecking(false);
@@ -59,8 +67,20 @@ export function PartnersPortalAuthGuard({
       setChecking(false);
     }
 
-    // Server already gated — show shell immediately; recheck without blocking UI.
-    void verifyAccess({ silent: serverAuthorized });
+    // Server already gated — show shell immediately; skip mount recheck until idle/focus.
+    if (serverAuthorized) {
+      lastSilentAt = Date.now();
+    } else {
+      void verifyAccess({ silent: false });
+    }
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") {
+        void verifyAccess({ silent: true });
+      }
+    };
+    document.addEventListener("visibilitychange", onVisible);
+
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
       // Token refresh must not flash a full-screen loader during menu navigation.
       if (event === "INITIAL_SESSION") return;
@@ -68,11 +88,13 @@ export function PartnersPortalAuthGuard({
         void verifyAccess({ silent: true });
         return;
       }
-      void verifyAccess({ silent: false });
+      lastSilentAt = 0;
+      void verifyAccess({ silent: false, force: true });
     });
 
     return () => {
       mounted = false;
+      document.removeEventListener("visibilitychange", onVisible);
       sub.subscription.unsubscribe();
     };
   }, [router, serverAuthorized]);

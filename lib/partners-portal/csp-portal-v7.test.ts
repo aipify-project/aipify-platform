@@ -13,10 +13,36 @@ const root = new URL("../../", import.meta.url);
 test("server pages do not call client label builders", () => {
   const settings = readFileSync(new URL("app/partners/account/settings/page.tsx", root), "utf8");
   const notifications = readFileSync(new URL("app/partners/account/notifications/page.tsx", root), "utf8");
+  const settlement = readFileSync(new URL("app/partners/settlement/page.tsx", root), "utf8");
   assert.match(settings, /csp-section-labels/);
   assert.match(notifications, /csp-section-labels/);
+  assert.match(settlement, /csp-section-labels/);
   assert.doesNotMatch(settings, /buildCspHelpLabels[\s\S]*from "@\/components/);
   assert.doesNotMatch(notifications, /buildCspNotificationsLabels[\s\S]*from "@\/components/);
+  assert.doesNotMatch(settlement, /buildCspBankPanelLabels[\s\S]*from "@\/components/);
+  const bank = readFileSync(new URL("components/partners-portal/CertifiedSalesPartnerBankPanel.tsx", root), "utf8");
+  assert.doesNotMatch(bank, /export function buildCspBankPanelLabels/);
+});
+
+test("portal overview fetch stays in layout session provider", () => {
+  const layout = readFileSync(new URL("app/partners/layout.tsx", root), "utf8");
+  const provider = readFileSync(new URL("components/partners-portal/CspPortalSessionProvider.tsx", root), "utf8");
+  const workspace = readFileSync(new URL("components/partners-portal/CertifiedSalesPartnerWorkspacePanel.tsx", root), "utf8");
+  const guard = readFileSync(new URL("components/partners-portal/PartnersPortalAuthGuard.tsx", root), "utf8");
+  const loading = readFileSync(new URL("app/partners/loading.tsx", root), "utf8");
+  assert.match(layout, /CspPortalSessionProvider/);
+  assert.match(layout, /serverAuthorized/);
+  assert.match(provider, /\/api\/certified-sales-partner\/portal/);
+  assert.match(provider, /SILENT_REVALIDATE_MIN_MS/);
+  assert.doesNotMatch(workspace, /\/api\/certified-sales-partner\/portal/);
+  assert.match(guard, /SILENT_ACCESS_MIN_MS/);
+  assert.match(loading, /AipifyLoader/);
+});
+
+test("help payouts CTA still points at settlement after bank label move", () => {
+  const labels = readFileSync(new URL("lib/partners-portal/csp-section-labels.ts", root), "utf8");
+  assert.match(labels, /payouts[\s\S]*\/partners\/settlement/);
+  assert.match(labels, /export function buildCspBankPanelLabels/);
 });
 
 test("compact nav reuses routes and has no duplicate hrefs", () => {

@@ -646,6 +646,13 @@ export function buildCspOverviewLabels(t: Translator): CspOverviewLabels {
   const k = (key: string) => t(`${CSP_NS}.overview.${key}`);
   return {
     title: k("title"),
+    welcome: k("welcome"),
+    welcomeFallback: k("welcomeFallback"),
+    intro: k("intro"),
+    shortcutSales: k("shortcutSales"),
+    shortcutLinks: k("shortcutLinks"),
+    shortcutCerts: k("shortcutCerts"),
+    shortcutProfile: k("shortcutProfile"),
     statusLabel: k("statusLabel"),
     partnerStatus: group(t, `${CSP_NS}.overview.partnerStatus`, PARTNER_STATUS_KEYS),
     certificationsLabel: k("certificationsLabel"),

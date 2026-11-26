@@ -155,6 +155,14 @@ export type PartnersPortalMessagesLabels = {
   sending: string;
   sendOk: string;
   sendError: string;
+  tabInbox: string;
+  tabSent: string;
+  searchPlaceholder: string;
+  backToList: string;
+  noSelectionTitle: string;
+  noSelectionBody: string;
+  unread: string;
+  openRelated: string;
 };
 
 export function buildPartnersPortalMessagesLabels(t: Translator): PartnersPortalMessagesLabels {
@@ -182,5 +190,13 @@ export function buildPartnersPortalMessagesLabels(t: Translator): PartnersPortal
     sending: t(`${m}.sending`),
     sendOk: t(`${m}.sendOk`),
     sendError: t(`${m}.sendError`),
+    tabInbox: t(`${m}.tabInbox`),
+    tabSent: t(`${m}.tabSent`),
+    searchPlaceholder: t(`${m}.searchPlaceholder`),
+    backToList: t(`${m}.backToList`),
+    noSelectionTitle: t(`${m}.noSelectionTitle`),
+    noSelectionBody: t(`${m}.noSelectionBody`),
+    unread: t(`${m}.unread`),
+    openRelated: t(`${m}.openRelated`),
   };
 }

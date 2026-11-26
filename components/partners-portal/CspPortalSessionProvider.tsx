@@ -9,7 +9,7 @@
  * and blocked the main pane on loading.
  *
  * This provider lives in the partners layout so the fetch runs once per
- * browser session (plus silent revalidation on focus / auth change).
+ * browser session (plus throttled silent revalidation on focus / auth change).
  * It never caches across users — cleared on auth change / logout.
  */
 import {
@@ -48,6 +48,9 @@ const CspPortalSessionContext = createContext<SessionValue | null>(null);
 /** Shared with child panels — same contract as the previous workspace-local context. */
 const CspPortalViewContext = createContext<CspPortalView | null>(null);
 
+/** Minimum gap between silent focus/visibility revalidations (ms). */
+const SILENT_REVALIDATE_MIN_MS = 60_000;
+
 export function useCspPortal(): CspPortalView | null {
   return useContext(CspPortalViewContext);
 }
@@ -74,9 +77,21 @@ export function CspPortalSessionProvider({ children }: Props) {
   const [detail, setDetail] = useState<string | null>(null);
   const hasLoadedOnce = useRef(false);
   const inFlight = useRef<Promise<void> | null>(null);
+  const lastSilentAt = useRef(0);
 
   const reload = useCallback(async (opts?: { silent?: boolean }) => {
     const silent = opts?.silent === true && hasLoadedOnce.current;
+    if (silent) {
+      const now = Date.now();
+      if (now - lastSilentAt.current < SILENT_REVALIDATE_MIN_MS) return;
+      lastSilentAt.current = now;
+    }
+
+    if (inFlight.current) {
+      await inFlight.current;
+      return;
+    }
+
     if (!silent) {
       setState("loading");
       setPortal(null);
@@ -129,6 +144,7 @@ export function CspPortalSessionProvider({ children }: Props) {
             break;
         }
         hasLoadedOnce.current = true;
+        if (silent) lastSilentAt.current = Date.now();
       } catch {
         if (!silent) {
           setPortal(null);
@@ -162,6 +178,7 @@ export function CspPortalSessionProvider({ children }: Props) {
       // Keep portal data across soft navigation and quiet token refresh.
       if (event === "INITIAL_SESSION" || event === "TOKEN_REFRESHED") return;
       hasLoadedOnce.current = false;
+      lastSilentAt.current = 0;
       void reload();
     });
 
