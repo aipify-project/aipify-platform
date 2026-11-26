@@ -12,15 +12,15 @@
       "loading": "Indlæser platformoversigt…",
       "principle": "Platform driver Aipify Group. Executive oversigt hører hjemme i Super Admin.",
       "privacyNote": "Kun aggregerede platformoperationer — ikke kundens forretningsindhold.",
-      "organizationsRequiringAttention": "Organisationer der kræver opmærksomhed",
-      "activeSubscriptions": "Aktive aftaler",
+      "organizationsRequiringAttention": "Organisationer der kræver handling",
+      "activeSubscriptions": "Aktive kundeaftaler",
       "openSupportWorkload": "Åben supportbelastning",
       "paymentStatusSummary": "Betalingsstatus",
       "paymentActive": "Aktive",
       "paymentPastDue": "Forfalden",
       "paymentTrialing": "Prøveperiode",
       "customerSuccessIndicators": "Kundesuccesindikatorer",
-      "healthyRatio": "Andel sunde organisationer",
+      "healthyRatio": "Andel sunde kundeorganisationer",
       "marketplaceModeration": "Markedspladsmoderering",
       "pendingReview": "Afventer gennemgang",
       "published": "Publiceret",
@@ -66,7 +66,11 @@
           "attention_required": "Kræver opmærksomhed",
           "unknown": "Status utilgængelig"
         }
-      }
+      },
+      "customerOrganizations": "Kundeorganisationer",
+      "requiresActionTitle": "Kræver handling",
+      "financeOverviewTitle": "Økonomioversigt",
+      "partnerScopeNote": "Certificerede sælgere er adskilt fra APP-kundeorganisationer og tælles ikke som betalende kunder her."
     },
     "foundation": {
       "loading": "Indlæser…",
@@ -289,8 +293,8 @@
   "overview": {
     "title": "Aipify Platform Admin",
     "subtitle": "Aipify-powered executive control for Aipify Group AS — what matters, what needs attention, and what to do next.",
-    "note": "Customer Control Center lives at /dashboard. This area is internal-only and spans all tenants.",
-    "loading": "Preparing your executive briefing...",
+    "note": "Operativ driftsoversigt på tværs af alle tenanter. Kundens Control Center ligger i kunde-APP.",
+    "loading": "Forbereder driftsoversigt…",
     "briefing": {
       "title": "Executive Briefing",
       "greetingMorning": "Good morning, {name}.",
@@ -340,7 +344,16 @@
       "empty": "No intelligence recommendations yet.",
       "confidence": "Confidence",
       "viewQueue": "Review learning queue"
-    }
+    },
+    "loadErrorTitle": "Kunne ikke indlæse driftsoversigten",
+    "loadErrorMessage": "Driftssignaler kunne ikke indlæses. Kontrollér adgang og prøv igen.",
+    "retry": "Prøv igen",
+    "platformScore": "Platformscore: {score}% · {label}",
+    "operationalLinksTitle": "Driftslinks",
+    "linkPlatformHealth": "Platformstatus",
+    "linkAuditLogs": "Hændelseslog",
+    "linkInstallations": "Installationer",
+    "linkSupport": "Support"
   },
   "customerType": {
     "company": "Company",
@@ -2613,7 +2626,11 @@
     },
     "actions": {
       "applying": "Udfører…"
-    }
+    },
+    "loadErrorTitle": "Kunne ikke indlæse platformstatus",
+    "loadErrorMessage": "Helbredssignaler kunne ikke verificeres. Prøv igen eller kontrollér Platform Admin-adgang.",
+    "retry": "Prøv igen",
+    "unknownVerified": "Status: ukendt / kan ikke verificeres, før et helbredssignal er bekræftet."
   },
   "system": {
     "title": "System status",
@@ -6785,19 +6802,19 @@
   },
   "kompisAi": {
     "title": "Kompis AI",
-    "subtitle": "Overvåg live AI, sikker reserveplanlægning, kapacitet og driftsstatus.",
-    "liveAi": "Live AI",
+    "subtitle": "Provider-tilgængelighed og plannerstyring for Platform Kompis-operator — ikke produktlicensstatus.",
+    "liveAi": "Planner-provider",
     "safeFallback": "Secure fallback planning",
-    "liveAiActive": "Live AI er aktiv",
-    "liveAiNotEnabled": "Live AI er ikke aktiveret",
-    "liveAiTemporarilyLimited": "Live AI is temporarily limited",
+    "liveAiActive": "Provider tilgængelig",
+    "liveAiNotEnabled": "Provider er ikke konfigureret",
+    "liveAiTemporarilyLimited": "Provider midlertidigt begrænset",
     "usingSafeFallback": "Kompis bruger sikker reserveplanlægning",
     "providerStatus": "Provider status",
     "modelProfile": "Model profile",
     "systemPromptVersion": "System prompt version",
     "plannerVersion": "Planner version",
     "operationsStatus": "Operational status",
-    "ready": "Ready",
+    "ready": "Provider klar",
     "limited": "Limited",
     "cooldown": "Cooling down",
     "unavailable": "Unavailable",
@@ -6826,9 +6843,12 @@
     "fallback": "Fallback",
     "errors": "Errors",
     "activeOrganizations": "Active organizations",
-    "circuitBreaker": "Circuit breaker",
-    "open": "Open",
-    "closed": "Closed"
+    "circuitBreaker": "Teknisk sikring",
+    "open": "Åben",
+    "closed": "Lukket",
+    "scopeNote": "Denne side viser kun planner-/providerhelbred. Den betyder ikke, at Kompis Web, Kompis Bedrift eller fælles Kompis Core er licenseret eller fuldt integreret.",
+    "unverified": "Uverificeret",
+    "circuitBreakerHelp": "Teknisk afbryder for provider-kald — ikke en generel sikkerhedsgaranti."
   },
   "websiteReleaseVerification": {
     "title": "Website Release Verification",

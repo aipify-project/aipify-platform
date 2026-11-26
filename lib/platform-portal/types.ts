@@ -81,6 +81,7 @@ export type PlatformPortalLabels = {
     loading: string;
     principle: string;
     privacyNote: string;
+    customerOrganizations: string;
     organizationsRequiringAttention: string;
     activeSubscriptions: string;
     openSupportWorkload: string;
@@ -97,12 +98,15 @@ export type PlatformPortalLabels = {
     pendingReview: string;
     published: string;
     partnerProgramSummary: string;
+    partnerScopeNote: string;
     activePrograms: string;
     pendingApplications: string;
     productDeploymentUpdates: string;
     noUpdates: string;
     portalModules: string;
     openModule: string;
+    requiresActionTitle: string;
+    financeOverviewTitle: string;
     loadErrorTitle: string;
     loadErrorMessage: string;
     retry: string;

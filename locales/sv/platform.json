@@ -12,15 +12,15 @@
       "loading": "Läser plattformsöversikt…",
       "principle": "Platform driver Aipify Group. Executive översikt hör hemma i Super Admin.",
       "privacyNote": "Endast aggregerade plattformsoperationer — inte kundens affärsinnehåll.",
-      "organizationsRequiringAttention": "Organisationer som kräver uppmärksamhet",
-      "activeSubscriptions": "Aktiva avtal",
+      "organizationsRequiringAttention": "Organisationer som kräver åtgärd",
+      "activeSubscriptions": "Aktiva kundavtal",
       "openSupportWorkload": "Öppen supportbelastning",
       "paymentStatusSummary": "Betalningsstatus",
       "paymentActive": "Aktiva",
       "paymentPastDue": "Förfallen",
       "paymentTrialing": "Provperiod",
       "customerSuccessIndicators": "Kundframgångsindikatorer",
-      "healthyRatio": "Andel friska organisationer",
+      "healthyRatio": "Andel friska kundorganisationer",
       "marketplaceModeration": "Marknadsplatsmoderering",
       "pendingReview": "Väntar granskning",
       "published": "Publicerad",
@@ -66,7 +66,11 @@
           "attention_required": "Kräver uppmärksamhet",
           "unknown": "Status otillgänglig"
         }
-      }
+      },
+      "customerOrganizations": "Kundorganisationer",
+      "requiresActionTitle": "Kräver åtgärd",
+      "financeOverviewTitle": "Ekonomiöversikt",
+      "partnerScopeNote": "Certifierade säljare skiljs från APP-kundorganisationer och räknas inte som betalande kunder här."
     },
     "foundation": {
       "loading": "Laddar…",
@@ -403,8 +407,8 @@
   "overview": {
     "title": "Aipify Platform Admin",
     "subtitle": "Aipify-powered executive control for Aipify Group AS — what matters, what needs attention, and what to do next.",
-    "note": "Customer Control Center lives at /dashboard. This area is internal-only and spans all tenants.",
-    "loading": "Preparing your executive briefing...",
+    "note": "Operativ driftsöversikt över alla tenanter. Kundens Control Center finns i kund-APP.",
+    "loading": "Förbereder driftsöversikt…",
     "briefing": {
       "title": "Executive Briefing",
       "greetingMorning": "Good morning, {name}.",
@@ -519,7 +523,16 @@
         "enterprise": "Enterprise"
       },
       "privacyNote": "Aipify learns from operational patterns only. Customer conversations, invoices, identities, and sensitive content are never stored in the learning system."
-    }
+    },
+    "loadErrorTitle": "Kunde inte ladda driftsöversikten",
+    "loadErrorMessage": "Driftssignaler kunde inte laddas. Kontrollera åtkomst och försök igen.",
+    "retry": "Försök igen",
+    "platformScore": "Plattformspoäng: {score}% · {label}",
+    "operationalLinksTitle": "Driftlänkar",
+    "linkPlatformHealth": "Plattformsstatus",
+    "linkAuditLogs": "Händelselogg",
+    "linkInstallations": "Installationer",
+    "linkSupport": "Support"
   },
   "customerType": {
     "company": "Company",
@@ -5667,7 +5680,11 @@
     },
     "actions": {
       "applying": "Tillämpar…"
-    }
+    },
+    "loadErrorTitle": "Kunde inte ladda plattformsstatus",
+    "loadErrorMessage": "Hälsosignaler kunde inte verifieras. Försök igen eller kontrollera Platform Admin-åtkomst.",
+    "retry": "Försök igen",
+    "unknownVerified": "Status: okänd / kan inte verifieras förrän en hälsosignal bekräftas."
   },
   "system": {
     "title": "System status",
@@ -7333,19 +7350,19 @@
   },
   "kompisAi": {
     "title": "Kompis AI",
-    "subtitle": "Övervaka live AI, säker reservplanering, kapacitet och driftsstatus.",
-    "liveAi": "Live AI",
+    "subtitle": "Provider-tillgänglighet och plannerstyrning för Platform Kompis-operator — inte produktlicensstatus.",
+    "liveAi": "Planner-provider",
     "safeFallback": "Secure fallback planning",
-    "liveAiActive": "Live AI är aktiv",
-    "liveAiNotEnabled": "Live AI är inte aktiverad",
-    "liveAiTemporarilyLimited": "Live AI is temporarily limited",
+    "liveAiActive": "Provider nåbar",
+    "liveAiNotEnabled": "Provider är inte konfigurerad",
+    "liveAiTemporarilyLimited": "Provider tillfälligt begränsad",
     "usingSafeFallback": "Kompis använder säker reservplanering",
     "providerStatus": "Provider status",
     "modelProfile": "Model profile",
     "systemPromptVersion": "System prompt version",
     "plannerVersion": "Planner version",
     "operationsStatus": "Operational status",
-    "ready": "Ready",
+    "ready": "Provider redo",
     "limited": "Limited",
     "cooldown": "Cooling down",
     "unavailable": "Unavailable",
@@ -7374,9 +7391,12 @@
     "fallback": "Fallback",
     "errors": "Errors",
     "activeOrganizations": "Active organizations",
-    "circuitBreaker": "Circuit breaker",
-    "open": "Open",
-    "closed": "Closed"
+    "circuitBreaker": "Tekniskt skydd",
+    "open": "Öppen",
+    "closed": "Stängd",
+    "scopeNote": "Denna sida visar endast planner-/providerhälsa. Den betyder inte att Kompis Web, Kompis Bedrift eller gemensam Kompis Core är licensierad eller fullt integrerad.",
+    "unverified": "Overifierad",
+    "circuitBreakerHelp": "Teknisk brytare för provideranrop — inte en generell säkerhetsgaranti."
   },
   "websiteReleaseVerification": {
     "title": "Website Release Verification",

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
   INCIDENT_SEVERITIES,
   INCIDENT_STATUSES,
@@ -17,6 +18,8 @@ type PlatformHealthOperationsCenterPanelProps = {
   labels: PlatformHealthOperationsLabels;
   backHref: string;
 };
+
+const HEALTH_FETCH_TIMEOUT_MS = 20_000;
 
 function OverviewCard({ label, value }: { label: string; value: string | number }) {
   return (
@@ -38,24 +41,68 @@ export function PlatformHealthOperationsCenterPanel({
 }: PlatformHealthOperationsCenterPanelProps) {
   const [center, setCenter] = useState<PlatformHealthOperationsCenter | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [busy, setBusy] = useState(false);
   const [draftTitle, setDraftTitle] = useState("");
   const [draftSummary, setDraftSummary] = useState("");
   const [draftServiceKey, setDraftServiceKey] = useState<string>(SERVICE_KEYS[0]);
   const [draftSeverity, setDraftSeverity] = useState<string>("medium");
   const [noteDrafts, setNoteDrafts] = useState<Record<string, string>>({});
+  const abortRef = useRef<AbortController | null>(null);
 
   const load = useCallback(async () => {
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+    const timeoutId = window.setTimeout(() => controller.abort(), HEALTH_FETCH_TIMEOUT_MS);
+
     setLoading(true);
-    const res = await fetch("/api/platform-health-operations-center/overview");
-    if (res.ok) {
-      setCenter(parsePlatformHealthOperationsCenter(await res.json()));
+    setLoadError(false);
+
+    try {
+      const res = await fetch("/api/platform-health-operations-center/overview", {
+        cache: "no-store",
+        signal: controller.signal,
+      });
+      if (!res.ok) {
+        setCenter(null);
+        setLoadError(true);
+        return;
+      }
+      let payload: unknown;
+      try {
+        payload = await res.json();
+      } catch {
+        setCenter(null);
+        setLoadError(true);
+        return;
+      }
+      const parsed = parsePlatformHealthOperationsCenter(payload);
+      if (!parsed) {
+        setCenter(null);
+        setLoadError(true);
+        return;
+      }
+      setCenter(parsed);
+    } catch {
+      if (!controller.signal.aborted) {
+        setCenter(null);
+        setLoadError(true);
+      } else {
+        setCenter(null);
+        setLoadError(true);
+      }
+    } finally {
+      window.clearTimeout(timeoutId);
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   useEffect(() => {
     void load();
+    return () => {
+      abortRef.current?.abort();
+    };
   }, [load]);
 
   const performAction = useCallback(
@@ -76,11 +123,34 @@ export function PlatformHealthOperationsCenterPanel({
   );
 
   if (loading && !center) {
-    return <p className="p-6 text-sm text-zinc-500">{labels.loading}</p>;
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center p-6">
+        <AipifyLoader centered />
+        <span className="sr-only">{labels.loading}</span>
+      </div>
+    );
   }
 
-  if (!center) {
-    return <p className="p-6 text-sm text-red-600">{labels.emptyState}</p>;
+  if (loadError || !center) {
+    return (
+      <div
+        role="alert"
+        className="m-6 flex flex-col gap-4 rounded-2xl border border-rose-200 bg-rose-50 px-5 py-4 sm:flex-row sm:items-start sm:justify-between"
+      >
+        <div className="min-w-0">
+          <h2 className="text-base font-semibold text-rose-950">{labels.loadErrorTitle}</h2>
+          <p className="mt-1 text-sm text-rose-800/90">{labels.loadErrorMessage}</p>
+          <p className="mt-2 text-xs text-rose-700/80">{labels.unknownVerified}</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => void load()}
+          className="inline-flex shrink-0 items-center justify-center rounded-lg border border-rose-300 bg-white px-4 py-2 text-sm font-medium text-rose-900 shadow-sm hover:bg-rose-100"
+        >
+          {labels.retry}
+        </button>
+      </div>
+    );
   }
 
   const summary = center.executive_summary;

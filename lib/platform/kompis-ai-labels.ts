@@ -3,6 +3,7 @@ import type { Translator } from "@/lib/i18n/translate";
 export type KompisAiGovernanceLabels = {
   title: string;
   subtitle: string;
+  scopeNote: string;
   liveAi: string;
   safeFallback: string;
   liveAiActive: string;
@@ -19,6 +20,7 @@ export type KompisAiGovernanceLabels = {
   cooldown: string;
   unavailable: string;
   disabled: string;
+  unverified: string;
   lastCheck: string;
   lastSuccessfulCall: string;
   responseTime: string;
@@ -44,6 +46,7 @@ export type KompisAiGovernanceLabels = {
   errors: string;
   activeOrganizations: string;
   circuitBreaker: string;
+  circuitBreakerHelp: string;
   open: string;
   closed: string;
 };
@@ -52,6 +55,7 @@ export function buildKompisAiGovernanceLabels(t: Translator): KompisAiGovernance
   return {
     title: t("platform.kompisAi.title"),
     subtitle: t("platform.kompisAi.subtitle"),
+    scopeNote: t("platform.kompisAi.scopeNote"),
     liveAi: t("platform.kompisAi.liveAi"),
     safeFallback: t("platform.kompisAi.safeFallback"),
     liveAiActive: t("platform.kompisAi.liveAiActive"),
@@ -68,6 +72,7 @@ export function buildKompisAiGovernanceLabels(t: Translator): KompisAiGovernance
     cooldown: t("platform.kompisAi.cooldown"),
     unavailable: t("platform.kompisAi.unavailable"),
     disabled: t("platform.kompisAi.disabled"),
+    unverified: t("platform.kompisAi.unverified"),
     lastCheck: t("platform.kompisAi.lastCheck"),
     lastSuccessfulCall: t("platform.kompisAi.lastSuccessfulCall"),
     responseTime: t("platform.kompisAi.responseTime"),
@@ -93,6 +98,7 @@ export function buildKompisAiGovernanceLabels(t: Translator): KompisAiGovernance
     errors: t("platform.kompisAi.errors"),
     activeOrganizations: t("platform.kompisAi.activeOrganizations"),
     circuitBreaker: t("platform.kompisAi.circuitBreaker"),
+    circuitBreakerHelp: t("platform.kompisAi.circuitBreakerHelp"),
     open: t("platform.kompisAi.open"),
     closed: t("platform.kompisAi.closed"),
   };

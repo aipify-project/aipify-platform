@@ -53,8 +53,10 @@ function statusLabel(labels: KompisAiGovernanceLabels, status: string): string {
       return labels.unavailable;
     case "disabled":
       return labels.disabled;
-    default:
+    case "not_configured":
       return labels.liveAiNotEnabled;
+    default:
+      return labels.unverified;
   }
 }
 
@@ -176,6 +178,7 @@ export function KompisAiGovernancePanel({
           <Badge tone={tone} label={statusLabel(labels, status)} />
         </div>
         <p className="max-w-3xl text-sm text-slate-600 dark:text-slate-300">{labels.subtitle}</p>
+        <p className="max-w-3xl text-sm text-slate-600 dark:text-slate-300">{labels.scopeNote}</p>
         <p className="text-xs text-slate-500 dark:text-slate-400">{labels.noSensitiveInfo}</p>
       </header>
 
@@ -192,10 +195,15 @@ export function KompisAiGovernancePanel({
         />
         <Metric label={labels.safeFallback} value={labels.usingSafeFallback} />
         <Metric label={labels.modelProfile} value={data.modelProfile ?? data.readiness?.modelProfile ?? "—"} />
-        <Metric
-          label={labels.circuitBreaker}
-          value={data.circuitOpen || data.readiness?.circuitOpen ? labels.open : labels.closed}
-        />
+        <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950">
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+            {labels.circuitBreaker}
+          </p>
+          <p className="mt-2 text-lg font-semibold text-slate-900 dark:text-slate-50">
+            {data.circuitOpen || data.readiness?.circuitOpen ? labels.open : labels.closed}
+          </p>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{labels.circuitBreakerHelp}</p>
+        </div>
       </section>
 
       <section className="grid gap-4 lg:grid-cols-2">

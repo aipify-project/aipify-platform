@@ -12,15 +12,15 @@
       "loading": "Завантаження огляду платформи…",
       "principle": "Платформа обслуговує Aipify Group. Виконавчий нагляд належить Super Admin.",
       "privacyNote": "Лише агреговані операції платформи — без бізнес-вмісту клієнта.",
-      "organizationsRequiringAttention": "Організації, що потребують уваги",
-      "activeSubscriptions": "Активні угоди",
+      "organizationsRequiringAttention": "Організації, що потребують дії",
+      "activeSubscriptions": "Активні клієнтські угоди",
       "openSupportWorkload": "Відкрите навантаження підтримки",
       "paymentStatusSummary": "Статус платежів",
       "paymentActive": "Активні",
       "paymentPastDue": "Прострочені",
       "paymentTrialing": "Пробний період",
       "customerSuccessIndicators": "Показники успіху клієнта",
-      "healthyRatio": "Частка здорових організацій",
+      "healthyRatio": "Частка здорових клієнтських організацій",
       "marketplaceModeration": "Модерація маркетплейсу",
       "pendingReview": "Очікує перегляду",
       "published": "Опубліковано",
@@ -66,7 +66,11 @@
           "attention_required": "Потребує уваги",
           "unknown": "Статус недоступний"
         }
-      }
+      },
+      "customerOrganizations": "Організації клієнтів",
+      "requiresActionTitle": "Потребує дії",
+      "financeOverviewTitle": "Фінансовий огляд",
+      "partnerScopeNote": "Сертифіковані продавці відокремлені від клієнтських організацій APP і не рахуються тут як платні клієнти."
     },
     "foundation": {
       "loading": "Завантаження…",
@@ -403,8 +407,8 @@
   "overview": {
     "title": "Aipify Platform Admin",
     "subtitle": "Виконавчий контроль Aipify Group AS на основі Aipify — що важливо, що потребує уваги та що робити далі.",
-    "note": "Центр керування клієнтами розташований за адресою /dashboard. Ця зона є лише внутрішньою та охоплює всіх орендарів.",
-    "loading": "Підготовка вашого виконавчого брифінгу...",
+    "note": "Операційний огляд платформи для всіх тенантів. Control Center клієнта залишається в клієнтському APP.",
+    "loading": "Підготовка операційного огляду…",
     "briefing": {
       "title": "Виконавчий брифінг",
       "greetingMorning": "Доброго ранку, {name}.",
@@ -519,7 +523,16 @@
         "enterprise": "підприємство"
       },
       "privacyNote": "Aipify вивчає лише робочі шаблони. Розмови клієнтів, рахунки-фактури, особисті дані та конфіденційний вміст ніколи не зберігаються в системі навчання."
-    }
+    },
+    "loadErrorTitle": "Не вдалося завантажити операційний огляд",
+    "loadErrorMessage": "Операційні сигнали не завантажено. Перевірте доступ і спробуйте знову.",
+    "retry": "Спробувати знову",
+    "platformScore": "Оцінка платформи: {score}% · {label}",
+    "operationalLinksTitle": "Операційні посилання",
+    "linkPlatformHealth": "Статус платформи",
+    "linkAuditLogs": "Журнал подій",
+    "linkInstallations": "Встановлення",
+    "linkSupport": "Підтримка"
   },
   "customerType": {
     "company": "Компанія",
@@ -5667,7 +5680,11 @@
     },
     "actions": {
       "applying": "Застосування…"
-    }
+    },
+    "loadErrorTitle": "Не вдалося завантажити статус платформи",
+    "loadErrorMessage": "Сигнали здоров’я не вдалося перевірити. Спробуйте знову або перевірте доступ Platform Admin.",
+    "retry": "Спробувати знову",
+    "unknownVerified": "Статус: невідомо / не можна перевірити, доки сигнал здоров’я не підтверджено."
   },
   "system": {
     "title": "Статус системи",
@@ -7333,19 +7350,19 @@
   },
   "kompisAi": {
     "title": "Kompis AI",
-    "subtitle": "Kontrolyuite live AI, bezpechne rezervne planuvannia, mistkist i operatsiinyi status.",
-    "liveAi": "Live AI",
+    "subtitle": "Доступність провайдера та керування планувальником для оператора Platform Kompis — не статус ліцензії продукту.",
+    "liveAi": "Провайдер планувальника",
     "safeFallback": "Secure fallback planning",
-    "liveAiActive": "Live AI aktyvnyi",
-    "liveAiNotEnabled": "Live AI ne aktyvovano",
-    "liveAiTemporarilyLimited": "Live AI is temporarily limited",
+    "liveAiActive": "Провайдер доступний",
+    "liveAiNotEnabled": "Провайдер не налаштований",
+    "liveAiTemporarilyLimited": "Провайдер тимчасово обмежений",
     "usingSafeFallback": "Kompis vykorystovuie bezpechne rezervne planuvannia",
     "providerStatus": "Provider status",
     "modelProfile": "Model profile",
     "systemPromptVersion": "System prompt version",
     "plannerVersion": "Planner version",
     "operationsStatus": "Operational status",
-    "ready": "Ready",
+    "ready": "Провайдер готовий",
     "limited": "Limited",
     "cooldown": "Cooling down",
     "unavailable": "Unavailable",
@@ -7374,9 +7391,12 @@
     "fallback": "Fallback",
     "errors": "Errors",
     "activeOrganizations": "Active organizations",
-    "circuitBreaker": "Circuit breaker",
-    "open": "Open",
-    "closed": "Closed"
+    "circuitBreaker": "Технічний захист",
+    "open": "Відкрито",
+    "closed": "Закрито",
+    "scopeNote": "Ця сторінка показує лише здоров’я планувальника/провайдера. Це не означає, що Kompis Web, Kompis Bedrift або спільне Kompis Core ліцензовано чи повністю інтегровано.",
+    "unverified": "Не перевірено",
+    "circuitBreakerHelp": "Технічний вимикач викликів провайдера — не загальна гарантія безпеки."
   },
   "websiteReleaseVerification": {
     "title": "Website Release Verification",
