@@ -8839,5 +8839,21 @@
       "successEmailAcceptedAddon": "Vi har sendt dig en e-mail. Levering til indbakken kan tage nogle minutter.",
       "successEmailNotConfiguredAddon": "Din ansøgning er gemt. Du får en bekræftelse på e-mail, når Aipify Group AS har færdiggjort e-mailopsætningen."
     }
+  },
+  "supportIntake": {
+    "title": "Contact support",
+    "subtitle": "Submit a support request. Ticket storage activates after Core approval — email fallback remains available.",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send request",
+    "submitting": "Sending…",
+    "successCorePending": "Support intake is prepared but requires Core setup before the ticket is stored automatically. Use the email fallback below for now.",
+    "errorGeneric": "Could not send the request. Try again or use email.",
+    "mailtoFallback": "Public email contact remains available as a fallback.",
+    "mailtoLabel": "Email support@aipify.ai",
+    "verificationRequired": "Complete the security check before submitting.",
+    "_fallbackFrom": "en"
   }
 }

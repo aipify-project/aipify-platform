@@ -25,7 +25,7 @@ Thin server routes and adapter exist but are **fail-closed** until Core SQL appl
 | List | `GET /api/platform-portal/support-requests` | **No** → HTTP 503 `rpc_not_applied` |
 | Detail | `GET /api/platform-portal/support-requests/[id]` | **No** |
 | Counts | `GET /api/platform-portal/support-requests/counts` | **No** |
-| UI `/platform/support` | Still `list_platform_support_queue` | Legacy only — **not** APP SoT |
+| UI `/platform/support` | Support Center V1 shell wired to fail-closed adapter | **UI wired**; live data still **No** until RPC + gate |
 
 Rules:
 

@@ -22,21 +22,34 @@ import {
   listPlatformSupportTickets,
 } from "./support-tickets-read-adapter";
 
+const previousSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+
+// Compile-time defaults remain closed; unknown Core stays fail-closed.
+process.env.NEXT_PUBLIC_SUPABASE_URL = "https://example.supabase.co";
 assert.ok(assertPlatformSupportTicketsReadIsFailClosed());
 assert.equal(PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED, false);
 assert.equal(PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE, false);
-assert.equal(PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED, false);
+assert.equal(PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED, true);
 assert.equal(canInvokePlatformSupportTicketsReadRpc(), false);
+assert.equal(getPlatformSupportTicketsReadGateState().live, false);
 
+// Production Core binding opens read live after owner-approved SQL apply.
+process.env.NEXT_PUBLIC_SUPABASE_URL =
+  "https://qbcqoixhrvhnuwphefvw.supabase.co";
+assert.equal(canInvokePlatformSupportTicketsReadRpc(), true);
 const gate = getPlatformSupportTicketsReadGateState();
-assert.equal(gate.live, false);
+assert.equal(gate.live, true);
+assert.equal(gate.rpcConnected, true);
 assert.equal(gate.sourceLocaleInvent, false);
 assert.deepEqual([...gate.allowedRoles], ["super_admin", "platform_support"]);
 
+process.env.NEXT_PUBLIC_SUPABASE_URL = "https://example.supabase.co";
 const inactive = denyInactivePlatformSupportTicketsRead();
 assert.equal(inactive.ok, false);
 assert.equal(inactive.code, "rpc_not_applied");
 assert.equal(httpStatusForSupportTicketsReadDenial(inactive.code), 503);
+process.env.NEXT_PUBLIC_SUPABASE_URL =
+  "https://qbcqoixhrvhnuwphefvw.supabase.co";
 
 // Product channel link honesty
 assert.equal(PLATFORM_SUPPORT_PRODUCT_CHANNEL_LINK.aipify_public_site.linked, false);
@@ -52,6 +65,7 @@ assert.ok(PLATFORM_SUPPORT_ALLOWED_CHANNEL_FILTERS.includes("app_portal"));
 assert.ok(!PLATFORM_SUPPORT_ALLOWED_CHANNEL_FILTERS.includes("selgere" as never));
 
 // Adapter must not call RPC while inactive — stub that throws if invoked.
+process.env.NEXT_PUBLIC_SUPABASE_URL = "https://example.supabase.co";
 const forbiddenClient = {
   rpc: async () => {
     throw new Error("RPC must not be invoked while feature gate / apply is off");
@@ -123,13 +137,30 @@ void (async () => {
   assert.match(getRoute, /getPlatformSupportTicket/);
   assert.match(countsRoute, /getPlatformSupportTicketCounts/);
 
-  // Legacy panel remains on legacy queue — UI not wired to APP SoT adapter
+  // Legacy panel remains on legacy queue (unused by /platform/support page).
   assert.match(panel, /list_platform_support_queue/);
   assert.doesNotMatch(panel, /listPlatformSupportTickets/);
   assert.doesNotMatch(panel, /list_platform_app_portal_support_requests/);
   assert.doesNotMatch(panel, /\/api\/platform-portal\/support-requests/);
 
+  // Support Center V1 page shell uses the fail-closed HTTP adapter (no live RPC until gates flip).
+  const center = readFileSync(
+    join(
+      process.cwd(),
+      "components/platform/support-center/PlatformSupportCenterPanel.tsx",
+    ),
+    "utf8",
+  );
+  assert.match(center, /\/api\/platform-portal\/support-requests/);
+  assert.doesNotMatch(center, /list_platform_support_queue/);
+
+  if (previousSupabaseUrl === undefined) {
+    delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+  } else {
+    process.env.NEXT_PUBLIC_SUPABASE_URL = previousSupabaseUrl;
+  }
+
   console.log(
-    "support-tickets-read-adapter: fail-closed PASS; feature gate OFF; UI not wired",
+    "support-tickets-read-adapter: fail-closed PASS; feature gate OFF; UI wired to fail-closed adapter",
   );
 })();

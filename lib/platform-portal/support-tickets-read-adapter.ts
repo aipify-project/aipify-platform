@@ -14,14 +14,22 @@
 import {
   APP_PORTAL_SUPPORT_CHANNEL_VALUES,
   PLATFORM_SUPPORT_FOUR_CHANNEL_MAPPING_PLAN,
-  PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED,
   PLATFORM_SUPPORT_TICKETS_READ_RPCS,
   PLATFORM_SUPPORT_TICKETS_READ_ROLES,
   PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED,
 } from "./support-tickets-cross-tenant-read-contract";
 
-/** Explicit Platform feature gate — stays false until a separate activation job. */
+import { resolveSupportCenterStagingLiveGates } from "@/lib/platform-portal/support-center/staging-core-activation";
+
+/**
+ * Compile-time Production default remains closed.
+ * Live Staging binding is resolved at runtime via Staging Core project ref.
+ */
 export const PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE = false;
+
+export function isPlatformSupportTicketsReadFeatureGateOn(): boolean {
+  return resolveSupportCenterStagingLiveGates().readFeatureGate;
+}
 
 export const PLATFORM_SUPPORT_TICKETS_READ_ADAPTER_ID =
   "platform_support_tickets_read_adapter_v1" as const;
@@ -160,20 +168,19 @@ export const PLATFORM_SUPPORT_ALLOWED_CHANNEL_FILTERS =
   APP_PORTAL_SUPPORT_CHANNEL_VALUES;
 
 export function canInvokePlatformSupportTicketsReadRpc(): boolean {
-  // Flags are intentionally literal-false until named apply/activation jobs flip them.
-  // Cast through boolean so typecheck does not treat `false === true` as a hard error.
-  const rpcConnected = PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED as boolean;
-  const featureGate = PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE as boolean;
-  return rpcConnected && featureGate;
+  const gates = resolveSupportCenterStagingLiveGates();
+  return gates.readRpcConnected && gates.readFeatureGate;
 }
 
 export function getPlatformSupportTicketsReadGateState() {
+  const gates = resolveSupportCenterStagingLiveGates();
   return {
     adapterId: PLATFORM_SUPPORT_TICKETS_READ_ADAPTER_ID,
-    rpcConnected: PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED,
-    featureGate: PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE,
+    rpcConnected: gates.readRpcConnected,
+    featureGate: gates.readFeatureGate,
     uiWired: PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED,
     live: canInvokePlatformSupportTicketsReadRpc(),
+    stagingBound: gates.stagingBound,
     allowedRoles: PLATFORM_SUPPORT_TICKETS_READ_ROLES,
     rpcNames: PLATFORM_SUPPORT_TICKETS_READ_RPCS,
     allowedChannelFilters: PLATFORM_SUPPORT_ALLOWED_CHANNEL_FILTERS,
@@ -186,26 +193,28 @@ function deny(
   code: PlatformSupportTicketsReadDenialCode,
   message: string,
 ): PlatformSupportTicketsReadDenied {
+  const gates = resolveSupportCenterStagingLiveGates();
   return {
     ok: false,
     code,
     message,
     source: "app_portal_support_requests",
-    rpcConnected: PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED,
-    featureGate: PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE,
+    rpcConnected: gates.readRpcConnected,
+    featureGate: gates.readFeatureGate,
     uiWired: PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED,
     live: false,
   };
 }
 
 export function denyInactivePlatformSupportTicketsRead(): PlatformSupportTicketsReadDenied {
-  if (!PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED) {
+  const gates = resolveSupportCenterStagingLiveGates();
+  if (!gates.readRpcConnected) {
     return deny(
       "rpc_not_applied",
       "APP ticket SoT read RPCs are not applied on Core yet.",
     );
   }
-  if (!PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE) {
+  if (!gates.readFeatureGate) {
     return deny(
       "feature_gate_off",
       "Platform Support ticket read feature gate is off.",
