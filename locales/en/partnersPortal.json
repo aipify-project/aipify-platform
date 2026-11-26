@@ -391,7 +391,8 @@
       "salesTools": "Sales tools",
       "notifications": "Notifications",
       "help": "Help",
-      "profile": "My profile"
+      "profile": "My profile",
+      "messages": "Messages"
     },
     "portal": {
       "badge": "Partner portal",
@@ -735,6 +736,101 @@
       "issuer": "Issuer",
       "orgNumber": "Org. no.",
       "backToProgram": "About the Certified Sales Partner program"
+    },
+    "feedback": {
+      "unavailable": "Feedback could not be submitted from the seller portal. Try again later or contact Aipify support."
+    },
+    "topbar": {
+      "language": {
+        "label": "Language",
+        "activeLanguage": "Active language",
+        "changeLanguage": "Change language",
+        "switchFailed": "Could not change language. Please try again.",
+        "retry": "Retry",
+        "openMenu": "Language options"
+      },
+      "notifications": "Notifications",
+      "messages": "Messages",
+      "profile": "My profile",
+      "avatarAlt": "Your profile photo",
+      "feedbackUnavailable": "Feedback could not be sent from the partner portal right now. Please contact Aipify directly or try again later.",
+      "skipToContent": "Skip to content",
+      "mainNavigation": "Partner portal navigation",
+      "feedback": {
+        "trigger": "Share Feedback",
+        "triggerShort": "Share Feedback",
+        "title": "Share Feedback",
+        "subtitle": "Your voice helps us improve Aipify — never forced, always welcome.",
+        "type": "Feedback type",
+        "feedbackTitle": "Title",
+        "description": "Description",
+        "priority": "Priority",
+        "wantsResponse": "Would you like a response?",
+        "noResponse": "No response needed",
+        "contactMe": "Contact me regarding this feedback",
+        "includeContext": "Include current page and device context (optional)",
+        "submit": "Submit feedback",
+        "submitting": "Submitting…",
+        "acknowledgementTitle": "Thank you for helping improve Aipify.",
+        "acknowledgementBody": "Every suggestion helps us build a better experience.",
+        "historyTitle": "Your feedback history",
+        "historyEmpty": "You have not submitted feedback yet.",
+        "close": "Close",
+        "feedbackTypes": {
+          "bug_report": "Bug report",
+          "improvement_suggestion": "Improvement suggestion",
+          "feature_request": "New feature request",
+          "compliment": "Compliment",
+          "usability_issue": "Usability issue",
+          "general_feedback": "General feedback"
+        },
+        "priorities": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        },
+        "customerStatuses": {
+          "received": "Received",
+          "under_review": "Under review",
+          "planned": "Planned",
+          "implemented": "Implemented"
+        },
+        "trustNote": "Participation is always voluntary. We use feedback only to improve Aipify — never for advertising or resale.",
+        "transparencyNote": "Information you share here is collected to improve Aipify products and services.",
+        "trustStatementLink": "Customer Feedback & Product Improvement Policy",
+        "trustStatementLinkAria": "Open the Customer Feedback & Product Improvement Policy in a new tab"
+      }
+    },
+    "messages": {
+      "title": "Messages",
+      "subtitle": "Messages from Aipify to you as a Certified Sales Partner.",
+      "statusLabel": "Status",
+      "statusNotActive": "Not active yet",
+      "notReadyTitle": "Your inbox is not active yet",
+      "notReadyBody": "Partner messaging has not been enabled in this environment. No messages are shown and none are lost. Aipify will let you know when it opens.",
+      "nextStep": "In the meantime, important updates still reach you as notifications.",
+      "notificationsCta": "Open notifications",
+      "homeCta": "Back to home"
+    },
+    "avatar": {
+      "title": "Profile photo",
+      "subtitle": "Add a photo so Aipify and your team recognize you in the portal.",
+      "hint": "PNG, JPEG or WebP, up to 512 KB.",
+      "privacyNote": "Your photo is stored privately and shown only in your own partner portal.",
+      "empty": "No profile photo yet",
+      "current": "Profile photo in use",
+      "upload": "Upload photo",
+      "replace": "Replace photo",
+      "remove": "Remove photo",
+      "uploading": "Uploading…",
+      "removing": "Removing…",
+      "saved": "Profile photo saved",
+      "removed": "Profile photo removed",
+      "errorType": "Use a PNG, JPEG or WebP image.",
+      "errorSize": "The image is larger than 512 KB. Choose a smaller image.",
+      "errorGeneric": "The photo could not be saved right now. Please try again.",
+      "errorUnavailable": "Photo storage is not available yet. Your profile is unchanged.",
+      "errorSession": "Your session has ended or portal access is not active. Sign in again to continue."
     }
   }
 }

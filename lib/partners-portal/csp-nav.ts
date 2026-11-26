@@ -44,6 +44,7 @@ export const CSP_PARTNER_PORTAL_NAV_GROUPS: PartnersPortalNavGroup[] = [
     id: "account",
     labelKey: "certifiedSalesPartner.navGroups.account",
     items: [
+      { id: "messages", href: "/partners/account/messages", labelKey: "certifiedSalesPartner.nav.messages" },
       { id: "notifications", href: "/partners/account/notifications", labelKey: "certifiedSalesPartner.nav.notifications" },
       { id: "settings", href: "/partners/account/settings", labelKey: "certifiedSalesPartner.nav.help" },
       { id: "profile", href: "/partners/account/profile", labelKey: "certifiedSalesPartner.nav.profile" },

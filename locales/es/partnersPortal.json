@@ -267,7 +267,8 @@
       "salesTools": "Sales tools",
       "notifications": "Notifications",
       "help": "Help",
-      "profile": "My profile"
+      "profile": "My profile",
+      "messages": "Mensajes"
     },
     "portal": {
       "badge": "Partner portal",
@@ -611,6 +612,101 @@
       "issuer": "Issuer",
       "orgNumber": "Org. no.",
       "backToProgram": "About the Certified Sales Partner program"
+    },
+    "feedback": {
+      "unavailable": "No se pudo enviar la opinión desde el portal del vendedor. Inténtelo más tarde o contacte con el soporte de Aipify."
+    },
+    "topbar": {
+      "language": {
+        "label": "Idioma",
+        "activeLanguage": "Idioma activo",
+        "changeLanguage": "Cambiar idioma",
+        "switchFailed": "No se pudo cambiar el idioma. Inténtelo de nuevo.",
+        "retry": "Reintentar",
+        "openMenu": "Opciones de idioma"
+      },
+      "notifications": "Notificaciones",
+      "messages": "Mensajes",
+      "profile": "Mi perfil",
+      "avatarAlt": "Tu foto de perfil",
+      "feedbackUnavailable": "No se pudieron enviar los comentarios desde el portal de socios ahora mismo. Contacta directamente con Aipify o inténtalo de nuevo más tarde.",
+      "skipToContent": "Saltar al contenido",
+      "mainNavigation": "Navegación del portal de socios",
+      "feedback": {
+        "trigger": "Compartir comentarios",
+        "triggerShort": "Compartir comentarios",
+        "title": "Compartir comentarios",
+        "subtitle": "Tu opinión nos ayuda a mejorar Aipify: nunca forzada, siempre bienvenida.",
+        "type": "Tipo de comentario",
+        "feedbackTitle": "Título",
+        "description": "Descripción",
+        "priority": "Prioridad",
+        "wantsResponse": "¿Quieres recibir una respuesta?",
+        "noResponse": "No necesito respuesta",
+        "contactMe": "Contacta conmigo sobre este comentario",
+        "includeContext": "Incluir la página actual y el contexto del dispositivo (opcional)",
+        "submit": "Enviar comentarios",
+        "submitting": "Enviando…",
+        "acknowledgementTitle": "Gracias por ayudarnos a mejorar Aipify.",
+        "acknowledgementBody": "Cada sugerencia nos ayuda a crear una mejor experiencia.",
+        "historyTitle": "Historial de tus comentarios",
+        "historyEmpty": "Todavía no has enviado comentarios.",
+        "close": "Cerrar",
+        "feedbackTypes": {
+          "bug_report": "Informe de error",
+          "improvement_suggestion": "Sugerencia de mejora",
+          "feature_request": "Solicitud de nueva función",
+          "compliment": "Elogio",
+          "usability_issue": "Problema de usabilidad",
+          "general_feedback": "Comentario general"
+        },
+        "priorities": {
+          "low": "Baja",
+          "medium": "Media",
+          "high": "Alta"
+        },
+        "customerStatuses": {
+          "received": "Recibido",
+          "under_review": "En revisión",
+          "planned": "Planificado",
+          "implemented": "Implementado"
+        },
+        "trustNote": "La participación es siempre voluntaria. Usamos los comentarios solo para mejorar Aipify, nunca para publicidad ni reventa.",
+        "transparencyNote": "La información que compartes aquí se recopila para mejorar los productos y servicios de Aipify.",
+        "trustStatementLink": "Política de comentarios de clientes y mejora del producto",
+        "trustStatementLinkAria": "Abrir la política de comentarios de clientes y mejora del producto en una pestaña nueva"
+      }
+    },
+    "messages": {
+      "title": "Mensajes",
+      "subtitle": "Mensajes de Aipify para ti como Certified Sales Partner.",
+      "statusLabel": "Estado",
+      "statusNotActive": "Aún no activo",
+      "notReadyTitle": "Tu bandeja de entrada aún no está activa",
+      "notReadyBody": "La mensajería para socios no está habilitada en este entorno. No se muestran mensajes y no se pierde ninguno. Aipify te avisará cuando se abra.",
+      "nextStep": "Mientras tanto, las actualizaciones importantes te siguen llegando como notificaciones.",
+      "notificationsCta": "Abrir notificaciones",
+      "homeCta": "Volver al inicio"
+    },
+    "avatar": {
+      "title": "Foto de perfil",
+      "subtitle": "Añade una foto para que Aipify y tu equipo te reconozcan en el portal.",
+      "hint": "PNG, JPEG o WebP, hasta 512 KB.",
+      "privacyNote": "Tu foto se guarda de forma privada y solo se muestra en tu propio portal de socios.",
+      "empty": "Aún no hay foto de perfil",
+      "current": "Foto de perfil en uso",
+      "upload": "Subir foto",
+      "replace": "Cambiar foto",
+      "remove": "Quitar foto",
+      "uploading": "Subiendo…",
+      "removing": "Quitando…",
+      "saved": "Foto de perfil guardada",
+      "removed": "Foto de perfil quitada",
+      "errorType": "Usa una imagen PNG, JPEG o WebP.",
+      "errorSize": "La imagen supera los 512 KB. Elige una imagen más pequeña.",
+      "errorGeneric": "No se pudo guardar la foto ahora mismo. Inténtalo de nuevo.",
+      "errorUnavailable": "El almacenamiento de fotos aún no está disponible. Tu perfil no ha cambiado.",
+      "errorSession": "Tu sesión ha terminado o el acceso al portal no está activo. Inicia sesión de nuevo para continuar."
     }
   }
 }

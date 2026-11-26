@@ -267,7 +267,8 @@
       "salesTools": "Sales tools",
       "notifications": "Notifications",
       "help": "Help",
-      "profile": "My profile"
+      "profile": "My profile",
+      "messages": "Wiadomości"
     },
     "portal": {
       "badge": "Partner portal",
@@ -611,6 +612,101 @@
       "issuer": "Issuer",
       "orgNumber": "Org. no.",
       "backToProgram": "About the Certified Sales Partner program"
+    },
+    "feedback": {
+      "unavailable": "Nie udało się wysłać opinii z portalu sprzedawcy. Spróbuj ponownie później lub skontaktuj się z pomocą Aipify."
+    },
+    "topbar": {
+      "language": {
+        "label": "Język",
+        "activeLanguage": "Aktywny język",
+        "changeLanguage": "Zmień język",
+        "switchFailed": "Nie udało się zmienić języka. Spróbuj ponownie.",
+        "retry": "Spróbuj ponownie",
+        "openMenu": "Opcje języka"
+      },
+      "notifications": "Powiadomienia",
+      "messages": "Wiadomości",
+      "profile": "Mój profil",
+      "avatarAlt": "Twoje zdjęcie profilowe",
+      "feedbackUnavailable": "Nie można teraz wysłać opinii z portalu partnera. Skontaktuj się bezpośrednio z Aipify lub spróbuj ponownie później.",
+      "skipToContent": "Przejdź do treści",
+      "mainNavigation": "Nawigacja portalu partnera",
+      "feedback": {
+        "trigger": "Przekaż opinię",
+        "triggerShort": "Przekaż opinię",
+        "title": "Przekaż opinię",
+        "subtitle": "Twój głos pomaga nam ulepszać Aipify — nigdy na siłę, zawsze mile widziany.",
+        "type": "Rodzaj opinii",
+        "feedbackTitle": "Tytuł",
+        "description": "Opis",
+        "priority": "Priorytet",
+        "wantsResponse": "Czy chcesz otrzymać odpowiedź?",
+        "noResponse": "Odpowiedź nie jest potrzebna",
+        "contactMe": "Skontaktuj się ze mną w sprawie tej opinii",
+        "includeContext": "Dołącz bieżącą stronę i kontekst urządzenia (opcjonalnie)",
+        "submit": "Wyślij opinię",
+        "submitting": "Wysyłanie…",
+        "acknowledgementTitle": "Dziękujemy za pomoc w ulepszaniu Aipify.",
+        "acknowledgementBody": "Każda sugestia pomaga nam tworzyć lepsze doświadczenie.",
+        "historyTitle": "Historia Twoich opinii",
+        "historyEmpty": "Nie wysłano jeszcze żadnej opinii.",
+        "close": "Zamknij",
+        "feedbackTypes": {
+          "bug_report": "Zgłoszenie błędu",
+          "improvement_suggestion": "Propozycja ulepszenia",
+          "feature_request": "Prośba o nową funkcję",
+          "compliment": "Pochwała",
+          "usability_issue": "Problem z użytecznością",
+          "general_feedback": "Opinia ogólna"
+        },
+        "priorities": {
+          "low": "Niski",
+          "medium": "Średni",
+          "high": "Wysoki"
+        },
+        "customerStatuses": {
+          "received": "Otrzymano",
+          "under_review": "W trakcie oceny",
+          "planned": "Zaplanowano",
+          "implemented": "Wdrożono"
+        },
+        "trustNote": "Udział jest zawsze dobrowolny. Wykorzystujemy opinie wyłącznie do ulepszania Aipify — nigdy do celów reklamowych ani odsprzedaży.",
+        "transparencyNote": "Informacje przekazane tutaj są zbierane w celu ulepszania produktów i usług Aipify.",
+        "trustStatementLink": "Zasady opinii klientów i ulepszania produktu",
+        "trustStatementLinkAria": "Otwórz zasady opinii klientów i ulepszania produktu w nowej karcie"
+      }
+    },
+    "messages": {
+      "title": "Wiadomości",
+      "subtitle": "Wiadomości od Aipify dla Ciebie jako Certified Sales Partner.",
+      "statusLabel": "Status",
+      "statusNotActive": "Jeszcze nieaktywne",
+      "notReadyTitle": "Twoja skrzynka nie jest jeszcze aktywna",
+      "notReadyBody": "Wiadomości dla partnerów nie zostały włączone w tym środowisku. Nie wyświetlamy żadnych wiadomości i żadna nie zginie. Aipify poinformuje Cię, gdy skrzynka zostanie otwarta.",
+      "nextStep": "W międzyczasie ważne aktualizacje nadal docierają do Ciebie jako powiadomienia.",
+      "notificationsCta": "Otwórz powiadomienia",
+      "homeCta": "Wróć do strony głównej"
+    },
+    "avatar": {
+      "title": "Zdjęcie profilowe",
+      "subtitle": "Dodaj zdjęcie, aby Aipify i Twój zespół rozpoznawali Cię w portalu.",
+      "hint": "PNG, JPEG lub WebP, do 512 KB.",
+      "privacyNote": "Twoje zdjęcie jest przechowywane prywatnie i widoczne tylko w Twoim portalu partnera.",
+      "empty": "Brak zdjęcia profilowego",
+      "current": "Używane zdjęcie profilowe",
+      "upload": "Prześlij zdjęcie",
+      "replace": "Zmień zdjęcie",
+      "remove": "Usuń zdjęcie",
+      "uploading": "Przesyłanie…",
+      "removing": "Usuwanie…",
+      "saved": "Zdjęcie profilowe zapisane",
+      "removed": "Zdjęcie profilowe usunięte",
+      "errorType": "Użyj obrazu PNG, JPEG lub WebP.",
+      "errorSize": "Obraz jest większy niż 512 KB. Wybierz mniejszy obraz.",
+      "errorGeneric": "Nie udało się teraz zapisać zdjęcia. Spróbuj ponownie.",
+      "errorUnavailable": "Magazyn zdjęć nie jest jeszcze dostępny. Twój profil pozostaje bez zmian.",
+      "errorSession": "Sesja wygasła lub dostęp do portalu nie jest aktywny. Zaloguj się ponownie, aby kontynuować."
     }
   }
 }

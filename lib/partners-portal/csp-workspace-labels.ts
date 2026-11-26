@@ -15,6 +15,7 @@ import type {
 } from "@/components/partners-portal/CertifiedSalesPartnerPortalPanels";
 import type { SellersActionLabels } from "@/components/platform/sellers/CertifiedSellersActionPanel";
 import type { PartnerDetailsDrawerLabels } from "@/components/platform/sellers/CertifiedSellersPartnerDetailsDrawer";
+import { buildSellerProfileLabels } from "@/lib/certified-sales-partner/seller-profile-labels";
 
 export function buildCspWorkspaceLabels(t: Translator, titleKey: string, subtitleKey: string): CspWorkspaceLabels {
   return {
@@ -260,6 +261,40 @@ const SELLERS_LIVE_TEXT_KEYS = [
   "academyEmptyBody",
   "academyNoteTitle",
   "academyNoteBody",
+  "sectionAttributionBody",
+  "sectionLeadsSalesBody",
+  "sectionCommissionsBody",
+  "sectionCommissionRatesBody",
+  "sectionMaterialsBody",
+  "sectionMessagesBody",
+  "sectionAuditBody",
+  "sectionSettingsBody",
+  "top5Title",
+  "top5Subtitle",
+  "top5Empty",
+  "top5Unavailable",
+  "colRank",
+  "colClicks",
+  "colRegistrations",
+  "colSales",
+  "openProfile",
+  "searchTitle",
+  "searchLabel",
+  "searchPlaceholder",
+  "searchHint",
+  "searchEmpty",
+  "searchResultsTitle",
+  "searchEmailMatch",
+  "searchEmailUnavailable",
+  "rankFilterCountry",
+  "rankFilterStatus",
+  "rankFilterAllCountries",
+  "rankFilterAllStatuses",
+  "rankSortLabel",
+  "rankSortClicks",
+  "rankSortRegistrations",
+  "rankSortSales",
+  "rankFiltersNote",
 ] as const;
 
 const SELLERS_PARTNER_STATUS_KEYS = [
@@ -280,7 +315,20 @@ export type SellersLiveLabels = {
   partnerStatus: Record<string, string>;
   /** Business labels for settlement status codes; unknown codes use `unknown`. */
   settlementStatus: Record<string, string>;
-  sectionTitles: { partners: string; products: string; settlements: string; academy: string };
+  sectionTitles: {
+    partners: string;
+    products: string;
+    settlements: string;
+    academy: string;
+    attribution: string;
+    leadsSales: string;
+    commissions: string;
+    commissionRates: string;
+    materials: string;
+    messages: string;
+    audit: string;
+    settings: string;
+  };
 };
 
 export function buildSellersLiveLabels(t: Translator): SellersLiveLabels {
@@ -299,6 +347,14 @@ export function buildSellersLiveLabels(t: Translator): SellersLiveLabels {
       products: t("platform.sellers.products.title"),
       settlements: t("platform.sellers.settlements.title"),
       academy: t("platform.sellers.academy.title"),
+      attribution: t("platform.sellers.attribution.title"),
+      leadsSales: t("platform.sellers.leadsSales.title"),
+      commissions: t("platform.sellers.commissions.title"),
+      commissionRates: t("platform.sellers.commissionRates.title"),
+      materials: t("platform.sellers.materials.title"),
+      messages: t("platform.sellers.messages.title"),
+      audit: t("platform.sellers.audit.title"),
+      settings: t("platform.sellers.settings.title"),
     },
   };
 }
@@ -414,6 +470,7 @@ export function buildSellersPartnerDrawerLabels(t: Translator): PartnerDetailsDr
     partnerStatus: Object.fromEntries(
       SELLERS_PARTNER_STATUS_KEYS.map((key) => [key, t(`platform.sellers.live.partnerStatus.${key}`)]),
     ),
+    profile: buildSellerProfileLabels(t),
   };
 }
 

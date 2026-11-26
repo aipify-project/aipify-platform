@@ -34,6 +34,7 @@ export type PartnersPortalNavId =
   | "profile"
   | "teamMembers"
   | "notifications"
+  | "messages"
   | "settings"
   | "workforceScheduling"
   | "absenceCoverage"
@@ -203,6 +204,7 @@ export function getPartnersLegacyRedirect(pathname: string): string | null {
 }
 
 export function getPartnersActiveNavId(pathname: string): PartnersPortalNavId {
+  if (pathname.startsWith("/partners/account/messages")) return "messages";
   if (pathname.startsWith("/partners/business-continuity")) return "businessContinuity";
   if (pathname === "/partners") return "overview";
   if (pathname.startsWith("/partners/team-time")) return "teamTime";

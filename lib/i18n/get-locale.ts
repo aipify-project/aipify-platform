@@ -3,9 +3,7 @@ import { DEFAULT_LOCALE, LOCALE_COOKIE, type Locale } from "./config";
 import { resolveAppUiLocale, resolvePublicLocale } from "./resolve-locale";
 import { createClient } from "@/lib/supabase/server";
 
-function isAppScopedPath(pathname: string): boolean {
-  return pathname.startsWith("/app") || pathname.startsWith("/dashboard");
-}
+import { isAppScopedPath } from "./app-scoped-path";
 
 async function loadAuthenticatedLocaleHints(): Promise<{
   userPreferredLocale: string | null;

@@ -391,7 +391,8 @@
       "salesTools": "Sales tools",
       "notifications": "Notifications",
       "help": "Help",
-      "profile": "My profile"
+      "profile": "My profile",
+      "messages": "Beskeder"
     },
     "portal": {
       "badge": "Partner portal",
@@ -735,6 +736,101 @@
       "issuer": "Udsteder",
       "orgNumber": "CVR/org.nr.",
       "backToProgram": "Om Certified Sales Partner-programmet"
+    },
+    "feedback": {
+      "unavailable": "Feedback kunne ikke sendes fra sælgerportalen. Prøv igen senere, eller kontakt Aipify-support."
+    },
+    "topbar": {
+      "language": {
+        "label": "Sprog",
+        "activeLanguage": "Aktivt sprog",
+        "changeLanguage": "Skift sprog",
+        "switchFailed": "Sproget kunne ikke ændres. Prøv igen.",
+        "retry": "Prøv igen",
+        "openMenu": "Sprogvalg"
+      },
+      "notifications": "Notifikationer",
+      "messages": "Beskeder",
+      "profile": "Min profil",
+      "avatarAlt": "Dit profilbillede",
+      "feedbackUnavailable": "Feedbacken kunne ikke sendes fra partnerportalen lige nu. Kontakt Aipify direkte eller prøv igen senere.",
+      "skipToContent": "Gå til indhold",
+      "mainNavigation": "Navigation i partnerportalen",
+      "feedback": {
+        "trigger": "Del feedback",
+        "triggerShort": "Del feedback",
+        "title": "Del feedback",
+        "subtitle": "Din stemme hjælper os med at forbedre Aipify — aldrig tvunget, altid velkommen.",
+        "type": "Feedbacktype",
+        "feedbackTitle": "Titel",
+        "description": "Beskrivelse",
+        "priority": "Prioritet",
+        "wantsResponse": "Vil du have svar?",
+        "noResponse": "Intet svar nødvendigt",
+        "contactMe": "Kontakt mig vedrørende denne feedback",
+        "includeContext": "Inkluder aktuel side og enhedskontekst (valgfrit)",
+        "submit": "Send feedback",
+        "submitting": "Sender…",
+        "acknowledgementTitle": "Tak fordi du hjælper os med at forbedre Aipify.",
+        "acknowledgementBody": "Hvert forslag hjælper os med at bygge en bedre oplevelse.",
+        "historyTitle": "Din feedbackhistorik",
+        "historyEmpty": "Du har endnu ikke sendt feedback.",
+        "close": "Luk",
+        "feedbackTypes": {
+          "bug_report": "Fejlrapport",
+          "improvement_suggestion": "Forbedringsforslag",
+          "feature_request": "Ny funktionsanmodning",
+          "compliment": "Kompliment",
+          "usability_issue": "Brugervenlighedsproblem",
+          "general_feedback": "Generel feedback"
+        },
+        "priorities": {
+          "low": "Lav",
+          "medium": "Mellem",
+          "high": "Høj"
+        },
+        "customerStatuses": {
+          "received": "Modtaget",
+          "under_review": "Under gennemgang",
+          "planned": "Planlagt",
+          "implemented": "Implementeret"
+        },
+        "trustNote": "Deltagelse er altid frivillig. Vi bruger feedback kun til at forbedre Aipify — aldrig til reklame eller videresalg.",
+        "transparencyNote": "Oplysninger, du deler her, indsamles for at forbedre Aipify-produkter og -tjenester.",
+        "trustStatementLink": "Politik for kundefeedback og produktforbedring",
+        "trustStatementLinkAria": "Åbn politikken for kundefeedback og produktforbedring i en ny fane"
+      }
+    },
+    "messages": {
+      "title": "Beskeder",
+      "subtitle": "Beskeder fra Aipify til dig som Certified Sales Partner.",
+      "statusLabel": "Status",
+      "statusNotActive": "Ikke aktiv endnu",
+      "notReadyTitle": "Din indbakke er ikke aktiv endnu",
+      "notReadyBody": "Partnerbeskeder er ikke aktiveret i dette miljø. Ingen beskeder vises, og ingen går tabt. Aipify giver dig besked, når den åbner.",
+      "nextStep": "I mellemtiden når vigtige opdateringer dig stadig som notifikationer.",
+      "notificationsCta": "Åbn notifikationer",
+      "homeCta": "Tilbage til start"
+    },
+    "avatar": {
+      "title": "Profilbillede",
+      "subtitle": "Tilføj et billede, så Aipify og dit team genkender dig i portalen.",
+      "hint": "PNG, JPEG eller WebP, op til 512 KB.",
+      "privacyNote": "Dit billede gemmes privat og vises kun i din egen partnerportal.",
+      "empty": "Intet profilbillede endnu",
+      "current": "Profilbillede i brug",
+      "upload": "Upload billede",
+      "replace": "Skift billede",
+      "remove": "Fjern billede",
+      "uploading": "Uploader…",
+      "removing": "Fjerner…",
+      "saved": "Profilbillede gemt",
+      "removed": "Profilbillede fjernet",
+      "errorType": "Brug et PNG-, JPEG- eller WebP-billede.",
+      "errorSize": "Billedet er større end 512 KB. Vælg et mindre billede.",
+      "errorGeneric": "Billedet kunne ikke gemmes lige nu. Prøv igen.",
+      "errorUnavailable": "Billedlagring er ikke tilgængelig endnu. Din profil er uændret.",
+      "errorSession": "Din session er afsluttet, eller portaladgangen er ikke aktiv. Log ind igen for at fortsætte."
     }
   }
 }

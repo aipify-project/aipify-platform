@@ -391,7 +391,8 @@
       "salesTools": "Sales tools",
       "notifications": "Notifications",
       "help": "Help",
-      "profile": "My profile"
+      "profile": "My profile",
+      "messages": "Meddelanden"
     },
     "portal": {
       "badge": "Partner portal",
@@ -735,6 +736,101 @@
       "issuer": "Utfärdare",
       "orgNumber": "Org.nr.",
       "backToProgram": "Om Certified Sales Partner-programmet"
+    },
+    "feedback": {
+      "unavailable": "Feedback kunde inte skickas från säljarportalen. Försök igen senare eller kontakta Aipify-support."
+    },
+    "topbar": {
+      "language": {
+        "label": "Språk",
+        "activeLanguage": "Aktivt språk",
+        "changeLanguage": "Byt språk",
+        "switchFailed": "Språket kunde inte ändras. Försök igen.",
+        "retry": "Försök igen",
+        "openMenu": "Språkval"
+      },
+      "notifications": "Notiser",
+      "messages": "Meddelanden",
+      "profile": "Min profil",
+      "avatarAlt": "Din profilbild",
+      "feedbackUnavailable": "Feedbacken kunde inte skickas från partnerportalen just nu. Kontakta Aipify direkt eller försök igen senare.",
+      "skipToContent": "Hoppa till innehåll",
+      "mainNavigation": "Navigering i partnerportalen",
+      "feedback": {
+        "trigger": "Dela feedback",
+        "triggerShort": "Dela feedback",
+        "title": "Dela feedback",
+        "subtitle": "Din röst hjälper oss förbättra Aipify — aldrig tvingad, alltid välkommen.",
+        "type": "Feedbacktyp",
+        "feedbackTitle": "Titel",
+        "description": "Beskrivning",
+        "priority": "Prioritet",
+        "wantsResponse": "Vill du ha svar?",
+        "noResponse": "Inget svar behövs",
+        "contactMe": "Kontakta mig angående denna feedback",
+        "includeContext": "Inkludera aktuell sida och enhetskontext (valfritt)",
+        "submit": "Skicka feedback",
+        "submitting": "Skickar…",
+        "acknowledgementTitle": "Tack för att du hjälper oss förbättra Aipify.",
+        "acknowledgementBody": "Varje förslag hjälper oss bygga en bättre upplevelse.",
+        "historyTitle": "Din feedbackhistorik",
+        "historyEmpty": "Du har inte skickat in feedback ännu.",
+        "close": "Stäng",
+        "feedbackTypes": {
+          "bug_report": "Buggrapport",
+          "improvement_suggestion": "Förbättringsförslag",
+          "feature_request": "Ny funktionsförfrågan",
+          "compliment": "Komplimang",
+          "usability_issue": "Användbarhetsproblem",
+          "general_feedback": "Allmän feedback"
+        },
+        "priorities": {
+          "low": "Låg",
+          "medium": "Medel",
+          "high": "Hög"
+        },
+        "customerStatuses": {
+          "received": "Mottagen",
+          "under_review": "Under granskning",
+          "planned": "Planerad",
+          "implemented": "Implementerad"
+        },
+        "trustNote": "Deltagande är alltid frivilligt. Vi använder feedback endast för att förbättra Aipify — aldrig för reklam eller försäljning.",
+        "transparencyNote": "Information du delar här samlas in för att förbättra Aipifys produkter och tjänster.",
+        "trustStatementLink": "Policy för kundfeedback och produktförbättring",
+        "trustStatementLinkAria": "Öppna policyn för kundåterkoppling och produktförbättring i en ny flik"
+      }
+    },
+    "messages": {
+      "title": "Meddelanden",
+      "subtitle": "Meddelanden från Aipify till dig som Certified Sales Partner.",
+      "statusLabel": "Status",
+      "statusNotActive": "Inte aktiv ännu",
+      "notReadyTitle": "Din inkorg är inte aktiv ännu",
+      "notReadyBody": "Partnermeddelanden har inte aktiverats i den här miljön. Inga meddelanden visas och inga går förlorade. Aipify meddelar dig när den öppnar.",
+      "nextStep": "Under tiden når viktiga uppdateringar dig fortfarande som notiser.",
+      "notificationsCta": "Öppna notiser",
+      "homeCta": "Tillbaka till start"
+    },
+    "avatar": {
+      "title": "Profilbild",
+      "subtitle": "Lägg till en bild så att Aipify och ditt team känner igen dig i portalen.",
+      "hint": "PNG, JPEG eller WebP, upp till 512 KB.",
+      "privacyNote": "Din bild lagras privat och visas endast i din egen partnerportal.",
+      "empty": "Ingen profilbild ännu",
+      "current": "Profilbild i bruk",
+      "upload": "Ladda upp bild",
+      "replace": "Byt bild",
+      "remove": "Ta bort bild",
+      "uploading": "Laddar upp…",
+      "removing": "Tar bort…",
+      "saved": "Profilbilden sparad",
+      "removed": "Profilbilden borttagen",
+      "errorType": "Använd en PNG-, JPEG- eller WebP-bild.",
+      "errorSize": "Bilden är större än 512 KB. Välj en mindre bild.",
+      "errorGeneric": "Bilden kunde inte sparas just nu. Försök igen.",
+      "errorUnavailable": "Bildlagring är inte tillgänglig ännu. Din profil är oförändrad.",
+      "errorSession": "Din session har avslutats eller portalåtkomsten är inte aktiv. Logga in igen för att fortsätta."
     }
   }
 }
