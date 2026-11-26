@@ -1,18 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import type { CspHelpLabels } from "@/lib/partners-portal/csp-section-labels";
 
-export type CspHelpLabels = {
-  title: string;
-  intro: string;
-  sections: Array<{
-    id: string;
-    title: string;
-    body: string;
-    href?: string;
-    cta?: string;
-  }>;
-};
+export type { CspHelpLabels };
 
 export function CertifiedSalesPartnerHelpPanel({ labels }: { labels: CspHelpLabels }) {
   return (
@@ -42,28 +33,4 @@ export function CertifiedSalesPartnerHelpPanel({ labels }: { labels: CspHelpLabe
       </div>
     </div>
   );
-}
-
-export function buildCspHelpLabels(t: (key: string) => string): CspHelpLabels {
-  const p = "partnersPortal.certifiedSalesPartner.help";
-  const section = (id: string, href?: string) => ({
-    id,
-    title: t(`${p}.sections.${id}.title`),
-    body: t(`${p}.sections.${id}.body`),
-    href,
-    cta: href ? t(`${p}.sections.${id}.cta`) : undefined,
-  });
-  return {
-    title: t(`${p}.title`),
-    intro: t(`${p}.intro`),
-    sections: [
-      section("gettingStarted", "/partners"),
-      section("academy", "/partners/academy/training"),
-      section("salesLinks", "/partners/referrals/links"),
-      section("commission", "/partners/customers/pipeline"),
-      section("payouts", "/partners/settlement"),
-      section("materials", "/partners/marketing/assets"),
-      section("contact", "/partners/account/messages"),
-    ],
-  };
 }

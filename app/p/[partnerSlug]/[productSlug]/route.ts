@@ -11,6 +11,7 @@ import {
   serializeCspAttributionCookie,
   CSP_CAPTURE_RPC,
 } from "@/lib/certified-sales-partner";
+import { appendAllowlistedShareLocale } from "@/lib/certified-sales-partner/share-locale";
 import { createClient } from "@/lib/supabase/server";
 import {
   GROWTH_PARTNER_ATTRIBUTION_COOKIE,
@@ -74,6 +75,7 @@ export async function GET(
     const cspRedirect = new URL(cspDestination, request.url);
     cspRedirect.searchParams.set("csp_product", productSlug);
     cspRedirect.searchParams.set("csp_channel", channel);
+    appendAllowlistedShareLocale(cspRedirect, url.searchParams.get("lang"));
     const response = NextResponse.redirect(cspRedirect);
 
     if (captureRecorded) {
@@ -133,6 +135,7 @@ export async function GET(
   redirectUrl.searchParams.set("gp_ref", String(resolved.partner_public_id ?? ""));
   redirectUrl.searchParams.set("csp_product", productSlug);
   redirectUrl.searchParams.set("csp_channel", channel);
+  appendAllowlistedShareLocale(redirectUrl, url.searchParams.get("lang"));
 
   const response = NextResponse.redirect(redirectUrl);
   const now = new Date().toISOString();

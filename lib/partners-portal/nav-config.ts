@@ -22,6 +22,7 @@ export type PartnersPortalNavId =
   | "salesPlaybooks"
   | "knowledgeMaterials"
   | "marketingAssets"
+  | "salesMaterials"
   | "campaignTemplates"
   | "emailTemplates"
   | "productCatalog"
@@ -42,11 +43,15 @@ export type PartnersPortalNavId =
 
 export type PartnersPortalNavGroupId =
   | "dashboard"
+  | "home"
   | "customers"
+  | "sales"
   | "referrals"
   | "settlement"
+  | "commission"
   | "academy"
   | "marketing"
+  | "communication"
   | "performance"
   | "account"
   | "scheduling";

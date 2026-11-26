@@ -250,6 +250,30 @@ export type CspLocalizedSalesCopy = {
   version: number;
 };
 
+/**
+ * Published approved copy for one marketing language.
+ * Returns nothing when that language has no approved text. Does not fall back to English.
+ */
+export function listPublishedSalesCopyForLocale(
+  opts: { productKey: string; locale: string },
+  registry: readonly CspSalesCopyItem[] = CSP_SALES_COPY_REGISTRY,
+): CspLocalizedSalesCopy[] {
+  return registry.flatMap((item) => {
+    if (!item.published || item.productKey !== opts.productKey) return [];
+    const text = item.text[opts.locale as keyof CspLocaleBlock];
+    if (typeof text !== "string" || text.trim().length === 0) return [];
+    return [
+      {
+        id: item.id,
+        productKey: item.productKey,
+        tone: item.tone,
+        text,
+        version: item.version,
+      },
+    ];
+  });
+}
+
 /** Published approved copy for a product, localized (English fallback). Never returns invented copy. */
 export function listPublishedSalesCopy(
   opts: { productKey: string; locale?: string },

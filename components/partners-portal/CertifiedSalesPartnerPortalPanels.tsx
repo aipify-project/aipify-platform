@@ -1,14 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { buildCspPublicLinkPath } from "@/lib/certified-sales-partner/attribution-policy";
 import { getLocalizedCspCatalogProducts } from "@/lib/certified-sales-partner/product-catalog-display";
+import { isCspShareLocale } from "@/lib/certified-sales-partner/share-locale";
 import {
   CSP_SALES_MATERIAL_CATEGORIES,
   getPublishedProductImage,
-  listPublishedSalesCopy,
+  listPublishedSalesCopyForLocale,
   listPublishedSalesMaterials,
 } from "@/lib/certified-sales-partner/sales-materials-catalog";
+import { LOCALES, LOCALE_LABELS, type Locale } from "@/lib/i18n/config";
 import {
   buildCspSocialShareUrl,
   composeCspShareText,
@@ -126,6 +130,10 @@ export type CspMarketingLabels = {
   materialsCopy: string;
   materialsCopied: string;
   materialsEmptyCategory: string;
+  materialsLanguageNote: string;
+  toolsTab: string;
+  libraryTab: string;
+  missingLocale: string;
   materialsCategories: Record<string, string>;
   social: import("./CspSocialPlatformPicker").CspSocialPickerLabels;
   shareWorkspaceTitle: string;
@@ -610,17 +618,42 @@ export function CertifiedSalesPartnerMarketingPanel({
   locale: string;
 }) {
   const portal = useCspPortal();
+  const router = useRouter();
+  const pathname = usePathname();
   const [product, setProduct] = useState<"kompis_web" | "kompis_bedrift" | "aipify_voice">("kompis_web");
+  const [marketingLocale, setMarketingLocale] = useState<Locale>(isCspShareLocale(locale) ? locale : "en");
+  const [section, setSection] = useState<"tools" | "library">("tools");
   const [platforms, setPlatforms] = useState<CspSocialPlatform[]>([]);
   const [copyId, setCopyId] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [origin, setOrigin] = useState("");
   useEffect(() => {
     setOrigin(window.location.origin);
+    const query = new URLSearchParams(window.location.search);
+    setSection(query.get("section") === "library" ? "library" : "tools");
   }, []);
 
+  function chooseSection(next: "tools" | "library") {
+    setSection(next);
+    const query = new URLSearchParams(window.location.search);
+    if (next === "library") query.set("section", "library");
+    else query.delete("section");
+    const suffix = query.toString();
+    router.replace(suffix ? `${pathname}?${suffix}` : pathname, { scroll: false });
+  }
+
   const activeLink = portal?.links.find((l) => l.active && l.code) ?? null;
-  const publicPath = activeLink?.code ? `/p/${activeLink.code}/${product}` : null;
+  const publicPath =
+    activeLink?.code && product !== "aipify_voice"
+      ? (() => {
+          const path = buildCspPublicLinkPath({
+            code: activeLink.code,
+            productKey: product,
+            channel: "referral_link",
+          });
+          return path ? `${path}&lang=${marketingLocale}` : null;
+        })()
+      : null;
   const publicUrl = publicPath ? `${origin || ""}${publicPath}` : null;
   const [coreMaterials, setCoreMaterials] = useState<ReturnType<typeof listPublishedSalesMaterials> | null>(null);
   useEffect(() => {
@@ -659,10 +692,15 @@ export function CertifiedSalesPartnerMarketingPanel({
         }
         setCoreMaterials(
           body.materials
-            .filter((m) => m.published !== false && typeof m.asset_path === "string")
+            .filter(
+              (m) =>
+                m.published !== false &&
+                typeof m.asset_path === "string" &&
+                CSP_SALES_MATERIAL_CATEGORIES.some((category) => category === m.category),
+            )
             .map((m) => ({
               id: String(m.material_key ?? m.asset_path),
-              category: (m.category as "pdf_sheets") || "pdf_sheets",
+              category: CSP_SALES_MATERIAL_CATEGORIES.find((category) => category === m.category) ?? "pdf_sheets",
               labelKey: String(m.material_key ?? "material"),
               href: String(m.asset_path),
               format: String(m.asset_path).endsWith(".pdf")
@@ -691,8 +729,11 @@ export function CertifiedSalesPartnerMarketingPanel({
     return coreMaterials ?? [];
   }, [product, coreMaterials]);
   const copyItems = useMemo(
-    () => (product === "aipify_voice" ? [] : listPublishedSalesCopy({ productKey: product, locale })),
-    [product, locale],
+    () =>
+      product === "aipify_voice"
+        ? []
+        : listPublishedSalesCopyForLocale({ productKey: product, locale: marketingLocale }),
+    [product, marketingLocale],
   );
   const selectedCopy = copyItems.find((c) => c.id === copyId) ?? copyItems[0] ?? null;
   const productImage = product === "aipify_voice" ? null : getPublishedProductImage(product);
@@ -734,14 +775,48 @@ export function CertifiedSalesPartnerMarketingPanel({
     window.open(shareUrl, "_blank", "noopener,noreferrer");
   }
 
+  const filledCategories = CSP_SALES_MATERIAL_CATEGORIES.filter((category) =>
+    materials.some((item) => item.category === category),
+  );
+
   return (
     <div className="mx-auto w-full max-w-[1600px] space-y-6">
       <section className={CARD}>
         <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{labels.title}</h2>
         <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
         <p className="mt-3 text-sm text-[color:var(--aipify-text-secondary)]">{labels.signatureNote}</p>
+        <div className="mt-4 flex flex-wrap gap-2" role="tablist" aria-label={labels.title}>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={section === "tools"}
+            onClick={() => chooseSection("tools")}
+            className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${
+              section === "tools"
+                ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                : "border border-[color:var(--aipify-border)] text-[color:var(--aipify-text-secondary)]"
+            }`}
+          >
+            {labels.toolsTab}
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={section === "library"}
+            onClick={() => chooseSection("library")}
+            className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${
+              section === "library"
+                ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                : "border border-[color:var(--aipify-border)] text-[color:var(--aipify-text-secondary)]"
+            }`}
+          >
+            {labels.libraryTab}
+          </button>
+        </div>
       </section>
 
+      {section === "tools" ? (
+      <>
       <section className={CARD} aria-labelledby="csp-marketing-link">
         <h3 id="csp-marketing-link" className="text-base font-semibold text-[color:var(--aipify-text-primary)]">
           {labels.linkTitle}
@@ -789,6 +864,26 @@ export function CertifiedSalesPartnerMarketingPanel({
             </button>
           ))}
         </div>
+        <label className="mt-4 block text-sm font-medium text-[color:var(--aipify-text-primary)]">
+          {labels.localeTabs}
+          <select
+            className="mt-2 block w-full max-w-xs rounded-xl border border-[color:var(--aipify-border)] bg-white px-3 py-2 text-sm"
+            value={marketingLocale}
+            onChange={(event) => {
+              const next = event.target.value;
+              if (!isCspShareLocale(next)) return;
+              setMarketingLocale(next);
+              setCopyId(null);
+              setNotice(null);
+            }}
+          >
+            {LOCALES.map((code) => (
+              <option key={code} value={code}>
+                {LOCALE_LABELS[code]}
+              </option>
+            ))}
+          </select>
+        </label>
 
         {product === "aipify_voice" ? (
           <p className="mt-4 text-sm text-[color:var(--aipify-text-secondary)]">{labels.voiceNote}</p>
@@ -799,7 +894,7 @@ export function CertifiedSalesPartnerMarketingPanel({
             <div>
               <p className="text-sm font-medium text-[color:var(--aipify-text-primary)]">{labels.shareApprovedCopy}</p>
               {copyItems.length === 0 ? (
-                <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.shareNoCopy}</p>
+                <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.missingLocale}</p>
               ) : (
                 <ul className="mt-3 space-y-2">
                   {copyItems.map((item) => {
@@ -866,16 +961,22 @@ export function CertifiedSalesPartnerMarketingPanel({
               {platforms.length === 0 ? (
                 <p className="self-center text-xs text-[color:var(--aipify-text-secondary)]">{labels.sharePickPlatform}</p>
               ) : (
-                platforms.map((platform) => (
-                  <button
-                    key={platform}
-                    type="button"
-                    onClick={() => openShare(platform)}
-                    className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold"
-                  >
-                    {labels.shareOpen}: {labels.social.platforms[platform]}
-                  </button>
-                ))
+                platforms.map((platform) =>
+                  cspSocialPlatformSupportsWebShare(platform) ? (
+                    <button
+                      key={platform}
+                      type="button"
+                      onClick={() => openShare(platform)}
+                      className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold"
+                    >
+                      {labels.shareOpen}: {labels.social.platforms[platform]}
+                    </button>
+                  ) : (
+                    <p key={platform} className="self-center text-xs text-[color:var(--aipify-text-secondary)]">
+                      {labels.social.platforms[platform]}: {labels.shareNoWeb}
+                    </p>
+                  ),
+                )
               )}
             </div>
             {notice ? (
@@ -886,27 +987,35 @@ export function CertifiedSalesPartnerMarketingPanel({
           </div>
         )}
       </section>
+      </>
+      ) : null}
 
+      {section === "library" ? (
       <section className={CARD} aria-labelledby="csp-materials">
         <h3 id="csp-materials" className="text-base font-semibold text-[color:var(--aipify-text-primary)]">
           {labels.materialsTitle}
         </h3>
         <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.materialsIntro}</p>
-        <div className="mt-4 space-y-4">
-          {CSP_SALES_MATERIAL_CATEGORIES.map((category) => {
-            const items = materials.filter((m) => m.category === category);
-            return (
-              <div key={category} className="rounded-xl border border-[color:var(--aipify-border)] p-4">
-                <p className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">
-                  {labels.materialsCategories[category] ?? category}
-                </p>
-                {items.length === 0 ? (
-                  <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.materialsEmptyCategory}</p>
-                ) : (
+        <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.materialsLanguageNote}</p>
+        {product === "aipify_voice" ? (
+          <p className="mt-4 text-sm text-[color:var(--aipify-text-secondary)]">{labels.voiceNote}</p>
+        ) : filledCategories.length === 0 ? (
+          <div className="mt-4">
+            <EmptyState title={labels.assetsEmptyTitle} body={labels.assetsEmptyBody} />
+          </div>
+        ) : (
+          <div className="mt-4 space-y-4">
+            {filledCategories.map((category) => {
+              const items = materials.filter((item) => item.category === category);
+              return (
+                <div key={category} className="rounded-xl border border-[color:var(--aipify-border)] p-4">
+                  <p className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+                    {labels.materialsCategories[category] ?? category}
+                  </p>
                   <ul className="mt-3 space-y-2">
                     {items.map((item) => (
                       <li key={item.id} className="flex flex-wrap items-center justify-between gap-2 text-sm">
-                        <span className="text-[color:var(--aipify-text-primary)]">{item.id}</span>
+                        <span className="text-[color:var(--aipify-text-primary)]">{item.href.split("/").pop()}</span>
                         <a
                           href={item.href}
                           download
@@ -917,12 +1026,13 @@ export function CertifiedSalesPartnerMarketingPanel({
                       </li>
                     ))}
                   </ul>
-                )}
-              </div>
-            );
-          })}
-        </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </section>
+      ) : null}
     </div>
   );
 }

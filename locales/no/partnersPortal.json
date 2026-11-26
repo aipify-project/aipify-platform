@@ -376,7 +376,11 @@
       "pipeline": "Kunder",
       "economy": "Provisjon",
       "academy": "Academy",
-      "account": "Konto"
+      "account": "Konto",
+      "sales": "Salg",
+      "commission": "Provisjon",
+      "marketing": "Markedsføring",
+      "communication": "Kommunikasjon"
     },
     "nav": {
       "home": "Hjem",
@@ -392,7 +396,10 @@
       "notifications": "Varsler",
       "help": "Hjelp",
       "profile": "Min profil",
-      "messages": "Meldinger"
+      "messages": "Meldinger",
+      "salesMaterials": "Godkjent salgsmateriell",
+      "menu": "Meny",
+      "menuClose": "Lukk meny"
     },
     "portal": {
       "badge": "Partnerportal",
@@ -1046,7 +1053,10 @@
       "approvedCopy": "Godkjent salgstekst",
       "noCopy": "Ingen godkjent salgstekst er publisert for dette produktet ennå.",
       "noImage": "Ingen godkjent kampanjebilde er publisert for dette produktet ennå.",
-      "preview": "Forhåndsvisning"
+      "preview": "Forhåndsvisning",
+      "toolsTab": "Salgsverktøy",
+      "libraryTab": "Salgsmateriell",
+      "missingLocale": "Ingen godkjent salgstekst er publisert på dette markedsføringsspråket. Aipify viser ikke et annet språk som om det var godkjent."
     },
     "materialsUi": {
       "materialsTitle": "Godkjent salgsmateriell",
@@ -1062,7 +1072,8 @@
         "social": "Sosiale medier",
         "email_templates": "E-postmaler",
         "signatures": "Sertifiserte signaturer"
-      }
+      },
+      "languageNote": "Dette er godkjente merkevarefiler. De er ikke en oversatt produktside."
     },
     "catalogMeta": {
       "audienceLabel": "Hvem passer produktet for?",

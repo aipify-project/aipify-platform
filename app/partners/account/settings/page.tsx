@@ -1,7 +1,5 @@
-import {
-  CertifiedSalesPartnerHelpPanel,
-  buildCspHelpLabels,
-} from "@/components/partners-portal/CertifiedSalesPartnerHelpPanel";
+import { CertifiedSalesPartnerHelpPanel } from "@/components/partners-portal/CertifiedSalesPartnerHelpPanel";
+import { buildCspHelpLabels } from "@/lib/partners-portal/csp-section-labels";
 import { renderCspSectionPage } from "@/lib/partners-portal/csp-section-page";
 
 export default function PartnersHelpPage() {

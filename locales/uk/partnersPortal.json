@@ -252,7 +252,11 @@
       "pipeline": "Customers",
       "economy": "Commission",
       "academy": "Academy",
-      "account": "Account"
+      "account": "Account",
+      "sales": "Продажі",
+      "commission": "Комісія",
+      "marketing": "Маркетинг",
+      "communication": "Комунікація"
     },
     "nav": {
       "home": "Home",
@@ -268,7 +272,10 @@
       "notifications": "Notifications",
       "help": "Help",
       "profile": "My profile",
-      "messages": "Повідомлення"
+      "messages": "Повідомлення",
+      "salesMaterials": "Схвалені матеріали для продажу",
+      "menu": "Меню",
+      "menuClose": "Закрити меню"
     },
     "portal": {
       "badge": "Partner portal",
@@ -922,7 +929,10 @@
       "approvedCopy": "Схвалений текст для продажу",
       "noCopy": "Для цього продукту ще не опубліковано схвалений текст для продажу.",
       "noImage": "Для цього продукту ще не опубліковано схвалене зображення кампанії.",
-      "preview": "Перегляд"
+      "preview": "Перегляд",
+      "toolsTab": "Інструменти продажу",
+      "libraryTab": "Матеріали для продажу",
+      "missingLocale": "Для цієї мови маркетингу немає схваленого тексту. Aipify не показує іншу мову так, ніби її схвалено."
     },
     "materialsUi": {
       "materialsTitle": "Схвалені продажові матеріали",
@@ -938,7 +948,8 @@
         "social": "Соціальні мережі",
         "email_templates": "Шаблони електронної пошти",
         "signatures": "Сертифіковані підписи"
-      }
+      },
+      "languageNote": "Це схвалені файли бренду. Це не перекладена сторінка продукту."
     },
     "catalogMeta": {
       "audienceLabel": "Для кого цей продукт?",

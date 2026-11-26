@@ -376,7 +376,11 @@
       "pipeline": "Customers",
       "economy": "Commission",
       "academy": "Academy",
-      "account": "Account"
+      "account": "Account",
+      "sales": "Sales",
+      "commission": "Commission",
+      "marketing": "Marketing",
+      "communication": "Communication"
     },
     "nav": {
       "home": "Home",
@@ -392,7 +396,10 @@
       "notifications": "Notifications",
       "help": "Help",
       "profile": "My profile",
-      "messages": "Messages"
+      "messages": "Messages",
+      "salesMaterials": "Approved sales material",
+      "menu": "Menu",
+      "menuClose": "Close menu"
     },
     "portal": {
       "badge": "Partner portal",
@@ -1046,7 +1053,10 @@
       "approvedCopy": "Approved sales text",
       "noCopy": "No approved sales text is published for this product yet.",
       "noImage": "No approved campaign image is published for this product yet.",
-      "preview": "Preview"
+      "preview": "Preview",
+      "toolsTab": "Sales tools",
+      "libraryTab": "Sales materials",
+      "missingLocale": "No approved sales text is published in this marketing language. Aipify will not show another language as if it were approved."
     },
     "materialsUi": {
       "materialsTitle": "Approved sales materials",
@@ -1062,7 +1072,8 @@
         "social": "Social media",
         "email_templates": "Email templates",
         "signatures": "Certified signatures"
-      }
+      },
+      "languageNote": "These files are approved brand assets. They are not a translated product page."
     },
     "catalogMeta": {
       "audienceLabel": "Who is it for?",

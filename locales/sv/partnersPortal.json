@@ -376,7 +376,11 @@
       "pipeline": "Customers",
       "economy": "Commission",
       "academy": "Academy",
-      "account": "Account"
+      "account": "Account",
+      "sales": "Försäljning",
+      "commission": "Provision",
+      "marketing": "Marknadsföring",
+      "communication": "Kommunikation"
     },
     "nav": {
       "home": "Home",
@@ -392,7 +396,10 @@
       "notifications": "Notifications",
       "help": "Help",
       "profile": "My profile",
-      "messages": "Meddelanden"
+      "messages": "Meddelanden",
+      "salesMaterials": "Godkänt säljmaterial",
+      "menu": "Meny",
+      "menuClose": "Stäng meny"
     },
     "portal": {
       "badge": "Partner portal",
@@ -1046,7 +1053,10 @@
       "approvedCopy": "Godkänd säljtext",
       "noCopy": "Ingen godkänd säljtext är publicerad för den här produkten ännu.",
       "noImage": "Ingen godkänd kampanjbild är publicerad för den här produkten ännu.",
-      "preview": "Förhandsgranskning"
+      "preview": "Förhandsgranskning",
+      "toolsTab": "Säljverktyg",
+      "libraryTab": "Säljmaterial",
+      "missingLocale": "Ingen godkänd säljtext är publicerad på det här marknadsföringsspråket. Aipify visar inte ett annat språk som om det vore godkänt."
     },
     "materialsUi": {
       "materialsTitle": "Godkänt säljmaterial",
@@ -1062,7 +1072,8 @@
         "social": "Sociala medier",
         "email_templates": "E-postmallar",
         "signatures": "Certifierade signaturer"
-      }
+      },
+      "languageNote": "Det här är godkända varumärkesfiler. De är inte en översatt produktsida."
     },
     "catalogMeta": {
       "audienceLabel": "Vem passar produkten för?",
