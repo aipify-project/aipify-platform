@@ -5,7 +5,8 @@
     "portalSubtitle": "Byg din partnerforretning — administrer leads, kunder, henvisninger og provisioner med Aipify.",
     "governanceNote": "Aipify Partners only · Role-based access · Leads, referrals, and performance actions audited · Never Affiliate",
     "accessDenied": "Partners-adgang er begrænset til Aipify Partners, Partner Managers og Super Admins.",
-    "loading": "Forbereder Aipify Partners…"
+    "loading": "Forbereder Aipify Partners…",
+    "poweredBy": "Drevet af Aipify"
   },
   "navGroups": {
     "dashboard": "Dashboard",
@@ -399,7 +400,8 @@
       "messages": "Beskeder",
       "salesMaterials": "Godkendt salgsmateriale",
       "menu": "Menu",
-      "menuClose": "Luk menu"
+      "menuClose": "Luk menu",
+      "emailTemplates": "E-mailskabeloner"
     },
     "portal": {
       "badge": "Partner portal",
@@ -1164,6 +1166,31 @@
       "bedriftNotPublishedBody": "Kompis Bedrift Academy er ikke tilgængelig endnu. Din Kompis Web-fremgang og dit certifikat er uændrede.",
       "voiceFuture": "Aipify Voice",
       "voiceFutureBody": "Academy-indhold for dette produkt er ikke publiceret endnu."
+    },
+    "emailTemplates": {
+      "title": "E-mailskabeloner",
+      "intro": "Vælg et certificeret produkt, en godkendt skabelon og et markedssprog. Forhåndsvisning bruger din profil og personlige salgslink. Afsendelse forbliver låst, indtil Aipify aktiverer sikker transport og samtykkekontrol.",
+      "productLabel": "Produkt",
+      "templateTypeLabel": "Skabelontype",
+      "localeLabel": "Markedssprog",
+      "localeNote": "Markedssprog er uafhængigt af portalsprog. Ufuldstændige sprog er utilgængelige — aldrig erstattet af engelsk.",
+      "localeUnavailable": "Denne skabelon er endnu ikke tilgængelig på det valgte sprog.",
+      "recipientLabel": "Modtager-e-mail",
+      "recipientHint": "Kun én modtager. Ingen masseudsendelse i denne fase.",
+      "previewTitle": "Forhåndsvisning",
+      "previewSubject": "Emne",
+      "sendCta": "Send",
+      "sendLockedTitle": "Afsendelse er spærret",
+      "sendLockedBody": "Udgående marketing-e-mail kræver verificeret transport, ejer-oplåsning og dokumenteret retsgrundlag. Forhåndsvisning virker uden afsendelse.",
+      "consentLabel": "Jeg bekræfter, at jeg har lovligt grundlag for at kontakte denne modtager om produktet (antages ikke kun fordi adressen findes).",
+      "certRequired": "Fuldfør produktcertificering og opret et personligt salgslink før afsendelse.",
+      "noTemplates": "Ingen offentliggjorte skabeloner for dette produkt og denne type endnu.",
+      "types": {
+        "product_introduction": "Produktintroduktion",
+        "follow_up": "Opfølgning",
+        "meeting_request": "Mødeforespørgsel",
+        "product_information": "Produktinformation"
+      }
     }
   }
 }

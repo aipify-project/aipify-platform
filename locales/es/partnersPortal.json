@@ -5,7 +5,8 @@
     "portalSubtitle": "Desarrolle su negocio de partners — gestione leads, clientes, referidos y comisiones con Aipify.",
     "governanceNote": "Aipify Partners only · Role-based access · Leads, referrals, and performance actions audited · Never Affiliate",
     "accessDenied": "El acceso a Partners está restringido a Aipify Partners, Partner Managers y Super Admins.",
-    "loading": "Preparando Aipify Partners…"
+    "loading": "Preparando Aipify Partners…",
+    "poweredBy": "Con tecnología de Aipify"
   },
   "navGroups": {
     "dashboard": "Dashboard",
@@ -275,7 +276,8 @@
       "messages": "Mensajes",
       "salesMaterials": "Material de venta aprobado",
       "menu": "Menú",
-      "menuClose": "Cerrar menú"
+      "menuClose": "Cerrar menú",
+      "emailTemplates": "Plantillas de correo"
     },
     "portal": {
       "badge": "Partner portal",
@@ -1040,6 +1042,31 @@
       "bedriftNotPublishedBody": "Academy de Kompis Bedrift aún no está disponible. Tu progreso y certificado de Kompis Web no cambian.",
       "voiceFuture": "Aipify Voice",
       "voiceFutureBody": "El contenido de Academy para este producto aún no está publicado."
+    },
+    "emailTemplates": {
+      "title": "Plantillas de correo",
+      "intro": "Elija un producto certificado, una plantilla aprobada y un idioma de marketing. La vista previa usa su perfil y enlace personal. El envío permanece bloqueado hasta que Aipify active el transporte seguro y el control de consentimiento.",
+      "productLabel": "Producto",
+      "templateTypeLabel": "Tipo de plantilla",
+      "localeLabel": "Idioma de marketing",
+      "localeNote": "El idioma de marketing es independiente del idioma del portal. Los idiomas incompletos no están disponibles; nunca se sustituyen por inglés.",
+      "localeUnavailable": "Esta plantilla aún no está disponible en el idioma seleccionado.",
+      "recipientLabel": "Correo del destinatario",
+      "recipientHint": "Solo un destinatario. Sin envío masivo en esta fase.",
+      "previewTitle": "Vista previa",
+      "previewSubject": "Asunto",
+      "sendCta": "Enviar",
+      "sendLockedTitle": "El envío está bloqueado",
+      "sendLockedBody": "El correo de marketing saliente requiere transporte verificado, desbloqueo del propietario y base legal documentada. La vista previa funciona sin enviar.",
+      "consentLabel": "Confirmo que tengo una base legal para contactar a este destinatario sobre el producto (no se asume solo porque exista la dirección).",
+      "certRequired": "Complete la certificación del producto y cree un enlace personal antes de enviar.",
+      "noTemplates": "Aún no hay plantillas publicadas para este producto y tipo.",
+      "types": {
+        "product_introduction": "Introducción al producto",
+        "follow_up": "Seguimiento",
+        "meeting_request": "Solicitud de reunión",
+        "product_information": "Información del producto"
+      }
     }
   }
 }

@@ -13,6 +13,7 @@ import { CSP_PARTNER_PORTAL_NAV_GROUPS } from "@/lib/partners-portal/csp-nav";
 import { SELLER_PORTAL_LAYOUT } from "@/lib/partners-portal/design-tokens";
 import { markPartnersSoftNavReady, markPartnersSoftNavStart } from "@/lib/partners-portal/soft-nav-perf";
 import GrowthPartnerPortalSignOutButton from "@/components/growth-partner-portal/GrowthPartnerPortalSignOutButton";
+import { PoweredByAipifyFooter } from "@/components/branding/PoweredByAipifyFooter";
 
 type PartnersPortalShellProps = {
   portalBadge: string;
@@ -20,6 +21,8 @@ type PartnersPortalShellProps = {
   portalSubtitle: string;
   signOutLabel: string;
   governanceNote: string;
+  /** Shared brand footer — same wording as APP / Platform Admin. */
+  poweredByLabel: string;
   navLabels: Record<string, string>;
   /** Prefer Certified Sales Partner IA for Aipify’s own sales portal. */
   certifiedSalesPartnerMode?: boolean;
@@ -82,6 +85,7 @@ function PartnersPortalFrame({
   portalSubtitle,
   signOutLabel,
   governanceNote,
+  poweredByLabel,
   navLabels,
   certifiedSalesPartnerMode = true,
   topbarActions,
@@ -224,7 +228,12 @@ function PartnersPortalFrame({
           })}
         </div>
 
-        <p className="border-t border-[#E8E4F2] px-4 py-3 text-[0.7rem] leading-relaxed text-[#94A3B8]">{governanceNote}</p>
+        <div className="mt-auto shrink-0">
+          <p className="border-t border-[#E8E4F2] px-4 py-2 text-[0.65rem] leading-relaxed text-[#94A3B8]">
+            {governanceNote}
+          </p>
+          <PoweredByAipifyFooter label={poweredByLabel} />
+        </div>
       </nav>
     );
   }

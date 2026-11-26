@@ -5,7 +5,8 @@
     "portalSubtitle": "Розвивайте партнерський бізнес — керуйте лідами, клієнтами, рефералами та комісіями з Aipify.",
     "governanceNote": "Aipify Partners only · Role-based access · Leads, referrals, and performance actions audited · Never Affiliate",
     "accessDenied": "Доступ Partners обмежений для Aipify Partners, Partner Managers та Super Admins.",
-    "loading": "Підготовка Aipify Partners…"
+    "loading": "Підготовка Aipify Partners…",
+    "poweredBy": "Працює на Aipify"
   },
   "navGroups": {
     "dashboard": "Dashboard",
@@ -275,7 +276,8 @@
       "messages": "Повідомлення",
       "salesMaterials": "Схвалені матеріали для продажу",
       "menu": "Меню",
-      "menuClose": "Закрити меню"
+      "menuClose": "Закрити меню",
+      "emailTemplates": "Шаблони email"
     },
     "portal": {
       "badge": "Partner portal",
@@ -1040,6 +1042,31 @@
       "bedriftNotPublishedBody": "Academy для Kompis Bedrift ще недоступна. Ваш прогрес і сертифікат Kompis Web залишаються без змін.",
       "voiceFuture": "Aipify Voice",
       "voiceFutureBody": "Вміст Academy для цього продукту ще не опубліковано."
+    },
+    "emailTemplates": {
+      "title": "Шаблони електронної пошти",
+      "intro": "Оберіть сертифікований продукт, затверджений шаблон і мову маркетингу. Попередній перегляд використовує ваш профіль і особисте посилання. Надсилання заблоковане, доки Aipify не ввімкне транспорт і перевірку підстав.",
+      "productLabel": "Продукт",
+      "templateTypeLabel": "Тип шаблону",
+      "localeLabel": "Мова маркетингу",
+      "localeNote": "Мова маркетингу незалежна від мови порталу. Неповні мови недоступні — ніколи не замінюються англійською.",
+      "localeUnavailable": "Цей шаблон ще недоступний вибраною мовою.",
+      "recipientLabel": "Email одержувача",
+      "recipientHint": "Лише один одержувач. Без масової розсилки на цьому етапі.",
+      "previewTitle": "Попередній перегляд",
+      "previewSubject": "Тема",
+      "sendCta": "Надіслати",
+      "sendLockedTitle": "Надсилання заблоковано",
+      "sendLockedBody": "Вихідний маркетинговий email потребує перевіреного транспорту, розблокування власником і задокументованої правової підстави. Попередній перегляд працює без надсилання.",
+      "consentLabel": "Підтверджую, що маю законну підставу звертатися до цього одержувача щодо продукту (не лише тому, що адреса існує).",
+      "certRequired": "Завершіть сертифікацію продукту та створіть особисте посилання перед надсиланням.",
+      "noTemplates": "Немає опублікованих шаблонів для цього продукту й типу.",
+      "types": {
+        "product_introduction": "Ознайомлення з продуктом",
+        "follow_up": "Подальший контакт",
+        "meeting_request": "Запит на зустріч",
+        "product_information": "Інформація про продукт"
+      }
     }
   }
 }
