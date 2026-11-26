@@ -268,7 +268,7 @@
     "websiteIntelligence": "Website Intelligence",
     "websiteGovernance": "Website Governance",
     "licenses": "Licensregister",
-    "kompisAi": "Kompis AI",
+    "kompisAi": "Kompis",
     "websiteReleaseVerification": "Webstedverifikation",
     "providerOnboarding": "Provider-onboarding",
     "websiteKompisPlans": "Kompis Web-planer",
@@ -288,7 +288,8 @@
     "sellersMessages": "Kommunikation",
     "sellersAudit": "Afvigelser og audit",
     "sellersSettings": "Sælgerindstillinger",
-    "analyticsOverview": "Analyse"
+    "analyticsOverview": "Analyse",
+    "publishAndVerify": "Publicering og verificering"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -2043,7 +2044,12 @@
     "automationStatus": "Automation",
     "automationActive": "Active",
     "automationInactive": "Inactive",
-    "minutesAgo": "{count} minutes ago"
+    "minutesAgo": "{count} minutes ago",
+    "syncUnknown": "Synkroniseringstid ukendt",
+    "syncStale": "Forældet synkronisering",
+    "syncFresh": "Nyligt synkroniseret",
+    "lifecycleActive": "Installation aktiv",
+    "neverSynced": "Aldrig synkroniseret"
   },
   "support": {
     "title": "Support",
@@ -7914,6 +7920,35 @@
       "error": "Sælgerposterne kunne ikke kontrolleres.",
       "retry": "Prøv igen",
       "close": "Luk"
+    }
+  },
+  "driftHub": {
+    "tabsAria": "Faner i Drift",
+    "tabs": {
+      "overview": "Oversigt",
+      "platformHealth": "Platformstatus",
+      "installations": "Installationer",
+      "auditLogs": "Hændelseslog",
+      "pilot": "Pilotkontrol",
+      "deployments": "Publiceringer",
+      "websiteVerification": "Webstedverificering",
+      "verificationHistory": "Historik",
+      "kompis": "Kompis"
+    },
+    "auditLogs": {
+      "title": "Hændelseslog",
+      "subtitle": "Operativ hændelses- og revisionhistorik for Platform Admin.",
+      "notConfiguredTitle": "Ingen hændelseskilde er tilsluttet",
+      "notConfiguredBody": "Denne Drift-fane opfinder ikke hændelser. Et autentificeret Platform-revisions-/hændelsesfeed er endnu ikke koblet til denne flade. Brug aktivitetsloggen under Styring, når den er tilgængelig.",
+      "openGovernance": "Åbn aktivitetslog"
+    },
+    "deployments": {
+      "title": "Publiceringer",
+      "subtitle": "Skrivebeskyttet publiceringsstatus for Drift.",
+      "notConfiguredTitle": "Ingen dedikeret publiceringsfeed på denne fane",
+      "notConfiguredBody": "Denne flade starter ikke publiceringer. Levende udrulningsrækker vises under Platformstatus. Webstedverificering har egne kontroller.",
+      "openHealth": "Åbn platformstatus",
+      "openVerification": "Åbn webstedverificering"
     }
   }
 }

@@ -41,14 +41,10 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
     labelKey: "platform.navGroups.operations",
     defaultExpanded: true,
     items: [
+      // Premium V2: three hubs; former sidebar items live as horizontal page tabs.
       { id: "operationsOverview", labelKey: "platform.nav.operationsOverview" },
-      { id: "platformHealth", labelKey: "platform.nav.platformHealth" },
+      { id: "publishAndVerify", labelKey: "platform.nav.publishAndVerify" },
       { id: "kompisAi", labelKey: "platform.nav.kompisAi" },
-      { id: "websiteReleaseVerification", labelKey: "platform.nav.websiteReleaseVerification" },
-      { id: "deployments", labelKey: "platform.nav.deployments" },
-      { id: "installationOversight", labelKey: "platform.nav.installationOversight" },
-      { id: "operationsAuditLogs", labelKey: "platform.nav.operationsAuditLogs" },
-      { id: "unonightPilot", labelKey: "platform.nav.unonightPilot" },
     ],
   },
   {

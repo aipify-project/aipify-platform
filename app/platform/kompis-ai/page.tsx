@@ -5,6 +5,8 @@ import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { getPlatformProfile } from "@/lib/tenant/get-platform-profile";
 import { createClient } from "@/lib/supabase/server";
+import { PlatformDriftHubShell } from "@/components/platform/drift/PlatformDriftHubShell";
+import { DRIFT_KOMPIS_HUB_ID } from "@/lib/platform/drift-hub";
 
 export default async function PlatformKompisAiPage() {
   const locale = await getLocale();
@@ -15,5 +17,9 @@ export default async function PlatformKompisAiPage() {
   const profile = await getPlatformProfile(supabase);
   const canCheck = profile?.role === "super_admin";
 
-  return <KompisAiGovernancePanel labels={labels} canCheck={Boolean(canCheck)} />;
+  return (
+    <PlatformDriftHubShell hub={DRIFT_KOMPIS_HUB_ID}>
+      <KompisAiGovernancePanel labels={labels} canCheck={Boolean(canCheck)} />
+    </PlatformDriftHubShell>
+  );
 }

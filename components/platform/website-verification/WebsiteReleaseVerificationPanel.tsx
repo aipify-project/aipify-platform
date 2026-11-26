@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
+import { useSearchParams } from "next/navigation";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { SEVERITY_BADGE_CLASS, type KompisOperatorSeverityTone } from "@/lib/kompis-operator/severity";
 import {
@@ -114,6 +115,14 @@ export function WebsiteReleaseVerificationPanel({
   const [selectedFixtureId, setSelectedFixtureId] = useState("");
   const [runReason, setRunReason] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const section = searchParams.get("section");
+    if (section !== "history" && section !== "runs") return;
+    const el = document.getElementById("verification-history");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [searchParams, overview]);
 
   const load = useCallback(() => {
     startTransition(async () => {
@@ -640,7 +649,10 @@ export function WebsiteReleaseVerificationPanel({
       ) : null}
 
       {environment ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
+        <section
+          id="verification-history"
+          className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950"
+        >
           <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">{labels.runsTitle}</h2>
 
           {canOperate && activeFixtures.length > 0 ? (

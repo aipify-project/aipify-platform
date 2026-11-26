@@ -29,7 +29,8 @@ export type PlatformAdminSession = {
 
 export type InstallationHealth = {
   health: CustomerHealth;
-  lastScanMinutesAgo: number;
+  /** Minutes since last_synced_at; null when sync timestamp is missing. */
+  lastScanMinutesAgo: number | null;
   issuesDetected: number;
   automationActive: boolean;
 };
@@ -65,10 +66,11 @@ export function deriveInstallationHealth(row: PlatformInstallationRow): Installa
   if (row.status === "revoked") health = "at_risk";
   else if (row.status === "paused" || integrationErrors > 0) health = "attention";
 
-  const lastSync = row.last_synced_at ? new Date(row.last_synced_at).getTime() : 0;
-  const lastScanMinutesAgo = lastSync
-    ? Math.max(1, Math.floor((Date.now() - lastSync) / 60_000))
-    : 12;
+  const lastSync = row.last_synced_at ? new Date(row.last_synced_at).getTime() : NaN;
+  // Never invent freshness: null sync → null minutes (UI shows unknown/never).
+  const lastScanMinutesAgo = Number.isFinite(lastSync)
+    ? Math.max(0, Math.floor((Date.now() - lastSync) / 60_000))
+    : null;
 
   return {
     health,

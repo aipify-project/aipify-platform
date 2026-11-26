@@ -12,6 +12,7 @@ export type PlatformNavId =
   | "changeOperations"
   | "platformHealth"
   | "kompisAi"
+  | "publishAndVerify"
   | "deployments"
   | "operationsAuditLogs"
   | "organizations"
@@ -327,6 +328,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   },
   { id: "platformHealth", href: "/platform/operations/platform-health", labelKey: "platform.nav.platformHealth" },
   { id: "kompisAi", href: "/platform/kompis-ai", labelKey: "platform.nav.kompisAi" },
+  {
+    id: "publishAndVerify",
+    href: "/platform/operations/publish-verify",
+    labelKey: "platform.nav.publishAndVerify",
+  },
   { id: "deployments", href: "/platform/operations/deployments", labelKey: "platform.nav.deployments" },
   { id: "operationsAuditLogs", href: "/platform/operations/audit-logs", labelKey: "platform.nav.operationsAuditLogs" },
   { id: "organizations", href: "/platform/customers", labelKey: "platform.nav.organizations" },
@@ -701,12 +707,25 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/providers")) return "verifiedProviders";
   if (pathname.startsWith("/platform/operations/build-health")) return "buildHealthCenter";
   if (pathname.startsWith("/platform/operations/route-registry")) return "buildHealthCenter";
-  if (pathname.startsWith("/platform/operations/overview")) return "operationsOverview";
+  // Drift Premium V2: child routes highlight the parent hub (not removed legacy nav ids).
   if (pathname.startsWith("/platform/kompis-ai")) return "kompisAi";
-  if (pathname.startsWith("/platform/operations/platform-health")) return "platformHealth";
-  if (pathname.startsWith("/platform/operations/deployments")) return "deployments";
-  if (pathname.startsWith("/platform/operations/audit-logs")) return "operationsAuditLogs";
-  if (pathname.startsWith("/platform/operations/playbooks")) return "operationsOverview";
+  if (
+    pathname.startsWith("/platform/operations/publish-verify") ||
+    pathname.startsWith("/platform/operations/deployments") ||
+    pathname.startsWith("/platform/website-verification")
+  ) {
+    return "publishAndVerify";
+  }
+  if (
+    pathname.startsWith("/platform/operations/overview") ||
+    pathname.startsWith("/platform/operations/platform-health") ||
+    pathname.startsWith("/platform/operations/audit-logs") ||
+    pathname.startsWith("/platform/operations/playbooks") ||
+    pathname.startsWith("/platform/installations") ||
+    pathname.startsWith("/platform/unonight-pilot")
+  ) {
+    return "operationsOverview";
+  }
   if (pathname.startsWith("/platform/operations")) return "operationsOverview";
   if (pathname.startsWith("/platform/customer-success")) return "customerSuccess";
   if (pathname.startsWith("/platform/revenue")) return "commercialIntelligence";
@@ -768,7 +787,6 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
     return "communications";
   }
   if (pathname.startsWith("/platform/product")) return "productManagement";
-  if (pathname.startsWith("/platform/installations")) return "installationOversight";
   if (pathname.startsWith("/platform/governance/activity-logs")) return "activityLogs";
   if (pathname.startsWith("/platform/governance/super-revision")) return "superRevision";
   if (pathname.startsWith("/platform/governance/role-access")) return "superRoleAccess";
@@ -776,20 +794,17 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/governance")) return "governanceRecords";
   if (pathname.startsWith("/platform/trust/security")) return "securityReviews";
   if (pathname.startsWith("/platform/support")) return "support";
-  if (pathname.startsWith("/platform/updates")) return "deployments";
+  if (pathname.startsWith("/platform/updates")) return "publishAndVerify";
   if (pathname.startsWith("/platform/trust")) return "trust";
   if (pathname.startsWith("/platform/impact")) return "impact";
   if (pathname.startsWith("/platform/presence-pilot")) return "presencePilot";
   if (pathname.startsWith("/platform/pilot-operations")) return "pilotOperations";
-  if (pathname.startsWith("/platform/unonight-pilot")) return "unonightPilot";
   if (pathname.startsWith("/platform/install/unonight")) return "pilotInstall";
-  if (pathname.startsWith("/platform/installations")) return "installations";
   if (pathname.startsWith("/platform/analytics/customer-journeys")) return "analyticsCustomerJourneys";
   if (pathname === "/platform/analytics" || pathname.startsWith("/platform/analytics/")) {
     return pathname.includes("customer-journeys") ? "analyticsCustomerJourneys" : "analyticsOverview";
   }
   if (pathname.startsWith("/platform/website-intelligence")) return "websiteIntelligence";
-  if (pathname.startsWith("/platform/website-verification")) return "websiteReleaseVerification";
   if (pathname.startsWith("/platform/website-governance")) return "websiteGovernance";
   if (pathname.startsWith("/platform/marketing/seo")) return "marketingSeo";
   if (pathname.startsWith("/platform/metrics")) return "metrics";

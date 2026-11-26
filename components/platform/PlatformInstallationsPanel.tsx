@@ -42,6 +42,9 @@ type PlatformInstallationsPanelProps = {
     automationActive: string;
     automationInactive: string;
     minutesAgo: string;
+    syncUnknown: string;
+    syncStale: string;
+    neverSynced: string;
     healthLabels: {
       healthy: string;
       attention: string;
@@ -52,6 +55,19 @@ type PlatformInstallationsPanelProps = {
     integrationStatusLabels: Record<string, string>;
   };
 };
+
+const STALE_SYNC_MINUTES = 24 * 60;
+
+function formatSyncFreshness(
+  minutesAgo: number | null,
+  labels: PlatformInstallationsPanelProps["labels"],
+): string {
+  if (minutesAgo == null) return labels.neverSynced;
+  if (minutesAgo >= STALE_SYNC_MINUTES) {
+    return `${labels.syncStale} · ${labels.minutesAgo.replace("{count}", String(minutesAgo))}`;
+  }
+  return labels.minutesAgo.replace("{count}", String(minutesAgo));
+}
 
 export default function PlatformInstallationsPanel({
   locale,
@@ -161,10 +177,7 @@ export default function PlatformInstallationsPanel({
                         {row.modules.length > 0 ? row.modules.join(", ") : labels.noModules}
                       </td>
                       <td className="px-4 py-4 text-sm text-gray-600">
-                        {labels.minutesAgo.replace(
-                          "{count}",
-                          String(healthMeta.lastScanMinutesAgo)
-                        )}
+                        {formatSyncFreshness(healthMeta.lastScanMinutesAgo, labels)}
                       </td>
                       <td className="px-4 py-4 text-sm text-gray-600">
                         {healthMeta.issuesDetected}

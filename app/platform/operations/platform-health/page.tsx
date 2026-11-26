@@ -3,6 +3,8 @@ import { buildPlatformHealthOperationsLabels } from "@/lib/platform-health-opera
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { PlatformDriftHubShell } from "@/components/platform/drift/PlatformDriftHubShell";
+import { DRIFT_OPERATIONS_HUB_ID } from "@/lib/platform/drift-hub";
 
 export default async function PlatformHealthOperationsCenterPage() {
   const locale = await getLocale();
@@ -10,9 +12,11 @@ export default async function PlatformHealthOperationsCenterPage() {
   const t = createTranslator(dict);
 
   return (
-    <PlatformHealthOperationsCenterPanel
-      backHref="/platform"
-      labels={buildPlatformHealthOperationsLabels(t)}
-    />
+    <PlatformDriftHubShell hub={DRIFT_OPERATIONS_HUB_ID}>
+          <PlatformHealthOperationsCenterPanel
+            backHref="/platform"
+            labels={buildPlatformHealthOperationsLabels(t)}
+          />
+    </PlatformDriftHubShell>
   );
 }

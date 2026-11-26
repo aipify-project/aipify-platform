@@ -351,7 +351,7 @@
     }
   },
   "nav": {
-    "kompisAi": "Kompis AI",
+    "kompisAi": "Kompis",
     "websiteReleaseVerification": "Verificación del sitio",
     "providerOnboarding": "Incorporación de proveedores",
     "growthPartners": "Registro de vendedores",
@@ -381,7 +381,8 @@
     "sellersSettlements": "Settlements & payouts",
     "sellersMessages": "Comunicación",
     "sellersAudit": "Exceptions & audit",
-    "sellersSettings": "Seller settings"
+    "sellersSettings": "Seller settings",
+    "publishAndVerify": "Publicación y verificación"
   },
   "kompisAi": {
     "title": "Kompis AI",
@@ -1631,5 +1632,41 @@
     "loadErrorMessage": "No se pudieron verificar las señales de salud. Inténtalo de nuevo o comprueba el acceso de Platform Admin.",
     "retry": "Reintentar",
     "unknownVerified": "Estado: desconocido / no se puede verificar hasta confirmar una señal de salud."
+  },
+  "driftHub": {
+    "tabsAria": "Pestañas de Operaciones",
+    "tabs": {
+      "overview": "Resumen",
+      "platformHealth": "Estado de la plataforma",
+      "installations": "Instalaciones",
+      "auditLogs": "Registro de eventos",
+      "pilot": "Control piloto",
+      "deployments": "Publicaciones",
+      "websiteVerification": "Verificación del sitio",
+      "verificationHistory": "Historial",
+      "kompis": "Kompis"
+    },
+    "auditLogs": {
+      "title": "Registro de eventos",
+      "subtitle": "Historial operativo de eventos y auditoría para Platform Admin.",
+      "notConfiguredTitle": "No hay fuente de eventos conectada",
+      "notConfiguredBody": "Esta pestaña de Drift no inventa eventos. Un feed autenticado de auditoría/eventos de Platform aún no está conectado. Use el registro de actividad en Gobernanza cuando esté disponible.",
+      "openGovernance": "Abrir registro de actividad"
+    },
+    "deployments": {
+      "title": "Publicaciones",
+      "subtitle": "Estado de publicación de solo lectura para Drift.",
+      "notConfiguredTitle": "No hay un feed de publicación dedicado en esta pestaña",
+      "notConfiguredBody": "Esta superficie no inicia publicaciones. Las filas de implementación en vivo están en Estado de la plataforma. La verificación del sitio tiene sus propios controles.",
+      "openHealth": "Abrir estado de la plataforma",
+      "openVerification": "Abrir verificación del sitio"
+    }
+  },
+  "installations": {
+    "syncUnknown": "Hora de sincronización desconocida",
+    "syncStale": "Sincronización desactualizada",
+    "syncFresh": "Sincronizado recientemente",
+    "lifecycleActive": "Instalación activa",
+    "neverSynced": "Nunca sincronizado"
   }
 }
