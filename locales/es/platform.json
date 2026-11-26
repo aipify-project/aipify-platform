@@ -992,7 +992,10 @@
       "requiresActionTitle": "Requiere acción",
       "financeOverviewTitle": "Resumen financiero",
       "partnerScopeNote": "Los vendedores certificados se separan de las organizaciones de clientes de APP y no se cuentan aquí como clientes de pago.",
-      "healthyRatio": "Proporción de organizaciones de clientes saludables"
+      "healthyRatio": "Proporción de organizaciones de clientes saludables",
+      "paymentPastDue": "Acuerdos de cliente vencidos",
+      "paymentTrialing": "Periodos de prueba",
+      "paymentActive": "Acuerdos de cliente activos"
     },
     "superRoleAccess": {
       "title": "Roles y accesos",
