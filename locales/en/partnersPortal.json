@@ -658,7 +658,14 @@
         "train": "Go to Aipify Academy",
         "create_link": "Create a sales link",
         "view_sales": "View my sales"
-      }
+      },
+      "welcome": "Welcome, {name}",
+      "welcomeFallback": "Welcome",
+      "intro": "Your Certified Sales Partner workspace — certifications, sales links, and commission in one place.",
+      "shortcutSales": "My sales",
+      "shortcutLinks": "Sales links",
+      "shortcutCerts": "Certifications",
+      "shortcutProfile": "My profile"
     },
     "certifications": {
       "title": "Certification status by product",
@@ -855,7 +862,15 @@
       "sendReply": "Send reply",
       "sending": "Sending…",
       "sendOk": "Reply sent.",
-      "sendError": "The reply could not be sent. Please try again."
+      "sendError": "The reply could not be sent. Please try again.",
+      "tabInbox": "Inbox",
+      "tabSent": "Sent",
+      "searchPlaceholder": "Search messages",
+      "backToList": "Back to messages",
+      "noSelectionTitle": "Select a message",
+      "noSelectionBody": "Choose a conversation from the list to read it here.",
+      "unread": "Unread",
+      "openRelated": "Open related page"
     },
     "avatar": {
       "title": "Profile photo",
@@ -1097,6 +1112,33 @@
       "noneSaved": "No payout bank details saved yet.",
       "retry": "Try again",
       "manualPayoutNote": "There are no automatic bank payouts or Stripe Connect in this program."
+    },
+    "profilePage": {
+      "headerTitle": "My profile",
+      "headerSubtitle": "Your partner identity, company details when available, and payout settings.",
+      "personTab": "Person",
+      "companyTab": "Company",
+      "payoutTab": "Payout",
+      "securityTab": "Security",
+      "displayName": "Name",
+      "status": "Partner status",
+      "email": "Email",
+      "emailUnavailable": "Email is managed in your sign-in account and is not editable here.",
+      "companyUnavailableTitle": "Company details",
+      "companyUnavailableBody": "Company fields from your application are managed by Aipify. Contact Aipify if something needs updating.",
+      "payoutIntro": "Bank details are stored securely for manual payouts. Full account numbers are never shown after save.",
+      "securityIntro": "Sign-in security (including two-factor authentication when enabled) is managed through your Aipify account.",
+      "openSettlement": "Open commission & payouts",
+      "notAvailable": "Not available"
+    },
+    "academyHub": {
+      "productTabsLabel": "Academy products",
+      "kompisWeb": "Kompis Web",
+      "kompisBedrift": "Kompis Bedrift",
+      "bedriftNotPublishedTitle": "Training not published yet",
+      "bedriftNotPublishedBody": "Kompis Bedrift Academy content is not available yet. Your Kompis Web progress and certificate stay unchanged.",
+      "voiceFuture": "Aipify Voice",
+      "voiceFutureBody": "Academy content for this product is not published yet."
     }
   }
 }

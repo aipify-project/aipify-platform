@@ -658,7 +658,14 @@
         "train": "Gå til Aipify Academy",
         "create_link": "Lag en salgslenke",
         "view_sales": "Se mine salg"
-      }
+      },
+      "welcome": "Velkommen, {name}",
+      "welcomeFallback": "Velkommen",
+      "intro": "Din Certified Sales Partner-arbeidsflate — sertifiseringer, salgslenker og provisjon samlet.",
+      "shortcutSales": "Mine salg",
+      "shortcutLinks": "Salgslenker",
+      "shortcutCerts": "Sertifiseringer",
+      "shortcutProfile": "Min profil"
     },
     "certifications": {
       "title": "Sertifiseringsstatus per produkt",
@@ -855,7 +862,15 @@
       "sendReply": "Send svar",
       "sending": "Sender…",
       "sendOk": "Svaret er sendt.",
-      "sendError": "Svaret kunne ikke sendes. Prøv igjen."
+      "sendError": "Svaret kunne ikke sendes. Prøv igjen.",
+      "tabInbox": "Innboks",
+      "tabSent": "Sendt",
+      "searchPlaceholder": "Søk i meldinger",
+      "backToList": "Tilbake til meldinger",
+      "noSelectionTitle": "Velg en melding",
+      "noSelectionBody": "Velg en samtale fra listen for å lese den her.",
+      "unread": "Ulest",
+      "openRelated": "Åpne relatert side"
     },
     "avatar": {
       "title": "Profilbilde",
@@ -1097,6 +1112,33 @@
       "noneSaved": "Ingen bankopplysninger for utbetaling er lagret ennå.",
       "retry": "Prøv igjen",
       "manualPayoutNote": "Det finnes ingen automatiske bankutbetalinger eller Stripe Connect i dette programmet."
+    },
+    "profilePage": {
+      "headerTitle": "Min profil",
+      "headerSubtitle": "Din partneridentitet, firmadetaljer når tilgjengelig, og utbetalingsinnstillinger.",
+      "personTab": "Person",
+      "companyTab": "Firma",
+      "payoutTab": "Utbetaling",
+      "securityTab": "Sikkerhet",
+      "displayName": "Navn",
+      "status": "Partnerstatus",
+      "email": "E-post",
+      "emailUnavailable": "E-post styres via innloggingen din og kan ikke endres her.",
+      "companyUnavailableTitle": "Firmadetaljer",
+      "companyUnavailableBody": "Firmafeltene fra søknaden din administreres av Aipify. Kontakt Aipify hvis noe må oppdateres.",
+      "payoutIntro": "Bankdetaljer lagres sikkert for manuelle utbetalinger. Fullt kontonummer vises aldri etter lagring.",
+      "securityIntro": "Påloggingssikkerhet (inkludert tofaktor når det er aktivert) styres via Aipify-kontoen din.",
+      "openSettlement": "Åpne provisjon og utbetalinger",
+      "notAvailable": "Ikke tilgjengelig"
+    },
+    "academyHub": {
+      "productTabsLabel": "Academy-produkter",
+      "kompisWeb": "Kompis Web",
+      "kompisBedrift": "Kompis Bedrift",
+      "bedriftNotPublishedTitle": "Opplæring ikke publisert ennå",
+      "bedriftNotPublishedBody": "Kompis Bedrift Academy er ikke tilgjengelig ennå. Fremgangen din for Kompis Web og sertifikatet er uendret.",
+      "voiceFuture": "Aipify Voice",
+      "voiceFutureBody": "Academy-innhold for dette produktet er ikke publisert ennå."
     }
   }
 }

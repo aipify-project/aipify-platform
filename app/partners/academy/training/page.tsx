@@ -18,12 +18,22 @@ export default async function PartnersAcademyTrainingPage() {
     "partnersPortal.certifiedSalesPartner.pages.academy.title",
     "partnersPortal.certifiedSalesPartner.pages.academy.subtitle",
   );
+  const hub = "partnersPortal.certifiedSalesPartner.academyHub";
   return (
     <CertifiedSalesPartnerWorkspacePanel labels={labels}>
       <CertifiedSalesPartnerTrainingClient
         locale={locale}
         lessonsLabels={buildCspLessonsLabels(t)}
         examLabels={buildCspExamLabels(t)}
+        hubLabels={{
+          productTabsLabel: t(`${hub}.productTabsLabel`),
+          kompisWeb: t(`${hub}.kompisWeb`),
+          kompisBedrift: t(`${hub}.kompisBedrift`),
+          bedriftNotPublishedTitle: t(`${hub}.bedriftNotPublishedTitle`),
+          bedriftNotPublishedBody: t(`${hub}.bedriftNotPublishedBody`),
+          voiceFuture: t(`${hub}.voiceFuture`),
+          voiceFutureBody: t(`${hub}.voiceFutureBody`),
+        }}
       />
     </CertifiedSalesPartnerWorkspacePanel>
   );

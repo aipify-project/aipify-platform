@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { Award, GraduationCap, Link2, ShoppingBag, UserRound, Wallet } from "lucide-react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { buildCspPublicLinkPath } from "@/lib/certified-sales-partner/attribution-policy";
 import { getLocalizedCspCatalogProducts } from "@/lib/certified-sales-partner/product-catalog-display";
@@ -38,6 +39,13 @@ export type CspStatusLabels = Record<string, string>;
 
 export type CspOverviewLabels = {
   title: string;
+  welcome: string;
+  welcomeFallback: string;
+  intro: string;
+  shortcutSales: string;
+  shortcutLinks: string;
+  shortcutCerts: string;
+  shortcutProfile: string;
   statusLabel: string;
   partnerStatus: CspStatusLabels;
   certificationsLabel: string;
@@ -274,6 +282,10 @@ export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels:
   const status = portal.overview.partnerStatus;
   const approved = status === "approved" || status === "active" || status === "certified";
   const activeLinks = portal.links.filter((l) => l.active).length;
+  const firstName = (portal.overview.displayName ?? "").trim().split(/\s+/)[0] || null;
+  const welcome = firstName
+    ? fill(labels.welcome, { name: firstName })
+    : labels.welcomeFallback;
   const certValue =
     portal.publishedProductCount === 0
       ? labels.certificationsNone
@@ -282,6 +294,13 @@ export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels:
           total: portal.publishedProductCount,
         });
 
+  const shortcuts = [
+    { href: "/partners/customers/pipeline", label: labels.shortcutSales, icon: ShoppingBag },
+    { href: "/partners/referrals/links", label: labels.shortcutLinks, icon: Link2 },
+    { href: "/partners/academy/certifications", label: labels.shortcutCerts, icon: Award },
+    { href: "/partners/account/profile", label: labels.shortcutProfile, icon: UserRound },
+  ] as const;
+
   return (
     <div className="space-y-5">
       <AipifyCard aria-labelledby="csp-overview-title" className="overflow-hidden">
@@ -289,9 +308,10 @@ export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels:
           <div className="min-w-0 space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-[#7C3AED]">Aipify</p>
             <h2 id="csp-overview-title" className="text-xl font-semibold tracking-tight text-[#1E293B] sm:text-2xl">
-              {portal.overview.displayName ?? labels.title}
+              {welcome}
             </h2>
-            <div className="flex flex-wrap items-center gap-2">
+            <p className="max-w-3xl text-sm leading-relaxed text-[#64748B]">{labels.intro}</p>
+            <div className="flex flex-wrap items-center gap-2 pt-1">
               <AipifyStatusBadge
                 tone={approved ? "success" : "info"}
                 label={lookup(labels.partnerStatus, status)}
@@ -299,41 +319,52 @@ export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels:
               <span className="text-sm text-[#64748B]">{labels.statusLabel}</span>
             </div>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {next.href && labels.nextCta[next.key] ? (
+          {next.href && labels.nextCta[next.key] ? (
+            <Link
+              href={next.href}
+              className="inline-flex min-h-11 items-center rounded-xl bg-[#7C3AED] px-4 text-sm font-semibold text-white"
+            >
+              {labels.nextCta[next.key]}
+            </Link>
+          ) : null}
+        </div>
+        <div className="mt-5 flex flex-wrap gap-2 border-t border-[#E8E4F2] pt-4">
+          {shortcuts.map((item) => {
+            const Icon = item.icon;
+            return (
               <Link
-                href={next.href}
-                className="inline-flex min-h-11 items-center rounded-xl bg-[#7C3AED] px-4 text-sm font-semibold text-white"
+                key={item.href}
+                href={item.href}
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[#E8E4F2] bg-white px-3 text-sm font-semibold text-[#1E293B] hover:border-[#7C3AED]/40 hover:bg-[#F7F4FF]"
               >
-                {labels.nextCta[next.key]}
+                <Icon className="h-4 w-4 text-[#7C3AED]" aria-hidden />
+                {item.label}
               </Link>
-            ) : null}
-            <Link
-              href="/partners/referrals/links"
-              className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] bg-white px-4 text-sm font-semibold text-[#1E293B]"
-            >
-              {labels.linksLabel}
-            </Link>
-            <Link
-              href="/partners/academy/training"
-              className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] bg-white px-4 text-sm font-semibold text-[#1E293B]"
-            >
-              {labels.certificationsLabel}
-            </Link>
-          </div>
+            );
+          })}
         </div>
       </AipifyCard>
 
       <dl className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <AipifyStatCard label={labels.certificationsLabel} value={certValue} />
-        <AipifyStatCard label={labels.linksLabel} value={activeLinks} />
+        <AipifyStatCard
+          label={labels.certificationsLabel}
+          value={certValue}
+          icon={<GraduationCap className="h-5 w-5" aria-hidden />}
+        />
+        <AipifyStatCard
+          label={labels.linksLabel}
+          value={activeLinks}
+          icon={<Link2 className="h-5 w-5" aria-hidden />}
+        />
         <AipifyStatCard
           label={labels.salesLabel}
           value={portal.salesTotal === 0 ? labels.salesNone : portal.salesTotal}
+          icon={<ShoppingBag className="h-5 w-5" aria-hidden />}
         />
         <AipifyStatCard
           label={labels.balanceLabel}
           value={<BalanceText balances={portal.ledgerByCurrency} none={labels.balanceNone} locale={locale} />}
+          icon={<Wallet className="h-5 w-5" aria-hidden />}
         />
       </dl>
 

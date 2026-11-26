@@ -534,7 +534,14 @@
         "train": "Перейти до Aipify Academy",
         "create_link": "Створити посилання для продажу",
         "view_sales": "Переглянути мої продажі"
-      }
+      },
+      "welcome": "Вітаємо, {name}",
+      "welcomeFallback": "Вітаємо",
+      "intro": "Ваш робочий простір Certified Sales Partner — сертифікації, посилання для продажу та комісія в одному місці.",
+      "shortcutSales": "Мої продажі",
+      "shortcutLinks": "Посилання для продажу",
+      "shortcutCerts": "Сертифікації",
+      "shortcutProfile": "Мій профіль"
     },
     "certifications": {
       "title": "Статус сертифікації за продуктами",
@@ -731,7 +738,15 @@
       "sendReply": "Надіслати відповідь",
       "sending": "Надсилання…",
       "sendOk": "Відповідь надіслано.",
-      "sendError": "Не вдалося надіслати відповідь. Спробуйте ще раз."
+      "sendError": "Не вдалося надіслати відповідь. Спробуйте ще раз.",
+      "tabInbox": "Вхідні",
+      "tabSent": "Надіслані",
+      "searchPlaceholder": "Пошук повідомлень",
+      "backToList": "Назад до повідомлень",
+      "noSelectionTitle": "Виберіть повідомлення",
+      "noSelectionBody": "Оберіть розмову зі списку, щоб прочитати її тут.",
+      "unread": "Непрочитане",
+      "openRelated": "Відкрити пов’язану сторінку"
     },
     "avatar": {
       "title": "Фото профілю",
@@ -973,6 +988,33 @@
       "noneSaved": "Банківські реквізити для виплат ще не збережено.",
       "retry": "Спробувати знову",
       "manualPayoutNote": "У цій програмі немає автоматичних банківських виплат і Stripe Connect."
+    },
+    "profilePage": {
+      "headerTitle": "Мій профіль",
+      "headerSubtitle": "Ідентичність партнера, дані компанії за наявності та налаштування виплат.",
+      "personTab": "Особа",
+      "companyTab": "Компанія",
+      "payoutTab": "Виплата",
+      "securityTab": "Безпека",
+      "displayName": "Ім’я",
+      "status": "Статус партнера",
+      "email": "Електронна пошта",
+      "emailUnavailable": "Електронна пошта керується через обліковий запис входу і не редагується тут.",
+      "companyUnavailableTitle": "Дані компанії",
+      "companyUnavailableBody": "Поля компанії з заявки керує Aipify. Зв’яжіться з Aipify, якщо щось потрібно оновити.",
+      "payoutIntro": "Банківські дані зберігаються безпечно для ручних виплат. Повний номер рахунку не показується після збереження.",
+      "securityIntro": "Безпека входу (включно з двофакторною автентифікацією, коли ввімкнено) керується через обліковий запис Aipify.",
+      "openSettlement": "Відкрити комісію та виплати",
+      "notAvailable": "Недоступно"
+    },
+    "academyHub": {
+      "productTabsLabel": "Продукти Academy",
+      "kompisWeb": "Kompis Web",
+      "kompisBedrift": "Kompis Bedrift",
+      "bedriftNotPublishedTitle": "Навчання ще не опубліковано",
+      "bedriftNotPublishedBody": "Academy для Kompis Bedrift ще недоступна. Ваш прогрес і сертифікат Kompis Web залишаються без змін.",
+      "voiceFuture": "Aipify Voice",
+      "voiceFutureBody": "Вміст Academy для цього продукту ще не опубліковано."
     }
   }
 }

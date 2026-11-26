@@ -1,9 +1,7 @@
-import {
-  buildCspBankPanelLabels,
-  CertifiedSalesPartnerBankPanel,
-} from "@/components/partners-portal/CertifiedSalesPartnerBankPanel";
+import { CertifiedSalesPartnerBankPanel } from "@/components/partners-portal/CertifiedSalesPartnerBankPanel";
 import { CertifiedSalesPartnerSettlementsPanel } from "@/components/partners-portal/CertifiedSalesPartnerPortalPanels";
 import { CertifiedSalesPartnerWorkspacePanel } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
+import { buildCspBankPanelLabels } from "@/lib/partners-portal/csp-section-labels";
 import { buildCspSettlementsLabels, buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";

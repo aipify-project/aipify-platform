@@ -658,7 +658,14 @@
         "train": "Gå till Aipify Academy",
         "create_link": "Skapa en försäljningslänk",
         "view_sales": "Visa min försäljning"
-      }
+      },
+      "welcome": "Välkommen, {name}",
+      "welcomeFallback": "Välkommen",
+      "intro": "Din Certified Sales Partner-arbetsyta — certifieringar, säljlänkar och provision på ett ställe.",
+      "shortcutSales": "Mina försäljningar",
+      "shortcutLinks": "Säljlänkar",
+      "shortcutCerts": "Certifieringar",
+      "shortcutProfile": "Min profil"
     },
     "certifications": {
       "title": "Certifieringsstatus per produkt",
@@ -855,7 +862,15 @@
       "sendReply": "Skicka svar",
       "sending": "Skickar…",
       "sendOk": "Svaret har skickats.",
-      "sendError": "Svaret kunde inte skickas. Försök igen."
+      "sendError": "Svaret kunde inte skickas. Försök igen.",
+      "tabInbox": "Inkorg",
+      "tabSent": "Skickat",
+      "searchPlaceholder": "Sök meddelanden",
+      "backToList": "Tillbaka till meddelanden",
+      "noSelectionTitle": "Välj ett meddelande",
+      "noSelectionBody": "Välj en konversation i listan för att läsa den här.",
+      "unread": "Oläst",
+      "openRelated": "Öppna relaterad sida"
     },
     "avatar": {
       "title": "Profilbild",
@@ -1097,6 +1112,33 @@
       "noneSaved": "Inga bankuppgifter för utbetalning sparade ännu.",
       "retry": "Försök igen",
       "manualPayoutNote": "Det finns inga automatiska bankutbetalningar eller Stripe Connect i det här programmet."
+    },
+    "profilePage": {
+      "headerTitle": "Min profil",
+      "headerSubtitle": "Din partneridentitet, företagsdetaljer när de finns, och utbetalningsinställningar.",
+      "personTab": "Person",
+      "companyTab": "Företag",
+      "payoutTab": "Utbetalning",
+      "securityTab": "Säkerhet",
+      "displayName": "Namn",
+      "status": "Partnerstatus",
+      "email": "E-post",
+      "emailUnavailable": "E-post hanteras via ditt inloggningskonto och kan inte redigeras här.",
+      "companyUnavailableTitle": "Företagsdetaljer",
+      "companyUnavailableBody": "Företagsfält från din ansökan hanteras av Aipify. Kontakta Aipify om något behöver uppdateras.",
+      "payoutIntro": "Bankuppgifter lagras säkert för manuella utbetalningar. Fullständigt kontonummer visas aldrig efter sparande.",
+      "securityIntro": "Inloggningssäkerhet (inklusive tvåfaktorsautentisering när det är aktiverat) hanteras via ditt Aipify-konto.",
+      "openSettlement": "Öppna provision och utbetalningar",
+      "notAvailable": "Inte tillgängligt"
+    },
+    "academyHub": {
+      "productTabsLabel": "Academy-produkter",
+      "kompisWeb": "Kompis Web",
+      "kompisBedrift": "Kompis Bedrift",
+      "bedriftNotPublishedTitle": "Utbildning inte publicerad ännu",
+      "bedriftNotPublishedBody": "Kompis Bedrift Academy är inte tillgänglig ännu. Din Kompis Web-progress och ditt certifikat är oförändrade.",
+      "voiceFuture": "Aipify Voice",
+      "voiceFutureBody": "Academy-innehåll för den här produkten är inte publicerat ännu."
     }
   }
 }

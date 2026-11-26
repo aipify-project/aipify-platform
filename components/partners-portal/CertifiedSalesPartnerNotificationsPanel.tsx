@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { Bell, MessageSquare } from "lucide-react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import type { CspNotificationsLabels } from "@/lib/partners-portal/csp-section-labels";
+import { AipifyAlert, AipifyCard, AipifyPageHeader } from "./design";
 
 export type { CspNotificationsLabels };
 
@@ -73,71 +75,88 @@ export function CertifiedSalesPartnerNotificationsPanel({ labels }: { labels: Cs
 
   return (
     <div className="w-full space-y-6">
-      <header className="space-y-2">
-        <h2 className="text-xl font-semibold text-aipify-text">{labels.title}</h2>
-        <p className="max-w-3xl text-sm text-aipify-text-secondary">{labels.intro}</p>
-      </header>
+      <AipifyPageHeader title={labels.title} description={labels.intro} eyebrow="Aipify" />
 
       {phase === "loading" ? <AipifyLoader centered size="sm" /> : null}
 
       {phase === "error" ? (
-        <section className="rounded-2xl border border-aipify-border bg-aipify-surface p-6 shadow-sm" role="alert">
-          <h3 className="font-semibold text-aipify-text">{labels.errorTitle}</h3>
-          <p className="mt-2 text-sm text-aipify-text-secondary">{labels.errorBody}</p>
-          <button
-            type="button"
-            onClick={() => void load()}
-            className="mt-4 inline-flex rounded-xl border border-aipify-border px-4 py-2 text-sm font-semibold"
-          >
-            {labels.retry}
-          </button>
-        </section>
+        <AipifyAlert
+          tone="danger"
+          title={labels.errorTitle}
+          actions={
+            <button
+              type="button"
+              onClick={() => void load()}
+              className="inline-flex rounded-xl border border-aipify-border px-4 py-2 text-sm font-semibold"
+            >
+              {labels.retry}
+            </button>
+          }
+        >
+          {labels.errorBody}
+        </AipifyAlert>
       ) : null}
 
       {phase === "empty" ? (
-        <section className="rounded-2xl border border-aipify-border bg-aipify-surface p-6 shadow-sm" role="status">
-          <h3 className="font-semibold text-aipify-text">{labels.emptyTitle}</h3>
-          <p className="mt-2 text-sm text-aipify-text-secondary">{labels.emptyBody}</p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <Link
-              href="/partners/account/messages"
-              className="inline-flex rounded-xl bg-aipify-companion px-4 py-2 text-sm font-semibold text-white"
-            >
-              {labels.messagesCta}
-            </Link>
-            <Link
-              href="/partners"
-              className="inline-flex rounded-xl border border-aipify-border px-4 py-2 text-sm font-semibold text-aipify-text"
-            >
-              {labels.homeCta}
-            </Link>
-          </div>
-        </section>
+        <AipifyAlert
+          tone="info"
+          title={labels.emptyTitle}
+          actions={
+            <>
+              <Link
+                href="/partners/account/messages"
+                className="inline-flex rounded-xl bg-aipify-companion px-4 py-2 text-sm font-semibold text-white"
+              >
+                {labels.messagesCta}
+              </Link>
+              <Link
+                href="/partners"
+                className="inline-flex rounded-xl border border-aipify-border px-4 py-2 text-sm font-semibold text-aipify-text"
+              >
+                {labels.homeCta}
+              </Link>
+            </>
+          }
+        >
+          {labels.emptyBody}
+        </AipifyAlert>
       ) : null}
 
       {phase === "ready" ? (
-        <section className="rounded-2xl border border-aipify-border bg-aipify-surface p-6 shadow-sm">
-          <h3 className="font-semibold text-aipify-text">{labels.unreadTitle}</h3>
-          <p className="mt-2 text-sm text-aipify-text-secondary">{labels.unreadBody}</p>
-          <ul className="mt-4 space-y-2">
-            {unread.map((row) => (
-              <li key={row.id} className="rounded-xl border border-aipify-border px-3 py-2 text-sm">
-                <p className="font-medium text-aipify-text">{row.subject || labels.messagesCta}</p>
-                {row.created_at ? (
-                  <p className="mt-1 text-xs text-aipify-text-secondary">
-                    <time dateTime={row.created_at}>{new Date(row.created_at).toLocaleString()}</time>
-                  </p>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-          <Link
-            href="/partners/account/messages"
-            className="mt-4 inline-flex rounded-xl bg-aipify-companion px-4 py-2 text-sm font-semibold text-white"
-          >
-            {labels.messagesCta}
-          </Link>
-        </section>
+        <AipifyCard>
+          <div className="flex items-start gap-3">
+            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F3EDFF] text-[#7C3AED]">
+              <Bell className="h-5 w-5" aria-hidden />
+            </span>
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-aipify-text">{labels.unreadTitle}</h3>
+              <p className="mt-2 text-sm text-aipify-text-secondary">{labels.unreadBody}</p>
+              <ul className="mt-4 space-y-2">
+                {unread.map((row) => (
+                  <li key={row.id}>
+                    <AipifyAlert
+                      tone="primary"
+                      title={row.subject || labels.messagesCta}
+                      actions={
+                        <Link
+                          href="/partners/account/messages"
+                          className="inline-flex items-center gap-2 text-sm font-semibold text-[#7C3AED]"
+                        >
+                          <MessageSquare className="h-4 w-4" aria-hidden />
+                          {labels.messagesCta}
+                        </Link>
+                      }
+                    >
+                      {row.created_at ? (
+                        <time dateTime={row.created_at}>{new Date(row.created_at).toLocaleString()}</time>
+                      ) : null}
+                    </AipifyAlert>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </AipifyCard>
       ) : null}
     </div>
   );

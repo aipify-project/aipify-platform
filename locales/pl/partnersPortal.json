@@ -534,7 +534,14 @@
         "train": "Przejdź do Aipify Academy",
         "create_link": "Utwórz link sprzedażowy",
         "view_sales": "Zobacz moją sprzedaż"
-      }
+      },
+      "welcome": "Witaj, {name}",
+      "welcomeFallback": "Witaj",
+      "intro": "Przestrzeń Certified Sales Partner — certyfikaty, linki sprzedażowe i prowizje w jednym miejscu.",
+      "shortcutSales": "Moja sprzedaż",
+      "shortcutLinks": "Linki sprzedażowe",
+      "shortcutCerts": "Certyfikaty",
+      "shortcutProfile": "Mój profil"
     },
     "certifications": {
       "title": "Status certyfikatu według produktu",
@@ -731,7 +738,15 @@
       "sendReply": "Wyślij odpowiedź",
       "sending": "Wysyłanie…",
       "sendOk": "Odpowiedź została wysłana.",
-      "sendError": "Nie udało się wysłać odpowiedzi. Spróbuj ponownie."
+      "sendError": "Nie udało się wysłać odpowiedzi. Spróbuj ponownie.",
+      "tabInbox": "Odebrane",
+      "tabSent": "Wysłane",
+      "searchPlaceholder": "Szukaj wiadomości",
+      "backToList": "Wróć do wiadomości",
+      "noSelectionTitle": "Wybierz wiadomość",
+      "noSelectionBody": "Wybierz rozmowę z listy, aby przeczytać ją tutaj.",
+      "unread": "Nieprzeczytane",
+      "openRelated": "Otwórz powiązaną stronę"
     },
     "avatar": {
       "title": "Zdjęcie profilowe",
@@ -973,6 +988,33 @@
       "noneSaved": "Brak zapisanych danych bankowych do wypłat.",
       "retry": "Spróbuj ponownie",
       "manualPayoutNote": "W tym programie nie ma automatycznych wypłat bankowych ani Stripe Connect."
+    },
+    "profilePage": {
+      "headerTitle": "Mój profil",
+      "headerSubtitle": "Tożsamość partnera, dane firmy gdy są dostępne oraz ustawienia wypłat.",
+      "personTab": "Osoba",
+      "companyTab": "Firma",
+      "payoutTab": "Wypłata",
+      "securityTab": "Bezpieczeństwo",
+      "displayName": "Imię i nazwisko",
+      "status": "Status partnera",
+      "email": "E-mail",
+      "emailUnavailable": "E-mail jest zarządzany w koncie logowania i nie można go edytować tutaj.",
+      "companyUnavailableTitle": "Dane firmy",
+      "companyUnavailableBody": "Pola firmowe z wniosku są zarządzane przez Aipify. Skontaktuj się z Aipify, jeśli coś wymaga aktualizacji.",
+      "payoutIntro": "Dane bankowe są przechowywane bezpiecznie na potrzeby ręcznych wypłat. Pełny numer konta nie jest pokazywany po zapisaniu.",
+      "securityIntro": "Bezpieczeństwo logowania (w tym 2FA, gdy włączone) jest zarządzane przez konto Aipify.",
+      "openSettlement": "Otwórz prowizje i wypłaty",
+      "notAvailable": "Niedostępne"
+    },
+    "academyHub": {
+      "productTabsLabel": "Produkty Academy",
+      "kompisWeb": "Kompis Web",
+      "kompisBedrift": "Kompis Bedrift",
+      "bedriftNotPublishedTitle": "Szkolenie jeszcze nieopublikowane",
+      "bedriftNotPublishedBody": "Academy dla Kompis Bedrift nie jest jeszcze dostępna. Postęp i certyfikat Kompis Web pozostają bez zmian.",
+      "voiceFuture": "Aipify Voice",
+      "voiceFutureBody": "Treści Academy dla tego produktu nie zostały jeszcze opublikowane."
     }
   }
 }
