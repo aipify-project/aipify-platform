@@ -328,6 +328,12 @@ function DashboardShellFrame({
   children,
 }: DashboardShellFrameProps) {
   const pathname = usePathname();
+  const customerProfileHref = customerProfileLink?.href ?? "";
+  const customerProfileActive =
+    customerProfileHref.length > 0 &&
+    (pathname === customerProfileHref ||
+      pathname.startsWith(`${customerProfileHref}/`) ||
+      pathname.startsWith("/app/account/profile"));
   const activeNav = useMemo(() => {
     if (shellVariant === "platform") {
       return getPlatformActiveNavId(pathname);
@@ -491,7 +497,7 @@ function DashboardShellFrame({
               <CustomerProfileMenuLink
                 href={customerProfileLink.href}
                 label={customerProfileLink.label}
-                active={pathname.startsWith(customerProfileLink.href)}
+                active={customerProfileActive}
               />
             ) : null}
             <LicenseSidebarPanel labels={licensePanelLabels} />
@@ -602,7 +608,7 @@ function DashboardShellFrame({
                   <CustomerProfileMenuLink
                     href={customerProfileLink.href}
                     label={customerProfileLink.label}
-                    active={pathname.startsWith(customerProfileLink.href)}
+                    active={customerProfileActive}
                     onNavigate={() => setSidebarOpen(false)}
                   />
                 ) : null}

@@ -6,6 +6,8 @@
 export type AccountProfileFieldSource =
   | "users.full_name"
   | "auth.users.email"
+  | "auth.users.phone"
+  | "auth.users.updated_at"
   | "users.role"
   | "users.created_at"
   | "get_app_organization_context.workspace_name"
@@ -47,18 +49,22 @@ export type AccountProfileView = {
   avatarUrl: string | null;
   avatarSource: AccountProfileFieldSource;
   initials: string;
-  /** Optional company block — only when workspace/company context exists. */
-  hasCompanyContext: boolean;
+  /** True only when a company field has a stored value. Workspace name is not company data. */
+  hasCompanyDetails: boolean;
   companyName: AccountProfileField;
   companyWebsite: AccountProfileField;
   companyPhone: AccountProfileField;
   companyAddress: AccountProfileField;
   relationship: {
+    workspaceName: AccountProfileField;
     planName: AccountProfileField;
     license: AccountProfileLicense | null;
     licenseSource: AccountProfileFieldSource;
     customerReference: AccountProfileField;
+    /** Raw UUID references stay off the page. */
+    referenceHidden: boolean;
     registeredAt: AccountProfileField;
+    updatedAt: AccountProfileField;
   };
   /** Secure APP screen lock is not active without owner-approved backend. */
   screenLock: {
@@ -68,6 +74,8 @@ export type AccountProfileView = {
     subscription: string;
     invoices: string;
     security: string;
+    privacy: string;
+    license: string;
     notifications: string;
     companySettings: string | null;
   };

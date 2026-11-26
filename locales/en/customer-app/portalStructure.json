@@ -131,7 +131,7 @@
       "accountIntegrations": "Integrations",
       "kompisBedriftConnection": "Connection and license",
       "appDashboard": "Home",
-      "accountProfile": "Profile / Customer relationship"
+      "accountProfile": "Account"
     },
     "dashboard": {
       "title": "APP Dashboard",
@@ -8632,25 +8632,25 @@
     },
     "accountProfile": {
       "eyebrow": "Account",
-      "title": "Profile / Customer relationship",
-      "description": "Review your signed-in account details and customer relationship. Changes that require a secure update path stay locked until that path is available.",
+      "title": "Account",
+      "description": "Review the signed-in account, optional company details, customer relationship, and security settings. Editing stays unavailable until an approved save path exists.",
       "personalTitle": "Personal profile",
-      "relationshipTitle": "Customer relationship",
-      "securityTitle": "Security and account links",
+      "relationshipTitle": "Relationship",
+      "securityTitle": "Security and privacy",
       "fullName": "Full name",
       "email": "Email",
       "phone": "Phone",
       "address": "Address",
       "role": "Role",
       "notRegistered": "Not registered",
-      "readOnlyReason": "These details are shown from your signed-in account. Verified identity fields stay read-only until an approved APP update path exists.",
+      "readOnlyReason": "These details come from the signed-in account. There is no save action on this page.",
       "avatarFallback": "Initials are shown when no profile photo is available.",
-      "companyTitle": "Company details",
+      "companyTitle": "Company",
       "companyName": "Company name",
       "companyWebsite": "Company website",
       "companyPhone": "Company phone",
       "companyAddress": "Company address",
-      "companyOptionalNote": "Company fields appear only when a company workspace is linked to this account. Private customers do not need a registered business.",
+      "companyOptionalNote": "Company details are optional. A private account does not need a registered business.",
       "plan": "Plan",
       "license": "License status",
       "customerReference": "Customer reference",
@@ -8660,8 +8660,8 @@
       "openSecurity": "Sign-in and security",
       "openNotifications": "Notification settings",
       "openCompanySettings": "Organization profile",
-      "screenLockTitle": "Lock screen",
-      "screenLockBody": "A secure screen lock is not activated for APP. Enabling it requires an owner-approved server-verified lock service — not a browser-only overlay.",
+      "screenLockTitle": "Screen lock",
+      "screenLockBody": "Screen lock is not activated. It stays off until a server-verified lock is approved. This page does not lock the screen.",
       "screenLockStatus": "Not activated",
       "roles": {
         "owner": "Owner",
@@ -8677,7 +8677,21 @@
         "grace": "Grace period",
         "trialing": "Trial",
         "cancelled": "Cancelled"
-      }
+      },
+      "tabsAria": "Account sections",
+      "tabPersonal": "Personal profile",
+      "tabCompany": "Company",
+      "tabRelationship": "Relationship",
+      "tabSecurity": "Security and privacy",
+      "unavailable": "Not available in this view",
+      "companyEmpty": "No company details registered",
+      "companyEmptyBody": "Company name, contact details, website, and address appear here only when they are already stored for this account.",
+      "workspace": "Workspace",
+      "updatedAt": "Last updated",
+      "referenceHidden": "An internal reference exists and is not shown here.",
+      "statusUnknown": "Status unavailable",
+      "openLicense": "License center",
+      "openPrivacy": "Privacy settings"
     }
   }
 }

@@ -131,7 +131,7 @@
       "accountIntegrations": "Integrationer",
       "kompisBedriftConnection": "Anslutning/licens",
       "appDashboard": "Hem",
-      "accountProfile": "Profil / Kundrelation"
+      "accountProfile": "Kundrelation"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -8707,26 +8707,26 @@
       "close": "Stäng"
     },
     "accountProfile": {
-      "eyebrow": "Konto",
-      "title": "Profil / Kundrelation",
-      "description": "Granska kontouppgifter och kundrelation för den inloggade användaren. Fält som kräver en säker uppdateringsväg förblir låsta tills den finns.",
+      "eyebrow": "Kundrelation",
+      "title": "Kundrelation",
+      "description": "Se det inloggade kontot, valfria företagsuppgifter, kundrelationen och säkerhet. Redigering finns inte förrän en godkänd sparväg finns.",
       "personalTitle": "Personlig profil",
       "relationshipTitle": "Kundrelation",
-      "securityTitle": "Säkerhet och kontolänkar",
+      "securityTitle": "Säkerhet och integritet",
       "fullName": "Fullständigt namn",
       "email": "E-post",
       "phone": "Telefon",
       "address": "Adress",
       "role": "Roll",
       "notRegistered": "Inte registrerad",
-      "readOnlyReason": "Uppgifterna hämtas från det inloggade kontot. Verifierad identitet är skrivskyddad tills en godkänd APP-uppdateringsväg finns.",
+      "readOnlyReason": "Uppgifterna kommer från det inloggade kontot. Den här sidan sparar ingenting.",
       "avatarFallback": "Initialer visas när profilbild saknas.",
-      "companyTitle": "Företagsuppgifter",
+      "companyTitle": "Företag",
       "companyName": "Företagsnamn",
       "companyWebsite": "Företagswebbplats",
       "companyPhone": "Företagstelefon",
       "companyAddress": "Företagsadress",
-      "companyOptionalNote": "Företagsfält visas bara när ett företagsarbetsyta är kopplat till kontot. Privatpersoner behöver inte ett registrerat företag.",
+      "companyOptionalNote": "Företagsuppgifter är valfria. Ett privat konto behöver inget registrerat företag.",
       "plan": "Plan",
       "license": "Licensstatus",
       "customerReference": "Kundreferens",
@@ -8736,9 +8736,9 @@
       "openSecurity": "Inloggning och säkerhet",
       "openNotifications": "Aviseringsinställningar",
       "openCompanySettings": "Organisationsprofil",
-      "screenLockTitle": "Lås skärmen",
-      "screenLockBody": "En säker skärmlåsning är inte aktiverad för APP. Aktivering kräver en ägargodkänd, serververifierad låstjänst — inte en webbläsaröverläggning.",
-      "screenLockStatus": "Inte aktiverad",
+      "screenLockTitle": "Skärmlås",
+      "screenLockBody": "Skärmlås är inte aktiverat. Det förblir av tills ett serververifierat lås är godkänt. Den här sidan låser inte skärmen.",
+      "screenLockStatus": "Inte aktiverat",
       "roles": {
         "owner": "Ägare",
         "admin": "Administratör",
@@ -8753,7 +8753,21 @@
         "grace": "Respitperiod",
         "trialing": "Provperiod",
         "cancelled": "Avslutad"
-      }
+      },
+      "tabsAria": "Delar av kundrelationen",
+      "tabPersonal": "Personlig profil",
+      "tabCompany": "Företag",
+      "tabRelationship": "Kundrelation",
+      "tabSecurity": "Säkerhet och integritet",
+      "unavailable": "Inte tillgängligt i den här vyn",
+      "companyEmpty": "Inga företagsuppgifter registrerade",
+      "companyEmptyBody": "Företagsnamn, kontaktuppgifter, webbplats och adress visas här bara när de redan finns på kontot.",
+      "workspace": "Arbetsyta",
+      "updatedAt": "Senast uppdaterad",
+      "referenceHidden": "En intern referens finns och visas inte här.",
+      "statusUnknown": "Status inte tillgänglig",
+      "openLicense": "Licenscenter",
+      "openPrivacy": "Integritetsinställningar"
     }
   }
 }

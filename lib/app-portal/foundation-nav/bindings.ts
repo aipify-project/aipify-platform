@@ -22,7 +22,7 @@ export const FOUNDATION_NAV_BINDINGS = {
   kompisBedriftConnection: "/app/kompis-bedrift/connection",
   kompisBedriftSettings: "/app/kompis-bedrift/settings",
   accountHome: "/app/account",
-  accountProfile: "/app/account/profile",
+  accountProfile: "/app/profile",
   accountSubscription: "/app/account/subscription",
   accountInvoices: "/app/account/invoices",
   accountIntegrations: "/app/account/integrations",
