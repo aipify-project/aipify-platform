@@ -1,4 +1,5 @@
 import { KOMPIS_WEB_PLANNED_CATALOG } from "@/lib/certified-sales-partner/academy/kompis-web-lessons";
+import { PERCENT_COMMISSION_BLOCKED_REASON } from "./percent-commission-contract";
 import { getCanonicalProduct, CANONICAL_PRODUCT_REGISTRY } from "./registry";
 import type {
   ProductCatalogLocaleCode,
@@ -14,6 +15,13 @@ export type CoreSalesProductRow = {
   fixedCommissionAmount: number | null;
   published: boolean;
   updatedAt?: string | null;
+  /**
+   * Present only after Core channel SQL. `null`/`undefined` = column not available —
+   * APP visibility may use controlled registry fallback (never pretend Core persisted it).
+   */
+  publishApp?: boolean | null;
+  /** Present only after Core channel SQL; until then SALE uses legacy `published`. */
+  publishSale?: boolean | null;
 };
 
 export type AppEntitlementHint = {
@@ -47,11 +55,27 @@ function resolveCopy(
   };
 }
 
-function appChannel(def: NonNullable<ReturnType<typeof getCanonicalProduct>>): UnifiedProductChannelState {
-  if (def.defaultAppPublished) {
-    return { status: "published", visibleInStore: true };
+/**
+ * APP channel: Core `publish_app` wins when present.
+ * Otherwise `defaultAppPublished` is a controlled temporary fallback and is marked as such.
+ */
+function appChannel(
+  def: NonNullable<ReturnType<typeof getCanonicalProduct>>,
+  core: CoreSalesProductRow | undefined
+): UnifiedProductChannelState {
+  if (core && typeof core.publishApp === "boolean") {
+    return core.publishApp
+      ? { status: "published", visibleInStore: true, source: "core" }
+      : { status: "unpublished", visibleInStore: false, source: "core" };
   }
-  return { status: "unpublished", visibleInStore: false };
+  if (def.defaultAppPublished) {
+    return {
+      status: "blocked_needs_sql",
+      visibleInStore: true,
+      source: "registry_fallback",
+    };
+  }
+  return { status: "unpublished", visibleInStore: false, source: "none" };
 }
 
 function saleChannel(
@@ -59,14 +83,16 @@ function saleChannel(
   core: CoreSalesProductRow | undefined
 ): UnifiedProductChannelState {
   if (core) {
-    return core.published
-      ? { status: "published", visibleInStore: true }
-      : { status: "draft", visibleInStore: false };
+    const salePublished =
+      typeof core.publishSale === "boolean" ? core.publishSale : core.published;
+    return salePublished
+      ? { status: "published", visibleInStore: true, source: "core" }
+      : { status: "draft", visibleInStore: false, source: "core" };
   }
   if (def.defaultSaleEligible) {
-    return { status: "not_configured", visibleInStore: false };
+    return { status: "not_configured", visibleInStore: false, source: "none" };
   }
-  return { status: "unpublished", visibleInStore: false };
+  return { status: "unpublished", visibleInStore: false, source: "none" };
 }
 
 function customerPrice(productKey: string): UnifiedCatalogProduct["customerPrice"] {
@@ -90,9 +116,29 @@ function purchaseReadiness(
   return "contact";
 }
 
+function resolveCommission(core: CoreSalesProductRow | undefined): UnifiedCatalogProduct["commission"] {
+  if (core?.fixedCommissionAmount != null && core.currency) {
+    return {
+      kind: "fixed",
+      amount: core.fixedCommissionAmount,
+      currency: core.currency,
+    };
+  }
+  // Percent is never synthesised — callers may show blocked UI via helper below.
+  return { kind: "unknown" };
+}
+
+/** Explicit blocked percent model for Platform honesty (never computed in UI). */
+export function blockedPercentCommission(): Extract<
+  UnifiedCatalogProduct["commission"],
+  { kind: "percent" }
+> {
+  return { kind: "percent", blockedReason: PERCENT_COMMISSION_BLOCKED_REASON };
+}
+
 /**
  * Merge canonical registry with Core SALE rows and optional APP entitlements.
- * Does not invent Core publication — SALE visibility requires Core `published` when a row exists.
+ * Does not invent Core APP publication — registry fallback is labelled explicitly.
  */
 export function buildUnifiedCatalog(input: {
   locale: ProductCatalogLocaleCode;
@@ -120,17 +166,10 @@ export function buildUnifiedCatalog(input: {
       letter: def.letter,
       openHref: def.openHref,
       moduleKey: def.moduleKey,
-      app: appChannel(def),
+      app: appChannel(def, core),
       sale: saleChannel(def, core),
       customerPrice: customerPrice(def.productKey),
-      commission:
-        core?.fixedCommissionAmount != null && core.currency
-          ? {
-              kind: "fixed" as const,
-              amount: core.fixedCommissionAmount,
-              currency: core.currency,
-            }
-          : ({ kind: "unknown" } as const),
+      commission: resolveCommission(core),
       coreProductId: core?.id ?? null,
       purchaseReadiness: purchaseReadiness(def.productKey, entitlement),
       updatedAt: core?.updatedAt ?? null,
@@ -149,6 +188,7 @@ export function filterSalesCatalogProducts(products: UnifiedCatalogProduct[]): U
 export function assertChannelIsolation(products: UnifiedCatalogProduct[]): {
   appOnlyKeys: string[];
   saleOnlyKeys: string[];
+  registryFallbackAppKeys: string[];
 } {
   const appOnlyKeys = products
     .filter((p) => p.app.visibleInStore && !p.sale.visibleInStore)
@@ -156,5 +196,8 @@ export function assertChannelIsolation(products: UnifiedCatalogProduct[]): {
   const saleOnlyKeys = products
     .filter((p) => p.sale.visibleInStore && !p.app.visibleInStore)
     .map((p) => p.productKey);
-  return { appOnlyKeys, saleOnlyKeys };
+  const registryFallbackAppKeys = products
+    .filter((p) => p.app.source === "registry_fallback")
+    .map((p) => p.productKey);
+  return { appOnlyKeys, saleOnlyKeys, registryFallbackAppKeys };
 }

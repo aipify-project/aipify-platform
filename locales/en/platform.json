@@ -8104,6 +8104,7 @@
       "registerColCustomerPrice": "Customer price",
       "registerAppPublished": "APP published",
       "registerAppUnpublished": "Not in APP store",
+      "registerAppRegistryFallback": "APP listing (registry fallback — Core SQL pending)",
       "registerSaleNotConfigured": "Sale not configured",
       "registerPricePlanned": "Planned from {price}",
       "registerChannelNote": "One product identity with separate APP and Sale channels. Sale publish uses Core. APP listing uses the approved registry until channel SQL lands."

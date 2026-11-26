@@ -561,6 +561,7 @@ export function CertifiedSellersLivePanel({
                   colCommission: l.colCommission,
                   appPublished: l.registerAppPublished,
                   appUnpublished: l.registerAppUnpublished,
+                  appRegistryFallback: l.registerAppRegistryFallback,
                   salePublished: l.productPublished,
                   saleDraft: l.productDraft,
                   saleNotConfigured: l.registerSaleNotConfigured,
