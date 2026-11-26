@@ -10,7 +10,7 @@ Feature owner: PLATFORM ADMIN (`/platform/sellers/*`).
 | Worktree | `/Users/veltrix/Development/aipify-platform-sellers-ux-v3` |
 | Branch | `feat/platform-seller-admin-premium-v4-20261126` |
 | Baseline at implementation start | `b807a1381` (includes sellers V3 `#375`, seller portal V1 `#377`, seller portal V2 `#378`) |
-| Required rebase base | `origin/main` after `#379` / `#380` (seller portal Premium V3). Partner portal files from those merges stay untouched by this diff. |
+| Rebased onto | `dddddae3a` (`#379` / `#380`, seller portal Premium V3). Partner portal files from those merges stay untouched by this diff. |
 | PR | Opened from this branch. Title: `AIPIFY_PLATFORM_SELLER_ADMIN_PREMIUM_V4_COMPLETE`. |
 | SQL applied | None. |
 | Authenticated browser | `BROWSER_AUTH_BLOCKED`. No admin session. No screenshots. Do not treat this as visual QA. |
@@ -58,7 +58,7 @@ Checkout stays closed. Payment RPC grants, the Stripe webhook route, and Website
 
 ## Verification
 
-- `tsc --noEmit --pretty false --incremental false` passed after the Academy catalog type fix.
-- `lib/platform/sellers-admin-v3.test.ts` and `lib/platform/nav-sellers-commercial-structure.test.ts`: 10 passed, 0 failed, on the pre-rebase tree. Re-run after rebase before merge.
+- `tsc --noEmit --pretty false --incremental false` passed after the rebase onto `dddddae3a`.
+- `lib/platform/sellers-admin-v3.test.ts` and `lib/platform/nav-sellers-commercial-structure.test.ts`: 10 passed, 0 failed, after the rebase.
 - Authenticated desktop/mobile QA: not run (`BROWSER_AUTH_BLOCKED`).
 - Performance before/after: `NOT_MEASURED`.
