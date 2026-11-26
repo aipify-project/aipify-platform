@@ -506,7 +506,7 @@ export function PlatformPortalDashboardPanel({
             label={labels.paymentPastDue}
             value={pastDue}
             variant={countVariant(pastDue, "danger")}
-            href="/platform/billing/invoices"
+            href="/platform/subscriptions"
             actionLabel={labels.openModule}
           />
           <MetricCard
@@ -520,7 +520,7 @@ export function PlatformPortalDashboardPanel({
             label={labels.published}
             value={dashboard.marketplace_moderation.published}
             variant="success"
-            href="/platform/updates"
+            href="/platform/skills"
             actionLabel={labels.openModule}
           />
           <MetricCard
