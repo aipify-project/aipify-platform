@@ -19,6 +19,10 @@ function str(v: unknown, fb = ""): string {
   return typeof v === "string" ? v : fb;
 }
 
+/**
+ * APP portal parse — never surfaces internal notes for any customer role.
+ * Aipify agents read/write notes via Platform Support Center RPCs only.
+ */
 function parseItem(raw: unknown): SupportRequestItem {
   const d = (raw ?? {}) as Record<string, unknown>;
   const cat = str(d.category, "general") as SupportRequestCategory;
@@ -40,8 +44,9 @@ function parseItem(raw: unknown): SupportRequestItem {
     channel: str(d.channel) || undefined,
     resolved_at: str(d.resolved_at) || undefined,
     attachments: Array.isArray(d.attachments) ? d.attachments : [],
-    internal_notes: str(d.internal_notes_full) || str(d.internal_notes) || undefined,
-    internal_notes_full: str(d.internal_notes_full) || undefined,
+    // Defense in depth — drop even if a leaky Core payload still includes keys.
+    internal_notes: undefined,
+    internal_notes_full: undefined,
     created_at: str(d.created_at),
     updated_at: str(d.updated_at),
   };
