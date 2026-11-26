@@ -391,7 +391,8 @@
       "salesTools": "Salgsverktøy",
       "notifications": "Varsler",
       "help": "Hjelp",
-      "profile": "Min profil"
+      "profile": "Min profil",
+      "messages": "Meldinger"
     },
     "portal": {
       "badge": "Partnerportal",
@@ -735,6 +736,101 @@
       "issuer": "Utsteder",
       "orgNumber": "Org.nr.",
       "backToProgram": "Om Certified Sales Partner-programmet"
+    },
+    "feedback": {
+      "unavailable": "Tilbakemelding kunne ikke sendes fra selgerportalen. Prøv igjen senere eller kontakt Aipify-støtte."
+    },
+    "topbar": {
+      "language": {
+        "label": "Språk",
+        "activeLanguage": "Aktivt språk",
+        "changeLanguage": "Bytt språk",
+        "switchFailed": "Språket kunne ikke endres. Prøv igjen.",
+        "retry": "Prøv igjen",
+        "openMenu": "Språkvalg"
+      },
+      "notifications": "Varsler",
+      "messages": "Meldinger",
+      "profile": "Min profil",
+      "avatarAlt": "Ditt profilbilde",
+      "feedbackUnavailable": "Tilbakemeldingen kunne ikke sendes fra partnerportalen akkurat nå. Kontakt Aipify direkte eller prøv igjen senere.",
+      "skipToContent": "Hopp til innhold",
+      "mainNavigation": "Navigasjon i partnerportalen",
+      "feedback": {
+        "trigger": "Del tilbakemelding",
+        "triggerShort": "Del tilbakemelding",
+        "title": "Del tilbakemelding",
+        "subtitle": "Din stemme hjelper oss å forbedre Aipify — aldri tvunget, alltid velkommen.",
+        "type": "Tilbakemeldingstype",
+        "feedbackTitle": "Tittel",
+        "description": "Beskrivelse",
+        "priority": "Prioritet",
+        "wantsResponse": "Ønsker du svar?",
+        "noResponse": "Ingen svar nødvendig",
+        "contactMe": "Kontakt meg angående denne tilbakemeldingen",
+        "includeContext": "Inkluder gjeldende side og enhetskontekst (valgfritt)",
+        "submit": "Send tilbakemelding",
+        "submitting": "Sender…",
+        "acknowledgementTitle": "Takk for at du hjelper oss å forbedre Aipify.",
+        "acknowledgementBody": "Hvert forslag hjelper oss å bygge en bedre opplevelse.",
+        "historyTitle": "Din tilbakemeldingshistorikk",
+        "historyEmpty": "Du har ikke sendt inn tilbakemeldinger ennå.",
+        "close": "Lukk",
+        "feedbackTypes": {
+          "bug_report": "Feilrapport",
+          "improvement_suggestion": "Forbedringsforslag",
+          "feature_request": "Ny funksjonsforespørsel",
+          "compliment": "Kompliment",
+          "usability_issue": "Brukervennlighetsproblem",
+          "general_feedback": "Generell tilbakemelding"
+        },
+        "priorities": {
+          "low": "Lav",
+          "medium": "Middels",
+          "high": "Høy"
+        },
+        "customerStatuses": {
+          "received": "Mottatt",
+          "under_review": "Under vurdering",
+          "planned": "Planlagt",
+          "implemented": "Implementert"
+        },
+        "trustNote": "Deltakelse er alltid frivillig. Vi bruker tilbakemeldinger kun for å forbedre Aipify — aldri til reklame eller videresalg.",
+        "transparencyNote": "Informasjon du deler her samles inn for å forbedre Aipify-produkter og -tjenester.",
+        "trustStatementLink": "Retningslinjer for kundetilbakemelding og produktforbedring",
+        "trustStatementLinkAria": "Åpne retningslinjer for kundetilbakemelding og produktforbedring i ny fane"
+      }
+    },
+    "messages": {
+      "title": "Meldinger",
+      "subtitle": "Meldinger fra Aipify til deg som Certified Sales Partner.",
+      "statusLabel": "Status",
+      "statusNotActive": "Ikke aktiv ennå",
+      "notReadyTitle": "Innboksen din er ikke aktiv ennå",
+      "notReadyBody": "Partnermeldinger er ikke aktivert i dette miljøet. Ingen meldinger vises, og ingen går tapt. Aipify gir deg beskjed når den åpner.",
+      "nextStep": "I mellomtiden når viktige oppdateringer deg fortsatt som varsler.",
+      "notificationsCta": "Åpne varsler",
+      "homeCta": "Tilbake til hjem"
+    },
+    "avatar": {
+      "title": "Profilbilde",
+      "subtitle": "Legg til et bilde slik at Aipify og teamet ditt kjenner deg igjen i portalen.",
+      "hint": "PNG, JPEG eller WebP, opptil 512 KB.",
+      "privacyNote": "Bildet ditt lagres privat og vises kun i din egen partnerportal.",
+      "empty": "Ingen profilbilde ennå",
+      "current": "Profilbilde i bruk",
+      "upload": "Last opp bilde",
+      "replace": "Bytt bilde",
+      "remove": "Fjern bilde",
+      "uploading": "Laster opp…",
+      "removing": "Fjerner…",
+      "saved": "Profilbilde lagret",
+      "removed": "Profilbilde fjernet",
+      "errorType": "Bruk et PNG-, JPEG- eller WebP-bilde.",
+      "errorSize": "Bildet er større enn 512 KB. Velg et mindre bilde.",
+      "errorGeneric": "Bildet kunne ikke lagres akkurat nå. Prøv igjen.",
+      "errorUnavailable": "Bildelagring er ikke tilgjengelig ennå. Profilen din er uendret.",
+      "errorSession": "Økten din er avsluttet, eller portaltilgangen er ikke aktiv. Logg inn på nytt for å fortsette."
     }
   }
 }

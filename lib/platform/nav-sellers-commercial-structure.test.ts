@@ -49,6 +49,7 @@ test("sellers group collects certified sales partner routes; commercial starts w
       "sellersLeadsSales",
       "commissions",
       "sellersSettlements",
+      "sellersMessages",
       "sellersAudit",
       "sellersSettings",
     ],

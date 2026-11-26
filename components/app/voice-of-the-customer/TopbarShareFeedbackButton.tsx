@@ -6,9 +6,15 @@ import { ShareFeedbackDialog } from "./ShareFeedbackDialog";
 
 type TopbarShareFeedbackButtonProps = {
   labels: VocWidgetLabels;
+  pageContext?: string;
+  failureMessage?: string;
 };
 
-export function TopbarShareFeedbackButton({ labels }: TopbarShareFeedbackButtonProps) {
+export function TopbarShareFeedbackButton({
+  labels,
+  pageContext,
+  failureMessage,
+}: TopbarShareFeedbackButtonProps) {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -34,6 +40,8 @@ export function TopbarShareFeedbackButton({ labels }: TopbarShareFeedbackButtonP
         open={open}
         onClose={() => setOpen(false)}
         returnFocusRef={triggerRef}
+        pageContext={pageContext}
+        failureMessage={failureMessage}
       />
     </>
   );

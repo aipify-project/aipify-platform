@@ -18,6 +18,10 @@ type ShareFeedbackDialogProps = {
   onClose: () => void;
   /** Element that opened the dialog — focus returns here on close. */
   returnFocusRef?: RefObject<HTMLElement | null>;
+  /** Optional page context (pathname) sent with feedback — defaults to the current pathname. */
+  pageContext?: string;
+  /** Calm localized message shown when submission is not accepted (e.g. no organization scope). */
+  failureMessage?: string;
 };
 
 const FOCUSABLE_SELECTOR =
@@ -36,6 +40,8 @@ export function ShareFeedbackDialog({
   open,
   onClose,
   returnFocusRef,
+  pageContext,
+  failureMessage,
 }: ShareFeedbackDialogProps) {
   const titleId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -44,6 +50,7 @@ export function ShareFeedbackDialog({
   const [showHistory, setShowHistory] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [history, setHistory] = useState<FeedbackRow[]>([]);
   const [form, setForm] = useState({
     feedback_type: "general_feedback",
@@ -74,6 +81,7 @@ export function ShareFeedbackDialog({
     if (!open) {
       setSubmitted(false);
       setShowHistory(false);
+      setFailed(false);
     }
   }, [open]);
 
@@ -135,11 +143,12 @@ export function ShareFeedbackDialog({
   const handleSubmit = async () => {
     if (!form.title.trim()) return;
     setBusy(true);
+    setFailed(false);
     try {
       const context =
         form.include_context && typeof window !== "undefined"
           ? {
-              page_url: window.location.pathname,
+              page_url: pageContext ?? window.location.pathname,
               browser_info: navigator.userAgent.slice(0, 200),
               device_type: /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop",
             }
@@ -160,7 +169,11 @@ export function ShareFeedbackDialog({
           wants_response: false,
           include_context: true,
         });
+      } else {
+        setFailed(true);
       }
+    } catch {
+      setFailed(true);
     } finally {
       setBusy(false);
     }
@@ -342,6 +355,14 @@ export function ShareFeedbackDialog({
               />
               {labels.includeContext}
             </label>
+            {failed && failureMessage ? (
+              <p
+                role="alert"
+                className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900"
+              >
+                {failureMessage}
+              </p>
+            ) : null}
             <button
               type="button"
               disabled={busy || !form.title.trim()}

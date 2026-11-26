@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
@@ -13,6 +14,7 @@ import {
   partnerRowKeyDown,
   type PartnerDetailsDrawerLabels,
 } from "@/components/platform/sellers/CertifiedSellersPartnerDetailsDrawer";
+import { CertifiedSellersOverviewRanking } from "@/components/platform/sellers/CertifiedSellersOverviewRanking";
 import { CertifiedSellersSectionPanel } from "@/components/platform/sellers/CertifiedSellersSectionPanel";
 import { classifyCspApiResponse } from "@/lib/certified-sales-partner/ui-support";
 import {
@@ -53,6 +55,8 @@ type LoadState = {
   overview: SellersOverview | null;
   settlements: SellersSettlementRow[] | null;
 };
+
+const PARTNER_ID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const EMPTY_STATE: LoadState = { phase: "loading", overview: null, settlements: null };
 
@@ -138,6 +142,21 @@ export function CertifiedSellersLivePanel({
     fromStatus?: string;
     toStatus?: string;
   } | null>(null);
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const partnerParam = searchParams.get("partner");
+
+  // Deep links (`?partner=<id>`, e.g. from Leads & sales) open the same canonical profile.
+  useEffect(() => {
+    if (partnerParam && PARTNER_ID_RE.test(partnerParam.trim())) setSelectedPartnerId(partnerParam.trim());
+  }, [partnerParam]);
+
+  const closeProfile = useCallback(() => {
+    setSelectedPartnerId(null);
+    if (partnerParam) router.replace(pathname, { scroll: false });
+  }, [partnerParam, pathname, router]);
 
   const l = labels.text;
   const nf = useMemo(() => new Intl.NumberFormat(toBcp47Locale(locale)), [locale]);
@@ -232,6 +251,14 @@ export function CertifiedSellersLivePanel({
       { label: l.kpiOpenSettlements, value: count(overview.openSettlementsCount) },
       { label: l.kpiUnpaidSettlements, value: count(overview.unpaidSettlementsCount) },
       { label: l.kpiProductsPublished, value: count(overview.productsPublished) },
+      // Academy figures only when Core reports them (`overview.academy`).
+      ...(overview.academy
+        ? [
+            { label: l.academyAttempts, value: count(overview.academy.attemptsTotal) },
+            { label: l.academyPassed, value: count(overview.academy.attemptsPassed) },
+            { label: l.academyCertifications, value: count(overview.academy.certificationsActive) },
+          ]
+        : []),
     ];
   }, [ready, section, overview, settlements, l, nf, count]);
 
@@ -274,6 +301,11 @@ export function CertifiedSellersLivePanel({
 
         {ready && section === "overview" && overview ? (
           <>
+            <CertifiedSellersOverviewRanking
+              locale={locale}
+              labels={labels}
+              onOpenProfile={(id) => setSelectedPartnerId(id)}
+            />
             <StatusBreakdown overview={overview} labels={labels} nf={nf} />
             {overview.openSettlementsCount ? (
               <Card title={l.settlementsOpenByCurrency}>
@@ -287,13 +319,21 @@ export function CertifiedSellersLivePanel({
               </Card>
             ) : null}
             <Card title={l.sectionsTitle}>
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {(
                   [
                     ["/platform/sellers/partners", labels.sectionTitles.partners, l.sectionPartnersBody],
                     ["/platform/sellers/products", labels.sectionTitles.products, l.sectionProductsBody],
-                    ["/platform/sellers/settlements", labels.sectionTitles.settlements, l.sectionSettlementsBody],
+                    ["/platform/sellers/commission-rates", labels.sectionTitles.commissionRates, l.sectionCommissionRatesBody],
+                    ["/platform/sellers/attribution", labels.sectionTitles.attribution, l.sectionAttributionBody],
                     ["/platform/sellers/academy", labels.sectionTitles.academy, l.sectionAcademyBody],
+                    ["/platform/sellers/materials", labels.sectionTitles.materials, l.sectionMaterialsBody],
+                    ["/platform/sellers/leads-sales", labels.sectionTitles.leadsSales, l.sectionLeadsSalesBody],
+                    ["/platform/sellers/commissions", labels.sectionTitles.commissions, l.sectionCommissionsBody],
+                    ["/platform/sellers/settlements", labels.sectionTitles.settlements, l.sectionSettlementsBody],
+                    ["/platform/sellers/messages", labels.sectionTitles.messages, l.sectionMessagesBody],
+                    ["/platform/sellers/audit", labels.sectionTitles.audit, l.sectionAuditBody],
+                    ["/platform/sellers/settings", labels.sectionTitles.settings, l.sectionSettingsBody],
                   ] as const
                 ).map(([href, name, body]) => (
                   <Link
@@ -402,17 +442,6 @@ export function CertifiedSellersLivePanel({
                 })()}
               </Card>
             )}
-            {selectedPartnerId ? (
-              <CertifiedSellersPartnerDetailsDrawer
-                key={selectedPartnerId}
-                partnerId={selectedPartnerId}
-                locale={locale}
-                labels={drawerLabels}
-                actionLabels={actionLabels}
-                onClose={() => setSelectedPartnerId(null)}
-                onDecisionSuccess={() => void load()}
-              />
-            ) : null}
           </>
         ) : null}
 
@@ -546,6 +575,17 @@ export function CertifiedSellersLivePanel({
               <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.academyNoteBody}</p>
             </Card>
           </>
+        ) : null}
+        {(section === "overview" || section === "partners") && selectedPartnerId ? (
+          <CertifiedSellersPartnerDetailsDrawer
+            key={selectedPartnerId}
+            partnerId={selectedPartnerId}
+            locale={locale}
+            labels={drawerLabels}
+            actionLabels={actionLabels}
+            onClose={closeProfile}
+            onDecisionSuccess={() => void load()}
+          />
         ) : null}
       </div>
     </>
