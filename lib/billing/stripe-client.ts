@@ -100,7 +100,33 @@ export function verifyStripeWebhookSignature(
 
   const signed = `${timestamp}.${payload}`;
   const expected = createHmac("sha256", secret).update(signed, "utf8").digest("hex");
-  return timingSafeEqual(Buffer.from(expected), Buffer.from(v1));
+  const expectedBuf = Buffer.from(expected);
+  const actualBuf = Buffer.from(v1);
+  if (expectedBuf.length !== actualBuf.length) return false;
+  return timingSafeEqual(expectedBuf, actualBuf);
+}
+
+export type StripeWebhookAuthorization =
+  | { ok: true }
+  | { ok: false; status: 401 | 400; error: "Webhook signature required" | "Invalid signature" };
+
+/** Reject unsigned or unverified webhook bodies before any payment or access mutation. */
+export function authorizeStripeWebhook(input: {
+  payload: string;
+  signature: string | null;
+  secret: string | undefined;
+}): StripeWebhookAuthorization {
+  if (!input.secret || !input.signature) {
+    return { ok: false, status: 401, error: "Webhook signature required" };
+  }
+  try {
+    if (!verifyStripeWebhookSignature(input.payload, input.signature, input.secret)) {
+      return { ok: false, status: 400, error: "Invalid signature" };
+    }
+  } catch {
+    return { ok: false, status: 400, error: "Invalid signature" };
+  }
+  return { ok: true };
 }
 
 export function mapStripeEventToPaymentEvent(eventType: string): string | null {
