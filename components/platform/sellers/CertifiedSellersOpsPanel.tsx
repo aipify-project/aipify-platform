@@ -93,6 +93,18 @@ export type SellersOpsLabels = {
   withdrawCta: string;
   materialWriteOk: string;
   materialWriteError: string;
+  navLabel: string;
+  navLabels: Record<string, string>;
+  folderInbox: string;
+  folderSent: string;
+  folderArchive: string;
+  archiveBlocked: string;
+  auditFallback: string;
+  auditActions: Record<string, string>;
+  materialFilterAll: string;
+  materialFilterDraft: string;
+  materialFilterPublished: string;
+  ratesReadOnly: string;
 };
 
 type Props = {
@@ -146,6 +158,8 @@ export function CertifiedSellersOpsPanel({
   const [matTitle, setMatTitle] = useState("");
   const [matCategory, setMatCategory] = useState("pdf_sheets");
   const [matPath, setMatPath] = useState("");
+  const [folder, setFolder] = useState<"inbox" | "sent" | "archive">("inbox");
+  const [materialStatus, setMaterialStatus] = useState<"all" | "draft" | "published">("all");
   const bcp47 = toBcp47Locale(locale);
   const dateOptions = { locale, emptyFallback: l.dateEmpty, invalidFallback: l.dateInvalid };
 
@@ -279,6 +293,16 @@ export function CertifiedSellersOpsPanel({
     }));
   }, [section, rows]);
 
+  const visibleMaterials = materials.filter((item) =>
+    materialStatus === "all" ? true : materialStatus === "published" ? item.published : !item.published,
+  );
+  const visibleMessages = filtered.filter((row) => {
+    if (folder === "archive") return false;
+    const direction = str(row.direction);
+    if (folder === "sent") return direction === "admin_to_partner";
+    return direction !== "admin_to_partner";
+  });
+
   const backendReady = true;
 
   async function sendAdminMessage() {
@@ -400,6 +424,8 @@ export function CertifiedSellersOpsPanel({
         backendReady={backendReady}
         notReadyTitle={section === "messages" ? l.messagesGateTitle : notReadyTitle}
         notReadyBody={section === "messages" ? l.messagesGateBody : notReadyBody}
+        navLabel={l.navLabel}
+        navLabels={l.navLabels}
       />
       <div className="mx-auto w-full max-w-[1600px] space-y-6 px-6 pb-8 lg:px-8">
         {phase === "loading" && endpoint ? <AipifyLoader centered size="sm" label={l.loading} /> : null}
@@ -444,7 +470,7 @@ export function CertifiedSellersOpsPanel({
                           />
                         </td>
                         <td className="px-3 py-2">
-                          <Link className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]" href={`/platform/sellers/partners?partner=${str(r.partnerId)}`}>
+                          <Link className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]" href={`/platform/sellers/partners/${str(r.partnerId)}`}>
                             {l.openPartner}
                           </Link>
                         </td>
@@ -473,7 +499,7 @@ export function CertifiedSellersOpsPanel({
                         </td>
                         <td className="px-3 py-2">{formatPlatformDateTimeShort(str(r.attributedAt) || null, dateOptions)}</td>
                         <td className="px-3 py-2">
-                          <Link className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]" href={`/platform/sellers/partners?partner=${str(r.partnerId)}`}>
+                          <Link className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]" href={`/platform/sellers/partners/${str(r.partnerId)}`}>
                             {l.openPartner}
                           </Link>
                         </td>
@@ -486,7 +512,13 @@ export function CertifiedSellersOpsPanel({
                   <Table caption={title} headers={[l.colAction, l.colActor, l.colSubject, l.colDate]}>
                     {filtered.map((r) => (
                       <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
-                        <td className="px-3 py-2">{str(r.action)}</td>
+                        <td className="px-3 py-2">
+                          <p>{l.auditActions[str(r.action)] || l.auditFallback}</p>
+                          <details className="text-xs text-[color:var(--aipify-text-secondary)]">
+                            <summary>{l.colAction}</summary>
+                            <p className="mt-1 font-mono">{str(r.action) || l.notReported}</p>
+                          </details>
+                        </td>
                         <td className="px-3 py-2">{str(r.actorKind) || l.notReported}</td>
                         <td className="px-3 py-2 text-sm text-[color:var(--aipify-text-secondary)]">
                           {[str(r.subjectTable), str(r.subjectId).slice(0, 8)].filter(Boolean).join(" · ") || l.notReported}
@@ -498,12 +530,19 @@ export function CertifiedSellersOpsPanel({
                 ) : null}
 
                 {section === "commissionRates" ? (
+                  <>
+                  <p className="mb-3 text-sm text-[color:var(--aipify-text-secondary)]">{l.ratesReadOnly}</p>
                   <Table caption={title} headers={[l.colProduct, l.colAmount, l.colEffectiveFrom]}>
                     {filtered.map((r) => (
                       <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
                         <td className="px-3 py-2">
-                          <p className="font-medium">{str(r.productTitle) || str(r.productKey) || l.notReported}</p>
-                          <p className="text-xs text-[color:var(--aipify-text-secondary)]">{str(r.productKey)}</p>
+                          <p className="font-medium">{str(r.productTitle) || l.notReported}</p>
+                          {str(r.productKey) ? (
+                            <details className="text-xs text-[color:var(--aipify-text-secondary)]">
+                              <summary>{l.colProduct}</summary>
+                              <p className="mt-1 font-mono">{str(r.productKey)}</p>
+                            </details>
+                          ) : null}
                         </td>
                         <td className="px-3 py-2">
                           {r.amount == null
@@ -514,6 +553,7 @@ export function CertifiedSellersOpsPanel({
                       </tr>
                     ))}
                   </Table>
+                  </>
                 ) : null}
               </div>
             )}
@@ -535,9 +575,33 @@ export function CertifiedSellersOpsPanel({
               </button>
               {actionNotice ? <p className="text-sm text-[color:var(--aipify-text-secondary)]">{actionNotice}</p> : null}
             </article>
-            {materials.length === 0 ? <Empty title={l.emptyTitle} body={l.emptyBody} /> : null}
+            <div className="flex flex-wrap gap-2" role="tablist" aria-label={l.materialFilterAll}>
+              {(
+                [
+                  ["all", l.materialFilterAll],
+                  ["draft", l.materialFilterDraft],
+                  ["published", l.materialFilterPublished],
+                ] as const
+              ).map(([id, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  role="tab"
+                  aria-selected={materialStatus === id}
+                  onClick={() => setMaterialStatus(id)}
+                  className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${
+                    materialStatus === id
+                      ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                      : "border border-[color:var(--aipify-border)]"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            {visibleMaterials.length === 0 ? <Empty title={l.emptyTitle} body={l.emptyBody} /> : null}
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {materials.map((item) => (
+              {visibleMaterials.map((item) => (
                 <article
                   key={item.id || item.materialKey}
                   className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-4 shadow-sm"
@@ -714,13 +778,40 @@ export function CertifiedSellersOpsPanel({
               {actionNotice ? <p className="text-sm text-[color:var(--aipify-text-secondary)]">{actionNotice}</p> : null}
             </article>
 
+            <div className="flex flex-wrap gap-2" role="tablist" aria-label={l.conversationTitle}>
+              {(
+                [
+                  ["inbox", l.folderInbox],
+                  ["sent", l.folderSent],
+                  ["archive", l.folderArchive],
+                ] as const
+              ).map(([id, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  role="tab"
+                  aria-selected={folder === id}
+                  onClick={() => setFolder(id)}
+                  className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${
+                    folder === id
+                      ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                      : "border border-[color:var(--aipify-border)]"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
             <h3 className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">{l.conversationTitle}</h3>
+            {folder === "archive" ? <Empty title={l.folderArchive} body={l.archiveBlocked} /> : null}
             {phase === "loading" ? <AipifyLoader centered size="sm" label={l.loading} /> : null}
-            {phase === "ready" && filtered.length === 0 ? <Empty title={l.emptyTitle} body={l.emptyBody} /> : null}
-            {phase === "ready" && filtered.length > 0 ? (
+            {phase === "ready" && folder !== "archive" && visibleMessages.length === 0 ? (
+              <Empty title={l.emptyTitle} body={l.emptyBody} />
+            ) : null}
+            {phase === "ready" && folder !== "archive" && visibleMessages.length > 0 ? (
               <div className="overflow-x-auto rounded-2xl border border-[color:var(--aipify-border)] bg-white">
                 <Table caption={title} headers={[l.colPartner, l.colAction, l.colStatus, l.colDate]}>
-                  {filtered.map((r) => {
+                  {visibleMessages.map((r) => {
                     const pid = str(r.partner_id);
                     const partner = recipients.find((x) => x.id === pid);
                     return (

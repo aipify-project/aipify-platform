@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { SellersAdminNav } from "@/components/platform/sellers/SellersAdminNav";
 import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
+import { SELLERS_ADMIN_FRAME } from "@/lib/platform/sellers-admin-nav";
 
 type Props = {
   title: string;
@@ -12,6 +14,8 @@ type Props = {
   primaryActionHref?: string;
   primaryActionLabel?: string;
   metrics?: Array<{ label: string; value: string; note?: string }>;
+  navLabels?: Record<string, string>;
+  navLabel?: string;
 };
 
 export function CertifiedSellersSectionPanel({
@@ -23,9 +27,13 @@ export function CertifiedSellersSectionPanel({
   primaryActionHref,
   primaryActionLabel,
   metrics = [],
+  navLabels,
+  navLabel = "",
 }: Props) {
   return (
     <div className={`${AipifyShellClasses.canvas} space-y-6 p-6 lg:p-8`}>
+      <div className={`${SELLERS_ADMIN_FRAME} space-y-6`}>
+      {navLabels ? <SellersAdminNav labels={navLabels} label={navLabel} /> : null}
       <header className="space-y-2">
         <p className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-companion-purple)]">
           Aipify
@@ -75,6 +83,7 @@ export function CertifiedSellersSectionPanel({
           </Link>
         </div>
       ) : null}
+      </div>
     </div>
   );
 }

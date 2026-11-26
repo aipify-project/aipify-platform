@@ -3,6 +3,7 @@ import {
   type SellersOpsLabels,
   type SellersOpsSection,
 } from "@/components/platform/sellers/CertifiedSellersOpsPanel";
+import { OPS_AUDIT_ACTION_KEYS } from "@/lib/certified-sales-partner/platform-sellers-ops-view";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -96,6 +97,32 @@ function buildOpsLabels(t: (key: string) => string): SellersOpsLabels {
     notReported: live("notReported"),
     dateEmpty: live("dateEmpty"),
     dateInvalid: live("dateInvalid"),
+    navLabel: live("sectionsTitle"),
+    navLabels: {
+      overview: t("platform.sellers.overview.title"),
+      partners: t("platform.sellers.partners.title"),
+      products: t("platform.sellers.products.title"),
+      commissionRates: t("platform.sellers.commissionRates.title"),
+      attribution: t("platform.sellers.attribution.title"),
+      academy: t("platform.sellers.academy.title"),
+      materials: t("platform.sellers.materials.title"),
+      leadsSales: t("platform.sellers.leadsSales.title"),
+      commissions: t("platform.sellers.commissions.title"),
+      settlements: t("platform.sellers.settlements.title"),
+      messages: t("platform.sellers.messages.title"),
+      audit: t("platform.sellers.audit.title"),
+      settings: t("platform.sellers.settings.title"),
+    },
+    folderInbox: ops("folderInbox"),
+    folderSent: ops("folderSent"),
+    folderArchive: ops("folderArchive"),
+    archiveBlocked: ops("archiveBlocked"),
+    auditFallback: ops("auditFallback"),
+    auditActions: Object.fromEntries(OPS_AUDIT_ACTION_KEYS.map((key) => [key, ops(`auditActions.${key}`)])),
+    materialFilterAll: ops("materialFilterAll"),
+    materialFilterDraft: ops("materialFilterDraft"),
+    materialFilterPublished: ops("materialFilterPublished"),
+    ratesReadOnly: ops("ratesReadOnly"),
   };
 }
 

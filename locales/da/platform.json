@@ -7411,7 +7411,17 @@
         "forbidden": "Du har ikke adgang til denne handling.",
         "confirm_active_app_customer_required": "Bekræft, at denne aktive APP-kunde også skal have sælgeradgang.",
         "email_verification_required": "Godkendelse er blokeret, indtil ansøgeren har bekræftet e-mailadressen."
-      }
+      },
+      "productTabProduct": "Produkt",
+      "productTabPrice": "Priser",
+      "productTabLanguage": "Sprog",
+      "productTabCommission": "Provision",
+      "productTabPublish": "Publicering",
+      "priceNotPublished": "Ingen kundepris er offentliggjort på denne post.",
+      "priceNotCommission": "Den faste provision er ikke kundeprisen.",
+      "languageNotStored": "Godkendte oversættelser ligger ikke på produktposten endnu. Intet publiceres automatisk.",
+      "percentUnavailable": "Procentprovision kan ikke gemmes. Gældende regel er stadig et fast engangsbeløb.",
+      "publishMeaning": "Offentliggjort betyder, at sælgere kan bruge produktet. Det betyder ikke, at en kunde kan købe det."
     },
     "live": {
       "loading": "Indlæser sælgerdata",
@@ -7529,7 +7539,12 @@
       "rankSortClicks": "Klik",
       "rankSortRegistrations": "Registreringer",
       "rankSortSales": "Kvalificerede salg",
-      "rankFiltersNote": "Filtrene indsnævrer rangeringen ud fra det, Core rapporterer i dag. Filtre for periode og produkt vises, når Core rapporterer aktivitet pr. dato og produkt."
+      "rankFiltersNote": "Filtrene indsnævrer rangeringen ud fra det, Core rapporterer i dag. Filtre for periode og produkt vises, når Core rapporterer aktivitet pr. dato og produkt.",
+      "chooseSettlement": "Vælg en afregning, før næste trin registreres.",
+      "commissionsReportNote": "Rækkerne er kvalificerede salg fra Core. Beløbet er det gemte salgsgrundlag, ikke en kundepris og ikke procentprovision. Udbetaling ligger under Afregninger.",
+      "commissionsEmptyTitle": "Ingen kvalificerede salg endnu",
+      "colRecorded": "Registreret",
+      "qualifiedSaleLabel": "Kvalificeret salg"
     },
     "drawer": {
       "title": "Ansøgningsdetaljer",
@@ -7660,7 +7675,30 @@
       "clearRecipient": "Skift",
       "unnamedRecipient": "Sælger uden navn",
       "sendMessageBlocked": "Beskeder kan kun sendes til godkendte, aktive, certificerede eller academy-sælgere. Suspenderede og afviste er blokeret.",
-      "conversationTitle": "Samtalehistorik"
+      "conversationTitle": "Samtalehistorik",
+      "folderInbox": "Indbakke",
+      "folderSent": "Sendt",
+      "folderArchive": "Arkiv",
+      "archiveBlocked": "Arkiv er ikke en separat gemt tilstand. Beskederne bliver i historikken.",
+      "auditFallback": "Registreret hændelse",
+      "materialFilterAll": "Alle",
+      "materialFilterDraft": "Udkast",
+      "materialFilterPublished": "Offentliggjort",
+      "auditActions": {
+        "partner_application_registered": "Partnersøknad registrert",
+        "partner_status_changed": "Partnerstatus endret",
+        "partner_status_set": "Partnerstatus satt",
+        "csp_set_partner_status": "Partnerstatus oppdatert",
+        "academy_attempt_recorded": "Akademiforsøk registrert",
+        "certification_awarded": "Sertifisering tildelt",
+        "product_published": "Produkt publisert",
+        "product_updated": "Produkt oppdatert",
+        "settlement_status_changed": "Oppgjørsstatus endret",
+        "settlement_paid": "Oppgjør utbetalt",
+        "attribution_link_created": "Salgslenke opprettet",
+        "qualified_sale_recorded": "Kvalifisert salg registrert"
+      },
+      "ratesReadOnly": "Dette er de gemte faste provisionssatser. Procentprovision kan ikke gemmes fra denne side."
     },
     "messages": {
       "title": "Beskeder og kommunikation",
