@@ -1,7 +1,5 @@
-import {
-  CertifiedSalesPartnerNotificationsPanel,
-  buildCspNotificationsLabels,
-} from "@/components/partners-portal/CertifiedSalesPartnerNotificationsPanel";
+import { CertifiedSalesPartnerNotificationsPanel } from "@/components/partners-portal/CertifiedSalesPartnerNotificationsPanel";
+import { buildCspNotificationsLabels } from "@/lib/partners-portal/csp-section-labels";
 import { renderCspSectionPage } from "@/lib/partners-portal/csp-section-page";
 
 export default function PartnersNotificationsPage() {

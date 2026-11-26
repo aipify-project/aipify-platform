@@ -3,20 +3,9 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import type { CspNotificationsLabels } from "@/lib/partners-portal/csp-section-labels";
 
-export type CspNotificationsLabels = {
-  title: string;
-  intro: string;
-  emptyTitle: string;
-  emptyBody: string;
-  messagesCta: string;
-  homeCta: string;
-  unreadTitle: string;
-  unreadBody: string;
-  retry: string;
-  errorTitle: string;
-  errorBody: string;
-};
+export type { CspNotificationsLabels };
 
 type Phase = "loading" | "empty" | "ready" | "error";
 
@@ -152,22 +141,4 @@ export function CertifiedSalesPartnerNotificationsPanel({ labels }: { labels: Cs
       ) : null}
     </div>
   );
-}
-
-export function buildCspNotificationsLabels(t: (key: string) => string): CspNotificationsLabels {
-  const p = "partnersPortal.certifiedSalesPartner.notifications";
-  const messages = "partnersPortal.certifiedSalesPartner.messages";
-  return {
-    title: t(`${p}.title`),
-    intro: t(`${p}.intro`),
-    emptyTitle: t(`${p}.emptyTitle`),
-    emptyBody: t(`${p}.emptyBody`),
-    messagesCta: t(`${p}.messagesCta`),
-    homeCta: t(`${p}.homeCta`),
-    unreadTitle: t(`${p}.unreadTitle`),
-    unreadBody: t(`${p}.unreadBody`),
-    retry: t(`${messages}.retry`),
-    errorTitle: t(`${messages}.errorTitle`),
-    errorBody: t(`${messages}.errorBody`),
-  };
 }

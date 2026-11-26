@@ -873,6 +873,10 @@ export function buildCspMarketingLabels(t: Translator): CspMarketingLabels {
     materialsCopy: t(`${CSP_NS}.materialsUi.copyApproved`),
     materialsCopied: t(`${CSP_NS}.materialsUi.copied`),
     materialsEmptyCategory: t(`${CSP_NS}.materialsUi.emptyCategory`),
+    materialsLanguageNote: t(`${CSP_NS}.materialsUi.languageNote`),
+    toolsTab: t(`${CSP_NS}.social.toolsTab`),
+    libraryTab: t(`${CSP_NS}.social.libraryTab`),
+    missingLocale: t(`${CSP_NS}.social.missingLocale`),
     materialsCategories: {
       product_images: t(`${CSP_NS}.materialsUi.categories.product_images`),
       logos: t(`${CSP_NS}.materialsUi.categories.logos`),

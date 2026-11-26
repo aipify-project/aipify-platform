@@ -252,7 +252,11 @@
       "pipeline": "Customers",
       "economy": "Commission",
       "academy": "Academy",
-      "account": "Account"
+      "account": "Account",
+      "sales": "Sprzedaż",
+      "commission": "Prowizja",
+      "marketing": "Marketing",
+      "communication": "Komunikacja"
     },
     "nav": {
       "home": "Home",
@@ -268,7 +272,10 @@
       "notifications": "Notifications",
       "help": "Help",
       "profile": "My profile",
-      "messages": "Wiadomości"
+      "messages": "Wiadomości",
+      "salesMaterials": "Zatwierdzone materiały sprzedażowe",
+      "menu": "Menu",
+      "menuClose": "Zamknij menu"
     },
     "portal": {
       "badge": "Partner portal",
@@ -922,7 +929,10 @@
       "approvedCopy": "Zatwierdzony tekst sprzedażowy",
       "noCopy": "Dla tego produktu nie opublikowano jeszcze zatwierdzonego tekstu sprzedażowego.",
       "noImage": "Dla tego produktu nie opublikowano jeszcze zatwierdzonego obrazu kampanii.",
-      "preview": "Podgląd"
+      "preview": "Podgląd",
+      "toolsTab": "Narzędzia sprzedaży",
+      "libraryTab": "Materiały sprzedażowe",
+      "missingLocale": "Brak zatwierdzonego tekstu sprzedażowego w tym języku marketingu. Aipify nie pokazuje innego języka tak, jakby był zatwierdzony."
     },
     "materialsUi": {
       "materialsTitle": "Zatwierdzone materiały sprzedażowe",
@@ -938,7 +948,8 @@
         "social": "Media społecznościowe",
         "email_templates": "Szablony e-mail",
         "signatures": "Certyfikowane podpisy"
-      }
+      },
+      "languageNote": "To zatwierdzone pliki marki. Nie są przetłumaczoną stroną produktu."
     },
     "catalogMeta": {
       "audienceLabel": "Dla kogo jest ten produkt?",
