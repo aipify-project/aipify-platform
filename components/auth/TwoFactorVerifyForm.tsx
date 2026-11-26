@@ -30,7 +30,7 @@ type TwoFactorVerifyFormProps = {
 
 export default function TwoFactorVerifyForm({
   labels,
-  defaultDestination = "/app/command-center",
+  defaultDestination = "/app",
 }: TwoFactorVerifyFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();

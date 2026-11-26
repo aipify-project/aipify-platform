@@ -1,5 +1,9 @@
 import { AppFoundationDashboard } from "@/components/app/foundation/AppFoundationDashboard";
 import { buildFoundationDashboardLabels } from "@/lib/app/foundation-dashboard-labels";
+import {
+  buildWebsiteKompisConnectionAttention,
+  resolveWelcomeGreetingHour,
+} from "@/lib/app/foundation-home-attention";
 import { createClient } from "@/lib/supabase/server";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -9,8 +13,11 @@ import { isModuleUsableInSnapshot } from "@/lib/core/access-control-plane";
 import { loadRequestAccessControlPlaneSnapshot } from "@/lib/core/access-control-plane/load-snapshot-request";
 import { loadWebsiteKompisEntitlementForAppTenant } from "@/lib/marketing/website-kompis-licensed-availability-server";
 import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
+import { getDashboardProfile } from "@/lib/tenant/get-profile";
+import { isGenericProfileName } from "@/lib/app/profile-display";
+import { loadWebsiteKompisConnectionSummary } from "@/lib/website-kompis-connection/load-summary";
 
-/** Job 58 — owner foundation dashboard (replaces ECC wall as /app home). */
+/** Authenticated APP Home — personal workspace overview (not Kompis Web). */
 export default async function AppPortalHomePage() {
   const locale = await getLocale();
   const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "core"]);
@@ -18,15 +25,22 @@ export default async function AppPortalHomePage() {
   const labels = buildFoundationDashboardLabels(t);
 
   let organizationName: string | null = null;
+  let profileName: string | null = null;
   let planLabel: string | null = null;
   let licenseStatusLabel: string | null = null;
   let websiteKompisAvailable: boolean | null = null;
   let kompisBedriftAvailable: boolean | null = null;
+  let attentionItems = buildWebsiteKompisConnectionAttention(null, null);
+
+  const greetingPeriod = resolveWelcomeGreetingHour(new Date().getUTCHours());
 
   try {
     const supabase = await createClient();
-    const { data } = await supabase.rpc("get_app_organization_context");
-    const context = parseAppOrganizationContext(data);
+    const [orgResult, profile] = await Promise.all([
+      supabase.rpc("get_app_organization_context"),
+      getDashboardProfile(supabase),
+    ]);
+    const context = parseAppOrganizationContext(orgResult.data);
     if (context.state === "ready") {
       organizationName = context.workspace_name ?? context.licensed_to ?? null;
       planLabel = context.plan_name ?? null;
@@ -37,6 +51,26 @@ export default async function AppPortalHomePage() {
       );
       const snapshot = await loadRequestAccessControlPlaneSnapshot();
       kompisBedriftAvailable = isModuleUsableInSnapshot(snapshot, "kompis_bedrift");
+
+      if (websiteKompisAvailable === true) {
+        try {
+          const connection = await loadWebsiteKompisConnectionSummary(supabase);
+          if (!connection.accessDenied) {
+            attentionItems = buildWebsiteKompisConnectionAttention(
+              websiteKompisAvailable,
+              connection.summary.aggregate
+            );
+          }
+        } catch {
+          // Attention stays empty when connection summary cannot be read.
+        }
+      }
+    }
+
+    const companyName = profile?.company.name ?? organizationName ?? "";
+    const fullName = profile?.user.full_name?.trim() ?? "";
+    if (fullName && !isGenericProfileName(fullName, companyName)) {
+      profileName = fullName;
     }
   } catch {
     websiteKompisAvailable = null;
@@ -47,10 +81,14 @@ export default async function AppPortalHomePage() {
     <AppFoundationDashboard
       labels={labels}
       organizationName={organizationName}
+      profileName={profileName}
+      greetingPeriod={greetingPeriod}
       websiteKompisAvailable={websiteKompisAvailable}
       kompisBedriftAvailable={kompisBedriftAvailable}
       planLabel={customerFacingPlanLabel(planLabel)}
       licenseStatusLabel={customerFacingPlanLabel(licenseStatusLabel)}
+      attentionItems={attentionItems}
+      helpHref="/app/support/knowledge"
     />
   );
 }

@@ -85,12 +85,13 @@ test("resolvePostLoginRedirectUrl canonicalizes customer routes off apex", () =>
 test("resolvePostLoginPath ignores unsafe next values", () => {
   assert.equal(
     resolvePostLoginPath("aipify.ai", null, "//evil.example"),
-    "/app/command-center"
+    CUSTOMER_PORTAL_ROUTE
   );
   assert.equal(
     resolvePostLoginPath("app.aipify.ai", null, "/app/command-center"),
     "/app/command-center"
   );
+  assert.equal(resolvePostLoginPath("app.aipify.ai", null), CUSTOMER_PORTAL_ROUTE);
 });
 
 test("portal auth paths include password recovery routes", () => {

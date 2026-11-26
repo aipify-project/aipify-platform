@@ -129,7 +129,8 @@
       "accountSubscription": "Abonnement",
       "accountInvoices": "Fakturaer",
       "accountIntegrations": "Integrationer",
-      "kompisBedriftConnection": "Forbindelse/licens"
+      "kompisBedriftConnection": "Forbindelse/licens",
+      "appDashboard": "Hjem"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -8610,7 +8611,25 @@
       "webDataUnavailable": "Status for Kompis Web kunne ikke læses. Det er ikke det samme som at produktet er inaktivt.",
       "exploreTitle": "Udforsk Aipify-produkter",
       "exploreDescription": "Se publicerede produkter og den adgang denne virksomhed allerede har.",
-      "statusReady": "Klar"
+      "statusReady": "Klar",
+      "welcomePersonNamed": "{greeting}, {name}. Her er dit Aipify-arbejdsområde.",
+      "greetingMorning": "Godmorgen",
+      "greetingAfternoon": "God eftermiddag",
+      "greetingEvening": "Godaften",
+      "invoicesTitle": "Fakturaer",
+      "invoicesDescription": "Se fakturaer udstedt af Aipify for denne konto. Fakturaer er skrivebeskyttede her.",
+      "quickActionsTitle": "Hurtighandlinger",
+      "quickActionsDescription": "Åbn det, du har brug for — kun ruter, du allerede har adgang til.",
+      "helpTitle": "Hjælp og FAQ",
+      "helpDescription": "Find vejledning til at bruge Aipify i din organisation.",
+      "helpOpen": "Åbn vidensbiblioteket for almindelige spørgsmål og næste skridt.",
+      "attentionConnectionNeedsSetup": "Kompis Web kræver opsætning af domæneforbindelse",
+      "attentionConnectionNeedsAction": "Kompis Web-forbindelsen kræver din opmærksomhed",
+      "attentionConnectionPending": "Domænebekræftelse for Kompis Web afventer stadig",
+      "openInvoices": "Se fakturaer",
+      "openSubscription": "Administrer abonnement",
+      "openExplore": "Udforsk produkter",
+      "openHelp": "Åbn hjælp"
     },
     "productHubs": {
       "common": {

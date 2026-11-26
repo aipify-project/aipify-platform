@@ -173,8 +173,13 @@ const SHARED_ACCOUNT_SUBSCRIPTION: AppPortalNavItem = {
   featureKey: "billing",
 };
 
-/** Exact Kompis Web sidebar order (owner decision). */
+/** Exact Kompis Web sidebar order (owner decision). Home first — distinct from product dashboard. */
 export const KOMPIS_WEB_FLAT_NAV: AppPortalNavItem[] = [
+  {
+    id: "appDashboard",
+    href: FOUNDATION_NAV_BINDINGS.appHome,
+    labelKey: "customerApp.portalStructure.nav.appDashboard",
+  },
   {
     id: "kompisWebDashboard",
     href: FOUNDATION_NAV_BINDINGS.kompisWebDashboard,
@@ -222,8 +227,13 @@ export const KOMPIS_WEB_FLAT_NAV: AppPortalNavItem[] = [
   },
 ];
 
-/** Exact Kompis Bedrift sidebar order (owner decision). */
+/** Exact Kompis Bedrift sidebar order (owner decision). Home first — distinct from product dashboard. */
 export const KOMPIS_BEDRIFT_FLAT_NAV: AppPortalNavItem[] = [
+  {
+    id: "appDashboard",
+    href: FOUNDATION_NAV_BINDINGS.appHome,
+    labelKey: "customerApp.portalStructure.nav.appDashboard",
+  },
   {
     id: "kompisBedriftDashboard",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard,

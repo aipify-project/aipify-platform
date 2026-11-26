@@ -276,7 +276,8 @@
       "accountSubscription": "Підписка",
       "accountInvoices": "Рахунки",
       "accountIntegrations": "Інтеграції",
-      "kompisBedriftConnection": "Підключення та ліцензія"
+      "kompisBedriftConnection": "Підключення та ліцензія",
+      "appDashboard": "Головна"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7547,7 +7548,25 @@
       "webDataUnavailable": "Не вдалося прочитати статус Kompis Web. Це не означає, що продукт неактивний.",
       "exploreTitle": "Огляд продуктів Aipify",
       "exploreDescription": "Перегляньте опубліковані продукти та доступ, який уже має ця компанія.",
-      "statusReady": "Готово"
+      "statusReady": "Готово",
+      "welcomePersonNamed": "{greeting}, {name}. Ось ваш робочий простір Aipify.",
+      "greetingMorning": "Доброго ранку",
+      "greetingAfternoon": "Доброго дня",
+      "greetingEvening": "Доброго вечора",
+      "invoicesTitle": "Рахунки",
+      "invoicesDescription": "Переглядайте рахунки, виставлені Aipify для цього облікового запису. Тут вони лише для читання.",
+      "quickActionsTitle": "Швидкі дії",
+      "quickActionsDescription": "Відкрийте потрібне — лише маршрути, до яких у вас уже є доступ.",
+      "helpTitle": "Довідка та FAQ",
+      "helpDescription": "Знайдіть поради щодо використання Aipify у вашій організації.",
+      "helpOpen": "Відкрийте бібліотеку знань із поширеними запитаннями та наступними кроками.",
+      "attentionConnectionNeedsSetup": "Kompis Web потребує налаштування підключення домену",
+      "attentionConnectionNeedsAction": "Підключення Kompis Web потребує вашої уваги",
+      "attentionConnectionPending": "Перевірка домену Kompis Web все ще очікує",
+      "openInvoices": "Переглянути рахунки",
+      "openSubscription": "Керувати підпискою",
+      "openExplore": "Оглянути продукти",
+      "openHelp": "Відкрити довідку"
     },
     "productHubs": {
       "common": {

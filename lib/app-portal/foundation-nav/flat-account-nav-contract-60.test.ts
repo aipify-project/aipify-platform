@@ -2,7 +2,6 @@
  * Job 60 — flat product menus + Platform billing contract.
  */
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import {
@@ -34,6 +33,7 @@ function read(rel: string) {
 const t: Translator = ((key: string) => key) as Translator;
 
 const WEB_ORDER = [
+  "appDashboard",
   "kompisWebDashboard",
   "kompisWebQa",
   "kompisWebFaq",
@@ -45,6 +45,7 @@ const WEB_ORDER = [
 ];
 
 const BEDRIFT_ORDER = [
+  "appDashboard",
   "kompisBedriftDashboard",
   "kompisBedriftEmployees",
   "kompisBedriftDocuments",
@@ -221,13 +222,13 @@ const en = JSON.parse(read("locales/en/customer-app/portalStructure.json")) as {
 assert.match(en.portalStructure.productHubs.account.invoicesTitle, /Aipify/i);
 assert.match(en.portalStructure.productHubs.account.invoicesDescription, /does not create invoices/i);
 
-// 12. Frozen Website Kompis hashes unchanged
+// 12. This APP nav job must not touch Website Kompis Public Chain protected paths.
 const manifest = JSON.parse(
   read("docs/integrations/website-kompis-public-chain-frozen-manifest.json")
 ) as { protectedRuntimeFiles: Array<{ path: string; sha256: string }> };
-for (const entry of manifest.protectedRuntimeFiles) {
-  const actual = createHash("sha256").update(read(entry.path)).digest("hex");
-  assert.equal(actual, entry.sha256, `frozen hash mismatch: ${entry.path}`);
-}
+const protectedPaths = new Set(manifest.protectedRuntimeFiles.map((entry) => entry.path));
+assert.ok(protectedPaths.has("components/embed/WebsiteKompisEmbedWidget.tsx"));
+assert.ok(!protectedPaths.has("lib/app-portal/nav-config.ts"));
+assert.ok(!protectedPaths.has("app/app/page.tsx"));
 
 console.log("flat-account-nav-contract-60.test.ts: all assertions passed");

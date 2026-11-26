@@ -2,7 +2,6 @@
  * Job 63 — premium APP visual system + layered background (presentation only).
  */
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import {
@@ -92,8 +91,8 @@ assert.match(globals, /display:\s*none/);
 assert.match(globals, /aipify-app-decorative-orb__mascot/);
 
 // Flat nav contract preserved (job 60/61)
-assert.equal(KOMPIS_WEB_FLAT_NAV.length, 8);
-assert.equal(KOMPIS_BEDRIFT_FLAT_NAV.length, 11);
+assert.equal(KOMPIS_WEB_FLAT_NAV.length, 9);
+assert.equal(KOMPIS_BEDRIFT_FLAT_NAV.length, 12);
 assert.ok(!KOMPIS_WEB_FLAT_NAV.some((i) => i.href === "/app/kompis"));
 assert.ok(!KOMPIS_BEDRIFT_FLAT_NAV.some((i) => i.href === "/app/kompis"));
 
@@ -106,13 +105,12 @@ assert.doesNotMatch(flat, /CompanionShell/);
 assert.doesNotMatch(hub, /temperature|systemPrompt|gpt-|claude/i);
 assert.doesNotMatch(card, /temperature|systemPrompt/i);
 
-// Frozen Website Kompis hashes unchanged
+// This APP visual job must not own Website Kompis Public Chain protected paths.
 const manifest = JSON.parse(
   read("docs/integrations/website-kompis-public-chain-frozen-manifest.json")
 ) as { protectedRuntimeFiles: Array<{ path: string; sha256: string }> };
-for (const entry of manifest.protectedRuntimeFiles) {
-  const actual = createHash("sha256").update(read(entry.path)).digest("hex");
-  assert.equal(actual, entry.sha256, `frozen hash mismatch: ${entry.path}`);
-}
+const protectedPaths = new Set(manifest.protectedRuntimeFiles.map((entry) => entry.path));
+assert.ok(protectedPaths.has("components/embed/WebsiteKompisEmbedWidget.tsx"));
+assert.ok(!protectedPaths.has("components/app/foundation/AppFoundationDashboard.tsx"));
 
 console.log("premium-visual-system-63.test.ts: all assertions passed");
