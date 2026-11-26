@@ -10,6 +10,7 @@ import {
   compareTimestampsDesc,
   formatPlatformDateTimeClock,
 } from "@/lib/platform-presentation-quality/date-time";
+import { invalidateCspUnreadBadges } from "@/lib/certified-sales-partner/unread-invalidate";
 import { usePollingTask } from "@/lib/polling/use-polling-task";
 import { AipifyAlert, AipifyCard, AipifyTabs } from "./design";
 
@@ -120,18 +121,20 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
     }
   }, []);
 
+  const pollMessages = useCallback(async () => {
+    const silent = pollPrimedRef.current;
+    const ok = await load({ silent });
+    pollPrimedRef.current = true;
+    return ok;
+  }, [load]);
+
   usePollingTask({
     taskKey: "csp-partner-messages",
     intervalMs: 15_000,
     hiddenIntervalMs: 60_000,
     enabled: true,
     runImmediately: true,
-    execute: async () => {
-      const silent = pollPrimedRef.current;
-      const ok = await load({ silent });
-      pollPrimedRef.current = true;
-      return ok;
-    },
+    execute: pollMessages,
   });
 
   useEffect(() => {
@@ -204,6 +207,7 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
     );
     if (unread.length === 0) return;
     const now = new Date().toISOString();
+    let markedAny = false;
     await Promise.all(
       unread.map(async (row) => {
         try {
@@ -213,6 +217,7 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
             body: JSON.stringify({ message_id: row.id }),
           });
           if (mark.ok) {
+            markedAny = true;
             markedIdsRef.current.add(row.id);
             setMessages((prev) =>
               prev.map((m) => (m.id === row.id ? { ...m, read_at: m.read_at ?? now } : m)),
@@ -223,6 +228,7 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
         }
       }),
     );
+    if (markedAny) invalidateCspUnreadBadges({ partner: true, platform: false });
   }, []);
 
   // Only mark messages in the thread the seller explicitly opened.

@@ -76,7 +76,18 @@ async function main() {
   assert.match(topbar, /Own partner→admin messages must never count as unread/);
   assert.match(topbar, /usePollingTask/);
   assert.match(topbar, /h-\[22px\] w-\[22px\]/);
+  assert.match(topbar, /subscribeCspUnreadInvalidate/);
+  assert.match(topbar, /Soft-nav must not re-fetch/);
   assert.doesNotMatch(topbar, /setInterval/);
+  assert.match(partnerPanel, /invalidateCspUnreadBadges/);
+  assert.match(alerts, /onSellersSurface/);
+  assert.match(alerts, /subscribeCspUnreadInvalidate/);
+  assert.match(ops, /invalidateCspUnreadBadges/);
+  const shell = read("components/partners-portal/PartnersPortalShell.tsx");
+  assert.match(shell, /mount hydrate only/);
+  const polling = read("lib/polling/use-polling-task.ts");
+  assert.match(polling, /Intentionally omit `execute`/);
+  assert.match(polling, /inFlight/);
   const profile = read("components/platform/sellers/CertifiedSellerProfile.tsx");
   assert.match(profile, /sendProfileMessage/);
   assert.match(profile, /isCspMessageRecipientEligible/);

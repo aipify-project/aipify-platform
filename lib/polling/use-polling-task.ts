@@ -44,6 +44,8 @@ export function usePollingTask({
 
     let timeoutId: number | null = null;
     let cancelled = false;
+    /** Prevent overlapping execute() when a slow poll outlives its interval. */
+    let inFlight = false;
 
     const clearTimer = () => {
       if (timeoutId !== null) {
@@ -63,7 +65,7 @@ export function usePollingTask({
     };
 
     const run = async (fromVisibility: boolean) => {
-      if (cancelled) return;
+      if (cancelled || inFlight) return;
 
       const hidden = typeof document !== "undefined" && document.hidden;
       const allowHidden = hidden && hiddenIntervalMs && hiddenIntervalMs > 0;
@@ -72,11 +74,16 @@ export function usePollingTask({
         return;
       }
 
+      inFlight = true;
       let ok = true;
       try {
+        // Always call through the ref — never restart this effect when the
+        // caller's execute identity changes (inline lambdas remount timers).
         ok = await executeRef.current();
       } catch {
         ok = false;
+      } finally {
+        inFlight = false;
       }
 
       if (cancelled) return;
@@ -137,9 +144,10 @@ export function usePollingTask({
       document.removeEventListener("visibilitychange", onVisibilityChange);
       unregister();
     };
+    // Intentionally omit `execute` — identity churn must not tear down timers.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- execute via executeRef
   }, [
     enabled,
-    execute,
     hiddenIntervalMs,
     intervalMs,
     refreshOnVisible,
