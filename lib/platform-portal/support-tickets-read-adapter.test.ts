@@ -23,25 +23,33 @@ import {
 } from "./support-tickets-read-adapter";
 
 const previousSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-process.env.NEXT_PUBLIC_SUPABASE_URL =
-  "https://qbcqoixhrvhnuwphefvw.supabase.co";
 
+// Compile-time defaults remain closed; unknown Core stays fail-closed.
+process.env.NEXT_PUBLIC_SUPABASE_URL = "https://example.supabase.co";
 assert.ok(assertPlatformSupportTicketsReadIsFailClosed());
 assert.equal(PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED, false);
 assert.equal(PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE, false);
 assert.equal(PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED, true);
 assert.equal(canInvokePlatformSupportTicketsReadRpc(), false);
+assert.equal(getPlatformSupportTicketsReadGateState().live, false);
 
+// Production Core binding opens read live after owner-approved SQL apply.
+process.env.NEXT_PUBLIC_SUPABASE_URL =
+  "https://qbcqoixhrvhnuwphefvw.supabase.co";
+assert.equal(canInvokePlatformSupportTicketsReadRpc(), true);
 const gate = getPlatformSupportTicketsReadGateState();
-assert.equal(gate.live, false);
-assert.equal(gate.stagingBound, false);
+assert.equal(gate.live, true);
+assert.equal(gate.rpcConnected, true);
 assert.equal(gate.sourceLocaleInvent, false);
 assert.deepEqual([...gate.allowedRoles], ["super_admin", "platform_support"]);
 
+process.env.NEXT_PUBLIC_SUPABASE_URL = "https://example.supabase.co";
 const inactive = denyInactivePlatformSupportTicketsRead();
 assert.equal(inactive.ok, false);
 assert.equal(inactive.code, "rpc_not_applied");
 assert.equal(httpStatusForSupportTicketsReadDenial(inactive.code), 503);
+process.env.NEXT_PUBLIC_SUPABASE_URL =
+  "https://qbcqoixhrvhnuwphefvw.supabase.co";
 
 // Product channel link honesty
 assert.equal(PLATFORM_SUPPORT_PRODUCT_CHANNEL_LINK.aipify_public_site.linked, false);
@@ -57,6 +65,7 @@ assert.ok(PLATFORM_SUPPORT_ALLOWED_CHANNEL_FILTERS.includes("app_portal"));
 assert.ok(!PLATFORM_SUPPORT_ALLOWED_CHANNEL_FILTERS.includes("selgere" as never));
 
 // Adapter must not call RPC while inactive — stub that throws if invoked.
+process.env.NEXT_PUBLIC_SUPABASE_URL = "https://example.supabase.co";
 const forbiddenClient = {
   rpc: async () => {
     throw new Error("RPC must not be invoked while feature gate / apply is off");

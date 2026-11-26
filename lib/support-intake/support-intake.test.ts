@@ -37,7 +37,8 @@ async function main() {
   assert.equal(SUPPORT_INTAKE_FEATURE_GATE, false);
   assert.equal(SUPPORT_EMAIL_TRANSPORT_ENABLED, false);
   assert.equal(getSupportIntakeGateState().live, false);
-  assert.equal(getSupportWriteGateState().live, false);
+  // Write/read live on Production Core; intake stays closed until intake RPC.
+  assert.equal(getSupportWriteGateState().live, true);
   assert.equal(getSupportWriteGateState().stagingBound, false);
 
   const badTenant = sanitizeSupportIntakePayload({
@@ -106,13 +107,15 @@ async function main() {
   assert.equal(canTransitionSupportStatus("open", "in_progress"), true);
   assert.equal(canTransitionSupportStatus("closed", "open"), false);
 
+  // Gates open on Production Core, but without an rpc client the write path
+  // still fails closed (no silent fake success).
   const note = await postInternalNote({
     ticketId: "00000000-0000-0000-0000-000000000001",
     body: "Internt notat",
     agentUserId: "agent",
   });
   assert.equal(note.ok, false);
-  if (!note.ok) assert.equal(note.code, "core_not_applied");
+  if (!note.ok) assert.equal(note.code, "unknown");
 
   const reply = await postExternalReply({
     ticketId: "00000000-0000-0000-0000-000000000001",
@@ -121,7 +124,7 @@ async function main() {
     includeSignature: true,
   });
   assert.equal(reply.ok, false);
-  if (!reply.ok) assert.equal(reply.code, "core_not_applied");
+  if (!reply.ok) assert.equal(reply.code, "unknown");
 
   __resetSupportTemplateStoreForTests();
   assert.equal(listEditableSupportTemplates().length, 10);

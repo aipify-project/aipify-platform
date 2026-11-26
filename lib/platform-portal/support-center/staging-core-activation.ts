@@ -1,10 +1,11 @@
 /**
- * Support Center Staging-only Core binding.
+ * Support Center Core live binding.
  *
- * Live read/write gates open only when the app's Supabase URL is the approved
- * Staging Core project. Production Core stays closed even if Preview deploy
- * shares the same Vercel project.
+ * Read/write gates open when the app's Supabase URL is Production Core
+ * (qbcqoixhrvhnuwphefvw) or Staging Core (auedugihkduoaikfusqe) after the
+ * Support Center SQL candidates are applied.
  *
+ * Intake create RPCs were not shipped in the Support Center batch — stay closed.
  * Email send remains a separate owner gate (always off here).
  */
 
@@ -25,30 +26,58 @@ export function resolveConfiguredSupabaseProjectRef(
   }
 }
 
-/** True only when this runtime is bound to auedugihkduoaikfusqe. */
+/** True when bound to Staging Core. */
 export function isSupportCenterStagingCoreBound(
   url: string | null | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL,
 ): boolean {
   return resolveConfiguredSupabaseProjectRef(url) === AIPIFY_CORE_STAGING_PROJECT_REF;
 }
 
+/** True when bound to Production Core. */
+export function isSupportCenterProductionCoreBound(
+  url: string | null | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL,
+): boolean {
+  return resolveConfiguredSupabaseProjectRef(url) === AIPIFY_CORE_PRODUCTION_PROJECT_REF;
+}
+
 /**
- * Staging Core has Support Center read + platform write RPCs applied.
- * Intake write RPCs were not included in the Staging batch — stay closed.
- * Email send stays closed until a separate owner YES.
+ * Live Support Center Core path after owner-approved SQL apply on that Core.
+ * Intake and email stay closed until separate approvals + RPCs.
+ */
+export function isSupportCenterCoreLiveBound(
+  url: string | null | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL,
+): boolean {
+  return (
+    isSupportCenterProductionCoreBound(url) || isSupportCenterStagingCoreBound(url)
+  );
+}
+
+/**
+ * @deprecated Prefer resolveSupportCenterLiveGates / isSupportCenterCoreLiveBound.
+ * Kept for existing imports; now resolves Production + Staging Core.
  */
 export function resolveSupportCenterStagingLiveGates(
   url: string | null | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL,
 ) {
+  return resolveSupportCenterLiveGates(url);
+}
+
+export function resolveSupportCenterLiveGates(
+  url: string | null | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL,
+) {
+  const liveBound = isSupportCenterCoreLiveBound(url);
   const stagingBound = isSupportCenterStagingCoreBound(url);
+  const productionBound = isSupportCenterProductionCoreBound(url);
   return {
     stagingBound,
+    productionBound,
+    liveBound,
     projectRef: resolveConfiguredSupabaseProjectRef(url),
-    readRpcConnected: stagingBound,
-    readFeatureGate: stagingBound,
-    writeRpcConnected: stagingBound,
-    writeFeatureGate: stagingBound,
-    /** Staging batch did not ship intake create RPCs. */
+    readRpcConnected: liveBound,
+    readFeatureGate: liveBound,
+    writeRpcConnected: liveBound,
+    writeFeatureGate: liveBound,
+    /** Support Center batch did not ship intake create RPCs. */
     intakeRpcConnected: false,
     intakeFeatureGate: false,
     emailSendConfigured: false,

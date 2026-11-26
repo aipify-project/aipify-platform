@@ -27,9 +27,15 @@ export type SupportIntakeFormLabels = {
 type Props = {
   labels: SupportIntakeFormLabels;
   verificationLabels: HumanVerificationLabels;
+  /** When false, do not present a working ticket form — mailto only. */
+  intakeLive?: boolean;
 };
 
-export default function SupportIntakeForm({ labels, verificationLabels }: Props) {
+export default function SupportIntakeForm({
+  labels,
+  verificationLabels,
+  intakeLive = false,
+}: Props) {
   const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">(
     "idle",
   );
@@ -45,6 +51,7 @@ export default function SupportIntakeForm({ labels, verificationLabels }: Props)
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!intakeLive) return;
     if (!requireVerification()) return;
 
     const form = e.currentTarget;
@@ -73,8 +80,11 @@ export default function SupportIntakeForm({ labels, verificationLabels }: Props)
         code?: string;
       };
 
-      // Core not applied → honest pending state; mailto fallback remains available.
-      if (res.status === 503 || json.code === "core_not_applied" || json.code === "channel_not_activated") {
+      if (
+        res.status === 503 ||
+        json.code === "core_not_applied" ||
+        json.code === "channel_not_activated"
+      ) {
         setStatus("done");
         onVerificationReset();
         return;
@@ -98,7 +108,7 @@ export default function SupportIntakeForm({ labels, verificationLabels }: Props)
       <h1 className="text-2xl font-semibold text-slate-900">{labels.title}</h1>
       <p className="mt-2 text-sm text-slate-600">{labels.subtitle}</p>
 
-      {status === "done" ? (
+      {!intakeLive || status === "done" ? (
         <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
           <p>{labels.successCorePending}</p>
           <p className="mt-3">
@@ -117,35 +127,33 @@ export default function SupportIntakeForm({ labels, verificationLabels }: Props)
           <label className="block text-sm">
             <span className="mb-1 block font-medium text-slate-800">{labels.name}</span>
             <input
-              required
               name="name"
+              required
               className="w-full rounded-lg border border-slate-300 px-3 py-2"
             />
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-medium text-slate-800">{labels.email}</span>
             <input
-              required
-              type="email"
               name="email"
+              type="email"
+              required
               className="w-full rounded-lg border border-slate-300 px-3 py-2"
             />
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-medium text-slate-800">{labels.subject}</span>
             <input
-              required
-              minLength={3}
               name="subject"
+              required
               className="w-full rounded-lg border border-slate-300 px-3 py-2"
             />
           </label>
           <label className="block text-sm">
             <span className="mb-1 block font-medium text-slate-800">{labels.message}</span>
             <textarea
-              required
-              minLength={10}
               name="message"
+              required
               rows={6}
               className="w-full rounded-lg border border-slate-300 px-3 py-2"
             />
@@ -153,16 +161,15 @@ export default function SupportIntakeForm({ labels, verificationLabels }: Props)
           <AipifyHumanVerification
             labels={verificationLabels}
             onVerified={onVerified}
-            onReset={onVerificationReset}
+            requiredMessage={
+              verificationRequired ? labels.verificationRequired : undefined
+            }
           />
-          {verificationRequired ? (
-            <p className="text-sm text-amber-800">{labels.verificationRequired}</p>
-          ) : null}
-          {error ? <p className="text-sm text-rose-700">{error}</p> : null}
+          {error ? <p className="text-sm text-red-700">{error}</p> : null}
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="inline-flex min-h-10 items-center rounded-lg bg-slate-900 px-4 text-sm font-medium text-white disabled:opacity-60"
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
           >
             {status === "submitting" ? labels.submitting : labels.submit}
           </button>

@@ -2,12 +2,14 @@ import SupportIntakeForm from "@/components/marketing/SupportIntakeForm";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { getSupportIntakeGateState } from "@/lib/support-intake";
 import { buildHumanVerificationLabels } from "@/lib/system-notice/labels";
 
 export default async function ContactSupportPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["marketing", "common"]);
   const t = createTranslator(dict);
+  const intakeLive = getSupportIntakeGateState().live;
 
   const labels = {
     title: t("marketing.supportIntake.title"),
@@ -30,6 +32,7 @@ export default async function ContactSupportPage() {
       <SupportIntakeForm
         labels={labels}
         verificationLabels={buildHumanVerificationLabels(t)}
+        intakeLive={intakeLive}
       />
     </main>
   );
