@@ -83,10 +83,24 @@ const portfolio = readFileSync(
   "utf8",
 );
 assert.match(portfolio, /plannedPlansTitle/);
-assert.match(portfolio, /kompisWebDashboard/);
-assert.match(portfolio, /kompis-web-product-visual\.png/);
-assert.match(portfolio, /kompis-bedrift-product-visual\.png/);
-assert.doesNotMatch(portfolio, /checkout|Kjøp|Buy now/i);
+assert.match(portfolio, /buildWorkspaceProductCards/);
+assert.match(portfolio, /ProductHeroTile/);
+assert.match(portfolio, /sales_partner/);
+assert.doesNotMatch(portfolio, /kompis-web-product-visual\.png/);
+assert.doesNotMatch(portfolio, /kompis-bedrift-product-visual\.png/);
+assert.doesNotMatch(portfolio, /checkout|Buy now/i);
+
+const paymentProviders = readFileSync(
+  join(root, "app/app/settings/billing/payment-providers/page.tsx"),
+  "utf8",
+);
+assert.match(paymentProviders, /redirect/);
+assert.match(paymentProviders, /accountSubscription/);
+assert.doesNotMatch(paymentProviders, /PaymentProvidersExperiencePanel/);
+
+const hero = readFileSync(join(root, "lib/commercial-packages/product-hero.ts"), "utf8");
+assert.match(hero, /buildWorkspaceProductCards/);
+assert.doesNotMatch(hero, /unonight/i);
 
 const noPortfolio = JSON.parse(
   readFileSync(join(root, "locales/no/customer-app/settings.json"), "utf8"),

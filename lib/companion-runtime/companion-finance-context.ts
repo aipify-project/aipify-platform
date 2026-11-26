@@ -112,7 +112,7 @@ export function createEmptyCompanionFinanceContext(
     cross_link_finance: "/app/finance",
     cross_link_revenue: "/app/revenue",
     cross_link_billing: "/app/billing",
-    cross_link_payment_providers: "/app/settings/billing/payment-providers",
+    cross_link_payment_providers: "/app/account/subscription",
     ...overrides,
   };
 }

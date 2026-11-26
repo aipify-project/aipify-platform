@@ -1,6 +1,6 @@
 "use client";
 
-import { Globe, Monitor, Users, type LucideIcon } from "lucide-react";
+import { Blocks, Globe, Monitor, Users, type LucideIcon } from "lucide-react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { KompisProductPortfolio } from "@/components/app/settings/billing/KompisProductPortfolio";
@@ -165,7 +165,6 @@ export function BillingAdminPanel({
         return;
       }
       const payload = await res.json();
-      // HTTP 200 always renders — sparse/partial payloads must not collapse the page.
       setVm(buildBillingViewModel(payload, presentationOptions));
     } catch {
       setVm(null);
@@ -230,167 +229,252 @@ export function BillingAdminPanel({
     renewalDate: vm.renewalDate,
   });
 
+  const subscriptionTitle = distinctLicense
+    ? license.planName
+    : legacyPackage && vm.packageName
+      ? vm.packageName
+      : license.planName || vm.packageName;
+
+  const knownLimits = vm.limits.filter((limit) => limit.state !== "unknown");
+  const knownUsage = vm.usageItems.filter((item) => item.value != null);
+
   return (
     <div className={frame}>
-      <header className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+      {/* Hero */}
+      <header className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)] sm:p-6">
         {!embedded ? (
+          <Link
+            href="/app/settings"
+            className={`text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+          >
+            ← {labels.back}
+          </Link>
+        ) : null}
+        <div className={`flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between ${embedded ? "" : "mt-3"}`}>
           <div className="min-w-0 max-w-3xl">
-            <Link
-              href="/app/settings"
-              className={`text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
-            >
-              ← {labels.back}
-            </Link>
-            <p className={`mt-3 ${AppPremiumShell.eyebrow}`}>{labels.eyebrow}</p>
-            <h1 className={`mt-2 ${AppPremiumShell.pageTitle}`}>{labels.title}</h1>
+            {!embedded ? <p className={AppPremiumShell.eyebrow}>{labels.eyebrow}</p> : null}
+            <h1 className={`${embedded ? "" : "mt-2 "} ${AppPremiumShell.pageTitle}`}>{labels.title}</h1>
             <p className={`mt-2 ${AppPremiumShell.pageDescription}`}>{labels.subtitle}</p>
-            <p className="mt-3 text-sm text-aipify-text-muted">{labels.privacyNote}</p>
+            <dl className="mt-4 grid gap-3 sm:grid-cols-3">
+              <div>
+                <dt className="text-xs font-medium uppercase tracking-wide text-[var(--app-text-muted)]">
+                  {portfolio.workspaceLabel}
+                </dt>
+                <dd className="mt-1 text-sm font-medium text-[var(--app-text)]">
+                  {license.planName || subscriptionTitle || "—"}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-medium uppercase tracking-wide text-[var(--app-text-muted)]">
+                  {portfolio.mySubscription}
+                </dt>
+                <dd className="mt-1 text-sm font-medium text-[var(--app-text)]">
+                  {subscriptionTitle || portfolio.detailsUnavailable}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-medium uppercase tracking-wide text-[var(--app-text-muted)]">
+                  {portfolio.overallStatus}
+                </dt>
+                <dd className="mt-1">
+                  <AipifyStatusBadge kind={statusKind(shownStatusKey)} label={packageStatus} />
+                </dd>
+              </div>
+            </dl>
           </div>
-        ) : (
-          <p className="min-w-0 text-sm text-aipify-text-muted">{labels.privacyNote}</p>
-        )}
-        <div className="flex shrink-0 flex-col items-start gap-3 sm:flex-row sm:items-center lg:flex-col lg:items-end">
-          <AipifyStatusBadge kind={statusKind(shownStatusKey)} label={packageStatus} />
-          <div className="flex flex-wrap gap-2">
-            <Link
-              href="/app/settings/billing/packages"
+          <div className="flex shrink-0 flex-wrap gap-2">
+            <a
+              href="#active-subscription"
               className={`rounded-lg bg-aipify-companion px-3.5 py-2 text-sm font-medium text-white hover:opacity-95 ${AppPremiumShell.focusRing}`}
             >
-              {labels.viewPackages}
-            </Link>
+              {portfolio.viewSubscriptionDetails}
+            </a>
             <Link
-              href="/app/settings/billing/invoice-details"
+              href="/app/account/invoices"
               className={`rounded-lg border border-aipify-border bg-aipify-surface px-3.5 py-2 text-sm font-medium text-aipify-text hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
             >
-              {labels.viewInvoiceDetails}
+              {portfolio.viewInvoices}
             </Link>
+            <Link
+              href="/app/license"
+              className={`rounded-lg border border-aipify-border bg-aipify-surface px-3.5 py-2 text-sm font-medium text-aipify-text hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
+            >
+              {portfolio.viewLicenseCenter}
+            </Link>
+            <a
+              href="#my-products"
+              className={`rounded-lg border border-aipify-border bg-aipify-surface px-3.5 py-2 text-sm font-medium text-aipify-text hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
+            >
+              {portfolio.exploreProductsCta}
+            </a>
           </div>
         </div>
       </header>
 
+      {/* Active subscription */}
+      <section
+        id="active-subscription"
+        className={`${AppLayoutClasses.card} overflow-hidden !p-0`}
+        aria-labelledby="billing-package-heading"
+      >
+        <div className="flex flex-wrap items-start justify-between gap-3 bg-[image:var(--app-primary-soft-fill)] px-5 py-5 sm:px-6">
+          <div className="min-w-0">
+            <h2 id="billing-package-heading" className="text-sm font-medium text-[var(--app-text-muted)]">
+              {portfolio.mySubscription}
+            </h2>
+            <p className="mt-1 text-sm text-[var(--app-text-muted)]">{portfolio.currentLicense}</p>
+            {subscriptionTitle ? (
+              <p className="mt-1 text-2xl font-semibold tracking-tight text-[var(--app-text)]">
+                {subscriptionTitle}
+              </p>
+            ) : null}
+          </div>
+          <AipifyStatusBadge kind={statusKind(shownStatusKey)} label={packageStatus} />
+        </div>
+        {vm.packageName || license.planName ? (
+          <div className="space-y-4 px-5 py-5 sm:px-6">
+            {legacyPackage && vm.packageName && distinctLicense ? (
+              <p className="text-sm text-[var(--app-text-muted)]">
+                {portfolio.registeredLegacy}:{" "}
+                <span className="font-medium text-[var(--app-text)]">{vm.packageName}</span>
+              </p>
+            ) : null}
+            {vm.packageDescription ? (
+              <p className="text-sm leading-relaxed text-aipify-text-secondary">{vm.packageDescription}</p>
+            ) : null}
+            <p className="text-sm text-aipify-text-secondary">
+              {labels.renewalDate}:{" "}
+              <span className="font-medium text-aipify-text">
+                {renewal === "date" && vm.renewalDate
+                  ? formatDate(vm.renewalDate, locale)
+                  : renewal === "lifetime"
+                    ? portfolio.noRenewal
+                    : "—"}
+              </span>
+            </p>
+            {!legacyPackage && vm.packageFeatures.length > 0 ? (
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {vm.packageFeatures.map((feature) => (
+                  <li
+                    key={feature}
+                    className="rounded-lg border border-aipify-border bg-aipify-canvas/50 px-3 py-2 text-sm text-aipify-text"
+                  >
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ) : (
+          <p className="px-5 py-5 text-sm text-aipify-text-secondary sm:px-6">
+            {portfolio.detailsUnavailable}
+          </p>
+        )}
+        <div className="flex flex-wrap gap-2 px-5 pb-5 sm:px-6">
+          <Link
+            href="/app/license"
+            className={`rounded-lg border border-aipify-border bg-aipify-surface px-3.5 py-2 text-sm font-medium text-aipify-text hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
+          >
+            {portfolio.manageSubscription}
+          </Link>
+          <Link
+            href="/app/settings/modules"
+            className={`rounded-lg border border-aipify-border bg-aipify-surface px-3.5 py-2 text-sm font-medium text-aipify-text hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
+          >
+            {labels.viewModules}
+          </Link>
+        </div>
+      </section>
+
+      {/* Products */}
+      <section id="my-products" className={AppLayoutClasses.card} aria-labelledby="billing-products-heading">
+        <h2 id="billing-products-heading" className="sr-only">
+          {portfolio.myProducts}
+        </h2>
+        <KompisProductPortfolio labels={portfolio} access={access} showCatalog={false} />
+        <Link
+          href="/app/settings/billing/packages"
+          className={`mt-6 inline-flex min-h-11 items-center text-sm font-medium text-[#7055EE] hover:underline ${AppPremiumShell.focusRing}`}
+        >
+          {portfolio.exploreProducts}
+        </Link>
+      </section>
+
+      {/* Tilleggsmoduler */}
+      <section className={AppLayoutClasses.card} aria-labelledby="billing-addons-heading">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 id="billing-addons-heading" className={AppPremiumShell.sectionTitle}>
+              {portfolio.addonsSection}
+            </h2>
+            <p className={`mt-2 ${AppPremiumShell.sectionSubtitle}`}>{portfolio.addonsEmpty}</p>
+          </div>
+          <Blocks aria-hidden className="size-5 text-[var(--app-primary)]" strokeWidth={2} />
+        </div>
+        <Link
+          href="/app/settings/modules"
+          className={`mt-5 inline-flex min-h-11 items-center rounded-lg bg-aipify-companion px-3.5 py-2 text-sm font-medium text-white hover:opacity-95 ${AppPremiumShell.focusRing}`}
+        >
+          {portfolio.addModule}
+        </Link>
+      </section>
+
       <div className={AppLayoutClasses.contentGrid}>
         <div className={`${AppLayoutClasses.mainColumn} space-y-6`}>
-          <section className={`${AppLayoutClasses.card} overflow-hidden !p-0`} aria-labelledby="billing-package-heading">
-            <div className="flex flex-wrap items-start justify-between gap-3 bg-[image:var(--app-primary-soft-fill)] px-5 py-5 sm:px-6">
-              <div className="min-w-0">
-                <h2 id="billing-package-heading" className="text-sm font-medium text-[var(--app-text-muted)]">
-                  {portfolio.mySubscription}
-                </h2>
-                <p className="mt-1 text-sm text-[var(--app-text-muted)]">{portfolio.currentLicense}</p>
-                {vm.packageName || license.planName ? (
-                  <p className="mt-1 text-2xl font-semibold tracking-tight text-[var(--app-text)]">
-                    {distinctLicense
-                      ? license.planName
-                      : legacyPackage && vm.packageName
-                        ? vm.packageName
-                        : license.planName || vm.packageName}
-                  </p>
-                ) : null}
-                {vm.modulesCount != null ? (
-                  <p className="mt-1 text-sm text-[var(--app-text-muted)]">
-                    {labels.modulesCount.replace("{count}", String(vm.modulesCount))}
-                  </p>
-                ) : null}
-              </div>
-              <AipifyStatusBadge kind={statusKind(shownStatusKey)} label={packageStatus} />
-            </div>
-            {vm.packageName || license.planName ? (
-              <div className="space-y-4 px-5 py-5 sm:px-6">
-                {legacyPackage && vm.packageName ? (
-                  <p className="text-sm text-[var(--app-text-muted)]">
-                    {portfolio.registeredLegacy}:{" "}
-                    <span className="font-medium text-[var(--app-text)]">{vm.packageName}</span>
-                  </p>
-                ) : null}
-                {vm.packageDescription ? (
-                  <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">
-                    {vm.packageDescription}
-                  </p>
-                ) : null}
-                <p className="text-sm text-aipify-text-secondary">
-                  {labels.renewalDate}:{" "}
-                  <span className="font-medium text-aipify-text">
-                    {renewal === "date" && vm.renewalDate
-                      ? formatDate(vm.renewalDate, locale)
-                      : renewal === "lifetime"
-                        ? portfolio.noRenewal
-                        : "—"}
-                  </span>
-                </p>
-                {!legacyPackage && vm.packageFeatures.length > 0 ? (
-                  <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-                    {vm.packageFeatures.map((feature) => (
-                      <li
-                        key={feature}
-                        className="rounded-lg border border-aipify-border bg-aipify-canvas/50 px-3 py-2 text-sm text-aipify-text"
-                      >
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
-            ) : (
-              <p className="px-5 py-5 text-sm text-aipify-text-secondary sm:px-6">{portfolio.detailsUnavailable}</p>
-            )}
-            <div className="flex flex-wrap gap-x-4 gap-y-2 px-5 pb-5 text-sm sm:px-6">
-              <Link href="/app/license" className="text-aipify-companion hover:underline">
-                {labels.viewLicense}
-              </Link>
-              <Link href="/app/settings/modules" className="text-aipify-companion hover:underline">
-                {labels.viewModules}
-              </Link>
-              <Link
-                href="/app/settings/billing/payment-providers"
-                className="text-aipify-companion hover:underline"
-              >
-                {labels.viewPaymentProviders}
-              </Link>
-            </div>
-          </section>
-
+          {/* Capacity */}
           <section className={AppLayoutClasses.card} aria-labelledby="billing-limits-heading">
             <h2 id="billing-limits-heading" className={AppPremiumShell.sectionTitle}>
               {labels.sections.limits}
             </h2>
-            <p className={AppPremiumShell.sectionSubtitle}>{labels.sections.usage}</p>
-            <div className={`mt-5 ${AppLayoutClasses.metricGrid}`}>
-              {vm.limits.map((limit) => (
-                <UsageMeter
-                  key={limit.key}
-                  label={limitLabel(labels, limit.key)}
-                  used={limit.used}
-                  max={limit.max}
-                  percent={limit.percent}
-                  state={limit.state}
-                  unlimitedLabel={labels.unlimited}
-                  unknownLabel={portfolio.limitUnavailable}
-                  usedOfMax={labels.usedOfMax}
-                  icon={limitIcon(limit.key)}
-                />
-              ))}
-            </div>
+            {knownLimits.length > 0 ? (
+              <div className={`mt-5 ${AppLayoutClasses.metricGrid}`}>
+                {knownLimits.map((limit) => (
+                  <UsageMeter
+                    key={limit.key}
+                    label={limitLabel(labels, limit.key)}
+                    used={limit.used}
+                    max={limit.max}
+                    percent={limit.percent}
+                    state={limit.state}
+                    unlimitedLabel={labels.unlimited}
+                    unknownLabel={portfolio.limitUnavailable}
+                    usedOfMax={labels.usedOfMax}
+                    icon={limitIcon(limit.key)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="mt-4 text-sm text-aipify-text-secondary">{portfolio.capacityEmpty}</p>
+            )}
           </section>
 
+          {/* Usage */}
           <section className={AppLayoutClasses.card} aria-labelledby="billing-usage-heading">
             <h2 id="billing-usage-heading" className={AppPremiumShell.sectionTitle}>
               {labels.sections.usage}
             </h2>
-            <ul className="mt-5 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-              {vm.usageItems.map((item) => (
-                <li
-                  key={item.key}
-                  className="flex items-center justify-between gap-3 rounded-xl border border-aipify-border bg-aipify-canvas/40 px-3.5 py-3"
-                >
-                  <span className="text-sm text-aipify-text-secondary">{usageLabel(labels, item.key)}</span>
-                  <span className="text-sm font-semibold tabular-nums text-aipify-text">
-                    {item.value == null ? labels.unavailable : item.value}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            {knownUsage.length > 0 ? (
+              <ul className="mt-5 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+                {knownUsage.map((item) => (
+                  <li
+                    key={item.key}
+                    className="flex items-center justify-between gap-3 rounded-xl border border-aipify-border bg-aipify-canvas/40 px-3.5 py-3"
+                  >
+                    <span className="text-sm text-aipify-text-secondary">
+                      {usageLabel(labels, item.key)}
+                    </span>
+                    <span className="text-sm font-semibold tabular-nums text-aipify-text">
+                      {item.value}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-4 text-sm text-aipify-text-secondary">{portfolio.usageEmpty}</p>
+            )}
           </section>
 
+          {/* History */}
           <section className={AppLayoutClasses.card} aria-labelledby="billing-history-heading">
             <h2 id="billing-history-heading" className={AppPremiumShell.sectionTitle}>
               {labels.sections.history}
@@ -434,22 +518,6 @@ export function BillingAdminPanel({
         </div>
 
         <aside className={`${AppLayoutClasses.sideColumn} space-y-6`}>
-          <section className={AppLayoutClasses.card} aria-labelledby="billing-products-heading">
-            <h2 id="billing-products-heading" className={AppPremiumShell.sectionTitle}>
-              {portfolio.myProducts}
-            </h2>
-            <p className="mt-2 text-sm text-aipify-text-secondary">{portfolio.noChange}</p>
-            <div className="mt-4">
-              <KompisProductPortfolio labels={portfolio} access={access} showCatalog />
-            </div>
-            <Link
-              href="/app/settings/billing/packages"
-              className={`mt-4 inline-flex min-h-11 items-center text-sm font-medium text-[#7055EE] hover:underline ${AppPremiumShell.focusRing}`}
-            >
-              {portfolio.exploreProducts}
-            </Link>
-          </section>
-
           <section className={AppLayoutClasses.cardMuted} aria-labelledby="billing-support-heading">
             <h2 id="billing-support-heading" className={AppPremiumShell.sectionTitle}>
               {labels.sections.support}
@@ -457,7 +525,7 @@ export function BillingAdminPanel({
             <p className="mt-3 text-sm leading-relaxed text-aipify-text-secondary">{labels.support.body}</p>
             <div className="mt-4 flex flex-wrap gap-3 text-sm">
               <Link
-                href="/app/settings/billing/invoice-details"
+                href="/app/account/invoices"
                 className="font-medium text-aipify-companion hover:underline"
               >
                 {labels.support.invoiceDetails}
