@@ -39,8 +39,11 @@ export const PLATFORM_SUPPORT_TICKETS_READ_ROLES = [
 /** Must stay false until a named owner apply job relocates/applies the SQL. */
 export const PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED = false;
 
-/** Must stay false — no live Platform Support UI uses APP SoT yet. */
-export const PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED = false;
+/**
+ * Support Center UI is wired to the fail-closed APP SoT adapter.
+ * Live ticket data still requires RPC apply + feature gate (both false).
+ */
+export const PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED = true;
 
 /** Future four-channel mapping — documentation only; no ingest in this job. */
 export const PLATFORM_SUPPORT_FOUR_CHANNEL_MAPPING_PLAN = {
@@ -76,10 +79,10 @@ export const PLATFORM_SUPPORT_LEGACY_KPI_SOURCES_FORBIDDEN = [
   "get_since_last_login_engine platform support_resolved",
 ] as const;
 
+/** Data path remains fail-closed until RPC apply — UI shell may be wired. */
 export function assertPlatformSupportTicketsReadIsFailClosed(): boolean {
   return (
     PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED === false &&
-    PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED === false &&
     !PLATFORM_SUPPORT_TICKETS_CROSS_TENANT_READ_SQL_PATH.includes(
       "supabase/migrations/",
     )

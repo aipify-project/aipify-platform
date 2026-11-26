@@ -2274,7 +2274,7 @@
       "urgent": "Haster"
     },
     "counters": {
-      "resolvedByAi": "Løst av Aipifypifypify",
+      "resolvedByAi": "Løst av Aipify",
       "escalatedByAi": "Eskalert av Aipify",
       "waitingHuman": "Venter på menneske",
       "openCases": "Åpne saker"
@@ -8204,6 +8204,151 @@
       "notConfiguredBody": "Denne flaten starter ikke publiseringer. Levende utrullingsrader som finnes i dag vises under Plattformstatus. Nettsideverifisering har egne kontrollfunksjoner.",
       "openHealth": "Åpne plattformstatus",
       "openVerification": "Åpne nettsideverifisering"
+    }
+  },
+  "supportCenter": {
+    "title": "Support",
+    "subtitle": "Felles sakskø for kundestøtte — maler, firmasignatur og kanalstatus.",
+    "loading": "Laster supportsaker…",
+    "empty": "Ingen kundestøttesaker ennå.",
+    "emptyCoreBlocked": "Sakslesing er ikke aktivert ennå. Core-RPC for støtte må godkjennes og anvendes først.",
+    "coreBlockedTitle": "Ticket-kjerne ikke aktivert",
+    "coreBlockedBody": "Lesing av APP-saker er forberedt, men RPC og funksjonsport er ikke aktivert. Ingen eksempeldata vises.",
+    "legacyKpiRemoved": "Misvisende KPI-er som «47 support requests resolved» er fjernet fra denne flaten — de kom fra seedet bruksstatistikk, ikke reelle saker.",
+    "customer": "Kunde",
+    "category": "Kategori",
+    "priority": "Prioritet",
+    "assignee": "Ansvarlig",
+    "lastUpdated": "Sist aktivitet",
+    "subject": "Emne",
+    "reference": "Referanse",
+    "channel": "Kanal",
+    "product": "Produkt",
+    "status": "Status",
+    "unassigned": "Ikke tildelt",
+    "openTicket": "Åpne sak",
+    "viewCustomer": "Åpne kunde",
+    "refresh": "Oppdater",
+    "filterAll": "Alle",
+    "tabs": {
+      "aria": "Support-faner",
+      "all": "Alle saker",
+      "mine": "Mine saker",
+      "templates": "Svarmaler",
+      "signature": "Signatur og avsender",
+      "channels": "Innstillinger / Kanaler"
+    },
+    "kpi": {
+      "new": "Åpne",
+      "inProgress": "Under behandling",
+      "waiting": "Avventer svar",
+      "critical": "Kritiske",
+      "resolved": "Løst / lukket",
+      "unavailable": "Ikke tilgjengelig",
+      "sourceNote": "Tall kommer kun fra APP ticket SoT når Core-RPC er aktivert. Ingen legacy-kø eller seed-KPI."
+    },
+    "statusLabels": {
+      "new": "Ny",
+      "open": "Åpen",
+      "in_progress": "Under behandling",
+      "waiting_for_customer": "Avventer kunde",
+      "waiting_internal": "Avventer internt",
+      "resolved": "Løst",
+      "closed": "Lukket",
+      "reopened": "Gjenåpnet",
+      "archived": "Arkivert"
+    },
+    "priorityLabels": {
+      "low": "Lav",
+      "normal": "Normal",
+      "high": "Høy",
+      "critical": "Kritisk",
+      "urgent": "Haster"
+    },
+    "categoryLabels": {
+      "general": "Generelt",
+      "onboarding": "Onboarding",
+      "billing": "Fakturering",
+      "technical": "Teknisk",
+      "business_packs": "Bedriftspakker",
+      "security": "Sikkerhet",
+      "feedback": "Tilbakemelding",
+      "bug": "Feilrapport"
+    },
+    "channelLabels": {
+      "app_portal": "APP",
+      "email": "E-post",
+      "chat": "Chat",
+      "phone": "Telefon",
+      "assistant": "Assistent"
+    },
+    "templates": {
+      "title": "Svarmaler",
+      "subtitle": "Redigerbare startmaler for support. Settes inn i utkast — sendes aldri automatisk.",
+      "starterBadge": "Startmal",
+      "preview": "Forhåndsvisning",
+      "insertDraft": "Sett inn i utkast",
+      "persistBlocked": "Lagring av egendefinerte maler krever eiergodkjent Core-SQL (ikke aktivert).",
+      "variables": "Variabler",
+      "localeNote": "Norsk er komplett for administrasjon. Andre språk faller tilbake til norsk til menneskelig oversettelse er klar.",
+      "category": "Kategori",
+      "subject": "Emne",
+      "body": "Melding"
+    },
+    "signature": {
+      "title": "Firmasignatur",
+      "subtitle": "Aipify Group AS-signatur med offisiell logo. Forhåndsvis HTML og tekst.",
+      "displayName": "Visningsnavn / team",
+      "agentName": "Saksbehandler",
+      "agentTitle": "Tittel",
+      "companyName": "Firmanavn",
+      "website": "Nettsted",
+      "supportEmail": "Support-e-post",
+      "phone": "Telefon (valgfritt)",
+      "address": "Adresse",
+      "includeLogo": "Inkluder Aipify-logo",
+      "active": "Aktiv",
+      "previewLight": "Forhåndsvisning (lys)",
+      "previewDark": "Forhåndsvisning (mørk)",
+      "previewText": "Tekstversjon",
+      "persistBlocked": "Lagring av signatur i Core krever eiergodkjent SQL (ikke aktivert). Forhåndsvisning bruker godkjente firmadata.",
+      "resetDefaults": "Tilbakestill til firmastandard"
+    },
+    "channels": {
+      "title": "Kanaler og innstillinger",
+      "subtitle": "Kun kanaler med sikker datakontrakt aktiveres. Øvrige vises ærlig som ikke aktivert.",
+      "active": "Aktiv",
+      "notActivated": "Ikke aktivert",
+      "preparedOnly": "Forberedt — venter Core",
+      "web": "Nettstedet aipify.ai",
+      "webNote": "Ingen ticket-skrivevei ennå (kontakt er mailto). Ikke aktivert.",
+      "app": "APP / Kompis Bedrift",
+      "appNote": "Kanonisk SoT: app_portal_support_requests. Plattformlesing forberedt, RPC ikke anvendt.",
+      "partner": "Sales Partner",
+      "partnerNote": "Ingen dedikert partner-ticket-tabell. CSP salgs-e-post/CRM holdes adskilt.",
+      "module": "Sales Partner-modulkunder",
+      "moduleNote": "Samme ticketmotor planlagt med egne rollegrenser — ikke aktivert.",
+      "kompis": "Kompis-handoff",
+      "kompisNote": "Eksplisitt serverautorisert handoff forberedes senere. Ingen ny Kompis AI-runtime i denne jobben.",
+      "emailSendBlocked": "E-postsending er ikke konfigurert. Ingen autosending. Krever separat eiergodkjenning (provider/DNS/hemmeligheter)."
+    },
+    "reply": {
+      "title": "Svar",
+      "draft": "Utkast",
+      "chooseTemplate": "Velg svarmal",
+      "preview": "Forhåndsvisning",
+      "send": "Send svar",
+      "sendBlocked": "E-postsending ikke konfigurert — knappen er deaktivert til transport er godkjent.",
+      "internalNote": "Internt notat",
+      "attachSignature": "Legg ved signatur"
+    },
+    "detail": {
+      "title": "Velg en sak for å se detaljer",
+      "timeline": "Historikk",
+      "internalNotes": "Interne notater",
+      "noMessages": "Ingen meldinger ennå.",
+      "messagesBlocked": "Meldingstråd lagres først etter eiergodkjent Core-SQL for supportmeldinger.",
+      "back": "Lukk"
     }
   }
 }

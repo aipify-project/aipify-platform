@@ -25,7 +25,7 @@ import {
 assert.ok(assertPlatformSupportTicketsReadIsFailClosed());
 assert.equal(PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED, false);
 assert.equal(PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE, false);
-assert.equal(PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED, false);
+assert.equal(PLATFORM_SUPPORT_TICKETS_READ_UI_WIRED, true);
 assert.equal(canInvokePlatformSupportTicketsReadRpc(), false);
 
 const gate = getPlatformSupportTicketsReadGateState();
@@ -123,13 +123,24 @@ void (async () => {
   assert.match(getRoute, /getPlatformSupportTicket/);
   assert.match(countsRoute, /getPlatformSupportTicketCounts/);
 
-  // Legacy panel remains on legacy queue — UI not wired to APP SoT adapter
+  // Legacy panel remains on legacy queue (unused by /platform/support page).
   assert.match(panel, /list_platform_support_queue/);
   assert.doesNotMatch(panel, /listPlatformSupportTickets/);
   assert.doesNotMatch(panel, /list_platform_app_portal_support_requests/);
   assert.doesNotMatch(panel, /\/api\/platform-portal\/support-requests/);
 
+  // Support Center V1 page shell uses the fail-closed HTTP adapter (no live RPC until gates flip).
+  const center = readFileSync(
+    join(
+      process.cwd(),
+      "components/platform/support-center/PlatformSupportCenterPanel.tsx",
+    ),
+    "utf8",
+  );
+  assert.match(center, /\/api\/platform-portal\/support-requests/);
+  assert.doesNotMatch(center, /list_platform_support_queue/);
+
   console.log(
-    "support-tickets-read-adapter: fail-closed PASS; feature gate OFF; UI not wired",
+    "support-tickets-read-adapter: fail-closed PASS; feature gate OFF; UI wired to fail-closed adapter",
   );
 })();
