@@ -1,4 +1,5 @@
 import { SupportRequestsCenterPanel } from "@/components/app/app-portal/SupportRequestsCenterPanel";
+import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { buildSupportRequestsLabels } from "@/lib/app-portal/support-requests";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -9,8 +10,11 @@ export default async function SupportRequestsPage() {
   const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
   const t = createTranslator(dict);
   return (
-    <div className="p-6">
-      <SupportRequestsCenterPanel labels={buildSupportRequestsLabels(t)} />
+    <div className={`${AppLayoutClasses.pagePaddingX} pb-10 pt-6`}>
+      <SupportRequestsCenterPanel
+        labels={buildSupportRequestsLabels(t)}
+        locale={locale}
+      />
     </div>
   );
 }

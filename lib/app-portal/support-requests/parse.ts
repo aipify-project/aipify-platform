@@ -3,6 +3,7 @@ import type {
   SupportRequestDetail,
   SupportRequestItem,
   SupportRequestListResponse,
+  SupportRequestMessage,
   SupportRequestPriority,
   SupportRequestStatus,
 } from "./types";
@@ -41,9 +42,12 @@ function parseItem(raw: unknown): SupportRequestItem {
     assigned_support_owner_id: str(d.assigned_support_owner_id) || undefined,
     assigned_support_owner: str(d.assigned_support_owner, "Unassigned"),
     related_module: str(d.related_module) || undefined,
+    related_module_label: str(d.related_module_label) || undefined,
     channel: str(d.channel) || undefined,
     resolved_at: str(d.resolved_at) || undefined,
     attachments: Array.isArray(d.attachments) ? d.attachments : [],
+    last_message_excerpt: str(d.last_message_excerpt) || undefined,
+    last_message_author: str(d.last_message_author) || undefined,
     // Defense in depth — drop even if a leaky Core payload still includes keys.
     internal_notes: undefined,
     internal_notes_full: undefined,
@@ -66,6 +70,24 @@ function parseAudit(raw: unknown) {
   });
 }
 
+function parseMessages(raw: unknown): SupportRequestMessage[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .map((row) => {
+      const d = (row ?? {}) as Record<string, unknown>;
+      const visibility = str(d.visibility, "customer_visible");
+      return {
+        id: str(d.id),
+        body: str(d.body),
+        author_role: str(d.author_role) || undefined,
+        author_name: str(d.author_name) || undefined,
+        visibility,
+        created_at: str(d.created_at),
+      };
+    })
+    .filter((m) => m.id && m.body && m.visibility === "customer_visible");
+}
+
 export function parseSupportRequestList(data: unknown): SupportRequestListResponse {
   if (!data || typeof data !== "object") return { found: false, items: [] };
   const d = data as Record<string, unknown>;
@@ -73,7 +95,8 @@ export function parseSupportRequestList(data: unknown): SupportRequestListRespon
     found: d.found === true,
     can_manage: d.can_manage === true,
     items: Array.isArray(d.items) ? d.items.map(parseItem) : [],
-    principle: str(d.principle),
+    // Never surface principle/FAQ marketing copy as inbox content.
+    principle: undefined,
   };
 }
 
@@ -104,8 +127,9 @@ export function parseSupportRequestDetail(data: unknown): SupportRequestDetail {
     timeline: parseAudit(d.timeline),
     audit_history: parseAudit(d.audit_history),
     related_activity: parseAudit(d.related_activity),
-    comments_placeholder: d.comments_placeholder === true,
-    internal_notes_placeholder: d.internal_notes_placeholder === true,
+    messages: parseMessages(d.messages),
+    comments_placeholder: undefined,
+    internal_notes_placeholder: undefined,
     attachments_placeholder: d.attachments_placeholder === true,
   };
 }

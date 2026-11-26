@@ -19,6 +19,8 @@ export type SupportRequestStatus =
   | "reopened"
   | "archived";
 
+export type SupportInboxView = "all" | "open" | "waiting" | "closed";
+
 export type SupportRequestItem = {
   id: string;
   title: string;
@@ -32,9 +34,14 @@ export type SupportRequestItem = {
   assigned_support_owner_id?: string;
   assigned_support_owner: string;
   related_module?: string;
+  related_module_label?: string;
   channel?: string;
   resolved_at?: string;
   attachments?: unknown[];
+  /** Customer-visible last message preview when Core provides it. */
+  last_message_excerpt?: string;
+  last_message_author?: string;
+  /** Never populated for APP customers — stripped in parse. */
   internal_notes?: string;
   internal_notes_full?: string;
   created_at: string;
@@ -68,6 +75,25 @@ export type SupportRequestResolution = {
   summary?: string;
 };
 
+export type SupportRequestMessage = {
+  id: string;
+  body: string;
+  author_role?: string;
+  author_name?: string;
+  visibility?: string;
+  created_at: string;
+};
+
+export type SupportConversationEntry = {
+  id: string;
+  kind: "message" | "status";
+  side: "customer" | "aipify" | "system";
+  author_name: string;
+  body: string;
+  created_at: string;
+  status?: string;
+};
+
 export type SupportRequestDetail = {
   found: boolean;
   can_manage?: boolean;
@@ -79,21 +105,43 @@ export type SupportRequestDetail = {
   timeline?: SupportRequestAuditEntry[];
   audit_history?: SupportRequestAuditEntry[];
   related_activity?: SupportRequestAuditEntry[];
+  /** Customer-visible portal messages only (when Core returns them). */
+  messages?: SupportRequestMessage[];
   comments_placeholder?: boolean;
   internal_notes_placeholder?: boolean;
   attachments_placeholder?: boolean;
+};
+
+export type SupportProductOption = {
+  id: string;
+  label: string;
 };
 
 export type SupportRequestsLabels = {
   title: string;
   subtitle: string;
   loading: string;
-  principle: string;
   emptyTitle: string;
   emptyBody: string;
+  emptyAction: string;
   createRequest: string;
   back: string;
+  backToInbox: string;
   notFound: string;
+  reference: string;
+  lastActivity: string;
+  aipifySender: string;
+  systemSender: string;
+  customerSender: string;
+  openingMessage: string;
+  statusChanged: string;
+  unreadUnavailableNote: string;
+  views: {
+    all: string;
+    open: string;
+    waiting: string;
+    closed: string;
+  };
   filters: {
     title: string;
     category: string;
@@ -112,43 +160,55 @@ export type SupportRequestsLabels = {
     category: string;
     assignee: string;
     module: string;
+    product: string;
   };
   detail: {
+    conversation: string;
     description: string;
-    statusHistory: string;
-    timeline: string;
-    auditHistory: string;
-    relatedActivity: string;
-    comments: string;
-    commentsPlaceholder: string;
-    internalNotes: string;
-    internalNotesPlaceholder: string;
+    sendReply: string;
+    replyPlaceholder: string;
+    replySending: string;
+    replySent: string;
+    replyError: string;
+    replyHint: string;
+    closeCase: string;
+    reopenCase: string;
     attachments: string;
-    attachmentsPlaceholder: string;
-    save: string;
-    saved: string;
+    noAttachments: string;
+    metaCreated: string;
+    metaUpdated: string;
+    metaProduct: string;
+    metaAssignee: string;
+    unassigned: string;
   };
   categories: Record<SupportRequestCategory, string>;
   priorities: Record<SupportRequestPriority, string>;
+  priorityHints: Record<SupportRequestPriority, string>;
   statuses: Record<SupportRequestStatus, string>;
   form: {
     title: string;
+    subtitle: string;
+    titleLabel: string;
     titlePlaceholder: string;
-    description: string;
+    descriptionLabel: string;
+    descriptionPlaceholder: string;
     category: string;
     priority: string;
-    module: string;
+    product: string;
+    productNone: string;
+    productUnavailable: string;
+    senderTitle: string;
+    senderWorkspace: string;
+    senderCompany: string;
+    senderCustomerNumber: string;
+    required: string;
     submit: string;
     cancel: string;
     submitError: string;
-  };
-  faq: {
-    title: string;
-    howContact: string;
-    howContactAnswer: string;
-    canTrack: string;
-    canTrackAnswer: string;
-    whoCanSee: string;
-    whoCanSeeAnswer: string;
+    successTitle: string;
+    successBody: string;
+    openCase: string;
+    validationTitle: string;
+    validationDescription: string;
   };
 };

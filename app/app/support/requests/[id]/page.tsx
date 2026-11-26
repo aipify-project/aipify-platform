@@ -1,4 +1,5 @@
 import { SupportRequestDetailPanel } from "@/components/app/app-portal/SupportRequestDetailPanel";
+import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { buildSupportHistoryLabels } from "@/lib/app-portal/support-history";
 import { buildSupportRequestsLabels } from "@/lib/app-portal/support-requests";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
@@ -13,11 +14,12 @@ export default async function SupportRequestDetailPage({ params }: Props) {
   const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
   const t = createTranslator(dict);
   return (
-    <div className="p-6">
+    <div className={`${AppLayoutClasses.pagePaddingX} pb-10 pt-6`}>
       <SupportRequestDetailPanel
         requestId={id}
         labels={buildSupportRequestsLabels(t)}
         historyLabels={buildSupportHistoryLabels(t)}
+        locale={locale}
       />
     </div>
   );
