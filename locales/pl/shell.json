@@ -2,13 +2,15 @@
   "sidebar": {
     "plan": "Business Plan",
     "workspaceControlCenter": "Workspace Control Center",
-    "customerProfile": "Relacja z klientem"
+    "customerProfile": "Relacja z klientem",
+    "customerSupport": "Obsługa klienta"
   },
   "topbar": {
     "notifications": "Notifications",
     "companySelector": "Select company",
     "profileFallback": "User",
-    "companyFallback": "Company"
+    "companyFallback": "Company",
+    "contactSupport": "Kontakt z pomocą"
   },
   "search": "Search modules, settings and actions...",
   "navSearch": {
@@ -18,7 +20,7 @@
     "noResults": "No matching modules"
   },
   "roles": {
-    "owner": "Owner",
+    "owner": "Właściciel",
     "admin": "Admin",
     "support": "Support",
     "staff": "Staff",

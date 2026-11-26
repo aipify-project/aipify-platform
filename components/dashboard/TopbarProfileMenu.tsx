@@ -36,6 +36,7 @@ export default function TopbarProfileMenu({
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const [workspaceName, setWorkspaceName] = useState<string | null>(null);
+  const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
   const profileInitial = profileName.charAt(0).toUpperCase() || "?";
 
   useEffect(() => {
@@ -49,6 +50,23 @@ export default function TopbarProfileMenu({
         setWorkspaceName(data.current?.name ?? data.organizations?.[0]?.name ?? null);
       })
       .catch(() => undefined);
+  }, []);
+
+  useEffect(() => {
+    let objectUrl: string | null = null;
+    let cancelled = false;
+    void fetch("/api/app/account-profile/avatar")
+      .then(async (res) => {
+        if (!res.ok || cancelled) return;
+        const blob = await res.blob();
+        objectUrl = URL.createObjectURL(blob);
+        if (!cancelled) setAvatarSrc(objectUrl);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
   }, []);
 
   const display = resolveProfileHeaderDisplay(
@@ -108,9 +126,12 @@ export default function TopbarProfileMenu({
         aria-haspopup="menu"
         aria-controls={menuId}
       >
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-sm font-bold text-white ring-2 ring-violet-100 sm:h-9 sm:w-9">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-sm font-bold text-white ring-2 ring-violet-100 sm:h-9 sm:w-9">
           {profileLoading ? (
             <span className="h-3 w-3 animate-pulse rounded-full bg-white/70" />
+          ) : avatarSrc ? (
+            // eslint-disable-next-line @next/next/no-img-element -- blob URL from private avatar API
+            <img src={avatarSrc} alt="" className="h-full w-full object-cover" />
           ) : (
             profileInitial
           )}

@@ -2,13 +2,15 @@
   "sidebar": {
     "plan": "Business Plan",
     "workspaceControlCenter": "Workspace Control Center",
-    "customerProfile": "Відносини з клієнтом"
+    "customerProfile": "Відносини з клієнтом",
+    "customerSupport": "Служба підтримки"
   },
   "topbar": {
     "notifications": "Notifications",
     "companySelector": "Select company",
     "profileFallback": "User",
-    "companyFallback": "Company"
+    "companyFallback": "Company",
+    "contactSupport": "Звʼязатися з підтримкою"
   },
   "search": "Search modules, settings and actions...",
   "navSearch": {
@@ -18,7 +20,7 @@
     "noResults": "No matching modules"
   },
   "roles": {
-    "owner": "Owner",
+    "owner": "Власник",
     "admin": "Admin",
     "support": "Support",
     "staff": "Staff",

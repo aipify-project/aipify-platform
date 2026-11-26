@@ -150,6 +150,16 @@ type DashboardShellProps = {
     href: string;
     label: string;
   };
+  /** Customer service — directly under Kundeforhold in the sidebar footer. */
+  customerSupportLink?: {
+    href: string;
+    label: string;
+  };
+  /** Header Contact Support shortcut (all customer pages). */
+  supportContactLink?: {
+    href: string;
+    label: string;
+  };
   onMenuClick?: () => void;
   children: React.ReactNode;
 };
@@ -190,6 +200,8 @@ export default function DashboardShell({
   notificationCenterLabels,
   pwaLabels,
   customerProfileLink,
+  customerSupportLink,
+  supportContactLink,
   children,
 }: DashboardShellProps) {
   if (commandBar) {
@@ -232,6 +244,8 @@ export default function DashboardShell({
           }
           pwaLabels={pwaLabels}
           customerProfileLink={customerProfileLink}
+          customerSupportLink={customerSupportLink}
+          supportContactLink={supportContactLink}
           shellUiLabels={shellUiLabels}
           organizationSwitcherLabels={organizationSwitcherLabels}
           productContext={productContext}
@@ -276,6 +290,8 @@ export default function DashboardShell({
       languageSelectorLabels={languageSelectorLabels}
       pwaLabels={pwaLabels}
       customerProfileLink={customerProfileLink}
+      customerSupportLink={customerSupportLink}
+      supportContactLink={supportContactLink}
       shellUiLabels={shellUiLabels}
       organizationSwitcherLabels={organizationSwitcherLabels}
       productContext={productContext}
@@ -324,6 +340,8 @@ function DashboardShellFrame({
   notificationCenterLabels,
   pwaLabels,
   customerProfileLink,
+  customerSupportLink,
+  supportContactLink,
   commandBarLabels,
   children,
 }: DashboardShellFrameProps) {
@@ -334,6 +352,13 @@ function DashboardShellFrame({
     (pathname === customerProfileHref ||
       pathname.startsWith(`${customerProfileHref}/`) ||
       pathname.startsWith("/app/account/profile"));
+  const customerSupportHref = customerSupportLink?.href ?? "";
+  const customerSupportActive =
+    customerSupportHref.length > 0 &&
+    (pathname === customerSupportHref ||
+      pathname.startsWith(`${customerSupportHref}/`) ||
+      pathname.startsWith("/app/support/requests") ||
+      pathname.startsWith("/app/support/contact"));
   const activeNav = useMemo(() => {
     if (shellVariant === "platform") {
       return getPlatformActiveNavId(pathname);
@@ -500,6 +525,13 @@ function DashboardShellFrame({
                 active={customerProfileActive}
               />
             ) : null}
+            {customerSupportLink ? (
+              <CustomerSupportMenuLink
+                href={customerSupportLink.href}
+                label={customerSupportLink.label}
+                active={customerSupportActive}
+              />
+            ) : null}
             <LicenseSidebarPanel labels={licensePanelLabels} />
             <PoweredByAipifyFooter
               label={
@@ -612,6 +644,14 @@ function DashboardShellFrame({
                     onNavigate={() => setSidebarOpen(false)}
                   />
                 ) : null}
+                {customerSupportLink ? (
+                  <CustomerSupportMenuLink
+                    href={customerSupportLink.href}
+                    label={customerSupportLink.label}
+                    active={customerSupportActive}
+                    onNavigate={() => setSidebarOpen(false)}
+                  />
+                ) : null}
                 <LicenseSidebarPanel labels={licensePanelLabels} />
                 <PoweredByAipifyFooter
                   label={
@@ -677,6 +717,14 @@ function DashboardShellFrame({
             shellVariant === "customer" ? languageSelectorLabels : undefined
           }
           pwaLabels={shellVariant === "customer" ? pwaLabels : undefined}
+          supportContactButton={
+            shellVariant === "customer" && supportContactLink ? (
+              <TopbarContactSupportLink
+                href={supportContactLink.href}
+                label={supportContactLink.label}
+              />
+            ) : undefined
+          }
           feedbackButton={
             shellVariant === "customer" && voiceOfCustomerLabels ? (
               <TopbarShareFeedbackButton labels={voiceOfCustomerLabels} />
@@ -782,6 +830,68 @@ function CustomerProfileMenuLink({
         </svg>
       </span>
       <span className="min-w-0 flex-1">{label}</span>
+    </Link>
+  );
+}
+
+function CustomerSupportMenuLink({
+  href,
+  label,
+  active,
+  onNavigate,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+  onNavigate?: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      aria-current={active ? "page" : undefined}
+      className={`${AipifySidebarTypography.navItemRow} mb-3 ${
+        active
+          ? `${AppVisualClasses.navItemActive} text-[15px] font-semibold leading-snug`
+          : `${AppVisualClasses.navItem} ${AipifySidebarTypography.navigationItem}`
+      } ${AppVisualClasses.focusRing}`}
+    >
+      <span className={AipifySidebarTypography.navIcon} aria-hidden>
+        <svg className="h-[21px] w-[21px]" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+          />
+        </svg>
+      </span>
+      <span className="min-w-0 flex-1">{label}</span>
+    </Link>
+  );
+}
+
+function TopbarContactSupportLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-aipify-border bg-aipify-surface px-2.5 py-2 text-sm font-medium text-aipify-text transition hover:border-aipify-accent-muted hover:bg-aipify-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus sm:px-3"
+      aria-label={label}
+    >
+      <svg
+        className="h-4 w-4 shrink-0 text-aipify-text-secondary"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        aria-hidden
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.183-.36c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+        />
+      </svg>
+      <span className="hidden sm:inline">{label}</span>
     </Link>
   );
 }

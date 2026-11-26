@@ -1877,7 +1877,8 @@
         "priority": "Priority",
         "module": "Related module (optional)",
         "submit": "Submit request",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "submitError": "Henvendelsen kunne ikke gemmes. Beskrivelsen er beholdt — prøv igen."
       },
       "faq": {
         "title": "Support Request Center FAQ",
@@ -8719,7 +8720,7 @@
       "address": "Adresse",
       "role": "Rolle",
       "notRegistered": "Ikke registreret",
-      "readOnlyReason": "Oplysningerne kommer fra den indloggede konto. Denne side gemmer ikke noget.",
+      "readOnlyReason": "E-mail er låst her. Navn, telefon og foto kan opdateres for din konto.",
       "avatarFallback": "Initialer vises, når profilbillede mangler.",
       "companyTitle": "Firma",
       "companyName": "Virksomhedsnavn",
@@ -8767,7 +8768,16 @@
       "referenceHidden": "En intern reference findes og vises ikke her.",
       "statusUnknown": "Status ikke tilgængelig",
       "openLicense": "Licenscenter",
-      "openPrivacy": "Privatlivsindstillinger"
+      "openPrivacy": "Privatlivsindstillinger",
+      "save": "Gem",
+      "saveSuccess": "Ændringerne er gemt.",
+      "saveError": "Kunne ikke gemme. Prøv igen.",
+      "avatarUpload": "Upload foto",
+      "avatarRemove": "Fjern foto",
+      "avatarUploadError": "Kunne ikke uploade fotoet. Brug PNG, JPEG eller WebP under 512 KB.",
+      "avatarRemoveError": "Kunne ikke fjerne fotoet. Prøv igen.",
+      "emailLockedReason": "E-mailændringer følger den verificerede login-flow.",
+      "addCompanyDetails": "Tilføj firmadetaljer"
     }
   }
 }

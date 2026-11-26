@@ -753,7 +753,8 @@
         "priority": "Priority",
         "module": "Related module (optional)",
         "submit": "Submit request",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "submitError": "The request could not be saved. Your description is still here — please try again."
       },
       "faq": {
         "title": "Support Request Center FAQ",
@@ -8643,7 +8644,7 @@
       "address": "Address",
       "role": "Role",
       "notRegistered": "Not registered",
-      "readOnlyReason": "These details come from the signed-in account. There is no save action on this page.",
+      "readOnlyReason": "Email stays locked here. Name, phone and photo can be updated for your account.",
       "avatarFallback": "Initials are shown when no profile photo is available.",
       "companyTitle": "Company",
       "companyName": "Company name",
@@ -8691,7 +8692,16 @@
       "referenceHidden": "An internal reference exists and is not shown here.",
       "statusUnknown": "Status unavailable",
       "openLicense": "License center",
-      "openPrivacy": "Privacy settings"
+      "openPrivacy": "Privacy settings",
+      "save": "Save",
+      "saveSuccess": "Changes saved.",
+      "saveError": "Could not save. Please try again.",
+      "avatarUpload": "Upload photo",
+      "avatarRemove": "Remove photo",
+      "avatarUploadError": "Could not upload the photo. Use PNG, JPEG or WebP under 512 KB.",
+      "avatarRemoveError": "Could not remove the photo. Please try again.",
+      "emailLockedReason": "Email changes follow the verified sign-in flow.",
+      "addCompanyDetails": "Add company details"
     }
   }
 }

@@ -1877,7 +1877,8 @@
         "priority": "Priority",
         "module": "Related module (optional)",
         "submit": "Submit request",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "submitError": "Ärenden kunde inte sparas. Beskrivningen finns kvar — försök igen."
       },
       "faq": {
         "title": "Support Request Center FAQ",
@@ -8719,7 +8720,7 @@
       "address": "Adress",
       "role": "Roll",
       "notRegistered": "Inte registrerad",
-      "readOnlyReason": "Uppgifterna kommer från det inloggade kontot. Den här sidan sparar ingenting.",
+      "readOnlyReason": "E-post är låst här. Namn, telefon och foto kan uppdateras för ditt konto.",
       "avatarFallback": "Initialer visas när profilbild saknas.",
       "companyTitle": "Företag",
       "companyName": "Företagsnamn",
@@ -8767,7 +8768,16 @@
       "referenceHidden": "En intern referens finns och visas inte här.",
       "statusUnknown": "Status inte tillgänglig",
       "openLicense": "Licenscenter",
-      "openPrivacy": "Integritetsinställningar"
+      "openPrivacy": "Integritetsinställningar",
+      "save": "Spara",
+      "saveSuccess": "Ändringarna sparades.",
+      "saveError": "Kunde inte spara. Försök igen.",
+      "avatarUpload": "Ladda upp foto",
+      "avatarRemove": "Ta bort foto",
+      "avatarUploadError": "Kunde inte ladda upp fotot. Använd PNG, JPEG eller WebP under 512 KB.",
+      "avatarRemoveError": "Kunde inte ta bort fotot. Försök igen.",
+      "emailLockedReason": "E-poständringar följer den verifierade inloggningsflödet.",
+      "addCompanyDetails": "Lägg till företagsuppgifter"
     }
   }
 }

@@ -39,6 +39,8 @@ type TopbarProps = {
   pwaLabels?: PwaInstallLabels;
   companionButton?: ReactNode;
   feedbackButton?: ReactNode;
+  /** Customer APP: Contact Support shortcut — separate from Share feedback. */
+  supportContactButton?: ReactNode;
 };
 
 export default function Topbar({
@@ -65,6 +67,7 @@ export default function Topbar({
   pwaLabels,
   companionButton,
   feedbackButton,
+  supportContactButton,
 }: TopbarProps) {
   return (
     <header className={`sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-8 ${AipifyShellClasses.topbar}`}>
@@ -148,6 +151,7 @@ export default function Topbar({
       </div>
 
       <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        {supportContactButton}
         {feedbackButton}
 
         {organizationSwitcher ?? (

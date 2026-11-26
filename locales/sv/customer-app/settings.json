@@ -1172,7 +1172,7 @@
   "commercialPackages": {
     "billing": {
       "title": "Abonnemang och produkter",
-      "subtitle": "Se aktivt abonnemang, produkter, licens, kapacitet och tilläggsmoduler — utan betalningsleverantörskassa.",
+      "subtitle": "Se aktivt abonnemang, produkter, licens, kapacitet och tilläggsmoduler.",
       "loading": "Förbereder innehåll",
       "back": "Tillbaka till inställningar",
       "viewLicense": "Licenscenter",
@@ -1279,7 +1279,7 @@
       "seeWeb": "Öppna Kompis Web",
       "plannedPlansTitle": "Kompis Web-planer",
       "seeBedrift": "Se Kompis Bedrift",
-      "noRenewal": "Ingen förnyelse är planerad",
+      "noRenewal": "Livstidsavtal – ingen periodisk förnyelse",
       "detailsUnavailable": "Uppgifterna är inte tillgängliga ännu",
       "contactForAccess": "Kontakta Aipify för åtkomst",
       "noChange": "Produkterna och åtkomsten som gäller för din arbetsyta.",
@@ -1326,7 +1326,8 @@
       "tabAddons": "Tilläggsmoduler",
       "tabCapacity": "Kapacitet och användning",
       "tabLicense": "Licenscenter",
-      "tabInvoices": "Fakturor"
+      "tabInvoices": "Fakturor",
+      "productsUnavailable": "Produktåtkomst är tillfälligt otillgänglig. Det är inte detsamma som noll produkter."
     },
     "pricingPhilosophy": {
       "title": "Prissättningsfilosofi",

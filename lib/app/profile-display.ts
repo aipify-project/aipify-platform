@@ -29,6 +29,9 @@ export function resolveProfileHeaderDisplay(
       ? workspaceName.trim()
       : null;
 
+  // Role is shown once via RoleBadge — never repeat the localized role in secondary text.
+  void roleLabel;
+
   if (isGenericProfileName(profileName, companyName)) {
     return {
       primary: workspace ?? companyName,
@@ -39,7 +42,7 @@ export function resolveProfileHeaderDisplay(
 
   return {
     primary: profileName,
-    secondary: workspace ? `${roleLabel} · ${workspace}` : roleLabel,
+    secondary: workspace,
     roleKey,
   };
 }

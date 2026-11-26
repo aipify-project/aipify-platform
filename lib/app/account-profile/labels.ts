@@ -23,7 +23,16 @@ export type AccountProfileLabels = {
   notRegistered: string;
   unavailable: string;
   readOnlyReason: string;
+  emailLockedReason: string;
+  save: string;
+  saveSuccess: string;
+  saveError: string;
+  avatarUpload: string;
+  avatarRemove: string;
+  avatarUploadError: string;
+  avatarRemoveError: string;
   avatarFallback: string;
+  addCompanyDetails: string;
   companyTitle: string;
   companyName: string;
   companyWebsite: string;
@@ -75,7 +84,16 @@ export function buildAccountProfileLabels(t: Translator): AccountProfileLabels {
     notRegistered: t(`${NS}.notRegistered`),
     unavailable: t(`${NS}.unavailable`),
     readOnlyReason: t(`${NS}.readOnlyReason`),
+    emailLockedReason: t(`${NS}.emailLockedReason`),
+    save: t(`${NS}.save`),
+    saveSuccess: t(`${NS}.saveSuccess`),
+    saveError: t(`${NS}.saveError`),
+    avatarUpload: t(`${NS}.avatarUpload`),
+    avatarRemove: t(`${NS}.avatarRemove`),
+    avatarUploadError: t(`${NS}.avatarUploadError`),
+    avatarRemoveError: t(`${NS}.avatarRemoveError`),
     avatarFallback: t(`${NS}.avatarFallback`),
+    addCompanyDetails: t(`${NS}.addCompanyDetails`),
     companyTitle: t(`${NS}.companyTitle`),
     companyName: t(`${NS}.companyName`),
     companyWebsite: t(`${NS}.companyWebsite`),

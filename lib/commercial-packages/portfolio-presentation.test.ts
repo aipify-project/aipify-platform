@@ -6,6 +6,7 @@ import {
   assignedWebPlan,
   bedriftProductTone,
   isLegacyCommercialPackage,
+  productAccessReadsUnavailable,
   renewalPresentation,
   subscriptionShowsDistinctLicense,
   webProductTone,
@@ -28,6 +29,15 @@ assert.equal(
 assert.equal(
   renewalPresentation({
     statusKey: "active",
+    licenseStatus: "active",
+    renewalDate: null,
+    planName: "UnoNight Lifetime",
+  }),
+  "lifetime",
+);
+assert.equal(
+  renewalPresentation({
+    statusKey: "active",
     licenseStatus: null,
     renewalDate: "2026-11-01",
   }),
@@ -46,6 +56,15 @@ assert.equal(
     planName: "Aipify Starter",
     licenseStatus: "active",
   }),
+  false,
+);
+
+assert.equal(
+  productAccessReadsUnavailable({ webKind: "unavailable", webPlan: null, bedrift: "unknown" }),
+  true,
+);
+assert.equal(
+  productAccessReadsUnavailable({ webKind: "known_plan", webPlan: "pro", bedrift: "licensed" }),
   false,
 );
 

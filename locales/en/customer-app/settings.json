@@ -719,7 +719,7 @@
   "commercialPackages": {
     "billing": {
       "title": "Subscription and products",
-      "subtitle": "See your active subscription, products, licenses, capacity, and add-on modules — without payment-provider checkout.",
+      "subtitle": "See your active subscription, products, licenses, capacity, and add-on modules.",
       "loading": "Preparing content",
       "back": "Back to settings",
       "viewLicense": "License center",
@@ -826,7 +826,7 @@
       "seeWeb": "Open Kompis Web",
       "plannedPlansTitle": "Kompis Web plans",
       "seeBedrift": "View Kompis Bedrift",
-      "noRenewal": "No renewal is scheduled",
+      "noRenewal": "Lifetime agreement — no periodic renewal",
       "detailsUnavailable": "The details are not available yet",
       "contactForAccess": "Contact Aipify for access",
       "noChange": "The products and access that apply to your workspace.",
@@ -873,7 +873,8 @@
       "tabAddons": "Add-on modules",
       "tabCapacity": "Capacity and usage",
       "tabLicense": "License center",
-      "tabInvoices": "Invoices"
+      "tabInvoices": "Invoices",
+      "productsUnavailable": "Product access details are temporarily unavailable. This is not the same as having zero products."
     },
     "pricingPhilosophy": {
       "title": "Pricing philosophy",

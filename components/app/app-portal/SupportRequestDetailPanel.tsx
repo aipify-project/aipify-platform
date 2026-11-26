@@ -35,6 +35,10 @@ export function SupportRequestDetailPanel({ requestId, labels, historyLabels }: 
   const [reopenReason, setReopenReason] = useState("");
   const [reopenBusy, setReopenBusy] = useState(false);
   const [reopenSuccess, setReopenSuccess] = useState(false);
+  const [replyBody, setReplyBody] = useState("");
+  const [replyBusy, setReplyBusy] = useState(false);
+  const [replyError, setReplyError] = useState<string | null>(null);
+  const [replyOk, setReplyOk] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -61,6 +65,30 @@ export function SupportRequestDetailPanel({ requestId, labels, historyLabels }: 
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
     void load();
+  }
+
+  async function postReply() {
+    if (!replyBody.trim() || replyBusy) return;
+    setReplyBusy(true);
+    setReplyError(null);
+    const res = await fetch(`/api/aipify/support-requests/${requestId}/reply`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        body: replyBody.trim(),
+        idempotency_key: `${requestId}:${Date.now()}`,
+      }),
+    });
+    setReplyBusy(false);
+    if (res.ok) {
+      setReplyOk(true);
+      setReplyBody("");
+      void load();
+      setTimeout(() => setReplyOk(false), 3000);
+      return;
+    }
+    const payload = (await res.json().catch(() => ({}))) as { message?: string; error?: string };
+    setReplyError(payload.message ?? payload.error ?? labels.detail.commentsPlaceholder);
   }
 
   async function reopenCase() {
@@ -195,9 +223,29 @@ export function SupportRequestDetailPanel({ requestId, labels, historyLabels }: 
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-dashed border-slate-300 bg-slate-50/50 p-5">
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm space-y-3">
         <h2 className="font-semibold text-slate-700">{labels.detail.comments}</h2>
-        <p className="mt-2 text-sm text-slate-500">{labels.detail.commentsPlaceholder}</p>
+        <p className="text-sm text-slate-500">{labels.detail.commentsPlaceholder}</p>
+        <textarea
+          value={replyBody}
+          onChange={(e) => setReplyBody(e.target.value)}
+          rows={4}
+          maxLength={5000}
+          className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
+          placeholder={labels.detail.comments}
+        />
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            disabled={replyBusy || !replyBody.trim()}
+            onClick={() => void postReply()}
+            className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-50"
+          >
+            {labels.detail.save}
+          </button>
+          {replyOk ? <p className="text-sm text-emerald-700">{labels.detail.saved}</p> : null}
+          {replyError ? <p className="text-sm text-rose-700">{replyError}</p> : null}
+        </div>
       </section>
 
       {detail.can_manage ? (

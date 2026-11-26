@@ -630,7 +630,8 @@
         "priority": "Priority",
         "module": "Related module (optional)",
         "submit": "Submit request",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "submitError": "Не вдалося зберегти звернення. Опис збережено — спробуйте ще раз."
       },
       "faq": {
         "title": "Support Request Center FAQ",
@@ -7656,7 +7657,7 @@
       "address": "Адреса",
       "role": "Роль",
       "notRegistered": "Не зареєстровано",
-      "readOnlyReason": "Ці дані взято з облікового запису, у який ви ввійшли. Ця сторінка нічого не зберігає.",
+      "readOnlyReason": "Електронну пошту тут заблоковано. Імʼя, телефон і фото можна оновити в обліковому записі.",
       "avatarFallback": "Ініціали показуються, якщо немає фото профілю.",
       "companyTitle": "Компанія",
       "companyName": "Назва компанії",
@@ -7704,7 +7705,16 @@
       "referenceHidden": "Внутрішнє посилання існує і тут не показується.",
       "statusUnknown": "Статус недоступний",
       "openLicense": "Центр ліцензій",
-      "openPrivacy": "Налаштування конфіденційності"
+      "openPrivacy": "Налаштування конфіденційності",
+      "save": "Зберегти",
+      "saveSuccess": "Зміни збережено.",
+      "saveError": "Не вдалося зберегти. Спробуйте ще раз.",
+      "avatarUpload": "Завантажити фото",
+      "avatarRemove": "Видалити фото",
+      "avatarUploadError": "Не вдалося завантажити фото. Використовуйте PNG, JPEG або WebP до 512 КБ.",
+      "avatarRemoveError": "Не вдалося видалити фото. Спробуйте ще раз.",
+      "emailLockedReason": "Зміна електронної пошти відбувається через перевірений вхід.",
+      "addCompanyDetails": "Додати дані компанії"
     }
   }
 }

@@ -135,12 +135,12 @@ export function buildAccountProfileView(input: {
 /** Explicit UI → data source mapping for QA and owner review. */
 export function accountProfileDataMapping(): AccountProfileDataMappingRow[] {
   return [
-    { uiField: "fullName", source: "users.full_name", editable: false },
+    { uiField: "fullName", source: "users.full_name", editable: true },
     { uiField: "email", source: "auth.users.email", editable: false },
-    { uiField: "phone", source: "auth.users.phone", editable: false },
+    { uiField: "phone", source: "auth.users.phone", editable: true },
     { uiField: "address", source: "unavailable", editable: false },
     { uiField: "role", source: "users.role", editable: false },
-    { uiField: "avatar", source: "auth.user_metadata.avatar_url", editable: false },
+    { uiField: "avatar", source: "auth.user_metadata.avatar_url", editable: true },
     {
       uiField: "workspaceName",
       source: "get_app_organization_context.workspace_name",

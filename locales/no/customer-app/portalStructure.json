@@ -1878,7 +1878,8 @@
         "priority": "Priority",
         "module": "Related module (optional)",
         "submit": "Submit request",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "submitError": "Henvendelsen kunne ikke lagres. Beskrivelsen er beholdt — prøv igjen."
       },
       "faq": {
         "title": "Support Request Center FAQ",
@@ -8720,7 +8721,7 @@
       "address": "Adresse",
       "role": "Rolle",
       "notRegistered": "Ikke registrert",
-      "readOnlyReason": "Opplysningene kommer fra den innloggede kontoen. Denne siden har ingen lagring.",
+      "readOnlyReason": "E-post er låst her. Navn, telefon og bilde kan oppdateres for kontoen din.",
       "avatarFallback": "Initialer vises når profilbilde mangler.",
       "companyTitle": "Firma",
       "companyName": "Firmanavn",
@@ -8768,7 +8769,16 @@
       "referenceHidden": "En intern referanse finnes og vises ikke her.",
       "statusUnknown": "Status ikke tilgjengelig",
       "openLicense": "Lisenssenter",
-      "openPrivacy": "Personverninnstillinger"
+      "openPrivacy": "Personverninnstillinger",
+      "save": "Lagre",
+      "saveSuccess": "Endringene er lagret.",
+      "saveError": "Kunne ikke lagre. Prøv igjen.",
+      "avatarUpload": "Last opp bilde",
+      "avatarRemove": "Fjern bilde",
+      "avatarUploadError": "Kunne ikke laste opp bildet. Bruk PNG, JPEG eller WebP under 512 KB.",
+      "avatarRemoveError": "Kunne ikke fjerne bildet. Prøv igjen.",
+      "emailLockedReason": "E-postendring følger den verifiserte innloggingsflyten.",
+      "addCompanyDetails": "Legg til firmaopplysninger"
     }
   }
 }

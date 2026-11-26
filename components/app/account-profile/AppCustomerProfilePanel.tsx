@@ -8,7 +8,6 @@ import {
   LockKeyhole,
   PauseCircle,
   ShieldCheck,
-  UserRound,
 } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -21,6 +20,7 @@ import type {
   AccountProfileView,
 } from "@/lib/app/account-profile/types";
 import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
+import { AccountPersonalEditor } from "./AccountPersonalEditor";
 
 function fieldText(field: AccountProfileField, labels: AccountProfileLabels): string {
   if (field.value) return field.value;
@@ -205,21 +205,7 @@ export function AppCustomerProfilePanel({
       </div>
 
       <div role="tabpanel" id={`account-panel-${activeTab}`} aria-labelledby={`account-tab-${activeTab}`} className="space-y-4">
-        {activeTab === "personal" ? (
-          <section className="space-y-3">
-            <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--app-text)]">
-              <UserRound aria-hidden className="h-4 w-4 text-[var(--app-primary)]" />
-              {labels.personalTitle}
-            </h2>
-            <p className="max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.readOnlyReason}</p>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <LockedField label={labels.fullName} value={name} reason={labels.readOnlyReason} />
-              <LockedField label={labels.email} value={fieldText(view.email, labels)} reason={labels.readOnlyReason} />
-              <LockedField label={labels.phone} value={fieldText(view.phone, labels)} reason={labels.readOnlyReason} />
-              <LockedField label={labels.address} value={fieldText(view.address, labels)} reason={labels.readOnlyReason} />
-            </div>
-          </section>
-        ) : null}
+        {activeTab === "personal" ? <AccountPersonalEditor view={view} labels={labels} /> : null}
 
         {activeTab === "company" ? (
           <section className="space-y-3">
@@ -240,9 +226,17 @@ export function AppCustomerProfilePanel({
               <div className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5">
                 <p className="text-sm font-semibold text-[var(--app-text)]">{labels.companyEmpty}</p>
                 <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.companyEmptyBody}</p>
+                {view.links.companySettings ? (
+                  <Link
+                    href={view.links.companySettings}
+                    className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[var(--app-primary)] px-4 text-sm font-semibold text-white"
+                  >
+                    {labels.addCompanyDetails}
+                  </Link>
+                ) : null}
               </div>
             )}
-            {view.links.companySettings ? (
+            {view.hasCompanyDetails && view.links.companySettings ? (
               <Link
                 href={view.links.companySettings}
                 className="inline-flex min-h-11 items-center text-sm font-medium text-[var(--app-primary)] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
@@ -307,23 +301,6 @@ export function AppCustomerProfilePanel({
                   {link.label}
                 </Link>
               ))}
-            </div>
-            <div
-              className="space-y-3 rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5"
-              aria-labelledby="app-account-screen-lock-title"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <h3 id="app-account-screen-lock-title" className="flex items-center gap-2 text-sm font-semibold text-[var(--app-text)]">
-                  <LockKeyhole aria-hidden className="h-4 w-4 text-[var(--app-primary)]" />
-                  {labels.screenLockTitle}
-                </h3>
-                <StatusPill
-                  label={labels.screenLockStatus}
-                  icon={<LockKeyhole aria-hidden className="h-3.5 w-3.5" />}
-                  tone="attention"
-                />
-              </div>
-              <p className="max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.screenLockBody}</p>
             </div>
           </section>
         ) : null}

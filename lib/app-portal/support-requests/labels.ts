@@ -81,6 +81,7 @@ export function buildSupportRequestsLabels(t: Translator): SupportRequestsLabels
       module: t(`${p}.form.module`),
       submit: t(`${p}.form.submit`),
       cancel: t(`${p}.form.cancel`),
+      submitError: t(`${p}.form.submitError`),
     },
     faq: {
       title: t(`${p}.faq.title`),

@@ -1172,7 +1172,7 @@
   "commercialPackages": {
     "billing": {
       "title": "Abonnement og produkter",
-      "subtitle": "Se aktivt abonnement, produkter, licens, kapacitet og tillægsmoduler — uden betalingsudbyder-kasse.",
+      "subtitle": "Se aktivt abonnement, produkter, licens, kapacitet og tillægsmoduler.",
       "loading": "Forbereder indhold",
       "back": "Tilbage til indstillinger",
       "viewLicense": "Licenscenter",
@@ -1279,7 +1279,7 @@
       "seeWeb": "Åbn Kompis Web",
       "plannedPlansTitle": "Kompis Web-planer",
       "seeBedrift": "Se Kompis Bedrift",
-      "noRenewal": "Ingen planlagt fornyelse",
+      "noRenewal": "Livstidsaftale – ingen periodisk fornyelse",
       "detailsUnavailable": "Oplysningerne er ikke tilgængelige endnu",
       "contactForAccess": "Kontakt Aipify for adgang",
       "noChange": "Produkterne og adgangen, der gælder for dit arbejdsområde.",
@@ -1326,7 +1326,8 @@
       "tabAddons": "Tillægsmoduler",
       "tabCapacity": "Kapacitet og brug",
       "tabLicense": "Licenscenter",
-      "tabInvoices": "Fakturaer"
+      "tabInvoices": "Fakturaer",
+      "productsUnavailable": "Produkttilgang er midlertidigt utilgængelig. Det er ikke det samme som nul produkter."
     },
     "pricingPhilosophy": {
       "title": "Prissætningsfilosofi",
