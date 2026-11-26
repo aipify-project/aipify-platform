@@ -893,12 +893,18 @@
       }
     },
     "softwareShowcase": {
-      "heroTitle": "AI that works with you.",
-      "heroBody": "Find the right Kompis for your customers, your team, and your knowledge.",
+      "heroTitle": "Products for your workspace",
+      "heroBody": "Aipify helps your business choose the right products — with honest status and no invented purchase buttons.",
       "webLead": "Give visitors a clear answer when they need it.",
       "webSupport": "Kompis uses approved FAQ and website knowledge so information is easier to find, on the website itself.",
       "bedriftLead": "Make your organisation’s knowledge easier to use.",
-      "bedriftSupport": "Bring relevant internal knowledge together and give people a clearer path to an answer, with access by role."
+      "bedriftSupport": "Bring relevant internal knowledge together and give people a clearer path to an answer, with access by role.",
+      "emptyTitle": "No APP products are published yet",
+      "emptyBody": "When Aipify publishes products for the APP store, they appear here. Sale-only partner products stay in the seller catalog.",
+      "seeInformation": "See information",
+      "contactAipify": "Contact Aipify",
+      "notForPurchase": "Not available for purchase yet",
+      "plannedPriceNote": "Planned customer price from {price} — not a live checkout offer."
     },
     "modules": {
       "title": "Add-on modules",

@@ -1231,12 +1231,18 @@
       }
     },
     "softwareShowcase": {
-      "heroTitle": "AI, które pracuje razem z Tobą.",
-      "heroBody": "Znajdź właściwego Kompisa dla klientów, zespołu i wiedzy.",
+      "heroTitle": "Produkty dla Twojej przestrzeni",
+      "heroBody": "Aipify pomaga Twojej firmie wybrać właściwe produkty — z uczciwym statusem i bez wymyślonych przycisków zakupu.",
       "webLead": "Daj odwiedzającym dobrą odpowiedź dokładnie wtedy, gdy jej potrzebują.",
       "webSupport": "Kompis korzysta z zatwierdzonego FAQ i wiedzy o witrynie, aby informacje były łatwiejsze do znalezienia — bezpośrednio na stronie.",
       "bedriftLead": "Ułatw korzystanie z wiedzy organizacji.",
-      "bedriftSupport": "Zbierz istotną wiedzę wewnętrzną i daj pracownikom wyraźniejszą drogę do odpowiedzi, z dostępem według roli."
+      "bedriftSupport": "Zbierz istotną wiedzę wewnętrzną i daj pracownikom wyraźniejszą drogę do odpowiedzi, z dostępem według roli.",
+      "emptyTitle": "Brak opublikowanych produktów APP",
+      "emptyBody": "Gdy Aipify opublikuje produkty dla sklepu APP, pojawią się tutaj.",
+      "seeInformation": "Zobacz informacje",
+      "contactAipify": "Kontakt z Aipify",
+      "notForPurchase": "Jeszcze niedostępne do zakupu",
+      "plannedPriceNote": "Planowana cena klienta od {price} — nie jest to oferta zakupu na żywo."
     },
     "modules": {
       "title": "Moduły dodatkowe",

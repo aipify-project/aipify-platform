@@ -63,5 +63,11 @@ export function buildSoftwareShowcaseLabels(t: Translator) {
     webSupport: t(`${SHOW}.webSupport`),
     bedriftLead: t(`${SHOW}.bedriftLead`),
     bedriftSupport: t(`${SHOW}.bedriftSupport`),
+    emptyTitle: t(`${SHOW}.emptyTitle`),
+    emptyBody: t(`${SHOW}.emptyBody`),
+    seeInformation: t(`${SHOW}.seeInformation`),
+    contactAipify: t(`${SHOW}.contactAipify`),
+    notForPurchase: t(`${SHOW}.notForPurchase`),
+    plannedPriceNote: t(`${SHOW}.plannedPriceNote`),
   };
 }

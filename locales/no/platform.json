@@ -281,7 +281,7 @@
     "superRoleAccess": "Roller og tilganger",
     "sellersOverview": "Selgeroversikt",
     "sellersPartners": "Partnere",
-    "sellersProducts": "Produkter til salg",
+    "sellersProducts": "Produkter",
     "sellersCommissionRates": "Provisjonspriser",
     "sellersAttribution": "Salgslenker",
     "sellersAcademy": "Academy og tester",
@@ -7570,8 +7570,8 @@
       "subtitle": "Søk i søknader, filtrer på status, og åpne den fullstendige selgerprofilen."
     },
     "products": {
-      "title": "Produkter til salg",
-      "subtitle": "Se hva selgere kan tilby. Kundepris og selgerprovisjon holdes fra hverandre."
+      "title": "Produktregister",
+      "subtitle": "Administrer Aipify-produkter for APP-butikk og Certified Sales Partner-katalog. Kundepris og provisjon holdes atskilt."
     },
     "commissionRates": {
       "title": "Provisjonspriser",
@@ -7676,7 +7676,15 @@
       "priceNotCommission": "Den faste provisjonen er ikke kundeprisen.",
       "languageNotStored": "Godkjente oversettelser ligger ikke på produktposten ennå. Ingenting publiseres automatisk.",
       "percentUnavailable": "Prosentprovisjon kan ikke lagres. Gjeldende regel er fortsatt et fast engangsbeløp.",
-      "publishMeaning": "Publisert betyr at selgere kan bruke produktet. Det betyr ikke at en kunde kan kjøpe det."
+      "publishMeaning": "Publisert betyr at selgere kan bruke produktet. Det betyr ikke at en kunde kan kjøpe det.",
+      "productTabMedia": "Profil og medier",
+      "productTabAppPanel": "APP-panel",
+      "productTabSalePanel": "Salgs-panel",
+      "productTabPreview": "Forhåndsvisning og publisering",
+      "titlePersistenceNote": "Core lagrer i dag produktnøkkel, provisjon og salgs-publisering. Tittel kan godtas uten å lagres før dobbelkanal-SQL er godkjent.",
+      "mediaBlocked": "Mediaopplasting krever Core-lagring. Til da bruker APP og selgerkatalog godkjente merkevarer fra det felles produktregisteret.",
+      "appPanelBlocked": "APP-kanalpublisering og kjøpsklarhet krever Core-SQL. Produkter i APP-registeret vises i /app/software uten falsk Kjøp-knapp.",
+      "previewNote": "Bruk APP-butikk og partnerkatalog for kanalspesifikk forhåndsvisning. Kanalene er uavhengige."
     },
     "live": {
       "loading": "Laster selgerdata",
@@ -7815,7 +7823,19 @@
       "academyVoiceStatus": "Fremtidig produkt. Ingen salgslenker eller sertifisering er aktiv.",
       "academyVoiceTitle": "Aipify Voice",
       "academyGenericStatus": "Sertifisering for dette produktet er ikke rapportert separat.",
-      "academyNotForSellers": "Ikke publisert for selgere."
+      "academyNotForSellers": "Ikke publisert for selgere.",
+      "registerColImage": "Merke",
+      "registerColName": "Produkt",
+      "registerColSku": "SKU",
+      "registerColType": "Type",
+      "registerColAppStatus": "APP-status",
+      "registerColSaleStatus": "Salgsstatus",
+      "registerColCustomerPrice": "Kundepris",
+      "registerAppPublished": "APP publisert",
+      "registerAppUnpublished": "Ikke i APP-butikk",
+      "registerSaleNotConfigured": "Salg ikke konfigurert",
+      "registerPricePlanned": "Planlagt fra {price}",
+      "registerChannelNote": "Én produktidentitet med separate APP- og salgskanaler. Salgspublisering bruker Core. APP-listing bruker godkjent register til kanal-SQL er på plass."
     },
     "drawer": {
       "title": "Søknadsdetaljer",
@@ -7996,7 +8016,8 @@
       "settingsCurrentTitle": "Gjeldende programregler",
       "settingsApprovalTitle": "Krever plattformgodkjenning",
       "settingsApprovalPercent": "Prosentprovisjon er ikke lagret. Den faste engangsregelen gjelder fortsatt.",
-      "settingsApprovalMessages": "Lest-status og arkiv for meldinger er ikke lagret. Historikken blir synlig."    },
+      "settingsApprovalMessages": "Lest-status og arkiv for meldinger er ikke lagret. Historikken blir synlig."
+    },
     "messages": {
       "title": "Kommunikasjon",
       "subtitle": "Send og gjennomgå autorisert kommunikasjon med sertifiserte selgere."

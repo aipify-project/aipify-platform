@@ -300,7 +300,7 @@
     "superRoleAccess": "Roles & access",
     "sellersOverview": "Sellers overview",
     "sellersPartners": "Partners",
-    "sellersProducts": "Products for sale",
+    "sellersProducts": "Products",
     "sellersCommissionRates": "Commission rates",
     "sellersAttribution": "Sales links",
     "sellersAcademy": "Academy & tests",
@@ -7841,8 +7841,8 @@
       "subtitle": "Search applications, filter by status, and open the full seller profile."
     },
     "products": {
-      "title": "Products for sale",
-      "subtitle": "See what sellers can offer. Customer price and seller commission stay separate."
+      "title": "Product register",
+      "subtitle": "Manage Aipify products for the APP store and Certified Sales Partner catalog. Customer price and commission stay separate."
     },
     "commissionRates": {
       "title": "Commission rates",
@@ -7947,7 +7947,15 @@
       "priceNotCommission": "The fixed commission is not the customer price.",
       "languageNotStored": "Approved translations are not stored on this product record yet. Nothing is published automatically.",
       "percentUnavailable": "Percent commission cannot be saved. The current rule remains a fixed one-time amount.",
-      "publishMeaning": "Published means sellers can use the product. It does not mean a customer can buy it."
+      "publishMeaning": "Published means sellers can use the product. It does not mean a customer can buy it.",
+      "productTabMedia": "Profile & media",
+      "productTabAppPanel": "APP panel",
+      "productTabSalePanel": "Sale panel",
+      "productTabPreview": "Preview & publish",
+      "titlePersistenceNote": "Core currently stores product key, commission and sale publish flag. Title is accepted for review but may not persist until the dual-channel SQL is approved.",
+      "mediaBlocked": "Media upload and product hero registration require Core storage. Until then APP and seller cards use approved brand marks from the unified catalog registry.",
+      "appPanelBlocked": "APP channel publish, customer price IDs and checkout readiness require Core SQL. Products already in the APP registry appear in /app/software without inventing a Buy button.",
+      "previewNote": "Use APP Store (/app/software) and partner catalog (/partners/marketing/product-catalog) to preview channel-specific presentation. Channels stay independent."
     },
     "live": {
       "loading": "Loading seller data",
@@ -8086,7 +8094,19 @@
       "academyVoiceStatus": "Future product. No seller links or certification are active.",
       "academyVoiceTitle": "Aipify Voice",
       "academyGenericStatus": "Certification for this product is not reported separately.",
-      "academyNotForSellers": "Not published for sellers."
+      "academyNotForSellers": "Not published for sellers.",
+      "registerColImage": "Mark",
+      "registerColName": "Product",
+      "registerColSku": "SKU",
+      "registerColType": "Type",
+      "registerColAppStatus": "APP status",
+      "registerColSaleStatus": "Sale status",
+      "registerColCustomerPrice": "Customer price",
+      "registerAppPublished": "APP published",
+      "registerAppUnpublished": "Not in APP store",
+      "registerSaleNotConfigured": "Sale not configured",
+      "registerPricePlanned": "Planned from {price}",
+      "registerChannelNote": "One product identity with separate APP and Sale channels. Sale publish uses Core. APP listing uses the approved registry until channel SQL lands."
     },
     "drawer": {
       "title": "Application details",

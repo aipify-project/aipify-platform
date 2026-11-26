@@ -12,6 +12,11 @@ import {
   formatHubContextLine,
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
+import {
+  buildUnifiedCatalog,
+  filterAppStoreProducts,
+  type ProductCatalogLocaleCode,
+} from "@/lib/product-catalog";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -20,10 +25,19 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-/** Main products. Add-on modules and planned prices live on their own routes. */
+const LOCALES = new Set<ProductCatalogLocaleCode>(["en", "no", "sv", "da", "pl", "uk", "es"]);
+
+/** APP Store — APP-channel products only (not SALE-only partner catalogue). */
 export default async function SoftwareCatalogPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "settings", "customerCatalog"]);
+  const catalogLocale: ProductCatalogLocaleCode = LOCALES.has(locale as ProductCatalogLocaleCode)
+    ? (locale as ProductCatalogLocaleCode)
+    : "en";
+  const dict = await getCustomerAppDictionaryForSplits(locale, [
+    "portalStructure",
+    "settings",
+    "customerCatalog",
+  ]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
   const [ctx, productReads] = await Promise.all([
@@ -33,6 +47,21 @@ export default async function SoftwareCatalogPage() {
   const portfolio = buildPortfolioLabels(t);
   const showcase = buildSoftwareShowcaseLabels(t);
   const catalog = buildCustomerCatalogLabels(t);
+
+  const access = productReads.access;
+  const webActive = access.webKind === "known_plan" && Boolean(access.webPlan);
+  const bedriftActive = access.bedrift === "licensed";
+
+  const products = filterAppStoreProducts(
+    buildUnifiedCatalog({
+      locale: catalogLocale,
+      coreProducts: null,
+      entitlements: [
+        { productKey: "kompis_web", active: webActive },
+        { productKey: "kompis_bedrift", active: bedriftActive },
+      ],
+    })
+  );
 
   return (
     <AppHubShell
@@ -51,7 +80,13 @@ export default async function SoftwareCatalogPage() {
           embedded
           showcase={showcase}
           labels={portfolio}
-          access={productReads.access}
+          products={products}
+          emptyTitle={showcase.emptyTitle}
+          emptyBody={showcase.emptyBody}
+          seeInformation={showcase.seeInformation}
+          contactAipify={showcase.contactAipify}
+          notForPurchase={showcase.notForPurchase}
+          plannedPriceNote={showcase.plannedPriceNote}
         />
         <Link
           href={CUSTOMER_CATALOG_ROUTE}
