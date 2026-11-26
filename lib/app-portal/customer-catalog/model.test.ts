@@ -85,6 +85,11 @@ const modelSource = readFileSync(join(process.cwd(), "lib/app-portal/customer-ca
 assert.doesNotMatch(page + view, /PUBLIC_PLAN_PRICES|create-checkout-session|trialDays|14-day|599/);
 assert.match(page, /getCustomerBillingCenter/);
 assert.match(modelSource, /checkoutEnabled: false/);
+assert.match(view, /pricingHeading/);
+assert.match(view, /perMonth/);
+assert.match(view, /perYear/);
+assert.match(view, /purchaseClosed/);
+assert.doesNotMatch(view, /AppWorkspaceHero/);
 
 const installPanel = readFileSync(
   join(process.cwd(), "components/app/platform-install/PlatformInstallDashboardPanel.tsx"),

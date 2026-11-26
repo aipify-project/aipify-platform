@@ -66,7 +66,7 @@ export function SoftwareProductShowcase({
   return (
     <div className="grid items-stretch gap-5 lg:grid-cols-2" data-embedded={embedded ? "true" : "false"}>
         <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--app-border-accent)] bg-[var(--app-card)] shadow-[var(--app-shadow-card)] motion-safe:transition motion-safe:duration-200 motion-safe:hover:-translate-y-1 motion-reduce:transform-none">
-          <div className="relative h-40 overflow-hidden bg-[image:var(--app-primary-soft-fill)] sm:h-48">
+          <div className="relative h-28 overflow-hidden bg-[image:var(--app-primary-soft-fill)] sm:h-32">
             <Image
               src="/brand/kompis-web-product-visual.png"
               alt={labels.webImageAlt}
@@ -99,7 +99,7 @@ export function SoftwareProductShowcase({
           </div>
         </article>
         <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--app-border-accent)] bg-[var(--app-card)] shadow-[var(--app-shadow-card)] motion-safe:transition motion-safe:duration-200 motion-safe:hover:-translate-y-1 motion-reduce:transform-none">
-          <div className="relative h-40 overflow-hidden bg-[image:var(--app-primary-soft-fill)] sm:h-48">
+          <div className="relative h-28 overflow-hidden bg-[image:var(--app-primary-soft-fill)] sm:h-32">
             <Image
               src="/brand/kompis-bedrift-product-visual.png"
               alt={labels.bedriftImageAlt}

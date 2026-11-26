@@ -39,6 +39,37 @@ function planLabel(labels: PortfolioLabels, plan: "free" | "standard" | "pro"): 
   return labels.proName;
 }
 
+function PricePair({
+  labels,
+  monthly,
+  annual,
+}: {
+  labels: PortfolioLabels;
+  monthly: string | null;
+  annual: string | null;
+}) {
+  return (
+    <div className="mt-auto grid grid-cols-2 gap-2 pt-4">
+      <div className="rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-3 py-2.5">
+        <p className="text-[0.65rem] font-medium uppercase tracking-wide text-[var(--app-text-muted)]">
+          {labels.perMonth}
+        </p>
+        <p className="mt-1 text-base font-semibold tabular-nums text-[var(--app-text)]">
+          {monthly ?? labels.noCard}
+        </p>
+      </div>
+      <div className="rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-3 py-2.5">
+        <p className="text-[0.65rem] font-medium uppercase tracking-wide text-[var(--app-text-muted)]">
+          {labels.perYear}
+        </p>
+        <p className="mt-1 text-base font-semibold tabular-nums text-[var(--app-text)]">
+          {annual ?? "—"}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function KompisProductPortfolio({
   labels,
   access,
@@ -65,25 +96,25 @@ export function KompisProductPortfolio({
         : labels.detailsUnavailable;
 
   return (
-    <div className="space-y-6">
-      <div className="grid gap-6 lg:grid-cols-2">
+    <div className="space-y-5">
+      <div className="grid gap-4 lg:grid-cols-2">
         <article
           className={`flex h-full flex-col overflow-hidden rounded-[var(--app-radius-lg)] border bg-[var(--app-card)] shadow-[var(--app-shadow-card)] ${
             webTone === "assigned"
-              ? "border-[#B7E4CF] bg-[#F4FBF7] ring-2 ring-[var(--app-positive)]"
+              ? "border-[#B7E4CF] ring-1 ring-[var(--app-positive)]"
               : "border-[var(--app-border)]"
           }`}
         >
-          <div className="relative aspect-[4/3] bg-[image:var(--app-primary-soft-fill)]">
+          <div className="relative h-28 bg-[image:var(--app-primary-soft-fill)] sm:h-32">
             <Image
               src="/brand/kompis-web-product-visual.png"
               alt={labels.webImageAlt}
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-contain p-4"
+              className="object-contain p-3"
             />
           </div>
-          <div className="flex flex-1 flex-col space-y-3 p-5 sm:p-6">
+          <div className="flex flex-1 flex-col space-y-3 p-5">
             <div className="flex flex-wrap items-center gap-2">
               <Globe aria-hidden className="size-4 text-[var(--app-primary)]" strokeWidth={2} />
               <MessagesSquare aria-hidden className="size-4 text-[var(--app-primary)]" strokeWidth={2} />
@@ -96,7 +127,15 @@ export function KompisProductPortfolio({
             ) : null}
             <div className="flex flex-wrap gap-2">
               <StatusPill
-                tone={webTone === "assigned" ? "green" : webTone === "unassigned" ? "slate" : webTone === "not_licensed" ? "slate" : "amber"}
+                tone={
+                  webTone === "assigned"
+                    ? "green"
+                    : webTone === "unassigned"
+                      ? "slate"
+                      : webTone === "not_licensed"
+                        ? "slate"
+                        : "amber"
+                }
               >
                 {webStatus}
               </StatusPill>
@@ -115,20 +154,20 @@ export function KompisProductPortfolio({
         <article
           className={`flex h-full flex-col overflow-hidden rounded-[var(--app-radius-lg)] border bg-[var(--app-card)] shadow-[var(--app-shadow-card)] ${
             bedriftTone === "licensed"
-              ? "border-[#B7E4CF] bg-[#F4FBF7] ring-2 ring-[var(--app-positive)]"
+              ? "border-[#B7E4CF] ring-1 ring-[var(--app-positive)]"
               : "border-[var(--app-border)]"
           }`}
         >
-          <div className="relative aspect-[4/3] bg-[image:var(--app-primary-soft-fill)]">
+          <div className="relative h-28 bg-[image:var(--app-primary-soft-fill)] sm:h-32">
             <Image
               src="/brand/kompis-bedrift-product-visual.png"
               alt={labels.bedriftImageAlt}
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-contain p-4"
+              className="object-contain p-3"
             />
           </div>
-          <div className="flex flex-1 flex-col space-y-3 p-5 sm:p-6">
+          <div className="flex flex-1 flex-col space-y-3 p-5">
             <div className="flex flex-wrap items-center gap-2">
               <Building2 aria-hidden className="size-4 text-[var(--app-primary)]" strokeWidth={2} />
               <Users aria-hidden className="size-4 text-[var(--app-primary)]" strokeWidth={2} />
@@ -152,37 +191,34 @@ export function KompisProductPortfolio({
 
       {showCatalog ? (
         <section className="space-y-3" aria-labelledby="kompis-web-planned-catalog">
-          <h3 id="kompis-web-planned-catalog" className="text-lg font-semibold text-[var(--app-text)]">
-            {labels.plannedPlansTitle}
-          </h3>
-          <p className="text-sm text-[var(--app-text-muted)]">{labels.plannedCatalogNote}</p>
+          <div>
+            <h3 id="kompis-web-planned-catalog" className="text-lg font-semibold text-[var(--app-text)]">
+              {labels.plannedPlansTitle}
+            </h3>
+            <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.plannedCatalogNote}</p>
+          </div>
           <ul className="grid gap-3 md:grid-cols-3">
             {WEBSITE_KOMPIS_PLAN_CATALOG.map((plan) => (
-              <li key={plan.id} className="flex h-full flex-col rounded-[var(--app-radius-lg)] border border-[var(--app-border-accent)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]">
+              <li
+                key={plan.id}
+                className="flex h-full flex-col rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]"
+              >
                 <div className="flex items-start justify-between gap-2">
                   <p className="text-base font-semibold text-[var(--app-text)]">{planLabel(labels, plan.id)}</p>
                   <StatusPill tone="amber">{labels.planned}</StatusPill>
                 </div>
-                <p className="mt-4 text-2xl font-semibold tabular-nums text-[var(--app-text)]">
+                <p className="mt-3 text-2xl font-semibold tabular-nums tracking-tight text-[var(--app-text)]">
                   {plan.answerQuota.toLocaleString("nb-NO")}
                 </p>
                 <p className="text-sm text-[var(--app-text-muted)]">
                   {plan.quotaKind === "lifetime_total" ? labels.lifetimeAnswers : labels.answersPerMonth}
                 </p>
-                <div className="mt-auto pt-4 text-sm text-[var(--app-text-muted)]">
-                  {plan.monthlyPrice ? (
-                    <p>
-                      {plan.monthlyPrice.amountDisplay} {labels.perMonth}
-                    </p>
-                  ) : (
-                    <p>{labels.noCard}</p>
-                  )}
-                  {plan.annualPrice ? (
-                    <p>
-                      {plan.annualPrice.amountDisplay} {labels.perYear}
-                    </p>
-                  ) : null}
-                </div>
+                <PricePair
+                  labels={labels}
+                  monthly={plan.monthlyPrice ? `${plan.monthlyPrice.amountDisplay} ${plan.monthlyPrice.currency}` : null}
+                  annual={plan.annualPrice ? `${plan.annualPrice.amountDisplay} ${plan.annualPrice.currency}` : null}
+                />
+                <p className="mt-3 text-center text-xs text-[var(--app-text-muted)]">{labels.contactForAccess}</p>
               </li>
             ))}
           </ul>

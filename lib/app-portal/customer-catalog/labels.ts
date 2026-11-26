@@ -24,6 +24,9 @@ export type CustomerCatalogLabels = {
   openProduct: string;
   monthly: string;
   yearly: string;
+  perMonth: string;
+  perYear: string;
+  pricingHeading: string;
   intervalLabel: string;
   includedHeading: string;
   seeAllFeatures: string;
@@ -56,6 +59,9 @@ export function buildCustomerCatalogLabels(t: Translator): CustomerCatalogLabels
     openProduct: pick("openProduct"),
     monthly: pick("monthly"),
     yearly: pick("yearly"),
+    perMonth: pick("perMonth"),
+    perYear: pick("perYear"),
+    pricingHeading: pick("pricingHeading"),
     intervalLabel: pick("intervalLabel"),
     includedHeading: pick("includedHeading"),
     seeAllFeatures: pick("seeAllFeatures"),

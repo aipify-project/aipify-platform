@@ -440,7 +440,7 @@ export function BillingAdminPanel({
             </h2>
             <p className="mt-2 text-sm text-aipify-text-secondary">{portfolio.noChange}</p>
             <div className="mt-4">
-              <KompisProductPortfolio labels={portfolio} access={access} />
+              <KompisProductPortfolio labels={portfolio} access={access} showCatalog />
             </div>
             <Link
               href="/app/settings/billing/packages"

@@ -62,6 +62,13 @@ function stateLabel(state: CatalogProductState, labels: CustomerCatalogLabels): 
   return labels.stateUnknown;
 }
 
+function stateTone(state: CatalogProductState): string {
+  if (state === "active") return "bg-[#E8F7F0] text-[var(--app-positive)] ring-[#B7E4CF]";
+  if (state === "coming_later") return "bg-[#FFF4E5] text-[var(--app-pending)] ring-[#F5D4A3]";
+  if (state === "not_licensed") return "bg-[var(--app-soft-surface)] text-[var(--app-text-muted)] ring-[var(--app-border)]";
+  return "bg-[#FFF4E5] text-[var(--app-pending)] ring-[#F5D4A3]";
+}
+
 function formatPrice(price: CatalogPrice, locale: string): string | null {
   try {
     return new Intl.NumberFormat(locale, {
@@ -74,13 +81,40 @@ function formatPrice(price: CatalogPrice, locale: string): string | null {
   }
 }
 
-function selectedPrice(product: CatalogProduct, interval: CatalogInterval | null): CatalogPrice | null {
-  if (product.prices.length === 0) return null;
-  if (interval) {
-    const match = product.prices.find((price) => price.interval === interval);
-    if (match) return match;
-  }
-  return product.prices[0] ?? null;
+function priceForInterval(product: CatalogProduct, interval: CatalogInterval): CatalogPrice | null {
+  return product.prices.find((price) => price.interval === interval) ?? null;
+}
+
+function PriceCell({
+  label,
+  amount,
+  period,
+  emphasized,
+}: {
+  label: string;
+  amount: string | null;
+  period: string;
+  emphasized: boolean;
+}) {
+  return (
+    <div
+      className={`flex flex-1 flex-col rounded-[var(--app-radius-md)] border px-3 py-3 ${
+        emphasized
+          ? "border-[var(--app-primary)] bg-[var(--app-soft-surface)]"
+          : "border-[var(--app-border)] bg-[var(--app-card)]"
+      }`}
+    >
+      <p className="text-xs font-medium uppercase tracking-wide text-[var(--app-text-muted)]">{label}</p>
+      {amount ? (
+        <>
+          <p className="mt-1 text-xl font-semibold tracking-tight text-[var(--app-text)]">{amount}</p>
+          <p className="mt-0.5 text-xs text-[var(--app-text-muted)]">{period}</p>
+        </>
+      ) : (
+        <p className="mt-2 text-sm text-[var(--app-text-muted)]">—</p>
+      )}
+    </div>
+  );
 }
 
 export function CustomerProductCatalog({
@@ -95,13 +129,14 @@ export function CustomerProductCatalog({
   billingUnavailable,
 }: CustomerProductCatalogProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {billingUnavailable ? (
         <p className="rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-4 py-3 text-sm text-[var(--app-text)]">
           {labels.billingUnavailable}
         </p>
       ) : null}
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <nav aria-label={labels.categoriesLabel} className="min-w-0">
           <ul className="flex gap-2 overflow-x-auto pb-1">
             {categories.map((category) => {
@@ -111,31 +146,36 @@ export function CustomerProductCatalog({
                   <Link
                     href={catalogHref({ category: category.id, interval, expanded: null })}
                     aria-current={active ? "page" : undefined}
-                    className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium ${AppPremiumShell.focusRing} ${
+                    className={`inline-flex min-h-10 items-center rounded-full border px-3.5 text-sm font-medium ${AppPremiumShell.focusRing} ${
                       active
                         ? "border-[var(--app-primary)] bg-[var(--app-soft-surface)] text-[var(--app-text)]"
                         : "border-[var(--app-border)] bg-[var(--app-card)] text-[var(--app-text-muted)]"
                     }`}
                   >
                     {categoryLabel(category, labels)}
-                    <span className="ml-2 text-xs">{category.count}</span>
+                    <span className="ml-2 text-xs opacity-70">{category.count}</span>
                   </Link>
                 </li>
               );
             })}
           </ul>
         </nav>
+
         {showIntervalToggle && interval ? (
-          <div className="flex gap-2" role="group" aria-label={labels.intervalLabel}>
+          <div
+            className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] p-1"
+            role="group"
+            aria-label={labels.intervalLabel}
+          >
             {(["month", "year"] as const).map((value) => (
               <Link
                 key={value}
                 href={catalogHref({ category: activeCategory, interval: value, expanded: expandedProductId })}
                 aria-current={interval === value ? "page" : undefined}
-                className={`inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] border px-4 text-sm font-medium ${AppPremiumShell.focusRing} ${
+                className={`inline-flex min-h-9 items-center rounded-[calc(var(--app-radius-md)-2px)] px-3.5 text-sm font-medium ${AppPremiumShell.focusRing} ${
                   interval === value
-                    ? "border-[var(--app-primary)] text-[var(--app-text)]"
-                    : "border-[var(--app-border)] text-[var(--app-text-muted)]"
+                    ? "bg-[var(--app-primary)] text-white"
+                    : "text-[var(--app-text-muted)] hover:text-[var(--app-text)]"
                 }`}
               >
                 {value === "month" ? labels.monthly : labels.yearly}
@@ -144,70 +184,119 @@ export function CustomerProductCatalog({
           </div>
         ) : null}
       </div>
-      <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
+
+      <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
         {products.map((product) => {
-          const price = selectedPrice(product, interval);
-          const formatted = price ? formatPrice(price, locale) : null;
+          const monthPrice = priceForInterval(product, "month");
+          const yearPrice = priceForInterval(product, "year");
+          const monthFormatted = monthPrice ? formatPrice(monthPrice, locale) : null;
+          const yearFormatted = yearPrice ? formatPrice(yearPrice, locale) : null;
+          const hasAnyPrice = Boolean(monthFormatted || yearFormatted);
           const expanded = expandedProductId === product.id && product.features.length > 0;
           const description = productDescription(product, labels);
+          const emphasizeMonth = !interval || interval === "month";
+          const emphasizeYear = interval === "year";
+
           return (
             <article
               key={product.id}
-              className="flex h-full flex-col rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-6 shadow-[var(--app-shadow-card)]"
+              className="flex h-full flex-col overflow-hidden rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] shadow-[var(--app-shadow-card)]"
             >
-              {product.imagePath ? (
-                <Image src={product.imagePath} alt="" width={64} height={64} className="mb-4 h-16 w-16 object-contain" />
-              ) : null}
-              <h2 className="text-lg font-semibold text-[var(--app-text)]">{productTitle(product, labels)}</h2>
-              {description ? (
-                <p className="mt-2 text-sm leading-relaxed text-[var(--app-text-muted)]">{description}</p>
-              ) : null}
-              <p className="mt-4 text-sm font-medium text-[var(--app-text)]">{stateLabel(product.state, labels)}</p>
-              <p className="mt-2 text-base font-semibold text-[var(--app-text)]">
-                {formatted ?? labels.priceUnavailable}
-                {formatted && price ? (
-                  <span className="ml-1 text-sm font-normal text-[var(--app-text-muted)]">
-                    {price.interval === "year" ? labels.yearly : labels.monthly}
+              <div className="flex flex-1 flex-col p-5 sm:p-6">
+                <div className="flex items-start justify-between gap-3">
+                  {product.imagePath ? (
+                    <Image
+                      src={product.imagePath}
+                      alt=""
+                      width={56}
+                      height={56}
+                      className="h-14 w-14 shrink-0 object-contain"
+                    />
+                  ) : (
+                    <div className="h-14 w-14 shrink-0 rounded-[var(--app-radius-md)] bg-[var(--app-soft-surface)]" aria-hidden />
+                  )}
+                  <span
+                    className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${stateTone(product.state)}`}
+                  >
+                    {stateLabel(product.state, labels)}
                   </span>
+                </div>
+
+                <h2 className="mt-4 text-lg font-semibold tracking-tight text-[var(--app-text)]">
+                  {productTitle(product, labels)}
+                </h2>
+                {description ? (
+                  <p className="mt-2 text-sm leading-relaxed text-[var(--app-text-muted)]">{description}</p>
                 ) : null}
-              </p>
-              <div className="mt-4 border-t border-[var(--app-border)] pt-4">
+
+                <div className="mt-5 space-y-2" aria-label={labels.intervalLabel}>
+                  <p className="text-xs font-medium uppercase tracking-wide text-[var(--app-text-muted)]">
+                    {labels.pricingHeading}
+                  </p>
+                  {hasAnyPrice ? (
+                    <div className="flex gap-2">
+                      <PriceCell
+                        label={labels.monthly}
+                        amount={monthFormatted}
+                        period={labels.perMonth}
+                        emphasized={emphasizeMonth && Boolean(monthFormatted)}
+                      />
+                      <PriceCell
+                        label={labels.yearly}
+                        amount={yearFormatted}
+                        period={labels.perYear}
+                        emphasized={emphasizeYear && Boolean(yearFormatted)}
+                      />
+                    </div>
+                  ) : (
+                    <p className="rounded-[var(--app-radius-md)] border border-dashed border-[var(--app-border)] bg-[var(--app-soft-surface)] px-3 py-3 text-sm text-[var(--app-text-muted)]">
+                      {labels.priceUnavailable}
+                    </p>
+                  )}
+                </div>
+
                 {product.features.length > 0 ? (
-                  <>
+                  <div className="mt-4 border-t border-[var(--app-border)] pt-4">
                     <Link
                       href={catalogHref({
                         category: activeCategory,
                         interval,
                         expanded: expanded ? null : product.id,
                       })}
-                      className={`inline-flex min-h-11 items-center text-sm font-medium text-[var(--app-primary)] ${AppPremiumShell.focusRing}`}
+                      className={`inline-flex min-h-10 items-center text-sm font-medium text-[var(--app-primary)] ${AppPremiumShell.focusRing}`}
                     >
                       {expanded ? labels.hideFeatures : labels.seeAllFeatures}
                     </Link>
                     {expanded ? (
                       <div className="mt-3">
                         <p className="text-sm font-medium text-[var(--app-text)]">{labels.includedHeading}</p>
-                        <ul className="mt-2 space-y-1 text-sm text-[var(--app-text-muted)]">
+                        <ul className="mt-2 space-y-1.5 text-sm text-[var(--app-text-muted)]">
                           {product.features.map((feature) => (
-                            <li key={feature}>{feature}</li>
+                            <li key={feature} className="flex gap-2">
+                              <span className="mt-2 size-1 shrink-0 rounded-full bg-[var(--app-primary)]" aria-hidden />
+                              <span>{feature}</span>
+                            </li>
                           ))}
                         </ul>
                       </div>
                     ) : null}
-                  </>
+                  </div>
                 ) : null}
-              </div>
-              <div className="mt-auto pt-4">
-                {product.openHref ? (
-                  <Link
-                    href={product.openHref}
-                    className={`inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] bg-[var(--app-primary)] px-4 text-sm font-medium text-white ${AppPremiumShell.focusRing}`}
-                  >
-                    {labels.openProduct}
-                  </Link>
-                ) : (
-                  <p className="text-sm text-[var(--app-text-muted)]">{labels.purchaseClosed}</p>
-                )}
+
+                <div className="mt-auto pt-5">
+                  {product.openHref ? (
+                    <Link
+                      href={product.openHref}
+                      className={`inline-flex min-h-11 w-full items-center justify-center rounded-[var(--app-radius-md)] bg-[var(--app-primary)] px-4 text-sm font-medium text-white ${AppPremiumShell.focusRing}`}
+                    >
+                      {labels.openProduct}
+                    </Link>
+                  ) : (
+                    <p className="rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-4 py-3 text-center text-sm text-[var(--app-text-muted)]">
+                      {labels.purchaseClosed}
+                    </p>
+                  )}
+                </div>
               </div>
             </article>
           );

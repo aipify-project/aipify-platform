@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
-import { AppWorkspaceHero } from "@/components/app/design/AppWorkspaceHero";
+import { AppPageHeader } from "@/components/app/design/AppPageHeader";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { createKompisOperatorIdempotencyKey } from "@/lib/kompis-operator/ids";
 import type { KompisOperatorLabels } from "@/lib/kompis-operator/labels";
@@ -740,17 +740,16 @@ export function KompisOperatorWorkspacePanel({
   const risk = (activeRun?.risk_class ?? 0) as 0 | 1 | 2 | 3;
 
   return (
-    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-6 px-4 py-6">
-      <AppWorkspaceHero
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-5 px-4 py-5">
+      <AppPageHeader
         eyebrow={labels.title}
         title={labels.title}
-        description={labels.subtitle}
-        note={labels.boundaryNote}
+        description={[labels.subtitle, labels.boundaryNote].filter(Boolean).join(" ")}
       />
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
       <section className="min-w-0 flex-1 space-y-4">
         <header>
-          <div className="mt-4 flex gap-2" role="tablist" aria-label={labels.websiteTab}>
+          <div className="flex gap-2" role="tablist" aria-label={labels.websiteTab}>
             <button
               type="button"
               role="tab"
