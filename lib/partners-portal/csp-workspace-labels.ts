@@ -185,6 +185,16 @@ export function buildSellersActionLabels(t: Translator): SellersActionLabels {
     fixedCommission: k("fixedCommission"),
     published: k("published"),
     submitProduct: k("submitProduct"),
+    productTabProduct: k("productTabProduct"),
+    productTabPrice: k("productTabPrice"),
+    productTabLanguage: k("productTabLanguage"),
+    productTabCommission: k("productTabCommission"),
+    productTabPublish: k("productTabPublish"),
+    priceNotPublished: k("priceNotPublished"),
+    priceNotCommission: k("priceNotCommission"),
+    languageNotStored: k("languageNotStored"),
+    percentUnavailable: k("percentUnavailable"),
+    publishMeaning: k("publishMeaning"),
     success: k("success"),
     failClosed: k("failClosed"),
     error: k("error"),
@@ -234,6 +244,9 @@ const SELLERS_LIVE_TEXT_KEYS = [
   "colPeriod",
   "colTotal",
   "colLines",
+  "colRecorded",
+  "qualifiedSaleLabel",
+  "commissionsEmptyTitle",
   "selectAction",
   "viewApplication",
   "partnerUnnamed",
@@ -254,6 +267,8 @@ const SELLERS_LIVE_TEXT_KEYS = [
   "settlementsEmptyTitle",
   "settlementsEmptyBody",
   "settlementsNoFurtherSteps",
+  "chooseSettlement",
+  "commissionsReportNote",
   "settlementsOpenByCurrency",
   "academyAttempts",
   "academyPassed",
@@ -318,6 +333,7 @@ export type SellersLiveLabels = {
   /** Business labels for settlement status codes; unknown codes use `unknown`. */
   settlementStatus: Record<string, string>;
   sectionTitles: {
+    overview: string;
     partners: string;
     products: string;
     settlements: string;
@@ -345,6 +361,7 @@ export function buildSellersLiveLabels(t: Translator): SellersLiveLabels {
       ]),
     ),
     sectionTitles: {
+      overview: t("platform.sellers.overview.title"),
       partners: t("platform.sellers.partners.title"),
       products: t("platform.sellers.products.title"),
       settlements: t("platform.sellers.settlements.title"),

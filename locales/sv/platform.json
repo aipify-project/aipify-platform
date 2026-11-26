@@ -7937,7 +7937,17 @@
         "forbidden": "Du har inte behörighet till den här åtgärden.",
         "confirm_active_app_customer_required": "Bekräfta att denna aktiva APP-kund också ska få säljaråtkomst.",
         "email_verification_required": "Godkännande blockeras tills sökanden har verifierat e-postadressen."
-      }
+      },
+      "productTabProduct": "Produkt",
+      "productTabPrice": "Priser",
+      "productTabLanguage": "Språk",
+      "productTabCommission": "Provision",
+      "productTabPublish": "Publicering",
+      "priceNotPublished": "Inget kundpris är publicerat på den här posten.",
+      "priceNotCommission": "Den fasta provisionen är inte kundpriset.",
+      "languageNotStored": "Godkända översättningar finns inte på produktposten ännu. Inget publiceras automatiskt.",
+      "percentUnavailable": "Procentprovision kan inte sparas. Gällande regel är fortfarande ett fast engångsbelopp.",
+      "publishMeaning": "Publicerad betyder att säljare kan använda produkten. Det betyder inte att en kund kan köpa den."
     },
     "live": {
       "loading": "Läser in säljardata",
@@ -8055,7 +8065,12 @@
       "rankSortClicks": "Klick",
       "rankSortRegistrations": "Registreringar",
       "rankSortSales": "Kvalificerade försäljningar",
-      "rankFiltersNote": "Filtren avgränsar rankningen utifrån det Core rapporterar i dag. Filter för period och produkt visas när Core rapporterar aktivitet per datum och produkt."
+      "rankFiltersNote": "Filtren avgränsar rankningen utifrån det Core rapporterar i dag. Filter för period och produkt visas när Core rapporterar aktivitet per datum och produkt.",
+      "chooseSettlement": "Välj ett avräkning innan nästa steg registreras.",
+      "commissionsReportNote": "Raderna är kvalificerade försäljningar från Core. Beloppet är det lagrade försäljningsunderlaget, inte ett kundpris och inte procentprovision. Utbetalning finns under Avräkningar.",
+      "commissionsEmptyTitle": "Inga kvalificerade försäljningar ännu",
+      "colRecorded": "Registrerad",
+      "qualifiedSaleLabel": "Kvalificerad försäljning"
     },
     "drawer": {
       "title": "Ansökningsdetaljer",
@@ -8186,7 +8201,30 @@
       "clearRecipient": "Byt",
       "unnamedRecipient": "Namnlös säljare",
       "sendMessageBlocked": "Meddelanden kan bara skickas till godkända, aktiva, certifierade eller academy-säljare. Suspenderade och avvisade blockeras.",
-      "conversationTitle": "Konversationshistorik"
+      "conversationTitle": "Konversationshistorik",
+      "folderInbox": "Inkorg",
+      "folderSent": "Skickat",
+      "folderArchive": "Arkiv",
+      "archiveBlocked": "Arkiv är inte ett separat lagrat läge. Meddelandena stannar i historiken.",
+      "auditFallback": "Registrerad händelse",
+      "materialFilterAll": "Alla",
+      "materialFilterDraft": "Utkast",
+      "materialFilterPublished": "Publicerad",
+      "auditActions": {
+        "partner_application_registered": "Partneransökan registrerad",
+        "partner_status_changed": "Partnerstatus ändrad",
+        "partner_status_set": "Partnerstatus satt",
+        "csp_set_partner_status": "Partnerstatus uppdaterad",
+        "academy_attempt_recorded": "Akademiförsök registrerat",
+        "certification_awarded": "Certifiering tilldelad",
+        "product_published": "Produkt publicerad",
+        "product_updated": "Produkt uppdaterad",
+        "settlement_status_changed": "Avräkningsstatus ändrad",
+        "settlement_paid": "Avräkning utbetald",
+        "attribution_link_created": "Säljlänk skapad",
+        "qualified_sale_recorded": "Kvalificerad försäljning registrerad"
+      },
+      "ratesReadOnly": "Det här är de lagrade fasta provisionssatserna. Procentprovision kan inte sparas från den här sidan."
     },
     "messages": {
       "title": "Meddelanden och kommunikation",

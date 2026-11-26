@@ -7937,7 +7937,17 @@
         "forbidden": "Nie masz uprawnień do tej akcji.",
         "confirm_active_app_customer_required": "Potwierdź, że ten aktywny klient APP powinien także otrzymać dostęp sprzedawcy.",
         "email_verification_required": "Zatwierdzenie jest zablokowane, dopóki wnioskodawca nie potwierdzi adresu e-mail."
-      }
+      },
+      "productTabProduct": "Produkt",
+      "productTabPrice": "Ceny",
+      "productTabLanguage": "Języki",
+      "productTabCommission": "Prowizja",
+      "productTabPublish": "Publikacja",
+      "priceNotPublished": "Na tym rekordzie nie ma opublikowanej ceny dla klienta.",
+      "priceNotCommission": "Stała prowizja nie jest ceną dla klienta.",
+      "languageNotStored": "Zatwierdzone tłumaczenia nie są jeszcze zapisane przy produkcie. Nic nie jest publikowane automatycznie.",
+      "percentUnavailable": "Prowizji procentowej nie można zapisać. Obowiązuje stała kwota jednorazowa.",
+      "publishMeaning": "Opublikowany oznacza, że sprzedawcy mogą używać produktu. Nie oznacza, że klient może go kupić."
     },
     "live": {
       "loading": "Ładowanie danych sprzedawców",
@@ -8055,7 +8065,12 @@
       "rankSortClicks": "Kliknięcia",
       "rankSortRegistrations": "Rejestracje",
       "rankSortSales": "Kwalifikowane sprzedaże",
-      "rankFiltersNote": "Filtry zawężają ranking według danych, które Core raportuje dziś. Filtry okresu i produktu pojawią się, gdy Core zacznie raportować aktywność według daty i produktu."
+      "rankFiltersNote": "Filtry zawężają ranking według danych, które Core raportuje dziś. Filtry okresu i produktu pojawią się, gdy Core zacznie raportować aktywność według daty i produktu.",
+      "chooseSettlement": "Wybierz rozliczenie, zanim zapiszesz kolejny krok.",
+      "commissionsReportNote": "Wiersze to kwalifikowane sprzedaże zwrócone przez Core. Kwota jest zapisaną podstawą sprzedaży, nie ceną dla klienta i nie prowizją procentową. Wypłaty pozostają w Rozliczeniach.",
+      "commissionsEmptyTitle": "Brak kwalifikowanych sprzedaży",
+      "colRecorded": "Zarejestrowano",
+      "qualifiedSaleLabel": "Kwalifikowana sprzedaż"
     },
     "drawer": {
       "title": "Szczegóły wniosku",
@@ -8186,7 +8201,30 @@
       "clearRecipient": "Zmień",
       "unnamedRecipient": "Sprzedawca bez nazwy",
       "sendMessageBlocked": "Wiadomości można wysyłać tylko do zatwierdzonych, aktywnych, certyfikowanych lub academy sprzedawców. Zawieszeni i odrzuceni są zablokowani.",
-      "conversationTitle": "Historia rozmowy"
+      "conversationTitle": "Historia rozmowy",
+      "folderInbox": "Odebrane",
+      "folderSent": "Wysłane",
+      "folderArchive": "Archiwum",
+      "archiveBlocked": "Archiwum nie jest osobnym zapisanym stanem. Wiadomości pozostają w historii.",
+      "auditFallback": "Zarejestrowane zdarzenie",
+      "materialFilterAll": "Wszystkie",
+      "materialFilterDraft": "Wersja robocza",
+      "materialFilterPublished": "Opublikowane",
+      "auditActions": {
+        "partner_application_registered": "Zarejestrowano wniosek partnera",
+        "partner_status_changed": "Zmieniono status partnera",
+        "partner_status_set": "Ustawiono status partnera",
+        "csp_set_partner_status": "Zaktualizowano status partnera",
+        "academy_attempt_recorded": "Zarejestrowano próbę akademii",
+        "certification_awarded": "Przyznano certyfikację",
+        "product_published": "Opublikowano produkt",
+        "product_updated": "Zaktualizowano produkt",
+        "settlement_status_changed": "Zmieniono status rozliczenia",
+        "settlement_paid": "Wypłacono rozliczenie",
+        "attribution_link_created": "Utworzono link sprzedażowy",
+        "qualified_sale_recorded": "Zarejestrowano kwalifikowaną sprzedaż"
+      },
+      "ratesReadOnly": "To zapisane stałe stawki prowizji. Prowizji procentowej nie można zapisać z tej strony."
     },
     "messages": {
       "title": "Wiadomości i komunikacja",

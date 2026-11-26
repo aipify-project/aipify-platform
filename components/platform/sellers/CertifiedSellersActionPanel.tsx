@@ -38,6 +38,16 @@ export type SellersActionLabels = {
   fixedCommission: string;
   published: string;
   submitProduct: string;
+  productTabProduct: string;
+  productTabPrice: string;
+  productTabLanguage: string;
+  productTabCommission: string;
+  productTabPublish: string;
+  priceNotPublished: string;
+  priceNotCommission: string;
+  languageNotStored: string;
+  percentUnavailable: string;
+  publishMeaning: string;
   success: string;
   failClosed: string;
   error: string;
@@ -236,25 +246,78 @@ export function CertifiedSellersActionPanel({
           <Submit pending={pending} label={labels.submitSettlement} />
         </form>
       ) : null}
-      {section === "products" ? (
-        <form className="mt-4 grid max-w-xl gap-3" onSubmit={onProducts}>
-          <Field name="product_key" label={labels.productKey} required />
-          <Field name="title" label={labels.productTitle} required />
-          <Field name="currency" label={labels.currency} placeholder="NOK" required maxLength={3} />
-          <Field name="fixed_commission_amount" label={labels.fixedCommission} type="number" required />
-          <label className="flex items-center gap-2 text-sm">
-            <input name="published" type="checkbox" />
-            <span>{labels.published}</span>
-          </label>
-          <Submit pending={pending} label={labels.submitProduct} />
-        </form>
-      ) : null}
+      {section === "products" ? <ProductAdminForm labels={labels} pending={pending} onSubmit={onProducts} /> : null}
       {message ? (
         <p className="mt-4 text-sm text-[color:var(--aipify-text-secondary)]" role="status">
           {message.text}
         </p>
       ) : null}
     </section>
+  );
+}
+
+function ProductAdminForm({
+  labels,
+  pending,
+  onSubmit,
+}: {
+  labels: SellersActionLabels;
+  pending: boolean;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+}) {
+  const [tab, setTab] = useState<"product" | "price" | "language" | "commission" | "publish">("product");
+  const tabs = [
+    ["product", labels.productTabProduct],
+    ["price", labels.productTabPrice],
+    ["language", labels.productTabLanguage],
+    ["commission", labels.productTabCommission],
+    ["publish", labels.productTabPublish],
+  ] as const;
+  return (
+    <form className="mt-4 grid max-w-3xl gap-4" onSubmit={onSubmit}>
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label={labels.productsTitle}>
+        {tabs.map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={tab === id}
+            onClick={() => setTab(id)}
+            className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${
+              tab === id
+                ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                : "border border-[color:var(--aipify-border)] text-[color:var(--aipify-text-secondary)]"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <div hidden={tab !== "product"} className="grid gap-3">
+        <Field name="product_key" label={labels.productKey} />
+        <Field name="title" label={labels.productTitle} />
+      </div>
+      <div hidden={tab !== "price"} className="grid gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
+        <p>{labels.priceNotPublished}</p>
+        <p>{labels.priceNotCommission}</p>
+      </div>
+      <div hidden={tab !== "language"}>
+        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.languageNotStored}</p>
+      </div>
+      <div hidden={tab !== "commission"} className="grid gap-3">
+        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.percentUnavailable}</p>
+        <Field name="currency" label={labels.currency} placeholder="NOK" maxLength={3} />
+        <Field name="fixed_commission_amount" label={labels.fixedCommission} type="number" />
+      </div>
+      <div hidden={tab !== "publish"} className="grid gap-3">
+        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.publishMeaning}</p>
+        <label className="flex items-center gap-2 text-sm">
+          <input name="published" type="checkbox" />
+          <span>{labels.published}</span>
+        </label>
+      </div>
+      <Submit pending={pending} label={labels.submitProduct} />
+    </form>
   );
 }
 

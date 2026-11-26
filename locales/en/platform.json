@@ -7937,7 +7937,17 @@
         "forbidden": "You do not have permission for this action.",
         "confirm_active_app_customer_required": "Confirm that this active APP customer should also receive seller access.",
         "email_verification_required": "Approval is blocked until the applicant verifies their email address."
-      }
+      },
+      "productTabProduct": "Product",
+      "productTabPrice": "Prices",
+      "productTabLanguage": "Languages",
+      "productTabCommission": "Commission",
+      "productTabPublish": "Publishing",
+      "priceNotPublished": "No customer price is published on this record.",
+      "priceNotCommission": "The fixed commission is not the customer price.",
+      "languageNotStored": "Approved translations are not stored on this product record yet. Nothing is published automatically.",
+      "percentUnavailable": "Percent commission cannot be saved. The current rule remains a fixed one-time amount.",
+      "publishMeaning": "Published means sellers can use the product. It does not mean a customer can buy it."
     },
     "live": {
       "loading": "Loading seller data",
@@ -8055,7 +8065,12 @@
       "rankSortClicks": "Clicks",
       "rankSortRegistrations": "Registrations",
       "rankSortSales": "Qualified sales",
-      "rankFiltersNote": "Filters narrow the ranking by what Core reports today. Period and product filters appear when Core reports activity by date and product."
+      "rankFiltersNote": "Filters narrow the ranking by what Core reports today. Period and product filters appear when Core reports activity by date and product.",
+      "chooseSettlement": "Choose a settlement before recording the next step.",
+      "commissionsReportNote": "These rows are qualified sales returned by Core. The amount is the stored sale snapshot, not a customer price and not a percent commission. Payouts stay on Settlements.",
+      "commissionsEmptyTitle": "No qualified sales yet",
+      "colRecorded": "Recorded",
+      "qualifiedSaleLabel": "Qualified sale"
     },
     "drawer": {
       "title": "Application details",
@@ -8186,7 +8201,30 @@
       "publishCta": "Publish",
       "withdrawCta": "Withdraw",
       "materialWriteOk": "Material update saved.",
-      "materialWriteError": "The material update failed."
+      "materialWriteError": "The material update failed.",
+      "folderInbox": "Inbox",
+      "folderSent": "Sent",
+      "folderArchive": "Archive",
+      "archiveBlocked": "Archive is not a separate stored state. Messages stay in the history.",
+      "auditFallback": "Recorded event",
+      "materialFilterAll": "All",
+      "materialFilterDraft": "Draft",
+      "materialFilterPublished": "Published",
+      "auditActions": {
+        "partner_application_registered": "Partner application registered",
+        "partner_status_changed": "Partner status changed",
+        "partner_status_set": "Partner status set",
+        "csp_set_partner_status": "Partner status updated",
+        "academy_attempt_recorded": "Academy attempt recorded",
+        "certification_awarded": "Certification awarded",
+        "product_published": "Product published",
+        "product_updated": "Product updated",
+        "settlement_status_changed": "Settlement status changed",
+        "settlement_paid": "Settlement paid",
+        "attribution_link_created": "Sales link created",
+        "qualified_sale_recorded": "Qualified sale recorded"
+      },
+      "ratesReadOnly": "These are the stored fixed commission rates. Percent commission cannot be saved from this page."
     },
     "messages": {
       "title": "Messages & communication",

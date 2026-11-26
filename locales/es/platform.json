@@ -1118,7 +1118,17 @@
         "forbidden": "No tienes permiso para realizar esta acción.",
         "confirm_active_app_customer_required": "Confirma que este cliente APP activo también debe recibir acceso de vendedor.",
         "email_verification_required": "La aprobación está bloqueada hasta que el solicitante verifique su correo."
-      }
+      },
+      "productTabProduct": "Producto",
+      "productTabPrice": "Precios",
+      "productTabLanguage": "Idiomas",
+      "productTabCommission": "Comisión",
+      "productTabPublish": "Publicación",
+      "priceNotPublished": "No hay un precio de cliente publicado en este registro.",
+      "priceNotCommission": "La comisión fija no es el precio para el cliente.",
+      "languageNotStored": "Las traducciones aprobadas aún no están en el registro del producto. Nada se publica automáticamente.",
+      "percentUnavailable": "La comisión porcentual no se puede guardar. La regla vigente sigue siendo un importe fijo único.",
+      "publishMeaning": "Publicado significa que los vendedores pueden usar el producto. No significa que un cliente pueda comprarlo."
     },
     "live": {
       "loading": "Cargando datos de vendedores",
@@ -1236,7 +1246,12 @@
       "rankSortClicks": "Clics",
       "rankSortRegistrations": "Registros",
       "rankSortSales": "Ventas cualificadas",
-      "rankFiltersNote": "Los filtros acotan la clasificación según lo que Core informa hoy. Los filtros de periodo y producto aparecerán cuando Core informe la actividad por fecha y producto."
+      "rankFiltersNote": "Los filtros acotan la clasificación según lo que Core informa hoy. Los filtros de periodo y producto aparecerán cuando Core informe la actividad por fecha y producto.",
+      "chooseSettlement": "Elige una liquidación antes de registrar el siguiente paso.",
+      "commissionsReportNote": "Estas filas son ventas cualificadas devueltas por Core. El importe es la base de venta guardada, no un precio de cliente ni una comisión porcentual. Los pagos siguen en Liquidaciones.",
+      "commissionsEmptyTitle": "Aún no hay ventas cualificadas",
+      "colRecorded": "Registrado",
+      "qualifiedSaleLabel": "Venta cualificada"
     },
     "drawer": {
       "title": "Detalles de la solicitud",
@@ -1367,7 +1382,30 @@
       "clearRecipient": "Cambiar",
       "unnamedRecipient": "Vendedor sin nombre",
       "sendMessageBlocked": "Solo se pueden enviar mensajes a vendedores aprobados, activos, certificados o en academy. Suspendidos y rechazados están bloqueados.",
-      "conversationTitle": "Historial de conversación"
+      "conversationTitle": "Historial de conversación",
+      "folderInbox": "Bandeja",
+      "folderSent": "Enviados",
+      "folderArchive": "Archivo",
+      "archiveBlocked": "El archivo no es un estado guardado aparte. Los mensajes permanecen en el historial.",
+      "auditFallback": "Evento registrado",
+      "materialFilterAll": "Todos",
+      "materialFilterDraft": "Borrador",
+      "materialFilterPublished": "Publicado",
+      "auditActions": {
+        "partner_application_registered": "Solicitud de socio registrada",
+        "partner_status_changed": "Estado del socio cambiado",
+        "partner_status_set": "Estado del socio establecido",
+        "csp_set_partner_status": "Estado del socio actualizado",
+        "academy_attempt_recorded": "Intento de academia registrado",
+        "certification_awarded": "Certificación otorgada",
+        "product_published": "Producto publicado",
+        "product_updated": "Producto actualizado",
+        "settlement_status_changed": "Estado de liquidación cambiado",
+        "settlement_paid": "Liquidación pagada",
+        "attribution_link_created": "Enlace de venta creado",
+        "qualified_sale_recorded": "Venta cualificada registrada"
+      },
+      "ratesReadOnly": "Estas son las tasas fijas de comisión guardadas. La comisión porcentual no se puede guardar desde esta página."
     },
     "messages": {
       "title": "Mensajes y comunicación",

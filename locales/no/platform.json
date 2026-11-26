@@ -7666,7 +7666,17 @@
         "forbidden": "Du har ikke tilgang til denne handlingen.",
         "confirm_active_app_customer_required": "Bekreft at denne aktive APP-kunden også skal få selgerrettigheter.",
         "email_verification_required": "Godkjenning er blokkert til søkeren har bekreftet e-postadressen."
-      }
+      },
+      "productTabProduct": "Produkt",
+      "productTabPrice": "Priser",
+      "productTabLanguage": "Språk",
+      "productTabCommission": "Provisjon",
+      "productTabPublish": "Publisering",
+      "priceNotPublished": "Ingen kundepris er publisert på denne posten.",
+      "priceNotCommission": "Den faste provisjonen er ikke kundeprisen.",
+      "languageNotStored": "Godkjente oversettelser ligger ikke på produktposten ennå. Ingenting publiseres automatisk.",
+      "percentUnavailable": "Prosentprovisjon kan ikke lagres. Gjeldende regel er fortsatt et fast engangsbeløp.",
+      "publishMeaning": "Publisert betyr at selgere kan bruke produktet. Det betyr ikke at en kunde kan kjøpe det."
     },
     "live": {
       "loading": "Laster selgerdata",
@@ -7784,7 +7794,12 @@
       "rankSortClicks": "Klikk",
       "rankSortRegistrations": "Registreringer",
       "rankSortSales": "Kvalifiserte salg",
-      "rankFiltersNote": "Filtrene snevrer inn rangeringen ut fra det Core rapporterer i dag. Filter for periode og produkt vises når Core rapporterer aktivitet per dato og produkt."
+      "rankFiltersNote": "Filtrene snevrer inn rangeringen ut fra det Core rapporterer i dag. Filter for periode og produkt vises når Core rapporterer aktivitet per dato og produkt.",
+      "chooseSettlement": "Velg et oppgjør før neste steg registreres.",
+      "commissionsReportNote": "Radene er kvalifiserte salg fra Core. Beløpet er det lagrede salgsgrunnlaget, ikke en kundepris og ikke prosentprovisjon. Utbetaling ligger under Oppgjør.",
+      "commissionsEmptyTitle": "Ingen kvalifiserte salg ennå",
+      "colRecorded": "Registrert",
+      "qualifiedSaleLabel": "Kvalifisert salg"
     },
     "drawer": {
       "title": "Søknadsdetaljer",
@@ -7915,7 +7930,30 @@
       "clearRecipient": "Bytt",
       "unnamedRecipient": "Selger uten navn",
       "sendMessageBlocked": "Meldinger kan bare sendes til godkjente, aktive, sertifiserte eller academy-selgere. Suspenderte og avviste er blokkert.",
-      "conversationTitle": "Samtalehistorikk"
+      "conversationTitle": "Samtalehistorikk",
+      "folderInbox": "Innboks",
+      "folderSent": "Sendt",
+      "folderArchive": "Arkiv",
+      "archiveBlocked": "Arkiv er ikke en egen lagret tilstand. Meldingene blir i historikken.",
+      "auditFallback": "Registrert hendelse",
+      "materialFilterAll": "Alle",
+      "materialFilterDraft": "Utkast",
+      "materialFilterPublished": "Publisert",
+      "auditActions": {
+        "partner_application_registered": "Partnersøknad registrert",
+        "partner_status_changed": "Partnerstatus endret",
+        "partner_status_set": "Partnerstatus satt",
+        "csp_set_partner_status": "Partnerstatus oppdatert",
+        "academy_attempt_recorded": "Akademiforsøk registrert",
+        "certification_awarded": "Sertifisering tildelt",
+        "product_published": "Produkt publisert",
+        "product_updated": "Produkt oppdatert",
+        "settlement_status_changed": "Oppgjørsstatus endret",
+        "settlement_paid": "Oppgjør utbetalt",
+        "attribution_link_created": "Salgslenke opprettet",
+        "qualified_sale_recorded": "Kvalifisert salg registrert"
+      },
+      "ratesReadOnly": "Dette er de lagrede faste provisjonssatsene. Prosentprovisjon kan ikke lagres fra denne siden."
     },
     "messages": {
       "title": "Meldinger og kommunikasjon",

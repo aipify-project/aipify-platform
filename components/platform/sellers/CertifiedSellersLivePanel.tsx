@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
@@ -9,11 +9,7 @@ import {
   CertifiedSellersActionPanel,
   type SellersActionLabels,
 } from "@/components/platform/sellers/CertifiedSellersActionPanel";
-import {
-  CertifiedSellersPartnerDetailsDrawer,
-  partnerRowKeyDown,
-  type PartnerDetailsDrawerLabels,
-} from "@/components/platform/sellers/CertifiedSellersPartnerDetailsDrawer";
+import { SELLERS_ADMIN_FRAME } from "@/lib/platform/sellers-admin-nav";
 import { CertifiedSellersOverviewRanking } from "@/components/platform/sellers/CertifiedSellersOverviewRanking";
 import { CertifiedSellersSectionPanel } from "@/components/platform/sellers/CertifiedSellersSectionPanel";
 import { classifyCspApiResponse } from "@/lib/certified-sales-partner/ui-support";
@@ -33,7 +29,7 @@ import { toBcp47Locale } from "@/lib/platform-presentation-quality/bcp47";
 import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
 import type { SellersLiveLabels } from "@/lib/partners-portal/csp-workspace-labels";
 
-export type SellersLiveSection = "overview" | "partners" | "products" | "settlements" | "academy";
+export type SellersLiveSection = "overview" | "partners" | "products" | "settlements" | "commissions" | "academy";
 
 type Props = {
   section: SellersLiveSection;
@@ -44,21 +40,31 @@ type Props = {
   notReadyBody: string;
   labels: SellersLiveLabels;
   actionLabels: SellersActionLabels;
-  /** Labels for the partner application details drawer (partners section). */
-  drawerLabels: PartnerDetailsDrawerLabels;
 };
 
 type Phase = "loading" | "ready" | "closed" | "forbidden" | "error";
+
+type CommissionLine = {
+  id: string;
+  partnerId: string;
+  partnerName: string | null;
+  productKey: string | null;
+  status: string | null;
+  amount: number | null;
+  currency: string | null;
+  attributedAt: string | null;
+};
 
 type LoadState = {
   phase: Phase;
   overview: SellersOverview | null;
   settlements: SellersSettlementRow[] | null;
+  commissionLines: CommissionLine[] | null;
 };
 
 const PARTNER_ID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-const EMPTY_STATE: LoadState = { phase: "loading", overview: null, settlements: null };
+const EMPTY_STATE: LoadState = { phase: "loading", overview: null, settlements: null, commissionLines: null };
 
 const PARTNER_STATUS_ORDER = [
   "registered",
@@ -115,6 +121,30 @@ function formatCountry(code: string | null, locale: string, fallback: string): s
   }
 }
 
+function parseCommissionLines(body: unknown): CommissionLine[] {
+  if (!body || typeof body !== "object" || !Array.isArray((body as { rows?: unknown }).rows)) return [];
+  return (body as { rows: unknown[] }).rows.flatMap((raw) => {
+    if (!raw || typeof raw !== "object") return [];
+    const row = raw as Record<string, unknown>;
+    if (row.kind !== "qualified_sale") return [];
+    const id = typeof row.id === "string" ? row.id : "";
+    const partnerId = typeof row.partnerId === "string" ? row.partnerId : "";
+    if (!id || !partnerId) return [];
+    return [
+      {
+        id,
+        partnerId,
+        partnerName: typeof row.partnerName === "string" ? row.partnerName : null,
+        productKey: typeof row.productKey === "string" ? row.productKey : null,
+        status: typeof row.status === "string" ? row.status : null,
+        amount: typeof row.amount === "number" ? row.amount : null,
+        currency: typeof row.currency === "string" ? row.currency : null,
+        attributedAt: typeof row.attributedAt === "string" ? row.attributedAt : null,
+      },
+    ];
+  });
+}
+
 function formatPeriod(value: string | null, locale: string, fallback: string): string {
   if (!value) return fallback;
   const date = new Date(/^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T00:00:00Z` : value);
@@ -131,11 +161,9 @@ export function CertifiedSellersLivePanel({
   notReadyBody,
   labels,
   actionLabels,
-  drawerLabels,
 }: Props) {
   const [state, setState] = useState<LoadState>(EMPTY_STATE);
   const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(null);
   const [selection, setSelection] = useState<{
     id: string;
     seq: number;
@@ -144,19 +172,21 @@ export function CertifiedSellersLivePanel({
   } | null>(null);
 
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const partnerParam = searchParams.get("partner");
+  const statusParam = searchParams.get("status");
 
-  // Deep links (`?partner=<id>`, e.g. from Leads & sales) open the same canonical profile.
   useEffect(() => {
-    if (partnerParam && PARTNER_ID_RE.test(partnerParam.trim())) setSelectedPartnerId(partnerParam.trim());
-  }, [partnerParam]);
+    if (statusParam && (PARTNER_STATUS_ORDER as readonly string[]).includes(statusParam)) {
+      setStatusFilter(statusParam);
+    }
+  }, [statusParam]);
 
-  const closeProfile = useCallback(() => {
-    setSelectedPartnerId(null);
-    if (partnerParam) router.replace(pathname, { scroll: false });
-  }, [partnerParam, pathname, router]);
+  useEffect(() => {
+    if (partnerParam && PARTNER_ID_RE.test(partnerParam.trim())) {
+      router.replace(`/platform/sellers/partners/${partnerParam.trim()}`);
+    }
+  }, [partnerParam, router]);
 
   const l = labels.text;
   const nf = useMemo(() => new Intl.NumberFormat(toBcp47Locale(locale)), [locale]);
@@ -166,6 +196,17 @@ export function CertifiedSellersLivePanel({
     // Keep already-loaded content (and any form feedback) mounted while refreshing in the background.
     setState((prev) => (prev.phase === "ready" ? prev : { ...prev, phase: "loading" }));
     try {
+      if (section === "commissions") {
+        const { status, body } = await fetchJson("/api/platform/sellers/leads-sales");
+        const phase = phaseFor(status, body);
+        setState({
+          phase,
+          overview: null,
+          settlements: null,
+          commissionLines: phase === "ready" ? parseCommissionLines(body) : null,
+        });
+        return;
+      }
       if (section === "settlements") {
         const { status, body } = await fetchJson("/api/platform/sellers/settlements");
         const phase = phaseFor(status, body);
@@ -173,6 +214,7 @@ export function CertifiedSellersLivePanel({
           phase,
           overview: null,
           settlements: phase === "ready" ? (parseSettlementList(body) ?? []) : null,
+          commissionLines: null,
         });
         return;
       }
@@ -183,9 +225,10 @@ export function CertifiedSellersLivePanel({
         phase,
         overview: phase === "ready" ? parseSellersOverview(body) : null,
         settlements: null,
+        commissionLines: null,
       });
     } catch {
-      setState({ phase: "error", overview: null, settlements: null });
+      setState({ phase: "error", overview: null, settlements: null, commissionLines: null });
     }
   }, [section]);
 
@@ -193,11 +236,15 @@ export function CertifiedSellersLivePanel({
     void load();
   }, [load]);
 
-  const { phase, overview, settlements } = state;
+  const { phase, overview, settlements, commissionLines } = state;
   const ready = phase === "ready";
 
   const metrics = useMemo(() => {
     if (!ready) return [];
+    if (section === "commissions") {
+      const rows = commissionLines ?? [];
+      return [{ label: labels.sectionTitles.commissions, value: nf.format(rows.length) }];
+    }
     if (section === "settlements") {
       const rows = settlements ?? [];
       const by = (statuses: string[]) => rows.filter((r) => statuses.includes(r.status)).length;
@@ -260,7 +307,7 @@ export function CertifiedSellersLivePanel({
           ]
         : []),
     ];
-  }, [ready, section, overview, settlements, l, nf, count]);
+  }, [ready, section, overview, settlements, commissionLines, l, nf, count, labels.sectionTitles.commissions]);
 
   const dateOptions = {
     locale,
@@ -277,14 +324,24 @@ export function CertifiedSellersLivePanel({
         notReadyTitle={notReadyTitle}
         notReadyBody={notReadyBody}
         metrics={metrics}
+        navLabel={labels.text.sectionsTitle}
+        navLabels={{
+          overview: labels.sectionTitles.overview,
+          partners: labels.sectionTitles.partners,
+          products: labels.sectionTitles.products,
+          commissionRates: labels.sectionTitles.commissionRates,
+          attribution: labels.sectionTitles.attribution,
+          academy: labels.sectionTitles.academy,
+          materials: labels.sectionTitles.materials,
+          leadsSales: labels.sectionTitles.leadsSales,
+          commissions: labels.sectionTitles.commissions,
+          settlements: labels.sectionTitles.settlements,
+          messages: labels.sectionTitles.messages,
+          audit: labels.sectionTitles.audit,
+          settings: labels.sectionTitles.settings,
+        }}
       />
-      <div
-        className={
-          section === "partners"
-            ? "mx-auto w-full max-w-[1440px] space-y-6 px-6 pb-8 lg:px-8"
-            : "space-y-6 px-6 pb-8 lg:px-8"
-        }
-      >
+      <div className={`${SELLERS_ADMIN_FRAME} space-y-6 px-6 pb-8 lg:px-8`}>
         {phase === "loading" ? <AipifyLoader centered size="sm" label={l.loading} /> : null}
 
         {phase === "forbidden" ? (
@@ -304,7 +361,7 @@ export function CertifiedSellersLivePanel({
             <CertifiedSellersOverviewRanking
               locale={locale}
               labels={labels}
-              onOpenProfile={(id) => setSelectedPartnerId(id)}
+              onOpenProfile={(id) => router.push(`/platform/sellers/partners/${id}`)}
             />
             <StatusBreakdown overview={overview} labels={labels} nf={nf} />
             {overview.openSettlementsCount ? (
@@ -318,38 +375,6 @@ export function CertifiedSellersLivePanel({
                 </ul>
               </Card>
             ) : null}
-            <Card title={l.sectionsTitle}>
-              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {(
-                  [
-                    ["/platform/sellers/partners", labels.sectionTitles.partners, l.sectionPartnersBody],
-                    ["/platform/sellers/products", labels.sectionTitles.products, l.sectionProductsBody],
-                    ["/platform/sellers/commission-rates", labels.sectionTitles.commissionRates, l.sectionCommissionRatesBody],
-                    ["/platform/sellers/attribution", labels.sectionTitles.attribution, l.sectionAttributionBody],
-                    ["/platform/sellers/academy", labels.sectionTitles.academy, l.sectionAcademyBody],
-                    ["/platform/sellers/materials", labels.sectionTitles.materials, l.sectionMaterialsBody],
-                    ["/platform/sellers/leads-sales", labels.sectionTitles.leadsSales, l.sectionLeadsSalesBody],
-                    ["/platform/sellers/commissions", labels.sectionTitles.commissions, l.sectionCommissionsBody],
-                    ["/platform/sellers/settlements", labels.sectionTitles.settlements, l.sectionSettlementsBody],
-                    ["/platform/sellers/messages", labels.sectionTitles.messages, l.sectionMessagesBody],
-                    ["/platform/sellers/audit", labels.sectionTitles.audit, l.sectionAuditBody],
-                    ["/platform/sellers/settings", labels.sectionTitles.settings, l.sectionSettingsBody],
-                  ] as const
-                ).map(([href, name, body]) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className="rounded-xl border border-[color:var(--aipify-border)] p-4 hover:border-[color:var(--aipify-companion-purple)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--aipify-focus-ring)]"
-                  >
-                    <p className="font-semibold text-[color:var(--aipify-text-primary)]">{name}</p>
-                    <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">{body}</p>
-                    <p className="mt-3 text-sm font-semibold text-[color:var(--aipify-companion-purple)]">
-                      {l.sectionOpen}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </Card>
           </>
         ) : null}
 
@@ -392,22 +417,14 @@ export function CertifiedSellersLivePanel({
                       }
                     >
                       {rows.map((p) => {
-                        const openPartner = () => setSelectedPartnerId(p.id);
+                        const profileHref = `/platform/sellers/partners/${p.id}${statusFilter === "all" ? "" : `?status=${encodeURIComponent(statusFilter)}`}`;
                         return (
-                          <tr
-                            key={p.id}
-                            tabIndex={0}
-                            aria-haspopup="dialog"
-                            onClick={openPartner}
-                            onKeyDown={(e) => {
-                              // Ignore keys bubbling up from the row's own button.
-                              if (e.target !== e.currentTarget) return;
-                              partnerRowKeyDown(e, openPartner);
-                            }}
-                            className="cursor-pointer border-t border-[color:var(--aipify-border)] hover:bg-[color:var(--aipify-canvas,#F7F6F3)] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[color:var(--aipify-focus-ring)]"
-                          >
+                          <tr key={p.id} className="border-t border-[color:var(--aipify-border)]">
                             <td className="px-3 py-2">
                               <p className="font-medium text-[color:var(--aipify-text-primary)]">{p.name ?? l.partnerUnnamed}</p>
+                              {p.legalBusinessName ? (
+                                <p className="text-sm text-[color:var(--aipify-text-secondary)]">{p.legalBusinessName}</p>
+                              ) : null}
                               <p className="text-xs text-[color:var(--aipify-text-secondary)]">
                                 {l.referenceLabel}: {shortReference(p.id)}
                               </p>
@@ -423,16 +440,9 @@ export function CertifiedSellersLivePanel({
                             </td>
                             <td className="px-3 py-2">{formatPlatformDateTimeShort(p.createdAt, dateOptions)}</td>
                             <td className="px-3 py-2">
-                              <button
-                                type="button"
-                                className={LINK_BUTTON}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  openPartner();
-                                }}
-                              >
+                              <Link href={profileHref} className={LINK_BUTTON}>
                                 {l.viewApplication}
-                              </button>
+                              </Link>
                             </td>
                           </tr>
                         );
@@ -461,7 +471,10 @@ export function CertifiedSellersLivePanel({
                     <tr key={p.id} className="border-t border-[color:var(--aipify-border)]">
                       <td className="px-3 py-2">
                         <p className="font-medium text-[color:var(--aipify-text-primary)]">{p.title}</p>
-                        <p className="text-xs text-[color:var(--aipify-text-secondary)]">{p.productKey}</p>
+                        <details className="text-xs text-[color:var(--aipify-text-secondary)]">
+                          <summary>{l.referenceLabel}</summary>
+                          <p className="mt-1 font-mono">{p.productKey}</p>
+                        </details>
                       </td>
                       <td className="px-3 py-2">
                         {formatMoney(p.fixedCommissionAmount, p.currency, locale, l.notReported)}
@@ -478,6 +491,52 @@ export function CertifiedSellersLivePanel({
               </Card>
             )}
             <CertifiedSellersActionPanel section="products" labels={actionLabels} onSuccess={() => void load()} />
+          </>
+        ) : null}
+
+        {ready && section === "commissions" ? (
+          <>
+            <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.commissionsReportNote}</p>
+            {(commissionLines ?? []).length === 0 ? (
+              <EmptyCard title={l.commissionsEmptyTitle} body={l.commissionsReportNote} />
+            ) : (
+              <Card title={labels.sectionTitles.commissions}>
+                <DataTable
+                  caption={labels.sectionTitles.commissions}
+                  headers={[l.colPartner, l.colProduct, l.colStatus, l.colTotal, l.colRecorded]}
+                >
+                  {(commissionLines ?? []).map((line) => (
+                    <tr key={line.id} className="border-t border-[color:var(--aipify-border)]">
+                      <td className="px-3 py-2">
+                        <Link href={`/platform/sellers/partners/${line.partnerId}`} className={LINK_BUTTON}>
+                          {line.partnerName || l.partnerUnnamed}
+                        </Link>
+                      </td>
+                      <td className="px-3 py-2">
+                        <p>{l.notReported}</p>
+                        {line.productKey ? (
+                          <details className="text-xs text-[color:var(--aipify-text-secondary)]">
+                            <summary>{l.colProduct}</summary>
+                            <p className="mt-1 font-mono">{line.productKey}</p>
+                          </details>
+                        ) : null}
+                      </td>
+                      <td className="px-3 py-2">
+                        <p>{l.qualifiedSaleLabel}</p>
+                        {line.status ? (
+                          <details className="text-xs text-[color:var(--aipify-text-secondary)]">
+                            <summary>{l.colStatus}</summary>
+                            <p className="mt-1 font-mono">{line.status}</p>
+                          </details>
+                        ) : null}
+                      </td>
+                      <td className="px-3 py-2">{formatMoney(line.amount, line.currency, locale, l.notReported)}</td>
+                      <td className="px-3 py-2">{formatPlatformDateTimeShort(line.attributedAt, dateOptions)}</td>
+                    </tr>
+                  ))}
+                </DataTable>
+              </Card>
+            )}
           </>
         ) : null}
 
@@ -535,15 +594,21 @@ export function CertifiedSellersLivePanel({
                 </DataTable>
               </Card>
             )}
-            <CertifiedSellersActionPanel
-              key={selection ? `${selection.id}:${selection.seq}` : "settlement-form"}
-              section="settlements"
-              labels={actionLabels}
-              initialSettlementId={selection?.id}
-              initialFromStatus={selection?.fromStatus}
-              initialToStatus={selection?.toStatus}
-              onSuccess={() => void load()}
-            />
+            {(settlements ?? []).length > 0 ? (
+              selection ? (
+                <CertifiedSellersActionPanel
+                  key={`${selection.id}:${selection.seq}`}
+                  section="settlements"
+                  labels={actionLabels}
+                  initialSettlementId={selection.id}
+                  initialFromStatus={selection.fromStatus}
+                  initialToStatus={selection.toStatus}
+                  onSuccess={() => void load()}
+                />
+              ) : (
+                <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.chooseSettlement}</p>
+              )
+            ) : null}
           </>
         ) : null}
 
@@ -575,17 +640,6 @@ export function CertifiedSellersLivePanel({
               <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.academyNoteBody}</p>
             </Card>
           </>
-        ) : null}
-        {(section === "overview" || section === "partners") && selectedPartnerId ? (
-          <CertifiedSellersPartnerDetailsDrawer
-            key={selectedPartnerId}
-            partnerId={selectedPartnerId}
-            locale={locale}
-            labels={drawerLabels}
-            actionLabels={actionLabels}
-            onClose={closeProfile}
-            onDecisionSuccess={() => void load()}
-          />
         ) : null}
       </div>
     </>

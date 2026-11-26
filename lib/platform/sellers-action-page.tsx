@@ -2,11 +2,7 @@ import {
   CertifiedSellersLivePanel,
   type SellersLiveSection,
 } from "@/components/platform/sellers/CertifiedSellersLivePanel";
-import {
-  buildSellersActionLabels,
-  buildSellersLiveLabels,
-  buildSellersPartnerDrawerLabels,
-} from "@/lib/partners-portal/csp-workspace-labels";
+import { buildSellersActionLabels, buildSellersLiveLabels } from "@/lib/partners-portal/csp-workspace-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -35,12 +31,11 @@ export async function renderPlatformSellersLivePage(input: {
       notReadyBody={t("platform.sellers.backend.notReadyBody")}
       labels={buildSellersLiveLabels(t)}
       actionLabels={buildSellersActionLabels(t)}
-      drawerLabels={buildSellersPartnerDrawerLabels(t)}
     />
   );
 }
 
-type ActionSection = "partners" | "settlements" | "products";
+type ActionSection = "partners" | "settlements" | "products" | "commissions";
 
 export async function renderPlatformSellersActionPage(input: {
   titleKey: string;

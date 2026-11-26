@@ -1,0 +1,10 @@
+-- PREPARED_ONLY
+-- APPLY_BLOCKED_PERCENT_COMMISSION_HAS_NO_LEDGER
+--
+-- Platform Admin can show a percent choice, but Production still stores only
+-- the existing fixed one-time commission. This file contains no DDL.
+-- Do not apply a percent column, rate, or payout rule until the owner approves
+-- a contract that keeps historical fixed sales unchanged.
+--
+-- Message archive is also blocked here. Core stores message direction, not an
+-- archive flag. Do not add a client-only archive or delete message history.

@@ -8,6 +8,6 @@ export default function PlatformSellersCommissionsPage() {
   return renderPlatformSellersActionPage({
     titleKey: "platform.sellers.commissions.title",
     subtitleKey: "platform.sellers.commissions.subtitle",
-    section: "settlements",
+    section: "commissions",
   });
 }
