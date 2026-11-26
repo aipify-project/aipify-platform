@@ -22,6 +22,10 @@ import {
   listPlatformSupportTickets,
 } from "./support-tickets-read-adapter";
 
+const previousSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+process.env.NEXT_PUBLIC_SUPABASE_URL =
+  "https://qbcqoixhrvhnuwphefvw.supabase.co";
+
 assert.ok(assertPlatformSupportTicketsReadIsFailClosed());
 assert.equal(PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED, false);
 assert.equal(PLATFORM_SUPPORT_TICKETS_READ_FEATURE_GATE, false);
@@ -30,6 +34,7 @@ assert.equal(canInvokePlatformSupportTicketsReadRpc(), false);
 
 const gate = getPlatformSupportTicketsReadGateState();
 assert.equal(gate.live, false);
+assert.equal(gate.stagingBound, false);
 assert.equal(gate.sourceLocaleInvent, false);
 assert.deepEqual([...gate.allowedRoles], ["super_admin", "platform_support"]);
 
@@ -139,6 +144,12 @@ void (async () => {
   );
   assert.match(center, /\/api\/platform-portal\/support-requests/);
   assert.doesNotMatch(center, /list_platform_support_queue/);
+
+  if (previousSupabaseUrl === undefined) {
+    delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+  } else {
+    process.env.NEXT_PUBLIC_SUPABASE_URL = previousSupabaseUrl;
+  }
 
   console.log(
     "support-tickets-read-adapter: fail-closed PASS; feature gate OFF; UI wired to fail-closed adapter",

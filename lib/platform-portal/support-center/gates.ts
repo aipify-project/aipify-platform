@@ -23,3 +23,6 @@ export function getSupportCenterGateState(): SupportCenterGateState {
     uiWired: tickets.uiWired,
   };
 }
+
+/** Explicit: email send remains off for Staging activation. */
+export const SUPPORT_CENTER_EMAIL_SEND_REMAINS_OFF = !SUPPORT_EMAIL_SEND_CONFIGURED;

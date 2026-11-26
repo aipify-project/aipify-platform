@@ -1,7 +1,9 @@
 /**
  * Platform Support — APP ticket SoT cross-tenant read RPC prepare contract.
- * Fail-closed: SQL is NOT_APPLIED; no live Platform UI / API wiring in this job.
+ * Fail-closed on Production. Staging Core binding opens read live at runtime.
  */
+
+import { resolveSupportCenterStagingLiveGates } from "@/lib/platform-portal/support-center/staging-core-activation";
 
 export const PLATFORM_SUPPORT_TICKETS_CROSS_TENANT_READ_SQL_PATH =
   "docs/platform/NOT_APPLIED_platform_support_tickets_cross_tenant_read_rpc_v1.sql";
@@ -36,8 +38,15 @@ export const PLATFORM_SUPPORT_TICKETS_READ_ROLES = [
   "platform_support",
 ] as const;
 
-/** Must stay false until a named owner apply job relocates/applies the SQL. */
+/**
+ * Compile-time Production default remains closed.
+ * Staging Core binding resolves live via resolveSupportCenterStagingLiveGates().
+ */
 export const PLATFORM_SUPPORT_TICKETS_READ_RPC_CONNECTED = false;
+
+export function isPlatformSupportTicketsReadRpcConnected(): boolean {
+  return resolveSupportCenterStagingLiveGates().readRpcConnected;
+}
 
 /**
  * Support Center UI is wired to the fail-closed APP SoT adapter.

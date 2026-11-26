@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
         ticketId,
         body: String(body.body ?? ""),
         agentUserId: user.id,
+        rpc: supabase,
       });
       if (!result.ok) {
         return NextResponse.json(
@@ -73,6 +74,7 @@ export async function POST(request: NextRequest) {
         includeSignature: body.includeSignature !== false,
         signatureText:
           typeof body.signatureText === "string" ? body.signatureText : null,
+        rpc: supabase,
       });
       if (!result.ok) {
         return NextResponse.json(
@@ -89,6 +91,7 @@ export async function POST(request: NextRequest) {
         fromStatus: String(body.fromStatus ?? ""),
         toStatus: String(body.toStatus ?? ""),
         agentUserId: user.id,
+        rpc: supabase,
       });
       if (!result.ok) {
         return NextResponse.json(
@@ -108,6 +111,7 @@ export async function POST(request: NextRequest) {
         ticketId,
         assigneeUserId: assignee,
         agentUserId: user.id,
+        rpc: supabase,
       });
       if (!result.ok) {
         return NextResponse.json(

@@ -29,11 +29,16 @@ import {
 } from "@/lib/platform-portal/support-center/write-ops";
 
 async function main() {
+  const previousSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  process.env.NEXT_PUBLIC_SUPABASE_URL =
+    "https://qbcqoixhrvhnuwphefvw.supabase.co";
+
   assert.equal(SUPPORT_INTAKE_RPC_CONNECTED, false);
   assert.equal(SUPPORT_INTAKE_FEATURE_GATE, false);
   assert.equal(SUPPORT_EMAIL_TRANSPORT_ENABLED, false);
   assert.equal(getSupportIntakeGateState().live, false);
   assert.equal(getSupportWriteGateState().live, false);
+  assert.equal(getSupportWriteGateState().stagingBound, false);
 
   const badTenant = sanitizeSupportIntakePayload({
     source: "web",
@@ -153,6 +158,12 @@ async function main() {
       .join("\n"),
     /csp_sales_email_/,
   );
+
+  if (previousSupabaseUrl === undefined) {
+    delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+  } else {
+    process.env.NEXT_PUBLIC_SUPABASE_URL = previousSupabaseUrl;
+  }
 
   console.log("support-intake.test.ts: ok");
 }

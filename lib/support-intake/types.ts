@@ -63,5 +63,9 @@ export type SupportIntakeResult =
 export const SUPPORT_EMAIL_TRANSPORT_ENABLED = false as const;
 
 /** Intake Core write RPCs — false until Staging batch applied + activation. */
+/**
+ * Intake create RPCs were not included in the Staging Support Center batch.
+ * Stay closed on Staging and Production until a separate SQL + owner YES.
+ */
 export const SUPPORT_INTAKE_RPC_CONNECTED = false as const;
 export const SUPPORT_INTAKE_FEATURE_GATE = false as const;

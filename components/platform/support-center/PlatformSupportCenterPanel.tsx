@@ -117,7 +117,7 @@ export default function PlatformSupportCenterPanel({
   const templates = useMemo(
     () =>
       (workspaceTemplates ?? listSupportReplyStarterTemplates()).filter(
-        (t) => !t.archived,
+        (t) => !("archived" in t && t.archived),
       ),
     [workspaceTemplates],
   );
