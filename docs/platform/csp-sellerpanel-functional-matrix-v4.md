@@ -29,14 +29,14 @@ Legend: **VERIFIED** · **CODE_READY** · **BLOCKED** · **NOT_DONE**
 | Platform admin SELGERE | CODE_READY | Recipient picker LIVE |
 | Language / access control | CODE_READY | 7 locales prior; partner allowlist |
 | Stripe TEST full funnel | **BLOCKED** | Core fixtures used; no LIVE payments |
-| Production deactivate SQL | **NOT_DONE** | Separate owner approval required |
+| Production deactivate SQL | **VERIFIED** | Applied Production; see `csp-deactivate-v4-production-apply-report.md` |
 
 ## SQL V4
 
 | Env | Status |
 |-----|--------|
 | Staging `auedugihkduoaikfusqe` | Applied — SHA `b06db68bfab047c0385e5d7af636042aaa2933070a09dc17e0fedfe46e2815b3` |
-| Production `qbcqoixhrvhnuwphefvw` | **Not applied** — `csp_deactivate_attribution_link` absent |
+| Production `qbcqoixhrvhnuwphefvw` | **Applied** — migration `20261126030832`; RPC present; capture chain still BLOCKED |
 
 ## Staging harness
 
