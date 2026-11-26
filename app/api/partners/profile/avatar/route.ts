@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { callCspRpc } from "@/lib/certified-sales-partner";
 import { requirePartnersPortalApiAccess } from "@/lib/partners-portal/server-access";
 import {
   PARTNERS_AVATAR_MAX_BYTES,
@@ -118,6 +119,15 @@ export async function POST(request: Request) {
   const pointer = buildPartnersAvatarPointer();
   if (!(await writeAvatarPointer(userId, pointer))) return fail("profile_unavailable", 503);
 
+  // Best-effort Core sync pointer — Storage + auth metadata remain source of truth.
+  try {
+    await callCspRpc(gate.access.supabase, "csp_set_partner_avatar_url", {
+      p_avatar_url: pointer,
+    });
+  } catch {
+    // Non-blocking: upload already succeeded.
+  }
+
   return NextResponse.json({ ok: true, hasAvatar: true, avatarUrl: pointer }, { headers: NO_STORE });
 }
 
@@ -135,6 +145,14 @@ export async function DELETE() {
   }
 
   if (!(await writeAvatarPointer(userId, null))) return fail("profile_unavailable", 503);
+
+  try {
+    await callCspRpc(gate.access.supabase, "csp_set_partner_avatar_url", {
+      p_avatar_url: null,
+    });
+  } catch {
+    // Non-blocking.
+  }
 
   return NextResponse.json({ ok: true, hasAvatar: false, avatarUrl: null }, { headers: NO_STORE });
 }

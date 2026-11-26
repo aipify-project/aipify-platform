@@ -140,6 +140,19 @@ export type PartnersPortalMessagesLabels = {
   nextStep: string;
   notificationsCta: string;
   homeCta: string;
+  emptyTitle: string;
+  emptyBody: string;
+  errorTitle: string;
+  errorBody: string;
+  retry: string;
+  fromAdmin: string;
+  fromYou: string;
+  replyTitle: string;
+  replyPlaceholder: string;
+  sendReply: string;
+  sending: string;
+  sendOk: string;
+  sendError: string;
 };
 
 export function buildPartnersPortalMessagesLabels(t: Translator): PartnersPortalMessagesLabels {
@@ -154,5 +167,18 @@ export function buildPartnersPortalMessagesLabels(t: Translator): PartnersPortal
     nextStep: t(`${m}.nextStep`),
     notificationsCta: t(`${m}.notificationsCta`),
     homeCta: t(`${m}.homeCta`),
+    emptyTitle: t(`${m}.emptyTitle`),
+    emptyBody: t(`${m}.emptyBody`),
+    errorTitle: t(`${m}.errorTitle`),
+    errorBody: t(`${m}.errorBody`),
+    retry: t(`${m}.retry`),
+    fromAdmin: t(`${m}.fromAdmin`),
+    fromYou: t(`${m}.fromYou`),
+    replyTitle: t(`${m}.replyTitle`),
+    replyPlaceholder: t(`${m}.replyPlaceholder`),
+    sendReply: t(`${m}.sendReply`),
+    sending: t(`${m}.sending`),
+    sendOk: t(`${m}.sendOk`),
+    sendError: t(`${m}.sendError`),
   };
 }

@@ -826,7 +826,20 @@
       "notReadyBody": "Partnerbeskeder er ikke aktiveret i dette miljø. Ingen beskeder vises, og ingen går tabt. Aipify giver dig besked, når den åbner.",
       "nextStep": "I mellemtiden når vigtige opdateringer dig stadig som notifikationer.",
       "notificationsCta": "Åbn notifikationer",
-      "homeCta": "Tilbage til start"
+      "homeCta": "Tilbage til start",
+      "emptyTitle": "Ingen beskeder endnu",
+      "emptyBody": "Når Aipify sender dig en besked som certificeret sælger, vises den her.",
+      "errorTitle": "Beskeder kunne ikke indlæses",
+      "errorBody": "Noget uventet skete under indlæsning af indbakken. Prøv igen.",
+      "retry": "Prøv igen",
+      "fromAdmin": "Fra Aipify",
+      "fromYou": "Fra dig",
+      "replyTitle": "Svar til Aipify",
+      "replyPlaceholder": "Skriv dit svar…",
+      "sendReply": "Send svar",
+      "sending": "Sender…",
+      "sendOk": "Svaret er sendt.",
+      "sendError": "Svaret kunne ikke sendes. Prøv igen."
     },
     "avatar": {
       "title": "Profilbillede",

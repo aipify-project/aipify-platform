@@ -702,7 +702,20 @@
       "notReadyBody": "La mensajería para socios no está habilitada en este entorno. No se muestran mensajes y no se pierde ninguno. Aipify te avisará cuando se abra.",
       "nextStep": "Mientras tanto, las actualizaciones importantes te siguen llegando como notificaciones.",
       "notificationsCta": "Abrir notificaciones",
-      "homeCta": "Volver al inicio"
+      "homeCta": "Volver al inicio",
+      "emptyTitle": "Aún no hay mensajes",
+      "emptyBody": "Cuando Aipify te envíe un mensaje como socio de ventas certificado, aparecerá aquí.",
+      "errorTitle": "No se pudieron cargar los mensajes",
+      "errorBody": "Ocurrió algo inesperado al cargar la bandeja. Inténtalo de nuevo.",
+      "retry": "Reintentar",
+      "fromAdmin": "De Aipify",
+      "fromYou": "De ti",
+      "replyTitle": "Responder a Aipify",
+      "replyPlaceholder": "Escribe tu respuesta…",
+      "sendReply": "Enviar respuesta",
+      "sending": "Enviando…",
+      "sendOk": "Respuesta enviada.",
+      "sendError": "No se pudo enviar la respuesta. Inténtalo de nuevo."
     },
     "avatar": {
       "title": "Foto de perfil",

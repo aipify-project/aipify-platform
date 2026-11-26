@@ -622,10 +622,74 @@ export function CertifiedSalesPartnerMarketingPanel({
   const activeLink = portal?.links.find((l) => l.active && l.code) ?? null;
   const publicPath = activeLink?.code ? `/p/${activeLink.code}/${product}` : null;
   const publicUrl = publicPath ? `${origin || ""}${publicPath}` : null;
-  const materials = useMemo(
-    () => (product === "aipify_voice" ? [] : listPublishedSalesMaterials({ productKey: product, locale })),
-    [product, locale],
-  );
+  const [coreMaterials, setCoreMaterials] = useState<ReturnType<typeof listPublishedSalesMaterials> | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    if (product === "aipify_voice") {
+      setCoreMaterials([]);
+      return;
+    }
+    void (async () => {
+      try {
+        const res = await fetch(
+          `/api/certified-sales-partner/materials?product_key=${encodeURIComponent(product)}`,
+          { cache: "no-store" },
+        );
+        const body = (await res.json().catch(() => null)) as {
+          found?: boolean;
+          materials?: Array<{
+            material_key?: string;
+            category?: string;
+            asset_path?: string;
+            version?: string;
+            mime_hint?: string;
+            published?: boolean;
+            product_keys?: string[];
+          }>;
+        } | null;
+        if (cancelled) return;
+        if (res.status === 403 || res.status === 503) {
+          // Portal blocked / Core unavailable — show empty, never invent materials.
+          setCoreMaterials([]);
+          return;
+        }
+        if (!res.ok || !body?.found || !Array.isArray(body.materials)) {
+          setCoreMaterials([]);
+          return;
+        }
+        setCoreMaterials(
+          body.materials
+            .filter((m) => m.published !== false && typeof m.asset_path === "string")
+            .map((m) => ({
+              id: String(m.material_key ?? m.asset_path),
+              category: (m.category as "pdf_sheets") || "pdf_sheets",
+              labelKey: String(m.material_key ?? "material"),
+              href: String(m.asset_path),
+              format: String(m.asset_path).endsWith(".pdf")
+                ? ("pdf" as const)
+                : String(m.asset_path).endsWith(".svg")
+                  ? ("svg" as const)
+                  : ("png" as const),
+              assetPath: String(m.asset_path),
+              version: Number(m.version) || 1,
+              mimeHint: String(m.mime_hint ?? ""),
+              published: true,
+              productKeys: Array.isArray(m.product_keys) ? m.product_keys : [],
+            })),
+        );
+      } catch {
+        if (!cancelled) setCoreMaterials([]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [product]);
+  const materials = useMemo(() => {
+    if (product === "aipify_voice") return [];
+    // Core publish gate only — no fictional catalog rows when Core answered.
+    return coreMaterials ?? [];
+  }, [product, coreMaterials]);
   const copyItems = useMemo(
     () => (product === "aipify_voice" ? [] : listPublishedSalesCopy({ productKey: product, locale })),
     [product, locale],

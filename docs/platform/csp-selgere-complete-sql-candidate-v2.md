@@ -1,7 +1,7 @@
 # CSP SELGERE Complete Global Master V2 — SQL candidate (PREPARED_ONLY)
 
-**Status:** `PREPARED_ONLY` — not applied to Staging or Production.  
-**Requires:** explicit owner approval before Staging apply; separate approval before Production.
+**Status:** `SUPERSEDED` by V3 — see `docs/platform/csp-selgere-complete-messages-materials-sql-rpc-v3.md`.  
+**Do not apply v2.** Use `csp_selgere_complete_messages_materials_avatar_v3.sql` (tables + RPCs).
 
 ## Missing source note
 

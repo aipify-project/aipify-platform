@@ -702,7 +702,20 @@
       "notReadyBody": "Wiadomości dla partnerów nie zostały włączone w tym środowisku. Nie wyświetlamy żadnych wiadomości i żadna nie zginie. Aipify poinformuje Cię, gdy skrzynka zostanie otwarta.",
       "nextStep": "W międzyczasie ważne aktualizacje nadal docierają do Ciebie jako powiadomienia.",
       "notificationsCta": "Otwórz powiadomienia",
-      "homeCta": "Wróć do strony głównej"
+      "homeCta": "Wróć do strony głównej",
+      "emptyTitle": "Brak wiadomości",
+      "emptyBody": "Gdy Aipify wyśle Ci wiadomość jako certyfikowanemu sprzedawcy, pojawi się ona tutaj.",
+      "errorTitle": "Nie udało się wczytać wiadomości",
+      "errorBody": "Wystąpił nieoczekiwany błąd podczas wczytywania skrzynki. Spróbuj ponownie.",
+      "retry": "Spróbuj ponownie",
+      "fromAdmin": "Od Aipify",
+      "fromYou": "Od Ciebie",
+      "replyTitle": "Odpowiedz Aipify",
+      "replyPlaceholder": "Napisz odpowiedź…",
+      "sendReply": "Wyślij odpowiedź",
+      "sending": "Wysyłanie…",
+      "sendOk": "Odpowiedź została wysłana.",
+      "sendError": "Nie udało się wysłać odpowiedzi. Spróbuj ponownie."
     },
     "avatar": {
       "title": "Zdjęcie profilowe",
