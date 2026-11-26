@@ -5,7 +5,8 @@
     "portalSubtitle": "Build your partner business — manage leads, customers, referrals, commissions, and certifications with Aipify.",
     "governanceNote": "Aipify Partners only · Role-based access · Leads, referrals, and performance actions audited · Never Affiliate",
     "accessDenied": "Partners access is restricted to Aipify Partners, Partner Managers, and Super Admins.",
-    "loading": "Preparing Aipify Partners…"
+    "loading": "Preparing Aipify Partners…",
+    "poweredBy": "Powered by Aipify"
   },
   "navGroups": {
     "dashboard": "Dashboard",
@@ -399,7 +400,8 @@
       "messages": "Messages",
       "salesMaterials": "Approved sales material",
       "menu": "Menu",
-      "menuClose": "Close menu"
+      "menuClose": "Close menu",
+      "emailTemplates": "Email templates"
     },
     "portal": {
       "badge": "Partner portal",
@@ -1164,6 +1166,31 @@
       "bedriftNotPublishedBody": "Kompis Bedrift Academy content is not available yet. Your Kompis Web progress and certificate stay unchanged.",
       "voiceFuture": "Aipify Voice",
       "voiceFutureBody": "Academy content for this product is not published yet."
+    },
+    "emailTemplates": {
+      "title": "Email templates",
+      "intro": "Choose a certified product, an approved template, and a marketing language. Preview uses your profile and personal sales link. Sending stays locked until Aipify enables secure transport and consent checks.",
+      "productLabel": "Product",
+      "templateTypeLabel": "Template type",
+      "localeLabel": "Marketing language",
+      "localeNote": "Marketing language is independent of your portal language. Incomplete languages are unavailable — never replaced by English.",
+      "localeUnavailable": "This template is not available in the selected language yet.",
+      "recipientLabel": "Recipient email",
+      "recipientHint": "One recipient only. No bulk send in this phase.",
+      "previewTitle": "Preview",
+      "previewSubject": "Subject",
+      "sendCta": "Send",
+      "sendLockedTitle": "Sending is gated",
+      "sendLockedBody": "Outbound marketing email requires verified transport, owner unlock, and a documented legal basis. Preview works without sending.",
+      "consentLabel": "I confirm I have a lawful basis to contact this recipient about this product (not assumed from an email address alone).",
+      "certRequired": "Complete product certification and create a personal sales link before sending.",
+      "noTemplates": "No published templates for this product and type yet.",
+      "types": {
+        "product_introduction": "Product introduction",
+        "follow_up": "Follow-up",
+        "meeting_request": "Meeting request",
+        "product_information": "Product information"
+      }
     }
   }
 }

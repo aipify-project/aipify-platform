@@ -237,7 +237,7 @@
     "activityLogs": "Aktivitetslogg",
     "superRevision": "Revisionslogg",
     "governanceRecords": "Styrningsregister",
-    "securityReviews": "Säkerhetsgranskningar",
+    "securityReviews": "Säkerhet",
     "customers": "Kunder",
     "customerLifecycle": "Livscykelcenter",
     "customerSuccessOperations": "Framgångsoperationer",
@@ -287,8 +287,8 @@
     "platformPlaybookCenter": "Playbooks",
     "platformHealthOperationsCenter": "Plattformhälsa",
     "system": "Systeminställningar",
-    "pilotOperations": "Customer Zero-center",
-    "unonightPilot": "Customer Zero / testkörning",
+    "pilotOperations": "Pilotkontroll",
+    "unonightPilot": "Pilotkontroll",
     "licenses": "Licensregister",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Webbplatsverifiering",
@@ -299,15 +299,15 @@
     "communications": "Kommunikation",
     "superRoleAccess": "Roller och behörigheter",
     "sellersOverview": "Säljaröversikt",
-    "sellersPartners": "Partner och godkännande",
+    "sellersPartners": "Partner",
     "sellersProducts": "Produkter till försäljning",
     "sellersCommissionRates": "Provisionspriser",
-    "sellersAttribution": "Säljlänkar och attribuering",
+    "sellersAttribution": "Säljlänkar",
     "sellersAcademy": "Academy och tester",
-    "sellersMaterials": "Säljmaterial och e-post",
+    "sellersMaterials": "Säljmaterial",
     "sellersLeadsSales": "Leads och försäljning",
     "sellersSettlements": "Avräkning och utbetalningar",
-    "sellersMessages": "Meddelanden och kommunikation",
+    "sellersMessages": "Kommunikation",
     "sellersAudit": "Avvikelser och revision",
     "sellersSettings": "Säljarinställningar",
     "analyticsOverview": "Analys"
@@ -7837,7 +7837,7 @@
       "openPartners": "Partner och godkännande"
     },
     "partners": {
-      "title": "Partner och godkännande",
+      "title": "Partner",
       "subtitle": "Sök ansökningar, filtrera på status och öppna den fullständiga säljarprofilen."
     },
     "products": {
@@ -7849,7 +7849,7 @@
       "subtitle": "Läs de lagrade fasta provisionssatserna. Procentprovision är inte aktiv."
     },
     "attribution": {
-      "title": "Säljlänkar och attribuering",
+      "title": "Säljlänkar",
       "subtitle": "Granska personliga säljlänkar, besök och statusen Core har registrerat."
     },
     "academy": {
@@ -7857,7 +7857,7 @@
       "subtitle": "Se Akademiförsök och certifieringar. Frågebanken finns i partnerappen."
     },
     "materials": {
-      "title": "Säljmaterial och e-post",
+      "title": "Säljmaterial",
       "subtitle": "Publicera säljfilerna Core redan lagrar. Saknade filer hittas inte på."
     },
     "leadsSales": {
@@ -8269,7 +8269,7 @@
       "settingsApprovalPercent": "Procentprovision lagras inte. Den fasta engångsregeln gäller fortfarande.",
       "settingsApprovalMessages": "Läststatus och arkiv för meddelanden lagras inte. Historiken förblir synlig."    },
     "messages": {
-      "title": "Meddelanden och kommunikation",
+      "title": "Kommunikation",
       "subtitle": "Skicka och granska auktoriserad kommunikation med certifierade säljare."
     },
     "profile": {

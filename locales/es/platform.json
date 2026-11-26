@@ -363,7 +363,7 @@
     "translationManagement": "Idioma y traducciones",
     "system": "Configuración del sistema",
     "superRevision": "Registro de revisión",
-    "unonightPilot": "Customer Zero / operaciones de prueba",
+    "unonightPilot": "Control piloto",
     "payments": "Resumen financiero",
     "licenses": "Registro de licencias",
     "subscriptions": "Acuerdos de cliente",
@@ -371,15 +371,15 @@
     "websiteKompisPlans": "Planes Kompis Web",
     "superRoleAccess": "Roles y accesos",
     "sellersOverview": "Sellers overview",
-    "sellersPartners": "Partners & approval",
+    "sellersPartners": "Socios",
     "sellersProducts": "Products for sale",
     "sellersCommissionRates": "Commission rates",
-    "sellersAttribution": "Sales links & attribution",
+    "sellersAttribution": "Enlaces de venta",
     "sellersAcademy": "Academy & tests",
-    "sellersMaterials": "Sales materials & email",
+    "sellersMaterials": "Materiales de venta",
     "sellersLeadsSales": "Leads & sales",
     "sellersSettlements": "Settlements & payouts",
-    "sellersMessages": "Mensajes y comunicación",
+    "sellersMessages": "Comunicación",
     "sellersAudit": "Exceptions & audit",
     "sellersSettings": "Seller settings"
   },
@@ -1012,7 +1012,7 @@
       "openPartners": "Partners & approval"
     },
     "partners": {
-      "title": "Partners & approval",
+      "title": "Socios",
       "subtitle": "Busque solicitudes, filtre por estado y abra el perfil completo del vendedor."
     },
     "products": {
@@ -1024,7 +1024,7 @@
       "subtitle": "Lea las tasas fijas de comisión guardadas. La comisión porcentual no está activa."
     },
     "attribution": {
-      "title": "Sales links & attribution",
+      "title": "Enlaces de venta",
       "subtitle": "Revise los enlaces personales de venta, las visitas y el estado que registró Core."
     },
     "academy": {
@@ -1032,7 +1032,7 @@
       "subtitle": "Vea los intentos de Academia y las certificaciones. El banco de preguntas permanece en la app del socio."
     },
     "materials": {
-      "title": "Sales materials & email",
+      "title": "Materiales de venta",
       "subtitle": "Publique los archivos de venta que Core ya guarda. Los archivos que faltan no se inventan."
     },
     "leadsSales": {
@@ -1450,7 +1450,7 @@
       "settingsApprovalPercent": "La comisión porcentual no está guardada. Sigue vigente el importe fijo único.",
       "settingsApprovalMessages": "El estado de lectura y el archivo de mensajes no están guardados. El historial sigue visible."    },
     "messages": {
-      "title": "Mensajes y comunicación",
+      "title": "Comunicación",
       "subtitle": "Envíe y revise la comunicación autorizada con vendedores certificados."
     },
     "profile": {

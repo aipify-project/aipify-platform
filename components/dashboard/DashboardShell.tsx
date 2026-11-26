@@ -9,6 +9,7 @@ import { useEffect, useMemo, useState } from "react";
 import { usePlatformProfile } from "@/components/platform/PlatformProfileProvider";
 import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
 import { AipifyPlatformBrandMark } from "@/components/branding";
+import { PoweredByAipifyFooter } from "@/components/branding/PoweredByAipifyFooter";
 import { LicenseSidebarPanel } from "@/components/app/license";
 import Sidebar, { type NavItem } from "./Sidebar";
 import FlatSidebar from "./FlatSidebar";
@@ -478,6 +479,13 @@ function DashboardShellFrame({
         {shellVariant === "customer" && licensePanelLabels ? (
           <div className={AipifySidebarLayout.footerRegion}>
             <LicenseSidebarPanel labels={licensePanelLabels} />
+            <PoweredByAipifyFooter
+              label={
+                /aipify/i.test(licensePanelLabels.poweredBy)
+                  ? licensePanelLabels.poweredBy
+                  : `${licensePanelLabels.poweredBy} Aipify`.replace(/\s+/g, " ").trim()
+              }
+            />
           </div>
         ) : platformBrandMark ? (
           <div className={AipifySidebarLayout.footerRegion}>
@@ -488,6 +496,13 @@ function DashboardShellFrame({
               tooltipTagline={platformBrandMark.tooltipTagline}
               versionLabel={platformBrandMark.versionLabel}
               pulseLabel={platformBrandMark.pulseLabel}
+            />
+            <PoweredByAipifyFooter
+              label={
+                /aipify/i.test(platformBrandMark.poweredBy)
+                  ? platformBrandMark.poweredBy
+                  : `${platformBrandMark.poweredBy} Aipify`.replace(/\s+/g, " ").trim()
+              }
             />
           </div>
         ) : null}
@@ -568,6 +583,13 @@ function DashboardShellFrame({
             {shellVariant === "customer" && licensePanelLabels ? (
               <div className={AipifySidebarLayout.footerRegion}>
                 <LicenseSidebarPanel labels={licensePanelLabels} />
+                <PoweredByAipifyFooter
+                  label={
+                    /aipify/i.test(licensePanelLabels.poweredBy)
+                      ? licensePanelLabels.poweredBy
+                      : `${licensePanelLabels.poweredBy} Aipify`.replace(/\s+/g, " ").trim()
+                  }
+                />
               </div>
             ) : platformBrandMark ? (
               <div className={AipifySidebarLayout.footerRegion}>
@@ -578,6 +600,13 @@ function DashboardShellFrame({
                   tooltipTagline={platformBrandMark.tooltipTagline}
                   versionLabel={platformBrandMark.versionLabel}
                   pulseLabel={platformBrandMark.pulseLabel}
+                />
+                <PoweredByAipifyFooter
+                  label={
+                    /aipify/i.test(platformBrandMark.poweredBy)
+                      ? platformBrandMark.poweredBy
+                      : `${platformBrandMark.poweredBy} Aipify`.replace(/\s+/g, " ").trim()
+                  }
                 />
               </div>
             ) : null}

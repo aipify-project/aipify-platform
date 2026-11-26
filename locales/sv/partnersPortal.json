@@ -5,7 +5,8 @@
     "portalSubtitle": "Bygg din partnerverksamhet — hantera leads, kunder, hänvisningar och provisioner med Aipify.",
     "governanceNote": "Aipify Partners only · Role-based access · Leads, referrals, and performance actions audited · Never Affiliate",
     "accessDenied": "Partners-åtkomst är begränsad till Aipify Partners, Partner Managers och Super Admins.",
-    "loading": "Förbereder Aipify Partners…"
+    "loading": "Förbereder Aipify Partners…",
+    "poweredBy": "Drivs av Aipify"
   },
   "navGroups": {
     "dashboard": "Dashboard",
@@ -399,7 +400,8 @@
       "messages": "Meddelanden",
       "salesMaterials": "Godkänt säljmaterial",
       "menu": "Meny",
-      "menuClose": "Stäng meny"
+      "menuClose": "Stäng meny",
+      "emailTemplates": "E-postmallar"
     },
     "portal": {
       "badge": "Partner portal",
@@ -1164,6 +1166,31 @@
       "bedriftNotPublishedBody": "Kompis Bedrift Academy är inte tillgänglig ännu. Din Kompis Web-progress och ditt certifikat är oförändrade.",
       "voiceFuture": "Aipify Voice",
       "voiceFutureBody": "Academy-innehåll för den här produkten är inte publicerat ännu."
+    },
+    "emailTemplates": {
+      "title": "E-postmallar",
+      "intro": "Välj en certifierad produkt, en godkänd mall och ett marknadsföringsspråk. Förhandsgranskning använder din profil och personliga säljlänk. Utskick förblir låst tills Aipify aktiverar säker transport och samtyckeskontroller.",
+      "productLabel": "Produkt",
+      "templateTypeLabel": "Malltyp",
+      "localeLabel": "Marknadsföringsspråk",
+      "localeNote": "Marknadsföringsspråk är oberoende av portalspråket. Ofullständiga språk är otillgängliga — aldrig ersatta av engelska.",
+      "localeUnavailable": "Denna mall är inte tillgänglig på det valda språket ännu.",
+      "recipientLabel": "Mottagarens e-post",
+      "recipientHint": "Endast en mottagare. Ingen massutskick i denna fas.",
+      "previewTitle": "Förhandsgranskning",
+      "previewSubject": "Ämne",
+      "sendCta": "Skicka",
+      "sendLockedTitle": "Utskick är låst",
+      "sendLockedBody": "Förhandsgranskning är alltid tillgänglig för godkända mallar. Riktig marknadsföringsutsändning kräver verifierad Aipify-avsändare, ägarupplåsning, certifiering, samtyckesbekräftelse och Core-beredskap. Provideraccept är inte leveransbevis.",
+      "consentLabel": "Jag bekräftar en laglig grund att kontakta denna mottagare om denna produkt (till exempel befintligt kundförhållande eller dokumenterat samtycke). Marknadsföring antas inte bara för att e-postadressen är känd.",
+      "certRequired": "Slutför produktcertifiering och skapa en aktiv personlig säljlänk innan du skickar.",
+      "noTemplates": "Inga publicerade mallar för denna produkt och typ ännu.",
+      "types": {
+        "product_introduction": "Produktintroduktion",
+        "follow_up": "Uppföljning",
+        "meeting_request": "Mötesförfrågan",
+        "product_information": "Produktinformation"
+      }
     }
   }
 }

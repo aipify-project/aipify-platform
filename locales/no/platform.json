@@ -217,7 +217,7 @@
     "activityLogs": "Aktivitetslogg",
     "superRevision": "Revisjonslogg",
     "governanceRecords": "Styringsregistre",
-    "securityReviews": "Sikkerhetsgjennomganger",
+    "securityReviews": "Sikkerhet",
     "customers": "Kunder",
     "customerLifecycle": "Livssyklussenter",
     "customerSuccessOperations": "Suksessoperasjoner",
@@ -258,8 +258,8 @@
     "skillsMarketplace": "Skills Marketplace",
     "companionMarketplace": "Companion Marketplace",
     "skillGovernancePipeline": "Skill Governance Pipeline",
-    "pilotOperations": "Customer Zero-senter",
-    "unonightPilot": "Customer Zero / testdrift",
+    "pilotOperations": "Pilotkontroll",
+    "unonightPilot": "Pilotkontroll",
     "paymentOperations": "Betalingsoperasjonssenter",
     "paymentHealth": "Betalingshelse",
     "paymentAnalytics": "Betalingsanalyse",
@@ -280,15 +280,15 @@
     "communications": "Kommunikasjon",
     "superRoleAccess": "Roller og tilganger",
     "sellersOverview": "Selgeroversikt",
-    "sellersPartners": "Partnere og godkjenning",
+    "sellersPartners": "Partnere",
     "sellersProducts": "Produkter til salg",
     "sellersCommissionRates": "Provisjonspriser",
-    "sellersAttribution": "Salgslenker og attribusjon",
+    "sellersAttribution": "Salgslenker",
     "sellersAcademy": "Academy og tester",
-    "sellersMaterials": "Salgsmateriell og e-post",
+    "sellersMaterials": "Salgsmateriell",
     "sellersLeadsSales": "Leads og salg",
     "sellersSettlements": "Oppgjør og utbetalinger",
-    "sellersMessages": "Meldinger og kommunikasjon",
+    "sellersMessages": "Kommunikasjon",
     "sellersAudit": "Avvik og audit",
     "sellersSettings": "Selgerinnstillinger",
     "analyticsOverview": "Analyse"
@@ -7566,7 +7566,7 @@
       "openPartners": "Partnere og godkjenning"
     },
     "partners": {
-      "title": "Partnere og godkjenning",
+      "title": "Partnere",
       "subtitle": "Søk i søknader, filtrer på status, og åpne den fullstendige selgerprofilen."
     },
     "products": {
@@ -7578,7 +7578,7 @@
       "subtitle": "Les de lagrede faste provisjonssatsene. Prosentprovisjon er ikke aktiv."
     },
     "attribution": {
-      "title": "Salgslenker og attribusjon",
+      "title": "Salgslenker",
       "subtitle": "Se personlige salgslenker, besøk og statusen Core har registrert."
     },
     "academy": {
@@ -7586,7 +7586,7 @@
       "subtitle": "Se Akademi-forsøk og sertifiseringer. Spørsmålsbanken ligger i partnerappen."
     },
     "materials": {
-      "title": "Salgsmateriell og e-post",
+      "title": "Salgsmateriell",
       "subtitle": "Publiser salgsfilene Core allerede lagrer. Manglende filer blir ikke funnet på."
     },
     "leadsSales": {
@@ -7998,7 +7998,7 @@
       "settingsApprovalPercent": "Prosentprovisjon er ikke lagret. Den faste engangsregelen gjelder fortsatt.",
       "settingsApprovalMessages": "Lest-status og arkiv for meldinger er ikke lagret. Historikken blir synlig."    },
     "messages": {
-      "title": "Meldinger og kommunikasjon",
+      "title": "Kommunikasjon",
       "subtitle": "Send og gjennomgå autorisert kommunikasjon med sertifiserte selgere."
     },
     "profile": {

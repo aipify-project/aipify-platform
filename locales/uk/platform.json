@@ -237,7 +237,7 @@
     "activityLogs": "Журнал активності",
     "superRevision": "Журнал ревізії",
     "governanceRecords": "Реєстри управління",
-    "securityReviews": "Перевірки безпеки",
+    "securityReviews": "Безпека",
     "customers": "Клієнти",
     "customerLifecycle": "Центр життєвого циклу",
     "customerSuccessOperations": "Успіх операцій",
@@ -288,7 +288,7 @@
     "platformHealthOperationsCenter": "Платформа Health",
     "system": "Системні налаштування",
     "pilotOperations": "Нульовий центр клієнтів",
-    "unonightPilot": "Customer Zero / тестова експлуатація",
+    "unonightPilot": "Пілотний контроль",
     "licenses": "Реєстр ліцензій",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Перевірка сайту",
@@ -299,15 +299,15 @@
     "communications": "Комунікація",
     "superRoleAccess": "Ролі та доступи",
     "sellersOverview": "Огляд продавців",
-    "sellersPartners": "Партнери та затвердження",
+    "sellersPartners": "Партнери",
     "sellersProducts": "Продукти для продажу",
     "sellersCommissionRates": "Ставки комісії",
-    "sellersAttribution": "Посилання та атрибуція",
+    "sellersAttribution": "Посилання продажів",
     "sellersAcademy": "Академія та тести",
-    "sellersMaterials": "Матеріали та email",
+    "sellersMaterials": "Матеріали продажів",
     "sellersLeadsSales": "Ліди та продажі",
     "sellersSettlements": "Розрахунки та виплати",
-    "sellersMessages": "Повідомлення та комунікація",
+    "sellersMessages": "Комунікація",
     "sellersAudit": "Відхилення та аудит",
     "sellersSettings": "Налаштування продавців",
     "analyticsOverview": "Аналітика"
@@ -7837,7 +7837,7 @@
       "openPartners": "Партнери та затвердження"
     },
     "partners": {
-      "title": "Партнери та затвердження",
+      "title": "Партнери",
       "subtitle": "Шукайте заявки, фільтруйте за статусом і відкривайте повний профіль продавця."
     },
     "products": {
@@ -7849,7 +7849,7 @@
       "subtitle": "Перегляньте збережені фіксовані ставки комісії. Відсоткова комісія не активна."
     },
     "attribution": {
-      "title": "Посилання та атрибуція",
+      "title": "Посилання продажів",
       "subtitle": "Перегляньте особисті посилання для продажу, візити і статус, який записав Core."
     },
     "academy": {
@@ -7857,7 +7857,7 @@
       "subtitle": "Подивіться спроби Академії та сертифікації. Банк питань залишається в застосунку партнера."
     },
     "materials": {
-      "title": "Матеріали та email",
+      "title": "Матеріали продажів",
       "subtitle": "Публікуйте файли продажів, які Core уже зберігає. Відсутні файли не вигадуються."
     },
     "leadsSales": {
@@ -8269,7 +8269,7 @@
       "settingsApprovalPercent": "Відсоткова комісія не збережена. Чинною лишається фіксована разова сума.",
       "settingsApprovalMessages": "Стан прочитання та архів повідомлень не збережені. Історія залишається видимою."    },
     "messages": {
-      "title": "Повідомлення та комунікація",
+      "title": "Комунікація",
       "subtitle": "Надсилайте та переглядайте авторизовану комунікацію із сертифікованими продавцями."
     },
     "profile": {

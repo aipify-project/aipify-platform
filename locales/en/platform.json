@@ -237,7 +237,7 @@
     "activityLogs": "Activity log",
     "superRevision": "Revision log",
     "governanceRecords": "Governance records",
-    "securityReviews": "Security reviews",
+    "securityReviews": "Security",
     "customers": "Customers",
     "customerLifecycle": "Lifecycle Center",
     "customerSuccessOperations": "Success Operations",
@@ -287,8 +287,8 @@
     "platformPlaybookCenter": "Playbooks",
     "platformHealthOperationsCenter": "Platform Health",
     "system": "System settings",
-    "pilotOperations": "Customer Zero Center",
-    "unonightPilot": "Customer Zero / test ops",
+    "pilotOperations": "Pilot control",
+    "unonightPilot": "Pilot control",
     "licenses": "License registry",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website verification",
@@ -299,15 +299,15 @@
     "communications": "Communication",
     "superRoleAccess": "Roles & access",
     "sellersOverview": "Sellers overview",
-    "sellersPartners": "Partners & approval",
+    "sellersPartners": "Partners",
     "sellersProducts": "Products for sale",
     "sellersCommissionRates": "Commission rates",
-    "sellersAttribution": "Sales links & attribution",
+    "sellersAttribution": "Sales links",
     "sellersAcademy": "Academy & tests",
-    "sellersMaterials": "Sales materials & email",
+    "sellersMaterials": "Sales materials",
     "sellersLeadsSales": "Leads & sales",
     "sellersSettlements": "Settlements & payouts",
-    "sellersMessages": "Messages & communication",
+    "sellersMessages": "Communication",
     "sellersAudit": "Exceptions & audit",
     "sellersSettings": "Seller settings",
     "analyticsOverview": "Analytics"
@@ -7837,7 +7837,7 @@
       "openPartners": "Partners & approval"
     },
     "partners": {
-      "title": "Partners & approval",
+      "title": "Partners",
       "subtitle": "Search applications, filter by status, and open the full seller profile."
     },
     "products": {
@@ -7849,7 +7849,7 @@
       "subtitle": "Read the stored fixed commission rates. Percent commission is not active."
     },
     "attribution": {
-      "title": "Sales links & attribution",
+      "title": "Sales links",
       "subtitle": "Review personal sales links, visits, and the status Core recorded."
     },
     "academy": {
@@ -7857,7 +7857,7 @@
       "subtitle": "See Academy attempts and certifications. The question bank stays in the partner app."
     },
     "materials": {
-      "title": "Sales materials & email",
+      "title": "Sales materials",
       "subtitle": "Publish the sales files Core already stores. Missing files are not invented."
     },
     "leadsSales": {
@@ -8270,7 +8270,7 @@
       "settingsApprovalMessages": "Message read state and archive are not stored. History stays visible."
     },
     "messages": {
-      "title": "Messages & communication",
+      "title": "Communication",
       "subtitle": "Send and review authorised communication with certified sellers."
     },
     "profile": {

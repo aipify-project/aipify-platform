@@ -5,7 +5,8 @@
     "portalSubtitle": "Rozwijaj biznes partnerski — zarządzaj leadami, klientami, poleceniami i prowizjami z Aipify.",
     "governanceNote": "Aipify Partners only · Role-based access · Leads, referrals, and performance actions audited · Never Affiliate",
     "accessDenied": "Dostęp Partners jest ograniczony do Aipify Partners, Partner Managers i Super Adminów.",
-    "loading": "Przygotowywanie Aipify Partners…"
+    "loading": "Przygotowywanie Aipify Partners…",
+    "poweredBy": "Powered by Aipify"
   },
   "navGroups": {
     "dashboard": "Dashboard",
@@ -275,7 +276,8 @@
       "messages": "Wiadomości",
       "salesMaterials": "Zatwierdzone materiały sprzedażowe",
       "menu": "Menu",
-      "menuClose": "Zamknij menu"
+      "menuClose": "Zamknij menu",
+      "emailTemplates": "Szablony e-mail"
     },
     "portal": {
       "badge": "Partner portal",
@@ -1040,6 +1042,31 @@
       "bedriftNotPublishedBody": "Academy dla Kompis Bedrift nie jest jeszcze dostępna. Postęp i certyfikat Kompis Web pozostają bez zmian.",
       "voiceFuture": "Aipify Voice",
       "voiceFutureBody": "Treści Academy dla tego produktu nie zostały jeszcze opublikowane."
+    },
+    "emailTemplates": {
+      "title": "Szablony e-mail",
+      "intro": "Wybierz certyfikowany produkt, zatwierdzony szablon i język marketingowy. Podgląd używa Twojego profilu i osobistego linku. Wysyłka pozostaje zablokowana, dopóki Aipify nie włączy bezpiecznego transportu i kontroli zgody.",
+      "productLabel": "Produkt",
+      "templateTypeLabel": "Typ szablonu",
+      "localeLabel": "Język marketingowy",
+      "localeNote": "Język marketingowy jest niezależny od języka portalu. Niepełne języki są niedostępne — nigdy nie zastępowane angielskim.",
+      "localeUnavailable": "Ten szablon nie jest jeszcze dostępny w wybranym języku.",
+      "recipientLabel": "E-mail odbiorcy",
+      "recipientHint": "Tylko jeden odbiorca. Brak masowej wysyłki w tej fazie.",
+      "previewTitle": "Podgląd",
+      "previewSubject": "Temat",
+      "sendCta": "Wyślij",
+      "sendLockedTitle": "Wysyłka jest zablokowana",
+      "sendLockedBody": "Podgląd jest zawsze dostępny dla zatwierdzonych szablonów. Rzeczywista wysyłka marketingowa wymaga zweryfikowanego nadawcy Aipify, odblokowania przez właściciela, certyfikacji, potwierdzenia zgody i gotowości Core. Akceptacja dostawcy nie jest dowodem dostarczenia.",
+      "consentLabel": "Potwierdzam podstawę prawną kontaktu z tym odbiorcą w sprawie tego produktu (np. wcześniejsza relacja lub udokumentowana zgoda). Marketingu nie zakłada się tylko dlatego, że znany jest adres e-mail.",
+      "certRequired": "Ukończ certyfikację produktu i utwórz aktywny osobisty link sprzedażowy przed wysyłką.",
+      "noTemplates": "Brak opublikowanych szablonów dla tego produktu i typu.",
+      "types": {
+        "product_introduction": "Wprowadzenie do produktu",
+        "follow_up": "Kontynuacja",
+        "meeting_request": "Prośba o spotkanie",
+        "product_information": "Informacje o produkcie"
+      }
     }
   }
 }

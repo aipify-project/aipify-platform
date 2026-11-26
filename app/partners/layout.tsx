@@ -82,6 +82,7 @@ export default async function PartnersPortalLayout({
     certifications: t("partnersPortal.certifiedSalesPartner.nav.certifications"),
     marketingAssets: t("partnersPortal.certifiedSalesPartner.nav.salesTools"),
     salesMaterials: t("partnersPortal.certifiedSalesPartner.nav.salesMaterials"),
+    emailTemplates: t("partnersPortal.certifiedSalesPartner.nav.emailTemplates"),
     messages: t("partnersPortal.certifiedSalesPartner.nav.messages"),
     notifications: t("partnersPortal.certifiedSalesPartner.nav.notifications"),
     settings: t("partnersPortal.certifiedSalesPartner.nav.help"),
@@ -99,6 +100,7 @@ export default async function PartnersPortalLayout({
             portalSubtitle={t("partnersPortal.certifiedSalesPartner.portal.subtitle")}
             signOutLabel={t("auth.logout.signOut")}
             governanceNote={labels.shell.governanceNote}
+            poweredByLabel={t("partnersPortal.shell.poweredBy")}
             navLabels={cspNavLabels}
             certifiedSalesPartnerMode
             topbarActions={

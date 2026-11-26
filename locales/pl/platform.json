@@ -237,7 +237,7 @@
     "activityLogs": "Dziennik aktywności",
     "superRevision": "Dziennik rewizji",
     "governanceRecords": "Rejestry zarządzania",
-    "securityReviews": "Przeglądy bezpieczeństwa",
+    "securityReviews": "Bezpieczeństwo",
     "customers": "Klienci",
     "customerLifecycle": "Centrum cyklu życia",
     "customerSuccessOperations": "Operacje sukcesu klientów",
@@ -287,8 +287,8 @@
     "platformPlaybookCenter": "Instrukcje operacyjne",
     "platformHealthOperationsCenter": "Kondycja platformy",
     "system": "Ustawienia systemu",
-    "pilotOperations": "Centrum Customer Zero",
-    "unonightPilot": "Customer Zero / operacje testowe",
+    "pilotOperations": "Kontrola pilota",
+    "unonightPilot": "Kontrola pilotażu",
     "licenses": "Rejestr licencji",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Weryfikacja strony",
@@ -299,15 +299,15 @@
     "communications": "Komunikacja",
     "superRoleAccess": "Role i dostępy",
     "sellersOverview": "Przegląd sprzedawców",
-    "sellersPartners": "Partnerzy i zatwierdzanie",
+    "sellersPartners": "Partnerzy",
     "sellersProducts": "Produkty do sprzedaży",
     "sellersCommissionRates": "Stawki prowizji",
-    "sellersAttribution": "Linki sprzedażowe i atrybucja",
+    "sellersAttribution": "Linki sprzedażowe",
     "sellersAcademy": "Akademia i testy",
-    "sellersMaterials": "Materiały i e-mail",
+    "sellersMaterials": "Materiały sprzedażowe",
     "sellersLeadsSales": "Leady i sprzedaż",
     "sellersSettlements": "Rozliczenia i wypłaty",
-    "sellersMessages": "Wiadomości i komunikacja",
+    "sellersMessages": "Komunikacja",
     "sellersAudit": "Odchylenia i audyt",
     "sellersSettings": "Ustawienia sprzedawców",
     "analyticsOverview": "Analityka"
@@ -7837,7 +7837,7 @@
       "openPartners": "Partnerzy i zatwierdzanie"
     },
     "partners": {
-      "title": "Partnerzy i zatwierdzanie",
+      "title": "Partnerzy",
       "subtitle": "Szukaj wniosków, filtruj po statusie i otwórz pełny profil sprzedawcy."
     },
     "products": {
@@ -7849,7 +7849,7 @@
       "subtitle": "Odczytaj zapisane stałe stawki prowizji. Prowizja procentowa nie jest aktywna."
     },
     "attribution": {
-      "title": "Linki sprzedażowe i atrybucja",
+      "title": "Linki sprzedażowe",
       "subtitle": "Sprawdź osobiste linki sprzedaży, wizyty i status zapisany przez Core."
     },
     "academy": {
@@ -7857,7 +7857,7 @@
       "subtitle": "Zobacz próby Akademii i certyfikacje. Bank pytań pozostaje w aplikacji partnera."
     },
     "materials": {
-      "title": "Materiały i e-mail",
+      "title": "Materiały sprzedażowe",
       "subtitle": "Publikuj pliki sprzedażowe, które Core już przechowuje. Brakujące pliki nie są wymyślane."
     },
     "leadsSales": {
@@ -8269,7 +8269,7 @@
       "settingsApprovalPercent": "Prowizja procentowa nie jest zapisana. Obowiązuje stała kwota jednorazowa.",
       "settingsApprovalMessages": "Stan przeczytania i archiwum wiadomości nie są zapisane. Historia pozostaje widoczna."    },
     "messages": {
-      "title": "Wiadomości i komunikacja",
+      "title": "Komunikacja",
       "subtitle": "Wysyłaj i przeglądaj autoryzowaną komunikację z certyfikowanymi sprzedawcami."
     },
     "profile": {

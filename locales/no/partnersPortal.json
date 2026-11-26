@@ -5,7 +5,8 @@
     "portalSubtitle": "Bygg partnerforretningen din — administrer leads, kunder, henvisninger og provisjoner med Aipify.",
     "governanceNote": "Aipify Partners only · Role-based access · Leads, referrals, and performance actions audited · Never Affiliate",
     "accessDenied": "Partners-tilgang er begrenset til Aipify Partners, Partner Managers og Super Admins.",
-    "loading": "Forbereder Aipify Partners…"
+    "loading": "Forbereder Aipify Partners…",
+    "poweredBy": "Drevet av Aipify"
   },
   "navGroups": {
     "dashboard": "Dashboard",
@@ -399,7 +400,8 @@
       "messages": "Meldinger",
       "salesMaterials": "Godkjent salgsmateriell",
       "menu": "Meny",
-      "menuClose": "Lukk meny"
+      "menuClose": "Lukk meny",
+      "emailTemplates": "E-postmaler"
     },
     "portal": {
       "badge": "Partnerportal",
@@ -1164,6 +1166,31 @@
       "bedriftNotPublishedBody": "Kompis Bedrift Academy er ikke tilgjengelig ennå. Fremgangen din for Kompis Web og sertifikatet er uendret.",
       "voiceFuture": "Aipify Voice",
       "voiceFutureBody": "Academy-innhold for dette produktet er ikke publisert ennå."
+    },
+    "emailTemplates": {
+      "title": "E-postmaler",
+      "intro": "Velg et sertifisert produkt, en godkjent mal og et markedsspråk. Forhåndsvisning bruker profilen din og personlig salgslenke. Utsending forblir låst til Aipify aktiverer sikker transport og samtykkesjekk.",
+      "productLabel": "Produkt",
+      "templateTypeLabel": "Maltype",
+      "localeLabel": "Markedsspråk",
+      "localeNote": "Markedsspråk er uavhengig av portalspråket. Ufullstendige språk er utilgjengelige — aldri erstattet av engelsk.",
+      "localeUnavailable": "Denne malen er ikke tilgjengelig på valgt språk ennå.",
+      "recipientLabel": "Mottaker-e-post",
+      "recipientHint": "Kun én mottaker. Ingen masseutsending i denne fasen.",
+      "previewTitle": "Forhåndsvisning",
+      "previewSubject": "Emne",
+      "sendCta": "Send",
+      "sendLockedTitle": "Utsending er låst",
+      "sendLockedBody": "Forhåndsvisning er alltid tilgjengelig for godkjente maler. Ekte markedsføringsutsending krever verifisert Aipify-avsender, eieropplåsning, sertifisering, samtykkebekreftelse og Core-klarhet. Provider-aksept er ikke leveringsbevis.",
+      "consentLabel": "Jeg bekrefter et lovlig grunnlag for å kontakte denne mottakeren om dette produktet (for eksempel eksisterende kundeforhold eller dokumentert samtykke). Markedsføring antas ikke bare fordi e-postadressen er kjent.",
+      "certRequired": "Fullfør produktsertifisering og opprett en aktiv personlig salgslenke før sending.",
+      "noTemplates": "Ingen publiserte maler for dette produktet og denne typen ennå.",
+      "types": {
+        "product_introduction": "Produktintroduksjon",
+        "follow_up": "Oppfølging",
+        "meeting_request": "Møteforespørsel",
+        "product_information": "Produktinformasjon"
+      }
     }
   }
 }
