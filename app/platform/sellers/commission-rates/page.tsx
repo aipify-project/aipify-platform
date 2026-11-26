@@ -1,9 +1,9 @@
-import { renderPlatformSellersActionPage } from "@/lib/platform/sellers-action-page";
+import { renderPlatformSellersOpsPage } from "@/lib/platform/sellers-ops-page";
 
 export default function PlatformSellersCommissionRatesPage() {
-  return renderPlatformSellersActionPage({
+  return renderPlatformSellersOpsPage({
     titleKey: "platform.sellers.commissionRates.title",
     subtitleKey: "platform.sellers.commissionRates.subtitle",
-    section: "products",
+    section: "commissionRates",
   });
 }

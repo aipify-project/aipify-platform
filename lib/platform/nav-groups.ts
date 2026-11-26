@@ -124,6 +124,7 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
       { id: "sellersLeadsSales", labelKey: "platform.nav.sellersLeadsSales" },
       { id: "commissions", labelKey: "platform.nav.commissions" },
       { id: "sellersSettlements", labelKey: "platform.nav.sellersSettlements" },
+      { id: "sellersMessages", labelKey: "platform.nav.sellersMessages" },
       { id: "sellersAudit", labelKey: "platform.nav.sellersAudit" },
       { id: "sellersSettings", labelKey: "platform.nav.sellersSettings" },
     ],

@@ -72,6 +72,7 @@ export type PlatformNavId =
   | "sellersMaterials"
   | "sellersLeadsSales"
   | "sellersSettlements"
+  | "sellersMessages"
   | "sellersAudit"
   | "sellersSettings"
   | "installations"
@@ -543,6 +544,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.sellersSettlements",
   },
   {
+    id: "sellersMessages",
+    href: "/platform/sellers/messages",
+    labelKey: "platform.nav.sellersMessages",
+  },
+  {
     id: "sellersAudit",
     href: "/platform/sellers/audit",
     labelKey: "platform.nav.sellersAudit",
@@ -722,6 +728,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/sellers/materials")) return "sellersMaterials";
   if (pathname.startsWith("/platform/sellers/leads-sales")) return "sellersLeadsSales";
   if (pathname.startsWith("/platform/sellers/settlements")) return "sellersSettlements";
+  if (pathname.startsWith("/platform/sellers/messages")) return "sellersMessages";
   if (pathname.startsWith("/platform/sellers/audit")) return "sellersAudit";
   if (pathname.startsWith("/platform/sellers/settings")) return "sellersSettings";
   if (pathname === "/platform/sellers" || pathname.startsWith("/platform/sellers/")) {
