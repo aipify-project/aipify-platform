@@ -7962,9 +7962,9 @@
       "kindSale": "Kvalifisert salg",
       "active": "Aktiv",
       "inactive": "Inaktiv",
-      "materialsGateTitle": "Official materials library",
+      "materialsGateTitle": "Offisiell materiellbibliotek",
       "materialsGateBody": "Registrer utkast, og publiser før selgere kan se materialet. Upubliserte utkast er kun for admin.",
-      "messagesGateTitle": "Seller messaging",
+      "messagesGateTitle": "Selgermeldinger",
       "messagesGateBody": "Send til én godkjent selger om gangen. Suspenderte selgere blokkeres. Ingen masseutsendelser.",
       "settingsPolicyTitle": "Programregler (skrivebeskyttet)",
       "policyManualPayouts": "Oppgjør er manuelle. Ingen automatiske bankutbetalinger.",
@@ -7975,15 +7975,15 @@
       "policyAuditRequired": "Sensitive partner- og oppgjørsendringer krever begrunnelse og revisjon.",
       "sendMessageTitle": "Send melding til selger",
       "sendMessagePartnerId": "Søk selger etter navn eller status",
-      "sendMessageSubject": "Subject (optional)",
-      "sendMessageBody": "Message",
+      "sendMessageSubject": "Emne (valgfritt)",
+      "sendMessageBody": "Melding",
       "sendMessageCta": "Send melding",
       "sendMessageOk": "Meldingen er registrert for selgeren.",
       "sendMessageError": "Meldingen kunne ikke sendes.",
       "registerMaterialTitle": "Registrer utkast til materiell",
-      "materialKey": "Material key",
-      "materialTitle": "Title",
-      "materialCategory": "Category",
+      "materialKey": "Materiellnøkkel",
+      "materialTitle": "Tittel",
+      "materialCategory": "Kategori",
       "materialAssetPath": "Asset path (must start with /)",
       "registerMaterialCta": "Lagre utkast",
       "publishCta": "Publiser",
@@ -8047,7 +8047,8 @@
       "settingsCurrentTitle": "Gjeldende programregler",
       "settingsApprovalTitle": "Krever plattformgodkjenning",
       "settingsApprovalPercent": "Prosentprovisjon er ikke lagret. Den faste engangsregelen gjelder fortsatt.",
-      "settingsApprovalMessages": "Lest-status og arkiv for meldinger er ikke lagret. Historikken blir synlig."
+      "settingsApprovalMessages": "Lest-status for meldinger oppdateres når samtalen åpnes.",
+      "unread": "Ulest"
     },
     "messages": {
       "title": "Kommunikasjon",
@@ -8174,11 +8175,12 @@
       "applications": "Søknad trenger vurdering",
       "settlements": "Oppgjør trenger et steg",
       "messages": "Melding fra en selger",
-      "readBlocked": "Lest- og arkivstatus er ikke lagret ennå, så listen har ingen ulest-teller.",
+      "readBlocked": "Klikk et varsel for å åpne samtalen. Uleste tellere oppdateres når du åpner den.",
       "loading": "Kontrollerer selgerposter",
       "error": "Selgerpostene kunne ikke kontrolleres.",
       "retry": "Prøv igjen",
-      "close": "Lukk"
+      "close": "Lukk",
+      "unread": "Ulest"
     }
   },
   "driftHub": {

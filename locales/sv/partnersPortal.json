@@ -861,7 +861,8 @@
         "trustStatementLink": "Policy för kundfeedback och produktförbättring",
         "trustStatementLinkAria": "Öppna policyn för kundåterkoppling och produktförbättring i en ny flik"
       },
-      "settingsMenu": "Hjälp och inställningar"
+      "settingsMenu": "Hjälp och inställningar",
+      "unread": "Oläst"
     },
     "messages": {
       "title": "Meddelanden",

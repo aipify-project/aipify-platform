@@ -150,6 +150,7 @@ function buildOpsLabels(t: (key: string) => string): SellersOpsLabels {
     allConversations: ops("allConversations"),
     sentByAdmin: ops("sentByAdmin"),
     threadEmpty: ops("threadEmpty"),
+    unread: ops("unread"),
   };
 }
 

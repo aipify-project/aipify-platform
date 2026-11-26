@@ -82,6 +82,58 @@ export function formatPlatformDateTimeShort(
   }
 }
 
+/**
+ * Messaging clock stamp: dd.mm.yyyy kl. HH:mm (owner-requested format).
+ * Example (Europe/Oslo): "26.11.2026 kl. 21:23"
+ * Never returns raw ISO-8601.
+ */
+export function formatPlatformDateTimeClock(
+  value: string | number | Date | null | undefined,
+  options: PlatformDateFormatOptions,
+): string {
+  if (value == null || value === "") return options.emptyFallback;
+  const date = parseInstant(value);
+  if (!date) return options.invalidFallback;
+
+  try {
+    const parts = new Intl.DateTimeFormat(toBcp47Locale(options.locale), {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: withZone(options),
+    }).formatToParts(date);
+    const get = (type: Intl.DateTimeFormatPartTypes) =>
+      parts.find((part) => part.type === type)?.value ?? "";
+    const day = get("day");
+    const month = get("month");
+    const year = get("year");
+    const hour = get("hour");
+    const minute = get("minute");
+    if (!day || !month || !year || !hour || !minute) return options.invalidFallback;
+    return `${day}.${month}.${year} kl. ${hour}:${minute}`;
+  } catch {
+    return options.invalidFallback;
+  }
+}
+
+/** Compare ISO/timestamptz strings by actual instant — newest first when used as (b, a). */
+export function compareTimestampsDesc(
+  a: string | null | undefined,
+  b: string | null | undefined,
+): number {
+  const aMs = a ? Date.parse(a) : Number.NaN;
+  const bMs = b ? Date.parse(b) : Number.NaN;
+  const aOk = Number.isFinite(aMs);
+  const bOk = Number.isFinite(bMs);
+  if (aOk && bOk) return bMs - aMs;
+  if (aOk) return -1;
+  if (bOk) return 1;
+  return String(b ?? "").localeCompare(String(a ?? ""));
+}
+
 /** Date only (no time). */
 export function formatPlatformDateOnly(
   value: string | number | Date | null | undefined,

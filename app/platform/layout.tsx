@@ -51,6 +51,10 @@ export default async function PlatformLayout({
             error: t("platform.sellers.alerts.error"),
             retry: t("platform.sellers.alerts.retry"),
             close: t("platform.sellers.alerts.close"),
+            locale,
+            dateEmpty: t("platform.sellers.live.dateEmpty"),
+            dateInvalid: t("platform.sellers.live.dateInvalid"),
+            unread: t("platform.sellers.alerts.unread"),
           }}
         >
         <DashboardShell

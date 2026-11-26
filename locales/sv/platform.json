@@ -8233,9 +8233,9 @@
       "kindSale": "Kvalificerad försäljning",
       "active": "Aktiv",
       "inactive": "Inaktiv",
-      "materialsGateTitle": "Official materials library",
+      "materialsGateTitle": "Officiellt materialbibliotek",
       "materialsGateBody": "Register draft materials, then publish before sellers can see them. Unpublished drafts stay admin-only.",
-      "messagesGateTitle": "Seller messaging",
+      "messagesGateTitle": "Säljarmeddelanden",
       "messagesGateBody": "Send to one approved seller at a time. Suspended sellers are blocked. No mass sends.",
       "settingsPolicyTitle": "Programpolicy (skrivskyddad)",
       "policyManualPayouts": "Settlements are manual. No automatic bank payouts.",
@@ -8246,15 +8246,15 @@
       "policyAuditRequired": "Sensitive partner and settlement changes require reason and audit.",
       "sendMessageTitle": "Skicka meddelande till säljare",
       "sendMessagePartnerId": "Sök säljare efter namn eller status",
-      "sendMessageSubject": "Subject (optional)",
-      "sendMessageBody": "Message",
+      "sendMessageSubject": "Ämne (valfritt)",
+      "sendMessageBody": "Meddelande",
       "sendMessageCta": "Skicka meddelande",
       "sendMessageOk": "Message recorded for the seller.",
       "sendMessageError": "The message could not be sent.",
       "registerMaterialTitle": "Register draft material",
-      "materialKey": "Material key",
-      "materialTitle": "Title",
-      "materialCategory": "Category",
+      "materialKey": "Materialnyckel",
+      "materialTitle": "Titel",
+      "materialCategory": "Kategori",
       "materialAssetPath": "Asset path (must start with /)",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publicera",
@@ -8318,7 +8318,8 @@
       "settingsCurrentTitle": "Gällande programregler",
       "settingsApprovalTitle": "Kräver plattformsgodkännande",
       "settingsApprovalPercent": "Procentprovision lagras inte. Den fasta engångsregeln gäller fortfarande.",
-      "settingsApprovalMessages": "Läststatus och arkiv för meddelanden lagras inte. Historiken förblir synlig."
+      "settingsApprovalMessages": "Lässtatus för meddelanden uppdateras när konversationen öppnas.",
+      "unread": "Oläst"
     },
     "messages": {
       "title": "Kommunikation",
@@ -8445,11 +8446,12 @@
       "applications": "Ansökan behöver granskning",
       "settlements": "Avräkning behöver ett steg",
       "messages": "Meddelande från en säljare",
-      "readBlocked": "Läst- och arkivstatus lagras inte ännu, så listan har ingen oläst-räknare.",
+      "readBlocked": "Klicka på en avisering för att öppna konversationen. Olästa räknare uppdateras när du öppnar den.",
       "loading": "Kontrollerar säljarposter",
       "error": "Säljarposterna kunde inte kontrolleras.",
       "retry": "Försök igen",
-      "close": "Stäng"
+      "close": "Stäng",
+      "unread": "Oläst"
     }
   },
   "driftHub": {

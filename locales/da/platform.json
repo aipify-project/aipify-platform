@@ -7707,9 +7707,9 @@
       "kindSale": "Qualified sale",
       "active": "Aktiv",
       "inactive": "Inaktiv",
-      "materialsGateTitle": "Official materials library",
+      "materialsGateTitle": "Officielt materialebibliotek",
       "materialsGateBody": "Register draft materials, then publish before sellers can see them. Unpublished drafts stay admin-only.",
-      "messagesGateTitle": "Seller messaging",
+      "messagesGateTitle": "Sælgerbeskeder",
       "messagesGateBody": "Send to one approved seller at a time. Suspended sellers are blocked. No mass sends.",
       "settingsPolicyTitle": "Programregler (skrivebeskyttet)",
       "policyManualPayouts": "Settlements are manual. No automatic bank payouts.",
@@ -7720,15 +7720,15 @@
       "policyAuditRequired": "Sensitive partner and settlement changes require reason and audit.",
       "sendMessageTitle": "Send besked til sælger",
       "sendMessagePartnerId": "Søg sælger efter navn eller status",
-      "sendMessageSubject": "Subject (optional)",
-      "sendMessageBody": "Message",
+      "sendMessageSubject": "Emne (valgfrit)",
+      "sendMessageBody": "Besked",
       "sendMessageCta": "Send besked",
       "sendMessageOk": "Message recorded for the seller.",
       "sendMessageError": "The message could not be sent.",
       "registerMaterialTitle": "Register draft material",
-      "materialKey": "Material key",
-      "materialTitle": "Title",
-      "materialCategory": "Category",
+      "materialKey": "Materialenøgle",
+      "materialTitle": "Titel",
+      "materialCategory": "Kategori",
       "materialAssetPath": "Asset path (must start with /)",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publicer",
@@ -7792,7 +7792,8 @@
       "settingsCurrentTitle": "Gældende programregler",
       "settingsApprovalTitle": "Kræver platformsgodkendelse",
       "settingsApprovalPercent": "Procentprovision er ikke gemt. Den faste engangsregel gælder stadig.",
-      "settingsApprovalMessages": "Læst-status og arkiv for beskeder er ikke gemt. Historikken forbliver synlig."
+      "settingsApprovalMessages": "Læst-status for beskeder opdateres, når samtalen åbnes.",
+      "unread": "Ulæst"
     },
     "messages": {
       "title": "Kommunikation",
@@ -7919,11 +7920,12 @@
       "applications": "Ansøgning kræver vurdering",
       "settlements": "Afregning kræver et trin",
       "messages": "Besked fra en sælger",
-      "readBlocked": "Læst- og arkivstatus er ikke gemt endnu, så listen har ingen ulæst-tæller.",
+      "readBlocked": "Klik på en notifikation for at åbne samtalen. Ulæste tællere opdateres, når du åbner den.",
       "loading": "Kontrollerer sælgerposter",
       "error": "Sælgerposterne kunne ikke kontrolleres.",
       "retry": "Prøv igen",
-      "close": "Luk"
+      "close": "Luk",
+      "unread": "Ulæst"
     }
   },
   "driftHub": {

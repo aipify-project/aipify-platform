@@ -1402,9 +1402,9 @@
       "kindSale": "Qualified sale",
       "active": "Activo",
       "inactive": "Inactivo",
-      "materialsGateTitle": "Official materials library",
+      "materialsGateTitle": "Biblioteca oficial de materiales",
       "materialsGateBody": "Register draft materials, then publish before sellers can see them. Unpublished drafts stay admin-only.",
-      "messagesGateTitle": "Seller messaging",
+      "messagesGateTitle": "Mensajes de vendedores",
       "messagesGateBody": "Send to one approved seller at a time. Suspended sellers are blocked. No mass sends.",
       "settingsPolicyTitle": "Política del programa (solo lectura)",
       "policyManualPayouts": "Settlements are manual. No automatic bank payouts.",
@@ -1415,15 +1415,15 @@
       "policyAuditRequired": "Sensitive partner and settlement changes require reason and audit.",
       "sendMessageTitle": "Send message to seller",
       "sendMessagePartnerId": "Buscar vendedor por nombre o estado",
-      "sendMessageSubject": "Subject (optional)",
-      "sendMessageBody": "Message",
+      "sendMessageSubject": "Asunto (opcional)",
+      "sendMessageBody": "Mensaje",
       "sendMessageCta": "Send message",
       "sendMessageOk": "Message recorded for the seller.",
       "sendMessageError": "The message could not be sent.",
       "registerMaterialTitle": "Register draft material",
-      "materialKey": "Material key",
-      "materialTitle": "Title",
-      "materialCategory": "Category",
+      "materialKey": "Clave de material",
+      "materialTitle": "Título",
+      "materialCategory": "Categoría",
       "materialAssetPath": "Asset path (must start with /)",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publish",
@@ -1487,7 +1487,8 @@
       "settingsCurrentTitle": "Reglas vigentes del programa",
       "settingsApprovalTitle": "Requiere aprobación de la plataforma",
       "settingsApprovalPercent": "La comisión porcentual no está guardada. Sigue vigente el importe fijo único.",
-      "settingsApprovalMessages": "El estado de lectura y el archivo de mensajes no están guardados. El historial sigue visible."
+      "settingsApprovalMessages": "El estado de lectura de los mensajes se actualiza al abrir la conversación.",
+      "unread": "No leído"
     },
     "messages": {
       "title": "Comunicación",
@@ -1614,11 +1615,12 @@
       "applications": "La solicitud necesita revisión",
       "settlements": "La liquidación necesita un paso",
       "messages": "Mensaje de un vendedor",
-      "readBlocked": "El estado de leído y archivo aún no se guarda, así que la lista no tiene un contador de no leídos.",
+      "readBlocked": "Haz clic en una alerta para abrir la conversación. Los contadores de no leídos se actualizan al abrirla.",
       "loading": "Comprobando registros de vendedores",
       "error": "No se pudieron comprobar los registros de vendedores.",
       "retry": "Intentar de nuevo",
-      "close": "Cerrar"
+      "close": "Cerrar",
+      "unread": "No leído"
     }
   },
   "overview": {

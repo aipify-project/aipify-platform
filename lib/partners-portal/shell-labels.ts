@@ -16,6 +16,7 @@ export type PartnersPortalTopbarLabels = {
   notifications: string;
   notificationsEmpty: string;
   notificationsViewAll: string;
+  unread: string;
   messages: string;
   profile: string;
   settingsMenu: string;
@@ -76,6 +77,7 @@ export function buildPartnersPortalTopbarLabels(t: Translator): PartnersPortalTo
     notifications: t(`${P}.notifications`),
     notificationsEmpty: t(`${P}.notificationsEmpty`),
     notificationsViewAll: t(`${P}.notificationsViewAll`),
+    unread: t(`${P}.unread`),
     messages: t(`${P}.messages`),
     profile: t(`${P}.profile`),
     settingsMenu: t(`${P}.settingsMenu`),

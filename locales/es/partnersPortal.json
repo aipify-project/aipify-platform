@@ -737,7 +737,8 @@
         "trustStatementLink": "Política de comentarios de clientes y mejora del producto",
         "trustStatementLinkAria": "Abrir la política de comentarios de clientes y mejora del producto en una pestaña nueva"
       },
-      "settingsMenu": "Ayuda y ajustes"
+      "settingsMenu": "Ayuda y ajustes",
+      "unread": "No leído"
     },
     "messages": {
       "title": "Mensajes",

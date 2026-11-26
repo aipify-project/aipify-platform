@@ -8233,9 +8233,9 @@
       "kindSale": "Qualified sale",
       "active": "Активний",
       "inactive": "Неактивний",
-      "materialsGateTitle": "Official materials library",
+      "materialsGateTitle": "Офіційна бібліотека матеріалів",
       "materialsGateBody": "Register draft materials, then publish before sellers can see them. Unpublished drafts stay admin-only.",
-      "messagesGateTitle": "Seller messaging",
+      "messagesGateTitle": "Повідомлення продавців",
       "messagesGateBody": "Send to one approved seller at a time. Suspended sellers are blocked. No mass sends.",
       "settingsPolicyTitle": "Політика програми (лише читання)",
       "policyManualPayouts": "Settlements are manual. No automatic bank payouts.",
@@ -8246,15 +8246,15 @@
       "policyAuditRequired": "Sensitive partner and settlement changes require reason and audit.",
       "sendMessageTitle": "Send message to seller",
       "sendMessagePartnerId": "Шукати продавця за іменем або статусом",
-      "sendMessageSubject": "Subject (optional)",
-      "sendMessageBody": "Message",
+      "sendMessageSubject": "Тема (необовʼязково)",
+      "sendMessageBody": "Повідомлення",
       "sendMessageCta": "Send message",
       "sendMessageOk": "Message recorded for the seller.",
       "sendMessageError": "The message could not be sent.",
       "registerMaterialTitle": "Register draft material",
-      "materialKey": "Material key",
-      "materialTitle": "Title",
-      "materialCategory": "Category",
+      "materialKey": "Ключ матеріалу",
+      "materialTitle": "Назва",
+      "materialCategory": "Категорія",
       "materialAssetPath": "Asset path (must start with /)",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publish",
@@ -8318,7 +8318,8 @@
       "settingsCurrentTitle": "Чинні правила програми",
       "settingsApprovalTitle": "Потребує схвалення платформи",
       "settingsApprovalPercent": "Відсоткова комісія не збережена. Чинною лишається фіксована разова сума.",
-      "settingsApprovalMessages": "Стан прочитання та архів повідомлень не збережені. Історія залишається видимою."
+      "settingsApprovalMessages": "Статус прочитання повідомлень оновлюється після відкриття розмови.",
+      "unread": "Непрочитане"
     },
     "messages": {
       "title": "Комунікація",
@@ -8445,11 +8446,12 @@
       "applications": "Заявка потребує розгляду",
       "settlements": "Розрахунок потребує кроку",
       "messages": "Повідомлення від продавця",
-      "readBlocked": "Стан прочитання й архіву ще не зберігається, тож список не має лічильника непрочитаних.",
+      "readBlocked": "Натисніть сповіщення, щоб відкрити розмову. Лічильники непрочитаних оновлюються після відкриття.",
       "loading": "Перевірка записів продавців",
       "error": "Не вдалося перевірити записи продавців.",
       "retry": "Спробувати знову",
-      "close": "Закрити"
+      "close": "Закрити",
+      "unread": "Непрочитане"
     }
   },
   "driftHub": {

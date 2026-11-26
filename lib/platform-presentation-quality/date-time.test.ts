@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import {
+  compareTimestampsDesc,
   formatPlatformDateOnly,
+  formatPlatformDateTimeClock,
   formatPlatformDateTimeFull,
   formatPlatformDateTimeShort,
   formatPlatformDuration,
@@ -107,6 +109,22 @@ test("relative time and duration are locale-aware", () => {
 test("looksLikeRawIsoDateTime detects forbidden patterns", () => {
   assert.equal(looksLikeRawIsoDateTime(ISO), true);
   assert.equal(looksLikeRawIsoDateTime("31. juli 2026 kl. 04:42"), false);
+});
+
+test("clock datetime uses dd.mm.yyyy kl. HH:mm", () => {
+  const formatted = formatPlatformDateTimeClock(ISO, {
+    locale: "no",
+    timeZone: "Europe/Oslo",
+    emptyFallback: "—",
+    invalidFallback: "ugyldig",
+  });
+  assert.equal(formatted, "31.07.2026 kl. 04:42");
+  assert.ok(!looksLikeRawIsoDateTime(formatted));
+});
+
+test("compareTimestampsDesc sorts by instant newest first", () => {
+  assert.ok(compareTimestampsDesc("2026-11-26T20:00:00Z", "2026-11-26T21:00:00Z") > 0);
+  assert.ok(compareTimestampsDesc("2026-11-26T21:00:00Z", "2026-11-26T20:00:00Z") < 0);
 });
 
 console.log("platform-presentation-quality date-time: all passed");

@@ -8233,9 +8233,9 @@
       "kindSale": "Qualified sale",
       "active": "Aktywny",
       "inactive": "Nieaktywny",
-      "materialsGateTitle": "Official materials library",
+      "materialsGateTitle": "Oficjalna biblioteka materiałów",
       "materialsGateBody": "Register draft materials, then publish before sellers can see them. Unpublished drafts stay admin-only.",
-      "messagesGateTitle": "Seller messaging",
+      "messagesGateTitle": "Wiadomości sprzedawców",
       "messagesGateBody": "Send to one approved seller at a time. Suspended sellers are blocked. No mass sends.",
       "settingsPolicyTitle": "Polityka programu (tylko odczyt)",
       "policyManualPayouts": "Settlements are manual. No automatic bank payouts.",
@@ -8246,15 +8246,15 @@
       "policyAuditRequired": "Sensitive partner and settlement changes require reason and audit.",
       "sendMessageTitle": "Send message to seller",
       "sendMessagePartnerId": "Szukaj sprzedawcy po nazwie lub statusie",
-      "sendMessageSubject": "Subject (optional)",
-      "sendMessageBody": "Message",
+      "sendMessageSubject": "Temat (opcjonalnie)",
+      "sendMessageBody": "Wiadomość",
       "sendMessageCta": "Send message",
       "sendMessageOk": "Message recorded for the seller.",
       "sendMessageError": "The message could not be sent.",
       "registerMaterialTitle": "Register draft material",
-      "materialKey": "Material key",
-      "materialTitle": "Title",
-      "materialCategory": "Category",
+      "materialKey": "Klucz materiału",
+      "materialTitle": "Tytuł",
+      "materialCategory": "Kategoria",
       "materialAssetPath": "Asset path (must start with /)",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publish",
@@ -8318,7 +8318,8 @@
       "settingsCurrentTitle": "Obowiązujące zasady programu",
       "settingsApprovalTitle": "Wymaga zatwierdzenia platformy",
       "settingsApprovalPercent": "Prowizja procentowa nie jest zapisana. Obowiązuje stała kwota jednorazowa.",
-      "settingsApprovalMessages": "Stan przeczytania i archiwum wiadomości nie są zapisane. Historia pozostaje widoczna."
+      "settingsApprovalMessages": "Status przeczytania wiadomości aktualizuje się po otwarciu rozmowy.",
+      "unread": "Nieprzeczytane"
     },
     "messages": {
       "title": "Komunikacja",
@@ -8445,11 +8446,12 @@
       "applications": "Wniosek wymaga oceny",
       "settlements": "Rozliczenie wymaga kroku",
       "messages": "Wiadomość od sprzedawcy",
-      "readBlocked": "Stan przeczytania i archiwum nie jest jeszcze zapisany, więc lista nie ma licznika nieprzeczytanych.",
+      "readBlocked": "Kliknij alert, aby otworzyć rozmowę. Liczniki nieprzeczytanych aktualizują się po otwarciu.",
       "loading": "Sprawdzanie rekordów sprzedawców",
       "error": "Nie udało się sprawdzić rekordów sprzedawców.",
       "retry": "Spróbuj ponownie",
-      "close": "Zamknij"
+      "close": "Zamknij",
+      "unread": "Nieprzeczytane"
     }
   },
   "driftHub": {

@@ -32,6 +32,8 @@ import {
 import { toBcp47Locale } from "@/lib/platform-presentation-quality/bcp47";
 import {
   formatPlatformDateTimeFull,
+  compareTimestampsDesc,
+  formatPlatformDateTimeClock,
   formatPlatformDateTimeShort,
 } from "@/lib/platform-presentation-quality/date-time";
 
@@ -259,7 +261,14 @@ export function CertifiedSellerProfile({
               (r): r is Record<string, unknown> => !!r && typeof r === "object" && !Array.isArray(r),
             ) as Array<Record<string, unknown>>)
           : [];
-      setMsgRows(rows);
+      setMsgRows(
+        [...rows].sort((a, b) =>
+          compareTimestampsDesc(
+            typeof a.created_at === "string" ? a.created_at : "",
+            typeof b.created_at === "string" ? b.created_at : "",
+          ),
+        ),
+      );
       setMsgPhase("ready");
     } catch {
       setMsgRows([]);
@@ -1081,7 +1090,9 @@ export function CertifiedSellerProfile({
                           <p className="text-xs font-medium text-[color:var(--aipify-text-secondary)]">
                             {direction === "partner_to_admin" ? p.directionPartner : p.directionAdmin}
                             {" · "}
-                            {formatPlatformDateTimeShort(createdAt, dateOpts)}
+                            <span className="font-normal">
+                              {formatPlatformDateTimeClock(createdAt, dateOpts)}
+                            </span>
                             {" · "}
                             {readAt ? p.readYes : p.readNo}
                           </p>
