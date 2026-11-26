@@ -29,7 +29,7 @@
 - `lib/certified-sales-partner/email-templates/` — approved template registry, placeholders, locale gate (no silent EN fallback)
 - `lib/certified-sales-partner/email-outbound/` — send gate, idempotency, rate limit, delivery status honesty
 - `lib/certified-sales-partner/email-inbound/` — webhook signature contract, correlation token, quarantine
-- `docs/platform/sql-candidates/csp_sales_email_crm_v1.sql` — PREPARED_ONLY
+- `docs/platform/sql-candidates/csp_sales_email_crm_v1.sql` — PREPARED_ONLY (canonical SHA256 `ed24863a72400676eedf7aa4c0431f80de4cc0f3a81e64fbe07f244a04ac8091`)
 - Seller UI: `/partners/marketing/email-templates`
 - Platform UI: sellers materials/templates admin + shortened nav labels
 - Shared: `components/branding/PoweredByAipifyFooter.tsx`

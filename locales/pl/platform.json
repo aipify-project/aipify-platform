@@ -287,7 +287,7 @@
     "platformPlaybookCenter": "Instrukcje operacyjne",
     "platformHealthOperationsCenter": "Kondycja platformy",
     "system": "Ustawienia systemu",
-    "pilotOperations": "Centrum Customer Zero",
+    "pilotOperations": "Kontrola pilota",
     "unonightPilot": "Kontrola pilotażu",
     "licenses": "Rejestr licencji",
     "kompisAi": "Kompis AI",
@@ -7837,7 +7837,7 @@
       "openPartners": "Partnerzy i zatwierdzanie"
     },
     "partners": {
-      "title": "Partnerzy i zatwierdzanie",
+      "title": "Partnerzy",
       "subtitle": "Szukaj wniosków, filtruj po statusie i otwórz pełny profil sprzedawcy."
     },
     "products": {
@@ -7849,7 +7849,7 @@
       "subtitle": "Odczytaj zapisane stałe stawki prowizji. Prowizja procentowa nie jest aktywna."
     },
     "attribution": {
-      "title": "Linki sprzedażowe i atrybucja",
+      "title": "Linki sprzedażowe",
       "subtitle": "Sprawdź osobiste linki sprzedaży, wizyty i status zapisany przez Core."
     },
     "academy": {
@@ -7857,7 +7857,7 @@
       "subtitle": "Zobacz próby Akademii i certyfikacje. Bank pytań pozostaje w aplikacji partnera."
     },
     "materials": {
-      "title": "Materiały i e-mail",
+      "title": "Materiały sprzedażowe",
       "subtitle": "Publikuj pliki sprzedażowe, które Core już przechowuje. Brakujące pliki nie są wymyślane."
     },
     "leadsSales": {
@@ -8269,7 +8269,7 @@
       "settingsApprovalPercent": "Prowizja procentowa nie jest zapisana. Obowiązuje stała kwota jednorazowa.",
       "settingsApprovalMessages": "Stan przeczytania i archiwum wiadomości nie są zapisane. Historia pozostaje widoczna."    },
     "messages": {
-      "title": "Wiadomości i komunikacja",
+      "title": "Komunikacja",
       "subtitle": "Wysyłaj i przeglądaj autoryzowaną komunikację z certyfikowanymi sprzedawcami."
     },
     "profile": {

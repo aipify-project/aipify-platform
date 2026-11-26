@@ -1045,7 +1045,7 @@
     },
     "emailTemplates": {
       "title": "Szablony e-mail",
-      "intro": "Wybierz certyfikowany produkt, zatwierdzony szablon i język marketingowy. Podgląd używa profilu i osobistego linku. Wysyłka pozostaje zablokowana do włączenia transportu i kontroli zgody.",
+      "intro": "Wybierz certyfikowany produkt, zatwierdzony szablon i język marketingowy. Podgląd używa Twojego profilu i osobistego linku. Wysyłka pozostaje zablokowana, dopóki Aipify nie włączy bezpiecznego transportu i kontroli zgody.",
       "productLabel": "Produkt",
       "templateTypeLabel": "Typ szablonu",
       "localeLabel": "Język marketingowy",
@@ -1057,9 +1057,9 @@
       "previewSubject": "Temat",
       "sendCta": "Wyślij",
       "sendLockedTitle": "Wysyłka jest zablokowana",
-      "sendLockedBody": "Wychodzący e-mail marketingowy wymaga zweryfikowanego transportu, odblokowania przez właściciela i udokumentowanej podstawy prawnej. Podgląd działa bez wysyłki.",
-      "consentLabel": "Potwierdzam, że mam podstawę prawną do kontaktu z tym odbiorcą w sprawie produktu (nie zakładaną tylko z istnienia adresu).",
-      "certRequired": "Ukończ certyfikację produktu i utwórz osobisty link przed wysyłką.",
+      "sendLockedBody": "Podgląd jest zawsze dostępny dla zatwierdzonych szablonów. Rzeczywista wysyłka marketingowa wymaga zweryfikowanego nadawcy Aipify, odblokowania przez właściciela, certyfikacji, potwierdzenia zgody i gotowości Core. Akceptacja dostawcy nie jest dowodem dostarczenia.",
+      "consentLabel": "Potwierdzam podstawę prawną kontaktu z tym odbiorcą w sprawie tego produktu (np. wcześniejsza relacja lub udokumentowana zgoda). Marketingu nie zakłada się tylko dlatego, że znany jest adres e-mail.",
+      "certRequired": "Ukończ certyfikację produktu i utwórz aktywny osobisty link sprzedażowy przed wysyłką.",
       "noTemplates": "Brak opublikowanych szablonów dla tego produktu i typu.",
       "types": {
         "product_introduction": "Wprowadzenie do produktu",

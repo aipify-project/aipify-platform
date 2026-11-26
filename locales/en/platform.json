@@ -287,7 +287,7 @@
     "platformPlaybookCenter": "Playbooks",
     "platformHealthOperationsCenter": "Platform Health",
     "system": "System settings",
-    "pilotOperations": "Customer Zero Center",
+    "pilotOperations": "Pilot control",
     "unonightPilot": "Pilot control",
     "licenses": "License registry",
     "kompisAi": "Kompis AI",
@@ -7837,7 +7837,7 @@
       "openPartners": "Partners & approval"
     },
     "partners": {
-      "title": "Partners & approval",
+      "title": "Partners",
       "subtitle": "Search applications, filter by status, and open the full seller profile."
     },
     "products": {
@@ -7849,7 +7849,7 @@
       "subtitle": "Read the stored fixed commission rates. Percent commission is not active."
     },
     "attribution": {
-      "title": "Sales links & attribution",
+      "title": "Sales links",
       "subtitle": "Review personal sales links, visits, and the status Core recorded."
     },
     "academy": {
@@ -7857,7 +7857,7 @@
       "subtitle": "See Academy attempts and certifications. The question bank stays in the partner app."
     },
     "materials": {
-      "title": "Sales materials & email",
+      "title": "Sales materials",
       "subtitle": "Publish the sales files Core already stores. Missing files are not invented."
     },
     "leadsSales": {
@@ -8270,7 +8270,7 @@
       "settingsApprovalMessages": "Message read state and archive are not stored. History stays visible."
     },
     "messages": {
-      "title": "Messages & communication",
+      "title": "Communication",
       "subtitle": "Send and review authorised communication with certified sellers."
     },
     "profile": {
