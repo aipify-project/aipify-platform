@@ -2323,9 +2323,9 @@
     "revenueGrowth": {
       "title": "Revenue & Growth",
       "mrrChart": "MRR trend",
-      "mrrChartHint": "Illustrative MRR progression (placeholder data)",
+      "mrrChartHint": "Historisk MRR-serie er ikke tilgjengelig fra Core ennå — trendgrafer holdes tomme i stedet for å oppdikte data.",
       "customerGrowth": "Customer growth",
-      "customerGrowthHint": "New customers per month (placeholder data)",
+      "customerGrowthHint": "Månedlig kundveksthistorikk er ikke tilgjengelig fra Core ennå — grafer holdes tomme i stedet for å oppdikte data.",
       "trialConversion": "Trial conversion",
       "trialConversionHint": "Trial to paid conversion rate",
       "monthLabels": {
@@ -4939,12 +4939,58 @@
         "activeSubscriptions": "Aktive abonnementer",
         "revenueMrr": "Månedlig gjentakende inntekt",
         "moduleUsage": "Modulbruk-signal",
-        "academyPartners": "Growth Academy-partnere"
+        "academyPartners": "Growth Academy-partnere",
+        "customersTotal": "Totalt antall kunder",
+        "customerRegistrationsPeriod": "Nye registreringer (Core 30-dagers vindu)",
+        "trialCustomers": "Prøvekunder",
+        "cancelledCustomers": "Oppsagte kunder",
+        "installationsTotal": "Installasjoner (totalt)",
+        "revenueArr": "Årlig gjentakende inntekt",
+        "outstandingInvoices": "Utestående fakturaer",
+        "certifiedPartners": "Sertifiserte selgere"
       },
       "links": {
         "metrics": "Åpne detaljerte måltall",
         "customerJourneys": "Kundereiser",
         "sellers": "Selgerpartnere"
+      },
+      "periodLabel": "Periode",
+      "period7d": "Siste 7 dager",
+      "period30d": "Siste 30 dager",
+      "period90d": "Siste 90 dager",
+      "period365d": "Siste 12 måneder",
+      "periodAll": "Alle perioder",
+      "exportCsv": "Eksporter CSV",
+      "definitionsTitle": "KPI-definisjoner",
+      "currencyPolicyTitle": "Valutapolicy",
+      "previousPeriodNoteTitle": "Sammenligning med forrige periode",
+      "productsTitle": "Produkter og moduler",
+      "productsEmpty": "Ingen publiserte produkt- eller modulrader er tilgjengelige fra Core ennå.",
+      "salesPartnersTitle": "Selgeraggregater",
+      "journeyTitle": "Kundereise"
+    },
+    "journey": {
+      "title": "Kundereise",
+      "subtitle": "Autoritative Core-tall for hvert tilgjengelige trinn. Konverteringsrater oppdiktes ikke når hendelser mangler.",
+      "loading": "Forbereder kundereise…",
+      "errorTitle": "Kundereise utilgjengelig",
+      "errorBody": "Noe uventet skjedde under lasting av kundereisen. Prøv igjen.",
+      "retry": "Prøv igjen",
+      "privacyNote": "Kun aggregater. Anonyme besøk kobles ikke til identifiserte kunder.",
+      "incompleteDataNote": "Delvise eller utilgjengelige trinn mangler en dedikert Core-hendelse.",
+      "lastChecked": "Sist kontrollert",
+      "unavailable": "Ikke tilgjengelig",
+      "partial": "Delvis datagrunnlag",
+      "available": "Tilgjengelig",
+      "back": "Tilbake til analyse",
+      "steps": {
+        "visit": "Besøk",
+        "registration": "Registrering",
+        "company": "Firma / aktiv konto",
+        "productSelected": "Produkt / installasjon registrert",
+        "installationActivated": "Installasjon aktivert",
+        "paidSubscription": "Betalt abonnement (proxy)",
+        "trial": "Prøvekunder"
       }
     }
   },

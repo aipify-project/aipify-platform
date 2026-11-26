@@ -2129,9 +2129,9 @@
     "revenueGrowth": {
       "title": "Revenue & Growth",
       "mrrChart": "MRR trend",
-      "mrrChartHint": "Illustrative MRR progression (placeholder data)",
+      "mrrChartHint": "Historical MRR series is not available from Core yet — trend charts stay empty rather than invent data.",
       "customerGrowth": "Customer growth",
-      "customerGrowthHint": "New customers per month (placeholder data)",
+      "customerGrowthHint": "Monthly customer growth history is not available from Core yet — charts stay empty rather than invent data.",
       "trialConversion": "Trial conversion",
       "trialConversionHint": "Trial to paid conversion rate",
       "monthLabels": {
@@ -4662,12 +4662,58 @@
         "activeSubscriptions": "Aktive abonnementer",
         "revenueMrr": "Månedlig tilbagevendende omsætning",
         "moduleUsage": "Modulbrug-signal",
-        "academyPartners": "Growth Academy-partnere"
+        "academyPartners": "Growth Academy-partnere",
+        "customersTotal": "Total customers",
+        "customerRegistrationsPeriod": "New registrations (Core 30d window)",
+        "trialCustomers": "Trial customers",
+        "cancelledCustomers": "Cancelled customers",
+        "installationsTotal": "Installations (total)",
+        "revenueArr": "Annual recurring revenue",
+        "outstandingInvoices": "Outstanding invoices",
+        "certifiedPartners": "Certified sellers"
       },
       "links": {
         "metrics": "Åbn detaljerede nøgletal",
         "customerJourneys": "Kunderejser",
         "sellers": "Sælgerpartnere"
+      },
+      "periodLabel": "Periode",
+      "period7d": "Seneste 7 dage",
+      "period30d": "Seneste 30 dage",
+      "period90d": "Seneste 90 dage",
+      "period365d": "Seneste 12 måneder",
+      "periodAll": "Alle perioder",
+      "exportCsv": "Eksporter CSV",
+      "definitionsTitle": "KPI-definitioner",
+      "currencyPolicyTitle": "Valutapolitik",
+      "previousPeriodNoteTitle": "Sammenligning med forrige periode",
+      "productsTitle": "Produkter og moduler",
+      "productsEmpty": "Ingen offentliggjorte produkt- eller modulrækker er tilgængelige fra Core endnu.",
+      "salesPartnersTitle": "Sælgeraggregater",
+      "journeyTitle": "Kunderejse"
+    },
+    "journey": {
+      "title": "Kunderejse",
+      "subtitle": "Authoritative Core counts for each available step. Conversion rates are not invented when events are missing.",
+      "loading": "Preparing customer journey…",
+      "errorTitle": "Journey unavailable",
+      "errorBody": "Something unexpected happened while loading the journey. Please try again.",
+      "retry": "Try again",
+      "privacyNote": "Aggregates only. Anonymous visits are not joined to identified customers.",
+      "incompleteDataNote": "Partial or unavailable steps lack a dedicated Core event.",
+      "lastChecked": "Last checked",
+      "unavailable": "Not available",
+      "partial": "Partial data",
+      "available": "Available",
+      "back": "Back to analytics",
+      "steps": {
+        "visit": "Visit",
+        "registration": "Registration",
+        "company": "Company / active account",
+        "productSelected": "Product / installation recorded",
+        "installationActivated": "Installation activated",
+        "paidSubscription": "Paid subscription (proxy)",
+        "trial": "Trial customers"
       }
     }
   },
