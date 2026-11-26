@@ -45,8 +45,11 @@ assert.deepEqual(authorizeStripeWebhook({ payload, signature: sign(payload, secr
 
 const route = readFileSync(join(process.cwd(), "app/api/webhooks/stripe/route.ts"), "utf8");
 const gateAt = route.indexOf("authorizeStripeWebhook");
+const serviceAt = route.indexOf("createServiceRoleClient");
 const mutationAt = route.indexOf("handle_payment_webhook_event");
-assert.ok(gateAt > 0 && mutationAt > gateAt);
+assert.ok(gateAt > 0 && serviceAt > gateAt && mutationAt > serviceAt);
+assert.match(route, /createServiceRoleClient/);
+assert.doesNotMatch(route, /from \"@\/lib\/supabase\/server\"/);
 assert.doesNotMatch(route, /if\s*\(\s*webhookSecret\s*&&\s*signature\s*\)/);
 assert.doesNotMatch(route, /create-checkout-session|STRIPE_SECRET_KEY|STRIPE_PRICE_ID/);
 
