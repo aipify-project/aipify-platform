@@ -7973,15 +7973,19 @@
       "priceNotCommission": "Stała prowizja nie jest ceną dla klienta.",
       "languageNotStored": "Zatwierdzone tłumaczenia nie są jeszcze zapisane przy produkcie. Nic nie jest publikowane automatycznie.",
       "percentUnavailable": "Prowizji procentowej nie można zapisać. Obowiązuje stała kwota jednorazowa.",
-      "publishMeaning": "Opublikowany oznacza, że sprzedawcy mogą używać produktu. Nie oznacza, że klient może go kupić.",
+      "publishMeaning": "Publikacja sprzedawcy ustawia kanał SALE (publish_sale). Nie publikuje produktu w APP.",
       "productTabMedia": "Profil i media",
       "productTabAppPanel": "Panel APP",
       "productTabSalePanel": "Panel sprzedaży",
       "productTabPreview": "Podgląd i publikacja",
       "titlePersistenceNote": "Core obecnie zapisuje klucz produktu, prowizję i publikację sprzedaży. Tytuł może być przyjęty bez trwałego zapisu, dopóki SQL dwóch kanałów nie zostanie zatwierdzony.",
       "mediaBlocked": "Przesyłanie mediów wymaga magazynu Core. Do tego czasu APP i katalog sprzedawcy używają zatwierdzonych znaków z rejestru katalogu.",
-      "appPanelBlocked": "Publikacja kanału APP i gotowość zakupu wymagają SQL Core. Produkty w rejestrze APP pojawiają się w /app/software bez fałszywego przycisku Kup.",
-      "previewNote": "Użyj sklepu APP i katalogu partnera do podglądu kanałów. Kanały pozostają niezależne."
+      "appPanelBlocked": "Identyfikatory cen klienta i gotowość zakupu pozostają zablokowane. Publikacja APP używa Core, gdy RPC kanału jest zastosowane; w przeciwnym razie fail-closed i wyraźnie oznaczone.",
+      "previewNote": "Użyj sklepu APP i katalogu partnera do podglądu kanałów. Kanały pozostają niezależne.",
+      "publishSale": "Opublikowano dla sprzedawców",
+      "publishApp": "Opublikowano w APP",
+      "publishAppHint": "Publikacja APP jest niezależna od publikacji sprzedawcy. Do czasu zastosowania RPC kanału Core zmiana pozostaje oczekująca (fail-closed) — bez fałszywego «Opublikowano w APP».",
+      "channelOnlyHint": "Aktualizuj tylko flagi kanałów (bez prowizji)"
     },
     "live": {
       "loading": "Ładowanie danych sprzedawców",
@@ -8128,12 +8132,12 @@
       "registerColAppStatus": "Status APP",
       "registerColSaleStatus": "Status sprzedaży",
       "registerColCustomerPrice": "Cena klienta",
-      "registerAppPublished": "APP opublikowany",
-      "registerAppUnpublished": "Brak w sklepie APP",
-      "registerAppRegistryFallback": "Listing APP (fallback rejestru — brak Core SQL)",
+      "registerAppPublished": "Opublikowano w APP",
+      "registerAppUnpublished": "Nie opublikowano w APP",
+      "registerAppRegistryFallback": "Wymaga konfiguracji (kanał APP oczekuje)",
       "registerSaleNotConfigured": "Sprzedaż nie skonfigurowana",
       "registerPricePlanned": "Planowana od {price}",
-      "registerChannelNote": "Jedna tożsamość produktu z osobnymi kanałami APP i sprzedaży."
+      "registerChannelNote": "Jedna tożsamość produktu z osobnymi kanałami APP i sprzedaży. Publikacja sprzedaży używa Core. Publikacja APP używa Core, gdy RPC kanału jest zastosowane; do tego czasu listing APP może pokazać oznaczony fallback rejestru — nigdy fałszywej flagi Core APP."
     },
     "drawer": {
       "title": "Szczegóły wniosku",

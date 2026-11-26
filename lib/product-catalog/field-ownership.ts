@@ -26,8 +26,9 @@ export const PRODUCT_CATALOG_FIELD_OWNERSHIP = {
   fixedCommissionAmount: "core_csp_sales_products",
   currency: "core_csp_sales_products",
   coreProductId: "core_csp_sales_products",
-  publishApp: "core_channel_sql_pending",
-  publishSale: "core_channel_sql_pending",
+  /** Staging schema applied; Production + RPC apply remain gated. */
+  publishApp: "core_csp_sales_products",
+  publishSale: "core_csp_sales_products",
   localeCopyApproved: "core_channel_sql_pending",
   mediaPathsPersisted: "core_channel_sql_pending",
   entitlementActive: "tenant_entitlement",

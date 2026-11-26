@@ -1142,15 +1142,19 @@
       "priceNotCommission": "La comisión fija no es el precio para el cliente.",
       "languageNotStored": "Las traducciones aprobadas aún no están en el registro del producto. Nada se publica automáticamente.",
       "percentUnavailable": "La comisión porcentual no se puede guardar. La regla vigente sigue siendo un importe fijo único.",
-      "publishMeaning": "Publicado significa que los vendedores pueden usar el producto. No significa que un cliente pueda comprarlo.",
+      "publishMeaning": "La publicación para vendedores establece el canal SALE (publish_sale). No publica el producto en APP.",
       "productTabMedia": "Perfil y medios",
       "productTabAppPanel": "Panel APP",
       "productTabSalePanel": "Panel de venta",
       "productTabPreview": "Vista previa y publicación",
       "titlePersistenceNote": "Core hoy guarda la clave del producto, la comisión y la publicación de venta. El título puede aceptarse sin persistir hasta aprobar el SQL de doble canal.",
       "mediaBlocked": "La carga de medios requiere almacenamiento Core. Hasta entonces APP y el catálogo de vendedores usan marcas aprobadas del registro unificado.",
-      "appPanelBlocked": "La publicación del canal APP y la preparación de compra requieren SQL Core. Los productos del registro APP aparecen en /app/software sin un botón Comprar falso.",
-      "previewNote": "Usa la tienda APP y el catálogo de socios para previsualizar cada canal. Los canales son independientes."
+      "appPanelBlocked": "Los ID de precio al cliente y la preparación de compra siguen bloqueados. La publicación APP usa Core cuando el RPC de canal está aplicado; de lo contrario fail-closed y claramente marcado.",
+      "previewNote": "Usa la tienda APP y el catálogo de socios para previsualizar cada canal. Los canales son independientes.",
+      "publishSale": "Publicado para vendedores",
+      "publishApp": "Publicado en APP",
+      "publishAppHint": "La publicación APP es independiente de la del vendedor. Hasta que se aplique el RPC de canal de Core, el cambio queda pendiente (fail-closed) — sin un falso «Publicado en APP».",
+      "channelOnlyHint": "Actualizar solo indicadores de canal (sin comisión)"
     },
     "live": {
       "loading": "Cargando datos de vendedores",
@@ -1297,12 +1301,12 @@
       "registerColAppStatus": "Estado APP",
       "registerColSaleStatus": "Estado de venta",
       "registerColCustomerPrice": "Precio al cliente",
-      "registerAppPublished": "APP publicado",
-      "registerAppUnpublished": "No en la tienda APP",
-      "registerAppRegistryFallback": "Listado APP (fallback de registro — SQL Core pendiente)",
+      "registerAppPublished": "Publicado en APP",
+      "registerAppUnpublished": "No publicado en APP",
+      "registerAppRegistryFallback": "Requiere configuración (canal APP pendiente)",
       "registerSaleNotConfigured": "Venta no configurada",
       "registerPricePlanned": "Planificado desde {price}",
-      "registerChannelNote": "Una identidad de producto con canales APP y venta separados."
+      "registerChannelNote": "Una identidad de producto con canales APP y venta separados. La publicación de venta usa Core. La publicación APP usa Core cuando el RPC de canal está aplicado; hasta entonces el listado APP puede mostrar un fallback de registro marcado — nunca un indicador Core APP falso."
     },
     "drawer": {
       "title": "Detalles de la solicitud",

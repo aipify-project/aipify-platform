@@ -78,13 +78,13 @@ export function UnifiedProductRegisterTable({
                     ? labels.saleNotConfigured
                     : labels.saleDraft;
               const appLabel =
-                product.app.source === "registry_fallback"
+                product.app.source === "registry_fallback" || product.app.status === "blocked_needs_sql"
                   ? labels.appRegistryFallback
                   : product.app.visibleInStore
                     ? labels.appPublished
                     : labels.appUnpublished;
               const appBadgeKind =
-                product.app.source === "registry_fallback"
+                product.app.source === "registry_fallback" || product.app.status === "blocked_needs_sql"
                   ? "waiting"
                   : product.app.visibleInStore
                     ? "completed"

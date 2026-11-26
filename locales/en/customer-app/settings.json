@@ -911,7 +911,8 @@
       "seeInformation": "See information",
       "contactAipify": "Contact Aipify",
       "notForPurchase": "Not available for purchase yet",
-      "plannedPriceNote": "Planned customer price from {price} — not a live checkout offer."
+      "plannedPriceNote": "Planned customer price from {price} — not a live checkout offer.",
+      "coreChannelPending": "APP publication from Core is not connected yet. Listed products may use a temporary registry fallback and are clearly marked — not a live Core APP publish flag."
     },
     "modules": {
       "title": "Add-on modules",

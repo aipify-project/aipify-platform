@@ -57,7 +57,10 @@ function resolveCopy(
 
 /**
  * APP channel: Core `publish_app` wins when present.
- * Otherwise `defaultAppPublished` is a controlled temporary fallback and is marked as such.
+ * If a Core product row exists but the channel flag is absent from the payload,
+ * never invent APP publication from registry defaults (Platform overview may omit
+ * the flag until channel RPC enrichment lands).
+ * Registry fallback applies only when there is no Core product row at all.
  */
 function appChannel(
   def: NonNullable<ReturnType<typeof getCanonicalProduct>>,
@@ -67,6 +70,13 @@ function appChannel(
     return core.publishApp
       ? { status: "published", visibleInStore: true, source: "core" }
       : { status: "unpublished", visibleInStore: false, source: "core" };
+  }
+  if (core) {
+    return {
+      status: "blocked_needs_sql",
+      visibleInStore: false,
+      source: "none",
+    };
   }
   if (def.defaultAppPublished) {
     return {

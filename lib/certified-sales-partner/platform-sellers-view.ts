@@ -65,6 +65,11 @@ export type SellersProductRow = {
   currency: string | null;
   fixedCommissionAmount: number | null;
   published: boolean;
+  /** Present after channel schema + overview RPC enrichment. */
+  publishSale: boolean | null;
+  publishApp: boolean | null;
+  masterActive: boolean | null;
+  sku: string | null;
 };
 
 export type SellersSettlementRow = {
@@ -167,6 +172,25 @@ export function parseSellersOverview(payload: unknown): SellersOverview {
               currency: str(p, "currency"),
               fixedCommissionAmount: num(p.fixed_commission_amount),
               published: p.published === true,
+              publishSale:
+                typeof p.publish_sale === "boolean"
+                  ? p.publish_sale
+                  : typeof p.publishSale === "boolean"
+                    ? p.publishSale
+                    : null,
+              publishApp:
+                typeof p.publish_app === "boolean"
+                  ? p.publish_app
+                  : typeof p.publishApp === "boolean"
+                    ? p.publishApp
+                    : null,
+              masterActive:
+                typeof p.master_active === "boolean"
+                  ? p.master_active
+                  : typeof p.masterActive === "boolean"
+                    ? p.masterActive
+                    : null,
+              sku: str(p, "sku"),
             },
           ];
         })

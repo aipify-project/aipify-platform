@@ -130,6 +130,11 @@ export function SoftwareProductShowcase({
                   unknown: labels.detailsUnavailable,
                 }}
               />
+              {product.app.source === "registry_fallback" || product.app.status === "blocked_needs_sql" ? (
+                <p className="text-xs text-[var(--app-pending)]" role="status">
+                  {showcase.coreChannelPending}
+                </p>
+              ) : null}
               {price && product.customerPrice.status === "planned_not_stripe_live" ? (
                 <p className="text-xs text-[var(--app-text-muted)]">
                   {plannedPriceNote.replace("{price}", price)}

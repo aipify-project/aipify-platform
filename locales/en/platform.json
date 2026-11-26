@@ -7973,15 +7973,19 @@
       "priceNotCommission": "The fixed commission is not the customer price.",
       "languageNotStored": "Approved translations are not stored on this product record yet. Nothing is published automatically.",
       "percentUnavailable": "Percent commission cannot be saved. The current rule remains a fixed one-time amount.",
-      "publishMeaning": "Published means sellers can use the product. It does not mean a customer can buy it.",
+      "publishMeaning": "Seller publish sets the SALE channel (publish_sale). It does not publish the product in APP.",
       "productTabMedia": "Profile & media",
       "productTabAppPanel": "APP panel",
       "productTabSalePanel": "Sale panel",
       "productTabPreview": "Preview & publish",
       "titlePersistenceNote": "Core currently stores product key, commission and sale publish flag. Title is accepted for review but may not persist until the dual-channel SQL is approved.",
       "mediaBlocked": "Media upload and product hero registration require Core storage. Until then APP and seller cards use approved brand marks from the unified catalog registry.",
-      "appPanelBlocked": "APP channel publish, customer price IDs and checkout readiness require Core SQL. Products already in the APP registry appear in /app/software without inventing a Buy button.",
-      "previewNote": "Use APP Store (/app/software) and partner catalog (/partners/marketing/product-catalog) to preview channel-specific presentation. Channels stay independent."
+      "appPanelBlocked": "Customer price IDs and checkout readiness remain blocked. APP publish uses Core when the channel RPC is applied; otherwise the save is fail-closed and clearly marked.",
+      "previewNote": "Use APP Store (/app/software) and partner catalog (/partners/marketing/product-catalog) to preview channel-specific presentation. Channels stay independent.",
+      "publishSale": "Published for sellers",
+      "publishApp": "Published in APP",
+      "publishAppHint": "APP publish is independent of seller publish. Until the Core channel RPC is applied, this change stays pending (fail-closed) — no false APP published status.",
+      "channelOnlyHint": "Update channel flags only (do not change commission)"
     },
     "live": {
       "loading": "Loading seller data",
@@ -8128,12 +8132,12 @@
       "registerColAppStatus": "APP status",
       "registerColSaleStatus": "Sale status",
       "registerColCustomerPrice": "Customer price",
-      "registerAppPublished": "APP published",
-      "registerAppUnpublished": "Not in APP store",
-      "registerAppRegistryFallback": "APP listing (registry fallback — Core SQL pending)",
+      "registerAppPublished": "Published in APP",
+      "registerAppUnpublished": "Not published in APP",
+      "registerAppRegistryFallback": "Requires setup (APP channel pending)",
       "registerSaleNotConfigured": "Sale not configured",
       "registerPricePlanned": "Planned from {price}",
-      "registerChannelNote": "One product identity with separate APP and Sale channels. Sale publish uses Core. APP listing uses the approved registry until channel SQL lands."
+      "registerChannelNote": "One product identity with separate APP and Sale channels. Sale publish uses Core. APP publish uses Core when the channel RPC is applied; until then APP listing may show a labelled registry fallback — never a false Core APP flag."
     },
     "drawer": {
       "title": "Application details",
