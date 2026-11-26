@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import {
+  authorizeStripeWebhook,
   mapStripeEventToPaymentEvent,
-  verifyStripeWebhookSignature,
 } from "@/lib/billing/stripe-client";
 
 export async function POST(request: Request) {
@@ -10,12 +10,13 @@ export async function POST(request: Request) {
     const payload = await request.text();
     const signature = request.headers.get("stripe-signature");
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-    if (webhookSecret && signature) {
-      const valid = verifyStripeWebhookSignature(payload, signature, webhookSecret);
-      if (!valid) {
-        return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
-      }
+    const authorized = authorizeStripeWebhook({
+      payload,
+      signature,
+      secret: webhookSecret,
+    });
+    if (!authorized.ok) {
+      return NextResponse.json({ error: authorized.error }, { status: authorized.status });
     }
 
     const event = JSON.parse(payload) as {
