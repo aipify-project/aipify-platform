@@ -67,7 +67,14 @@ const saleOnlyDraft = buildUnifiedCatalog({
 assert.equal(filterSalesCatalogProducts(saleOnlyDraft).length, 0);
 assert.ok(filterAppStoreProducts(saleOnlyDraft).some((p) => p.productKey === "kompis_web"));
 
-const missingLocale = buildUnifiedCatalog({ locale: "es", coreProducts: [] });
-assert.ok(missingLocale.every((p) => p.localeApproved === true || p.copy !== undefined));
+const spanish = buildUnifiedCatalog({ locale: "es", coreProducts: [] });
+assert.ok(
+  spanish.every(
+    (p) =>
+      typeof p.title === "string" &&
+      p.title.length > 0 &&
+      p.localeApproved === true,
+  ),
+);
 
 console.log("unified-catalog.test.ts: ok");
