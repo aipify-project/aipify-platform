@@ -33,11 +33,13 @@ const forbiddenEnInNo = [
 ];
 
 {
-  const no = loadPortal("no").portalStructure.supportRequests as Record<string, string>;
+  const no = loadPortal("no").portalStructure.supportRequests as Record<string, unknown>;
   assert.equal(no.title, "Kundeservice");
   assert.equal(no.createRequest, "Ny henvendelse");
-  assert.equal((no.detail as { sendReply: string }).sendReply, "Send svar");
-  assert.equal((no.views as { waiting: string }).waiting, "Avventer svar");
+  const detail = no.detail as Record<string, string>;
+  const views = no.views as Record<string, string>;
+  assert.equal(detail.sendReply, "Send svar");
+  assert.equal(views.waiting, "Avventer svar");
   const blob = JSON.stringify(no);
   for (const bad of forbiddenEnInNo) {
     assert.equal(blob.includes(bad), false, `NO must not contain: ${bad}`);
