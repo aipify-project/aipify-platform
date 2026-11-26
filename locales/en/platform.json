@@ -8134,7 +8134,7 @@
       "registerColCustomerPrice": "Customer price",
       "registerAppPublished": "Published in APP",
       "registerAppUnpublished": "Not published in APP",
-      "registerAppRegistryFallback": "Requires setup (registry fallback)",
+      "registerAppRegistryFallback": "Requires setup (APP channel pending)",
       "registerSaleNotConfigured": "Sale not configured",
       "registerPricePlanned": "Planned from {price}",
       "registerChannelNote": "One product identity with separate APP and Sale channels. Sale publish uses Core. APP publish uses Core when the channel RPC is applied; until then APP listing may show a labelled registry fallback — never a false Core APP flag."

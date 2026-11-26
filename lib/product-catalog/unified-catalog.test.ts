@@ -48,19 +48,22 @@ const sale = filterSalesCatalogProducts(both);
 
 assert.ok(app.every((p) => p.app.visibleInStore));
 assert.ok(sale.every((p) => p.sale.visibleInStore));
-assert.ok(app.some((p) => p.productKey === "kompis_web"));
+assert.ok(!app.some((p) => p.productKey === "kompis_web"), "Core row without publish_app must not invent APP listing");
 assert.ok(!app.some((p) => p.productKey === "aipify_voice"), "SALE-only voice must not appear in APP store");
 assert.ok(sale.some((p) => p.productKey === "aipify_voice"));
+assert.ok(sale.some((p) => p.productKey === "kompis_web"));
 
 const isolation = assertChannelIsolation(both);
 assert.ok(isolation.saleOnlyKeys.includes("aipify_voice"));
-assert.ok(isolation.registryFallbackAppKeys.includes("kompis_web"));
+// Core rows without publish_app must not invent APP listing via registry.
+assert.ok(!isolation.registryFallbackAppKeys.includes("kompis_web"));
 assert.ok(!isolation.registryFallbackAppKeys.includes("aipify_voice"));
 
 const web = both.find((p) => p.productKey === "kompis_web");
 assert.equal(web?.purchaseReadiness, "active_open");
-assert.equal(web?.app.source, "registry_fallback");
+assert.equal(web?.app.source, "none");
 assert.equal(web?.app.status, "blocked_needs_sql");
+assert.equal(web?.app.visibleInStore, false);
 assert.equal(web?.sale.source, "core");
 assert.equal(web?.commission.kind, "fixed");
 if (web?.commission.kind === "fixed") {
@@ -82,7 +85,14 @@ const saleOnlyDraft = buildUnifiedCatalog({
   ],
 });
 assert.equal(filterSalesCatalogProducts(saleOnlyDraft).length, 0);
-assert.ok(filterAppStoreProducts(saleOnlyDraft).some((p) => p.productKey === "kompis_web"));
+assert.ok(!filterAppStoreProducts(saleOnlyDraft).some((p) => p.productKey === "kompis_web"));
+
+// No Core rows → controlled registry fallback for default APP products only.
+const registryOnly = buildUnifiedCatalog({ locale: "en", coreProducts: [] });
+assert.ok(
+  assertChannelIsolation(registryOnly).registryFallbackAppKeys.includes("kompis_web"),
+);
+assert.ok(filterAppStoreProducts(registryOnly).some((p) => p.productKey === "kompis_web"));
 
 const withCoreApp = buildUnifiedCatalog({
   locale: "en",

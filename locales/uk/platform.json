@@ -8134,7 +8134,7 @@
       "registerColCustomerPrice": "Ціна клієнта",
       "registerAppPublished": "Опубліковано в APP",
       "registerAppUnpublished": "Не опубліковано в APP",
-      "registerAppRegistryFallback": "Потрібне налаштування (резерв реєстру)",
+      "registerAppRegistryFallback": "Потрібне налаштування (канал APP очікує)",
       "registerSaleNotConfigured": "Продаж не налаштовано",
       "registerPricePlanned": "Заплановано від {price}",
       "registerChannelNote": "Одна ідентичність продукту з окремими каналами APP і продажу. Публікація продажу використовує Core. Публікація APP використовує Core, коли RPC каналу застосовано; доти listing APP може показувати позначений резерв реєстру — ніколи хибний прапорець Core APP."

@@ -251,12 +251,20 @@ export function CertifiedSellersActionPanel({
         return;
       }
 
-      // APP channel is independent — never inferred from SALE. Fail-closed if RPC missing.
+      // APP is independent of SALE. Only touch APP when the operator checked Publisert i APP.
+      // Never POST publish_app:false on every SALE save (would clear APP once RPC exists, and
+      // would make SALE-only saves look blocked while the channel RPC is still pending).
+      if (!publishAppChecked) {
+        setMessage({ kind: "ok", text: labels.success });
+        onSuccess?.();
+        return;
+      }
+
       const channelOutcome = await post(
         "/api/platform/sellers/products/channels",
         {
           product_key: productKey,
-          publish_app: publishAppChecked,
+          publish_app: true,
         },
         { quiet: true },
       );
@@ -266,6 +274,7 @@ export function CertifiedSellersActionPanel({
         return;
       }
       if (channelOutcome === "closed") {
+        // SALE save already succeeded — do not pretend APP published.
         setMessage({
           kind: "closed",
           text: labels.publishAppHint ?? labels.failClosed,

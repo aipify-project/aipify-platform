@@ -1300,7 +1300,7 @@
       "registerColCustomerPrice": "Precio al cliente",
       "registerAppPublished": "Publicado en APP",
       "registerAppUnpublished": "No publicado en APP",
-      "registerAppRegistryFallback": "Requiere configuración (fallback de registro)",
+      "registerAppRegistryFallback": "Requiere configuración (canal APP pendiente)",
       "registerSaleNotConfigured": "Venta no configurada",
       "registerPricePlanned": "Planificado desde {price}",
       "registerChannelNote": "Una identidad de producto con canales APP y venta separados. La publicación de venta usa Core. La publicación APP usa Core cuando el RPC de canal está aplicado; hasta entonces el listado APP puede mostrar un fallback de registro marcado — nunca un indicador Core APP falso."

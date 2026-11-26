@@ -21,6 +21,8 @@
 | Schema SHA256 | `2ffaf5a43ec1d5a488b9bd2298abb96c2c25457f521f6afb34c3b2e49d77d970` |
 | Staging ledger | `20261126192821_unified_product_catalog_channel_sql_v1` |
 | Staging status | `ALREADY_APPLIED_VERIFIED` |
+| Production ledger | `20261126200042_unified_product_catalog_channel_sql_v1` |
+| Production status | `ALREADY_APPLIED_VERIFIED` (schema only — not this RPC) |
 
 ## Object list (this candidate)
 

@@ -8134,7 +8134,7 @@
       "registerColCustomerPrice": "Kundpris",
       "registerAppPublished": "Publicerad i APP",
       "registerAppUnpublished": "Inte publicerad i APP",
-      "registerAppRegistryFallback": "Kräver konfiguration (registerfallback)",
+      "registerAppRegistryFallback": "Kräver konfiguration (APP-kanal väntar)",
       "registerSaleNotConfigured": "Försäljning ej konfigurerad",
       "registerPricePlanned": "Planerad från {price}",
       "registerChannelNote": "En produktidentitet med separata APP- och säljkanaler. Säljpublicering använder Core. APP-publicering använder Core när kanal-RPC är tillämpad; tills dess kan APP-listning visa märkt registerfallback — aldrig en falsk Core APP-flagga."
