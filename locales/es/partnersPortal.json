@@ -403,7 +403,15 @@
       "statusBlocked": "Bloqueado",
       "visitsUnknown": "No informado",
       "socialSection": "Plataformas sociales",
-      "otherChannels": "Otros canales"
+      "otherChannels": "Otros canales",
+      "deactivate": "Desactivar",
+      "deactivateOk": "Enlace de venta desactivado. Las visitas se conservan en el historial.",
+      "deactivateError": "No se pudo desactivar el enlace de venta. Inténtelo de nuevo.",
+      "codeCol": "Código del enlace",
+      "copyLink": "Copiar enlace",
+      "copyLinkOk": "Enlace copiado.",
+      "copyLinkNeedProduct": "Elija un producto abajo antes de copiar un enlace público.",
+      "statusDeactivated": "Desactivado"
     },
     "exam": {
       "title": "Prueba de certificación del producto",
@@ -773,7 +781,8 @@
         },
         "contact": {
           "title": "Contact Aipify",
-          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
+          "cta": "Abrir mensajes"
         }
       }
     },
@@ -783,7 +792,9 @@
       "emptyTitle": "Aún no hay notificaciones",
       "emptyBody": "Cuando Platform Admin envíe un mensaje o cambie el estado de certificación y liquidación, las actualizaciones aparecerán aquí.",
       "messagesCta": "Abrir mensajes",
-      "homeCta": "Volver al inicio"
+      "homeCta": "Volver al inicio",
+      "unreadTitle": "Mensajes no leídos de Aipify",
+      "unreadBody": "Abra Mensajes para leer y responder. Solo aparecen mensajes autorizados de Platform Admin."
     },
     "leads": {
       "title": "Tus registros atribuidos",

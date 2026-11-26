@@ -8016,7 +8016,10 @@
         "approved": "Zatwierdzony",
         "rejected": "Odrzucony",
         "suspended": "Zawieszony",
-        "unknown": "Status niedostępny"
+        "unknown": "Status niedostępny",
+        "active": "Aktywny",
+        "certified": "Certyfikowany",
+        "in_academy": "W academy"
       },
       "viewApplication": "Zobacz wniosek",
       "sectionAttributionBody": "Linki sprzedażowe, kliknięcia i rejestracje według sprzedawców.",
@@ -8160,7 +8163,7 @@
       "policyNoRetroactiveRates": "Rate changes never alter already qualified sales.",
       "policyAuditRequired": "Sensitive partner and settlement changes require reason and audit.",
       "sendMessageTitle": "Send message to seller",
-      "sendMessagePartnerId": "Partner id (UUID)",
+      "sendMessagePartnerId": "Szukaj sprzedawcy po nazwie lub statusie",
       "sendMessageSubject": "Subject (optional)",
       "sendMessageBody": "Message",
       "sendMessageCta": "Send message",
@@ -8175,7 +8178,15 @@
       "publishCta": "Publish",
       "withdrawCta": "Withdraw",
       "materialWriteOk": "Material update saved.",
-      "materialWriteError": "The material update failed."
+      "materialWriteError": "The material update failed.",
+      "recipientSearchPlaceholder": "Szukaj sprzedawcy po nazwie, statusie lub referencji",
+      "recipientEmpty": "Brak sprzedawców pasujących do wyszukiwania.",
+      "recipientNotEligible": "Nie można wysłać przy tym statusie",
+      "selectedRecipient": "Odbiorca",
+      "clearRecipient": "Zmień",
+      "unnamedRecipient": "Sprzedawca bez nazwy",
+      "sendMessageBlocked": "Wiadomości można wysyłać tylko do zatwierdzonych, aktywnych, certyfikowanych lub academy sprzedawców. Zawieszeni i odrzuceni są zablokowani.",
+      "conversationTitle": "Historia rozmowy"
     },
     "messages": {
       "title": "Wiadomości i komunikacja",
@@ -8240,9 +8251,9 @@
       "ledgerEmpty": "Brak wpisów w księdze.",
       "colEntryType": "Wpis",
       "ledgerNote": "Rozliczenia są ręczne. Brak automatycznych wypłat bankowych.",
-      "messagesGateTitle": "Wiadomości nie są jeszcze aktywne",
-      "messagesGateBody": "Tworzenie wiadomości i skrzynka dla sprzedawców są przygotowane, ale przechowywanie wiadomości w Core nie jest aktywne. Nic nie jest wysyłane i żadne wiadomości nie są wyświetlane, dopóki nie zostanie aktywowane.",
-      "openMessages": "Otwórz obszar wiadomości",
+      "messagesGateTitle": "Wiadomości z tym sprzedawcą",
+      "messagesGateBody": "Wysyłaj po jednej wiadomości. Zawieszeni i odrzuceni sprzedawcy nie mogą ich otrzymywać. Bez masowej wysyłki.",
+      "openMessages": "Otwórz pełny obszar wiadomości",
       "historyTitle": "Decyzje i zdarzenia",
       "historyEmpty": "Dla tego sprzedawcy nie zarejestrowano jeszcze zdarzeń.",
       "accessTitle": "Dostęp",
@@ -8282,7 +8293,19 @@
         "platform_admin": "Administrator platformy",
         "system": "System",
         "unknown": "Nie określono"
-      }
+      },
+      "sendMessageSubject": "Temat (opcjonalnie)",
+      "sendMessageBody": "Wiadomość",
+      "sendMessageCta": "Wyślij wiadomość",
+      "sendMessageOk": "Wiadomość została zapisana dla sprzedawcy.",
+      "sendMessageError": "Nie udało się wysłać wiadomości.",
+      "sendMessageBlocked": "Status tego sprzedawcy nie pozwala na wiadomości.",
+      "messagesEmpty": "Brak wiadomości z tym sprzedawcą.",
+      "conversationTitle": "Rozmowa",
+      "directionAdmin": "Platforma do sprzedawcy",
+      "directionPartner": "Odpowiedź sprzedawcy",
+      "readYes": "Przeczytane",
+      "readNo": "Nieprzeczytane"
     }
   }
 }

@@ -7490,7 +7490,10 @@
         "approved": "Godkendt",
         "rejected": "Afvist",
         "suspended": "Suspenderet",
-        "unknown": "Status utilgængelig"
+        "unknown": "Status utilgængelig",
+        "active": "Aktiv",
+        "certified": "Certificeret",
+        "in_academy": "I academy"
       },
       "viewApplication": "Se ansøgning",
       "sectionAttributionBody": "Salgslinks, klik og registreringer pr. sælger.",
@@ -7634,7 +7637,7 @@
       "policyNoRetroactiveRates": "Rate changes never alter already qualified sales.",
       "policyAuditRequired": "Sensitive partner and settlement changes require reason and audit.",
       "sendMessageTitle": "Send besked til sælger",
-      "sendMessagePartnerId": "Partner id (UUID)",
+      "sendMessagePartnerId": "Søg sælger efter navn eller status",
       "sendMessageSubject": "Subject (optional)",
       "sendMessageBody": "Message",
       "sendMessageCta": "Send besked",
@@ -7649,7 +7652,15 @@
       "publishCta": "Publicer",
       "withdrawCta": "Træk tilbage",
       "materialWriteOk": "Material update saved.",
-      "materialWriteError": "The material update failed."
+      "materialWriteError": "The material update failed.",
+      "recipientSearchPlaceholder": "Søg sælger efter navn, status eller reference",
+      "recipientEmpty": "Ingen sælgere matcher søgningen.",
+      "recipientNotEligible": "Kan ikke sende til denne status",
+      "selectedRecipient": "Modtager",
+      "clearRecipient": "Skift",
+      "unnamedRecipient": "Sælger uden navn",
+      "sendMessageBlocked": "Beskeder kan kun sendes til godkendte, aktive, certificerede eller academy-sælgere. Suspenderede og afviste er blokeret.",
+      "conversationTitle": "Samtalehistorik"
     },
     "messages": {
       "title": "Beskeder og kommunikation",
@@ -7714,9 +7725,9 @@
       "ledgerEmpty": "Ingen posteringer endnu.",
       "colEntryType": "Postering",
       "ledgerNote": "Afregninger sker manuelt. Ingen automatiske bankudbetalinger.",
-      "messagesGateTitle": "Beskeder er endnu ikke aktiveret",
-      "messagesGateBody": "Skrivning og indbakke til sælgere er forberedt, men beskedlagring i Core er ikke aktiv. Intet sendes, og ingen beskeder vises, før den er aktiv.",
-      "openMessages": "Åbn beskedområdet",
+      "messagesGateTitle": "Beskeder med denne sælger",
+      "messagesGateBody": "Send én besked ad gangen. Suspenderede og afviste sælgere kan ikke modtage beskeder. Ingen masseudsendelse.",
+      "openMessages": "Åbn hele beskedområdet",
       "historyTitle": "Beslutninger og hændelser",
       "historyEmpty": "Der er endnu ikke registreret hændelser for denne sælger.",
       "accessTitle": "Adgang",
@@ -7756,7 +7767,19 @@
         "platform_admin": "Platformadministrator",
         "system": "System",
         "unknown": "Ikke angivet"
-      }
+      },
+      "sendMessageSubject": "Emne (valgfrit)",
+      "sendMessageBody": "Besked",
+      "sendMessageCta": "Send besked",
+      "sendMessageOk": "Beskeden er registreret for sælgeren.",
+      "sendMessageError": "Beskeden kunne ikke sendes.",
+      "sendMessageBlocked": "Denne sælgers status tillader ikke beskeder.",
+      "messagesEmpty": "Ingen beskeder med denne sælger endnu.",
+      "conversationTitle": "Samtale",
+      "directionAdmin": "Platform til sælger",
+      "directionPartner": "Sælgersvar",
+      "readYes": "Læst",
+      "readNo": "Ulæst"
     }
   }
 }

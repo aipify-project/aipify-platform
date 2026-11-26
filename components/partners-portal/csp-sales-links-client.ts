@@ -122,3 +122,32 @@ export async function writeClipboard(text: string): Promise<boolean> {
     return false;
   }
 }
+
+export type CspDeactivateLinkOutcome =
+  | { ok: true; changed: boolean }
+  | { ok: false; reason: "unavailable" | "forbidden" | "not_found" | "error" };
+
+/** Deactivate an own sales link by code. Fail-closed when Core RPC is not applied yet. */
+export async function deactivateCspSalesLink(code: string): Promise<CspDeactivateLinkOutcome> {
+  const trimmed = code.trim();
+  if (!trimmed) return { ok: false, reason: "error" };
+  try {
+    const res = await fetch("/api/certified-sales-partner/links", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "deactivate", code: trimmed }),
+    });
+    const data = (await res.json().catch(() => ({}))) as {
+      backend_ready?: boolean;
+      changed?: boolean;
+      error?: string;
+    };
+    if (res.status === 503 || data.backend_ready === false) return { ok: false, reason: "unavailable" };
+    if (res.status === 403) return { ok: false, reason: "forbidden" };
+    if (res.status === 404) return { ok: false, reason: "not_found" };
+    if (!res.ok) return { ok: false, reason: "error" };
+    return { ok: true, changed: data.changed === true };
+  } catch {
+    return { ok: false, reason: "error" };
+  }
+}

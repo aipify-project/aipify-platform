@@ -403,7 +403,15 @@
       "statusBlocked": "Заблоковане",
       "visitsUnknown": "Не повідомлено",
       "socialSection": "Соціальні платформи",
-      "otherChannels": "Інші канали"
+      "otherChannels": "Інші канали",
+      "deactivate": "Деактивувати",
+      "deactivateOk": "Посилання для продажу деактивовано. Відвідування збережено в історії.",
+      "deactivateError": "Не вдалося деактивувати посилання для продажу. Спробуйте ще раз.",
+      "codeCol": "Код посилання",
+      "copyLink": "Копіювати посилання",
+      "copyLinkOk": "Посилання скопійовано.",
+      "copyLinkNeedProduct": "Оберіть продукт нижче, перш ніж копіювати публічне посилання.",
+      "statusDeactivated": "Деактивовано"
     },
     "exam": {
       "title": "Сертифікаційний тест за продуктом",
@@ -773,7 +781,8 @@
         },
         "contact": {
           "title": "Contact Aipify",
-          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
+          "cta": "Відкрити повідомлення"
         }
       }
     },
@@ -783,7 +792,9 @@
       "emptyTitle": "Поки немає сповіщень",
       "emptyBody": "Коли Platform Admin надішле повідомлення або зміниться статус сертифікації й розрахунків, оновлення з’являться тут.",
       "messagesCta": "Відкрити повідомлення",
-      "homeCta": "На головну"
+      "homeCta": "На головну",
+      "unreadTitle": "Непрочитані повідомлення від Aipify",
+      "unreadBody": "Відкрийте Повідомлення, щоб прочитати й відповісти. Тут з’являються лише авторизовані повідомлення Platform Admin."
     },
     "leads": {
       "title": "Ваші закріплені реєстрації",

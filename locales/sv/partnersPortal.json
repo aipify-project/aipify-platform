@@ -527,7 +527,15 @@
       "statusBlocked": "Blockerad",
       "visitsUnknown": "Ej rapporterat",
       "socialSection": "Sociala plattformar",
-      "otherChannels": "Andra kanaler"
+      "otherChannels": "Andra kanaler",
+      "deactivate": "Inaktivera",
+      "deactivateOk": "Säljlänken är inaktiverad. Besök finns kvar i historiken.",
+      "deactivateError": "Säljlänken kunde inte inaktiveras. Försök igen.",
+      "codeCol": "Länkkod",
+      "copyLink": "Kopiera länk",
+      "copyLinkOk": "Länk kopierad.",
+      "copyLinkNeedProduct": "Välj en produkt nedan innan du kopierar en offentlig länk.",
+      "statusDeactivated": "Inaktiverad"
     },
     "exam": {
       "title": "Produktcertifieringsprov",
@@ -897,7 +905,8 @@
         },
         "contact": {
           "title": "Contact Aipify",
-          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
+          "cta": "Öppna meddelanden"
         }
       }
     },
@@ -907,7 +916,9 @@
       "emptyTitle": "Inga aviseringar ännu",
       "emptyBody": "När Platform Admin skickar ett meddelande eller status för certifiering och utbetalning ändras visas uppdateringar här.",
       "messagesCta": "Öppna meddelanden",
-      "homeCta": "Till startsidan"
+      "homeCta": "Till startsidan",
+      "unreadTitle": "Olästa meddelanden från Aipify",
+      "unreadBody": "Öppna Meddelanden för att läsa och svara. Endast auktoriserade meddelanden från Platform Admin visas här."
     },
     "leads": {
       "title": "Dina attribuerade registreringar",

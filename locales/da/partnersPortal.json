@@ -527,7 +527,15 @@
       "statusBlocked": "Spærret",
       "visitsUnknown": "Ikke rapporteret",
       "socialSection": "Sociale platforme",
-      "otherChannels": "Andre kanaler"
+      "otherChannels": "Andre kanaler",
+      "deactivate": "Deaktiver",
+      "deactivateOk": "Salgslinket er deaktiveret. Besøg bevares i historikken.",
+      "deactivateError": "Salgslinket kunne ikke deaktiveres. Prøv igen.",
+      "codeCol": "Linkkode",
+      "copyLink": "Kopiér link",
+      "copyLinkOk": "Link kopieret.",
+      "copyLinkNeedProduct": "Vælg et produkt nedenfor, før du kopierer et offentligt link.",
+      "statusDeactivated": "Deaktiveret"
     },
     "exam": {
       "title": "Produktcertificeringstest",
@@ -897,7 +905,8 @@
         },
         "contact": {
           "title": "Contact Aipify",
-          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
+          "cta": "Åbn beskeder"
         }
       }
     },
@@ -907,7 +916,9 @@
       "emptyTitle": "Ingen notifikationer endnu",
       "emptyBody": "Når Platform Admin sender en besked, eller certificering og opgørsstatus ændres, vises opdateringer her.",
       "messagesCta": "Åbn beskeder",
-      "homeCta": "Tilbage til start"
+      "homeCta": "Tilbage til start",
+      "unreadTitle": "Ulæste beskeder fra Aipify",
+      "unreadBody": "Åbn Beskeder for at læse og svare. Kun autoriserede beskeder fra Platform Admin vises her."
     },
     "leads": {
       "title": "Dine attribuerede registreringer",

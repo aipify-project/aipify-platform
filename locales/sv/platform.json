@@ -8016,7 +8016,10 @@
         "approved": "Godkänd",
         "rejected": "Avslagen",
         "suspended": "Avstängd",
-        "unknown": "Status otillgänglig"
+        "unknown": "Status otillgänglig",
+        "active": "Aktiv",
+        "certified": "Certifierad",
+        "in_academy": "I academy"
       },
       "viewApplication": "Visa ansökan",
       "sectionAttributionBody": "Försäljningslänkar, klick och registreringar per säljare.",
@@ -8160,7 +8163,7 @@
       "policyNoRetroactiveRates": "Rate changes never alter already qualified sales.",
       "policyAuditRequired": "Sensitive partner and settlement changes require reason and audit.",
       "sendMessageTitle": "Skicka meddelande till säljare",
-      "sendMessagePartnerId": "Partner id (UUID)",
+      "sendMessagePartnerId": "Sök säljare efter namn eller status",
       "sendMessageSubject": "Subject (optional)",
       "sendMessageBody": "Message",
       "sendMessageCta": "Skicka meddelande",
@@ -8175,7 +8178,15 @@
       "publishCta": "Publicera",
       "withdrawCta": "Dra tillbaka",
       "materialWriteOk": "Material update saved.",
-      "materialWriteError": "The material update failed."
+      "materialWriteError": "The material update failed.",
+      "recipientSearchPlaceholder": "Sök säljare efter namn, status eller referens",
+      "recipientEmpty": "Inga säljare matchar sökningen.",
+      "recipientNotEligible": "Kan inte meddela denna status",
+      "selectedRecipient": "Mottagare",
+      "clearRecipient": "Byt",
+      "unnamedRecipient": "Namnlös säljare",
+      "sendMessageBlocked": "Meddelanden kan bara skickas till godkända, aktiva, certifierade eller academy-säljare. Suspenderade och avvisade blockeras.",
+      "conversationTitle": "Konversationshistorik"
     },
     "messages": {
       "title": "Meddelanden och kommunikation",
@@ -8240,9 +8251,9 @@
       "ledgerEmpty": "Inga journalposter ännu.",
       "colEntryType": "Post",
       "ledgerNote": "Avräkningar sker manuellt. Inga automatiska banköverföringar.",
-      "messagesGateTitle": "Meddelanden är inte aktiverade ännu",
-      "messagesGateBody": "Skrivverktyg och inkorg för säljare är förberedda, men meddelandelagring i Core är inte aktiv. Inget skickas och inga meddelanden visas förrän den är aktiv.",
-      "openMessages": "Öppna meddelandeområdet",
+      "messagesGateTitle": "Meddelanden med denna säljare",
+      "messagesGateBody": "Skicka ett meddelande i taget. Suspenderade och avvisade säljare kan inte ta emot meddelanden. Ingen massutskick.",
+      "openMessages": "Öppna hela meddelandeytan",
       "historyTitle": "Beslut och händelser",
       "historyEmpty": "Inga händelser har registrerats för den här säljaren ännu.",
       "accessTitle": "Åtkomst",
@@ -8282,7 +8293,19 @@
         "platform_admin": "Plattformsadministratör",
         "system": "System",
         "unknown": "Ej angiven"
-      }
+      },
+      "sendMessageSubject": "Ämne (valfritt)",
+      "sendMessageBody": "Meddelande",
+      "sendMessageCta": "Skicka meddelande",
+      "sendMessageOk": "Meddelandet har registrerats för säljaren.",
+      "sendMessageError": "Meddelandet kunde inte skickas.",
+      "sendMessageBlocked": "Denna säljares status tillåter inte meddelanden.",
+      "messagesEmpty": "Inga meddelanden med denna säljare ännu.",
+      "conversationTitle": "Konversation",
+      "directionAdmin": "Plattform till säljare",
+      "directionPartner": "Säljarens svar",
+      "readYes": "Läst",
+      "readNo": "Oläst"
     }
   }
 }

@@ -13,7 +13,13 @@ import {
 } from "@/lib/certified-sales-partner/social-share";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { CspSocialPlatformPicker, type CspSocialPickerLabels } from "./CspSocialPlatformPicker";
-import { ensureCspSalesLink, useCspSalesLinks, writeClipboard } from "./csp-sales-links-client";
+import {
+  buildCspLinkUrl,
+  deactivateCspSalesLink,
+  ensureCspSalesLink,
+  useCspSalesLinks,
+  writeClipboard,
+} from "./csp-sales-links-client";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
 
 export type CspLinkLabels = {
@@ -38,12 +44,20 @@ export type CspLinkLabels = {
   productNotYet: string;
   existingTitle: string;
   existingEmpty: string;
+  codeCol: string;
   visitsCol: string;
   statusActive: string;
   statusBlocked: string;
+  statusDeactivated: string;
   visitsUnknown: string;
   socialSection: string;
   otherChannels: string;
+  deactivate: string;
+  deactivateOk: string;
+  deactivateError: string;
+  copyLink: string;
+  copyLinkOk: string;
+  copyLinkNeedProduct: string;
   social: CspSocialPickerLabels;
 };
 
@@ -66,6 +80,7 @@ export function CertifiedSalesPartnerLinkPanel({ labels, locale }: { labels: Csp
   const [createdUrl, setCreatedUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [pending, setPending] = useState(false);
+  const [deactivatingCode, setDeactivatingCode] = useState<string | null>(null);
   const [social, setSocial] = useState<CspSocialPlatform[]>([]);
   const [otherChannel, setOtherChannel] = useState<string>("referral_link");
   const [productKey, setProductKey] = useState("");
@@ -136,6 +151,43 @@ export function CertifiedSalesPartnerLinkPanel({ labels, locale }: { labels: Csp
     setCopied(await writeClipboard(createdUrl));
   }
 
+  async function copyExisting(code: string, channel: string | null) {
+    const key = productKey || options.find((o) => o.certified)?.key || "";
+    if (!key) {
+      setMessage({ text: labels.copyLinkNeedProduct, ok: false });
+      return;
+    }
+    const url = buildCspLinkUrl(window.location.origin, { code, channel }, key);
+    if (!url) {
+      setMessage({ text: labels.error, ok: false });
+      return;
+    }
+    const ok = await writeClipboard(url);
+    setMessage({ text: ok ? labels.copyLinkOk : labels.error, ok });
+  }
+
+  async function onDeactivate(code: string) {
+    if (!code || deactivatingCode || pending) return;
+    setDeactivatingCode(code);
+    setMessage(null);
+    try {
+      const outcome = await deactivateCspSalesLink(code);
+      if (!outcome.ok) {
+        setMessage({
+          text: outcome.reason === "unavailable" ? labels.failClosed : labels.deactivateError,
+          ok: false,
+        });
+        return;
+      }
+      setMessage({ text: labels.deactivateOk, ok: true });
+      reloadLinks();
+    } catch {
+      setMessage({ text: labels.deactivateError, ok: false });
+    } finally {
+      setDeactivatingCode(null);
+    }
+  }
+
   return (
     <div className="mx-auto w-full max-w-[1600px] space-y-6">
       <section className="rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-6 shadow-sm">
@@ -151,10 +203,12 @@ export function CertifiedSalesPartnerLinkPanel({ labels, locale }: { labels: Csp
             <table className="min-w-full text-left text-sm">
               <thead className="text-[color:var(--aipify-text-secondary)]">
                 <tr>
-                  <th className="px-3 py-2 font-medium">{labels.copy}</th>
+                  <th className="px-3 py-2 font-medium">{labels.codeCol}</th>
                   <th className="px-3 py-2 font-medium">{labels.channel}</th>
                   <th className="px-3 py-2 font-medium">{labels.visitsCol}</th>
                   <th className="px-3 py-2 font-medium">{labels.statusActive}</th>
+                  <th className="px-3 py-2 font-medium">{labels.copyLink}</th>
+                  <th className="px-3 py-2 font-medium">{labels.deactivate}</th>
                 </tr>
               </thead>
               <tbody>
@@ -175,8 +229,36 @@ export function CertifiedSalesPartnerLinkPanel({ labels, locale }: { labels: Csp
                     <td className="px-3 py-2">
                       <AipifyStatusBadge
                         kind={link.active ? "verified" : "needs_attention"}
-                        label={link.active ? labels.statusActive : labels.statusBlocked}
+                        label={link.active ? labels.statusActive : labels.statusDeactivated}
                       />
+                    </td>
+                    <td className="px-3 py-2">
+                      {link.active ? (
+                        <button
+                          type="button"
+                          disabled={pending}
+                          onClick={() => void copyExisting(link.code, link.channel)}
+                          className="rounded-lg border border-[color:var(--aipify-border)] px-2.5 py-1 text-xs font-semibold disabled:opacity-50"
+                        >
+                          {labels.copyLink}
+                        </button>
+                      ) : (
+                        <span className="text-xs text-[color:var(--aipify-text-secondary)]">—</span>
+                      )}
+                    </td>
+                    <td className="px-3 py-2">
+                      {link.active ? (
+                        <button
+                          type="button"
+                          disabled={deactivatingCode === link.code || pending}
+                          onClick={() => void onDeactivate(link.code)}
+                          className="rounded-lg border border-[color:var(--aipify-border)] px-2.5 py-1 text-xs font-semibold disabled:opacity-50"
+                        >
+                          {labels.deactivate}
+                        </button>
+                      ) : (
+                        <span className="text-xs text-[color:var(--aipify-text-secondary)]">—</span>
+                      )}
                     </td>
                   </tr>
                 ))}

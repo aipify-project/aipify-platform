@@ -143,3 +143,64 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "link_create_failed" }, { status: 500 });
   }
 }
+
+/**
+ * Deactivate one of the signed-in partner's own sales links by code.
+ * Requires Core RPC `csp_deactivate_attribution_link` (SQL candidate V4 — PREPARED_ONLY until applied).
+ * Fail-closed when the RPC is missing; never invents success.
+ */
+export async function PATCH(request: Request) {
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const body = (await request.json().catch(() => ({}))) as {
+      code?: unknown;
+      action?: unknown;
+    };
+    const code = typeof body.code === "string" ? body.code.trim() : "";
+    const action = typeof body.action === "string" ? body.action.trim() : "deactivate";
+    if (!code) {
+      return NextResponse.json({ error: "link_code_required" }, { status: 400 });
+    }
+    if (action !== "deactivate") {
+      return NextResponse.json({ error: "unsupported_action" }, { status: 400 });
+    }
+
+    const result = await callCspRpc(supabase, "csp_deactivate_attribution_link", {
+      p_code: code,
+    });
+    if (!result.ready) {
+      const closed = failClosedJson(result);
+      return NextResponse.json(closed.body, { status: closed.status });
+    }
+
+    const data =
+      result.data && typeof result.data === "object" && !Array.isArray(result.data)
+        ? (result.data as Record<string, unknown>)
+        : {};
+    if (data.found === false) {
+      const err = typeof data.error === "string" ? data.error : "link_deactivate_failed";
+      const status =
+        err === "forbidden" || err === "partner_not_active"
+          ? 403
+          : err === "link_not_found"
+            ? 404
+            : 400;
+      return NextResponse.json({ found: false, error: err }, { status });
+    }
+
+    return NextResponse.json({
+      found: true,
+      backend_ready: true,
+      changed: data.changed === true,
+      code: typeof data.code === "string" ? data.code : code,
+      active: false,
+    });
+  } catch {
+    return NextResponse.json({ error: "link_deactivate_failed" }, { status: 500 });
+  }
+}

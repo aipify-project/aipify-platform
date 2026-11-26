@@ -17,6 +17,7 @@ import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { SellerAvatar } from "@/components/platform/sellers/SellerAvatar";
 import type { SellersActionLabels } from "@/components/platform/sellers/CertifiedSellersActionPanel";
 import { safeAvatarUrl } from "@/lib/certified-sales-partner/seller-avatar";
+import { isCspMessageRecipientEligible } from "@/lib/certified-sales-partner/message-recipient-picker";
 import {
   partnerStatusKind,
   settlementStatusKind,
@@ -229,9 +230,85 @@ export function CertifiedSellerProfile({
   const [confirmStatus, setConfirmStatus] = useState<string | null>(null);
   const [reason, setReason] = useState("");
   const [confirmActiveAppCustomer, setConfirmActiveAppCustomer] = useState(false);
+  const [msgRows, setMsgRows] = useState<Array<Record<string, unknown>>>([]);
+  const [msgPhase, setMsgPhase] = useState<"idle" | "loading" | "ready" | "error">("idle");
+  const [msgSubject, setMsgSubject] = useState("");
+  const [msgBody, setMsgBody] = useState("");
+  const [msgBusy, setMsgBusy] = useState(false);
+  const [msgNotice, setMsgNotice] = useState<string | null>(null);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   const nf = useMemo(() => new Intl.NumberFormat(toBcp47Locale(locale)), [locale]);
+
+  const loadMessages = useCallback(async () => {
+    setMsgPhase("loading");
+    try {
+      const res = await fetch(
+        `/api/platform/sellers/messages?partner_id=${encodeURIComponent(partnerId)}`,
+        { cache: "no-store" },
+      );
+      const body = await res.json().catch(() => null);
+      if (!res.ok) {
+        setMsgRows([]);
+        setMsgPhase("error");
+        return;
+      }
+      const rows =
+        body && typeof body === "object" && Array.isArray((body as { rows?: unknown }).rows)
+          ? ((body as { rows: unknown[] }).rows.filter(
+              (r): r is Record<string, unknown> => !!r && typeof r === "object" && !Array.isArray(r),
+            ) as Array<Record<string, unknown>>)
+          : [];
+      setMsgRows(rows);
+      setMsgPhase("ready");
+    } catch {
+      setMsgRows([]);
+      setMsgPhase("error");
+    }
+  }, [partnerId]);
+
+  useEffect(() => {
+    if (tab === "messages") void loadMessages();
+  }, [tab, loadMessages]);
+
+  async function sendProfileMessage() {
+    const text = msgBody.trim();
+    if (!text || msgBusy || !partner) return;
+    if (!isCspMessageRecipientEligible(partner.status)) {
+      setMsgNotice(p.sendMessageBlocked);
+      return;
+    }
+    setMsgBusy(true);
+    setMsgNotice(null);
+    try {
+      const res = await fetch("/api/platform/sellers/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          partner_id: partnerId,
+          subject: msgSubject.trim() || null,
+          body: text,
+          idempotency_key: `profile-msg-${partnerId}-${Date.now()}`,
+        }),
+      });
+      const body = await res.json().catch(() => null);
+      if (res.status === 403 && body && (body as { error?: string }).error === "partner_not_active") {
+        setMsgNotice(p.sendMessageBlocked);
+        return;
+      }
+      if (!res.ok) {
+        setMsgNotice(p.sendMessageError);
+        return;
+      }
+      setMsgBody("");
+      setMsgNotice(p.sendMessageOk);
+      await loadMessages();
+    } catch {
+      setMsgNotice(p.sendMessageError);
+    } finally {
+      setMsgBusy(false);
+    }
+  }
 
   const load = useCallback(async () => {
     setPhase("loading");
@@ -449,6 +526,7 @@ export function CertifiedSellerProfile({
 
   const isCertified = certifiedCount !== null && certifiedCount > 0;
   const messagesHref = `/platform/sellers/messages?partner=${encodeURIComponent(partner.id)}`;
+  const canMessage = isCspMessageRecipientEligible(partner.status);
   const subline = [
     partner.legalBusinessName,
     partner.country ? formatCountry(partner.country, locale, labels.emptyValue) : null,
@@ -478,9 +556,13 @@ export function CertifiedSellerProfile({
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <Link href={messagesHref} className={PRIMARY_BUTTON}>
+            <button
+              type="button"
+              className={PRIMARY_BUTTON}
+              onClick={() => setTab("messages")}
+            >
               {p.sendMessage}
-            </Link>
+            </button>
             <button
               type="button"
               aria-expanded={manageOpen}
@@ -926,16 +1008,94 @@ export function CertifiedSellerProfile({
           ) : null}
 
           {tab === "messages" ? (
-            <section
-              className="rounded-2xl border border-dashed border-[color:var(--aipify-border)] bg-white p-6"
-              role="status"
-            >
-              <h3 className="text-base font-semibold text-[#1F2937]">{p.messagesGateTitle}</h3>
-              <p className="mt-2 max-w-2xl text-sm text-[color:var(--aipify-text-secondary)]">{p.messagesGateBody}</p>
-              <Link href={messagesHref} className={`mt-4 ${SECONDARY_BUTTON}`}>
-                {p.openMessages}
-              </Link>
-            </section>
+            <div className="space-y-4">
+              <section className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-5 shadow-sm space-y-3">
+                <h3 className="text-base font-semibold text-[#1F2937]">{p.messagesGateTitle}</h3>
+                <p className="max-w-2xl text-sm text-[color:var(--aipify-text-secondary)]">{p.messagesGateBody}</p>
+                {!canMessage ? (
+                  <p className="text-sm text-[color:var(--aipify-text-secondary)]" role="status">
+                    {p.sendMessageBlocked}
+                  </p>
+                ) : (
+                  <>
+                    <input
+                      value={msgSubject}
+                      onChange={(e) => setMsgSubject(e.target.value)}
+                      placeholder={p.sendMessageSubject}
+                      className="w-full max-w-xl rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                    />
+                    <textarea
+                      value={msgBody}
+                      onChange={(e) => setMsgBody(e.target.value)}
+                      placeholder={p.sendMessageBody}
+                      rows={4}
+                      className="w-full max-w-xl rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                    />
+                    <button
+                      type="button"
+                      disabled={msgBusy || !msgBody.trim()}
+                      onClick={() => void sendProfileMessage()}
+                      className={`${PRIMARY_BUTTON} disabled:opacity-50`}
+                    >
+                      {p.sendMessageCta}
+                    </button>
+                  </>
+                )}
+                {msgNotice ? (
+                  <p className="text-sm text-[color:var(--aipify-text-secondary)]">{msgNotice}</p>
+                ) : null}
+                <Link href={messagesHref} className={`inline-flex ${SECONDARY_BUTTON}`}>
+                  {p.openMessages}
+                </Link>
+              </section>
+
+              <section className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-5 shadow-sm">
+                <h3 className="text-base font-semibold text-[#1F2937]">{p.conversationTitle}</h3>
+                {msgPhase === "loading" || msgPhase === "idle" ? (
+                  <div className="mt-4">
+                    <AipifyLoader centered size="sm" label={labels.loading} />
+                  </div>
+                ) : null}
+                {msgPhase === "error" ? (
+                  <div className="mt-4 space-y-2">
+                    <EmptyText>{labels.errorBody}</EmptyText>
+                    <button type="button" onClick={() => void loadMessages()} className={SECONDARY_BUTTON}>
+                      {labels.retry}
+                    </button>
+                  </div>
+                ) : null}
+                {msgPhase === "ready" && msgRows.length === 0 ? (
+                  <p className="mt-3 text-sm text-[color:var(--aipify-text-secondary)]">{p.messagesEmpty}</p>
+                ) : null}
+                {msgPhase === "ready" && msgRows.length > 0 ? (
+                  <ul className="mt-3 space-y-2">
+                    {msgRows.map((row) => {
+                      const direction = typeof row.direction === "string" ? row.direction : "";
+                      const subject = typeof row.subject === "string" ? row.subject : "";
+                      const body = typeof row.body === "string" ? row.body : "";
+                      const createdAt = typeof row.created_at === "string" ? row.created_at : null;
+                      const readAt = typeof row.read_at === "string" ? row.read_at : null;
+                      const id = typeof row.id === "string" ? row.id : `${createdAt}-${body.slice(0, 12)}`;
+                      return (
+                        <li key={id} className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2">
+                          <p className="text-xs font-medium text-[color:var(--aipify-text-secondary)]">
+                            {direction === "partner_to_admin" ? p.directionPartner : p.directionAdmin}
+                            {" · "}
+                            {formatPlatformDateTimeShort(createdAt, dateOpts)}
+                            {" · "}
+                            {readAt ? p.readYes : p.readNo}
+                          </p>
+                          {subject ? <p className="mt-1 font-medium text-[#1F2937]">{subject}</p> : null}
+                          <p className="mt-1 whitespace-pre-wrap text-sm text-[color:var(--aipify-text-secondary)]">
+                            {body}
+                          </p>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : null}
+              </section>
+            </div>
           ) : null}
 
           {tab === "history" ? (

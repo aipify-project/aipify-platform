@@ -403,7 +403,15 @@
       "statusBlocked": "Zablokowany",
       "visitsUnknown": "Nie zaraportowano",
       "socialSection": "Platformy społecznościowe",
-      "otherChannels": "Inne kanały"
+      "otherChannels": "Inne kanały",
+      "deactivate": "Dezaktywuj",
+      "deactivateOk": "Link sprzedażowy dezaktywowany. Wizyty pozostają w historii.",
+      "deactivateError": "Nie udało się dezaktywować linku sprzedażowego. Spróbuj ponownie.",
+      "codeCol": "Kod linku",
+      "copyLink": "Kopiuj link",
+      "copyLinkOk": "Skopiowano link.",
+      "copyLinkNeedProduct": "Wybierz produkt poniżej, zanim skopiujesz publiczny link.",
+      "statusDeactivated": "Dezaktywowany"
     },
     "exam": {
       "title": "Test certyfikacyjny produktu",
@@ -773,7 +781,8 @@
         },
         "contact": {
           "title": "Contact Aipify",
-          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
+          "cta": "Otwórz wiadomości"
         }
       }
     },
@@ -783,7 +792,9 @@
       "emptyTitle": "Brak powiadomień",
       "emptyBody": "Gdy Platform Admin wyśle wiadomość lub zmieni się status certyfikacji i rozliczenia, aktualizacje pojawią się tutaj.",
       "messagesCta": "Otwórz wiadomości",
-      "homeCta": "Wróć do strony głównej"
+      "homeCta": "Wróć do strony głównej",
+      "unreadTitle": "Nieprzeczytane wiadomości od Aipify",
+      "unreadBody": "Otwórz Wiadomości, aby przeczytać i odpowiedzieć. Tutaj pojawiają się tylko autoryzowane wiadomości Platform Admin."
     },
     "leads": {
       "title": "Twoje przypisane rejestracje",

@@ -8016,7 +8016,10 @@
         "approved": "Схвалено",
         "rejected": "Відхилено",
         "suspended": "Призупинено",
-        "unknown": "Статус недоступний"
+        "unknown": "Статус недоступний",
+        "active": "Активний",
+        "certified": "Сертифікований",
+        "in_academy": "В academy"
       },
       "viewApplication": "Переглянути заявку",
       "sectionAttributionBody": "Посилання для продажів, кліки та реєстрації за продавцями.",
@@ -8160,7 +8163,7 @@
       "policyNoRetroactiveRates": "Rate changes never alter already qualified sales.",
       "policyAuditRequired": "Sensitive partner and settlement changes require reason and audit.",
       "sendMessageTitle": "Send message to seller",
-      "sendMessagePartnerId": "Partner id (UUID)",
+      "sendMessagePartnerId": "Шукати продавця за іменем або статусом",
       "sendMessageSubject": "Subject (optional)",
       "sendMessageBody": "Message",
       "sendMessageCta": "Send message",
@@ -8175,7 +8178,15 @@
       "publishCta": "Publish",
       "withdrawCta": "Withdraw",
       "materialWriteOk": "Material update saved.",
-      "materialWriteError": "The material update failed."
+      "materialWriteError": "The material update failed.",
+      "recipientSearchPlaceholder": "Шукати продавця за іменем, статусом або посиланням",
+      "recipientEmpty": "Немає продавців, що відповідають пошуку.",
+      "recipientNotEligible": "Не можна надіслати для цього статусу",
+      "selectedRecipient": "Отримувач",
+      "clearRecipient": "Змінити",
+      "unnamedRecipient": "Продавець без імені",
+      "sendMessageBlocked": "Повідомлення можна надсилати лише схваленим, активним, сертифікованим або academy продавцям. Призупинених і відхилених заблоковано.",
+      "conversationTitle": "Історія розмови"
     },
     "messages": {
       "title": "Повідомлення та комунікація",
@@ -8240,9 +8251,9 @@
       "ledgerEmpty": "Записів у журналі ще немає.",
       "colEntryType": "Запис",
       "ledgerNote": "Розрахунки виконуються вручну. Автоматичних банківських виплат немає.",
-      "messagesGateTitle": "Повідомлення ще не активні",
-      "messagesGateBody": "Створення повідомлень і поштова скринька для продавців підготовлені, але сховище повідомлень у Core не активне. Нічого не надсилається, і жодні повідомлення не показуються, доки його не буде активовано.",
-      "openMessages": "Відкрити розділ повідомлень",
+      "messagesGateTitle": "Повідомлення з цим продавцем",
+      "messagesGateBody": "Надсилайте по одному повідомленню. Призупинені та відхилені продавці не можуть отримувати повідомлення. Без масової розсилки.",
+      "openMessages": "Відкрити повну область повідомлень",
       "historyTitle": "Рішення та події",
       "historyEmpty": "Для цього продавця ще не зафіксовано подій.",
       "accessTitle": "Доступ",
@@ -8282,7 +8293,19 @@
         "platform_admin": "Адміністратор платформи",
         "system": "Система",
         "unknown": "Не вказано"
-      }
+      },
+      "sendMessageSubject": "Тема (необов’язково)",
+      "sendMessageBody": "Повідомлення",
+      "sendMessageCta": "Надіслати повідомлення",
+      "sendMessageOk": "Повідомлення записано для продавця.",
+      "sendMessageError": "Не вдалося надіслати повідомлення.",
+      "sendMessageBlocked": "Статус цього продавця не дозволяє повідомлення.",
+      "messagesEmpty": "Ще немає повідомлень з цим продавцем.",
+      "conversationTitle": "Розмова",
+      "directionAdmin": "Платформа продавцю",
+      "directionPartner": "Відповідь продавця",
+      "readYes": "Прочитано",
+      "readNo": "Непрочитано"
     }
   }
 }
