@@ -2,6 +2,7 @@
 
 **Status:** `PREPARED_EXACT_OWNER_STAGING_APPROVAL_REQUIRED`  
 **Date:** 2026-11-26  
+**Verified 2026-11-26 (read-only):** Staging + Production have schema columns (`sku`, `master_active`, `publish_app`, `publish_sale`, `logo_path`, `hero_path`). Staging ledger includes `20261126192821`. Channel RPCs `csp_set_product_channel_flags`, `csp_list_app_store_products`, `_csp_sync_sale_publish_flags` are **absent** on both Staging and Production — this candidate remains the sole apply gate for dual-channel publish.  
 **Do not apply** without exact owner approval naming this document **and** the SQL file below.
 
 ## Authoritative SQL candidate

@@ -10,7 +10,13 @@ import {
   type SellersActionLabels,
 } from "@/components/platform/sellers/CertifiedSellersActionPanel";
 import { UnifiedProductRegisterTable } from "@/components/platform/sellers/UnifiedProductRegisterTable";
-import { buildUnifiedCatalog, type ProductCatalogLocaleCode } from "@/lib/product-catalog";
+import { buildUnifiedCatalog, type ProductCatalogLocaleCode, type UnifiedCatalogProduct } from "@/lib/product-catalog";
+import {
+  filterProductCenterView,
+  parseProductCenterView,
+  PRODUCT_CENTER_VIEWS,
+  type ProductCenterView,
+} from "@/lib/platform/product-center-views";
 import { SELLERS_ADMIN_FRAME } from "@/lib/platform/sellers-admin-nav";
 import { CertifiedSellersOverviewRanking } from "@/components/platform/sellers/CertifiedSellersOverviewRanking";
 import { CertifiedSellersSectionPanel } from "@/components/platform/sellers/CertifiedSellersSectionPanel";
@@ -531,53 +537,13 @@ export function CertifiedSellersLivePanel({
         ) : null}
 
         {ready && section === "products" && overview ? (
-          <>
-            {overview.products === null ? (
-              <EmptyCard title={l.productsListMissingTitle} body={l.productsListMissingBody} />
-            ) : (
-              <UnifiedProductRegisterTable
-                locale={locale}
-                products={buildUnifiedCatalog({
-                  locale: (["en", "no", "sv", "da", "pl", "uk", "es"].includes(locale)
-                    ? locale
-                    : "en") as ProductCatalogLocaleCode,
-                  coreProducts: (overview.products ?? []).map((p: SellersProductRow) => ({
-                    id: p.id,
-                    productKey: p.productKey,
-                    title: p.title,
-                    currency: p.currency,
-                    fixedCommissionAmount: p.fixedCommissionAmount,
-                    published: p.published,
-                    publishSale: p.publishSale,
-                    publishApp: p.publishApp,
-                  })),
-                })}
-                labels={{
-                  colImage: l.registerColImage,
-                  colName: l.registerColName,
-                  colSku: l.registerColSku,
-                  colType: l.registerColType,
-                  colAppStatus: l.registerColAppStatus,
-                  colSaleStatus: l.registerColSaleStatus,
-                  colCustomerPrice: l.registerColCustomerPrice,
-                  colCommission: l.colCommission,
-                  appPublished: l.registerAppPublished,
-                  appUnpublished: l.registerAppUnpublished,
-                  appRegistryFallback: l.registerAppRegistryFallback,
-                  salePublished: l.productPublished,
-                  saleDraft: l.productDraft,
-                  saleNotConfigured: l.registerSaleNotConfigured,
-                  pricePlanned: l.registerPricePlanned,
-                  priceUnavailable: actionLabels.priceNotPublished,
-                  commissionUnknown: l.notReported,
-                  percentBlocked: actionLabels.percentUnavailable,
-                  empty: l.productsEmptyBody,
-                  channelNote: l.registerChannelNote,
-                }}
-              />
-            )}
-            <CertifiedSellersActionPanel section="products" labels={actionLabels} onSuccess={() => void load()} />
-          </>
+          <ProductCenterWorkspace
+            locale={locale}
+            overview={overview}
+            labels={l}
+            actionLabels={actionLabels}
+            onReload={() => void load()}
+          />
         ) : null}
 
         {ready && section === "commissions" ? (
@@ -796,6 +762,168 @@ function academyCatalog(
     });
   }
   return cards;
+}
+
+function ProductCenterWorkspace({
+  locale,
+  overview,
+  labels: l,
+  actionLabels,
+  onReload,
+}: {
+  locale: string;
+  overview: SellersOverview;
+  labels: SellersLiveLabels["text"];
+  actionLabels: SellersActionLabels;
+  onReload: () => void;
+}) {
+  const search = useSearchParams();
+  const router = useRouter();
+  const view = parseProductCenterView(search.get("view"));
+  const [editorMode, setEditorMode] = useState<"create" | "edit">("create");
+  const [selectedKey, setSelectedKey] = useState<string | null>(null);
+
+  const catalogLocale = (
+    ["en", "no", "sv", "da", "pl", "uk", "es"].includes(locale) ? locale : "en"
+  ) as ProductCatalogLocaleCode;
+  const listFromCore = overview.products !== null;
+  const catalog: UnifiedCatalogProduct[] = useMemo(
+    () =>
+      buildUnifiedCatalog({
+        locale: catalogLocale,
+        coreProducts: listFromCore
+          ? (overview.products ?? []).map((p: SellersProductRow) => ({
+              id: p.id,
+              productKey: p.productKey,
+              title: p.title,
+              currency: p.currency,
+              fixedCommissionAmount: p.fixedCommissionAmount,
+              published: p.published,
+              publishSale: p.publishSale,
+              publishApp: p.publishApp,
+            }))
+          : null,
+      }),
+    [catalogLocale, listFromCore, overview.products],
+  );
+  const visible = useMemo(() => filterProductCenterView(catalog, view), [catalog, view]);
+  const selected = catalog.find((product) => product.productKey === selectedKey) ?? null;
+
+  const tabLabels: Record<ProductCenterView, string> = {
+    products: l.productCenterTabProducts ?? "Products",
+    categories: l.productCenterTabCategories ?? "Categories",
+    app: l.productCenterTabApp ?? "APP panel",
+    sale: l.productCenterTabSale ?? "Sale partner",
+    media: l.productCenterTabMedia ?? "Media",
+  };
+
+  function setView(next: ProductCenterView) {
+    const params = new URLSearchParams(search.toString());
+    if (next === "products") params.delete("view");
+    else params.set("view", next);
+    const qs = params.toString();
+    router.replace(qs ? `?${qs}` : "?", { scroll: false });
+  }
+
+  return (
+    <>
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label={l.productCenterNavLabel ?? "Product center"}>
+        {PRODUCT_CENTER_VIEWS.map((id) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={view === id}
+            onClick={() => setView(id)}
+            className={`rounded-xl px-3 py-2 text-sm font-semibold ${
+              view === id
+                ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                : "border border-[color:var(--aipify-border)] text-[color:var(--aipify-text-secondary)]"
+            }`}
+          >
+            {tabLabels[id]}
+          </button>
+        ))}
+      </div>
+
+      {view === "categories" ? (
+        <EmptyCard
+          title={l.productCenterCategoriesTitle ?? l.productsEmptyTitle}
+          body={l.productCenterCategoriesBody ?? l.registerChannelNote}
+        />
+      ) : null}
+
+      {view === "media" ? (
+        <EmptyCard title={l.productCenterMediaTitle ?? actionLabels.productTabMedia} body={actionLabels.mediaBlocked} />
+      ) : null}
+
+      {view === "products" || view === "app" || view === "sale" ? (
+        <UnifiedProductRegisterTable
+          locale={locale}
+          products={visible}
+          listFromCore={listFromCore}
+          onNewProduct={() => {
+            setEditorMode("create");
+            setSelectedKey(null);
+          }}
+          onEditProduct={(productKey) => {
+            setEditorMode("edit");
+            setSelectedKey(productKey);
+          }}
+          labels={{
+            colImage: l.registerColImage,
+            colName: l.registerColName,
+            colSku: l.registerColSku,
+            colType: l.registerColType,
+            colAppStatus: l.registerColAppStatus,
+            colSaleStatus: l.registerColSaleStatus,
+            colCustomerPrice: l.registerColCustomerPrice,
+            colCommission: l.colCommission,
+            colUpdated: l.productCenterColUpdated,
+            colActions: l.productCenterColActions,
+            appPublished: l.registerAppPublished,
+            appUnpublished: l.registerAppUnpublished,
+            appRegistryFallback: l.registerAppRegistryFallback,
+            salePublished: l.productPublished,
+            saleDraft: l.productDraft,
+            saleNotConfigured: l.registerSaleNotConfigured,
+            pricePlanned: l.registerPricePlanned,
+            priceUnavailable: actionLabels.priceNotPublished,
+            commissionUnknown: l.notReported,
+            percentBlocked: actionLabels.percentUnavailable,
+            empty: l.productsEmptyBody,
+            channelNote: l.registerChannelNote,
+            newProduct: l.productCenterNewProduct,
+            editProduct: l.productCenterEditProduct,
+            searchPlaceholder: l.productCenterSearch,
+            countTotal: l.productCenterCountTotal,
+            countApp: l.productCenterCountApp,
+            countSale: l.productCenterCountSale,
+            countDraft: l.productCenterCountDraft,
+            listPendingNote: listFromCore ? undefined : l.productsListMissingBody,
+          }}
+        />
+      ) : null}
+
+      <CertifiedSellersActionPanel
+        key={`${editorMode}:${selectedKey ?? "new"}`}
+        section="products"
+        labels={actionLabels}
+        editorMode={editorMode}
+        selectedProductKey={selectedKey}
+        selectedTitle={selected?.title ?? null}
+        selectedCurrency={
+          selected?.commission.kind === "fixed" ? selected.commission.currency : null
+        }
+        selectedCommission={
+          selected?.commission.kind === "fixed" ? selected.commission.amount : null
+        }
+        selectedPublishSale={selected ? selected.sale.visibleInStore : null}
+        selectedPublishApp={selected ? selected.app.visibleInStore && selected.app.source === "core" : null}
+        onSuccess={onReload}
+      />
+    </>
+  );
 }
 
 function Card({ title, children }: { title: string; children: ReactNode }) {

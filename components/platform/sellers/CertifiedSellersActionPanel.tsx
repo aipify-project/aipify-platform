@@ -82,6 +82,14 @@ type Props = {
   initialSettlementId?: string;
   initialFromStatus?: string;
   initialToStatus?: string;
+  /** Prefill product editor from register row. Remount with `key` when selection changes. */
+  selectedProductKey?: string | null;
+  editorMode?: "create" | "edit";
+  selectedTitle?: string | null;
+  selectedCurrency?: string | null;
+  selectedCommission?: number | null;
+  selectedPublishSale?: boolean | null;
+  selectedPublishApp?: boolean | null;
   /** Called after Core accepted the request so the surrounding list can reload. */
   onSuccess?: () => void;
 };
@@ -94,6 +102,13 @@ export function CertifiedSellersActionPanel({
   initialSettlementId,
   initialFromStatus,
   initialToStatus,
+  selectedProductKey = null,
+  editorMode = "create",
+  selectedTitle = null,
+  selectedCurrency = null,
+  selectedCommission = null,
+  selectedPublishSale = null,
+  selectedPublishApp = null,
   onSuccess,
 }: Props) {
   const [message, setMessage] = useState<{ kind: "ok" | "closed" | "error"; text: string } | null>(null);
@@ -348,7 +363,20 @@ export function CertifiedSellersActionPanel({
           <Submit pending={pending} label={labels.submitSettlement} />
         </form>
       ) : null}
-      {section === "products" ? <ProductAdminForm labels={labels} pending={pending} onSubmit={onProducts} /> : null}
+      {section === "products" ? (
+        <ProductAdminForm
+          labels={labels}
+          pending={pending}
+          onSubmit={onProducts}
+          selectedProductKey={selectedProductKey}
+          editorMode={editorMode}
+          selectedTitle={selectedTitle}
+          selectedCurrency={selectedCurrency}
+          selectedCommission={selectedCommission}
+          selectedPublishSale={selectedPublishSale}
+          selectedPublishApp={selectedPublishApp}
+        />
+      ) : null}
       {message ? (
         <p className="mt-4 text-sm text-[color:var(--aipify-text-secondary)]" role="status">
           {message.text}
@@ -362,10 +390,24 @@ function ProductAdminForm({
   labels,
   pending,
   onSubmit,
+  selectedProductKey,
+  editorMode,
+  selectedTitle,
+  selectedCurrency,
+  selectedCommission,
+  selectedPublishSale,
+  selectedPublishApp,
 }: {
   labels: SellersActionLabels;
   pending: boolean;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  selectedProductKey: string | null;
+  editorMode: "create" | "edit";
+  selectedTitle: string | null;
+  selectedCurrency: string | null;
+  selectedCommission: number | null;
+  selectedPublishSale: boolean | null;
+  selectedPublishApp: boolean | null;
 }) {
   const [tab, setTab] = useState<
     "product" | "media" | "language" | "appPanel" | "salePanel" | "preview"
@@ -378,8 +420,13 @@ function ProductAdminForm({
     ["salePanel", labels.productTabSalePanel],
     ["preview", labels.productTabPreview],
   ] as const;
+  const heading =
+    editorMode === "edit" && selectedProductKey
+      ? `${labels.productTitle}: ${selectedTitle || selectedProductKey}`
+      : labels.productsTitle;
   return (
     <form className="mt-4 grid max-w-3xl gap-4" onSubmit={onSubmit}>
+      <p className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">{heading}</p>
       <div className="flex flex-wrap gap-2" role="tablist" aria-label={labels.productsTitle}>
         {tabs.map(([id, label]) => (
           <button
@@ -399,8 +446,13 @@ function ProductAdminForm({
         ))}
       </div>
       <div hidden={tab !== "product"} className="grid gap-3">
-        <Field name="product_key" label={labels.productKey} />
-        <Field name="title" label={labels.productTitle} />
+        <Field
+          name="product_key"
+          label={labels.productKey}
+          defaultValue={selectedProductKey ?? ""}
+          required
+        />
+        <Field name="title" label={labels.productTitle} defaultValue={selectedTitle ?? ""} />
         <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.titlePersistenceNote}</p>
       </div>
       <div hidden={tab !== "media"} className="grid gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
@@ -414,7 +466,7 @@ function ProductAdminForm({
           {labels.publishAppHint ?? labels.appPanelBlocked}
         </p>
         <label className="flex items-center gap-2 text-sm">
-          <input name="publish_app" type="checkbox" />
+          <input name="publish_app" type="checkbox" defaultChecked={selectedPublishApp === true} />
           <span>{labels.publishApp ?? labels.productTabAppPanel}</span>
         </label>
         <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.priceNotPublished}</p>
@@ -426,11 +478,26 @@ function ProductAdminForm({
       </div>
       <div hidden={tab !== "salePanel"} className="grid gap-3">
         <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.percentUnavailable}</p>
-        <Field name="currency" label={labels.currency} placeholder="NOK" maxLength={3} />
-        <Field name="fixed_commission_amount" label={labels.fixedCommission} type="number" />
+        <Field
+          name="currency"
+          label={labels.currency}
+          placeholder="NOK"
+          maxLength={3}
+          defaultValue={selectedCurrency ?? "NOK"}
+        />
+        <Field
+          name="fixed_commission_amount"
+          label={labels.fixedCommission}
+          type="number"
+          defaultValue={
+            selectedCommission != null && Number.isFinite(selectedCommission)
+              ? String(selectedCommission)
+              : ""
+          }
+        />
         <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.publishMeaning}</p>
         <label className="flex items-center gap-2 text-sm">
-          <input name="publish_sale" type="checkbox" />
+          <input name="publish_sale" type="checkbox" defaultChecked={selectedPublishSale === true} />
           <span>{labels.publishSale ?? labels.published}</span>
         </label>
       </div>
