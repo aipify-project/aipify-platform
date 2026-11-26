@@ -5,7 +5,7 @@ export const SUPPORT_HISTORY_LANDING_HREF = "/app/support/history";
 export const SUPPORT_REQUESTS_HREF = "/app/support/requests";
 
 /** Create support request entry. */
-export const SUPPORT_CREATE_HREF = "/app/support/requests?create=1";
+export const SUPPORT_CREATE_HREF = "/app/support/requests?new=1";
 
 export const HISTORICAL_STATUSES = ["resolved", "closed", "reopened", "archived"] as const;
 
