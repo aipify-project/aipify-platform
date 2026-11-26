@@ -9,6 +9,11 @@ import {
   type CspCatalogFilter,
   type CspLocalizedCatalogProduct,
 } from "@/lib/certified-sales-partner/product-catalog-display";
+import {
+  buildUnifiedCatalog,
+  filterSalesCatalogProducts,
+  type ProductCatalogLocaleCode,
+} from "@/lib/product-catalog";
 import { ensureCspSalesLink, useCspSalesLinks, writeClipboard } from "./csp-sales-links-client";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
 
@@ -172,11 +177,35 @@ export function CertifiedSalesPartnerProductCatalogPanel({
     return map;
   }, [portal]);
 
-  /** SALE channel only: Core-published products + future orientation cards. Never APP-only. */
+  /** SALE channel only: Core-published sale products + future orientation cards. Never APP-only. */
   const products = useMemo(() => {
     const all = getLocalizedCspCatalogProducts(locale, filter);
     if (!portal) return all;
-    return all.filter((product) => product.future || overviewByKey.has(product.key));
+    const catalogLocale = (
+      ["en", "no", "sv", "da", "pl", "uk", "es"].includes(locale) ? locale : "en"
+    ) as ProductCatalogLocaleCode;
+    const saleVisible = new Set(
+      filterSalesCatalogProducts(
+        buildUnifiedCatalog({
+          locale: catalogLocale,
+          coreProducts: portal.overview.products
+            .filter((row) => row.productKey)
+            .map((row) => ({
+              id: row.id ?? row.productKey!,
+              productKey: row.productKey!,
+              title: null,
+              currency: row.currency,
+              fixedCommissionAmount: row.fixedCommissionAmount,
+              published: true,
+              publishSale: true,
+              publishApp: null,
+            })),
+        }),
+      ).map((product) => product.productKey),
+    );
+    return all.filter(
+      (product) => product.future || (overviewByKey.has(product.key) && saleVisible.has(product.key)),
+    );
   }, [locale, filter, portal, overviewByKey]);
 
   const filterLabels: Record<CspCatalogFilter, string> = {
