@@ -28,15 +28,37 @@ export function isLegacyCommercialPackage(packageKey: string | null | undefined)
   return LEGACY_PACKAGE_KEYS.has(key);
 }
 
+function looksLikeLifetimePlanName(planName: string | null | undefined): boolean {
+  const name = (planName ?? "").trim().toLowerCase();
+  if (!name) return false;
+  return (
+    name.includes("lifetime") ||
+    name.includes("livstid") ||
+    name.includes("livstids") ||
+    name.includes("ubegrenset") ||
+    name.includes("unlimited") ||
+    name.includes("dożywot") ||
+    name.includes("довіч")
+  );
+}
+
 export function renewalPresentation(input: {
   statusKey: string | null;
   licenseStatus: string | null;
   renewalDate: string | null;
+  /** Authoritative display plan — used when status is active but agreement is lifetime. */
+  planName?: string | null;
 }): RenewalPresentation {
   if (input.renewalDate) return "date";
   const status = (input.licenseStatus ?? input.statusKey ?? "").toLowerCase();
   if (status === "lifetime") return "lifetime";
+  if (looksLikeLifetimePlanName(input.planName)) return "lifetime";
   return "unknown";
+}
+
+/** True when product entitlement reads failed soft — never display as zero products. */
+export function productAccessReadsUnavailable(access: KompisProductAccessRead): boolean {
+  return access.webKind === "unavailable" && access.bedrift === "unknown";
 }
 
 export function subscriptionShowsDistinctLicense(

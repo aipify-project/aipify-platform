@@ -20,6 +20,7 @@ import {
 import type { PortfolioLabels } from "@/lib/commercial-packages/portfolio-labels";
 import {
   isLegacyCommercialPackage,
+  productAccessReadsUnavailable,
   renewalPresentation,
   subscriptionShowsDistinctLicense,
   type KompisProductAccessRead,
@@ -54,7 +55,7 @@ type SubscriptionWorkspaceProps = {
 };
 
 function statusKind(statusKey: string | null): AipifyStatusKind {
-  switch (statusKey) {
+  switch ((statusKey ?? "").trim().toLowerCase()) {
     case "active":
     case "lifetime":
       return "verified";
@@ -71,7 +72,8 @@ function statusKind(statusKey: string | null): AipifyStatusKind {
 
 function statusLabel(labels: BillingReferenceLabels, statusKey: string | null): string {
   if (!statusKey) return labels.statusLabels.unknown;
-  return labels.statusLabels[statusKey] ?? labels.statusLabels.unknown;
+  const key = statusKey.trim().toLowerCase();
+  return labels.statusLabels[key] ?? labels.statusLabels.unknown;
 }
 
 function limitIcon(key: string): LucideIcon {
@@ -207,21 +209,22 @@ export function SubscriptionWorkspace({
     }
   }, [activeTab, refreshBilling]);
 
-  const activeProducts = buildWorkspaceProductCards(access).filter((c) => c.inMyProducts);
+  const productCards = buildWorkspaceProductCards(access);
+  const productsUnavailable = productAccessReadsUnavailable(access);
+  const activeProducts = productCards.filter((c) => c.inMyProducts);
   const shownStatusKey = license.licenseStatus || vm?.statusKey || null;
   const packageStatus = statusLabel(labels, shownStatusKey);
   const legacyPackage = isLegacyCommercialPackage(vm?.packageKey);
   const distinctLicense = subscriptionShowsDistinctLicense(vm?.packageName ?? null, license);
+  const subscriptionTitle = distinctLicense
+    ? license.planName
+    : license.planName || (legacyPackage ? null : vm?.packageName) || vm?.packageName;
   const renewal = renewalPresentation({
     statusKey: vm?.statusKey ?? null,
     licenseStatus: license.licenseStatus,
     renewalDate: vm?.renewalDate ?? null,
+    planName: subscriptionTitle ?? license.planName ?? vm?.packageName ?? null,
   });
-  const subscriptionTitle = distinctLicense
-    ? license.planName
-    : legacyPackage && vm?.packageName
-      ? vm.packageName
-      : license.planName || vm?.packageName;
   const knownLimits = (vm?.limits ?? []).filter((limit) => limit.state !== "unknown");
   const knownUsage = (vm?.usageItems ?? []).filter((item) => item.value != null);
 
@@ -292,10 +295,12 @@ export function SubscriptionWorkspace({
                   {portfolio.myProducts}
                 </p>
                 <p className="mt-2 text-xl font-semibold tabular-nums text-[var(--app-text)]">
-                  {activeProducts.length}
+                  {productsUnavailable ? "—" : activeProducts.length}
                 </p>
                 <p className="mt-2 text-sm text-[var(--app-text-muted)]">
-                  {activeProducts.length > 0
+                  {productsUnavailable
+                    ? portfolio.productsUnavailable
+                    : activeProducts.length > 0
                     ? activeProducts
                         .map((p) =>
                           p.id === "kompis_web"

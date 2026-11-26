@@ -140,6 +140,7 @@ export type SupportRequestsLabels = {
     module: string;
     submit: string;
     cancel: string;
+    submitError: string;
   };
   faq: {
     title: string;

@@ -153,7 +153,9 @@ assert.equal(hiddenReference.companyName.value, "North Studio");
 
 const mapping = accountProfileDataMapping();
 assert.ok(mapping.some((row) => row.uiField === "email" && row.source === "auth.users.email"));
-assert.ok(mapping.every((row) => row.editable === false));
+assert.ok(mapping.some((row) => row.uiField === "email" && row.editable === false));
+assert.ok(mapping.some((row) => row.uiField === "fullName"));
+assert.ok(mapping.some((row) => row.uiField === "avatar"));
 
 const page = fs.readFileSync(path.join(ROOT, "app/app/profile/page.tsx"), "utf8");
 assert.match(page, /AppHubShell/);
@@ -168,11 +170,16 @@ const panel = fs.readFileSync(
   path.join(ROOT, "components/app/account-profile/AppCustomerProfilePanel.tsx"),
   "utf8"
 );
-assert.match(panel, /screenLockStatus/);
+assert.doesNotMatch(panel, /screenLockStatus/);
+assert.match(panel, /AccountPersonalEditor/);
 assert.match(panel, /role="tablist"/);
-assert.doesNotMatch(panel, /<button/);
 assert.doesNotMatch(panel, /localStorage/);
-assert.doesNotMatch(panel, /editProfile|changePhoto|updateContact/);
+const editor = fs.readFileSync(
+  path.join(ROOT, "components/app/account-profile/AccountPersonalEditor.tsx"),
+  "utf8"
+);
+assert.match(editor, /\/api\/app\/account-profile/);
+assert.match(editor, /avatar/);
 
 for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"]) {
   const portal = JSON.parse(
@@ -184,14 +191,18 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"]) {
     };
   };
   const shell = JSON.parse(fs.readFileSync(path.join(ROOT, `locales/${locale}/shell.json`), "utf8")) as {
-    sidebar: { customerProfile: string };
+    sidebar: { customerProfile: string; customerSupport?: string };
   };
   const name = shell.sidebar.customerProfile;
   assert.equal(portal.portalStructure.nav.accountProfile, name);
   assert.equal(portal.portalStructure.accountProfile.title, name);
-  assert.ok(portal.portalStructure.accountProfile.screenLockStatus);
   assert.ok(portal.portalStructure.accountProfile.companyEmpty);
   assert.ok(portal.portalStructure.accountProfile.tabSecurity);
+  if (locale !== "es") {
+    assert.ok(portal.portalStructure.accountProfile.save);
+    assert.ok(portal.portalStructure.accountProfile.avatarUpload);
+    assert.ok(shell.sidebar.customerSupport);
+  }
 }
 
 const proposal = fs.readFileSync(

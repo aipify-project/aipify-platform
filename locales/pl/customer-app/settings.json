@@ -1057,7 +1057,7 @@
   "commercialPackages": {
     "billing": {
       "title": "Subskrypcja i produkty",
-      "subtitle": "Zobacz aktywną subskrypcję, produkty, licencję, pojemność i moduły dodatkowe — bez kasy dostawców płatności.",
+      "subtitle": "Zobacz aktywną subskrypcję, produkty, licencję, pojemność i moduły dodatkowe.",
       "loading": "Przygotowywanie treści",
       "back": "Wróć do ustawień",
       "viewLicense": "Centrum licencji",
@@ -1164,7 +1164,7 @@
       "seeWeb": "Otwórz Kompis Web",
       "plannedPlansTitle": "Plany Kompis Web",
       "seeBedrift": "Zobacz Kompis Bedrift",
-      "noRenewal": "Nie zaplanowano odnowienia",
+      "noRenewal": "Umowa dożywotnia — bez okresowego odnowienia",
       "detailsUnavailable": "Informacje nie są jeszcze dostępne",
       "contactForAccess": "Skontaktuj się z Aipify w sprawie dostępu",
       "noChange": "Produkty i dostęp, które dotyczą tego środowiska.",
@@ -1211,7 +1211,8 @@
       "tabAddons": "Moduły dodatkowe",
       "tabCapacity": "Pojemność i użycie",
       "tabLicense": "Centrum licencji",
-      "tabInvoices": "Faktury"
+      "tabInvoices": "Faktury",
+      "productsUnavailable": "Dostęp do produktów jest tymczasowo niedostępny. To nie to samo co zero produktów."
     },
     "pricingPhilosophy": {
       "title": "Pricing philosophy",

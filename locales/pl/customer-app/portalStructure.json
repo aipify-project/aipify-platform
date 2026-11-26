@@ -630,7 +630,8 @@
         "priority": "Priority",
         "module": "Related module (optional)",
         "submit": "Submit request",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "submitError": "Nie udało się zapisać zgłoszenia. Opis został zachowany — spróbuj ponownie."
       },
       "faq": {
         "title": "Support Request Center FAQ",
@@ -7656,7 +7657,7 @@
       "address": "Adres",
       "role": "Rola",
       "notRegistered": "Nie zarejestrowano",
-      "readOnlyReason": "Te dane pochodzą z zalogowanego konta. Ta strona niczego nie zapisuje.",
+      "readOnlyReason": "E-mail jest tu zablokowany. Imię, telefon i zdjęcie możesz zaktualizować na koncie.",
       "avatarFallback": "Inicjały są pokazywane, gdy brak zdjęcia profilowego.",
       "companyTitle": "Firma",
       "companyName": "Nazwa firmy",
@@ -7704,7 +7705,16 @@
       "referenceHidden": "Istnieje wewnętrzne odniesienie i nie jest tutaj pokazywane.",
       "statusUnknown": "Status niedostępny",
       "openLicense": "Centrum licencji",
-      "openPrivacy": "Ustawienia prywatności"
+      "openPrivacy": "Ustawienia prywatności",
+      "save": "Zapisz",
+      "saveSuccess": "Zmiany zostały zapisane.",
+      "saveError": "Nie udało się zapisać. Spróbuj ponownie.",
+      "avatarUpload": "Prześlij zdjęcie",
+      "avatarRemove": "Usuń zdjęcie",
+      "avatarUploadError": "Nie udało się przesłać zdjęcia. Użyj PNG, JPEG lub WebP poniżej 512 KB.",
+      "avatarRemoveError": "Nie udało się usunąć zdjęcia. Spróbuj ponownie.",
+      "emailLockedReason": "Zmiana e-maila odbywa się w zweryfikowanym procesie logowania.",
+      "addCompanyDetails": "Dodaj dane firmy"
     }
   }
 }

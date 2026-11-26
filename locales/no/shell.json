@@ -2,13 +2,15 @@
   "sidebar": {
     "plan": "Business Plan",
     "workspaceControlCenter": "Workspace Control Center",
-    "customerProfile": "Kundeforhold"
+    "customerProfile": "Kundeforhold",
+    "customerSupport": "Kundeservice"
   },
   "topbar": {
     "notifications": "Notifications",
     "companySelector": "Select company",
     "profileFallback": "User",
-    "companyFallback": "Company"
+    "companyFallback": "Company",
+    "contactSupport": "Kontakt Support"
   },
   "search": "Søk moduler, innstillinger og handlinger...",
   "navSearch": {
@@ -18,7 +20,7 @@
     "noResults": "Ingen treff"
   },
   "roles": {
-    "owner": "Owner",
+    "owner": "Eier",
     "admin": "Admin",
     "support": "Support",
     "staff": "Staff",

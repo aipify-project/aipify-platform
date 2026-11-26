@@ -3,16 +3,13 @@ import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
+import { resolveCustomerAvatarPointer } from "./avatar";
 import { buildAccountProfileView } from "./view-model";
 import type { AccountProfileView } from "./types";
 
 function avatarFromAuthMetadata(metadata: unknown): string | null {
   if (!metadata || typeof metadata !== "object" || Array.isArray(metadata)) return null;
-  const url = (metadata as Record<string, unknown>).avatar_url;
-  if (typeof url !== "string") return null;
-  const trimmed = url.trim();
-  if (!trimmed.startsWith("/") && !trimmed.startsWith("https://")) return null;
-  return trimmed;
+  return resolveCustomerAvatarPointer((metadata as Record<string, unknown>).avatar_url);
 }
 
 /**

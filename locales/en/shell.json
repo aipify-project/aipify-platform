@@ -2,13 +2,15 @@
   "sidebar": {
     "plan": "Business Plan",
     "workspaceControlCenter": "Workspace Control Center",
-    "customerProfile": "Account"
+    "customerProfile": "Account",
+    "customerSupport": "Customer service"
   },
   "topbar": {
     "notifications": "Notifications",
     "companySelector": "Select company",
     "profileFallback": "User",
-    "companyFallback": "Company"
+    "companyFallback": "Company",
+    "contactSupport": "Contact Support"
   },
   "search": "Search modules, settings and actions...",
   "navSearch": {

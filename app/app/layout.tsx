@@ -335,6 +335,14 @@ export default async function AppLayout({
             href: CUSTOMER_PROFILE_ROUTE,
             label: t("shell.sidebar.customerProfile"),
           }}
+          customerSupportLink={{
+            href: "/app/support/requests",
+            label: t("shell.sidebar.customerSupport"),
+          }}
+          supportContactLink={{
+            href: "/app/support/requests?new=1",
+            label: t("shell.topbar.contactSupport"),
+          }}
         >
           <NavigationUseTracker />
           {suspendedNotice ? (

@@ -43,6 +43,9 @@ export function SupportRequestsCenterPanel({ labels }: Props) {
   const [formCategory, setFormCategory] = useState<SupportRequestCategory>("general");
   const [formPriority, setFormPriority] = useState<SupportRequestPriority>("medium");
   const [formModule, setFormModule] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [createdId, setCreatedId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -59,6 +62,9 @@ export function SupportRequestsCenterPanel({ labels }: Props) {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
+    if (params.get("new") === "1") {
+      queueMicrotask(() => setShowForm(true));
+    }
     if (params.get("from") !== "assistant") return;
     const raw = sessionStorage.getItem(SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY);
     if (!raw) return;
@@ -93,30 +99,38 @@ export function SupportRequestsCenterPanel({ labels }: Props) {
   }, [load]);
 
   async function createRequest() {
-    if (!formTitle.trim()) return;
+    if (!formTitle.trim() || submitting) return;
+    setSubmitting(true);
+    setFormError(null);
     const res = await fetch("/api/aipify/support-requests", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        title: formTitle,
-        description: formDescription,
+        title: formTitle.trim().slice(0, 200),
+        description: formDescription.slice(0, 5000),
         category: formCategory,
         priority: formPriority,
         related_module: formModule || undefined,
       }),
     });
+    setSubmitting(false);
     if (res.ok) {
       const body = (await res.json()) as { request?: { id?: string } };
+      const id = body.request?.id ?? null;
+      setCreatedId(id);
       setShowForm(false);
       setFormTitle("");
       setFormDescription("");
       setFormModule("");
-      if (body.request?.id) {
-        window.location.href = `/app/support/requests/${body.request.id}`;
+      if (id) {
+        window.location.href = `/app/support/requests/${id}`;
         return;
       }
       void load();
+      return;
     }
+    // Keep description on failure — never claim success without storage confirmation.
+    setFormError(labels.form.submitError ?? labels.subtitle);
   }
 
   if (loading && !data) {
@@ -177,11 +191,27 @@ export function SupportRequestsCenterPanel({ labels }: Props) {
             </select>
             <input value={formModule} onChange={(e) => setFormModule(e.target.value)} placeholder={labels.form.module} className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm" />
           </div>
+          {formError ? <p className="text-sm text-rose-700">{formError}</p> : null}
           <div className="flex gap-2">
-            <button type="button" onClick={() => void createRequest()} className="rounded-lg bg-indigo-600 px-3 py-1.5 text-sm text-white">{labels.form.submit}</button>
+            <button
+              type="button"
+              disabled={submitting || !formTitle.trim()}
+              onClick={() => void createRequest()}
+              className="rounded-lg bg-indigo-600 px-3 py-1.5 text-sm text-white disabled:opacity-60"
+            >
+              {labels.form.submit}
+            </button>
             <button type="button" onClick={() => setShowForm(false)} className="text-sm text-slate-600">{labels.form.cancel}</button>
           </div>
         </section>
+      ) : null}
+      {createdId ? (
+        <p className="text-sm text-emerald-700">
+          {labels.form.submit} ·{" "}
+          <Link href={`/app/support/requests/${createdId}`} className="font-medium underline">
+            {createdId.slice(0, 8)}
+          </Link>
+        </p>
       ) : null}
 
       {items.length === 0 ? (

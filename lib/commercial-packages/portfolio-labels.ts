@@ -46,6 +46,7 @@ export type PortfolioLabels = {
   requestAccess: string;
   contactAipify: string;
   noRenewal: string;
+  productsUnavailable: string;
   detailsUnavailable: string;
   contactForAccess: string;
   noChange: string;
@@ -125,6 +126,7 @@ export function buildPortfolioLabels(t: Translator): PortfolioLabels {
     requestAccess: t(`${NS}.requestAccess`),
     contactAipify: t(`${NS}.contactAipify`),
     noRenewal: t(`${NS}.noRenewal`),
+    productsUnavailable: t(`${NS}.productsUnavailable`),
     detailsUnavailable: t(`${NS}.detailsUnavailable`),
     contactForAccess: t(`${NS}.contactForAccess`),
     noChange: t(`${NS}.noChange`),
