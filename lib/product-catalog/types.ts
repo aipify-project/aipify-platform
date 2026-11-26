@@ -52,10 +52,18 @@ export type CanonicalProductDefinition = {
   copy: Partial<Record<ProductCatalogLocaleCode, ProductCatalogCopy>>;
 };
 
+export type ProductCatalogPublicationSource = "core" | "registry_fallback" | "none";
+
 export type UnifiedProductChannelState = {
   status: ProductCatalogChannelStatus;
   /** Whether the channel may appear in customer/partner storefronts. */
   visibleInStore: boolean;
+  /**
+   * APP: `registry_fallback` means Core `publish_app` is not available yet —
+   * temporary controlled listing from canonical registry, not Core persistence.
+   * SALE: normally `core` when a CSP row exists; otherwise `none` / not configured.
+   */
+  source: ProductCatalogPublicationSource;
 };
 
 export type UnifiedCatalogProduct = {

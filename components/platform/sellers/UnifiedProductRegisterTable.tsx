@@ -14,6 +14,8 @@ export type UnifiedProductRegisterLabels = {
   colCommission: string;
   appPublished: string;
   appUnpublished: string;
+  /** Controlled temporary APP listing — Core publish_app not persisted yet. */
+  appRegistryFallback: string;
   salePublished: string;
   saleDraft: string;
   saleNotConfigured: string;
@@ -75,12 +77,24 @@ export function UnifiedProductRegisterTable({
                   : product.sale.status === "not_configured"
                     ? labels.saleNotConfigured
                     : labels.saleDraft;
+              const appLabel =
+                product.app.source === "registry_fallback"
+                  ? labels.appRegistryFallback
+                  : product.app.visibleInStore
+                    ? labels.appPublished
+                    : labels.appUnpublished;
+              const appBadgeKind =
+                product.app.source === "registry_fallback"
+                  ? "waiting"
+                  : product.app.visibleInStore
+                    ? "completed"
+                    : "waiting";
               const commission =
                 product.commission.kind === "fixed"
-                  ? formatMoney(product.commission.amount, product.commission.currency, locale)
+                  ? `${formatMoney(product.commission.amount, product.commission.currency, locale)} · ${labels.percentBlocked}`
                   : product.commission.kind === "percent"
                     ? labels.percentBlocked
-                    : labels.commissionUnknown;
+                    : `${labels.commissionUnknown} · ${labels.percentBlocked}`;
               const price =
                 product.customerPrice.fromMonthly != null
                   ? labels.pricePlanned.replace(
@@ -110,10 +124,7 @@ export function UnifiedProductRegisterTable({
                   <td className="px-3 py-3 font-mono text-xs">{product.sku}</td>
                   <td className="px-3 py-3 capitalize">{product.category}</td>
                   <td className="px-3 py-3">
-                    <AipifyStatusBadge
-                      kind={product.app.visibleInStore ? "completed" : "waiting"}
-                      label={product.app.visibleInStore ? labels.appPublished : labels.appUnpublished}
-                    />
+                    <AipifyStatusBadge kind={appBadgeKind} label={appLabel} />
                   </td>
                   <td className="px-3 py-3">
                     <AipifyStatusBadge

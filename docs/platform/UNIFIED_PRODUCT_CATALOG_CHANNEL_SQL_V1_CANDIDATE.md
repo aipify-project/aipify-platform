@@ -2,7 +2,16 @@
 
 **Status:** `PREPARED_OWNER_SECURITY_APPROVAL_REQUIRED`  
 **Date:** 2026-11-26  
-**Do not apply** without exact owner approval naming this document.
+**Do not apply** without exact owner approval naming this document **and** the SQL candidate file below.
+
+## Authoritative SQL candidate
+
+| Field | Value |
+|---|---|
+| **Path** | `docs/platform/sql-candidates/unified_product_catalog_channel_sql_v1.sql` |
+| **SHA256** | `2ffaf5a43ec1d5a488b9bd2298abb96c2c25457f521f6afb34c3b2e49d77d970` |
+
+Regenerate SHA256 after any edit to the `.sql` file. Do not reuse a stale hash.
 
 ## Why
 
@@ -10,59 +19,44 @@ Today:
 - `csp_sales_products` stores `product_key`, fixed commission, currency, `published` (SALE-ish only).
 - Title/i18n/media/APP publish flags are **not** persisted (title accepted and ignored by Core).
 - Percent commission is **not** in Core; historical settlements assume fixed NOK.
+- APP Store visibility uses controlled `defaultAppPublished` registry fallback, labelled `registry_fallback` / `blocked_needs_sql` in the unified catalog — not Core persistence.
 
-## Minimal additive schema (proposal)
+## Field ownership (code)
 
-```sql
--- CANDIDATE ONLY — not applied
-alter table public.csp_sales_products
-  add column if not exists sku text,
-  add column if not exists master_active boolean not null default true,
-  add column if not exists publish_app boolean not null default false,
-  add column if not exists publish_sale boolean not null default false,
-  add column if not exists commission_model text not null default 'fixed'
-    check (commission_model in ('fixed', 'percent')),
-  add column if not exists percent_rate numeric(5,2),
-  add column if not exists percent_basis text,
-  add column if not exists logo_path text,
-  add column if not exists hero_path text;
+See `lib/product-catalog/field-ownership.ts` and `lib/product-catalog/percent-commission-contract.ts`.
 
--- Localised copy (approved per locale; missing = not publication-ready)
-create table if not exists public.csp_product_locale_copy (
-  product_id uuid not null references public.csp_sales_products(id),
-  locale text not null check (locale in ('en','no','sv','da','pl','uk','es')),
-  title text not null,
-  tagline text,
-  description text not null,
-  approved boolean not null default false,
-  updated_at timestamptz not null default now(),
-  primary key (product_id, locale)
-);
-```
+## Minimal additive schema
 
-Backfill: `publish_sale = published`; `publish_app = false` until admin opts in.  
-Keep `published` as deprecated alias of `publish_sale` during transition.
+The executable candidate lives in the SQL file. Summary:
+
+- `publish_app` / `publish_sale` independent flags (backfill `publish_sale = published`; `publish_app = false`)
+- Optional `sku`, media paths, `master_active`
+- Percent scaffold columns **without** activating settlement
+- `csp_product_locale_copy` for approved locale publication readiness
+- Legacy `published` kept in sync from `publish_sale` during transition
 
 ## RLS / security
 
-- Platform admin RPCs only for write.
+- Platform admin RPCs only for write (RPCs not included in this candidate — require separate owner approval with this SQL).
 - Partners read SALE-published + approved locale only.
 - APP customers read APP-published only via tenant-scoped RPC — never CSP admin tables.
 - Never auto-grant entitlement on publish.
 
 ## Percent commission
 
-Only activate `commission_model = 'percent'` after:
-1. Explicit basis (ex VAT / incl VAT / after discount) documented.
-2. Settlement engine accepts percent without rewriting historical fixed lines.
-3. Owner approval of rate changes + audit.
-
-Until then UI must show **Prosent – krever backend-godkjenning**.
+Only activate `commission_model = 'percent'` after owner-approved settlement contract (basis, VAT, refunds, qualification rules). Until then UI shows percent as Core-blocked. See `PERCENT_COMMISSION_CONTRACT_PROPOSAL`.
 
 ## Rollback
 
-Drop new columns/tables only after confirming no Production writes; prefer feature-flag RPCs first.
+Documented at bottom of the `.sql` candidate. Prefer feature-flag RPCs first; drop columns only after confirming no Production writes.
 
-## Hash placeholder
+## Hash
 
-Generate SHA-256 of the final `.sql` file when owner authorises drafting the migration under `docs/platform/sql-candidates/`.
+Run after freeze:
+
+```bash
+shasum -a 256 docs/platform/sql-candidates/unified_product_catalog_channel_sql_v1.sql
+```
+
+**Frozen SHA256 (this revision):**  
+``

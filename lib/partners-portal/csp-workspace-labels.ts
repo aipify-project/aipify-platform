@@ -289,6 +289,7 @@ const SELLERS_LIVE_TEXT_KEYS = [
   "registerColCustomerPrice",
   "registerAppPublished",
   "registerAppUnpublished",
+  "registerAppRegistryFallback",
   "registerSaleNotConfigured",
   "registerPricePlanned",
   "registerChannelNote",

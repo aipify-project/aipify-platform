@@ -8104,6 +8104,7 @@
       "registerColCustomerPrice": "Ціна клієнта",
       "registerAppPublished": "APP опубліковано",
       "registerAppUnpublished": "Немає в магазині APP",
+      "registerAppRegistryFallback": "Список APP (fallback реєстру — немає Core SQL)",
       "registerSaleNotConfigured": "Продаж не налаштовано",
       "registerPricePlanned": "Заплановано від {price}",
       "registerChannelNote": "Одна ідентичність продукту з окремими каналами APP і продажу."

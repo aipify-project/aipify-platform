@@ -8104,6 +8104,7 @@
       "registerColCustomerPrice": "Cena klienta",
       "registerAppPublished": "APP opublikowany",
       "registerAppUnpublished": "Brak w sklepie APP",
+      "registerAppRegistryFallback": "Listing APP (fallback rejestru — brak Core SQL)",
       "registerSaleNotConfigured": "Sprzedaż nie skonfigurowana",
       "registerPricePlanned": "Planowana od {price}",
       "registerChannelNote": "Jedna tożsamość produktu z osobnymi kanałami APP i sprzedaży."
