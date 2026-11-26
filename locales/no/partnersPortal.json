@@ -826,7 +826,20 @@
       "notReadyBody": "Partnermeldinger er ikke aktivert i dette miljøet. Ingen meldinger vises, og ingen går tapt. Aipify gir deg beskjed når den åpner.",
       "nextStep": "I mellomtiden når viktige oppdateringer deg fortsatt som varsler.",
       "notificationsCta": "Åpne varsler",
-      "homeCta": "Tilbake til hjem"
+      "homeCta": "Tilbake til hjem",
+      "emptyTitle": "Ingen meldinger ennå",
+      "emptyBody": "Når Aipify sender deg en melding som sertifisert selger, vises den her.",
+      "errorTitle": "Meldinger kunne ikke lastes",
+      "errorBody": "Noe uventet skjedde under lasting av innboksen. Prøv igjen.",
+      "retry": "Prøv igjen",
+      "fromAdmin": "Fra Aipify",
+      "fromYou": "Fra deg",
+      "replyTitle": "Svar til Aipify",
+      "replyPlaceholder": "Skriv svaret ditt…",
+      "sendReply": "Send svar",
+      "sending": "Sender…",
+      "sendOk": "Svaret er sendt.",
+      "sendError": "Svaret kunne ikke sendes. Prøv igjen."
     },
     "avatar": {
       "title": "Profilbilde",

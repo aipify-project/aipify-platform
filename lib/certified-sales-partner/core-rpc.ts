@@ -19,10 +19,13 @@ export type CspRpcNotReadyReason =
   /** Core answered: the caller is not authenticated. The backend itself is ready. */
   | "unauthorized"
   /** Core answered: the caller has no partner application yet. The backend itself is ready. */
-  | "partner_not_found";
+  | "partner_not_found"
+  /** Core answered: partner exists but portal status is not allowed (e.g. suspended). */
+  | "partner_not_active";
 
 const UNAUTHORIZED_RPC_CODES = ["unauthorized", "not_authenticated", "unauthenticated", "auth_required"];
 const NO_PARTNER_RPC_CODES = ["partner_not_found", "no_partner", "not_registered", "no_application"];
+const INACTIVE_PARTNER_RPC_CODES = ["partner_not_active", "partner_suspended", "partner_inactive"];
 
 export type CspRpcResult<T = unknown> =
   | { ready: false; error: CspRpcNotReadyReason; detail?: string }
@@ -72,6 +75,17 @@ export async function callCspRpc<T = unknown>(
       ) {
         return { ready: false, error: "partner_not_found" };
       }
+      if (
+        payload.found === false &&
+        typeof payload.error === "string" &&
+        INACTIVE_PARTNER_RPC_CODES.includes(payload.error.toLowerCase())
+      ) {
+        return { ready: false, error: "partner_not_active" };
+      }
+      if (payload.found === false && typeof payload.error === "string" && payload.ready !== true) {
+        // Known Core denial — never mislabel as "backend not applied".
+        return { ready: false, error: "rpc_error", detail: payload.error };
+      }
       if (payload.found === false && payload.ready !== true) {
         return { ready: false, error: "csp_backend_not_applied" };
       }
@@ -99,10 +113,20 @@ export function failClosedJson(
     detail: string | null;
   };
 } {
-  // Core answered (backend applied) only for these two; everything else stays fail-closed (503, as before).
-  const coreAnswered = result.error === "unauthorized" || result.error === "partner_not_found";
+  // Core answered (backend applied) for auth/partner denials; missing RPCs stay fail-closed (503).
+  const coreAnswered =
+    result.error === "unauthorized" ||
+    result.error === "partner_not_found" ||
+    result.error === "partner_not_active" ||
+    result.error === "forbidden";
   const defaultStatus =
-    result.error === "unauthorized" ? 401 : result.error === "partner_not_found" ? 404 : 503;
+    result.error === "unauthorized"
+      ? 401
+      : result.error === "partner_not_found"
+        ? 404
+        : result.error === "partner_not_active" || result.error === "forbidden"
+          ? 403
+          : 503;
   return {
     status: status ?? defaultStatus,
     body: {

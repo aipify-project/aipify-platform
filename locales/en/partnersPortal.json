@@ -826,7 +826,20 @@
       "notReadyBody": "Partner messaging has not been enabled in this environment. No messages are shown and none are lost. Aipify will let you know when it opens.",
       "nextStep": "In the meantime, important updates still reach you as notifications.",
       "notificationsCta": "Open notifications",
-      "homeCta": "Back to home"
+      "homeCta": "Back to home",
+      "emptyTitle": "No messages yet",
+      "emptyBody": "When Aipify sends you a message as a Certified Sales Partner, it will appear here.",
+      "errorTitle": "Messages could not be loaded",
+      "errorBody": "Something unexpected happened while loading your inbox. Please try again.",
+      "retry": "Try again",
+      "fromAdmin": "From Aipify",
+      "fromYou": "From you",
+      "replyTitle": "Reply to Aipify",
+      "replyPlaceholder": "Write your reply…",
+      "sendReply": "Send reply",
+      "sending": "Sending…",
+      "sendOk": "Reply sent.",
+      "sendError": "The reply could not be sent. Please try again."
     },
     "avatar": {
       "title": "Profile photo",

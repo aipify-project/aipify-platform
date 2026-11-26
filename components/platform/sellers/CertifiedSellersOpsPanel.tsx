@@ -5,7 +5,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { CertifiedSellersSectionPanel } from "@/components/platform/sellers/CertifiedSellersSectionPanel";
-import { listPublishedSalesMaterials } from "@/lib/certified-sales-partner/sales-materials-catalog";
 import { classifyCspApiResponse } from "@/lib/certified-sales-partner/ui-support";
 import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
 import { toBcp47Locale } from "@/lib/platform-presentation-quality/bcp47";
@@ -61,6 +60,23 @@ export type SellersOpsLabels = {
   notReported: string;
   dateEmpty: string;
   dateInvalid: string;
+  sendMessageTitle: string;
+  sendMessagePartnerId: string;
+  sendMessageSubject: string;
+  sendMessageBody: string;
+  sendMessageCta: string;
+  sendMessageOk: string;
+  sendMessageError: string;
+  registerMaterialTitle: string;
+  materialKey: string;
+  materialTitle: string;
+  materialCategory: string;
+  materialAssetPath: string;
+  registerMaterialCta: string;
+  publishCta: string;
+  withdrawCta: string;
+  materialWriteOk: string;
+  materialWriteError: string;
 };
 
 type Props = {
@@ -102,8 +118,23 @@ export function CertifiedSellersOpsPanel({
   const [phase, setPhase] = useState<Phase>("loading");
   const [rows, setRows] = useState<Array<Record<string, unknown>>>([]);
   const [query, setQuery] = useState("");
+  const [partnerFilter, setPartnerFilter] = useState("");
+  const [sendSubject, setSendSubject] = useState("");
+  const [sendBody, setSendBody] = useState("");
+  const [actionNotice, setActionNotice] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [matKey, setMatKey] = useState("");
+  const [matTitle, setMatTitle] = useState("");
+  const [matCategory, setMatCategory] = useState("pdf_sheets");
+  const [matPath, setMatPath] = useState("");
   const bcp47 = toBcp47Locale(locale);
   const dateOptions = { locale, emptyFallback: l.dateEmpty, invalidFallback: l.dateInvalid };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const partner = new URLSearchParams(window.location.search).get("partner");
+    if (partner) setPartnerFilter(partner);
+  }, []);
 
   const endpoint = useMemo(() => {
     switch (section) {
@@ -115,10 +146,16 @@ export function CertifiedSellersOpsPanel({
         return "/api/platform/sellers/audit";
       case "commissionRates":
         return "/api/platform/sellers/commission-rates";
+      case "messages":
+        return partnerFilter.trim()
+          ? `/api/platform/sellers/messages?partner_id=${encodeURIComponent(partnerFilter.trim())}`
+          : "/api/platform/sellers/messages";
+      case "materials":
+        return "/api/platform/sellers/materials";
       default:
         return null;
     }
-  }, [section]);
+  }, [section, partnerFilter]);
 
   const load = useCallback(async () => {
     if (!endpoint) {
@@ -159,12 +196,108 @@ export function CertifiedSellersOpsPanel({
     return rows.filter((r) => JSON.stringify(r).toLowerCase().includes(q));
   }, [rows, query]);
 
-  const materials = useMemo(
-    () => listPublishedSalesMaterials({ locale }),
-    [locale],
-  );
+  // Core-only when materials section is live — never invent catalog rows as published Core assets.
+  const materials = useMemo(() => {
+    if (section !== "materials") return [];
+    return rows.map((r) => ({
+      id: str(r.id),
+      materialKey: str(r.material_key) || str(r.id),
+      category: str(r.category) || "materials",
+      assetPath: str(r.asset_path),
+      version: str(r.version) || "1",
+      mimeHint: str(r.mime_hint),
+      published: Boolean(r.published),
+      title: str(r.title),
+    }));
+  }, [section, rows]);
 
-  const backendReady = section === "messages" ? false : true;
+  const backendReady = true;
+
+  async function sendAdminMessage() {
+    const partnerId = partnerFilter.trim();
+    const text = sendBody.trim();
+    if (!partnerId || !text || busy) return;
+    setBusy(true);
+    setActionNotice(null);
+    try {
+      const res = await fetch("/api/platform/sellers/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          partner_id: partnerId,
+          subject: sendSubject.trim() || null,
+          body: text,
+          idempotency_key: `admin-msg-${partnerId}-${Date.now()}`,
+        }),
+      });
+      if (!res.ok) {
+        setActionNotice(l.sendMessageError);
+        return;
+      }
+      setSendBody("");
+      setActionNotice(l.sendMessageOk);
+      await load();
+    } catch {
+      setActionNotice(l.sendMessageError);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function registerMaterial() {
+    if (!matKey.trim() || !matTitle.trim() || !matPath.trim().startsWith("/") || busy) return;
+    setBusy(true);
+    setActionNotice(null);
+    try {
+      const res = await fetch("/api/platform/sellers/materials", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "upsert",
+          material_key: matKey.trim(),
+          category: matCategory.trim() || "pdf_sheets",
+          title: matTitle.trim(),
+          asset_path: matPath.trim(),
+        }),
+      });
+      if (!res.ok) {
+        setActionNotice(l.materialWriteError);
+        return;
+      }
+      setActionNotice(l.materialWriteOk);
+      await load();
+    } catch {
+      setActionNotice(l.materialWriteError);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function setMaterialPublished(materialId: string, publish: boolean) {
+    if (!materialId || busy) return;
+    setBusy(true);
+    setActionNotice(null);
+    try {
+      const res = await fetch("/api/platform/sellers/materials", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: publish ? "publish" : "withdraw",
+          material_id: materialId,
+        }),
+      });
+      if (!res.ok) {
+        setActionNotice(l.materialWriteError);
+        return;
+      }
+      setActionNotice(l.materialWriteOk);
+      await load();
+    } catch {
+      setActionNotice(l.materialWriteError);
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <>
@@ -184,7 +317,7 @@ export function CertifiedSellersOpsPanel({
           <Notice title={l.errorTitle} body={l.errorBody} retry={l.retry} onRetry={load} />
         ) : null}
 
-        {phase === "ready" && endpoint ? (
+        {phase === "ready" && endpoint && section !== "materials" && section !== "messages" ? (
           <>
             <label className="block max-w-md text-sm">
               <span className="sr-only">{l.searchPlaceholder}</span>
@@ -294,21 +427,48 @@ export function CertifiedSellersOpsPanel({
           </>
         ) : null}
 
-        {section === "materials" ? (
+        {section === "materials" && phase === "ready" ? (
           <div className="space-y-4">
-            <Empty title={l.materialsGateTitle} body={l.materialsGateBody} />
+            <article className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-5 shadow-sm space-y-3">
+              <h2 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{l.registerMaterialTitle}</h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <input value={matKey} onChange={(e) => setMatKey(e.target.value)} placeholder={l.materialKey} className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm" />
+                <input value={matTitle} onChange={(e) => setMatTitle(e.target.value)} placeholder={l.materialTitle} className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm" />
+                <input value={matCategory} onChange={(e) => setMatCategory(e.target.value)} placeholder={l.materialCategory} className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm" />
+                <input value={matPath} onChange={(e) => setMatPath(e.target.value)} placeholder={l.materialAssetPath} className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm" />
+              </div>
+              <button type="button" disabled={busy} onClick={() => void registerMaterial()} className="rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">
+                {l.registerMaterialCta}
+              </button>
+              {actionNotice ? <p className="text-sm text-[color:var(--aipify-text-secondary)]">{actionNotice}</p> : null}
+            </article>
+            {materials.length === 0 ? <Empty title={l.emptyTitle} body={l.emptyBody} /> : null}
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {materials.map((item) => (
                 <article
-                  key={item.id}
+                  key={item.id || item.materialKey}
                   className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-4 shadow-sm"
                 >
                   <p className="text-xs uppercase tracking-wide text-[color:var(--aipify-text-muted)]">{item.category}</p>
-                  <p className="mt-1 font-semibold text-[color:var(--aipify-text-primary)]">{item.id}</p>
+                  <p className="mt-1 font-semibold text-[color:var(--aipify-text-primary)]">{item.title || item.materialKey}</p>
                   <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">{item.assetPath}</p>
-                  <div className="mt-3 flex items-center justify-between gap-2">
-                    <AipifyStatusBadge kind="completed" label={l.published} />
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+                    <AipifyStatusBadge
+                      kind={item.published ? "completed" : "waiting"}
+                      label={item.published ? l.published : l.draft}
+                    />
                     <span className="text-xs text-[color:var(--aipify-text-secondary)]">v{item.version}</span>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {!item.published ? (
+                      <button type="button" disabled={busy} onClick={() => void setMaterialPublished(item.id, true)} className="rounded-lg border border-[color:var(--aipify-border)] px-3 py-1.5 text-xs font-semibold disabled:opacity-50">
+                        {l.publishCta}
+                      </button>
+                    ) : (
+                      <button type="button" disabled={busy} onClick={() => void setMaterialPublished(item.id, false)} className="rounded-lg border border-[color:var(--aipify-border)] px-3 py-1.5 text-xs font-semibold disabled:opacity-50">
+                        {l.withdrawCta}
+                      </button>
+                    )}
                   </div>
                   {item.mimeHint.startsWith("image/") ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -332,7 +492,57 @@ export function CertifiedSellersOpsPanel({
         ) : null}
 
         {section === "messages" && phase === "ready" ? (
-          <Empty title={l.messagesGateTitle} body={l.messagesGateBody} />
+          <div className="space-y-4">
+            <article className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-5 shadow-sm space-y-3">
+              <h2 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{l.sendMessageTitle}</h2>
+              <input
+                value={partnerFilter}
+                onChange={(e) => setPartnerFilter(e.target.value)}
+                placeholder={l.sendMessagePartnerId}
+                className="w-full max-w-xl rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-mono"
+              />
+              <input
+                value={sendSubject}
+                onChange={(e) => setSendSubject(e.target.value)}
+                placeholder={l.sendMessageSubject}
+                className="w-full max-w-xl rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+              />
+              <textarea
+                value={sendBody}
+                onChange={(e) => setSendBody(e.target.value)}
+                placeholder={l.sendMessageBody}
+                rows={4}
+                className="w-full max-w-xl rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+              />
+              <button
+                type="button"
+                disabled={busy || !partnerFilter.trim() || !sendBody.trim()}
+                onClick={() => void sendAdminMessage()}
+                className="rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+              >
+                {l.sendMessageCta}
+              </button>
+              {actionNotice ? <p className="text-sm text-[color:var(--aipify-text-secondary)]">{actionNotice}</p> : null}
+            </article>
+            {filtered.length === 0 ? <Empty title={l.emptyTitle} body={l.emptyBody} /> : null}
+            {filtered.length > 0 ? (
+              <div className="overflow-x-auto rounded-2xl border border-[color:var(--aipify-border)] bg-white">
+                <Table caption={title} headers={[l.colPartner, l.colAction, l.colStatus, l.colDate]}>
+                  {filtered.map((r) => (
+                    <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
+                      <td className="px-3 py-2 font-mono text-xs">{str(r.partner_id).slice(0, 8) || l.notReported}</td>
+                      <td className="px-3 py-2">
+                        <p className="font-medium">{str(r.subject) || str(r.direction) || l.notReported}</p>
+                        <p className="mt-1 line-clamp-2 text-sm text-[color:var(--aipify-text-secondary)]">{str(r.body)}</p>
+                      </td>
+                      <td className="px-3 py-2">{str(r.delivery_status) || l.notReported}</td>
+                      <td className="px-3 py-2">{formatPlatformDateTimeShort(str(r.created_at) || null, dateOptions)}</td>
+                    </tr>
+                  ))}
+                </Table>
+              </div>
+            ) : null}
+          </div>
         ) : null}
       </div>
     </>

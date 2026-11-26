@@ -826,7 +826,20 @@
       "notReadyBody": "Partnermeddelanden har inte aktiverats i den här miljön. Inga meddelanden visas och inga går förlorade. Aipify meddelar dig när den öppnar.",
       "nextStep": "Under tiden når viktiga uppdateringar dig fortfarande som notiser.",
       "notificationsCta": "Öppna notiser",
-      "homeCta": "Tillbaka till start"
+      "homeCta": "Tillbaka till start",
+      "emptyTitle": "Inga meddelanden ännu",
+      "emptyBody": "När Aipify skickar ett meddelande till dig som certifierad säljare visas det här.",
+      "errorTitle": "Meddelanden kunde inte laddas",
+      "errorBody": "Något oväntat hände när inkorgen skulle laddas. Försök igen.",
+      "retry": "Försök igen",
+      "fromAdmin": "Från Aipify",
+      "fromYou": "Från dig",
+      "replyTitle": "Svara Aipify",
+      "replyPlaceholder": "Skriv ditt svar…",
+      "sendReply": "Skicka svar",
+      "sending": "Skickar…",
+      "sendOk": "Svaret har skickats.",
+      "sendError": "Svaret kunde inte skickas. Försök igen."
     },
     "avatar": {
       "title": "Profilbild",
