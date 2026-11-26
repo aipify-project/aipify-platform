@@ -33,7 +33,7 @@ Legend: **VERIFIED** · **CODE_READY** · **BLOCKED** · **NOT_DONE**
 | i18n 7 locales | CODE_READY | Prior V4 |
 | Unonight CSP suspended | VERIFIED | Untouched |
 | Kompis Public Chain / Academy rules | VERIFIED | ZERO DIFF |
-| Production deactivate SQL | **NOT_DONE** | Requires separate owner approval |
+| Production deactivate SQL | **VERIFIED** | Applied `qbcqoixhrvhnuwphefvw` migration `20261126030832`; RPC + grants OK; real links untouched |
 
 ## Staging assertion tally (disposable harness)
 
