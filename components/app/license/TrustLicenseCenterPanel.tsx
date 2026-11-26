@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Copy, Eye, EyeOff } from "lucide-react";
+import { CheckCircle2, Copy, Eye, EyeOff } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { formatDate } from "@/lib/i18n/format-date";
 import { formatSoftwareVersion } from "@/lib/license";
@@ -17,6 +17,7 @@ import {
 } from "@/lib/license/types";
 import { resolveAppHref } from "@/lib/app/route-aliases";
 import { createClient } from "@/lib/supabase/client";
+import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 
 type TrustLicenseCenterPanelProps = {
   locale: string;
@@ -151,18 +152,20 @@ export default function TrustLicenseCenterPanel({
   const legal = (data?.legal as Record<string, unknown>) ?? {};
   const licenseStatus = String(data?.license_status ?? "active");
 
+  const isActiveLicense = licenseStatus === "active" || licenseStatus === "lifetime";
+
   return (
     <div className="w-full space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{labels.title}</h1>
-        <p className="mt-2 text-sm text-gray-600">{labels.subtitle}</p>
-        <p className="mt-2 text-sm text-gray-500">
+        <h1 className={AppPremiumShell.pageTitle}>{labels.title}</h1>
+        <p className={`mt-2 ${AppPremiumShell.pageDescription}`}>{labels.subtitle}</p>
+        <p className="mt-2 text-sm text-[var(--app-text-muted)]">
           {String(data?.company_name ?? "")} · {formatSoftwareVersion(String(data?.software_version))}
         </p>
       </div>
 
       {licenseStatus === "paused" && data?.paused_message ? (
-        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+        <div className="rounded-[var(--app-radius-lg)] border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
           {String(data.paused_message)}
           <div className="mt-2">
             <Link href={billingHref} className="font-medium text-amber-900 underline">
@@ -173,65 +176,67 @@ export default function TrustLicenseCenterPanel({
       ) : null}
 
       {licenseStatus === "grace_period" ? (
-        <div className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-900">
+        <div className="rounded-[var(--app-radius-lg)] border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-900">
           {labels.graceBanner}
         </div>
       ) : null}
 
-      {data?.pricing_philosophy_note ? (
-        <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800">
-          {String(data.pricing_philosophy_note)}
+      <section className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <h2 className="text-sm font-semibold text-[var(--app-text)]">
+            {labels.sections.subscription_status.title}
+          </h2>
+          {isActiveLicense ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#E8F7F0] px-2.5 py-1 text-xs font-semibold text-[var(--app-positive)] ring-1 ring-[#B7E4CF]">
+              <CheckCircle2 aria-hidden className="size-3.5" strokeWidth={2.25} />
+              {labels.subscription.licenseStatus}
+            </span>
+          ) : null}
         </div>
-      ) : null}
-
-      <section className="rounded-xl border border-gray-200 bg-white p-4">
-        <h2 className="text-sm font-semibold text-gray-900">
-          {labels.sections.subscription_status.title}
-        </h2>
-        <dl className="mt-3 grid gap-2 text-sm text-gray-600 sm:grid-cols-2">
+        <dl className="mt-4 grid gap-3 text-sm text-[var(--app-text-muted)] sm:grid-cols-2">
           <div>
-            <dt className="font-medium text-gray-700">{labels.subscription.currentPlan}</dt>
-            <dd>{String(subscription.plan_name ?? "—")}</dd>
+            <dt className="font-medium text-[var(--app-text)]">{labels.subscription.currentPlan}</dt>
+            <dd className="mt-0.5">{String(subscription.plan_name ?? "—")}</dd>
           </div>
           <div>
-            <dt className="font-medium text-gray-700">{labels.subscription.renewalDate}</dt>
-            <dd>
+            <dt className="font-medium text-[var(--app-text)]">{labels.subscription.renewalDate}</dt>
+            <dd className="mt-0.5">
               {subscription.renewal_date
                 ? formatDate(String(subscription.renewal_date), locale)
                 : "—"}
             </dd>
           </div>
           <div>
-            <dt className="font-medium text-gray-700">{labels.subscription.licenseStatus}</dt>
-            <dd className="capitalize">{licenseStatus.replace(/_/g, " ")}</dd>
+            <dt className="font-medium text-[var(--app-text)]">{labels.subscription.licenseStatus}</dt>
+            <dd className="mt-0.5 capitalize">{licenseStatus.replace(/_/g, " ")}</dd>
           </div>
           <div>
-            <dt className="font-medium text-gray-700">{labels.subscription.paymentStatus}</dt>
-            <dd>{String(subscription.payment_status ?? "—")}</dd>
+            <dt className="font-medium text-[var(--app-text)]">{labels.subscription.paymentStatus}</dt>
+            <dd className="mt-0.5">{String(subscription.payment_status ?? "—")}</dd>
           </div>
           <div>
-            <dt className="font-medium text-gray-700">{labels.subscription.installations}</dt>
-            <dd>{String(subscription.installation_count ?? 0)}</dd>
+            <dt className="font-medium text-[var(--app-text)]">{labels.subscription.installations}</dt>
+            <dd className="mt-0.5">{String(subscription.installation_count ?? 0)}</dd>
           </div>
           <div>
-            <dt className="font-medium text-gray-700">{labels.subscription.domains}</dt>
-            <dd>{String(subscription.domain_count ?? 0)}</dd>
+            <dt className="font-medium text-[var(--app-text)]">{labels.subscription.domains}</dt>
+            <dd className="mt-0.5">{String(subscription.domain_count ?? 0)}</dd>
           </div>
           <div>
-            <dt className="font-medium text-gray-700">{labels.subscription.users}</dt>
-            <dd>{String(subscription.user_count ?? 0)}</dd>
+            <dt className="font-medium text-[var(--app-text)]">{labels.subscription.users}</dt>
+            <dd className="mt-0.5">{String(subscription.user_count ?? 0)}</dd>
           </div>
         </dl>
       </section>
 
-      <section className="rounded-xl border border-gray-200 bg-white p-4">
-        <h2 className="text-sm font-semibold text-gray-900">{labels.licenseCode.title}</h2>
-        <p className="mt-2 text-sm text-gray-600">{labels.licenseCode.description}</p>
+      <section className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]">
+        <h2 className="text-sm font-semibold text-[var(--app-text)]">{labels.licenseCode.title}</h2>
+        <p className="mt-2 text-sm text-[var(--app-text-muted)]">{labels.licenseCode.description}</p>
 
         {hasLicenseCode && displayCode ? (
           <div className="mt-4 space-y-3">
             <div className="flex flex-wrap items-start gap-2">
-              <code className="min-w-0 flex-1 break-all rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 font-mono text-sm text-gray-900">
+              <code className="min-w-0 flex-1 break-all rounded-lg border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-3 py-2 font-mono text-sm text-[var(--app-text)]">
                 {displayCode}
               </code>
               <div className="flex shrink-0 items-center gap-2">
@@ -240,7 +245,7 @@ export default function TrustLicenseCenterPanel({
                   onClick={() => void handleToggleReveal()}
                   disabled={revealLoading}
                   aria-label={isRevealed ? labels.licenseCode.hide : labels.licenseCode.reveal}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                  className={`inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--app-border)] text-[var(--app-text)] hover:bg-[var(--app-soft-surface)] disabled:opacity-50 ${AppPremiumShell.focusRing}`}
                 >
                   {isRevealed ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
                 </button>
@@ -248,14 +253,14 @@ export default function TrustLicenseCenterPanel({
                   type="button"
                   onClick={() => void handleCopy()}
                   aria-label={labels.licenseCode.copy}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50"
+                  className={`inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--app-border)] text-[var(--app-text)] hover:bg-[var(--app-soft-surface)] ${AppPremiumShell.focusRing}`}
                 >
                   <Copy className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
             </div>
             {data?.app_subscription_license_status ? (
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-[var(--app-text-muted)]">
                 {labels.licenseCode.status}:{" "}
                 <span className="capitalize">
                   {String(data.app_subscription_license_status).replace(/_/g, " ")}
@@ -263,40 +268,44 @@ export default function TrustLicenseCenterPanel({
               </p>
             ) : null}
             {copyState === "copied" ? (
-              <p className="text-xs font-medium text-emerald-700">{labels.licenseCode.copied}</p>
+              <p className="text-xs font-medium text-[var(--app-positive)]">{labels.licenseCode.copied}</p>
             ) : null}
           </div>
         ) : (
-          <p className="mt-3 text-sm text-gray-500">{labels.licenseCode.unavailable}</p>
+          <p className="mt-3 text-sm text-[var(--app-text-muted)]">{labels.licenseCode.unavailable}</p>
         )}
 
-        {revealError ? <p className="mt-3 text-sm text-red-600">{revealError}</p> : null}
+        {revealError ? <p className="mt-3 text-sm text-rose-600">{revealError}</p> : null}
       </section>
 
-      {Object.entries(labels.sections)
-        .filter(([key]) => key !== "subscription_status")
-        .map(([key, section]) => (
-          <section
-            key={key}
-            className="rounded-xl border border-gray-200 bg-white p-4"
-          >
-            <h2 className="text-sm font-semibold text-gray-900">{section.title}</h2>
-            <ul className="mt-3 space-y-2 text-sm text-gray-600">
-              {section.body.map((line) => (
-                <li key={line}>
-                  {line
-                    .replace("{website}", String(legal.website ?? AIPIFY_OFFICIAL_WEBSITE))
-                    .replace("{support}", String(legal.support_email ?? AIPIFY_SUPPORT_EMAIL))
-                    .replace("{privacy}", String(legal.privacy_email ?? AIPIFY_PRIVACY_EMAIL))
-                    .replace("{owner}", String(data?.software_owner ?? AIPIFY_SOFTWARE_OWNER))}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+      <details className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] p-5">
+        <summary className="cursor-pointer text-sm font-semibold text-[var(--app-text)]">
+          {labels.sections.software_ownership?.title ?? "License details"}
+        </summary>
+        <div className="mt-4 space-y-5">
+          {Object.entries(labels.sections)
+            .filter(([key]) => key !== "subscription_status")
+            .map(([key, section]) => (
+              <section key={key}>
+                <h3 className="text-sm font-medium text-[var(--app-text)]">{section.title}</h3>
+                <ul className="mt-2 space-y-2 text-sm leading-relaxed text-[var(--app-text-muted)]">
+                  {section.body.map((line) => (
+                    <li key={line}>
+                      {line
+                        .replace("{website}", String(legal.website ?? AIPIFY_OFFICIAL_WEBSITE))
+                        .replace("{support}", String(legal.support_email ?? AIPIFY_SUPPORT_EMAIL))
+                        .replace("{privacy}", String(legal.privacy_email ?? AIPIFY_PRIVACY_EMAIL))
+                        .replace("{owner}", String(data?.software_owner ?? AIPIFY_SOFTWARE_OWNER))}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+        </div>
+      </details>
 
-      <p className="text-center text-sm text-gray-500">
-        <Link href={backHref} className="text-indigo-600 hover:text-indigo-800">
+      <p className="text-center text-sm text-[var(--app-text-muted)]">
+        <Link href={backHref} className="text-[var(--app-primary)] hover:underline">
           {labels.backToApp}
         </Link>
       </p>

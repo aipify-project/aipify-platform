@@ -7,3 +7,5 @@ export * from "./billing-view-model";
 export * from "./billing-labels";
 export * from "./billing-presentation-copy";
 export * from "./package-presentation";
+export * from "./product-hero";
+export * from "./portfolio-presentation";

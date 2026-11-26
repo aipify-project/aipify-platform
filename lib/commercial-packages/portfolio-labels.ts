@@ -7,21 +7,29 @@ export type PortfolioLabels = {
   currentLicense: string;
   registeredLegacy: string;
   myProducts: string;
+  availableProducts: string;
   exploreProducts: string;
   packagesTitle: string;
   packagesIntro: string;
   subscriptionIntro: string;
   kompisWeb: string;
   kompisBedrift: string;
+  salesPartner: string;
   webSummary: string;
   webBody: string;
   bedriftSummary: string;
   bedriftBody: string;
+  salesPartnerSummary: string;
+  salesPartnerBody: string;
   webImageAlt: string;
   bedriftImageAlt: string;
+  salesPartnerImageAlt: string;
   answerPlanUnassigned: string;
   availableInWorkspace: string;
   notLicensed: string;
+  notActive: string;
+  underReview: string;
+  available: string;
   planned: string;
   active: string;
   pending: string;
@@ -30,11 +38,29 @@ export type PortfolioLabels = {
   seeWeb: string;
   plannedPlansTitle: string;
   seeBedrift: string;
+  openProduct: string;
+  viewProduct: string;
+  upgrade: string;
+  buy: string;
+  addModule: string;
+  requestAccess: string;
+  contactAipify: string;
   noRenewal: string;
   detailsUnavailable: string;
   contactForAccess: string;
   noChange: string;
   limitUnavailable: string;
+  capacityEmpty: string;
+  usageEmpty: string;
+  addonsEmpty: string;
+  addonsSection: string;
+  manageSubscription: string;
+  viewSubscriptionDetails: string;
+  viewInvoices: string;
+  viewLicenseCenter: string;
+  exploreProductsCta: string;
+  workspaceLabel: string;
+  overallStatus: string;
   plannedCatalogNote: string;
   freeName: string;
   standardName: string;
@@ -53,21 +79,29 @@ export function buildPortfolioLabels(t: Translator): PortfolioLabels {
     currentLicense: t(`${NS}.currentLicense`),
     registeredLegacy: t(`${NS}.registeredLegacy`),
     myProducts: t(`${NS}.myProducts`),
+    availableProducts: t(`${NS}.availableProducts`),
     exploreProducts: t(`${NS}.exploreProducts`),
     packagesTitle: t(`${NS}.packagesTitle`),
     packagesIntro: t(`${NS}.packagesIntro`),
     subscriptionIntro: t(`${NS}.subscriptionIntro`),
     kompisWeb: t(`${NS}.kompisWeb`),
     kompisBedrift: t(`${NS}.kompisBedrift`),
+    salesPartner: t(`${NS}.salesPartner`),
     webSummary: t(`${NS}.webSummary`),
     webBody: t(`${NS}.webBody`),
     bedriftSummary: t(`${NS}.bedriftSummary`),
     bedriftBody: t(`${NS}.bedriftBody`),
+    salesPartnerSummary: t(`${NS}.salesPartnerSummary`),
+    salesPartnerBody: t(`${NS}.salesPartnerBody`),
     webImageAlt: t(`${NS}.webImageAlt`),
     bedriftImageAlt: t(`${NS}.bedriftImageAlt`),
+    salesPartnerImageAlt: t(`${NS}.salesPartnerImageAlt`),
     answerPlanUnassigned: t(`${NS}.answerPlanUnassigned`),
     availableInWorkspace: t(`${NS}.availableInWorkspace`),
     notLicensed: t(`${NS}.notLicensed`),
+    notActive: t(`${NS}.notActive`),
+    underReview: t(`${NS}.underReview`),
+    available: t(`${NS}.available`),
     planned: t(`${NS}.planned`),
     active: t(`${NS}.active`),
     pending: t(`${NS}.pending`),
@@ -76,11 +110,29 @@ export function buildPortfolioLabels(t: Translator): PortfolioLabels {
     seeWeb: t(`${NS}.seeWeb`),
     plannedPlansTitle: t(`${NS}.plannedPlansTitle`),
     seeBedrift: t(`${NS}.seeBedrift`),
+    openProduct: t(`${NS}.openProduct`),
+    viewProduct: t(`${NS}.viewProduct`),
+    upgrade: t(`${NS}.upgrade`),
+    buy: t(`${NS}.buy`),
+    addModule: t(`${NS}.addModule`),
+    requestAccess: t(`${NS}.requestAccess`),
+    contactAipify: t(`${NS}.contactAipify`),
     noRenewal: t(`${NS}.noRenewal`),
     detailsUnavailable: t(`${NS}.detailsUnavailable`),
     contactForAccess: t(`${NS}.contactForAccess`),
     noChange: t(`${NS}.noChange`),
     limitUnavailable: t(`${NS}.limitUnavailable`),
+    capacityEmpty: t(`${NS}.capacityEmpty`),
+    usageEmpty: t(`${NS}.usageEmpty`),
+    addonsEmpty: t(`${NS}.addonsEmpty`),
+    addonsSection: t(`${NS}.addonsSection`),
+    manageSubscription: t(`${NS}.manageSubscription`),
+    viewSubscriptionDetails: t(`${NS}.viewSubscriptionDetails`),
+    viewInvoices: t(`${NS}.viewInvoices`),
+    viewLicenseCenter: t(`${NS}.viewLicenseCenter`),
+    exploreProductsCta: t(`${NS}.exploreProductsCta`),
+    workspaceLabel: t(`${NS}.workspaceLabel`),
+    overallStatus: t(`${NS}.overallStatus`),
     plannedCatalogNote: t(`${NS}.plannedCatalogNote`),
     freeName: t(`${NS}.freeName`),
     standardName: t(`${NS}.standardName`),

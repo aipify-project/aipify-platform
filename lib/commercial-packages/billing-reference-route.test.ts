@@ -41,6 +41,8 @@ function run() {
   assert.doesNotMatch(panel, /positioning/);
   assert.doesNotMatch(panel, /privacy_note/);
   assert.doesNotMatch(panel, /sample|fixture|mockInvoice/i);
+  assert.doesNotMatch(panel, /payment-providers/);
+  assert.match(panel, /addonsSection|Tilleggsmoduler|viewModules/);
 
   assert.match(api, /getCustomerBillingCenter/);
   assert.match(layout, /1560/);
