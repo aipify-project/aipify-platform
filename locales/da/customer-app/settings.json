@@ -1364,7 +1364,8 @@
       "seeInformation": "Se information",
       "contactAipify": "Kontakt Aipify",
       "notForPurchase": "Ikke tilgængelig for køb endnu",
-      "plannedPriceNote": "Planlagt kundepris fra {price} — ikke et live købstilbud."
+      "plannedPriceNote": "Planlagt kundepris fra {price} — ikke et live købstilbud.",
+      "coreChannelPending": "APP-publicering fra Core er endnu ikke forbundet. Viste produkter kan bruge midlertidig registerfallback og er tydeligt markeret — ikke et live Core APP-publiceringsflag."
     },
     "modules": {
       "title": "Tillægsmoduler",

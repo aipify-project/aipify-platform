@@ -1249,7 +1249,8 @@
       "seeInformation": "Zobacz informacje",
       "contactAipify": "Kontakt z Aipify",
       "notForPurchase": "Jeszcze niedostępne do zakupu",
-      "plannedPriceNote": "Planowana cena klienta od {price} — nie jest to oferta zakupu na żywo."
+      "plannedPriceNote": "Planowana cena klienta od {price} — nie jest to oferta zakupu na żywo.",
+      "coreChannelPending": "Publikacja APP z Core nie jest jeszcze podłączona. Wyświetlane produkty mogą używać tymczasowego fallbacku rejestru i są wyraźnie oznaczone — to nie jest aktywna flaga publikacji APP w Core."
     },
     "modules": {
       "title": "Moduły dodatkowe",

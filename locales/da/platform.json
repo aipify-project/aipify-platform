@@ -7447,15 +7447,19 @@
       "priceNotCommission": "Den faste provision er ikke kundeprisen.",
       "languageNotStored": "Godkendte oversættelser ligger ikke på produktposten endnu. Intet publiceres automatisk.",
       "percentUnavailable": "Procentprovision kan ikke gemmes. Gældende regel er stadig et fast engangsbeløb.",
-      "publishMeaning": "Offentliggjort betyder, at sælgere kan bruge produktet. Det betyder ikke, at en kunde kan købe det.",
+      "publishMeaning": "Sælgerpublicering sætter SALE-kanalen (publish_sale). Den publicerer ikke produktet i APP.",
       "productTabMedia": "Profil og medier",
       "productTabAppPanel": "APP-panel",
       "productTabSalePanel": "Salgspanel",
       "productTabPreview": "Forhåndsvisning og publicering",
       "titlePersistenceNote": "Core gemmer i dag produktnøgle, provision og salgspublicering. Titel kan accepteres uden at blive gemt, før dobbeltkanal-SQL er godkendt.",
       "mediaBlocked": "Mediaupload kræver Core-lagring. Indtil da bruger APP og sælgerkatalog godkendte brandmarks fra det fælles register.",
-      "appPanelBlocked": "APP-kanalpublicering og købsparathed kræver Core-SQL. Produkter i APP-registret vises i /app/software uden falsk Køb-knap.",
-      "previewNote": "Brug APP-butik og partnerkatalog til kanalspecifik forhåndsvisning. Kanalerne er uafhængige."
+      "appPanelBlocked": "Kundepris-ID’er og købsparathed forbliver blokeret. APP-publicering bruger Core når kanal-RPC er anvendt; ellers fail-closed og tydeligt markeret.",
+      "previewNote": "Brug APP-butik og partnerkatalog til kanalspecifik forhåndsvisning. Kanalerne er uafhængige.",
+      "publishSale": "Publiceret for sælgere",
+      "publishApp": "Publiceret i APP",
+      "publishAppHint": "APP-publicering er uafhængig af sælgerpublicering. Indtil Core kanal-RPC er anvendt forbliver ændringen afventende (fail-closed) — ingen falsk «Publiceret i APP».",
+      "channelOnlyHint": "Opdater kun kanalflag (ikke provision)"
     },
     "live": {
       "loading": "Indlæser sælgerdata",
@@ -7602,12 +7606,12 @@
       "registerColAppStatus": "APP-status",
       "registerColSaleStatus": "Salgsstatus",
       "registerColCustomerPrice": "Kundepris",
-      "registerAppPublished": "APP publiceret",
-      "registerAppUnpublished": "Ikke i APP-butik",
-      "registerAppRegistryFallback": "APP-listing (register-fallback — Core-SQL mangler)",
+      "registerAppPublished": "Publiceret i APP",
+      "registerAppUnpublished": "Ikke publiceret i APP",
+      "registerAppRegistryFallback": "Kræver opsætning (registerfallback)",
       "registerSaleNotConfigured": "Salg ikke konfigureret",
       "registerPricePlanned": "Planlagt fra {price}",
-      "registerChannelNote": "Én produktidentitet med separate APP- og salgskanaler. Salgspublicering bruger Core. APP-listing bruger godkendt register indtil kanal-SQL findes."
+      "registerChannelNote": "Én produktidentitet med separate APP- og salgskanaler. Salgspublicering bruger Core. APP-publicering bruger Core når kanal-RPC er anvendt; indtil da kan APP-listing vise mærket registerfallback — aldrig et falsk Core APP-flag."
     },
     "drawer": {
       "title": "Ansøgningsdetaljer",

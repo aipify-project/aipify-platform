@@ -15,11 +15,13 @@ import {
 import {
   buildUnifiedCatalog,
   filterAppStoreProducts,
+  loadAppStoreCoreProducts,
   type ProductCatalogLocaleCode,
 } from "@/lib/product-catalog";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -40,9 +42,10 @@ export default async function SoftwareCatalogPage() {
   ]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
-  const [ctx, productReads] = await Promise.all([
+  const [ctx, productReads, supabase] = await Promise.all([
     resolveHubWorkspaceContext(),
     loadSubscriptionProductReads(),
+    createClient(),
   ]);
   const portfolio = buildPortfolioLabels(t);
   const showcase = buildSoftwareShowcaseLabels(t);
@@ -52,16 +55,26 @@ export default async function SoftwareCatalogPage() {
   const webActive = access.webKind === "known_plan" && Boolean(access.webPlan);
   const bedriftActive = access.bedrift === "licensed";
 
+  // Prefer Core APP publish flags when channel RPC is applied; otherwise keep
+  // labelled registry fallback (never pretend Core persisted publish_app).
+  const coreLoad = await loadAppStoreCoreProducts(supabase);
+  const coreProducts = coreLoad.ok ? coreLoad.products : null;
+
   const products = filterAppStoreProducts(
     buildUnifiedCatalog({
       locale: catalogLocale,
-      coreProducts: null,
+      coreProducts,
       entitlements: [
         { productKey: "kompis_web", active: webActive },
         { productKey: "kompis_bedrift", active: bedriftActive },
       ],
     })
   );
+
+  const corePendingNote =
+    !coreLoad.ok && coreLoad.reason === "missing"
+      ? showcase.coreChannelPending ?? null
+      : null;
 
   return (
     <AppHubShell
@@ -76,6 +89,14 @@ export default async function SoftwareCatalogPage() {
       contextLabel={formatHubContextLine(common, ctx)}
     >
       <div className={`${AppLayoutClasses.pageWidth} space-y-6`}>
+        {corePendingNote ? (
+          <p
+            className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950"
+            role="status"
+          >
+            {corePendingNote}
+          </p>
+        ) : null}
         <SoftwareProductShowcase
           embedded
           showcase={showcase}

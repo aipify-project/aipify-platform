@@ -15,7 +15,8 @@ import { CANONICAL_PRODUCT_REGISTRY } from "./registry";
 
 assert.ok(CANONICAL_PRODUCT_REGISTRY.some((p) => p.sku === "AIP-KOMPIS-WEB"));
 assert.ok(CANONICAL_PRODUCT_REGISTRY.every((p) => p.copy.en && p.copy.no));
-assert.equal(PRODUCT_CATALOG_FIELD_OWNERSHIP.publishApp, "core_channel_sql_pending");
+assert.equal(PRODUCT_CATALOG_FIELD_OWNERSHIP.publishApp, "core_csp_sales_products");
+assert.equal(PRODUCT_CATALOG_FIELD_OWNERSHIP.publishSale, "core_csp_sales_products");
 assert.equal(PRODUCT_CATALOG_FIELD_OWNERSHIP.percentCommission, "blocked_needs_owner_contract");
 assert.equal(PERCENT_COMMISSION_STATUS, "core_blocked");
 assert.equal(isPercentCommissionActivatable(), false);
