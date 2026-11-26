@@ -7543,6 +7543,10 @@
       "openNotifications": "Налаштування сповіщень",
       "statusAvailable": "Доступно",
       "statusUnavailable": "Недоступно",
+      "dataUnavailable": "Дані недоступні",
+      "webDataUnavailable": "Не вдалося прочитати статус Kompis Web. Це не означає, що продукт неактивний.",
+      "exploreTitle": "Огляд продуктів Aipify",
+      "exploreDescription": "Перегляньте опубліковані продукти та доступ, який уже має ця компанія.",
       "statusReady": "Готово"
     },
     "productHubs": {

@@ -7543,6 +7543,10 @@
       "openNotifications": "Ustawienia powiadomień",
       "statusAvailable": "Dostępne",
       "statusUnavailable": "Niedostępne",
+      "dataUnavailable": "Dane są niedostępne",
+      "webDataUnavailable": "Nie udało się odczytać statusu Kompis Web. To nie oznacza, że produkt jest nieaktywny.",
+      "exploreTitle": "Poznaj produkty Aipify",
+      "exploreDescription": "Zobacz opublikowane produkty i dostęp, który ta firma już ma.",
       "statusReady": "Gotowe"
     },
     "productHubs": {

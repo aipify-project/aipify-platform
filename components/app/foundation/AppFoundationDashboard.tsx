@@ -7,7 +7,8 @@ import {
   AppWorkspaceHero,
 } from "@/components/app/design";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
-import { bedriftHomeCardState } from "@/lib/app/foundation-product-card";
+import { bedriftHomeCardState, webHomeCardState } from "@/lib/app/foundation-product-card";
+import { CUSTOMER_CATALOG_ROUTE } from "@/lib/app-portal/customer-catalog/model";
 import { AppVisualClasses } from "@/lib/design/app-visual-system";
 
 export type AppFoundationDashboardLabels = {
@@ -22,6 +23,7 @@ export type AppFoundationDashboardLabels = {
   webTitle: string;
   webDescription: string;
   webUnavailable: string;
+  webDataUnavailable: string;
   bedriftUnavailable: string;
   bedriftTitle: string;
   bedriftDescription: string;
@@ -44,7 +46,10 @@ export type AppFoundationDashboardLabels = {
   openNotifications: string;
   statusAvailable: string;
   statusUnavailable: string;
+  dataUnavailable: string;
   statusReady: string;
+  exploreTitle: string;
+  exploreDescription: string;
 };
 
 export type AppFoundationDashboardProps = {
@@ -77,10 +82,13 @@ export function AppFoundationDashboard({
       ? labels.welcomeNamed.replace("{organization}", organizationName.trim())
       : labels.welcomeGeneric;
 
+  const webCard = webHomeCardState(websiteKompisAvailable);
   const webStatus =
-    websiteKompisAvailable === false
-      ? { label: labels.statusUnavailable, tone: "amber" as const }
-      : { label: labels.statusAvailable, tone: "emerald" as const };
+    webCard === "open"
+      ? { label: labels.statusAvailable, tone: "emerald" as const }
+      : webCard === "unavailable"
+        ? { label: labels.statusUnavailable, tone: "amber" as const }
+        : { label: labels.dataUnavailable, tone: "slate" as const };
 
   return (
     <AppContentWidth className="relative">
@@ -107,18 +115,7 @@ export function AppFoundationDashboard({
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {websiteKompisAvailable === false ? (
-            <AppIconStatusCard
-              title={labels.webTitle}
-              description={labels.webUnavailable}
-              tone="slate"
-              statusLabel={labels.statusUnavailable}
-              statusTone="slate"
-              icon={
-                <DashboardIcon path="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-              }
-            />
-          ) : (
+          {webCard === "open" ? (
             <AppIconActionCard
               href={FOUNDATION_NAV_BINDINGS.kompisWebDashboard}
               title={labels.webTitle}
@@ -130,7 +127,27 @@ export function AppFoundationDashboard({
                 <DashboardIcon path="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
               }
             />
+          ) : (
+            <AppIconStatusCard
+              title={labels.webTitle}
+              description={webCard === "unknown" ? labels.webDataUnavailable : labels.webUnavailable}
+              tone="slate"
+              statusLabel={webStatus.label}
+              statusTone="slate"
+              icon={
+                <DashboardIcon path="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+              }
+            />
           )}
+          <AppIconActionCard
+            href={CUSTOMER_CATALOG_ROUTE}
+            title={labels.exploreTitle}
+            description={labels.exploreDescription}
+            tone="lavender"
+            icon={
+              <DashboardIcon path="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+            }
+          />
           {bedriftHomeCardState(kompisBedriftAvailable) === "open" ? (
             <AppIconActionCard
               href={FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard}
@@ -168,23 +185,23 @@ export function AppFoundationDashboard({
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {websiteKompisAvailable === false ? (
-            <AppIconStatusCard
-              title={labels.connectionTitle}
-              description={labels.webUnavailable}
-              tone="slate"
-              statusLabel={labels.statusUnavailable}
-              statusTone="slate"
-              icon={
-                <DashboardIcon path="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-              }
-            />
-          ) : (
+          {webCard === "open" ? (
             <AppIconActionCard
               href={FOUNDATION_NAV_BINDINGS.kompisWebConnection}
               title={labels.connectionTitle}
               description={labels.connectionDescription}
               tone="lavender"
+              icon={
+                <DashboardIcon path="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+              }
+            />
+          ) : (
+            <AppIconStatusCard
+              title={labels.connectionTitle}
+              description={webCard === "unknown" ? labels.webDataUnavailable : labels.webUnavailable}
+              tone="slate"
+              statusLabel={webStatus.label}
+              statusTone="slate"
               icon={
                 <DashboardIcon path="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
               }

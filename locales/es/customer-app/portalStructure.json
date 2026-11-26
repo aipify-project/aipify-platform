@@ -7252,6 +7252,10 @@
       "openNotifications": "Ajustes de notificaciones",
       "statusAvailable": "Disponible",
       "statusUnavailable": "No disponible",
+      "dataUnavailable": "Los datos no están disponibles",
+      "webDataUnavailable": "No se pudo leer el estado de Kompis Web. Eso no significa que el producto esté inactivo.",
+      "exploreTitle": "Explorar productos Aipify",
+      "exploreDescription": "Vea los productos publicados y el acceso que esta empresa ya tiene.",
       "statusReady": "Listo"
     },
     "productHubs": {

@@ -1,0 +1,31 @@
+{
+  "customerCatalog": {
+    "eyebrow": "Aipify products",
+    "title": "Explore Aipify products",
+    "description": "Published products and your current access. Prices appear only when Platform has published them.",
+    "categoriesLabel": "Product categories",
+    "all": "All products",
+    "kompis": "Kompis",
+    "voice": "Aipify Voice",
+    "otherCategory": "Other products",
+    "kompisWebTitle": "Kompis Web",
+    "kompisWebDescription": "Answers for visitors, based on the company's approved website content.",
+    "kompisBedriftTitle": "Kompis Bedrift",
+    "kompisBedriftDescription": "Internal knowledge and workflows for the company team.",
+    "stateActive": "Active",
+    "stateNotLicensed": "Not included",
+    "stateUnknown": "Status unavailable",
+    "stateComingLater": "Coming later",
+    "priceUnavailable": "Price is not published",
+    "purchaseClosed": "Purchase stays closed until Platform publishes a payable price.",
+    "openProduct": "Open product",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "intervalLabel": "Billing period",
+    "includedHeading": "Included in the package",
+    "seeAllFeatures": "See all features",
+    "hideFeatures": "Hide features",
+    "billingUnavailable": "Billing details could not be read. Product access above is separate from price.",
+    "exploreLink": "Explore Aipify products"
+  }
+}

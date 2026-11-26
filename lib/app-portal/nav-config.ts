@@ -396,7 +396,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
     return "kompisWebDashboard";
   }
   if (pathname.startsWith("/app/domains")) return "kompisWebConnection";
-  if (pathname.startsWith("/app/software")) return "kompisWebModules";
+  if (pathname.startsWith("/app/software") || pathname.startsWith("/app/explore")) return "kompisWebModules";
   if (pathname === "/app" || pathname === "/app/") return "appDashboard";
 
   // Longest-prefix match against foundation registry.

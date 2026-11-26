@@ -8606,6 +8606,10 @@
       "openNotifications": "Aviseringsinställningar",
       "statusAvailable": "Tillgänglig",
       "statusUnavailable": "Inte tillgänglig",
+      "dataUnavailable": "Data är inte tillgängliga",
+      "webDataUnavailable": "Status för Kompis Web kunde inte läsas. Det är inte detsamma som att produkten är inaktiv.",
+      "exploreTitle": "Utforska Aipify-produkter",
+      "exploreDescription": "Se publicerade produkter och den åtkomst det här företaget redan har.",
       "statusReady": "Redo"
     },
     "productHubs": {

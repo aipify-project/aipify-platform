@@ -1,0 +1,31 @@
+{
+  "customerCatalog": {
+    "eyebrow": "Aipify-produkter",
+    "title": "Udforsk Aipify-produkter",
+    "description": "Publicerede produkter og den adgang virksomheden har nu. Priser vises kun, når Platform har publiceret dem.",
+    "categoriesLabel": "Produktkategorier",
+    "all": "Alle produkter",
+    "kompis": "Kompis",
+    "voice": "Aipify Voice",
+    "otherCategory": "Andre produkter",
+    "kompisWebTitle": "Kompis Web",
+    "kompisWebDescription": "Svar til besøgende, baseret på virksomhedens godkendte webstedsindhold.",
+    "kompisBedriftTitle": "Kompis Bedrift",
+    "kompisBedriftDescription": "Intern viden og arbejdsgange for teamet i virksomheden.",
+    "stateActive": "Aktiv",
+    "stateNotLicensed": "Ikke inkluderet",
+    "stateUnknown": "Status er ikke tilgængelig",
+    "stateComingLater": "Kommer senere",
+    "priceUnavailable": "Pris er ikke publiceret",
+    "purchaseClosed": "Køb er lukket, indtil Platform publicerer en betalbar pris.",
+    "openProduct": "Åbn produkt",
+    "monthly": "Månedlig",
+    "yearly": "Årlig",
+    "intervalLabel": "Betalingsperiode",
+    "includedHeading": "Inkluderet i pakken",
+    "seeAllFeatures": "Se alle funktioner",
+    "hideFeatures": "Skjul funktioner",
+    "billingUnavailable": "Fakturadetaljer kunne ikke læses. Produktadgangen ovenfor er adskilt fra pris.",
+    "exploreLink": "Udforsk Aipify-produkter"
+  }
+}

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { customerFacingPlanLabel, webHomeCardState } from "@/lib/app/foundation-product-card";
 import { integrationCategoryLabel } from "@/lib/app-portal/integrations/category-label";
 import { WEBSITE_KOMPIS_SITE_PROVISION_LIVE } from "@/lib/website-kompis-connection/provision-gate";
 
@@ -22,6 +23,11 @@ const labels = {
   },
 };
 
+assert.equal(webHomeCardState(null), "unknown");
+assert.equal(webHomeCardState(false), "unavailable");
+assert.equal(webHomeCardState(true), "open");
+assert.equal(customerFacingPlanLabel("active"), null);
+assert.equal(customerFacingPlanLabel("Kompis Web"), "Kompis Web");
 assert.equal(integrationCategoryLabel("CRM", labels), "Customer relationships");
 assert.equal(integrationCategoryLabel(" general ", labels), "General");
 assert.equal(integrationCategoryLabel("unonight_special", labels), "Other");
@@ -34,15 +40,15 @@ const root = process.cwd();
 const read = (rel: string) => readFileSync(join(root, rel), "utf8");
 
 const home = read("components/app/foundation/AppFoundationDashboard.tsx");
-assert.match(home, /websiteKompisAvailable === false \? \([\s\S]*AppIconStatusCard/);
+assert.match(home, /webHomeCardState\(websiteKompisAvailable\)/);
+assert.match(home, /webCard === "open" \? \([\s\S]*kompisWebDashboard/);
+assert.match(home, /webCard === "unknown" \? labels\.webDataUnavailable : labels\.webUnavailable/);
 assert.match(home, /bedriftHomeCardState\(kompisBedriftAvailable\) === "open"/);
 assert.match(home, /AppIconStatusCard[\s\S]*labels\.bedriftUnavailable/);
-const connectionStart = home.lastIndexOf("websiteKompisAvailable === false");
-const connectionFalse = home.slice(connectionStart, home.indexOf(") : (", connectionStart));
-assert.match(connectionFalse, /AppIconStatusCard/);
-assert.doesNotMatch(connectionFalse, /kompisWebConnection/);
+assert.match(home, /CUSTOMER_CATALOG_ROUTE/);
 assert.match(home, /FOUNDATION_NAV_BINDINGS\.kompisWebConnection/);
 assert.match(home, /FOUNDATION_NAV_BINDINGS\.accountIntegrations/);
+assert.doesNotMatch(home, /websiteKompisAvailable === false \? \([\s\S]*kompisWebDashboard/);
 
 const hub = read("components/app/app-portal/AppPortalIntegrationsHubPanel.tsx");
 assert.match(hub, /AppLoadingState/);
@@ -78,6 +84,9 @@ for (const locale of ["en", "no", "sv", "da", "es", "pl", "uk"]) {
   assert.equal(typeof hubLabels.categories.crm, "string");
   assert.equal(typeof portal.portalStructure.productHubs.common.breadcrumb, "string");
   assert.equal(typeof portal.portalStructure.foundationDashboard.webUnavailable, "string");
+  assert.equal(typeof portal.portalStructure.foundationDashboard.webDataUnavailable, "string");
+  assert.equal(typeof portal.portalStructure.foundationDashboard.dataUnavailable, "string");
+  assert.equal(typeof portal.portalStructure.foundationDashboard.exploreTitle, "string");
   assert.equal(typeof portal.portalStructure.productHubs.bedrift.knowledgeBoundaryStatus, "string");
   assert.equal(typeof core.kompisOperator.boundaryNote, "string");
   assert.ok(core.kompisOperator.boundaryNote.length > 40);

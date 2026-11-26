@@ -14,6 +14,7 @@ export const CUSTOMER_APP_SPLIT_NAMES = [
   "settings",
   "dashboard",
   "core",
+  "customerCatalog",
 ] as const;
 
 export type CustomerAppSplitName = (typeof CUSTOMER_APP_SPLIT_NAMES)[number];

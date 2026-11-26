@@ -14,6 +14,7 @@ export function buildFoundationDashboardLabels(t: Translator): AppFoundationDash
     webTitle: t("customerApp.portalStructure.foundationDashboard.webTitle"),
     webDescription: t("customerApp.portalStructure.foundationDashboard.webDescription"),
     webUnavailable: t("customerApp.portalStructure.foundationDashboard.webUnavailable"),
+    webDataUnavailable: t("customerApp.portalStructure.foundationDashboard.webDataUnavailable"),
     bedriftUnavailable: t("customerApp.portalStructure.foundationDashboard.bedriftUnavailable"),
     bedriftTitle: t("customerApp.portalStructure.foundationDashboard.bedriftTitle"),
     bedriftDescription: t("customerApp.portalStructure.foundationDashboard.bedriftDescription"),
@@ -40,6 +41,9 @@ export function buildFoundationDashboardLabels(t: Translator): AppFoundationDash
     openNotifications: t("customerApp.portalStructure.foundationDashboard.openNotifications"),
     statusAvailable: t("customerApp.portalStructure.foundationDashboard.statusAvailable"),
     statusUnavailable: t("customerApp.portalStructure.foundationDashboard.statusUnavailable"),
+    dataUnavailable: t("customerApp.portalStructure.foundationDashboard.dataUnavailable"),
     statusReady: t("customerApp.portalStructure.foundationDashboard.statusReady"),
+    exploreTitle: t("customerApp.portalStructure.foundationDashboard.exploreTitle"),
+    exploreDescription: t("customerApp.portalStructure.foundationDashboard.exploreDescription"),
   };
 }

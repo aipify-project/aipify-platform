@@ -1,0 +1,31 @@
+{
+  "customerCatalog": {
+    "eyebrow": "Produkty Aipify",
+    "title": "Poznaj produkty Aipify",
+    "description": "Opublikowane produkty i obecny dostęp firmy. Ceny pojawiają się tylko wtedy, gdy Platform je opublikuje.",
+    "categoriesLabel": "Kategorie produktów",
+    "all": "Wszystkie produkty",
+    "kompis": "Kompis",
+    "voice": "Aipify Voice",
+    "otherCategory": "Inne produkty",
+    "kompisWebTitle": "Kompis Web",
+    "kompisWebDescription": "Odpowiedzi dla odwiedzających na podstawie zatwierdzonych treści witryny firmy.",
+    "kompisBedriftTitle": "Kompis Bedrift",
+    "kompisBedriftDescription": "Wewnętrzna wiedza i przepływy pracy dla zespołu firmy.",
+    "stateActive": "Aktywny",
+    "stateNotLicensed": "Nieobjęty",
+    "stateUnknown": "Status jest niedostępny",
+    "stateComingLater": "Wkrótce",
+    "priceUnavailable": "Cena nie została opublikowana",
+    "purchaseClosed": "Zakup jest zamknięty, dopóki Platform nie opublikuje ceny do zapłaty.",
+    "openProduct": "Otwórz produkt",
+    "monthly": "Miesięcznie",
+    "yearly": "Rocznie",
+    "intervalLabel": "Okres rozliczeniowy",
+    "includedHeading": "Zawarte w pakiecie",
+    "seeAllFeatures": "Zobacz wszystkie funkcje",
+    "hideFeatures": "Ukryj funkcje",
+    "billingUnavailable": "Nie udało się odczytać danych rozliczeniowych. Dostęp do produktu powyżej jest oddzielony od ceny.",
+    "exploreLink": "Poznaj produkty Aipify"
+  }
+}
