@@ -28,6 +28,29 @@ import {
   renderSupportTemplateBody,
 } from "./template-render";
 import { parseSupportCenterTab, SUPPORT_TEMPLATE_VARIABLES } from "./types";
+import {
+  attachSupportSignatureToDraft,
+  draftHasSupportSignature,
+  stripSupportSignatureFromDraft,
+  SUPPORT_SIGNATURE_MARKER,
+} from "./signature";
+import {
+  __resetSupportSignatureStoreForTests,
+  getStoredSupportSignature,
+  resetSupportSignature,
+  saveSupportSignature,
+} from "./signature-store";
+import {
+  computeSupportKpis,
+  filterTicketsForTab,
+  nextStatusOptions,
+  normalizeSupportTimeline,
+  resolveTicketDescription,
+  ticketFromDetailItem,
+} from "./ticket-view";
+import { SUPPORT_STATUS_TRANSITIONS } from "./write-ops";
+import type { PlatformSupportTicketsListItem } from "@/lib/platform-portal/support-tickets-read-adapter";
+import { readFileSync as readLocale } from "node:fs";
 
 assert.equal(parseSupportCenterTab(null), "all");
 assert.equal(parseSupportCenterTab("templates"), "templates");
@@ -111,5 +134,207 @@ for (const table of PLATFORM_SUPPORT_CENTER_SQL_TABLES) {
   assert.match(sql, new RegExp(`create table if not exists public\\.${table}`));
 }
 assert.match(sql, /revoke all on table public\.platform_support_ticket_messages from public, anon, authenticated/i);
+
+// ---------------------------------------------------------------------------
+// Polish V2 — Mine tab, KPIs, signature store, signature marker, timeline
+// ---------------------------------------------------------------------------
+
+function ticket(
+  id: string,
+  overrides: Partial<PlatformSupportTicketsListItem> = {},
+): PlatformSupportTicketsListItem {
+  return {
+    id,
+    company_id: "c1",
+    company_name: "Kunde",
+    title: `Sak ${id}`,
+    description_preview: "",
+    category: "general",
+    priority: "normal",
+    status: "open",
+    channel: "app_portal",
+    source_locale: null,
+    related_module: null,
+    assigned_support_owner_id: null,
+    attachment_count: 0,
+    created_at: "2026-01-01T00:00:00Z",
+    updated_at: "2026-01-02T00:00:00Z",
+    resolved_at: null,
+    ...overrides,
+  };
+}
+
+const rows = [
+  ticket("a", { assigned_support_owner_id: "me", status: "in_progress" }),
+  ticket("b", { assigned_support_owner_id: "other", priority: "critical" }),
+  ticket("c", { priority: "urgent", status: "in_progress" }),
+  ticket("d"),
+];
+assert.deepEqual(
+  filterTicketsForTab(rows, "mine", "me").map((r) => r.id),
+  ["a"],
+);
+assert.equal(filterTicketsForTab(rows, "mine", null).length, 0);
+assert.equal(filterTicketsForTab(rows, "mine", undefined).length, 0);
+assert.equal(filterTicketsForTab(rows, "all", "me").length, 4);
+
+// KPI states: loading / unavailable / zero are all distinguishable.
+const kpiLoading = computeSupportKpis({ status: "loading", counts: null, items: [] });
+assert.equal(kpiLoading.open.state, "loading");
+assert.equal(kpiLoading.critical.state, "loading");
+const kpiBlocked = computeSupportKpis({ status: "unavailable", counts: null, items: [] });
+assert.equal(kpiBlocked.inProgress.state, "unavailable");
+assert.equal(kpiBlocked.usesLoadedPage, false);
+const kpiReady = computeSupportKpis({
+  status: "ready",
+  counts: { total: 9, open: 4, waiting: 2, resolved_or_closed: 3 },
+  items: rows,
+});
+assert.deepEqual(kpiReady.open, { state: "value", value: 4, source: "counts" });
+assert.deepEqual(kpiReady.waiting, { state: "value", value: 2, source: "counts" });
+assert.deepEqual(kpiReady.resolved, { state: "value", value: 3, source: "counts" });
+assert.deepEqual(kpiReady.inProgress, { state: "value", value: 2, source: "page" });
+assert.deepEqual(kpiReady.critical, { state: "value", value: 2, source: "page" });
+assert.equal(kpiReady.usesLoadedPage, true);
+// Counts missing (counts API failed) → counts cards unavailable, never a fake zero.
+const kpiNoCounts = computeSupportKpis({ status: "ready", counts: null, items: [] });
+assert.equal(kpiNoCounts.open.state, "unavailable");
+assert.deepEqual(kpiNoCounts.inProgress, { state: "value", value: 0, source: "page" });
+
+assert.deepEqual(nextStatusOptions("open", SUPPORT_STATUS_TRANSITIONS)[0], "open");
+assert.ok(nextStatusOptions("open", SUPPORT_STATUS_TRANSITIONS).includes("in_progress"));
+assert.deepEqual(nextStatusOptions("archived", SUPPORT_STATUS_TRANSITIONS), ["archived"]);
+
+// Timeline: honest empty, drops junk, maps message-thread + audit rows.
+assert.deepEqual(normalizeSupportTimeline([]), []);
+assert.deepEqual(normalizeSupportTimeline(null), []);
+const timeline = normalizeSupportTimeline([
+  { id: "1", description: "Opprettet", created_at: "2026-01-01T00:00:00Z" },
+  {
+    id: "2",
+    direction: "outbound",
+    body_text: "Utkast",
+    delivery_status: "blocked_unconfigured",
+    created_at: "2026-01-02T00:00:00Z",
+  },
+  { id: "3", direction: "internal_note", body_text: "Intern" },
+  { id: "4" },
+  "junk",
+]);
+assert.deepEqual(
+  timeline.map((e) => e.kind),
+  ["event", "reply_draft", "internal_note"],
+);
+assert.equal(timeline[1].deliveryStatus, "blocked_unconfigured");
+assert.equal(resolveTicketDescription({ description: "Full tekst" }, "preview"), "Full tekst");
+assert.equal(resolveTicketDescription(null, "preview"), "preview");
+assert.equal(ticketFromDetailItem("x", null), null);
+assert.equal(ticketFromDetailItem("x", { title: "T", status: "open" })?.title, "T");
+
+// Signature marker: attach is idempotent and replaces rather than duplicates.
+const sigText = "Aipify Support\nAipify Group AS";
+const once = attachSupportSignatureToDraft("Hei,\n\nTakk.", sigText);
+assert.ok(once.includes(SUPPORT_SIGNATURE_MARKER));
+assert.equal(draftHasSupportSignature(once), true);
+assert.equal(draftHasSupportSignature("Hei,\n\nTakk."), false);
+const twice = attachSupportSignatureToDraft(once, sigText);
+assert.equal(twice, once);
+assert.equal(twice.split("Aipify Group AS").length - 1, 1);
+assert.equal(stripSupportSignatureFromDraft(once), "Hei,\n\nTakk.");
+assert.equal(
+  attachSupportSignatureToDraft(once, "Annen signatur").includes("Aipify Group AS"),
+  false,
+);
+assert.equal(attachSupportSignatureToDraft("", sigText).startsWith(SUPPORT_SIGNATURE_MARKER), true);
+
+// Signature store: defaults until saved; save validates; reset clears; never durable.
+__resetSupportSignatureStoreForTests();
+const initial = getStoredSupportSignature();
+assert.equal(initial.customized, false);
+assert.equal(initial.persistConfigured, false);
+assert.equal(initial.signature.companyName, "Aipify Group AS");
+const saved = saveSupportSignature({
+  ...initial.signature,
+  agentName: "Kari Nordmann",
+  logoUrl: "https://evil.example/logo.png",
+});
+assert.equal(saved.ok, true);
+if (saved.ok) {
+  assert.equal(saved.customized, true);
+  assert.equal(saved.signature.agentName, "Kari Nordmann");
+  // Only the official brand logo is ever stored.
+  assert.equal(saved.signature.logoUrl, SUPPORT_SIGNATURE_LOGO_URL);
+  assert.equal(saved.signature.version, 1);
+}
+const savedAgain = saveSupportSignature({ ...initial.signature, agentName: "Ola" });
+assert.equal(savedAgain.ok && savedAgain.signature.version, 2);
+assert.equal(getStoredSupportSignature().signature.agentName, "Ola");
+assert.equal(
+  saveSupportSignature({ ...initial.signature, supportEmail: "x@aipify.com" }).ok,
+  false,
+);
+assert.equal(
+  saveSupportSignature({ ...initial.signature, supportEmail: "not-an-email" }).ok,
+  false,
+);
+assert.equal(
+  saveSupportSignature({ ...initial.signature, websiteUrl: "javascript:alert(1)" }).ok,
+  false,
+);
+assert.equal(saveSupportSignature({ ...initial.signature, companyName: "", displayName: "" }).ok, false);
+assert.equal(saveSupportSignature(null).ok, false);
+// Failed saves never overwrite the stored signature.
+assert.equal(getStoredSupportSignature().signature.agentName, "Ola");
+const resetResult = resetSupportSignature();
+assert.equal(resetResult.ok && resetResult.customized, false);
+assert.equal(getStoredSupportSignature().signature.agentName, "");
+__resetSupportSignatureStoreForTests();
+
+// Channel statuses stay accurate (Core intake is closed) and email stays off.
+assert.equal(listSupportChannelActivations().filter((c) => c.status === "active").length, 0);
+assert.equal(getSupportCenterGateState().emailSendConfigured, false);
+
+// i18n: every core locale carries the full supportCenter key set; no jargon.
+function flatKeys(value: unknown, prefix = ""): string[] {
+  if (!value || typeof value !== "object") return [prefix];
+  return Object.entries(value as Record<string, unknown>).flatMap(([k, v]) =>
+    flatKeys(v, prefix ? `${prefix}.${k}` : k),
+  );
+}
+const localeDicts: Record<string, Record<string, unknown>> = {};
+for (const locale of ["en", "no", "sv", "da", "pl", "uk"]) {
+  const json = JSON.parse(
+    readLocale(`locales/${locale}/platform.json`, "utf8"),
+  ) as { supportCenter: Record<string, unknown> };
+  localeDicts[locale] = json.supportCenter;
+}
+const enKeys = new Set(flatKeys(localeDicts.en));
+for (const [locale, dict] of Object.entries(localeDicts)) {
+  const keys = new Set(flatKeys(dict));
+  assert.deepEqual(
+    [...enKeys].filter((k) => !keys.has(k)),
+    [],
+    `${locale} is missing supportCenter keys`,
+  );
+  assert.deepEqual(
+    [...keys].filter((k) => !enKeys.has(k)),
+    [],
+    `${locale} has extra supportCenter keys`,
+  );
+  assert.equal("legacyKpiRemoved" in dict, false);
+  const channelsJson = JSON.stringify(dict.channels);
+  assert.doesNotMatch(channelsJson, /\bRPC\b|\bSQL\b|\bSoT\b|app_portal_support_requests/);
+  const coreCopy = JSON.stringify([
+    dict.coreBlockedBody,
+    dict.emptyCoreBlocked,
+    (dict.kpi as Record<string, unknown>).sourceNote,
+  ]);
+  assert.doesNotMatch(coreCopy, /\bRPC\b|\bSQL\b|\bSoT\b|\bCore\b/);
+}
+const enChannels = localeDicts.en.channels as Record<string, string>;
+assert.equal(enChannels.active, "Active");
+assert.equal(enChannels.notActivated, "Not activated");
+assert.equal(enChannels.preparedOnly, "Not configured");
+assert.match(enChannels.emailSendBlocked, /not configured/i);
 
 console.log("support-center.test.ts: ok");

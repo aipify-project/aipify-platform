@@ -55,7 +55,11 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    return NextResponse.json(result, { headers: NO_STORE });
+    // viewerUserId lets the Mine tab match assigned_support_owner_id (auth user only).
+    return NextResponse.json(
+      { ...result, viewerUserId: user.id },
+      { headers: NO_STORE },
+    );
   } catch {
     return jsonError("Unable to list support tickets.", 500, { code: "unknown" });
   }

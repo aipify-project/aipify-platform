@@ -146,3 +146,45 @@ ${logoBlock}
 
 /** Persist gate — storage requires Core SQL candidate apply (Phase B). */
 export const SUPPORT_SIGNATURE_PERSIST_CONFIGURED = false as const;
+
+/**
+ * Conventional signature delimiter line ("-- " on its own line, RFC 3676).
+ * Used so attaching a signature to a draft is idempotent.
+ */
+export const SUPPORT_SIGNATURE_MARKER = "-- " as const;
+
+const SIGNATURE_MARKER_LINE_RE = /(?:^|\n)--[ \t]*(?:\r?\n|$)/;
+
+/** True when the draft already contains the signature delimiter line. */
+export function draftHasSupportSignature(body: string): boolean {
+  return SIGNATURE_MARKER_LINE_RE.test(body);
+}
+
+/** Remove the signature block (last delimiter line to end) from a draft. */
+export function stripSupportSignatureFromDraft(body: string): string {
+  const lines = body.split("\n");
+  let markerIndex = -1;
+  for (let i = lines.length - 1; i >= 0; i -= 1) {
+    if (/^--[ \t]*\r?$/.test(lines[i])) {
+      markerIndex = i;
+      break;
+    }
+  }
+  if (markerIndex < 0) return body;
+  return lines.slice(0, markerIndex).join("\n").replace(/\s+$/, "");
+}
+
+/**
+ * Append the signature exactly once. If a signature block is already present
+ * it is replaced (never duplicated).
+ */
+export function attachSupportSignatureToDraft(
+  body: string,
+  signatureText: string,
+): string {
+  const text = signatureText.trim();
+  const base = stripSupportSignatureFromDraft(body).replace(/\s+$/, "");
+  if (!text) return base;
+  const prefix = base.length > 0 ? `${base}\n\n` : "";
+  return `${prefix}${SUPPORT_SIGNATURE_MARKER}\n${text}`;
+}
