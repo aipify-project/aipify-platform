@@ -609,3 +609,25 @@ body:has(.aipify-app-shell) .aipify-privacy-settings-trigger {
     opacity: 0.55;
   }
 }
+
+/*
+ * Support Center — signature preview on a dark surface.
+ * The signature HTML carries light-theme inline colours (it is email-safe), so
+ * these overrides keep text, links and rules readable on the dark preview card.
+ */
+.support-signature-dark-preview div,
+.support-signature-dark-preview span {
+  color: #f1f5f9 !important;
+}
+.support-signature-dark-preview a {
+  color: #c7d2fe !important;
+  text-decoration: underline !important;
+}
+.support-signature-dark-preview td {
+  border-color: #475569 !important;
+}
+.support-signature-dark-preview img {
+  border-radius: 0.375rem;
+  background: #ffffff;
+  padding: 0.375rem;
+}

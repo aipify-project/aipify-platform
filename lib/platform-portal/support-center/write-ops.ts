@@ -7,6 +7,7 @@
 import { SUPPORT_EMAIL_SEND_CONFIGURED } from "./channel-status";
 import { resolveSupportCenterStagingLiveGates } from "./staging-core-activation";
 import { stripUnresolvedTemplatePlaceholders } from "@/lib/support-intake/sanitize";
+import { draftHasSupportSignature } from "./signature";
 
 /** Compile-time Production default — closed. */
 export const SUPPORT_WRITE_RPC_CONNECTED = false as const;
@@ -157,8 +158,11 @@ export async function postExternalReply(input: {
   }
 
   // Signature may be appended for draft preview text only — never triggers send.
+  // Never append twice: skip when the draft already carries the signature marker.
   const bodyWithOptionalSignature =
-    input.includeSignature && input.signatureText
+    input.includeSignature &&
+    input.signatureText &&
+    !draftHasSupportSignature(cleaned)
       ? `${cleaned}\n\n${input.signatureText}`
       : cleaned;
 

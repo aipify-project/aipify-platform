@@ -1,89 +1,133 @@
 "use client";
 
-import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { AipifyEmptyState } from "@/components/branding";
-import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
+import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
+  attachSupportSignatureToDraft,
+  computeSupportKpis,
   createDefaultSupportSignature,
+  filterTicketsForTab,
   getSupportCenterGateState,
   listSupportChannelActivations,
   listSupportReplyStarterTemplates,
+  normalizeSupportTimeline,
   parseSupportCenterTab,
-  renderSupportSignatureHtml,
   renderSupportSignatureText,
   renderSupportTemplateBody,
+  resolveTicketDescription,
+  ticketFromDetailItem,
+  ticketReference,
+  type EditableSupportTemplate,
   type SupportCenterTabId,
-  type SupportReplyTemplate,
+  type SupportKpiState,
   type SupportSignatureDraft,
+  type SupportTicketCounts,
+  type SupportTimelineEntry,
 } from "@/lib/platform-portal/support-center";
 import type { PlatformSupportTicketsListItem } from "@/lib/platform-portal/support-tickets-read-adapter";
 import type { SupportCenterLabels } from "./support-center-labels";
+import SupportSignatureTab, { type StoredSignatureState } from "./SupportSignatureTab";
+import SupportTemplatesTab from "./SupportTemplatesTab";
+import SupportTicketDetail, {
+  type SupportBusyScope,
+  type SupportDetailState,
+  type SupportFeedbackScope,
+} from "./SupportTicketDetail";
+import SupportTicketList from "./SupportTicketList";
+import {
+  FlashMessage,
+  inputClass,
+  secondaryButtonClass,
+  type SupportFlash,
+} from "./support-center-ui";
 
 type PlatformSupportCenterPanelProps = {
   locale: string;
   labels: SupportCenterLabels;
 };
 
-type CountsState = {
-  total: number;
-  open: number;
-  waiting: number;
-  resolved_or_closed: number;
-} | null;
-
 type LoadState =
   | { kind: "loading" }
-  | { kind: "blocked"; code: string; message: string }
-  | { kind: "ready"; items: PlatformSupportTicketsListItem[]; counts: CountsState }
-  | { kind: "error"; message: string };
+  | { kind: "blocked" }
+  | { kind: "error"; message: string }
+  | {
+      kind: "ready";
+      items: PlatformSupportTicketsListItem[];
+      counts: SupportTicketCounts | null;
+      viewerUserId: string | null;
+    };
 
-function statusTone(status: string): string {
-  const s = status.toLowerCase();
-  if (s === "resolved" || s === "closed") {
-    return "bg-emerald-50 text-emerald-800 border-emerald-200";
-  }
-  if (s === "waiting_for_customer" || s === "waiting_internal") {
-    return "bg-amber-50 text-amber-900 border-amber-200";
-  }
-  if (s === "critical" || s === "urgent" || s === "new" || s === "reopened") {
-    return "bg-rose-50 text-rose-800 border-rose-200";
-  }
-  if (s === "open" || s === "in_progress") {
-    return "bg-sky-50 text-sky-900 border-sky-200";
-  }
-  return "bg-slate-50 text-slate-700 border-slate-200";
+type DetailLoad = {
+  id: string;
+  status: "ready" | "error";
+  item: Record<string, unknown> | null;
+  timeline: SupportTimelineEntry[];
+};
+
+type Drafts = {
+  ticketId: string | null;
+  reply: string;
+  /** Reply text as last saved — equal to `reply` means nothing unsaved. */
+  replyBaseline: string;
+  note: string;
+  templateId: string;
+};
+
+const EMPTY_DRAFTS: Drafts = {
+  ticketId: null,
+  reply: "",
+  replyBaseline: "",
+  note: "",
+  templateId: "",
+};
+
+const SEARCH_DEBOUNCE_MS = 300;
+
+function starterAsEditable(): EditableSupportTemplate[] {
+  return listSupportReplyStarterTemplates().map((t) => ({
+    ...t,
+    starter: true,
+    archived: false,
+  }));
 }
 
-function priorityTone(priority: string): string {
-  const p = priority.toLowerCase();
-  if (p === "critical" || p === "urgent") {
-    return "bg-rose-50 text-rose-800 border-rose-200";
-  }
-  if (p === "high") {
-    return "bg-orange-50 text-orange-900 border-orange-200";
-  }
-  return "bg-slate-50 text-slate-700 border-slate-200";
-}
-
-function StatusChip({
-  code,
-  map,
-  tone,
+function KpiCard({
+  label,
+  kpi,
+  labels,
 }: {
-  code: string;
-  map: Record<string, string>;
-  tone: string;
+  label: string;
+  kpi: SupportKpiState;
+  labels: SupportCenterLabels;
 }) {
-  const label = map[code] ?? map[code.toLowerCase()] ?? "—";
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-xs font-medium ${tone}`}
+    <article
+      title={kpi.state === "value" && kpi.source === "page" ? labels.kpiPageNote : undefined}
+      className="flex min-h-[5.5rem] flex-col justify-between rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-4"
     >
-      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-current opacity-70" />
-      {label}
-    </span>
+      <p className="text-xs font-medium uppercase tracking-wide text-[color:var(--aipify-text-secondary)]">
+        {label}
+      </p>
+      {kpi.state === "value" ? (
+        <p className="mt-2 text-2xl font-semibold text-[color:var(--aipify-text)]">
+          {kpi.value}
+        </p>
+      ) : kpi.state === "loading" ? (
+        <p className="mt-2" aria-busy="true">
+          <span
+            aria-hidden
+            className="block h-7 w-12 animate-pulse rounded-md bg-[color:var(--aipify-surface-muted)]"
+          />
+          <span className="sr-only">{labels.kpiLoading}</span>
+        </p>
+      ) : (
+        <p className="mt-2 text-sm font-medium text-[color:var(--aipify-text-secondary)]">
+          {labels.kpiUnavailable}
+        </p>
+      )}
+    </article>
   );
 }
 
@@ -99,137 +143,191 @@ export default function PlatformSupportCenterPanel({
 
   const gates = useMemo(() => getSupportCenterGateState(), []);
   const [load, setLoad] = useState<LoadState>({ kind: "loading" });
-  const [signature, setSignature] = useState<SupportSignatureDraft>(() =>
-    createDefaultSupportSignature(),
-  );
-  const [draftBody, setDraftBody] = useState("");
-  const [selectedTemplateId, setSelectedTemplateId] = useState<string>("");
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("");
-  const [writeMessage, setWriteMessage] = useState<string | null>(null);
-  const [templateName, setTemplateName] = useState("");
-  const [templateSubject, setTemplateSubject] = useState("");
-  const [templateBody, setTemplateBody] = useState("");
+  const [flash, setFlash] = useState<SupportFlash | null>(null);
+  const [feedback, setFeedback] = useState<{
+    scope: SupportFeedbackScope;
+    flash: SupportFlash;
+  } | null>(null);
+  const [busy, setBusy] = useState<SupportBusyScope | null>(null);
+
+  const [drafts, setDrafts] = useState<Drafts>(EMPTY_DRAFTS);
+  const [statusChoice, setStatusChoice] = useState<{
+    ticketId: string;
+    value: string;
+  } | null>(null);
+  const [detail, setDetail] = useState<DetailLoad | null>(null);
+  const [detailNonce, setDetailNonce] = useState(0);
+
   const [workspaceTemplates, setWorkspaceTemplates] = useState<
-    Array<SupportReplyTemplate & { archived?: boolean }> | null
+    EditableSupportTemplate[] | null
   >(null);
+  const [signatureStored, setSignatureStored] = useState<StoredSignatureState>(() => ({
+    signature: createDefaultSupportSignature(),
+    customized: false,
+    loaded: false,
+    loadFailed: false,
+  }));
+
+  const channels = useMemo(() => listSupportChannelActivations(), []);
+  const requestRef = useRef(0);
+
   const templates = useMemo(
-    () =>
-      (workspaceTemplates ?? listSupportReplyStarterTemplates()).filter(
-        (t) => !("archived" in t && t.archived),
-      ),
+    () => (workspaceTemplates ?? starterAsEditable()).filter((t) => !t.archived),
     [workspaceTemplates],
   );
-  const channels = useMemo(() => listSupportChannelActivations(), []);
 
-  const setTab = useCallback(
-    (next: SupportCenterTabId) => {
+  // ----- navigation ------------------------------------------------------
+
+  const draftsForSelected: Drafts =
+    drafts.ticketId !== null && drafts.ticketId === selectedId
+      ? drafts
+      : { ...EMPTY_DRAFTS, ticketId: selectedId };
+  const replyDraft = draftsForSelected.reply;
+  const noteDraft = draftsForSelected.note;
+  const replyUnsaved =
+    replyDraft.trim() !== "" && replyDraft !== draftsForSelected.replyBaseline;
+  const draftsDirty = Boolean(selectedId) && (replyUnsaved || noteDraft.trim() !== "");
+  const replySaved =
+    replyDraft.trim() !== "" && replyDraft === draftsForSelected.replyBaseline;
+
+  /** Ask before discarding unsaved text. Returns true when it is OK to leave. */
+  const confirmLeave = useCallback((): boolean => {
+    if (!draftsDirty) return true;
+    return window.confirm(labels.dirtyLeave);
+  }, [draftsDirty, labels.dirtyLeave]);
+
+  useEffect(() => {
+    if (!draftsDirty) return;
+    const handler = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [draftsDirty]);
+
+  const navigate = useCallback(
+    (mutate: (params: URLSearchParams) => void) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set("tab", next);
-      if (next !== "all" && next !== "mine") {
-        params.delete("ticket");
-      }
+      mutate(params);
       router.replace(`${pathname}?${params.toString()}`);
     },
     [pathname, router, searchParams],
   );
 
+  const setTab = useCallback(
+    (next: SupportCenterTabId) => {
+      // The selected ticket is kept across tabs so a template can be inserted
+      // into its reply draft from the Templates tab.
+      navigate((params) => params.set("tab", next));
+    },
+    [navigate],
+  );
+
   const openTicket = useCallback(
     (id: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("tab", tab === "mine" ? "mine" : "all");
-      params.set("ticket", id);
-      router.replace(`${pathname}?${params.toString()}`);
+      if (id === selectedId) return;
+      if (!confirmLeave()) return;
+      setDrafts(EMPTY_DRAFTS);
+      setStatusChoice(null);
+      setFeedback(null);
+      setFlash(null);
+      navigate((params) => {
+        params.set("tab", tab === "mine" ? "mine" : "all");
+        params.set("ticket", id);
+      });
     },
-    [pathname, router, searchParams, tab],
+    [confirmLeave, navigate, selectedId, tab],
   );
 
   const clearTicket = useCallback(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("ticket");
-    router.replace(`${pathname}?${params.toString()}`);
-  }, [pathname, router, searchParams]);
+    if (!confirmLeave()) return;
+    setDrafts(EMPTY_DRAFTS);
+    setStatusChoice(null);
+    setFeedback(null);
+    navigate((params) => params.delete("ticket"));
+  }, [confirmLeave, navigate]);
 
-  const loadTemplates = useCallback(async () => {
-    try {
-      const res = await fetch("/api/platform-portal/support-templates", {
-        cache: "no-store",
-      });
-      if (!res.ok) return;
-      const json = (await res.json()) as { items?: SupportReplyTemplate[] };
-      if (Array.isArray(json.items)) setWorkspaceTemplates(json.items);
-    } catch {
-      /* keep starters */
-    }
-  }, []);
+  // ----- data loading ------------------------------------------------------
+
+  useEffect(() => {
+    const handle = window.setTimeout(
+      () => setDebouncedSearch(search.trim()),
+      SEARCH_DEBOUNCE_MS,
+    );
+    return () => window.clearTimeout(handle);
+  }, [search]);
 
   const loadTickets = useCallback(async () => {
-    setLoad({ kind: "loading" });
+    const requestId = ++requestRef.current;
+    // Keep showing the current list while filters / refreshes load.
+    setLoad((prev) => (prev.kind === "ready" ? prev : { kind: "loading" }));
     try {
-      const params = new URLSearchParams({ page_size: "50" });
+      const params = new URLSearchParams({
+        page_size: "50",
+        sort: "updated_desc",
+      });
       if (statusFilter) params.set("status", statusFilter);
       if (priorityFilter) params.set("priority", priorityFilter);
-      if (search.trim()) params.set("search", search.trim());
+      if (debouncedSearch) params.set("search", debouncedSearch);
       const [listRes, countsRes] = await Promise.all([
         fetch(`/api/platform-portal/support-requests?${params.toString()}`, {
           cache: "no-store",
         }),
-        fetch("/api/platform-portal/support-requests/counts", {
-          cache: "no-store",
-        }),
+        fetch("/api/platform-portal/support-requests/counts", { cache: "no-store" }),
       ]);
+      if (requestId !== requestRef.current) return;
 
       if (listRes.status === 503) {
-        const body = (await listRes.json().catch(() => ({}))) as {
-          code?: string;
-          error?: string;
-        };
-        setLoad({
-          kind: "blocked",
-          code: body.code ?? "rpc_not_applied",
-          message: body.error ?? labels.coreBlockedBody,
-        });
+        setLoad({ kind: "blocked" });
         return;
       }
-
       if (listRes.status === 401 || listRes.status === 403) {
         setLoad({
           kind: "error",
-          message: labels.coreBlockedBody,
+          message:
+            listRes.status === 401
+              ? labels.detail.writeErrors.unauthorized
+              : labels.detail.writeErrors.forbidden,
         });
         return;
       }
-
       if (!listRes.ok) {
-        setLoad({ kind: "error", message: labels.emptyCoreBlocked });
+        setLoad({ kind: "error", message: labels.errorBody });
         return;
       }
 
       const listJson = (await listRes.json()) as {
         items?: PlatformSupportTicketsListItem[];
+        viewerUserId?: string | null;
       };
-      let counts: CountsState = null;
+      let counts: SupportTicketCounts | null = null;
       if (countsRes.ok) {
-        const countsJson = (await countsRes.json()) as {
-          counts?: CountsState;
-        };
+        const countsJson = (await countsRes.json()) as { counts?: SupportTicketCounts };
         counts = countsJson.counts ?? null;
       }
-
+      if (requestId !== requestRef.current) return;
       setLoad({
         kind: "ready",
         items: Array.isArray(listJson.items) ? listJson.items : [],
         counts,
+        viewerUserId:
+          typeof listJson.viewerUserId === "string" ? listJson.viewerUserId : null,
       });
     } catch {
-      setLoad({ kind: "error", message: labels.emptyCoreBlocked });
+      if (requestId !== requestRef.current) return;
+      setLoad({ kind: "error", message: labels.errorBody });
     }
   }, [
-    labels.coreBlockedBody,
-    labels.emptyCoreBlocked,
+    debouncedSearch,
+    labels.detail.writeErrors.forbidden,
+    labels.detail.writeErrors.unauthorized,
+    labels.errorBody,
     priorityFilter,
-    search,
     statusFilter,
   ]);
 
@@ -237,60 +335,280 @@ export default function PlatformSupportCenterPanel({
     void loadTickets();
   }, [loadTickets]);
 
+  const loadTemplates = useCallback(async () => {
+    try {
+      const res = await fetch("/api/platform-portal/support-templates", {
+        cache: "no-store",
+      });
+      if (!res.ok) return;
+      const json = (await res.json()) as { items?: EditableSupportTemplate[] };
+      if (Array.isArray(json.items)) setWorkspaceTemplates(json.items);
+    } catch {
+      /* keep starters */
+    }
+  }, []);
+
   useEffect(() => {
     void loadTemplates();
   }, [loadTemplates]);
 
-  async function runWriteAction(payload: Record<string, unknown>) {
-    setWriteMessage(null);
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch("/api/platform-portal/support-signature", {
+          cache: "no-store",
+        });
+        const json = (await res.json().catch(() => ({}))) as {
+          signature?: SupportSignatureDraft;
+          customized?: boolean;
+        };
+        if (cancelled) return;
+        if (res.ok && json.signature) {
+          setSignatureStored({
+            signature: json.signature,
+            customized: Boolean(json.customized),
+            loaded: true,
+            loadFailed: false,
+          });
+        } else {
+          setSignatureStored((prev) => ({ ...prev, loaded: true, loadFailed: true }));
+        }
+      } catch {
+        if (!cancelled) {
+          setSignatureStored((prev) => ({ ...prev, loaded: true, loadFailed: true }));
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!selectedId) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(
+          `/api/platform-portal/support-requests/${encodeURIComponent(selectedId)}`,
+          { cache: "no-store" },
+        );
+        if (!res.ok) {
+          if (!cancelled) {
+            setDetail({ id: selectedId, status: "error", item: null, timeline: [] });
+          }
+          return;
+        }
+        const json = (await res.json()) as {
+          item?: Record<string, unknown>;
+          timeline?: unknown;
+        };
+        if (cancelled) return;
+        setDetail({
+          id: selectedId,
+          status: "ready",
+          item: json.item ?? null,
+          timeline: normalizeSupportTimeline(json.timeline),
+        });
+      } catch {
+        if (!cancelled) {
+          setDetail({ id: selectedId, status: "error", item: null, timeline: [] });
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedId, detailNonce]);
+
+  // ----- derived data ------------------------------------------------------
+
+  const readyItems = load.kind === "ready" ? load.items : [];
+  const viewerUserId = load.kind === "ready" ? load.viewerUserId : null;
+  const visibleItems = filterTicketsForTab(readyItems, tab, viewerUserId);
+  const hasFilters = Boolean(debouncedSearch || statusFilter || priorityFilter);
+
+  const kpis = computeSupportKpis({
+    status:
+      load.kind === "loading"
+        ? "loading"
+        : load.kind === "ready"
+          ? "ready"
+          : "unavailable",
+    counts: load.kind === "ready" ? load.counts : null,
+    items: readyItems,
+  });
+
+  const detailForSelected =
+    selectedId && detail && detail.id === selectedId ? detail : null;
+  const selectedTicket: PlatformSupportTicketsListItem | null = selectedId
+    ? (readyItems.find((i) => i.id === selectedId) ??
+      ticketFromDetailItem(selectedId, detailForSelected?.item))
+    : null;
+  const detailView: SupportDetailState = {
+    status: detailForSelected ? detailForSelected.status : "loading",
+    description: resolveTicketDescription(
+      detailForSelected?.item,
+      selectedTicket?.description_preview ?? "",
+    ),
+    status_code:
+      typeof detailForSelected?.item?.status === "string"
+        ? (detailForSelected.item.status as string)
+        : null,
+    timeline: detailForSelected?.timeline ?? [],
+  };
+  const currentStatus = detailView.status_code ?? selectedTicket?.status ?? "";
+  const statusChoiceValue =
+    statusChoice && statusChoice.ticketId === selectedId
+      ? statusChoice.value
+      : currentStatus;
+
+  // ----- writes --------------------------------------------------------------
+
+  function updateDrafts(patch: Partial<Drafts>) {
+    setDrafts({ ...draftsForSelected, ticketId: selectedId, ...patch });
+  }
+
+  async function refreshAfterWrite() {
+    setDetailNonce((n) => n + 1);
+    await loadTickets();
+  }
+
+  async function runWrite(
+    scope: SupportBusyScope,
+    payload: Record<string, unknown>,
+    successText: string,
+    onSuccess?: () => void,
+  ) {
+    if (!selectedId) return;
+    setBusy(scope);
+    setFeedback(null);
     try {
       const res = await fetch("/api/platform-portal/support-requests/write", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ticketId: selectedId, ...payload }),
       });
-      const json = (await res.json().catch(() => ({}))) as {
-        error?: string;
-        code?: string;
-      };
-      setWriteMessage(
-        json.error ??
-          (res.ok ? "OK" : labels.reply.sendBlocked),
-      );
+      const json = (await res.json().catch(() => ({}))) as { code?: string };
+      if (!res.ok) {
+        const text =
+          labels.detail.writeErrors[json.code ?? "unknown"] ??
+          labels.detail.writeErrors.unknown;
+        // Drafts are left untouched so nothing typed is lost.
+        setFeedback({ scope, flash: { tone: "error", text } });
+        return;
+      }
+      onSuccess?.();
+      setFeedback({ scope, flash: { tone: "success", text: successText } });
+      await refreshAfterWrite();
     } catch {
-      setWriteMessage(labels.reply.sendBlocked);
+      setFeedback({
+        scope,
+        flash: { tone: "error", text: labels.detail.writeErrors.unknown },
+      });
+    } finally {
+      setBusy(null);
     }
   }
 
-  const labelFor = (map: Record<string, string>, code: string) =>
-    map[code] ?? map[code.toLowerCase()] ?? "—";
+  function saveDraft() {
+    const body = replyDraft;
+    void runWrite(
+      "reply",
+      {
+        action: "external_reply",
+        body,
+        templateId: draftsForSelected.templateId || null,
+        // The signature is already part of the draft when attached — never add twice.
+        includeSignature: false,
+      },
+      labels.reply.draftSaved,
+      () => setDrafts({ ...draftsForSelected, ticketId: selectedId, replyBaseline: body }),
+    );
+  }
 
-  const applyTemplate = (template: SupportReplyTemplate) => {
-    setSelectedTemplateId(template.id);
-    const rendered = renderSupportTemplateBody(template.body, {
-      customer_name: "",
-      ticket_number: selectedId ? selectedId.slice(0, 8).toUpperCase() : "",
-      product_name: "",
-      agent_name: signature.agentName || signature.displayName,
-    }, { escapeHtml: false });
-    if (rendered.ok) {
-      setDraftBody(rendered.text);
-    } else {
-      setDraftBody(template.body);
-    }
-    if (tab !== "all" && tab !== "mine") {
+  function saveNote() {
+    void runWrite(
+      "note",
+      { action: "internal_note", body: noteDraft },
+      labels.reply.noteSaved,
+      () => setDrafts({ ...draftsForSelected, ticketId: selectedId, note: "" }),
+    );
+  }
+
+  function updateStatus() {
+    if (!selectedTicket || statusChoiceValue === currentStatus) return;
+    void runWrite(
+      "status",
+      {
+        action: "status",
+        fromStatus: currentStatus,
+        toStatus: statusChoiceValue,
+      },
+      labels.detail.statusUpdated,
+      () => setStatusChoice(null),
+    );
+  }
+
+  function assignToMe() {
+    if (!viewerUserId) return;
+    void runWrite(
+      "assign",
+      { action: "assign", assigneeUserId: viewerUserId },
+      labels.detail.assignmentUpdated,
+    );
+  }
+
+  function attachSignature() {
+    const text = renderSupportSignatureText(signatureStored.signature);
+    updateDrafts({ reply: attachSupportSignatureToDraft(replyDraft, text) });
+    setFeedback({
+      scope: "template",
+      flash: { tone: "success", text: labels.reply.signatureAttached },
+    });
+  }
+
+  function insertTemplate(template: EditableSupportTemplate) {
+    if (!selectedId) {
+      setFlash({ tone: "info", text: labels.templates.insertNeedsTicket });
       setTab("all");
+      return;
     }
-  };
+    if (replyDraft.trim() && !window.confirm(labels.templates.confirmOverwriteDraft)) {
+      return;
+    }
+    const rendered = renderSupportTemplateBody(
+      template.body,
+      {
+        customer_name: "",
+        ticket_number: ticketReference(selectedId),
+        product_name: "",
+        agent_name:
+          signatureStored.signature.agentName || signatureStored.signature.displayName,
+      },
+      { escapeHtml: false },
+    );
+    updateDrafts({
+      reply: rendered.ok ? rendered.text : template.body,
+      templateId: template.id,
+    });
+    setFlash(null);
+    setFeedback({
+      scope: "template",
+      flash: { tone: "success", text: labels.templates.inserted },
+    });
+    setTab(tab === "mine" ? "mine" : "all");
+  }
 
-  const signatureHtml = useMemo(
-    () => renderSupportSignatureHtml(signature),
-    [signature],
-  );
-  const signatureText = useMemo(
-    () => renderSupportSignatureText(signature),
-    [signature],
-  );
+  function clearFilters() {
+    setSearch("");
+    setDebouncedSearch("");
+    setStatusFilter("");
+    setPriorityFilter("");
+  }
+
+  // ----- render ----------------------------------------------------------------
 
   const tabs: { id: SupportCenterTabId; label: string }[] = [
     { id: "all", label: labels.tabAll },
@@ -300,10 +618,130 @@ export default function PlatformSupportCenterPanel({
     { id: "channels", label: labels.tabChannels },
   ];
 
-  const selectedItem =
-    load.kind === "ready" && selectedId
-      ? load.items.find((i) => i.id === selectedId) ?? null
-      : null;
+  function renderListArea() {
+    if (load.kind === "loading") {
+      return <AipifyLoader label={labels.loading} />;
+    }
+    if (load.kind === "blocked") {
+      return (
+        <PlatformEmptyState
+          title={labels.emptyCoreBlockedTitle}
+          message={labels.emptyCoreBlocked}
+          primaryAction={{ label: labels.retry, onClick: () => void loadTickets() }}
+        />
+      );
+    }
+    if (load.kind === "error") {
+      return (
+        <PlatformEmptyState
+          title={labels.errorTitle}
+          message={load.message}
+          primaryAction={{ label: labels.retry, onClick: () => void loadTickets() }}
+        />
+      );
+    }
+
+    const detailOpen = Boolean(selectedId);
+    if (visibleItems.length === 0 && !detailOpen) {
+      if (hasFilters) {
+        return (
+          <PlatformEmptyState
+            title={labels.emptySearchTitle}
+            message={`${labels.emptySearch} ${labels.emptySearchBody}`}
+            primaryAction={{ label: labels.clearFilters, onClick: clearFilters }}
+          />
+        );
+      }
+      if (tab === "mine") {
+        return (
+          <PlatformEmptyState
+            title={labels.emptyMineTitle}
+            message={`${labels.emptyMine} ${labels.emptyMineBody}`}
+            primaryAction={{ label: labels.goToAll, onClick: () => setTab("all") }}
+          />
+        );
+      }
+      return <PlatformEmptyState title={labels.emptyTitle} message={labels.empty} />;
+    }
+
+    if (!detailOpen) {
+      return (
+        <SupportTicketList
+          items={visibleItems}
+          selectedId={null}
+          viewerUserId={viewerUserId}
+          locale={locale}
+          labels={labels}
+          onOpen={openTicket}
+        />
+      );
+    }
+
+    return (
+      <div className="grid gap-4 lg:grid-cols-[minmax(17rem,22rem)_minmax(0,1fr)]">
+        <div className="hidden lg:block">
+          {visibleItems.length > 0 ? (
+            <SupportTicketList
+              items={visibleItems}
+              selectedId={selectedId}
+              viewerUserId={viewerUserId}
+              locale={locale}
+              labels={labels}
+              onOpen={openTicket}
+            />
+          ) : (
+            <p className="rounded-xl border border-dashed border-[color:var(--aipify-border)] p-4 text-sm text-[color:var(--aipify-text-secondary)]">
+              {tab === "mine" && !hasFilters ? labels.emptyMine : labels.emptySearch}
+            </p>
+          )}
+        </div>
+        <div className="min-w-0">
+          {selectedTicket ? (
+            <SupportTicketDetail
+              labels={labels}
+              locale={locale}
+              ticket={selectedTicket}
+              detail={detailView}
+              viewerUserId={viewerUserId}
+              templates={templates.map((t) => ({ id: t.id, name: t.name }))}
+              selectedTemplateId={draftsForSelected.templateId}
+              replyDraft={replyDraft}
+              noteDraft={noteDraft}
+              statusChoice={statusChoiceValue}
+              busy={busy}
+              feedback={feedback}
+              replySaved={replySaved}
+              signatureReady={signatureStored.loaded}
+              onReplyChange={(value) => updateDrafts({ reply: value })}
+              onNoteChange={(value) => updateDrafts({ note: value })}
+              onStatusChoice={(value) =>
+                setStatusChoice({ ticketId: selectedId as string, value })
+              }
+              onTemplatePick={(id) => {
+                const tpl = templates.find((t) => t.id === id);
+                if (tpl) insertTemplate(tpl);
+              }}
+              onSaveDraft={saveDraft}
+              onSaveNote={saveNote}
+              onUpdateStatus={updateStatus}
+              onAssignToMe={assignToMe}
+              onAttachSignature={attachSignature}
+              onClose={clearTicket}
+              onLeaveForCustomer={confirmLeave}
+            />
+          ) : detailView.status === "loading" ? (
+            <AipifyLoader label={labels.detail.loadingDetail} />
+          ) : (
+            <PlatformEmptyState
+              title={labels.errorTitle}
+              message={labels.detail.detailError}
+              primaryAction={{ label: labels.detail.back, onClick: clearTicket }}
+            />
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-none">
@@ -313,9 +751,6 @@ export default function PlatformSupportCenterPanel({
         </h1>
         <p className="mt-2 max-w-3xl text-base text-[color:var(--aipify-text-secondary)]">
           {labels.subtitle}
-        </p>
-        <p className="mt-2 text-xs text-[color:var(--aipify-text-secondary)]">
-          {labels.legacyKpiRemoved}
         </p>
       </header>
 
@@ -355,16 +790,17 @@ export default function PlatformSupportCenterPanel({
 
       {(tab === "all" || tab === "mine") && (
         <section className="space-y-6">
-          <div className="grid gap-3 rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-3 sm:grid-cols-3">
+          <div className="grid gap-3 rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-3 sm:grid-cols-2 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_auto]">
             <label className="text-sm">
               <span className="mb-1 block text-xs font-medium text-[color:var(--aipify-text-secondary)]">
-                {labels.subject}
+                {labels.search}
               </span>
               <input
-                className="w-full rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                type="search"
+                className={inputClass}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={labels.filterAll}
+                placeholder={labels.searchPlaceholder}
               />
             </label>
             <label className="text-sm">
@@ -372,7 +808,7 @@ export default function PlatformSupportCenterPanel({
                 {labels.status}
               </span>
               <select
-                className="w-full rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                className={inputClass}
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
               >
@@ -389,7 +825,7 @@ export default function PlatformSupportCenterPanel({
                 {labels.priority}
               </span>
               <select
-                className="w-full rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                className={inputClass}
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
               >
@@ -401,479 +837,70 @@ export default function PlatformSupportCenterPanel({
                 ))}
               </select>
             </label>
+            <div className="flex items-end">
+              <button
+                type="button"
+                className={`${secondaryButtonClass} w-full lg:w-auto`}
+                onClick={() => void loadTickets()}
+              >
+                {labels.refresh}
+              </button>
+            </div>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {[
-              {
-                label: labels.kpiNew,
-                value:
-                  load.kind === "ready" && load.counts
-                    ? String(load.counts.open)
-                    : labels.kpiUnavailable,
-              },
-              {
-                label: labels.kpiInProgress,
-                value: labels.kpiUnavailable,
-              },
-              {
-                label: labels.kpiWaiting,
-                value:
-                  load.kind === "ready" && load.counts
-                    ? String(load.counts.waiting)
-                    : labels.kpiUnavailable,
-              },
-              {
-                label: labels.kpiCritical,
-                value: labels.kpiUnavailable,
-              },
-              {
-                label: labels.kpiResolved,
-                value:
-                  load.kind === "ready" && load.counts
-                    ? String(load.counts.resolved_or_closed)
-                    : labels.kpiUnavailable,
-              },
-            ].map((card) => (
-              <article
-                key={card.label}
-                className="flex min-h-[5.5rem] flex-col justify-between rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-4"
-              >
-                <p className="text-xs font-medium uppercase tracking-wide text-[color:var(--aipify-text-secondary)]">
-                  {card.label}
-                </p>
-                <p className="mt-2 text-2xl font-semibold text-[color:var(--aipify-text)]">
-                  {card.value}
-                </p>
-              </article>
-            ))}
+            <KpiCard label={labels.kpiNew} kpi={kpis.open} labels={labels} />
+            <KpiCard label={labels.kpiInProgress} kpi={kpis.inProgress} labels={labels} />
+            <KpiCard label={labels.kpiWaiting} kpi={kpis.waiting} labels={labels} />
+            <KpiCard label={labels.kpiCritical} kpi={kpis.critical} labels={labels} />
+            <KpiCard label={labels.kpiResolved} kpi={kpis.resolved} labels={labels} />
           </div>
           <p className="text-xs text-[color:var(--aipify-text-secondary)]">
             {labels.kpiSourceNote}
+            {kpis.usesLoadedPage ? ` ${labels.kpiPageNote}` : ""}
           </p>
-
-          {load.kind === "loading" && (
-            <p className="text-sm text-[color:var(--aipify-text-secondary)]">
-              {labels.loading}
+          {tab === "mine" ? (
+            <p className="text-xs text-[color:var(--aipify-text-secondary)]">
+              {labels.mineScopeNote}
             </p>
-          )}
+          ) : null}
 
-          {load.kind === "blocked" && (
-            <AipifyEmptyState
-              message={labels.emptyCoreBlocked}
-              pulseLabel={labels.pulseLabel}
-            />
-          )}
+          <FlashMessage flash={flash} />
 
-          {load.kind === "error" && (
-            <AipifyEmptyState message={load.message} pulseLabel={labels.pulseLabel} />
-          )}
-
-          {load.kind === "ready" && load.items.length === 0 && (
-            <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
-          )}
-
-          {load.kind === "ready" && load.items.length > 0 && (
-            <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-              <div className="overflow-hidden rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)]">
-                <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-[color:var(--aipify-border)]">
-                    <thead className="bg-[color:var(--aipify-surface-muted)]">
-                      <tr>
-                        {[
-                          labels.reference,
-                          labels.customer,
-                          labels.channel,
-                          labels.subject,
-                          labels.status,
-                          labels.priority,
-                          labels.lastUpdated,
-                          "",
-                        ].map((heading, index) => (
-                          <th
-                            key={`${heading}-${index}`}
-                            className={`px-3 py-3 text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-secondary)] ${
-                              index === 7 ? "text-right" : "text-left"
-                            }`}
-                          >
-                            {heading}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[color:var(--aipify-border)]">
-                      {load.items.map((row) => (
-                        <tr
-                          key={row.id}
-                          className={
-                            selectedId === row.id
-                              ? "bg-[color:var(--aipify-surface-muted)]"
-                              : undefined
-                          }
-                        >
-                          <td className="whitespace-nowrap px-3 py-3 font-mono text-xs text-[color:var(--aipify-text)]">
-                            {row.id.slice(0, 8).toUpperCase()}
-                          </td>
-                          <td className="px-3 py-3 text-sm text-[color:var(--aipify-text)]">
-                            {row.company_name || "—"}
-                          </td>
-                          <td className="px-3 py-3 text-sm">
-                            {labelFor(labels.channelLabels, row.channel)}
-                          </td>
-                          <td className="max-w-[14rem] truncate px-3 py-3 text-sm text-[color:var(--aipify-text)]">
-                            {row.title}
-                          </td>
-                          <td className="px-3 py-3">
-                            <StatusChip
-                              code={row.status}
-                              map={labels.statusLabels}
-                              tone={statusTone(row.status)}
-                            />
-                          </td>
-                          <td className="px-3 py-3">
-                            <StatusChip
-                              code={row.priority}
-                              map={labels.priorityLabels}
-                              tone={priorityTone(row.priority)}
-                            />
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-3 text-xs text-[color:var(--aipify-text-secondary)]">
-                            {formatPlatformDateTimeFull(row.updated_at, {
-                              locale,
-                              emptyFallback: "—",
-                              invalidFallback: "—",
-                            })}
-                          </td>
-                          <td className="px-3 py-3 text-right">
-                            <button
-                              type="button"
-                              onClick={() => openTicket(row.id)}
-                              className="text-sm font-medium text-[color:var(--aipify-companion-purple)] hover:underline"
-                            >
-                              {labels.openTicket}
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <aside className="rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-4">
-                {selectedItem ? (
-                  <div className="space-y-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <h2 className="text-lg font-semibold text-[color:var(--aipify-text)]">
-                          {selectedItem.title}
-                        </h2>
-                        <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
-                          {selectedItem.company_name || "—"} ·{" "}
-                          {selectedItem.id.slice(0, 8).toUpperCase()}
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={clearTicket}
-                        className="text-sm text-[color:var(--aipify-text-secondary)] hover:underline"
-                      >
-                        {labels.detail.back}
-                      </button>
-                    </div>
-                    <p className="text-sm text-[color:var(--aipify-text)]">
-                      {selectedItem.description_preview}
-                    </p>
-                    <p className="text-xs text-[color:var(--aipify-text-secondary)]">
-                      {labels.detail.messagesBlocked}
-                    </p>
-                    {selectedItem.company_id ? (
-                      <Link
-                        href={`/platform/customers/${selectedItem.company_id}`}
-                        className="inline-flex text-sm font-medium text-[color:var(--aipify-companion-purple)] hover:underline"
-                      >
-                        {labels.viewCustomer}
-                      </Link>
-                    ) : null}
-
-                    <div className="border-t border-[color:var(--aipify-border)] pt-4">
-                      <label className="mb-2 block text-sm font-medium text-[color:var(--aipify-text)]">
-                        {labels.reply.chooseTemplate}
-                      </label>
-                      <select
-                        className="mb-3 w-full rounded-lg border border-[color:var(--aipify-border)] bg-white px-3 py-2 text-sm"
-                        value={selectedTemplateId}
-                        onChange={(e) => {
-                          const tpl = templates.find((t) => t.id === e.target.value);
-                          if (tpl) applyTemplate(tpl);
-                        }}
-                      >
-                        <option value="">—</option>
-                        {templates.map((t) => (
-                          <option key={t.id} value={t.id}>
-                            {t.name}
-                          </option>
-                        ))}
-                      </select>
-                      <label className="mb-2 block text-sm font-medium text-[color:var(--aipify-text)]">
-                        {labels.reply.draft}
-                      </label>
-                      <textarea
-                        className="min-h-[10rem] w-full rounded-lg border border-[color:var(--aipify-border)] bg-white px-3 py-2 text-sm"
-                        value={draftBody}
-                        onChange={(e) => setDraftBody(e.target.value)}
-                      />
-                      <p className="mt-2 text-xs text-[color:var(--aipify-text-secondary)]">
-                        {labels.reply.sendBlocked}
-                      </p>
-                      {writeMessage ? (
-                        <p className="mt-2 text-xs text-amber-800">{writeMessage}</p>
-                      ) : null}
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            void runWriteAction({
-                              action: "external_reply",
-                              ticketId: selectedItem.id,
-                              body: draftBody,
-                              templateId: selectedTemplateId || null,
-                              includeSignature: true,
-                              signatureText: signatureText,
-                            })
-                          }
-                          className="inline-flex min-h-10 items-center rounded-lg bg-[color:var(--aipify-companion-purple)] px-4 text-sm font-medium text-white"
-                        >
-                          {labels.reply.send}
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            void runWriteAction({
-                              action: "internal_note",
-                              ticketId: selectedItem.id,
-                              body: draftBody,
-                            })
-                          }
-                          className="inline-flex min-h-10 items-center rounded-lg border border-[color:var(--aipify-border)] px-4 text-sm font-medium text-[color:var(--aipify-text)]"
-                        >
-                          {labels.reply.internalNote}
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            void runWriteAction({
-                              action: "status",
-                              ticketId: selectedItem.id,
-                              fromStatus: selectedItem.status,
-                              toStatus: "in_progress",
-                            })
-                          }
-                          className="inline-flex min-h-10 items-center rounded-lg border border-[color:var(--aipify-border)] px-4 text-sm font-medium text-[color:var(--aipify-text)]"
-                        >
-                          {labels.kpiInProgress}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <p className="text-sm text-[color:var(--aipify-text-secondary)]">
-                    {labels.detail.title}
-                  </p>
-                )}
-              </aside>
-            </div>
-          )}
+          {renderListArea()}
         </section>
       )}
 
       {tab === "templates" && (
-        <section className="space-y-4">
-          <div>
-            <h2 className="text-lg font-semibold text-[color:var(--aipify-text)]">
-              {labels.templates.title}
-            </h2>
-            <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
-              {labels.templates.subtitle}
+        <div className="space-y-4">
+          {selectedId ? (
+            <p className="rounded-lg border border-violet-200 bg-violet-50/60 px-3 py-2 text-sm text-[color:var(--aipify-text)]">
+              {labels.reply.draft}: {ticketReference(selectedId)}
             </p>
-            <p className="mt-2 text-xs text-amber-800">{labels.templates.persistBlocked}</p>
-            <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">
-              {labels.templates.localeNote}
-            </p>
-          </div>
-          <div className="rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-4">
-            <h3 className="mb-3 text-sm font-semibold text-[color:var(--aipify-text)]">
-              {labels.templates.title}
-            </h3>
-            <div className="grid gap-3 md:grid-cols-2">
-              <input
-                className="rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
-                placeholder={labels.templates.category}
-                value={templateName}
-                onChange={(e) => setTemplateName(e.target.value)}
-              />
-              <input
-                className="rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
-                placeholder={labels.templates.subject}
-                value={templateSubject}
-                onChange={(e) => setTemplateSubject(e.target.value)}
-              />
-            </div>
-            <textarea
-              className="mt-3 min-h-[6rem] w-full rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
-              placeholder={labels.templates.body}
-              value={templateBody}
-              onChange={(e) => setTemplateBody(e.target.value)}
-            />
-            <button
-              type="button"
-              className="mt-3 text-sm font-medium text-[color:var(--aipify-companion-purple)] hover:underline"
-              onClick={() => {
-                void (async () => {
-                  const res = await fetch("/api/platform-portal/support-templates", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      action: "create",
-                      name: templateName || "Ny mal",
-                      category: "intake",
-                      subject: templateSubject || "Emne",
-                      body: templateBody || "Hei {{customer_name}},\n\n{{agent_name}}",
-                    }),
-                  });
-                  if (res.ok) {
-                    setTemplateName("");
-                    setTemplateSubject("");
-                    setTemplateBody("");
-                    await loadTemplates();
-                  }
-                })();
-              }}
-            >
-              {labels.templates.insertDraft}
-            </button>
-          </div>
-          <div className="grid gap-4 lg:grid-cols-2">
-            {templates.map((tpl) => (
-              <article
-                key={tpl.id}
-                className="rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-4"
-              >
-                <div className="mb-2 flex flex-wrap items-center gap-2">
-                  <h3 className="text-base font-semibold text-[color:var(--aipify-text)]">
-                    {tpl.name}
-                  </h3>
-                  <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700">
-                    {labels.templates.starterBadge}
-                  </span>
-                </div>
-                <p className="text-xs text-[color:var(--aipify-text-secondary)]">
-                  {labels.templates.subject}: {tpl.subject}
-                </p>
-                <pre className="mt-3 max-h-48 overflow-auto whitespace-pre-wrap rounded-lg bg-[color:var(--aipify-surface-muted)] p-3 text-xs text-[color:var(--aipify-text)]">
-                  {tpl.body}
-                </pre>
-                <p className="mt-2 text-xs text-[color:var(--aipify-text-secondary)]">
-                  {labels.templates.variables}: {tpl.variables.map((v) => `{{${v}}}`).join(", ")}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => applyTemplate(tpl)}
-                  className="mt-3 text-sm font-medium text-[color:var(--aipify-companion-purple)] hover:underline"
-                >
-                  {labels.templates.insertDraft}
-                </button>
-              </article>
-            ))}
-          </div>
-        </section>
+          ) : null}
+          <FlashMessage flash={flash} />
+          <SupportTemplatesTab
+            labels={labels}
+            templates={templates}
+            onReload={loadTemplates}
+            onInsert={insertTemplate}
+          />
+        </div>
       )}
 
       {tab === "signature" && (
-        <section className="grid gap-6 lg:grid-cols-2">
-          <div className="space-y-3 rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-4">
-            <h2 className="text-lg font-semibold text-[color:var(--aipify-text)]">
-              {labels.signature.title}
-            </h2>
-            <p className="text-sm text-[color:var(--aipify-text-secondary)]">
-              {labels.signature.subtitle}
-            </p>
-            <p className="text-xs text-amber-800">{labels.signature.persistBlocked}</p>
-            {(
-              [
-                ["displayName", labels.signature.displayName],
-                ["agentName", labels.signature.agentName],
-                ["agentTitle", labels.signature.agentTitle],
-                ["companyName", labels.signature.companyName],
-                ["websiteUrl", labels.signature.website],
-                ["supportEmail", labels.signature.supportEmail],
-                ["phone", labels.signature.phone],
-                ["addressLine", labels.signature.address],
-              ] as const
-            ).map(([key, label]) => (
-              <label key={key} className="block text-sm">
-                <span className="mb-1 block font-medium text-[color:var(--aipify-text)]">
-                  {label}
-                </span>
-                <input
-                  className="w-full rounded-lg border border-[color:var(--aipify-border)] bg-white px-3 py-2"
-                  value={signature[key]}
-                  onChange={(e) =>
-                    setSignature((prev) => ({ ...prev, [key]: e.target.value }))
-                  }
-                />
-              </label>
-            ))}
-            <label className="flex items-center gap-2 text-sm text-[color:var(--aipify-text)]">
-              <input
-                type="checkbox"
-                checked={signature.includeLogo}
-                onChange={(e) =>
-                  setSignature((prev) => ({
-                    ...prev,
-                    includeLogo: e.target.checked,
-                  }))
-                }
-              />
-              {labels.signature.includeLogo}
-            </label>
-            <button
-              type="button"
-              onClick={() => setSignature(createDefaultSupportSignature())}
-              className="text-sm font-medium text-[color:var(--aipify-companion-purple)] hover:underline"
-            >
-              {labels.signature.resetDefaults}
-            </button>
-          </div>
-          <div className="space-y-4">
-            <div className="rounded-xl border border-[color:var(--aipify-border)] bg-white p-4">
-              <h3 className="mb-3 text-sm font-semibold text-slate-800">
-                {labels.signature.previewLight}
-              </h3>
-              <div
-                className="prose prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ __html: signatureHtml }}
-              />
-            </div>
-            <div className="rounded-xl border border-slate-700 bg-slate-900 p-4 text-slate-100">
-              <h3 className="mb-3 text-sm font-semibold text-slate-100">
-                {labels.signature.previewDark}
-              </h3>
-              <div
-                className="prose prose-sm prose-invert max-w-none"
-                dangerouslySetInnerHTML={{ __html: signatureHtml }}
-              />
-            </div>
-            <div className="rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface-muted)] p-4">
-              <h3 className="mb-2 text-sm font-semibold text-[color:var(--aipify-text)]">
-                {labels.signature.previewText}
-              </h3>
-              <pre className="whitespace-pre-wrap text-xs text-[color:var(--aipify-text)]">
-                {signatureText}
-              </pre>
-            </div>
-          </div>
-        </section>
+        <SupportSignatureTab
+          labels={labels}
+          stored={signatureStored}
+          onStored={(next) =>
+            setSignatureStored({
+              signature: next.signature,
+              customized: next.customized,
+              loaded: true,
+              loadFailed: false,
+            })
+          }
+        />
       )}
 
       {tab === "channels" && (
@@ -885,9 +912,7 @@ export default function PlatformSupportCenterPanel({
             <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
               {labels.channels.subtitle}
             </p>
-            <p className="mt-2 text-xs text-amber-800">
-              {labels.channels.emailSendBlocked}
-            </p>
+            <p className="mt-2 text-sm text-amber-900">{labels.channels.emailSendBlocked}</p>
           </div>
           <ul className="grid gap-3 md:grid-cols-2">
             {channels.map((ch) => {
@@ -897,26 +922,13 @@ export default function PlatformSupportCenterPanel({
                   : ch.status === "prepared_only"
                     ? labels.channels.preparedOnly
                     : labels.channels.notActivated;
-              const note =
-                ch.id === "web"
-                  ? labels.channels.webNote
-                  : ch.id === "app"
-                    ? labels.channels.appNote
-                    : ch.id === "partner"
-                      ? labels.channels.partnerNote
-                      : ch.id === "module"
-                        ? labels.channels.moduleNote
-                        : labels.channels.kompisNote;
-              const title =
-                ch.id === "web"
-                  ? labels.channels.web
-                  : ch.id === "app"
-                    ? labels.channels.app
-                    : ch.id === "partner"
-                      ? labels.channels.partner
-                      : ch.id === "module"
-                        ? labels.channels.module
-                        : labels.channels.kompis;
+              const copy = {
+                web: [labels.channels.web, labels.channels.webNote],
+                app: [labels.channels.app, labels.channels.appNote],
+                partner: [labels.channels.partner, labels.channels.partnerNote],
+                module: [labels.channels.module, labels.channels.moduleNote],
+                kompis: [labels.channels.kompis, labels.channels.kompisNote],
+              }[ch.id as "web" | "app" | "partner" | "module" | "kompis"];
               const tone =
                 ch.status === "active"
                   ? "border-emerald-200 bg-emerald-50 text-emerald-900"
@@ -924,15 +936,18 @@ export default function PlatformSupportCenterPanel({
                     ? "border-sky-200 bg-sky-50 text-sky-900"
                     : "border-slate-200 bg-slate-50 text-slate-800";
               return (
-                <li
-                  key={ch.id}
-                  className={`rounded-xl border p-4 ${tone}`}
-                >
+                <li key={ch.id} className={`rounded-xl border p-4 ${tone}`}>
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-semibold">{title}</h3>
-                    <span className="text-xs font-medium">{statusLabel}</span>
+                    <h3 className="font-semibold">{copy[0]}</h3>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-medium">
+                      <span
+                        aria-hidden
+                        className="h-1.5 w-1.5 rounded-full bg-current opacity-70"
+                      />
+                      {statusLabel}
+                    </span>
                   </div>
-                  <p className="mt-2 text-sm opacity-90">{note}</p>
+                  <p className="mt-2 text-sm opacity-90">{copy[1]}</p>
                 </li>
               );
             })}
