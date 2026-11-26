@@ -7,7 +7,11 @@ export function buildFoundationDashboardLabels(t: Translator): AppFoundationDash
     title: t("customerApp.portalStructure.foundationDashboard.title"),
     description: t("customerApp.portalStructure.foundationDashboard.description"),
     welcomeNamed: t("customerApp.portalStructure.foundationDashboard.welcomeNamed"),
+    welcomePersonNamed: t("customerApp.portalStructure.foundationDashboard.welcomePersonNamed"),
     welcomeGeneric: t("customerApp.portalStructure.foundationDashboard.welcomeGeneric"),
+    greetingMorning: t("customerApp.portalStructure.foundationDashboard.greetingMorning"),
+    greetingAfternoon: t("customerApp.portalStructure.foundationDashboard.greetingAfternoon"),
+    greetingEvening: t("customerApp.portalStructure.foundationDashboard.greetingEvening"),
     orgFallback: t("customerApp.portalStructure.foundationDashboard.orgFallback"),
     productsTitle: t("customerApp.portalStructure.foundationDashboard.productsTitle"),
     productsDescription: t("customerApp.portalStructure.foundationDashboard.productsDescription"),
@@ -32,13 +36,35 @@ export function buildFoundationDashboardLabels(t: Translator): AppFoundationDash
     subscriptionDescription: t(
       "customerApp.portalStructure.foundationDashboard.subscriptionDescription"
     ),
+    invoicesTitle: t("customerApp.portalStructure.foundationDashboard.invoicesTitle"),
+    invoicesDescription: t("customerApp.portalStructure.foundationDashboard.invoicesDescription"),
+    quickActionsTitle: t("customerApp.portalStructure.foundationDashboard.quickActionsTitle"),
+    quickActionsDescription: t(
+      "customerApp.portalStructure.foundationDashboard.quickActionsDescription"
+    ),
+    helpTitle: t("customerApp.portalStructure.foundationDashboard.helpTitle"),
+    helpDescription: t("customerApp.portalStructure.foundationDashboard.helpDescription"),
+    helpOpen: t("customerApp.portalStructure.foundationDashboard.helpOpen"),
     attentionTitle: t("customerApp.portalStructure.foundationDashboard.attentionTitle"),
     attentionDescription: t("customerApp.portalStructure.foundationDashboard.attentionDescription"),
     attentionEmpty: t("customerApp.portalStructure.foundationDashboard.attentionEmpty"),
+    attentionConnectionNeedsSetup: t(
+      "customerApp.portalStructure.foundationDashboard.attentionConnectionNeedsSetup"
+    ),
+    attentionConnectionNeedsAction: t(
+      "customerApp.portalStructure.foundationDashboard.attentionConnectionNeedsAction"
+    ),
+    attentionConnectionPending: t(
+      "customerApp.portalStructure.foundationDashboard.attentionConnectionPending"
+    ),
     openWeb: t("customerApp.portalStructure.foundationDashboard.openWeb"),
     openBedrift: t("customerApp.portalStructure.foundationDashboard.openBedrift"),
     openBilling: t("customerApp.portalStructure.foundationDashboard.openBilling"),
+    openInvoices: t("customerApp.portalStructure.foundationDashboard.openInvoices"),
+    openSubscription: t("customerApp.portalStructure.foundationDashboard.openSubscription"),
     openNotifications: t("customerApp.portalStructure.foundationDashboard.openNotifications"),
+    openExplore: t("customerApp.portalStructure.foundationDashboard.openExplore"),
+    openHelp: t("customerApp.portalStructure.foundationDashboard.openHelp"),
     statusAvailable: t("customerApp.portalStructure.foundationDashboard.statusAvailable"),
     statusUnavailable: t("customerApp.portalStructure.foundationDashboard.statusUnavailable"),
     dataUnavailable: t("customerApp.portalStructure.foundationDashboard.dataUnavailable"),

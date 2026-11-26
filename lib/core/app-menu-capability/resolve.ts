@@ -199,6 +199,7 @@ export function resolveAppMenuCapabilityBundle(
 
 /** Fail-closed minimal allowlist when resolver cannot load entitlements. */
 export const FAIL_CLOSED_SAFE_CAPABILITY_IDS = [
+  "appDashboard",
   "accountNotifications",
   "accountSubscription",
 ] as const;

@@ -78,5 +78,5 @@ export function resolvePostLoginPath(
   if (platformRole) {
     return PLATFORM_ADMIN_ROUTE;
   }
-  return "/app/command-center";
+  return CUSTOMER_PORTAL_ROUTE;
 }

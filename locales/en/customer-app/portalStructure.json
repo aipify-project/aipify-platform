@@ -129,7 +129,8 @@
       "accountSubscription": "Subscription",
       "accountInvoices": "Invoices",
       "accountIntegrations": "Integrations",
-      "kompisBedriftConnection": "Connection and license"
+      "kompisBedriftConnection": "Connection and license",
+      "appDashboard": "Home"
     },
     "dashboard": {
       "title": "APP Dashboard",
@@ -8534,7 +8535,25 @@
       "webDataUnavailable": "Kompis Web status could not be read. That is separate from an inactive product.",
       "exploreTitle": "Explore Aipify products",
       "exploreDescription": "See published products and the access this company already has.",
-      "statusReady": "Ready"
+      "statusReady": "Ready",
+      "welcomePersonNamed": "{greeting}, {name}. Here is your Aipify workspace.",
+      "greetingMorning": "Good morning",
+      "greetingAfternoon": "Good afternoon",
+      "greetingEvening": "Good evening",
+      "invoicesTitle": "Invoices",
+      "invoicesDescription": "View invoices issued by Aipify for this account. Invoices are read-only here.",
+      "quickActionsTitle": "Quick actions",
+      "quickActionsDescription": "Open what you need — only routes you already have access to.",
+      "helpTitle": "Help and FAQ",
+      "helpDescription": "Find guidance for using Aipify in your organization.",
+      "helpOpen": "Open the knowledge library for common questions and next steps.",
+      "attentionConnectionNeedsSetup": "Kompis Web needs domain connection setup",
+      "attentionConnectionNeedsAction": "Kompis Web connection needs your attention",
+      "attentionConnectionPending": "Kompis Web domain verification is still pending",
+      "openInvoices": "View invoices",
+      "openSubscription": "Manage subscription",
+      "openExplore": "Explore products",
+      "openHelp": "Open help"
     },
     "productHubs": {
       "common": {

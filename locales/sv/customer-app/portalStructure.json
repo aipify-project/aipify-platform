@@ -129,7 +129,8 @@
       "accountSubscription": "Prenumeration",
       "accountInvoices": "Fakturor",
       "accountIntegrations": "Integrationer",
-      "kompisBedriftConnection": "Anslutning/licens"
+      "kompisBedriftConnection": "Anslutning/licens",
+      "appDashboard": "Hem"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -8610,7 +8611,25 @@
       "webDataUnavailable": "Status för Kompis Web kunde inte läsas. Det är inte detsamma som att produkten är inaktiv.",
       "exploreTitle": "Utforska Aipify-produkter",
       "exploreDescription": "Se publicerade produkter och den åtkomst det här företaget redan har.",
-      "statusReady": "Redo"
+      "statusReady": "Redo",
+      "welcomePersonNamed": "{greeting}, {name}. Här är din Aipify-arbetsyta.",
+      "greetingMorning": "God morgon",
+      "greetingAfternoon": "God eftermiddag",
+      "greetingEvening": "God kväll",
+      "invoicesTitle": "Fakturor",
+      "invoicesDescription": "Visa fakturor utfärdade av Aipify för det här kontot. Fakturor är skrivskyddade här.",
+      "quickActionsTitle": "Snabbåtgärder",
+      "quickActionsDescription": "Öppna det du behöver — bara rutter du redan har åtkomst till.",
+      "helpTitle": "Hjälp och FAQ",
+      "helpDescription": "Hitta vägledning för att använda Aipify i din organisation.",
+      "helpOpen": "Öppna kunskapsbiblioteket för vanliga frågor och nästa steg.",
+      "attentionConnectionNeedsSetup": "Kompis Web behöver domänanslutning",
+      "attentionConnectionNeedsAction": "Kompis Web-anslutningen behöver din uppmärksamhet",
+      "attentionConnectionPending": "Domänverifiering för Kompis Web väntar fortfarande",
+      "openInvoices": "Visa fakturor",
+      "openSubscription": "Hantera prenumeration",
+      "openExplore": "Utforska produkter",
+      "openHelp": "Öppna hjälp"
     },
     "productHubs": {
       "common": {

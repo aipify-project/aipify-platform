@@ -276,7 +276,8 @@
       "accountSubscription": "Subskrypcja",
       "accountInvoices": "Faktury",
       "accountIntegrations": "Integracje",
-      "kompisBedriftConnection": "Połączenie i licencja"
+      "kompisBedriftConnection": "Połączenie i licencja",
+      "appDashboard": "Start"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7547,7 +7548,25 @@
       "webDataUnavailable": "Nie udało się odczytać statusu Kompis Web. To nie oznacza, że produkt jest nieaktywny.",
       "exploreTitle": "Poznaj produkty Aipify",
       "exploreDescription": "Zobacz opublikowane produkty i dostęp, który ta firma już ma.",
-      "statusReady": "Gotowe"
+      "statusReady": "Gotowe",
+      "welcomePersonNamed": "{greeting}, {name}. Oto Twoja przestrzeń Aipify.",
+      "greetingMorning": "Dzień dobry",
+      "greetingAfternoon": "Dzień dobry",
+      "greetingEvening": "Dobry wieczór",
+      "invoicesTitle": "Faktury",
+      "invoicesDescription": "Przeglądaj faktury wystawione przez Aipify dla tego konta. Faktury są tutaj tylko do odczytu.",
+      "quickActionsTitle": "Szybkie działania",
+      "quickActionsDescription": "Otwórz to, czego potrzebujesz — tylko trasy, do których masz dostęp.",
+      "helpTitle": "Pomoc i FAQ",
+      "helpDescription": "Znajdź wskazówki dotyczące korzystania z Aipify w organizacji.",
+      "helpOpen": "Otwórz bibliotekę wiedzy z typowymi pytaniami i kolejnymi krokami.",
+      "attentionConnectionNeedsSetup": "Kompis Web wymaga konfiguracji połączenia domeny",
+      "attentionConnectionNeedsAction": "Połączenie Kompis Web wymaga Twojej uwagi",
+      "attentionConnectionPending": "Weryfikacja domeny Kompis Web nadal oczekuje",
+      "openInvoices": "Zobacz faktury",
+      "openSubscription": "Zarządzaj subskrypcją",
+      "openExplore": "Przeglądaj produkty",
+      "openHelp": "Otwórz pomoc"
     },
     "productHubs": {
       "common": {

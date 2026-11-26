@@ -9,7 +9,7 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      { source: "/app", destination: "/app/command-center", permanent: false },
+      // /app is the authenticated APP Home (AppFoundationDashboard). Do not redirect to Command Center.
       // Seller commissions must never render inside customer billing (Kundeøkonomi) layout.
       {
         source: "/platform/billing/commissions",
