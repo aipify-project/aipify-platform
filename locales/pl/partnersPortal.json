@@ -706,7 +706,8 @@
         "transparencyNote": "Informacje przekazane tutaj są zbierane w celu ulepszania produktów i usług Aipify.",
         "trustStatementLink": "Zasady opinii klientów i ulepszania produktu",
         "trustStatementLinkAria": "Otwórz zasady opinii klientów i ulepszania produktu w nowej karcie"
-      }
+      },
+      "settingsMenu": "Pomoc i ustawienia"
     },
     "messages": {
       "title": "Wiadomości",

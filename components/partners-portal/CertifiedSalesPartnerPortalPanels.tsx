@@ -27,6 +27,7 @@ import {
   type CspSettlementRow,
 } from "@/lib/certified-sales-partner/portal-view";
 import { readCspResponse } from "@/lib/certified-sales-partner/ui-support";
+import { AipifyCard, AipifyStatCard, AipifyStatusBadge } from "./design";
 import { CertifiedSalesPartnerSignaturePreview } from "./CertifiedSalesPartnerSignaturePreview";
 import { CspSocialPlatformPicker } from "./CspSocialPlatformPicker";
 import { writeClipboard } from "./csp-sales-links-client";
@@ -273,47 +274,83 @@ export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels:
   const status = portal.overview.partnerStatus;
   const approved = status === "approved" || status === "active" || status === "certified";
   const activeLinks = portal.links.filter((l) => l.active).length;
+  const certValue =
+    portal.publishedProductCount === 0
+      ? labels.certificationsNone
+      : fill(labels.certificationsValue, {
+          passed: portal.passedCertificationCount,
+          total: portal.publishedProductCount,
+        });
 
   return (
-    <div className="space-y-6">
-      <section className={CARD} aria-labelledby="csp-overview-title">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 id="csp-overview-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
-            {portal.overview.displayName ?? labels.title}
-          </h2>
-          <Pill kind={approved ? "ok" : "info"}>{lookup(labels.partnerStatus, status)}</Pill>
+    <div className="space-y-5">
+      <AipifyCard aria-labelledby="csp-overview-title" className="overflow-hidden">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="min-w-0 space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-wide text-[#7C3AED]">Aipify</p>
+            <h2 id="csp-overview-title" className="text-xl font-semibold tracking-tight text-[#1E293B] sm:text-2xl">
+              {portal.overview.displayName ?? labels.title}
+            </h2>
+            <div className="flex flex-wrap items-center gap-2">
+              <AipifyStatusBadge
+                tone={approved ? "success" : "info"}
+                label={lookup(labels.partnerStatus, status)}
+              />
+              <span className="text-sm text-[#64748B]">{labels.statusLabel}</span>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {next.href && labels.nextCta[next.key] ? (
+              <Link
+                href={next.href}
+                className="inline-flex min-h-11 items-center rounded-xl bg-[#7C3AED] px-4 text-sm font-semibold text-white"
+              >
+                {labels.nextCta[next.key]}
+              </Link>
+            ) : null}
+            <Link
+              href="/partners/referrals/links"
+              className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] bg-white px-4 text-sm font-semibold text-[#1E293B]"
+            >
+              {labels.linksLabel}
+            </Link>
+            <Link
+              href="/partners/academy/training"
+              className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] bg-white px-4 text-sm font-semibold text-[#1E293B]"
+            >
+              {labels.certificationsLabel}
+            </Link>
+          </div>
         </div>
-        <dl className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <Metric label={labels.certificationsLabel}>
-            {portal.publishedProductCount === 0
-              ? labels.certificationsNone
-              : fill(labels.certificationsValue, {
-                  passed: portal.passedCertificationCount,
-                  total: portal.publishedProductCount,
-                })}
-          </Metric>
-          <Metric label={labels.linksLabel}>{activeLinks}</Metric>
-          <Metric label={labels.salesLabel}>{portal.salesTotal === 0 ? labels.salesNone : portal.salesTotal}</Metric>
-          <Metric label={labels.balanceLabel}>
-            <BalanceText balances={portal.ledgerByCurrency} none={labels.balanceNone} locale={locale} />
-          </Metric>
-        </dl>
-      </section>
+      </AipifyCard>
 
-      <section className={CARD} aria-labelledby="csp-next-title">
-        <h2 id="csp-next-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
+      <dl className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <AipifyStatCard label={labels.certificationsLabel} value={certValue} />
+        <AipifyStatCard label={labels.linksLabel} value={activeLinks} />
+        <AipifyStatCard
+          label={labels.salesLabel}
+          value={portal.salesTotal === 0 ? labels.salesNone : portal.salesTotal}
+        />
+        <AipifyStatCard
+          label={labels.balanceLabel}
+          value={<BalanceText balances={portal.ledgerByCurrency} none={labels.balanceNone} locale={locale} />}
+        />
+      </dl>
+
+      <AipifyCard aria-labelledby="csp-next-title">
+        <h2 id="csp-next-title" className="text-lg font-semibold text-[#1E293B]">
           {labels.nextTitle}
         </h2>
-        <p className="mt-2 max-w-3xl text-sm text-[color:var(--aipify-text-secondary)]">{labels.nextBody[next.key]}</p>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[#64748B]">{labels.nextBody[next.key]}</p>
         {next.href && labels.nextCta[next.key] ? (
           <Link
             href={next.href}
-            className="mt-4 inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white"
+            className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[#7C3AED] px-4 text-sm font-semibold text-white"
           >
             {labels.nextCta[next.key]}
           </Link>
         ) : null}
-      </section>
+      </AipifyCard>
     </div>
   );
 }
@@ -780,7 +817,7 @@ export function CertifiedSalesPartnerMarketingPanel({
   );
 
   return (
-    <div className="mx-auto w-full max-w-[1600px] space-y-6">
+    <div className="w-full space-y-6">
       <section className={CARD}>
         <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{labels.title}</h2>
         <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>

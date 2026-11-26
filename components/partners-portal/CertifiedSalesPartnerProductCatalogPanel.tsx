@@ -215,7 +215,7 @@ export function CertifiedSalesPartnerProductCatalogPanel({
   }
 
   return (
-    <section className="mx-auto w-full max-w-[1600px] space-y-5" aria-labelledby="csp-catalog-title">
+    <section className="w-full space-y-5" aria-labelledby="csp-catalog-title">
       <div>
         <h2 id="csp-catalog-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
           {labels.title}

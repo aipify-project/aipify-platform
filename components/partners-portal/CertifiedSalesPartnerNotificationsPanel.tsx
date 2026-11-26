@@ -72,7 +72,7 @@ export function CertifiedSalesPartnerNotificationsPanel({ labels }: { labels: Cs
   }, [load]);
 
   return (
-    <div className="mx-auto w-full max-w-[1600px] space-y-6">
+    <div className="w-full space-y-6">
       <header className="space-y-2">
         <h2 className="text-xl font-semibold text-aipify-text">{labels.title}</h2>
         <p className="max-w-3xl text-sm text-aipify-text-secondary">{labels.intro}</p>
