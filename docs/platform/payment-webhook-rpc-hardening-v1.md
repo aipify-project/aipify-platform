@@ -27,10 +27,13 @@ Staging (`auedugihkduoaikfusqe`): these RPCs are **absent** (`payment_proc_count
 
 No subscription body changes. No CSP commission rule changes. No checkout activation. No new LIVE Stripe secrets in this job.
 
-## Staging approval point
+## Production approval point (preferred — RPCs live only on Production today)
 
-> **APPROVE STAGING APPLY**  
+> **APPROVE PRODUCTION APPLY**  
 > File: `docs/platform/sql-candidates/payment_webhook_rpc_hardening_v1.sql`  
 > SHA256: `451a0f0ef89b9280bd8da15db6a3abb607209ff9ecc1acbb4387a13914bda980`  
-> Project: `auedugihkduoaikfusqe` only  
-> Expected: no-op if RPCs absent; grant lockdown when present.
+> Project: `qbcqoixhrvhnuwphefvw` only  
+> Prerequisite: PR #371 deployed (service_role webhook callers)  
+> Full package: `docs/platform/payment-core-security-v1-production-apply-ready.md`
+
+Isolated stub exercise on Staging verified the exact revoke/grant DO block (stubs removed). Named Staging apply remains optional no-op while RPCs are absent.

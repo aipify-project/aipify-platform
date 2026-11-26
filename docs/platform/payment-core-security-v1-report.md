@@ -1,8 +1,9 @@
 # AIPIFY CORE — Payment Security Complete V1
 
-**Goal status:** `AIPIFY_PAYMENT_CORE_SECURITY_READY_FOR_APPROVAL`  
-**Branch:** `feat/payment-core-security-v1-20261126`  
-**Baseline:** `origin/main` @ `df43e3013`
+**Goal status:** `AIPIFY_PAYMENT_CORE_SECURITY_PRODUCTION_APPLY_READY`  
+**Branch:** `feat/payment-core-security-v1-20261126` · PR #371  
+**Baseline:** `origin/main` @ `df43e3013`  
+**Canonical apply package:** `docs/platform/payment-core-security-v1-production-apply-ready.md`
 
 ---
 
