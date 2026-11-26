@@ -1,0 +1,31 @@
+{
+  "customerCatalog": {
+    "eyebrow": "Aipify-produkter",
+    "title": "Utforska Aipify-produkter",
+    "description": "Publicerade produkter och den åtkomst företaget har nu. Priser visas bara när Plattform har publicerat dem.",
+    "categoriesLabel": "Produktkategorier",
+    "all": "Alla produkter",
+    "kompis": "Kompis",
+    "voice": "Aipify Voice",
+    "otherCategory": "Andra produkter",
+    "kompisWebTitle": "Kompis Web",
+    "kompisWebDescription": "Svar till besökare, baserat på företagets godkända webbplatsinnehåll.",
+    "kompisBedriftTitle": "Kompis Bedrift",
+    "kompisBedriftDescription": "Intern kunskap och arbetsflöden för teamet i företaget.",
+    "stateActive": "Aktiv",
+    "stateNotLicensed": "Ingår inte",
+    "stateUnknown": "Status är inte tillgänglig",
+    "stateComingLater": "Kommer senare",
+    "priceUnavailable": "Pris är inte publicerat",
+    "purchaseClosed": "Köp är stängt tills Plattform publicerar ett betalbart pris.",
+    "openProduct": "Öppna produkt",
+    "monthly": "Månadsvis",
+    "yearly": "Årsvis",
+    "intervalLabel": "Betalperiod",
+    "includedHeading": "Ingår i paketet",
+    "seeAllFeatures": "Se alla funktioner",
+    "hideFeatures": "Dölj funktioner",
+    "billingUnavailable": "Fakturauppgifter kunde inte läsas. Produktåtkomsten ovan är skild från pris.",
+    "exploreLink": "Utforska Aipify-produkter"
+  }
+}

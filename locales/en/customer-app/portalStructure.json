@@ -8530,6 +8530,10 @@
       "openNotifications": "Notification settings",
       "statusAvailable": "Available",
       "statusUnavailable": "Not available",
+      "dataUnavailable": "Data is not available",
+      "webDataUnavailable": "Kompis Web status could not be read. That is separate from an inactive product.",
+      "exploreTitle": "Explore Aipify products",
+      "exploreDescription": "See published products and the access this company already has.",
       "statusReady": "Ready"
     },
     "productHubs": {

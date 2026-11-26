@@ -8607,6 +8607,10 @@
       "openNotifications": "Varslingsinnstillinger",
       "statusAvailable": "Tilgjengelig",
       "statusUnavailable": "Ikke tilgjengelig",
+      "dataUnavailable": "Data er ikke tilgjengelig",
+      "webDataUnavailable": "Status for Kompis Web kunne ikke leses. Det er ikke det samme som at produktet er inaktivt.",
+      "exploreTitle": "Utforsk Aipify-produkter",
+      "exploreDescription": "Se publiserte produkter og tilgangen denne bedriften allerede har.",
       "statusReady": "Klar"
     },
     "productHubs": {

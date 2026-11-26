@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { customerFacingPlanLabel } from "@/lib/app/foundation-product-card";
 import { isModuleUsableInSnapshot } from "@/lib/core/access-control-plane";
 import { loadRequestAccessControlPlaneSnapshot } from "@/lib/core/access-control-plane/load-snapshot-request";
 import { loadWebsiteKompisEntitlementForAppTenant } from "@/lib/marketing/website-kompis-licensed-availability-server";
@@ -48,8 +49,8 @@ export default async function AppPortalHomePage() {
       organizationName={organizationName}
       websiteKompisAvailable={websiteKompisAvailable}
       kompisBedriftAvailable={kompisBedriftAvailable}
-      planLabel={planLabel}
-      licenseStatusLabel={licenseStatusLabel}
+      planLabel={customerFacingPlanLabel(planLabel)}
+      licenseStatusLabel={customerFacingPlanLabel(licenseStatusLabel)}
     />
   );
 }

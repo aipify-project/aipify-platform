@@ -48,6 +48,7 @@ import { loadRequestAccessControlPlaneSnapshot } from "@/lib/core/access-control
 import {
   isKompisBedriftInternalKnowledgePath,
   isKompisBedriftProductPath,
+  isKompisWebOperationalPath,
 } from "@/lib/core/access-control-plane/tenant-module-lookup";
 
 /** Authenticated app shell — skip build-time static prerender (700+ routes). */
@@ -167,6 +168,9 @@ export default async function AppLayout({
         pathname: requestPathname,
         cookieValue: productCookie,
       });
+      if (authz.pathDenied && isKompisWebOperationalPath(requestPathname)) {
+        redirect("/app");
+      }
       // Intersect control-plane authorization with capability-visible products (fail closed).
       availableProducts = authz.availableProducts.filter((id) => fromCapabilities.includes(id));
       activeProduct =
@@ -213,7 +217,8 @@ export default async function AppLayout({
     } catch {
       if (
         isKompisBedriftProductPath(requestPathname) ||
-        isKompisBedriftInternalKnowledgePath(requestPathname)
+        isKompisBedriftInternalKnowledgePath(requestPathname) ||
+        isKompisWebOperationalPath(requestPathname)
       ) {
         redirect("/app");
       }

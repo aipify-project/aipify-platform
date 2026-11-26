@@ -1,4 +1,6 @@
 import { SoftwareProductShowcase } from "@/components/app/software/SoftwareProductShowcase";
+import { CUSTOMER_CATALOG_ROUTE } from "@/lib/app-portal/customer-catalog/model";
+import { buildCustomerCatalogLabels } from "@/lib/app-portal/customer-catalog/labels";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon } from "@/lib/app-portal/hubs/hub-copy";
@@ -21,7 +23,7 @@ export const revalidate = 0;
 /** Main products. Add-on modules and planned prices live on their own routes. */
 export default async function SoftwareCatalogPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "settings"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "settings", "customerCatalog"]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
   const [ctx, productReads] = await Promise.all([
@@ -30,6 +32,7 @@ export default async function SoftwareCatalogPage() {
   ]);
   const portfolio = buildPortfolioLabels(t);
   const showcase = buildSoftwareShowcaseLabels(t);
+  const catalog = buildCustomerCatalogLabels(t);
 
   return (
     <AppHubShell
@@ -50,6 +53,12 @@ export default async function SoftwareCatalogPage() {
           labels={portfolio}
           access={productReads.access}
         />
+        <Link
+          href={CUSTOMER_CATALOG_ROUTE}
+          className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+        >
+          {catalog.exploreLink}
+        </Link>
         <Link
           href="/app/settings/billing/packages"
           className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"

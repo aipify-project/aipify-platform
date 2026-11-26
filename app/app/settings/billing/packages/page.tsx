@@ -1,4 +1,6 @@
 import { KompisProductPortfolio } from "@/components/app/settings/billing/KompisProductPortfolio";
+import { CUSTOMER_CATALOG_ROUTE } from "@/lib/app-portal/customer-catalog/model";
+import { buildCustomerCatalogLabels } from "@/lib/app-portal/customer-catalog/labels";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon } from "@/lib/app-portal/hubs/hub-copy";
@@ -16,10 +18,11 @@ export const dynamic = "force-dynamic";
 /** Packages and access — Kompis portfolio. Purchase stays closed. */
 export default async function PackageAccessSettingsPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "settings"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "settings", "customerCatalog"]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
   const labels = buildPortfolioLabels(t);
+  const catalog = buildCustomerCatalogLabels(t);
   const productReads = await loadSubscriptionProductReads();
 
   return (
@@ -54,6 +57,12 @@ export default async function PackageAccessSettingsPage() {
           </div>
         </section>
         <KompisProductPortfolio labels={labels} access={productReads.access} showCatalog />
+        <Link
+          href={CUSTOMER_CATALOG_ROUTE}
+          className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+        >
+          {catalog.exploreLink}
+        </Link>
         <Link
           href="/app/settings/billing/invoice-details"
           className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"

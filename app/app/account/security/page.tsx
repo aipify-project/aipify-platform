@@ -1,4 +1,6 @@
-import { renderAppPortalFoundationPage } from "@/lib/app-portal/render-pages";
+import { redirect } from "next/navigation";
+
+/** Account security uses the existing sign-in verification surface. MFA is not reimplemented here. */
 export default function AccountSecurityPage() {
-  return renderAppPortalFoundationPage("accountSecurity");
+  redirect("/app/settings/two-factor");
 }

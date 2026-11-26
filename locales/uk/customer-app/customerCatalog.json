@@ -1,0 +1,31 @@
+{
+  "customerCatalog": {
+    "eyebrow": "Продукти Aipify",
+    "title": "Огляд продуктів Aipify",
+    "description": "Опубліковані продукти та поточний доступ компанії. Ціни з’являються лише тоді, коли Platform їх опублікує.",
+    "categoriesLabel": "Категорії продуктів",
+    "all": "Усі продукти",
+    "kompis": "Kompis",
+    "voice": "Aipify Voice",
+    "otherCategory": "Інші продукти",
+    "kompisWebTitle": "Kompis Web",
+    "kompisWebDescription": "Відповіді для відвідувачів на основі схваленого вмісту сайту компанії.",
+    "kompisBedriftTitle": "Kompis Bedrift",
+    "kompisBedriftDescription": "Внутрішні знання та робочі процеси для команди компанії.",
+    "stateActive": "Активний",
+    "stateNotLicensed": "Не входить",
+    "stateUnknown": "Статус недоступний",
+    "stateComingLater": "З’явиться пізніше",
+    "priceUnavailable": "Ціну не опубліковано",
+    "purchaseClosed": "Покупка закрита, доки Platform не опублікує ціну для оплати.",
+    "openProduct": "Відкрити продукт",
+    "monthly": "Щомісяця",
+    "yearly": "Щороку",
+    "intervalLabel": "Період оплати",
+    "includedHeading": "Входить до пакета",
+    "seeAllFeatures": "Переглянути всі функції",
+    "hideFeatures": "Сховати функції",
+    "billingUnavailable": "Не вдалося прочитати платіжні дані. Доступ до продукту вище відокремлений від ціни.",
+    "exploreLink": "Огляд продуктів Aipify"
+  }
+}
