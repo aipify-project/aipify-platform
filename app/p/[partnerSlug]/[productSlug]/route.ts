@@ -4,6 +4,12 @@ import {
   isCspLinkCode,
   normalizeChannel,
   resolveCspProductDestination,
+  CSP_ATTRIBUTION_COOKIE,
+  CSP_SESSION_COOKIE,
+  decideCspPublicCapture,
+  newCspSessionKey,
+  serializeCspAttributionCookie,
+  CSP_CAPTURE_RPC,
 } from "@/lib/certified-sales-partner";
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -18,16 +24,9 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 90;
 /**
  * Canonical CSP product attribution path: /p/{partnerSlug}/{productSlug}
  *
- * Two kinds of {partnerSlug}:
- *  1. Growth Partner slug (hybrid path, unchanged): resolved via `resolve_growth_partner_public_link`,
- *     attribution captured via `capture_growth_partner_attribution`.
- *  2. Core CSP link code (`csp-<12 chars>`, issued by `csp_create_attribution_link`): Core currently
- *     exposes NO public resolve/capture RPC for these codes, so no attribution is recorded and no
- *     attribution cookie is set — fail closed (nobody is credited). The visitor still lands on the
- *     product's marketing page. Wire CSP capture here once Core ships a public resolve/capture RPC.
- *
- * Destination: known product slugs use the CSP allowlist (`resolveCspProductDestination`); otherwise the
- * Growth Partner allowlist (`resolvePartnerLinkDestination`). Never an open redirect.
+ * 1. Growth Partner slug → resolve_growth_partner_public_link + capture_growth_partner_attribution.
+ * 2. Core CSP link code (`csp-<12 chars>`) → csp_capture_public_attribution_click when Core V6
+ *    SQL is applied; otherwise land on product page without attribution (fail closed).
  */
 export async function GET(
   request: Request,
@@ -46,11 +45,66 @@ export async function GET(
   if (error || !resolved?.found) {
     const cspDestination = isCspLinkCode(partnerSlug) ? resolveCspProductDestination(productSlug) : null;
     if (cspDestination === null) return NextResponse.redirect(new URL("/", request.url));
-    // CSP link code: land on the product page, record nothing (see route doc).
+
+    const cookieHeader = request.headers.get("cookie") ?? "";
+    const existingSession =
+      cookieHeader.match(new RegExp(`${CSP_SESSION_COOKIE}=([^;]+)`))?.[1] ?? newCspSessionKey();
+
+    let captureRecorded = false;
+    if (!botLike) {
+      const decision = decideCspPublicCapture({
+        code: partnerSlug,
+        productKey: productSlug,
+        sessionKey: existingSession,
+        userAgent: request.headers.get("user-agent"),
+        rateKey: `${partnerSlug}:${productSlug}:${request.headers.get("x-forwarded-for") ?? "local"}`,
+      });
+      if (decision.ok) {
+        const { data: captured, error: captureError } = await supabase.rpc(CSP_CAPTURE_RPC, {
+          p_payload: decision.payload,
+        });
+        // Missing RPC (PREPARED_ONLY) → fail closed: no cookie credit, still redirect.
+        if (!captureError && captured && typeof captured === "object") {
+          const row = captured as { recorded?: boolean; duplicate?: boolean; error?: string };
+          captureRecorded = row.recorded === true || row.duplicate === true;
+        }
+      }
+    }
+
     const cspRedirect = new URL(cspDestination, request.url);
     cspRedirect.searchParams.set("csp_product", productSlug);
     cspRedirect.searchParams.set("csp_channel", channel);
-    return NextResponse.redirect(cspRedirect);
+    const response = NextResponse.redirect(cspRedirect);
+
+    if (captureRecorded) {
+      const now = new Date().toISOString();
+      response.cookies.set(
+        CSP_ATTRIBUTION_COOKIE,
+        serializeCspAttributionCookie({
+          code: partnerSlug,
+          productKey: productSlug.trim().toLowerCase().replace(/-/g, "_"),
+          sessionKey: existingSession,
+          firstTouchAt: now,
+          lastTouchAt: now,
+        }),
+        {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          maxAge: COOKIE_MAX_AGE,
+          path: "/",
+        },
+      );
+      response.cookies.set(CSP_SESSION_COOKIE, existingSession, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: COOKIE_MAX_AGE,
+        path: "/",
+      });
+    }
+
+    return response;
   }
 
   const existingSession =
