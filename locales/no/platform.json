@@ -7953,7 +7953,17 @@
         "attribution_link_created": "Salgslenke opprettet",
         "qualified_sale_recorded": "Kvalifisert salg registrert"
       },
-      "ratesReadOnly": "Dette er de lagrede faste provisjonssatsene. Prosentprovisjon kan ikke lagres fra denne siden."
+      "ratesReadOnly": "Dette er de lagrede faste provisjonssatsene. Prosentprovisjon kan ikke lagres fra denne siden.",
+      "directionAdminToPartner": "Fra Aipify til selger",
+      "directionPartnerToAdmin": "Fra selger til Aipify",
+      "deliveryStatus": {
+        "recorded": "Registrert",
+        "queued": "I kø",
+        "sent": "Sendt",
+        "failed": "Mislyktes",
+        "read": "Lest",
+        "unknown": "Status ikke rapportert"
+      }
     },
     "messages": {
       "title": "Meldinger og kommunikasjon",

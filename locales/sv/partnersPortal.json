@@ -741,6 +741,24 @@
     "marketing": {
       "title": "Försäljningsverktyg",
       "intro": "Ladda ner Aipify-ägda marknadsföringsmallar för produkter du är certifierad att sälja. Din personliga säljlänk visas separat — den bakas aldrig in i banderoller.",
+      "centerTitle": "Marknadsföringscenter",
+      "centerIntro": "Välj en produkt och använd sedan Banners, Texter eller Dela med din personliga säljlänk. Endast godkänt Aipify-material och text finns tillgängligt.",
+      "tabBanners": "Banners",
+      "tabTexts": "Texter",
+      "tabShare": "Dela",
+      "bannerIntro": "Publicerade bannerstorlekar för den här produkten. HTML finns bara när en hostad bild och din personliga länk finns — ingenting hittas på.",
+      "bannerNotPublished": "Ingen publicerad banner för den här storleken ännu. När Aipify publicerar en visas den här.",
+      "bannerCopyHtml": "Kopiera HTML",
+      "bannerHtmlCopied": "Banner-HTML kopierad.",
+      "bannerFormats": {
+        "format728x90": "Leaderboard (728×90)",
+        "format300x250": "Mediumrektangel (300×250)",
+        "format160x600": "Skyscraper (160×600)",
+        "format1080x1080": "Kvadrat (1080×1080)"
+      },
+      "marketingLocaleNote": "Marknadsföringsspråk är skilt från portalspråket. Byt språk här för att förhandsgranska och kopiera material för den marknaden.",
+      "copyTextAndLink": "Kopiera text och länk",
+      "certRequired": "Slutför produktcertifiering innan du använder marknadsföringsverktyg för den här produkten.",
       "linkTitle": "Din personliga säljlänk",
       "linkEmpty": "Skapa en säljlänk när du är godkänd och certifierad. Den visas här för kopiering och delning.",
       "linkCta": "Skapa säljlänk",
@@ -788,6 +806,8 @@
         "openMenu": "Språkval"
       },
       "notifications": "Notiser",
+      "notificationsEmpty": "Inga olästa notiser just nu.",
+      "notificationsViewAll": "Öppna notiser",
       "messages": "Meddelanden",
       "profile": "Min profil",
       "avatarAlt": "Din profilbild",
@@ -1128,6 +1148,8 @@
       "companyUnavailableBody": "Företagsfält från din ansökan hanteras av Aipify. Kontakta Aipify om något behöver uppdateras.",
       "payoutIntro": "Bankuppgifter lagras säkert för manuella utbetalningar. Fullständigt kontonummer visas aldrig efter sparande.",
       "securityIntro": "Inloggningssäkerhet (inklusive tvåfaktorsautentisering när det är aktiverat) hanteras via ditt Aipify-konto.",
+      "securityAccountNote": "Lösenordsändringar och enhetssessioner ligger i ditt Aipify-inloggningskonto. Denna portal lagrar aldrig ett lokalt lösenord.",
+      "openTwoFactor": "Hantera tvåfaktorsautentisering",
       "openSettlement": "Öppna provision och utbetalningar",
       "notAvailable": "Inte tillgängligt"
     },

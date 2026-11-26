@@ -741,6 +741,24 @@
     "marketing": {
       "title": "Sales tools",
       "intro": "Download Aipify-owned marketing layouts for products you are certified to sell. Your personal sales link is shown separately — never baked into banner files.",
+      "centerTitle": "Marketing Center",
+      "centerIntro": "Choose a product, then use Banners, Texts, or Share with your personal sales link. Only approved Aipify materials and copy are available.",
+      "tabBanners": "Banners",
+      "tabTexts": "Texts",
+      "tabShare": "Share",
+      "bannerIntro": "Published banner sizes for this product. HTML is available only when a hosted image and your personal link exist — nothing is invented.",
+      "bannerNotPublished": "No published banner for this size yet. When Aipify publishes one, it will appear here.",
+      "bannerCopyHtml": "Copy HTML",
+      "bannerHtmlCopied": "Banner HTML copied.",
+      "bannerFormats": {
+        "format728x90": "Leaderboard (728×90)",
+        "format300x250": "Medium rectangle (300×250)",
+        "format160x600": "Skyscraper (160×600)",
+        "format1080x1080": "Square (1080×1080)"
+      },
+      "marketingLocaleNote": "Marketing language is separate from your portal language. Switch language here to preview and copy materials for that market.",
+      "copyTextAndLink": "Copy text and link",
+      "certRequired": "Complete product certification before using marketing tools for this product.",
       "linkTitle": "Your personal sales link",
       "linkEmpty": "Create a sales link after you are approved and certified. It will appear here for copy and sharing.",
       "linkCta": "Create a sales link",
@@ -788,6 +806,8 @@
         "openMenu": "Language options"
       },
       "notifications": "Notifications",
+      "notificationsEmpty": "No unread notifications right now.",
+      "notificationsViewAll": "Open notifications",
       "messages": "Messages",
       "profile": "My profile",
       "avatarAlt": "Your profile photo",
@@ -1128,6 +1148,8 @@
       "companyUnavailableBody": "Company fields from your application are managed by Aipify. Contact Aipify if something needs updating.",
       "payoutIntro": "Bank details are stored securely for manual payouts. Full account numbers are never shown after save.",
       "securityIntro": "Sign-in security (including two-factor authentication when enabled) is managed through your Aipify account.",
+      "securityAccountNote": "Password changes and device sessions stay in your Aipify sign-in account. This portal never stores a local password.",
+      "openTwoFactor": "Manage two-factor authentication",
       "openSettlement": "Open commission & payouts",
       "notAvailable": "Not available"
     },

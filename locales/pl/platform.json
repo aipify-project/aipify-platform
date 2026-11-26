@@ -8224,7 +8224,17 @@
         "attribution_link_created": "Utworzono link sprzedażowy",
         "qualified_sale_recorded": "Zarejestrowano kwalifikowaną sprzedaż"
       },
-      "ratesReadOnly": "To zapisane stałe stawki prowizji. Prowizji procentowej nie można zapisać z tej strony."
+      "ratesReadOnly": "To zapisane stałe stawki prowizji. Prowizji procentowej nie można zapisać z tej strony.",
+      "directionAdminToPartner": "Od Aipify do sprzedawcy",
+      "directionPartnerToAdmin": "Od sprzedawcy do Aipify",
+      "deliveryStatus": {
+        "recorded": "Zarejestrowano",
+        "queued": "W kolejce",
+        "sent": "Wysłano",
+        "failed": "Niepowodzenie",
+        "read": "Przeczytano",
+        "unknown": "Status niezgłoszony"
+      }
     },
     "messages": {
       "title": "Wiadomości i komunikacja",

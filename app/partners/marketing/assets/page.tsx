@@ -1,4 +1,4 @@
-import { CertifiedSalesPartnerMarketingPanel } from "@/components/partners-portal/CertifiedSalesPartnerPortalPanels";
+import { CertifiedSalesPartnerMarketingCenter } from "@/components/partners-portal/CertifiedSalesPartnerMarketingCenter";
 import { CertifiedSalesPartnerWorkspacePanel } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
 import { buildCspMarketingLabels, buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -16,7 +16,7 @@ export default async function PartnersMarketingAssetsPage() {
   );
   return (
     <CertifiedSalesPartnerWorkspacePanel labels={labels}>
-      <CertifiedSalesPartnerMarketingPanel labels={buildCspMarketingLabels(t)} locale={locale} />
+      <CertifiedSalesPartnerMarketingCenter labels={buildCspMarketingLabels(t)} locale={locale} />
     </CertifiedSalesPartnerWorkspacePanel>
   );
 }

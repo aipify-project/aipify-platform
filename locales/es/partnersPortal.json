@@ -617,6 +617,24 @@
     "marketing": {
       "title": "Herramientas de venta",
       "intro": "Descargue diseños de marketing de Aipify para los productos que está certificado para vender. Su enlace personal se muestra por separado; nunca va incrustado en los banners.",
+      "centerTitle": "Centro de marketing",
+      "centerIntro": "Elija un producto y use Banners, Textos o Compartir con su enlace personal. Solo hay materiales y textos aprobados de Aipify.",
+      "tabBanners": "Banners",
+      "tabTexts": "Textos",
+      "tabShare": "Compartir",
+      "bannerIntro": "Tamaños de banner publicados para este producto. El HTML solo está disponible cuando existen una imagen alojada y su enlace personal; no se inventa nada.",
+      "bannerNotPublished": "Aún no hay un banner publicado para este tamaño. Cuando Aipify lo publique, aparecerá aquí.",
+      "bannerCopyHtml": "Copiar HTML",
+      "bannerHtmlCopied": "HTML del banner copiado.",
+      "bannerFormats": {
+        "format728x90": "Leaderboard (728×90)",
+        "format300x250": "Rectángulo medio (300×250)",
+        "format160x600": "Skyscraper (160×600)",
+        "format1080x1080": "Cuadrado (1080×1080)"
+      },
+      "marketingLocaleNote": "El idioma de marketing es independiente del idioma del portal. Cámbielo aquí para previsualizar y copiar materiales de ese mercado.",
+      "copyTextAndLink": "Copiar texto y enlace",
+      "certRequired": "Complete la certificación del producto antes de usar las herramientas de marketing para este producto.",
       "linkTitle": "Su enlace personal de venta",
       "linkEmpty": "Cree un enlace de venta cuando esté aprobado y certificado. Aparecerá aquí para copiar y compartir.",
       "linkCta": "Crear enlace de venta",
@@ -664,6 +682,8 @@
         "openMenu": "Opciones de idioma"
       },
       "notifications": "Notificaciones",
+      "notificationsEmpty": "No hay notificaciones sin leer ahora.",
+      "notificationsViewAll": "Abrir notificaciones",
       "messages": "Mensajes",
       "profile": "Mi perfil",
       "avatarAlt": "Tu foto de perfil",
@@ -1004,6 +1024,8 @@
       "companyUnavailableBody": "Los campos de empresa de tu solicitud los gestiona Aipify. Contacta con Aipify si algo debe actualizarse.",
       "payoutIntro": "Los datos bancarios se guardan de forma segura para pagos manuales. El número completo nunca se muestra tras guardar.",
       "securityIntro": "La seguridad de acceso (incluida la autenticación en dos pasos cuando está activa) se gestiona en tu cuenta de Aipify.",
+      "securityAccountNote": "Los cambios de contraseña y las sesiones de dispositivo permanecen en tu cuenta de acceso de Aipify. Este portal nunca almacena una contraseña local.",
+      "openTwoFactor": "Gestionar autenticación en dos pasos",
       "openSettlement": "Abrir comisión y pagos",
       "notAvailable": "No disponible"
     },

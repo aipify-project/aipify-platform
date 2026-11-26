@@ -8224,7 +8224,17 @@
         "attribution_link_created": "Säljlänk skapad",
         "qualified_sale_recorded": "Kvalificerad försäljning registrerad"
       },
-      "ratesReadOnly": "Det här är de lagrade fasta provisionssatserna. Procentprovision kan inte sparas från den här sidan."
+      "ratesReadOnly": "Det här är de lagrade fasta provisionssatserna. Procentprovision kan inte sparas från den här sidan.",
+      "directionAdminToPartner": "Från Aipify till säljare",
+      "directionPartnerToAdmin": "Från säljare till Aipify",
+      "deliveryStatus": {
+        "recorded": "Registrerad",
+        "queued": "I kö",
+        "sent": "Skickad",
+        "failed": "Misslyckades",
+        "read": "Läst",
+        "unknown": "Status ej rapporterad"
+      }
     },
     "messages": {
       "title": "Meddelanden och kommunikation",

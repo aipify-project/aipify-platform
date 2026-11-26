@@ -56,6 +56,8 @@ export default async function PartnersPortalProfilePage() {
     companyUnavailableBody: t(`${p}.companyUnavailableBody`),
     payoutIntro: t(`${p}.payoutIntro`),
     securityIntro: t(`${p}.securityIntro`),
+    securityAccountNote: t(`${p}.securityAccountNote`),
+    openTwoFactor: t(`${p}.openTwoFactor`),
     openSettlement: t(`${p}.openSettlement`),
     notAvailable: t(`${p}.notAvailable`),
     partnerStatus: Object.fromEntries(

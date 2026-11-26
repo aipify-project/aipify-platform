@@ -617,6 +617,24 @@
     "marketing": {
       "title": "Narzędzia sprzedażowe",
       "intro": "Pobierz materiały marketingowe należące do Aipify dla produktów, które możesz sprzedawać. Twój osobisty link sprzedażowy jest pokazywany osobno — nigdy nie jest wbudowany w banery.",
+      "centerTitle": "Centrum marketingu",
+      "centerIntro": "Wybierz produkt, a następnie użyj Banerów, Tekstów lub Udostępnij z osobistym linkiem sprzedażowym. Dostępne są tylko zatwierdzone materiały i teksty Aipify.",
+      "tabBanners": "Banery",
+      "tabTexts": "Teksty",
+      "tabShare": "Udostępnij",
+      "bannerIntro": "Opublikowane rozmiary banerów dla tego produktu. HTML jest dostępny tylko, gdy istnieje hostowany obraz i Twój osobisty link — nic nie jest wymyślane.",
+      "bannerNotPublished": "Brak opublikowanego banera w tym rozmiarze. Gdy Aipify go opublikuje, pojawi się tutaj.",
+      "bannerCopyHtml": "Kopiuj HTML",
+      "bannerHtmlCopied": "Skopiowano HTML banera.",
+      "bannerFormats": {
+        "format728x90": "Leaderboard (728×90)",
+        "format300x250": "Średni prostokąt (300×250)",
+        "format160x600": "Skyscraper (160×600)",
+        "format1080x1080": "Kwadrat (1080×1080)"
+      },
+      "marketingLocaleNote": "Język marketingu jest oddzielony od języka portalu. Przełącz język tutaj, aby podglądać i kopiować materiały dla tego rynku.",
+      "copyTextAndLink": "Kopiuj tekst i link",
+      "certRequired": "Ukończ certyfikację produktu, zanim użyjesz narzędzi marketingowych dla tego produktu.",
       "linkTitle": "Twój osobisty link sprzedażowy",
       "linkEmpty": "Utwórz link sprzedażowy po zatwierdzeniu i certyfikacji. Pojawi się tutaj do kopiowania i udostępniania.",
       "linkCta": "Utwórz link sprzedażowy",
@@ -664,6 +682,8 @@
         "openMenu": "Opcje języka"
       },
       "notifications": "Powiadomienia",
+      "notificationsEmpty": "Brak nieprzeczytanych powiadomień.",
+      "notificationsViewAll": "Otwórz powiadomienia",
       "messages": "Wiadomości",
       "profile": "Mój profil",
       "avatarAlt": "Twoje zdjęcie profilowe",
@@ -1004,6 +1024,8 @@
       "companyUnavailableBody": "Pola firmowe z wniosku są zarządzane przez Aipify. Skontaktuj się z Aipify, jeśli coś wymaga aktualizacji.",
       "payoutIntro": "Dane bankowe są przechowywane bezpiecznie na potrzeby ręcznych wypłat. Pełny numer konta nie jest pokazywany po zapisaniu.",
       "securityIntro": "Bezpieczeństwo logowania (w tym 2FA, gdy włączone) jest zarządzane przez konto Aipify.",
+      "securityAccountNote": "Zmiany hasła i sesje urządzeń pozostają na koncie logowania Aipify. Ten portal nigdy nie przechowuje lokalnego hasła.",
+      "openTwoFactor": "Zarządzaj uwierzytelnianiem dwuskładnikowym",
       "openSettlement": "Otwórz prowizje i wypłaty",
       "notAvailable": "Niedostępne"
     },

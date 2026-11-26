@@ -97,8 +97,9 @@ export type SellersOpsLabels = {
   navLabels: Record<string, string>;
   folderInbox: string;
   folderSent: string;
-  folderArchive: string;
-  archiveBlocked: string;
+  directionAdminToPartner: string;
+  directionPartnerToAdmin: string;
+  deliveryStatus: Record<string, string>;
   auditFallback: string;
   auditActions: Record<string, string>;
   materialFilterAll: string;
@@ -158,7 +159,7 @@ export function CertifiedSellersOpsPanel({
   const [matTitle, setMatTitle] = useState("");
   const [matCategory, setMatCategory] = useState("pdf_sheets");
   const [matPath, setMatPath] = useState("");
-  const [folder, setFolder] = useState<"inbox" | "sent" | "archive">("inbox");
+  const [folder, setFolder] = useState<"inbox" | "sent">("inbox");
   const [materialStatus, setMaterialStatus] = useState<"all" | "draft" | "published">("all");
   const bcp47 = toBcp47Locale(locale);
   const dateOptions = { locale, emptyFallback: l.dateEmpty, invalidFallback: l.dateInvalid };
@@ -297,7 +298,6 @@ export function CertifiedSellersOpsPanel({
     materialStatus === "all" ? true : materialStatus === "published" ? item.published : !item.published,
   );
   const visibleMessages = filtered.filter((row) => {
-    if (folder === "archive") return false;
     const direction = str(row.direction);
     if (folder === "sent") return direction === "admin_to_partner";
     return direction !== "admin_to_partner";
@@ -783,7 +783,6 @@ export function CertifiedSellersOpsPanel({
                 [
                   ["inbox", l.folderInbox],
                   ["sent", l.folderSent],
-                  ["archive", l.folderArchive],
                 ] as const
               ).map(([id, label]) => (
                 <button
@@ -803,17 +802,28 @@ export function CertifiedSellersOpsPanel({
               ))}
             </div>
             <h3 className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">{l.conversationTitle}</h3>
-            {folder === "archive" ? <Empty title={l.folderArchive} body={l.archiveBlocked} /> : null}
             {phase === "loading" ? <AipifyLoader centered size="sm" label={l.loading} /> : null}
-            {phase === "ready" && folder !== "archive" && visibleMessages.length === 0 ? (
+            {phase === "ready" && visibleMessages.length === 0 ? (
               <Empty title={l.emptyTitle} body={l.emptyBody} />
             ) : null}
-            {phase === "ready" && folder !== "archive" && visibleMessages.length > 0 ? (
+            {phase === "ready" && visibleMessages.length > 0 ? (
               <div className="overflow-x-auto rounded-2xl border border-[color:var(--aipify-border)] bg-white">
                 <Table caption={title} headers={[l.colPartner, l.colAction, l.colStatus, l.colDate]}>
                   {visibleMessages.map((r) => {
                     const pid = str(r.partner_id);
                     const partner = recipients.find((x) => x.id === pid);
+                    const direction = str(r.direction);
+                    const delivery = str(r.delivery_status);
+                    const directionLabel =
+                      direction === "admin_to_partner"
+                        ? l.directionAdminToPartner
+                        : direction === "partner_to_admin"
+                          ? l.directionPartnerToAdmin
+                          : l.notReported;
+                    const deliveryLabel =
+                      (delivery && l.deliveryStatus[delivery]) ||
+                      l.deliveryStatus.unknown ||
+                      l.notReported;
                     return (
                       <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
                         <td className="px-3 py-2">
@@ -827,12 +837,13 @@ export function CertifiedSellersOpsPanel({
                           </p>
                         </td>
                         <td className="px-3 py-2">
-                          <p className="font-medium">{str(r.subject) || str(r.direction) || l.notReported}</p>
+                          <p className="font-medium">{str(r.subject) || directionLabel}</p>
                           <p className="mt-1 line-clamp-2 text-sm text-[color:var(--aipify-text-secondary)]">
                             {str(r.body)}
                           </p>
+                          <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">{directionLabel}</p>
                         </td>
-                        <td className="px-3 py-2">{str(r.delivery_status) || l.notReported}</td>
+                        <td className="px-3 py-2">{deliveryLabel}</td>
                         <td className="px-3 py-2">
                           {formatPlatformDateTimeShort(str(r.created_at) || null, dateOptions)}
                         </td>
