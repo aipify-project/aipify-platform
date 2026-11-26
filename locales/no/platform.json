@@ -7833,6 +7833,7 @@
       "registerColCustomerPrice": "Kundepris",
       "registerAppPublished": "APP publisert",
       "registerAppUnpublished": "Ikke i APP-butikk",
+      "registerAppRegistryFallback": "APP-listing (register-fallback — Core-SQL mangler)",
       "registerSaleNotConfigured": "Salg ikke konfigurert",
       "registerPricePlanned": "Planlagt fra {price}",
       "registerChannelNote": "Én produktidentitet med separate APP- og salgskanaler. Salgspublisering bruker Core. APP-listing bruker godkjent register til kanal-SQL er på plass."
