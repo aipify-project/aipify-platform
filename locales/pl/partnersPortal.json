@@ -737,7 +737,8 @@
         "trustStatementLink": "Zasady opinii klientów i ulepszania produktu",
         "trustStatementLinkAria": "Otwórz zasady opinii klientów i ulepszania produktu w nowej karcie"
       },
-      "settingsMenu": "Pomoc i ustawienia"
+      "settingsMenu": "Pomoc i ustawienia",
+      "unread": "Nieprzeczytane"
     },
     "messages": {
       "title": "Wiadomości",

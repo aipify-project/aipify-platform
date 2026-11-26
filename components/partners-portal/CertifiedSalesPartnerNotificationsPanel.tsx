@@ -5,6 +5,10 @@ import { useCallback, useEffect, useState } from "react";
 import { Bell, MessageSquare } from "lucide-react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import type { CspNotificationsLabels } from "@/lib/partners-portal/csp-section-labels";
+import {
+  compareTimestampsDesc,
+  formatPlatformDateTimeClock,
+} from "@/lib/platform-presentation-quality/date-time";
 import { AipifyAlert, AipifyCard, AipifyPageHeader } from "./design";
 
 export type { CspNotificationsLabels };
@@ -14,6 +18,7 @@ type Phase = "loading" | "empty" | "ready" | "error";
 type UnreadRow = {
   id: string;
   subject: string | null;
+  excerpt: string;
   created_at: string;
 };
 
@@ -21,9 +26,16 @@ type UnreadRow = {
  * Seller notifications — derived from unread admin messages (authoritative Core path).
  * No invented alerts. When the messages API is gated, show an honest empty state with next step.
  */
-export function CertifiedSalesPartnerNotificationsPanel({ labels }: { labels: CspNotificationsLabels }) {
+export function CertifiedSalesPartnerNotificationsPanel({
+  labels,
+  locale = "no",
+}: {
+  labels: CspNotificationsLabels;
+  locale?: string;
+}) {
   const [phase, setPhase] = useState<Phase>("loading");
   const [unread, setUnread] = useState<UnreadRow[]>([]);
+  const dateOptions = { locale, emptyFallback: "—", invalidFallback: "—" };
 
   const load = useCallback(async () => {
     setPhase("loading");
@@ -48,19 +60,23 @@ export function CertifiedSalesPartnerNotificationsPanel({ labels }: { labels: Cs
       }
 
       const rows = Array.isArray(body.messages) ? body.messages : [];
-      const next = rows.flatMap((row) => {
-        if (row.direction !== "admin_to_partner") return [];
-        if (typeof row.read_at === "string" && row.read_at.trim()) return [];
-        const id = typeof row.id === "string" ? row.id : "";
-        if (!id) return [];
-        return [
-          {
-            id,
-            subject: typeof row.subject === "string" ? row.subject : null,
-            created_at: typeof row.created_at === "string" ? row.created_at : "",
-          },
-        ];
-      });
+      const next = rows
+        .flatMap((row) => {
+          if (row.direction !== "admin_to_partner") return [];
+          if (typeof row.read_at === "string" && row.read_at.trim()) return [];
+          const id = typeof row.id === "string" ? row.id : "";
+          if (!id) return [];
+          const excerpt = typeof row.body === "string" ? row.body.slice(0, 160) : "";
+          return [
+            {
+              id,
+              subject: typeof row.subject === "string" ? row.subject : null,
+              excerpt,
+              created_at: typeof row.created_at === "string" ? row.created_at : "",
+            },
+          ];
+        })
+        .sort((a, b) => compareTimestampsDesc(a.created_at, b.created_at));
       setUnread(next);
       setPhase(next.length === 0 ? "empty" : "ready");
     } catch {
@@ -147,8 +163,11 @@ export function CertifiedSalesPartnerNotificationsPanel({ labels }: { labels: Cs
                         </Link>
                       }
                     >
+                      {row.excerpt ? <p className="mb-2 text-sm font-normal">{row.excerpt}</p> : null}
                       {row.created_at ? (
-                        <time dateTime={row.created_at}>{new Date(row.created_at).toLocaleString()}</time>
+                        <time className="text-xs font-normal" dateTime={row.created_at}>
+                          {formatPlatformDateTimeClock(row.created_at, dateOptions)}
+                        </time>
                       ) : null}
                     </AipifyAlert>
                   </li>

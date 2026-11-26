@@ -6,8 +6,11 @@ export default function PartnersNotificationsPage() {
   return renderCspSectionPage({
     titleKey: "partnersPortal.certifiedSalesPartner.notifications.title",
     subtitleKey: "partnersPortal.certifiedSalesPartner.notifications.intro",
-    children: ({ t }) => (
-      <CertifiedSalesPartnerNotificationsPanel labels={buildCspNotificationsLabels(t)} />
+    children: ({ locale, t }) => (
+      <CertifiedSalesPartnerNotificationsPanel
+        locale={locale}
+        labels={buildCspNotificationsLabels(t)}
+      />
     ),
   });
 }

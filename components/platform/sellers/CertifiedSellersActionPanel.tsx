@@ -37,6 +37,13 @@ export type SellersActionLabels = {
   currency: string;
   fixedCommission: string;
   published: string;
+  /** SALE channel checkbox label (canonical publish_sale). */
+  publishSale?: string;
+  /** APP channel checkbox label (publish_app). */
+  publishApp?: string;
+  publishAppHint?: string;
+  /** When checked, save only channel flags (no commission upsert). */
+  channelOnlyHint?: string;
   submitProduct: string;
   productTabProduct: string;
   productTabMedia: string;
@@ -97,9 +104,17 @@ export function CertifiedSellersActionPanel({
     return (code && labels.errors[code]) || labels.error;
   }
 
-  async function post(url: string, body: Record<string, unknown>) {
-    setPending(true);
-    setMessage(null);
+  type PostOutcome = "ok" | "closed" | "error";
+
+  async function post(
+    url: string,
+    body: Record<string, unknown>,
+    options?: { quiet?: boolean },
+  ): Promise<PostOutcome> {
+    if (!options?.quiet) {
+      setPending(true);
+      setMessage(null);
+    }
     try {
       const res = await fetch(url, {
         method: "POST",
@@ -111,28 +126,28 @@ export function CertifiedSellersActionPanel({
         backend_ready?: boolean;
         message?: string;
       };
-      if (res.status === 401 || res.status === 403) {
-        setMessage({ kind: "error", text: errorText("forbidden") });
-        return;
-      }
-      if (data.error === "forbidden") {
-        setMessage({ kind: "error", text: errorText("forbidden") });
-        return;
+      if (res.status === 401 || res.status === 403 || data.error === "forbidden") {
+        if (!options?.quiet) setMessage({ kind: "error", text: errorText("forbidden") });
+        return "error";
       }
       if (res.status === 503 || data.backend_ready === false) {
-        setMessage({ kind: "closed", text: labels.failClosed });
-        return;
+        if (!options?.quiet) setMessage({ kind: "closed", text: labels.failClosed });
+        return "closed";
       }
       if (!res.ok) {
-        setMessage({ kind: "error", text: errorText(data.error) });
-        return;
+        if (!options?.quiet) setMessage({ kind: "error", text: errorText(data.error) });
+        return "error";
       }
-      setMessage({ kind: "ok", text: labels.success });
-      onSuccess?.();
+      if (!options?.quiet) {
+        setMessage({ kind: "ok", text: labels.success });
+        onSuccess?.();
+      }
+      return "ok";
     } catch {
-      setMessage({ kind: "error", text: labels.error });
+      if (!options?.quiet) setMessage({ kind: "error", text: labels.error });
+      return "error";
     } finally {
-      setPending(false);
+      if (!options?.quiet) setPending(false);
     }
   }
 
@@ -184,16 +199,94 @@ export function CertifiedSellersActionPanel({
     });
   }
 
-  function onProducts(e: FormEvent<HTMLFormElement>) {
+  async function onProducts(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    void post("/api/platform/sellers/products", {
-      product_key: String(fd.get("product_key") ?? ""),
-      title: String(fd.get("title") ?? ""),
-      currency: String(fd.get("currency") ?? "").toUpperCase(),
-      fixed_commission_amount: Number(fd.get("fixed_commission_amount") ?? 0),
-      published: fd.get("published") === "on",
-    });
+    const productKey = String(fd.get("product_key") ?? "").trim();
+    const publishSale = fd.get("publish_sale") === "on" || fd.get("published") === "on";
+    const publishAppChecked = fd.get("publish_app") === "on";
+    const channelOnly = fd.get("channel_only") === "on";
+
+    setPending(true);
+    setMessage(null);
+    try {
+      if (channelOnly) {
+        const channelOutcome = await post(
+          "/api/platform/sellers/products/channels",
+          {
+            product_key: productKey,
+            publish_app: publishAppChecked,
+            publish_sale: publishSale,
+          },
+          { quiet: true },
+        );
+        if (channelOutcome === "ok") {
+          setMessage({ kind: "ok", text: labels.success });
+          onSuccess?.();
+        } else if (channelOutcome === "closed") {
+          setMessage({ kind: "closed", text: labels.failClosed });
+        } else {
+          setMessage({ kind: "error", text: labels.error });
+        }
+        return;
+      }
+
+      const productOutcome = await post(
+        "/api/platform/sellers/products",
+        {
+          product_key: productKey,
+          title: String(fd.get("title") ?? ""),
+          currency: String(fd.get("currency") ?? "").toUpperCase(),
+          fixed_commission_amount: Number(fd.get("fixed_commission_amount") ?? 0),
+          publish_sale: publishSale,
+          published: publishSale,
+        },
+        { quiet: true },
+      );
+      if (productOutcome !== "ok") {
+        setMessage({
+          kind: productOutcome === "closed" ? "closed" : "error",
+          text: productOutcome === "closed" ? labels.failClosed : labels.error,
+        });
+        return;
+      }
+
+      // APP is independent of SALE. Only touch APP when the operator checked Publisert i APP.
+      // Never POST publish_app:false on every SALE save (would clear APP once RPC exists, and
+      // would make SALE-only saves look blocked while the channel RPC is still pending).
+      if (!publishAppChecked) {
+        setMessage({ kind: "ok", text: labels.success });
+        onSuccess?.();
+        return;
+      }
+
+      const channelOutcome = await post(
+        "/api/platform/sellers/products/channels",
+        {
+          product_key: productKey,
+          publish_app: true,
+        },
+        { quiet: true },
+      );
+      if (channelOutcome === "ok") {
+        setMessage({ kind: "ok", text: labels.success });
+        onSuccess?.();
+        return;
+      }
+      if (channelOutcome === "closed") {
+        // SALE save already succeeded — do not pretend APP published.
+        setMessage({
+          kind: "closed",
+          text: labels.publishAppHint ?? labels.failClosed,
+        });
+        onSuccess?.();
+        return;
+      }
+      setMessage({ kind: "error", text: labels.error });
+      onSuccess?.();
+    } finally {
+      setPending(false);
+    }
   }
 
   const title =
@@ -316,10 +409,20 @@ function ProductAdminForm({
       <div hidden={tab !== "language"}>
         <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.languageNotStored}</p>
       </div>
-      <div hidden={tab !== "appPanel"} className="grid gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
-        <p>{labels.appPanelBlocked}</p>
-        <p>{labels.priceNotPublished}</p>
-        <p>{labels.priceNotCommission}</p>
+      <div hidden={tab !== "appPanel"} className="grid gap-3">
+        <p className="text-sm text-[color:var(--aipify-text-secondary)]">
+          {labels.publishAppHint ?? labels.appPanelBlocked}
+        </p>
+        <label className="flex items-center gap-2 text-sm">
+          <input name="publish_app" type="checkbox" />
+          <span>{labels.publishApp ?? labels.productTabAppPanel}</span>
+        </label>
+        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.priceNotPublished}</p>
+        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.priceNotCommission}</p>
+        <label className="flex items-center gap-2 text-sm text-[color:var(--aipify-text-secondary)]">
+          <input name="channel_only" type="checkbox" />
+          <span>{labels.channelOnlyHint ?? labels.publishAppHint ?? labels.appPanelBlocked}</span>
+        </label>
       </div>
       <div hidden={tab !== "salePanel"} className="grid gap-3">
         <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.percentUnavailable}</p>
@@ -327,8 +430,8 @@ function ProductAdminForm({
         <Field name="fixed_commission_amount" label={labels.fixedCommission} type="number" />
         <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.publishMeaning}</p>
         <label className="flex items-center gap-2 text-sm">
-          <input name="published" type="checkbox" />
-          <span>{labels.published}</span>
+          <input name="publish_sale" type="checkbox" />
+          <span>{labels.publishSale ?? labels.published}</span>
         </label>
       </div>
       <div hidden={tab !== "preview"} className="grid gap-2 text-sm text-[color:var(--aipify-text-secondary)]">

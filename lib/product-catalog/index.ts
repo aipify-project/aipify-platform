@@ -7,6 +7,12 @@ export {
   type AppEntitlementHint,
   type CoreSalesProductRow,
 } from "./merge";
+export {
+  loadAppStoreCoreProducts,
+  parseCoreSalesProductRow,
+  parsePlatformOverviewProducts,
+  type LoadCoreProductsResult,
+} from "./core-products";
 export { PRODUCT_CATALOG_FIELD_OWNERSHIP } from "./field-ownership";
 export {
   PERCENT_COMMISSION_CONTRACT_PROPOSAL,

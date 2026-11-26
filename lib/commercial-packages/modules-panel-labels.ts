@@ -69,5 +69,6 @@ export function buildSoftwareShowcaseLabels(t: Translator) {
     contactAipify: t(`${SHOW}.contactAipify`),
     notForPurchase: t(`${SHOW}.notForPurchase`),
     plannedPriceNote: t(`${SHOW}.plannedPriceNote`),
+    coreChannelPending: t(`${SHOW}.coreChannelPending`),
   };
 }

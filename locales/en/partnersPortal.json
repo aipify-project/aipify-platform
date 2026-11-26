@@ -861,7 +861,8 @@
         "trustStatementLink": "Customer Feedback & Product Improvement Policy",
         "trustStatementLinkAria": "Open the Customer Feedback & Product Improvement Policy in a new tab"
       },
-      "settingsMenu": "Help & settings"
+      "settingsMenu": "Help & settings",
+      "unread": "Unread"
     },
     "messages": {
       "title": "Messages",

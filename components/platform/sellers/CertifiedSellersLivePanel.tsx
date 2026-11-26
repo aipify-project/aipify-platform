@@ -548,6 +548,8 @@ export function CertifiedSellersLivePanel({
                     currency: p.currency,
                     fixedCommissionAmount: p.fixedCommissionAmount,
                     published: p.published,
+                    publishSale: p.publishSale,
+                    publishApp: p.publishApp,
                   })),
                 })}
                 labels={{

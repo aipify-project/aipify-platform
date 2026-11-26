@@ -3,7 +3,9 @@ export {
   toBcp47Locale,
 } from "./bcp47";
 export {
+  compareTimestampsDesc,
   formatPlatformDateOnly,
+  formatPlatformDateTimeClock,
   formatPlatformDateTimeFull,
   formatPlatformDateTimeShort,
   formatPlatformDuration,

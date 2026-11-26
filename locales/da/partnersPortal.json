@@ -861,7 +861,8 @@
         "trustStatementLink": "Politik for kundefeedback og produktforbedring",
         "trustStatementLinkAria": "Åbn politikken for kundefeedback og produktforbedring i en ny fane"
       },
-      "settingsMenu": "Hjælp og indstillinger"
+      "settingsMenu": "Hjælp og indstillinger",
+      "unread": "Ulæst"
     },
     "messages": {
       "title": "Beskeder",

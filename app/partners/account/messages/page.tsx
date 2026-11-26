@@ -10,6 +10,8 @@ export default function PartnersMessagesPage() {
   return renderCspSectionPage({
     titleKey: "partnersPortal.certifiedSalesPartner.messages.title",
     subtitleKey: "partnersPortal.certifiedSalesPartner.messages.subtitle",
-    children: ({ t }) => <PartnersMessagesCenterPanel labels={buildPartnersPortalMessagesLabels(t)} />,
+    children: ({ locale, t }) => (
+      <PartnersMessagesCenterPanel locale={locale} labels={buildPartnersPortalMessagesLabels(t)} />
+    ),
   });
 }
