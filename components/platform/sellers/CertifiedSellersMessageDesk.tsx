@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
+  filterCspMessageRecipients,
   isCspMessageRecipientEligible,
   type CspMessageRecipient,
 } from "@/lib/certified-sales-partner/message-recipient-picker";
-import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
+import {
+  compareTimestampsDesc,
+  formatPlatformDateTimeClock,
+} from "@/lib/platform-presentation-quality/date-time";
 
 type Labels = {
   newMessage: string;
@@ -40,6 +44,7 @@ type Labels = {
   dateEmpty: string;
   dateInvalid: string;
   partnerStatusLabels: Record<string, string>;
+  unread: string;
 };
 
 type Row = Record<string, unknown>;
@@ -55,6 +60,10 @@ function initials(name: string): string {
   return value || "•";
 }
 
+function isUnreadFromPartner(row: Row): boolean {
+  return text(row, "direction") === "partner_to_admin" && !text(row, "read_at");
+}
+
 export function CertifiedSellersMessageDesk({
   rows,
   recipients,
@@ -66,6 +75,7 @@ export function CertifiedSellersMessageDesk({
   phase,
   onSend,
   onRetryRecipients,
+  onMarkRead,
 }: {
   rows: Row[];
   recipients: CspMessageRecipient[];
@@ -77,6 +87,7 @@ export function CertifiedSellersMessageDesk({
   phase: "loading" | "ready" | "closed" | "forbidden" | "error";
   onSend: (partnerId: string, subject: string, body: string) => Promise<boolean>;
   onRetryRecipients: () => void;
+  onMarkRead?: (messageIds: string[]) => Promise<void>;
 }) {
   const [listFilter, setListFilter] = useState<"all" | "sent" | "archive">("all");
   const [query, setQuery] = useState("");
@@ -86,26 +97,37 @@ export function CertifiedSellersMessageDesk({
   const [recipientId, setRecipientId] = useState("");
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
+  const markedRef = useRef<Set<string>>(new Set());
   const dateOptions = { locale, emptyFallback: l.dateEmpty, invalidFallback: l.dateInvalid };
 
   const conversations = useMemo(() => {
-    const grouped = new Map<string, { partnerId: string; latest: string; preview: string; rows: Row[] }>();
+    const grouped = new Map<
+      string,
+      { partnerId: string; latest: string; preview: string; unread: number; rows: Row[] }
+    >();
     for (const row of rows) {
       const partnerId = text(row, "partner_id");
       if (!partnerId) continue;
       const created = text(row, "created_at");
       const current = grouped.get(partnerId);
       if (!current) {
-        grouped.set(partnerId, { partnerId, latest: created, preview: text(row, "body"), rows: [row] });
+        grouped.set(partnerId, {
+          partnerId,
+          latest: created,
+          preview: text(row, "body"),
+          unread: isUnreadFromPartner(row) ? 1 : 0,
+          rows: [row],
+        });
       } else {
         current.rows.push(row);
-        if (created >= current.latest) {
+        if (isUnreadFromPartner(row)) current.unread += 1;
+        if (compareTimestampsDesc(current.latest, created) > 0) {
           current.latest = created;
           current.preview = text(row, "body") || current.preview;
         }
       }
     }
-    return [...grouped.values()].sort((a, b) => b.latest.localeCompare(a.latest));
+    return [...grouped.values()].sort((a, b) => compareTimestampsDesc(a.latest, b.latest));
   }, [rows]);
 
   const visible = conversations.filter((conversation) => {
@@ -118,13 +140,22 @@ export function CertifiedSellersMessageDesk({
     return haystack.includes(query.trim().toLowerCase());
   });
   const active = visible.find((item) => item.partnerId === activeId) ?? visible[0] ?? null;
-  const thread = [...(active?.rows ?? [])].sort((a, b) => text(a, "created_at").localeCompare(text(b, "created_at")));
+  const thread = [...(active?.rows ?? [])].sort((a, b) =>
+    compareTimestampsDesc(text(a, "created_at"), text(b, "created_at")),
+  );
   const selected = recipients.find((item) => item.id === recipientId) ?? null;
-  const filteredRecipients = recipients.filter((item) => {
-    const q = recipientQuery.trim().toLowerCase();
-    if (!q) return true;
-    return `${item.displayName ?? ""} ${item.country ?? ""}`.toLowerCase().includes(q);
-  });
+  const filteredRecipients = filterCspMessageRecipients(recipients, recipientQuery);
+
+  useEffect(() => {
+    if (!active || !onMarkRead) return;
+    const unreadIds = active.rows
+      .filter(isUnreadFromPartner)
+      .map((row) => text(row, "id"))
+      .filter((id) => id && !markedRef.current.has(id));
+    if (unreadIds.length === 0) return;
+    for (const id of unreadIds) markedRef.current.add(id);
+    void onMarkRead(unreadIds);
+  }, [active, onMarkRead]);
 
   async function submit(partnerId: string) {
     const partner = recipients.find((item) => item.id === partnerId);
@@ -205,11 +236,22 @@ export function CertifiedSellersMessageDesk({
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-violet-100 text-xs font-semibold text-violet-800">
                         {initials(name)}
                       </span>
-                      <span className="min-w-0">
-                        <span className="block truncate text-sm font-semibold text-[color:var(--aipify-text-primary)]">{name}</span>
-                        <span className="block truncate text-xs text-[color:var(--aipify-text-secondary)]">{conversation.preview || l.notReported}</span>
-                        <span className="block text-xs text-[color:var(--aipify-text-secondary)]">
-                          {formatPlatformDateTimeShort(conversation.latest || null, dateOptions)}
+                      <span className="min-w-0 flex-1">
+                        <span className="flex items-center gap-2">
+                          <span className="block truncate text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+                            {name}
+                          </span>
+                          {conversation.unread > 0 ? (
+                            <span className="rounded-full bg-rose-500 px-2 py-0.5 text-[0.65rem] font-semibold text-white">
+                              {l.unread}
+                            </span>
+                          ) : null}
+                        </span>
+                        <span className="block truncate text-xs font-normal text-[color:var(--aipify-text-secondary)]">
+                          {conversation.preview || l.notReported}
+                        </span>
+                        <span className="block text-xs font-normal text-[color:var(--aipify-text-secondary)]">
+                          {formatPlatformDateTimeClock(conversation.latest || null, dateOptions)}
                         </span>
                       </span>
                     </button>
@@ -222,7 +264,10 @@ export function CertifiedSellersMessageDesk({
             {active ? (
               <>
                 <div className="border-b border-[color:var(--aipify-border)] px-4 py-3">
-                  <Link href={`/platform/sellers/partners/${active.partnerId}`} className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]">
+                  <Link
+                    href={`/platform/sellers/partners/${active.partnerId}`}
+                    className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+                  >
                     {recipients.find((item) => item.id === active.partnerId)?.displayName || l.unnamedRecipient}
                   </Link>
                 </div>
@@ -234,15 +279,34 @@ export function CertifiedSellersMessageDesk({
                       ? l.deliveryStatus[delivery] || l.deliveryStatus.unknown || l.notReported
                       : "";
                     return (
-                      <li key={text(row, "id") || text(row, "created_at")} className={admin ? "ml-8" : "mr-8"}>
-                        <p className="text-xs font-semibold text-[color:var(--aipify-text-secondary)]">
-                          {admin ? l.fromAdmin : l.fromPartner}
-                          {" · "}
-                          {formatPlatformDateTimeShort(text(row, "created_at") || null, dateOptions)}
-                          {deliveryLabel ? ` · ${deliveryLabel}` : ""}
-                        </p>
-                        {text(row, "subject") ? <p className="mt-1 text-sm font-semibold">{text(row, "subject")}</p> : null}
-                        <p className="mt-1 whitespace-pre-wrap rounded-2xl bg-[color:var(--aipify-canvas)] px-3 py-2 text-sm">{text(row, "body") || l.notReported}</p>
+                      <li
+                        key={text(row, "id") || text(row, "created_at")}
+                        className={`flex ${admin ? "justify-end" : "justify-start"}`}
+                      >
+                        <div
+                          className={`max-w-[min(100%,28rem)] rounded-2xl border px-4 py-3 ${
+                            admin
+                              ? "border-[color:var(--aipify-companion-purple)]/20 bg-[#F7F4FF]"
+                              : "border-[color:var(--aipify-border)] bg-white"
+                          }`}
+                        >
+                          <p className="text-xs font-semibold text-[color:var(--aipify-text-secondary)]">
+                            {admin ? l.fromAdmin : l.fromPartner}
+                          </p>
+                          <time
+                            className="mt-0.5 block text-xs font-normal text-[color:var(--aipify-text-secondary)]"
+                            dateTime={text(row, "created_at") || undefined}
+                          >
+                            {formatPlatformDateTimeClock(text(row, "created_at") || null, dateOptions)}
+                            {deliveryLabel ? ` · ${deliveryLabel}` : ""}
+                          </time>
+                          {text(row, "subject") ? (
+                            <p className="mt-2 text-sm font-semibold">{text(row, "subject")}</p>
+                          ) : null}
+                          <p className="mt-2 whitespace-pre-wrap text-sm text-[color:var(--aipify-text-primary)]">
+                            {text(row, "body") || l.notReported}
+                          </p>
+                        </div>
                       </li>
                     );
                   })}
@@ -261,7 +325,11 @@ export function CertifiedSellersMessageDesk({
                     rows={3}
                     className="w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
                   />
-                  <button type="submit" disabled={busy || !body.trim()} className="rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">
+                  <button
+                    type="submit"
+                    disabled={busy || !body.trim()}
+                    className="rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+                  >
                     {l.sendMessageCta}
                   </button>
                   {notice ? <p className="text-sm text-[color:var(--aipify-text-secondary)]">{notice}</p> : null}
@@ -274,10 +342,18 @@ export function CertifiedSellersMessageDesk({
         </div>
       )}
       {composeOpen ? (
-        <div className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-4 shadow-sm" role="dialog" aria-label={l.newMessage}>
+        <div
+          className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-4 shadow-sm"
+          role="dialog"
+          aria-label={l.newMessage}
+        >
           <div className="flex items-center justify-between">
             <h2 className="text-base font-semibold">{l.newMessage}</h2>
-            <button type="button" onClick={() => setComposeOpen(false)} className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]">
+            <button
+              type="button"
+              onClick={() => setComposeOpen(false)}
+              className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+            >
               {l.closeCompose}
             </button>
           </div>
@@ -289,7 +365,11 @@ export function CertifiedSellersMessageDesk({
           />
           {recipientsPhase === "loading" ? <AipifyLoader centered size="sm" label={l.loading} /> : null}
           {recipientsPhase === "error" || recipientsPhase === "forbidden" ? (
-            <button type="button" onClick={onRetryRecipients} className="mt-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]">
+            <button
+              type="button"
+              onClick={onRetryRecipients}
+              className="mt-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+            >
               {l.retry}
             </button>
           ) : null}
@@ -314,15 +394,33 @@ export function CertifiedSellersMessageDesk({
               );
             })}
           </ul>
-          {filteredRecipients.length === 0 ? <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{l.recipientEmpty}</p> : null}
-          <input value={subject} onChange={(event) => setSubject(event.target.value)} placeholder={l.sendMessageSubject} className="mt-3 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm" />
-          <textarea value={body} onChange={(event) => setBody(event.target.value)} placeholder={l.sendMessageBody} rows={4} className="mt-2 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm" />
+          {filteredRecipients.length === 0 ? (
+            <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{l.recipientEmpty}</p>
+          ) : null}
+          <input
+            value={subject}
+            onChange={(event) => setSubject(event.target.value)}
+            placeholder={l.sendMessageSubject}
+            className="mt-3 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+          />
+          <textarea
+            value={body}
+            onChange={(event) => setBody(event.target.value)}
+            placeholder={l.sendMessageBody}
+            rows={4}
+            className="mt-2 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+          />
           {selected && !isCspMessageRecipientEligible(selected.status) ? (
             <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{l.sendMessageBlocked}</p>
           ) : null}
           <button
             type="button"
-            disabled={busy || !recipientId || !body.trim() || (selected != null && !isCspMessageRecipientEligible(selected.status))}
+            disabled={
+              busy ||
+              !recipientId ||
+              !body.trim() ||
+              (selected != null && !isCspMessageRecipientEligible(selected.status))
+            }
             onClick={() => void submit(recipientId)}
             className="mt-3 rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
           >

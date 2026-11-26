@@ -6,9 +6,13 @@ import { ArrowLeft, Inbox, MessageSquare, PauseCircle, Send } from "lucide-react
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 import type { PartnersPortalMessagesLabels } from "@/lib/partners-portal/shell-labels";
+import {
+  compareTimestampsDesc,
+  formatPlatformDateTimeClock,
+} from "@/lib/platform-presentation-quality/date-time";
 import { AipifyAlert, AipifyCard, AipifyTabs } from "./design";
 
-type Props = { labels: PartnersPortalMessagesLabels };
+type Props = { labels: PartnersPortalMessagesLabels; locale: string };
 
 type MessageRow = {
   id: string;
@@ -25,6 +29,13 @@ type MessageRow = {
 type Phase = "loading" | "ready" | "empty" | "gated" | "error";
 type Folder = "inbox" | "sent";
 
+type Conversation = {
+  threadId: string;
+  latest: MessageRow;
+  rows: MessageRow[];
+  unread: number;
+};
+
 function initialsFor(direction: string, labels: PartnersPortalMessagesLabels): string {
   const source = direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou;
   const parts = source.trim().split(/\s+/).filter(Boolean);
@@ -37,18 +48,20 @@ function initialsFor(direction: string, labels: PartnersPortalMessagesLabels): s
  * Partner inbox — Core RPC via /api/certified-sales-partner/messages.
  * Never renders sample or other sellers' messages.
  * Mark-read only when a thread is opened — never on mere list load.
+ * Own sent messages are never counted as unread.
  */
-export function PartnersMessagesCenterPanel({ labels }: Props) {
+export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
   const [phase, setPhase] = useState<Phase>("loading");
   const [messages, setMessages] = useState<MessageRow[]>([]);
   const [folder, setFolder] = useState<Folder>("inbox");
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null);
   const [mobileThread, setMobileThread] = useState(false);
   const [query, setQuery] = useState("");
   const [reply, setReply] = useState("");
   const [sending, setSending] = useState(false);
   const [sendNotice, setSendNotice] = useState<string | null>(null);
   const [markedThreads, setMarkedThreads] = useState<Set<string>>(() => new Set());
+  const dateOptions = { locale, emptyFallback: "—", invalidFallback: "—" };
 
   const load = useCallback(async (opts?: { silent?: boolean }) => {
     if (!opts?.silent) setPhase("loading");
@@ -64,25 +77,27 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
       if (res.status === 403 && body?.error === "partner_not_active") {
         setMessages([]);
         setPhase("gated");
-        return;
+        return false;
       }
       if (res.status === 503 || body?.backend_ready === false) {
         setMessages([]);
         setPhase("gated");
-        return;
+        return false;
       }
       if (!res.ok || !body || body.found === false) {
         setMessages([]);
         setPhase("error");
-        return;
+        return false;
       }
 
       const rows = Array.isArray(body.messages) ? body.messages : [];
       setMessages(rows);
       setPhase(rows.length === 0 ? "empty" : "ready");
+      return true;
     } catch {
       setMessages([]);
       setPhase("error");
+      return false;
     }
   }, []);
 
@@ -90,39 +105,65 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
     void load();
   }, [load]);
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return messages
-      .filter((m) =>
-        folder === "inbox" ? m.direction === "admin_to_partner" : m.direction === "partner_to_admin",
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      void load({ silent: true });
+    }, 15_000);
+    return () => window.clearInterval(timer);
+  }, [load]);
+
+  const conversations = useMemo(() => {
+    const grouped = new Map<string, Conversation>();
+    for (const row of messages) {
+      const threadId = row.thread_id || row.id;
+      const current = grouped.get(threadId);
+      if (!current) {
+        grouped.set(threadId, {
+          threadId,
+          latest: row,
+          rows: [row],
+          unread: row.direction === "admin_to_partner" && !row.read_at ? 1 : 0,
+        });
+      } else {
+        current.rows.push(row);
+        if (row.direction === "admin_to_partner" && !row.read_at) current.unread += 1;
+        if (compareTimestampsDesc(current.latest.created_at, row.created_at) > 0) {
+          current.latest = row;
+        }
+      }
+    }
+    return [...grouped.values()]
+      .filter((conversation) =>
+        folder === "inbox"
+          ? conversation.rows.some((row) => row.direction === "admin_to_partner")
+          : conversation.rows.some((row) => row.direction === "partner_to_admin"),
       )
-      .filter((m) => {
+      .filter((conversation) => {
+        const q = query.trim().toLowerCase();
         if (!q) return true;
-        const hay = `${m.subject ?? ""} ${m.body}`.toLowerCase();
-        return hay.includes(q);
+        return conversation.rows.some((row) =>
+          `${row.subject ?? ""} ${row.body}`.toLowerCase().includes(q),
+        );
       })
-      .sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""));
+      .sort((a, b) => compareTimestampsDesc(a.latest.created_at, b.latest.created_at));
   }, [messages, folder, query]);
 
   useEffect(() => {
-    if (filtered.length === 0) {
-      setSelectedId(null);
+    if (conversations.length === 0) {
+      setSelectedThreadId(null);
       return;
     }
-    if (selectedId && !filtered.some((m) => m.id === selectedId)) {
-      setSelectedId(null);
+    if (selectedThreadId && !conversations.some((c) => c.threadId === selectedThreadId)) {
+      setSelectedThreadId(null);
       setMobileThread(false);
     }
-  }, [filtered, selectedId]);
+  }, [conversations, selectedThreadId]);
 
-  const selected = filtered.find((m) => m.id === selectedId) ?? null;
+  const selected = conversations.find((c) => c.threadId === selectedThreadId) ?? null;
   const threadMessages = useMemo(() => {
     if (!selected) return [];
-    const tid = selected.thread_id || selected.id;
-    return messages
-      .filter((m) => (m.thread_id || m.id) === tid)
-      .sort((a, b) => (a.created_at || "").localeCompare(b.created_at || ""));
-  }, [messages, selected]);
+    return [...selected.rows].sort((a, b) => compareTimestampsDesc(a.created_at, b.created_at));
+  }, [selected]);
 
   const markThreadRead = useCallback(async (threadRows: MessageRow[]) => {
     const unread = threadRows.filter(
@@ -155,15 +196,13 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
     );
   }, []);
 
-  async function openThread(id: string) {
-    setSelectedId(id);
+  async function openThread(threadId: string) {
+    setSelectedThreadId(threadId);
     setMobileThread(true);
-    const row = messages.find((m) => m.id === id);
-    if (!row) return;
-    const tid = row.thread_id || row.id;
-    if (markedThreads.has(tid)) return;
-    const thread = messages.filter((m) => (m.thread_id || m.id) === tid);
-    await markThreadRead(thread);
+    if (markedThreads.has(threadId)) return;
+    const conversation = conversations.find((c) => c.threadId === threadId);
+    if (!conversation) return;
+    await markThreadRead(conversation.rows);
   }
 
   async function sendReply() {
@@ -173,14 +212,14 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
     setSendNotice(null);
     try {
       const latestAdmin =
-        [...threadMessages].reverse().find((m) => m.direction === "admin_to_partner") ??
+        threadMessages.find((m) => m.direction === "admin_to_partner") ??
         messages.find((m) => m.direction === "admin_to_partner");
       const res = await fetch("/api/certified-sales-partner/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           body: text,
-          thread_id: latestAdmin?.thread_id ?? selected?.thread_id ?? null,
+          thread_id: selected?.threadId ?? latestAdmin?.thread_id ?? null,
           idempotency_key: `partner-reply-${Date.now()}`,
         }),
       });
@@ -191,7 +230,10 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
       }
       setReply("");
       setSendNotice(labels.sendOk);
+      // Prefer Sent so the seller sees their own reply immediately without manual reload.
+      setFolder("sent");
       await load({ silent: true });
+      if (selected?.threadId) setSelectedThreadId(selected.threadId);
     } catch {
       setSendNotice(labels.sendError);
     } finally {
@@ -288,20 +330,21 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
               className={`!p-0 overflow-hidden ${mobileThread ? "hidden lg:block" : ""}`}
             >
               <ul className="divide-y divide-[#E8E4F2]" role="listbox" aria-label={labels.tabInbox}>
-                {filtered.length === 0 ? (
+                {conversations.length === 0 ? (
                   <li className="p-5 text-sm text-[#64748B]">{labels.emptyBody}</li>
                 ) : (
-                  filtered.map((m) => {
-                    const unread = m.direction === "admin_to_partner" && !m.read_at;
-                    const active = m.id === selectedId;
+                  conversations.map((conversation) => {
+                    const m = conversation.latest;
+                    const unread = conversation.unread > 0;
+                    const active = conversation.threadId === selectedThreadId;
                     const initials = initialsFor(m.direction, labels);
                     return (
-                      <li key={`list-${m.id}`}>
+                      <li key={`list-${conversation.threadId}`}>
                         <button
                           type="button"
                           role="option"
                           aria-selected={active}
-                          onClick={() => void openThread(m.id)}
+                          onClick={() => void openThread(conversation.threadId)}
                           className={`flex w-full items-start gap-3 px-4 py-3 text-left transition ${
                             active ? "bg-[#F3EDFF]" : "hover:bg-[#F8F7FC]"
                           }`}
@@ -319,7 +362,7 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
                                 {m.direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou}
                               </span>
                               {unread ? (
-                                <span className="rounded-full bg-[#7C3AED]/15 px-2 py-0.5 text-[0.65rem] font-semibold text-[#7C3AED]">
+                                <span className="rounded-full bg-rose-500 px-2 py-0.5 text-[0.65rem] font-semibold text-white">
                                   {labels.unread}
                                 </span>
                               ) : null}
@@ -327,9 +370,11 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
                             <p className="truncate text-sm font-semibold text-[#1E293B]">
                               {m.subject || labels.fromAdmin}
                             </p>
-                            <p className="line-clamp-2 text-xs text-[#64748B]">{m.body}</p>
-                            <time className="text-[0.7rem] text-[#94A3B8]" dateTime={m.created_at}>
-                              {m.created_at ? new Date(m.created_at).toLocaleString() : ""}
+                            <p className="line-clamp-2 text-xs font-normal text-[#64748B]">{m.body}</p>
+                            <time className="text-[0.7rem] font-normal text-[#94A3B8]" dateTime={m.created_at}>
+                              {m.created_at
+                                ? formatPlatformDateTimeClock(m.created_at, dateOptions)
+                                : ""}
                             </time>
                           </span>
                         </button>
@@ -353,45 +398,45 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
                       {labels.backToList}
                     </button>
                     <h2 className="text-lg font-semibold text-[#1E293B]">
-                      {selected.subject || labels.fromAdmin}
+                      {selected.latest.subject || labels.fromAdmin}
                     </h2>
                   </div>
                   <ul className="flex-1 space-y-3 overflow-y-auto">
-                    {threadMessages.map((m) => (
-                      <li
-                        key={m.id}
-                        className={`flex gap-3 ${
-                          m.direction === "partner_to_admin" ? "justify-end" : "justify-start"
-                        }`}
-                      >
-                        {m.direction === "admin_to_partner" ? (
-                          <span
-                            className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F3EDFF] text-[0.65rem] font-semibold text-[#7C3AED]"
-                            aria-hidden
-                          >
-                            {initialsFor(m.direction, labels)}
-                          </span>
-                        ) : null}
-                        <div
-                          className={`max-w-[min(100%,28rem)] rounded-2xl border px-4 py-3 ${
-                            m.direction === "admin_to_partner"
-                              ? "border-[#E8E4F2] bg-white"
-                              : "border-[#7C3AED]/20 bg-[#F7F4FF]"
-                          }`}
-                        >
-                          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#64748B]">
-                            <span>
-                              {m.direction === "admin_to_partner" ? labels.fromAdmin : labels.fromYou}
+                    {threadMessages.map((m) => {
+                      const mine = m.direction === "partner_to_admin";
+                      return (
+                        <li key={m.id} className={`flex gap-3 ${mine ? "justify-end" : "justify-start"}`}>
+                          {!mine ? (
+                            <span
+                              className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F3EDFF] text-[0.65rem] font-semibold text-[#7C3AED]"
+                              aria-hidden
+                            >
+                              {initialsFor(m.direction, labels)}
                             </span>
-                            <span aria-hidden>·</span>
-                            <time dateTime={m.created_at}>
-                              {m.created_at ? new Date(m.created_at).toLocaleString() : ""}
+                          ) : null}
+                          <div
+                            className={`max-w-[min(100%,28rem)] rounded-2xl border px-4 py-3 ${
+                              mine
+                                ? "border-[#7C3AED]/20 bg-[#F7F4FF]"
+                                : "border-[#E8E4F2] bg-white"
+                            }`}
+                          >
+                            <p className="text-xs font-semibold text-[#64748B]">
+                              {mine ? labels.fromYou : labels.fromAdmin}
+                            </p>
+                            <time
+                              className="mt-0.5 block text-xs font-normal text-[#94A3B8]"
+                              dateTime={m.created_at}
+                            >
+                              {m.created_at
+                                ? formatPlatformDateTimeClock(m.created_at, dateOptions)
+                                : ""}
                             </time>
+                            <p className="mt-2 whitespace-pre-wrap text-sm text-[#1E293B]">{m.body}</p>
                           </div>
-                          <p className="mt-2 whitespace-pre-wrap text-sm text-[#1E293B]">{m.body}</p>
-                        </div>
-                      </li>
-                    ))}
+                        </li>
+                      );
+                    })}
                   </ul>
 
                   {showComposer ? (

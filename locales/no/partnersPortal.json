@@ -861,7 +861,8 @@
         "trustStatementLink": "Retningslinjer for kundetilbakemelding og produktforbedring",
         "trustStatementLinkAria": "Åpne retningslinjer for kundetilbakemelding og produktforbedring i ny fane"
       },
-      "settingsMenu": "Hjelp og innstillinger"
+      "settingsMenu": "Hjelp og innstillinger",
+      "unread": "Ulest"
     },
     "messages": {
       "title": "Meldinger",

@@ -124,6 +124,7 @@ export type SellersOpsLabels = {
   allConversations: string;
   sentByAdmin: string;
   threadEmpty: string;
+  unread: string;
 };
 
 type Props = {
@@ -251,13 +252,13 @@ export function CertifiedSellersOpsPanel({
     }
   }, [section, partnerFilter]);
 
-  const load = useCallback(async () => {
+  const load = useCallback(async (opts?: { silent?: boolean }) => {
     if (!endpoint) {
       setPhase("ready");
       setRows([]);
-      return;
+      return true;
     }
-    setPhase("loading");
+    if (!opts?.silent) setPhase("loading");
     try {
       const res = await fetch(endpoint, { cache: "no-store" });
       const body = await res.json().catch(() => null);
@@ -265,24 +266,60 @@ export function CertifiedSellersOpsPanel({
       if (outcome.kind === "unauthorized" || outcome.kind === "forbidden") {
         setPhase("forbidden");
         setRows([]);
-        return;
+        return false;
       }
       if (outcome.kind !== "ready" && res.status >= 400) {
         setPhase("error");
         setRows([]);
-        return;
+        return false;
       }
       setRows(rowsFrom(body));
       setPhase("ready");
+      return true;
     } catch {
       setPhase("error");
       setRows([]);
+      return false;
     }
   }, [endpoint]);
 
   useEffect(() => {
     void load();
   }, [load]);
+
+  useEffect(() => {
+    if (section !== "messages") return;
+    const timer = window.setInterval(() => {
+      void load({ silent: true });
+    }, 15_000);
+    return () => window.clearInterval(timer);
+  }, [section, load]);
+
+  const markMessagesRead = useCallback(async (messageIds: string[]) => {
+    const ids = messageIds.filter(Boolean);
+    if (ids.length === 0) return;
+    const now = new Date().toISOString();
+    await Promise.all(
+      ids.map(async (messageId) => {
+        try {
+          const res = await fetch("/api/platform/sellers/messages/read", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message_id: messageId }),
+          });
+          if (res.ok) {
+            setRows((prev) =>
+              prev.map((row) =>
+                str(row.id) === messageId ? { ...row, read_at: str(row.read_at) || now } : row,
+              ),
+            );
+          }
+        } catch {
+          // Keep unread locally; opening again retries mark-read.
+        }
+      }),
+    );
+  }, []);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -693,6 +730,7 @@ export function CertifiedSellersOpsPanel({
             phase={phase}
             onSend={sendAdminMessage}
             onRetryRecipients={() => void loadRecipients()}
+            onMarkRead={markMessagesRead}
           />
         ) : null}
       </div>

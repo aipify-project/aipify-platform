@@ -9,13 +9,19 @@ import { TopbarShareFeedbackButton } from "@/components/app/voice-of-the-custome
 import type { AppLocale } from "@/lib/i18n/app-locales";
 import type { PartnersPortalTopbarLabels } from "@/lib/partners-portal/shell-labels";
 import { SELLER_PORTAL_LAYOUT } from "@/lib/partners-portal/design-tokens";
+import {
+  compareTimestampsDesc,
+  formatPlatformDateTimeClock,
+} from "@/lib/platform-presentation-quality/date-time";
 
 const ICON_LINK =
   `inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border bg-white transition hover:border-[#7C3AED]/35 hover:text-[#7C3AED] sm:h-11 sm:w-11 ${SELLER_PORTAL_LAYOUT.focusRing}`;
 
 type UnreadPreview = {
   id: string;
+  sender: string;
   subject: string | null;
+  excerpt: string;
   created_at: string;
   href: string;
 };
@@ -55,14 +61,18 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
       }
       const rows = Array.isArray(body.messages) ? body.messages : [];
       const next = rows.flatMap((row) => {
+        // Own partner→admin messages must never count as unread for the sender.
         if (row.direction !== "admin_to_partner") return [];
         if (typeof row.read_at === "string" && row.read_at.trim()) return [];
         const id = typeof row.id === "string" ? row.id : "";
         if (!id) return [];
+        const bodyText = typeof row.body === "string" ? row.body : "";
         return [
           {
             id,
+            sender: labels.messages,
             subject: typeof row.subject === "string" ? row.subject : null,
+            excerpt: bodyText.slice(0, 120),
             created_at: typeof row.created_at === "string" ? row.created_at : "",
             href: "/partners/account/messages",
           },
@@ -80,21 +90,26 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
               const id = typeof row.id === "string" ? row.id : "";
               const leadId = typeof row.lead_id === "string" ? row.lead_id : "";
               if (!id || !leadId) return [];
+              const subject = typeof row.product_key === "string" ? row.product_key : null;
               return [
                 {
                   id: `email:${id}`,
-                  subject: typeof row.product_key === "string" ? row.product_key : null,
+                  sender: labels.notifications,
+                  subject,
+                  excerpt: subject || labels.notifications,
                   created_at: typeof row.created_at === "string" ? row.created_at : "",
                   href: `/partners/marketing/email-inbox?lead=${encodeURIComponent(leadId)}`,
                 },
               ];
             })
           : [];
-      setUnread([...next, ...emailRows]);
+      setUnread(
+        [...next, ...emailRows].sort((a, b) => compareTimestampsDesc(a.created_at, b.created_at)),
+      );
     } catch {
       setUnread([]);
     }
-  }, []);
+  }, [labels.messages, labels.notifications]);
 
   useEffect(() => {
     void refreshUnread();
@@ -177,14 +192,16 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
             void refreshUnread();
           }}
           className={`relative ${ICON_LINK} ${
-            bellOpen || notificationsActive
-              ? "border-[#7C3AED]/50 text-[#7C3AED]"
-              : "border-[#E8E4F2] text-[#64748B]"
+            unreadCount > 0
+              ? "border-rose-300 text-rose-600"
+              : bellOpen || notificationsActive
+                ? "border-[#7C3AED]/50 text-[#7C3AED]"
+                : "border-[#E8E4F2] text-[#64748B]"
           }`}
         >
-          <Bell className="h-5 w-5" aria-hidden />
+          <Bell className={`h-5 w-5 ${unreadCount > 0 ? "text-rose-600" : ""}`} aria-hidden />
           {unreadCount > 0 ? (
-            <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[#7C3AED] px-1 text-[0.65rem] font-bold text-white">
+            <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1 text-[0.65rem] font-bold text-white ring-2 ring-white">
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           ) : null}
@@ -193,29 +210,45 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
           <div
             id={bellId}
             role="menu"
-            className="absolute right-0 z-40 mt-2 w-80 overflow-hidden rounded-xl border border-[#E8E4F2] bg-white shadow-lg"
+            className="absolute right-0 z-40 mt-2 w-[min(28rem,calc(100vw-1.5rem))] overflow-hidden rounded-2xl border border-[#E8E4F2] bg-white shadow-xl"
           >
-            <div className="border-b border-[#E8E4F2] px-3 py-2.5">
+            <div className="border-b border-[#E8E4F2] px-4 py-3">
               <p className="text-sm font-semibold text-[#1E293B]">{labels.notifications}</p>
             </div>
             {unreadCount === 0 ? (
-              <p className="px-3 py-4 text-sm text-[#64748B]">{labels.notificationsEmpty}</p>
+              <p className="px-4 py-5 text-sm text-[#64748B]">{labels.notificationsEmpty}</p>
             ) : (
-              <ul className="max-h-72 overflow-y-auto py-1">
-                {unread.slice(0, 8).map((row) => (
+              <ul className="max-h-[28rem] space-y-1 overflow-y-auto p-2">
+                {unread.slice(0, 20).map((row) => (
                   <li key={row.id}>
                     <Link
                       role="menuitem"
                       href={row.href}
-                      className="block px-3 py-2.5 hover:bg-[#F6F4FB]"
+                      className="block rounded-2xl border border-transparent px-3 py-3 hover:border-rose-200 hover:bg-rose-50/70"
                       onClick={() => setBellOpen(false)}
                     >
-                      <p className="truncate text-sm font-medium text-[#1E293B]">
+                      <div className="flex items-start justify-between gap-3">
+                        <p className="text-sm font-semibold text-[#1E293B]">{row.sender}</p>
+                        <span className="rounded-full bg-rose-500 px-2 py-0.5 text-[0.65rem] font-semibold text-white">
+                          {labels.unread}
+                        </span>
+                      </div>
+                      <p className="mt-1 truncate text-sm font-medium text-[#334155]">
                         {row.subject || labels.messages}
                       </p>
+                      {row.excerpt ? (
+                        <p className="mt-1 line-clamp-2 text-sm font-normal text-[#64748B]">{row.excerpt}</p>
+                      ) : null}
                       {row.created_at ? (
-                        <time className="text-xs text-[#94A3B8]" dateTime={row.created_at}>
-                          {new Date(row.created_at).toLocaleString()}
+                        <time
+                          className="mt-2 block text-xs font-normal text-[#94A3B8]"
+                          dateTime={row.created_at}
+                        >
+                          {formatPlatformDateTimeClock(row.created_at, {
+                            locale,
+                            emptyFallback: "",
+                            invalidFallback: "",
+                          })}
                         </time>
                       ) : null}
                     </Link>
