@@ -7833,48 +7833,48 @@
   "sellers": {
     "overview": {
       "title": "Certified Sales Partners",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar.",
+      "subtitle": "Se vad som behöver ett beslut, sök en säljare och öppna arbetet som väntar.",
       "openPartners": "Partner och godkännande"
     },
     "partners": {
       "title": "Partner och godkännande",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+      "subtitle": "Sök ansökningar, filtrera på status och öppna den fullständiga säljarprofilen."
     },
     "products": {
       "title": "Produkter till försäljning",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+      "subtitle": "Se vad säljare kan erbjuda. Kundpris och säljarprovision hålls isär."
     },
     "commissionRates": {
       "title": "Provisionspriser",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+      "subtitle": "Läs de lagrade fasta provisionssatserna. Procentprovision är inte aktiv."
     },
     "attribution": {
       "title": "Säljlänkar och attribuering",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+      "subtitle": "Granska personliga säljlänkar, besök och statusen Core har registrerat."
     },
     "academy": {
       "title": "Academy och tester",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+      "subtitle": "Se Akademiförsök och certifieringar. Frågebanken finns i partnerappen."
     },
     "materials": {
       "title": "Säljmaterial och e-post",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+      "subtitle": "Publicera säljfilerna Core redan lagrar. Saknade filer hittas inte på."
     },
     "leadsSales": {
       "title": "Leads och försäljning",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+      "subtitle": "Granska leads och kvalificerade försäljningar utan att behandla provision som kundpris."
     },
     "settlements": {
       "title": "Avräkning och utbetalningar",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+      "subtitle": "Välj en avräkning och registrera nästa manuella utbetalningssteg."
     },
     "audit": {
       "title": "Avvikelser och revision",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+      "subtitle": "Läs vad som ändrades, vem som gjorde det och när. Historiken kan inte redigeras här."
     },
     "settings": {
       "title": "Säljarinställningar",
-      "subtitle": "Styr Aipifys egna certifierade säljpartners, produkter, provisioner och avräkningar."
+      "subtitle": "Det här är gällande säljarregler. Reglage visas bara när en inställning är lagrad."
     },
     "backend": {
       "notReadyTitle": "Backend är inte aktiverad",
@@ -8070,7 +8070,23 @@
       "commissionsReportNote": "Raderna är kvalificerade försäljningar från Core. Beloppet är det lagrade försäljningsunderlaget, inte ett kundpris och inte procentprovision. Utbetalning finns under Avräkningar.",
       "commissionsEmptyTitle": "Inga kvalificerade försäljningar ännu",
       "colRecorded": "Registrerad",
-      "qualifiedSaleLabel": "Kvalificerad försäljning"
+      "qualifiedSaleLabel": "Kvalificerad försäljning",
+      "followUpTitle": "Behöver uppföljning",
+      "followUpApplications": "Ansökningar under granskning",
+      "followUpSettlements": "Öppna avräkningar",
+      "followUpMessages": "Öppna meddelanden",
+      "searchSellers": "Hitta säljare",
+      "pageRows": "Rader",
+      "previousPage": "Föregående",
+      "nextPage": "Nästa",
+      "academyCatalogTitle": "Produkter och certifiering",
+      "academyTotalsNote": "Siffrorna ovan är totalerna Core rapporterade. De är inte uppdelade per produkt.",
+      "academyWebStatus": "Befintlig Academy-väg. Frågorna finns i partnerappen.",
+      "academyBedriftStatus": "En separat certifieringsväg är inte lagrad på den här posten.",
+      "academyVoiceStatus": "Framtida produkt. Inga säljlänkar eller certifiering är aktiva.",
+      "academyVoiceTitle": "Aipify Voice",
+      "academyGenericStatus": "Certifiering för den här produkten rapporteras inte separat.",
+      "academyNotForSellers": "Inte publicerad för säljare."
     },
     "drawer": {
       "title": "Ansökningsdetaljer",
@@ -8234,8 +8250,24 @@
         "failed": "Misslyckades",
         "read": "Läst",
         "unknown": "Status ej rapporterad"
-      }
-    },
+      },
+      "newMessage": "Nytt meddelande",
+      "closeCompose": "Stäng",
+      "fromAdmin": "Plattformsadministratör",
+      "fromPartner": "Säljare",
+      "allConversations": "Alla",
+      "sentByAdmin": "Skickat",
+      "threadEmpty": "Välj en konversation för att läsa historiken.",
+      "materialGroupBanners": "Banners",
+      "materialGroupCopy": "Säljtext",
+      "materialGroupEmail": "E-postmallar",
+      "materialGroupOther": "Andra filer",
+      "materialGroupEmpty": "Inget lagrat material matchar den här gruppen.",
+      "materialTechnical": "Tekniska detaljer",
+      "settingsCurrentTitle": "Gällande programregler",
+      "settingsApprovalTitle": "Kräver plattformsgodkännande",
+      "settingsApprovalPercent": "Procentprovision lagras inte. Den fasta engångsregeln gäller fortfarande.",
+      "settingsApprovalMessages": "Läststatus och arkiv för meddelanden lagras inte. Historiken förblir synlig."    },
     "messages": {
       "title": "Meddelanden och kommunikation",
       "subtitle": "Skicka och granska auktoriserad kommunikation med certifierade säljare."
@@ -8354,6 +8386,18 @@
       "directionPartner": "Säljarens svar",
       "readYes": "Läst",
       "readNo": "Oläst"
+    },
+    "alerts": {
+      "title": "Säljaraviseringar",
+      "empty": "Inget väntar i posterna som kontrollerades.",
+      "applications": "Ansökan behöver granskning",
+      "settlements": "Avräkning behöver ett steg",
+      "messages": "Meddelande från en säljare",
+      "readBlocked": "Läst- och arkivstatus lagras inte ännu, så listan har ingen oläst-räknare.",
+      "loading": "Kontrollerar säljarposter",
+      "error": "Säljarposterna kunde inte kontrolleras.",
+      "retry": "Försök igen",
+      "close": "Stäng"
     }
   }
 }

@@ -7562,48 +7562,48 @@
   "sellers": {
     "overview": {
       "title": "Certified Sales Partners",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør.",
+      "subtitle": "Se hva som trenger en beslutning, søk opp en selger, og åpne arbeidet som venter.",
       "openPartners": "Partnere og godkjenning"
     },
     "partners": {
       "title": "Partnere og godkjenning",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+      "subtitle": "Søk i søknader, filtrer på status, og åpne den fullstendige selgerprofilen."
     },
     "products": {
       "title": "Produkter til salg",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+      "subtitle": "Se hva selgere kan tilby. Kundepris og selgerprovisjon holdes fra hverandre."
     },
     "commissionRates": {
       "title": "Provisjonspriser",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+      "subtitle": "Les de lagrede faste provisjonssatsene. Prosentprovisjon er ikke aktiv."
     },
     "attribution": {
       "title": "Salgslenker og attribusjon",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+      "subtitle": "Se personlige salgslenker, besøk og statusen Core har registrert."
     },
     "academy": {
       "title": "Academy og tester",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+      "subtitle": "Se Akademi-forsøk og sertifiseringer. Spørsmålsbanken ligger i partnerappen."
     },
     "materials": {
       "title": "Salgsmateriell og e-post",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+      "subtitle": "Publiser salgsfilene Core allerede lagrer. Manglende filer blir ikke funnet på."
     },
     "leadsSales": {
       "title": "Leads og salg",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+      "subtitle": "Se leads og kvalifiserte salg uten å behandle provisjon som kundepris."
     },
     "settlements": {
       "title": "Oppgjør og utbetalinger",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+      "subtitle": "Velg ett oppgjør, og registrer neste manuelle utbetalingssteg."
     },
     "audit": {
       "title": "Avvik og audit",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+      "subtitle": "Les hva som ble endret, hvem som gjorde det, og når. Historikken kan ikke redigeres her."
     },
     "settings": {
       "title": "Selgerinnstillinger",
-      "subtitle": "Styr Aipifys egne sertifiserte salgspartnere, produkter, provisjoner og oppgjør."
+      "subtitle": "Dette er gjeldende selgerregler. Brytere vises bare når en innstilling er lagret."
     },
     "backend": {
       "notReadyTitle": "Backend er ikke aktivert",
@@ -7799,7 +7799,23 @@
       "commissionsReportNote": "Radene er kvalifiserte salg fra Core. Beløpet er det lagrede salgsgrunnlaget, ikke en kundepris og ikke prosentprovisjon. Utbetaling ligger under Oppgjør.",
       "commissionsEmptyTitle": "Ingen kvalifiserte salg ennå",
       "colRecorded": "Registrert",
-      "qualifiedSaleLabel": "Kvalifisert salg"
+      "qualifiedSaleLabel": "Kvalifisert salg",
+      "followUpTitle": "Krever oppfølging",
+      "followUpApplications": "Søknader til vurdering",
+      "followUpSettlements": "Åpne oppgjør",
+      "followUpMessages": "Åpne meldinger",
+      "searchSellers": "Finn selger",
+      "pageRows": "Rader",
+      "previousPage": "Forrige",
+      "nextPage": "Neste",
+      "academyCatalogTitle": "Produkter og sertifisering",
+      "academyTotalsNote": "Tallene over er totalene Core rapporterte. De er ikke delt per produkt.",
+      "academyWebStatus": "Eksisterende Academy-løp. Spørsmålene ligger i partnerappen.",
+      "academyBedriftStatus": "Et eget sertifiseringsløp er ikke lagret på denne posten.",
+      "academyVoiceStatus": "Fremtidig produkt. Ingen salgslenker eller sertifisering er aktiv.",
+      "academyVoiceTitle": "Aipify Voice",
+      "academyGenericStatus": "Sertifisering for dette produktet er ikke rapportert separat.",
+      "academyNotForSellers": "Ikke publisert for selgere."
     },
     "drawer": {
       "title": "Søknadsdetaljer",
@@ -7963,8 +7979,24 @@
         "failed": "Mislyktes",
         "read": "Lest",
         "unknown": "Status ikke rapportert"
-      }
-    },
+      },
+      "newMessage": "Ny melding",
+      "closeCompose": "Lukk",
+      "fromAdmin": "Plattformadministrator",
+      "fromPartner": "Selger",
+      "allConversations": "Alle",
+      "sentByAdmin": "Sendt",
+      "threadEmpty": "Velg en samtale for å lese historikken.",
+      "materialGroupBanners": "Bannere",
+      "materialGroupCopy": "Salgstekst",
+      "materialGroupEmail": "E-postmaler",
+      "materialGroupOther": "Andre filer",
+      "materialGroupEmpty": "Ingen lagret materiell treffer denne gruppen.",
+      "materialTechnical": "Tekniske detaljer",
+      "settingsCurrentTitle": "Gjeldende programregler",
+      "settingsApprovalTitle": "Krever plattformgodkjenning",
+      "settingsApprovalPercent": "Prosentprovisjon er ikke lagret. Den faste engangsregelen gjelder fortsatt.",
+      "settingsApprovalMessages": "Lest-status og arkiv for meldinger er ikke lagret. Historikken blir synlig."    },
     "messages": {
       "title": "Meldinger og kommunikasjon",
       "subtitle": "Send og gjennomgå autorisert kommunikasjon med sertifiserte selgere."
@@ -8083,6 +8115,18 @@
       "directionPartner": "Selgersvar",
       "readYes": "Lest",
       "readNo": "Ulest"
+    },
+    "alerts": {
+      "title": "Selgervarsler",
+      "empty": "Ingenting venter i postene som ble kontrollert.",
+      "applications": "Søknad trenger vurdering",
+      "settlements": "Oppgjør trenger et steg",
+      "messages": "Melding fra en selger",
+      "readBlocked": "Lest- og arkivstatus er ikke lagret ennå, så listen har ingen ulest-teller.",
+      "loading": "Kontrollerer selgerposter",
+      "error": "Selgerpostene kunne ikke kontrolleres.",
+      "retry": "Prøv igjen",
+      "close": "Lukk"
     }
   }
 }

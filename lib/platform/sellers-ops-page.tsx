@@ -115,6 +115,8 @@ function buildOpsLabels(t: (key: string) => string): SellersOpsLabels {
     },
     folderInbox: ops("folderInbox"),
     folderSent: ops("folderSent"),
+    folderArchive: ops("folderArchive"),
+    archiveBlocked: ops("archiveBlocked"),
     directionAdminToPartner: ops("directionAdminToPartner"),
     directionPartnerToAdmin: ops("directionPartnerToAdmin"),
     deliveryStatus: {
@@ -130,7 +132,24 @@ function buildOpsLabels(t: (key: string) => string): SellersOpsLabels {
     materialFilterAll: ops("materialFilterAll"),
     materialFilterDraft: ops("materialFilterDraft"),
     materialFilterPublished: ops("materialFilterPublished"),
+    materialGroupBanners: ops("materialGroupBanners"),
+    materialGroupCopy: ops("materialGroupCopy"),
+    materialGroupEmail: ops("materialGroupEmail"),
+    materialGroupOther: ops("materialGroupOther"),
+    materialGroupEmpty: ops("materialGroupEmpty"),
+    materialTechnical: ops("materialTechnical"),
+    settingsCurrentTitle: ops("settingsCurrentTitle"),
+    settingsApprovalTitle: ops("settingsApprovalTitle"),
+    settingsApprovalPercent: ops("settingsApprovalPercent"),
+    settingsApprovalMessages: ops("settingsApprovalMessages"),
     ratesReadOnly: ops("ratesReadOnly"),
+    newMessage: ops("newMessage"),
+    closeCompose: ops("closeCompose"),
+    fromAdmin: ops("fromAdmin"),
+    fromPartner: ops("fromPartner"),
+    allConversations: ops("allConversations"),
+    sentByAdmin: ops("sentByAdmin"),
+    threadEmpty: ops("threadEmpty"),
   };
 }
 

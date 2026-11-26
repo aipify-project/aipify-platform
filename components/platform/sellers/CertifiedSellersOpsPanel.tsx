@@ -4,12 +4,11 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { CertifiedSellersMessageDesk } from "@/components/platform/sellers/CertifiedSellersMessageDesk";
 import { CertifiedSellersSectionPanel } from "@/components/platform/sellers/CertifiedSellersSectionPanel";
 import {
-  filterCspMessageRecipients,
   isCspMessageRecipientEligible,
   parseCspMessageRecipients,
-  recipientDisplayLabel,
   type CspMessageRecipient,
 } from "@/lib/certified-sales-partner/message-recipient-picker";
 import { classifyCspApiResponse } from "@/lib/certified-sales-partner/ui-support";
@@ -97,6 +96,8 @@ export type SellersOpsLabels = {
   navLabels: Record<string, string>;
   folderInbox: string;
   folderSent: string;
+  folderArchive: string;
+  archiveBlocked: string;
   directionAdminToPartner: string;
   directionPartnerToAdmin: string;
   deliveryStatus: Record<string, string>;
@@ -105,7 +106,24 @@ export type SellersOpsLabels = {
   materialFilterAll: string;
   materialFilterDraft: string;
   materialFilterPublished: string;
+  materialGroupBanners: string;
+  materialGroupCopy: string;
+  materialGroupEmail: string;
+  materialGroupOther: string;
+  materialGroupEmpty: string;
+  materialTechnical: string;
+  settingsCurrentTitle: string;
+  settingsApprovalTitle: string;
+  settingsApprovalPercent: string;
+  settingsApprovalMessages: string;
   ratesReadOnly: string;
+  newMessage: string;
+  closeCompose: string;
+  fromAdmin: string;
+  fromPartner: string;
+  allConversations: string;
+  sentByAdmin: string;
+  threadEmpty: string;
 };
 
 type Props = {
@@ -119,6 +137,22 @@ type Props = {
 };
 
 type Phase = "loading" | "ready" | "forbidden" | "error";
+type MaterialGroup = "all" | "banners" | "copy" | "email" | "other";
+
+function materialGroupLabelKey(group: Exclude<MaterialGroup, "all">): "materialGroupBanners" | "materialGroupCopy" | "materialGroupEmail" | "materialGroupOther" {
+  if (group === "banners") return "materialGroupBanners";
+  if (group === "copy") return "materialGroupCopy";
+  if (group === "email") return "materialGroupEmail";
+  return "materialGroupOther";
+}
+
+function materialGroupOf(category: string): Exclude<MaterialGroup, "all"> {
+  const value = category.toLowerCase();
+  if (/(banner|image|poster|creative)/.test(value)) return "banners";
+  if (/(email|mail)/.test(value)) return "email";
+  if (/(copy|text|script)/.test(value)) return "copy";
+  return "other";
+}
 
 function rowsFrom(body: unknown): Array<Record<string, unknown>> {
   if (!body || typeof body !== "object") return [];
@@ -148,19 +182,16 @@ export function CertifiedSellersOpsPanel({
   const [rows, setRows] = useState<Array<Record<string, unknown>>>([]);
   const [query, setQuery] = useState("");
   const [partnerFilter, setPartnerFilter] = useState("");
-  const [recipientQuery, setRecipientQuery] = useState("");
   const [recipients, setRecipients] = useState<CspMessageRecipient[]>([]);
   const [recipientsPhase, setRecipientsPhase] = useState<Phase>("loading");
-  const [sendSubject, setSendSubject] = useState("");
-  const [sendBody, setSendBody] = useState("");
   const [actionNotice, setActionNotice] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [matKey, setMatKey] = useState("");
   const [matTitle, setMatTitle] = useState("");
   const [matCategory, setMatCategory] = useState("pdf_sheets");
   const [matPath, setMatPath] = useState("");
-  const [folder, setFolder] = useState<"inbox" | "sent">("inbox");
   const [materialStatus, setMaterialStatus] = useState<"all" | "draft" | "published">("all");
+  const [materialGroup, setMaterialGroup] = useState<MaterialGroup>("all");
   const bcp47 = toBcp47Locale(locale);
   const dateOptions = { locale, emptyFallback: l.dateEmpty, invalidFallback: l.dateInvalid };
 
@@ -198,26 +229,6 @@ export function CertifiedSellersOpsPanel({
   useEffect(() => {
     void loadRecipients();
   }, [loadRecipients]);
-
-  const selectedRecipient = useMemo((): CspMessageRecipient | null => {
-    const id = partnerFilter.trim();
-    if (!id) return null;
-    const found = recipients.find((r) => r.id === id);
-    if (found) return found;
-    // Preselected via ?partner= before directory resolves, or partner outside page limit.
-    return { id, displayName: null, status: "unknown", country: null };
-  }, [recipients, partnerFilter]);
-
-  const hasConcreteRecipient = partnerFilter.trim().length > 0;
-
-  const filteredRecipients = useMemo(
-    () => filterCspMessageRecipients(recipients, recipientQuery).slice(0, 40),
-    [recipients, recipientQuery],
-  );
-
-  const recipientEligible = selectedRecipient
-    ? isCspMessageRecipientEligible(selectedRecipient.status)
-    : false;
 
   const endpoint = useMemo(() => {
     switch (section) {
@@ -294,24 +305,22 @@ export function CertifiedSellersOpsPanel({
     }));
   }, [section, rows]);
 
-  const visibleMaterials = materials.filter((item) =>
-    materialStatus === "all" ? true : materialStatus === "published" ? item.published : !item.published,
-  );
-  const visibleMessages = filtered.filter((row) => {
-    const direction = str(row.direction);
-    if (folder === "sent") return direction === "admin_to_partner";
-    return direction !== "admin_to_partner";
+  const visibleMaterials = materials.filter((item) => {
+    if (materialStatus === "published" && !item.published) return false;
+    if (materialStatus === "draft" && item.published) return false;
+    if (materialGroup !== "all" && materialGroupOf(item.category) !== materialGroup) return false;
+    return true;
   });
-
   const backendReady = true;
 
-  async function sendAdminMessage() {
-    const partnerId = partnerFilter.trim();
-    const text = sendBody.trim();
-    if (!partnerId || !text || busy) return;
-    if (selectedRecipient && !isCspMessageRecipientEligible(selectedRecipient.status)) {
+  async function sendAdminMessage(partnerId: string, subject: string, text: string): Promise<boolean> {
+    const cleanPartner = partnerId.trim();
+    const cleanText = text.trim();
+    if (!cleanPartner || !cleanText || busy) return false;
+    const recipient = recipients.find((item) => item.id === cleanPartner);
+    if (recipient && !isCspMessageRecipientEligible(recipient.status)) {
       setActionNotice(l.sendMessageBlocked);
-      return;
+      return false;
     }
     setBusy(true);
     setActionNotice(null);
@@ -320,45 +329,30 @@ export function CertifiedSellersOpsPanel({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          partner_id: partnerId,
-          subject: sendSubject.trim() || null,
-          body: text,
-          idempotency_key: `admin-msg-${partnerId}-${Date.now()}`,
+          partner_id: cleanPartner,
+          subject: subject.trim() || null,
+          body: cleanText,
+          idempotency_key: `admin-msg-${cleanPartner}-${Date.now()}`,
         }),
       });
       const body = await res.json().catch(() => null);
       if (res.status === 403 && body && (body as { error?: string }).error === "partner_not_active") {
         setActionNotice(l.sendMessageBlocked);
-        return;
+        return false;
       }
       if (!res.ok) {
         setActionNotice(l.sendMessageError);
-        return;
+        return false;
       }
-      setSendBody("");
       setActionNotice(l.sendMessageOk);
       await load();
+      return true;
     } catch {
       setActionNotice(l.sendMessageError);
+      return false;
     } finally {
       setBusy(false);
     }
-  }
-
-  function selectRecipient(r: CspMessageRecipient) {
-    setPartnerFilter(r.id);
-    setRecipientQuery("");
-    setActionNotice(null);
-  }
-
-  function clearRecipient() {
-    setPartnerFilter("");
-    setRecipientQuery("");
-    setActionNotice(null);
-  }
-
-  function statusLabel(status: string): string {
-    return l.partnerStatusLabels[status] ?? l.partnerStatusLabels.unknown ?? status;
   }
 
   async function registerMaterial() {
@@ -424,10 +418,8 @@ export function CertifiedSellersOpsPanel({
         backendReady={backendReady}
         notReadyTitle={section === "messages" ? l.messagesGateTitle : notReadyTitle}
         notReadyBody={section === "messages" ? l.messagesGateBody : notReadyBody}
-        navLabel={l.navLabel}
-        navLabels={l.navLabels}
       />
-      <div className="mx-auto w-full max-w-[1600px] space-y-6 px-6 pb-8 lg:px-8">
+      <div className="w-full space-y-6 px-6 pb-8 lg:px-8">
         {phase === "loading" && endpoint ? <AipifyLoader centered size="sm" label={l.loading} /> : null}
         {phase === "forbidden" ? (
           <Notice title={l.forbiddenTitle} body={l.forbiddenBody} retry={l.retry} onRetry={load} />
@@ -575,6 +567,32 @@ export function CertifiedSellersOpsPanel({
               </button>
               {actionNotice ? <p className="text-sm text-[color:var(--aipify-text-secondary)]">{actionNotice}</p> : null}
             </article>
+            <div className="flex flex-wrap gap-2" role="tablist" aria-label={l.colCategory}>
+              {(
+                [
+                  ["all", l.materialFilterAll],
+                  ["banners", l.materialGroupBanners],
+                  ["copy", l.materialGroupCopy],
+                  ["email", l.materialGroupEmail],
+                  ["other", l.materialGroupOther],
+                ] as const
+              ).map(([id, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  role="tab"
+                  aria-selected={materialGroup === id}
+                  onClick={() => setMaterialGroup(id)}
+                  className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${
+                    materialGroup === id
+                      ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                      : "border border-[color:var(--aipify-border)]"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
             <div className="flex flex-wrap gap-2" role="tablist" aria-label={l.materialFilterAll}>
               {(
                 [
@@ -599,16 +617,17 @@ export function CertifiedSellersOpsPanel({
                 </button>
               ))}
             </div>
-            {visibleMaterials.length === 0 ? <Empty title={l.emptyTitle} body={l.emptyBody} /> : null}
+            {visibleMaterials.length === 0 ? <Empty title={l.emptyTitle} body={materials.length === 0 ? l.emptyBody : l.materialGroupEmpty} /> : null}
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {visibleMaterials.map((item) => (
                 <article
                   key={item.id || item.materialKey}
                   className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-4 shadow-sm"
                 >
-                  <p className="text-xs uppercase tracking-wide text-[color:var(--aipify-text-muted)]">{item.category}</p>
-                  <p className="mt-1 font-semibold text-[color:var(--aipify-text-primary)]">{item.title || item.materialKey}</p>
-                  <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">{item.assetPath}</p>
+                  <p className="text-xs uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
+                    {l[materialGroupLabelKey(materialGroupOf(item.category))]}
+                  </p>
+                  <p className="mt-1 font-semibold text-[color:var(--aipify-text-primary)]">{item.title || l.unnamedRecipient}</p>
                   <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
                     <AipifyStatusBadge
                       kind={item.published ? "completed" : "waiting"}
@@ -627,7 +646,12 @@ export function CertifiedSellersOpsPanel({
                       </button>
                     )}
                   </div>
-                  {item.mimeHint.startsWith("image/") ? (
+                  <details className="mt-3 text-xs text-[color:var(--aipify-text-secondary)]">
+                    <summary>{l.materialTechnical}</summary>
+                    <p className="mt-1">{l.materialKey}: {item.materialKey}</p>
+                    {item.assetPath ? <p className="mt-1 break-all">{l.materialAssetPath}: {item.assetPath}</p> : null}
+                  </details>
+                  {item.mimeHint.startsWith("image/") && item.assetPath.startsWith("/") ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={item.assetPath} alt="" className="mt-3 max-h-28 w-auto rounded-lg border border-[color:var(--aipify-border)]" />
                   ) : null}
@@ -638,222 +662,38 @@ export function CertifiedSellersOpsPanel({
         ) : null}
 
         {section === "settings" ? (
-          <article className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{l.settingsPolicyTitle}</h2>
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-[color:var(--aipify-text-secondary)]">
-              {l.settingsPolicies.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </article>
+          <div className="grid gap-4 lg:grid-cols-2">
+            <article className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-6 shadow-sm">
+              <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{l.settingsCurrentTitle}</h2>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-[color:var(--aipify-text-secondary)]">
+                {l.settingsPolicies.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </article>
+            <article className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-6 shadow-sm">
+              <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{l.settingsApprovalTitle}</h2>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-[color:var(--aipify-text-secondary)]">
+                <li>{l.settingsApprovalPercent}</li>
+                <li>{l.settingsApprovalMessages}</li>
+              </ul>
+            </article>
+          </div>
         ) : null}
 
         {section === "messages" && (phase === "ready" || phase === "loading") ? (
-          <div className="space-y-4">
-            <article className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-5 shadow-sm space-y-3">
-              <h2 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{l.sendMessageTitle}</h2>
-              <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.messagesGateBody}</p>
-
-              {hasConcreteRecipient && selectedRecipient ? (
-                <div className="flex max-w-xl flex-wrap items-center gap-2 rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-canvas)] px-3 py-2">
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs text-[color:var(--aipify-text-secondary)]">{l.selectedRecipient}</p>
-                    <p className="truncate font-medium text-[color:var(--aipify-text-primary)]">
-                      {recipientDisplayLabel(selectedRecipient, l.unnamedRecipient)}
-                    </p>
-                    <p className="truncate text-xs text-[color:var(--aipify-text-secondary)]">
-                      {statusLabel(selectedRecipient.status)}
-                      {selectedRecipient.country ? ` · ${selectedRecipient.country}` : ""}
-                      {" · "}
-                      <span className="font-mono">{selectedRecipient.id.slice(0, 8)}</span>
-                    </p>
-                  </div>
-                  {selectedRecipient.status !== "unknown" && !recipientEligible ? (
-                    <AipifyStatusBadge kind="needs_attention" label={l.recipientNotEligible} />
-                  ) : null}
-                  <button
-                    type="button"
-                    onClick={clearRecipient}
-                    className="rounded-lg border border-[color:var(--aipify-border)] px-2.5 py-1 text-xs font-semibold"
-                  >
-                    {l.clearRecipient}
-                  </button>
-                </div>
-              ) : (
-                <div className="max-w-xl space-y-2">
-                  <label className="block text-sm">
-                    <span className="sr-only">{l.recipientSearchPlaceholder}</span>
-                    <input
-                      value={recipientQuery}
-                      onChange={(e) => setRecipientQuery(e.target.value)}
-                      placeholder={l.recipientSearchPlaceholder}
-                      autoComplete="off"
-                      className="w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
-                    />
-                  </label>
-                  {recipientsPhase === "loading" ? (
-                    <AipifyLoader centered size="sm" label={l.loading} />
-                  ) : null}
-                  {recipientsPhase === "error" || recipientsPhase === "forbidden" ? (
-                    <Notice
-                      title={recipientsPhase === "forbidden" ? l.forbiddenTitle : l.errorTitle}
-                      body={recipientsPhase === "forbidden" ? l.forbiddenBody : l.errorBody}
-                      retry={l.retry}
-                      onRetry={() => void loadRecipients()}
-                    />
-                  ) : null}
-                  {recipientsPhase === "ready" && filteredRecipients.length === 0 ? (
-                    <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.recipientEmpty}</p>
-                  ) : null}
-                  {recipientsPhase === "ready" && filteredRecipients.length > 0 ? (
-                    <ul
-                      className="max-h-56 overflow-y-auto rounded-xl border border-[color:var(--aipify-border)] bg-white"
-                      role="listbox"
-                      aria-label={l.recipientSearchPlaceholder}
-                    >
-                      {filteredRecipients.map((r) => {
-                        const eligible = isCspMessageRecipientEligible(r.status);
-                        return (
-                          <li key={r.id}>
-                            <button
-                              type="button"
-                              role="option"
-                              aria-selected={false}
-                              onClick={() => selectRecipient(r)}
-                              className="flex w-full items-start justify-between gap-3 border-b border-[color:var(--aipify-border)] px-3 py-2 text-left last:border-b-0 hover:bg-[color:var(--aipify-canvas)]"
-                            >
-                              <span className="min-w-0">
-                                <span className="block truncate font-medium text-[color:var(--aipify-text-primary)]">
-                                  {recipientDisplayLabel(r, l.unnamedRecipient)}
-                                </span>
-                                <span className="block truncate text-xs text-[color:var(--aipify-text-secondary)]">
-                                  {statusLabel(r.status)}
-                                  {r.country ? ` · ${r.country}` : ""}
-                                  {" · "}
-                                  <span className="font-mono">{r.id.slice(0, 8)}</span>
-                                </span>
-                              </span>
-                              {!eligible ? (
-                                <span className="shrink-0 text-xs text-[color:var(--aipify-text-secondary)]">
-                                  {l.recipientNotEligible}
-                                </span>
-                              ) : null}
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  ) : null}
-                </div>
-              )}
-
-              <input
-                value={sendSubject}
-                onChange={(e) => setSendSubject(e.target.value)}
-                placeholder={l.sendMessageSubject}
-                className="w-full max-w-xl rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
-              />
-              <textarea
-                value={sendBody}
-                onChange={(e) => setSendBody(e.target.value)}
-                placeholder={l.sendMessageBody}
-                rows={4}
-                className="w-full max-w-xl rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
-              />
-              <button
-                type="button"
-                disabled={
-                  busy ||
-                  !hasConcreteRecipient ||
-                  !sendBody.trim() ||
-                  (selectedRecipient != null &&
-                    selectedRecipient.status !== "unknown" &&
-                    !recipientEligible)
-                }
-                onClick={() => void sendAdminMessage()}
-                className="rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
-              >
-                {l.sendMessageCta}
-              </button>
-              {actionNotice ? <p className="text-sm text-[color:var(--aipify-text-secondary)]">{actionNotice}</p> : null}
-            </article>
-
-            <div className="flex flex-wrap gap-2" role="tablist" aria-label={l.conversationTitle}>
-              {(
-                [
-                  ["inbox", l.folderInbox],
-                  ["sent", l.folderSent],
-                ] as const
-              ).map(([id, label]) => (
-                <button
-                  key={id}
-                  type="button"
-                  role="tab"
-                  aria-selected={folder === id}
-                  onClick={() => setFolder(id)}
-                  className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${
-                    folder === id
-                      ? "bg-[color:var(--aipify-companion-purple)] text-white"
-                      : "border border-[color:var(--aipify-border)]"
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-            <h3 className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">{l.conversationTitle}</h3>
-            {phase === "loading" ? <AipifyLoader centered size="sm" label={l.loading} /> : null}
-            {phase === "ready" && visibleMessages.length === 0 ? (
-              <Empty title={l.emptyTitle} body={l.emptyBody} />
-            ) : null}
-            {phase === "ready" && visibleMessages.length > 0 ? (
-              <div className="overflow-x-auto rounded-2xl border border-[color:var(--aipify-border)] bg-white">
-                <Table caption={title} headers={[l.colPartner, l.colAction, l.colStatus, l.colDate]}>
-                  {visibleMessages.map((r) => {
-                    const pid = str(r.partner_id);
-                    const partner = recipients.find((x) => x.id === pid);
-                    const direction = str(r.direction);
-                    const delivery = str(r.delivery_status);
-                    const directionLabel =
-                      direction === "admin_to_partner"
-                        ? l.directionAdminToPartner
-                        : direction === "partner_to_admin"
-                          ? l.directionPartnerToAdmin
-                          : l.notReported;
-                    const deliveryLabel =
-                      (delivery && l.deliveryStatus[delivery]) ||
-                      l.deliveryStatus.unknown ||
-                      l.notReported;
-                    return (
-                      <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
-                        <td className="px-3 py-2">
-                          <p className="font-medium">
-                            {partner
-                              ? recipientDisplayLabel(partner, l.unnamedRecipient)
-                              : pid.slice(0, 8) || l.notReported}
-                          </p>
-                          <p className="font-mono text-xs text-[color:var(--aipify-text-secondary)]">
-                            {pid.slice(0, 8) || l.notReported}
-                          </p>
-                        </td>
-                        <td className="px-3 py-2">
-                          <p className="font-medium">{str(r.subject) || directionLabel}</p>
-                          <p className="mt-1 line-clamp-2 text-sm text-[color:var(--aipify-text-secondary)]">
-                            {str(r.body)}
-                          </p>
-                          <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">{directionLabel}</p>
-                        </td>
-                        <td className="px-3 py-2">{deliveryLabel}</td>
-                        <td className="px-3 py-2">
-                          {formatPlatformDateTimeShort(str(r.created_at) || null, dateOptions)}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </Table>
-              </div>
-            ) : null}
-          </div>
+          <CertifiedSellersMessageDesk
+            rows={rows}
+            recipients={recipients}
+            recipientsPhase={recipientsPhase}
+            labels={l}
+            locale={locale}
+            busy={busy}
+            notice={actionNotice}
+            phase={phase}
+            onSend={sendAdminMessage}
+            onRetryRecipients={() => void loadRecipients()}
+          />
         ) : null}
       </div>
     </>

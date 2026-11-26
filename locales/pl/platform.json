@@ -7833,48 +7833,48 @@
   "sellers": {
     "overview": {
       "title": "Certified Sales Partners",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami.",
+      "subtitle": "Zobacz, co wymaga decyzji, wyszukaj sprzedawcę i otwórz oczekującą pracę.",
       "openPartners": "Partnerzy i zatwierdzanie"
     },
     "partners": {
       "title": "Partnerzy i zatwierdzanie",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+      "subtitle": "Szukaj wniosków, filtruj po statusie i otwórz pełny profil sprzedawcy."
     },
     "products": {
       "title": "Produkty do sprzedaży",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+      "subtitle": "Zobacz, co sprzedawcy mogą oferować. Cena dla klienta i prowizja pozostają osobno."
     },
     "commissionRates": {
       "title": "Stawki prowizji",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+      "subtitle": "Odczytaj zapisane stałe stawki prowizji. Prowizja procentowa nie jest aktywna."
     },
     "attribution": {
       "title": "Linki sprzedażowe i atrybucja",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+      "subtitle": "Sprawdź osobiste linki sprzedaży, wizyty i status zapisany przez Core."
     },
     "academy": {
       "title": "Akademia i testy",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+      "subtitle": "Zobacz próby Akademii i certyfikacje. Bank pytań pozostaje w aplikacji partnera."
     },
     "materials": {
       "title": "Materiały i e-mail",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+      "subtitle": "Publikuj pliki sprzedażowe, które Core już przechowuje. Brakujące pliki nie są wymyślane."
     },
     "leadsSales": {
       "title": "Leady i sprzedaż",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+      "subtitle": "Przejrzyj leady i kwalifikowane sprzedaże bez traktowania prowizji jako ceny klienta."
     },
     "settlements": {
       "title": "Rozliczenia i wypłaty",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+      "subtitle": "Wybierz jedno rozliczenie i zapisz kolejny ręczny krok wypłaty."
     },
     "audit": {
       "title": "Odchylenia i audyt",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+      "subtitle": "Przeczytaj, co się zmieniło, kto to zrobił i kiedy. Historii nie można tu edytować."
     },
     "settings": {
       "title": "Ustawienia sprzedawców",
-      "subtitle": "Zarządzaj własnymi certyfikowanymi partnerami sprzedaży Aipify, produktami, prowizjami i rozliczeniami."
+      "subtitle": "To obowiązujące zasady sprzedawców. Przełączniki pojawiają się tylko wtedy, gdy ustawienie jest zapisane."
     },
     "backend": {
       "notReadyTitle": "Backend nieaktywny",
@@ -8070,7 +8070,23 @@
       "commissionsReportNote": "Wiersze to kwalifikowane sprzedaże zwrócone przez Core. Kwota jest zapisaną podstawą sprzedaży, nie ceną dla klienta i nie prowizją procentową. Wypłaty pozostają w Rozliczeniach.",
       "commissionsEmptyTitle": "Brak kwalifikowanych sprzedaży",
       "colRecorded": "Zarejestrowano",
-      "qualifiedSaleLabel": "Kwalifikowana sprzedaż"
+      "qualifiedSaleLabel": "Kwalifikowana sprzedaż",
+      "followUpTitle": "Wymaga uwagi",
+      "followUpApplications": "Wnioski w trakcie oceny",
+      "followUpSettlements": "Otwarte rozliczenia",
+      "followUpMessages": "Otwórz wiadomości",
+      "searchSellers": "Znajdź sprzedawcę",
+      "pageRows": "Wiersze",
+      "previousPage": "Poprzednia",
+      "nextPage": "Następna",
+      "academyCatalogTitle": "Produkty i certyfikacja",
+      "academyTotalsNote": "Liczby powyżej to sumy zwrócone przez Core. Nie są podzielone na produkty.",
+      "academyWebStatus": "Istniejąca ścieżka akademii. Pytania pozostają w aplikacji partnera.",
+      "academyBedriftStatus": "Osobna ścieżka certyfikacji nie jest zapisana w tym rekordzie.",
+      "academyVoiceStatus": "Przyszły produkt. Linki sprzedażowe i certyfikacja nie są aktywne.",
+      "academyVoiceTitle": "Aipify Voice",
+      "academyGenericStatus": "Certyfikacja tego produktu nie jest raportowana osobno.",
+      "academyNotForSellers": "Nieopublikowany dla sprzedawców."
     },
     "drawer": {
       "title": "Szczegóły wniosku",
@@ -8234,8 +8250,24 @@
         "failed": "Niepowodzenie",
         "read": "Przeczytano",
         "unknown": "Status niezgłoszony"
-      }
-    },
+      },
+      "newMessage": "Nowa wiadomość",
+      "closeCompose": "Zamknij",
+      "fromAdmin": "Administrator platformy",
+      "fromPartner": "Sprzedawca",
+      "allConversations": "Wszystkie",
+      "sentByAdmin": "Wysłane",
+      "threadEmpty": "Wybierz rozmowę, aby przeczytać historię.",
+      "materialGroupBanners": "Banery",
+      "materialGroupCopy": "Tekst sprzedażowy",
+      "materialGroupEmail": "Szablony e-mail",
+      "materialGroupOther": "Inne pliki",
+      "materialGroupEmpty": "Żaden zapisany materiał nie pasuje do tej grupy.",
+      "materialTechnical": "Szczegóły techniczne",
+      "settingsCurrentTitle": "Obowiązujące zasady programu",
+      "settingsApprovalTitle": "Wymaga zatwierdzenia platformy",
+      "settingsApprovalPercent": "Prowizja procentowa nie jest zapisana. Obowiązuje stała kwota jednorazowa.",
+      "settingsApprovalMessages": "Stan przeczytania i archiwum wiadomości nie są zapisane. Historia pozostaje widoczna."    },
     "messages": {
       "title": "Wiadomości i komunikacja",
       "subtitle": "Wysyłaj i przeglądaj autoryzowaną komunikację z certyfikowanymi sprzedawcami."
@@ -8354,6 +8386,18 @@
       "directionPartner": "Odpowiedź sprzedawcy",
       "readYes": "Przeczytane",
       "readNo": "Nieprzeczytane"
+    },
+    "alerts": {
+      "title": "Alerty sprzedawców",
+      "empty": "Nic nie czeka w sprawdzonych rekordach.",
+      "applications": "Wniosek wymaga oceny",
+      "settlements": "Rozliczenie wymaga kroku",
+      "messages": "Wiadomość od sprzedawcy",
+      "readBlocked": "Stan przeczytania i archiwum nie jest jeszcze zapisany, więc lista nie ma licznika nieprzeczytanych.",
+      "loading": "Sprawdzanie rekordów sprzedawców",
+      "error": "Nie udało się sprawdzić rekordów sprzedawców.",
+      "retry": "Spróbuj ponownie",
+      "close": "Zamknij"
     }
   }
 }

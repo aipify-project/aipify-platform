@@ -23,6 +23,7 @@ import {
   settlementStatusKind,
   shortReference,
   type SellersOverview,
+  type SellersProductRow,
   type SellersSettlementRow,
 } from "@/lib/certified-sales-partner/platform-sellers-view";
 import { toBcp47Locale } from "@/lib/platform-presentation-quality/bcp47";
@@ -164,6 +165,9 @@ export function CertifiedSellersLivePanel({
 }: Props) {
   const [state, setState] = useState<LoadState>(EMPTY_STATE);
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [partnerQuery, setPartnerQuery] = useState("");
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(25);
   const [selection, setSelection] = useState<{
     id: string;
     seq: number;
@@ -324,22 +328,6 @@ export function CertifiedSellersLivePanel({
         notReadyTitle={notReadyTitle}
         notReadyBody={notReadyBody}
         metrics={metrics}
-        navLabel={labels.text.sectionsTitle}
-        navLabels={{
-          overview: labels.sectionTitles.overview,
-          partners: labels.sectionTitles.partners,
-          products: labels.sectionTitles.products,
-          commissionRates: labels.sectionTitles.commissionRates,
-          attribution: labels.sectionTitles.attribution,
-          academy: labels.sectionTitles.academy,
-          materials: labels.sectionTitles.materials,
-          leadsSales: labels.sectionTitles.leadsSales,
-          commissions: labels.sectionTitles.commissions,
-          settlements: labels.sectionTitles.settlements,
-          messages: labels.sectionTitles.messages,
-          audit: labels.sectionTitles.audit,
-          settings: labels.sectionTitles.settings,
-        }}
       />
       <div className={`${SELLERS_ADMIN_FRAME} space-y-6 px-6 pb-8 lg:px-8`}>
         {phase === "loading" ? <AipifyLoader centered size="sm" label={l.loading} /> : null}
@@ -358,6 +346,58 @@ export function CertifiedSellersLivePanel({
 
         {ready && section === "overview" && overview ? (
           <>
+            <Card title={l.followUpTitle}>
+              <ul className="grid gap-3 md:grid-cols-3">
+                <li>
+                  <Link href="/platform/sellers/partners?status=under_review" className={LINK_BUTTON}>
+                    {l.followUpApplications}: {nf.format(countPendingApplications(overview.partnersByStatus))}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/platform/sellers/settlements" className={LINK_BUTTON}>
+                    {l.followUpSettlements}: {overview.openSettlementsCount === null ? l.notReported : nf.format(overview.openSettlementsCount)}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/platform/sellers/messages" className={LINK_BUTTON}>
+                    {l.followUpMessages}
+                  </Link>
+                </li>
+              </ul>
+            </Card>
+            <Card title={l.searchSellers}>
+              <label className="block text-sm">
+                <span className="sr-only">{l.searchSellers}</span>
+                <input
+                  value={partnerQuery}
+                  onChange={(event) => {
+                    setPartnerQuery(event.target.value);
+                    setPage(0);
+                  }}
+                  className="w-full max-w-xl rounded-xl border border-[color:var(--aipify-border)] px-3 py-2"
+                />
+              </label>
+              <ul className="mt-3 space-y-2">
+                {(overview.partners ?? [])
+                  .filter((partner) => {
+                    const q = partnerQuery.trim().toLowerCase();
+                    if (!q) return false;
+                    return [partner.name, partner.legalBusinessName, partner.country, partner.email, partner.id]
+                      .filter(Boolean)
+                      .join(" ")
+                      .toLowerCase()
+                      .includes(q);
+                  })
+                  .slice(0, 8)
+                  .map((partner) => (
+                    <li key={partner.id}>
+                      <Link href={`/platform/sellers/partners/${partner.id}`} className={LINK_BUTTON}>
+                        {partner.name || partner.legalBusinessName || l.partnerUnnamed}
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
+            </Card>
             <CertifiedSellersOverviewRanking
               locale={locale}
               labels={labels}
@@ -403,11 +443,20 @@ export function CertifiedSellersLivePanel({
                   </select>
                 </label>
                 {(() => {
-                  const rows = overview.partners!.filter((p) => statusFilter === "all" || p.status === statusFilter);
-                  if (rows.length === 0) return <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.partnersFilterEmpty}</p>;
+                  const matched = overview.partners!.filter((p) => {
+                    if (statusFilter !== "all" && p.status !== statusFilter) return false;
+                    const q = partnerQuery.trim().toLowerCase();
+                    if (!q) return true;
+                    return [p.name, p.legalBusinessName, p.country, p.email, p.id].filter(Boolean).join(" ").toLowerCase().includes(q);
+                  });
+                  const pageCount = Math.max(1, Math.ceil(matched.length / pageSize));
+                  const safePage = Math.min(page, pageCount - 1);
+                  const rows = matched.slice(safePage * pageSize, safePage * pageSize + pageSize);
+                  if (matched.length === 0) return <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.partnersFilterEmpty}</p>;
                   // Country column only when Core returned a country for at least one partner.
                   const showCountry = rows.some((p) => p.country !== null);
                   return (
+                    <>
                     <DataTable
                       caption={labels.sectionTitles.partners}
                       headers={
@@ -448,6 +497,30 @@ export function CertifiedSellersLivePanel({
                         );
                       })}
                     </DataTable>
+                    <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
+                      <label>
+                        {l.pageRows}
+                        <select
+                          value={pageSize}
+                          onChange={(event) => {
+                            setPageSize(Number(event.target.value));
+                            setPage(0);
+                          }}
+                          className="ml-2 rounded-lg border border-[color:var(--aipify-border)] px-2 py-1"
+                        >
+                          {[10, 25, 50].map((size) => (
+                            <option key={size} value={size}>{size}</option>
+                          ))}
+                        </select>
+                      </label>
+                      <button type="button" className={LINK_BUTTON} onClick={() => setPage((current) => Math.max(0, current - 1))} disabled={safePage === 0}>
+                        {l.previousPage}
+                      </button>
+                      <button type="button" className={LINK_BUTTON} onClick={() => setPage((current) => Math.min(pageCount - 1, current + 1))} disabled={safePage >= pageCount - 1}>
+                        {l.nextPage}
+                      </button>
+                    </div>
+                    </>
                   );
                 })()}
               </Card>
@@ -462,33 +535,27 @@ export function CertifiedSellersLivePanel({
             ) : overview.products.length === 0 ? (
               <EmptyCard title={l.productsEmptyTitle} body={l.productsEmptyBody} />
             ) : (
-              <Card title={labels.sectionTitles.products}>
-                <DataTable
-                  caption={labels.sectionTitles.products}
-                  headers={[l.colProduct, l.colCommission, l.colStatus]}
-                >
-                  {overview.products.map((p) => (
-                    <tr key={p.id} className="border-t border-[color:var(--aipify-border)]">
-                      <td className="px-3 py-2">
-                        <p className="font-medium text-[color:var(--aipify-text-primary)]">{p.title}</p>
-                        <details className="text-xs text-[color:var(--aipify-text-secondary)]">
-                          <summary>{l.referenceLabel}</summary>
-                          <p className="mt-1 font-mono">{p.productKey}</p>
-                        </details>
-                      </td>
-                      <td className="px-3 py-2">
-                        {formatMoney(p.fixedCommissionAmount, p.currency, locale, l.notReported)}
-                      </td>
-                      <td className="px-3 py-2">
-                        <AipifyStatusBadge
-                          kind={p.published ? "completed" : "waiting"}
-                          label={p.published ? l.productPublished : l.productDraft}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </DataTable>
-              </Card>
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {overview.products.map((p) => (
+                  <article key={p.id} className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-5 shadow-sm">
+                    <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{p.title}</h2>
+                    <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{actionLabels.priceNotPublished}</p>
+                    <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
+                      {l.colCommission}: {formatMoney(p.fixedCommissionAmount, p.currency, locale, l.notReported)}
+                    </p>
+                    <div className="mt-3">
+                      <AipifyStatusBadge
+                        kind={p.published ? "completed" : "waiting"}
+                        label={p.published ? l.productPublished : l.productDraft}
+                      />
+                    </div>
+                    <details className="mt-3 text-xs text-[color:var(--aipify-text-secondary)]">
+                      <summary>{l.referenceLabel}</summary>
+                      <p className="mt-1 font-mono">{p.productKey}</p>
+                    </details>
+                  </article>
+                ))}
+              </div>
             )}
             <CertifiedSellersActionPanel section="products" labels={actionLabels} onSuccess={() => void load()} />
           </>
@@ -636,6 +703,29 @@ export function CertifiedSellersLivePanel({
             ) : (
               <EmptyCard title={l.academyEmptyTitle} body={l.academyEmptyBody} />
             )}
+            <Card title={l.academyCatalogTitle}>
+              <p className="mb-4 text-sm text-[color:var(--aipify-text-secondary)]">{l.academyTotalsNote}</p>
+              {overview.products === null ? (
+                <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.productsListMissingBody}</p>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  {academyCatalog(overview.products, l).map((item) => (
+                    <article key={item.key} className="rounded-xl border border-[color:var(--aipify-border)] p-4">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <h3 className="font-semibold text-[color:var(--aipify-text-primary)]">{item.title}</h3>
+                        {item.published === null ? null : (
+                          <AipifyStatusBadge
+                            kind={item.published ? "completed" : "waiting"}
+                            label={item.published ? l.productPublished : l.productDraft}
+                          />
+                        )}
+                      </div>
+                      <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{item.body}</p>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </Card>
             <Card title={l.academyNoteTitle}>
               <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.academyNoteBody}</p>
             </Card>
@@ -651,6 +741,43 @@ const SECONDARY_BUTTON =
 
 const LINK_BUTTON =
   "text-sm font-semibold text-[color:var(--aipify-companion-purple)] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--aipify-focus-ring)]";
+
+function academyKind(productKey: string): "web" | "bedrift" | "voice" | "other" {
+  const key = productKey.toLowerCase();
+  if (key.includes("voice")) return "voice";
+  if (key.includes("bedrift")) return "bedrift";
+  if (key.includes("kompis_web") || key === "web") return "web";
+  return "other";
+}
+
+function academyCatalog(
+  products: SellersProductRow[],
+  l: SellersLiveLabels["text"],
+): Array<{ key: string; title: string; body: string; published: boolean | null }> {
+  const cards: Array<{ key: string; title: string; body: string; published: boolean | null }> = products.map((product) => {
+    const kind = academyKind(product.productKey);
+    const body =
+      kind === "web"
+        ? l.academyWebStatus
+        : kind === "voice"
+          ? l.academyVoiceStatus
+          : kind === "bedrift"
+            ? product.published
+              ? l.academyBedriftStatus
+              : l.academyNotForSellers
+            : l.academyGenericStatus;
+    return { key: product.id, title: product.title, body, published: product.published };
+  });
+  if (!products.some((product) => academyKind(product.productKey) === "voice")) {
+    cards.push({
+      key: "voice-future",
+      title: l.academyVoiceTitle,
+      body: l.academyVoiceStatus,
+      published: null,
+    });
+  }
+  return cards;
+}
 
 function Card({ title, children }: { title: string; children: ReactNode }) {
   return (

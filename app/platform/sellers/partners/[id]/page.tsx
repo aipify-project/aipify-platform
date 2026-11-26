@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CertifiedSellerProfile } from "@/components/platform/sellers/CertifiedSellerProfile";
-import { SellersAdminNav } from "@/components/platform/sellers/SellersAdminNav";
 import { isCspPartnerId } from "@/lib/certified-sales-partner/partner-admin-detail";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -31,25 +30,7 @@ export default async function PlatformSellerProfilePage({
   const labels = buildSellersPartnerDrawerLabels(t);
 
   return (
-    <div className="mx-auto w-full max-w-[1600px] space-y-4 px-6 py-6 lg:px-8">
-      <SellersAdminNav
-        label={t("platform.sellers.live.sectionsTitle")}
-        labels={{
-          overview: t("platform.sellers.overview.title"),
-          partners: t("platform.sellers.partners.title"),
-          products: t("platform.sellers.products.title"),
-          commissionRates: t("platform.sellers.commissionRates.title"),
-          attribution: t("platform.sellers.attribution.title"),
-          academy: t("platform.sellers.academy.title"),
-          materials: t("platform.sellers.materials.title"),
-          leadsSales: t("platform.sellers.leadsSales.title"),
-          commissions: t("platform.sellers.commissions.title"),
-          settlements: t("platform.sellers.settlements.title"),
-          messages: t("platform.sellers.messages.title"),
-          audit: t("platform.sellers.audit.title"),
-          settings: t("platform.sellers.settings.title"),
-        }}
-      />
+    <div className="w-full space-y-4 px-6 py-6 lg:px-8">
       <h1 className="sr-only">{labels.profile.title}</h1>
       <Link
         href={status ? `/platform/sellers/partners?status=${encodeURIComponent(status)}` : "/platform/sellers/partners"}
