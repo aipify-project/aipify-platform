@@ -9,8 +9,8 @@ import {
   salesEmailReplyDomain,
   sendCspMarketingEmail,
 } from "@/lib/certified-sales-partner/email-outbound/send-gate";
-import { createReplyToken, hashReplyToken } from "@/lib/certified-sales-partner/email-crm/token";
-import { readProfileSignature, buildSalesReferralUrl } from "@/lib/certified-sales-partner/email-crm/signature";
+import { createReplyToken, hashReplyToken, replyTokenLocalPart } from "@/lib/certified-sales-partner/email-crm/token";
+import { readProfileSignature, buildSalesReferralUrl, resolveSellerCompany } from "@/lib/certified-sales-partner/email-crm/signature";
 import { parseCspPortalView } from "@/lib/certified-sales-partner/portal-view";
 import { requirePartnersPortalApiAccess } from "@/lib/partners-portal/server-access";
 
@@ -74,7 +74,10 @@ export async function POST(request: Request) {
     const meta = (userData.user?.user_metadata ?? {}) as Record<string, unknown>;
     const signature = readProfileSignature({
       displayName: view.overview.displayName,
-      company: metaString(meta, "company_name", "company"),
+      company: resolveSellerCompany({
+        legalBusinessName: view.overview.legalBusinessName,
+        metadataCompany: metaString(meta, "company_name", "company"),
+      }),
       contactEmail: userData.user?.email ?? null,
       avatarUrl: metaString(meta, "avatar_url", "profile_image_url", "picture"),
     });
@@ -135,17 +138,21 @@ export async function POST(request: Request) {
     const sendId = crypto.randomUUID();
     const tokenSecret = process.env.CSP_SALES_EMAIL_TOKEN_SECRET?.trim() ?? "";
     const replyDomain = salesEmailReplyDomain();
-    const token = createReplyToken(
-      {
-        sendId,
-        partnerId: view.overview.partnerId,
-        tenantId: "aipify_internal",
-        productKey,
-        recipient,
-      },
-      tokenSecret,
-    );
-    const replyTo = `Aipify <reply+${token}@${replyDomain}>`;
+    const token = createReplyToken(tokenSecret);
+    if (replyTokenLocalPart(token).length > 64) {
+      return NextResponse.json(
+        {
+          found: true,
+          status: "draft",
+          gate_reason: "reply_domain_missing",
+          message: "Send blocked. Nothing was sent.",
+          createsSale: false,
+          createsCommission: false,
+        },
+        { status: 409, headers: NO_STORE },
+      );
+    }
+    const replyTo = `Aipify <${replyTokenLocalPart(token)}@${replyDomain}>`;
     const recorded = await callCspRpc<{
       ok?: boolean;
       code?: string;

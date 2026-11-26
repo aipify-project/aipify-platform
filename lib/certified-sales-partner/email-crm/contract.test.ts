@@ -4,31 +4,24 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import { classifyInboundEvent } from "./classify";
 import { CSP_SALES_EMAIL_RETIRED_ENV, CSP_SALES_EMAIL_SQL_CANDIDATE_PATH } from "./contract";
-import { prepareInboundEvent } from "./prepare-inbound";
-import { buildSalesReferralUrl, publicEmailAvatarUrl, readProfileSignature } from "./signature";
+import { payloadFromReceivedEmail, prepareInboundEvent } from "./prepare-inbound";
+import { htmlToPlainText, messageTextFromReceived } from "./received-email";
+import { buildSalesReferralUrl, publicEmailAvatarUrl, readProfileSignature, resolveSellerCompany } from "./signature";
 import { verifyResendSvixSignature } from "./svix";
-import { createReplyToken, hashReplyToken, inspectReplyToken } from "./token";
+import { createReplyToken, hashReplyToken, inspectReplyToken, replyTokenFitsSmtp, replyTokenLocalPart } from "./token";
 import { evaluateCspMarketingSendGate } from "../email-outbound/send-gate";
 
 const SECRET = "token-secret-value";
 
-test("reply token rejects tampering and expiry", () => {
-  const token = createReplyToken(
-    {
-      sendId: "11111111-1111-4111-8111-111111111111",
-      partnerId: "22222222-2222-4222-8222-222222222222",
-      tenantId: "aipify_internal",
-      productKey: "kompis_web",
-      recipient: "buyer@example.com",
-    },
-    SECRET,
-    1_000,
-  );
-  assert.equal(inspectReplyToken(SECRET, token, 1_000).ok, true);
-  assert.equal(inspectReplyToken(SECRET, `${token}x`, 1_000).ok, false);
-  const expired = inspectReplyToken(SECRET, token, 1_000 + 1000 * 60 * 60 * 24 * 121);
-  assert.equal(expired.ok, false);
-  if (!expired.ok) assert.equal(expired.error, "expired");
+test("reply token stays inside the SMTP local-part limit", () => {
+  const token = createReplyToken(SECRET);
+  assert.equal(token.length, 43);
+  assert.equal(replyTokenLocalPart(token).length <= 64, true);
+  assert.equal(replyTokenFitsSmtp(token), true);
+  assert.equal(inspectReplyToken(SECRET, token).ok, true);
+  assert.equal(inspectReplyToken(SECRET, `${token.slice(0, 42)}*`).ok, false);
+  assert.equal(hashReplyToken(token) === hashReplyToken(`${token.slice(0, 42)}A`), false);
+  assert.throws(() => createReplyToken("short"), /token_secret_too_short/);
 });
 
 test("Svix signature matches Resend's signed payload and rejects a raw-body HMAC", () => {
@@ -163,39 +156,40 @@ test("missing owner env stops before a provider call would be allowed", () => {
   }
 });
 
-test("prepared inbound keeps the signed partner and hashes the token", () => {
-  const token = createReplyToken(
-    {
-      sendId: "11111111-1111-4111-8111-111111111111",
-      partnerId: "22222222-2222-4222-8222-222222222222",
-      tenantId: "aipify_internal",
-      productKey: "kompis_web",
-      recipient: "buyer@example.com",
-    },
-    SECRET,
-    1_700_000_000_000,
-  );
-  const prepared = prepareInboundEvent({
-    tokenSecret: SECRET,
-    now: 1_700_000_000_000,
-    payload: {
-      type: "email.received",
-      data: {
-        email_id: "evt_9",
-        from: "Buyer <buyer@example.com>",
-        to: [`reply+${token}@reply.aipify.ai`],
-        subject: "Interested",
-        text: "Please call me.",
-      },
+test("prepared inbound uses the fetched message and ignores a spoofed webhook sender", () => {
+  const token = createReplyToken(SECRET);
+  const payload = payloadFromReceivedEmail({
+    providerEventId: "4ef9a417-02e9-4d39-ad75-9611e0fcc33c",
+    eventType: "email.received",
+    email: {
+      id: "4ef9a417-02e9-4d39-ad75-9611e0fcc33c",
+      from: "Buyer <buyer@example.com>",
+      to: [`reply+${token}@reply.aipify.ai`],
+      cc: [],
+      subject: "Interested",
+      text: messageTextFromReceived({
+        text: null,
+        html: "<p>Please call me.</p><script>alert(1)</script>",
+      }),
+      headers: {},
+      messageId: "<m@example.com>",
     },
   });
+  const prepared = prepareInboundEvent({ tokenSecret: SECRET, payload });
   assert.equal(prepared.ok, true);
   if (prepared.ok) {
     assert.equal(prepared.event.event_class, "human");
-    assert.equal(prepared.event.partner_id_claim, "22222222-2222-4222-8222-222222222222");
+    assert.equal(prepared.event.partner_id_claim, null);
+    assert.equal(prepared.event.send_id, null);
+    assert.equal(prepared.event.tenant_id, "aipify_internal");
     assert.equal(prepared.event.token_hash, hashReplyToken(token));
     assert.equal(prepared.event.sender_email, "buyer@example.com");
+    assert.equal(prepared.event.body_text, "Please call me.");
+    assert.equal(prepared.event.body_text.includes("alert"), false);
   }
+  assert.equal(htmlToPlainText("<b>Hei</b>").includes("<b>"), false);
+  assert.equal(resolveSellerCompany({ legalBusinessName: "Example AS", metadataCompany: "Other" }), "Example AS");
+  assert.equal(resolveSellerCompany({ legalBusinessName: "  ", metadataCompany: "" }), "");
 });
 
 test("SQL candidate hash matches the file bytes and does not write commission", () => {

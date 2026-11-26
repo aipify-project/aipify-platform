@@ -31,6 +31,16 @@ export function buildSalesReferralUrl(input: {
   return `https://aipify.ai${path}&lang=${input.locale}`;
 }
 
+/** CSP legal name first. Auth metadata is only a fallback. APP customer profiles are not read. */
+export function resolveSellerCompany(input: {
+  legalBusinessName?: string | null;
+  metadataCompany?: string | null;
+}): string {
+  const legal = input.legalBusinessName?.trim() ?? "";
+  if (legal) return legal;
+  return input.metadataCompany?.trim() ?? "";
+}
+
 export function readProfileSignature(input: {
   displayName: string | null;
   company: string | null;
