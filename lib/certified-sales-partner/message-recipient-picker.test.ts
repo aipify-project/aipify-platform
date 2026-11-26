@@ -4,7 +4,7 @@ import {
   isCspMessageRecipientEligible,
   parseCspMessageRecipients,
   recipientDisplayLabel,
-} from "./message-recipient-picker.ts";
+} from "./message-recipient-picker";
 
 async function main() {
   const rows = parseCspMessageRecipients({

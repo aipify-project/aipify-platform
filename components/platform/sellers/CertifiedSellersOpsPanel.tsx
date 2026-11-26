@@ -605,7 +605,7 @@ export function CertifiedSellersOpsPanel({
                     </p>
                   </div>
                   {selectedRecipient.status !== "unknown" && !recipientEligible ? (
-                    <AipifyStatusBadge kind="attention" label={l.recipientNotEligible} />
+                    <AipifyStatusBadge kind="needs_attention" label={l.recipientNotEligible} />
                   ) : null}
                   <button
                     type="button"
