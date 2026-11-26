@@ -63,7 +63,7 @@ export function buildCspHelpLabels(t: (key: string) => string): CspHelpLabels {
       section("commission", "/partners/customers/pipeline"),
       section("payouts", "/partners/settlement"),
       section("materials", "/partners/marketing/assets"),
-      section("contact"),
+      section("contact", "/partners/account/messages"),
     ],
   };
 }

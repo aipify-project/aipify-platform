@@ -7745,7 +7745,10 @@
         "approved": "Godkjent",
         "rejected": "Avslått",
         "suspended": "Suspendert",
-        "unknown": "Status utilgjengelig"
+        "unknown": "Status utilgjengelig",
+        "active": "Aktiv",
+        "certified": "Sertifisert",
+        "in_academy": "I academy"
       },
       "viewApplication": "Se søknad",
       "sectionAttributionBody": "Salgslenker, klikk og registreringer per selger.",
@@ -7889,7 +7892,7 @@
       "policyNoRetroactiveRates": "Satsendringer endrer ikke allerede kvalifiserte salg.",
       "policyAuditRequired": "Sensitive partner- og oppgjørsendringer krever begrunnelse og revisjon.",
       "sendMessageTitle": "Send melding til selger",
-      "sendMessagePartnerId": "Partner id (UUID)",
+      "sendMessagePartnerId": "Søk selger etter navn eller status",
       "sendMessageSubject": "Subject (optional)",
       "sendMessageBody": "Message",
       "sendMessageCta": "Send melding",
@@ -7904,7 +7907,15 @@
       "publishCta": "Publiser",
       "withdrawCta": "Trekk tilbake",
       "materialWriteOk": "Materielloppdatering lagret.",
-      "materialWriteError": "Materielloppdateringen feilet."
+      "materialWriteError": "Materielloppdateringen feilet.",
+      "recipientSearchPlaceholder": "Søk selger etter navn, status eller referanse",
+      "recipientEmpty": "Ingen selgere matcher søket.",
+      "recipientNotEligible": "Kan ikke sende til denne statusen",
+      "selectedRecipient": "Mottaker",
+      "clearRecipient": "Bytt",
+      "unnamedRecipient": "Selger uten navn",
+      "sendMessageBlocked": "Meldinger kan bare sendes til godkjente, aktive, sertifiserte eller academy-selgere. Suspenderte og avviste er blokkert.",
+      "conversationTitle": "Samtalehistorikk"
     },
     "messages": {
       "title": "Meldinger og kommunikasjon",
@@ -7969,9 +7980,9 @@
       "ledgerEmpty": "Ingen journalposter ennå.",
       "colEntryType": "Post",
       "ledgerNote": "Oppgjør gjøres manuelt. Ingen automatiske bankutbetalinger.",
-      "messagesGateTitle": "Meldinger er ikke aktivert ennå",
-      "messagesGateBody": "Skriving og innboks for selgere er forberedt, men meldingslagring i Core er ikke aktiv. Ingenting sendes og ingen meldinger vises før den er aktiv.",
-      "openMessages": "Åpne meldingsområdet",
+      "messagesGateTitle": "Meldinger med denne selgeren",
+      "messagesGateBody": "Send én melding om gangen. Suspenderte og avviste selgere kan ikke motta meldinger. Ingen masseutsending.",
+      "openMessages": "Åpne full meldingsflate",
       "historyTitle": "Beslutninger og hendelser",
       "historyEmpty": "Ingen hendelser er registrert for denne selgeren ennå.",
       "accessTitle": "Tilgang",
@@ -8011,7 +8022,19 @@
         "platform_admin": "Plattformadministrator",
         "system": "System",
         "unknown": "Ikke angitt"
-      }
+      },
+      "sendMessageSubject": "Emne (valgfritt)",
+      "sendMessageBody": "Melding",
+      "sendMessageCta": "Send melding",
+      "sendMessageOk": "Meldingen er registrert for selgeren.",
+      "sendMessageError": "Meldingen kunne ikke sendes.",
+      "sendMessageBlocked": "Denne selgerens status tillater ikke meldinger.",
+      "messagesEmpty": "Ingen meldinger med denne selgeren ennå.",
+      "conversationTitle": "Samtale",
+      "directionAdmin": "Plattform til selger",
+      "directionPartner": "Selgersvar",
+      "readYes": "Lest",
+      "readNo": "Ulest"
     }
   }
 }

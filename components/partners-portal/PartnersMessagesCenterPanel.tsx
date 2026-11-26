@@ -65,14 +65,29 @@ export function PartnersMessagesCenterPanel({ labels }: Props) {
       setMessages(rows);
       setPhase(rows.length === 0 ? "empty" : "ready");
 
-      for (const row of rows) {
-        if (row.direction === "admin_to_partner" && !row.read_at && row.id) {
-          void fetch("/api/certified-sales-partner/messages/read", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message_id: row.id }),
-          });
-        }
+      const unread = rows.filter(
+        (row) => row.direction === "admin_to_partner" && !row.read_at && row.id,
+      );
+      if (unread.length > 0) {
+        const now = new Date().toISOString();
+        await Promise.all(
+          unread.map(async (row) => {
+            try {
+              const mark = await fetch("/api/certified-sales-partner/messages/read", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message_id: row.id }),
+              });
+              if (mark.ok) {
+                setMessages((prev) =>
+                  prev.map((m) => (m.id === row.id ? { ...m, read_at: m.read_at ?? now } : m)),
+                );
+              }
+            } catch {
+              // Keep unread locally; next load retries mark-read.
+            }
+          }),
+        );
       }
     } catch {
       setMessages([]);

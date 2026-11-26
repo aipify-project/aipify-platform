@@ -527,7 +527,15 @@
       "statusBlocked": "Blockerad",
       "visitsUnknown": "Ej rapporterat",
       "socialSection": "Sociala plattformar",
-      "otherChannels": "Andra kanaler"
+      "otherChannels": "Andra kanaler",
+      "deactivate": "Inaktivera",
+      "deactivateOk": "Säljlänken är inaktiverad. Besök finns kvar i historiken.",
+      "deactivateError": "Säljlänken kunde inte inaktiveras. Försök igen.",
+      "codeCol": "Länkkod",
+      "copyLink": "Kopiera länk",
+      "copyLinkOk": "Länk kopierad.",
+      "copyLinkNeedProduct": "Välj en produkt nedan innan du kopierar en offentlig länk.",
+      "statusDeactivated": "Inaktiverad"
     },
     "exam": {
       "title": "Produktcertifieringsprov",
@@ -897,7 +905,8 @@
         },
         "contact": {
           "title": "Contact Aipify",
-          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
+          "cta": "Öppna meddelanden"
         }
       }
     },
@@ -907,7 +916,9 @@
       "emptyTitle": "Inga aviseringar ännu",
       "emptyBody": "När Platform Admin skickar ett meddelande eller status för certifiering och utbetalning ändras visas uppdateringar här.",
       "messagesCta": "Öppna meddelanden",
-      "homeCta": "Till startsidan"
+      "homeCta": "Till startsidan",
+      "unreadTitle": "Olästa meddelanden från Plattformen",
+      "unreadBody": "Öppna Meddelanden för att läsa och svara. Endast händelser med verklig Core-källa listas här."
     },
     "leads": {
       "title": "Dina attribuerade registreringar",
@@ -1056,6 +1067,24 @@
     "catalogMeta": {
       "audienceLabel": "Vem passar produkten för?",
       "benefitsLabel": "Viktigaste fördelarna"
+    },
+    "bank": {
+      "title": "Bankuppgifter för utbetalning",
+      "intro": "Aipify Group AS betalar avräkningar manuellt. Spara bankuppgifter så att Finance kan betala dig säkert.",
+      "accountHolder": "Kontoinnehavare",
+      "country": "Land (ISO)",
+      "currency": "Valuta",
+      "iban": "IBAN",
+      "swiftBic": "SWIFT/BIC (valfritt)",
+      "save": "Spara bankuppgifter",
+      "saving": "Sparar",
+      "saved": "Bankuppgifter sparade. Endast en maskerad referens visas efteråt.",
+      "error": "Bankuppgifterna kunde inte sparas. Kontrollera fälten och försök igen.",
+      "unavailable": "Säker banklagring är inte tillgänglig i den här miljön ännu. Inget sparades.",
+      "maskedLabel": "Sparad (maskerad)",
+      "noneSaved": "Inga bankuppgifter för utbetalning sparade ännu.",
+      "retry": "Försök igen",
+      "manualPayoutNote": "Det finns inga automatiska bankutbetalningar eller Stripe Connect i det här programmet."
     }
   }
 }

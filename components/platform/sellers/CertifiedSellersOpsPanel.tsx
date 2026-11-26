@@ -5,6 +5,13 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { CertifiedSellersSectionPanel } from "@/components/platform/sellers/CertifiedSellersSectionPanel";
+import {
+  filterCspMessageRecipients,
+  isCspMessageRecipientEligible,
+  parseCspMessageRecipients,
+  recipientDisplayLabel,
+  type CspMessageRecipient,
+} from "@/lib/certified-sales-partner/message-recipient-picker";
 import { classifyCspApiResponse } from "@/lib/certified-sales-partner/ui-support";
 import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
 import { toBcp47Locale } from "@/lib/platform-presentation-quality/bcp47";
@@ -62,11 +69,20 @@ export type SellersOpsLabels = {
   dateInvalid: string;
   sendMessageTitle: string;
   sendMessagePartnerId: string;
+  recipientSearchPlaceholder: string;
+  recipientEmpty: string;
+  recipientNotEligible: string;
+  selectedRecipient: string;
+  clearRecipient: string;
+  unnamedRecipient: string;
   sendMessageSubject: string;
   sendMessageBody: string;
   sendMessageCta: string;
   sendMessageOk: string;
   sendMessageError: string;
+  sendMessageBlocked: string;
+  conversationTitle: string;
+  partnerStatusLabels: Record<string, string>;
   registerMaterialTitle: string;
   materialKey: string;
   materialTitle: string;
@@ -119,6 +135,9 @@ export function CertifiedSellersOpsPanel({
   const [rows, setRows] = useState<Array<Record<string, unknown>>>([]);
   const [query, setQuery] = useState("");
   const [partnerFilter, setPartnerFilter] = useState("");
+  const [recipientQuery, setRecipientQuery] = useState("");
+  const [recipients, setRecipients] = useState<CspMessageRecipient[]>([]);
+  const [recipientsPhase, setRecipientsPhase] = useState<Phase>("loading");
   const [sendSubject, setSendSubject] = useState("");
   const [sendBody, setSendBody] = useState("");
   const [actionNotice, setActionNotice] = useState<string | null>(null);
@@ -135,6 +154,55 @@ export function CertifiedSellersOpsPanel({
     const partner = new URLSearchParams(window.location.search).get("partner");
     if (partner) setPartnerFilter(partner);
   }, []);
+
+  const loadRecipients = useCallback(async () => {
+    if (section !== "messages") return;
+    setRecipientsPhase("loading");
+    try {
+      const res = await fetch("/api/platform/sellers/partners", { cache: "no-store" });
+      const body = await res.json().catch(() => null);
+      const outcome = classifyCspApiResponse(res.status, body);
+      if (outcome.kind === "unauthorized" || outcome.kind === "forbidden") {
+        setRecipients([]);
+        setRecipientsPhase("forbidden");
+        return;
+      }
+      if (outcome.kind !== "ready" && res.status >= 400) {
+        setRecipients([]);
+        setRecipientsPhase("error");
+        return;
+      }
+      setRecipients(parseCspMessageRecipients(body));
+      setRecipientsPhase("ready");
+    } catch {
+      setRecipients([]);
+      setRecipientsPhase("error");
+    }
+  }, [section]);
+
+  useEffect(() => {
+    void loadRecipients();
+  }, [loadRecipients]);
+
+  const selectedRecipient = useMemo((): CspMessageRecipient | null => {
+    const id = partnerFilter.trim();
+    if (!id) return null;
+    const found = recipients.find((r) => r.id === id);
+    if (found) return found;
+    // Preselected via ?partner= before directory resolves, or partner outside page limit.
+    return { id, displayName: null, status: "unknown", country: null };
+  }, [recipients, partnerFilter]);
+
+  const hasConcreteRecipient = partnerFilter.trim().length > 0;
+
+  const filteredRecipients = useMemo(
+    () => filterCspMessageRecipients(recipients, recipientQuery).slice(0, 40),
+    [recipients, recipientQuery],
+  );
+
+  const recipientEligible = selectedRecipient
+    ? isCspMessageRecipientEligible(selectedRecipient.status)
+    : false;
 
   const endpoint = useMemo(() => {
     switch (section) {
@@ -217,6 +285,10 @@ export function CertifiedSellersOpsPanel({
     const partnerId = partnerFilter.trim();
     const text = sendBody.trim();
     if (!partnerId || !text || busy) return;
+    if (selectedRecipient && !isCspMessageRecipientEligible(selectedRecipient.status)) {
+      setActionNotice(l.sendMessageBlocked);
+      return;
+    }
     setBusy(true);
     setActionNotice(null);
     try {
@@ -230,6 +302,11 @@ export function CertifiedSellersOpsPanel({
           idempotency_key: `admin-msg-${partnerId}-${Date.now()}`,
         }),
       });
+      const body = await res.json().catch(() => null);
+      if (res.status === 403 && body && (body as { error?: string }).error === "partner_not_active") {
+        setActionNotice(l.sendMessageBlocked);
+        return;
+      }
       if (!res.ok) {
         setActionNotice(l.sendMessageError);
         return;
@@ -242,6 +319,22 @@ export function CertifiedSellersOpsPanel({
     } finally {
       setBusy(false);
     }
+  }
+
+  function selectRecipient(r: CspMessageRecipient) {
+    setPartnerFilter(r.id);
+    setRecipientQuery("");
+    setActionNotice(null);
+  }
+
+  function clearRecipient() {
+    setPartnerFilter("");
+    setRecipientQuery("");
+    setActionNotice(null);
+  }
+
+  function statusLabel(status: string): string {
+    return l.partnerStatusLabels[status] ?? l.partnerStatusLabels.unknown ?? status;
   }
 
   async function registerMaterial() {
@@ -491,16 +584,105 @@ export function CertifiedSellersOpsPanel({
           </article>
         ) : null}
 
-        {section === "messages" && phase === "ready" ? (
+        {section === "messages" && (phase === "ready" || phase === "loading") ? (
           <div className="space-y-4">
             <article className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-5 shadow-sm space-y-3">
               <h2 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{l.sendMessageTitle}</h2>
-              <input
-                value={partnerFilter}
-                onChange={(e) => setPartnerFilter(e.target.value)}
-                placeholder={l.sendMessagePartnerId}
-                className="w-full max-w-xl rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-mono"
-              />
+              <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.messagesGateBody}</p>
+
+              {hasConcreteRecipient && selectedRecipient ? (
+                <div className="flex max-w-xl flex-wrap items-center gap-2 rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-canvas)] px-3 py-2">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs text-[color:var(--aipify-text-secondary)]">{l.selectedRecipient}</p>
+                    <p className="truncate font-medium text-[color:var(--aipify-text-primary)]">
+                      {recipientDisplayLabel(selectedRecipient, l.unnamedRecipient)}
+                    </p>
+                    <p className="truncate text-xs text-[color:var(--aipify-text-secondary)]">
+                      {statusLabel(selectedRecipient.status)}
+                      {selectedRecipient.country ? ` · ${selectedRecipient.country}` : ""}
+                      {" · "}
+                      <span className="font-mono">{selectedRecipient.id.slice(0, 8)}</span>
+                    </p>
+                  </div>
+                  {selectedRecipient.status !== "unknown" && !recipientEligible ? (
+                    <AipifyStatusBadge kind="needs_attention" label={l.recipientNotEligible} />
+                  ) : null}
+                  <button
+                    type="button"
+                    onClick={clearRecipient}
+                    className="rounded-lg border border-[color:var(--aipify-border)] px-2.5 py-1 text-xs font-semibold"
+                  >
+                    {l.clearRecipient}
+                  </button>
+                </div>
+              ) : (
+                <div className="max-w-xl space-y-2">
+                  <label className="block text-sm">
+                    <span className="sr-only">{l.recipientSearchPlaceholder}</span>
+                    <input
+                      value={recipientQuery}
+                      onChange={(e) => setRecipientQuery(e.target.value)}
+                      placeholder={l.recipientSearchPlaceholder}
+                      autoComplete="off"
+                      className="w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                    />
+                  </label>
+                  {recipientsPhase === "loading" ? (
+                    <AipifyLoader centered size="sm" label={l.loading} />
+                  ) : null}
+                  {recipientsPhase === "error" || recipientsPhase === "forbidden" ? (
+                    <Notice
+                      title={recipientsPhase === "forbidden" ? l.forbiddenTitle : l.errorTitle}
+                      body={recipientsPhase === "forbidden" ? l.forbiddenBody : l.errorBody}
+                      retry={l.retry}
+                      onRetry={() => void loadRecipients()}
+                    />
+                  ) : null}
+                  {recipientsPhase === "ready" && filteredRecipients.length === 0 ? (
+                    <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.recipientEmpty}</p>
+                  ) : null}
+                  {recipientsPhase === "ready" && filteredRecipients.length > 0 ? (
+                    <ul
+                      className="max-h-56 overflow-y-auto rounded-xl border border-[color:var(--aipify-border)] bg-white"
+                      role="listbox"
+                      aria-label={l.recipientSearchPlaceholder}
+                    >
+                      {filteredRecipients.map((r) => {
+                        const eligible = isCspMessageRecipientEligible(r.status);
+                        return (
+                          <li key={r.id}>
+                            <button
+                              type="button"
+                              role="option"
+                              aria-selected={false}
+                              onClick={() => selectRecipient(r)}
+                              className="flex w-full items-start justify-between gap-3 border-b border-[color:var(--aipify-border)] px-3 py-2 text-left last:border-b-0 hover:bg-[color:var(--aipify-canvas)]"
+                            >
+                              <span className="min-w-0">
+                                <span className="block truncate font-medium text-[color:var(--aipify-text-primary)]">
+                                  {recipientDisplayLabel(r, l.unnamedRecipient)}
+                                </span>
+                                <span className="block truncate text-xs text-[color:var(--aipify-text-secondary)]">
+                                  {statusLabel(r.status)}
+                                  {r.country ? ` · ${r.country}` : ""}
+                                  {" · "}
+                                  <span className="font-mono">{r.id.slice(0, 8)}</span>
+                                </span>
+                              </span>
+                              {!eligible ? (
+                                <span className="shrink-0 text-xs text-[color:var(--aipify-text-secondary)]">
+                                  {l.recipientNotEligible}
+                                </span>
+                              ) : null}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : null}
+                </div>
+              )}
+
               <input
                 value={sendSubject}
                 onChange={(e) => setSendSubject(e.target.value)}
@@ -516,7 +698,14 @@ export function CertifiedSellersOpsPanel({
               />
               <button
                 type="button"
-                disabled={busy || !partnerFilter.trim() || !sendBody.trim()}
+                disabled={
+                  busy ||
+                  !hasConcreteRecipient ||
+                  !sendBody.trim() ||
+                  (selectedRecipient != null &&
+                    selectedRecipient.status !== "unknown" &&
+                    !recipientEligible)
+                }
                 onClick={() => void sendAdminMessage()}
                 className="rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
               >
@@ -524,21 +713,41 @@ export function CertifiedSellersOpsPanel({
               </button>
               {actionNotice ? <p className="text-sm text-[color:var(--aipify-text-secondary)]">{actionNotice}</p> : null}
             </article>
-            {filtered.length === 0 ? <Empty title={l.emptyTitle} body={l.emptyBody} /> : null}
-            {filtered.length > 0 ? (
+
+            <h3 className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">{l.conversationTitle}</h3>
+            {phase === "loading" ? <AipifyLoader centered size="sm" label={l.loading} /> : null}
+            {phase === "ready" && filtered.length === 0 ? <Empty title={l.emptyTitle} body={l.emptyBody} /> : null}
+            {phase === "ready" && filtered.length > 0 ? (
               <div className="overflow-x-auto rounded-2xl border border-[color:var(--aipify-border)] bg-white">
                 <Table caption={title} headers={[l.colPartner, l.colAction, l.colStatus, l.colDate]}>
-                  {filtered.map((r) => (
-                    <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
-                      <td className="px-3 py-2 font-mono text-xs">{str(r.partner_id).slice(0, 8) || l.notReported}</td>
-                      <td className="px-3 py-2">
-                        <p className="font-medium">{str(r.subject) || str(r.direction) || l.notReported}</p>
-                        <p className="mt-1 line-clamp-2 text-sm text-[color:var(--aipify-text-secondary)]">{str(r.body)}</p>
-                      </td>
-                      <td className="px-3 py-2">{str(r.delivery_status) || l.notReported}</td>
-                      <td className="px-3 py-2">{formatPlatformDateTimeShort(str(r.created_at) || null, dateOptions)}</td>
-                    </tr>
-                  ))}
+                  {filtered.map((r) => {
+                    const pid = str(r.partner_id);
+                    const partner = recipients.find((x) => x.id === pid);
+                    return (
+                      <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
+                        <td className="px-3 py-2">
+                          <p className="font-medium">
+                            {partner
+                              ? recipientDisplayLabel(partner, l.unnamedRecipient)
+                              : pid.slice(0, 8) || l.notReported}
+                          </p>
+                          <p className="font-mono text-xs text-[color:var(--aipify-text-secondary)]">
+                            {pid.slice(0, 8) || l.notReported}
+                          </p>
+                        </td>
+                        <td className="px-3 py-2">
+                          <p className="font-medium">{str(r.subject) || str(r.direction) || l.notReported}</p>
+                          <p className="mt-1 line-clamp-2 text-sm text-[color:var(--aipify-text-secondary)]">
+                            {str(r.body)}
+                          </p>
+                        </td>
+                        <td className="px-3 py-2">{str(r.delivery_status) || l.notReported}</td>
+                        <td className="px-3 py-2">
+                          {formatPlatformDateTimeShort(str(r.created_at) || null, dateOptions)}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </Table>
               </div>
             ) : null}

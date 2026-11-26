@@ -527,7 +527,15 @@
       "statusBlocked": "Spærret",
       "visitsUnknown": "Ikke rapporteret",
       "socialSection": "Sociale platforme",
-      "otherChannels": "Andre kanaler"
+      "otherChannels": "Andre kanaler",
+      "deactivate": "Deaktiver",
+      "deactivateOk": "Salgslinket er deaktiveret. Besøg bevares i historikken.",
+      "deactivateError": "Salgslinket kunne ikke deaktiveres. Prøv igen.",
+      "codeCol": "Linkkode",
+      "copyLink": "Kopiér link",
+      "copyLinkOk": "Link kopieret.",
+      "copyLinkNeedProduct": "Vælg et produkt nedenfor, før du kopierer et offentligt link.",
+      "statusDeactivated": "Deaktiveret"
     },
     "exam": {
       "title": "Produktcertificeringstest",
@@ -897,7 +905,8 @@
         },
         "contact": {
           "title": "Contact Aipify",
-          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
+          "cta": "Åbn beskeder"
         }
       }
     },
@@ -907,7 +916,9 @@
       "emptyTitle": "Ingen notifikationer endnu",
       "emptyBody": "Når Platform Admin sender en besked, eller certificering og opgørsstatus ændres, vises opdateringer her.",
       "messagesCta": "Åbn beskeder",
-      "homeCta": "Tilbage til start"
+      "homeCta": "Tilbage til start",
+      "unreadTitle": "Ulæste beskeder fra Platform",
+      "unreadBody": "Åbn Beskeder for at læse og svare. Kun hændelser med reel Core-kilde vises her."
     },
     "leads": {
       "title": "Dine attribuerede registreringer",
@@ -1056,6 +1067,24 @@
     "catalogMeta": {
       "audienceLabel": "Hvem passer produktet til?",
       "benefitsLabel": "Vigtigste fordele"
+    },
+    "bank": {
+      "title": "Bankoplysninger til udbetaling",
+      "intro": "Aipify Group AS betaler afregninger manuelt. Gem bankoplysninger, så Finance kan udbetale sikkert.",
+      "accountHolder": "Kontoindehaver",
+      "country": "Land (ISO)",
+      "currency": "Valuta",
+      "iban": "IBAN",
+      "swiftBic": "SWIFT/BIC (valgfrit)",
+      "save": "Gem bankoplysninger",
+      "saving": "Gemmer",
+      "saved": "Bankoplysninger gemt. Kun en maskeret reference vises bagefter.",
+      "error": "Bankoplysninger kunne ikke gemmes. Tjek felterne og prøv igen.",
+      "unavailable": "Sikker banklagring er ikke tilgængelig i dette miljø endnu. Intet blev gemt.",
+      "maskedLabel": "Gemt (maskeret)",
+      "noneSaved": "Ingen bankoplysninger til udbetaling er gemt endnu.",
+      "retry": "Prøv igen",
+      "manualPayoutNote": "Der er ingen automatiske bankudbetalinger eller Stripe Connect i dette program."
     }
   }
 }

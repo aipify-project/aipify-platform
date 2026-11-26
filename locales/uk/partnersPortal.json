@@ -403,7 +403,15 @@
       "statusBlocked": "Заблоковане",
       "visitsUnknown": "Не повідомлено",
       "socialSection": "Соціальні платформи",
-      "otherChannels": "Інші канали"
+      "otherChannels": "Інші канали",
+      "deactivate": "Деактивувати",
+      "deactivateOk": "Посилання для продажу деактивовано. Відвідування збережено в історії.",
+      "deactivateError": "Не вдалося деактивувати посилання для продажу. Спробуйте ще раз.",
+      "codeCol": "Код посилання",
+      "copyLink": "Копіювати посилання",
+      "copyLinkOk": "Посилання скопійовано.",
+      "copyLinkNeedProduct": "Оберіть продукт нижче, перш ніж копіювати публічне посилання.",
+      "statusDeactivated": "Деактивовано"
     },
     "exam": {
       "title": "Сертифікаційний тест за продуктом",
@@ -773,7 +781,8 @@
         },
         "contact": {
           "title": "Contact Aipify",
-          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
+          "cta": "Відкрити повідомлення"
         }
       }
     },
@@ -783,7 +792,9 @@
       "emptyTitle": "Поки немає сповіщень",
       "emptyBody": "Коли Platform Admin надішле повідомлення або зміниться статус сертифікації й розрахунків, оновлення з’являться тут.",
       "messagesCta": "Відкрити повідомлення",
-      "homeCta": "На головну"
+      "homeCta": "На головну",
+      "unreadTitle": "Непрочитані повідомлення від Платформи",
+      "unreadBody": "Відкрийте Повідомлення, щоб прочитати й відповісти. Тут лише події з реального джерела Core."
     },
     "leads": {
       "title": "Ваші закріплені реєстрації",
@@ -932,6 +943,24 @@
     "catalogMeta": {
       "audienceLabel": "Для кого цей продукт?",
       "benefitsLabel": "Ключові переваги"
+    },
+    "bank": {
+      "title": "Банківські реквізити для виплат",
+      "intro": "Aipify Group AS виплачує розрахунки вручну. Збережіть реквізити, щоб Finance могла безпечно виплатити.",
+      "accountHolder": "Власник рахунку",
+      "country": "Країна (ISO)",
+      "currency": "Валюта",
+      "iban": "IBAN",
+      "swiftBic": "SWIFT/BIC (необов’язково)",
+      "save": "Зберегти реквізити",
+      "saving": "Збереження",
+      "saved": "Реквізити збережено. Далі показується лише замасковане посилання.",
+      "error": "Не вдалося зберегти реквізити. Перевірте поля й спробуйте ще раз.",
+      "unavailable": "Безпечне збереження банківських даних ще недоступне в цьому середовищі. Нічого не збережено.",
+      "maskedLabel": "Збережено (замасковано)",
+      "noneSaved": "Банківські реквізити для виплат ще не збережено.",
+      "retry": "Спробувати знову",
+      "manualPayoutNote": "У цій програмі немає автоматичних банківських виплат і Stripe Connect."
     }
   }
 }

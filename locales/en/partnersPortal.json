@@ -527,7 +527,15 @@
       "statusBlocked": "Blocked",
       "visitsUnknown": "Not reported",
       "socialSection": "Social platforms",
-      "otherChannels": "Other channels"
+      "otherChannels": "Other channels",
+      "deactivate": "Deactivate",
+      "deactivateOk": "Sales link deactivated. Existing visits remain in history.",
+      "deactivateError": "The sales link could not be deactivated. Try again.",
+      "codeCol": "Link code",
+      "copyLink": "Copy link",
+      "copyLinkOk": "Link copied.",
+      "copyLinkNeedProduct": "Choose a product below before copying a public link.",
+      "statusDeactivated": "Deactivated"
     },
     "exam": {
       "title": "Product certification test",
@@ -897,7 +905,8 @@
         },
         "contact": {
           "title": "Contact Aipify",
-          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
+          "cta": "Open messages"
         }
       }
     },
@@ -907,7 +916,9 @@
       "emptyTitle": "No notifications yet",
       "emptyBody": "When Platform Admin sends a message or your certification and settlement status change, updates appear here. Until then, check Messages and your home dashboard.",
       "messagesCta": "Open messages",
-      "homeCta": "Back to home"
+      "homeCta": "Back to home",
+      "unreadTitle": "Unread messages from Platform",
+      "unreadBody": "Open Messages to read and reply. Only events with a real Core source are listed here."
     },
     "leads": {
       "title": "Your attributed registrations",
@@ -1056,6 +1067,24 @@
     "catalogMeta": {
       "audienceLabel": "Who is it for?",
       "benefitsLabel": "Key benefits"
+    },
+    "bank": {
+      "title": "Payout bank details",
+      "intro": "Aipify Group AS pays settlements manually. Store bank details so Finance can pay you securely.",
+      "accountHolder": "Account holder",
+      "country": "Country (ISO)",
+      "currency": "Currency",
+      "iban": "IBAN",
+      "swiftBic": "SWIFT/BIC (optional)",
+      "save": "Save bank details",
+      "saving": "Saving",
+      "saved": "Bank details saved. Only a masked reference is shown afterwards.",
+      "error": "Bank details could not be saved. Check the fields and try again.",
+      "unavailable": "Secure bank storage is not available in this environment yet. Nothing was stored.",
+      "maskedLabel": "Saved (masked)",
+      "noneSaved": "No payout bank details saved yet.",
+      "retry": "Try again",
+      "manualPayoutNote": "There are no automatic bank payouts or Stripe Connect in this program."
     }
   }
 }

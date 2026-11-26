@@ -1197,7 +1197,10 @@
         "approved": "Aprobado",
         "rejected": "Rechazado",
         "suspended": "Suspendido",
-        "unknown": "Estado no disponible"
+        "unknown": "Estado no disponible",
+        "active": "Activo",
+        "certified": "Certificado",
+        "in_academy": "En academy"
       },
       "viewApplication": "Ver solicitud",
       "sectionAttributionBody": "Enlaces de venta, clics y registros por vendedor.",
@@ -1341,7 +1344,7 @@
       "policyNoRetroactiveRates": "Rate changes never alter already qualified sales.",
       "policyAuditRequired": "Sensitive partner and settlement changes require reason and audit.",
       "sendMessageTitle": "Send message to seller",
-      "sendMessagePartnerId": "Partner id (UUID)",
+      "sendMessagePartnerId": "Buscar vendedor por nombre o estado",
       "sendMessageSubject": "Subject (optional)",
       "sendMessageBody": "Message",
       "sendMessageCta": "Send message",
@@ -1356,7 +1359,15 @@
       "publishCta": "Publish",
       "withdrawCta": "Withdraw",
       "materialWriteOk": "Material update saved.",
-      "materialWriteError": "The material update failed."
+      "materialWriteError": "The material update failed.",
+      "recipientSearchPlaceholder": "Buscar vendedor por nombre, estado o referencia",
+      "recipientEmpty": "Ningún vendedor coincide con la búsqueda.",
+      "recipientNotEligible": "No se puede enviar con este estado",
+      "selectedRecipient": "Destinatario",
+      "clearRecipient": "Cambiar",
+      "unnamedRecipient": "Vendedor sin nombre",
+      "sendMessageBlocked": "Solo se pueden enviar mensajes a vendedores aprobados, activos, certificados o en academy. Suspendidos y rechazados están bloqueados.",
+      "conversationTitle": "Historial de conversación"
     },
     "messages": {
       "title": "Mensajes y comunicación",
@@ -1421,9 +1432,9 @@
       "ledgerEmpty": "Aún no hay asientos.",
       "colEntryType": "Asiento",
       "ledgerNote": "Las liquidaciones son manuales. No hay pagos bancarios automáticos.",
-      "messagesGateTitle": "La mensajería aún no está activa",
-      "messagesGateBody": "La redacción y la bandeja de entrada para vendedores están preparadas, pero el almacenamiento de mensajes en Core no está activo. No se envía nada ni se muestran mensajes hasta que lo esté.",
-      "openMessages": "Abrir el área de mensajes",
+      "messagesGateTitle": "Mensajes con este vendedor",
+      "messagesGateBody": "Envíe un mensaje a la vez. Los vendedores suspendidos o rechazados no pueden recibir mensajes. Sin envíos masivos.",
+      "openMessages": "Abrir el área completa de mensajes",
       "historyTitle": "Decisiones y eventos",
       "historyEmpty": "Aún no se han registrado eventos para este vendedor.",
       "accessTitle": "Acceso",
@@ -1463,7 +1474,19 @@
         "platform_admin": "Administrador de la plataforma",
         "system": "Sistema",
         "unknown": "No especificado"
-      }
+      },
+      "sendMessageSubject": "Asunto (opcional)",
+      "sendMessageBody": "Mensaje",
+      "sendMessageCta": "Enviar mensaje",
+      "sendMessageOk": "Mensaje registrado para el vendedor.",
+      "sendMessageError": "No se pudo enviar el mensaje.",
+      "sendMessageBlocked": "El estado de este vendedor no permite mensajes.",
+      "messagesEmpty": "Aún no hay mensajes con este vendedor.",
+      "conversationTitle": "Conversación",
+      "directionAdmin": "Plataforma al vendedor",
+      "directionPartner": "Respuesta del vendedor",
+      "readYes": "Leído",
+      "readNo": "No leído"
     }
   }
 }
