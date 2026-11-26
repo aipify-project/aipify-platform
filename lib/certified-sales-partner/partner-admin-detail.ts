@@ -1,4 +1,5 @@
 import { deriveCspCertificateId } from "@/lib/certified-sales-partner/academy/certificate";
+import { extractAvatarUrlFromMetadata } from "@/lib/certified-sales-partner/seller-avatar";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -40,6 +41,8 @@ export type CspPartnerAdminDetail = {
     businessRegistrationNumber: string | null;
     businessAddress: string | null;
     phone: string | null;
+    /** From auth `user_metadata` (`avatar_url` / `profile_image_url`); `null` = none stored. */
+    avatarUrl: string | null;
   };
   activity: CspPartnerAdminActivity[];
   certifications: CspPartnerAdminCertification[];
@@ -91,19 +94,20 @@ async function loadOptionalColumns(admin: ServiceClient, partnerId: string): Pro
   return anyExists ? merged : null;
 }
 
-async function loadAuthIdentity(admin: ServiceClient, authUserId: string | null) {
-  if (!authUserId) return { email: null, emailVerified: false, locale: null };
+async function loadAuthIdentity(admin: ServiceClient, authUserId: string | null, partnerId?: string) {
+  if (!authUserId) return { email: null, emailVerified: false, locale: null, avatarUrl: null };
   try {
     const { data, error } = await admin.auth.admin.getUserById(authUserId);
-    if (error || !data?.user) return { email: null, emailVerified: false, locale: null };
+    if (error || !data?.user) return { email: null, emailVerified: false, locale: null, avatarUrl: null };
     const meta = (data.user.user_metadata ?? {}) as Row;
     return {
       email: data.user.email ?? null,
       emailVerified: Boolean(data.user.email_confirmed_at),
       locale: str(meta.preferred_locale) ?? str(meta.locale),
+      avatarUrl: extractAvatarUrlFromMetadata(meta, partnerId),
     };
   } catch {
-    return { email: null, emailVerified: false, locale: null };
+    return { email: null, emailVerified: false, locale: null, avatarUrl: null };
   }
 }
 
@@ -196,7 +200,7 @@ export async function fetchCspPartnerAdminDetail(partnerId: string): Promise<Csp
 
     const optional = await loadOptionalColumns(admin, partnerId);
     const authUserId = str(row.auth_user_id);
-    const identity = await loadAuthIdentity(admin, authUserId);
+    const identity = await loadAuthIdentity(admin, authUserId, partnerId);
     const activity = await loadActivity(admin, partnerId);
     const certifications = await loadCertifications(admin, partnerId);
     let hasActiveAppMembership = false;
@@ -228,6 +232,7 @@ export async function fetchCspPartnerAdminDetail(partnerId: string): Promise<Csp
           businessRegistrationNumber: str(optional?.business_registration_number),
           businessAddress: str(optional?.business_address),
           phone: str(optional?.phone),
+          avatarUrl: identity.avatarUrl,
         },
         activity,
         certifications,
