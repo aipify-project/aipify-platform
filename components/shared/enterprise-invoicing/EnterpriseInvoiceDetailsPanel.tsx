@@ -279,7 +279,7 @@ export function EnterpriseInvoiceDetailsPanel({
   const next = workspace.nextDue;
 
   return (
-    <div className={embedded ? "w-full space-y-8" : "mx-auto max-w-5xl space-y-8 p-6"}>
+    <div className={embedded ? "w-full space-y-5" : "mx-auto max-w-5xl space-y-6 p-6"}>
       {!embedded ? (
         <div>
           <Link href={backHref} className="text-sm text-indigo-600 hover:underline">

@@ -51,9 +51,11 @@ assert.ok(fs.existsSync(path.join(ROOT, "components/app/design/AppCanvasBackgrou
 assert.ok(fs.existsSync(path.join(ROOT, "components/app/design/AppDecorativeOrb.tsx")));
 
 const hub = read("components/app/hubs/AppHubShell.tsx");
-assert.match(hub, /AppWorkspaceHero/);
+assert.match(hub, /AppPageHeader/);
+assert.doesNotMatch(hub, /AppWorkspaceHero/);
 assert.match(hub, /aria-label=\{breadcrumbLabel\}/);
 assert.doesNotMatch(hub, /AppDecorativeOrb/);
+assert.match(read("components/app/foundation/AppFoundationDashboard.tsx"), /AppWorkspaceHero/);
 
 const pageHeader = read("components/app/design/AppPageHeader.tsx");
 assert.match(pageHeader, /clearDecorativeOrb/);
