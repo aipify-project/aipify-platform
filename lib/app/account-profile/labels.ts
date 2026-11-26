@@ -10,12 +10,18 @@ export type AccountProfileLabels = {
   personalTitle: string;
   relationshipTitle: string;
   securityTitle: string;
+  tabsAria: string;
+  tabPersonal: string;
+  tabCompany: string;
+  tabRelationship: string;
+  tabSecurity: string;
   fullName: string;
   email: string;
   phone: string;
   address: string;
   role: string;
   notRegistered: string;
+  unavailable: string;
   readOnlyReason: string;
   avatarFallback: string;
   companyTitle: string;
@@ -24,13 +30,21 @@ export type AccountProfileLabels = {
   companyPhone: string;
   companyAddress: string;
   companyOptionalNote: string;
+  companyEmpty: string;
+  companyEmptyBody: string;
+  workspace: string;
   plan: string;
   license: string;
   customerReference: string;
   registeredAt: string;
+  updatedAt: string;
+  referenceHidden: string;
+  statusUnknown: string;
   openSubscription: string;
   openInvoices: string;
+  openLicense: string;
   openSecurity: string;
+  openPrivacy: string;
   openNotifications: string;
   openCompanySettings: string;
   screenLockTitle: string;
@@ -48,12 +62,18 @@ export function buildAccountProfileLabels(t: Translator): AccountProfileLabels {
     personalTitle: t(`${NS}.personalTitle`),
     relationshipTitle: t(`${NS}.relationshipTitle`),
     securityTitle: t(`${NS}.securityTitle`),
+    tabsAria: t(`${NS}.tabsAria`),
+    tabPersonal: t(`${NS}.tabPersonal`),
+    tabCompany: t(`${NS}.tabCompany`),
+    tabRelationship: t(`${NS}.tabRelationship`),
+    tabSecurity: t(`${NS}.tabSecurity`),
     fullName: t(`${NS}.fullName`),
     email: t(`${NS}.email`),
     phone: t(`${NS}.phone`),
     address: t(`${NS}.address`),
     role: t(`${NS}.role`),
     notRegistered: t(`${NS}.notRegistered`),
+    unavailable: t(`${NS}.unavailable`),
     readOnlyReason: t(`${NS}.readOnlyReason`),
     avatarFallback: t(`${NS}.avatarFallback`),
     companyTitle: t(`${NS}.companyTitle`),
@@ -62,13 +82,21 @@ export function buildAccountProfileLabels(t: Translator): AccountProfileLabels {
     companyPhone: t(`${NS}.companyPhone`),
     companyAddress: t(`${NS}.companyAddress`),
     companyOptionalNote: t(`${NS}.companyOptionalNote`),
+    companyEmpty: t(`${NS}.companyEmpty`),
+    companyEmptyBody: t(`${NS}.companyEmptyBody`),
+    workspace: t(`${NS}.workspace`),
     plan: t(`${NS}.plan`),
     license: t(`${NS}.license`),
     customerReference: t(`${NS}.customerReference`),
     registeredAt: t(`${NS}.registeredAt`),
+    updatedAt: t(`${NS}.updatedAt`),
+    referenceHidden: t(`${NS}.referenceHidden`),
+    statusUnknown: t(`${NS}.statusUnknown`),
     openSubscription: t(`${NS}.openSubscription`),
     openInvoices: t(`${NS}.openInvoices`),
+    openLicense: t(`${NS}.openLicense`),
     openSecurity: t(`${NS}.openSecurity`),
+    openPrivacy: t(`${NS}.openPrivacy`),
     openNotifications: t(`${NS}.openNotifications`),
     openCompanySettings: t(`${NS}.openCompanySettings`),
     screenLockTitle: t(`${NS}.screenLockTitle`),

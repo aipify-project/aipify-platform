@@ -18,12 +18,22 @@ const LICENSES = new Set<AccountProfileLicense>([
   "cancelled",
 ]);
 
+const UUID_REFERENCE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 function locked(
   value: string | null,
   source: AccountProfileField["source"]
 ): AccountProfileField {
   const text = value?.trim() || null;
   return { value: text, source, editable: false };
+}
+
+function readableReference(value: string | null): { value: string | null; hidden: boolean } {
+  const text = value?.trim() || null;
+  if (!text) return { value: null, hidden: false };
+  if (UUID_REFERENCE.test(text)) return { value: null, hidden: true };
+  return { value: text, hidden: false };
 }
 
 export function mapAccountProfileRole(role: string | null): AccountProfileRole | null {
@@ -49,8 +59,16 @@ export function mapAccountProfileLicense(status: string | null): AccountProfileL
 export function buildAccountProfileView(input: {
   user: AppUser | null;
   loginEmail: string | null;
+  phone?: string | null;
+  updatedAt?: string | null;
   avatarUrl: string | null;
   context: AppOrganizationContext | null;
+  company?: {
+    name?: string | null;
+    website?: string | null;
+    phone?: string | null;
+    address?: string | null;
+  } | null;
   canOpenCompanySettings: boolean;
 }): AccountProfileView {
   const context = input.context;
@@ -58,12 +76,20 @@ export function buildAccountProfileView(input: {
   const fullName = input.user?.full_name?.trim() || null;
   const workspace =
     (ready ? context?.workspace_name ?? context?.licensed_to : null)?.trim() || null;
-  const hasCompanyContext = Boolean(workspace);
+  const companyName = locked(input.company?.name ?? null, "unavailable");
+  const companyWebsite = locked(input.company?.website ?? null, "unavailable");
+  const companyPhone = locked(input.company?.phone ?? null, "unavailable");
+  const companyAddress = locked(input.company?.address ?? null, "unavailable");
+  const hasCompanyDetails = Boolean(
+    companyName.value || companyWebsite.value || companyPhone.value || companyAddress.value
+  );
+  const reference = readableReference(ready ? context?.customer_id ?? null : null);
+  const phone = input.phone?.trim() || null;
 
   return {
     fullName: locked(fullName, "users.full_name"),
     email: locked(input.loginEmail, "auth.users.email"),
-    phone: locked(null, "unavailable"),
+    phone: locked(phone, phone ? "auth.users.phone" : "unavailable"),
     address: locked(null, "unavailable"),
     role: mapAccountProfileRole(input.user?.role ?? context?.user_role ?? null),
     roleSource: input.user?.role ? "users.role" : "unavailable",
@@ -72,12 +98,13 @@ export function buildAccountProfileView(input: {
       ? "auth.user_metadata.avatar_url"
       : "unavailable",
     initials: companyProfileInitials(fullName || workspace),
-    hasCompanyContext,
-    companyName: locked(workspace, "get_app_organization_context.workspace_name"),
-    companyWebsite: locked(null, "unavailable"),
-    companyPhone: locked(null, "unavailable"),
-    companyAddress: locked(null, "unavailable"),
+    hasCompanyDetails,
+    companyName,
+    companyWebsite,
+    companyPhone,
+    companyAddress,
     relationship: {
+      workspaceName: locked(workspace, "get_app_organization_context.workspace_name"),
       planName: locked(
         ready ? context?.plan_name ?? null : null,
         "get_app_organization_context.plan_name"
@@ -85,19 +112,20 @@ export function buildAccountProfileView(input: {
       license: mapAccountProfileLicense(ready ? context?.license_status ?? null : null),
       licenseSource: "get_app_organization_context.license_status",
       customerReference: locked(
-        ready ? context?.customer_id ?? null : null,
+        reference.value,
         "get_app_organization_context.customer_id"
       ),
-      registeredAt: locked(
-        input.user?.created_at ?? null,
-        "users.created_at"
-      ),
+      referenceHidden: reference.hidden,
+      registeredAt: locked(input.user?.created_at ?? null, "users.created_at"),
+      updatedAt: locked(input.updatedAt ?? null, "auth.users.updated_at"),
     },
     screenLock: { status: "not_activated" },
     links: {
       subscription: FOUNDATION_NAV_BINDINGS.accountSubscription,
       invoices: FOUNDATION_NAV_BINDINGS.accountInvoices,
       security: "/app/settings/two-factor",
+      privacy: "/app/settings/security",
+      license: "/app/license",
       notifications: FOUNDATION_NAV_BINDINGS.accountNotifications,
       companySettings: input.canOpenCompanySettings ? "/app/settings/company-profile" : null,
     },
@@ -109,15 +137,16 @@ export function accountProfileDataMapping(): AccountProfileDataMappingRow[] {
   return [
     { uiField: "fullName", source: "users.full_name", editable: false },
     { uiField: "email", source: "auth.users.email", editable: false },
-    { uiField: "phone", source: "unavailable", editable: false },
+    { uiField: "phone", source: "auth.users.phone", editable: false },
     { uiField: "address", source: "unavailable", editable: false },
     { uiField: "role", source: "users.role", editable: false },
     { uiField: "avatar", source: "auth.user_metadata.avatar_url", editable: false },
     {
-      uiField: "companyName",
+      uiField: "workspaceName",
       source: "get_app_organization_context.workspace_name",
       editable: false,
     },
+    { uiField: "companyName", source: "unavailable", editable: false },
     { uiField: "companyWebsite", source: "unavailable", editable: false },
     { uiField: "companyPhone", source: "unavailable", editable: false },
     { uiField: "companyAddress", source: "unavailable", editable: false },

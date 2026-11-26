@@ -168,7 +168,7 @@
       "accountIntegrations": "Integraciones",
       "kompisBedriftConnection": "Conexión y licencia",
       "appDashboard": "Inicio",
-      "accountProfile": "Perfil / Relación con el cliente"
+      "accountProfile": "Relación con el cliente"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7353,26 +7353,26 @@
       "close": "Cerrar"
     },
     "accountProfile": {
-      "eyebrow": "Cuenta",
-      "title": "Perfil / Relación con el cliente",
-      "description": "Revisa los datos de la cuenta y la relación con el cliente de la sesión iniciada. Los campos que requieren una vía de actualización segura permanecen bloqueados hasta que exista.",
+      "eyebrow": "Relación con el cliente",
+      "title": "Relación con el cliente",
+      "description": "Revise la cuenta con la que ha iniciado sesión, los datos de empresa opcionales, la relación con el cliente y la seguridad. La edición no está disponible hasta que exista un guardado aprobado.",
       "personalTitle": "Perfil personal",
       "relationshipTitle": "Relación con el cliente",
-      "securityTitle": "Seguridad y enlaces de la cuenta",
+      "securityTitle": "Seguridad y privacidad",
       "fullName": "Nombre completo",
       "email": "Correo electrónico",
       "phone": "Teléfono",
       "address": "Dirección",
       "role": "Rol",
       "notRegistered": "No registrado",
-      "readOnlyReason": "Los datos se muestran desde la cuenta con sesión iniciada. La identidad verificada permanece de solo lectura hasta que exista una vía de actualización APP aprobada.",
+      "readOnlyReason": "Estos datos proceden de la cuenta con la que ha iniciado sesión. Esta página no guarda nada.",
       "avatarFallback": "Se muestran las iniciales cuando no hay foto de perfil.",
-      "companyTitle": "Datos de la empresa",
+      "companyTitle": "Empresa",
       "companyName": "Nombre de la empresa",
       "companyWebsite": "Sitio web de la empresa",
       "companyPhone": "Teléfono de la empresa",
       "companyAddress": "Dirección de la empresa",
-      "companyOptionalNote": "Los campos de empresa aparecen solo cuando hay un espacio de trabajo de empresa vinculado. Los clientes particulares no necesitan una empresa registrada.",
+      "companyOptionalNote": "Los datos de empresa son opcionales. Una cuenta particular no necesita una empresa registrada.",
       "plan": "Plan",
       "license": "Estado de la licencia",
       "customerReference": "Referencia del cliente",
@@ -7382,8 +7382,8 @@
       "openSecurity": "Inicio de sesión y seguridad",
       "openNotifications": "Ajustes de notificaciones",
       "openCompanySettings": "Perfil de la organización",
-      "screenLockTitle": "Bloquear pantalla",
-      "screenLockBody": "El bloqueo de pantalla seguro no está activado para APP. Activarlo requiere un servicio de bloqueo verificado en el servidor y aprobado por el propietario, no una superposición solo del navegador.",
+      "screenLockTitle": "Bloqueo de pantalla",
+      "screenLockBody": "El bloqueo de pantalla no está activado. Permanece desactivado hasta que se apruebe un bloqueo verificado en el servidor. Esta página no bloquea la pantalla.",
       "screenLockStatus": "No activado",
       "roles": {
         "owner": "Propietario",
@@ -7399,7 +7399,21 @@
         "grace": "Periodo de gracia",
         "trialing": "Prueba",
         "cancelled": "Cancelada"
-      }
+      },
+      "tabsAria": "Secciones de la cuenta",
+      "tabPersonal": "Perfil personal",
+      "tabCompany": "Empresa",
+      "tabRelationship": "Relación con el cliente",
+      "tabSecurity": "Seguridad y privacidad",
+      "unavailable": "No disponible en esta vista",
+      "companyEmpty": "No hay datos de empresa registrados",
+      "companyEmptyBody": "El nombre de la empresa, el contacto, el sitio web y la dirección aparecen aquí solo cuando ya están guardados en la cuenta.",
+      "workspace": "Espacio de trabajo",
+      "updatedAt": "Última actualización",
+      "referenceHidden": "Existe una referencia interna y no se muestra aquí.",
+      "statusUnknown": "Estado no disponible",
+      "openLicense": "Centro de licencias",
+      "openPrivacy": "Ajustes de privacidad"
     }
   }
 }

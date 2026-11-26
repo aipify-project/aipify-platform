@@ -37,6 +37,8 @@ export async function loadAccountProfileView(): Promise<AccountProfileView | nul
   return buildAccountProfileView({
     user: profile?.user ?? null,
     loginEmail: user.email ?? null,
+    phone: user.phone ?? null,
+    updatedAt: user.updated_at ?? null,
     avatarUrl: avatarFromAuthMetadata(user.user_metadata),
     context,
     canOpenCompanySettings,

@@ -21,7 +21,7 @@ assert.equal(FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard, "/app/kompis-bedrif
 assert.equal(FOUNDATION_NAV_BINDINGS.kompisBedriftEmployees, "/app/kompis-bedrift/employees");
 assert.equal(FOUNDATION_NAV_BINDINGS.kompisBedriftFaq, "/app/kompis-bedrift/knowledge");
 assert.equal(FOUNDATION_NAV_BINDINGS.accountHome, "/app/account");
-assert.equal(FOUNDATION_NAV_BINDINGS.accountProfile, "/app/account/profile");
+assert.equal(FOUNDATION_NAV_BINDINGS.accountProfile, "/app/profile");
 assert.equal(FOUNDATION_NAV_BINDINGS.accountSubscription, "/app/account/subscription");
 assert.equal(FOUNDATION_NAV_BINDINGS.accountInvoices, "/app/account/invoices");
 assert.equal(FOUNDATION_NAV_BINDINGS.accountIntegrations, "/app/account/integrations");
@@ -41,6 +41,9 @@ assert.equal(getAppPortalActiveNavId("/app/account/invoices"), "accountInvoices"
 assert.equal(getAppPortalActiveNavId("/app/settings/billing/invoice-details"), "accountInvoices");
 assert.equal(getAppPortalActiveNavId("/app/account/subscription"), "accountSubscription");
 assert.equal(getAppPortalActiveNavId("/app/account/profile"), "accountProfile");
+assert.equal(getAppPortalActiveNavId("/app/profile"), "accountProfile");
+assert.ok(!hrefs.includes("/app/profile"));
+assert.ok(!hrefs.includes("/app/account/profile"));
 assert.equal(getAppPortalActiveNavId("/app/website-kompis"), "kompisWebDashboard");
 
 // Hub shell exists; Companion not remounted

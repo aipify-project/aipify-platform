@@ -131,7 +131,7 @@
       "accountIntegrations": "Integrationer",
       "kompisBedriftConnection": "Forbindelse/licens",
       "appDashboard": "Hjem",
-      "accountProfile": "Profil / Kundeforhold"
+      "accountProfile": "Kundeforhold"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -8707,26 +8707,26 @@
       "close": "Luk"
     },
     "accountProfile": {
-      "eyebrow": "Konto",
-      "title": "Profil / Kundeforhold",
-      "description": "Se kontooplysninger og kundeforhold for den indloggede bruger. Felter der kræver en sikker opdateringsvej forbliver låst, indtil den findes.",
+      "eyebrow": "Kundeforhold",
+      "title": "Kundeforhold",
+      "description": "Se den indloggede konto, valgfrie firmaoplysninger, kundeforholdet og sikkerhed. Redigering er ikke tilgængelig, før en godkendt lagring findes.",
       "personalTitle": "Personlig profil",
       "relationshipTitle": "Kundeforhold",
-      "securityTitle": "Sikkerhed og kontolinks",
+      "securityTitle": "Sikkerhed og privatliv",
       "fullName": "Fulde navn",
       "email": "E-mail",
       "phone": "Telefon",
       "address": "Adresse",
       "role": "Rolle",
       "notRegistered": "Ikke registreret",
-      "readOnlyReason": "Oplysningerne hentes fra den indloggede konto. Verificeret identitet er skrivebeskyttet, indtil en godkendt APP-opdateringsvej findes.",
+      "readOnlyReason": "Oplysningerne kommer fra den indloggede konto. Denne side gemmer ikke noget.",
       "avatarFallback": "Initialer vises, når profilbillede mangler.",
-      "companyTitle": "Virksomhedsoplysninger",
+      "companyTitle": "Firma",
       "companyName": "Virksomhedsnavn",
       "companyWebsite": "Virksomhedswebsite",
       "companyPhone": "Virksomhedstelefon",
       "companyAddress": "Virksomhedsadresse",
-      "companyOptionalNote": "Virksomhedsfelter vises kun, når en virksomhedsarbejdsplads er knyttet til kontoen. Privatpersoner behøver ikke en registreret virksomhed.",
+      "companyOptionalNote": "Firmaoplysninger er valgfrie. En privat konto behøver ikke en registreret virksomhed.",
       "plan": "Plan",
       "license": "Licensstatus",
       "customerReference": "Kundereference",
@@ -8736,8 +8736,8 @@
       "openSecurity": "Login og sikkerhed",
       "openNotifications": "Notifikationsindstillinger",
       "openCompanySettings": "Organisationsprofil",
-      "screenLockTitle": "Lås skærmen",
-      "screenLockBody": "En sikker skærmlås er ikke aktiveret for APP. Aktivering kræver en ejergodkendt, serververificeret låsetjeneste — ikke et browser-overlay.",
+      "screenLockTitle": "Skærmlås",
+      "screenLockBody": "Skærmlås er ikke aktiveret. Den forbliver slået fra, indtil en serververificeret lås er godkendt. Denne side låser ikke skærmen.",
       "screenLockStatus": "Ikke aktiveret",
       "roles": {
         "owner": "Ejer",
@@ -8753,7 +8753,21 @@
         "grace": "Henstandsperiode",
         "trialing": "Prøveperiode",
         "cancelled": "Annulleret"
-      }
+      },
+      "tabsAria": "Dele af kundeforhold",
+      "tabPersonal": "Personlig profil",
+      "tabCompany": "Firma",
+      "tabRelationship": "Kundeforhold",
+      "tabSecurity": "Sikkerhed og privatliv",
+      "unavailable": "Ikke tilgængelig i denne visning",
+      "companyEmpty": "Ingen firmaoplysninger registreret",
+      "companyEmptyBody": "Firmanavn, kontaktoplysninger, websted og adresse vises kun her, når de allerede er gemt på kontoen.",
+      "workspace": "Arbejdsområde",
+      "updatedAt": "Sidst opdateret",
+      "referenceHidden": "En intern reference findes og vises ikke her.",
+      "statusUnknown": "Status ikke tilgængelig",
+      "openLicense": "Licenscenter",
+      "openPrivacy": "Privatlivsindstillinger"
     }
   }
 }

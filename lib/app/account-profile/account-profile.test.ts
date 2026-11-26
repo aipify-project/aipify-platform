@@ -19,13 +19,14 @@ import { resolveAppRouteReadiness } from "@/lib/app-production-experience/route-
 
 const ROOT = process.cwd();
 
-assert.equal(ACCOUNT_PROFILE_ROUTE, "/app/account/profile");
+assert.equal(ACCOUNT_PROFILE_ROUTE, "/app/profile");
 assert.equal(FOUNDATION_NAV_BINDINGS.accountProfile, ACCOUNT_PROFILE_ROUTE);
+assert.equal(getAppPortalActiveNavId("/app/profile"), "accountProfile");
 assert.equal(getAppPortalActiveNavId("/app/account/profile"), "accountProfile");
 assert.equal(resolveAppRouteReadiness("accountProfile").status, "production");
 assert.ok(FAIL_CLOSED_SAFE_CAPABILITY_IDS.includes("accountProfile"));
-assert.equal(KOMPIS_WEB_FLAT_NAV.at(-1)?.id, "accountProfile");
-assert.equal(KOMPIS_BEDRIFT_FLAT_NAV.at(-1)?.id, "accountProfile");
+assert.equal(KOMPIS_WEB_FLAT_NAV.some((item) => item.id === "accountProfile"), false);
+assert.equal(KOMPIS_BEDRIFT_FLAT_NAV.some((item) => item.id === "accountProfile"), false);
 
 assert.equal(mapAccountProfileRole("organization_owner"), "owner");
 assert.equal(mapAccountProfileRole("admin"), "admin");
@@ -69,7 +70,8 @@ assert.equal(privateView.fullName.value, "Ada Lovelace");
 assert.equal(privateView.email.value, "ada@example.com");
 assert.equal(privateView.phone.value, null);
 assert.equal(privateView.phone.source, "unavailable");
-assert.equal(privateView.hasCompanyContext, false);
+assert.equal(privateView.hasCompanyDetails, false);
+assert.equal(privateView.phone.source, "unavailable");
 assert.equal(privateView.relationship.planName.value, "Business");
 assert.equal(privateView.relationship.license, "active");
 assert.equal(privateView.screenLock.status, "not_activated");
@@ -110,28 +112,67 @@ const companyView = buildAccountProfileView({
   canOpenCompanySettings: false,
 });
 
-assert.equal(companyView.hasCompanyContext, true);
-assert.equal(companyView.companyName.value, "Example Workspace");
-assert.equal(companyView.companyWebsite.value, null);
+assert.equal(companyView.hasCompanyDetails, false);
+assert.equal(companyView.companyName.value, null);
+assert.equal(companyView.relationship.workspaceName.value, "Example Workspace");
+assert.equal(companyView.relationship.referenceHidden, false);
+assert.equal(companyView.links.license, "/app/license");
+assert.equal(companyView.links.privacy, "/app/settings/security");
 assert.equal(companyView.links.companySettings, null);
 assert.equal(companyView.avatarUrl, "https://cdn.example/avatar.png");
+
+const hiddenReference = buildAccountProfileView({
+  user: null,
+  loginEmail: null,
+  avatarUrl: null,
+  context: {
+    authenticated: true,
+    state: "ready",
+    user_role: null,
+    organization_role: null,
+    company_id: null,
+    customer_id: "11111111-1111-4111-8111-111111111111",
+    organization_id: "org-1",
+    workspace_name: null,
+    licensed_to: null,
+    plan_name: null,
+    license_status: null,
+    has_customer: true,
+    has_organization_membership: true,
+    has_app_access: true,
+    can_access_self_support: true,
+    eligible_organization_count: 1,
+  },
+  company: { name: "North Studio" },
+  canOpenCompanySettings: false,
+});
+assert.equal(hiddenReference.relationship.referenceHidden, true);
+assert.equal(hiddenReference.relationship.customerReference.value, null);
+assert.equal(hiddenReference.hasCompanyDetails, true);
+assert.equal(hiddenReference.companyName.value, "North Studio");
 
 const mapping = accountProfileDataMapping();
 assert.ok(mapping.some((row) => row.uiField === "email" && row.source === "auth.users.email"));
 assert.ok(mapping.every((row) => row.editable === false));
 
-const page = fs.readFileSync(path.join(ROOT, "app/app/account/profile/page.tsx"), "utf8");
+const page = fs.readFileSync(path.join(ROOT, "app/app/profile/page.tsx"), "utf8");
 assert.match(page, /AppHubShell/);
-assert.doesNotMatch(page, /redirect\("\/app\/settings\/company-profile"\)/);
+assert.match(page, /loadAccountProfileView/);
 assert.match(page, /AppCustomerProfilePanel/);
+assert.doesNotMatch(page, /organization_number|ENK/);
+const legacy = fs.readFileSync(path.join(ROOT, "app/app/account/profile/page.tsx"), "utf8");
+assert.match(legacy, /ACCOUNT_PROFILE_ROUTE/);
+assert.match(legacy, /redirect/);
 
 const panel = fs.readFileSync(
   path.join(ROOT, "components/app/account-profile/AppCustomerProfilePanel.tsx"),
   "utf8"
 );
 assert.match(panel, /screenLockStatus/);
-assert.match(panel, /disabled/);
+assert.match(panel, /role="tablist"/);
+assert.doesNotMatch(panel, /<button/);
 assert.doesNotMatch(panel, /localStorage/);
+assert.doesNotMatch(panel, /editProfile|changePhoto|updateContact/);
 
 for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"]) {
   const portal = JSON.parse(
@@ -142,9 +183,15 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"]) {
       accountProfile: Record<string, unknown>;
     };
   };
-  assert.ok(portal.portalStructure.nav.accountProfile);
-  assert.ok(portal.portalStructure.accountProfile.title);
+  const shell = JSON.parse(fs.readFileSync(path.join(ROOT, `locales/${locale}/shell.json`), "utf8")) as {
+    sidebar: { customerProfile: string };
+  };
+  const name = shell.sidebar.customerProfile;
+  assert.equal(portal.portalStructure.nav.accountProfile, name);
+  assert.equal(portal.portalStructure.accountProfile.title, name);
   assert.ok(portal.portalStructure.accountProfile.screenLockStatus);
+  assert.ok(portal.portalStructure.accountProfile.companyEmpty);
+  assert.ok(portal.portalStructure.accountProfile.tabSecurity);
 }
 
 const proposal = fs.readFileSync(

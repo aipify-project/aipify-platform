@@ -278,7 +278,7 @@
       "accountIntegrations": "Integracje",
       "kompisBedriftConnection": "Połączenie i licencja",
       "appDashboard": "Start",
-      "accountProfile": "Profil / Relacja z klientem"
+      "accountProfile": "Relacja z klientem"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7644,26 +7644,26 @@
       "close": "Zamknij"
     },
     "accountProfile": {
-      "eyebrow": "Konto",
-      "title": "Profil / Relacja z klientem",
-      "description": "Przejrzyj dane konta i relację z klientem dla zalogowanego użytkownika. Pola wymagające bezpiecznej ścieżki aktualizacji pozostają zablokowane do czasu jej udostępnienia.",
+      "eyebrow": "Relacja z klientem",
+      "title": "Relacja z klientem",
+      "description": "Zobacz zalogowane konto, opcjonalne dane firmy, relację z klientem oraz bezpieczeństwo. Edycja nie jest dostępna, dopóki nie ma zatwierdzonego zapisu.",
       "personalTitle": "Profil osobisty",
       "relationshipTitle": "Relacja z klientem",
-      "securityTitle": "Bezpieczeństwo i łącza konta",
+      "securityTitle": "Bezpieczeństwo i prywatność",
       "fullName": "Imię i nazwisko",
       "email": "E-mail",
       "phone": "Telefon",
       "address": "Adres",
       "role": "Rola",
       "notRegistered": "Nie zarejestrowano",
-      "readOnlyReason": "Dane pochodzą z zalogowanego konta. Zweryfikowana tożsamość jest tylko do odczytu, dopóki nie powstanie zatwierdzona ścieżka aktualizacji APP.",
+      "readOnlyReason": "Te dane pochodzą z zalogowanego konta. Ta strona niczego nie zapisuje.",
       "avatarFallback": "Inicjały są pokazywane, gdy brak zdjęcia profilowego.",
-      "companyTitle": "Dane firmy",
+      "companyTitle": "Firma",
       "companyName": "Nazwa firmy",
       "companyWebsite": "Strona firmy",
       "companyPhone": "Telefon firmowy",
       "companyAddress": "Adres firmy",
-      "companyOptionalNote": "Pola firmowe pojawiają się tylko wtedy, gdy z kontem jest powiązana przestrzeń firmowa. Osoby prywatne nie potrzebują zarejestrowanej działalności.",
+      "companyOptionalNote": "Dane firmy są opcjonalne. Konto prywatne nie wymaga zarejestrowanej działalności.",
       "plan": "Plan",
       "license": "Status licencji",
       "customerReference": "Numer klienta",
@@ -7673,8 +7673,8 @@
       "openSecurity": "Logowanie i bezpieczeństwo",
       "openNotifications": "Ustawienia powiadomień",
       "openCompanySettings": "Profil organizacji",
-      "screenLockTitle": "Zablokuj ekran",
-      "screenLockBody": "Bezpieczna blokada ekranu nie jest aktywowana dla APP. Włączenie wymaga zatwierdzonej przez właściciela, weryfikowanej serwerowo usługi blokady — nie nakładki przeglądarki.",
+      "screenLockTitle": "Blokada ekranu",
+      "screenLockBody": "Blokada ekranu nie jest włączona. Pozostaje wyłączona, aż zatwierdzone zostanie blokowanie weryfikowane przez serwer. Ta strona nie blokuje ekranu.",
       "screenLockStatus": "Nieaktywna",
       "roles": {
         "owner": "Właściciel",
@@ -7690,7 +7690,21 @@
         "grace": "Okres karencji",
         "trialing": "Okres próbny",
         "cancelled": "Anulowana"
-      }
+      },
+      "tabsAria": "Sekcje relacji z klientem",
+      "tabPersonal": "Profil osobisty",
+      "tabCompany": "Firma",
+      "tabRelationship": "Relacja z klientem",
+      "tabSecurity": "Bezpieczeństwo i prywatność",
+      "unavailable": "Niedostępne w tym widoku",
+      "companyEmpty": "Nie zarejestrowano danych firmy",
+      "companyEmptyBody": "Nazwa firmy, kontakt, strona i adres pojawiają się tutaj tylko wtedy, gdy są już zapisane na koncie.",
+      "workspace": "Obszar roboczy",
+      "updatedAt": "Ostatnia aktualizacja",
+      "referenceHidden": "Istnieje wewnętrzne odniesienie i nie jest tutaj pokazywane.",
+      "statusUnknown": "Status niedostępny",
+      "openLicense": "Centrum licencji",
+      "openPrivacy": "Ustawienia prywatności"
     }
   }
 }

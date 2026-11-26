@@ -131,7 +131,7 @@
       "accountIntegrations": "Integrasjoner",
       "kompisBedriftConnection": "Tilkobling/lisens",
       "appDashboard": "Hjem",
-      "accountProfile": "Profil / Kundeforhold"
+      "accountProfile": "Kundeforhold"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -8708,26 +8708,26 @@
       "close": "Lukk"
     },
     "accountProfile": {
-      "eyebrow": "Konto",
-      "title": "Profil / Kundeforhold",
-      "description": "Se kontoopplysninger og kundeforhold for den innloggede brukeren. Felt som krever en sikker oppdateringsvei forblir låst til den er tilgjengelig.",
+      "eyebrow": "Kundeforhold",
+      "title": "Kundeforhold",
+      "description": "Se den innloggede kontoen, valgfrie firmaopplysninger, kundeforholdet og sikkerhet. Redigering er ikke tilgjengelig før en godkjent lagring finnes.",
       "personalTitle": "Personlig profil",
       "relationshipTitle": "Kundeforhold",
-      "securityTitle": "Sikkerhet og kontolenker",
+      "securityTitle": "Sikkerhet og personvern",
       "fullName": "Fullt navn",
       "email": "E-post",
       "phone": "Telefon",
       "address": "Adresse",
       "role": "Rolle",
       "notRegistered": "Ikke registrert",
-      "readOnlyReason": "Opplysningene hentes fra den innloggede kontoen. Verifisert identitet er skrivebeskyttet til en godkjent APP-oppdateringsvei finnes.",
+      "readOnlyReason": "Opplysningene kommer fra den innloggede kontoen. Denne siden har ingen lagring.",
       "avatarFallback": "Initialer vises når profilbilde mangler.",
-      "companyTitle": "Firmaopplysninger",
+      "companyTitle": "Firma",
       "companyName": "Firmanavn",
       "companyWebsite": "Firmanettsted",
       "companyPhone": "Firmatelefon",
       "companyAddress": "Firmaadresse",
-      "companyOptionalNote": "Firmafelter vises bare når en firmakonto er knyttet til denne brukeren. Privatpersoner trenger ikke registrert virksomhet.",
+      "companyOptionalNote": "Firmaopplysninger er valgfrie. En privat konto trenger ikke et registrert foretak.",
       "plan": "Plan",
       "license": "Lisensstatus",
       "customerReference": "Kundereferanse",
@@ -8737,8 +8737,8 @@
       "openSecurity": "Innlogging og sikkerhet",
       "openNotifications": "Varslingsinnstillinger",
       "openCompanySettings": "Organisasjonsprofil",
-      "screenLockTitle": "Lås skjermen",
-      "screenLockBody": "Sikker skjermlås er ikke aktivert for APP. Aktivering krever eiergodkjent, serververifisert låsetjeneste — ikke et nettleser-overlay.",
+      "screenLockTitle": "Skjermlås",
+      "screenLockBody": "Skjermlås er ikke aktivert. Den forblir av til en serververifisert lås er godkjent. Denne siden låser ikke skjermen.",
       "screenLockStatus": "Ikke aktivert",
       "roles": {
         "owner": "Eier",
@@ -8754,7 +8754,21 @@
         "grace": "Grace-periode",
         "trialing": "Prøveperiode",
         "cancelled": "Avsluttet"
-      }
+      },
+      "tabsAria": "Deler av kundeforhold",
+      "tabPersonal": "Personlig profil",
+      "tabCompany": "Firma",
+      "tabRelationship": "Kundeforhold",
+      "tabSecurity": "Sikkerhet og personvern",
+      "unavailable": "Ikke tilgjengelig i denne visningen",
+      "companyEmpty": "Ingen firmaopplysninger registrert",
+      "companyEmptyBody": "Firmanavn, kontaktinformasjon, nettsted og adresse vises her bare når de allerede er lagret på kontoen.",
+      "workspace": "Arbeidsområde",
+      "updatedAt": "Sist oppdatert",
+      "referenceHidden": "En intern referanse finnes og vises ikke her.",
+      "statusUnknown": "Status ikke tilgjengelig",
+      "openLicense": "Lisenssenter",
+      "openPrivacy": "Personverninnstillinger"
     }
   }
 }

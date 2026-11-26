@@ -91,8 +91,10 @@ assert.match(globals, /display:\s*none/);
 assert.match(globals, /aipify-app-decorative-orb__mascot/);
 
 // Flat nav contract preserved (job 60/61)
-assert.equal(KOMPIS_WEB_FLAT_NAV.length, 10);
-assert.equal(KOMPIS_BEDRIFT_FLAT_NAV.length, 13);
+assert.equal(KOMPIS_WEB_FLAT_NAV.length, 9);
+assert.equal(KOMPIS_BEDRIFT_FLAT_NAV.length, 12);
+assert.ok(!KOMPIS_WEB_FLAT_NAV.some((item) => item.id === "accountProfile"));
+assert.ok(!KOMPIS_BEDRIFT_FLAT_NAV.some((item) => item.id === "accountProfile"));
 assert.ok(!KOMPIS_WEB_FLAT_NAV.some((i) => i.href === "/app/kompis"));
 assert.ok(!KOMPIS_BEDRIFT_FLAT_NAV.some((i) => i.href === "/app/kompis"));
 

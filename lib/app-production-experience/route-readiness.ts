@@ -77,11 +77,11 @@ export const APP_ROUTE_READINESS: Partial<Record<AppPortalNavId, AppRouteReadine
   // Legacy foundation profile id stays hidden; live surface is accountProfile.
   profile: {
     status: "hidden",
-    reason: "Legacy profile placeholder — use accountProfile at /app/account/profile.",
+    reason: "Legacy profile placeholder — use accountProfile at /app/profile.",
   },
   accountProfile: {
     status: "production",
-    reason: "Profil / Kundeforhold — signed-in account and customer relationship read surface.",
+    reason: "Account — signed-in profile and customer relationship read surface at /app/profile.",
   },
   // Read-only software catalog (customer-ready presentation after repair)
   softwareCatalog: {
