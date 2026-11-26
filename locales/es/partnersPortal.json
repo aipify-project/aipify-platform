@@ -943,6 +943,24 @@
     "catalogMeta": {
       "audienceLabel": "¿Para quién es el producto?",
       "benefitsLabel": "Beneficios clave"
+    },
+    "bank": {
+      "title": "Datos bancarios para pagos",
+      "intro": "Aipify Group AS paga las liquidaciones manualmente. Guarde los datos bancarios para que Finance pueda pagarle de forma segura.",
+      "accountHolder": "Titular de la cuenta",
+      "country": "País (ISO)",
+      "currency": "Moneda",
+      "iban": "IBAN",
+      "swiftBic": "SWIFT/BIC (opcional)",
+      "save": "Guardar datos bancarios",
+      "saving": "Guardando",
+      "saved": "Datos bancarios guardados. Después solo se muestra una referencia enmascarada.",
+      "error": "No se pudieron guardar los datos bancarios. Revise los campos e inténtelo de nuevo.",
+      "unavailable": "El almacenamiento bancario seguro aún no está disponible en este entorno. No se guardó nada.",
+      "maskedLabel": "Guardado (enmascarado)",
+      "noneSaved": "Aún no hay datos bancarios de pago guardados.",
+      "retry": "Reintentar",
+      "manualPayoutNote": "No hay pagos bancarios automáticos ni Stripe Connect en este programa."
     }
   }
 }

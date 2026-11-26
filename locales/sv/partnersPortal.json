@@ -1067,6 +1067,24 @@
     "catalogMeta": {
       "audienceLabel": "Vem passar produkten för?",
       "benefitsLabel": "Viktigaste fördelarna"
+    },
+    "bank": {
+      "title": "Bankuppgifter för utbetalning",
+      "intro": "Aipify Group AS betalar avräkningar manuellt. Spara bankuppgifter så att Finance kan betala dig säkert.",
+      "accountHolder": "Kontoinnehavare",
+      "country": "Land (ISO)",
+      "currency": "Valuta",
+      "iban": "IBAN",
+      "swiftBic": "SWIFT/BIC (valfritt)",
+      "save": "Spara bankuppgifter",
+      "saving": "Sparar",
+      "saved": "Bankuppgifter sparade. Endast en maskerad referens visas efteråt.",
+      "error": "Bankuppgifterna kunde inte sparas. Kontrollera fälten och försök igen.",
+      "unavailable": "Säker banklagring är inte tillgänglig i den här miljön ännu. Inget sparades.",
+      "maskedLabel": "Sparad (maskerad)",
+      "noneSaved": "Inga bankuppgifter för utbetalning sparade ännu.",
+      "retry": "Försök igen",
+      "manualPayoutNote": "Det finns inga automatiska bankutbetalningar eller Stripe Connect i det här programmet."
     }
   }
 }

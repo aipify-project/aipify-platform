@@ -1067,6 +1067,24 @@
     "catalogMeta": {
       "audienceLabel": "Hvem passer produktet til?",
       "benefitsLabel": "Vigtigste fordele"
+    },
+    "bank": {
+      "title": "Bankoplysninger til udbetaling",
+      "intro": "Aipify Group AS betaler afregninger manuelt. Gem bankoplysninger, så Finance kan udbetale sikkert.",
+      "accountHolder": "Kontoindehaver",
+      "country": "Land (ISO)",
+      "currency": "Valuta",
+      "iban": "IBAN",
+      "swiftBic": "SWIFT/BIC (valgfrit)",
+      "save": "Gem bankoplysninger",
+      "saving": "Gemmer",
+      "saved": "Bankoplysninger gemt. Kun en maskeret reference vises bagefter.",
+      "error": "Bankoplysninger kunne ikke gemmes. Tjek felterne og prøv igen.",
+      "unavailable": "Sikker banklagring er ikke tilgængelig i dette miljø endnu. Intet blev gemt.",
+      "maskedLabel": "Gemt (maskeret)",
+      "noneSaved": "Ingen bankoplysninger til udbetaling er gemt endnu.",
+      "retry": "Prøv igen",
+      "manualPayoutNote": "Der er ingen automatiske bankudbetalinger eller Stripe Connect i dette program."
     }
   }
 }

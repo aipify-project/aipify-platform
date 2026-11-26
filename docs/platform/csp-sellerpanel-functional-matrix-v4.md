@@ -19,8 +19,10 @@ Legend: **VERIFIED** · **CODE_READY** · **CODE_READY_BLOCKED** · **PLACEHOLDE
 | Partner messages reply/read | CODE_READY | Live since #362 |
 | Materials admin publish | CODE_READY | Register/publish/withdraw; empty until real assets |
 | Partner materials visibility | CODE_READY | Published-only RPC |
-| Profile / avatar / bank | CODE_READY | Avatar Core sync; bank via existing RPC |
-| Help | CODE_READY | Honest sections; contact without dead CTA |
+| Profile / avatar / bank | CODE_READY | Avatar Core sync; bank panel on settlements (masked; fail-closed without encryption key) |
+| Notifications | CODE_READY | Unread admin messages only — no invented alerts |
+| Help | CODE_READY | Section CTAs live; contact → Messages |
+| Sales links per-row copy | CODE_READY | Copy uses selected/certified product path |
 | Platform SELGERE ops pages | CODE_READY | Overview, partners, products, rates, attribution, leads, messages, materials, audit, settings |
 
 ## Ownership vs APP #361

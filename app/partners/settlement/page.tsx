@@ -1,3 +1,7 @@
+import {
+  buildCspBankPanelLabels,
+  CertifiedSalesPartnerBankPanel,
+} from "@/components/partners-portal/CertifiedSalesPartnerBankPanel";
 import { CertifiedSalesPartnerSettlementsPanel } from "@/components/partners-portal/CertifiedSalesPartnerPortalPanels";
 import { CertifiedSalesPartnerWorkspacePanel } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
 import { buildCspSettlementsLabels, buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-labels";
@@ -16,7 +20,10 @@ export default async function PartnersSettlementPage() {
   );
   return (
     <CertifiedSalesPartnerWorkspacePanel labels={labels}>
-      <CertifiedSalesPartnerSettlementsPanel labels={buildCspSettlementsLabels(t)} locale={locale} />
+      <div className="space-y-6">
+        <CertifiedSalesPartnerSettlementsPanel labels={buildCspSettlementsLabels(t)} locale={locale} />
+        <CertifiedSalesPartnerBankPanel labels={buildCspBankPanelLabels(t)} />
+      </div>
     </CertifiedSalesPartnerWorkspacePanel>
   );
 }

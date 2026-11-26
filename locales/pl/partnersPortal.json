@@ -943,6 +943,24 @@
     "catalogMeta": {
       "audienceLabel": "Dla kogo jest ten produkt?",
       "benefitsLabel": "Kluczowe korzyści"
+    },
+    "bank": {
+      "title": "Dane bankowe do wypłat",
+      "intro": "Aipify Group AS wypłaca rozliczenia ręcznie. Zapisz dane bankowe, aby Finance mogło wypłacić bezpiecznie.",
+      "accountHolder": "Właściciel konta",
+      "country": "Kraj (ISO)",
+      "currency": "Waluta",
+      "iban": "IBAN",
+      "swiftBic": "SWIFT/BIC (opcjonalnie)",
+      "save": "Zapisz dane bankowe",
+      "saving": "Zapisywanie",
+      "saved": "Dane bankowe zapisane. Potem widoczna jest tylko zamaskowana referencja.",
+      "error": "Nie udało się zapisać danych bankowych. Sprawdź pola i spróbuj ponownie.",
+      "unavailable": "Bezpieczne przechowywanie danych bankowych nie jest jeszcze dostępne w tym środowisku. Nic nie zapisano.",
+      "maskedLabel": "Zapisano (zamaskowane)",
+      "noneSaved": "Brak zapisanych danych bankowych do wypłat.",
+      "retry": "Spróbuj ponownie",
+      "manualPayoutNote": "W tym programie nie ma automatycznych wypłat bankowych ani Stripe Connect."
     }
   }
 }

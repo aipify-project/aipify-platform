@@ -1067,6 +1067,24 @@
     "catalogMeta": {
       "audienceLabel": "Hvem passer produktet for?",
       "benefitsLabel": "Viktigste fordeler"
+    },
+    "bank": {
+      "title": "Bankopplysninger for utbetaling",
+      "intro": "Aipify Group AS betaler oppgjør manuelt. Lagre bankopplysninger slik at Finance kan utbetale trygt.",
+      "accountHolder": "Kontoinnehaver",
+      "country": "Land (ISO)",
+      "currency": "Valuta",
+      "iban": "IBAN",
+      "swiftBic": "SWIFT/BIC (valgfritt)",
+      "save": "Lagre bankopplysninger",
+      "saving": "Lagrer",
+      "saved": "Bankopplysninger lagret. Kun en maskert referanse vises etterpå.",
+      "error": "Bankopplysninger kunne ikke lagres. Sjekk feltene og prøv igjen.",
+      "unavailable": "Sikker banklagring er ikke tilgjengelig i dette miljøet ennå. Ingenting ble lagret.",
+      "maskedLabel": "Lagret (maskert)",
+      "noneSaved": "Ingen bankopplysninger for utbetaling er lagret ennå.",
+      "retry": "Prøv igjen",
+      "manualPayoutNote": "Det finnes ingen automatiske bankutbetalinger eller Stripe Connect i dette programmet."
     }
   }
 }
