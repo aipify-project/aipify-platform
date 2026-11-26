@@ -11,7 +11,7 @@ Feature owner: PLATFORM ADMIN (`/platform/sellers/*`).
 | Branch | `feat/platform-seller-admin-premium-v4-20261126` |
 | Baseline at implementation start | `b807a1381` (includes sellers V3 `#375`, seller portal V1 `#377`, seller portal V2 `#378`) |
 | Rebased onto | `dddddae3a` (`#379` / `#380`, seller portal Premium V3). Partner portal files from those merges stay untouched by this diff. |
-| PR | Opened from this branch. Title: `AIPIFY_PLATFORM_SELLER_ADMIN_PREMIUM_V4_COMPLETE`. |
+| PR | https://github.com/aipify-project/aipify-platform/pull/381 |
 | SQL applied | None. |
 | Authenticated browser | `BROWSER_AUTH_BLOCKED`. No admin session. No screenshots. Do not treat this as visual QA. |
 | Performance | `NOT_MEASURED`. No 40-seller or 100-message fixture was run, and Production was not load-tested. No millisecond figures. |
