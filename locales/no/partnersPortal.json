@@ -917,8 +917,8 @@
       "emptyBody": "Når Platform Admin sender en melding, eller sertifisering og oppgjørsstatus endres, vises oppdateringer her. Sjekk Meldinger og startsiden i mellomtiden.",
       "messagesCta": "Åpne meldinger",
       "homeCta": "Tilbake til start",
-      "unreadTitle": "Uleste meldinger fra Aipify",
-      "unreadBody": "Åpne Meldinger for å lese og svare. Kun autoriserte meldinger fra Platform Admin vises her."
+      "unreadTitle": "Uleste meldinger fra Plattform",
+      "unreadBody": "Åpne Meldinger for å lese og svare. Bare hendelser med reell Core-kilde vises her."
     },
     "leads": {
       "title": "Dine attribuerte registreringer",

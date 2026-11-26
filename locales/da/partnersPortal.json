@@ -917,8 +917,8 @@
       "emptyBody": "Når Platform Admin sender en besked, eller certificering og opgørsstatus ændres, vises opdateringer her.",
       "messagesCta": "Åbn beskeder",
       "homeCta": "Tilbage til start",
-      "unreadTitle": "Ulæste beskeder fra Aipify",
-      "unreadBody": "Åbn Beskeder for at læse og svare. Kun autoriserede beskeder fra Platform Admin vises her."
+      "unreadTitle": "Ulæste beskeder fra Platform",
+      "unreadBody": "Åbn Beskeder for at læse og svare. Kun hændelser med reel Core-kilde vises her."
     },
     "leads": {
       "title": "Dine attribuerede registreringer",

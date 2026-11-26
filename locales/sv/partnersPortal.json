@@ -917,8 +917,8 @@
       "emptyBody": "När Platform Admin skickar ett meddelande eller status för certifiering och utbetalning ändras visas uppdateringar här.",
       "messagesCta": "Öppna meddelanden",
       "homeCta": "Till startsidan",
-      "unreadTitle": "Olästa meddelanden från Aipify",
-      "unreadBody": "Öppna Meddelanden för att läsa och svara. Endast auktoriserade meddelanden från Platform Admin visas här."
+      "unreadTitle": "Olästa meddelanden från Plattformen",
+      "unreadBody": "Öppna Meddelanden för att läsa och svara. Endast händelser med verklig Core-källa listas här."
     },
     "leads": {
       "title": "Dina attribuerade registreringar",

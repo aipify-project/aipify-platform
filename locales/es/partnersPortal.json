@@ -793,8 +793,8 @@
       "emptyBody": "Cuando Platform Admin envíe un mensaje o cambie el estado de certificación y liquidación, las actualizaciones aparecerán aquí.",
       "messagesCta": "Abrir mensajes",
       "homeCta": "Volver al inicio",
-      "unreadTitle": "Mensajes no leídos de Aipify",
-      "unreadBody": "Abra Mensajes para leer y responder. Solo aparecen mensajes autorizados de Platform Admin."
+      "unreadTitle": "Mensajes no leídos de la Plataforma",
+      "unreadBody": "Abra Mensajes para leer y responder. Solo se listan eventos con fuente Core real."
     },
     "leads": {
       "title": "Tus registros atribuidos",

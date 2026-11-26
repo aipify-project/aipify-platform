@@ -917,8 +917,8 @@
       "emptyBody": "When Platform Admin sends a message or your certification and settlement status change, updates appear here. Until then, check Messages and your home dashboard.",
       "messagesCta": "Open messages",
       "homeCta": "Back to home",
-      "unreadTitle": "Unread messages from Aipify",
-      "unreadBody": "Open Messages to read and reply. Only authorised Platform Admin messages appear here."
+      "unreadTitle": "Unread messages from Platform",
+      "unreadBody": "Open Messages to read and reply. Only events with a real Core source are listed here."
     },
     "leads": {
       "title": "Your attributed registrations",

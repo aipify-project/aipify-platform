@@ -793,8 +793,8 @@
       "emptyBody": "Gdy Platform Admin wyśle wiadomość lub zmieni się status certyfikacji i rozliczenia, aktualizacje pojawią się tutaj.",
       "messagesCta": "Otwórz wiadomości",
       "homeCta": "Wróć do strony głównej",
-      "unreadTitle": "Nieprzeczytane wiadomości od Aipify",
-      "unreadBody": "Otwórz Wiadomości, aby przeczytać i odpowiedzieć. Tutaj pojawiają się tylko autoryzowane wiadomości Platform Admin."
+      "unreadTitle": "Nieprzeczytane wiadomości z Platformy",
+      "unreadBody": "Otwórz Wiadomości, aby przeczytać i odpowiedzieć. Tutaj są tylko zdarzenia z realnego źródła Core."
     },
     "leads": {
       "title": "Twoje przypisane rejestracje",
