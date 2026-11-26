@@ -57,6 +57,8 @@ Staging, after approval: apply the SQL file whose `shasum -a 256` matches the si
 
 Production, after Staging passes and a second approval: apply the same file bytes, then repeat one approved send and one reply. Do not call `csp_sales_email_purge_expired`.
 
+Staging has since applied `csp_sales_email_crm_v1.sql` at the digest above. `service_role` still has TRUNCATE, REFERENCES, TRIGGER, and MAINTAIN on the seven new tables because postgres default privileges granted them and the original file did not revoke `service_role`. The prepared fix is `docs/platform/sql-candidates/csp_sales_email_crm_v1_revoke_service_table_privileges_v1.sql`. It is not applied. Production must not apply the original file alone. The next approval is that patch on Staging. A later Production approval, if given, applies the original file and then the patch, in that order.
+
 ## Compensation
 
 If the new tables were applied and must be removed, drop only the `csp_sales_email_*` tables and functions created by this file, in dependency order, after exporting any rows the owner wants to keep. Do not delete historical CSP sales, settlements, or commission ledger rows. Do not run the retention function as part of rollback. The unapplied V1 table names were never created by this file.
