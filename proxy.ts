@@ -42,6 +42,7 @@ function requiresSessionProxy(pathname: string): boolean {
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/app") ||
     pathname.startsWith("/platform") ||
+    pathname.startsWith("/partners") ||
     pathname.startsWith("/super") ||
     pathname.startsWith("/login") ||
     pathname.startsWith("/register") ||

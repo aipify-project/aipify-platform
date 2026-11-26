@@ -184,10 +184,21 @@ function fill(template: string, values: Record<string, string | number>): string
 
 export function formatMoney(amount: number, currency: string, locale: string): string {
   try {
-    return new Intl.NumberFormat(locale, { style: "currency", currency, maximumFractionDigits: 2 }).format(amount);
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
   } catch {
     return `${amount} ${currency}`;
   }
+}
+
+/** Confirmed empty commission balance — owner-requested exact Norwegian zero form. */
+export function formatEmptyCommissionBalance(currency = "NOK"): string {
+  if (currency === "NOK") return "NOK 00,00";
+  return formatMoney(0, currency, "nb-NO");
 }
 
 export function formatDate(value: string | null, locale: string, month = false): string {
@@ -281,10 +292,33 @@ function Metric({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-function BalanceText({ balances, none, locale }: { balances: Record<string, number>; none: string; locale: string }) {
+function BalanceText({
+  balances,
+  none,
+  locale,
+  emptyAsZero = false,
+}: {
+  balances: Record<string, number>;
+  none: string;
+  locale: string;
+  /** When Core returned a ready portal with no ledger rows — show NOK 00,00 as the value. */
+  emptyAsZero?: boolean;
+}) {
   const entries = Object.entries(balances);
-  if (entries.length === 0) return <>{none}</>;
-  return <>{entries.map(([currency, amount]) => formatMoney(amount, currency, locale)).join(" · ")}</>;
+  if (entries.length === 0) {
+    return <>{emptyAsZero ? formatEmptyCommissionBalance("NOK") : none}</>;
+  }
+  return (
+    <>
+      {entries
+        .map(([currency, amount]) =>
+          amount === 0 && currency === "NOK"
+            ? formatEmptyCommissionBalance("NOK")
+            : formatMoney(amount, currency, locale),
+        )
+        .join(" · ")}
+    </>
+  );
 }
 
 /** Partner dashboard — real metrics from the Core portal bundle; absent data is never faked. */
@@ -372,12 +406,26 @@ export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels:
         />
         <AipifyStatCard
           label={labels.salesLabel}
-          value={portal.salesTotal === 0 ? labels.salesNone : portal.salesTotal}
+          value={portal.salesTotal}
+          hint={portal.salesTotal === 0 ? labels.salesNone : undefined}
           icon={<ShoppingBag className="h-5 w-5" aria-hidden />}
         />
         <AipifyStatCard
           label={labels.balanceLabel}
-          value={<BalanceText balances={portal.ledgerByCurrency} none={labels.balanceNone} locale={locale} />}
+          value={
+            <BalanceText
+              balances={portal.ledgerByCurrency}
+              none={labels.balanceNone}
+              locale={locale}
+              emptyAsZero
+            />
+          }
+          hint={
+            Object.keys(portal.ledgerByCurrency).length === 0 ||
+            Object.values(portal.ledgerByCurrency).every((amount) => amount === 0)
+              ? labels.balanceNone
+              : undefined
+          }
           icon={<Wallet className="h-5 w-5" aria-hidden />}
         />
       </dl>
@@ -638,8 +686,17 @@ export function CertifiedSalesPartnerSettlementsPanel({
           {labels.balanceTitle}
         </h2>
         <p className="mt-2 text-sm font-semibold text-[color:var(--aipify-text-primary)]">
-          <BalanceText balances={portal.ledgerByCurrency} none={labels.balanceNone} locale={locale} />
+          <BalanceText
+            balances={portal.ledgerByCurrency}
+            none={labels.balanceNone}
+            locale={locale}
+            emptyAsZero
+          />
         </p>
+        {Object.keys(portal.ledgerByCurrency).length === 0 ||
+        Object.values(portal.ledgerByCurrency).every((amount) => amount === 0) ? (
+          <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">{labels.balanceNone}</p>
+        ) : null}
       </section>
 
       <section className={CARD} aria-labelledby="csp-settlements-title">

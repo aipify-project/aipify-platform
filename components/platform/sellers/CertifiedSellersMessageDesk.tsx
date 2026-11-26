@@ -92,6 +92,8 @@ export function CertifiedSellersMessageDesk({
   const [listFilter, setListFilter] = useState<"all" | "sent" | "archive">("all");
   const [query, setQuery] = useState("");
   const [activeId, setActiveId] = useState<string | null>(null);
+  /** True only after an explicit conversation click — never auto-mark the first list row. */
+  const [openedByUser, setOpenedByUser] = useState(false);
   const [composeOpen, setComposeOpen] = useState(false);
   const [recipientQuery, setRecipientQuery] = useState("");
   const [recipientId, setRecipientId] = useState("");
@@ -139,7 +141,9 @@ export function CertifiedSellersMessageDesk({
     const haystack = `${name} ${conversation.preview}`.toLowerCase();
     return haystack.includes(query.trim().toLowerCase());
   });
-  const active = visible.find((item) => item.partnerId === activeId) ?? visible[0] ?? null;
+  const active =
+    (activeId ? visible.find((item) => item.partnerId === activeId) : null) ??
+    (!openedByUser ? visible[0] ?? null : null);
   const thread = [...(active?.rows ?? [])].sort((a, b) =>
     compareTimestampsDesc(text(a, "created_at"), text(b, "created_at")),
   );
@@ -147,15 +151,19 @@ export function CertifiedSellersMessageDesk({
   const filteredRecipients = filterCspMessageRecipients(recipients, recipientQuery);
 
   useEffect(() => {
-    if (!active || !onMarkRead) return;
+    // Mark-read only after the operator opens a conversation — never on list load /
+    // default preview of the first row (that incorrectly cleared unread for others).
+    if (!openedByUser || !active || !onMarkRead) return;
     const unreadIds = active.rows
       .filter(isUnreadFromPartner)
       .map((row) => text(row, "id"))
       .filter((id) => id && !markedRef.current.has(id));
     if (unreadIds.length === 0) return;
     for (const id of unreadIds) markedRef.current.add(id);
-    void onMarkRead(unreadIds);
-  }, [active, onMarkRead]);
+    void onMarkRead(unreadIds).catch(() => {
+      for (const id of unreadIds) markedRef.current.delete(id);
+    });
+  }, [active, onMarkRead, openedByUser]);
 
   async function submit(partnerId: string) {
     const partner = recipients.find((item) => item.id === partnerId);
@@ -165,6 +173,7 @@ export function CertifiedSellersMessageDesk({
       setBody("");
       setComposeOpen(false);
       setActiveId(partnerId);
+      setOpenedByUser(true);
     }
   }
 
@@ -230,7 +239,10 @@ export function CertifiedSellersMessageDesk({
                   <li key={conversation.partnerId}>
                     <button
                       type="button"
-                      onClick={() => setActiveId(conversation.partnerId)}
+                      onClick={() => {
+                        setActiveId(conversation.partnerId);
+                        setOpenedByUser(true);
+                      }}
                       className={`flex w-full gap-3 px-3 py-3 text-left ${selectedRow ? "bg-violet-50" : "hover:bg-[color:var(--aipify-canvas)]"}`}
                     >
                       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-violet-100 text-xs font-semibold text-violet-800">
