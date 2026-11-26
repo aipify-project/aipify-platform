@@ -4,6 +4,7 @@ import {
   authorizeStripeWebhook,
   mapStripeEventToPaymentEvent,
 } from "@/lib/billing/stripe-client";
+import { maybeApplyCspPaidPeriodFromAuthorizedStripeTest } from "@/lib/certified-sales-partner/stripe-test-webhook";
 
 export async function POST(request: Request) {
   try {
@@ -20,6 +21,7 @@ export async function POST(request: Request) {
     }
 
     const event = JSON.parse(payload) as {
+      id?: string;
       type: string;
       data: { object: Record<string, unknown> };
     };
@@ -47,6 +49,20 @@ export async function POST(request: Request) {
           p_stripe_customer_id: customer,
         });
       }
+    }
+
+    // CSP commission: TEST bridge only, after signature gate, metadata-driven, never LIVE.
+    const eventId = typeof event.id === "string" ? event.id : "";
+    if (eventId) {
+      await maybeApplyCspPaidPeriodFromAuthorizedStripeTest({
+        eventId,
+        eventType: event.type,
+        object: event.data.object as {
+          id?: string;
+          amount_paid?: number;
+          metadata?: Record<string, unknown> | null;
+        },
+      });
     }
 
     return NextResponse.json({ received: true, event_type: event.type });

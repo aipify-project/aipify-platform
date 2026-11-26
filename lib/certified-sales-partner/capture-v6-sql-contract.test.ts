@@ -38,12 +38,16 @@ assert.match(payment, /createServiceRoleClient/);
 assert.doesNotMatch(payment, /p_qualified_sale_id/);
 
 const attr = read("app/api/certified-sales-partner/attribute-registration/route.ts");
-assert.match(attr, /csp_attribute_customer_registration|CSP_ATTRIBUTE_REGISTRATION_RPC/);
-assert.match(attr, /self_referral|isSelfReferral/);
+assert.match(attr, /tryAttributeCspRegistrationFromCookie/);
 assert.doesNotMatch(attr, /body\.partnerId|partner_id\s*:\s*body/);
+
+const attrHelper = read("lib/certified-sales-partner/attribute-from-cookie.ts");
+assert.match(attrHelper, /CSP_ATTRIBUTE_REGISTRATION_RPC|csp_attribute_customer_registration/);
+assert.match(attrHelper, /self_referral|isSelfReferral/);
 
 const webhook = read("app/api/webhooks/stripe/route.ts");
 assert.match(webhook, /authorizeStripeWebhook/);
+assert.match(webhook, /maybeApplyCspPaidPeriodFromAuthorizedStripeTest/);
 assert.doesNotMatch(webhook, /if\s*\(\s*webhookSecret\s*&&\s*signature\s*\)/);
 
 console.log("capture-v6-sql-contract.test.ts: ok", SQL_SHA);

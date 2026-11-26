@@ -6,9 +6,13 @@
  */
 import { CSP_STRIPE_LIVE_WIRING_ENABLED, mapVerifiedStripeEventToPaidPeriod } from "./stripe-adapter";
 
-/** Compile-time + env gate. LIVE wiring remains false; TEST bridge requires explicit env. */
-export const CSP_STRIPE_TEST_BRIDGE_ENABLED =
-  process.env.AIPIFY_CSP_STRIPE_TEST_BRIDGE === "1" && CSP_STRIPE_LIVE_WIRING_ENABLED === false;
+/** Runtime gate. LIVE wiring remains false; TEST bridge requires explicit env. */
+export function isCspStripeTestBridgeEnabled(): boolean {
+  return process.env.AIPIFY_CSP_STRIPE_TEST_BRIDGE === "1" && CSP_STRIPE_LIVE_WIRING_ENABLED === false;
+}
+
+/** Snapshot at import for default-off contract tests. Prefer `isCspStripeTestBridgeEnabled()` at runtime. */
+export const CSP_STRIPE_TEST_BRIDGE_ENABLED = isCspStripeTestBridgeEnabled();
 
 export type CspStripeTestBridgeInput = {
   signatureVerified: boolean;
@@ -40,7 +44,7 @@ export type CspStripeTestBridgeResult =
 export function buildCspPaymentEventFromVerifiedStripeTest(
   input: CspStripeTestBridgeInput,
 ): CspStripeTestBridgeResult {
-  if (!CSP_STRIPE_TEST_BRIDGE_ENABLED) return { ok: false, reason: "bridge_disabled" };
+  if (!isCspStripeTestBridgeEnabled()) return { ok: false, reason: "bridge_disabled" };
   if (input.signatureVerified !== true) return { ok: false, reason: "unverified_event" };
 
   const mapped = mapVerifiedStripeEventToPaidPeriod({
