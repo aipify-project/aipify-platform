@@ -70,6 +70,23 @@ assert.match(dashboardPanel, /href="\/platform\/customers"/);
 assert.match(dashboardPanel, /href="\/platform\/subscriptions"/);
 assert.match(dashboardPanel, /href="\/platform\/support"/);
 assert.doesNotMatch(dashboardPanel, /data-quick-action=/);
+// Top KPI destinations must match counted entities (skills ≠ updates; past_due ≠ invoices).
+assert.match(
+  dashboardPanel,
+  /label=\{labels\.published\}[\s\S]*?href="\/platform\/skills"/,
+);
+assert.doesNotMatch(
+  dashboardPanel,
+  /label=\{labels\.published\}[\s\S]*?href="\/platform\/updates"/,
+);
+assert.match(
+  dashboardPanel,
+  /label=\{labels\.paymentPastDue\}[\s\S]*?href="\/platform\/subscriptions"/,
+);
+assert.doesNotMatch(
+  dashboardPanel,
+  /label=\{labels\.paymentPastDue\}[\s\S]*?href="\/platform\/billing\/invoices"/,
+);
 
 const overviewPanel = readFileSync("components/platform/PlatformOverviewPanel.tsx", "utf8");
 assert.match(overviewPanel, /operationalLinksTitle/);
