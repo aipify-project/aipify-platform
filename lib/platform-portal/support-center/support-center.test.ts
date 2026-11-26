@@ -45,9 +45,9 @@ assert.equal(SUPPORT_TEMPLATE_PERSIST_CONFIGURED, false);
 
 const channels = listSupportChannelActivations();
 assert.equal(channels.length, 5);
-assert.equal(channels.find((c) => c.id === "web")?.status, "not_activated");
+assert.equal(channels.find((c) => c.id === "web")?.status, "prepared_only");
 assert.equal(channels.find((c) => c.id === "app")?.status, "prepared_only");
-assert.equal(channels.find((c) => c.id === "partner")?.status, "not_activated");
+assert.equal(channels.find((c) => c.id === "partner")?.status, "prepared_only");
 assert.equal(channels.find((c) => c.id === "kompis")?.status, "not_activated");
 
 const templates = listSupportReplyStarterTemplates();

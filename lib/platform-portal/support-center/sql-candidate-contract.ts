@@ -9,7 +9,22 @@ export const PLATFORM_SUPPORT_CENTER_SQL_CANDIDATE_PATH =
 export const PLATFORM_SUPPORT_CENTER_SQL_CANDIDATE_SHA256 =
   "247f4635e4f97a2b5a1f0080d7a795a66403aa9ef20db256a3f331a74f4bf192";
 
+/** Consolidated Staging batch (schema + write RPCs). Prefer this for owner Staging apply. */
+export const PLATFORM_SUPPORT_CENTER_STAGING_BATCH_PATH =
+  "docs/platform/sql-candidates/platform_support_center_staging_batch_v1.sql";
+
+export const PLATFORM_SUPPORT_CENTER_STAGING_BATCH_SHA256 =
+  "96991c0cccce9ad23f7d6f4696b888aba9a13b4f37ee13e52652bbf715501c95";
+
+/** Prerequisite Platform read RPCs. */
+export const PLATFORM_SUPPORT_CENTER_READ_RPC_PATH =
+  "docs/platform/NOT_APPLIED_platform_support_tickets_cross_tenant_read_rpc_v1.sql";
+
+export const PLATFORM_SUPPORT_CENTER_READ_RPC_SHA256 =
+  "63ed974a50229e828b34e0eb99be00080a8b84b48258414f64ce802039134291";
+
 export const PLATFORM_SUPPORT_CENTER_SQL_CANDIDATE_APPLIED = false as const;
+export const PLATFORM_SUPPORT_CENTER_STAGING_BATCH_APPLIED = false as const;
 
 export const PLATFORM_SUPPORT_CENTER_SQL_TABLES = [
   "platform_support_ticket_messages",

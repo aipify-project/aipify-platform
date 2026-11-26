@@ -104,7 +104,23 @@ export default function PlatformSupportCenterPanel({
   );
   const [draftBody, setDraftBody] = useState("");
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>("");
-  const templates = useMemo(() => listSupportReplyStarterTemplates(), []);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [priorityFilter, setPriorityFilter] = useState("");
+  const [writeMessage, setWriteMessage] = useState<string | null>(null);
+  const [templateName, setTemplateName] = useState("");
+  const [templateSubject, setTemplateSubject] = useState("");
+  const [templateBody, setTemplateBody] = useState("");
+  const [workspaceTemplates, setWorkspaceTemplates] = useState<
+    Array<SupportReplyTemplate & { archived?: boolean }> | null
+  >(null);
+  const templates = useMemo(
+    () =>
+      (workspaceTemplates ?? listSupportReplyStarterTemplates()).filter(
+        (t) => !t.archived,
+      ),
+    [workspaceTemplates],
+  );
   const channels = useMemo(() => listSupportChannelActivations(), []);
 
   const setTab = useCallback(
@@ -135,11 +151,28 @@ export default function PlatformSupportCenterPanel({
     router.replace(`${pathname}?${params.toString()}`);
   }, [pathname, router, searchParams]);
 
+  const loadTemplates = useCallback(async () => {
+    try {
+      const res = await fetch("/api/platform-portal/support-templates", {
+        cache: "no-store",
+      });
+      if (!res.ok) return;
+      const json = (await res.json()) as { items?: SupportReplyTemplate[] };
+      if (Array.isArray(json.items)) setWorkspaceTemplates(json.items);
+    } catch {
+      /* keep starters */
+    }
+  }, []);
+
   const loadTickets = useCallback(async () => {
     setLoad({ kind: "loading" });
     try {
+      const params = new URLSearchParams({ page_size: "50" });
+      if (statusFilter) params.set("status", statusFilter);
+      if (priorityFilter) params.set("priority", priorityFilter);
+      if (search.trim()) params.set("search", search.trim());
       const [listRes, countsRes] = await Promise.all([
-        fetch("/api/platform-portal/support-requests?page_size=50", {
+        fetch(`/api/platform-portal/support-requests?${params.toString()}`, {
           cache: "no-store",
         }),
         fetch("/api/platform-portal/support-requests/counts", {
@@ -192,11 +225,42 @@ export default function PlatformSupportCenterPanel({
     } catch {
       setLoad({ kind: "error", message: labels.emptyCoreBlocked });
     }
-  }, [labels.coreBlockedBody, labels.emptyCoreBlocked]);
+  }, [
+    labels.coreBlockedBody,
+    labels.emptyCoreBlocked,
+    priorityFilter,
+    search,
+    statusFilter,
+  ]);
 
   useEffect(() => {
     void loadTickets();
   }, [loadTickets]);
+
+  useEffect(() => {
+    void loadTemplates();
+  }, [loadTemplates]);
+
+  async function runWriteAction(payload: Record<string, unknown>) {
+    setWriteMessage(null);
+    try {
+      const res = await fetch("/api/platform-portal/support-requests/write", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const json = (await res.json().catch(() => ({}))) as {
+        error?: string;
+        code?: string;
+      };
+      setWriteMessage(
+        json.error ??
+          (res.ok ? "OK" : labels.reply.sendBlocked),
+      );
+    } catch {
+      setWriteMessage(labels.reply.sendBlocked);
+    }
+  }
 
   const labelFor = (map: Record<string, string>, code: string) =>
     map[code] ?? map[code.toLowerCase()] ?? "—";
@@ -291,6 +355,54 @@ export default function PlatformSupportCenterPanel({
 
       {(tab === "all" || tab === "mine") && (
         <section className="space-y-6">
+          <div className="grid gap-3 rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-3 sm:grid-cols-3">
+            <label className="text-sm">
+              <span className="mb-1 block text-xs font-medium text-[color:var(--aipify-text-secondary)]">
+                {labels.subject}
+              </span>
+              <input
+                className="w-full rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder={labels.filterAll}
+              />
+            </label>
+            <label className="text-sm">
+              <span className="mb-1 block text-xs font-medium text-[color:var(--aipify-text-secondary)]">
+                {labels.status}
+              </span>
+              <select
+                className="w-full rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+              >
+                <option value="">{labels.filterAll}</option>
+                {Object.entries(labels.statusLabels).map(([code, label]) => (
+                  <option key={code} value={code}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="text-sm">
+              <span className="mb-1 block text-xs font-medium text-[color:var(--aipify-text-secondary)]">
+                {labels.priority}
+              </span>
+              <select
+                className="w-full rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                value={priorityFilter}
+                onChange={(e) => setPriorityFilter(e.target.value)}
+              >
+                <option value="">{labels.filterAll}</option>
+                {Object.entries(labels.priorityLabels).map(([code, label]) => (
+                  <option key={code} value={code}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {[
               {
@@ -514,13 +626,54 @@ export default function PlatformSupportCenterPanel({
                       <p className="mt-2 text-xs text-[color:var(--aipify-text-secondary)]">
                         {labels.reply.sendBlocked}
                       </p>
-                      <button
-                        type="button"
-                        disabled
-                        className="mt-3 inline-flex min-h-10 cursor-not-allowed items-center rounded-lg bg-slate-300 px-4 text-sm font-medium text-slate-600"
-                      >
-                        {labels.reply.send}
-                      </button>
+                      {writeMessage ? (
+                        <p className="mt-2 text-xs text-amber-800">{writeMessage}</p>
+                      ) : null}
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            void runWriteAction({
+                              action: "external_reply",
+                              ticketId: selectedItem.id,
+                              body: draftBody,
+                              templateId: selectedTemplateId || null,
+                              includeSignature: true,
+                              signatureText: signatureText,
+                            })
+                          }
+                          className="inline-flex min-h-10 items-center rounded-lg bg-[color:var(--aipify-companion-purple)] px-4 text-sm font-medium text-white"
+                        >
+                          {labels.reply.send}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            void runWriteAction({
+                              action: "internal_note",
+                              ticketId: selectedItem.id,
+                              body: draftBody,
+                            })
+                          }
+                          className="inline-flex min-h-10 items-center rounded-lg border border-[color:var(--aipify-border)] px-4 text-sm font-medium text-[color:var(--aipify-text)]"
+                        >
+                          {labels.reply.internalNote}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            void runWriteAction({
+                              action: "status",
+                              ticketId: selectedItem.id,
+                              fromStatus: selectedItem.status,
+                              toStatus: "in_progress",
+                            })
+                          }
+                          className="inline-flex min-h-10 items-center rounded-lg border border-[color:var(--aipify-border)] px-4 text-sm font-medium text-[color:var(--aipify-text)]"
+                        >
+                          {labels.kpiInProgress}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -547,6 +700,58 @@ export default function PlatformSupportCenterPanel({
             <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">
               {labels.templates.localeNote}
             </p>
+          </div>
+          <div className="rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-4">
+            <h3 className="mb-3 text-sm font-semibold text-[color:var(--aipify-text)]">
+              {labels.templates.title}
+            </h3>
+            <div className="grid gap-3 md:grid-cols-2">
+              <input
+                className="rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                placeholder={labels.templates.category}
+                value={templateName}
+                onChange={(e) => setTemplateName(e.target.value)}
+              />
+              <input
+                className="rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                placeholder={labels.templates.subject}
+                value={templateSubject}
+                onChange={(e) => setTemplateSubject(e.target.value)}
+              />
+            </div>
+            <textarea
+              className="mt-3 min-h-[6rem] w-full rounded-lg border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+              placeholder={labels.templates.body}
+              value={templateBody}
+              onChange={(e) => setTemplateBody(e.target.value)}
+            />
+            <button
+              type="button"
+              className="mt-3 text-sm font-medium text-[color:var(--aipify-companion-purple)] hover:underline"
+              onClick={() => {
+                void (async () => {
+                  const res = await fetch("/api/platform-portal/support-templates", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      action: "create",
+                      name: templateName || "Ny mal",
+                      category: "intake",
+                      subject: templateSubject || "Emne",
+                      body: templateBody || "Hei {{customer_name}},\n\n{{agent_name}}",
+                    }),
+                  });
+                  if (res.ok) {
+                    setTemplateName("");
+                    setTemplateSubject("");
+                    setTemplateBody("");
+                    await loadTemplates();
+                  }
+                })();
+              }}
+            >
+              {labels.templates.insertDraft}
+            </button>
           </div>
           <div className="grid gap-4 lg:grid-cols-2">
             {templates.map((tpl) => (

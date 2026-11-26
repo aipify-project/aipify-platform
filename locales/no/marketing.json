@@ -8854,5 +8854,20 @@
       "successEmailAcceptedAddon": "Vi har sendt deg en e-post. Levering til innboksen kan ta noen minutter.",
       "successEmailNotConfiguredAddon": "Søknaden din er lagret. Du får bekreftelse på e-post så snart Aipify Group AS har fullført e-postoppsettet."
     }
+  },
+  "supportIntake": {
+    "title": "Kontakt support",
+    "subtitle": "Send en supportsak. Ticket-lagring aktiveres når Core er godkjent — e-postfallback forblir tilgjengelig.",
+    "name": "Navn",
+    "email": "E-post",
+    "subject": "Emne",
+    "message": "Melding",
+    "submit": "Send henvendelse",
+    "submitting": "Sender…",
+    "successCorePending": "Supportinntak er forberedt, men krever Core-oppsett før saken lagres automatisk. Bruk e-postfallback nedenfor imens.",
+    "errorGeneric": "Kunne ikke sende henvendelsen. Prøv igjen eller bruk e-post.",
+    "mailtoFallback": "Offentlig e-postkontakt forblir tilgjengelig som fallback.",
+    "mailtoLabel": "Send e-post til support@aipify.ai",
+    "verificationRequired": "Fullfør sikkerhetskontrollen før innsending."
   }
 }

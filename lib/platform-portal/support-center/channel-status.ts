@@ -19,7 +19,8 @@ export function listSupportChannelActivations(): SupportChannelActivation[] {
     {
       id: "web",
       labelKey: "channels.web",
-      status: link.aipify_public_site.linked ? "active" : "not_activated",
+      // Form + API exist at /contact/support and /api/support-intake/web — Core write still gated.
+      status: "prepared_only",
       noteKey: "channels.webNote",
       sotChannels: link.aipify_public_site.sotChannels,
     },
@@ -33,7 +34,8 @@ export function listSupportChannelActivations(): SupportChannelActivation[] {
     {
       id: "partner",
       labelKey: "channels.partner",
-      status: link.sellers_partners.linked ? "active" : "not_activated",
+      // Authenticated CSP intake route prepared; Core write still gated. CRM stays separate.
+      status: "prepared_only",
       noteKey: "channels.partnerNote",
       sotChannels: link.sellers_partners.sotChannels,
     },

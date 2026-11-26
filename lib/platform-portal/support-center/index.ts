@@ -5,3 +5,5 @@ export * from "./reply-templates";
 export * from "./channel-status";
 export * from "./gates";
 export * from "./sql-candidate-contract";
+export * from "./write-ops";
+export * from "./template-store";
