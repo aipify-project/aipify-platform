@@ -1061,6 +1061,10 @@
       "consentLabel": "Confirmo una base legal para contactar a este destinatario sobre este producto (por ejemplo, relación previa o consentimiento documentado). El marketing no se asume solo porque se conoce la dirección de correo.",
       "certRequired": "Complete la certificación del producto y cree un enlace personal activo antes de enviar.",
       "noTemplates": "Aún no hay plantillas publicadas para este producto y tipo.",
+      "inboxLink": "Abrir conversaciones",
+      "inboxTitle": "Conversaciones de correo",
+      "inboxIntro": "Las respuestas de tu correo de ventas aparecen aquí.",
+      "inboxEmpty": "Elige una conversación en la campana de avisos.",
       "types": {
         "product_introduction": "Introducción al producto",
         "follow_up": "Seguimiento",

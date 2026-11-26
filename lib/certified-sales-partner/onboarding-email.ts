@@ -38,6 +38,8 @@ export type SendCspOnboardingEmailInput = {
   html: string;
   text: string;
   idempotencyKey?: string;
+  /** Set only for sales email. Lifecycle mail leaves this unset. */
+  replyTo?: string;
 };
 
 function sanitizeError(raw: string, apiKey: string): string {
@@ -66,6 +68,7 @@ export async function sendCspOnboardingEmail(input: SendCspOnboardingEmailInput)
         subject: input.subject,
         html: input.html,
         text: input.text,
+        ...(input.replyTo ? { reply_to: input.replyTo } : {}),
       }),
     });
 

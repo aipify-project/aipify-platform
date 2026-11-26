@@ -1,0 +1,8 @@
+{
+  "name": "csp-sales-email-sql-runner",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@electric-sql/pglite": "0.3.14"
+  }
+}

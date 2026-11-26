@@ -1185,6 +1185,10 @@
       "consentLabel": "Jeg bekræfter et lovligt grundlag for at kontakte denne modtager om dette produkt (f.eks. eksisterende kundeforhold eller dokumenteret samtykke). Marketing antages ikke blot fordi e-mailadressen er kendt.",
       "certRequired": "Fuldfør produktcertificering og opret et aktivt personligt salgslink før afsendelse.",
       "noTemplates": "Ingen offentliggjorte skabeloner for dette produkt og denne type endnu.",
+      "inboxLink": "Åbn samtaler",
+      "inboxTitle": "E-mailsamtaler",
+      "inboxIntro": "Svar der hører til din salgsmail vises her.",
+      "inboxEmpty": "Vælg en samtale fra notifikationsklokken.",
       "types": {
         "product_introduction": "Produktintroduktion",
         "follow_up": "Opfølgning",

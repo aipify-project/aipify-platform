@@ -35,8 +35,11 @@ export type CspInboundVerifyResult =
         | "duplicate_event";
     };
 
+/** Svix (`RESEND_WEBHOOK_SECRET`) or the Aipify HMAC secret. The retired webhook env name is ignored. */
 export function isCspEmailInboundConfigured(): boolean {
-  return Boolean(process.env.CSP_EMAIL_INBOUND_WEBHOOK_SECRET?.trim());
+  return Boolean(
+    process.env.RESEND_WEBHOOK_SECRET?.trim() || process.env.CSP_SALES_EMAIL_INBOUND_SECRET?.trim(),
+  );
 }
 
 export function verifyCspInboundWebhookSignature(input: {
@@ -90,9 +93,10 @@ export function decideCspInboundDisposition(input: {
 }
 
 export const CSP_EMAIL_INBOUND_BLOCKERS = [
-  "Set CSP_EMAIL_INBOUND_WEBHOOK_SECRET on the Vercel project",
-  "Configure Resend (or chosen provider) inbound domain on a verified Aipify-owned domain",
-  "Point inbound webhook to /api/certified-sales-partner/email/inbound",
+  "Set RESEND_WEBHOOK_SECRET (Svix whsec_) or CSP_SALES_EMAIL_INBOUND_SECRET on the Vercel project",
+  "CSP_EMAIL_INBOUND_WEBHOOK_SECRET is retired and does not configure inbound",
+  "Configure the Resend inbound domain on a verified Aipify-owned domain",
+  "Point the inbound webhook to /api/certified-sales-partner/email/inbound",
   "Apply PREPARED_ONLY SQL csp_sales_email_crm_v1 on Staging before Production",
   "Owner-approve a single test send and reply before claiming REAL_INBOUND_E2E_VERIFIED",
 ] as const;
