@@ -25,7 +25,7 @@ function sha256File(path: string): string {
   return createHash("sha256").update(readFileSync(path)).digest("hex");
 }
 
-assert.equal(PLATFORM_SUPPORT_CENTER_PERSIST_TIMELINE_APPLIED, false);
+assert.equal(PLATFORM_SUPPORT_CENTER_PERSIST_TIMELINE_APPLIED, true);
 assert.equal(existsSync(PLATFORM_SUPPORT_CENTER_PERSIST_TIMELINE_PATH), true);
 assert.equal(
   sha256File(PLATFORM_SUPPORT_CENTER_PERSIST_TIMELINE_PATH),

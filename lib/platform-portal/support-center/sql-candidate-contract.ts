@@ -23,7 +23,7 @@ export const PLATFORM_SUPPORT_CENTER_READ_RPC_PATH =
 export const PLATFORM_SUPPORT_CENTER_READ_RPC_SHA256 =
   "63ed974a50229e828b34e0eb99be00080a8b84b48258414f64ce802039134291";
 
-/** Persist + timeline + Mine filter RPCs (complete raw SQL — not applied). */
+/** Persist + timeline + Mine filter RPCs (complete raw SQL). */
 export const PLATFORM_SUPPORT_CENTER_PERSIST_TIMELINE_PATH =
   "docs/platform/sql-candidates/platform_support_center_persist_and_timeline_rpc_v1.sql";
 
@@ -32,7 +32,8 @@ export const PLATFORM_SUPPORT_CENTER_PERSIST_TIMELINE_SHA256 =
 
 export const PLATFORM_SUPPORT_CENTER_SQL_CANDIDATE_APPLIED = false as const;
 export const PLATFORM_SUPPORT_CENTER_STAGING_BATCH_APPLIED = false as const;
-export const PLATFORM_SUPPORT_CENTER_PERSIST_TIMELINE_APPLIED = false as const;
+/** Applied once on Production Core qbcqoixhrvhnuwphefvw (owner YES, SHA verified). */
+export const PLATFORM_SUPPORT_CENTER_PERSIST_TIMELINE_APPLIED = true as const;
 
 export const PLATFORM_SUPPORT_CENTER_SQL_TABLES = [
   "platform_support_ticket_messages",

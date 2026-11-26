@@ -90,6 +90,26 @@ function mapCoreSignature(row: Record<string, unknown>): SupportSignatureDraft {
   };
 }
 
+function mapCoreCategory(raw: unknown): SupportReplyTemplateCategory {
+  const value = String(raw ?? "general").trim().toLowerCase();
+  const allowed: readonly SupportReplyTemplateCategory[] = [
+    "general",
+    "intake",
+    "followup",
+    "access",
+    "billing",
+    "product",
+    "partner",
+    "status",
+    "resolution",
+    "bug",
+    "feedback",
+  ];
+  return (allowed as readonly string[]).includes(value)
+    ? (value as SupportReplyTemplateCategory)
+    : "general";
+}
+
 function mapCoreTemplate(row: Record<string, unknown>): EditableSupportTemplate {
   const key = String(row.template_key ?? row.id ?? "");
   const locale = normalizeSupportTemplateLocale(String(row.locale ?? "no")) ?? "no";
@@ -97,13 +117,11 @@ function mapCoreTemplate(row: Record<string, unknown>): EditableSupportTemplate 
   return {
     id: key,
     name: String(row.name ?? ""),
-    category: String(row.category ?? "general") as SupportReplyTemplateCategory,
+    category: mapCoreCategory(row.category),
     locale,
     subject: String(row.subject ?? ""),
     body: String(row.body_text ?? row.body ?? ""),
-    variables: Array.isArray(row.allowed_variables)
-      ? (row.allowed_variables as typeof SUPPORT_TEMPLATE_VARIABLES)
-      : [...SUPPORT_TEMPLATE_VARIABLES],
+    variables: [...SUPPORT_TEMPLATE_VARIABLES],
     active,
     version: Number(row.version) || 1,
     starter: row.is_starter === true,
@@ -157,11 +175,9 @@ async function migrateWorkspaceTemplatesToCore(rpc: RpcClient): Promise<void> {
     (t) => !t.starter,
   );
   for (const tpl of customs) {
-    const key =
-      normalizeSupportTemplateKey(tpl.id).ok === true
-        ? (normalizeSupportTemplateKey(tpl.id) as { ok: true; value: string }).value
-        : deriveSupportTemplateKeyFromName(tpl.name);
-    if (!("value" in key) || !key.value) continue;
+    const fromId = normalizeSupportTemplateKey(tpl.id);
+    const key = fromId.ok ? fromId : deriveSupportTemplateKeyFromName(tpl.name);
+    if (!key.ok) continue;
     const locale = normalizeSupportTemplateLocale(tpl.locale) ?? "no";
     const category = normalizeSupportTemplateKey(tpl.category, "category");
     await rpc.rpc("platform_support_upsert_template", {
@@ -316,7 +332,17 @@ export async function resetSupportSignatureForUser(input: {
     }
   }
   const { resetSupportSignature } = await import("./signature-store");
-  return { ok: true, source: "workspace", ...resetSupportSignature() };
+  const reset = resetSupportSignature();
+  if (!reset.ok) {
+    throw new Error("reset_failed");
+  }
+  return {
+    ok: true,
+    source: "workspace",
+    signature: reset.signature,
+    customized: reset.customized,
+    persistConfigured: reset.persistConfigured,
+  };
 }
 
 export async function listSupportTemplatesForUser(input: {

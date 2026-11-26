@@ -7,6 +7,7 @@
 import type { SupportTemplateVariable } from "./types";
 
 export type SupportReplyTemplateCategory =
+  | "general"
   | "intake"
   | "followup"
   | "access"

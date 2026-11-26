@@ -81,7 +81,8 @@ export function resolveSupportCenterLiveGates(
     intakeRpcConnected: false,
     intakeFeatureGate: false,
     emailSendConfigured: false,
-    signaturePersistConfigured: false,
-    templatePersistConfigured: false,
+    /** Persist/timeline RPCs applied on Production Core only (not Staging). */
+    signaturePersistConfigured: productionBound,
+    templatePersistConfigured: productionBound,
   };
 }
