@@ -1,10 +1,16 @@
 # Support Center — Complete Functional Polish V2
 
-**Status:** `CODE_READY_FOR_MERGE` (browser QA = owner after deploy)  
+**Status:** `PRODUCTION_READY` (browser QA = owner after deploy — not claimed passed)  
+**PR:** https://github.com/aipify-project/aipify-platform/pull/405 (merged)  
+**Merge SHA:** `1a73708945a8b1f89bf74f358fbcf0e613dca0ca`  
 **Branch:** `polish/support-center-functional-v2-20261126`  
-**Base:** `origin/main` @ `899b7178`  
 **Core:** Production `qbcqoixhrvhnuwphefvw` (read/write RPCs already LIVE from prior #400 job)  
-**When (UTC):** 2026-11-26
+**When (UTC):** 2026-11-26  
+
+| Project | Deployment | State | Alias |
+|---------|------------|-------|-------|
+| `aipify-platform` | `dpl_HrVhHenDUz65J3NirW5oqowuKoju` | **READY** | `app.aipify.ai` |
+| `aipify-platform-iz5z` | `dpl_od3LyGHsBnh7HXg2e6fuJS9Rc61u` | **READY** | `aipify.ai` |
 
 ## What works (code + existing Production Core)
 
