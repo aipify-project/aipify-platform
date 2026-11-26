@@ -52,4 +52,14 @@ test("shell records soft-nav performance marks without inventing timings", () =>
   assert.match(perf, /performance\.measure/);
 });
 
+test("partners routes refresh auth session like app/platform (first-click soft nav)", () => {
+  const proxy = read("proxy.ts");
+  assert.match(proxy, /pathname\.startsWith\("\/partners"\)/);
+  const provider = read("components/partners-portal/CspPortalSessionProvider.tsx");
+  assert.match(provider, /onVisibility/);
+  assert.match(provider, /removeEventListener\("visibilitychange"/);
+  assert.match(provider, /loadSeq/);
+  assert.match(provider, /!hasLoadedOnce\.current/);
+});
+
 console.log("csp portal nav performance contract passed");

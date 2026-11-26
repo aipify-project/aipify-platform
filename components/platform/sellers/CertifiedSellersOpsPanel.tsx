@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { CertifiedSellersMessageDesk } from "@/components/platform/sellers/CertifiedSellersMessageDesk";
@@ -14,6 +14,7 @@ import {
 import { classifyCspApiResponse } from "@/lib/certified-sales-partner/ui-support";
 import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
 import { toBcp47Locale } from "@/lib/platform-presentation-quality/bcp47";
+import { usePollingTask } from "@/lib/polling/use-polling-task";
 
 export type SellersOpsSection =
   | "attribution"
@@ -252,6 +253,10 @@ export function CertifiedSellersOpsPanel({
     }
   }, [section, partnerFilter]);
 
+  const loadSeqRef = useRef(0);
+  const abortRef = useRef<AbortController | null>(null);
+  const pollPrimedRef = useRef(false);
+
   const load = useCallback(async (opts?: { silent?: boolean }) => {
     if (!endpoint) {
       setPhase("ready");
@@ -259,9 +264,14 @@ export function CertifiedSellersOpsPanel({
       return true;
     }
     if (!opts?.silent) setPhase("loading");
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+    const seq = ++loadSeqRef.current;
     try {
-      const res = await fetch(endpoint, { cache: "no-store" });
+      const res = await fetch(endpoint, { cache: "no-store", signal: controller.signal });
       const body = await res.json().catch(() => null);
+      if (seq !== loadSeqRef.current) return false;
       const outcome = classifyCspApiResponse(res.status, body);
       if (outcome.kind === "unauthorized" || outcome.kind === "forbidden") {
         setPhase("forbidden");
@@ -269,37 +279,54 @@ export function CertifiedSellersOpsPanel({
         return false;
       }
       if (outcome.kind !== "ready" && res.status >= 400) {
-        setPhase("error");
-        setRows([]);
+        if (!opts?.silent) {
+          setPhase("error");
+          setRows([]);
+        }
         return false;
       }
       setRows(rowsFrom(body));
       setPhase("ready");
       return true;
     } catch {
-      setPhase("error");
-      setRows([]);
+      if (controller.signal.aborted || seq !== loadSeqRef.current) return false;
+      if (!opts?.silent) {
+        setPhase("error");
+        setRows([]);
+      }
       return false;
     }
   }, [endpoint]);
 
   useEffect(() => {
+    pollPrimedRef.current = false;
     void load();
   }, [load]);
 
+  usePollingTask({
+    taskKey: "platform-seller-messages",
+    intervalMs: 15_000,
+    hiddenIntervalMs: 60_000,
+    enabled: section === "messages",
+    runImmediately: false,
+    execute: async () => {
+      pollPrimedRef.current = true;
+      return load({ silent: true });
+    },
+  });
+
   useEffect(() => {
-    if (section !== "messages") return;
-    const timer = window.setInterval(() => {
-      void load({ silent: true });
-    }, 15_000);
-    return () => window.clearInterval(timer);
-  }, [section, load]);
+    return () => {
+      abortRef.current?.abort();
+      loadSeqRef.current += 1;
+    };
+  }, []);
 
   const markMessagesRead = useCallback(async (messageIds: string[]) => {
     const ids = messageIds.filter(Boolean);
     if (ids.length === 0) return;
     const now = new Date().toISOString();
-    await Promise.all(
+    const results = await Promise.all(
       ids.map(async (messageId) => {
         try {
           const res = await fetch("/api/platform/sellers/messages/read", {
@@ -313,12 +340,17 @@ export function CertifiedSellersOpsPanel({
                 str(row.id) === messageId ? { ...row, read_at: str(row.read_at) || now } : row,
               ),
             );
+            return true;
           }
+          return false;
         } catch {
-          // Keep unread locally; opening again retries mark-read.
+          return false;
         }
       }),
     );
+    if (results.some((ok) => !ok)) {
+      throw new Error("mark_read_partial_failure");
+    }
   }, []);
 
   const filtered = useMemo(() => {

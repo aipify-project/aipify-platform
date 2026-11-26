@@ -209,6 +209,7 @@ function PartnersPortalFrame({
                       <li key={item.id}>
                         <Link
                           href={item.href}
+                          prefetch
                           aria-current={active ? "page" : undefined}
                           onClick={() => setMobileOpen(false)}
                           className={`block rounded-xl px-3 py-2.5 text-sm font-medium transition ${SELLER_PORTAL_LAYOUT.focusRing} ${

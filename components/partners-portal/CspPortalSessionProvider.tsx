@@ -78,6 +78,7 @@ export function CspPortalSessionProvider({ children }: Props) {
   const hasLoadedOnce = useRef(false);
   const inFlight = useRef<Promise<void> | null>(null);
   const lastSilentAt = useRef(0);
+  const loadSeq = useRef(0);
 
   const reload = useCallback(async (opts?: { silent?: boolean }) => {
     const silent = opts?.silent === true && hasLoadedOnce.current;
@@ -87,21 +88,27 @@ export function CspPortalSessionProvider({ children }: Props) {
       lastSilentAt.current = now;
     }
 
+    // Coalesce concurrent callers onto one in-flight fetch; never drop a
+    // non-silent follow-up that arrived while a silent refresh was running.
     if (inFlight.current) {
       await inFlight.current;
-      return;
+      if (silent) return;
     }
 
-    if (!silent) {
+    // Keep the previous ready portal visible during refresh so menu navigation
+    // does not blank the main pane. Only the first load shows a loading gate.
+    if (!silent && !hasLoadedOnce.current) {
       setState("loading");
       setPortal(null);
       setPendingStatus(null);
     }
 
+    const seq = ++loadSeq.current;
     const run = (async () => {
       try {
         const res = await fetch("/api/certified-sales-partner/portal", { cache: "no-store" });
         const data: unknown = await res.json().catch(() => ({}));
+        if (seq !== loadSeq.current) return;
         const gate = classifyCspPortalResponse(res.status, data);
         switch (gate.kind) {
           case "unauthorized":
@@ -146,6 +153,7 @@ export function CspPortalSessionProvider({ children }: Props) {
         hasLoadedOnce.current = true;
         if (silent) lastSilentAt.current = Date.now();
       } catch {
+        if (seq !== loadSeq.current) return;
         if (!silent) {
           setPortal(null);
           setPendingStatus(null);
@@ -168,10 +176,11 @@ export function CspPortalSessionProvider({ children }: Props) {
     const onFocus = () => {
       void reload({ silent: true });
     };
-    window.addEventListener("focus", onFocus);
-    document.addEventListener("visibilitychange", () => {
+    const onVisibility = () => {
       if (document.visibilityState === "visible") onFocus();
-    });
+    };
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onVisibility);
 
     const supabase = getBrowserSupabaseClient();
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
@@ -184,6 +193,7 @@ export function CspPortalSessionProvider({ children }: Props) {
 
     return () => {
       window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onVisibility);
       sub.subscription.unsubscribe();
     };
   }, [reload]);

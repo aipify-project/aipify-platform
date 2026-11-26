@@ -13,6 +13,7 @@ import {
   compareTimestampsDesc,
   formatPlatformDateTimeClock,
 } from "@/lib/platform-presentation-quality/date-time";
+import { usePollingTask } from "@/lib/polling/use-polling-task";
 
 const ICON_LINK =
   `inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border bg-white transition hover:border-[#7C3AED]/35 hover:text-[#7C3AED] sm:h-11 sm:w-11 ${SELLER_PORTAL_LAYOUT.focusRing}`;
@@ -47,7 +48,10 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
   const menuRef = useRef<HTMLDivElement>(null);
   const bellRef = useRef<HTMLDivElement>(null);
 
+  const unreadSeqRef = useRef(0);
+
   const refreshUnread = useCallback(async () => {
+    const seq = ++unreadSeqRef.current;
     try {
       const res = await fetch("/api/certified-sales-partner/messages", { cache: "no-store" });
       const body = (await res.json().catch(() => null)) as {
@@ -55,9 +59,10 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
         backend_ready?: boolean;
         messages?: Array<Record<string, unknown>>;
       } | null;
+      if (seq !== unreadSeqRef.current) return false;
       if (!res.ok || !body?.found || body.backend_ready === false) {
         setUnread([]);
-        return;
+        return false;
       }
       const rows = Array.isArray(body.messages) ? body.messages : [];
       const next = rows.flatMap((row) => {
@@ -84,6 +89,7 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
         backend_ready?: boolean;
         unread?: Array<Record<string, unknown>>;
       } | null;
+      if (seq !== unreadSeqRef.current) return false;
       const emailRows =
         emailRes.ok && emailBody?.found && emailBody.backend_ready === true && Array.isArray(emailBody.unread)
           ? emailBody.unread.flatMap((row) => {
@@ -106,15 +112,25 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
       setUnread(
         [...next, ...emailRows].sort((a, b) => compareTimestampsDesc(a.created_at, b.created_at)),
       );
+      return true;
     } catch {
-      setUnread([]);
+      if (seq !== unreadSeqRef.current) return false;
+      // Keep prior badge state on transient errors — do not flash empty.
+      return false;
     }
   }, [labels.messages, labels.notifications]);
 
+  usePollingTask({
+    taskKey: "csp-partner-topbar-unread",
+    intervalMs: 60_000,
+    hiddenIntervalMs: 120_000,
+    enabled: true,
+    runImmediately: true,
+    execute: () => refreshUnread(),
+  });
+
   useEffect(() => {
     void refreshUnread();
-    const timer = window.setInterval(() => void refreshUnread(), 60_000);
-    return () => window.clearInterval(timer);
   }, [refreshUnread, pathname]);
 
   useEffect(() => {
@@ -175,7 +191,7 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
           messagesActive ? "border-[#7C3AED]/50 text-[#7C3AED]" : "border-[#E8E4F2] text-[#64748B]"
         }`}
       >
-        <MessageSquare className="h-5 w-5" aria-hidden />
+        <MessageSquare className="h-[22px] w-[22px]" aria-hidden />
       </Link>
 
       <div className="relative" ref={bellRef}>
@@ -199,7 +215,7 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
                 : "border-[#E8E4F2] text-[#64748B]"
           }`}
         >
-          <Bell className={`h-5 w-5 ${unreadCount > 0 ? "text-rose-600" : ""}`} aria-hidden />
+          <Bell className={`h-[22px] w-[22px] ${unreadCount > 0 ? "text-rose-600" : ""}`} aria-hidden />
           {unreadCount > 0 ? (
             <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1 text-[0.65rem] font-bold text-white ring-2 ring-white">
               {unreadCount > 9 ? "9+" : unreadCount}

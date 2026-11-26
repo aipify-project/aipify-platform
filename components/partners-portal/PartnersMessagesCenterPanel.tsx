@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, Inbox, MessageSquare, PauseCircle, Send } from "lucide-react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
@@ -10,6 +10,7 @@ import {
   compareTimestampsDesc,
   formatPlatformDateTimeClock,
 } from "@/lib/platform-presentation-quality/date-time";
+import { usePollingTask } from "@/lib/polling/use-polling-task";
 import { AipifyAlert, AipifyCard, AipifyTabs } from "./design";
 
 type Props = { labels: PartnersPortalMessagesLabels; locale: string };
@@ -60,19 +61,32 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
   const [reply, setReply] = useState("");
   const [sending, setSending] = useState(false);
   const [sendNotice, setSendNotice] = useState<string | null>(null);
-  const [markedThreads, setMarkedThreads] = useState<Set<string>>(() => new Set());
+  /** Message IDs successfully marked read — never pre-claim before the API succeeds. */
+  const markedIdsRef = useRef<Set<string>>(new Set());
+  const loadSeqRef = useRef(0);
+  const abortRef = useRef<AbortController | null>(null);
+  const pollPrimedRef = useRef(false);
   const dateOptions = { locale, emptyFallback: "—", invalidFallback: "—" };
 
   const load = useCallback(async (opts?: { silent?: boolean }) => {
     if (!opts?.silent) setPhase("loading");
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+    const seq = ++loadSeqRef.current;
     try {
-      const res = await fetch("/api/certified-sales-partner/messages", { cache: "no-store" });
+      const res = await fetch("/api/certified-sales-partner/messages", {
+        cache: "no-store",
+        signal: controller.signal,
+      });
       const body = (await res.json().catch(() => null)) as {
         found?: boolean;
         backend_ready?: boolean;
         error?: string;
         messages?: MessageRow[];
       } | null;
+
+      if (seq !== loadSeqRef.current) return false;
 
       if (res.status === 403 && body?.error === "partner_not_active") {
         setMessages([]);
@@ -85,8 +99,10 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
         return false;
       }
       if (!res.ok || !body || body.found === false) {
-        setMessages([]);
-        setPhase("error");
+        if (!opts?.silent) {
+          setMessages([]);
+          setPhase("error");
+        }
         return false;
       }
 
@@ -95,22 +111,35 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
       setPhase(rows.length === 0 ? "empty" : "ready");
       return true;
     } catch {
-      setMessages([]);
-      setPhase("error");
+      if (controller.signal.aborted || seq !== loadSeqRef.current) return false;
+      if (!opts?.silent) {
+        setMessages([]);
+        setPhase("error");
+      }
       return false;
     }
   }, []);
 
-  useEffect(() => {
-    void load();
-  }, [load]);
+  usePollingTask({
+    taskKey: "csp-partner-messages",
+    intervalMs: 15_000,
+    hiddenIntervalMs: 60_000,
+    enabled: true,
+    runImmediately: true,
+    execute: async () => {
+      const silent = pollPrimedRef.current;
+      const ok = await load({ silent });
+      pollPrimedRef.current = true;
+      return ok;
+    },
+  });
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
-      void load({ silent: true });
-    }, 15_000);
-    return () => window.clearInterval(timer);
-  }, [load]);
+    return () => {
+      abortRef.current?.abort();
+      loadSeqRef.current += 1;
+    };
+  }, []);
 
   const conversations = useMemo(() => {
     const grouped = new Map<string, Conversation>();
@@ -167,14 +196,13 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
 
   const markThreadRead = useCallback(async (threadRows: MessageRow[]) => {
     const unread = threadRows.filter(
-      (row) => row.direction === "admin_to_partner" && !row.read_at && row.id,
+      (row) =>
+        row.direction === "admin_to_partner" &&
+        !row.read_at &&
+        row.id &&
+        !markedIdsRef.current.has(row.id),
     );
     if (unread.length === 0) return;
-    const threadKey = unread[0]!.thread_id || unread[0]!.id;
-    setMarkedThreads((prev) => {
-      if (prev.has(threadKey)) return prev;
-      return new Set(prev).add(threadKey);
-    });
     const now = new Date().toISOString();
     await Promise.all(
       unread.map(async (row) => {
@@ -185,6 +213,7 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
             body: JSON.stringify({ message_id: row.id }),
           });
           if (mark.ok) {
+            markedIdsRef.current.add(row.id);
             setMessages((prev) =>
               prev.map((m) => (m.id === row.id ? { ...m, read_at: m.read_at ?? now } : m)),
             );
@@ -196,13 +225,16 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
     );
   }, []);
 
+  // Only mark messages in the thread the seller explicitly opened.
+  // New arrivals in that open thread are marked; other threads stay unread.
+  useEffect(() => {
+    if (!selected) return;
+    void markThreadRead(selected.rows);
+  }, [selected, markThreadRead]);
+
   async function openThread(threadId: string) {
     setSelectedThreadId(threadId);
     setMobileThread(true);
-    if (markedThreads.has(threadId)) return;
-    const conversation = conversations.find((c) => c.threadId === threadId);
-    if (!conversation) return;
-    await markThreadRead(conversation.rows);
   }
 
   async function sendReply() {
