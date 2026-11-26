@@ -14,6 +14,7 @@ import {
 import { classifyCspApiResponse } from "@/lib/certified-sales-partner/ui-support";
 import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
 import { toBcp47Locale } from "@/lib/platform-presentation-quality/bcp47";
+import { invalidateCspUnreadBadges } from "@/lib/certified-sales-partner/unread-invalidate";
 import { usePollingTask } from "@/lib/polling/use-polling-task";
 
 export type SellersOpsSection =
@@ -303,16 +304,18 @@ export function CertifiedSellersOpsPanel({
     void load();
   }, [load]);
 
+  const pollMessages = useCallback(async () => {
+    pollPrimedRef.current = true;
+    return load({ silent: true });
+  }, [load]);
+
   usePollingTask({
     taskKey: "platform-seller-messages",
     intervalMs: 15_000,
     hiddenIntervalMs: 60_000,
     enabled: section === "messages",
     runImmediately: false,
-    execute: async () => {
-      pollPrimedRef.current = true;
-      return load({ silent: true });
-    },
+    execute: pollMessages,
   });
 
   useEffect(() => {
@@ -348,6 +351,9 @@ export function CertifiedSellersOpsPanel({
         }
       }),
     );
+    if (results.some(Boolean)) {
+      invalidateCspUnreadBadges({ partner: false, platform: true });
+    }
     if (results.some((ok) => !ok)) {
       throw new Error("mark_read_partial_failure");
     }

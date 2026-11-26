@@ -13,6 +13,7 @@ import {
   compareTimestampsDesc,
   formatPlatformDateTimeClock,
 } from "@/lib/platform-presentation-quality/date-time";
+import { subscribeCspUnreadInvalidate } from "@/lib/certified-sales-partner/unread-invalidate";
 import { usePollingTask } from "@/lib/polling/use-polling-task";
 
 const ICON_LINK =
@@ -120,18 +121,38 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
     }
   }, [labels.messages, labels.notifications]);
 
+  const pollUnread = useCallback(async () => refreshUnread(), [refreshUnread]);
+
   usePollingTask({
     taskKey: "csp-partner-topbar-unread",
     intervalMs: 60_000,
     hiddenIntervalMs: 120_000,
     enabled: true,
     runImmediately: true,
-    execute: () => refreshUnread(),
+    execute: pollUnread,
   });
 
+  // Soft-nav must not re-fetch the full messages+email unread payload on every
+  // menu click — polling + visibility already keep the badge fresh. Only force
+  // a refresh when entering communication surfaces where the unread set matters.
   useEffect(() => {
-    void refreshUnread();
+    const onMessages =
+      pathname === "/partners/account/messages" ||
+      pathname.startsWith("/partners/account/messages/");
+    const onNotifications =
+      pathname === "/partners/account/notifications" ||
+      pathname.startsWith("/partners/account/notifications/");
+    if (onMessages || onNotifications) {
+      void refreshUnread();
+    }
   }, [refreshUnread, pathname]);
+
+  useEffect(() => {
+    return subscribeCspUnreadInvalidate((detail) => {
+      if (detail.partner === false) return;
+      void refreshUnread();
+    });
+  }, [refreshUnread]);
 
   useEffect(() => {
     if (!menuOpen && !bellOpen) return;

@@ -48,6 +48,7 @@ test("shell records soft-nav performance marks without inventing timings", () =>
   const perf = read("lib/partners-portal/soft-nav-perf.ts");
   assert.match(shell, /markPartnersSoftNavStart/);
   assert.match(shell, /markPartnersSoftNavReady/);
+  assert.match(shell, /mount hydrate only/);
   assert.match(perf, /performance\.mark/);
   assert.match(perf, /performance\.measure/);
 });

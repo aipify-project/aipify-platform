@@ -106,6 +106,8 @@ function PartnersPortalFrame({
   const drawerTitleId = useId();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
+  // Hydrate accordion state once — do not re-read sessionStorage on every
+  // soft-nav group change (that fought user toggles and felt like a stuck menu).
   useEffect(() => {
     let stored: Record<string, boolean> = {};
     try {
@@ -116,7 +118,15 @@ function PartnersPortalFrame({
     }
     setOpenGroups({ ...stored, [activeGroup]: true });
     setNavReady(true);
-  }, [activeGroup]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount hydrate only
+  }, []);
+
+  useEffect(() => {
+    if (!navReady) return;
+    setOpenGroups((current) =>
+      current[activeGroup] === true ? current : { ...current, [activeGroup]: true },
+    );
+  }, [activeGroup, navReady]);
 
   useEffect(() => {
     if (!navReady) return;

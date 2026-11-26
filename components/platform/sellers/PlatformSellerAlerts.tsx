@@ -1,12 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { createContext, useCallback, useContext, useEffect, useId, useState } from "react";
+import { usePathname } from "next/navigation";
+import { createContext, useCallback, useContext, useEffect, useId, useRef, useState } from "react";
 import { parseSellersOverview, parseSettlementList } from "@/lib/certified-sales-partner/platform-sellers-view";
 import {
   compareTimestampsDesc,
   formatPlatformDateTimeClock,
 } from "@/lib/platform-presentation-quality/date-time";
+import {
+  invalidateCspUnreadBadges,
+  subscribeCspUnreadInvalidate,
+} from "@/lib/certified-sales-partner/unread-invalidate";
 import { usePollingTask } from "@/lib/polling/use-polling-task";
 
 export type PlatformSellerAlertLabels = {
@@ -70,9 +75,15 @@ export function PlatformSellerAlertsMenu({
   triggerLabel: string;
 }) {
   const titleId = useId();
+  const pathname = usePathname() || "/platform";
+  const onSellersSurface =
+    pathname === "/platform/sellers" || pathname.startsWith("/platform/sellers/");
   const [open, setOpen] = useState(false);
   const [phase, setPhase] = useState<"idle" | "loading" | "ready" | "error">("idle");
   const [items, setItems] = useState<Item[]>([]);
+  const phaseRef = useRef(phase);
+  const loadSeqRef = useRef(0);
+  phaseRef.current = phase;
   const dateOptions = {
     locale: labels.locale,
     emptyFallback: labels.dateEmpty,
@@ -80,23 +91,48 @@ export function PlatformSellerAlertsMenu({
   };
 
   const load = useCallback(async (opts?: { silent?: boolean }) => {
-    if (!opts?.silent) setPhase("loading");
+    const silent = opts?.silent === true;
+    if (!silent) setPhase("loading");
+    const seq = ++loadSeqRef.current;
     try {
-      const [partnersRes, settlementsRes, messagesRes] = await Promise.all([
-        fetch("/api/platform/sellers/partners", { cache: "no-store" }),
-        fetch("/api/platform/sellers/settlements", { cache: "no-store" }),
-        fetch("/api/platform/sellers/messages", { cache: "no-store" }),
+      // On non-sellers Platform pages, only poll unread partner→admin messages.
+      // Applications/settlements are fetched when the operator opens the menu or
+      // is already on /platform/sellers/* — avoids a 3-RPC tax every 20s globally.
+      const messagesPromise = fetch("/api/platform/sellers/messages", { cache: "no-store" });
+      const partnersPromise = onSellersSurface || open
+        ? fetch("/api/platform/sellers/partners", { cache: "no-store" })
+        : null;
+      const settlementsPromise = onSellersSurface || open
+        ? fetch("/api/platform/sellers/settlements", { cache: "no-store" })
+        : null;
+
+      const [messagesRes, partnersRes, settlementsRes] = await Promise.all([
+        messagesPromise,
+        partnersPromise,
+        settlementsPromise,
       ]);
-      if (partnersRes.status === 401 || partnersRes.status === 403) {
+      if (seq !== loadSeqRef.current) return false;
+
+      if (messagesRes.status === 401 || messagesRes.status === 403) {
         setItems([]);
         setPhase("error");
         return false;
       }
-      const partnersBody = await partnersRes.json().catch(() => null);
-      const settlementsBody = await settlementsRes.json().catch(() => null);
+      if (partnersRes && (partnersRes.status === 401 || partnersRes.status === 403)) {
+        setItems([]);
+        setPhase("error");
+        return false;
+      }
+
       const messagesBody = await messagesRes.json().catch(() => null);
-      const overview = partnersRes.ok ? parseSellersOverview(partnersBody) : null;
-      const settlements = settlementsRes.ok ? parseSettlementList(settlementsBody) ?? [] : [];
+      const partnersBody = partnersRes ? await partnersRes.json().catch(() => null) : null;
+      const settlementsBody = settlementsRes
+        ? await settlementsRes.json().catch(() => null)
+        : null;
+      if (seq !== loadSeqRef.current) return false;
+
+      const overview = partnersRes?.ok ? parseSellersOverview(partnersBody) : null;
+      const settlements = settlementsRes?.ok ? parseSettlementList(settlementsBody) ?? [] : [];
       const messages = Array.isArray((messagesBody as { rows?: unknown } | null)?.rows)
         ? ((messagesBody as { rows: Array<Record<string, unknown>> }).rows)
         : [];
@@ -162,23 +198,37 @@ export function PlatformSellerAlertsMenu({
       setPhase("ready");
       return true;
     } catch {
-      setPhase("error");
+      if (seq !== loadSeqRef.current) return false;
+      if (!silent) setPhase("error");
       return false;
     }
-  }, [labels.applications, labels.messages, labels.settlements]);
+  }, [labels.applications, labels.messages, labels.settlements, onSellersSurface, open]);
+
+  const pollAlerts = useCallback(async () => {
+    const current = phaseRef.current;
+    return load({ silent: current !== "idle" && current !== "loading" });
+  }, [load]);
 
   usePollingTask({
     taskKey: "platform-seller-alerts",
-    intervalMs: 20_000,
-    hiddenIntervalMs: 60_000,
+    // Slower off the sellers surface — message badge only, not a 3-RPC storm.
+    intervalMs: onSellersSurface ? 20_000 : 60_000,
+    hiddenIntervalMs: 120_000,
     enabled: true,
     runImmediately: true,
-    execute: () => load({ silent: phase !== "idle" && phase !== "loading" }),
+    execute: pollAlerts,
   });
 
   useEffect(() => {
     if (open) void load({ silent: true });
   }, [open, load]);
+
+  useEffect(() => {
+    return subscribeCspUnreadInvalidate((detail) => {
+      if (detail.platform === false) return;
+      void load({ silent: true });
+    });
+  }, [load]);
 
   async function openItem(item: Item) {
     setOpen(false);
@@ -190,6 +240,7 @@ export function PlatformSellerAlertsMenu({
           body: JSON.stringify({ message_id: item.messageId }),
         });
         setItems((prev) => prev.filter((row) => row.id !== item.id));
+        invalidateCspUnreadBadges({ partner: false, platform: true });
       } catch {
         // Navigation still proceeds; unread retry on next poll.
       }
