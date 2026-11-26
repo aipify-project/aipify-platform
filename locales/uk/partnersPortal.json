@@ -275,7 +275,8 @@
       "messages": "Повідомлення",
       "salesMaterials": "Схвалені матеріали для продажу",
       "menu": "Меню",
-      "menuClose": "Закрити меню"
+      "menuClose": "Закрити меню",
+      "emailTemplates": "Шаблони ел. пошти"
     },
     "portal": {
       "badge": "Partner portal",

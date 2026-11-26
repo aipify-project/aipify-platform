@@ -42,6 +42,7 @@ export const CSP_PARTNER_PORTAL_NAV_GROUPS: PartnersPortalNavGroup[] = [
     labelKey: "certifiedSalesPartner.navGroups.marketing",
     items: [
       { id: "marketingAssets", href: "/partners/marketing/assets", labelKey: "certifiedSalesPartner.nav.salesTools" },
+      { id: "emailTemplates", href: "/partners/marketing/email-templates", labelKey: "certifiedSalesPartner.nav.emailTemplates" },
       {
         id: "salesMaterials",
         href: "/partners/marketing/assets?section=library",

@@ -17,6 +17,7 @@ type UnreadPreview = {
   id: string;
   subject: string | null;
   created_at: string;
+  href: string;
 };
 
 type Props = {
@@ -63,10 +64,36 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
             id,
             subject: typeof row.subject === "string" ? row.subject : null,
             created_at: typeof row.created_at === "string" ? row.created_at : "",
+            href: "/partners/account/messages",
           },
         ];
       });
-      setUnread(next);
+      let emailUnread: UnreadPreview[] = [];
+      try {
+        const emailRes = await fetch("/api/certified-sales-partner/sales-email/notifications", { cache: "no-store" });
+        const emailBody = (await emailRes.json().catch(() => null)) as {
+          backend_ready?: boolean;
+          unread?: Array<Record<string, unknown>>;
+        } | null;
+        if (emailRes.ok && emailBody?.backend_ready === true && Array.isArray(emailBody.unread)) {
+          emailUnread = emailBody.unread.flatMap((row) => {
+            const id = typeof row.id === "string" ? row.id : "";
+            if (!id) return [];
+            const conversation = typeof row.conversation_id === "string" ? row.conversation_id : id;
+            return [
+              {
+                id: `email:${id}`,
+                subject: typeof row.subject === "string" ? row.subject : null,
+                created_at: typeof row.created_at === "string" ? row.created_at : "",
+                href: `/partners/marketing/email-templates?conversation=${encodeURIComponent(conversation)}`,
+              },
+            ];
+          });
+        }
+      } catch {
+        emailUnread = [];
+      }
+      setUnread([...emailUnread, ...next]);
     } catch {
       setUnread([]);
     }
@@ -182,7 +209,7 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
                   <li key={row.id}>
                     <Link
                       role="menuitem"
-                      href="/partners/account/messages"
+                      href={row.href}
                       className="block px-3 py-2.5 hover:bg-[#F6F4FB]"
                       onClick={() => setBellOpen(false)}
                     >

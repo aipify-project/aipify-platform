@@ -399,7 +399,8 @@
       "messages": "Meldinger",
       "salesMaterials": "Godkjent salgsmateriell",
       "menu": "Meny",
-      "menuClose": "Lukk meny"
+      "menuClose": "Lukk meny",
+      "emailTemplates": "E-postmaler"
     },
     "portal": {
       "badge": "Partnerportal",

@@ -81,6 +81,7 @@ export default async function PartnersPortalLayout({
     trainingPrograms: t("partnersPortal.certifiedSalesPartner.nav.growthAcademy"),
     certifications: t("partnersPortal.certifiedSalesPartner.nav.certifications"),
     marketingAssets: t("partnersPortal.certifiedSalesPartner.nav.salesTools"),
+    emailTemplates: t("partnersPortal.certifiedSalesPartner.nav.emailTemplates"),
     salesMaterials: t("partnersPortal.certifiedSalesPartner.nav.salesMaterials"),
     messages: t("partnersPortal.certifiedSalesPartner.nav.messages"),
     notifications: t("partnersPortal.certifiedSalesPartner.nav.notifications"),

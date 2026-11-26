@@ -399,7 +399,8 @@
       "messages": "Meddelanden",
       "salesMaterials": "Godkänt säljmaterial",
       "menu": "Meny",
-      "menuClose": "Stäng meny"
+      "menuClose": "Stäng meny",
+      "emailTemplates": "E-postmallar"
     },
     "portal": {
       "badge": "Partner portal",

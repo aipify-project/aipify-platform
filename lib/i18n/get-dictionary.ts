@@ -5,6 +5,7 @@ import {
 } from "./customer-app-split-config";
 import { loadCustomerAppSplit, loadRootNamespace } from "./load-namespace";
 import { injectCompanyIntoDictionary } from "@/lib/company/inject";
+import { applySellerAdminShortLabels } from "@/lib/platform/seller-admin-short-labels";
 import { mergeDictionary } from "./merge-dictionary";
 import type { Dictionary } from "./translate";
 
@@ -33,7 +34,7 @@ export async function getDictionary(
     })
   );
 
-  return injectCompanyIntoDictionary(Object.fromEntries(entries));
+  return applySellerAdminShortLabels(injectCompanyIntoDictionary(Object.fromEntries(entries)), locale);
 }
 
 async function loadCustomerAppSplitMerged(

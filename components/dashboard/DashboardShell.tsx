@@ -8,7 +8,7 @@ import { AppCanvasBackground } from "@/components/app/design/AppCanvasBackground
 import { useEffect, useMemo, useState } from "react";
 import { usePlatformProfile } from "@/components/platform/PlatformProfileProvider";
 import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
-import { AipifyPlatformBrandMark } from "@/components/branding";
+import { PoweredByAipify } from "@/components/brand/PoweredByAipify";
 import { LicenseSidebarPanel } from "@/components/app/license";
 import Sidebar, { type NavItem } from "./Sidebar";
 import FlatSidebar from "./FlatSidebar";
@@ -478,19 +478,13 @@ function DashboardShellFrame({
         {shellVariant === "customer" && licensePanelLabels ? (
           <div className={AipifySidebarLayout.footerRegion}>
             <LicenseSidebarPanel labels={licensePanelLabels} />
+            <PoweredByAipify />
           </div>
-        ) : platformBrandMark ? (
-          <div className={AipifySidebarLayout.footerRegion}>
-            <AipifyPlatformBrandMark
-              appName={appName}
-              poweredBy={platformBrandMark.poweredBy}
-              tooltipTitle={platformBrandMark.tooltipTitle}
-              tooltipTagline={platformBrandMark.tooltipTagline}
-              versionLabel={platformBrandMark.versionLabel}
-              pulseLabel={platformBrandMark.pulseLabel}
-            />
+        ) : (
+          <div className={AipifySidebarLayout.footerRegion} data-brand={platformBrandMark ? "platform" : "shared"}>
+            <PoweredByAipify />
           </div>
-        ) : null}
+        )}
       </aside>
 
       {sidebarOpen && (
@@ -568,19 +562,13 @@ function DashboardShellFrame({
             {shellVariant === "customer" && licensePanelLabels ? (
               <div className={AipifySidebarLayout.footerRegion}>
                 <LicenseSidebarPanel labels={licensePanelLabels} />
+                <PoweredByAipify />
               </div>
-            ) : platformBrandMark ? (
-              <div className={AipifySidebarLayout.footerRegion}>
-                <AipifyPlatformBrandMark
-                  appName={appName}
-                  poweredBy={platformBrandMark.poweredBy}
-                  tooltipTitle={platformBrandMark.tooltipTitle}
-                  tooltipTagline={platformBrandMark.tooltipTagline}
-                  versionLabel={platformBrandMark.versionLabel}
-                  pulseLabel={platformBrandMark.pulseLabel}
-                />
+            ) : (
+              <div className={AipifySidebarLayout.footerRegion} data-brand={platformBrandMark ? "platform" : "shared"}>
+                <PoweredByAipify />
               </div>
-            ) : null}
+            )}
           </aside>
         </div>
       )}

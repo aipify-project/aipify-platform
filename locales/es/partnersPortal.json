@@ -275,7 +275,8 @@
       "messages": "Mensajes",
       "salesMaterials": "Material de venta aprobado",
       "menu": "Menú",
-      "menuClose": "Cerrar menú"
+      "menuClose": "Cerrar menú",
+      "emailTemplates": "Plantillas de correo"
     },
     "portal": {
       "badge": "Partner portal",

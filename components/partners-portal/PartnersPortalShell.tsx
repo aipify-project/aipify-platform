@@ -13,6 +13,7 @@ import { CSP_PARTNER_PORTAL_NAV_GROUPS } from "@/lib/partners-portal/csp-nav";
 import { SELLER_PORTAL_LAYOUT } from "@/lib/partners-portal/design-tokens";
 import { markPartnersSoftNavReady, markPartnersSoftNavStart } from "@/lib/partners-portal/soft-nav-perf";
 import GrowthPartnerPortalSignOutButton from "@/components/growth-partner-portal/GrowthPartnerPortalSignOutButton";
+import { PoweredByAipify } from "@/components/brand/PoweredByAipify";
 
 type PartnersPortalShellProps = {
   portalBadge: string;
@@ -224,7 +225,10 @@ function PartnersPortalFrame({
           })}
         </div>
 
-        <p className="border-t border-[#E8E4F2] px-4 py-3 text-[0.7rem] leading-relaxed text-[#94A3B8]">{governanceNote}</p>
+        <div className="mt-auto border-t border-[#E8E4F2]">
+          <p className="px-4 pt-3 text-[0.7rem] leading-relaxed text-[#94A3B8]">{governanceNote}</p>
+          <PoweredByAipify />
+        </div>
       </nav>
     );
   }

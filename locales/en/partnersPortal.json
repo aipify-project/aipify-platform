@@ -399,7 +399,8 @@
       "messages": "Messages",
       "salesMaterials": "Approved sales material",
       "menu": "Menu",
-      "menuClose": "Close menu"
+      "menuClose": "Close menu",
+      "emailTemplates": "Email templates"
     },
     "portal": {
       "badge": "Partner portal",

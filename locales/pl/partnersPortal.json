@@ -275,7 +275,8 @@
       "messages": "Wiadomości",
       "salesMaterials": "Zatwierdzone materiały sprzedażowe",
       "menu": "Menu",
-      "menuClose": "Zamknij menu"
+      "menuClose": "Zamknij menu",
+      "emailTemplates": "Szablony e-mail"
     },
     "portal": {
       "badge": "Partner portal",

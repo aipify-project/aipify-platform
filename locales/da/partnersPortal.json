@@ -399,7 +399,8 @@
       "messages": "Beskeder",
       "salesMaterials": "Godkendt salgsmateriale",
       "menu": "Menu",
-      "menuClose": "Luk menu"
+      "menuClose": "Luk menu",
+      "emailTemplates": "E-mailskabeloner"
     },
     "portal": {
       "badge": "Partner portal",

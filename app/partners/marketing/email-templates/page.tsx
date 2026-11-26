@@ -1,8 +1,9 @@
-import { renderPartnersPortalFoundationPage } from "@/lib/partners-portal/render-pages";
+import { CertifiedSalesPartnerEmailDesk } from "@/components/partners-portal/CertifiedSalesPartnerEmailDesk";
+import { getLocale } from "@/lib/i18n/get-locale";
 
-export default function PartnersPortalPage() {
-  return renderPartnersPortalFoundationPage(
-    "partnersPortal.pages.emailTemplates.title",
-    "partnersPortal.pages.emailTemplates.subtitle"
-  );
+export const dynamic = "force-dynamic";
+
+export default async function PartnersEmailTemplatesPage() {
+  const locale = await getLocale();
+  return <CertifiedSalesPartnerEmailDesk locale={locale} />;
 }
