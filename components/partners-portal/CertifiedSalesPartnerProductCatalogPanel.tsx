@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { evaluateCspCopyLinkEligibility } from "@/lib/certified-sales-partner/copy-link-eligibility";
 import {
   CSP_CATALOG_FILTERS,
   getLocalizedCspCatalogProducts,
   type CspCatalogFilter,
   type CspLocalizedCatalogProduct,
 } from "@/lib/certified-sales-partner/product-catalog-display";
+import { ensureCspSalesLink, useCspSalesLinks, writeClipboard } from "./csp-sales-links-client";
+import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
 
 export type CspCatalogLabels = {
   title: string;
@@ -47,16 +50,9 @@ export type CspCatalogLabels = {
   trainingNotPublished: string;
   noBuy: string;
   empty: string;
+  audienceLabel: string;
+  benefitsLabel: string;
 };
-
-type CoreProduct = {
-  product_key?: string;
-  fixed_commission_amount?: number | null;
-  currency?: string | null;
-  certification_status?: string | null;
-};
-
-type CoreState = { ready: false } | { ready: true; products: Record<string, CoreProduct> };
 
 function fill(template: string, values: Record<string, string | number>): string {
   return template.replace(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match));
@@ -124,12 +120,11 @@ function StatusIcon({ tone }: { tone: StatusTone }) {
 
 function certificationPresentation(
   product: CspLocalizedCatalogProduct,
-  core: CoreState,
+  status: string | null | undefined,
   labels: CspCatalogLabels,
 ): { text: string; tone: StatusTone } {
   if (product.future) return { text: labels.certNotApplicable, tone: "muted" };
-  if (!core.ready) return { text: labels.certUnknown, tone: "muted" };
-  switch (core.products[product.key]?.certification_status) {
+  switch (status) {
     case "passed":
       return { text: labels.certPassed, tone: "ok" };
     case "in_progress":
@@ -146,9 +141,8 @@ function certificationPresentation(
 }
 
 /**
- * Partner product catalog. Partners never purchase here: there is no buy action, only
- * "copy sales link" (Core-gated, may fail closed) and "take training".
- * Customer prices are planned reference values; commission comes from Core only.
+ * Partner product catalog. Partners never purchase here: only gated "copy sales link" and training.
+ * Commission amounts come from Core overview only — never invented.
  */
 export function CertifiedSalesPartnerProductCatalogPanel({
   labels,
@@ -157,41 +151,26 @@ export function CertifiedSalesPartnerProductCatalogPanel({
   labels: CspCatalogLabels;
   locale: string;
 }) {
+  const portal = useCspPortal();
+  const { state: linksState, reload: reloadLinks } = useCspSalesLinks(portal !== null);
   const [filter, setFilter] = useState<CspCatalogFilter>("all");
-  const [core, setCore] = useState<CoreState>({ ready: false });
   const [pendingKey, setPendingKey] = useState<string | null>(null);
   const [notes, setNotes] = useState<Record<string, { text: string; tone: StatusTone }>>({});
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch("/api/certified-sales-partner/catalog", { cache: "no-store" });
-        const data = (await res.json().catch(() => ({}))) as {
-          backend_ready?: boolean;
-          found?: boolean;
-          products?: CoreProduct[];
-        };
-        if (cancelled) return;
-        if (!res.ok || data.backend_ready === false || data.found === false || !Array.isArray(data.products)) {
-          setCore({ ready: false });
-          return;
-        }
-        const byKey: Record<string, CoreProduct> = {};
-        for (const product of data.products) {
-          if (product && typeof product.product_key === "string") byKey[product.product_key] = product;
-        }
-        setCore({ ready: true, products: byKey });
-      } catch {
-        if (!cancelled) setCore({ ready: false });
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   const products = useMemo(() => getLocalizedCspCatalogProducts(locale, filter), [locale, filter]);
+  const overviewByKey = useMemo(() => {
+    const map = new Map<string, { certificationStatus: string | null; commissionAmount: number | null; currency: string | null }>();
+    if (!portal) return map;
+    for (const row of portal.overview.products) {
+      if (!row.productKey) continue;
+      map.set(row.productKey, {
+        certificationStatus: row.certificationStatus,
+        commissionAmount: row.fixedCommissionAmount ?? null,
+        currency: row.currency ?? null,
+      });
+    }
+    return map;
+  }, [portal]);
 
   const filterLabels: Record<CspCatalogFilter, string> = {
     all: labels.filterAll,
@@ -199,45 +178,35 @@ export function CertifiedSalesPartnerProductCatalogPanel({
     voice: labels.filterVoice,
   };
 
+  if (!portal) return null;
+
   async function copyLink(product: CspLocalizedCatalogProduct) {
     setPendingKey(product.key);
     setNotes((prev) => ({ ...prev, [product.key]: { text: labels.copyingLink, tone: "muted" } }));
     const setNote = (text: string, tone: StatusTone) => setNotes((prev) => ({ ...prev, [product.key]: { text, tone } }));
     try {
-      const res = await fetch("/api/certified-sales-partner/links", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        // Gates are derived server-side from Core — no client-supplied approval flags.
-        body: JSON.stringify({ product_id: product.key, channel: "referral_link" }),
+      const existing = linksState.phase === "ready" ? linksState.links : [];
+      const outcome = await ensureCspSalesLink({
+        productKey: product.key,
+        channel: "referral_link",
+        existing,
       });
-      const data = (await res.json().catch(() => ({}))) as {
-        path?: string;
-        backend_ready?: boolean;
-        error?: string;
-      };
-      if (res.status === 503 || data.backend_ready === false) {
-        setNote(labels.linkUnavailable, "warn");
+      if (!outcome.ok) {
+        setNote(
+          outcome.reason === "unavailable"
+            ? labels.linkUnavailable
+            : outcome.reason === "gates"
+              ? labels.linkGatesNotMet
+              : outcome.reason === "not_sellable"
+                ? labels.futureNote
+                : labels.error,
+          "warn",
+        );
         return;
       }
-      if (res.status === 403) {
-        setNote(labels.linkGatesNotMet, "warn");
-        return;
-      }
-      if (res.status === 409) {
-        setNote(labels.futureNote, "warn");
-        return;
-      }
-      if (!res.ok || typeof data.path !== "string") {
-        setNote(labels.error, "warn");
-        return;
-      }
-      const fullUrl = `${window.location.origin}${data.path}`;
-      try {
-        await navigator.clipboard.writeText(fullUrl);
-        setNote(labels.linkCopied, "ok");
-      } catch {
-        setNote(fill(labels.linkCreated, { path: fullUrl }), "ok");
-      }
+      if (await writeClipboard(outcome.url)) setNote(labels.linkCopied, "ok");
+      else setNote(fill(labels.linkCreated, { path: outcome.url }), "ok");
+      reloadLinks();
     } catch {
       setNote(labels.error, "warn");
     } finally {
@@ -246,7 +215,7 @@ export function CertifiedSalesPartnerProductCatalogPanel({
   }
 
   return (
-    <section className="space-y-5" aria-labelledby="csp-catalog-title">
+    <section className="mx-auto w-full max-w-[1600px] space-y-5" aria-labelledby="csp-catalog-title">
       <div>
         <h2 id="csp-catalog-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
           {labels.title}
@@ -280,13 +249,13 @@ export function CertifiedSalesPartnerProductCatalogPanel({
           {labels.empty}
         </p>
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {products.map((product) => {
-            const cert = certificationPresentation(product, core, labels);
-            const coreProduct = core.ready ? core.products[product.key] : undefined;
-            const amount = coreProduct?.fixed_commission_amount;
-            const currency = coreProduct?.currency;
-            // Commission amounts come from Core only — never invented. Future products stay "coming soon".
+            const overview = overviewByKey.get(product.key);
+            const cert = certificationPresentation(product, overview?.certificationStatus, labels);
+            const eligibility = evaluateCspCopyLinkEligibility(portal.overview, product.key);
+            const amount = overview?.commissionAmount;
+            const currency = overview?.currency;
             const commissionText = product.future
               ? labels.future
               : typeof amount === "number" && typeof currency === "string" && currency
@@ -311,7 +280,35 @@ export function CertifiedSalesPartnerProductCatalogPanel({
                   </span>
                 </div>
 
+                {product.imagePath ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- static brand asset under /public
+                  <img
+                    src={product.imagePath}
+                    alt=""
+                    className="h-36 w-full rounded-xl border border-[color:var(--aipify-border)] object-cover object-center"
+                  />
+                ) : null}
+
                 <p className="text-sm text-[color:var(--aipify-text-secondary)]">{product.description}</p>
+
+                <div className="space-y-2 text-sm">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
+                    {labels.audienceLabel}
+                  </p>
+                  <p className="text-[color:var(--aipify-text-primary)]">{product.audience}</p>
+                  {product.benefits.length > 0 ? (
+                    <>
+                      <p className="pt-1 text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
+                        {labels.benefitsLabel}
+                      </p>
+                      <ul className="list-disc space-y-1 pl-5 text-[color:var(--aipify-text-primary)]">
+                        {product.benefits.map((benefit) => (
+                          <li key={benefit}>{benefit}</li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : null}
+                </div>
 
                 <dl className="space-y-2 text-sm">
                   <div>
@@ -356,14 +353,18 @@ export function CertifiedSalesPartnerProductCatalogPanel({
                     <p className="text-xs text-[color:var(--aipify-text-secondary)]">{labels.futureNote}</p>
                   ) : (
                     <div className="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        onClick={() => void copyLink(product)}
-                        disabled={pendingKey === product.key}
-                        className="inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-3 py-2 text-sm font-semibold text-white hover:bg-[color:var(--aipify-companion-purple-hover)] disabled:opacity-60"
-                      >
-                        {labels.copyLink}
-                      </button>
+                      {eligibility.allowed ? (
+                        <button
+                          type="button"
+                          onClick={() => void copyLink(product)}
+                          disabled={pendingKey === product.key}
+                          className="inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-3 py-2 text-sm font-semibold text-white hover:bg-[color:var(--aipify-companion-purple-hover)] disabled:opacity-60"
+                        >
+                          {labels.copyLink}
+                        </button>
+                      ) : (
+                        <p className="self-center text-xs text-[color:var(--aipify-text-secondary)]">{labels.linkGatesNotMet}</p>
+                      )}
                       {product.hasTraining ? (
                         <Link
                           href="/partners/academy/training"

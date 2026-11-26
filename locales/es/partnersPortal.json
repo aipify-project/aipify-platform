@@ -357,6 +357,14 @@
       "marketing": {
         "title": "Herramientas de venta",
         "subtitle": "Diseños de marketing aprobados y su enlace personal — nunca una URL de ejemplo incrustada."
+      },
+      "leads": {
+        "title": "Leads",
+        "subtitle": "Registros que llegaron a través de tus enlaces de venta personales dentro de la ventana de atribución de 90 días."
+      },
+      "customers": {
+        "title": "Mis clientes",
+        "subtitle": "Clientes atribuidos a ti, con el estado de la venta y la cualificación de la comisión."
       }
     },
     "links": {
@@ -387,7 +395,15 @@
         "other": "Otro",
         "referral_link": "Enlace personal de recomendación",
         "partner_code": "Código de socio"
-      }
+      },
+      "existingTitle": "Tus enlaces de venta",
+      "existingEmpty": "Aún no hay enlaces de venta personales. Crea uno abajo cuando la certificación y los derechos de producto lo permitan.",
+      "visitsCol": "Visitas",
+      "statusActive": "Activo",
+      "statusBlocked": "Bloqueado",
+      "visitsUnknown": "No informado",
+      "socialSection": "Plataformas sociales",
+      "otherChannels": "Otros canales"
     },
     "exam": {
       "title": "Prueba de certificación del producto",
@@ -707,6 +723,202 @@
       "errorGeneric": "No se pudo guardar la foto ahora mismo. Inténtalo de nuevo.",
       "errorUnavailable": "El almacenamiento de fotos aún no está disponible. Tu perfil no ha cambiado.",
       "errorSession": "Tu sesión ha terminado o el acceso al portal no está activo. Inicia sesión de nuevo para continuar."
+    },
+    "help": {
+      "title": "Ayuda para vendedores",
+      "intro": "Guías para empezar, vender productos Aipify y entender las comisiones.",
+      "sections": {
+        "gettingStarted": {
+          "title": "Getting started",
+          "body": "Complete your profile, finish Academy certification, then create personal sales links for published products you may sell.",
+          "cta": "Open home"
+        },
+        "academy": {
+          "title": "Academy",
+          "body": "Pass the product exam before selling. Certificates stay verifiable and synced with Platform Admin.",
+          "cta": "Open Academy"
+        },
+        "salesLinks": {
+          "title": "Sales links",
+          "body": "Create and copy personal links only for products you are certified to sell. Attribution follows the click through paid subscription.",
+          "cta": "Open sales links"
+        },
+        "commission": {
+          "title": "How commission works",
+          "body": "Monthly plans earn after the second successful paid period. Annual plans earn after the first confirmed paid year. One fixed commission per qualified sale — never on renewals.",
+          "cta": "View sales"
+        },
+        "payouts": {
+          "title": "Payouts",
+          "body": "Settlements are reviewed and paid manually. No automatic bank payouts or Stripe Connect in this program.",
+          "cta": "Open settlements"
+        },
+        "materials": {
+          "title": "Sales materials",
+          "body": "Use only approved product images, copy and templates. Do not invent marketing claims.",
+          "cta": "Open materials"
+        },
+        "contact": {
+          "title": "Contact Aipify",
+          "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar."
+        }
+      }
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "intro": "Actualizaciones autorizadas sobre su cuenta de vendedor, mensajes, certificación y liquidaciones.",
+      "emptyTitle": "Aún no hay notificaciones",
+      "emptyBody": "Cuando Platform Admin envíe un mensaje o cambie el estado de certificación y liquidación, las actualizaciones aparecerán aquí.",
+      "messagesCta": "Abrir mensajes",
+      "homeCta": "Volver al inicio"
+    },
+    "leads": {
+      "title": "Tus registros atribuidos",
+      "intro": "Cada fila es un registro acreditado a uno de tus enlaces de venta. Solo se muestran tus propios leads.",
+      "searchPlaceholder": "Busca por código de enlace, canal o producto",
+      "emptyTitle": "Aún no hay leads",
+      "emptyBody": "Cuando alguien se registre a través de uno de tus enlaces de venta, el registro aparecerá aquí. Comparte tu enlace en el canal que más te convenga.",
+      "errorTitle": "Could not load data",
+      "errorBody": "Something unexpected happened. Please try again.",
+      "retry": "Try again",
+      "loading": "Loading",
+      "colLink": "Sales link",
+      "colProduct": "Product",
+      "colStatus": "Status",
+      "colDate": "Date",
+      "colAmount": "Commission snapshot",
+      "colPeriods": "Paid periods",
+      "notReported": "Not reported",
+      "dateEmpty": "—",
+      "dateInvalid": "Fecha no válida",
+      "statusAttributed": "Attributed",
+      "searchLabel": "Buscar leads",
+      "filterLabel": "Fase",
+      "filterAll": "Todas las fases",
+      "stage": {
+        "converted": "Se convirtió en cliente",
+        "window_open": "Atribución abierta",
+        "window_expired": "Atribución caducada",
+        "unknown": "Fase no disponible"
+      },
+      "channels": {
+        "referral_link": "Enlace de referido",
+        "partner_code": "Código de socio",
+        "partner_registered_customer": "Registrado por ti",
+        "event": "Evento",
+        "manual_platform_assignment": "Asignado por Aipify",
+        "unknown": "Canal no disponible"
+      },
+      "linkCol": "Enlace de venta",
+      "channelCol": "Canal",
+      "stageCol": "Fase",
+      "productCol": "Producto",
+      "registeredCol": "Registrado",
+      "expiresCol": "La atribución termina",
+      "noSaleYet": "Aún sin venta",
+      "resultCount": "Mostrando {shown} de {total}",
+      "emptyCta": "Abrir mis enlaces de venta",
+      "noMatchTitle": "Ningún lead coincide con tu búsqueda",
+      "noMatchBody": "Prueba otra búsqueda o muestra todas las fases.",
+      "clearFilters": "Borrar búsqueda y filtro",
+      "loadError": "No se pudieron cargar tus leads en este momento. Inténtalo de nuevo.",
+      "privacyNote": "Para proteger la privacidad, no se muestran nombres ni datos de contacto de los clientes."
+    },
+    "customers": {
+      "title": "Tus clientes atribuidos",
+      "intro": "Clientes cuya suscripción de pago está vinculada a ti. Nunca se muestran facturas ni métodos de pago.",
+      "searchPlaceholder": "Busca por producto o estado",
+      "emptyTitle": "Aún no hay clientes",
+      "emptyBody": "Cuando un cliente que hayas recomendado inicie una suscripción de pago, aparecerá aquí con su estado de comisión.",
+      "errorTitle": "Could not load data",
+      "errorBody": "Something unexpected happened. Please try again.",
+      "retry": "Try again",
+      "loading": "Loading",
+      "colLink": "Sales link",
+      "colProduct": "Product",
+      "colStatus": "Status",
+      "colDate": "Date",
+      "colAmount": "Commission snapshot",
+      "colPeriods": "Paid periods",
+      "notReported": "Not reported",
+      "dateEmpty": "—",
+      "dateInvalid": "Fecha no válida",
+      "statusAttributed": "Attributed",
+      "qualificationNote": "La comisión se devenga una vez por cada venta cualificada, tras el segundo periodo de pago correcto del cliente. Aipify establece el estado; no se puede cambiar aquí.",
+      "searchLabel": "Buscar clientes",
+      "filterLabel": "Comisión",
+      "filterAll": "Todos los estados",
+      "qualification": {
+        "awaiting_second_payment": "A la espera del segundo pago",
+        "being_verified": "En verificación",
+        "qualified": "Cualificada para comisión",
+        "not_qualified": "No cualificada",
+        "unknown": "Estado no disponible"
+      },
+      "productCol": "Producto",
+      "statusCol": "Estado de la venta",
+      "qualificationCol": "Cualificación de la comisión",
+      "periodsCol": "Periodos pagados",
+      "periodsValue": "{paid} de {required}",
+      "commissionCol": "Comisión",
+      "commissionPending": "Aún no devengada",
+      "registeredCol": "Atribuido",
+      "confirmedCol": "Primer pago confirmado",
+      "resultCount": "Mostrando {shown} de {total}",
+      "emptyCta": "Abrir mis enlaces de venta",
+      "noMatchTitle": "Ningún cliente coincide con tu búsqueda",
+      "noMatchBody": "Prueba otra búsqueda o muestra todos los estados.",
+      "clearFilters": "Borrar búsqueda y filtro",
+      "loadError": "No se pudieron cargar tus clientes en este momento. Inténtalo de nuevo.",
+      "privacyNote": "Solo se muestran la venta, el producto y el estado de la comisión; nunca datos de contacto, facturas ni métodos de pago."
+    },
+    "social": {
+      "legend": "Compartir en redes sociales",
+      "hint": "Selecciona una o más plataformas. Aipify nunca publica por ti: copias el texto y abres el flujo de compartir admitido.",
+      "selected": "Seleccionado",
+      "notSelected": "No seleccionado",
+      "platforms": {
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "x": "X",
+        "linkedin": "LinkedIn",
+        "tiktok": "TikTok",
+        "snapchat": "Snapchat"
+      },
+      "workspaceTitle": "Espacio de compartición",
+      "copyText": "Copiar texto",
+      "copyLink": "Copiar enlace",
+      "downloadImage": "Descargar imagen",
+      "openShare": "Abrir compartir",
+      "noWebShare": "Esta plataforma no tiene flujo web de compartir. Copia el texto y publica en la app.",
+      "textCopied": "Texto copiado",
+      "linkCopied": "Enlace copiado",
+      "pickPlatform": "Selecciona al menos una plataforma para preparar el compartido.",
+      "pickProduct": "Elige un producto",
+      "approvedCopy": "Texto de ventas aprobado",
+      "noCopy": "Aún no hay texto de ventas aprobado publicado para este producto.",
+      "noImage": "Aún no hay imagen de campaña aprobada publicada para este producto.",
+      "preview": "Vista previa"
+    },
+    "materialsUi": {
+      "materialsTitle": "Material de ventas aprobado",
+      "materialsIntro": "Solo activos Aipify publicados. Las categorías sin archivos publicados permanecen vacías.",
+      "download": "Descargar",
+      "copyApproved": "Copiar texto aprobado",
+      "copied": "Copiado",
+      "emptyCategory": "Aún no hay material publicado en esta categoría.",
+      "categories": {
+        "product_images": "Imágenes de producto",
+        "logos": "Logotipos",
+        "pdf_sheets": "Fichas de producto (PDF)",
+        "social": "Redes sociales",
+        "email_templates": "Plantillas de correo",
+        "signatures": "Firmas certificadas"
+      }
+    },
+    "catalogMeta": {
+      "audienceLabel": "¿Para quién es el producto?",
+      "benefitsLabel": "Beneficios clave"
     }
   }
 }

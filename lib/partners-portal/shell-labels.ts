@@ -90,11 +90,13 @@ export type PartnersPortalAvatarLabels = {
   replace: string;
   remove: string;
   uploading: string;
+  optimizing: string;
   removing: string;
   saved: string;
   removed: string;
   errorType: string;
   errorSize: string;
+  errorImage: string;
   errorGeneric: string;
   errorUnavailable: string;
   errorSession: string;
@@ -114,11 +116,13 @@ export function buildPartnersPortalAvatarLabels(t: Translator): PartnersPortalAv
     replace: t(`${a}.replace`),
     remove: t(`${a}.remove`),
     uploading: t(`${a}.uploading`),
+    optimizing: t(`${a}.optimizing`),
     removing: t(`${a}.removing`),
     saved: t(`${a}.saved`),
     removed: t(`${a}.removed`),
     errorType: t(`${a}.errorType`),
     errorSize: t(`${a}.errorSize`),
+    errorImage: t(`${a}.errorImage`),
     errorGeneric: t(`${a}.errorGeneric`),
     errorUnavailable: t(`${a}.errorUnavailable`),
     errorSession: t(`${a}.errorSession`),

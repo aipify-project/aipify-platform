@@ -13,6 +13,8 @@ import type {
   CspSalesLabels,
   CspSettlementsLabels,
 } from "@/components/partners-portal/CertifiedSalesPartnerPortalPanels";
+import type { CspLeadsLabels } from "@/components/partners-portal/CertifiedSalesPartnerLeadsPanel";
+import type { CspCustomersLabels } from "@/components/partners-portal/CertifiedSalesPartnerCustomersPanel";
 import type { SellersActionLabels } from "@/components/platform/sellers/CertifiedSellersActionPanel";
 import type { PartnerDetailsDrawerLabels } from "@/components/platform/sellers/CertifiedSellersPartnerDetailsDrawer";
 import { buildSellerProfileLabels } from "@/lib/certified-sales-partner/seller-profile-labels";
@@ -567,6 +569,8 @@ export function buildCspCatalogLabels(t: Translator): CspCatalogLabels {
     trainingNotPublished: k("trainingNotPublished"),
     noBuy: t(`${CSP_NS}.pages.products.noBuy`),
     empty: k("empty"),
+    audienceLabel: t(`${CSP_NS}.catalogMeta.audienceLabel`),
+    benefitsLabel: t(`${CSP_NS}.catalogMeta.benefitsLabel`),
   };
 }
 
@@ -686,6 +690,92 @@ export function buildCspSalesLabels(t: Translator): CspSalesLabels {
   };
 }
 
+const LEAD_STAGE_KEYS = ["converted", "window_open", "window_expired", "unknown"] as const;
+const LEAD_CHANNEL_KEYS = [
+  "referral_link",
+  "partner_code",
+  "partner_registered_customer",
+  "event",
+  "manual_platform_assignment",
+  "unknown",
+] as const;
+const CUSTOMER_QUALIFICATION_KEYS = [
+  "awaiting_second_payment",
+  "being_verified",
+  "qualified",
+  "not_qualified",
+  "unknown",
+] as const;
+
+export function buildCspLeadsLabels(t: Translator): CspLeadsLabels {
+  const k = (key: string) => t(`${CSP_NS}.leads.${key}`);
+  return {
+    title: k("title"),
+    intro: k("intro"),
+    searchLabel: k("searchLabel"),
+    searchPlaceholder: k("searchPlaceholder"),
+    filterLabel: k("filterLabel"),
+    filterAll: k("filterAll"),
+    stage: group(t, `${CSP_NS}.leads.stage`, LEAD_STAGE_KEYS),
+    channels: {
+      ...group(t, `${CSP_NS}.links.channels`, SELF_SERVICE_CHANNEL_KEYS),
+      ...group(t, `${CSP_NS}.leads.channels`, LEAD_CHANNEL_KEYS),
+    },
+    saleStatus: group(t, `${CSP_NS}.salesList.status`, SALE_STATUS_KEYS),
+    linkCol: k("linkCol"),
+    channelCol: k("channelCol"),
+    stageCol: k("stageCol"),
+    productCol: k("productCol"),
+    registeredCol: k("registeredCol"),
+    expiresCol: k("expiresCol"),
+    noSaleYet: k("noSaleYet"),
+    resultCount: k("resultCount"),
+    emptyTitle: k("emptyTitle"),
+    emptyBody: k("emptyBody"),
+    emptyCta: k("emptyCta"),
+    noMatchTitle: k("noMatchTitle"),
+    noMatchBody: k("noMatchBody"),
+    clearFilters: k("clearFilters"),
+    loadError: k("loadError"),
+    retry: t(`${CSP_NS}.workspace.retry`),
+    privacyNote: k("privacyNote"),
+  };
+}
+
+export function buildCspCustomersLabels(t: Translator): CspCustomersLabels {
+  const k = (key: string) => t(`${CSP_NS}.customers.${key}`);
+  return {
+    title: k("title"),
+    intro: k("intro"),
+    qualificationNote: k("qualificationNote"),
+    searchLabel: k("searchLabel"),
+    searchPlaceholder: k("searchPlaceholder"),
+    filterLabel: k("filterLabel"),
+    filterAll: k("filterAll"),
+    qualification: group(t, `${CSP_NS}.customers.qualification`, CUSTOMER_QUALIFICATION_KEYS),
+    saleStatus: group(t, `${CSP_NS}.salesList.status`, SALE_STATUS_KEYS),
+    productCol: k("productCol"),
+    statusCol: k("statusCol"),
+    qualificationCol: k("qualificationCol"),
+    periodsCol: k("periodsCol"),
+    periodsValue: k("periodsValue"),
+    commissionCol: k("commissionCol"),
+    commissionPending: k("commissionPending"),
+    registeredCol: k("registeredCol"),
+    confirmedCol: k("confirmedCol"),
+    resultCount: k("resultCount"),
+    emptyTitle: k("emptyTitle"),
+    emptyBody: k("emptyBody"),
+    emptyCta: k("emptyCta"),
+    noMatchTitle: k("noMatchTitle"),
+    noMatchBody: k("noMatchBody"),
+    clearFilters: k("clearFilters"),
+    loadError: k("loadError"),
+    retry: t(`${CSP_NS}.workspace.retry`),
+    privacyNote: k("privacyNote"),
+  };
+}
+
 export function buildCspSettlementsLabels(t: Translator): CspSettlementsLabels {
   const k = (key: string) => t(`${CSP_NS}.settlements.${key}`);
   return {
@@ -707,6 +797,7 @@ export function buildCspSettlementsLabels(t: Translator): CspSettlementsLabels {
 
 export function buildCspLinkLabels(t: Translator): CspLinkLabels {
   const k = (key: string) => t(`${CSP_NS}.links.${key}`);
+  const s = (key: string) => t(`${CSP_NS}.social.${key}`);
   return {
     title: k("panelTitle"),
     product: k("product"),
@@ -725,6 +816,28 @@ export function buildCspLinkLabels(t: Translator): CspLinkLabels {
     copied: k("copied"),
     gatesHint: k("gatesHint"),
     productNotYet: k("productNotYet"),
+    existingTitle: k("existingTitle"),
+    existingEmpty: k("existingEmpty"),
+    visitsCol: k("visitsCol"),
+    statusActive: k("statusActive"),
+    statusBlocked: k("statusBlocked"),
+    visitsUnknown: k("visitsUnknown"),
+    socialSection: k("socialSection"),
+    otherChannels: k("otherChannels"),
+    social: {
+      legend: s("legend"),
+      hint: s("hint"),
+      selected: s("selected"),
+      notSelected: s("notSelected"),
+      platforms: {
+        instagram: s("platforms.instagram"),
+        facebook: s("platforms.facebook"),
+        x: s("platforms.x"),
+        linkedin: s("platforms.linkedin"),
+        tiktok: s("platforms.tiktok"),
+        snapchat: s("platforms.snapchat"),
+      },
+    },
   };
 }
 
@@ -746,5 +859,46 @@ export function buildCspMarketingLabels(t: Translator): CspMarketingLabels {
     filterKompisWeb: k("filterKompisWeb"),
     filterKompisBedrift: k("filterKompisBedrift"),
     filterVoice: k("filterVoice"),
+    materialsTitle: t(`${CSP_NS}.materialsUi.materialsTitle`),
+    materialsIntro: t(`${CSP_NS}.materialsUi.materialsIntro`),
+    materialsDownload: t(`${CSP_NS}.materialsUi.download`),
+    materialsCopy: t(`${CSP_NS}.materialsUi.copyApproved`),
+    materialsCopied: t(`${CSP_NS}.materialsUi.copied`),
+    materialsEmptyCategory: t(`${CSP_NS}.materialsUi.emptyCategory`),
+    materialsCategories: {
+      product_images: t(`${CSP_NS}.materialsUi.categories.product_images`),
+      logos: t(`${CSP_NS}.materialsUi.categories.logos`),
+      pdf_sheets: t(`${CSP_NS}.materialsUi.categories.pdf_sheets`),
+      social: t(`${CSP_NS}.materialsUi.categories.social`),
+      email_templates: t(`${CSP_NS}.materialsUi.categories.email_templates`),
+      signatures: t(`${CSP_NS}.materialsUi.categories.signatures`),
+    },
+    social: {
+      legend: t(`${CSP_NS}.social.legend`),
+      hint: t(`${CSP_NS}.social.hint`),
+      selected: t(`${CSP_NS}.social.selected`),
+      notSelected: t(`${CSP_NS}.social.notSelected`),
+      platforms: {
+        instagram: t(`${CSP_NS}.social.platforms.instagram`),
+        facebook: t(`${CSP_NS}.social.platforms.facebook`),
+        x: t(`${CSP_NS}.social.platforms.x`),
+        linkedin: t(`${CSP_NS}.social.platforms.linkedin`),
+        tiktok: t(`${CSP_NS}.social.platforms.tiktok`),
+        snapchat: t(`${CSP_NS}.social.platforms.snapchat`),
+      },
+    },
+    shareWorkspaceTitle: t(`${CSP_NS}.social.workspaceTitle`),
+    shareCopyText: t(`${CSP_NS}.social.copyText`),
+    shareCopyLink: t(`${CSP_NS}.social.copyLink`),
+    shareDownloadImage: t(`${CSP_NS}.social.downloadImage`),
+    shareOpen: t(`${CSP_NS}.social.openShare`),
+    shareNoWeb: t(`${CSP_NS}.social.noWebShare`),
+    shareTextCopied: t(`${CSP_NS}.social.textCopied`),
+    shareLinkCopied: t(`${CSP_NS}.social.linkCopied`),
+    sharePickPlatform: t(`${CSP_NS}.social.pickPlatform`),
+    shareApprovedCopy: t(`${CSP_NS}.social.approvedCopy`),
+    shareNoCopy: t(`${CSP_NS}.social.noCopy`),
+    shareNoImage: t(`${CSP_NS}.social.noImage`),
+    sharePreview: t(`${CSP_NS}.social.preview`),
   };
 }

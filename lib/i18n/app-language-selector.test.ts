@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import {
   APP_LOCALE_ORDER,
   appLocaleOptions,
@@ -7,6 +9,7 @@ import {
   resolveAppLocale,
   CUSTOMER_ACTIVE_LOCALE_ORDER,
 } from "./app-locales";
+import { isAppScopedPath, isPartnersAppScopedPath } from "./app-scoped-path";
 import { LOCALE_COOKIE } from "./config";
 import {
   parseAcceptLanguageHeader,
@@ -284,6 +287,42 @@ test("missing keys humanize to title case, not raw keys", () => {
 test("settings and account preferences expose the same language keys", () => {
   assert.match("customerApp.settings.accountPreferences.languageSection", /languageSection$/);
   assert.match("shell.languageSelector.label", /label$/);
+});
+
+const repoRoot = join(__dirname, "..", "..");
+const selectorSource = readFileSync(join(repoRoot, "components/app/AppLanguageSelector.tsx"), "utf8");
+const partnersTopbarSource = readFileSync(
+  join(repoRoot, "components/partners-portal/PartnersPortalTopbarActions.tsx"),
+  "utf8",
+);
+
+test("selector navigationMode defaults to document (APP keeps full reload)", () => {
+  assert.match(selectorSource, /navigationMode = "document"/);
+  assert.match(selectorSource, /window\.location\.assign\(/);
+});
+
+test("soft navigationMode uses router.refresh and returns before document navigation", () => {
+  const softBranch = selectorSource.indexOf('navigationMode === "soft"');
+  const assign = selectorSource.indexOf("window.location.assign(");
+  const refresh = selectorSource.indexOf("router.refresh();", softBranch);
+  assert.ok(softBranch > -1 && refresh > softBranch && assign > refresh);
+  assert.match(selectorSource, /router\.refresh\(\);\s*return;/);
+});
+
+test("partners portal topbar opts into soft locale switching", () => {
+  assert.match(partnersTopbarSource, /navigationMode="soft"/);
+});
+
+test("customer app header does not opt into soft mode (preserves document behavior)", () => {
+  for (const file of ["components/dashboard/Topbar.tsx", "components/app/settings/CustomerSettingsCenterPanel.tsx"]) {
+    assert.doesNotMatch(readFileSync(join(repoRoot, file), "utf8"), /navigationMode="soft"/);
+  }
+});
+
+test("/partners/* resolves language through the APP locale scope; public verify stays public", () => {
+  assert.equal(isAppScopedPath("/partners/account/settings"), true);
+  assert.equal(isPartnersAppScopedPath("/partners"), true);
+  assert.equal(isPartnersAppScopedPath("/partners/academy/verify/abc"), false);
 });
 
 console.log(`\n${passed} app language selector / i18n tests passed.`);

@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, ChevronDown } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import {
   appLocaleOptions,
@@ -23,6 +23,11 @@ type Props = {
   labels: AppLanguageSelectorLabels;
   variant?: "header" | "settings";
   onLocaleChange?: (locale: AppLocale) => void;
+  /**
+   * `document` (default) — full navigation assign (Customer APP baseline).
+   * `soft` — cookie + `router.refresh()` without wiping the document (seller portal).
+   */
+  navigationMode?: "document" | "soft";
 };
 
 function ariaLabelFor(
@@ -40,8 +45,10 @@ export function AppLanguageSelector({
   labels,
   variant = "header",
   onLocaleChange,
+  navigationMode = "document",
 }: Props) {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -76,6 +83,10 @@ export function AppLanguageSelector({
             return;
           }
           onLocaleChange?.(nextLocale);
+          if (navigationMode === "soft") {
+            router.refresh();
+            return;
+          }
           const search = typeof window !== "undefined" ? window.location.search : "";
           const hash = typeof window !== "undefined" ? window.location.hash : "";
           window.location.assign(`${pathname}${search}${hash}`);
@@ -84,7 +95,7 @@ export function AppLanguageSelector({
         }
       });
     },
-    [currentLocale, labels.switchFailed, onLocaleChange, pathname, pending],
+    [currentLocale, labels.switchFailed, navigationMode, onLocaleChange, pathname, pending, router],
   );
 
   const triggerClasses =
