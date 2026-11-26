@@ -16,6 +16,7 @@ export type UnifiedProductRegisterLabels = {
   colType: string;
   colAppStatus: string;
   colSaleStatus: string;
+  colChannels?: string;
   colCustomerPrice: string;
   colCommission: string;
   colUpdated?: string;
@@ -27,6 +28,10 @@ export type UnifiedProductRegisterLabels = {
   salePublished: string;
   saleDraft: string;
   saleNotConfigured: string;
+  channelsBoth?: string;
+  channelsAppOnly?: string;
+  channelsSaleOnly?: string;
+  channelsNone?: string;
   pricePlanned: string;
   priceUnavailable: string;
   commissionUnknown: string;
@@ -161,8 +166,14 @@ export function UnifiedProductRegisterTable({
                 <th className="px-3 py-3">{labels.colName}</th>
                 <th className="px-3 py-3">{labels.colSku}</th>
                 <th className="px-3 py-3">{labels.colType}</th>
-                <th className="px-3 py-3">{labels.colAppStatus}</th>
-                <th className="px-3 py-3">{labels.colSaleStatus}</th>
+                {labels.colChannels ? (
+                  <th className="px-3 py-3">{labels.colChannels}</th>
+                ) : (
+                  <>
+                    <th className="px-3 py-3">{labels.colAppStatus}</th>
+                    <th className="px-3 py-3">{labels.colSaleStatus}</th>
+                  </>
+                )}
                 <th className="px-3 py-3">{labels.colCustomerPrice}</th>
                 <th className="px-3 py-3">{labels.colCommission}</th>
                 {labels.colUpdated ? <th className="px-3 py-3">{labels.colUpdated}</th> : null}
@@ -209,6 +220,17 @@ export function UnifiedProductRegisterTable({
                       )
                     : labels.priceUnavailable;
 
+                const appOn = product.app.visibleInStore && product.app.source === "core";
+                const saleOn = product.sale.visibleInStore;
+                const channelsLabel =
+                  appOn && saleOn
+                    ? labels.channelsBoth ?? "APP · SALE PARTNER"
+                    : appOn
+                      ? labels.channelsAppOnly ?? "APP"
+                      : saleOn
+                        ? labels.channelsSaleOnly ?? "SALE PARTNER"
+                        : labels.channelsNone ?? "—";
+
                 return (
                   <tr key={product.productKey} className="border-t border-[color:var(--aipify-border)]">
                     <td className="px-3 py-3">
@@ -229,20 +251,52 @@ export function UnifiedProductRegisterTable({
                       )}
                     </td>
                     <td className="px-3 py-3">
-                      <p className="font-semibold text-[color:var(--aipify-text-primary)]">{product.title}</p>
-                      <p className="text-xs text-[color:var(--aipify-text-secondary)]">{product.productKey}</p>
+                      {onEditProduct ? (
+                        <button
+                          type="button"
+                          onClick={() => onEditProduct(product.productKey)}
+                          className="text-left"
+                        >
+                          <p className="font-semibold text-[color:var(--aipify-companion-purple)] underline-offset-2 hover:underline">
+                            {product.title}
+                          </p>
+                          <p className="text-xs text-[color:var(--aipify-text-secondary)]">
+                            {product.productKey}
+                          </p>
+                        </button>
+                      ) : (
+                        <>
+                          <p className="font-semibold text-[color:var(--aipify-text-primary)]">
+                            {product.title}
+                          </p>
+                          <p className="text-xs text-[color:var(--aipify-text-secondary)]">
+                            {product.productKey}
+                          </p>
+                        </>
+                      )}
                     </td>
                     <td className="px-3 py-3 font-mono text-xs">{product.sku}</td>
                     <td className="px-3 py-3 capitalize">{product.category}</td>
-                    <td className="px-3 py-3">
-                      <AipifyStatusBadge kind={appBadgeKind} label={appLabel} />
-                    </td>
-                    <td className="px-3 py-3">
-                      <AipifyStatusBadge
-                        kind={product.sale.visibleInStore ? "completed" : "waiting"}
-                        label={saleLabel}
-                      />
-                    </td>
+                    {labels.colChannels ? (
+                      <td className="px-3 py-3">
+                        <AipifyStatusBadge
+                          kind={appOn || saleOn ? "completed" : "waiting"}
+                          label={channelsLabel}
+                        />
+                      </td>
+                    ) : (
+                      <>
+                        <td className="px-3 py-3">
+                          <AipifyStatusBadge kind={appBadgeKind} label={appLabel} />
+                        </td>
+                        <td className="px-3 py-3">
+                          <AipifyStatusBadge
+                            kind={product.sale.visibleInStore ? "completed" : "waiting"}
+                            label={saleLabel}
+                          />
+                        </td>
+                      </>
+                    )}
                     <td className="px-3 py-3 text-[color:var(--aipify-text-secondary)]">{price}</td>
                     <td className="px-3 py-3 text-[color:var(--aipify-text-secondary)]">{commission}</td>
                     {labels.colUpdated ? (
