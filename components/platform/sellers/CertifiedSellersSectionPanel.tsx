@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { SellersAdminNav } from "@/components/platform/sellers/SellersAdminNav";
 import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
-import { SELLERS_ADMIN_FRAME } from "@/lib/platform/sellers-admin-nav";
 
 type Props = {
   title: string;
@@ -14,8 +12,6 @@ type Props = {
   primaryActionHref?: string;
   primaryActionLabel?: string;
   metrics?: Array<{ label: string; value: string; note?: string }>;
-  navLabels?: Record<string, string>;
-  navLabel?: string;
 };
 
 export function CertifiedSellersSectionPanel({
@@ -27,13 +23,9 @@ export function CertifiedSellersSectionPanel({
   primaryActionHref,
   primaryActionLabel,
   metrics = [],
-  navLabels,
-  navLabel = "",
 }: Props) {
   return (
-    <div className={`${AipifyShellClasses.canvas} space-y-6 p-6 lg:p-8`}>
-      <div className={`${SELLERS_ADMIN_FRAME} space-y-6`}>
-      {navLabels ? <SellersAdminNav labels={navLabels} label={navLabel} /> : null}
+    <div className={`${AipifyShellClasses.canvas} space-y-6 px-6 py-6 lg:px-8`}>
       <header className="space-y-2">
         <p className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-companion-purple)]">
           Aipify
@@ -47,9 +39,7 @@ export function CertifiedSellersSectionPanel({
           className="rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-6 shadow-sm"
           role="status"
         >
-          <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
-            {notReadyTitle}
-          </h2>
+          <h2 className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{notReadyTitle}</h2>
           <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{notReadyBody}</p>
         </section>
       ) : null}
@@ -62,12 +52,8 @@ export function CertifiedSellersSectionPanel({
               className="rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-5 shadow-sm"
             >
               <p className="text-sm text-[color:var(--aipify-text-secondary)]">{metric.label}</p>
-              <p className="mt-2 text-2xl font-semibold text-[color:var(--aipify-text-primary)]">
-                {metric.value}
-              </p>
-              {metric.note ? (
-                <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">{metric.note}</p>
-              ) : null}
+              <p className="mt-2 text-2xl font-semibold text-[color:var(--aipify-text-primary)]">{metric.value}</p>
+              {metric.note ? <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">{metric.note}</p> : null}
             </article>
           ))}
         </section>
@@ -83,7 +69,6 @@ export function CertifiedSellersSectionPanel({
           </Link>
         </div>
       ) : null}
-      </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import DashboardShell from "@/components/dashboard/DashboardShell";
 import PlatformAuthGuard from "@/components/platform/PlatformAuthGuard";
 import PlatformAccessGate from "@/components/platform/PlatformAccessGate";
 import { PlatformProfileProvider } from "@/components/platform/PlatformProfileProvider";
+import { PlatformSellerAlertsProvider } from "@/components/platform/sellers/PlatformSellerAlerts";
 import { requirePlatformServerAccess } from "@/lib/auth/platform-server-access";
 import {
   PLATFORM_MOBILE_NAV_IDS,
@@ -38,6 +39,20 @@ export default async function PlatformLayout({
         twoFactorRequiredLabel={t("platform.portal.twoFactorRequired")}
       >
       <PlatformProfileProvider>
+        <PlatformSellerAlertsProvider
+          labels={{
+            title: t("platform.sellers.alerts.title"),
+            empty: t("platform.sellers.alerts.empty"),
+            applications: t("platform.sellers.alerts.applications"),
+            settlements: t("platform.sellers.alerts.settlements"),
+            messages: t("platform.sellers.alerts.messages"),
+            readBlocked: t("platform.sellers.alerts.readBlocked"),
+            loading: t("platform.sellers.alerts.loading"),
+            error: t("platform.sellers.alerts.error"),
+            retry: t("platform.sellers.alerts.retry"),
+            close: t("platform.sellers.alerts.close"),
+          }}
+        >
         <DashboardShell
           appName={t("common.appName")}
           planName={t("platform.sidebar.plan")}
@@ -80,6 +95,7 @@ export default async function PlatformLayout({
         >
           {children}
         </DashboardShell>
+        </PlatformSellerAlertsProvider>
       </PlatformProfileProvider>
       </PlatformAccessGate>
     </PlatformAuthGuard>

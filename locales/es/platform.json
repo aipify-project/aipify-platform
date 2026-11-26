@@ -1008,48 +1008,48 @@
   "sellers": {
     "overview": {
       "title": "Certified Sales Partners",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements.",
+      "subtitle": "Revise qué necesita una decisión, busque un vendedor y abra el trabajo pendiente.",
       "openPartners": "Partners & approval"
     },
     "partners": {
       "title": "Partners & approval",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Busque solicitudes, filtre por estado y abra el perfil completo del vendedor."
     },
     "products": {
       "title": "Products for sale",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Vea lo que los vendedores pueden ofrecer. El precio del cliente y la comisión permanecen separados."
     },
     "commissionRates": {
       "title": "Commission rates",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Lea las tasas fijas de comisión guardadas. La comisión porcentual no está activa."
     },
     "attribution": {
       "title": "Sales links & attribution",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Revise los enlaces personales de venta, las visitas y el estado que registró Core."
     },
     "academy": {
       "title": "Academy & tests",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Vea los intentos de Academia y las certificaciones. El banco de preguntas permanece en la app del socio."
     },
     "materials": {
       "title": "Sales materials & email",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Publique los archivos de venta que Core ya guarda. Los archivos que faltan no se inventan."
     },
     "leadsSales": {
       "title": "Leads & sales",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Revise leads y ventas cualificadas sin tratar la comisión como precio de cliente."
     },
     "settlements": {
       "title": "Settlements & payouts",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Elija una liquidación y registre el siguiente paso manual de pago."
     },
     "audit": {
       "title": "Exceptions & audit",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Lea qué cambió, quién lo hizo y cuándo. El historial no se puede editar aquí."
     },
     "settings": {
       "title": "Seller settings",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Estas son las reglas vigentes de vendedores. Los interruptores aparecen solo cuando un ajuste está guardado."
     },
     "backend": {
       "notReadyTitle": "Servicio no activado",
@@ -1251,7 +1251,23 @@
       "commissionsReportNote": "Estas filas son ventas cualificadas devueltas por Core. El importe es la base de venta guardada, no un precio de cliente ni una comisión porcentual. Los pagos siguen en Liquidaciones.",
       "commissionsEmptyTitle": "Aún no hay ventas cualificadas",
       "colRecorded": "Registrado",
-      "qualifiedSaleLabel": "Venta cualificada"
+      "qualifiedSaleLabel": "Venta cualificada",
+      "followUpTitle": "Requiere atención",
+      "followUpApplications": "Solicitudes en revisión",
+      "followUpSettlements": "Liquidaciones abiertas",
+      "followUpMessages": "Abrir mensajes",
+      "searchSellers": "Buscar vendedor",
+      "pageRows": "Filas",
+      "previousPage": "Anterior",
+      "nextPage": "Siguiente",
+      "academyCatalogTitle": "Productos y certificación",
+      "academyTotalsNote": "Las cifras de arriba son los totales que devolvió Core. No están divididas por producto.",
+      "academyWebStatus": "Ruta de academia existente. Las preguntas siguen en la aplicación del socio.",
+      "academyBedriftStatus": "Una ruta de certificación aparte no está guardada en este registro.",
+      "academyVoiceStatus": "Producto futuro. No hay enlaces de venta ni certificación activos.",
+      "academyVoiceTitle": "Aipify Voice",
+      "academyGenericStatus": "La certificación de este producto no se informa por separado.",
+      "academyNotForSellers": "No publicado para vendedores."
     },
     "drawer": {
       "title": "Detalles de la solicitud",
@@ -1415,8 +1431,24 @@
         "failed": "Fallido",
         "read": "Leído",
         "unknown": "Estado no informado"
-      }
-    },
+      },
+      "newMessage": "Nuevo mensaje",
+      "closeCompose": "Cerrar",
+      "fromAdmin": "Administrador de la plataforma",
+      "fromPartner": "Vendedor",
+      "allConversations": "Todas",
+      "sentByAdmin": "Enviados",
+      "threadEmpty": "Elija una conversación para leer el historial.",
+      "materialGroupBanners": "Banners",
+      "materialGroupCopy": "Texto de venta",
+      "materialGroupEmail": "Plantillas de correo",
+      "materialGroupOther": "Otros archivos",
+      "materialGroupEmpty": "Ningún material guardado coincide con este grupo.",
+      "materialTechnical": "Detalles técnicos",
+      "settingsCurrentTitle": "Reglas vigentes del programa",
+      "settingsApprovalTitle": "Requiere aprobación de la plataforma",
+      "settingsApprovalPercent": "La comisión porcentual no está guardada. Sigue vigente el importe fijo único.",
+      "settingsApprovalMessages": "El estado de lectura y el archivo de mensajes no están guardados. El historial sigue visible."    },
     "messages": {
       "title": "Mensajes y comunicación",
       "subtitle": "Envíe y revise la comunicación autorizada con vendedores certificados."
@@ -1535,6 +1567,18 @@
       "directionPartner": "Respuesta del vendedor",
       "readYes": "Leído",
       "readNo": "No leído"
+    },
+    "alerts": {
+      "title": "Alertas de vendedores",
+      "empty": "Nada está pendiente en los registros comprobados.",
+      "applications": "La solicitud necesita revisión",
+      "settlements": "La liquidación necesita un paso",
+      "messages": "Mensaje de un vendedor",
+      "readBlocked": "El estado de leído y archivo aún no se guarda, así que la lista no tiene un contador de no leídos.",
+      "loading": "Comprobando registros de vendedores",
+      "error": "No se pudieron comprobar los registros de vendedores.",
+      "retry": "Intentar de nuevo",
+      "close": "Cerrar"
     }
   }
 }

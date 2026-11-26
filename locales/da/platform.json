@@ -7307,48 +7307,48 @@
   "sellers": {
     "overview": {
       "title": "Certified Sales Partners",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger.",
+      "subtitle": "Se hvad der kræver en beslutning, søg en sælger, og åbn det arbejde der venter.",
       "openPartners": "Partnere og godkendelse"
     },
     "partners": {
       "title": "Partnere og godkendelse",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger."
+      "subtitle": "Søg i ansøgninger, filtrér på status, og åbn den fulde sælgerprofil."
     },
     "products": {
       "title": "Produkter til salg",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger."
+      "subtitle": "Se hvad sælgere kan tilbyde. Kundepris og sælgerprovision holdes adskilt."
     },
     "commissionRates": {
       "title": "Provisionspriser",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger."
+      "subtitle": "Læs de gemte faste provisionssatser. Procentprovision er ikke aktiv."
     },
     "attribution": {
       "title": "Salgslinks og attribuering",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger."
+      "subtitle": "Gennemgå personlige salgslinks, besøg og den status Core har registreret."
     },
     "academy": {
       "title": "Academy og tests",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger."
+      "subtitle": "Se Akademiforsøg og certificeringer. Spørgsmålsbanken ligger i partnerappen."
     },
     "materials": {
       "title": "Salgsmateriale og e-mail",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger."
+      "subtitle": "Publicer de salgsfiler Core allerede gemmer. Manglende filer bliver ikke opfundet."
     },
     "leadsSales": {
       "title": "Leads og salg",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger."
+      "subtitle": "Gennemgå leads og kvalificerede salg uden at behandle provision som kundepris."
     },
     "settlements": {
       "title": "Afregning og udbetalinger",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger."
+      "subtitle": "Vælg én afregning, og registrer næste manuelle udbetalingstrin."
     },
     "audit": {
       "title": "Afvigelser og audit",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger."
+      "subtitle": "Læs hvad der blev ændret, hvem der gjorde det, og hvornår. Historikken kan ikke redigeres her."
     },
     "settings": {
       "title": "Sælgerindstillinger",
-      "subtitle": "Styr Aipifys egne certificerede salgspartnere, produkter, provisioner og afregninger."
+      "subtitle": "Dette er de gældende sælgerregler. Kontakter vises kun når en indstilling er gemt."
     },
     "backend": {
       "notReadyTitle": "Backend er ikke aktiveret",
@@ -7544,7 +7544,23 @@
       "commissionsReportNote": "Rækkerne er kvalificerede salg fra Core. Beløbet er det gemte salgsgrundlag, ikke en kundepris og ikke procentprovision. Udbetaling ligger under Afregninger.",
       "commissionsEmptyTitle": "Ingen kvalificerede salg endnu",
       "colRecorded": "Registreret",
-      "qualifiedSaleLabel": "Kvalificeret salg"
+      "qualifiedSaleLabel": "Kvalificeret salg",
+      "followUpTitle": "Kræver opfølgning",
+      "followUpApplications": "Ansøgninger til vurdering",
+      "followUpSettlements": "Åbne afregninger",
+      "followUpMessages": "Åbn beskeder",
+      "searchSellers": "Find sælger",
+      "pageRows": "Rækker",
+      "previousPage": "Forrige",
+      "nextPage": "Næste",
+      "academyCatalogTitle": "Produkter og certificering",
+      "academyTotalsNote": "Tallene ovenfor er de totaler, Core rapporterede. De er ikke opdelt pr. produkt.",
+      "academyWebStatus": "Eksisterende Academy-forløb. Spørgsmålene ligger i partnerappen.",
+      "academyBedriftStatus": "Et separat certificeringsforløb er ikke gemt på denne post.",
+      "academyVoiceStatus": "Fremtidigt produkt. Ingen salgslinks eller certificering er aktiv.",
+      "academyVoiceTitle": "Aipify Voice",
+      "academyGenericStatus": "Certificering for dette produkt rapporteres ikke separat.",
+      "academyNotForSellers": "Ikke offentliggjort for sælgere."
     },
     "drawer": {
       "title": "Ansøgningsdetaljer",
@@ -7708,8 +7724,24 @@
         "failed": "Mislykkedes",
         "read": "Læst",
         "unknown": "Status ikke rapporteret"
-      }
-    },
+      },
+      "newMessage": "Ny besked",
+      "closeCompose": "Luk",
+      "fromAdmin": "Platformadministrator",
+      "fromPartner": "Sælger",
+      "allConversations": "Alle",
+      "sentByAdmin": "Sendt",
+      "threadEmpty": "Vælg en samtale for at læse historikken.",
+      "materialGroupBanners": "Bannere",
+      "materialGroupCopy": "Salgstekst",
+      "materialGroupEmail": "E-mailskabeloner",
+      "materialGroupOther": "Andre filer",
+      "materialGroupEmpty": "Intet gemt materiale matcher denne gruppe.",
+      "materialTechnical": "Tekniske detaljer",
+      "settingsCurrentTitle": "Gældende programregler",
+      "settingsApprovalTitle": "Kræver platformsgodkendelse",
+      "settingsApprovalPercent": "Procentprovision er ikke gemt. Den faste engangsregel gælder stadig.",
+      "settingsApprovalMessages": "Læst-status og arkiv for beskeder er ikke gemt. Historikken forbliver synlig."    },
     "messages": {
       "title": "Beskeder og kommunikation",
       "subtitle": "Send og gennemgå autoriseret kommunikation med certificerede sælgere."
@@ -7828,6 +7860,18 @@
       "directionPartner": "Sælgersvar",
       "readYes": "Læst",
       "readNo": "Ulæst"
+    },
+    "alerts": {
+      "title": "Sælgervarsler",
+      "empty": "Intet venter i de poster der blev kontrolleret.",
+      "applications": "Ansøgning kræver vurdering",
+      "settlements": "Afregning kræver et trin",
+      "messages": "Besked fra en sælger",
+      "readBlocked": "Læst- og arkivstatus er ikke gemt endnu, så listen har ingen ulæst-tæller.",
+      "loading": "Kontrollerer sælgerposter",
+      "error": "Sælgerposterne kunne ikke kontrolleres.",
+      "retry": "Prøv igen",
+      "close": "Luk"
     }
   }
 }

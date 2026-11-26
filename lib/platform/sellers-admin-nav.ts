@@ -15,7 +15,7 @@ export const SELLERS_ADMIN_NAV = [
   { id: "settings", href: "/platform/sellers/settings" },
 ] as const;
 
-export const SELLERS_ADMIN_FRAME = "mx-auto w-full max-w-[1600px]";
+export const SELLERS_ADMIN_FRAME = "w-full";
 
 export function sellersAdminNavActive(pathname: string, href: string): boolean {
   if (href === "/platform/sellers") return pathname === "/platform/sellers";

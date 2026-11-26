@@ -1,0 +1,8 @@
+-- PREPARED_ONLY
+-- APPLY_BLOCKED_MESSAGE_READ_ARCHIVE_AND_ALERT_ACK
+--
+-- Platform Admin can show seller conversations and a bell list from existing
+-- message, application, and settlement records. Core does not store a read
+-- timestamp, an archive flag, or an alert acknowledgement.
+-- This file contains no DDL. Do not add those columns, grants, or RLS changes
+-- until the owner approves a contract that keeps message history append-only.

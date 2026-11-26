@@ -5,6 +5,13 @@ import { SELLERS_ADMIN_NAV, sellersAdminNavActive } from "./sellers-admin-nav";
 
 const root = new URL("../../", import.meta.url);
 
+test("seller pages do not render the redundant horizontal route row", () => {
+  const section = readFileSync(new URL("components/platform/sellers/CertifiedSellersSectionPanel.tsx", root), "utf8");
+  const profile = readFileSync(new URL("app/platform/sellers/partners/[id]/page.tsx", root), "utf8");
+  assert.doesNotMatch(section, /SellersAdminNav/);
+  assert.doesNotMatch(profile, /SellersAdminNav/);
+});
+
 test("seller admin nav reuses the twelve existing routes once", () => {
   const hrefs = SELLERS_ADMIN_NAV.map((item) => item.href);
   assert.equal(new Set(hrefs).size, hrefs.length);

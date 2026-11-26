@@ -7833,48 +7833,48 @@
   "sellers": {
     "overview": {
       "title": "Certified Sales Partners",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements.",
+      "subtitle": "Review who needs a decision, search a seller, and open the work that is waiting.",
       "openPartners": "Partners & approval"
     },
     "partners": {
       "title": "Partners & approval",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Search applications, filter by status, and open the full seller profile."
     },
     "products": {
       "title": "Products for sale",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "See what sellers can offer. Customer price and seller commission stay separate."
     },
     "commissionRates": {
       "title": "Commission rates",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Read the stored fixed commission rates. Percent commission is not active."
     },
     "attribution": {
       "title": "Sales links & attribution",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Review personal sales links, visits, and the status Core recorded."
     },
     "academy": {
       "title": "Academy & tests",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "See Academy attempts and certifications. The question bank stays in the partner app."
     },
     "materials": {
       "title": "Sales materials & email",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Publish the sales files Core already stores. Missing files are not invented."
     },
     "leadsSales": {
       "title": "Leads & sales",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Review leads and qualified sales without treating a commission as a customer price."
     },
     "settlements": {
       "title": "Settlements & payouts",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Choose one settlement, then record the next manual payout step."
     },
     "audit": {
       "title": "Exceptions & audit",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "Read what changed, who did it, and when. History cannot be edited here."
     },
     "settings": {
       "title": "Seller settings",
-      "subtitle": "Govern Aipify’s own certified sales partners, products, commissions and settlements."
+      "subtitle": "These are the current seller rules. Switches appear only when a setting is stored."
     },
     "backend": {
       "notReadyTitle": "Backend not activated",
@@ -8070,7 +8070,23 @@
       "commissionsReportNote": "These rows are qualified sales returned by Core. The amount is the stored sale snapshot, not a customer price and not a percent commission. Payouts stay on Settlements.",
       "commissionsEmptyTitle": "No qualified sales yet",
       "colRecorded": "Recorded",
-      "qualifiedSaleLabel": "Qualified sale"
+      "qualifiedSaleLabel": "Qualified sale",
+      "followUpTitle": "Needs attention",
+      "followUpApplications": "Applications in review",
+      "followUpSettlements": "Open settlements",
+      "followUpMessages": "Open messages",
+      "searchSellers": "Find a seller",
+      "pageRows": "Rows",
+      "previousPage": "Previous",
+      "nextPage": "Next",
+      "academyCatalogTitle": "Products and certification",
+      "academyTotalsNote": "The figures above are the totals Core reported. They are not split by product.",
+      "academyWebStatus": "Existing Academy path. Question content stays in the partner app.",
+      "academyBedriftStatus": "A separate certification path is not stored on this record.",
+      "academyVoiceStatus": "Future product. No seller links or certification are active.",
+      "academyVoiceTitle": "Aipify Voice",
+      "academyGenericStatus": "Certification for this product is not reported separately.",
+      "academyNotForSellers": "Not published for sellers."
     },
     "drawer": {
       "title": "Application details",
@@ -8204,6 +8220,8 @@
       "materialWriteError": "The material update failed.",
       "folderInbox": "Inbox",
       "folderSent": "Sent",
+      "folderArchive": "Archive",
+      "archiveBlocked": "Archive is not a separate stored state. Messages stay in the history.",
       "directionAdminToPartner": "From Aipify to seller",
       "directionPartnerToAdmin": "From seller to Aipify",
       "deliveryStatus": {
@@ -8232,7 +8250,24 @@
         "attribution_link_created": "Sales link created",
         "qualified_sale_recorded": "Qualified sale recorded"
       },
-      "ratesReadOnly": "These are the stored fixed commission rates. Percent commission cannot be saved from this page."
+      "ratesReadOnly": "These are the stored fixed commission rates. Percent commission cannot be saved from this page.",
+      "newMessage": "New message",
+      "closeCompose": "Close",
+      "fromAdmin": "Platform admin",
+      "fromPartner": "Seller",
+      "allConversations": "All",
+      "sentByAdmin": "Sent",
+      "threadEmpty": "Choose a conversation to read the history.",
+      "materialGroupBanners": "Banners",
+      "materialGroupCopy": "Sales text",
+      "materialGroupEmail": "Email templates",
+      "materialGroupOther": "Other files",
+      "materialGroupEmpty": "No stored material matches this group.",
+      "materialTechnical": "Technical details",
+      "settingsCurrentTitle": "Current programme rules",
+      "settingsApprovalTitle": "Requires platform approval",
+      "settingsApprovalPercent": "Percent commission is not stored. The fixed one-time rule remains in force.",
+      "settingsApprovalMessages": "Message read state and archive are not stored. History stays visible."
     },
     "messages": {
       "title": "Messages & communication",
@@ -8352,6 +8387,18 @@
         "system": "System",
         "unknown": "Not specified"
       }
+    },
+    "alerts": {
+      "title": "Seller alerts",
+      "empty": "Nothing is waiting in the records that were checked.",
+      "applications": "Application needs review",
+      "settlements": "Settlement needs a step",
+      "messages": "Message from a seller",
+      "readBlocked": "Read and archive state is not stored yet, so this list has no unread count.",
+      "loading": "Checking seller records",
+      "error": "The seller records could not be checked.",
+      "retry": "Try again",
+      "close": "Close"
     }
   }
 }

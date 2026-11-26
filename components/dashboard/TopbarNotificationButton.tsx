@@ -6,6 +6,7 @@ import {
   type UnifiedNotificationCenterLabels,
 } from "@/lib/presence/unified-notification-feed";
 import { useOptionalUnifiedNotificationFeed } from "@/components/presence/UnifiedNotificationFeedProvider";
+import { PlatformSellerAlertsMenu, usePlatformSellerAlerts } from "@/components/platform/sellers/PlatformSellerAlerts";
 
 type TopbarNotificationButtonProps = {
   label: string;
@@ -19,6 +20,10 @@ function formatBadgeCount(count: number): string {
 
 export default function TopbarNotificationButton({ label, feedLabels }: TopbarNotificationButtonProps) {
   const feed = useOptionalUnifiedNotificationFeed();
+  const sellerAlerts = usePlatformSellerAlerts();
+  if (!feed && sellerAlerts) {
+    return <PlatformSellerAlertsMenu labels={sellerAlerts} triggerLabel={label} />;
+  }
 
   const unreadCount = feed?.unreadCount ?? 0;
   const pulseActive = feed?.pulseActive ?? false;
