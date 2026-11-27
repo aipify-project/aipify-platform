@@ -8555,6 +8555,7 @@
       "materialTitle": "Title",
       "materialCategory": "Category",
       "materialAssetPath": "Asset path (must start with /)",
+      "materialUploadPending": "File upload is not active. This field stores the existing Core reference. Unpublished files stay hidden from sellers.",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publish",
       "withdrawCta": "Withdraw",

@@ -37,6 +37,14 @@ export type PersonalSalesLabels = {
   publishedProducts: string;
   registrations: string;
   sales: string;
+  interestTitle: string;
+  interestPending: string;
+  interestPrivacy: string;
+  privacyLink: string;
+  pagePending: string;
+  share: string;
+  seeLeads: string;
+  leadsNote: string;
 };
 
 function text(value: unknown, fallback: string): string {
@@ -92,6 +100,14 @@ const EN: PersonalSalesLabels = {
   publishedProducts: "Published products",
   registrations: "Registrations",
   sales: "Sales",
+  interestTitle: "Be contacted",
+  interestPending: "Interest registration is not active yet. Nothing is stored from this page.",
+  interestPrivacy: "When registration opens, the interest is sent only to the named Aipify seller for follow-up. It is not a sale and it is not marketing consent.",
+  privacyLink: "Privacy",
+  pagePending: "The named landing page is not published for this code yet.",
+  share: "Share",
+  seeLeads: "See my leads",
+  leadsNote: "Leads, customers, sales, and commission stay separate.",
 };
 
 export function parsePersonalSalesLabels(source: unknown): PersonalSalesLabels {
@@ -135,5 +151,13 @@ export function parsePersonalSalesLabels(source: unknown): PersonalSalesLabels {
     publishedProducts: text(row.publishedProducts, EN.publishedProducts),
     registrations: text(row.registrations, EN.registrations),
     sales: text(row.sales, EN.sales),
+    interestTitle: text(row.interestTitle, EN.interestTitle),
+    interestPending: text(row.interestPending, EN.interestPending),
+    interestPrivacy: text(row.interestPrivacy, EN.interestPrivacy),
+    privacyLink: text(row.privacyLink, EN.privacyLink),
+    pagePending: text(row.pagePending, EN.pagePending),
+    share: text(row.share, EN.share),
+    seeLeads: text(row.seeLeads, EN.seeLeads),
+    leadsNote: text(row.leadsNote, EN.leadsNote),
   };
 }

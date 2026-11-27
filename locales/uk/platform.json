@@ -8547,6 +8547,7 @@
       "materialTitle": "Назва",
       "materialCategory": "Категорія",
       "materialAssetPath": "Asset path (must start with /)",
+      "materialUploadPending": "Завантаження файлів не активне. Поле зберігає наявне посилання Core. Неопубліковані файли лишаються прихованими.",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publish",
       "withdrawCta": "Withdraw",

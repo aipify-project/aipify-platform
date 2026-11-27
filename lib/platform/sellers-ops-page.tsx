@@ -82,6 +82,7 @@ function buildOpsLabels(t: (key: string) => string): SellersOpsLabels {
     materialTitle: ops("materialTitle"),
     materialCategory: ops("materialCategory"),
     materialAssetPath: ops("materialAssetPath"),
+    materialUploadPending: ops("materialUploadPending"),
     registerMaterialCta: ops("registerMaterialCta"),
     publishCta: ops("publishCta"),
     withdrawCta: ops("withdrawCta"),

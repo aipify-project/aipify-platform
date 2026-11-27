@@ -8547,6 +8547,7 @@
       "materialTitle": "Titel",
       "materialCategory": "Kategori",
       "materialAssetPath": "Asset path (must start with /)",
+      "materialUploadPending": "Filuppladdning är inte aktiv. Fältet sparar den befintliga Core-referensen. Opublicerade filer visas inte för säljare.",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publicera",
       "withdrawCta": "Dra tillbaka",

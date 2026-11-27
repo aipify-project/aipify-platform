@@ -89,6 +89,7 @@ export type SellersOpsLabels = {
   materialTitle: string;
   materialCategory: string;
   materialAssetPath: string;
+  materialUploadPending: string;
   registerMaterialCta: string;
   publishCta: string;
   withdrawCta: string;
@@ -631,6 +632,8 @@ export function CertifiedSellersOpsPanel({
           <div className="space-y-4">
             <article className="rounded-2xl border border-[color:var(--aipify-border)] bg-white p-5 shadow-sm space-y-3">
               <h2 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{l.registerMaterialTitle}</h2>
+              <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.materialUploadPending}</p>
+              <input type="file" disabled aria-disabled="true" className="text-sm" />
               <div className="grid gap-3 sm:grid-cols-2">
                 <input value={matKey} onChange={(e) => setMatKey(e.target.value)} placeholder={l.materialKey} className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm" />
                 <input value={matTitle} onChange={(e) => setMatTitle(e.target.value)} placeholder={l.materialTitle} className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm" />
