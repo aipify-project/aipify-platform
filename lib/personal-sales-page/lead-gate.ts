@@ -5,7 +5,7 @@
  */
 export const PERSONAL_SALES_LEAD_GATE = "core_pending" as const;
 
-export function personalSalesLeadEnabled(): false {
+export function personalSalesLeadEnabled(): boolean {
   return false;
 }
 

@@ -1093,8 +1093,7 @@
     "mailtoFallback": "Email remains available as an alternative contact channel.",
     "mailtoLabel": "Email support@aipify.ai",
     "verificationRequired": "Complete the security check before submitting."
-  }
-,
+  },
   "personalSalesPage": {
     "metaTitle": "Aipify",
     "metaDescription": "Osobiste wprowadzenie do Aipify. Szczegóły produktu pozostają na opublikowanej stronie Aipify.",
@@ -1147,6 +1146,18 @@
     "pagePending": "Nazwana strona nie jest jeszcze opublikowana dla tego kodu.",
     "share": "Udostępnij",
     "seeLeads": "Zobacz moje leady",
-    "leadsNote": "Leady, klienci, sprzedaż i prowizja pozostają rozdzielone."
+    "leadsNote": "Leady, klienci, sprzedaż i prowizja pozostają rozdzielone.",
+    "interestName": "Imię i nazwisko",
+    "interestEmail": "E-mail",
+    "interestAcknowledgement": "Chcę, aby ten sprzedawca skontaktował się ze mną w sprawie tego produktu.",
+    "interestSaved": "Twoje zainteresowanie zostało zapisane dla sprzedawcy.",
+    "interestDuplicate": "To zainteresowanie jest już zapisane dla sprzedawcy.",
+    "interestErrorEmail": "Podaj prawidłowy adres e-mail.",
+    "interestErrorAcknowledgement": "Potwierdź, że chcesz kontakt od sprzedawcy.",
+    "interestErrorRateLimited": "Poczekaj przed wysłaniem kolejnego zainteresowania.",
+    "interestErrorClosed": "Ta strona nie może teraz zapisać zainteresowania.",
+    "platformInterestTitle": "Zainteresowania ze strony osobistej",
+    "platformInterestBody": "Dane kontaktowe pozostają w tym widoku administracyjnym. Nie są częścią publicznych liczb.",
+    "platformInterestEmpty": "Nie zapisano jeszcze żadnego zainteresowania."
   }
 }

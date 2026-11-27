@@ -8473,8 +8473,7 @@
     "mailtoFallback": "Email remains available as an alternative contact channel.",
     "mailtoLabel": "Email support@aipify.ai",
     "verificationRequired": "Complete the security check before submitting."
-  }
-,
+  },
   "personalSalesPage": {
     "metaTitle": "Aipify",
     "metaDescription": "A personal introduction to Aipify. Product details stay on the published Aipify page.",
@@ -8527,6 +8526,18 @@
     "pagePending": "The named landing page is not published for this code yet.",
     "share": "Share",
     "seeLeads": "See my leads",
-    "leadsNote": "Leads, customers, sales, and commission stay separate."
+    "leadsNote": "Leads, customers, sales, and commission stay separate.",
+    "interestName": "Name",
+    "interestEmail": "Email",
+    "interestAcknowledgement": "I want this seller to contact me about this product.",
+    "interestSaved": "Your interest is stored for the seller.",
+    "interestDuplicate": "This interest is already stored for the seller.",
+    "interestErrorEmail": "Enter a valid email address.",
+    "interestErrorAcknowledgement": "Confirm that you want the seller to contact you.",
+    "interestErrorRateLimited": "Please wait before sending another interest.",
+    "interestErrorClosed": "This page cannot store interest right now.",
+    "platformInterestTitle": "Personal page interests",
+    "platformInterestBody": "Contact details stay in this administration view. They are not part of public counts.",
+    "platformInterestEmpty": "No interest has been stored yet."
   }
 }

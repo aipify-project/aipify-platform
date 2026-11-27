@@ -1,1 +1,15 @@
-{}
+{
+  "growthPartnerOperationsCenter": {
+    "personalPageTitle": "Osobista strona startowa",
+    "personalPageUnavailable": "Niedostępne",
+    "personalPageEmpty": "Nie zapisano jeszcze żadnego zainteresowania.",
+    "personalPageName": "Imię i nazwisko",
+    "personalPageEmail": "E-mail",
+    "personalPageProduct": "Produkt",
+    "personalPageWhen": "Zarejestrowano",
+    "personalPageSource": "Osobista strona startowa",
+    "personalPageStatusNew": "Nowe",
+    "personalPageStatusContacted": "Skontaktowano",
+    "personalPageStatusClosed": "Zamknięte"
+  }
+}

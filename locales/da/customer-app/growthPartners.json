@@ -433,7 +433,18 @@
       "restricted": "Begrænset adgang",
       "verified": "Verificeret",
       "waiting": "Venter"
-    }
+    },
+    "personalPageTitle": "Personlig landingsside",
+    "personalPageUnavailable": "Ikke tilgængelig",
+    "personalPageEmpty": "Ingen interesse er gemt endnu.",
+    "personalPageName": "Navn",
+    "personalPageEmail": "E-mail",
+    "personalPageProduct": "Produkt",
+    "personalPageWhen": "Registreret",
+    "personalPageSource": "Personlig landingsside",
+    "personalPageStatusNew": "Ny",
+    "personalPageStatusContacted": "Kontaktet",
+    "personalPageStatusClosed": "Lukket"
   },
   "growthPartnerAttributionMarketing": {
     "title": "Growth Partner marketingcenter",

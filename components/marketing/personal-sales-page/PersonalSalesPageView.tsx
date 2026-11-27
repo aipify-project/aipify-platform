@@ -3,7 +3,9 @@ import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labe
 import { PUBLIC_FOOTER_ENABLED_LOCALES, type PublicFooterEnabledLocale } from "@/lib/i18n/public-locales";
 import type { PersonalSalesLabels } from "@/lib/personal-sales-page/labels";
 import type { PersonalSalesPublication } from "@/lib/personal-sales-page/contract";
+import { personalSalesLeadEnabled } from "@/lib/personal-sales-page/lead-gate";
 import { personalSalesLocalePath } from "@/lib/personal-sales-page/locale";
+import { PersonalSalesInterestForm } from "./PersonalSalesInterestForm";
 import { SyncSalesLocale } from "./SyncSalesLocale";
 
 export function PersonalSalesPageView({
@@ -34,6 +36,7 @@ export function PersonalSalesPageView({
   const localePaths = Object.fromEntries(
     PUBLIC_FOOTER_ENABLED_LOCALES.map((item) => [item, personalSalesLocalePath(code, item)]),
   ) as Record<PublicFooterEnabledLocale, string>;
+  const interestEnabled = published && personalSalesLeadEnabled();
 
   return (
     <>
@@ -47,7 +50,7 @@ export function PersonalSalesPageView({
         closedNotice={closedNotice}
         localePaths={localePaths}
         followUp={
-          published
+          published && !interestEnabled
             ? {
                 title: labels.interestTitle,
                 pending: labels.interestPending,
@@ -57,6 +60,17 @@ export function PersonalSalesPageView({
             : null
         }
       />
+      {published && interestEnabled ? (
+        <section className="mx-auto w-full max-w-xl px-4 pb-16">
+          <PersonalSalesInterestForm
+            labels={labels}
+            enabled
+            code={code}
+            productKey="kompis_web"
+            locale={locale}
+          />
+        </section>
+      ) : null}
     </>
   );
 }

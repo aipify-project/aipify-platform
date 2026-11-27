@@ -1,1 +1,15 @@
-{}
+{
+  "growthPartnerOperationsCenter": {
+    "personalPageTitle": "Особиста посадкова сторінка",
+    "personalPageUnavailable": "Недоступно",
+    "personalPageEmpty": "Ще не збережено жодного зацікавлення.",
+    "personalPageName": "Ім’я",
+    "personalPageEmail": "Електронна пошта",
+    "personalPageProduct": "Продукт",
+    "personalPageWhen": "Зареєстровано",
+    "personalPageSource": "Особиста посадкова сторінка",
+    "personalPageStatusNew": "Нове",
+    "personalPageStatusContacted": "Зв’язалися",
+    "personalPageStatusClosed": "Закрито"
+  }
+}

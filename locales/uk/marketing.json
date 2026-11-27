@@ -1093,8 +1093,7 @@
     "mailtoFallback": "Email remains available as an alternative contact channel.",
     "mailtoLabel": "Email support@aipify.ai",
     "verificationRequired": "Complete the security check before submitting."
-  }
-,
+  },
   "personalSalesPage": {
     "metaTitle": "Aipify",
     "metaDescription": "Особисте знайомство з Aipify. Деталі продукту залишаються на опублікованій сторінці Aipify.",
@@ -1147,6 +1146,18 @@
     "pagePending": "Іменну сторінку для цього коду ще не опубліковано.",
     "share": "Поділитися",
     "seeLeads": "Мої ліди",
-    "leadsNote": "Ліди, клієнти, продажі та комісія залишаються окремо."
+    "leadsNote": "Ліди, клієнти, продажі та комісія залишаються окремо.",
+    "interestName": "Ім’я",
+    "interestEmail": "Електронна пошта",
+    "interestAcknowledgement": "Я хочу, щоб цей продавець зв’язався зі мною щодо цього продукту.",
+    "interestSaved": "Вашу зацікавленість збережено для продавця.",
+    "interestDuplicate": "Цю зацікавленість уже збережено для продавця.",
+    "interestErrorEmail": "Введіть дійсну адресу електронної пошти.",
+    "interestErrorAcknowledgement": "Підтвердьте, що ви хочете контакт від продавця.",
+    "interestErrorRateLimited": "Зачекайте, перш ніж надсилати нову зацікавленість.",
+    "interestErrorClosed": "Ця сторінка зараз не може зберегти зацікавленість.",
+    "platformInterestTitle": "Зацікавлення з особистої сторінки",
+    "platformInterestBody": "Контактні дані залишаються в цьому адміністративному поданні. Вони не входять до публічних показників.",
+    "platformInterestEmpty": "Ще не збережено жодного зацікавлення."
   }
 }
