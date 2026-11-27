@@ -5,7 +5,6 @@ import {
   CircleAlert,
   Clock3,
   Hourglass,
-  LockKeyhole,
   PauseCircle,
   ShieldCheck,
 } from "lucide-react";
@@ -19,36 +18,22 @@ import type {
   AccountProfileLicense,
   AccountProfileView,
 } from "@/lib/app/account-profile/types";
+import {
+  ACCOUNT_PROFILE_HINT_CLASS,
+  ACCOUNT_PROFILE_LINK_BUTTON_CLASS,
+  ACCOUNT_PROFILE_READONLY_VALUE_CLASS,
+} from "@/lib/app/account-profile/form-styles";
 import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
 import { AccountPersonalEditor } from "./AccountPersonalEditor";
+import {
+  AccountProfileFormCard,
+  AccountProfileFormField,
+} from "./AccountProfileFormCard";
 
 function fieldText(field: AccountProfileField, labels: AccountProfileLabels): string {
   if (field.value) return field.value;
   if (field.source === "unavailable") return labels.unavailable;
   return labels.notRegistered;
-}
-
-function LockedField({
-  label,
-  value,
-  reason,
-}: {
-  label: string;
-  value: string;
-  reason: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 py-3">
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-xs font-medium text-[var(--app-text-muted)]">{label}</p>
-        <span className="inline-flex items-center text-[var(--app-text-muted)]" title={reason}>
-          <LockKeyhole aria-hidden className="h-3.5 w-3.5" />
-          <span className="sr-only">{reason}</span>
-        </span>
-      </div>
-      <p className="mt-1 break-words text-sm font-medium text-[var(--app-text)]">{value}</p>
-    </div>
-  );
 }
 
 function StatusPill({
@@ -65,7 +50,7 @@ function StatusPill({
       ? "border-emerald-200 bg-emerald-50 text-emerald-900"
       : tone === "attention"
         ? "border-amber-200 bg-amber-50 text-amber-900"
-        : "border-[var(--app-border)] bg-[var(--app-canvas)] text-[var(--app-text)]";
+        : "border-gray-200 bg-gray-50 text-gray-800";
   return (
     <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold ${toneClass}`}>
       {icon}
@@ -127,8 +112,9 @@ export function AppCustomerProfilePanel({
   const reference = view.relationship.referenceHidden
     ? labels.referenceHidden
     : fieldText(view.relationship.customerReference, labels);
-  const companyFields = [
-    view.companyName.value ? { label: labels.companyName, value: view.companyName.value } : null,
+
+  const companyRows = [
+    { label: labels.companyName, value: fieldText(view.companyName, labels) },
     {
       label: labels.companyWebsite,
       value: view.companyWebsite.value ?? labels.notRegistered,
@@ -141,7 +127,7 @@ export function AppCustomerProfilePanel({
       label: labels.companyAddress,
       value: view.companyAddress.value ?? labels.notRegistered,
     },
-  ].filter((field): field is { label: string; value: string } => field !== null);
+  ];
 
   const relationshipLinks = [
     { href: view.links.subscription, label: labels.openSubscription },
@@ -159,7 +145,6 @@ export function AppCustomerProfilePanel({
       <section className="flex flex-col gap-4 rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)] sm:flex-row sm:items-center sm:justify-between">
         <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center">
           {view.avatarUrl ? (
-            // Auth metadata avatar may be any https host — avoid next/image remote allowlist coupling.
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={view.avatarUrl}
@@ -185,9 +170,6 @@ export function AppCustomerProfilePanel({
               </p>
             ) : null}
             <p className="mt-1 text-sm text-[var(--app-text-muted)]">{roleLabel}</p>
-            {!view.avatarUrl ? (
-              <p className="mt-2 text-xs text-[var(--app-text-muted)]">{labels.avatarFallback}</p>
-            ) : null}
           </div>
         </div>
         <StatusPill label={license.label} icon={license.icon} tone={license.tone} />
@@ -219,113 +201,116 @@ export function AppCustomerProfilePanel({
         </div>
       </div>
 
-      <div role="tabpanel" id={`account-panel-${activeTab}`} aria-labelledby={`account-tab-${activeTab}`} className="space-y-4">
+      <div
+        role="tabpanel"
+        id={`account-panel-${activeTab}`}
+        aria-labelledby={`account-tab-${activeTab}`}
+      >
         {activeTab === "personal" ? <AccountPersonalEditor view={view} labels={labels} /> : null}
 
         {activeTab === "company" ? (
-          <section className="space-y-3">
-            <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--app-text)]">
-              <Building2 aria-hidden className="h-4 w-4 text-[var(--app-primary)]" />
-              {labels.companyTitle}
-            </h2>
+          <AccountProfileFormCard
+            title={labels.companyTitle}
+            titleIcon={<Building2 aria-hidden className="h-4 w-4 text-[#7C3AED]" />}
+            footer={
+              <Link href={labels.requestChangeHref} className={ACCOUNT_PROFILE_LINK_BUTTON_CLASS}>
+                {labels.requestChange}
+              </Link>
+            }
+          >
+            <p className={ACCOUNT_PROFILE_HINT_CLASS}>{labels.companyOptionalNote}</p>
             {view.companyName.value ? (
-              <>
-                <p className="max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">
-                  {labels.companyOptionalNote}
-                </p>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {companyFields.map((field) => (
-                    <LockedField
-                      key={field.label}
-                      label={field.label}
-                      value={field.value}
-                      reason={labels.readOnlyReason}
-                    />
-                  ))}
-                </div>
-                <p className="max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">
-                  {labels.companyLegalNote}
-                </p>
-                <Link
-                  href={labels.requestChangeHref}
-                  className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] px-4 text-sm font-medium text-[var(--app-primary)]"
-                >
-                  {labels.requestChange}
-                </Link>
-              </>
+              <div className="space-y-4">
+                {companyRows.map((row) => (
+                  <AccountProfileFormField
+                    key={row.label}
+                    label={row.label}
+                    lockReason={labels.companyLegalNote}
+                  >
+                    <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>{row.value}</div>
+                  </AccountProfileFormField>
+                ))}
+                <p className={ACCOUNT_PROFILE_HINT_CLASS}>{labels.companyLegalNote}</p>
+              </div>
             ) : (
-              <div className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5">
-                <p className="text-sm font-semibold text-[var(--app-text)]">{labels.companyEmpty}</p>
-                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--app-text-muted)]">
-                  {labels.companyEmptyBody}
-                </p>
-                <Link
-                  href={labels.requestChangeHref}
-                  className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[var(--app-primary)] px-4 text-sm font-semibold text-white"
-                >
-                  {labels.requestChange}
-                </Link>
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-gray-900">{labels.companyEmpty}</p>
+                <p className={ACCOUNT_PROFILE_HINT_CLASS}>{labels.companyEmptyBody}</p>
               </div>
             )}
-          </section>
+          </AccountProfileFormCard>
         ) : null}
 
         {activeTab === "relationship" ? (
-          <section className="space-y-3">
-            <h2 className="text-sm font-semibold text-[var(--app-text)]">{labels.relationshipTitle}</h2>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <LockedField
-                label={labels.workspace}
-                value={fieldText(view.relationship.workspaceName, labels)}
-                reason={labels.readOnlyReason}
-              />
-              <LockedField
-                label={labels.plan}
-                value={fieldText(view.relationship.planName, labels)}
-                reason={labels.readOnlyReason}
-              />
-              <div className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 py-3">
-                <p className="text-xs font-medium text-[var(--app-text-muted)]">{labels.license}</p>
+          <AccountProfileFormCard title={labels.relationshipTitle}>
+            <div className="space-y-4">
+              <AccountProfileFormField label={labels.workspace} lockReason={labels.readOnlyReason}>
+                <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+                  {fieldText(view.relationship.workspaceName, labels)}
+                </div>
+              </AccountProfileFormField>
+              <AccountProfileFormField label={labels.plan} lockReason={labels.readOnlyReason}>
+                <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+                  {fieldText(view.relationship.planName, labels)}
+                </div>
+              </AccountProfileFormField>
+              <AccountProfileFormField label={labels.license} lockReason={labels.readOnlyReason}>
                 <div className="mt-2">
                   <StatusPill label={license.label} icon={license.icon} tone={license.tone} />
                 </div>
-              </div>
-              <LockedField label={labels.customerReference} value={reference} reason={labels.readOnlyReason} />
-              <LockedField label={labels.registeredAt} value={registeredAt} reason={labels.readOnlyReason} />
-              <LockedField label={labels.updatedAt} value={updatedAt} reason={labels.readOnlyReason} />
-            </div>
-            <div className="grid gap-3 sm:grid-cols-3">
-              {relationshipLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="inline-flex min-h-11 items-center rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 text-sm font-medium text-[var(--app-primary)] transition hover:-translate-y-0.5 hover:border-[var(--app-primary)] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              </AccountProfileFormField>
+              <AccountProfileFormField
+                label={labels.customerReference}
+                lockReason={labels.readOnlyReason}
+              >
+                <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>{reference}</div>
+              </AccountProfileFormField>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <AccountProfileFormField
+                  label={labels.registeredAt}
+                  lockReason={labels.readOnlyReason}
                 >
-                  {link.label}
-                </Link>
-              ))}
+                  <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>{registeredAt}</div>
+                </AccountProfileFormField>
+                <AccountProfileFormField
+                  label={labels.updatedAt}
+                  lockReason={labels.readOnlyReason}
+                >
+                  <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>{updatedAt}</div>
+                </AccountProfileFormField>
+              </div>
+              <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
+                {relationshipLinks.map((link) => (
+                  <Link key={link.href} href={link.href} className={ACCOUNT_PROFILE_LINK_BUTTON_CLASS}>
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </section>
+          </AccountProfileFormCard>
         ) : null}
 
         {activeTab === "security" ? (
-          <section className="space-y-4">
-            <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--app-text)]">
-              <ShieldCheck aria-hidden className="h-4 w-4 text-[var(--app-primary)]" />
-              {labels.securityTitle}
-            </h2>
-            <div className="grid gap-3 sm:grid-cols-3">
+          <AccountProfileFormCard
+            title={labels.securityTitle}
+            titleIcon={<ShieldCheck aria-hidden className="h-4 w-4 text-[#7C3AED]" />}
+          >
+            <div className="space-y-5">
               {securityLinks.map((link) => (
-                <Link
+                <div
                   key={link.href}
-                  href={link.href}
-                  className="inline-flex min-h-11 items-center rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 text-sm font-medium text-[var(--app-primary)] transition hover:-translate-y-0.5 hover:border-[var(--app-primary)] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+                  className="flex flex-col gap-3 border-b border-gray-100 pb-5 last:border-b-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between"
                 >
-                  {link.label}
-                </Link>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-gray-900">{link.label}</p>
+                  </div>
+                  <Link href={link.href} className={ACCOUNT_PROFILE_LINK_BUTTON_CLASS}>
+                    {link.label}
+                  </Link>
+                </div>
               ))}
             </div>
-          </section>
+          </AccountProfileFormCard>
         ) : null}
       </div>
     </div>

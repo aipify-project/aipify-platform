@@ -176,8 +176,10 @@ const panel = fs.readFileSync(
 );
 assert.doesNotMatch(panel, /screenLockStatus/);
 assert.match(panel, /AccountPersonalEditor/);
+assert.match(panel, /AccountProfileFormCard/);
 assert.match(panel, /role="tablist"/);
 assert.doesNotMatch(panel, /localStorage/);
+assert.doesNotMatch(panel, /function LockedField/);
 const editor = fs.readFileSync(
   path.join(ROOT, "components/app/account-profile/AccountPersonalEditor.tsx"),
   "utf8"
@@ -186,6 +188,25 @@ assert.match(editor, /\/api\/app\/account-profile/);
 assert.match(editor, /avatar/);
 assert.match(editor, /phoneCountries|phoneCountry/);
 assert.match(editor, /labels\.cancel/);
+assert.match(editor, /AccountProfileFormCard/);
+assert.match(editor, /AccountPhoneCountryFlag/);
+assert.match(editor, /ACCOUNT_PROFILE_PRIMARY_BUTTON_CLASS/);
+assert.match(editor, /phoneCountryByDial/);
+
+const formStyles = fs.readFileSync(
+  path.join(ROOT, "lib/app/account-profile/form-styles.ts"),
+  "utf8",
+);
+const authLayout = fs.readFileSync(path.join(ROOT, "components/auth/AuthLayout.tsx"), "utf8");
+assert.match(formStyles, /rounded-\[28px\]/);
+assert.match(formStyles, /border-\[rgba\(96,82,176,\.15\)\]/);
+assert.match(authLayout, /rounded-\[28px\]/);
+assert.match(authLayout, /border-\[rgba\(96,82,176,\.15\)\]/);
+const formCard = fs.readFileSync(
+  path.join(ROOT, "components/app/account-profile/AccountProfileFormCard.tsx"),
+  "utf8",
+);
+assert.match(formCard, /ACCOUNT_PROFILE_FORM_CARD_CLASS/);
 
 const companySettings = fs.readFileSync(
   path.join(ROOT, "app/app/settings/company-profile/page.tsx"),
