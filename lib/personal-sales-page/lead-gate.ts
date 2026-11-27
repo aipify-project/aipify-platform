@@ -1,12 +1,12 @@
 /**
- * Public interest registration is closed.
- * No Core function resolves a public seller code into a stored lead
- * without trusting a client-supplied seller id.
+ * Public interest registration is open.
+ * Seller identity still comes only from the public page code resolved in Core.
+ * The browser never supplies a seller id.
  */
-export const PERSONAL_SALES_LEAD_GATE = "core_pending" as const;
+export const PERSONAL_SALES_LEAD_GATE = "live" as const;
 
 export function personalSalesLeadEnabled(): boolean {
-  return false;
+  return true;
 }
 
 /** A lead request must not accept a seller id from the browser. */

@@ -12,7 +12,7 @@ const NO_STORE = { "Cache-Control": "no-store" } as const;
  * Public interest registration.
  * Seller identity comes only from the public page code resolved in Core.
  * The browser never supplies a seller id, and visitors never get table access.
- * The form gate stays OFF until a separate activation YES.
+ * The form gate is ON; Core still resolves the seller from the public code only.
  */
 export async function POST(request: Request) {
   let body: unknown = null;
