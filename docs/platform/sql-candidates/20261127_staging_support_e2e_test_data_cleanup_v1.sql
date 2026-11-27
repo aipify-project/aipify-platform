@@ -115,13 +115,14 @@ where id in (
   'e2e00001-0001-4000-8000-0000000000c0'::uuid
 );
 
-delete from public.customers
+-- organizations.id FK → customers(id). Delete organizations before customers.
+delete from public.organizations
 where id in (
   'e2e00001-0001-4000-8000-0000000000a2',
   'e2e00001-0001-4000-8000-0000000000b2'
 );
 
-delete from public.organizations
+delete from public.customers
 where id in (
   'e2e00001-0001-4000-8000-0000000000a2',
   'e2e00001-0001-4000-8000-0000000000b2'

@@ -247,6 +247,26 @@ set name = excluded.name,
     slug = excluded.slug,
     is_platform = false;
 
+-- organizations.id FK → customers(id). Insert customers first, then organizations.
+insert into public.customers (id, company_id, full_name, updated_at)
+values
+  (
+    'e2e00001-0001-4000-8000-0000000000a2',
+    'e2e00001-0001-4000-8000-0000000000a1',
+    'E2E Customer A [Support E2E]',
+    now()
+  ),
+  (
+    'e2e00001-0001-4000-8000-0000000000b2',
+    'e2e00001-0001-4000-8000-0000000000b1',
+    'E2E Customer B [Support E2E]',
+    now()
+  )
+on conflict (id) do update
+set company_id = excluded.company_id,
+    full_name = excluded.full_name,
+    updated_at = now();
+
 insert into public.organizations (
   id, name, slug, status, subscription_plan, default_language, fallback_language, timezone
 )
@@ -276,25 +296,6 @@ set name = excluded.name,
     slug = excluded.slug,
     status = 'active',
     subscription_plan = 'business';
-
-insert into public.customers (id, company_id, full_name, updated_at)
-values
-  (
-    'e2e00001-0001-4000-8000-0000000000a2',
-    'e2e00001-0001-4000-8000-0000000000a1',
-    'E2E Customer A [Support E2E]',
-    now()
-  ),
-  (
-    'e2e00001-0001-4000-8000-0000000000b2',
-    'e2e00001-0001-4000-8000-0000000000b1',
-    'E2E Customer B [Support E2E]',
-    now()
-  )
-on conflict (id) do update
-set company_id = excluded.company_id,
-    full_name = excluded.full_name,
-    updated_at = now();
 
 -- public.users.id = auth.users.id
 insert into public.users (id, auth_user_id, company_id, full_name, role, created_at)

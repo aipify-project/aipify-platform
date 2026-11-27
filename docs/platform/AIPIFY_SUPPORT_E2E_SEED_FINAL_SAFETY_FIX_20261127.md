@@ -27,11 +27,12 @@
 
 | File | SHA256 |
 |------|--------|
-| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `b0e306861229243e8df8aa1a63bced0529ce3b6b99620137b6188872cd586077` |
-| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql` | `328b768689b0e4417b55058289690fd509af32b477d2d51dfa08583b4aba35f6` |
+| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `6b935509ec18f2fefbcddcdc08d691cce215469c96ab3b6c5b1a7fb005fc71ec` |
+| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql` | `e40489ff794e76d31df0b5743c31fb0d5649c445ee5b06fb89de58a94ed58f36` |
 
 ### Superseded (do not approve)
 
+- `b0e30686…` / `328b7686…` (orgs before customers — Staging FK fail + rolled back)
 - `2b7b7875…` (insert into generated `auth.identities.email` — Staging apply failed + rolled back)
 - `0d99efba…` / `f862b329…` (had invalid `p` UUIDs, password material, fake audit stub)
 - `7886fb84…` / `f46752db…` (seller reactivation)
@@ -55,11 +56,11 @@ Browser password login is **out of scope** for this seed (no passwords stored). 
 Seed:
 
 ```
-JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 b0e306861229243e8df8aa1a63bced0529ce3b6b99620137b6188872cd586077 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 6b935509ec18f2fefbcddcdc08d691cce215469c96ab3b6c5b1a7fb005fc71ec on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
 ```
 
 Cleanup (after E2E):
 
 ```
-JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql SHA256 328b768689b0e4417b55058289690fd509af32b477d2d51dfa08583b4aba35f6 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql SHA256 e40489ff794e76d31df0b5743c31fb0d5649c445ee5b06fb89de58a94ed58f36 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
 ```

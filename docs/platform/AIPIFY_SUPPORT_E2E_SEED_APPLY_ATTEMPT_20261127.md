@@ -4,38 +4,52 @@
 |-------|--------|
 | Date | 2026-11-27 |
 | Staging | `auedugihkduoaikfusqe` |
-| Approved SHA (attempted) | `2b7b7875ef1b1821bb9d06e0ee620a9c006e9e736455b4c200e4385096964c3a` |
-| Result | **`STAGING_SEED_APPLY_FAILED_ROLLED_BACK`** |
 | Production | untouched |
 | Email | none |
 
-## What happened
+## Attempt 1 — SHA `2b7b7875…`
 
-1. SHA of file matched owner YES.
-2. `execute_sql` on Staging failed:
+**Result:** `STAGING_SEED_APPLY_FAILED_ROLLED_BACK`
 
 ```text
 ERROR: 428C9: cannot insert a non-DEFAULT value into column "email"
 DETAIL: Column "email" is a generated column.
 ```
 
-Cause: Staging `auth.identities.email` is `GENERATED ALWAYS AS (lower(identity_data->>'email'))`.
+Fix: omit generated `auth.identities.email`.
 
-3. Transaction rolled back. Verification counts for all `e2e00001-%` rows = **0**.
+## Attempt 2 — SHA `b0e30686…` (owner YES)
 
-## Fix (not applied)
+**Result:** `STAGING_SEED_APPLY_FAILED_ROLLED_BACK` (all `e2e00001-%` counts = 0)
 
-Seed updated: omit `email` from `auth.identities` insert/update. New seed SHA requires a new YES.
+```text
+ERROR: 23503: insert or update on table "organizations" violates foreign key constraint "organizations_id_fkey"
+DETAIL: Key (id)=(e2e00001-0001-4000-8000-0000000000a2) is not present in table "customers".
+```
 
-| File | New SHA256 |
-|------|------------|
-| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `b0e306861229243e8df8aa1a63bced0529ce3b6b99620137b6188872cd586077` |
-| cleanup (unchanged) | `328b768689b0e4417b55058289690fd509af32b477d2d51dfa08583b4aba35f6` |
+Staging: `organizations.id` → `customers(id) ON DELETE CASCADE`. Seed inserted orgs before customers.
+
+## Fix (not applied) — awaiting new YES
+
+- Seed: customers before organizations
+- Cleanup: organizations before customers
+- New SHAs below
+
+| File | SHA256 |
+|------|--------|
+| seed | `6b935509ec18f2fefbcddcdc08d691cce215469c96ab3b6c5b1a7fb005fc71ec` |
+| cleanup | `e40489ff794e76d31df0b5743c31fb0d5649c445ee5b06fb89de58a94ed58f36` |
 
 **Status:** `SEED_FIXED_AWAITING_NEW_YES`
 
 ## Exact Staging YES (re-apply)
 
 ```
-JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 b0e306861229243e8df8aa1a63bced0529ce3b6b99620137b6188872cd586077 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 6b935509ec18f2fefbcddcdc08d691cce215469c96ab3b6c5b1a7fb005fc71ec on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
+```
+
+Cleanup after E2E:
+
+```
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql SHA256 e40489ff794e76d31df0b5743c31fb0d5649c445ee5b06fb89de58a94ed58f36 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
 ```

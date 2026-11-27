@@ -70,8 +70,8 @@ Schema-only notes strip / message filter: **PASS** (static function def).
 
 | File | SHA256 |
 |------|--------|
-| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `b0e306861229243e8df8aa1a63bced0529ce3b6b99620137b6188872cd586077` |
-| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql` | `328b768689b0e4417b55058289690fd509af32b477d2d51dfa08583b4aba35f6` |
+| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `6b935509ec18f2fefbcddcdc08d691cce215469c96ab3b6c5b1a7fb005fc71ec` |
+| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql` | `e40489ff794e76d31df0b5743c31fb0d5649c445ee5b06fb89de58a94ed58f36` |
 
 See `AIPIFY_SUPPORT_E2E_SEED_FINAL_SAFETY_FIX_20261127.md` and apply attempt `AIPIFY_SUPPORT_E2E_SEED_APPLY_ATTEMPT_20261127.md`.
 
@@ -80,13 +80,13 @@ See `AIPIFY_SUPPORT_E2E_SEED_FINAL_SAFETY_FIX_20261127.md` and apply attempt `AI
 ## 5. Exact approval line (seed)
 
 ```
-JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 b0e306861229243e8df8aa1a63bced0529ce3b6b99620137b6188872cd586077 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 6b935509ec18f2fefbcddcdc08d691cce215469c96ab3b6c5b1a7fb005fc71ec on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
 ```
 
 Cleanup after E2E:
 
 ```
-JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql SHA256 328b768689b0e4417b55058289690fd509af32b477d2d51dfa08583b4aba35f6 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql SHA256 e40489ff794e76d31df0b5743c31fb0d5649c445ee5b06fb89de58a94ed58f36 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
 ```
 
 ---
