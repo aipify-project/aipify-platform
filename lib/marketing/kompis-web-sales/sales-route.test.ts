@@ -51,5 +51,8 @@ assert.equal(contactRule?.destination, "/contact/support");
 assert.equal(contactRule?.permanent, true);
 assert.equal(labels.hrefs.contact, "/contact/support");
 assert.equal(labels.hrefs.becomeSeller, "/certified-sales-partner#apply");
+assert.equal(labels.growthPartners.cta, "Become a seller");
+assert.equal(labels.growthPartners.learnMore, "Learn about Growth Partners");
+assert.notEqual(labels.growthPartners.cta, labels.growthPartners.learnMore);
 
 console.log("kompis-web-sales sales-route metadata: PASS");
