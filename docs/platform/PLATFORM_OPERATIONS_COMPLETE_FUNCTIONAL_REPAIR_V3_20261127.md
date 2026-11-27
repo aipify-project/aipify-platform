@@ -6,6 +6,8 @@ Platform Dashboard + Drift hubs: Oversikt, Plattformstatus, Installasjoner, Hend
 
 Branch: `fix/platform-ops-functional-repair-v3-20261127`  
 Base: `origin/main` @ `2f257ffa8`  
+Merged: PR [#415](https://github.com/aipify-project/aipify-platform/pull/415) → `17e307006`  
+Production: READY `dpl_Gk8XfShBhwtV9BfdcqFrLVHtKEYm` (alias `app.aipify.ai`)  
 No SQL applied in this job.
 
 ## Root causes vs hypotheses

@@ -47,6 +47,7 @@ type PlatformUpdatesPanelProps = {
     sourceUnavailableTitle?: string;
     sourceUnavailableBody?: string;
     loadError?: string;
+    retry?: string;
   };
 };
 
@@ -71,11 +72,13 @@ export default function PlatformUpdatesPanel({
 }: PlatformUpdatesPanelProps) {
   const [rows, setRows] = useState<UpdateRow[]>([]);
   const [state, setState] = useState<LoadState>("loading");
+  const [reloadToken, setReloadToken] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
 
     async function load() {
+      setState("loading");
       const supabase = createClient();
       const { data, error } = await supabase.rpc("list_platform_updates");
       if (cancelled) return;
@@ -95,7 +98,9 @@ export default function PlatformUpdatesPanel({
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [reloadToken]);
+
+  const retryLabel = labels.retry ?? "Try again";
 
   if (state === "loading") {
     return <p className="text-sm text-gray-500">{labels.loading}</p>;
@@ -115,6 +120,13 @@ export default function PlatformUpdatesPanel({
         <p className="mt-2 text-sm text-amber-900/90 dark:text-amber-100/90">
           {labels.sourceUnavailableBody ?? labels.loadError ?? labels.empty}
         </p>
+        <button
+          type="button"
+          className="mt-4 inline-flex items-center rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-sm font-medium text-amber-950 hover:bg-amber-100 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-50"
+          onClick={() => setReloadToken((token) => token + 1)}
+        >
+          {retryLabel}
+        </button>
       </div>
     );
   }
@@ -128,6 +140,13 @@ export default function PlatformUpdatesPanel({
         <p className="text-sm font-medium text-rose-950 dark:text-rose-50">
           {labels.loadError ?? labels.empty}
         </p>
+        <button
+          type="button"
+          className="mt-4 inline-flex items-center rounded-lg border border-rose-300 bg-white px-3 py-1.5 text-sm font-medium text-rose-950 hover:bg-rose-100 dark:border-rose-700 dark:bg-rose-950 dark:text-rose-50"
+          onClick={() => setReloadToken((token) => token + 1)}
+        >
+          {retryLabel}
+        </button>
       </div>
     );
   }

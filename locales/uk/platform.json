@@ -8547,10 +8547,11 @@
       "openHealth": "Відкрити статус платформи",
       "openVerification": "Відкрити перевірку сайту",
       "scopeNote": "Source: platform updates feed when available. Website verification has its own controls.",
-      "rpcMissingTitle": "Update history RPC is not available in this environment",
-      "rpcMissingBody": "list_platform_updates is not installed on the connected Core database. Empty history is not proof that no publishes occurred.",
-      "empty": "No platform updates recorded yet.",
-      "loadError": "Could not load publishing history."
+      "rpcMissingTitle": "Історія оновлень недоступна в цьому середовищі",
+      "rpcMissingBody": "Функцію читання історії оновлень платформи ще не встановлено в підключеній базі Core. Порожня історія не доводить відсутність публікацій. Перевірка сайту доступна окремо.",
+      "empty": "Оновлень платформи ще не зареєстровано.",
+      "loadError": "Не вдалося завантажити історію публікацій.",
+      "retry": "Спробувати знову"
     }
   },
   "supportCenter": {

@@ -8021,10 +8021,11 @@
       "openHealth": "Åbn platformstatus",
       "openVerification": "Åbn webstedverificering",
       "scopeNote": "Source: platform updates feed when available. Website verification has its own controls.",
-      "rpcMissingTitle": "Update history RPC is not available in this environment",
-      "rpcMissingBody": "list_platform_updates is not installed on the connected Core database. Empty history is not proof that no publishes occurred.",
-      "empty": "No platform updates recorded yet.",
-      "loadError": "Could not load publishing history."
+      "rpcMissingTitle": "Opdateringshistorik er ikke tilgængelig i dette miljø",
+      "rpcMissingBody": "Læsefunktionen for platformens opdateringshistorik er ikke installeret på den tilsluttede Core-database endnu. Tom historik beviser ikke, at der ikke er sket publiceringer. Webstedsverifikation er stadig tilgængelig separat.",
+      "empty": "Ingen platformopdateringer registreret endnu.",
+      "loadError": "Kunne ikke indlæse publiceringshistorik.",
+      "retry": "Prøv igen"
     }
   },
   "supportCenter": {

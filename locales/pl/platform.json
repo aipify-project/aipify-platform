@@ -8547,10 +8547,11 @@
       "openHealth": "Otwórz status platformy",
       "openVerification": "Otwórz weryfikację witryny",
       "scopeNote": "Source: platform updates feed when available. Website verification has its own controls.",
-      "rpcMissingTitle": "Update history RPC is not available in this environment",
-      "rpcMissingBody": "list_platform_updates is not installed on the connected Core database. Empty history is not proof that no publishes occurred.",
-      "empty": "No platform updates recorded yet.",
-      "loadError": "Could not load publishing history."
+      "rpcMissingTitle": "Historia aktualizacji jest niedostępna w tym środowisku",
+      "rpcMissingBody": "Funkcja odczytu historii aktualizacji platformy nie jest jeszcze zainstalowana w podłączonej bazie Core. Pusta historia nie dowodzi braku publikacji. Weryfikacja witryny pozostaje dostępna osobno.",
+      "empty": "Brak zarejestrowanych aktualizacji platformy.",
+      "loadError": "Nie udało się wczytać historii publikacji.",
+      "retry": "Spróbuj ponownie"
     }
   },
   "supportCenter": {
