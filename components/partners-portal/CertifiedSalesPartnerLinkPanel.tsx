@@ -79,10 +79,21 @@ export function CertifiedSalesPartnerLinkPanel({
   labels,
   locale,
   guide,
+  attribution = null,
 }: {
   labels: CspLinkLabels;
   locale: string;
   guide?: SalesHeroModel;
+  attribution?: {
+    title: string;
+    body: string;
+    recordedTitle: string;
+    recordedBody: string;
+    visitsNote: string;
+    flowTitle: string;
+    flowBody: string;
+    channels: { id: string; title: string; body: string }[];
+  } | null;
 }) {
   const portal = useCspPortal();
   const { state: linksState, reload: reloadLinks } = useCspSalesLinks(portal !== null);
@@ -201,6 +212,25 @@ export function CertifiedSalesPartnerLinkPanel({
   return (
     <div className="w-full space-y-6">
       {guide ? <SalesExperienceHero hero={guide} /> : null}
+      {attribution ? (
+        <section className="rounded-2xl border border-[#E8E4F2] bg-white p-5">
+          <h2 className="text-xl font-semibold text-[#1E293B]">{attribution.title}</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[#475569]">{attribution.body}</p>
+          <ul className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {attribution.channels.map((channel) => (
+              <li key={channel.id} className="rounded-xl bg-[#F6F4FB] p-4">
+                <p className="text-sm font-semibold text-[#1E293B]">{channel.title}</p>
+                <p className="mt-1 text-sm leading-relaxed text-[#475569]">{channel.body}</p>
+              </li>
+            ))}
+          </ul>
+          <h3 className="mt-5 text-base font-semibold text-[#1E293B]">{attribution.recordedTitle}</h3>
+          <p className="mt-1 text-sm leading-relaxed text-[#475569]">{attribution.recordedBody}</p>
+          <p className="mt-2 text-sm leading-relaxed text-[#64748B]">{attribution.visitsNote}</p>
+          <h3 className="mt-5 text-base font-semibold text-[#1E293B]">{attribution.flowTitle}</h3>
+          <p className="mt-1 text-sm leading-relaxed text-[#475569]">{attribution.flowBody}</p>
+        </section>
+      ) : null}
       <section className="rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-6 shadow-sm">
         <h2 className="text-lg font-semibold">{labels.existingTitle}</h2>
         {linksState.phase === "unavailable" ? (

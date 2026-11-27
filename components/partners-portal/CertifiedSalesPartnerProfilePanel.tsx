@@ -142,7 +142,7 @@ export function CertifiedSalesPartnerProfilePanel({
   }
 
   return (
-    <div className="space-y-5">
+    <div className="mx-auto w-full max-w-[680px] space-y-5">
       <AipifyPageHeader title={labels.headerTitle} description={labels.headerSubtitle} />
 
       <AipifyTabs

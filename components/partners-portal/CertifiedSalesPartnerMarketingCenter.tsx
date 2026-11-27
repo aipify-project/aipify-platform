@@ -72,6 +72,7 @@ export function CertifiedSalesPartnerMarketingCenter({
   const [marketingLocale, setMarketingLocale] = useState<Locale>(isCspShareLocale(locale) ? locale : "en");
   const [tab, setTab] = useState<CenterTab>("texts");
   const [section, setSection] = useState<"center" | "library">("center");
+  const [workspace, setWorkspace] = useState<"process" | "conversations" | "materials" | "sharing">("process");
   const [platforms, setPlatforms] = useState<CspSocialPlatform[]>([]);
   const [copyId, setCopyId] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -81,7 +82,9 @@ export function CertifiedSalesPartnerMarketingCenter({
   useEffect(() => {
     setOrigin(window.location.origin);
     const query = new URLSearchParams(window.location.search);
-    setSection(query.get("section") === "library" ? "library" : "center");
+    const library = query.get("section") === "library";
+    setSection(library ? "library" : "center");
+    if (library) setWorkspace("materials");
   }, []);
 
   function chooseSection(next: "center" | "library") {
@@ -253,17 +256,59 @@ export function CertifiedSalesPartnerMarketingCenter({
       {experience ? (
         <>
           <SalesExperienceHero hero={experience.hero} />
-          <SalesGuidanceStepper
-            label={experience.stepsLabel}
-            steps={experience.steps}
-            whyLabel={experience.whyLabel}
-            sayLabel={experience.sayLabel}
-            exampleLabel={experience.exampleLabel}
-            notice={experience.notice}
-          />
+          <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1" role="tablist" aria-label={experience.tabsLabel}>
+            {(
+              [
+                ["process", experience.tabs.process],
+                ["conversations", experience.tabs.conversations],
+                ["materials", experience.tabs.materials],
+                ["sharing", experience.tabs.sharing],
+              ] as const
+            ).map(([id, label]) => (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                aria-selected={workspace === id}
+                onClick={() => setWorkspace(id)}
+                className={`inline-flex min-h-11 shrink-0 items-center rounded-xl px-3 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DDD6FE] ${
+                  workspace === id ? "bg-[#7C3AED] text-white" : "border border-[#E8E4F2] bg-white text-[#1E293B]"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          {workspace === "process" ? (
+            <SalesGuidanceStepper
+              label={experience.stepsLabel}
+              steps={experience.steps}
+              whyLabel={experience.whyLabel}
+              sayLabel={experience.sayLabel}
+              exampleLabel={experience.exampleLabel}
+              notice={experience.notice}
+              avoidLabel={experience.avoidLabel}
+              avoid={experience.avoid}
+            />
+          ) : null}
+          {workspace === "sharing" ? (
+            <section className="rounded-2xl border border-[#E8E4F2] bg-white p-5">
+              <h2 className="text-xl font-semibold text-[#1E293B]">{experience.sharingTitle}</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[#64748B]">{experience.sharingBody}</p>
+              <ul className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                {experience.channels.map((channel) => (
+                  <li key={channel.id} className="rounded-xl bg-[#F6F4FB] p-4">
+                    <p className="text-sm font-semibold text-[#1E293B]">{channel.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-[#475569]">{channel.body}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+          {workspace === "conversations" ? (
           <section aria-labelledby="csp-help-categories" className="space-y-3">
             <h2 id="csp-help-categories" className="text-xl font-semibold text-[#1E293B]">
-              {experience.categoriesTitle}
+              {experience.tabs.conversations}
             </h2>
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {experience.categories.map((category) => {
@@ -296,8 +341,11 @@ export function CertifiedSalesPartnerMarketingCenter({
               })}
             </div>
           </section>
+          ) : null}
         </>
       ) : null}
+      {(!experience || workspace === "materials") ? (
+      <>
       {experience ? (
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-lg font-semibold text-[#1E293B]">{labels.centerTitle}</h2>
@@ -684,6 +732,8 @@ export function CertifiedSalesPartnerMarketingCenter({
           ) : null}
         </>
       )}
+      </>
+      ) : null}
 
       {notice ? (
         <p className="text-sm font-medium text-[#5538D3]" role="status">
