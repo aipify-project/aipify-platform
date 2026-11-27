@@ -1,13 +1,13 @@
 -- PREPARED_ONLY — apply after E2E to reverse seed.
 -- Package: AIPIFY_SUPPORT_STAGING_AUTHENTICATED_E2E_V1
 -- Target: Staging Core auedugihkduoaikfusqe ONLY
--- Deletes only E2E-tagged rows / fixed UUIDs from the seed package.
--- Restores partner profile 629343fb… to terminated.
--- Leaves _mta_create_audit_log stub in place unless explicitly dropped below.
+-- Deletes ONLY e2e00001-… synthetic rows created by the seed.
+-- Does NOT update/restore any pre-existing CSP seller profiles.
+-- Does NOT delete non-E2E companies, orgs, customers, or auth users.
 
 begin;
 
--- Support artefacts created during E2E (by company / partner / creator)
+-- Support artefacts scoped to E2E companies / synthetic creators / E2E partner
 delete from public.app_portal_support_request_messages m
 using public.app_portal_support_requests r
 where m.request_id = r.id
@@ -17,14 +17,12 @@ where m.request_id = r.id
       'e2e00001-0001-4000-8000-0000000000a1',
       'e2e00001-0001-4000-8000-0000000000b1'
     )
-    or r.partner_id in (
-      select p.id from public.csp_partner_profiles p
-      where p.auth_user_id = '629343fb-8774-4b81-a7f2-f61d97a82a8b'::uuid
-    )
+    or r.partner_id = 'e2e00001-0001-4000-8000-0000000000p1'
     or r.created_by in (
-      '1735d241-630f-4499-a89a-47e72852f766'::uuid,
-      '16649acd-2e18-49b8-965d-1cb10c54f6a3'::uuid,
-      '629343fb-8774-4b81-a7f2-f61d97a82a8b'::uuid
+      'e2e00001-0001-4000-8000-0000000000a0'::uuid,
+      'e2e00001-0001-4000-8000-0000000000b0'::uuid,
+      'e2e00001-0001-4000-8000-0000000000p0'::uuid,
+      'e2e00001-0001-4000-8000-0000000000f0'::uuid
     )
   );
 
@@ -64,7 +62,8 @@ where i.ticket_id in (
     'e2e00001-0001-4000-8000-0000000000a1',
     'e2e00001-0001-4000-8000-0000000000b1'
   )
-);
+)
+or i.actor_key = 'e2e00001-0001-4000-8000-0000000000p1';
 
 delete from public.app_portal_support_request_audit_logs l
 using public.app_portal_support_requests r
@@ -80,30 +79,39 @@ where company_id in (
   'e2e00001-0001-4000-8000-000000000001',
   'e2e00001-0001-4000-8000-0000000000a1',
   'e2e00001-0001-4000-8000-0000000000b1'
-);
+)
+or partner_id = 'e2e00001-0001-4000-8000-0000000000p1';
 
 delete from public.organization_user_context
 where user_id in (
-  '1735d241-630f-4499-a89a-47e72852f766'::uuid,
-  '16649acd-2e18-49b8-965d-1cb10c54f6a3'::uuid
+  'e2e00001-0001-4000-8000-0000000000a0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000b0'::uuid
 );
 
 delete from public.organization_users
 where organization_id in (
   'e2e00001-0001-4000-8000-0000000000a2',
   'e2e00001-0001-4000-8000-0000000000b2'
+)
+or user_id in (
+  'e2e00001-0001-4000-8000-0000000000a0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000b0'::uuid
 );
+
+delete from public.csp_partner_profiles
+where id = 'e2e00001-0001-4000-8000-0000000000p1'
+   or auth_user_id = 'e2e00001-0001-4000-8000-0000000000p0'::uuid;
 
 delete from public.platform_admins
 where id = 'e2e00001-0001-4000-8000-0000000000f1'
-   or auth_user_id = '453c883f-4e76-41cf-a92f-959e89414c0e'::uuid;
+   or auth_user_id = 'e2e00001-0001-4000-8000-0000000000f0'::uuid;
 
 delete from public.users
 where id in (
-  '1735d241-630f-4499-a89a-47e72852f766'::uuid,
-  '16649acd-2e18-49b8-965d-1cb10c54f6a3'::uuid,
-  '453c883f-4e76-41cf-a92f-959e89414c0e'::uuid,
-  '629343fb-8774-4b81-a7f2-f61d97a82a8b'::uuid
+  'e2e00001-0001-4000-8000-0000000000a0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000b0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000f0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000p0'::uuid
 );
 
 delete from public.customers
@@ -125,13 +133,35 @@ where id in (
   'e2e00001-0001-4000-8000-0000000000b1'
 );
 
-update public.csp_partner_profiles
-set status = 'terminated',
-    display_name = 'V6 Fixture NoCert [v6 cleaned]',
-    updated_at = now()
-where auth_user_id = '629343fb-8774-4b81-a7f2-f61d97a82a8b'::uuid;
+delete from auth.identities
+where id in (
+  'e2e00001-0001-4000-8000-0000000000a9'::uuid,
+  'e2e00001-0001-4000-8000-0000000000b9'::uuid,
+  'e2e00001-0001-4000-8000-0000000000f9'::uuid,
+  'e2e00001-0001-4000-8000-0000000000p9'::uuid
+)
+or user_id in (
+  'e2e00001-0001-4000-8000-0000000000a0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000b0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000f0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000p0'::uuid
+);
 
--- Optional: remove E2E audit stub (commented — leave if other Staging work needs it)
+delete from auth.users
+where id in (
+  'e2e00001-0001-4000-8000-0000000000a0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000b0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000f0'::uuid,
+  'e2e00001-0001-4000-8000-0000000000p0'::uuid
+)
+or email in (
+  'e2e-support-app-a@example.com',
+  'e2e-support-app-b@example.com',
+  'e2e-support-platform@example.com',
+  'e2e-support-partner@example.com'
+);
+
+-- Optional: drop E2E audit stub (left by default for Staging switch tests)
 -- drop function if exists public._mta_create_audit_log(uuid, text, text, uuid);
 
 commit;

@@ -70,27 +70,19 @@ Schema-only notes strip / message filter: **PASS** (static function def).
 
 | File | SHA256 |
 |------|--------|
-| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `7886fb84798f649015935fb57f4f7deb97bf3d89acfc98cfa54fae147b3ced1d` |
-| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql` | `f46752db514a2adbe674946a71bd49b28ebf9422bcfafff8a1ede8f834c1829e` |
+| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `0d99efbad88c523158cd71f24164826e33ba3db14b568de3b71e5ff3ddcf3786` |
+| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql` | `f862b32929c275c36a930bb31644d3eb1d0f1b28d25c114c3ae5ef3b9d429250` |
 
-Seed provides:
+**Supersedes** rejected SHAs `7886fb84…` / `f46752db…` (those reactivated an existing seller).
 
-- Platform company (`is_platform=true`) for partner intake
-- Customer companies A/B + org/customer pairs (`customers.id = organizations.id`)
-- `public.users` for APP A/B, Platform, Partner (`id = auth_user_id`)
-- Memberships + org context for A/B
-- `platform_admins` row (`platform_support`)
-- Temporary `approved` partner profile for auth `629343fb-…` (cleanup restores `terminated`)
-- No-op `_mta_create_audit_log` stub
-
-Reuses existing Staging `auth.users` only — no new Auth accounts, no email, no Production.
+Revised seed: fully synthetic `auth.users` + new approved partner only — see `AIPIFY_SUPPORT_STAGING_E2E_SEED_FINAL_PREFLIGHT_20261127.md`.
 
 ---
 
 ## 5. Exact approval line (seed)
 
 ```
-JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 7886fb84798f649015935fb57f4f7deb97bf3d89acfc98cfa54fae147b3ced1d on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383. Cleanup required after E2E via 20261127_staging_support_e2e_test_data_cleanup_v1.sql SHA256 f46752db514a2adbe674946a71bd49b28ebf9422bcfafff8a1ede8f834c1829e.
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 0d99efbad88c523158cd71f24164826e33ba3db14b568de3b71e5ff3ddcf3786 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383. Cleanup required after E2E via 20261127_staging_support_e2e_test_data_cleanup_v1.sql SHA256 f862b32929c275c36a930bb31644d3eb1d0f1b28d25c114c3ae5ef3b9d429250.
 ```
 
 After seed YES + apply: re-run authenticated matrix (APP↔Platform, Partner↔Platform, isolation, notes, idempotency, optional browser 375/768/1440), then cleanup YES.
@@ -99,4 +91,4 @@ After seed YES + apply: re-run authenticated matrix (APP↔Platform, Partner↔P
 
 ## 6. Status
 
-**`STAGING_TEST_DATA_APPROVAL_REQUIRED`**
+**`SEED_AND_CLEANUP_VERIFIED_READY_FOR_EXACT_YES`** (final preflight; SQL not applied)
