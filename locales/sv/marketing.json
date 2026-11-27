@@ -8578,7 +8578,7 @@
     },
     "pricing": {
       "title": "Börja gratis. Uppgradera när du behöver fler svar.",
-      "subtitle": "Ägarbeslutade Kompis Web-paket. Gratis startar utan kort. Betald Standard är den planerade uppgraderingen som visas här.",
+      "subtitle": "Ägarbestämda Kompis Web-paket. Gratis startar utan kort. Standard och Pro är planerade betalda uppgraderingar — kassan är inte live ännu.",
       "plannedNote": "Paketen följer Kompis Web-katalogen. Live köpkassa är inte aktiv ännu — starta gratis för att fortsätta.",
       "free": {
         "badge": "Bästa starten",
@@ -8611,7 +8611,23 @@
         "priceNote": "Angivet planerat pris · checkout är inte live ännu"
       },
       "asideTitle": "Enkla paket för webbplatsägare",
-      "asideBody": "Börja med en gratis livstidskvot. Gå till Standard när sajten behöver månatlig kapacitet — kassan aktiveras i en senare betalningsgrind."
+      "asideBody": "Börja med en gratis livstidskvot för svar. Gå till Standard eller Pro när webbplatsen behöver månadskapacitet — kassan öppnas i en senare faktureringsport.",
+      "pro": {
+        "name": "Pro",
+        "tagline": "För webbplatser med hög trafik",
+        "quota": "{quota} svar per månad",
+        "quotaUnit": "svar varje månad",
+        "priceMonthly": "{currency} {amount} / månad",
+        "priceAnnual": "{currency} {amount} / år",
+        "priceNote": "Listat planerat pris · kassan är inte live ännu",
+        "features": [
+          "10 000 förnyande svar per månad per webbplatsslicens",
+          "Samma Kompis Web-produkt — högsta listade månadskapacitet",
+          "Aktiveras efter verifierad betalning när kassan öppnas"
+        ],
+        "cta": "Starta gratis",
+        "checkoutUnavailable": "Betald kassa är inte live ännu. Starta gratis för att fortsätta, uppgradera när Pro-kassan öppnas."
+      }
     },
     "faq": {
       "title": "Frågor webbplatsägare ställer",

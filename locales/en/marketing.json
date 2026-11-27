@@ -8174,7 +8174,7 @@
     },
     "pricing": {
       "title": "Start free. Upgrade when you need more answers.",
-      "subtitle": "Owner-decided Kompis Web packages. Free starts without a card. Paid Standard is the planned upgrade path shown here.",
+      "subtitle": "Owner-decided Kompis Web packages. Free starts without a card. Standard and Pro are planned paid upgrade paths — checkout is not live yet.",
       "plannedNote": "These packages follow the Kompis Web catalog. Live purchase checkout is not enabled yet — start free to continue.",
       "free": {
         "badge": "Best place to start",
@@ -8207,7 +8207,23 @@
         "priceNote": "Listed planned price · checkout not live yet"
       },
       "asideTitle": "Simple packages for website owners",
-      "asideBody": "Begin with a free lifetime answer allowance. Move to Standard when your site needs monthly capacity — checkout goes live in a later billing gate."
+      "asideBody": "Begin with a free lifetime answer allowance. Move to Standard or Pro when your site needs monthly capacity — checkout goes live in a later billing gate.",
+      "pro": {
+        "name": "Pro",
+        "tagline": "For high-traffic websites",
+        "quota": "{quota} answers per month",
+        "quotaUnit": "answers every month",
+        "priceMonthly": "{currency} {amount} / month",
+        "priceAnnual": "{currency} {amount} / year",
+        "priceNote": "Listed planned price · checkout not live yet",
+        "features": [
+          "10,000 renewing answers per month per website license",
+          "Same Kompis Web product — highest listed monthly capacity",
+          "Activated after verified payment when checkout opens"
+        ],
+        "cta": "Start free",
+        "checkoutUnavailable": "Paid checkout is not live yet. Start free to continue, then upgrade when Pro checkout opens."
+      }
     },
     "faq": {
       "title": "Questions website owners ask",

@@ -4,7 +4,7 @@ import {
 } from "@/lib/website-kompis-plans/catalog";
 import type { WebsiteKompisPlanDefinition } from "@/lib/website-kompis-plans/types";
 
-/** Public sales page shows Free + Standard. Pro remains catalog-backed for honesty notes. */
+/** Public sales page shows Free + Standard + Pro from the owner-decided catalog. */
 export const KOMPIS_WEB_SALES_PAID_PLAN_ID = "standard" as const;
 export const KOMPIS_WEB_SALES_PRO_PLAN_ID = "pro" as const;
 
@@ -17,6 +17,8 @@ export type KompisWebSalesPlanTruth = {
   proAnswerQuota: number;
   paidMonthlyDisplay: string;
   paidAnnualDisplay: string;
+  proMonthlyDisplay: string;
+  proAnnualDisplay: string;
   paidCurrency: "NOK";
   freeRequiresCard: false;
   checkoutEnabled: false;
@@ -33,6 +35,9 @@ export function getKompisWebSalesPlanTruth(): KompisWebSalesPlanTruth {
   }
   if (!paid.monthlyPrice || !paid.annualPrice) {
     throw new Error("Kompis Web sales paid plan missing list prices");
+  }
+  if (!pro.monthlyPrice || !pro.annualPrice) {
+    throw new Error("Kompis Web sales Pro plan missing list prices");
   }
   if (pro.answerQuota !== 10000) {
     throw new Error("Kompis Web sales Pro quota contract drift");
@@ -54,6 +59,8 @@ export function getKompisWebSalesPlanTruth(): KompisWebSalesPlanTruth {
     proAnswerQuota: pro.answerQuota,
     paidMonthlyDisplay: paid.monthlyPrice.amountDisplay,
     paidAnnualDisplay: paid.annualPrice.amountDisplay,
+    proMonthlyDisplay: pro.monthlyPrice.amountDisplay,
+    proAnnualDisplay: pro.annualPrice.amountDisplay,
     paidCurrency: "NOK",
     freeRequiresCard: false,
     checkoutEnabled: false,
@@ -63,7 +70,11 @@ export function getKompisWebSalesPlanTruth(): KompisWebSalesPlanTruth {
 
 export function assertSalesPlansStayInCatalog(): void {
   const ids = WEBSITE_KOMPIS_PLAN_CATALOG.map((p) => p.id);
-  if (!ids.includes("free") || !ids.includes(KOMPIS_WEB_SALES_PAID_PLAN_ID)) {
+  if (
+    !ids.includes("free") ||
+    !ids.includes(KOMPIS_WEB_SALES_PAID_PLAN_ID) ||
+    !ids.includes(KOMPIS_WEB_SALES_PRO_PLAN_ID)
+  ) {
     throw new Error("Kompis Web sales plans missing from catalog");
   }
 }
