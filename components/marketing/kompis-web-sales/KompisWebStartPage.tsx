@@ -2,12 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useMemo, useState, type FormEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labels";
+import {
+  clearSignupHandoff,
+  readSignupHandoff,
+  writeSignupHandoff,
+} from "@/lib/marketing/kompis-web-sales/signup-handoff";
 import {
   normalizeWebsiteUrl,
   validateSignupCollectFields,
+  type SignupCollectValues,
 } from "@/lib/marketing/kompis-web-sales/signup-preflight";
 import {
   isPublicFooterEnabledLocale,
@@ -29,36 +35,34 @@ type Props = {
   appName: string;
 };
 
-function initialCollectFromSearch(
-  search: ReturnType<typeof useSearchParams>,
-  fallbackLocale: PublicFooterEnabledLocale,
-) {
-  const languageRaw = search.get("language");
-  const language =
-    languageRaw && isPublicFooterEnabledLocale(languageRaw) ? languageRaw : fallbackLocale;
-  const validated = validateSignupCollectFields({
-    email: search.get("email") ?? "",
-    website: search.get("website") ?? "",
-    company: search.get("company") ?? "",
-    language,
-  });
-  if (validated.ok) {
-    return { step: "account" as const, ...validated.values };
-  }
+type InitialCollect = {
+  step: Step;
+  email: string;
+  website: string;
+  company: string;
+  language: PublicFooterEnabledLocale;
+};
+
+function emptyCollect(fallbackLocale: PublicFooterEnabledLocale): InitialCollect {
   return {
-    step: "collect" as const,
-    email: search.get("email") ?? "",
-    website: search.get("website") ?? "",
-    company: search.get("company") ?? "",
-    language,
+    step: "collect",
+    email: "",
+    website: "",
+    company: "",
+    language: fallbackLocale,
   };
 }
 
+function fromValues(values: SignupCollectValues): InitialCollect {
+  return { step: "account", ...values };
+}
+
 export default function KompisWebStartPage({ labels, locale, appName }: Props) {
+  const router = useRouter();
   const search = useSearchParams();
   const localeOptions = publicFooterLocaleOptions();
   const start = labels.start;
-  const initial = useMemo(() => initialCollectFromSearch(search, locale), [search, locale]);
+  const initial = useMemo(() => emptyCollect(locale), [locale]);
 
   const [step, setStep] = useState<Step>(initial.step);
   const [email, setEmail] = useState(initial.email);
@@ -71,6 +75,43 @@ export default function KompisWebStartPage({ labels, locale, appName }: Props) {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handoff = readSignupHandoff();
+    if (handoff) {
+      const next = fromValues(handoff);
+      setStep(next.step);
+      setEmail(next.email);
+      setWebsite(next.website);
+      setCompany(next.company);
+      setLanguage(next.language);
+      if (search.toString()) router.replace(labels.hrefs.start);
+      return;
+    }
+
+    // One-time migration: absorb legacy query prefill, then strip PII from the URL.
+    const languageRaw = search.get("language");
+    const languageValue =
+      languageRaw && isPublicFooterEnabledLocale(languageRaw) ? languageRaw : locale;
+    const legacy = validateSignupCollectFields({
+      email: search.get("email") ?? "",
+      website: search.get("website") ?? "",
+      company: search.get("company") ?? "",
+      language: languageValue,
+    });
+    if (legacy.ok) {
+      writeSignupHandoff(legacy.values);
+      const next = fromValues(legacy.values);
+      setStep(next.step);
+      setEmail(next.email);
+      setWebsite(next.website);
+      setCompany(next.company);
+      setLanguage(next.language);
+      router.replace(labels.hrefs.start);
+    } else if (search.toString() && (search.get("email") || search.get("company") || search.get("website"))) {
+      router.replace(labels.hrefs.start);
+    }
+  }, [labels.hrefs.start, locale, router, search]);
 
   const successBody = useMemo(
     () => start.successBody.replace("{email}", email.trim() || "…"),
@@ -87,6 +128,7 @@ export default function KompisWebStartPage({ labels, locale, appName }: Props) {
       else setError(start.errorRequired);
       return;
     }
+    writeSignupHandoff(result.values);
     setEmail(result.values.email);
     setWebsite(result.values.website);
     setCompany(result.values.company);
@@ -157,6 +199,7 @@ export default function KompisWebStartPage({ labels, locale, appName }: Props) {
         return;
       }
 
+      clearSignupHandoff();
       setStep("success");
     } catch {
       setError(start.errorGeneric);

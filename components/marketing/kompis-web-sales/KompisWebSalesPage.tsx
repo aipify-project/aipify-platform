@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState, useTransition, type FormEvent } from "react";
 import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labels";
 import { kompisWebSalesHelperDisplayName } from "@/lib/marketing/kompis-web-sales/locale";
+import { writeSignupHandoff } from "@/lib/marketing/kompis-web-sales/signup-handoff";
 import {
-  signupCollectQueryString,
   validateSignupCollectFields,
   type SignupCollectField,
 } from "@/lib/marketing/kompis-web-sales/signup-preflight";
@@ -146,7 +146,8 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
 
     setSignupError(null);
     setSignupInvalidField(null);
-    router.push(`${labels.hrefs.start}?${signupCollectQueryString(result.values)}`);
+    writeSignupHandoff(result.values);
+    router.push(labels.hrefs.start);
   }
 
   function switchLocale(next: string) {
