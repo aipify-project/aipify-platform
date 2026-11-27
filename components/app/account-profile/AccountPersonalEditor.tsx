@@ -1,15 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
-import { LockKeyhole, UserRound } from "lucide-react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
+import { UserRound } from "lucide-react";
 import type { AccountProfileLabels } from "@/lib/app/account-profile/labels";
 import type { AccountProfileView } from "@/lib/app/account-profile/types";
+import {
+  ACCOUNT_PROFILE_INPUT_CLASS,
+  ACCOUNT_PROFILE_PRIMARY_BUTTON_CLASS,
+  ACCOUNT_PROFILE_READONLY_VALUE_CLASS,
+  ACCOUNT_PROFILE_SECONDARY_BUTTON_CLASS,
+} from "@/lib/app/account-profile/form-styles";
 import {
   ACCOUNT_PROFILE_PHONE_COUNTRIES,
   composeE164,
   isPlausibleE164,
+  phoneCountryByDial,
   splitStoredPhone,
 } from "@/lib/app/account-profile/phone";
+import { AccountPhoneCountryFlag } from "./AccountPhoneCountryFlag";
+import {
+  AccountProfileFormCard,
+  AccountProfileFormField,
+} from "./AccountProfileFormCard";
 
 type Props = {
   view: AccountProfileView;
@@ -19,6 +31,10 @@ type Props = {
 function fieldFallback(value: string | null, labels: AccountProfileLabels): string {
   if (value) return value;
   return labels.notRegistered;
+}
+
+function phoneOptionLabel(flagEmoji: string, dial: string, countryName: string): string {
+  return [flagEmoji, countryName, dial].filter(Boolean).join(" ");
 }
 
 export function AccountPersonalEditor({ view, labels }: Props) {
@@ -32,6 +48,8 @@ export function AccountPersonalEditor({ view, labels }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
+  const selectedCountry = useMemo(() => phoneCountryByDial(dial), [dial]);
+  const selectedName = labels.phoneCountries[selectedCountry.labelKey] ?? selectedCountry.iso2;
   const composedPhone = composeE164(dial, national);
   const baselineName = view.fullName.value ?? "";
   const baselinePhone = view.phone.value ?? "";
@@ -113,13 +131,41 @@ export function AccountPersonalEditor({ view, labels }: Props) {
   }
 
   return (
-    <section className="space-y-5">
-      <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--app-text)]">
-        <UserRound aria-hidden className="h-4 w-4 text-[var(--app-primary)]" />
-        {labels.personalTitle}
-      </h2>
-
-      <div className="flex flex-col gap-4 rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] p-4 sm:flex-row sm:items-center">
+    <AccountProfileFormCard
+      title={labels.personalTitle}
+      titleIcon={<UserRound aria-hidden className="h-4 w-4 text-[#7C3AED]" />}
+      footer={
+        <>
+          {status === "saved" ? (
+            <p className="mr-auto text-sm text-emerald-700" role="status">
+              {labels.saveSuccess}
+            </p>
+          ) : null}
+          {status === "error" && error ? (
+            <p className="mr-auto text-sm text-rose-700" role="alert">
+              {error}
+            </p>
+          ) : null}
+          <button
+            type="button"
+            disabled={busy || !dirty}
+            onClick={resetForm}
+            className={ACCOUNT_PROFILE_SECONDARY_BUTTON_CLASS}
+          >
+            {labels.cancel}
+          </button>
+          <button
+            type="button"
+            disabled={busy || fullName.trim().length < 1 || !dirty}
+            onClick={() => startTransition(() => void saveProfile())}
+            className={ACCOUNT_PROFILE_PRIMARY_BUTTON_CLASS}
+          >
+            {labels.save}
+          </button>
+        </>
+      }
+    >
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
         {avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- same-origin avatar pointer or legacy https
           <img
@@ -131,13 +177,13 @@ export function AccountPersonalEditor({ view, labels }: Props) {
           />
         ) : (
           <div
-            className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl bg-[var(--app-primary-soft)] text-xl font-semibold text-[var(--app-primary)]"
+            className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl bg-[rgba(124,58,237,.12)] text-xl font-semibold text-[#7C3AED]"
             aria-hidden
           >
             {view.initials}
           </div>
         )}
-        <div className="flex min-w-0 flex-wrap gap-2">
+        <div className="min-w-0 space-y-2">
           <input
             ref={fileRef}
             type="file"
@@ -149,130 +195,107 @@ export function AccountPersonalEditor({ view, labels }: Props) {
               event.target.value = "";
             }}
           />
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => fileRef.current?.click()}
-            className="inline-flex min-h-10 items-center rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 text-sm font-medium text-[var(--app-text)] hover:border-[var(--app-primary)] disabled:opacity-60"
-          >
-            {labels.avatarUpload}
-          </button>
-          {avatarUrl ? (
+          <div className="flex flex-wrap gap-2">
             <button
               type="button"
               disabled={busy}
-              onClick={() => startTransition(() => void removeAvatar())}
-              className="inline-flex min-h-10 items-center rounded-xl border border-[var(--app-border)] px-3 text-sm font-medium text-[var(--app-text-muted)] hover:border-rose-300 hover:text-rose-700 disabled:opacity-60"
+              onClick={() => fileRef.current?.click()}
+              className={ACCOUNT_PROFILE_SECONDARY_BUTTON_CLASS}
             >
-              {labels.avatarRemove}
+              {labels.avatarUpload}
             </button>
+            {avatarUrl ? (
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => startTransition(() => void removeAvatar())}
+                className="inline-flex min-h-11 items-center justify-center rounded-xl border border-rose-200 bg-white px-5 text-sm font-medium text-rose-700 transition hover:bg-rose-50 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {labels.avatarRemove}
+              </button>
+            ) : null}
+          </div>
+          {!avatarUrl ? (
+            <p className="text-xs leading-relaxed text-gray-500">{labels.avatarFallback}</p>
           ) : null}
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block space-y-1.5">
-          <span className="text-xs font-medium text-[var(--app-text-muted)]">{labels.fullName}</span>
-          <input
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            maxLength={120}
-            autoComplete="name"
-            className="min-h-11 w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 text-sm font-medium text-[var(--app-text)] outline-none focus:border-[var(--app-primary)] focus:ring-2 focus:ring-[var(--app-focus)]"
-          />
-        </label>
+      <AccountProfileFormField label={labels.fullName} htmlFor="account-profile-full-name">
+        <input
+          id="account-profile-full-name"
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
+          maxLength={120}
+          autoComplete="name"
+          className={ACCOUNT_PROFILE_INPUT_CLASS}
+        />
+      </AccountProfileFormField>
 
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between gap-2">
-            <p className="text-xs font-medium text-[var(--app-text-muted)]">{labels.loginEmail}</p>
-            <span
-              className="inline-flex items-center text-[var(--app-text-muted)]"
-              title={labels.emailLockedReason}
-            >
-              <LockKeyhole aria-hidden className="h-3.5 w-3.5" />
-              <span className="sr-only">{labels.emailLockedReason}</span>
-            </span>
-          </div>
-          <div className="min-h-11 rounded-xl border border-[var(--app-border)] bg-[var(--app-canvas)] px-3 py-2.5 text-sm font-medium text-[var(--app-text)]">
-            {fieldFallback(view.email.value, labels)}
-          </div>
-          <p className="text-xs text-[var(--app-text-muted)]">{labels.loginEmailHelp}</p>
+      <AccountProfileFormField
+        label={labels.loginEmail}
+        lockReason={labels.emailLockedReason}
+        hint={labels.loginEmailHelp}
+      >
+        <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+          {fieldFallback(view.email.value, labels)}
         </div>
+      </AccountProfileFormField>
 
-        <div className="space-y-1.5 sm:col-span-2">
-          <p className="text-xs font-medium text-[var(--app-text-muted)]">{labels.phone}</p>
-          <div className="grid gap-2 sm:grid-cols-[minmax(0,14rem)_1fr]">
-            <label className="block">
-              <span className="sr-only">{labels.phoneCountry}</span>
+      <div>
+        <p className="block text-sm font-medium text-gray-700">{labels.phone}</p>
+        <div className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,15rem)_1fr]">
+          <label className="block min-w-0" htmlFor="account-profile-phone-country">
+            <span className="sr-only">{labels.phoneCountry}</span>
+            <div className="relative">
+              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+                <AccountPhoneCountryFlag country={selectedCountry} />
+              </span>
               <select
+                id="account-profile-phone-country"
                 value={dial}
+                aria-label={`${labels.phoneCountry}: ${selectedName} ${dial}`}
                 onChange={(event) => setDial(event.target.value)}
-                className="min-h-11 w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 text-sm text-[var(--app-text)] outline-none focus:border-[var(--app-primary)] focus:ring-2 focus:ring-[var(--app-focus)]"
+                className={`${ACCOUNT_PROFILE_INPUT_CLASS} mt-0 appearance-none pl-14`}
               >
-                {ACCOUNT_PROFILE_PHONE_COUNTRIES.map((country) => (
-                  <option key={country.iso2} value={country.dial}>
-                    {labels.phoneCountries[country.labelKey] ?? country.iso2} ({country.dial})
-                  </option>
-                ))}
+                {ACCOUNT_PROFILE_PHONE_COUNTRIES.map((country) => {
+                  const name = labels.phoneCountries[country.labelKey] ?? country.iso2;
+                  return (
+                    <option key={country.iso2} value={country.dial}>
+                      {phoneOptionLabel(country.flagEmoji, country.dial, name)}
+                    </option>
+                  );
+                })}
               </select>
-            </label>
-            <label className="block">
-              <span className="sr-only">{labels.phoneNational}</span>
-              <input
-                value={national}
-                onChange={(e) => setNational(e.target.value)}
-                inputMode="tel"
-                autoComplete="tel-national"
-                placeholder={labels.phoneNationalPlaceholder}
-                className="min-h-11 w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 text-sm font-medium text-[var(--app-text)] outline-none focus:border-[var(--app-primary)] focus:ring-2 focus:ring-[var(--app-focus)]"
-              />
-            </label>
-          </div>
-          <p className="text-xs text-[var(--app-text-muted)]">{labels.phoneHelp}</p>
+            </div>
+          </label>
+          <label className="block min-w-0" htmlFor="account-profile-phone-national">
+            <span className="sr-only">{labels.phoneNational}</span>
+            <input
+              id="account-profile-phone-national"
+              value={national}
+              onChange={(e) => setNational(e.target.value)}
+              inputMode="tel"
+              autoComplete="tel-national"
+              placeholder={labels.phoneNationalPlaceholder}
+              className={`${ACCOUNT_PROFILE_INPUT_CLASS} mt-0`}
+            />
+          </label>
         </div>
-
-        <div className="space-y-1.5 sm:col-span-2">
-          <div className="flex items-center justify-between gap-2">
-            <p className="text-xs font-medium text-[var(--app-text-muted)]">{labels.address}</p>
-            <span
-              className="inline-flex items-center text-[var(--app-text-muted)]"
-              title={labels.addressBlockedReason}
-            >
-              <LockKeyhole aria-hidden className="h-3.5 w-3.5" />
-              <span className="sr-only">{labels.addressBlockedReason}</span>
-            </span>
-          </div>
-          <div className="min-h-11 rounded-xl border border-[var(--app-border)] bg-[var(--app-canvas)] px-3 py-2.5 text-sm font-medium text-[var(--app-text)]">
-            {view.address.source === "unavailable"
-              ? labels.addressUnavailable
-              : fieldFallback(view.address.value, labels)}
-          </div>
-          <p className="text-xs text-[var(--app-text-muted)]">{labels.addressBlockedReason}</p>
-        </div>
+        <p className="mt-1.5 text-xs leading-relaxed text-gray-500">{labels.phoneHelp}</p>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
-        <button
-          type="button"
-          disabled={busy || fullName.trim().length < 1 || !dirty}
-          onClick={() => startTransition(() => void saveProfile())}
-          className="inline-flex min-h-11 items-center rounded-xl bg-[var(--app-primary)] px-4 text-sm font-semibold text-white disabled:opacity-60"
-        >
-          {labels.save}
-        </button>
-        <button
-          type="button"
-          disabled={busy || !dirty}
-          onClick={resetForm}
-          className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] px-4 text-sm font-medium text-[var(--app-text)] disabled:opacity-60"
-        >
-          {labels.cancel}
-        </button>
-        {status === "saved" ? (
-          <p className="text-sm text-emerald-700">{labels.saveSuccess}</p>
-        ) : null}
-        {status === "error" && error ? <p className="text-sm text-rose-700">{error}</p> : null}
-      </div>
-    </section>
+      <AccountProfileFormField
+        label={labels.address}
+        lockReason={labels.addressBlockedReason}
+        hint={labels.addressBlockedReason}
+      >
+        <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+          {view.address.source === "unavailable"
+            ? labels.addressUnavailable
+            : fieldFallback(view.address.value, labels)}
+        </div>
+      </AccountProfileFormField>
+    </AccountProfileFormCard>
   );
 }

@@ -7,21 +7,33 @@ export type PhoneCountryOption = {
   iso2: string;
   dial: string;
   labelKey: string;
+  /** Regional-indicator emoji when the environment supports it. */
+  flagEmoji: string;
+  /**
+   * Optional same-origin SVG used as a stable visual fallback when emoji
+   * flags are missing or poorly rendered (matches `/public/flags`).
+   */
+  flagSrc: string | null;
 };
 
 /** Compact curated list — labels resolved via i18n at the call site. */
 export const ACCOUNT_PROFILE_PHONE_COUNTRIES: readonly PhoneCountryOption[] = [
-  { iso2: "NO", dial: "+47", labelKey: "no" },
-  { iso2: "SE", dial: "+46", labelKey: "se" },
-  { iso2: "DK", dial: "+45", labelKey: "dk" },
-  { iso2: "FI", dial: "+358", labelKey: "fi" },
-  { iso2: "PL", dial: "+48", labelKey: "pl" },
-  { iso2: "UA", dial: "+380", labelKey: "ua" },
-  { iso2: "GB", dial: "+44", labelKey: "gb" },
-  { iso2: "DE", dial: "+49", labelKey: "de" },
-  { iso2: "US", dial: "+1", labelKey: "us" },
-  { iso2: "OTHER", dial: "+", labelKey: "other" },
+  { iso2: "NO", dial: "+47", labelKey: "no", flagEmoji: "🇳🇴", flagSrc: "/flags/no.svg" },
+  { iso2: "SE", dial: "+46", labelKey: "se", flagEmoji: "🇸🇪", flagSrc: "/flags/sv.svg" },
+  { iso2: "DK", dial: "+45", labelKey: "dk", flagEmoji: "🇩🇰", flagSrc: "/flags/da.svg" },
+  { iso2: "FI", dial: "+358", labelKey: "fi", flagEmoji: "🇫🇮", flagSrc: null },
+  { iso2: "PL", dial: "+48", labelKey: "pl", flagEmoji: "🇵🇱", flagSrc: "/flags/pl.svg" },
+  { iso2: "UA", dial: "+380", labelKey: "ua", flagEmoji: "🇺🇦", flagSrc: "/flags/uk.svg" },
+  { iso2: "GB", dial: "+44", labelKey: "gb", flagEmoji: "🇬🇧", flagSrc: "/flags/en.svg" },
+  { iso2: "DE", dial: "+49", labelKey: "de", flagEmoji: "🇩🇪", flagSrc: "/flags/de.svg" },
+  { iso2: "US", dial: "+1", labelKey: "us", flagEmoji: "🇺🇸", flagSrc: null },
+  { iso2: "OTHER", dial: "+", labelKey: "other", flagEmoji: "🌐", flagSrc: null },
 ] as const;
+
+export function phoneCountryByDial(dial: string): PhoneCountryOption {
+  const match = ACCOUNT_PROFILE_PHONE_COUNTRIES.find((row) => row.dial === dial);
+  return match ?? ACCOUNT_PROFILE_PHONE_COUNTRIES[ACCOUNT_PROFILE_PHONE_COUNTRIES.length - 1]!;
+}
 
 export function digitsOnly(value: string): string {
   return value.replace(/\D+/g, "");

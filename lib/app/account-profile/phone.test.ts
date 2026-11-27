@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import {
+  ACCOUNT_PROFILE_PHONE_COUNTRIES,
   composeE164,
   isPlausibleE164,
+  phoneCountryByDial,
   splitStoredPhone,
 } from "./phone";
 
@@ -18,5 +20,12 @@ assert.equal(composeE164("+47", ""), "");
 assert.equal(isPlausibleE164("+4791234567"), true);
 assert.equal(isPlausibleE164("+47"), false);
 assert.equal(isPlausibleE164(""), true);
+
+const norway = phoneCountryByDial("+47");
+assert.equal(norway.iso2, "NO");
+assert.equal(norway.flagEmoji, "🇳🇴");
+assert.equal(norway.flagSrc, "/flags/no.svg");
+assert.ok(ACCOUNT_PROFILE_PHONE_COUNTRIES.every((row) => typeof row.flagEmoji === "string"));
+assert.equal(phoneCountryByDial("+999").iso2, "OTHER");
 
 console.log("account-profile phone.test.ts: ok");
