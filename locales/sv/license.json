@@ -30,7 +30,20 @@
       "installations": "Installationer",
       "domains": "Domäner",
       "users": "Användare",
-      "paymentStatus": "Betalningsstatus"
+      "paymentStatus": "Betalningsstatus",
+      "agreementName": "Avtal",
+      "productPlanHint": "Programvaruprodukt och plan kommer från dina licensierade moduler — avtalsnamnet är separat.",
+      "lifetimeAgreement": "Livstidsavtal – ingen periodisk förnyelse",
+      "paymentActive": "Aktiv",
+      "paymentPendingSetup": "Betalningsinställning inte slutförd",
+      "paymentPaused": "Pausad",
+      "paymentUnknown": "Inte tillgängligt",
+      "licenseActive": "Aktiv",
+      "licenseLifetime": "Livstid",
+      "licensePaused": "Pausad",
+      "licenseGrace": "Respitperiod",
+      "licenseUnknown": "Inte tillgängligt",
+      "usersUnknown": "Inte mätt"
     },
     "licenseCode": {
       "title": "Aipify-licenskod",

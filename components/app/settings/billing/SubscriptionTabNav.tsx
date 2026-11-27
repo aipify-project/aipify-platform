@@ -1,39 +1,30 @@
 "use client";
 
-import type { SubscriptionTabId } from "@/lib/commercial-packages/subscription-tabs";
+import {
+  SUBSCRIPTION_VISIBLE_TAB_IDS,
+  type SubscriptionTabId,
+} from "@/lib/commercial-packages/subscription-tabs";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import {
-  Boxes,
   FileText,
   Gauge,
   LayoutDashboard,
   Package,
-  Puzzle,
   ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
 
 export type SubscriptionTabLabels = Record<SubscriptionTabId, string>;
 
-const TAB_ICONS: Record<SubscriptionTabId, LucideIcon> = {
+const TAB_ICONS: Partial<Record<SubscriptionTabId, LucideIcon>> = {
   overview: LayoutDashboard,
   products: Package,
-  store: Boxes,
-  addons: Puzzle,
   capacity: Gauge,
   license: ShieldCheck,
   invoices: FileText,
 };
 
-const TAB_ORDER: SubscriptionTabId[] = [
-  "overview",
-  "products",
-  "store",
-  "addons",
-  "capacity",
-  "license",
-  "invoices",
-];
+const TAB_ORDER: readonly SubscriptionTabId[] = SUBSCRIPTION_VISIBLE_TAB_IDS;
 
 type SubscriptionTabNavProps = {
   active: SubscriptionTabId;
@@ -51,6 +42,7 @@ export function SubscriptionTabNav({ active, labels, onSelect }: SubscriptionTab
       >
         {TAB_ORDER.map((id) => {
           const Icon = TAB_ICONS[id];
+          if (!Icon) return null;
           const selected = active === id;
           return (
             <button

@@ -24,13 +24,26 @@
     "pausedBanner": "Tjenestene er pauset på grunn av et forfalt abonnement.",
     "billingCta": "Gå til fakturering",
     "subscription": {
-      "currentPlan": "Gjeldende plan",
+      "currentPlan": "Avtale",
       "renewalDate": "Fornyelsesdato",
       "licenseStatus": "Lisensstatus",
       "installations": "Installasjoner",
       "domains": "Domener",
       "users": "Brukere",
-      "paymentStatus": "Betalingsstatus"
+      "paymentStatus": "Betalingsstatus",
+      "agreementName": "Avtale",
+      "productPlanHint": "Programvareprodukt og plan kommer fra dine lisensierte moduler — avtalenavn er separat.",
+      "lifetimeAgreement": "Livstidsavtale – ingen periodisk fornyelse",
+      "paymentActive": "Aktiv",
+      "paymentPendingSetup": "Betalingsoppsett ikke fullført",
+      "paymentPaused": "Pauset",
+      "paymentUnknown": "Ikke tilgjengelig",
+      "licenseActive": "Aktiv",
+      "licenseLifetime": "Livstid",
+      "licensePaused": "Pauset",
+      "licenseGrace": "Grace-periode",
+      "licenseUnknown": "Ikke tilgjengelig",
+      "usersUnknown": "Ikke målt"
     },
     "licenseCode": {
       "title": "Aipify-lisenskode",

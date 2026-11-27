@@ -30,7 +30,20 @@
       "installations": "Instalaciones",
       "domains": "Dominios",
       "users": "Usuarios",
-      "paymentStatus": "Estado del pago"
+      "paymentStatus": "Estado del pago",
+      "agreementName": "Acuerdo",
+      "productPlanHint": "El producto y el plan vienen de tus módulos con licencia — el nombre del acuerdo es aparte.",
+      "lifetimeAgreement": "Acuerdo de por vida — sin renovación periódica",
+      "paymentActive": "Activo",
+      "paymentPendingSetup": "Configuración de pago no completada",
+      "paymentPaused": "En pausa",
+      "paymentUnknown": "No disponible",
+      "licenseActive": "Activo",
+      "licenseLifetime": "De por vida",
+      "licensePaused": "En pausa",
+      "licenseGrace": "Periodo de gracia",
+      "licenseUnknown": "No disponible",
+      "usersUnknown": "No medido"
     },
     "licenseCode": {
       "title": "Código de licencia de Aipify",

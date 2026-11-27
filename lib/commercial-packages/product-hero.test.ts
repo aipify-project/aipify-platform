@@ -30,7 +30,9 @@ const unassignedWeb = buildWorkspaceProductCards({
   webPlan: null,
   bedrift: "unknown",
 });
-assert.equal(unassignedWeb.find((c) => c.id === "kompis_web")?.inMyProducts, false);
+assert.equal(unassignedWeb.find((c) => c.id === "kompis_web")?.inMyProducts, true);
+assert.equal(unassignedWeb.find((c) => c.id === "kompis_web")?.status, "active");
+assert.equal(unassignedWeb.find((c) => c.id === "kompis_web")?.planChip, null);
 
 const none = buildWorkspaceProductCards({
   webKind: "unavailable",

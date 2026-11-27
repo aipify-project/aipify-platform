@@ -15,6 +15,11 @@ import {
   parseCustomerLicenseCenter,
   parseRevealCustomerAppLicenseCode,
 } from "@/lib/license/types";
+import {
+  presentAgreementName,
+  presentLicensePaymentStatus,
+  presentLicenseStatusLabelKey,
+} from "@/lib/license/license-center-presentation";
 import { resolveAppHref } from "@/lib/app/route-aliases";
 import { createClient } from "@/lib/supabase/client";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
@@ -35,6 +40,19 @@ type TrustLicenseCenterPanelProps = {
       domains: string;
       users: string;
       paymentStatus: string;
+      agreementName: string;
+      productPlanHint: string;
+      lifetimeAgreement: string;
+      paymentActive: string;
+      paymentPendingSetup: string;
+      paymentPaused: string;
+      paymentUnknown: string;
+      licenseActive: string;
+      licenseLifetime: string;
+      licensePaused: string;
+      licenseGrace: string;
+      licenseUnknown: string;
+      usersUnknown: string;
     };
     licenseCode: {
       title: string;
@@ -151,8 +169,31 @@ export default function TrustLicenseCenterPanel({
   const subscription = (data?.subscription as Record<string, unknown>) ?? {};
   const legal = (data?.legal as Record<string, unknown>) ?? {};
   const licenseStatus = String(data?.license_status ?? "active");
-
+  const planName = presentAgreementName(
+    typeof subscription.plan_name === "string" ? subscription.plan_name : null,
+  );
+  const renewalRaw =
+    typeof subscription.renewal_date === "string" ? subscription.renewal_date : null;
+  const paymentRaw =
+    typeof subscription.payment_status === "string" ? subscription.payment_status : null;
+  const paymentDisplay = presentLicensePaymentStatus({
+    paymentStatus: paymentRaw,
+    licenseStatus,
+    planName,
+    renewalDate: renewalRaw,
+  });
+  const paymentLabel =
+    paymentDisplay.kind === "lifetime"
+      ? labels.subscription.lifetimeAgreement
+      : labels.subscription[paymentDisplay.labelKey];
+  const licenseStatusLabel =
+    labels.subscription[presentLicenseStatusLabelKey(licenseStatus)];
   const isActiveLicense = licenseStatus === "active" || licenseStatus === "lifetime";
+  const userCountRaw = subscription.user_count;
+  const usersDisplay =
+    typeof userCountRaw === "number" && Number.isFinite(userCountRaw) && userCountRaw > 0
+      ? String(userCountRaw)
+      : labels.subscription.usersUnknown;
 
   return (
     <div className="w-full space-y-6">
@@ -189,42 +230,45 @@ export default function TrustLicenseCenterPanel({
           {isActiveLicense ? (
             <span className="inline-flex items-center gap-1.5 rounded-full bg-[#E8F7F0] px-2.5 py-1 text-xs font-semibold text-[var(--app-positive)] ring-1 ring-[#B7E4CF]">
               <CheckCircle2 aria-hidden className="size-3.5" strokeWidth={2.25} />
-              {labels.subscription.licenseStatus}
+              {licenseStatusLabel}
             </span>
           ) : null}
         </div>
+        <p className="mt-2 text-xs text-[var(--app-text-muted)]">{labels.subscription.productPlanHint}</p>
         <dl className="mt-4 grid gap-3 text-sm text-[var(--app-text-muted)] sm:grid-cols-2">
           <div>
-            <dt className="font-medium text-[var(--app-text)]">{labels.subscription.currentPlan}</dt>
-            <dd className="mt-0.5">{String(subscription.plan_name ?? "—")}</dd>
+            <dt className="font-medium text-[var(--app-text)]">{labels.subscription.agreementName}</dt>
+            <dd className="mt-0.5">{planName ?? "—"}</dd>
           </div>
           <div>
             <dt className="font-medium text-[var(--app-text)]">{labels.subscription.renewalDate}</dt>
             <dd className="mt-0.5">
-              {subscription.renewal_date
-                ? formatDate(String(subscription.renewal_date), locale)
-                : "—"}
+              {paymentDisplay.kind === "lifetime"
+                ? labels.subscription.lifetimeAgreement
+                : renewalRaw
+                  ? formatDate(renewalRaw, locale)
+                  : "—"}
             </dd>
           </div>
           <div>
             <dt className="font-medium text-[var(--app-text)]">{labels.subscription.licenseStatus}</dt>
-            <dd className="mt-0.5 capitalize">{licenseStatus.replace(/_/g, " ")}</dd>
+            <dd className="mt-0.5">{licenseStatusLabel}</dd>
           </div>
           <div>
             <dt className="font-medium text-[var(--app-text)]">{labels.subscription.paymentStatus}</dt>
-            <dd className="mt-0.5">{String(subscription.payment_status ?? "—")}</dd>
+            <dd className="mt-0.5">{paymentLabel}</dd>
           </div>
           <div>
             <dt className="font-medium text-[var(--app-text)]">{labels.subscription.installations}</dt>
-            <dd className="mt-0.5">{String(subscription.installation_count ?? 0)}</dd>
+            <dd className="mt-0.5">{String(subscription.installation_count ?? "—")}</dd>
           </div>
           <div>
             <dt className="font-medium text-[var(--app-text)]">{labels.subscription.domains}</dt>
-            <dd className="mt-0.5">{String(subscription.domain_count ?? 0)}</dd>
+            <dd className="mt-0.5">{String(subscription.domain_count ?? "—")}</dd>
           </div>
           <div>
             <dt className="font-medium text-[var(--app-text)]">{labels.subscription.users}</dt>
-            <dd className="mt-0.5">{String(subscription.user_count ?? 0)}</dd>
+            <dd className="mt-0.5">{usersDisplay}</dd>
           </div>
         </dl>
       </section>

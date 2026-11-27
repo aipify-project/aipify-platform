@@ -24,18 +24,22 @@ export function formatSupportActivityAt(
   });
 }
 
-/** Status tone for icon+text chips — never invent “green = active”. */
+/**
+ * Status tone for icon+text chips.
+ * Resolved = soft green. Closed/archived = neutral grey (ended, not “success”).
+ */
 export function supportStatusTone(
   status: SupportRequestStatus,
-): "open" | "waiting" | "resolved" | "neutral" {
+): "open" | "waiting" | "resolved" | "closed" | "neutral" {
   switch (status) {
     case "waiting_for_customer":
     case "waiting_for_aipify":
       return "waiting";
     case "resolved":
+      return "resolved";
     case "closed":
     case "archived":
-      return "resolved";
+      return "closed";
     case "open":
     case "in_review":
     case "reopened":

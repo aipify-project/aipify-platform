@@ -30,7 +30,20 @@
       "installations": "Встановлення",
       "domains": "Домени",
       "users": "Користувачі",
-      "paymentStatus": "Статус оплати"
+      "paymentStatus": "Статус оплати",
+      "agreementName": "Угода",
+      "productPlanHint": "Програмний продукт і план походять із ліцензованих модулів — назва угоди окрема.",
+      "lifetimeAgreement": "Довічна угода — без періодичного поновлення",
+      "paymentActive": "Активна",
+      "paymentPendingSetup": "Налаштування оплати не завершено",
+      "paymentPaused": "Призупинено",
+      "paymentUnknown": "Недоступно",
+      "licenseActive": "Активна",
+      "licenseLifetime": "Довічна",
+      "licensePaused": "Призупинено",
+      "licenseGrace": "Пільговий період",
+      "licenseUnknown": "Недоступно",
+      "usersUnknown": "Не виміряно"
     },
     "licenseCode": {
       "title": "Ліцензійний код Aipify",

@@ -30,7 +30,20 @@
       "installations": "Installationer",
       "domains": "Domæner",
       "users": "Brugere",
-      "paymentStatus": "Betalingsstatus"
+      "paymentStatus": "Betalingsstatus",
+      "agreementName": "Aftale",
+      "productPlanHint": "Softwareprodukt og plan kommer fra dine licenserede moduler — aftalenavnet er separat.",
+      "lifetimeAgreement": "Livstidsaftale – ingen periodisk fornyelse",
+      "paymentActive": "Aktiv",
+      "paymentPendingSetup": "Betalingsopsætning ikke fuldført",
+      "paymentPaused": "Pauset",
+      "paymentUnknown": "Ikke tilgængelig",
+      "licenseActive": "Aktiv",
+      "licenseLifetime": "Livstid",
+      "licensePaused": "Pauset",
+      "licenseGrace": "Henstandsperiode",
+      "licenseUnknown": "Ikke tilgængelig",
+      "usersUnknown": "Ikke målt"
     },
     "licenseCode": {
       "title": "Aipify-licenskode",

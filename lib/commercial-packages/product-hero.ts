@@ -86,11 +86,13 @@ export function productHeroAccentClass(accent: WorkspaceProductHero["accent"]): 
 export function buildWorkspaceProductCards(
   access: KompisProductAccessRead
 ): WorkspaceProductCardModel[] {
-  const webActive = access.webKind === "known_plan" && Boolean(access.webPlan);
+  /** Module enabled (known or unknown plan) = owned product — matches Dashboard entitlement. */
+  const webOwned =
+    access.webKind === "known_plan" || access.webKind === "unknown_plan";
+  const webPlanKnown = access.webKind === "known_plan" && Boolean(access.webPlan);
 
   let webStatus: ProductCardStatus = "unknown";
-  if (webActive) webStatus = "active";
-  else if (access.webKind === "unknown_plan") webStatus = "available";
+  if (webOwned) webStatus = "active";
   else if (access.webKind === "no_module") webStatus = "not_licensed";
   else if (access.webKind === "unauthenticated" || access.webKind === "unavailable") {
     webStatus = "unknown";
@@ -101,15 +103,15 @@ export function buildWorkspaceProductCards(
   if (bedriftActive) bedriftStatus = "active";
   else if (access.bedrift === "not_licensed") bedriftStatus = "not_licensed";
 
-  /** Mine produkter = verified active access only — never “available in workspace”. */
+  /** Mine produkter = verified module entitlement — never require a known plan chip. */
   const web: WorkspaceProductCardModel = {
     id: "kompis_web",
     hero: WORKSPACE_PRODUCT_HEROES.kompis_web,
     status: webStatus,
-    inMyProducts: webActive,
+    inMyProducts: webOwned,
     openHref: FOUNDATION_NAV_BINDINGS.kompisWebDashboard,
-    primaryAction: webActive ? "open" : webStatus === "not_licensed" ? "contact" : "view",
-    planChip: webActive ? access.webPlan : null,
+    primaryAction: webOwned ? "open" : webStatus === "not_licensed" ? "contact" : "view",
+    planChip: webPlanKnown ? access.webPlan : null,
   };
 
   const bedrift: WorkspaceProductCardModel = {

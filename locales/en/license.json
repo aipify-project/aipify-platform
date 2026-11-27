@@ -24,13 +24,26 @@
     "pausedBanner": "Services are paused due to an overdue subscription.",
     "billingCta": "Go to billing",
     "subscription": {
-      "currentPlan": "Current plan",
+      "currentPlan": "Agreement",
       "renewalDate": "Renewal date",
       "licenseStatus": "License status",
       "installations": "Installations",
       "domains": "Domains",
       "users": "Users",
-      "paymentStatus": "Payment status"
+      "paymentStatus": "Payment status",
+      "agreementName": "Agreement",
+      "productPlanHint": "Software product and plan come from your licensed modules — agreement name is separate.",
+      "lifetimeAgreement": "Lifetime agreement — no periodic renewal",
+      "paymentActive": "Active",
+      "paymentPendingSetup": "Payment setup not completed",
+      "paymentPaused": "Paused",
+      "paymentUnknown": "Not available",
+      "licenseActive": "Active",
+      "licenseLifetime": "Lifetime",
+      "licensePaused": "Paused",
+      "licenseGrace": "Grace period",
+      "licenseUnknown": "Not available",
+      "usersUnknown": "Not measured"
     },
     "licenseCode": {
       "title": "Aipify license code",
