@@ -1,100 +1,59 @@
-import Image from "next/image";
-import Link from "next/link";
-import type { PersonalSalesLabels } from "@/lib/personal-sales-page/labels";
-import type { PersonalSalesPublication } from "@/lib/personal-sales-page/contract";
-import KompisWebSalesChrome from "@/components/marketing/kompis-web-sales/KompisWebSalesChrome";
+import KompisWebSalesPage from "@/components/marketing/kompis-web-sales/KompisWebSalesPage";
 import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labels";
 import type { PublicFooterEnabledLocale } from "@/lib/i18n/public-locales";
-
-const HERO = "/website-kompis/dashboard/kompis_mascot_premium_v2.png";
+import type { PersonalSalesLabels } from "@/lib/personal-sales-page/labels";
+import type { PersonalSalesPublication } from "@/lib/personal-sales-page/contract";
+import { personalSalesLocalePath } from "@/lib/personal-sales-page/locale";
+import { SyncSalesLocale } from "./SyncSalesLocale";
 
 export function PersonalSalesPageView({
   chrome,
   appName,
   locale,
+  code,
   labels,
   publication,
   startHref,
-  howHref,
-  monthly,
-  annual,
   productBlocked,
 }: {
   chrome: KompisWebSalesLabels;
   appName: string;
   locale: PublicFooterEnabledLocale;
+  code: string;
   labels: PersonalSalesLabels;
   publication: PersonalSalesPublication;
   startHref: string;
-  howHref: string;
-  monthly: string | null;
-  annual: string | null;
   productBlocked: boolean;
 }) {
-  const published = publication.state === "published";
-  const advisor = published && publication.advisorName
-    ? labels.recommendedBy.replace("{name}", publication.advisorName)
-    : null;
+  const published = publication.state === "published" && !productBlocked;
+  const advisor =
+    published && publication.state === "published" && publication.advisorName
+      ? labels.recommendedBy.replace("{name}", publication.advisorName)
+      : null;
+  const closedNotice = published ? null : productBlocked ? labels.productUnavailable : labels.closedNotice;
 
   return (
-    <KompisWebSalesChrome labels={chrome} appName={appName} locale={locale} showTitle={false} contentMaxWidth={1120}>
-      <section className="kompis-web-sales-hero" aria-labelledby="personal-sales-title">
-        <div className="kompis-web-sales-hero-copy">
-          <p className="kompis-web-sales-eyebrow">{advisor ?? appName}</p>
-          <h1 id="personal-sales-title" className="kompis-web-sales-display">
-            {published ? labels.heroTitle : labels.unavailableTitle}
-          </h1>
-          <p className="kompis-web-sales-lead">{published ? labels.heroLead : labels.unavailableBody}</p>
-          <div className="kompis-web-sales-cta-row">
-            <Link className="kompis-web-sales-primary" href={startHref}>
-              {published && !productBlocked ? labels.startFree : labels.closedCta}
-            </Link>
-            <Link className="kompis-web-sales-secondary" href={howHref}>
-              {labels.seeHow}
-            </Link>
-          </div>
-          <p className="kompis-web-sales-lead">{labels.noCheckout}</p>
-        </div>
-        <div className="kompis-web-sales-mascot-stage">
-          <Image src={HERO} alt="" width={420} height={420} priority />
-        </div>
-      </section>
-      {productBlocked ? <p className="kompis-web-sales-lead">{labels.productUnavailable}</p> : null}
-      <section aria-labelledby="personal-sales-benefits">
-        <h2 id="personal-sales-benefits" className="kompis-web-sales-display">
-          {labels.benefitTitle}
-        </h2>
-        <ul>
-          {labels.benefits.map((benefit) => (
-            <li key={benefit}>{benefit}</li>
-          ))}
-        </ul>
-      </section>
-      <section aria-labelledby="personal-sales-price">
-        <h2 id="personal-sales-price">{labels.priceTitle}</h2>
-        <h3>{labels.productTitle}</h3>
-        {monthly && annual ? (
-          <>
-            <p>{labels.pricePlanned}</p>
-            <p>
-              {monthly} {labels.perMonth}
-            </p>
-            <p>
-              {annual} {labels.perYear}
-            </p>
-          </>
-        ) : (
-          <p>{labels.priceMissing}</p>
-        )}
-      </section>
-      {published ? (
-        <section aria-labelledby="personal-sales-interest">
-          <h2 id="personal-sales-interest">{labels.interestTitle}</h2>
-          <p>{labels.interestPending}</p>
-          <p>{labels.interestPrivacy}</p>
-          <Link href="/privacy">{labels.privacyLink}</Link>
-        </section>
-      ) : null}
-    </KompisWebSalesChrome>
+    <>
+      <SyncSalesLocale locale={locale} />
+      <KompisWebSalesPage
+        labels={chrome}
+        appName={appName}
+        locale={locale}
+        startHref={startHref}
+        advisorLine={advisor}
+        closedNotice={closedNotice}
+        localePath={(next) => personalSalesLocalePath(code, next)}
+        followUp={
+          published
+            ? {
+                title: labels.interestTitle,
+                pending: labels.interestPending,
+                privacy: labels.interestPrivacy,
+                privacyLabel: labels.privacyLink,
+              }
+            : null
+        }
+      />
+    </>
   );
 }
