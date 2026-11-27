@@ -168,7 +168,7 @@ export default function SupportTemplatesTab({
   }
 
   async function activateNew() {
-    const json = await post({ action: "create", locale: form.locale ?? "no", ...form });
+    const json = await post({ action: "create", ...form, locale: form.locale || "no" });
     if (json) {
       setConfirm(null);
       if (json.template?.id) setSelectedId(json.template.id);
