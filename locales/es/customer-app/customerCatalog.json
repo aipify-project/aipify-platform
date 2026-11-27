@@ -32,6 +32,8 @@
     "exploreLink": "Explorar productos Aipify",
     "startPurchase": "Iniciar compra",
     "purchasePending": "Abriendo pago seguro…",
-    "purchaseError": "No se pudo iniciar la compra. Inténtalo de nuevo."
+    "purchaseError": "No se pudo iniciar la compra. Inténtalo de nuevo.",
+    "emptyTitle": "No hay productos en esta vista",
+    "emptyDescription": "Prueba otra categoría o abre Suscripción para ver tus servicios activos."
   }
 }

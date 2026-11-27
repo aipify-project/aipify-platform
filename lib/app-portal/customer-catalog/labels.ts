@@ -36,6 +36,8 @@ export type CustomerCatalogLabels = {
   hideFeatures: string;
   billingUnavailable: string;
   exploreLink: string;
+  emptyTitle: string;
+  emptyDescription: string;
 };
 
 export function buildCustomerCatalogLabels(t: Translator): CustomerCatalogLabels {
@@ -74,5 +76,7 @@ export function buildCustomerCatalogLabels(t: Translator): CustomerCatalogLabels
     hideFeatures: pick("hideFeatures"),
     billingUnavailable: pick("billingUnavailable"),
     exploreLink: pick("exploreLink"),
+    emptyTitle: pick("emptyTitle"),
+    emptyDescription: pick("emptyDescription"),
   };
 }

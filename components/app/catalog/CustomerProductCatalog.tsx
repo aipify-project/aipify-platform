@@ -1,4 +1,5 @@
 import { CatalogPurchaseButton } from "@/components/app/catalog/CatalogPurchaseButton";
+import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { CUSTOMER_CATALOG_ROUTE } from "@/lib/app-portal/customer-catalog/model";
 import type { CustomerCatalogLabels } from "@/lib/app-portal/customer-catalog/labels";
 import type {
@@ -9,6 +10,8 @@ import type {
   CatalogProductState,
 } from "@/lib/app-portal/customer-catalog/model";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
+import type { AipifyStatusKind } from "@/lib/design/status-system";
+import { Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -63,11 +66,11 @@ function stateLabel(state: CatalogProductState, labels: CustomerCatalogLabels): 
   return labels.stateUnknown;
 }
 
-function stateTone(state: CatalogProductState): string {
-  if (state === "active") return "bg-[#E8F7F0] text-[var(--app-positive)] ring-[#B7E4CF]";
-  if (state === "coming_later") return "bg-[#FFF4E5] text-[var(--app-pending)] ring-[#F5D4A3]";
-  if (state === "not_licensed") return "bg-[var(--app-soft-surface)] text-[var(--app-text-muted)] ring-[var(--app-border)]";
-  return "bg-[#FFF4E5] text-[var(--app-pending)] ring-[#F5D4A3]";
+function stateKind(state: CatalogProductState): AipifyStatusKind {
+  if (state === "active") return "verified";
+  if (state === "coming_later") return "waiting";
+  if (state === "not_licensed") return "restricted";
+  return "information";
 }
 
 function formatPrice(price: CatalogPrice, locale: string): string | null {
@@ -139,7 +142,7 @@ export function CustomerProductCatalog({
 
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <nav aria-label={labels.categoriesLabel} className="min-w-0">
-          <ul className="flex gap-2 overflow-x-auto pb-1">
+          <ul className="flex gap-1 overflow-x-auto pb-1">
             {categories.map((category) => {
               const active = category.id === activeCategory;
               return (
@@ -147,14 +150,16 @@ export function CustomerProductCatalog({
                   <Link
                     href={catalogHref({ category: category.id, interval, expanded: null })}
                     aria-current={active ? "page" : undefined}
-                    className={`inline-flex min-h-10 items-center rounded-full border px-3.5 text-sm font-medium ${AppPremiumShell.focusRing} ${
+                    className={`inline-flex min-h-11 items-center gap-2 rounded-full px-3.5 text-sm font-medium ${AppPremiumShell.focusRing} ${
                       active
-                        ? "border-[var(--app-primary)] bg-[var(--app-soft-surface)] text-[var(--app-text)]"
-                        : "border-[var(--app-border)] bg-[var(--app-card)] text-[var(--app-text-muted)]"
+                        ? "bg-[var(--app-primary)] text-white shadow-sm"
+                        : "bg-[var(--app-soft-surface)] text-[var(--app-text-muted)] hover:bg-[var(--app-primary-soft)] hover:text-[var(--app-primary)]"
                     }`}
                   >
                     {categoryLabel(category, labels)}
-                    <span className="ml-2 text-xs opacity-70">{category.count}</span>
+                    <span className={`text-xs ${active ? "text-white/80" : "opacity-70"}`}>
+                      {category.count}
+                    </span>
                   </Link>
                 </li>
               );
@@ -186,132 +191,149 @@ export function CustomerProductCatalog({
         ) : null}
       </div>
 
-      <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
-        {products.map((product) => {
-          const monthPrice = priceForInterval(product, "month");
-          const yearPrice = priceForInterval(product, "year");
-          const monthFormatted = monthPrice ? formatPrice(monthPrice, locale) : null;
-          const yearFormatted = yearPrice ? formatPrice(yearPrice, locale) : null;
-          const hasAnyPrice = Boolean(monthFormatted || yearFormatted);
-          const expanded = expandedProductId === product.id && product.features.length > 0;
-          const description = productDescription(product, labels);
-          const emphasizeMonth = !interval || interval === "month";
-          const emphasizeYear = interval === "year";
-          const purchasePrice =
-            (interval === "year" ? yearPrice : monthPrice) ?? monthPrice ?? yearPrice ?? null;
+      {products.length === 0 ? (
+        <div className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-5 py-6">
+          <p className="text-sm text-[var(--app-text)]">{labels.emptyTitle}</p>
+          <p className="mt-1 text-sm text-[var(--app-text-muted)]">{labels.emptyDescription}</p>
+        </div>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {products.map((product) => {
+            const monthPrice = priceForInterval(product, "month");
+            const yearPrice = priceForInterval(product, "year");
+            const monthFormatted = monthPrice ? formatPrice(monthPrice, locale) : null;
+            const yearFormatted = yearPrice ? formatPrice(yearPrice, locale) : null;
+            const hasAnyPrice = Boolean(monthFormatted || yearFormatted);
+            const expanded = expandedProductId === product.id && product.features.length > 0;
+            const description = productDescription(product, labels);
+            const emphasizeMonth = !interval || interval === "month";
+            const emphasizeYear = interval === "year";
+            const purchasePrice =
+              (interval === "year" ? yearPrice : monthPrice) ?? monthPrice ?? yearPrice ?? null;
 
-          return (
-            <article
-              key={product.id}
-              className="flex h-full flex-col overflow-hidden rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] shadow-[var(--app-shadow-card)]"
-            >
-              <div className="flex flex-1 flex-col p-5 sm:p-6">
-                <div className="flex items-start justify-between gap-3">
-                  {product.imagePath ? (
-                    <Image
-                      src={product.imagePath}
-                      alt=""
-                      width={56}
-                      height={56}
-                      className="h-14 w-14 shrink-0 object-contain"
+            return (
+              <article
+                key={product.id}
+                className="flex h-full flex-col overflow-hidden rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] shadow-[var(--app-shadow-card)]"
+              >
+                <div className="flex flex-1 flex-col p-4 sm:p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    {product.imagePath ? (
+                      <Image
+                        src={product.imagePath}
+                        alt=""
+                        width={48}
+                        height={48}
+                        className="h-12 w-12 shrink-0 object-contain"
+                      />
+                    ) : (
+                      <div
+                        className="h-12 w-12 shrink-0 rounded-[var(--app-radius-md)] bg-[var(--app-soft-surface)]"
+                        aria-hidden
+                      />
+                    )}
+                    <AipifyStatusBadge
+                      kind={stateKind(product.state)}
+                      label={stateLabel(product.state, labels)}
                     />
-                  ) : (
-                    <div className="h-14 w-14 shrink-0 rounded-[var(--app-radius-md)] bg-[var(--app-soft-surface)]" aria-hidden />
-                  )}
-                  <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${stateTone(product.state)}`}
-                  >
-                    {stateLabel(product.state, labels)}
-                  </span>
-                </div>
-
-                <h2 className="mt-4 text-lg font-semibold tracking-tight text-[var(--app-text)]">
-                  {productTitle(product, labels)}
-                </h2>
-                {description ? (
-                  <p className="mt-2 text-sm leading-relaxed text-[var(--app-text-muted)]">{description}</p>
-                ) : null}
-
-                <div className="mt-5 space-y-2" aria-label={labels.intervalLabel}>
-                  <p className="text-xs font-medium uppercase tracking-wide text-[var(--app-text-muted)]">
-                    {labels.pricingHeading}
-                  </p>
-                  {hasAnyPrice ? (
-                    <div className="flex gap-2">
-                      <PriceCell
-                        label={labels.monthly}
-                        amount={monthFormatted}
-                        period={labels.perMonth}
-                        emphasized={emphasizeMonth && Boolean(monthFormatted)}
-                      />
-                      <PriceCell
-                        label={labels.yearly}
-                        amount={yearFormatted}
-                        period={labels.perYear}
-                        emphasized={emphasizeYear && Boolean(yearFormatted)}
-                      />
-                    </div>
-                  ) : (
-                    <p className="rounded-[var(--app-radius-md)] border border-dashed border-[var(--app-border)] bg-[var(--app-soft-surface)] px-3 py-3 text-sm text-[var(--app-text-muted)]">
-                      {labels.priceUnavailable}
-                    </p>
-                  )}
-                </div>
-
-                {product.features.length > 0 ? (
-                  <div className="mt-4 border-t border-[var(--app-border)] pt-4">
-                    <Link
-                      href={catalogHref({
-                        category: activeCategory,
-                        interval,
-                        expanded: expanded ? null : product.id,
-                      })}
-                      className={`inline-flex min-h-10 items-center text-sm font-medium text-[var(--app-primary)] ${AppPremiumShell.focusRing}`}
-                    >
-                      {expanded ? labels.hideFeatures : labels.seeAllFeatures}
-                    </Link>
-                    {expanded ? (
-                      <div className="mt-3">
-                        <p className="text-sm font-medium text-[var(--app-text)]">{labels.includedHeading}</p>
-                        <ul className="mt-2 space-y-1.5 text-sm text-[var(--app-text-muted)]">
-                          {product.features.map((feature) => (
-                            <li key={feature} className="flex gap-2">
-                              <span className="mt-2 size-1 shrink-0 rounded-full bg-[var(--app-primary)]" aria-hidden />
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null}
                   </div>
-                ) : null}
 
-                <div className="mt-auto pt-5">
-                  {product.openHref ? (
-                    <Link
-                      href={product.openHref}
-                      className={`inline-flex min-h-11 w-full items-center justify-center rounded-[var(--app-radius-md)] bg-[var(--app-primary)] px-4 text-sm font-medium text-white ${AppPremiumShell.focusRing}`}
-                    >
-                      {labels.openProduct}
-                    </Link>
-                  ) : product.checkoutEnabled && purchasePrice?.offerId ? (
-                    <CatalogPurchaseButton
-                      offerId={purchasePrice.offerId}
-                      label={labels.startPurchase}
-                      pendingLabel={labels.purchasePending}
-                      errorLabel={labels.purchaseError}
-                    />
-                  ) : (
-                    <p className="rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-4 py-3 text-center text-sm text-[var(--app-text-muted)]">
-                      {labels.purchaseClosed}
+                  <h2 className="mt-3 text-base font-semibold tracking-tight text-[var(--app-text)]">
+                    {productTitle(product, labels)}
+                  </h2>
+                  {description ? (
+                    <p className="mt-1.5 text-sm leading-relaxed text-[var(--app-text-muted)]">
+                      {description}
                     </p>
-                  )}
+                  ) : null}
+
+                  <div className="mt-4 space-y-2" aria-label={labels.intervalLabel}>
+                    <p className="text-xs font-medium uppercase tracking-wide text-[var(--app-text-muted)]">
+                      {labels.pricingHeading}
+                    </p>
+                    {hasAnyPrice ? (
+                      <div className="flex gap-2">
+                        <PriceCell
+                          label={labels.monthly}
+                          amount={monthFormatted}
+                          period={labels.perMonth}
+                          emphasized={emphasizeMonth && Boolean(monthFormatted)}
+                        />
+                        <PriceCell
+                          label={labels.yearly}
+                          amount={yearFormatted}
+                          period={labels.perYear}
+                          emphasized={emphasizeYear && Boolean(yearFormatted)}
+                        />
+                      </div>
+                    ) : (
+                      <p className="rounded-[var(--app-radius-md)] border border-dashed border-[var(--app-border)] bg-[var(--app-soft-surface)] px-3 py-3 text-sm text-[var(--app-text-muted)]">
+                        {labels.priceUnavailable}
+                      </p>
+                    )}
+                  </div>
+
+                  {product.features.length > 0 ? (
+                    <div className="mt-4 border-t border-[var(--app-border)] pt-4">
+                      <Link
+                        href={catalogHref({
+                          category: activeCategory,
+                          interval,
+                          expanded: expanded ? null : product.id,
+                        })}
+                        className={`inline-flex min-h-10 items-center text-sm font-medium text-[var(--app-primary)] ${AppPremiumShell.focusRing}`}
+                      >
+                        {expanded ? labels.hideFeatures : labels.seeAllFeatures}
+                      </Link>
+                      {expanded ? (
+                        <div className="mt-3">
+                          <p className="text-sm font-medium text-[var(--app-text)]">
+                            {labels.includedHeading}
+                          </p>
+                          <ul className="mt-2 space-y-1.5 text-sm text-[var(--app-text-muted)]">
+                            {product.features.map((feature) => (
+                              <li key={feature} className="flex gap-2">
+                                <Check
+                                  aria-hidden
+                                  className="mt-0.5 size-3.5 shrink-0 text-[var(--app-primary)]"
+                                  strokeWidth={2.5}
+                                />
+                                <span>{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
+
+                  <div className="mt-auto pt-5">
+                    {product.openHref ? (
+                      <Link
+                        href={product.openHref}
+                        className={`inline-flex min-h-11 w-full items-center justify-center rounded-[var(--app-radius-md)] bg-[var(--app-primary)] px-4 text-sm font-medium text-white ${AppPremiumShell.focusRing}`}
+                      >
+                        {labels.openProduct}
+                      </Link>
+                    ) : product.checkoutEnabled && purchasePrice?.offerId ? (
+                      <CatalogPurchaseButton
+                        offerId={purchasePrice.offerId}
+                        label={labels.startPurchase}
+                        pendingLabel={labels.purchasePending}
+                        errorLabel={labels.purchaseError}
+                      />
+                    ) : (
+                      <p className="rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-4 py-3 text-center text-sm text-[var(--app-text-muted)]">
+                        {labels.purchaseClosed}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </article>
-          );
-        })}
-      </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

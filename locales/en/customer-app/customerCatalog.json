@@ -32,6 +32,8 @@
     "exploreLink": "Explore Aipify products",
     "startPurchase": "Start purchase",
     "purchasePending": "Opening secure checkout…",
-    "purchaseError": "Purchase could not be started. Please try again."
+    "purchaseError": "Purchase could not be started. Please try again.",
+    "emptyTitle": "No products in this view",
+    "emptyDescription": "Try another category, or open Abonnement to review your active services."
   }
 }
