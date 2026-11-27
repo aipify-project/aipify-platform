@@ -210,7 +210,7 @@ export function PlatformCustomersOverviewPanel({ labels }: PlatformCustomersOver
     customers.kind === "ready"
       ? customers.data.summary.requiresAttention
       : success.kind === "ready"
-        ? (success.data.summary?.requiresAttention ?? null)
+        ? success.data.metrics.attentionCustomers
         : null;
   const activeSubs =
     dashboard.kind === "ready"
