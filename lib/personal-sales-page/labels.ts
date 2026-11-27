@@ -42,7 +42,19 @@ export type PersonalSalesLabels = {
   interestTitle: string;
   interestPending: string;
   interestPrivacy: string;
+  interestName: string;
+  interestEmail: string;
+  interestAcknowledgement: string;
+  interestSaved: string;
+  interestDuplicate: string;
+  interestErrorEmail: string;
+  interestErrorAcknowledgement: string;
+  interestErrorRateLimited: string;
+  interestErrorClosed: string;
   privacyLink: string;
+  platformInterestTitle: string;
+  platformInterestBody: string;
+  platformInterestEmpty: string;
   pagePending: string;
   share: string;
   seeLeads: string;
@@ -106,8 +118,21 @@ const EN: PersonalSalesLabels = {
   sales: "Sales",
   interestTitle: "Be contacted",
   interestPending: "Interest registration is not active yet. Nothing is stored from this page.",
-  interestPrivacy: "When registration opens, the interest is sent only to the named Aipify seller for follow-up. It is not a sale and it is not marketing consent.",
+  interestPrivacy:
+    "When registration opens, the interest is sent only to the named Aipify seller for follow-up. It is not a sale and it is not marketing consent.",
+  interestName: "Name",
+  interestEmail: "Email",
+  interestAcknowledgement: "I want this seller to contact me about this product.",
+  interestSaved: "Your interest is stored for the seller.",
+  interestDuplicate: "This interest is already stored for the seller.",
+  interestErrorEmail: "Enter a valid email address.",
+  interestErrorAcknowledgement: "Confirm that you want the seller to contact you.",
+  interestErrorRateLimited: "Please wait before sending another interest.",
+  interestErrorClosed: "This page cannot store interest right now.",
   privacyLink: "Privacy",
+  platformInterestTitle: "Personal page interests",
+  platformInterestBody: "Contact details stay in this administration view. They are not part of public counts.",
+  platformInterestEmpty: "No interest has been stored yet.",
   pagePending: "The named landing page is not published for this code yet.",
   share: "Share",
   seeLeads: "See my leads",
@@ -160,7 +185,19 @@ export function parsePersonalSalesLabels(source: unknown): PersonalSalesLabels {
     interestTitle: text(row.interestTitle, EN.interestTitle),
     interestPending: text(row.interestPending, EN.interestPending),
     interestPrivacy: text(row.interestPrivacy, EN.interestPrivacy),
+    interestName: text(row.interestName, EN.interestName),
+    interestEmail: text(row.interestEmail, EN.interestEmail),
+    interestAcknowledgement: text(row.interestAcknowledgement, EN.interestAcknowledgement),
+    interestSaved: text(row.interestSaved, EN.interestSaved),
+    interestDuplicate: text(row.interestDuplicate, EN.interestDuplicate),
+    interestErrorEmail: text(row.interestErrorEmail, EN.interestErrorEmail),
+    interestErrorAcknowledgement: text(row.interestErrorAcknowledgement, EN.interestErrorAcknowledgement),
+    interestErrorRateLimited: text(row.interestErrorRateLimited, EN.interestErrorRateLimited),
+    interestErrorClosed: text(row.interestErrorClosed, EN.interestErrorClosed),
     privacyLink: text(row.privacyLink, EN.privacyLink),
+    platformInterestTitle: text(row.platformInterestTitle, EN.platformInterestTitle),
+    platformInterestBody: text(row.platformInterestBody, EN.platformInterestBody),
+    platformInterestEmpty: text(row.platformInterestEmpty, EN.platformInterestEmpty),
     pagePending: text(row.pagePending, EN.pagePending),
     share: text(row.share, EN.share),
     seeLeads: text(row.seeLeads, EN.seeLeads),
