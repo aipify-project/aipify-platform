@@ -977,8 +977,13 @@
         "country": "Country",
         "website": "Website",
         "sameAsCompany": "Same as company address",
-        "readOnlyNote": "Address changes stay closed until a separate Core approval is in place.",
-        "unavailable": "Not available"
+        "readOnlyNote": "Ordinary address edits require Core activation. Legal identity stays on the high-risk path.",
+        "unavailable": "Not available",
+        "companyPhone": "Company phone",
+        "legalLockedNote": "Legal company name and organization number require separate high-risk approval and stay locked here.",
+        "invoiceNotRegistered": "Invoice address not registered",
+        "needsVerification": "Needs verification",
+        "needsVerificationBody": "The stored invoice address looks like a placeholder and must be verified by a Platform Admin before it is treated as billing-ready."
       },
       "invoiceKpi": {
         "overdue": "Overdue invoices",
@@ -1010,7 +1015,24 @@
       "highRiskIdentityNote": "Legal identity and contact email changes require the high-risk identity flow.",
       "supportOpenCases": "Open support cases",
       "supportOpenQueue": "Open support queue",
-      "customerNumber": "Customer number"
+      "customerNumber": "Customer number",
+      "companyAddressEdit": {
+        "editCompany": "Edit company details",
+        "saveChanges": "Save changes",
+        "cancel": "Cancel",
+        "reasonLabel": "Internal reason",
+        "reasonPlaceholder": "Why is this change required?",
+        "ticketLabel": "Support ticket reference (optional)",
+        "ticketPlaceholder": "SUP-…",
+        "confirmLabel": "I confirm this ordinary company update is correct and will be audited.",
+        "confirmInvoiceLabel": "I confirm the invoice address change is intentional and correct.",
+        "coreGateLocked": "Requires Core activation — company and invoice address writes are prepared but not enabled until the owner-approved SQL candidate is applied.",
+        "success": "Company details were updated.",
+        "errorGeneric": "Company details could not be updated. Try again.",
+        "errorForbidden": "You do not have permission to update this company.",
+        "errorValidation": "Check the fields and confirmation, then try again.",
+        "errorCoreGatePending": "Company address updates are prepared but waiting for Core activation before they can be saved."
+      }
     },
     "createCustomer": "Create customer",
     "creation": {

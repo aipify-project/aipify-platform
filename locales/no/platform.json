@@ -824,10 +824,15 @@
         "city": "Poststed",
         "region": "Region",
         "country": "Land",
-        "website": "Nettsted",
+        "website": "Nettside",
         "sameAsCompany": "Samme som firmaadresse",
-        "readOnlyNote": "Adresseendringer er stengt til en egen Core-godkjenning er på plass.",
-        "unavailable": "Ikke tilgjengelig"
+        "readOnlyNote": "Ordinære adresseendringer krever Core-aktivering. Juridisk identitet følger høyrisikoflyten.",
+        "unavailable": "Ikke tilgjengelig",
+        "companyPhone": "Firmatelefon",
+        "legalLockedNote": "Juridisk firmanavn og organisasjonsnummer krever særskilt godkjenning og forblir låst her.",
+        "invoiceNotRegistered": "Fakturaadresse ikke registrert",
+        "needsVerification": "Må verifiseres",
+        "needsVerificationBody": "Den lagrede fakturaadressen ser ut som en plassholder og må verifiseres av en Plattform-administrator før den brukes som faktureringsklar."
       },
       "invoiceKpi": {
         "overdue": "Forfalte fakturaer",
@@ -859,7 +864,24 @@
       "highRiskIdentityNote": "Juridisk identitet og kontakt-e-post krever høyrisikoflyten for identitet.",
       "supportOpenCases": "Åpne supportsaker",
       "supportOpenQueue": "Åpne supportkø",
-      "customerNumber": "Kundenummer"
+      "customerNumber": "Kundenummer",
+      "companyAddressEdit": {
+        "editCompany": "Rediger firmaopplysninger",
+        "saveChanges": "Lagre endringer",
+        "cancel": "Avbryt",
+        "reasonLabel": "Intern begrunnelse",
+        "reasonPlaceholder": "Hvorfor trengs denne endringen?",
+        "ticketLabel": "Supportsak-referanse (valgfritt)",
+        "ticketPlaceholder": "SUP-…",
+        "confirmLabel": "Jeg bekrefter at denne ordinære firmaoppdateringen er korrekt og revideres.",
+        "confirmInvoiceLabel": "Jeg bekrefter at endringen av fakturaadresse er tilsiktet og korrekt.",
+        "coreGateLocked": "Krever Core-aktivering — skriving av firma- og fakturaadresse er forberedt, men ikke aktivert før eiergodkjent SQL-kandidat er installert.",
+        "success": "Firmaopplysninger ble oppdatert.",
+        "errorGeneric": "Firmaopplysningene kunne ikke oppdateres. Prøv igjen.",
+        "errorForbidden": "Du har ikke tillatelse til å oppdatere dette firmaet.",
+        "errorValidation": "Kontroller feltene og bekreftelsen, og prøv igjen.",
+        "errorCoreGatePending": "Firmaadresse-oppdateringer er forberedt, men venter på Core-aktivering før de kan lagres."
+      }
     },
     "createCustomer": "Opprett kunde",
     "creation": {

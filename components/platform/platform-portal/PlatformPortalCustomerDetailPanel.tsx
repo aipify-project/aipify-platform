@@ -43,6 +43,7 @@ import { PlatformPortalKompisBedriftStatusPanel } from "@/components/platform/pl
 import { PlatformPortalAdminProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalAdminProvisioningPanel";
 import { PlatformPortalCustomerIdentityPanel } from "@/components/platform/platform-portal/PlatformPortalCustomerIdentityPanel";
 import { PrimaryContactEditCard } from "@/components/platform/platform-portal/PrimaryContactEditCard";
+import { CompanyAddressEditCard } from "@/components/platform/platform-portal/CompanyAddressEditCard";
 import type { PlatformCustomerIdentityLabels } from "@/lib/platform-portal/customer-identity-labels";
 import {
   parsePlatformPortalWebsiteKompisStatus,
@@ -689,6 +690,7 @@ function AddressFields({
   region,
   country,
   website,
+  phone,
 }: {
   labels: PlatformPortalCustomerDetailLabels;
   ready: boolean;
@@ -699,6 +701,7 @@ function AddressFields({
   region: string | null;
   country: string | null;
   website?: string | null;
+  phone?: string | null;
 }) {
   const address = labels.companyAddress;
   const show = (value: string | null) =>
@@ -714,11 +717,15 @@ function AddressFields({
       {website !== undefined ? (
         <DetailRow label={address.website}>{show(website)}</DetailRow>
       ) : null}
+      {phone !== undefined ? (
+        <DetailRow label={address.companyPhone}>{show(phone)}</DetailRow>
+      ) : null}
     </dl>
   );
 }
 
 function CompanyAddressSection({
+  customerId,
   customerName,
   legalName,
   organizationNumber,
@@ -726,7 +733,9 @@ function CompanyAddressSection({
   updatedAt,
   profile,
   labels,
+  onSaved,
 }: {
+  customerId: string;
   customerName: string;
   legalName: string | null;
   organizationNumber: string | null;
@@ -734,9 +743,11 @@ function CompanyAddressSection({
   updatedAt: string;
   profile: CustomerCompanyProfile | undefined;
   labels: PlatformPortalCustomerDetailLabels;
+  onSaved: () => void;
 }) {
   const companyReady = profile?.readState === "ready";
   const invoiceReady = profile?.invoiceAddress.readState === "ready";
+  const invoiceQuality = profile?.invoiceAddress.quality;
   const shownLegal = legalName?.trim()
     ? legalName
     : registeredOrEmpty(profile?.legalName, Boolean(companyReady), labels.notRegistered, labels.companyAddress.unavailable);
@@ -750,50 +761,96 @@ function CompanyAddressSection({
       );
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      <SectionCard title={labels.companyAddress.title} compact>
-        <dl className="grid gap-0 sm:grid-cols-2 sm:gap-x-6">
-          <DetailRow label={labels.customerName}>{customerName}</DetailRow>
-          <DetailRow label={labels.legalName}>{shownLegal}</DetailRow>
-          <DetailRow label={labels.organizationNumber}>{shownOrg}</DetailRow>
-          <DetailRow label={labels.createdAt}>{createdAt}</DetailRow>
-          <DetailRow label={labels.updatedAt}>{updatedAt}</DetailRow>
-        </dl>
-        <div className="mt-3 border-t border-slate-100 pt-3 dark:border-slate-800">
-          <AddressFields
-            labels={labels}
-            ready={Boolean(companyReady)}
-            street={profile?.street ?? null}
-            line2={profile?.line2 ?? null}
-            postalCode={profile?.postalCode ?? null}
-            city={profile?.city ?? null}
-            region={profile?.region ?? null}
-            country={profile?.country ?? null}
-            website={profile?.website ?? null}
-          />
-        </div>
-        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{labels.companyAddress.readOnlyNote}</p>
-      </SectionCard>
-      <SectionCard title={labels.companyAddress.invoiceTitle} compact>
-        {!profile || !invoiceReady ? (
-          <p className="text-sm text-slate-600 dark:text-slate-300">{labels.companyAddress.unavailable}</p>
-        ) : profile.invoiceAddress.sameAsCompany ? (
-          <p className="text-sm font-medium text-slate-800 dark:text-slate-100">
-            {labels.companyAddress.sameAsCompany}
+    <div className="space-y-4">
+      <div className="grid gap-4 md:grid-cols-2">
+        <SectionCard title={labels.companyAddress.title} compact>
+          <dl className="grid gap-0 sm:grid-cols-2 sm:gap-x-6">
+            <DetailRow label={labels.customerName}>{customerName}</DetailRow>
+            <DetailRow label={labels.legalName}>{shownLegal}</DetailRow>
+            <DetailRow label={labels.organizationNumber}>{shownOrg}</DetailRow>
+            <DetailRow label={labels.createdAt}>{createdAt}</DetailRow>
+            <DetailRow label={labels.updatedAt}>{updatedAt}</DetailRow>
+          </dl>
+          <div className="mt-3 border-t border-slate-100 pt-3 dark:border-slate-800">
+            <AddressFields
+              labels={labels}
+              ready={Boolean(companyReady)}
+              street={profile?.street ?? null}
+              line2={profile?.line2 ?? null}
+              postalCode={profile?.postalCode ?? null}
+              city={profile?.city ?? null}
+              region={profile?.region ?? null}
+              country={profile?.country ?? null}
+              website={profile?.website ?? null}
+              phone={profile?.phone ?? null}
+            />
+          </div>
+          <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+            {labels.companyAddress.legalLockedNote}
           </p>
-        ) : (
-          <AddressFields
-            labels={labels}
-            ready
-            street={profile.invoiceAddress.street}
-            line2={profile.invoiceAddress.line2}
-            postalCode={profile.invoiceAddress.postalCode}
-            city={profile.invoiceAddress.city}
-            region={profile.invoiceAddress.region}
-            country={profile.invoiceAddress.country}
-          />
-        )}
-      </SectionCard>
+        </SectionCard>
+        <SectionCard title={labels.companyAddress.invoiceTitle} compact>
+          {!profile || !invoiceReady ? (
+            <p className="text-sm text-slate-600 dark:text-slate-300">{labels.companyAddress.unavailable}</p>
+          ) : invoiceQuality === "needs_verification" ? (
+            <div className="space-y-2">
+              <p className="text-sm font-semibold text-amber-900 dark:text-amber-100">
+                {labels.companyAddress.needsVerification}
+              </p>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                {labels.companyAddress.needsVerificationBody}
+              </p>
+            </div>
+          ) : invoiceQuality === "not_registered" || profile.invoiceAddress.sameAsCompany ? (
+            <p className="text-sm font-medium text-slate-800 dark:text-slate-100">
+              {profile.invoiceAddress.sameAsCompany
+                ? labels.companyAddress.sameAsCompany
+                : labels.companyAddress.invoiceNotRegistered}
+            </p>
+          ) : (
+            <AddressFields
+              labels={labels}
+              ready
+              street={profile.invoiceAddress.street}
+              line2={profile.invoiceAddress.line2}
+              postalCode={profile.invoiceAddress.postalCode}
+              city={profile.invoiceAddress.city}
+              region={profile.invoiceAddress.region}
+              country={profile.invoiceAddress.country}
+            />
+          )}
+        </SectionCard>
+      </div>
+      <CompanyAddressEditCard
+        customerId={customerId}
+        initial={{
+          displayName: customerName,
+          website: profile?.website ?? "",
+          companyPhone: profile?.phone ?? "",
+          street: profile?.street ?? "",
+          postalCode: profile?.postalCode ?? "",
+          city: profile?.city ?? "",
+          country: profile?.country ?? "",
+          invoiceStreet: profile?.invoiceAddress.street ?? profile?.street ?? "",
+          invoicePostalCode: profile?.invoiceAddress.postalCode ?? profile?.postalCode ?? "",
+          invoiceCity: profile?.invoiceAddress.city ?? profile?.city ?? "",
+          invoiceCountry: profile?.invoiceAddress.country ?? profile?.country ?? "",
+        }}
+        labels={{
+          ...labels.companyAddressEdit,
+          displayName: labels.customerName,
+          companyPhone: labels.companyAddress.companyPhone,
+          website: labels.companyAddress.website,
+          street: labels.companyAddress.street,
+          postalCode: labels.companyAddress.postalCode,
+          city: labels.companyAddress.city,
+          country: labels.companyAddress.country,
+          invoiceTitle: labels.companyAddress.invoiceTitle,
+          legalLockedNote: labels.companyAddress.legalLockedNote,
+          copyCompanyToInvoice: labels.companyAddress.sameAsCompany,
+        }}
+        onSaved={onSaved}
+      />
     </div>
   );
 }
@@ -1425,6 +1482,7 @@ export function PlatformPortalCustomerDetailPanel({
 
           {activeTab === "company" ? (
             <CompanyAddressSection
+              customerId={customerId}
               customerName={customer.name}
               legalName={customer.legalName}
               organizationNumber={customer.organizationNumber}
@@ -1432,6 +1490,9 @@ export function PlatformPortalCustomerDetailPanel({
               updatedAt={formatDate(customer.updatedAt, locale, labels.notAvailable)}
               profile={data.companyProfile}
               labels={labels}
+              onSaved={() => {
+                void load();
+              }}
             />
           ) : null}
 

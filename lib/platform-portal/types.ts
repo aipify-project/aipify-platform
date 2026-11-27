@@ -383,9 +383,31 @@ export type PlatformPortalCustomerDetailLabels = {
     region: string;
     country: string;
     website: string;
+    companyPhone: string;
     sameAsCompany: string;
     readOnlyNote: string;
+    legalLockedNote: string;
+    invoiceNotRegistered: string;
+    needsVerification: string;
+    needsVerificationBody: string;
     unavailable: string;
+  };
+  companyAddressEdit: {
+    editCompany: string;
+    saveChanges: string;
+    cancel: string;
+    reasonLabel: string;
+    reasonPlaceholder: string;
+    ticketLabel: string;
+    ticketPlaceholder: string;
+    confirmLabel: string;
+    confirmInvoiceLabel: string;
+    coreGateLocked: string;
+    success: string;
+    errorGeneric: string;
+    errorForbidden: string;
+    errorValidation: string;
+    errorCoreGatePending: string;
   };
   invoiceKpi: {
     overdue: string;

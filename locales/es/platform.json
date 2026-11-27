@@ -559,8 +559,13 @@
         "country": "País",
         "website": "Sitio web",
         "sameAsCompany": "Igual que la dirección de la empresa",
-        "readOnlyNote": "Los cambios de dirección permanecen cerrados hasta una aprobación distinta en Core.",
-        "unavailable": "No disponible"
+        "readOnlyNote": "Las ediciones ordinarias de dirección requieren activación de Core. La identidad legal sigue el flujo de alto riesgo.",
+        "unavailable": "No disponible",
+        "companyPhone": "Teléfono de la empresa",
+        "legalLockedNote": "El nombre legal y el número de organización requieren aprobación de alto riesgo y permanecen bloqueados aquí.",
+        "invoiceNotRegistered": "Dirección de facturación no registrada",
+        "needsVerification": "Debe verificarse",
+        "needsVerificationBody": "La dirección de facturación almacenada parece un marcador de posición y debe verificarla un administrador de Platform antes de usarla para facturación."
       },
       "invoiceKpi": {
         "overdue": "Facturas vencidas",
@@ -592,7 +597,24 @@
       "highRiskIdentityNote": "La identidad legal y el correo de contacto requieren el flujo de alto riesgo.",
       "supportOpenCases": "Casos de soporte abiertos",
       "supportOpenQueue": "Abrir cola de soporte",
-      "customerNumber": "Número de cliente"
+      "customerNumber": "Número de cliente",
+      "companyAddressEdit": {
+        "editCompany": "Editar datos de la empresa",
+        "saveChanges": "Guardar cambios",
+        "cancel": "Cancelar",
+        "reasonLabel": "Motivo interno",
+        "reasonPlaceholder": "¿Por qué se necesita este cambio?",
+        "ticketLabel": "Referencia de ticket (opcional)",
+        "ticketPlaceholder": "SUP-…",
+        "confirmLabel": "Confirmo que esta actualización ordinaria de la empresa es correcta y quedará auditada.",
+        "confirmInvoiceLabel": "Confirmo que el cambio de dirección de facturación es intencional y correcto.",
+        "coreGateLocked": "Requiere activación de Core: la escritura de direcciones de empresa y facturación está preparada pero no habilitada hasta aplicar el candidato SQL aprobado.",
+        "success": "Los datos de la empresa se actualizaron.",
+        "errorGeneric": "No se pudieron actualizar los datos de la empresa. Inténtalo de nuevo.",
+        "errorForbidden": "No tienes permiso para actualizar esta empresa.",
+        "errorValidation": "Revisa los campos y la confirmación e inténtalo de nuevo.",
+        "errorCoreGatePending": "Las actualizaciones de dirección están preparadas, pero esperan la activación de Core antes de guardarse."
+      }
     },
     "paginationShowing": "Mostrando {from}–{to} de {total}",
     "paginationPrevious": "Anterior",

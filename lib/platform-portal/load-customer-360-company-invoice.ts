@@ -26,6 +26,7 @@ export function unavailableCompanyProfile(): CustomerCompanyProfile {
       city: null,
       country: null,
       website: null,
+      phone: null,
       organizationNumber: null,
       legalName: null,
     },
@@ -66,7 +67,7 @@ async function loadCompanyProfile(
     admin
       .from("organization_registration_profiles")
       .select(
-        "business_address, postal_code, city, organization_country, website, organization_number, company_name",
+        "business_address, postal_code, city, organization_country, website, owner_phone, organization_number, company_name",
       )
       .eq("customer_id", customerId)
       .maybeSingle(),
@@ -85,6 +86,7 @@ async function loadCompanyProfile(
       city: text(registration.data?.city),
       country: text(registration.data?.organization_country),
       website: text(registration.data?.website),
+      phone: text(registration.data?.owner_phone),
       organizationNumber: text(registration.data?.organization_number),
       legalName: text(registration.data?.company_name),
     },
