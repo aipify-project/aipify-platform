@@ -9159,5 +9159,23 @@
       "business": "Företagskunder",
       "private": "Privatkunder"
     }
+  },
+  "trafficStatus": {
+    "region": "Plattformsaktivitet",
+    "operational": "Plattformen är i drift",
+    "operationalHint": "Platform Admin svarade på den här förfrågan. Det här är inte en separat kontroll av alla tjänster.",
+    "newAppCustomers": "Nya APP-kunder idag",
+    "newAppCustomersHint": "Kundorganisationer som skapats under det här kalenderdygnet. Interna plattformsbolag och testmiljöer ingår inte.",
+    "newSellers": "Nya säljare idag",
+    "newSellersHint": "Säljarprofiler som skapats under det här kalenderdygnet. Förfrågningar utan profil ingår inte.",
+    "appCustomersOnline": "APP-kunder online nu",
+    "sellersOnline": "Säljare online nu",
+    "signedInUsers": "Inloggade användare nu",
+    "visitors": "Besökare idag",
+    "notMeasured": "—",
+    "notMeasuredHint": "Inte mätt ännu. Det finns ingen tillförlitlig aktivitet eller besökssiffra för det här fönstret.",
+    "unavailable": "Inte tillgängligt",
+    "dayScope": "Kalenderdygn ({zone})",
+    "lastChecked": "Senast kontrollerad"
   }
 }

@@ -8659,5 +8659,23 @@
       "invalidValidations": "Ugyldige valideringer",
       "serviceFailures": "Tjenestefejl"
     }
+  },
+  "trafficStatus": {
+    "region": "Platformaktivitet",
+    "operational": "Platformen er i drift",
+    "operationalHint": "Platform Admin svarede på denne forespørgsel. Dette er ikke en separat kontrol af alle tjenester.",
+    "newAppCustomers": "Nye APP-kunder i dag",
+    "newAppCustomersHint": "Kundeorganisationer oprettet i dette kalenderdøgn. Interne platformselskaber og testmiljøer er ikke med.",
+    "newSellers": "Nye sælgere i dag",
+    "newSellersHint": "Sælgerprofiler oprettet i dette kalenderdøgn. Henvendelser uden profil er ikke med.",
+    "appCustomersOnline": "APP-kunder online nu",
+    "sellersOnline": "Sælgere online nu",
+    "signedInUsers": "Indloggede brugere nu",
+    "visitors": "Besøgende i dag",
+    "notMeasured": "—",
+    "notMeasuredHint": "Ikke målt endnu. Der findes ingen pålidelig aktivitet eller besøgstal for dette vindue.",
+    "unavailable": "Ikke tilgængelig",
+    "dayScope": "Kalenderdøgn ({zone})",
+    "lastChecked": "Sidst kontrolleret"
   }
 }

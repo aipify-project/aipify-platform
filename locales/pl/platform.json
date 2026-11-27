@@ -9159,5 +9159,23 @@
       "business": "Klienci firmowi",
       "private": "Klienci prywatni"
     }
+  },
+  "trafficStatus": {
+    "region": "Aktywność platformy",
+    "operational": "Platforma działa",
+    "operationalHint": "Platform Admin odpowiedział na to żądanie. To nie jest osobna kontrola wszystkich usług.",
+    "newAppCustomers": "Nowi klienci APP dzisiaj",
+    "newAppCustomersHint": "Organizacje klientów utworzone w tej dobie kalendarzowej. Wewnętrzne spółki platformy i środowiska testowe nie są wliczane.",
+    "newSellers": "Nowi sprzedawcy dzisiaj",
+    "newSellersHint": "Profile sprzedawców utworzone w tej dobie kalendarzowej. Zgłoszenia bez profilu nie są wliczane.",
+    "appCustomersOnline": "Klienci APP online teraz",
+    "sellersOnline": "Sprzedawcy online teraz",
+    "signedInUsers": "Zalogowani użytkownicy teraz",
+    "visitors": "Odwiedzający dzisiaj",
+    "notMeasured": "—",
+    "notMeasuredHint": "Jeszcze nie mierzone. Brak wiarygodnej aktywności lub liczby odwiedzin dla tego okna.",
+    "unavailable": "Niedostępne",
+    "dayScope": "Doba kalendarzowa ({zone})",
+    "lastChecked": "Ostatnio sprawdzono"
   }
 }
