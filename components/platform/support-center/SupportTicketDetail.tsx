@@ -25,7 +25,7 @@ import {
   type SupportFlash,
 } from "./support-center-ui";
 
-export type SupportBusyScope = "reply" | "note" | "status" | "assign";
+export type SupportBusyScope = "reply" | "send" | "note" | "status" | "assign";
 export type SupportFeedbackScope = SupportBusyScope | "template";
 
 export type SupportDetailState = {
@@ -56,6 +56,7 @@ type Props = {
   onStatusChoice: (value: string) => void;
   onTemplatePick: (id: string) => void;
   onSaveDraft: () => void;
+  onSendReply: () => void;
   onSaveNote: () => void;
   onUpdateStatus: () => void;
   onAssignToMe: () => void;
@@ -262,7 +263,10 @@ export default function SupportTicketDetail(props: Props) {
             onChange={(e) => props.onReplyChange(e.target.value)}
           />
           <p className="text-xs text-amber-800">{labels.reply.emailOff}</p>
-          <FlashMessage flash={scopedFlash("reply") ?? scopedFlash("template")} />
+          <p className="text-xs text-[color:var(--aipify-text-secondary)]">
+            {labels.reply.sendReplyCorePending}
+          </p>
+          <FlashMessage flash={scopedFlash("reply") ?? scopedFlash("send") ?? scopedFlash("template")} />
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
@@ -274,11 +278,19 @@ export default function SupportTicketDetail(props: Props) {
             </button>
             <button
               type="button"
-              className={primaryButtonClass}
+              className={secondaryButtonClass}
               disabled={busy !== null || !props.replyDraft.trim() || props.replySaved}
               onClick={props.onSaveDraft}
             >
               {props.replySaved ? labels.saved : labels.reply.saveDraft}
+            </button>
+            <button
+              type="button"
+              className={primaryButtonClass}
+              disabled={busy !== null || !props.replyDraft.trim()}
+              onClick={props.onSendReply}
+            >
+              {labels.reply.sendReply}
             </button>
           </div>
         </Section>

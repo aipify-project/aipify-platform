@@ -8289,7 +8289,9 @@
       "resolved": "Løst",
       "closed": "Lukket",
       "reopened": "Genåbnet",
-      "archived": "Arkiveret"
+      "archived": "Arkiveret",
+      "in_review": "Under gennemgang",
+      "waiting_for_aipify": "Venter på Aipify"
     },
     "priorityLabels": {
       "low": "Lav",
@@ -8455,20 +8457,23 @@
     "reply": {
       "title": "Svar",
       "draft": "Svarudkast til kunden",
-      "customerReplyHint": "Denne tekst er beregnet til kunden. Den gemmes kun som udkast — den sendes ikke.",
+      "customerReplyHint": "Skriv et svar til kunden. Gem kladde holder det internt. Send svar offentliggør det i kundens indbakke (e-mail forbliver fra, indtil det er konfigureret).",
       "replyPlaceholder": "Skriv et svar til kunden…",
       "chooseTemplate": "Vælg svarskabelon",
       "preview": "Forhåndsvisning",
-      "saveDraft": "Gem udkast",
-      "draftSaved": "Udkastet er gemt. Det er ikke sendt til kunden.",
-      "emailOff": "E-mailafsendelse er ikke konfigureret. Svar forbliver udkast og sendes ikke.",
+      "saveDraft": "Gem kladde",
+      "draftSaved": "Kladde gemt. Den er ikke offentliggjort i kundens indbakke.",
+      "emailOff": "E-mailafsendelse er ikke konfigureret. Indbakkelevering er adskilt fra e-mail.",
       "internalNote": "Intern note",
       "internalNoteHint": "Kun synlig for supportteamet. Vises aldrig for kunden.",
       "notePlaceholder": "Skriv en note til dine kolleger…",
       "saveNote": "Gem intern note",
       "noteSaved": "Den interne note er gemt.",
       "attachSignature": "Vedhæft signatur",
-      "signatureAttached": "Signaturen er vedhæftet udkastet."
+      "signatureAttached": "Signaturen er vedhæftet udkastet.",
+      "sendReply": "Send svar",
+      "sendReplySaved": "Svaret er offentliggjort i kundens indbakke. E-mail blev ikke sendt.",
+      "sendReplyCorePending": "Send svar kræver platformaktivering, før det vises i kundens indbakke. Indtil da melder Aipify ærligt, at trinnet endnu ikke er klar."
     },
     "detail": {
       "title": "Vælg en sag for at se detaljer",
@@ -8495,7 +8500,8 @@
         "draft": "Udkast",
         "queued": "I kø",
         "sent": "Sendt",
-        "failed": "Ikke sendt — levering mislykkedes"
+        "failed": "Ikke sendt — levering mislykkedes",
+        "inbox_persisted": "Offentliggjort i indbakke — e-mail ikke sendt"
       },
       "writeErrors": {
         "core_not_applied": "Lagring er ikke slået til i dette miljø endnu.",
@@ -8503,7 +8509,8 @@
         "validation": "Kontroller teksten, og prøv igen.",
         "forbidden": "Du har ikke adgang til at gøre dette.",
         "unauthorized": "Din session er udløbet. Log ind igen.",
-        "unknown": "Ændringen kunne ikke gemmes. Din tekst er stadig her — prøv igen."
+        "unknown": "Ændringen kunne ikke gemmes. Din tekst er stadig her — prøv igen.",
+        "invalid_transition": "Denne statusændring er ikke tilladt for denne sag."
       }
     }
   },

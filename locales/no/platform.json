@@ -8544,7 +8544,9 @@
       "resolved": "Løst",
       "closed": "Lukket",
       "reopened": "Gjenåpnet",
-      "archived": "Arkivert"
+      "archived": "Arkivert",
+      "in_review": "Under vurdering",
+      "waiting_for_aipify": "Venter på Aipify"
     },
     "priorityLabels": {
       "low": "Lav",
@@ -8710,20 +8712,23 @@
     "reply": {
       "title": "Svar",
       "draft": "Svarutkast til kunden",
-      "customerReplyHint": "Denne teksten er ment for kunden. Den lagres kun som utkast — den sendes ikke.",
+      "customerReplyHint": "Skriv et svar til kunden. Lagre utkast holder det internt. Send svar publiserer det i kundens innboks (e-post forblir av til det er konfigurert).",
       "replyPlaceholder": "Skriv et svar til kunden…",
       "chooseTemplate": "Velg svarmal",
       "preview": "Forhåndsvisning",
       "saveDraft": "Lagre utkast",
-      "draftSaved": "Utkastet er lagret. Det er ikke sendt til kunden.",
-      "emailOff": "E-postsending er ikke konfigurert. Svar forblir utkast og sendes ikke.",
+      "draftSaved": "Utkast lagret. Det er ikke publisert i kundens innboks.",
+      "emailOff": "E-postutsending er ikke konfigurert. Innbokslevering er adskilt fra e-post.",
       "internalNote": "Internt notat",
       "internalNoteHint": "Kun synlig for supportteamet. Vises aldri for kunden.",
       "notePlaceholder": "Skriv et notat til kollegaene dine…",
       "saveNote": "Lagre internt notat",
       "noteSaved": "Det interne notatet er lagret.",
       "attachSignature": "Legg ved signatur",
-      "signatureAttached": "Signaturen er lagt ved utkastet."
+      "signatureAttached": "Signaturen er lagt ved utkastet.",
+      "sendReply": "Send svar",
+      "sendReplySaved": "Svaret er publisert i kundens innboks. E-post ble ikke sendt.",
+      "sendReplyCorePending": "Send svar krever plattformaktivering før det vises i kundens innboks. Til da melder Aipify ærlig at steget ikke er klart ennå."
     },
     "detail": {
       "title": "Velg en sak for å se detaljer",
@@ -8750,7 +8755,8 @@
         "draft": "Utkast",
         "queued": "I kø",
         "sent": "Sendt",
-        "failed": "Ikke sendt — levering feilet"
+        "failed": "Ikke sendt — levering feilet",
+        "inbox_persisted": "Publisert i innboks — e-post ikke sendt"
       },
       "writeErrors": {
         "core_not_applied": "Lagring er ikke slått på i dette miljøet ennå.",
@@ -8758,7 +8764,8 @@
         "validation": "Kontroller teksten og prøv igjen.",
         "forbidden": "Du har ikke tilgang til å gjøre dette.",
         "unauthorized": "Økten din er utløpt. Logg inn på nytt.",
-        "unknown": "Endringen kunne ikke lagres. Teksten din ligger fortsatt her — prøv igjen."
+        "unknown": "Endringen kunne ikke lagres. Teksten din ligger fortsatt her — prøv igjen.",
+        "invalid_transition": "Denne statusendringen er ikke tillatt for denne saken."
       }
     }
   },

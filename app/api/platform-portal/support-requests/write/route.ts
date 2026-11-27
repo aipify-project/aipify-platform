@@ -5,6 +5,7 @@ import {
   httpStatusForWriteDenial,
   postExternalReply,
   postInternalNote,
+  sendPublicSupportReply,
   updateSupportTicketStatus,
 } from "@/lib/platform-portal/support-center/write-ops";
 import { createClient } from "@/lib/supabase/server";
@@ -74,6 +75,30 @@ export async function POST(request: NextRequest) {
         includeSignature: body.includeSignature !== false,
         signatureText:
           typeof body.signatureText === "string" ? body.signatureText : null,
+        rpc: supabase,
+      });
+      if (!result.ok) {
+        return NextResponse.json(
+          { error: result.message, code: result.code, ...getSupportWriteGateState() },
+          { status: httpStatusForWriteDenial(result.code), headers: NO_STORE },
+        );
+      }
+      return NextResponse.json(result, { headers: NO_STORE });
+    }
+
+    if (body.action === "send_public_reply") {
+      const result = await sendPublicSupportReply({
+        ticketId,
+        body: String(body.body ?? ""),
+        agentUserId: user.id,
+        templateId: typeof body.templateId === "string" ? body.templateId : null,
+        templateVersion:
+          typeof body.templateVersion === "number" ? body.templateVersion : null,
+        includeSignature: body.includeSignature === true,
+        signatureText:
+          typeof body.signatureText === "string" ? body.signatureText : null,
+        idempotencyKey:
+          typeof body.idempotencyKey === "string" ? body.idempotencyKey : null,
         rpc: supabase,
       });
       if (!result.ok) {

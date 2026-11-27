@@ -8811,7 +8811,9 @@
       "resolved": "Löst",
       "closed": "Stängd",
       "reopened": "Återöppnad",
-      "archived": "Arkiverad"
+      "archived": "Arkiverad",
+      "in_review": "Under granskning",
+      "waiting_for_aipify": "Väntar på Aipify"
     },
     "priorityLabels": {
       "low": "Låg",
@@ -8977,20 +8979,23 @@
     "reply": {
       "title": "Svar",
       "draft": "Svarsutkast till kunden",
-      "customerReplyHint": "Den här texten är avsedd för kunden. Den sparas bara som utkast — den skickas inte.",
+      "customerReplyHint": "Skriv ett svar till kunden. Spara utkast håller det internt. Skicka svar publicerar det i kundens inkorg (e-post förblir av tills det är konfigurerat).",
       "replyPlaceholder": "Skriv ett svar till kunden…",
       "chooseTemplate": "Välj svarsmall",
       "preview": "Förhandsvisning",
       "saveDraft": "Spara utkast",
-      "draftSaved": "Utkastet har sparats. Det har inte skickats till kunden.",
-      "emailOff": "E-postutskick är inte konfigurerat. Svar förblir utkast och skickas inte.",
+      "draftSaved": "Utkast sparat. Det har inte publicerats i kundens inkorg.",
+      "emailOff": "E-postutskick är inte konfigurerat. Inkorgsleverans är skild från e-post.",
       "internalNote": "Intern anteckning",
       "internalNoteHint": "Syns bara för supportteamet. Visas aldrig för kunden.",
       "notePlaceholder": "Skriv en anteckning till dina kollegor…",
       "saveNote": "Spara intern anteckning",
       "noteSaved": "Den interna anteckningen har sparats.",
       "attachSignature": "Bifoga signatur",
-      "signatureAttached": "Signaturen har bifogats utkastet."
+      "signatureAttached": "Signaturen har bifogats utkastet.",
+      "sendReply": "Skicka svar",
+      "sendReplySaved": "Svaret har publicerats i kundens inkorg. E-post skickades inte.",
+      "sendReplyCorePending": "Skicka svar kräver plattformsaktivering innan det syns i kundens inkorg. Tills dess meddelar Aipify ärligt att steget inte är klart ännu."
     },
     "detail": {
       "title": "Välj ett ärende för att se detaljer",
@@ -9017,7 +9022,8 @@
         "draft": "Utkast",
         "queued": "Köad",
         "sent": "Skickat",
-        "failed": "Inte skickat — leveransen misslyckades"
+        "failed": "Inte skickat — leveransen misslyckades",
+        "inbox_persisted": "Publicerad i inkorg — e-post skickades inte"
       },
       "writeErrors": {
         "core_not_applied": "Sparande är inte aktiverat i den här miljön ännu.",
@@ -9025,7 +9031,8 @@
         "validation": "Kontrollera texten och försök igen.",
         "forbidden": "Du har inte behörighet att göra detta.",
         "unauthorized": "Din session har gått ut. Logga in igen.",
-        "unknown": "Ändringen kunde inte sparas. Din text finns kvar här — försök igen."
+        "unknown": "Ändringen kunde inte sparas. Din text finns kvar här — försök igen.",
+        "invalid_transition": "Den statusändringen är inte tillåten för detta ärende."
       }
     }
   },
