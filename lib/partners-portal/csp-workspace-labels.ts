@@ -701,6 +701,7 @@ export function buildCspCatalogLabels(t: Translator): CspCatalogLabels {
     commissionLabel: k("commissionLabel"),
     commissionAmount: k("commissionAmount"),
     commissionPending: k("commissionPending"),
+    commissionNone: k("commissionNone"),
     certificationLabel: k("certificationLabel"),
     certNotStarted: k("certNotStarted"),
     certInProgress: k("certInProgress"),
@@ -717,6 +718,7 @@ export function buildCspCatalogLabels(t: Translator): CspCatalogLabels {
     linkUnavailable: k("linkUnavailable"),
     error: t(`${CSP_NS}.workspace.errorTitle`),
     takeTraining: k("takeTraining"),
+    viewCertificate: k("viewCertificate"),
     shareMarketing: k("shareMarketing"),
     trainingNotPublished: k("trainingNotPublished"),
     noBuy: t(`${CSP_NS}.pages.products.noBuy`),
@@ -726,6 +728,7 @@ export function buildCspCatalogLabels(t: Translator): CspCatalogLabels {
     monthly: k("monthly"),
     yearly: k("yearly"),
     annualQuotaNote: k("annualQuotaNote"),
+    freePrice: k("freePrice"),
   };
 }
 

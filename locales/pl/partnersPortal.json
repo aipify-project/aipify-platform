@@ -482,6 +482,7 @@
       "commissionLabel": "Twoja prowizja",
       "commissionAmount": "{amount} jednorazowo za kwalifikowaną sprzedaż",
       "commissionPending": "Prowizja pojawi się po opublikowaniu produktu przez Platformę",
+      "commissionNone": "Brak prowizji przy tym darmowym planie",
       "certificationLabel": "Twoja certyfikacja",
       "certNotStarted": "Nierozpoczęta",
       "certInProgress": "W toku",
@@ -497,12 +498,14 @@
       "linkGatesNotMet": "Link sprzedażowy jest dostępny po zatwierdzeniu Twojego konta, opublikowaniu produktu i zaliczeniu certyfikacji.",
       "linkUnavailable": "Linki sprzedażowe nie są dostępne, dopóki system partnerski nie zostanie aktywowany.",
       "takeTraining": "Rozpocznij szkolenie",
+      "viewCertificate": "Zobacz certyfikat",
       "trainingNotPublished": "Szkolenie nie zostało jeszcze opublikowane",
       "empty": "Brak produktów w tej kategorii.",
       "shareMarketing": "Udostępnij",
       "monthly": "Miesięcznie",
       "yearly": "Rocznie",
-      "annualQuotaNote": "Roczna płatność nadal odnawia limit co miesiąc."
+      "annualQuotaNote": "Roczna płatność nadal odnawia limit co miesiąc.",
+      "freePrice": "Bezpłatnie"
     },
     "overview": {
       "title": "Twój przegląd partnera",

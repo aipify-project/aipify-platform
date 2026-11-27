@@ -606,6 +606,7 @@
       "commissionLabel": "Din provision",
       "commissionAmount": "{amount} engångsbelopp per kvalificerad försäljning",
       "commissionPending": "Provision visas efter att plattformen har publicerat produkten",
+      "commissionNone": "Ingen provision på denna gratisplan",
       "certificationLabel": "Din certifiering",
       "certNotStarted": "Inte påbörjad",
       "certInProgress": "Pågår",
@@ -621,12 +622,14 @@
       "linkGatesNotMet": "En säljlänk är tillgänglig när du är godkänd, produkten är publicerad och du har klarat certifieringen.",
       "linkUnavailable": "Säljlänkar är inte tillgängliga förrän partnerlösningen är aktiv.",
       "takeTraining": "Gå utbildningen",
+      "viewCertificate": "Visa certifikat",
       "trainingNotPublished": "Utbildningen är inte publicerad ännu",
       "empty": "Inga produkter i den här kategorin.",
       "shareMarketing": "Dela",
       "monthly": "Månadsvis",
       "yearly": "Årligen",
-      "annualQuotaNote": "Årlig betalning förnyar fortfarande kvoten varje månad."
+      "annualQuotaNote": "Årlig betalning förnyar fortfarande kvoten varje månad.",
+      "freePrice": "Gratis"
     },
     "overview": {
       "title": "Din partneröversikt",

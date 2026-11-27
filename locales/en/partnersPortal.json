@@ -606,6 +606,7 @@
       "commissionLabel": "Your commission",
       "commissionAmount": "{amount} one-time per qualified sale",
       "commissionPending": "Commission after Platform publish",
+      "commissionNone": "No commission on this free plan",
       "certificationLabel": "Your certification",
       "certNotStarted": "Not started",
       "certInProgress": "In progress",
@@ -621,12 +622,14 @@
       "linkGatesNotMet": "A sales link is available once you are approved, the product is published and you have passed the certification.",
       "linkUnavailable": "Sales links are not available until the partner backend is active.",
       "takeTraining": "Take training",
+      "viewCertificate": "View certificate",
       "trainingNotPublished": "Training not published yet",
       "empty": "No products in this category.",
       "shareMarketing": "Share",
       "monthly": "Monthly",
       "yearly": "Yearly",
-      "annualQuotaNote": "Annual billing still renews the quota each month."
+      "annualQuotaNote": "Annual billing still renews the quota each month.",
+      "freePrice": "Free"
     },
     "overview": {
       "title": "Your partner overview",

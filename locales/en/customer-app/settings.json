@@ -921,7 +921,8 @@
       "annualQuotaNote": "Annual billing still renews the quota each month.",
       "featuresHeading": "Included",
       "closeDetails": "Close",
-      "vatUnknown": "VAT display is not decided yet."
+      "vatUnknown": "VAT display is not decided yet.",
+      "freePrice": "Free"
     },
     "modules": {
       "title": "Add-on modules",

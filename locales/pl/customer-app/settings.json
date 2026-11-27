@@ -1259,7 +1259,8 @@
       "annualQuotaNote": "Roczna płatność nadal odnawia limit co miesiąc.",
       "featuresHeading": "W zestawie",
       "closeDetails": "Zamknij",
-      "vatUnknown": "Wyświetlanie VAT nie jest jeszcze ustalone."
+      "vatUnknown": "Wyświetlanie VAT nie jest jeszcze ustalone.",
+      "freePrice": "Bezpłatnie"
     },
     "modules": {
       "title": "Moduły dodatkowe",

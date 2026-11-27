@@ -3,6 +3,7 @@
 import type { PortfolioLabels } from "@/lib/commercial-packages/portfolio-labels";
 import type { buildSoftwareShowcaseLabels } from "@/lib/commercial-packages/modules-panel-labels";
 import type { UnifiedCatalogProduct } from "@/lib/product-catalog";
+import { formatVariantQuotaLabel } from "@/lib/product-catalog/variants";
 import {
   PremiumProductCatalogCard,
   type PremiumCatalogCardLabels,
@@ -10,13 +11,16 @@ import {
 
 type ShowcaseLabels = ReturnType<typeof buildSoftwareShowcaseLabels>;
 
-function featureRows(product: UnifiedCatalogProduct): Array<{ label: string; included: boolean }> {
+function featureRows(
+  product: UnifiedCatalogProduct,
+  locale: string,
+): Array<{ label: string; included: boolean }> {
   if (product.productKey === "kompis_web") {
     return product.variants
       .filter((v) => v.active)
       .slice(0, 3)
       .map((v) => ({
-        label: v.customerLabel,
+        label: formatVariantQuotaLabel(v, locale),
         included: true,
       }));
   }
@@ -83,6 +87,7 @@ export function SoftwareProductShowcase({
     featuresHeading: showcase.featuresHeading,
     closeDetails: showcase.closeDetails,
     vatUnknown: showcase.vatUnknown,
+    freePrice: showcase.freePrice,
   };
 
   return (
@@ -103,7 +108,7 @@ export function SoftwareProductShowcase({
             mode="app"
             locale={locale}
             labels={cardLabels}
-            features={featureRows(product)}
+            features={featureRows(product, locale)}
           />
         </div>
       ))}

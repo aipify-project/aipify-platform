@@ -1404,7 +1404,8 @@
       "annualQuotaNote": "Årlig betaling fornyer fortsatt kvoten hver måned.",
       "featuresHeading": "Inkludert",
       "closeDetails": "Lukk",
-      "vatUnknown": "MVA-visning er ikke bestemt ennå."
+      "vatUnknown": "MVA-visning er ikke bestemt ennå.",
+      "freePrice": "Gratis"
     },
     "modules": {
       "title": "Tilleggsmoduler",

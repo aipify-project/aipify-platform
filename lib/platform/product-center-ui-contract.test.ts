@@ -44,6 +44,16 @@ test("create and edit product pages are routed separately from the list", () => 
   assert.match(edit, /ProductEditorPageClient/);
   assert.match(create, /mode="create"/);
   assert.match(edit, /mode="edit"/);
+  assert.match(create, /max-w-\[1560px\]/);
+  assert.match(edit, /max-w-\[1560px\]/);
+});
+
+test("SALE catalog hides free-plan commission and prefers certificate CTA when passed", () => {
+  const panel = read("components/partners-portal/CertifiedSalesPartnerProductCatalogPanel.tsx");
+  assert.match(panel, /variantHasPaidCustomerPrice/);
+  assert.match(panel, /commissionNone/);
+  assert.match(panel, /viewCertificate/);
+  assert.match(panel, /\/partners\/academy\/certifications/);
 });
 
 test("register table supports compact channels column and clickable name", () => {
