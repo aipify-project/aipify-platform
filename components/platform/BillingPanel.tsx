@@ -31,6 +31,8 @@ type BillingPanelProps = {
     unavailable: string;
     mustVerify: string;
     kidNotApplicable: string;
+    kidNotApplicablePaidOnline: string;
+    kidMissingReview: string;
     notRegistered: string;
   };
 };
@@ -139,7 +141,7 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
                         }
                       />
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600" title={row.kid_number ?? undefined}>
+                    <td className="px-6 py-4 text-sm text-gray-600">
                       {presentKid({
                         kid: row.kid_number,
                         method: row.provider,

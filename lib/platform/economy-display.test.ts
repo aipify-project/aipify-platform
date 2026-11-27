@@ -31,7 +31,9 @@ const phrases: EconomyPhrases = {
   seeSellers: "Åpne under Selgere",
   sourceError: "Kilden svarte ikke.",
   noRecords: "Ingen poster er registrert.",
-  kidNotApplicable: "Ikke aktuelt ved nettbetaling",
+  kidNotApplicable: "Ikke aktuelt",
+  kidNotApplicablePaidOnline: "Ikke aktuelt – betalt på nett",
+  kidMissingReview: "Mangler KID – krever kontroll",
   columns: { amount: "Beløp", active: "Aktiv", total: "Totalt" },
   statuses: { paid: "Betalt", private: "Privatkunder", company: "Bedriftskunder", business: "Bedriftskunder" },
 };
@@ -105,7 +107,7 @@ test("placeholder payment details and staging identities are not presented as sa
       locale: "no",
       phrases,
     }),
-    "Må verifiseres",
+    "Ikke tilgjengelig",
   );
   assert.equal(
     presentEconomyCell({
@@ -155,12 +157,21 @@ test("placeholder payment details and staging identities are not presented as sa
     presentEconomyStat({ key: "total", value: null, locale: "no", phrases }),
     "Ikke tilgjengelig",
   );
+  assert.equal(presentKid({ kid: null, method: "stripe", phrases }), "Ikke aktuelt");
   assert.equal(
-    presentKid({ kid: null, method: "stripe", phrases }),
-    "Ikke aktuelt ved nettbetaling",
+    presentKid({ kid: null, method: "stripe", invoiceStatus: "paid", phrases }),
+    "Ikke aktuelt – betalt på nett",
   );
-  assert.equal(presentKid({ kid: null, method: "dnb", phrases }), "Må verifiseres");
-  assert.equal(presentKid({ kid: null, method: null, phrases }), "Ikke registrert");
+  assert.equal(
+    presentKid({ kid: "KID-PLACEHOLDER-000001", method: "vipps", invoiceStatus: "paid", phrases }),
+    "Ikke aktuelt – betalt på nett",
+  );
+  assert.notEqual(
+    presentKid({ kid: "KID-PLACEHOLDER-000001", method: "klarna", phrases }),
+    "KID-PLACEHOLDER-000001",
+  );
+  assert.equal(presentKid({ kid: null, method: "dnb", phrases }), "Mangler KID – krever kontroll");
+  assert.equal(presentKid({ kid: null, method: null, phrases }), "Ikke tilgjengelig");
   assert.equal(presentKid({ kid: null, method: null, phrases }) === "Betalt", false);
   assert.equal(presentKid({ kid: "12345678901", phrases }), "12345678901");
   assert.equal(

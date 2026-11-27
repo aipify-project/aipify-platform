@@ -9112,9 +9112,13 @@
       "display_name": "Name",
       "overdue": "Overdue",
       "paid": "Paid",
-      "trial": "Trial"
+      "trial": "Trial",
+      "revenue_invoices": "Revenue invoices",
+      "accounting_exports": "Accounting exports",
+      "partner_commissions": "Seller commissions",
+      "tenant_overrides": "Customer overrides"
     },
-    "kidNotApplicable": "Not applicable for online payment",
+    "kidNotApplicable": "Not applicable",
     "statuses": {
       "paid": "Paid",
       "overdue": "Overdue",
@@ -9129,6 +9133,8 @@
       "company": "Business customers",
       "business": "Business customers",
       "private": "Private customers"
-    }
+    },
+    "kidNotApplicablePaidOnline": "Not applicable – paid online",
+    "kidMissingReview": "KID missing – needs review"
   }
 }

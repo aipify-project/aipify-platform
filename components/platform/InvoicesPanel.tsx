@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
-  classifyKid,
   presentKid,
   formatEconomyDate,
   formatEconomyMoney,
@@ -47,6 +46,8 @@ type InvoicesPanelProps = {
     unavailable: string;
     mustVerify: string;
     kidNotApplicable: string;
+    kidNotApplicablePaidOnline: string;
+    kidMissingReview: string;
     notRegistered: string;
     backToCustomer: string;
     filteredEmpty: string;
@@ -56,6 +57,17 @@ type InvoicesPanelProps = {
   bucket: "overdue" | "paid" | null;
   returnTo: string | null;
 };
+
+function providerMap(data: unknown): Record<string, string> {
+  const map: Record<string, string> = {};
+  if (!Array.isArray(data)) return map;
+  for (const row of data) {
+    if (!row || typeof row !== "object") continue;
+    const record = row as { customer_id?: string; provider?: string };
+    if (record.customer_id && record.provider) map[record.customer_id] = record.provider;
+  }
+  return map;
+}
 
 export default function InvoicesPanel({
   locale,
@@ -67,6 +79,7 @@ export default function InvoicesPanel({
 }: InvoicesPanelProps) {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [customers, setCustomers] = useState<Record<string, CustomerRecord>>({});
+  const [providers, setProviders] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [actingId, setActingId] = useState<string | null>(null);
   const [loadError, setLoadError] = useState(false);
@@ -76,9 +89,10 @@ export default function InvoicesPanel({
 
     async function load() {
       const supabase = createClient();
-      const [invoiceRes, customerRes] = await Promise.all([
+      const [invoiceRes, customerRes, profileRes] = await Promise.all([
         supabase.rpc("list_platform_invoices"),
         supabase.rpc("list_platform_customer_records"),
+        supabase.rpc("list_platform_payment_profiles"),
       ]);
 
       if (!cancelled) {
@@ -91,6 +105,7 @@ export default function InvoicesPanel({
           }
         }
         setCustomers(customerMap);
+        setProviders(providerMap(profileRes.data));
         setLoading(false);
       }
     }
@@ -112,9 +127,10 @@ export default function InvoicesPanel({
       });
 
       const supabase = createClient();
-      const [invoiceRes, customerRes] = await Promise.all([
+      const [invoiceRes, customerRes, profileRes] = await Promise.all([
         supabase.rpc("list_platform_invoices"),
         supabase.rpc("list_platform_customer_records"),
+        supabase.rpc("list_platform_payment_profiles"),
       ]);
 
       setLoadError(Boolean(invoiceRes.error));
@@ -126,6 +142,7 @@ export default function InvoicesPanel({
         }
       }
       setCustomers(customerMap);
+      setProviders(providerMap(profileRes.data));
     } finally {
       setActingId(null);
     }
@@ -262,15 +279,13 @@ export default function InvoicesPanel({
                           label={labels.statusLabels[invoice.status] ?? invoice.status}
                         />
                       </td>
-                      <td
-                        className="px-6 py-4 text-sm text-gray-600"
-                        title={
-                          classifyKid(invoice.kid_number) === "placeholder"
-                            ? (invoice.kid_number ?? undefined)
-                            : undefined
-                        }
-                      >
-                        {presentKid({ kid: invoice.kid_number, phrases: labels })}
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        {presentKid({
+                          kid: invoice.kid_number,
+                          method: providers[invoice.customer_id],
+                          invoiceStatus: invoice.status,
+                          phrases: labels,
+                        })}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {formatEconomyDate(invoice.due_date, locale) ?? labels.notRegistered}

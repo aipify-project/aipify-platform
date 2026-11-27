@@ -2174,8 +2174,8 @@
       "view": "View"
     },
     "billingModel": {
-      "selfService": "Instant Activation",
-      "enterprise": "Enterprise Procurement",
+      "selfService": "Umiddelbar aktivering",
+      "enterprise": "Bedriftsinnkjøp",
       "selfServiceNote": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
       "enterpriseNote": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements."
     },
@@ -8845,9 +8845,13 @@
       "display_name": "Navn",
       "overdue": "Forfalt",
       "paid": "Betalt",
-      "trial": "Prøve"
+      "trial": "Prøve",
+      "revenue_invoices": "Inntektsfakturaer",
+      "accounting_exports": "Regnskapseksporter",
+      "partner_commissions": "Selgerprovisjoner",
+      "tenant_overrides": "Kundeoverstyringer"
     },
-    "kidNotApplicable": "Ikke aktuelt ved nettbetaling",
+    "kidNotApplicable": "Ikke aktuelt",
     "statuses": {
       "paid": "Betalt",
       "overdue": "Forfalt",
@@ -8862,7 +8866,9 @@
       "company": "Bedriftskunder",
       "business": "Bedriftskunder",
       "private": "Privatkunder"
-    }
+    },
+    "kidNotApplicablePaidOnline": "Ikke aktuelt – betalt på nett",
+    "kidMissingReview": "Mangler KID – krever kontroll"
   },
   "taxVerification": {
     "title": "Avgifter og MVA",

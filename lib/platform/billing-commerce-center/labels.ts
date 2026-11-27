@@ -45,6 +45,10 @@ const ECONOMY_COLUMN_KEYS = [
   "overdue",
   "paid",
   "trial",
+  "revenue_invoices",
+  "accounting_exports",
+  "partner_commissions",
+  "tenant_overrides",
 ] as const;
 
 const ECONOMY_STATUS_KEYS = [
@@ -86,6 +90,8 @@ export function buildEconomyPhrases(t: Translator): EconomyPhrases {
     sourceError: t(`${root}.sourceError`),
     noRecords: t(`${root}.noRecords`),
     kidNotApplicable: t(`${root}.kidNotApplicable`),
+    kidNotApplicablePaidOnline: t(`${root}.kidNotApplicablePaidOnline`),
+    kidMissingReview: t(`${root}.kidMissingReview`),
     columns,
     statuses: Object.fromEntries(
       ECONOMY_STATUS_KEYS.map((key) => [key, t(`${root}.statuses.${key}`)]),
