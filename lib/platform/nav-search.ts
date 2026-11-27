@@ -60,8 +60,8 @@ export function buildPlatformNavSearchIndex(
     if (seen.has(item.id)) continue;
     entries.push({
       ...item,
-      groupId: "system",
-      groupLabel: t("platform.navGroups.system"),
+      groupId: "settings",
+      groupLabel: t("platform.navGroups.settings"),
       description: item.label,
     });
   }

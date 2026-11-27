@@ -191,7 +191,11 @@
       "invoices": "Клієнтські рахунки"
     },
     "sellers": "Продавці",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "support": "Підтримка",
+    "modules": "Модулі",
+    "billing": "Оплата",
+    "settings": "Налаштування"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -302,7 +306,7 @@
     "commissions": "Комісії продавців",
     "communications": "Комунікація",
     "superRoleAccess": "Ролі та доступи",
-    "sellersOverview": "Огляд продавців",
+    "sellersOverview": "Продавці",
     "sellersPartners": "Партнери",
     "sellersProducts": "Продукти",
     "sellersCommissionRates": "Ставки комісії",
@@ -8892,5 +8896,9 @@
       "statusInfo": "Інформація",
       "statusUnknown": "Невідомо"
     }
+  },
+  "sellersHub": {
+    "tabsAria": "Розділи продавців",
+    "tabsLabel": "Розділи продавців"
   }
 }

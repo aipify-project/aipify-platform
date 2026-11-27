@@ -43,6 +43,10 @@ assert.match(
 assert.equal(no.navGroups.operations, "Drift");
 assert.equal(no.navGroups.customers, "Kunder");
 assert.equal(no.navGroups.sellers, "Selgere");
+assert.equal(no.navGroups.billing, "Betaling");
+assert.equal(no.navGroups.modules, "Moduler");
+assert.equal(no.navGroups.support, "Support");
+assert.equal(no.navGroups.settings, "Innstillinger");
 assert.equal(no.navGroups.commercial, "Avtaler og salg");
 assert.equal(no.navGroups.knowledge, "Kunnskap");
 assert.equal(no.navGroups.product, "Produkt");

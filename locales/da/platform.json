@@ -167,7 +167,11 @@
       "growthPartners": "Sælgerregister",
       "invoices": "Kundefakturaer"
     },
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "support": "Support",
+    "modules": "Moduler",
+    "billing": "Betaling",
+    "settings": "Indstillinger"
   },
   "search": "Søg efter kunder…",
   "sidebar": {
@@ -276,7 +280,7 @@
     "commissions": "Sælgerprovisioner",
     "communications": "Kommunikation",
     "superRoleAccess": "Roller og adgange",
-    "sellersOverview": "Sælgeroversigt",
+    "sellersOverview": "Sælgere",
     "sellersPartners": "Partnere",
     "sellersProducts": "Produkter",
     "sellersCommissionRates": "Provisionspriser",
@@ -8366,5 +8370,9 @@
       "statusInfo": "Information",
       "statusUnknown": "Ukendt"
     }
+  },
+  "sellersHub": {
+    "tabsAria": "Sælgersektioner",
+    "tabsLabel": "Sælgersektioner"
   }
 }

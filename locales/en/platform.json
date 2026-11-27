@@ -191,7 +191,11 @@
       "invoices": "Customer invoices"
     },
     "sellers": "Sellers",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "support": "Support",
+    "modules": "Modules",
+    "billing": "Billing",
+    "settings": "Settings"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -302,7 +306,7 @@
     "commissions": "Seller commissions",
     "communications": "Communication",
     "superRoleAccess": "Roles & access",
-    "sellersOverview": "Sellers overview",
+    "sellersOverview": "Sellers",
     "sellersPartners": "Partners",
     "sellersProducts": "Products",
     "sellersCommissionRates": "Commission rates",
@@ -8892,5 +8896,9 @@
       "statusInfo": "Information",
       "statusUnknown": "Unknown"
     }
+  },
+  "sellersHub": {
+    "tabsAria": "Sellers sections",
+    "tabsLabel": "Sellers sections"
   }
 }

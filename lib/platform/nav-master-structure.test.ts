@@ -12,71 +12,67 @@ import { LOCALES } from "@/lib/i18n/config";
 
 const ROOT = process.cwd();
 
-test("dashboard is pinned first outside collapsible groups", () => {
-  assert.deepEqual(PLATFORM_FIXED_NAV_GROUPS, ["dashboard"]);
+test("dashboard and support are pinned first outside collapsible groups", () => {
+  assert.deepEqual(PLATFORM_FIXED_NAV_GROUPS, ["dashboard", "support"]);
   assert.equal(PLATFORM_NAV_GROUPS[0]?.id, "dashboard");
-  assert.deepEqual(
-    PLATFORM_NAV_GROUPS[0]!.items.map((i) => i.id),
-    ["overview"],
-  );
+  assert.equal(PLATFORM_NAV_GROUPS[1]?.id, "support");
+  assert.deepEqual(PLATFORM_NAV_GROUPS[0]!.items.map((i) => i.id), ["overview"]);
+  assert.deepEqual(PLATFORM_NAV_GROUPS[1]!.items.map((i) => i.id), ["support"]);
   assert.equal(PLATFORM_COLLAPSIBLE_GROUPS.includes("dashboard"), false);
-  assert.equal(
-    PLATFORM_NAV_GROUPS.find((g) => g.id === "operations")!.items.some((i) => i.id === "overview"),
-    false,
-    "Platformoversikt must not remain under Drift",
+  assert.equal(PLATFORM_COLLAPSIBLE_GROUPS.includes("support"), false);
+});
+
+test("daily sidebar order is Dashboard Support Kunder Moduler Selgere Betaling Drift Innstillinger", () => {
+  assert.deepEqual(
+    PLATFORM_NAV_GROUPS.map((g) => g.id),
+    ["dashboard", "support", "customers", "modules", "sellers", "billing", "operations", "settings"],
   );
 });
 
-test("operations owns three Drift hubs; product does not list installations", () => {
+test("operations owns Drift hubs plus system; modules exclude productManagement stub", () => {
   const operations = PLATFORM_NAV_GROUPS.find((g) => g.id === "operations");
-  const product = PLATFORM_NAV_GROUPS.find((g) => g.id === "product");
-  assert.deepEqual(
-    operations!.items.map((i) => i.id),
-    ["operationsOverview", "publishAndVerify", "kompisAi"],
-  );
-  assert.equal(
-    product!.items.some((i) => i.id === "installationOversight"),
-    false,
-  );
-  assert.deepEqual(
-    product!.items.map((i) => i.id),
-    ["productManagement", "businessPacks", "licenses", "websiteKompisPlans"],
-  );
+  const modules = PLATFORM_NAV_GROUPS.find((g) => g.id === "modules");
+  assert.deepEqual(operations!.items.map((i) => i.id), [
+    "operationsOverview",
+    "publishAndVerify",
+    "kompisAi",
+    "system",
+  ]);
+  assert.deepEqual(modules!.items.map((i) => i.id), [
+    "licenses",
+    "businessPacks",
+    "marketplace",
+    "websiteKompisPlans",
+  ]);
+  assert.equal(modules!.items.some((i) => i.id === "productManagement"), false);
 });
 
-test("knowledge keeps docs and communications; translations live under control & governance", () => {
-  const knowledge = PLATFORM_NAV_GROUPS.find((g) => g.id === "knowledge");
-  const audit = PLATFORM_NAV_GROUPS.find((g) => g.id === "auditGovernance");
-  assert.deepEqual(
-    knowledge!.items.map((i) => i.id),
-    ["knowledgeCenter", "documentation", "communications"],
-  );
-  assert.deepEqual(
-    audit!.items.map((i) => i.id),
-    [
-      "system",
-      "translationManagement",
-      "activityLogs",
-      "superRevision",
-      "superRoleAccess",
-      "governanceRecords",
-      "securityReviews",
-    ],
-  );
+test("settings keeps live advanced routes; stubs stay out of daily sidebar", () => {
+  const settings = PLATFORM_NAV_GROUPS.find((g) => g.id === "settings");
+  const allIds = PLATFORM_NAV_GROUPS.flatMap((g) => g.items.map((i) => i.id));
+  assert.deepEqual(settings!.items.map((i) => i.id), [
+    "knowledgeCenter",
+    "communications",
+    "superRevision",
+    "superRoleAccess",
+    "governanceRecords",
+    "securityReviews",
+  ]);
+  for (const stub of ["documentation", "translationManagement", "activityLogs", "productManagement"]) {
+    assert.equal(allIds.includes(stub as never), false, `${stub} must leave daily sidebar`);
+  }
 });
 
 test("dashboard active only on /platform exact path", () => {
   assert.equal(getPlatformActiveNavId("/platform"), "overview");
   assert.equal(getPlatformActiveNavId("/platform/"), "overview");
   assert.notEqual(getPlatformActiveNavId("/platform/operations/overview"), "overview");
-  assert.notEqual(getPlatformActiveNavId("/platform/customers"), "overview");
-  assert.notEqual(getPlatformActiveNavId("/platform/billing"), "overview");
   assert.equal(getPlatformActiveNavId("/platform/installations"), "operationsOverview");
   assert.equal(getPlatformActiveNavId("/platform/system"), "system");
-  assert.equal(getPlatformActiveNavId("/platform/unonight-pilot"), "operationsOverview");
   assert.equal(getPlatformActiveNavId("/platform/website-verification"), "publishAndVerify");
   assert.equal(getPlatformActiveNavId("/platform/operations/deployments"), "publishAndVerify");
   assert.equal(getPlatformActiveNavId("/platform/kompis-ai"), "kompisAi");
+  assert.equal(getPlatformActiveNavId("/platform/support"), "support");
 });
 
 test("dashboard href remains /platform", () => {
@@ -87,39 +83,30 @@ test("dashboard href remains /platform", () => {
 
 test("locale parity for dashboard and reorganized labels", () => {
   for (const locale of LOCALES) {
-    const data = JSON.parse(
-      readFileSync(join(ROOT, `locales/${locale}/platform.json`), "utf8"),
-    ) as {
-      navGroups?: { dashboard?: string };
-      nav?: {
-        overview?: string;
-        installationOversight?: string;
-        translationManagement?: string;
-        system?: string;
-      };
+    const data = JSON.parse(readFileSync(join(ROOT, `locales/${locale}/platform.json`), "utf8")) as {
+      navGroups?: Record<string, string>;
+      nav?: Record<string, string>;
+      sellersHub?: { tabsLabel?: string };
     };
-    assert.ok(data.navGroups?.dashboard, `missing navGroups.dashboard for ${locale}`);
-    assert.ok(data.nav?.overview, `missing nav.overview for ${locale}`);
-    assert.ok(data.nav?.installationOversight, `missing installationOversight for ${locale}`);
-    assert.ok(data.nav?.translationManagement, `missing translationManagement for ${locale}`);
-    assert.ok(data.nav?.system, `missing system for ${locale}`);
+    assert.ok(data.navGroups?.dashboard, locale);
+    assert.ok(data.navGroups?.support, locale);
+    assert.ok(data.navGroups?.modules, locale);
+    assert.ok(data.navGroups?.billing, locale);
+    assert.ok(data.navGroups?.settings, locale);
+    assert.ok(data.nav?.overview, locale);
+    assert.ok(data.nav?.system, locale);
+    assert.ok(data.sellersHub?.tabsLabel, locale);
   }
-
-  const no = JSON.parse(
-    readFileSync(join(ROOT, "locales/no/platform.json"), "utf8"),
-  ) as {
-    navGroups: { dashboard: string };
-    nav: {
-      overview: string;
-      installationOversight: string;
-      translationManagement: string;
-      system: string;
-    };
+  const no = JSON.parse(readFileSync(join(ROOT, "locales/no/platform.json"), "utf8")) as {
+    navGroups: Record<string, string>;
+    nav: Record<string, string>;
   };
   assert.equal(no.navGroups.dashboard, "Dashboard");
+  assert.equal(no.navGroups.support, "Support");
+  assert.equal(no.navGroups.modules, "Moduler");
+  assert.equal(no.navGroups.billing, "Betaling");
+  assert.equal(no.navGroups.settings, "Innstillinger");
   assert.equal(no.nav.overview, "Dashboard");
-  assert.equal(no.nav.installationOversight, "Installasjoner");
-  assert.equal(no.nav.translationManagement, "Språk og oversettelser");
   assert.equal(no.nav.system, "Systeminnstillinger");
 });
 

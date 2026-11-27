@@ -191,7 +191,11 @@
       "invoices": "Kundfakturor"
     },
     "sellers": "Säljare",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "support": "Support",
+    "modules": "Moduler",
+    "billing": "Betalning",
+    "settings": "Inställningar"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -302,7 +306,7 @@
     "commissions": "Säljarprovisioner",
     "communications": "Kommunikation",
     "superRoleAccess": "Roller och behörigheter",
-    "sellersOverview": "Säljaröversikt",
+    "sellersOverview": "Säljare",
     "sellersPartners": "Partner",
     "sellersProducts": "Produkter",
     "sellersCommissionRates": "Provisionspriser",
@@ -8892,5 +8896,9 @@
       "statusInfo": "Information",
       "statusUnknown": "Okänd"
     }
+  },
+  "sellersHub": {
+    "tabsAria": "Säljaravsnitt",
+    "tabsLabel": "Säljaravsnitt"
   }
 }

@@ -386,7 +386,7 @@
     "communications": "Comunicación",
     "websiteKompisPlans": "Planes Kompis Web",
     "superRoleAccess": "Roles y accesos",
-    "sellersOverview": "Sellers overview",
+    "sellersOverview": "Vendedores",
     "sellersPartners": "Socios",
     "sellersProducts": "Productos",
     "sellersCommissionRates": "Commission rates",
@@ -788,7 +788,11 @@
       "growthPartners": "Registro de vendedores",
       "invoices": "Facturas de clientes"
     },
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "support": "Soporte",
+    "modules": "Módulos",
+    "billing": "Pagos",
+    "settings": "Ajustes"
   },
   "billingCommerceCenter": {
     "title": "Acuerdos y ventas — finanzas",
@@ -1959,5 +1963,9 @@
       "statusInfo": "Información",
       "statusUnknown": "Desconocido"
     }
+  },
+  "sellersHub": {
+    "tabsAria": "Secciones de vendedores",
+    "tabsLabel": "Secciones de vendedores"
   }
 }

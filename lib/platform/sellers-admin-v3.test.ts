@@ -5,11 +5,19 @@ import { SELLERS_ADMIN_NAV, sellersAdminNavActive } from "./sellers-admin-nav";
 
 const root = new URL("../../", import.meta.url);
 
-test("seller pages do not render the redundant horizontal route row", () => {
-  const section = readFileSync(new URL("components/platform/sellers/CertifiedSellersSectionPanel.tsx", root), "utf8");
+test("seller section pages use hub tabs; partner profile stays free of duplicate row", () => {
+  const live = readFileSync(new URL("lib/platform/sellers-action-page.tsx", root), "utf8");
+  const ops = readFileSync(new URL("lib/platform/sellers-ops-page.tsx", root), "utf8");
+  const shell = readFileSync(
+    new URL("components/platform/sellers/PlatformSellersHubShell.tsx", root),
+    "utf8",
+  );
   const profile = readFileSync(new URL("app/platform/sellers/partners/[id]/page.tsx", root), "utf8");
-  assert.doesNotMatch(section, /SellersAdminNav/);
+  assert.match(live, /PlatformSellersHubShell/);
+  assert.match(ops, /PlatformSellersHubShell/);
+  assert.match(shell, /SellersAdminNav/);
   assert.doesNotMatch(profile, /SellersAdminNav/);
+  assert.doesNotMatch(profile, /PlatformSellersHubShell/);
 });
 
 test("seller admin nav reuses the twelve existing routes once", () => {
