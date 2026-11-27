@@ -411,113 +411,157 @@ export function PlatformCustomerSuccessOverviewPanel({ labels, locale }: PanelPr
       </dl>
 
       <section className="space-y-3" aria-label={labels.title}>
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <label className="min-w-[14rem] flex-1 text-xs font-medium text-slate-600 dark:text-slate-300">
-              <span className="sr-only">{labels.searchPlaceholder}</span>
-              <input
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder={labels.searchPlaceholder}
-                className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-violet-500 focus:ring-2 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
-              />
-            </label>
-            <label className="text-xs font-medium text-slate-600 dark:text-slate-300">
-              <span className="sr-only">{labels.filterAll}</span>
-              <select
-                value={statusFilter}
-                onChange={(event) =>
-                  setStatusFilter(event.target.value as PlatformCustomerSuccessStatus | "all")
-                }
-                className="mt-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
-              >
-                <option value="all">{labels.filterAll}</option>
-                <option value="healthy">{labels.filterHealthy}</option>
-                <option value="attention">{labels.filterAttention}</option>
-                <option value="critical">{labels.filterCritical}</option>
-                <option value="incomplete">{labels.filterIncomplete}</option>
-                <option value="unknown">{labels.filterUnknown}</option>
-              </select>
-            </label>
-            {agreementOptions.length > 0 ? (
-              <label className="text-xs font-medium text-slate-600 dark:text-slate-300">
-                <span className="sr-only">{labels.filterAgreement}</span>
-                <select
-                  value={agreementFilter}
-                  onChange={(event) => setAgreementFilter(event.target.value)}
-                  className="mt-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
-                >
-                  <option value="all">{labels.filterAgreement}</option>
-                  {agreementOptions.map((value) => (
-                    <option key={value} value={value}>
-                      {mapLookup(value, labels.agreementStatuses, value)}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            ) : null}
-            {licenseOptions.length > 0 ? (
-              <label className="text-xs font-medium text-slate-600 dark:text-slate-300">
-                <span className="sr-only">{labels.filterLicense}</span>
-                <select
-                  value={licenseFilter}
-                  onChange={(event) => setLicenseFilter(event.target.value)}
-                  className="mt-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
-                >
-                  <option value="all">{labels.filterLicense}</option>
-                  {licenseOptions.map((value) => (
-                    <option key={value} value={value}>
-                      {mapLookup(value, labels.licenseStatuses, value)}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            ) : null}
-            {serviceOptions.length > 0 ? (
-              <label className="text-xs font-medium text-slate-600 dark:text-slate-300">
-                <span className="sr-only">{labels.filterService}</span>
-                <select
-                  value={serviceFilter}
-                  onChange={(event) => setServiceFilter(event.target.value)}
-                  className="mt-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
-                >
-                  <option value="all">{labels.filterService}</option>
-                  {serviceOptions.map((value) => (
-                    <option key={value} value={value}>
-                      {mapLookup(value, labels.serviceStatuses, value)}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            ) : null}
-            {countryOptions.length > 0 ? (
-              <label className="text-xs font-medium text-slate-600 dark:text-slate-300">
-                <span className="sr-only">{labels.filterCountry}</span>
-                <select
-                  value={countryFilter}
-                  onChange={(event) => setCountryFilter(event.target.value)}
-                  className="mt-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
-                >
-                  <option value="all">{labels.filterCountry}</option>
-                  {countryOptions.map((value) => (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            ) : null}
-          </div>
-          {hasActiveFilters ? (
-            <button
-              type="button"
-              onClick={resetFilters}
-              className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
+        <div className="flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:items-end">
+          <div className="w-full max-w-xs shrink-0 lg:max-w-[14rem]">
+            <label
+              htmlFor="platform-customer-success-search"
+              className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400"
             >
-              {labels.clearFilters}
-            </button>
+              {labels.searchPlaceholder}
+            </label>
+            <input
+              id="platform-customer-success-search"
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder={labels.searchPlaceholder}
+              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-sky-500 dark:focus:ring-sky-900/60"
+            />
+          </div>
+
+          <div className="min-w-[10rem] flex-1 basis-[10rem]">
+            <label
+              htmlFor="platform-customer-success-status"
+              className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              {labels.filterAll}
+            </label>
+            <select
+              id="platform-customer-success-status"
+              value={statusFilter}
+              onChange={(event) =>
+                setStatusFilter(event.target.value as PlatformCustomerSuccessStatus | "all")
+              }
+              className="w-full appearance-auto rounded-lg border border-slate-200 bg-white px-3 py-2 pr-8 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-500 dark:focus:ring-sky-900/60"
+            >
+              <option value="all">{labels.filterAll}</option>
+              <option value="healthy">{labels.filterHealthy}</option>
+              <option value="attention">{labels.filterAttention}</option>
+              <option value="critical">{labels.filterCritical}</option>
+              <option value="incomplete">{labels.filterIncomplete}</option>
+              <option value="unknown">{labels.filterUnknown}</option>
+            </select>
+          </div>
+
+          {agreementOptions.length > 0 ? (
+            <div className="min-w-[10rem] flex-1 basis-[10rem]">
+              <label
+                htmlFor="platform-customer-success-agreement"
+                className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >
+                {labels.filterAgreement}
+              </label>
+              <select
+                id="platform-customer-success-agreement"
+                value={agreementFilter}
+                onChange={(event) => setAgreementFilter(event.target.value)}
+                className="w-full appearance-auto rounded-lg border border-slate-200 bg-white px-3 py-2 pr-8 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-500 dark:focus:ring-sky-900/60"
+              >
+                <option value="all">{labels.filterAgreement}</option>
+                {agreementOptions.map((value) => (
+                  <option key={value} value={value}>
+                    {mapLookup(value, labels.agreementStatuses, value)}
+                  </option>
+                ))}
+              </select>
+            </div>
           ) : null}
+
+          {licenseOptions.length > 0 ? (
+            <div className="min-w-[10rem] flex-1 basis-[10rem]">
+              <label
+                htmlFor="platform-customer-success-license"
+                className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >
+                {labels.filterLicense}
+              </label>
+              <select
+                id="platform-customer-success-license"
+                value={licenseFilter}
+                onChange={(event) => setLicenseFilter(event.target.value)}
+                className="w-full appearance-auto rounded-lg border border-slate-200 bg-white px-3 py-2 pr-8 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-500 dark:focus:ring-sky-900/60"
+              >
+                <option value="all">{labels.filterLicense}</option>
+                {licenseOptions.map((value) => (
+                  <option key={value} value={value}>
+                    {mapLookup(value, labels.licenseStatuses, value)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : null}
+
+          {serviceOptions.length > 0 ? (
+            <div className="min-w-[10rem] flex-1 basis-[10rem]">
+              <label
+                htmlFor="platform-customer-success-service"
+                className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >
+                {labels.filterService}
+              </label>
+              <select
+                id="platform-customer-success-service"
+                value={serviceFilter}
+                onChange={(event) => setServiceFilter(event.target.value)}
+                className="w-full appearance-auto rounded-lg border border-slate-200 bg-white px-3 py-2 pr-8 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-500 dark:focus:ring-sky-900/60"
+              >
+                <option value="all">{labels.filterService}</option>
+                {serviceOptions.map((value) => (
+                  <option key={value} value={value}>
+                    {mapLookup(value, labels.serviceStatuses, value)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : null}
+
+          {countryOptions.length > 0 ? (
+            <div className="min-w-[10rem] flex-1 basis-[10rem]">
+              <label
+                htmlFor="platform-customer-success-country"
+                className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >
+                {labels.filterCountry}
+              </label>
+              <select
+                id="platform-customer-success-country"
+                value={countryFilter}
+                onChange={(event) => setCountryFilter(event.target.value)}
+                className="w-full appearance-auto rounded-lg border border-slate-200 bg-white px-3 py-2 pr-8 text-sm text-slate-900 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-sky-500 dark:focus:ring-sky-900/60"
+              >
+                <option value="all">{labels.filterCountry}</option>
+                {countryOptions.map((value) => (
+                  <option key={value} value={value}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : null}
+
+          <div className="min-w-[8rem] shrink-0">
+            {hasActiveFilters ? (
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="inline-flex w-full items-center justify-center rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+              >
+                {labels.clearFilters}
+              </button>
+            ) : (
+              <div className="hidden lg:block" aria-hidden="true" />
+            )}
+          </div>
         </div>
 
         {loading ? (
