@@ -40,13 +40,13 @@ Staging: `organizations.id` → `customers(id) ON DELETE CASCADE`. Seed inserted
 | seed | `6b935509ec18f2fefbcddcdc08d691cce215469c96ab3b6c5b1a7fb005fc71ec` |
 | cleanup | `e40489ff794e76d31df0b5743c31fb0d5649c445ee5b06fb89de58a94ed58f36` |
 
-**Status:** `SEED_FIXED_AWAITING_NEW_YES`
+## Attempt 3 — SHA `6b935509…` (owner YES)
 
-## Exact Staging YES (re-apply)
+**Result:** **`STAGING_E2E_SEED_APPLIED_VERIFIED`**
 
-```
-JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 6b935509ec18f2fefbcddcdc08d691cce215469c96ab3b6c5b1a7fb005fc71ec on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
-```
+Verified: auth 4 / identities 4 / companies 3 / customers 2 / orgs 2 / users 4 / org_users 2 / org_ctx 2 / platform_admins 1 / partner 1 / password_null 4.
+
+See `AIPIFY_SUPPORT_E2E_SEED_STAGING_APPLIED_20261127.md`.
 
 Cleanup after E2E:
 
