@@ -689,8 +689,9 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
 
 export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
   "overview",
-  "organizations",
   "support",
+  "organizations",
+  "sellersOverview",
   "payments",
 ];
 
@@ -738,22 +739,9 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/billing/growth-partner-attribution")) {
     return "growthPartnerAttribution";
   }
-  if (pathname.startsWith("/platform/sellers/commissions")) return "commissions";
+  // Selgere simplification V1: all seller routes highlight the single sidebar entry.
+  if (pathname.startsWith("/platform/sellers")) return "sellersOverview";
   if (pathname.startsWith("/platform/billing/commissions")) return "commissions";
-  if (pathname.startsWith("/platform/sellers/partners")) return "sellersPartners";
-  if (pathname.startsWith("/platform/sellers/products")) return "sellersProducts";
-  if (pathname.startsWith("/platform/sellers/commission-rates")) return "sellersCommissionRates";
-  if (pathname.startsWith("/platform/sellers/attribution")) return "sellersAttribution";
-  if (pathname.startsWith("/platform/sellers/academy")) return "sellersAcademy";
-  if (pathname.startsWith("/platform/sellers/materials")) return "sellersMaterials";
-  if (pathname.startsWith("/platform/sellers/leads-sales")) return "sellersLeadsSales";
-  if (pathname.startsWith("/platform/sellers/settlements")) return "sellersSettlements";
-  if (pathname.startsWith("/platform/sellers/messages")) return "sellersMessages";
-  if (pathname.startsWith("/platform/sellers/audit")) return "sellersAudit";
-  if (pathname.startsWith("/platform/sellers/settings")) return "sellersSettings";
-  if (pathname === "/platform/sellers" || pathname.startsWith("/platform/sellers/")) {
-    return "sellersOverview";
-  }
   if (
     pathname.startsWith("/platform/billing/invoices") ||
     pathname.startsWith("/platform/billing/enterprise-invoices") ||

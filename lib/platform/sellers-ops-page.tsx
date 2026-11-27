@@ -3,10 +3,12 @@ import {
   type SellersOpsLabels,
   type SellersOpsSection,
 } from "@/components/platform/sellers/CertifiedSellersOpsPanel";
+import { PlatformSellersHubShell } from "@/components/platform/sellers/PlatformSellersHubShell";
 import { OPS_AUDIT_ACTION_KEYS } from "@/lib/certified-sales-partner/platform-sellers-ops-view";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildPlatformSellersHubLabels } from "@/lib/platform/sellers-hub-labels";
 
 function buildOpsLabels(t: (key: string) => string): SellersOpsLabels {
   const live = (k: string) => t(`platform.sellers.live.${k}`);
@@ -164,14 +166,16 @@ export async function renderPlatformSellersOpsPage(input: {
   const t = createTranslator(dict);
 
   return (
-    <CertifiedSellersOpsPanel
-      section={input.section}
-      locale={locale}
-      title={t(input.titleKey)}
-      subtitle={t(input.subtitleKey)}
-      notReadyTitle={t("platform.sellers.backend.notReadyTitle")}
-      notReadyBody={t("platform.sellers.backend.notReadyBody")}
-      labels={buildOpsLabels(t)}
-    />
+    <PlatformSellersHubShell labels={buildPlatformSellersHubLabels(t)}>
+      <CertifiedSellersOpsPanel
+        section={input.section}
+        locale={locale}
+        title={t(input.titleKey)}
+        subtitle={t(input.subtitleKey)}
+        notReadyTitle={t("platform.sellers.backend.notReadyTitle")}
+        notReadyBody={t("platform.sellers.backend.notReadyBody")}
+        labels={buildOpsLabels(t)}
+      />
+    </PlatformSellersHubShell>
   );
 }

@@ -191,7 +191,11 @@
       "invoices": "Faktury klientów"
     },
     "sellers": "Sprzedawcy",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "support": "Wsparcie",
+    "modules": "Moduły",
+    "billing": "Płatności",
+    "settings": "Ustawienia"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -302,7 +306,7 @@
     "commissions": "Prowizje sprzedawców",
     "communications": "Komunikacja",
     "superRoleAccess": "Role i dostępy",
-    "sellersOverview": "Przegląd sprzedawców",
+    "sellersOverview": "Sprzedawcy",
     "sellersPartners": "Partnerzy",
     "sellersProducts": "Produkty",
     "sellersCommissionRates": "Stawki prowizji",
@@ -8892,5 +8896,9 @@
       "statusInfo": "Informacja",
       "statusUnknown": "Nieznane"
     }
+  },
+  "sellersHub": {
+    "tabsAria": "Sekcje sprzedawców",
+    "tabsLabel": "Sekcje sprzedawców"
   }
 }

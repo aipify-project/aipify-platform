@@ -19,12 +19,13 @@ import type { PlatformInstallationRow } from "./types";
 
 const ROOT = process.cwd();
 
-test("sidebar Drift group has exactly three hubs", () => {
+test("sidebar Drift group keeps three hubs plus system status", () => {
   const operations = PLATFORM_NAV_GROUPS.find((g) => g.id === "operations");
   assert.deepEqual(operations?.items.map((i) => i.id), [
     "operationsOverview",
     "publishAndVerify",
     "kompisAi",
+    "system",
   ]);
 });
 

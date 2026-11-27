@@ -32,13 +32,14 @@ test("customers hub tabs are Overview | Organizations | Customer success", () =>
   assert.equal(CUSTOMERS_REGISTER_PAGE_SIZE, 25);
 });
 
-test("sidebar Customers group stays short without Overview duplicate", () => {
+test("sidebar Customers group stays short without Overview or Support duplicate", () => {
   const customers = PLATFORM_NAV_GROUPS.find((group) => group.id === "customers");
   assert.deepEqual(customers?.items.map((item) => item.id), [
     "organizations",
     "customerSuccess",
-    "support",
   ]);
+  const support = PLATFORM_NAV_GROUPS.find((group) => group.id === "support");
+  assert.deepEqual(support?.items.map((item) => item.id), ["support"]);
 });
 
 test("hub tab and sidebar active ids resolve for Kunder paths", () => {

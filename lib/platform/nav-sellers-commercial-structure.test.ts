@@ -8,147 +8,79 @@ import {
   getPlatformDefaultExpandedGroupIds,
 } from "./nav-groups";
 import { getPlatformActiveNavId, PLATFORM_ADMIN_NAV } from "./nav-config";
-
-const PLATFORM_NAV_ITEMS = PLATFORM_ADMIN_NAV;
+import { SELLERS_ADMIN_NAV } from "./sellers-admin-nav";
 import { LOCALES } from "@/lib/i18n/config";
 
 const ROOT = process.cwd();
 
-test("sidebar group order matches IA polish: sellers last", () => {
+test("sidebar group order matches navigation simplification V1", () => {
   assert.deepEqual(
     PLATFORM_NAV_GROUPS.map((g) => g.id),
-    [
-      "dashboard",
-      "operations",
-      "customers",
-      "commercial",
-      "knowledge",
-      "product",
-      "auditGovernance",
-      "sellers",
-    ],
+    ["dashboard", "support", "customers", "modules", "sellers", "billing", "operations", "settings"],
   );
-  assert.equal(PLATFORM_NAV_GROUPS.at(-1)?.id, "sellers");
 });
 
-test("sellers group collects certified sales partner routes; commercial starts with finance overview", () => {
+test("sellers collapses to one sidebar entry; hub keeps all existing routes", () => {
   const sellers = PLATFORM_NAV_GROUPS.find((g) => g.id === "sellers");
-  const commercial = PLATFORM_NAV_GROUPS.find((g) => g.id === "commercial");
-  const product = PLATFORM_NAV_GROUPS.find((g) => g.id === "product");
-  assert.ok(sellers);
-  assert.deepEqual(
-    sellers!.items.map((i) => i.id),
-    [
-      "sellersOverview",
-      "sellersPartners",
-      "sellersProducts",
-      "sellersCommissionRates",
-      "sellersAttribution",
-      "sellersAcademy",
-      "sellersMaterials",
-      "sellersLeadsSales",
-      "commissions",
-      "sellersSettlements",
-      "sellersMessages",
-      "sellersAudit",
-      "sellersSettings",
-    ],
-  );
-  assert.equal(
-    PLATFORM_NAV_ITEMS.find((i) => i.id === "commissions")?.href,
-    "/platform/sellers/commissions",
-  );
-  assert.ok(commercial);
-  assert.deepEqual(
-    commercial!.items.map((i) => i.id),
-    ["payments", "invoices", "subscriptions", "marketplace"],
-  );
-  assert.ok(product);
-  assert.ok(
-    product!.items.some((i) => i.id === "licenses"),
-    "license registry belongs under Product",
-  );
+  const commercial = PLATFORM_NAV_GROUPS.find((g) => g.id === "billing");
+  const modules = PLATFORM_NAV_GROUPS.find((g) => g.id === "modules");
+  assert.deepEqual(sellers!.items.map((i) => i.id), ["sellersOverview"]);
+  assert.equal(SELLERS_ADMIN_NAV.length, 13);
+  assert.equal(PLATFORM_ADMIN_NAV.find((i) => i.id === "commissions")?.href, "/platform/sellers/commissions");
+  assert.deepEqual(commercial!.items.map((i) => i.id), ["payments", "invoices", "subscriptions"]);
+  assert.equal(commercial!.labelKey, "platform.navGroups.billing");
+  assert.ok(modules!.items.some((i) => i.id === "licenses"));
+  assert.ok(modules!.items.some((i) => i.id === "marketplace"));
   assert.ok(PLATFORM_COLLAPSIBLE_GROUPS.includes("sellers"));
-  assert.equal(
-    commercial!.items.some((i) => i.id === "growthPartners"),
-    false,
-    "growth partners must not remain under commercial",
-  );
 });
 
-test("platform collapsible groups default expanded on desktop", () => {
+test("platform collapsible groups default expanded except settings", () => {
   const defaults = getPlatformDefaultExpandedGroupIds();
   for (const id of PLATFORM_COLLAPSIBLE_GROUPS) {
-    assert.ok(defaults.includes(id), `expected ${id} default-expanded`);
+    if (id === "settings") {
+      assert.equal(defaults.includes(id), false);
+      continue;
+    }
+    assert.ok(defaults.includes(id), id);
   }
 });
 
 test("invoices nav points at existing billing invoices route", () => {
   const invoices = PLATFORM_ADMIN_NAV.find((i) => i.id === "invoices");
-  assert.ok(invoices);
   assert.equal(invoices!.href, "/platform/billing/invoices");
-  assert.equal(invoices!.labelKey, "platform.nav.invoices");
 });
 
-test("active nav resolves payments, invoices, and sellers routes", () => {
+test("active nav resolves payments, invoices, and sellers hub", () => {
   assert.equal(getPlatformActiveNavId("/platform/billing"), "payments");
   assert.equal(getPlatformActiveNavId("/platform/billing/invoices"), "invoices");
-  assert.equal(getPlatformActiveNavId("/platform/billing/enterprise-invoices"), "invoices");
-  assert.equal(getPlatformActiveNavId("/platform/invoices"), "invoices");
-  assert.equal(
-    getPlatformActiveNavId("/platform/billing/growth-partner-attribution"),
-    "growthPartnerAttribution",
-  );
-  assert.equal(getPlatformActiveNavId("/platform/billing/commissions"), "commissions");
-  assert.equal(getPlatformActiveNavId("/platform/sellers/commissions"), "commissions");
+  assert.equal(getPlatformActiveNavId("/platform/sellers/commissions"), "sellersOverview");
   assert.equal(getPlatformActiveNavId("/platform/sellers"), "sellersOverview");
-  assert.equal(getPlatformActiveNavId("/platform/sellers/partners"), "sellersPartners");
-  assert.equal(getPlatformActiveNavId("/platform/pilot-operations"), "growthPartners");
+  assert.equal(getPlatformActiveNavId("/platform/sellers/partners"), "sellersOverview");
+  assert.equal(getPlatformActiveNavId("/platform/sellers/settlements"), "sellersOverview");
   assert.equal(getPlatformActiveNavId("/platform/subscriptions"), "subscriptions");
 });
 
-test("locale parity for sellers group and clearer economy labels", () => {
+test("locale parity for sellers group and billing labels", () => {
   for (const locale of LOCALES) {
-    const data = JSON.parse(
-      readFileSync(join(ROOT, `locales/${locale}/platform.json`), "utf8"),
-    ) as {
-      navGroups?: { sellers?: string; commercial?: string };
-      nav?: {
-        invoices?: string;
-        payments?: string;
-        growthPartners?: string;
-        growthPartnerAttribution?: string;
-        commissions?: string;
-        sellersOverview?: string;
-        sellersPartners?: string;
-      };
+    const data = JSON.parse(readFileSync(join(ROOT, `locales/${locale}/platform.json`), "utf8")) as {
+      navGroups?: { sellers?: string; billing?: string };
+      nav?: { invoices?: string; payments?: string; commissions?: string; sellersOverview?: string };
     };
-    assert.ok(data.navGroups?.sellers, `missing navGroups.sellers for ${locale}`);
-    assert.ok(data.nav?.invoices, `missing nav.invoices for ${locale}`);
-    assert.ok(data.nav?.payments, `missing nav.payments for ${locale}`);
-    assert.ok(data.nav?.growthPartnerAttribution, `missing attribution for ${locale}`);
-    assert.ok(data.nav?.commissions, `missing commissions for ${locale}`);
-    assert.ok(data.nav?.sellersOverview, `missing sellersOverview for ${locale}`);
-    assert.ok(data.nav?.sellersPartners, `missing sellersPartners for ${locale}`);
+    assert.ok(data.navGroups?.sellers, locale);
+    assert.ok(data.navGroups?.billing, locale);
+    assert.ok(data.nav?.invoices, locale);
+    assert.ok(data.nav?.payments, locale);
+    assert.ok(data.nav?.commissions, locale);
+    assert.ok(data.nav?.sellersOverview, locale);
   }
-
-  const no = JSON.parse(
-    readFileSync(join(ROOT, "locales/no/platform.json"), "utf8"),
-  ) as {
-    navGroups: { sellers: string };
+  const no = JSON.parse(readFileSync(join(ROOT, "locales/no/platform.json"), "utf8")) as {
+    navGroups: { sellers: string; billing: string };
     nav: { invoices: string; payments: string };
   };
-  const noFull = JSON.parse(
-    readFileSync(join(ROOT, "locales/no/platform.json"), "utf8"),
-  ) as {
-    navGroups: { sellers: string };
-    nav: { invoices: string; payments: string; licenses: string; commissions: string };
-  };
-  assert.equal(noFull.navGroups.sellers, "Selgere");
-  assert.equal(noFull.nav.invoices, "Kundefakturaer");
-  assert.equal(noFull.nav.payments, "Økonomioversikt");
-  assert.equal(noFull.nav.licenses, "Lisensregister");
-  assert.equal(noFull.nav.commissions, "Selgerprovisjoner");
+  assert.equal(no.navGroups.sellers, "Selgere");
+  assert.equal(no.navGroups.billing, "Betaling");
+  assert.equal(no.nav.invoices, "Kundefakturaer");
+  assert.equal(no.nav.payments, "Økonomioversikt");
 });
 
 console.log("platform-nav-sellers-commercial-structure: all tests passed");

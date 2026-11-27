@@ -91,7 +91,7 @@ function createStorageHelpers(mode: "customer" | "platform") {
     mode === "platform" ? getPlatformGroupIdForNavItem : getGroupIdForNavItem;
   const filterSearch =
     mode === "platform" ? filterPlatformNavSearchEntries : filterAppNavSearchEntries;
-  const defaultOpenGroup = mode === "platform" ? "operations" : "organization";
+  const defaultOpenGroup = mode === "platform" ? "customers" : "organization";
 
   return {
     openGroupKey,
@@ -561,7 +561,8 @@ export default function GroupedSidebar({
               : isPlatform
                 ? expandedGroupIds.has(group.id)
                 : openGroupId === group.id;
-            const hideFixedSectionLabel = isFixed && group.id === "dashboard";
+            const hideFixedSectionLabel =
+              isFixed && (group.id === "dashboard" || group.id === "support");
             const isActiveSection =
               !isFixed && activeGroupId === group.id && !isSearching;
             const showDivider = isPlatform && index > 0;

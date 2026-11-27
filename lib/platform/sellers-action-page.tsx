@@ -2,10 +2,12 @@ import {
   CertifiedSellersLivePanel,
   type SellersLiveSection,
 } from "@/components/platform/sellers/CertifiedSellersLivePanel";
+import { PlatformSellersHubShell } from "@/components/platform/sellers/PlatformSellersHubShell";
 import { buildSellersActionLabels, buildSellersLiveLabels } from "@/lib/partners-portal/csp-workspace-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildPlatformSellersHubLabels } from "@/lib/platform/sellers-hub-labels";
 
 /**
  * Core-wired Platform > Selgere page. Data is loaded client-side from the fail-closed
@@ -22,16 +24,18 @@ export async function renderPlatformSellersLivePage(input: {
   const t = createTranslator(dict);
 
   return (
-    <CertifiedSellersLivePanel
-      section={input.section}
-      locale={locale}
-      title={t(input.titleKey)}
-      subtitle={t(input.subtitleKey)}
-      notReadyTitle={t("platform.sellers.backend.notReadyTitle")}
-      notReadyBody={t("platform.sellers.backend.notReadyBody")}
-      labels={buildSellersLiveLabels(t)}
-      actionLabels={buildSellersActionLabels(t)}
-    />
+    <PlatformSellersHubShell labels={buildPlatformSellersHubLabels(t)}>
+      <CertifiedSellersLivePanel
+        section={input.section}
+        locale={locale}
+        title={t(input.titleKey)}
+        subtitle={t(input.subtitleKey)}
+        notReadyTitle={t("platform.sellers.backend.notReadyTitle")}
+        notReadyBody={t("platform.sellers.backend.notReadyBody")}
+        labels={buildSellersLiveLabels(t)}
+        actionLabels={buildSellersActionLabels(t)}
+      />
+    </PlatformSellersHubShell>
   );
 }
 
