@@ -129,9 +129,18 @@ export function AppCustomerProfilePanel({
     : fieldText(view.relationship.customerReference, labels);
   const companyFields = [
     view.companyName.value ? { label: labels.companyName, value: view.companyName.value } : null,
-    view.companyWebsite.value ? { label: labels.companyWebsite, value: view.companyWebsite.value } : null,
-    view.companyPhone.value ? { label: labels.companyPhone, value: view.companyPhone.value } : null,
-    view.companyAddress.value ? { label: labels.companyAddress, value: view.companyAddress.value } : null,
+    {
+      label: labels.companyWebsite,
+      value: view.companyWebsite.value ?? labels.notRegistered,
+    },
+    {
+      label: labels.companyPhone,
+      value: view.companyPhone.value ?? labels.notRegistered,
+    },
+    {
+      label: labels.companyAddress,
+      value: view.companyAddress.value ?? labels.notRegistered,
+    },
   ].filter((field): field is { label: string; value: string } => field !== null);
 
   const relationshipLinks = [
@@ -169,6 +178,12 @@ export function AppCustomerProfilePanel({
           )}
           <div className="min-w-0">
             <p className="truncate text-xl font-semibold text-[var(--app-text)]">{name}</p>
+            {view.companyName.value ? (
+              <p className="mt-1 truncate text-sm text-[var(--app-text)]">
+                <span className="text-[var(--app-text-muted)]">{labels.organizationLabel}: </span>
+                {view.companyName.value}
+              </p>
+            ) : null}
             <p className="mt-1 text-sm text-[var(--app-text-muted)]">{roleLabel}</p>
             {!view.avatarUrl ? (
               <p className="mt-2 text-xs text-[var(--app-text-muted)]">{labels.avatarFallback}</p>
@@ -213,37 +228,45 @@ export function AppCustomerProfilePanel({
               <Building2 aria-hidden className="h-4 w-4 text-[var(--app-primary)]" />
               {labels.companyTitle}
             </h2>
-            {companyFields.length > 0 ? (
+            {view.companyName.value ? (
               <>
-                <p className="max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.companyOptionalNote}</p>
+                <p className="max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">
+                  {labels.companyOptionalNote}
+                </p>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {companyFields.map((field) => (
-                    <LockedField key={field.label} label={field.label} value={field.value} reason={labels.readOnlyReason} />
+                    <LockedField
+                      key={field.label}
+                      label={field.label}
+                      value={field.value}
+                      reason={labels.readOnlyReason}
+                    />
                   ))}
                 </div>
+                <p className="max-w-3xl text-sm leading-relaxed text-[var(--app-text-muted)]">
+                  {labels.companyLegalNote}
+                </p>
+                <Link
+                  href={labels.requestChangeHref}
+                  className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] px-4 text-sm font-medium text-[var(--app-primary)]"
+                >
+                  {labels.requestChange}
+                </Link>
               </>
             ) : (
               <div className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5">
                 <p className="text-sm font-semibold text-[var(--app-text)]">{labels.companyEmpty}</p>
-                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--app-text-muted)]">{labels.companyEmptyBody}</p>
-                {view.links.companySettings ? (
-                  <Link
-                    href={view.links.companySettings}
-                    className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[var(--app-primary)] px-4 text-sm font-semibold text-white"
-                  >
-                    {labels.addCompanyDetails}
-                  </Link>
-                ) : null}
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--app-text-muted)]">
+                  {labels.companyEmptyBody}
+                </p>
+                <Link
+                  href={labels.requestChangeHref}
+                  className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[var(--app-primary)] px-4 text-sm font-semibold text-white"
+                >
+                  {labels.requestChange}
+                </Link>
               </div>
             )}
-            {view.hasCompanyDetails && view.links.companySettings ? (
-              <Link
-                href={view.links.companySettings}
-                className="inline-flex min-h-11 items-center text-sm font-medium text-[var(--app-primary)] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-              >
-                {labels.openCompanySettings}
-              </Link>
-            ) : null}
           </section>
         ) : null}
 

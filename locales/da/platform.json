@@ -690,7 +690,11 @@
           "unavailable": "Utilgængelig",
           "conflict": "Kræver gennemgang"
         }
-      }
+      },
+      "primaryContactName": "Primærkontakt",
+      "primaryContactEmail": "Kontakt-e-mail",
+      "primaryContactPhone": "Kontakttelefon",
+      "primaryContactEmpty": "Ingen primærkontakt registreret"
     },
     "createCustomer": "Opret kunde",
     "creation": {
@@ -1618,7 +1622,8 @@
       "notAuthorized": "Intern kundeoprettelse er ikke autoriseret. Platform- og Core-porte forbliver lukkede.",
       "ordinaryProductionOnly": "Almindelig Platform-oprettelse bruger altid produktionsmiljøet.",
       "nextGateHelperAllowlistSql": "Næste ejerbeslutning: anvend kun SQL for tilladelseslisten til intern oprettelseshelper (tom tabel; helper stadig false). Ingen tenant-oprettelse."
-    }
+    },
+    "primaryContact": "Primærkontakt"
   },
   "customerDetail": {
     "back": "Back to customers",

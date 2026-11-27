@@ -156,6 +156,7 @@ export type PlatformPortalCustomersLabels = {
   directCustomer: string;
   noSubscription: string;
   notAvailable: string;
+  primaryContact: string;
   openCustomer: string;
   noOpenSupport: string;
   createCustomer: string;
@@ -178,6 +179,10 @@ export type PlatformPortalCustomerDetailCustomer = {
   createdAt: string | null;
   updatedAt: string | null;
   requiresAttention: boolean;
+  /** Person contact — never confused with organization `name` / legalName. */
+  primaryContactName: string | null;
+  primaryContactEmail: string | null;
+  primaryContactPhone: string | null;
 };
 
 export type PlatformPortalCustomerDetailCommercial = {
@@ -282,6 +287,10 @@ export type PlatformPortalCustomerDetailLabels = {
   organizationNumber: string;
   legalName: string;
   customerName: string;
+  primaryContactName: string;
+  primaryContactEmail: string;
+  primaryContactPhone: string;
+  primaryContactEmpty: string;
   customerId: string;
   companyId: string;
   createdAt: string;

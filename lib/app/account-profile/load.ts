@@ -31,13 +31,23 @@ export async function loadAccountProfileView(): Promise<AccountProfileView | nul
   const role = (profile?.user.role ?? context.user_role ?? "").toLowerCase();
   const canOpenCompanySettings = role.includes("owner") || role.includes("admin");
 
+  const metadata =
+    user.user_metadata && typeof user.user_metadata === "object" && !Array.isArray(user.user_metadata)
+      ? (user.user_metadata as Record<string, unknown>)
+      : {};
+  const metadataPhone =
+    typeof metadata.phone === "string" ? metadata.phone.trim() || null : null;
+  const phone = (user.phone ?? "").trim() || metadataPhone;
+
   return buildAccountProfileView({
     user: profile?.user ?? null,
     loginEmail: user.email ?? null,
-    phone: user.phone ?? null,
+    phone,
     updatedAt: user.updated_at ?? null,
     avatarUrl: avatarFromAuthMetadata(user.user_metadata),
     context,
+    // Organization name is resolved from workspace context inside the view model.
+    company: null,
     canOpenCompanySettings,
   });
 }

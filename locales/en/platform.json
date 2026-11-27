@@ -883,7 +883,11 @@
           "unavailable": "Unavailable",
           "conflict": "Needs review"
         }
-      }
+      },
+      "primaryContactName": "Primary contact",
+      "primaryContactEmail": "Contact email",
+      "primaryContactPhone": "Contact phone",
+      "primaryContactEmpty": "No primary contact registered"
     },
     "createCustomer": "Create customer",
     "creation": {
@@ -1811,7 +1815,8 @@
       "notAuthorized": "Internal customer create is not authorized. Platform and Core gates remain closed.",
       "ordinaryProductionOnly": "Ordinary Platform create always uses the production environment.",
       "nextGateHelperAllowlistSql": "Next owner decision: apply only the internal create helper-allowlist SQL (empty table; helper still false). No tenant create."
-    }
+    },
+    "primaryContact": "Primary contact"
   },
   "customerDetail": {
     "back": "Back to customers",

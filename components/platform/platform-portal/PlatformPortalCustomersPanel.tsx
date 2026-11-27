@@ -643,11 +643,12 @@ export function PlatformPortalCustomersPanel({
                                   {customer.organizationSlug}
                                 </p>
                               ) : null}
-                              {customer.primaryContactName ? (
-                                <p className="mt-0.5 truncate text-xs text-slate-500 dark:text-slate-400">
-                                  {customer.primaryContactName}
-                                </p>
-                              ) : null}
+                              <p className="mt-0.5 truncate text-xs text-slate-500 dark:text-slate-400">
+                                {labels.primaryContact}:{" "}
+                                {customer.primaryContactName?.trim()
+                                  ? customer.primaryContactName
+                                  : labels.notAvailable}
+                              </p>
                             </div>
                           </td>
                           <td className="whitespace-nowrap px-4 py-3 align-top text-slate-700 dark:text-slate-300">
