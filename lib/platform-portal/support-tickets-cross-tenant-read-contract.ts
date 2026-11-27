@@ -19,13 +19,18 @@ export const PLATFORM_SUPPORT_TICKETS_READ_RPCS = [
   "get_platform_app_portal_support_request_counts",
 ] as const;
 
-/** Documented channel values on app_portal_support_requests (Phase 620). */
+/**
+ * Documented channel values on app_portal_support_requests.
+ * `web` + `partner` require intake V3 SQL candidate apply (PREPARED_ONLY until owner YES).
+ */
 export const APP_PORTAL_SUPPORT_CHANNEL_VALUES = [
   "app_portal",
   "email",
   "chat",
   "phone",
   "assistant",
+  "web",
+  "partner",
 ] as const;
 
 /**

@@ -449,7 +449,8 @@
       "practiceNotice": "Ten wynik ma charakter wyłącznie treningowy. Nie zarejestrowano ani nie wydano żadnej certyfikacji, ponieważ system partnerski jej nie potwierdził. Certyfikacja i linki sprzedażowe będą dostępne po zarejestrowaniu wyniku.",
       "certificationRecorded": "Twoja certyfikacja została zarejestrowana.",
       "downloadCertificate": "Pobierz certyfikat (PDF)",
-      "attemptRecorded": "Twoja próba została zarejestrowana. Powtórz lekcje i spróbuj ponownie, gdy będziesz gotowy."
+      "attemptRecorded": "Twoja próba została zarejestrowana. Powtórz lekcje i spróbuj ponownie, gdy będziesz gotowy.",
+      "scorePercentOnly": "Wynik: {score}% — zaliczono"
     },
     "lessons": {
       "title": "Lekcje o Kompis Web",
@@ -1181,24 +1182,34 @@
       "contact": {
         "title": "Kontakt z Aipify",
         "subtitle": "Wyślij zgłoszenie dotyczące konta partnerskiego.",
-        "intro": "Opisz, z czym potrzebujesz pomocy. Zgłoszenia powstają w Support Core, gdy kanał jest aktywny.",
+        "intro": "Opisz, z czym potrzebujesz pomocy. Gdy przyjmowanie zgłoszeń jest aktywne, prośba trafia do Aipify. Do tego czasu użyj e-maila lub wiadomości — nie tworzymy fałszywego numeru sprawy.",
         "category": "Kategoria",
+        "priority": "Priorytet",
         "subject": "Temat",
         "description": "Opis",
         "submit": "Wyślij zgłoszenie",
         "submitting": "Wysyłanie…",
-        "blockedTitle": "System ticketów nie jest jeszcze aktywny",
-        "blockedBody": "Ticketypartnerskie czekają na aktywację Support Core. Na razie użyj e-maila lub wiadomości — nie tworzymy fałszywego numeru sprawy.",
+        "blockedTitle": "Przyjmowanie zgłoszeń nie jest jeszcze aktywne",
+        "blockedBody": "Automatyczne zgłoszenia partnerskie nie są jeszcze aktywne. Na razie użyj e-maila lub wiadomości — nie tworzymy fałszywego numeru sprawy.",
         "mailtoCta": "Napisz do Aipify",
         "messagesCta": "Otwórz wiadomości",
         "success": "Twoje zgłoszenie zostało zarejestrowane.",
         "error": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie lub użyj wiadomości.",
+        "senderTitle": "Twój profil partnerski",
+        "senderName": "Imię i nazwisko",
+        "senderEmail": "E-mail",
         "categories": {
-          "general": "Ogólne",
-          "payout": "Wypłata",
-          "academy": "Academy",
-          "company": "Dane firmy",
-          "technical": "Techniczne"
+          "billing": "Faktura / płatność",
+          "product": "Produkt / moduł",
+          "account": "Konto / licencja",
+          "technical": "Problem techniczny",
+          "other": "Inne",
+          "partner_commission": "Prowizja / wypłata"
+        },
+        "priorities": {
+          "normal": "Normalny",
+          "urgent": "Pilne",
+          "critical": "Krytyczne"
         }
       }
     }

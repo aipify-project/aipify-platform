@@ -573,7 +573,8 @@
       "practiceNotice": "Det här resultatet är endast övning. Ingen certifiering har registrerats eller utfärdats, eftersom partnerlösningen inte har bekräftat den. Certifiering och säljlänkar blir tillgängliga när resultatet är registrerat.",
       "certificationRecorded": "Din certifiering har registrerats.",
       "downloadCertificate": "Ladda ner certifikat (PDF)",
-      "attemptRecorded": "Ditt försök har registrerats. Gå igenom lektionerna och försök igen när du är redo."
+      "attemptRecorded": "Ditt försök har registrerats. Gå igenom lektionerna och försök igen när du är redo.",
+      "scorePercentOnly": "Resultat: {score} % – godkänt"
     },
     "lessons": {
       "title": "Kompis Web-utbildning",
@@ -1304,25 +1305,35 @@
       },
       "contact": {
         "title": "Kontakta Aipify",
-        "subtitle": "Skicka en förfrågan om ditt partnerkonto.",
-        "intro": "Beskriv vad du behöver hjälp med. Ärenden skapas i Support Core när kanalen är aktiv.",
+        "subtitle": "Skicka en supportförfrågan om ditt partnerkonto.",
+        "intro": "Beskriv vad du behöver hjälp med. När ärendeintag är aktivt registreras förfrågan hos Aipify. Tills dess: använd e-post eller meddelanden — vi skapar inget falskt ärendenummer.",
         "category": "Kategori",
+        "priority": "Prioritet",
         "subject": "Ämne",
         "description": "Beskrivning",
         "submit": "Skicka förfrågan",
         "submitting": "Skickar…",
-        "blockedTitle": "Ticketsystemet är inte aktivt ännu",
-        "blockedBody": "Partnerärenden väntar på aktivering av Support Core. Använd e-post eller meddelanden under tiden — vi skapar inget falskt ärendenummer.",
+        "blockedTitle": "Ärendeintag är inte aktivt ännu",
+        "blockedBody": "Partnerärenden kan inte skapas automatiskt ännu. Använd e-post eller meddelanden under tiden — vi skapar inget falskt ärendenummer.",
         "mailtoCta": "Mejla Aipify",
         "messagesCta": "Öppna meddelanden",
         "success": "Din förfrågan registrerades.",
         "error": "Förfrågan kunde inte skickas. Försök igen eller använd meddelanden.",
+        "senderTitle": "Din partnerprofil",
+        "senderName": "Namn",
+        "senderEmail": "E-post",
         "categories": {
-          "general": "Allmänt",
-          "payout": "Utbetalning",
-          "academy": "Academy",
-          "company": "Företagsuppgifter",
-          "technical": "Tekniskt"
+          "billing": "Faktura / betalning",
+          "product": "Produkt / modul",
+          "account": "Konto / licens",
+          "technical": "Tekniskt fel",
+          "other": "Övrigt",
+          "partner_commission": "Provision / utbetalning"
+        },
+        "priorities": {
+          "normal": "Normal",
+          "urgent": "Brådskande",
+          "critical": "Kritisk"
         }
       }
     }

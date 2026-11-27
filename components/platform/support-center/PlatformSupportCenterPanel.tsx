@@ -147,6 +147,7 @@ export default function PlatformSupportCenterPanel({
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("");
+  const [channelFilter, setChannelFilter] = useState("");
   const [flash, setFlash] = useState<SupportFlash | null>(null);
   const [feedback, setFeedback] = useState<{
     scope: SupportFeedbackScope;
@@ -273,6 +274,7 @@ export default function PlatformSupportCenterPanel({
       });
       if (statusFilter) params.set("status", statusFilter);
       if (priorityFilter) params.set("priority", priorityFilter);
+      if (channelFilter) params.set("channel", channelFilter);
       if (debouncedSearch) params.set("search", debouncedSearch);
       // Server-side Mine filter (paginated). Falls back client-side if Core lacks param.
       if (tab === "mine") params.set("assigned_to", "me");
@@ -329,6 +331,7 @@ export default function PlatformSupportCenterPanel({
     labels.detail.writeErrors.forbidden,
     labels.detail.writeErrors.unauthorized,
     labels.errorBody,
+    channelFilter,
     priorityFilter,
     statusFilter,
     tab,
@@ -430,7 +433,9 @@ export default function PlatformSupportCenterPanel({
   const readyItems = load.kind === "ready" ? load.items : [];
   const viewerUserId = load.kind === "ready" ? load.viewerUserId : null;
   const visibleItems = filterTicketsForTab(readyItems, tab, viewerUserId);
-  const hasFilters = Boolean(debouncedSearch || statusFilter || priorityFilter);
+  const hasFilters = Boolean(
+    debouncedSearch || statusFilter || priorityFilter || channelFilter,
+  );
 
   const kpis = computeSupportKpis({
     status:
@@ -793,7 +798,7 @@ export default function PlatformSupportCenterPanel({
 
       {(tab === "all" || tab === "mine") && (
         <section className="space-y-6">
-          <div className="grid gap-3 rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-3 sm:grid-cols-2 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_auto]">
+          <div className="grid gap-3 rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-3 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_auto]">
             <label className="text-sm">
               <span className="mb-1 block text-xs font-medium text-[color:var(--aipify-text-secondary)]">
                 {labels.search}
@@ -834,6 +839,23 @@ export default function PlatformSupportCenterPanel({
               >
                 <option value="">{labels.filterAll}</option>
                 {Object.entries(labels.priorityLabels).map(([code, label]) => (
+                  <option key={code} value={code}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="text-sm">
+              <span className="mb-1 block text-xs font-medium text-[color:var(--aipify-text-secondary)]">
+                {labels.channel}
+              </span>
+              <select
+                className={inputClass}
+                value={channelFilter}
+                onChange={(e) => setChannelFilter(e.target.value)}
+              >
+                <option value="">{labels.filterAll}</option>
+                {Object.entries(labels.channelLabels).map(([code, label]) => (
                   <option key={code} value={code}>
                     {label}
                   </option>

@@ -8681,7 +8681,9 @@
       "email": "E-post",
       "chat": "Chatt",
       "phone": "Telefon",
-      "assistant": "Assistent"
+      "assistant": "Assistent",
+      "web": "Webbplats",
+      "partner": "Sales Partner"
     },
     "templates": {
       "title": "Svarsmallar",

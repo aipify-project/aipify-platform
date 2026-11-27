@@ -21,6 +21,7 @@ export default async function ContactSupportPage() {
     submit: t("marketing.supportIntake.submit"),
     submitting: t("marketing.supportIntake.submitting"),
     successCorePending: t("marketing.supportIntake.successCorePending"),
+    successSubmitted: t("marketing.supportIntake.successSubmitted"),
     errorGeneric: t("marketing.supportIntake.errorGeneric"),
     mailtoFallback: t("marketing.supportIntake.mailtoFallback"),
     mailtoLabel: t("marketing.supportIntake.mailtoLabel"),

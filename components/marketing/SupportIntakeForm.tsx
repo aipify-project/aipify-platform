@@ -17,7 +17,10 @@ export type SupportIntakeFormLabels = {
   message: string;
   submit: string;
   submitting: string;
+  /** Shown when intake is not live or Core returns 503 — never a success claim. */
   successCorePending: string;
+  /** Shown only after a real accepted ticket write. */
+  successSubmitted?: string;
   errorGeneric: string;
   mailtoFallback: string;
   mailtoLabel: string;
@@ -31,14 +34,14 @@ type Props = {
   intakeLive?: boolean;
 };
 
+type FormStatus = "idle" | "submitting" | "blocked" | "done" | "error";
+
 export default function SupportIntakeForm({
   labels,
   verificationLabels,
   intakeLive = false,
 }: Props) {
-  const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">(
-    "idle",
-  );
+  const [status, setStatus] = useState<FormStatus>(intakeLive ? "idle" : "blocked");
   const [error, setError] = useState<string | null>(null);
   const [lastSubject, setLastSubject] = useState("");
   const {
@@ -78,18 +81,24 @@ export default function SupportIntakeForm({
       const json = (await res.json().catch(() => ({}))) as {
         error?: string;
         code?: string;
+        ok?: boolean;
+        live?: boolean;
+        ticket_id?: string;
       };
 
       if (
         res.status === 503 ||
+        json.live === false ||
         json.code === "core_not_applied" ||
-        json.code === "channel_not_activated"
+        json.code === "channel_not_activated" ||
+        json.code === "feature_gate_off"
       ) {
-        setStatus("done");
+        // Honest blocked path — never celebrate a fake ticket id.
+        setStatus("blocked");
         onVerificationReset();
         return;
       }
-      if (!res.ok) {
+      if (!res.ok || json.ok === false) {
         setStatus("error");
         setError(json.error ?? labels.errorGeneric);
         return;
@@ -103,14 +112,27 @@ export default function SupportIntakeForm({
     }
   }
 
+  const showMailtoPanel = !intakeLive || status === "blocked" || status === "done";
+  const panelCopy =
+    status === "done"
+      ? labels.successSubmitted ?? labels.successCorePending
+      : labels.successCorePending;
+
   return (
     <div className="mx-auto w-full max-w-xl">
       <h1 className="text-2xl font-semibold text-slate-900">{labels.title}</h1>
       <p className="mt-2 text-sm text-slate-600">{labels.subtitle}</p>
 
-      {!intakeLive || status === "done" ? (
-        <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
-          <p>{labels.successCorePending}</p>
+      {showMailtoPanel ? (
+        <div
+          className={`mt-6 rounded-xl border p-4 text-sm ${
+            status === "done"
+              ? "border-teal-200 bg-teal-50 text-teal-950"
+              : "border-amber-200 bg-amber-50 text-amber-950"
+          }`}
+          role="status"
+        >
+          <p>{panelCopy}</p>
           <p className="mt-3">
             <a
               className="font-medium text-indigo-700 underline"

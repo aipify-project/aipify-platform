@@ -573,7 +573,8 @@
       "practiceNotice": "Dette resultat er kun øvelse. Der er ikke registreret eller udstedt nogen certificering, fordi partnerløsningen ikke har bekræftet den. Certificering og salgslinks bliver tilgængelige, når resultatet er registreret.",
       "certificationRecorded": "Din certificering er registreret.",
       "downloadCertificate": "Download certifikat (PDF)",
-      "attemptRecorded": "Dit forsøg er registreret. Gennemgå lektionerne, og prøv igen, når du er klar."
+      "attemptRecorded": "Dit forsøg er registreret. Gennemgå lektionerne, og prøv igen, når du er klar.",
+      "scorePercentOnly": "Resultat: {score} % – bestået"
     },
     "lessons": {
       "title": "Kompis Web-oplæring",
@@ -1304,25 +1305,35 @@
       },
       "contact": {
         "title": "Kontakt Aipify",
-        "subtitle": "Send en forespørgsel om din partnerkonto.",
-        "intro": "Beskriv, hvad du har brug for hjælp til. Sager oprettes i Support Core, når kanalen er aktiv.",
+        "subtitle": "Send en supportanmodning om din partnerkonto.",
+        "intro": "Beskriv, hvad du har brug for hjælp til. Når sagsindtag er aktivt, registreres anmodningen hos Aipify. Indtil da: brug e-mail eller beskeder — vi opretter ikke et falsk sagsnummer.",
         "category": "Kategori",
+        "priority": "Prioritet",
         "subject": "Emne",
         "description": "Beskrivelse",
-        "submit": "Send forespørgsel",
+        "submit": "Send anmodning",
         "submitting": "Sender…",
-        "blockedTitle": "Ticketsystemet er ikke aktivt endnu",
-        "blockedBody": "Partnersager venter på aktivering af Support Core. Brug e-mail eller beskeder indtil videre — vi opretter ikke et falsk sagsnummer.",
+        "blockedTitle": "Sagsindtag er ikke aktivt endnu",
+        "blockedBody": "Partnersager kan ikke oprettes automatisk endnu. Brug e-mail eller beskeder indtil videre — vi opretter ikke et falsk sagsnummer.",
         "mailtoCta": "Send e-mail til Aipify",
         "messagesCta": "Åbn beskeder",
-        "success": "Din forespørgsel blev registreret.",
-        "error": "Forespørgslen kunne ikke sendes. Prøv igen, eller brug beskeder.",
+        "success": "Din anmodning blev registreret.",
+        "error": "Anmodningen kunne ikke sendes. Prøv igen eller brug beskeder.",
+        "senderTitle": "Din partnerprofil",
+        "senderName": "Navn",
+        "senderEmail": "E-mail",
         "categories": {
-          "general": "Generelt",
-          "payout": "Udbetaling",
-          "academy": "Academy",
-          "company": "Firmoplysninger",
-          "technical": "Teknisk"
+          "billing": "Faktura / betaling",
+          "product": "Produkt / modul",
+          "account": "Konto / licens",
+          "technical": "Teknisk fejl",
+          "other": "Andet",
+          "partner_commission": "Provision / udbetaling"
+        },
+        "priorities": {
+          "normal": "Normal",
+          "urgent": "Haster",
+          "critical": "Kritisk"
         }
       }
     }

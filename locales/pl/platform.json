@@ -8681,7 +8681,9 @@
       "email": "E-mail",
       "chat": "Czat",
       "phone": "Telefon",
-      "assistant": "Asystent"
+      "assistant": "Asystent",
+      "web": "Strona",
+      "partner": "Sales Partner"
     },
     "templates": {
       "title": "Szablony odpowiedzi",

@@ -8410,7 +8410,9 @@
       "email": "E-post",
       "chat": "Chat",
       "phone": "Telefon",
-      "assistant": "Assistent"
+      "assistant": "Assistent",
+      "web": "Nettsted",
+      "partner": "Sales Partner"
     },
     "templates": {
       "title": "Svarmaler",

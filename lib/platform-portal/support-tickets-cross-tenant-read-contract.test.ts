@@ -53,9 +53,19 @@ for (const rpc of PLATFORM_SUPPORT_TICKETS_READ_RPCS) {
   assert.match(sql, new RegExp(`create or replace function public\\.${rpc}`));
 }
 
-for (const channel of APP_PORTAL_SUPPORT_CHANNEL_VALUES) {
+// Read RPC SQL documents the Phase-620 baseline channels; web/partner land with intake V3.
+const READ_SQL_BASELINE_CHANNELS = [
+  "app_portal",
+  "email",
+  "chat",
+  "phone",
+  "assistant",
+] as const;
+for (const channel of READ_SQL_BASELINE_CHANNELS) {
   assert.match(sql, new RegExp(`'${channel}'`));
 }
+assert.ok(APP_PORTAL_SUPPORT_CHANNEL_VALUES.includes("web"));
+assert.ok(APP_PORTAL_SUPPORT_CHANNEL_VALUES.includes("partner"));
 
 assert.match(sql, /Platform portal access denied/);
 assert.match(sql, /p_page_size/);

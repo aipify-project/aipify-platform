@@ -8155,7 +8155,9 @@
       "email": "E-mail",
       "chat": "Chat",
       "phone": "Telefon",
-      "assistant": "Assistent"
+      "assistant": "Assistent",
+      "web": "Website",
+      "partner": "Sales Partner"
     },
     "templates": {
       "title": "Svarskabeloner",

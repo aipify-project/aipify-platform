@@ -1836,7 +1836,9 @@
       "email": "Email",
       "chat": "Chat",
       "phone": "Phone",
-      "assistant": "Assistant"
+      "assistant": "Assistant",
+      "web": "Sitio web",
+      "partner": "Sales Partner"
     },
     "templates": {
       "title": "Reply templates",

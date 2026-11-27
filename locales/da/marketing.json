@@ -8841,19 +8841,19 @@
     }
   },
   "supportIntake": {
-    "title": "Contact support",
-    "subtitle": "Submit a support request. Ticket storage activates after Core approval — email fallback remains available.",
-    "name": "Name",
-    "email": "Email",
-    "subject": "Subject",
-    "message": "Message",
-    "submit": "Send request",
-    "submitting": "Sending…",
-    "successCorePending": "Support intake is prepared but requires Core setup before the ticket is stored automatically. Use the email fallback below for now.",
-    "errorGeneric": "Could not send the request. Try again or use email.",
-    "mailtoFallback": "Public email contact remains available as a fallback.",
-    "mailtoLabel": "Email support@aipify.ai",
-    "verificationRequired": "Complete the security check before submitting.",
-    "_fallbackFrom": "en"
+    "title": "Kontakt support",
+    "subtitle": "Send en supportanmodning. Automatisk sagsregistrering aktiveres efter godkendelse — e-mail forbliver et alternativ.",
+    "name": "Navn",
+    "email": "E-mail",
+    "subject": "Emne",
+    "message": "Besked",
+    "submit": "Send anmodning",
+    "submitting": "Sender…",
+    "successCorePending": "Automatisk sagsindtag er ikke aktivt endnu. Brug e-mailalternativet nedenfor — vi opretter ikke et falsk sagsnummer.",
+    "successSubmitted": "Din anmodning blev registreret.",
+    "errorGeneric": "Kunne ikke sende anmodningen. Prøv igen eller brug e-mail.",
+    "mailtoFallback": "E-mail forbliver tilgængelig som alternativ kontaktkanal.",
+    "mailtoLabel": "Send e-mail til support@aipify.ai",
+    "verificationRequired": "Fuldfør sikkerhedstjekket, før du sender."
   }
 }
