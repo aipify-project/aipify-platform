@@ -231,6 +231,39 @@ export function accessClassFromHostPrivateBoundary(isPrivateSurface: boolean): W
   return isPrivateSurface ? "private" : "public";
 }
 
+/**
+ * Whether the public loader may mount the iframe.
+ * A missing host attribute stays public only on pages that are not already a private surface.
+ * Known member and app paths stay unmounted. Explicit private or unknown never mounts.
+ * Open restore may expand the host frame only after the child reports a painted open shell.
+ */
+export function resolveWebsiteKompisPublicLoaderMount(input: {
+  pathname?: string | null;
+  hostAccessClass?: unknown;
+  attributeMissing?: boolean;
+}): { accessClass: WebsiteKompisPublicAccessClass; mount: boolean } {
+  if (isPrivateWebsiteKompisSurfacePathname(input.pathname ?? undefined)) {
+    return { accessClass: "private", mount: false };
+  }
+  if (input.attributeMissing) {
+    return { accessClass: "public", mount: true };
+  }
+  const accessClass = parseWebsiteKompisPublicAccessClass(input.hostAccessClass);
+  if (accessClass !== "public") {
+    return { accessClass, mount: false };
+  }
+  return { accessClass: "public", mount: true };
+}
+
+/** Host iframe may leave 72×72 only when the surface is mounted and the open shell has painted. */
+export function shouldExpandWebsiteKompisHostFrame(input: {
+  mount: boolean;
+  open: boolean;
+  painted: boolean;
+}): boolean {
+  return input.mount === true && input.open === true && input.painted === true;
+}
+
 /** Pure loader/iframe lifecycle step for local harnesses (no DOM / network). */
 export type WebsiteKompisProtectedRouteLifecycleSnapshot = {
   pathname: string;

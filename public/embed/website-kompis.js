@@ -8,6 +8,12 @@
   }
 
   var currentScript = document.currentScript;
+  // A host may insert this file after publishing data-aipify-kompis-access.
+  // Dynamic insertion often leaves document.currentScript null; one matching tag is enough.
+  if (!currentScript) {
+    var loaderScripts = document.querySelectorAll('script[src*="/embed/website-kompis.js"]');
+    currentScript = loaderScripts.length === 1 ? loaderScripts[0] : null;
+  }
   if (!currentScript) {
     return;
   }
@@ -22,6 +28,10 @@
   if (!installId || !domain) {
     return;
   }
+
+  // Claim this page before classification. A host failover must not add another frame
+  // while access is still being resolved.
+  window.__AIPIFY_WEBSITE_KOMPIS_EMBED__ = true;
 
   var PAGE_CONTEXT_MESSAGE_TYPE = "aipify.websiteKompis.pageContext";
   var PAGE_CONTEXT_REQUEST_MESSAGE_TYPE = "aipify.websiteKompis.requestPageContext";
@@ -219,12 +229,13 @@
     if (fromWindow != null && String(fromWindow).trim() !== "") {
       return parseAccessClass(fromWindow);
     }
-    // Host chose to load this public loader without an adapter attribute yet.
-    return "public";
+    // No adapter yet. Private paths are rejected before this return.
+    // A missing attribute must not become public on those member routes.
+    return "missing";
   }
 
-  var surfaceActive = true;
-  var lastAccessClass = "public";
+  var surfaceActive = false;
+  var lastAccessClass = "unknown";
   var disclosureRefreshTimer = null;
 
   function resolveSurfaceActive(accessClass) {
@@ -243,11 +254,38 @@
     if (isPrivatePathname(pathname)) {
       return "private";
     }
-    return readHostAccessClass();
+    var hostAccess = readHostAccessClass();
+    if (hostAccess === "missing") {
+      return "public";
+    }
+    return hostAccess;
+  }
+
+  function syncIframeMount(active) {
+    if (!active) {
+      pendingOpenResize = null;
+      lastOpenRequested = false;
+      shellReady = false;
+      closedHandshakeDone = false;
+      closedPaintCommitted = false;
+      cancelClosedPaintCommit();
+      iframe.removeAttribute("src");
+      if (iframe.parentNode) {
+        iframe.parentNode.removeChild(iframe);
+      }
+      return;
+    }
+    if (!iframe.getAttribute("src")) {
+      iframe.src = embedSrc;
+    }
+    if (!iframe.parentNode && document.body) {
+      document.body.appendChild(iframe);
+    }
   }
 
   function applySurfaceVisibility(active) {
-    if (!iframe) return;
+    syncIframeMount(active);
+    if (!iframe.parentNode) return;
     if (active) {
       iframe.style.display = "block";
       iframe.style.visibility = "visible";
@@ -843,9 +881,9 @@
     domain: domain,
     locale: locale || "no",
   });
+  var embedSrc = coreOrigin + "/embed/website-kompis?" + params.toString();
 
   var iframe = document.createElement("iframe");
-  iframe.src = coreOrigin + "/embed/website-kompis?" + params.toString();
   iframe.title = "Website Kompis";
   iframe.setAttribute("aria-label", "Website Kompis");
   // Eager load — lazy delays the closed resize handshake and can leave a host-sized blank frame.
@@ -991,7 +1029,7 @@
     if (typeof original !== "function") return;
     window.history[methodName] = function patchedHistory() {
       var result = original.apply(this, arguments);
-      window.setTimeout(maybePostPageContextOnRouteChange, 0);
+      maybePostPageContextOnRouteChange();
       return result;
     };
   }
@@ -1258,6 +1296,10 @@
         applyResize(false);
         return;
       }
+      // Open restore before the child has painted must not grow the host frame.
+      if (event.data.painted !== true || !surfaceActive) {
+        return;
+      }
       var resizeWidth = event.data.width;
       var resizeHeight = event.data.height;
       var widthOk =
@@ -1292,8 +1334,6 @@
     }
   });
 
-  document.body.appendChild(iframe);
-  window.__AIPIFY_WEBSITE_KOMPIS_EMBED__ = true;
   applyAccessClassFromEnvironment({ skipContext: true });
   // Failsafe: never leave an invisible host frame if the iframe never posts resize.
   // Skip when path/host already marked the surface inactive.

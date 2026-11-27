@@ -118,15 +118,16 @@ function resolveParentPostMessageOrigin(): string {
   }
 }
 
-function postResizeToParent(open: boolean) {
+function postResizeToParent(open: boolean, painted = false) {
   if (typeof window === "undefined" || window.parent === window) {
     return;
   }
   // Never clamp open size to the iframe's own viewport — that is often 72px (closed)
   // or a previously undersized host frame, which sticky-locks the panel below 800px.
   // Host loader owns viewport / keyboard / safe-area clamps from the parent window.
+  const message = buildWebsiteKompisEmbedResizeMessage(open);
   window.parent.postMessage(
-    buildWebsiteKompisEmbedResizeMessage(open),
+    painted && message.open ? { ...message, painted: true } : message,
     resolveParentPostMessageOrigin(),
   );
 }
@@ -263,16 +264,34 @@ export function WebsiteKompisEmbedWidget({
   const askAbortRef = useRef<AbortController | null>(null);
   const askGenerationRef = useRef(0);
   const surfaceActiveRef = useRef(true);
+  const paintGenerationRef = useRef(0);
 
   useEffect(() => {
     openRef.current = open;
-    setEmbedShellAttribute(open);
   }, [open]);
 
   useLayoutEffect(() => {
-    setEmbedShellAttribute(false);
-    postResizeToParent(false);
-  }, []);
+    const generation = paintGenerationRef.current + 1;
+    paintGenerationRef.current = generation;
+    if (!open || !surfaceActiveRef.current) {
+      setEmbedShellAttribute(false);
+      postResizeToParent(false);
+      return;
+    }
+    setEmbedShellAttribute(true);
+    let secondFrame = 0;
+    const firstFrame = window.requestAnimationFrame(() => {
+      secondFrame = window.requestAnimationFrame(() => {
+        if (generation !== paintGenerationRef.current) return;
+        if (!openRef.current || !surfaceActiveRef.current) return;
+        postResizeToParent(true, true);
+      });
+    });
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      if (secondFrame) window.cancelAnimationFrame(secondFrame);
+    };
+  }, [open]);
 
   useEffect(() => {
     const restored = readWebsiteKompisEmbedSession(getSessionStorageSafe(), {
@@ -283,11 +302,6 @@ export function WebsiteKompisEmbedWidget({
       setOpen(restored.open);
       setUiLocale(sanitizeWebsiteKompisEmbedLocale(restored.locale));
       setMessages(fromSessionMessages(restored.messages));
-      setEmbedShellAttribute(restored.open);
-      postResizeToParent(restored.open);
-    } else {
-      setEmbedShellAttribute(false);
-      postResizeToParent(false);
     }
     setSessionReady(true);
   }, [domain, installId]);
@@ -354,10 +368,6 @@ export function WebsiteKompisEmbedWidget({
       updatedAt: Date.now(),
     });
   }, [domain, installId, messages, open, sessionReady, uiLocale]);
-
-  useEffect(() => {
-    postResizeToParent(open);
-  }, [open]);
 
   // Host loader reclamps on parent visualViewport; iframe resize listeners only
   // re-assert the preferred open size (no iframe-height clamp).
