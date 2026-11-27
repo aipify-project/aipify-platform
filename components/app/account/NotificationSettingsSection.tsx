@@ -268,16 +268,15 @@ export function NotificationSettingsSection({
       )
     : null;
 
+  // Page shell already owns the title — avoid a second heading / org line here.
+  void organizationName;
+  void labels.settingsSectionTitle;
+  void labels.activeOrganization;
+
   return (
     <section id="notification-sound-settings" className="space-y-4">
-      <header className="space-y-1">
-        <h2 className="text-lg font-semibold text-aipify-text">{labels.settingsSectionTitle}</h2>
+      <div className="space-y-1">
         <p className="text-sm text-aipify-text-secondary">{labels.settingsSectionDescription}</p>
-        {organizationName ? (
-          <p className="text-xs font-medium text-aipify-text-secondary">
-            {labels.activeOrganization.replace("{name}", organizationName)}
-          </p>
-        ) : null}
         <p className="text-xs text-aipify-text-muted">{labels.browserHint}</p>
         {preferencesStatus === "loading" && hasEverHadDraftRef.current ? (
           <p className="text-sm text-aipify-text-secondary">{labels.loadingPreferences}</p>
@@ -291,7 +290,7 @@ export function NotificationSettingsSection({
         {saveState === "error" ? (
           <p className="text-sm text-rose-800">{labels.saveError}</p>
         ) : null}
-      </header>
+      </div>
 
       <div className="grid gap-3 md:grid-cols-2">
         <NotificationPreferenceToggleCard

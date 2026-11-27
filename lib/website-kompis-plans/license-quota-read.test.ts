@@ -153,7 +153,8 @@ const quotaDenied = await run(
   quota("free", "lifetime", [150, 0, 0, 150]),
   { quotaOk: false },
 );
-assert.equal(quotaDenied.read.kind, "unavailable");
+// Module is enabled — ownership stays; incomplete quota is not “unavailable”.
+assert.equal(quotaDenied.read.kind, "unknown_plan");
 assert.equal(JSON.stringify(quotaDenied.read).includes("150"), false);
 
 const anon = await run(
@@ -170,7 +171,7 @@ const mismatched = mapWebsiteKompisLicenseQuotaRead({
   licenseResult: ok({ plan: "standard", state: "active" }),
   quotaResult: ok({ ...quota("pro", "2026-10", [10000, 0, 0, 10000]) }),
 });
-assert.equal(mismatched.kind, "unavailable");
+assert.equal(mismatched.kind, "unknown_plan");
 
 const root = process.cwd();
 const loader = readFileSync(join(root, "lib/website-kompis-plans/load-license-quota-read.ts"), "utf8");

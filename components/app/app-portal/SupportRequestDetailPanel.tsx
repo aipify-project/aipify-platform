@@ -393,7 +393,7 @@ function ToneChip({
   tone,
   label,
 }: {
-  tone: "open" | "waiting" | "resolved" | "neutral";
+  tone: "open" | "waiting" | "resolved" | "closed" | "neutral";
   label: string;
 }) {
   const cls =
@@ -401,9 +401,11 @@ function ToneChip({
       ? "bg-amber-50 text-amber-900 ring-amber-200"
       : tone === "resolved"
         ? "bg-emerald-50 text-emerald-900 ring-emerald-200"
-        : tone === "open"
-          ? "bg-sky-50 text-sky-900 ring-sky-200"
-          : "bg-slate-100 text-slate-700 ring-slate-200";
+        : tone === "closed"
+          ? "bg-slate-100 text-slate-700 ring-slate-300"
+          : tone === "open"
+            ? "bg-sky-50 text-sky-900 ring-sky-200"
+            : "bg-slate-100 text-slate-700 ring-slate-200";
   return (
     <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${cls}`}>
       <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-current" />

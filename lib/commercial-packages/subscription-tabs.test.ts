@@ -13,11 +13,13 @@ assert.equal(parseSubscriptionTab(null), "overview");
 assert.equal(parseSubscriptionTab("bogus"), "overview");
 assert.equal(parseSubscriptionTab("invoices"), "invoices");
 assert.equal(parseSubscriptionTab("Fakturaer"), "invoices");
-assert.equal(parseSubscriptionTab("modules"), "addons");
+assert.equal(parseSubscriptionTab("modules"), "store");
+assert.equal(parseSubscriptionTab("addons"), "store");
 assert.equal(subscriptionTabHref("overview"), "/app/account/subscription");
 assert.equal(subscriptionTabHref("license"), "/app/account/subscription?tab=license");
+assert.equal(subscriptionTabHref("addons"), "/app/account/subscription?tab=store");
 assert.equal(legacyPathToSubscriptionTab("/app/account/invoices"), "invoices");
-assert.equal(legacyPathToSubscriptionTab("/app/settings/modules"), "addons");
+assert.equal(legacyPathToSubscriptionTab("/app/settings/modules"), "store");
 assert.equal(legacyPathToSubscriptionTab("/app/license"), "license");
 assert.equal(SUBSCRIPTION_TAB_IDS.length, 7);
 

@@ -6,17 +6,20 @@ export type SupportFlash = { tone: "success" | "error" | "info"; text: string };
 
 export function statusTone(status: string): string {
   const s = status.toLowerCase();
-  if (s === "resolved" || s === "closed") {
+  if (s === "resolved") {
     return "bg-emerald-50 text-emerald-800 border-emerald-200";
   }
-  if (s === "waiting_for_customer" || s === "waiting_internal") {
+  if (s === "closed" || s === "archived") {
+    return "bg-slate-100 text-slate-700 border-slate-300";
+  }
+  if (s === "waiting_for_customer" || s === "waiting_internal" || s === "waiting_for_aipify") {
     return "bg-amber-50 text-amber-900 border-amber-200";
   }
   if (s === "new" || s === "reopened") {
-    return "bg-rose-50 text-rose-800 border-rose-200";
-  }
-  if (s === "open" || s === "in_progress") {
     return "bg-sky-50 text-sky-900 border-sky-200";
+  }
+  if (s === "open" || s === "in_progress" || s === "in_review") {
+    return "bg-indigo-50 text-indigo-900 border-indigo-200";
   }
   return "bg-slate-50 text-slate-700 border-slate-200";
 }

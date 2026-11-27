@@ -69,27 +69,29 @@ export function mapWebsiteKompisLicenseQuotaRead(input: {
   licenseResult: WebsiteKompisRpcResult<unknown>;
   quotaResult: WebsiteKompisRpcResult<unknown>;
 }): WebsiteKompisLicenseQuotaRead {
-  if (!input.moduleResult.ok || !input.licenseResult.ok || !input.quotaResult.ok) {
+  // Module enablement is the ownership signal. Incomplete plan/quota must not
+  // erase a licensed product from Mine produkter (Dashboard vs Abonnement parity).
+  if (!input.moduleResult.ok) {
     return { kind: "unavailable" };
   }
   if (input.moduleResult.data !== true) {
     return { kind: "no_module" };
   }
 
-  if (!isRecord(input.licenseResult.data)) {
-    return { kind: "unavailable" };
+  if (!input.licenseResult.ok || !isRecord(input.licenseResult.data)) {
+    return { kind: "unknown_plan" };
   }
   const plan = knownPlan(input.licenseResult.data.plan);
   if (!plan) {
     return { kind: "unknown_plan" };
   }
 
-  if (!isRecord(input.quotaResult.data)) {
-    return { kind: "unavailable" };
+  if (!input.quotaResult.ok || !isRecord(input.quotaResult.data)) {
+    return { kind: "unknown_plan" };
   }
   const quota = input.quotaResult.data;
   if (quota.plan !== plan) {
-    return { kind: "unavailable" };
+    return { kind: "unknown_plan" };
   }
   const allowance = nonNegativeInt(quota.allowance);
   const finalized = nonNegativeInt(quota.finalized);
@@ -109,7 +111,7 @@ export function mapWebsiteKompisLicenseQuotaRead(input: {
     !zoneOk ||
     typeof quota.accepts_new_answers !== "boolean"
   ) {
-    return { kind: "unavailable" };
+    return { kind: "unknown_plan" };
   }
 
   return {

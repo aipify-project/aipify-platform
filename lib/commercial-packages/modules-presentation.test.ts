@@ -15,12 +15,14 @@ assert.doesNotMatch(panel, /center\.packages/);
 assert.doesNotMatch(panel, /method:\s*"PATCH"/);
 assert.doesNotMatch(panel, /update_tenant_module/);
 assert.match(page, /redirect/);
-assert.match(page, /addons/);
-assert.match(workspace, /ModulesAdminPanel/);
+assert.match(page, /store/);
+assert.doesNotMatch(workspace, /ModulesAdminPanel/);
+assert.match(workspace, /showCatalog=\{false\}/);
 assert.match(
   read("components/app/settings/billing/KompisProductPortfolio.tsx"),
   /showCatalog = false/,
 );
+assert.doesNotMatch(panel, /unnamedCount/);
 const software = read("app/app/software/page.tsx");
 assert.match(software, /SoftwareProductShowcase/);
 assert.match(software, /embedded/);

@@ -1,6 +1,10 @@
 /**
  * APP Abonnement Premium V3 — internal tab contract (?tab=).
  * Sidebar keeps a single Abonnement entry; deep-links land on the matching tab.
+ *
+ * Visible tabs (owner V2): Oversikt | Mine produkter | Kapasitet | Lisens | Fakturaer.
+ * Produktbutikk is a global menu destination — still a valid deep-link tab (`store`).
+ * `addons` (Tilleggsmoduler) is a legacy alias redirected to the store.
  */
 
 export const SUBSCRIPTION_TAB_IDS = [
@@ -14,6 +18,15 @@ export const SUBSCRIPTION_TAB_IDS = [
 ] as const;
 
 export type SubscriptionTabId = (typeof SUBSCRIPTION_TAB_IDS)[number];
+
+/** Tabs shown in the Abonnement tab strip. */
+export const SUBSCRIPTION_VISIBLE_TAB_IDS: readonly SubscriptionTabId[] = [
+  "overview",
+  "products",
+  "capacity",
+  "license",
+  "invoices",
+];
 
 export const DEFAULT_SUBSCRIPTION_TAB: SubscriptionTabId = "overview";
 
@@ -29,9 +42,10 @@ const ALIASES: Record<string, SubscriptionTabId> = {
   shop: "store",
   catalog: "store",
   packages: "store",
-  addons: "addons",
-  modules: "addons",
-  tilleggsmoduler: "addons",
+  // Legacy Tilleggsmoduler → Produktbutikk
+  addons: "store",
+  modules: "store",
+  tilleggsmoduler: "store",
   capacity: "capacity",
   usage: "capacity",
   kapasitet: "capacity",
@@ -47,24 +61,28 @@ export function isSubscriptionTabId(value: unknown): value is SubscriptionTabId 
   return typeof value === "string" && (SUBSCRIPTION_TAB_IDS as readonly string[]).includes(value);
 }
 
-/** Invalid / missing → overview. Safe for SSR + client. */
+/** Invalid / missing → overview. Legacy `addons` lands on store. Safe for SSR + client. */
 export function parseSubscriptionTab(raw: string | null | undefined): SubscriptionTabId {
   if (!raw) return DEFAULT_SUBSCRIPTION_TAB;
   const key = raw.trim().toLowerCase();
+  if (key === "addons" || key === "modules" || key === "tilleggsmoduler") {
+    return "store";
+  }
   if (isSubscriptionTabId(key)) return key;
   return ALIASES[key] ?? DEFAULT_SUBSCRIPTION_TAB;
 }
 
 export function subscriptionTabHref(tab: SubscriptionTabId): string {
-  if (tab === DEFAULT_SUBSCRIPTION_TAB) return SUBSCRIPTION_ROUTE;
-  return `${SUBSCRIPTION_ROUTE}?tab=${tab}`;
+  const resolved = tab === "addons" ? "store" : tab;
+  if (resolved === DEFAULT_SUBSCRIPTION_TAB) return SUBSCRIPTION_ROUTE;
+  return `${SUBSCRIPTION_ROUTE}?tab=${resolved}`;
 }
 
 /** Map legacy APP destinations onto the subscription tab surface. */
 export function legacyPathToSubscriptionTab(pathname: string): SubscriptionTabId | null {
   if (pathname.startsWith("/app/account/invoices")) return "invoices";
   if (pathname.startsWith("/app/settings/billing/invoice-details")) return "invoices";
-  if (pathname.startsWith("/app/settings/modules")) return "addons";
+  if (pathname.startsWith("/app/settings/modules")) return "store";
   if (pathname.startsWith("/app/license") || pathname.startsWith("/app/licenses")) return "license";
   if (pathname.startsWith("/app/settings/billing/packages")) return "store";
   if (pathname.startsWith("/app/settings/billing") && !pathname.includes("payment-providers")) {

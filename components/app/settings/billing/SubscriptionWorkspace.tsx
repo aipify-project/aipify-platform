@@ -1,6 +1,5 @@
 "use client";
 
-import { ModulesAdminPanel } from "@/components/app/settings/ModulesAdminPanel";
 import { KompisProductPortfolio } from "@/components/app/settings/billing/KompisProductPortfolio";
 import {
   SubscriptionTabNav,
@@ -49,7 +48,8 @@ type SubscriptionWorkspaceProps = {
   locale: string;
   presentation?: BillingPresentationMaps;
   initialTab: SubscriptionTabId;
-  modulesLabels: React.ComponentProps<typeof ModulesAdminPanel>["labels"];
+  /** @deprecated Tilleggsmoduler removed — kept optional for call-site compatibility. */
+  modulesLabels?: unknown;
   licenseLabels: React.ComponentProps<typeof TrustLicenseCenterPanel>["labels"];
   invoiceLabels: React.ComponentProps<typeof EnterpriseInvoiceDetailsPanel>["labels"];
 };
@@ -152,10 +152,11 @@ export function SubscriptionWorkspace({
   locale,
   presentation,
   initialTab,
-  modulesLabels,
+  modulesLabels: _modulesLabels,
   licenseLabels,
   invoiceLabels,
 }: SubscriptionWorkspaceProps) {
+  void _modulesLabels;
   const router = useRouter();
   const searchParams = useSearchParams();
   const [pending, startTransition] = useTransition();
@@ -382,13 +383,8 @@ export function SubscriptionWorkspace({
 
         {activeTab === "store" ? (
           <div className={AppLayoutClasses.card}>
-            <KompisProductPortfolio labels={portfolio} access={access} storeOnly showCatalog />
-          </div>
-        ) : null}
-
-        {activeTab === "addons" ? (
-          <div className={AppLayoutClasses.card}>
-            <ModulesAdminPanel labels={modulesLabels} embedded />
+            {/* Planned catalog prices stay off — never present WEBSITE_KOMPIS_PLAN_CATALOG as purchasable. */}
+            <KompisProductPortfolio labels={portfolio} access={access} storeOnly showCatalog={false} />
           </div>
         ) : null}
 

@@ -14,7 +14,8 @@ import type { WorkspaceTicketSummary } from "./types";
 const OPEN_STATUSES: SupportRequestStatus[] = ["open", "in_review", "reopened"];
 const WAITING_AIPIFY: SupportRequestStatus[] = ["waiting_for_aipify"];
 const WAITING_CUSTOMER: SupportRequestStatus[] = ["waiting_for_customer"];
-const RESOLVED_STATUSES: SupportRequestStatus[] = ["resolved", "closed", "archived"];
+/** Resolved KPI is only truly resolved — closed/archived are ended, not “solved”. */
+const RESOLVED_STATUSES: SupportRequestStatus[] = ["resolved"];
 
 function countBy(
   items: SupportRequestItem[],

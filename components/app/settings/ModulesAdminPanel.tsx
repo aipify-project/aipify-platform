@@ -112,7 +112,7 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
         <h2 id="modules-installed-heading" className="text-lg font-semibold text-[var(--app-text)]">
           {labels.sections.installed}
         </h2>
-        {installedSummary.total > 0 ? (
+        {installedSummary.named.length > 0 ? (
           <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {installedSummary.named.map((mod) => (
               <li
@@ -130,14 +130,7 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
                 </div>
               </li>
             ))}
-            {installedSummary.unnamedCount > 0 ? (
-              <li className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)]">
-                <h3 className="text-base font-semibold text-[var(--app-text)]">
-                  {labels.activeCount}: {installedSummary.unnamedCount}
-                </h3>
-                <p className="mt-2 text-sm text-[var(--app-text-muted)]">{labels.unnamedNote}</p>
-              </li>
-            ) : null}
+            {/* Never surface unnamed technical tenant_modules counts as customer “installed modules”. */}
           </ul>
         ) : (
           <p className="text-sm text-[var(--app-text-muted)]">{labels.emptyAddons}</p>
@@ -159,14 +152,6 @@ export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPane
                 <p className="mt-1 text-sm text-[var(--app-pending)]">{labels.statusTrial}</p>
               </li>
             ))}
-            {trialSummary.unnamedCount > 0 ? (
-              <li className="rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5">
-                <h3 className="text-base font-semibold text-[var(--app-text)]">
-                  {labels.sections.trials}: {trialSummary.unnamedCount}
-                </h3>
-                <p className="mt-2 text-sm text-[var(--app-text-muted)]">{labels.unnamedNote}</p>
-              </li>
-            ) : null}
           </ul>
         </section>
       ) : null}
