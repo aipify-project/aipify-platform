@@ -482,6 +482,7 @@
       "commissionLabel": "Su comisión",
       "commissionAmount": "{amount} pago único por venta cualificada",
       "commissionPending": "Comisión tras la publicación por la Plataforma",
+      "commissionNone": "Sin comisión en este plan gratuito",
       "certificationLabel": "Su certificación",
       "certNotStarted": "Sin iniciar",
       "certInProgress": "En curso",
@@ -497,12 +498,14 @@
       "linkGatesNotMet": "Un enlace de ventas está disponible cuando está aprobado, el producto está publicado y ha aprobado la certificación.",
       "linkUnavailable": "Los enlaces de ventas no están disponibles hasta que el sistema de socios esté activo.",
       "takeTraining": "Hacer la formación",
+      "viewCertificate": "Ver certificado",
       "trainingNotPublished": "La formación aún no está publicada",
       "empty": "No hay productos en esta categoría.",
       "shareMarketing": "Compartir",
       "monthly": "Mensual",
       "yearly": "Anual",
-      "annualQuotaNote": "El pago anual sigue renovando la cuota cada mes."
+      "annualQuotaNote": "El pago anual sigue renovando la cuota cada mes.",
+      "freePrice": "Gratis"
     },
     "overview": {
       "title": "Tu resumen de socio",

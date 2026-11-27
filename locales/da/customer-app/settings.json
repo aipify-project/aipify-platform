@@ -1374,7 +1374,8 @@
       "annualQuotaNote": "Årlig betaling fornyer stadig kvoten hver måned.",
       "featuresHeading": "Inkluderet",
       "closeDetails": "Luk",
-      "vatUnknown": "Momsvisning er ikke besluttet endnu."
+      "vatUnknown": "Momsvisning er ikke besluttet endnu.",
+      "freePrice": "Gratis"
     },
     "modules": {
       "title": "Tillægsmoduler",

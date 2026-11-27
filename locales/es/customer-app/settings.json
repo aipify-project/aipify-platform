@@ -207,7 +207,8 @@
       "annualQuotaNote": "El pago anual sigue renovando la cuota cada mes.",
       "featuresHeading": "Incluido",
       "closeDetails": "Cerrar",
-      "vatUnknown": "La visualización del IVA aún no está decidida."
+      "vatUnknown": "La visualización del IVA aún no está decidida.",
+      "freePrice": "Gratis"
     },
     "modules": {
       "title": "Módulos complementarios",

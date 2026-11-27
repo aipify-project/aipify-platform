@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { evaluateCspCopyLinkEligibility } from "@/lib/certified-sales-partner/copy-link-eligibility";
 import {
   CSP_CATALOG_FILTERS,
@@ -18,7 +18,9 @@ import {
 import {
   formatVariantQuotaLabel,
   priceForInterval,
+  type ProductVariantDefinition,
 } from "@/lib/product-catalog/variants";
+import { variantHasPaidCustomerPrice } from "@/lib/product-catalog/quota-labels";
 import { ensureCspSalesLink, useCspSalesLinks, writeClipboard } from "./csp-sales-links-client";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
 
@@ -40,6 +42,8 @@ export type CspCatalogLabels = {
   /** Template with {amount}. */
   commissionAmount: string;
   commissionPending: string;
+  /** Free / unpaid variant — never show product-level fixed commission. */
+  commissionNone?: string;
   certificationLabel: string;
   certNotStarted: string;
   certInProgress: string;
@@ -57,6 +61,7 @@ export type CspCatalogLabels = {
   linkUnavailable: string;
   error: string;
   takeTraining: string;
+  viewCertificate?: string;
   shareMarketing: string;
   trainingNotPublished: string;
   noBuy: string;
@@ -66,6 +71,7 @@ export type CspCatalogLabels = {
   monthly?: string;
   yearly?: string;
   annualQuotaNote?: string;
+  freePrice?: string;
 };
 
 function fill(template: string, values: Record<string, string | number>): string {
@@ -77,11 +83,13 @@ function SaleVariantPriceBlock({
   locale,
   labels,
   fallbackMonthly,
+  onVariantChange,
 }: {
   productKey: string;
   locale: string;
   labels: CspCatalogLabels;
   fallbackMonthly: { amount: number; currency: string } | null;
+  onVariantChange?: (variant: ProductVariantDefinition | null) => void;
 }) {
   const variants = useMemo(
     () => variantsForProduct(productKey).filter((v) => v.active),
@@ -97,6 +105,10 @@ function SaleVariantPriceBlock({
     price?.amountMajor ??
     (interval === "month" ? fallbackMonthly?.amount ?? null : null);
   const currency = price?.currency ?? fallbackMonthly?.currency ?? "NOK";
+
+  useEffect(() => {
+    onVariantChange?.(variant ?? null);
+  }, [onVariantChange, variant]);
 
   if (variants.length === 0 && amount == null) {
     return (
@@ -115,7 +127,10 @@ function SaleVariantPriceBlock({
                 key={item.variantKey}
                 type="button"
                 aria-pressed={selected}
-                onClick={() => setVariantKey(item.variantKey)}
+                onClick={() => {
+                  setVariantKey(item.variantKey);
+                  onVariantChange?.(item);
+                }}
                 className={`whitespace-nowrap rounded-lg px-2.5 py-1 text-xs font-semibold ${
                   selected
                     ? "bg-[color:var(--aipify-companion-purple)] text-white"
@@ -155,7 +170,9 @@ function SaleVariantPriceBlock({
           ? `${formatMoney(amount, currency, locale)} · ${
               interval === "month" ? labels.monthly ?? "Monthly" : labels.yearly ?? "Yearly"
             }`
-          : labels.noPlannedPrice}
+          : variant && !variantHasPaidCustomerPrice(variant)
+            ? labels.freePrice || labels.noPlannedPrice
+            : labels.noPlannedPrice}
       </p>
       <p className="text-xs text-[color:var(--aipify-text-muted)]">{labels.plannedPriceNote}</p>
       {variant?.annualRenewsQuotaMonthly && interval === "year" && labels.annualQuotaNote ? (
@@ -247,9 +264,187 @@ function certificationPresentation(
   }
 }
 
+function SaleCatalogProductCard({
+  product,
+  locale,
+  labels,
+  overview,
+  note,
+  pending,
+  onCopyLink,
+  portalOverview,
+}: {
+  product: CspLocalizedCatalogProduct;
+  locale: string;
+  labels: CspCatalogLabels;
+  overview:
+    | { certificationStatus: string | null; commissionAmount: number | null; currency: string | null }
+    | undefined;
+  note: { text: string; tone: StatusTone } | undefined;
+  pending: boolean;
+  onCopyLink: () => void;
+  portalOverview: Parameters<typeof evaluateCspCopyLinkEligibility>[0];
+}) {
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariantDefinition | null>(null);
+  const cert = certificationPresentation(product, overview?.certificationStatus, labels);
+  const eligibility = evaluateCspCopyLinkEligibility(portalOverview, product.key);
+  const amount = overview?.commissionAmount;
+  const currency = overview?.currency;
+  const selectedIsPaid = selectedVariant ? variantHasPaidCustomerPrice(selectedVariant) : true;
+  const commissionText = product.future
+    ? labels.future
+    : !selectedIsPaid
+      ? labels.commissionNone || labels.commissionPending
+      : typeof amount === "number" && typeof currency === "string" && currency
+        ? fill(labels.commissionAmount, { amount: formatMoney(amount, currency, locale) })
+        : labels.commissionPending;
+  const certPassed = overview?.certificationStatus === "passed";
+
+  return (
+    <li className="flex flex-col gap-3 rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-5 shadow-sm">
+      <div className="flex items-start justify-between gap-2">
+        <h3 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{product.title}</h3>
+        <span
+          className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold ${
+            product.future ? TONE_CLASSES.muted : TONE_CLASSES.progress
+          }`}
+        >
+          <StatusIcon tone={product.future ? "muted" : "progress"} />
+          {product.future ? labels.future : labels.sellable}
+        </span>
+      </div>
+
+      {product.imagePath ? (
+        // eslint-disable-next-line @next/next/no-img-element -- static brand asset under /public
+        <img
+          src={product.imagePath}
+          alt=""
+          className="h-36 w-full rounded-xl border border-[color:var(--aipify-border)] object-cover object-center"
+        />
+      ) : null}
+
+      <p className="text-sm text-[color:var(--aipify-text-secondary)]">{product.description}</p>
+
+      <div className="space-y-2 text-sm">
+        <p className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
+          {labels.audienceLabel}
+        </p>
+        <p className="text-[color:var(--aipify-text-primary)]">{product.audience}</p>
+        {product.benefits.length > 0 ? (
+          <>
+            <p className="pt-1 text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
+              {labels.benefitsLabel}
+            </p>
+            <ul className="list-disc space-y-1 pl-5 text-[color:var(--aipify-text-primary)]">
+              {product.benefits.map((benefit) => (
+                <li key={benefit}>{benefit}</li>
+              ))}
+            </ul>
+          </>
+        ) : null}
+      </div>
+
+      <SaleVariantPriceBlock
+        productKey={product.key}
+        locale={locale}
+        labels={labels}
+        fallbackMonthly={
+          product.plannedReferencePrice
+            ? {
+                amount: product.plannedReferencePrice.fromMonthly,
+                currency: product.plannedReferencePrice.currency,
+              }
+            : null
+        }
+        onVariantChange={setSelectedVariant}
+      />
+
+      <dl className="space-y-2 text-sm">
+        <div>
+          <dt className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
+            {labels.commissionLabel}
+          </dt>
+          <dd className="text-[color:var(--aipify-text-primary)]">{commissionText}</dd>
+        </div>
+        <div>
+          <dt className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
+            {labels.certificationLabel}
+          </dt>
+          <dd>
+            <span
+              className={`mt-0.5 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold ${TONE_CLASSES[cert.tone]}`}
+            >
+              <StatusIcon tone={cert.tone} />
+              {cert.text}
+            </span>
+          </dd>
+        </div>
+      </dl>
+
+      <div className="mt-auto space-y-2 pt-1">
+        {product.future ? (
+          <p className="text-xs text-[color:var(--aipify-text-secondary)]">{labels.futureNote}</p>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            {eligibility.allowed ? (
+              <button
+                type="button"
+                onClick={onCopyLink}
+                disabled={pending}
+                className="inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-3 py-2 text-sm font-semibold text-white hover:bg-[color:var(--aipify-companion-purple-hover)] disabled:opacity-60"
+              >
+                {labels.copyLink}
+              </button>
+            ) : (
+              <p className="self-center text-xs text-[color:var(--aipify-text-secondary)]">{labels.linkGatesNotMet}</p>
+            )}
+            <Link
+              href="/partners/marketing/assets"
+              className="inline-flex rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+            >
+              {labels.shareMarketing}
+            </Link>
+            {product.hasTraining ? (
+              certPassed ? (
+                <Link
+                  href="/partners/academy/certifications"
+                  className="inline-flex rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+                >
+                  {labels.viewCertificate || labels.certPassed}
+                </Link>
+              ) : (
+                <Link
+                  href="/partners/academy/training"
+                  className="inline-flex rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+                >
+                  {labels.takeTraining}
+                </Link>
+              )
+            ) : (
+              <span className="self-center text-xs text-[color:var(--aipify-text-secondary)]">
+                {labels.trainingNotPublished}
+              </span>
+            )}
+          </div>
+        )}
+        {note ? (
+          <p
+            className={`flex items-start gap-1.5 rounded-lg border p-2 text-xs ${TONE_CLASSES[note.tone]}`}
+            role="status"
+          >
+            <StatusIcon tone={note.tone} />
+            <span className="break-all">{note.text}</span>
+          </p>
+        ) : null}
+      </div>
+    </li>
+  );
+}
+
 /**
  * Partner product catalog. Partners never purchase here: only gated "copy sales link" and training.
  * Commission amounts come from Core overview only — never invented.
+ * Free variants never inherit the paid product-level fixed commission in the UI.
  */
 export function CertifiedSalesPartnerProductCatalogPanel({
   labels,
@@ -389,148 +584,19 @@ export function CertifiedSalesPartnerProductCatalogPanel({
         <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {products.map((product) => {
             const overview = overviewByKey.get(product.key);
-            const cert = certificationPresentation(product, overview?.certificationStatus, labels);
-            const eligibility = evaluateCspCopyLinkEligibility(portal.overview, product.key);
-            const amount = overview?.commissionAmount;
-            const currency = overview?.currency;
-            const commissionText = product.future
-              ? labels.future
-              : typeof amount === "number" && typeof currency === "string" && currency
-                ? fill(labels.commissionAmount, { amount: formatMoney(amount, currency, locale) })
-                : labels.commissionPending;
             const note = notes[product.key];
-
             return (
-              <li
+              <SaleCatalogProductCard
                 key={product.key}
-                className="flex flex-col gap-3 rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-5 shadow-sm"
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{product.title}</h3>
-                  <span
-                    className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold ${
-                      product.future ? TONE_CLASSES.muted : TONE_CLASSES.progress
-                    }`}
-                  >
-                    <StatusIcon tone={product.future ? "muted" : "progress"} />
-                    {product.future ? labels.future : labels.sellable}
-                  </span>
-                </div>
-
-                {product.imagePath ? (
-                  // eslint-disable-next-line @next/next/no-img-element -- static brand asset under /public
-                  <img
-                    src={product.imagePath}
-                    alt=""
-                    className="h-36 w-full rounded-xl border border-[color:var(--aipify-border)] object-cover object-center"
-                  />
-                ) : null}
-
-                <p className="text-sm text-[color:var(--aipify-text-secondary)]">{product.description}</p>
-
-                <div className="space-y-2 text-sm">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
-                    {labels.audienceLabel}
-                  </p>
-                  <p className="text-[color:var(--aipify-text-primary)]">{product.audience}</p>
-                  {product.benefits.length > 0 ? (
-                    <>
-                      <p className="pt-1 text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
-                        {labels.benefitsLabel}
-                      </p>
-                      <ul className="list-disc space-y-1 pl-5 text-[color:var(--aipify-text-primary)]">
-                        {product.benefits.map((benefit) => (
-                          <li key={benefit}>{benefit}</li>
-                        ))}
-                      </ul>
-                    </>
-                  ) : null}
-                </div>
-
-                <SaleVariantPriceBlock
-                  productKey={product.key}
-                  locale={locale}
-                  labels={labels}
-                  fallbackMonthly={
-                    product.plannedReferencePrice
-                      ? {
-                          amount: product.plannedReferencePrice.fromMonthly,
-                          currency: product.plannedReferencePrice.currency,
-                        }
-                      : null
-                  }
-                />
-
-                <dl className="space-y-2 text-sm">
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
-                      {labels.commissionLabel}
-                    </dt>
-                    <dd className="text-[color:var(--aipify-text-primary)]">{commissionText}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
-                      {labels.certificationLabel}
-                    </dt>
-                    <dd>
-                      <span
-                        className={`mt-0.5 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold ${TONE_CLASSES[cert.tone]}`}
-                      >
-                        <StatusIcon tone={cert.tone} />
-                        {cert.text}
-                      </span>
-                    </dd>
-                  </div>
-                </dl>
-
-                <div className="mt-auto space-y-2 pt-1">
-                  {product.future ? (
-                    <p className="text-xs text-[color:var(--aipify-text-secondary)]">{labels.futureNote}</p>
-                  ) : (
-                    <div className="flex flex-wrap gap-2">
-                      {eligibility.allowed ? (
-                        <button
-                          type="button"
-                          onClick={() => void copyLink(product)}
-                          disabled={pendingKey === product.key}
-                          className="inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-3 py-2 text-sm font-semibold text-white hover:bg-[color:var(--aipify-companion-purple-hover)] disabled:opacity-60"
-                        >
-                          {labels.copyLink}
-                        </button>
-                      ) : (
-                        <p className="self-center text-xs text-[color:var(--aipify-text-secondary)]">{labels.linkGatesNotMet}</p>
-                      )}
-                      <Link
-                        href="/partners/marketing/assets"
-                        className="inline-flex rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
-                      >
-                        {labels.shareMarketing}
-                      </Link>
-                      {product.hasTraining ? (
-                        <Link
-                          href="/partners/academy/training"
-                          className="inline-flex rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
-                        >
-                          {labels.takeTraining}
-                        </Link>
-                      ) : (
-                        <span className="self-center text-xs text-[color:var(--aipify-text-secondary)]">
-                          {labels.trainingNotPublished}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                  {note ? (
-                    <p
-                      className={`flex items-start gap-1.5 rounded-lg border p-2 text-xs ${TONE_CLASSES[note.tone]}`}
-                      role="status"
-                    >
-                      <StatusIcon tone={note.tone} />
-                      <span className="break-all">{note.text}</span>
-                    </p>
-                  ) : null}
-                </div>
-              </li>
+                product={product}
+                locale={locale}
+                labels={labels}
+                overview={overview}
+                note={note}
+                pending={pendingKey === product.key}
+                onCopyLink={() => void copyLink(product)}
+                portalOverview={portal.overview}
+              />
             );
           })}
         </ul>

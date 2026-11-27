@@ -1374,7 +1374,8 @@
       "annualQuotaNote": "Årlig betalning förnyar fortfarande kvoten varje månad.",
       "featuresHeading": "Ingår",
       "closeDetails": "Stäng",
-      "vatUnknown": "Momsvisning är inte beslutad ännu."
+      "vatUnknown": "Momsvisning är inte beslutad ännu.",
+      "freePrice": "Gratis"
     },
     "modules": {
       "title": "Tilläggsmoduler",

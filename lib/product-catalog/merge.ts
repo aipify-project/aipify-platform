@@ -133,9 +133,10 @@ export function variantsForProduct(productKey: string): ProductVariantDefinition
     variantKey: `${productKey}_${plan.id}`,
     productKey,
     adminName: plan.id,
+    // Storage label uses unit key; UI formats via formatVariantQuotaLabel(locale).
     customerLabel:
       plan.answerQuota != null
-        ? `${plan.answerQuota} answers`
+        ? String(plan.answerQuota)
         : plan.id,
     sortOrder: index,
     active: true,
@@ -217,11 +218,13 @@ export function buildUnifiedCatalog(input: {
     const core = coreByKey.get(def.productKey);
     const copy = resolveCopy(def, input.locale);
     const entitlement = entitlementByKey.get(def.productKey);
+    const coreTitle = typeof core?.title === "string" ? core.title.trim() : "";
     return {
       productKey: def.productKey,
       sku: def.sku,
       category: def.category,
-      title: copy.title,
+      // Core-published title wins when present; registry copy remains fallback.
+      title: coreTitle || copy.title,
       tagline: copy.tagline,
       description: copy.description,
       localeApproved: copy.localeApproved,

@@ -15,6 +15,7 @@ import {
   priceForInterval,
   type ProductVariantDefinition,
 } from "@/lib/product-catalog/variants";
+import { variantHasPaidCustomerPrice } from "@/lib/product-catalog/quota-labels";
 import { resolveAppCheckoutCta } from "@/lib/product-catalog/checkout-readiness";
 
 export type PremiumCatalogCardLabels = {
@@ -30,12 +31,16 @@ export type PremiumCatalogCardLabels = {
   commissionFixed: string;
   commissionPercentBlocked: string;
   commissionPending: string;
+  /** Shown when the selected variant has no paid customer price (e.g. free 150). */
+  commissionNone?: string;
   info: string;
   share: string;
   noBuy: string;
   featuresHeading: string;
   closeDetails: string;
   vatUnknown: string;
+  /** Shown when the selected variant has no paid customer price. */
+  freePrice?: string;
 };
 
 export type PremiumCatalogCardMode = "app" | "sale";
@@ -97,8 +102,10 @@ export function PremiumProductCatalogCard({
 
   const cta = resolveAppCheckoutCta({ product, variant, interval });
 
-  const commissionText =
-    product.commission.kind === "fixed"
+  const selectedIsPaid = variant ? variantHasPaidCustomerPrice(variant) : false;
+  const commissionText = !selectedIsPaid
+    ? labels.commissionNone || labels.commissionPending
+    : product.commission.kind === "fixed"
       ? labels.commissionFixed
           .replace("{amount}", String(product.commission.amount))
           .replace("{currency}", product.commission.currency)
@@ -147,12 +154,18 @@ export function PremiumProductCatalogCard({
           <div className="shrink-0 text-right">
             {priceText ? (
               <p className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">{priceText}</p>
+            ) : variant && !selectedIsPaid ? (
+              <p className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
+                {labels.freePrice || "—"}
+              </p>
             ) : (
               <p className="text-sm text-[color:var(--aipify-text-secondary)]">—</p>
             )}
-            <p className="text-xs text-[color:var(--aipify-text-muted)]">
-              {interval === "month" ? labels.monthly : labels.yearly}
-            </p>
+            {priceText || (variant && selectedIsPaid) ? (
+              <p className="text-xs text-[color:var(--aipify-text-muted)]">
+                {interval === "month" ? labels.monthly : labels.yearly}
+              </p>
+            ) : null}
           </div>
         </div>
 

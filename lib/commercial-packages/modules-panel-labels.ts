@@ -78,5 +78,6 @@ export function buildSoftwareShowcaseLabels(t: Translator) {
     featuresHeading: t(`${SHOW}.featuresHeading`),
     closeDetails: t(`${SHOW}.closeDetails`),
     vatUnknown: t(`${SHOW}.vatUnknown`),
+    freePrice: t(`${SHOW}.freePrice`),
   };
 }

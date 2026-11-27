@@ -36,6 +36,10 @@ export {
   type ProductVariantDefinition,
   type ProductVariantPrice,
 } from "./variants";
+export {
+  localizeQuotaUnit,
+  variantHasPaidCustomerPrice,
+} from "./quota-labels";
 export { CANONICAL_PRODUCT_REGISTRY, getCanonicalProduct } from "./registry";
 export type {
   CanonicalProductDefinition,

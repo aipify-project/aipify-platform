@@ -4,6 +4,8 @@
  * Annual price is an independent amount (not 12× monthly).
  */
 
+import { localizeQuotaUnit } from "./quota-labels";
+
 export type ProductBillingInterval = "month" | "year" | "one_time";
 
 export type ProductVariantQuotaKind =
@@ -70,7 +72,8 @@ export function formatVariantQuotaLabel(
   if (variant.quotaValue == null) return variant.customerLabel;
   try {
     const qty = new Intl.NumberFormat(locale).format(variant.quotaValue);
-    return variant.quotaUnit ? `${qty} ${variant.quotaUnit}` : qty;
+    const unit = localizeQuotaUnit(variant.quotaUnit, locale);
+    return unit ? `${qty} ${unit}` : qty;
   } catch {
     return variant.customerLabel;
   }
