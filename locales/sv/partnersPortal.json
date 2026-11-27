@@ -573,7 +573,8 @@
       "practiceNotice": "Det här resultatet är endast övning. Ingen certifiering har registrerats eller utfärdats, eftersom partnerlösningen inte har bekräftat den. Certifiering och säljlänkar blir tillgängliga när resultatet är registrerat.",
       "certificationRecorded": "Din certifiering har registrerats.",
       "downloadCertificate": "Ladda ner certifikat (PDF)",
-      "attemptRecorded": "Ditt försök har registrerats. Gå igenom lektionerna och försök igen när du är redo."
+      "attemptRecorded": "Ditt försök har registrerats. Gå igenom lektionerna och försök igen när du är redo.",
+      "scorePercentOnly": "Resultat: {score} % – godkänt"
     },
     "lessons": {
       "title": "Kompis Web-utbildning",

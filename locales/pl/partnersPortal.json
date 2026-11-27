@@ -449,7 +449,8 @@
       "practiceNotice": "Ten wynik ma charakter wyłącznie treningowy. Nie zarejestrowano ani nie wydano żadnej certyfikacji, ponieważ system partnerski jej nie potwierdził. Certyfikacja i linki sprzedażowe będą dostępne po zarejestrowaniu wyniku.",
       "certificationRecorded": "Twoja certyfikacja została zarejestrowana.",
       "downloadCertificate": "Pobierz certyfikat (PDF)",
-      "attemptRecorded": "Twoja próba została zarejestrowana. Powtórz lekcje i spróbuj ponownie, gdy będziesz gotowy."
+      "attemptRecorded": "Twoja próba została zarejestrowana. Powtórz lekcje i spróbuj ponownie, gdy będziesz gotowy.",
+      "scorePercentOnly": "Wynik: {score}% — zaliczono"
     },
     "lessons": {
       "title": "Lekcje o Kompis Web",
