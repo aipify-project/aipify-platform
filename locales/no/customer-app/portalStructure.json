@@ -8774,7 +8774,7 @@
       "companyWebsite": "Firmanettsted",
       "companyPhone": "Firmatelefon",
       "companyAddress": "Firmaadresse",
-      "companyOptionalNote": "Organisasjonsnavn kommer fra Aipify-kundeforholdet. Nettside, firma-telefon og adresse vises bare når de er lagret.",
+      "companyOptionalNote": "Organisasjonsnavn kommer fra Aipify-kundeforholdet. Nettsted, organisasjonsnummer, firmatelefon og adresse vises bare når de er lagret i Core.",
       "plan": "Plan",
       "license": "Lisensstatus",
       "customerReference": "Kundereferanse",
@@ -8807,7 +8807,7 @@
       "tabCompany": "Firma",
       "tabRelationship": "Kundeforhold",
       "tabSecurity": "Sikkerhet og personvern",
-      "unavailable": "Ikke tilgjengelig i denne visningen",
+      "unavailable": "Ikke tilgjengelig",
       "companyEmpty": "Ingen organisasjon er knyttet ennå",
       "companyEmptyBody": "Når arbeidsområdet er tilkoblet, vises organisasjonsnavnet her. Separate juridiske kontakt- og adressefelt forblir tomme til de er registrert.",
       "workspace": "Arbeidsområde",
@@ -8853,7 +8853,13 @@
       "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
       "officialCustomerNumber": "Kundenummer",
       "copyCustomerNumber": "Kopier",
-      "copiedCustomerNumber": "Kopiert"
+      "copiedCustomerNumber": "Kopiert",
+      "companyOrganizationNumber": "Organisasjonsnummer",
+      "companyInvoiceAddress": "Fakturaadresse",
+      "personalFormNote": "Innloggings-e-post er låst her. Navn, telefon og bilde kan oppdateres for kontoen din.",
+      "securityLoginBody": "Administrer tofaktorautentisering og innloggingsbeskyttelse for kontoen din.",
+      "securityPrivacyBody": "Se personvernvalg og hvordan Aipify behandler data i arbeidsområdet.",
+      "securityNotificationsBody": "Velg hvordan Aipify varsler deg om viktig aktivitet i arbeidsområdet."
     },
     "workspaceDashboard": {
       "eyebrow": "Arbeidsområde",

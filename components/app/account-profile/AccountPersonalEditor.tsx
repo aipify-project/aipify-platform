@@ -5,6 +5,8 @@ import { UserRound } from "lucide-react";
 import type { AccountProfileLabels } from "@/lib/app/account-profile/labels";
 import type { AccountProfileView } from "@/lib/app/account-profile/types";
 import {
+  ACCOUNT_PROFILE_FIELD_GRID_CLASS,
+  ACCOUNT_PROFILE_HINT_CLASS,
   ACCOUNT_PROFILE_INPUT_CLASS,
   ACCOUNT_PROFILE_PRIMARY_BUTTON_CLASS,
   ACCOUNT_PROFILE_READONLY_VALUE_CLASS,
@@ -222,81 +224,84 @@ export function AccountPersonalEditor({ view, labels }: Props) {
         </div>
       </div>
 
-      <AccountProfileFormField label={labels.fullName} htmlFor="account-profile-full-name">
-        <input
-          id="account-profile-full-name"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-          maxLength={120}
-          autoComplete="name"
-          className={ACCOUNT_PROFILE_INPUT_CLASS}
-        />
-      </AccountProfileFormField>
+      <div className={ACCOUNT_PROFILE_FIELD_GRID_CLASS}>
+        <AccountProfileFormField label={labels.fullName} htmlFor="account-profile-full-name">
+          <input
+            id="account-profile-full-name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            maxLength={120}
+            autoComplete="name"
+            className={ACCOUNT_PROFILE_INPUT_CLASS}
+          />
+        </AccountProfileFormField>
 
-      <AccountProfileFormField
-        label={labels.loginEmail}
-        lockReason={labels.emailLockedReason}
-        hint={labels.loginEmailHelp}
-      >
-        <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
-          {fieldFallback(view.email.value, labels)}
+        <div>
+          <p className="block text-sm font-medium text-gray-700">{labels.phone}</p>
+          <div className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,11rem)_1fr]">
+            <label className="block min-w-0" htmlFor="account-profile-phone-country">
+              <span className="sr-only">{labels.phoneCountry}</span>
+              <div className="relative">
+                <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+                  <AccountPhoneCountryFlag country={selectedCountry} />
+                </span>
+                <select
+                  id="account-profile-phone-country"
+                  value={dial}
+                  aria-label={`${labels.phoneCountry}: ${selectedName} ${dial}`}
+                  onChange={(event) => setDial(event.target.value)}
+                  className={`${ACCOUNT_PROFILE_INPUT_CLASS} mt-0 appearance-none pl-14`}
+                >
+                  {ACCOUNT_PROFILE_PHONE_COUNTRIES.map((country) => {
+                    const countryName = labels.phoneCountries[country.labelKey] ?? country.iso2;
+                    return (
+                      <option key={country.iso2} value={country.dial}>
+                        {phoneOptionLabel(country.dial, countryName)}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </label>
+            <label className="block min-w-0" htmlFor="account-profile-phone-national">
+              <span className="sr-only">{labels.phoneNational}</span>
+              <input
+                id="account-profile-phone-national"
+                value={national}
+                onChange={(e) => setNational(e.target.value)}
+                inputMode="tel"
+                autoComplete="tel-national"
+                placeholder={labels.phoneNationalPlaceholder}
+                className={`${ACCOUNT_PROFILE_INPUT_CLASS} mt-0`}
+              />
+            </label>
+          </div>
         </div>
-      </AccountProfileFormField>
-
-      <div>
-        <p className="block text-sm font-medium text-gray-700">{labels.phone}</p>
-        <div className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,15rem)_1fr]">
-          <label className="block min-w-0" htmlFor="account-profile-phone-country">
-            <span className="sr-only">{labels.phoneCountry}</span>
-            <div className="relative">
-              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
-                <AccountPhoneCountryFlag country={selectedCountry} />
-              </span>
-              <select
-                id="account-profile-phone-country"
-                value={dial}
-                aria-label={`${labels.phoneCountry}: ${selectedName} ${dial}`}
-                onChange={(event) => setDial(event.target.value)}
-                className={`${ACCOUNT_PROFILE_INPUT_CLASS} mt-0 appearance-none pl-14`}
-              >
-                {ACCOUNT_PROFILE_PHONE_COUNTRIES.map((country) => {
-                  const name = labels.phoneCountries[country.labelKey] ?? country.iso2;
-                  return (
-                    <option key={country.iso2} value={country.dial}>
-                      {phoneOptionLabel(country.dial, name)}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-          </label>
-          <label className="block min-w-0" htmlFor="account-profile-phone-national">
-            <span className="sr-only">{labels.phoneNational}</span>
-            <input
-              id="account-profile-phone-national"
-              value={national}
-              onChange={(e) => setNational(e.target.value)}
-              inputMode="tel"
-              autoComplete="tel-national"
-              placeholder={labels.phoneNationalPlaceholder}
-              className={`${ACCOUNT_PROFILE_INPUT_CLASS} mt-0`}
-            />
-          </label>
-        </div>
-        <p className="mt-1.5 text-xs leading-relaxed text-gray-500">{labels.phoneHelp}</p>
       </div>
 
-      <AccountProfileFormField
-        label={labels.address}
-        lockReason={labels.addressBlockedReason}
-        hint={labels.addressBlockedReason}
-      >
-        <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
-          {view.address.source === "unavailable"
-            ? labels.addressUnavailable
-            : fieldFallback(view.address.value, labels)}
-        </div>
-      </AccountProfileFormField>
+      <div className={ACCOUNT_PROFILE_FIELD_GRID_CLASS}>
+        <AccountProfileFormField
+          label={labels.loginEmail}
+          lockReason={labels.emailLockedReason}
+        >
+          <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+            {fieldFallback(view.email.value, labels)}
+          </div>
+        </AccountProfileFormField>
+
+        <AccountProfileFormField
+          label={labels.address}
+          lockReason={labels.addressBlockedReason}
+        >
+          <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+            {view.address.source === "unavailable"
+              ? labels.addressUnavailable
+              : fieldFallback(view.address.value, labels)}
+          </div>
+        </AccountProfileFormField>
+      </div>
+
+      <p className={ACCOUNT_PROFILE_HINT_CLASS}>{labels.personalFormNote}</p>
     </AccountProfileFormCard>
   );
 }

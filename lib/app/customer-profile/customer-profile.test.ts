@@ -51,7 +51,7 @@ test("customer profile route sits under the product menu, not inside it", () => 
   assert.match(page, /loadAccountProfileView/);
   assert.match(page, /AppHubShell/);
   assert.doesNotMatch(page, /organization_number|ENK|companyProfile/);
-  assert.doesNotMatch(nav, /id: "accountProfile"/);
+  assert.match(nav, /id: "accountProfile"/);
 });
 
 test("customer profile copy exists in every active locale", () => {

@@ -8773,7 +8773,7 @@
       "companyWebsite": "Företagswebbplats",
       "companyPhone": "Företagstelefon",
       "companyAddress": "Företagsadress",
-      "companyOptionalNote": "Organisationsnamnet kommer från Aipify-kundrelationen. Webbplats, företagstelefon och adress visas bara när de är sparade.",
+      "companyOptionalNote": "Organisationsnamnet kommer från Aipify-kundrelationen. Webbplats, organisationsnummer, företagstelefon och adress visas bara när de är sparade i Core.",
       "plan": "Plan",
       "license": "Licensstatus",
       "customerReference": "Kundreferens",
@@ -8806,7 +8806,7 @@
       "tabCompany": "Företag",
       "tabRelationship": "Kundrelation",
       "tabSecurity": "Säkerhet och integritet",
-      "unavailable": "Inte tillgängligt i den här vyn",
+      "unavailable": "Inte tillgängligt",
       "companyEmpty": "Ingen organisation är kopplad ännu",
       "companyEmptyBody": "När arbetsytan är ansluten visas organisationsnamnet här. Separata juridiska kontakt- och adressfält förblir tomma tills de registreras.",
       "workspace": "Arbetsyta",
@@ -8852,7 +8852,13 @@
       "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
       "officialCustomerNumber": "Kundnummer",
       "copyCustomerNumber": "Kopiera",
-      "copiedCustomerNumber": "Kopierad"
+      "copiedCustomerNumber": "Kopierad",
+      "companyOrganizationNumber": "Organisationsnummer",
+      "companyInvoiceAddress": "Fakturaadress",
+      "personalFormNote": "Inloggningsmejlen är låst här. Namn, telefon och foto kan uppdateras för ditt konto.",
+      "securityLoginBody": "Hantera tvåfaktorsautentisering och inloggningsskydd för ditt konto.",
+      "securityPrivacyBody": "Granska integritetsval och hur Aipify hanterar data i arbetsytan.",
+      "securityNotificationsBody": "Välj hur Aipify meddelar dig om viktig aktivitet i arbetsytan."
     },
     "workspaceDashboard": {
       "eyebrow": "Arbetsyta",

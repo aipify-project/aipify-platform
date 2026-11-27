@@ -112,7 +112,7 @@ const companyView = buildAccountProfileView({
   canOpenCompanySettings: false,
 });
 
-assert.equal(companyView.hasCompanyDetails, true);
+assert.equal(companyView.hasCompanyDetails, false);
 assert.equal(companyView.companyName.value, "Example Workspace");
 assert.equal(
   companyView.companyName.source,
@@ -147,7 +147,22 @@ const hiddenReference = buildAccountProfileView({
     can_access_self_support: true,
     eligible_organization_count: 1,
   },
-  company: { name: "North Studio" },
+  company: {
+    readState: "ready",
+    legalName: "North Studio",
+    organizationNumber: "999999999",
+    website: "https://north.example",
+    phone: "+4712345678",
+    street: "Gate 1",
+    postalCode: "5003",
+    city: "Bergen",
+    country: "NO",
+    invoiceStreet: null,
+    invoicePostalCode: null,
+    invoiceCity: null,
+    invoiceCountry: null,
+    invoiceSameAsCompany: false,
+  },
   canOpenCompanySettings: false,
 });
 assert.equal(hiddenReference.relationship.referenceHidden, true);
@@ -175,7 +190,22 @@ const withNumber = buildAccountProfileView({
     can_access_self_support: true,
     eligible_organization_count: 1,
   } : null,
-  company: { name: "North Studio" },
+  company: {
+    readState: "ready",
+    legalName: "North Studio",
+    organizationNumber: null,
+    website: null,
+    phone: null,
+    street: null,
+    postalCode: null,
+    city: null,
+    country: null,
+    invoiceStreet: null,
+    invoicePostalCode: null,
+    invoiceCity: null,
+    invoiceCountry: null,
+    invoiceSameAsCompany: false,
+  },
   canOpenCompanySettings: false,
   officialCustomerNumber: "AIP-000042",
 });
@@ -184,6 +214,10 @@ assert.equal(withNumber.relationship.officialCustomerNumber.editable, false);
 assert.equal(withNumber.relationship.customerReference.value, null);
 assert.equal(hiddenReference.hasCompanyDetails, true);
 assert.equal(hiddenReference.companyName.value, "North Studio");
+assert.equal(hiddenReference.companyWebsite.value, "https://north.example");
+assert.equal(hiddenReference.companyWebsiteHref, "https://north.example");
+assert.match(hiddenReference.companyAddress.value ?? "", /Gate 1/);
+assert.equal(hiddenReference.companyOrganizationNumber.value, "999999999");
 
 const mapping = accountProfileDataMapping();
 assert.ok(mapping.some((row) => row.uiField === "email" && row.source === "auth.users.email"));
@@ -234,7 +268,15 @@ const formStyles = fs.readFileSync(
 );
 const authLayout = fs.readFileSync(path.join(ROOT, "components/auth/AuthLayout.tsx"), "utf8");
 assert.match(formStyles, /rounded-\[28px\]/);
+assert.match(formStyles, /max-w-\[50rem\]/);
+assert.match(formStyles, /ACCOUNT_PROFILE_FIELD_GRID_CLASS/);
 assert.match(formStyles, /border-\[rgba\(96,82,176,\.15\)\]/);
+assert.match(panel, /companyOrganizationNumber/);
+assert.match(panel, /officialCustomerNumber/);
+assert.match(panel, /companyInvoiceAddress/);
+assert.match(panel, /max-w-\[50rem\]/);
+assert.doesNotMatch(panel, /referenceHidden/);
+assert.doesNotMatch(panel, /localStorage/);
 assert.match(authLayout, /rounded-\[28px\]/);
 assert.match(authLayout, /border-\[rgba\(96,82,176,\.15\)\]/);
 const formCard = fs.readFileSync(
@@ -272,6 +314,10 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"]) {
   assert.ok(portal.portalStructure.accountProfile.tabSecurity);
   assert.ok(portal.portalStructure.accountProfile.loginEmail);
   assert.ok(portal.portalStructure.accountProfile.organizationLabel);
+  assert.ok(portal.portalStructure.accountProfile.companyOrganizationNumber);
+  assert.ok(portal.portalStructure.accountProfile.companyInvoiceAddress);
+  assert.ok(portal.portalStructure.accountProfile.personalFormNote);
+  assert.ok(portal.portalStructure.accountProfile.officialCustomerNumber);
   assert.match(
     String(portal.portalStructure.accountProfile.requestChangeHref),
     /\/app\/support\/requests\?new=1&category=account&intent=customer_profile_change/,

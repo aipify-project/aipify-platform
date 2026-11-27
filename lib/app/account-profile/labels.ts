@@ -48,13 +48,19 @@ export type AccountProfileLabels = {
   addCompanyDetails: string;
   companyTitle: string;
   companyName: string;
+  companyOrganizationNumber: string;
   companyWebsite: string;
   companyPhone: string;
   companyAddress: string;
+  companyInvoiceAddress: string;
   companyOptionalNote: string;
   companyLegalNote: string;
   companyEmpty: string;
   companyEmptyBody: string;
+  personalFormNote: string;
+  securityLoginBody: string;
+  securityPrivacyBody: string;
+  securityNotificationsBody: string;
   requestChange: string;
   requestChangeHref: string;
   workspace: string;
@@ -138,13 +144,19 @@ export function buildAccountProfileLabels(t: Translator): AccountProfileLabels {
     addCompanyDetails: t(`${NS}.addCompanyDetails`),
     companyTitle: t(`${NS}.companyTitle`),
     companyName: t(`${NS}.companyName`),
+    companyOrganizationNumber: t(`${NS}.companyOrganizationNumber`),
     companyWebsite: t(`${NS}.companyWebsite`),
     companyPhone: t(`${NS}.companyPhone`),
     companyAddress: t(`${NS}.companyAddress`),
+    companyInvoiceAddress: t(`${NS}.companyInvoiceAddress`),
     companyOptionalNote: t(`${NS}.companyOptionalNote`),
     companyLegalNote: t(`${NS}.companyLegalNote`),
     companyEmpty: t(`${NS}.companyEmpty`),
     companyEmptyBody: t(`${NS}.companyEmptyBody`),
+    personalFormNote: t(`${NS}.personalFormNote`),
+    securityLoginBody: t(`${NS}.securityLoginBody`),
+    securityPrivacyBody: t(`${NS}.securityPrivacyBody`),
+    securityNotificationsBody: t(`${NS}.securityNotificationsBody`),
     requestChange: t(`${NS}.requestChange`),
     requestChangeHref: CUSTOMER_PROFILE_CHANGE_SUPPORT_HREF,
     workspace: t(`${NS}.workspace`),
