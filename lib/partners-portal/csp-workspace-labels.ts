@@ -255,6 +255,29 @@ export function buildProductShopifyEditorLabels(t: Translator): ProductShopifyEd
     previewSecondary: k("editorPreviewSecondary"),
     channelAppDetails: k("editorChannelAppDetails"),
     channelSaleDetails: k("editorChannelSaleDetails"),
+    variantsTitle: k("editorVariantsTitle"),
+    variantBuilder: {
+      title: k("editorVariantsTitle"),
+      addVariant: k("editorVariantAdd"),
+      adminName: k("editorVariantAdminName"),
+      customerLabel: k("editorVariantCustomerLabel"),
+      quotaValue: k("editorVariantQuotaValue"),
+      quotaUnit: k("editorVariantQuotaUnit"),
+      sortOrder: k("editorVariantSortOrder"),
+      active: k("editorVariantActive"),
+      recommended: k("editorVariantRecommended"),
+      monthlyPrice: k("editorVariantMonthlyPrice"),
+      yearlyPrice: k("editorVariantYearlyPrice"),
+      oneTimePrice: k("editorVariantOneTimePrice"),
+      currency: k("currency"),
+      vatUnknown: k("editorVariantVatUnknown"),
+      providerPriceId: k("editorVariantProviderPriceId"),
+      providerPriceHint: k("editorVariantProviderPriceHint"),
+      remove: k("editorVariantRemove"),
+      empty: k("editorVariantEmpty"),
+      persistenceNote: k("editorVariantPersistenceNote"),
+      annualRenewsMonthly: k("editorVariantAnnualRenewsMonthly"),
+    },
   };
 }
 
@@ -697,6 +720,9 @@ export function buildCspCatalogLabels(t: Translator): CspCatalogLabels {
     empty: k("empty"),
     audienceLabel: t(`${CSP_NS}.catalogMeta.audienceLabel`),
     benefitsLabel: t(`${CSP_NS}.catalogMeta.benefitsLabel`),
+    monthly: k("monthly"),
+    yearly: k("yearly"),
+    annualQuotaNote: k("annualQuotaNote"),
   };
 }
 

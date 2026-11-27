@@ -10,6 +10,12 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import type { SellersActionLabels } from "@/components/platform/sellers/CertifiedSellersActionPanel";
+import {
+  ProductVariantBuilder,
+  type ProductVariantBuilderLabels,
+} from "@/components/platform/sellers/ProductVariantBuilder";
+import type { ProductVariantDefinition } from "@/lib/product-catalog/variants";
+import { variantsForProduct } from "@/lib/product-catalog/merge";
 
 export type ProductEditorMode = "create" | "edit";
 
@@ -49,6 +55,8 @@ export type ProductShopifyEditorLabels = SellersActionLabels & {
   previewSecondary: string;
   channelAppDetails: string;
   channelSaleDetails: string;
+  variantsTitle: string;
+  variantBuilder: ProductVariantBuilderLabels;
 };
 
 const CONTENT_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
@@ -130,6 +138,9 @@ export function ProductShopifyEditor({
   const [dirty, setDirty] = useState(false);
   const [saleDetailsOpen, setSaleDetailsOpen] = useState(true);
   const [appDetailsOpen, setAppDetailsOpen] = useState(false);
+  const [variants, setVariants] = useState<ProductVariantDefinition[]>(() =>
+    initialKey ? variantsForProduct(initialKey) : [],
+  );
 
   const markDirty = useCallback(() => setDirty(true), []);
 
@@ -330,8 +341,17 @@ export function ProductShopifyEditor({
             </p>
           </EditorCard>
 
-          <EditorCard title={labels.priceCardTitle}>
-            <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.priceNotPublished}</p>
+          <EditorCard title={labels.variantsTitle || labels.priceCardTitle}>
+            <ProductVariantBuilder
+              productKey={productKey}
+              variants={variants}
+              labels={labels.variantBuilder}
+              onChange={(next) => {
+                setVariants(next);
+                markDirty();
+              }}
+            />
+            <p className="mt-3 text-sm text-[color:var(--aipify-text-secondary)]">{labels.priceNotPublished}</p>
             <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
               {labels.priceNotCommission}
             </p>

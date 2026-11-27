@@ -70,6 +70,11 @@ if (web?.commission.kind === "fixed") {
   assert.equal(web.commission.amount, 500);
 }
 assert.equal(web?.customerPrice.status, "planned_not_stripe_live");
+assert.equal(web?.customerPrice.fromYearly, 5990);
+assert.equal(web?.variants.length, 3);
+assert.equal(web?.variants[0]?.quotaValue, 150);
+assert.equal(web?.variants[1]?.quotaValue, 2500);
+assert.equal(web?.variants[2]?.quotaValue, 10000);
 assert.match(web?.description ?? "", /Aipify /);
 
 const saleOnlyDraft = buildUnifiedCatalog({

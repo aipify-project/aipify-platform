@@ -499,7 +499,10 @@
       "takeTraining": "Rozpocznij szkolenie",
       "trainingNotPublished": "Szkolenie nie zostało jeszcze opublikowane",
       "empty": "Brak produktów w tej kategorii.",
-      "shareMarketing": "Udostępnij"
+      "shareMarketing": "Udostępnij",
+      "monthly": "Miesięcznie",
+      "yearly": "Rocznie",
+      "annualQuotaNote": "Roczna płatność nadal odnawia limit co miesiąc."
     },
     "overview": {
       "title": "Twój przegląd partnera",

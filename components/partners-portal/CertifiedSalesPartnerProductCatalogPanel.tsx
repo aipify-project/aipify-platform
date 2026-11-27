@@ -12,8 +12,13 @@ import {
 import {
   buildUnifiedCatalog,
   filterSalesCatalogProducts,
+  variantsForProduct,
   type ProductCatalogLocaleCode,
 } from "@/lib/product-catalog";
+import {
+  formatVariantQuotaLabel,
+  priceForInterval,
+} from "@/lib/product-catalog/variants";
 import { ensureCspSalesLink, useCspSalesLinks, writeClipboard } from "./csp-sales-links-client";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
 
@@ -58,10 +63,106 @@ export type CspCatalogLabels = {
   empty: string;
   audienceLabel: string;
   benefitsLabel: string;
+  monthly?: string;
+  yearly?: string;
+  annualQuotaNote?: string;
 };
 
 function fill(template: string, values: Record<string, string | number>): string {
   return template.replace(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match));
+}
+
+function SaleVariantPriceBlock({
+  productKey,
+  locale,
+  labels,
+  fallbackMonthly,
+}: {
+  productKey: string;
+  locale: string;
+  labels: CspCatalogLabels;
+  fallbackMonthly: { amount: number; currency: string } | null;
+}) {
+  const variants = useMemo(
+    () => variantsForProduct(productKey).filter((v) => v.active),
+    [productKey],
+  );
+  const [variantKey, setVariantKey] = useState(
+    () => variants.find((v) => v.recommended)?.variantKey ?? variants[0]?.variantKey ?? null,
+  );
+  const [interval, setInterval] = useState<"month" | "year">("month");
+  const variant = variants.find((v) => v.variantKey === variantKey) ?? variants[0] ?? null;
+  const price = variant ? priceForInterval(variant, interval) : null;
+  const amount =
+    price?.amountMajor ??
+    (interval === "month" ? fallbackMonthly?.amount ?? null : null);
+  const currency = price?.currency ?? fallbackMonthly?.currency ?? "NOK";
+
+  if (variants.length === 0 && amount == null) {
+    return (
+      <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.noPlannedPrice}</p>
+    );
+  }
+
+  return (
+    <div className="space-y-2">
+      {variants.length > 0 ? (
+        <div className="flex gap-1 overflow-x-auto rounded-xl border border-[color:var(--aipify-border)] p-1">
+          {variants.map((item) => {
+            const selected = item.variantKey === variant?.variantKey;
+            return (
+              <button
+                key={item.variantKey}
+                type="button"
+                aria-pressed={selected}
+                onClick={() => setVariantKey(item.variantKey)}
+                className={`whitespace-nowrap rounded-lg px-2.5 py-1 text-xs font-semibold ${
+                  selected
+                    ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                    : "text-[color:var(--aipify-text-primary)]"
+                }`}
+              >
+                {formatVariantQuotaLabel(item, locale)}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+      <div className="inline-flex rounded-xl border border-[color:var(--aipify-border)] p-1">
+        {(
+          [
+            ["month", labels.monthly ?? "Monthly"],
+            ["year", labels.yearly ?? "Yearly"],
+          ] as const
+        ).map(([value, label]) => (
+          <button
+            key={value}
+            type="button"
+            aria-pressed={interval === value}
+            onClick={() => setInterval(value)}
+            className={`rounded-lg px-2.5 py-1 text-xs font-semibold ${
+              interval === value
+                ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                : "text-[color:var(--aipify-text-primary)]"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <p className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+        {amount != null
+          ? `${formatMoney(amount, currency, locale)} · ${
+              interval === "month" ? labels.monthly ?? "Monthly" : labels.yearly ?? "Yearly"
+            }`
+          : labels.noPlannedPrice}
+      </p>
+      <p className="text-xs text-[color:var(--aipify-text-muted)]">{labels.plannedPriceNote}</p>
+      {variant?.annualRenewsQuotaMonthly && interval === "year" && labels.annualQuotaNote ? (
+        <p className="text-xs text-[color:var(--aipify-text-secondary)]">{labels.annualQuotaNote}</p>
+      ) : null}
+    </div>
+  );
 }
 
 function formatMoney(amount: number, currency: string, locale: string): string {
@@ -346,23 +447,21 @@ export function CertifiedSalesPartnerProductCatalogPanel({
                   ) : null}
                 </div>
 
+                <SaleVariantPriceBlock
+                  productKey={product.key}
+                  locale={locale}
+                  labels={labels}
+                  fallbackMonthly={
+                    product.plannedReferencePrice
+                      ? {
+                          amount: product.plannedReferencePrice.fromMonthly,
+                          currency: product.plannedReferencePrice.currency,
+                        }
+                      : null
+                  }
+                />
+
                 <dl className="space-y-2 text-sm">
-                  <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
-                      {labels.plannedPriceNote}
-                    </dt>
-                    <dd className="text-[color:var(--aipify-text-primary)]">
-                      {product.plannedReferencePrice
-                        ? fill(labels.plannedPrice, {
-                            price: formatMoney(
-                              product.plannedReferencePrice.fromMonthly,
-                              product.plannedReferencePrice.currency,
-                              locale,
-                            ),
-                          })
-                        : labels.noPlannedPrice}
-                    </dd>
-                  </div>
                   <div>
                     <dt className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
                       {labels.commissionLabel}

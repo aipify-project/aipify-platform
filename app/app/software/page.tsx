@@ -108,6 +108,7 @@ export default async function SoftwareCatalogPage() {
           contactAipify={showcase.contactAipify}
           notForPurchase={showcase.notForPurchase}
           plannedPriceNote={showcase.plannedPriceNote}
+          locale={catalogLocale}
         />
         <Link
           href={CUSTOMER_CATALOG_ROUTE}

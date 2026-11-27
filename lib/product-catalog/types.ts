@@ -3,6 +3,8 @@
  * Persistence of APP channel / media / percent commission requires Core SQL (see docs).
  */
 
+import type { ProductVariantDefinition } from "./variants";
+
 export type ProductCatalogChannel = "app" | "sale";
 
 export type ProductCatalogChannelStatus =
@@ -86,8 +88,14 @@ export type UnifiedCatalogProduct = {
   customerPrice: {
     currency: string;
     fromMonthly: number | null;
+    fromYearly: number | null;
     status: "planned_not_stripe_live" | "live" | "unavailable";
   };
+  /**
+   * Data-driven variants (plans). Quotas are quantities, not prices.
+   * Empty when the product has no packaged variants yet.
+   */
+  variants: ProductVariantDefinition[];
   commission: ProductCatalogCommissionModel;
   /** Core CSP row id when present. */
   coreProductId: string | null;

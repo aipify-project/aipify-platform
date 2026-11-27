@@ -499,7 +499,10 @@
       "takeTraining": "Hacer la formación",
       "trainingNotPublished": "La formación aún no está publicada",
       "empty": "No hay productos en esta categoría.",
-      "shareMarketing": "Compartir"
+      "shareMarketing": "Compartir",
+      "monthly": "Mensual",
+      "yearly": "Anual",
+      "annualQuotaNote": "El pago anual sigue renovando la cuota cada mes."
     },
     "overview": {
       "title": "Tu resumen de socio",

@@ -1366,7 +1366,15 @@
       "contactAipify": "Kontakta Aipify",
       "notForPurchase": "Inte tillgänglig för köp ännu",
       "plannedPriceNote": "Planerat kundpris från {price} — inte ett live-kunderbjudande.",
-      "coreChannelPending": "APP-publicering från Core är inte ansluten ännu. Visade produkter kan använda tillfällig registerfallback och är tydligt märkta — inte en live Core APP-publiceringsflagga."
+      "coreChannelPending": "APP-publicering från Core är inte ansluten ännu. Visade produkter kan använda tillfällig registerfallback och är tydligt märkta — inte en live Core APP-publiceringsflagga.",
+      "mostPopular": "Mest populär",
+      "monthly": "Månadsvis",
+      "yearly": "Årligen",
+      "fromPrice": "Från {price}",
+      "annualQuotaNote": "Årlig betalning förnyar fortfarande kvoten varje månad.",
+      "featuresHeading": "Ingår",
+      "closeDetails": "Stäng",
+      "vatUnknown": "Momsvisning är inte beslutad ännu."
     },
     "modules": {
       "title": "Tilläggsmoduler",

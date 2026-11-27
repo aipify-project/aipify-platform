@@ -199,7 +199,15 @@
       "contactAipify": "Contactar a Aipify",
       "notForPurchase": "Aún no disponible para compra",
       "plannedPriceNote": "Precio de cliente planificado desde {price}: no es una oferta de compra en vivo.",
-      "coreChannelPending": "La publicación APP desde Core aún no está conectada. Los productos listados pueden usar un fallback temporal del registro y están claramente marcados — no es un indicador live de publicación APP en Core."
+      "coreChannelPending": "La publicación APP desde Core aún no está conectada. Los productos listados pueden usar un fallback temporal del registro y están claramente marcados — no es un indicador live de publicación APP en Core.",
+      "mostPopular": "Más popular",
+      "monthly": "Mensual",
+      "yearly": "Anual",
+      "fromPrice": "Desde {price}",
+      "annualQuotaNote": "El pago anual sigue renovando la cuota cada mes.",
+      "featuresHeading": "Incluido",
+      "closeDetails": "Cerrar",
+      "vatUnknown": "La visualización del IVA aún no está decidida."
     },
     "modules": {
       "title": "Módulos complementarios",

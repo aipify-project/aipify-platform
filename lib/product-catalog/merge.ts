@@ -1,4 +1,5 @@
 import { KOMPIS_WEB_PLANNED_CATALOG } from "@/lib/certified-sales-partner/academy/kompis-web-lessons";
+import { WEBSITE_KOMPIS_PLAN_CATALOG } from "@/lib/website-kompis-plans/catalog";
 import { PERCENT_COMMISSION_BLOCKED_REASON } from "./percent-commission-contract";
 import { getCanonicalProduct, CANONICAL_PRODUCT_REGISTRY } from "./registry";
 import type {
@@ -6,6 +7,7 @@ import type {
   UnifiedCatalogProduct,
   UnifiedProductChannelState,
 } from "./types";
+import type { ProductVariantDefinition } from "./variants";
 
 export type CoreSalesProductRow = {
   id: string;
@@ -107,13 +109,66 @@ function saleChannel(
 
 function customerPrice(productKey: string): UnifiedCatalogProduct["customerPrice"] {
   if (productKey === "kompis_web") {
+    const standard = WEBSITE_KOMPIS_PLAN_CATALOG.find((p) => p.id === "standard");
     return {
       currency: KOMPIS_WEB_PLANNED_CATALOG.currency,
       fromMonthly: KOMPIS_WEB_PLANNED_CATALOG.standard.monthlyPriceNok,
+      fromYearly: standard?.annualPrice
+        ? Number(standard.annualPrice.amountDisplay.replace(/\s/g, ""))
+        : null,
       status: "planned_not_stripe_live",
     };
   }
-  return { currency: "NOK", fromMonthly: null, status: "unavailable" };
+  return { currency: "NOK", fromMonthly: null, fromYearly: null, status: "unavailable" };
+}
+
+/**
+ * Attach planned variants for known products.
+ * Source of truth for Kompis Web quotas/prices: WEBSITE_KOMPIS_PLAN_CATALOG
+ * (150 / 2500 / 10000 — not a hardcoded 6000). Annual renews answers monthly.
+ */
+export function variantsForProduct(productKey: string): ProductVariantDefinition[] {
+  if (productKey !== "kompis_web") return [];
+  return WEBSITE_KOMPIS_PLAN_CATALOG.map((plan, index) => ({
+    variantKey: `${productKey}_${plan.id}`,
+    productKey,
+    adminName: plan.id,
+    customerLabel:
+      plan.answerQuota != null
+        ? `${plan.answerQuota} answers`
+        : plan.id,
+    sortOrder: index,
+    active: true,
+    recommended: plan.id === "standard",
+    quotaValue: plan.answerQuota,
+    quotaUnit: "answers",
+    quotaKind: plan.quotaKind,
+    annualRenewsQuotaMonthly: plan.annualRenewsAnswersMonthly,
+    monthlyPrice: plan.monthlyPrice
+      ? {
+          currency: plan.monthlyPrice.currency,
+          amountMajor: Number(plan.monthlyPrice.amountDisplay.replace(/\s/g, "")),
+          amountMinor: plan.monthlyPrice.amountMinor,
+          interval: "month" as const,
+          vatLabel: "unknown" as const,
+          providerPriceId: null,
+          purchasable: plan.checkoutEnabled,
+        }
+      : null,
+    yearlyPrice: plan.annualPrice
+      ? {
+          currency: plan.annualPrice.currency,
+          amountMajor: Number(plan.annualPrice.amountDisplay.replace(/\s/g, "")),
+          amountMinor: plan.annualPrice.amountMinor,
+          interval: "year" as const,
+          vatLabel: "unknown" as const,
+          providerPriceId: null,
+          purchasable: plan.checkoutEnabled,
+        }
+      : null,
+    oneTimePrice: null,
+    features: [],
+  }));
 }
 
 function purchaseReadiness(
@@ -179,6 +234,7 @@ export function buildUnifiedCatalog(input: {
       app: appChannel(def, core),
       sale: saleChannel(def, core),
       customerPrice: customerPrice(def.productKey),
+      variants: variantsForProduct(def.productKey),
       commission: resolveCommission(core),
       coreProductId: core?.id ?? null,
       purchaseReadiness: purchaseReadiness(def.productKey, entitlement),

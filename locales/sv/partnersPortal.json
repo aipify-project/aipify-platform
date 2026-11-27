@@ -623,7 +623,10 @@
       "takeTraining": "Gå utbildningen",
       "trainingNotPublished": "Utbildningen är inte publicerad ännu",
       "empty": "Inga produkter i den här kategorin.",
-      "shareMarketing": "Dela"
+      "shareMarketing": "Dela",
+      "monthly": "Månadsvis",
+      "yearly": "Årligen",
+      "annualQuotaNote": "Årlig betalning förnyar fortfarande kvoten varje månad."
     },
     "overview": {
       "title": "Din partneröversikt",
