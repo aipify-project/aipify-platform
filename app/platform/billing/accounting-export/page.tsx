@@ -8,12 +8,12 @@ export default async function PlatformBillingAccountingExportPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["platform"]);
   const t = createTranslator(dict);
-  const labels = buildBillingCommerceCenterLabels(t);
+  const labels = buildBillingCommerceCenterLabels(t, locale);
   return (
     <UnifiedBillingAdminSectionPanel
       section="accounting_export"
-      title={t("platform.unifiedBillingAdmin.accountingExport.title")}
-      subtitle={t("platform.unifiedBillingAdmin.accountingExport.subtitle")}
+      title={labels.modules.accountingExport}
+      subtitle={labels.moduleDescriptions.accountingExport}
       labels={labels}
     />
   );

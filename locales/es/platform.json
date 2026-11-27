@@ -994,27 +994,27 @@
     "title": "Acuerdos y ventas — finanzas",
     "subtitle": "Resumen financiero de facturas de clientes, pagos, acuerdos, impuestos, proveedores, informes y exportación contable.",
     "principle": "Every sale must be traceable from agreement to invoice, payment, tax, and accounting — without confusing planned integrations for live settlement.",
-    "privacyNote": "Platform aggregates only — no customer operational content beyond billing metadata.",
-    "loading": "Preparing finance overview",
-    "empty": "Finance overview data is unavailable.",
-    "openModule": "Open",
+    "privacyNote": "Solo agregados de plataforma — sin contenido operativo del cliente más allá de los metadatos de facturación.",
+    "loading": "Preparando el resumen financiero",
+    "empty": "El resumen financiero no está disponible.",
+    "openModule": "Abrir",
     "back": "Volver al resumen financiero",
     "overview": "Resumen financiero",
-    "stats": "Statistics",
-    "records": "Records",
-    "legalReviewBanner": "Review tax and VAT display with accounting and legal before changing checkout behaviour.",
+    "stats": "Estadísticas",
+    "records": "Registros",
+    "legalReviewBanner": "Revise la presentación de tasas e IVA con contabilidad y legal antes de cambiar el pago.",
     "subNavAria": "Navegación de Acuerdos y ventas — finanzas",
-    "relatedOperations": "Related operations",
+    "relatedOperations": "Operaciones relacionadas",
     "relatedLinks": {
-      "paymentOperations": "Payment operations",
-      "revenueOperations": "Revenue operations",
-      "subscriptionOperations": "Agreement operations"
+      "paymentOperations": "Operaciones de pago",
+      "revenueOperations": "Operaciones de ingresos",
+      "subscriptionOperations": "Operaciones de acuerdos"
     },
     "overviewStats": {
-      "activeCustomers": "Active customers",
-      "overdueCustomers": "Overdue customers",
-      "openInvoices": "Open customer invoices",
-      "draftCheckouts": "Draft checkouts"
+      "activeCustomers": "Clientes activos",
+      "overdueCustomers": "Clientes vencidos",
+      "openInvoices": "Facturas abiertas",
+      "draftCheckouts": "Borradores de pago"
     },
     "groups": {
       "core": "Facturas, pagos y acuerdos",
@@ -2220,5 +2220,199 @@
   "sellersHub": {
     "tabsAria": "Secciones de vendedores",
     "tabsLabel": "Secciones de vendedores"
+  },
+  "economyDisplay": {
+    "unavailable": "No disponible",
+    "notRegistered": "No registrado",
+    "mustVerify": "Debe verificarse",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "yes": "Sí",
+    "no": "No",
+    "staging": "Interno o staging — no es ingreso de cliente",
+    "lifetime": "Ilimitado",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "oneTime": "Pago único",
+    "seeProductCatalog": "Ver el catálogo de productos en Módulos",
+    "seeSellers": "Abrir en Vendedores",
+    "sourceError": "La fuente no respondió. Los valores no se muestran como cero.",
+    "noRecords": "No hay registros.",
+    "columns": {
+      "rate": "Tipo",
+      "label": "Nombre",
+      "scope": "Ámbito",
+      "active": "Activa",
+      "rule_key": "Clave de regla",
+      "amount": "Importe",
+      "currency": "Moneda",
+      "status": "Estado",
+      "customer": "Cliente",
+      "invoice_number": "Número de factura",
+      "kid": "KID",
+      "kid_number": "KID",
+      "due_date": "Fecha de vencimiento",
+      "email": "Correo",
+      "organization_id": "Referencia de organización",
+      "environment_type": "Entorno",
+      "connected": "Conectado",
+      "provider": "Proveedor",
+      "billing_email": "Correo de facturación",
+      "billing_address": "Dirección de facturación",
+      "vat_amount": "Importe de IVA",
+      "total_amount": "Total",
+      "commission_amount": "Comisión",
+      "name": "Nombre",
+      "plan": "Acuerdo",
+      "price_amount": "Precio",
+      "billing_cycle": "Periodo de facturación"
+    }
+  },
+  "status": {
+    "invoice": {
+      "draft": "Borrador",
+      "sent": "Enviada",
+      "paid": "Pagada",
+      "overdue": "Vencida",
+      "cancelled": "Cancelada",
+      "failed": "Fallida"
+    },
+    "payment": {
+      "not_connected": "No conectado",
+      "pending_setup": "Configuración pendiente",
+      "active": "Activo",
+      "failed": "Fallido",
+      "cancelled": "Cancelado"
+    }
+  },
+  "taxVerification": {
+    "title": "Tasas e IVA",
+    "subtitle": "Vista de solo lectura del IVA en el pago y en la factura. Las reglas de cálculo no cambian aquí.",
+    "loading": "Preparando tasas e IVA",
+    "legalReviewBanner": "Revise la presentación de tasas e IVA con contabilidad y legal antes de cambiar el pago.",
+    "customerType": "Sesiones de pago",
+    "vatNumber": "Número de IVA",
+    "validationStatus": "Estado de validación",
+    "vatApplied": "IVA aplicado",
+    "reverseCharge": "Inversión del sujeto pasivo",
+    "invoiceHistory": "IVA en facturas",
+    "validationLogs": "Registro de validación",
+    "taxNotes": "Notas",
+    "empty": "Los datos de tasas e IVA no están disponibles.",
+    "auditLogs": "Registro de auditoría",
+    "stats": {
+      "totalSessions": "Sesiones",
+      "reverseChargeCount": "Inversión del sujeto pasivo",
+      "invalidValidations": "Validaciones no válidas",
+      "serviceFailures": "Fallos del servicio"
+    }
+  },
+  "billing": {
+    "title": "Pagos",
+    "subtitle": "Perfiles de pago y direcciones de factura. Esta pantalla no cobra un pago.",
+    "loading": "Preparando pagos",
+    "empty": "No hay perfiles de pago registrados.",
+    "customer": "Cliente",
+    "billingEmail": "Correo de facturación",
+    "address": "Dirección",
+    "provider": "Proveedor de pago",
+    "paymentStatus": "Estado del pago",
+    "kid": "KID"
+  },
+  "invoices": {
+    "title": "Facturas de clientes",
+    "subtitle": "Facturas que Aipify emite a los clientes.",
+    "loading": "Preparando facturas",
+    "empty": "No hay facturas de clientes registradas.",
+    "invoiceNumber": "Número de factura",
+    "customer": "Cliente",
+    "amount": "Importe",
+    "status": "Estado",
+    "dueDate": "Fecha de vencimiento",
+    "actions": "Acciones",
+    "send": "Enviar",
+    "resend": "Reenviar",
+    "markPaid": "Marcar como pagada",
+    "markOverdue": "Marcar como vencida",
+    "markFailed": "Marcar como fallida",
+    "kid": "KID",
+    "downloadPdf": "PDF",
+    "actionPending": "En curso",
+    "actionDone": "Actualizada"
+  },
+  "subscriptions": {
+    "title": "Acuerdos de clientes",
+    "subtitle": "Acuerdos y ciclo del plan. La próxima fecha de cobro solo se muestra si está guardada.",
+    "loading": "Preparando acuerdos",
+    "empty": "No hay acuerdos de clientes registrados.",
+    "customer": "Cliente",
+    "plan": "Acuerdo",
+    "planType": "Tipo",
+    "status": "Estado",
+    "trial": "Prueba",
+    "price": "Precio",
+    "billingCycle": "Periodo de facturación",
+    "daysRemaining": "Días restantes",
+    "nextBillingDate": "Próxima fecha de cobro",
+    "provider": "Proveedor",
+    "paymentStatus": "Estado del pago"
+  },
+  "paymentProviders": {
+    "statuses": {
+      "operational": "En funcionamiento",
+      "pendingSetup": "Configuración pendiente",
+      "setupRequired": "Configuración pendiente",
+      "requiresAttention": "Requiere atención",
+      "disabled": "Desactivado",
+      "disconnected": "No conectado",
+      "failed": "Fallido"
+    },
+    "modes": {
+      "test": "Prueba",
+      "live": "Producción"
+    },
+    "title": "Proveedores de pago",
+    "subtitle": "Configuración de Klarna, Vipps MobilePay y Stripe. El estado aquí es la configuración, no un pago registrado.",
+    "loading": "Preparando proveedores de pago",
+    "back": "Volver al resumen financiero",
+    "configure": "Configurar",
+    "visualStandards": "Los nombres de proveedor se mantienen. La tarjeta muestra el estado de configuración, no la liquidación.",
+    "fields": {
+      "status": "Estado",
+      "mode": "Modo",
+      "regions": "Regiones",
+      "capabilities": "Funciones admitidas",
+      "lastHealthCheck": "Última comprobación",
+      "setupStatus": "Estado de configuración",
+      "webhookUrl": "Dirección del webhook",
+      "webhookStatus": "Estado del webhook",
+      "lastWebhook": "Último evento",
+      "enabled": "Activado para el espacio de trabajo",
+      "environment": "Entorno",
+      "apiStatus": "Estado de la API",
+      "settlementStatus": "Estado de liquidación",
+      "currencies": "Monedas",
+      "countries": "Países"
+    },
+    "apiStatuses": {
+      "connected": "Conectado",
+      "disconnected": "No conectado",
+      "pending": "Configuración pendiente"
+    },
+    "settlementStatuses": {
+      "completed": "Liquidado",
+      "pending": "Liquidación pendiente",
+      "failed": "Liquidación fallida"
+    },
+    "environments": {
+      "sandbox": "Prueba",
+      "production": "Producción"
+    },
+    "providerProfiles": {
+      "stripePositioning": "Alcance internacional. La conexión no está activada aquí.",
+      "klarnaPositioning": "Configuración de pago europea. La conexión no está activada aquí.",
+      "vippsPositioning": "Configuración de pago local. La conexión no está activada aquí.",
+      "dnbPositioning": "Configuración de facturas para organizaciones más grandes. La conexión no está activada aquí."
+    }
   }
 }

@@ -8,12 +8,12 @@ export default async function PlatformBillingReportsPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["platform"]);
   const t = createTranslator(dict);
-  const labels = buildBillingCommerceCenterLabels(t);
+  const labels = buildBillingCommerceCenterLabels(t, locale);
   return (
     <UnifiedBillingAdminSectionPanel
       section="reports"
-      title={t("platform.unifiedBillingAdmin.reports.title")}
-      subtitle={t("platform.unifiedBillingAdmin.reports.subtitle")}
+      title={labels.modules.reports}
+      subtitle={labels.moduleDescriptions.reports}
       labels={labels}
     />
   );

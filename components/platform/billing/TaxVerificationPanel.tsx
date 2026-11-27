@@ -1,6 +1,8 @@
 "use client";
 
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { PlatformLayoutClasses } from "@/lib/design";
+import { formatEconomyCount, formatEconomyPercent } from "@/lib/platform/economy-display";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 
 type Props = {
@@ -20,6 +22,8 @@ type Props = {
     auditLogs: string;
     empty: string;
     stats: Record<string, string>;
+    unavailable: string;
+    locale: string;
   };
 };
 
@@ -54,24 +58,29 @@ export function TaxVerificationPanel({ labels }: Props) {
   const audit = (center.audit_recent as Record<string, unknown>[]) ?? [];
 
   return (
-    <div className="space-y-8 p-6">
+    <div className={PlatformLayoutClasses.page}>
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900">{labels.title}</h1>
-        <p className="mt-2 text-zinc-600">{labels.subtitle}</p>
+        <h1 className={PlatformLayoutClasses.pageTitle}>{labels.title}</h1>
+        <p className={PlatformLayoutClasses.pageSubtitle}>{labels.subtitle}</p>
         <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">{labels.legalReviewBanner}</p>
       </div>
 
-      <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {Object.entries(labels.stats).map(([key, label]) => (
-          <div key={key} className="rounded-xl border border-zinc-200 bg-white px-4 py-3">
-            <dt className="text-xs uppercase text-zinc-500">{label}</dt>
-            <dd className="mt-1 text-2xl font-semibold">{stats[key] ?? 0}</dd>
-          </div>
-        ))}
+      <dl className={PlatformLayoutClasses.metricGrid}>
+        {Object.entries(labels.stats).map(([key, label]) => {
+          const formatted = formatEconomyCount(stats[key], labels.locale);
+          return (
+            <div key={key} className="rounded-xl border border-zinc-200 bg-white px-4 py-3">
+              <dt className="text-xs font-semibold tracking-wide text-zinc-500">{label}</dt>
+              <dd className="mt-1 text-2xl font-semibold">
+                {formatted.state === "value" ? formatted.text : labels.unavailable}
+              </dd>
+            </div>
+          );
+        })}
       </dl>
 
       <Section title={labels.customerType} items={sessions} render={(item) => (
-        <p className="text-sm">{String(item.customer_type)} · {String(item.company_name || "—")} · {String(item.country)} · VAT {String(item.vat_rate)}% · {String(item.validation_status)}</p>
+        <p className="text-sm">{String(item.customer_type)} · {String(item.company_name || labels.unavailable)} · {String(item.country)} · {formatEconomyPercent(item.vat_rate as number | string | null, labels.locale).state === "value" ? (formatEconomyPercent(item.vat_rate as number | string | null, labels.locale) as { text: string }).text : labels.unavailable} · {String(item.validation_status)}</p>
       )} />
 
       <Section title={labels.validationLogs} items={validations} render={(item) => (

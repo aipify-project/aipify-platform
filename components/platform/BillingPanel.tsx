@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { PlatformLayoutClasses } from "@/lib/design";
+import { classifyAddress, classifyKid } from "@/lib/platform/economy-display";
 import { createClient } from "@/lib/supabase/client";
 import type { PaymentProfileRow } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
@@ -25,12 +28,16 @@ type BillingPanelProps = {
     providerLabels: Record<string, string>;
     paymentStatusLabels: Record<string, string>;
     pulseLabel: string;
+    unavailable: string;
+    mustVerify: string;
+    notRegistered: string;
   };
 };
 
 export default function BillingPanel({ labels }: BillingPanelProps) {
   const [rows, setRows] = useState<PaymentProfileRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -40,6 +47,7 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
       const { data, error } = await supabase.rpc("list_platform_payment_profiles");
 
       if (!cancelled) {
+        setLoadError(Boolean(error));
         setRows(error || !data ? [] : (data as PaymentProfileRow[]));
         setLoading(false);
       }
@@ -53,7 +61,7 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
   }, []);
 
   return (
-    <div className="mx-auto max-w-6xl">
+    <div className={PlatformLayoutClasses.pageWidth}>
       <AipifyBillingDocumentHeader
         title={labels.title}
         subtitle={labels.subtitle}
@@ -61,7 +69,14 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
       />
 
       {loading ? (
-        <p className="text-sm text-gray-500">{labels.loading}</p>
+        <div className="flex min-h-[24vh] items-center justify-center">
+          <AipifyLoader centered />
+          <span className="sr-only">{labels.loading}</span>
+        </div>
+      ) : loadError ? (
+        <p className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-700">
+          {labels.unavailable}
+        </p>
       ) : rows.length === 0 ? (
         <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
@@ -103,8 +118,12 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
                       >
                         {row.display_name}
                       </Link>
-                      <p className="mt-1 text-xs text-gray-500">
-                        {row.billing_address}, {row.postal_code} {row.city}
+                      <p className="mt-1 text-xs text-gray-500" title={row.billing_address ?? undefined}>
+                        {classifyAddress(
+                          [row.billing_address, row.postal_code, row.city].filter(Boolean).join(", "),
+                        ) === "present"
+                          ? [row.billing_address, row.postal_code, row.city].filter(Boolean).join(", ")
+                          : labels.mustVerify}
                       </p>
                     </td>
                     <td className="px-6 py-4 text-sm font-medium text-gray-900">
@@ -119,8 +138,12 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
                         }
                       />
                     </td>
-                    <td className="px-6 py-4 font-mono text-sm text-gray-600">
-                      {row.kid_number ?? "—"}
+                    <td className="px-6 py-4 text-sm text-gray-600" title={row.kid_number ?? undefined}>
+                      {classifyKid(row.kid_number) === "present"
+                        ? row.kid_number
+                        : classifyKid(row.kid_number) === "placeholder"
+                          ? labels.mustVerify
+                          : labels.notRegistered}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {row.billing_email}

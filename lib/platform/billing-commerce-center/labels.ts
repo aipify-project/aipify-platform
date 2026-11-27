@@ -1,7 +1,64 @@
 import type { Translator } from "@/lib/i18n/translate";
+import type { EconomyPhrases } from "@/lib/platform/economy-display";
 import { BILLING_COMMERCE_NAV } from "./config";
 
-export function buildBillingCommerceCenterLabels(t: Translator) {
+const ECONOMY_COLUMN_KEYS = [
+  "rate",
+  "label",
+  "scope",
+  "active",
+  "rule_key",
+  "amount",
+  "currency",
+  "status",
+  "customer",
+  "invoice_number",
+  "kid",
+  "kid_number",
+  "due_date",
+  "email",
+  "organization_id",
+  "environment_type",
+  "connected",
+  "provider",
+  "billing_email",
+  "billing_address",
+  "vat_amount",
+  "total_amount",
+  "commission_amount",
+  "name",
+  "plan",
+  "price_amount",
+  "billing_cycle",
+] as const;
+
+export function buildEconomyPhrases(t: Translator): EconomyPhrases {
+  const root = "platform.economyDisplay";
+  const columns = Object.fromEntries(
+    ECONOMY_COLUMN_KEYS.map((key) => [key, t(`${root}.columns.${key}`)]),
+  );
+  return {
+    unavailable: t(`${root}.unavailable`),
+    notRegistered: t(`${root}.notRegistered`),
+    mustVerify: t(`${root}.mustVerify`),
+    active: t(`${root}.active`),
+    inactive: t(`${root}.inactive`),
+    yes: t(`${root}.yes`),
+    no: t(`${root}.no`),
+    staging: t(`${root}.staging`),
+    lifetime: t(`${root}.lifetime`),
+    monthly: t(`${root}.monthly`),
+    yearly: t(`${root}.yearly`),
+    oneTime: t(`${root}.oneTime`),
+    seeProductCatalog: t(`${root}.seeProductCatalog`),
+    seeSellers: t(`${root}.seeSellers`),
+    sourceError: t(`${root}.sourceError`),
+    noRecords: t(`${root}.noRecords`),
+    columns,
+  };
+}
+
+export function buildBillingCommerceCenterLabels(t: Translator, locale = "en") {
   const p = "platform.billingCommerceCenter";
   const nav = Object.fromEntries(
     BILLING_COMMERCE_NAV.map((item) => [item.id, t(item.labelKey)]),
@@ -72,5 +129,7 @@ export function buildBillingCommerceCenterLabels(t: Translator) {
       productHint: t(`${p}.sections.productHint`),
       sellersHint: t(`${p}.sections.sellersHint`),
     },
+    locale,
+    economy: buildEconomyPhrases(t),
   };
 }

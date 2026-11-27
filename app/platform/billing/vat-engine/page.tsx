@@ -25,6 +25,8 @@ export default async function PlatformBillingVatEnginePage() {
         taxNotes: t("platform.taxVerification.taxNotes"),
         auditLogs: t("platform.taxVerification.auditLogs"),
         empty: t("platform.taxVerification.empty"),
+        unavailable: t("platform.economyDisplay.unavailable"),
+        locale,
         stats: {
           totalSessions: t("platform.taxVerification.stats.totalSessions"),
           reverseChargeCount: t("platform.taxVerification.stats.reverseChargeCount"),

@@ -31,6 +31,9 @@ export default async function PlatformBillingProfilesPage() {
         providerLabels: paymentProviderLabels(t),
         paymentStatusLabels: paymentStatusLabels(t),
         pulseLabel: t("branding.pulseLabel"),
+        unavailable: t("platform.economyDisplay.unavailable"),
+        mustVerify: t("platform.economyDisplay.mustVerify"),
+        notRegistered: t("platform.economyDisplay.notRegistered"),
       }}
     />
   );
