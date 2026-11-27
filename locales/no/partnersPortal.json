@@ -1305,24 +1305,34 @@
       "contact": {
         "title": "Kontakt Aipify",
         "subtitle": "Send en forespørsel om partnerkontoen din.",
-        "intro": "Beskriv hva du trenger hjelp til. Saker opprettes i Support Core når kanalen er aktiv.",
+        "intro": "Beskriv hva du trenger hjelp til. Når saksinntak er aktivt, registreres forespørselen hos Aipify. Inntil da: bruk e-post eller meldinger — vi lager ikke et falskt saksnummer.",
         "category": "Kategori",
+        "priority": "Prioritet",
         "subject": "Emne",
         "description": "Beskrivelse",
         "submit": "Send forespørsel",
         "submitting": "Sender…",
-        "blockedTitle": "Ticketsystemet er ikke aktivt ennå",
-        "blockedBody": "Partner-tickets venter på aktivering av Support Core. Bruk e-post eller meldinger i mellomtiden — vi lager ikke et falskt saksnummer.",
+        "blockedTitle": "Saksinntak er ikke aktivt ennå",
+        "blockedBody": "Partnersaker kan ikke opprettes automatisk ennå. Bruk e-post eller meldinger i mellomtiden — vi lager ikke et falskt saksnummer.",
         "mailtoCta": "Send e-post til Aipify",
         "messagesCta": "Åpne meldinger",
         "success": "Forespørselen din ble registrert.",
         "error": "Forespørselen kunne ikke sendes. Prøv igjen eller bruk meldinger.",
+        "senderTitle": "Din partnerprofil",
+        "senderName": "Navn",
+        "senderEmail": "E-post",
         "categories": {
-          "general": "Generelt",
-          "payout": "Utbetaling",
-          "academy": "Academy",
-          "company": "Firmaopplysninger",
-          "technical": "Teknisk"
+          "billing": "Faktura / betaling",
+          "product": "Produkt / modul",
+          "account": "Konto / lisens",
+          "technical": "Teknisk feil",
+          "other": "Annet",
+          "partner_commission": "Provisjon / utbetaling"
+        },
+        "priorities": {
+          "normal": "Normal",
+          "urgent": "Haster",
+          "critical": "Kritisk"
         }
       }
     }

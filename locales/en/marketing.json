@@ -8432,16 +8432,17 @@
   },
   "supportIntake": {
     "title": "Contact support",
-    "subtitle": "Submit a support request. Ticket storage activates after Core approval — email fallback remains available.",
+    "subtitle": "Send a support request. Automatic ticket storage activates after approval — email remains available as an alternative.",
     "name": "Name",
     "email": "Email",
     "subject": "Subject",
     "message": "Message",
     "submit": "Send request",
     "submitting": "Sending…",
-    "successCorePending": "Support intake is prepared but requires Core setup before the ticket is stored automatically. Use the email fallback below for now.",
+    "successCorePending": "Automatic ticket intake is not active yet. Use the email alternative below — we will not invent a ticket number.",
+    "successSubmitted": "Your request was registered.",
     "errorGeneric": "Could not send the request. Try again or use email.",
-    "mailtoFallback": "Public email contact remains available as a fallback.",
+    "mailtoFallback": "Email remains available as an alternative contact channel.",
     "mailtoLabel": "Email support@aipify.ai",
     "verificationRequired": "Complete the security check before submitting."
   }
