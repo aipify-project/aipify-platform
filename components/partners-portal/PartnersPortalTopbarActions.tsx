@@ -17,7 +17,12 @@ import { subscribeCspUnreadInvalidate } from "@/lib/certified-sales-partner/unre
 import { usePollingTask } from "@/lib/polling/use-polling-task";
 
 const ICON_LINK =
-  `inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border bg-white transition hover:border-[#7C3AED]/35 hover:text-[#7C3AED] sm:h-11 sm:w-11 ${SELLER_PORTAL_LAYOUT.focusRing}`;
+  `relative inline-flex h-11 min-h-11 min-w-11 items-center justify-center overflow-visible rounded-xl border bg-white transition hover:border-[#7C3AED]/35 hover:text-[#7C3AED] sm:h-12 sm:min-w-12 ${SELLER_PORTAL_LAYOUT.focusRing}`;
+
+function formatBadgeCount(count: number): string {
+  if (count > 99) return "99+";
+  return String(count);
+}
 
 type UnreadPreview = {
   id: string;
@@ -51,10 +56,19 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
 
   const unreadSeqRef = useRef(0);
 
+  const abortUnreadRef = useRef<AbortController | null>(null);
+
   const refreshUnread = useCallback(async () => {
     const seq = ++unreadSeqRef.current;
+    abortUnreadRef.current?.abort();
+    const controller = new AbortController();
+    abortUnreadRef.current = controller;
+    const timeout = window.setTimeout(() => controller.abort(), 12_000);
     try {
-      const res = await fetch("/api/certified-sales-partner/messages", { cache: "no-store" });
+      const res = await fetch("/api/certified-sales-partner/messages?limit=40", {
+        cache: "no-store",
+        signal: controller.signal,
+      });
       const body = (await res.json().catch(() => null)) as {
         found?: boolean;
         backend_ready?: boolean;
@@ -84,32 +98,42 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
           },
         ];
       });
-      const emailRes = await fetch("/api/certified-sales-partner/email/notifications", { cache: "no-store" });
-      const emailBody = (await emailRes.json().catch(() => null)) as {
-        found?: boolean;
-        backend_ready?: boolean;
-        unread?: Array<Record<string, unknown>>;
-      } | null;
+      // Email unread is optional — never block the messages badge on CRM latency.
+      let emailRows: UnreadPreview[] = [];
+      try {
+        const emailRes = await fetch("/api/certified-sales-partner/email/notifications", {
+          cache: "no-store",
+          signal: controller.signal,
+        });
+        const emailBody = (await emailRes.json().catch(() => null)) as {
+          found?: boolean;
+          backend_ready?: boolean;
+          unread?: Array<Record<string, unknown>>;
+        } | null;
+        if (seq !== unreadSeqRef.current) return false;
+        emailRows =
+          emailRes.ok && emailBody?.found && emailBody.backend_ready === true && Array.isArray(emailBody.unread)
+            ? emailBody.unread.flatMap((row) => {
+                const id = typeof row.id === "string" ? row.id : "";
+                const leadId = typeof row.lead_id === "string" ? row.lead_id : "";
+                if (!id || !leadId) return [];
+                const subject = typeof row.product_key === "string" ? row.product_key : null;
+                return [
+                  {
+                    id: `email:${id}`,
+                    sender: labels.notifications,
+                    subject,
+                    excerpt: subject || labels.notifications,
+                    created_at: typeof row.created_at === "string" ? row.created_at : "",
+                    href: `/partners/marketing/email-inbox?lead=${encodeURIComponent(leadId)}`,
+                  },
+                ];
+              })
+            : [];
+      } catch {
+        emailRows = [];
+      }
       if (seq !== unreadSeqRef.current) return false;
-      const emailRows =
-        emailRes.ok && emailBody?.found && emailBody.backend_ready === true && Array.isArray(emailBody.unread)
-          ? emailBody.unread.flatMap((row) => {
-              const id = typeof row.id === "string" ? row.id : "";
-              const leadId = typeof row.lead_id === "string" ? row.lead_id : "";
-              if (!id || !leadId) return [];
-              const subject = typeof row.product_key === "string" ? row.product_key : null;
-              return [
-                {
-                  id: `email:${id}`,
-                  sender: labels.notifications,
-                  subject,
-                  excerpt: subject || labels.notifications,
-                  created_at: typeof row.created_at === "string" ? row.created_at : "",
-                  href: `/partners/marketing/email-inbox?lead=${encodeURIComponent(leadId)}`,
-                },
-              ];
-            })
-          : [];
       setUnread(
         [...next, ...emailRows].sort((a, b) => compareTimestampsDesc(a.created_at, b.created_at)),
       );
@@ -118,6 +142,8 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
       if (seq !== unreadSeqRef.current) return false;
       // Keep prior badge state on transient errors — do not flash empty.
       return false;
+    } finally {
+      window.clearTimeout(timeout);
     }
   }, [labels.messages, labels.notifications]);
 
@@ -125,12 +151,19 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
 
   usePollingTask({
     taskKey: "csp-partner-topbar-unread",
-    intervalMs: 60_000,
-    hiddenIntervalMs: 120_000,
+    intervalMs: 90_000,
+    hiddenIntervalMs: 180_000,
     enabled: true,
     runImmediately: true,
     execute: pollUnread,
   });
+
+  useEffect(() => {
+    return () => {
+      abortUnreadRef.current?.abort();
+      unreadSeqRef.current += 1;
+    };
+  }, []);
 
   // Soft-nav must not re-fetch the full messages+email unread payload on every
   // menu click — polling + visibility already keep the badge fresh. Only force
@@ -179,10 +212,15 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
   }, [menuOpen, bellOpen]);
 
   const unreadCount = unread.length;
+  const messageUnreadCount = unread.filter((row) => !row.id.startsWith("email:")).length;
   const unreadLabel =
     unreadCount > 0
-      ? `${labels.notifications} (${unreadCount > 9 ? "9+" : unreadCount})`
+      ? `${labels.notifications} (${formatBadgeCount(unreadCount)})`
       : labels.notifications;
+  const messagesLabel =
+    messageUnreadCount > 0
+      ? `${labels.messages} (${formatBadgeCount(messageUnreadCount)})`
+      : labels.messages;
   const messagesActive =
     pathname === "/partners/account/messages" || pathname.startsWith("/partners/account/messages/");
   const notificationsActive =
@@ -205,14 +243,19 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
 
       <Link
         href="/partners/account/messages"
-        aria-label={labels.messages}
+        aria-label={messagesLabel}
         aria-current={messagesActive ? "page" : undefined}
-        title={labels.messages}
+        title={messagesLabel}
         className={`${ICON_LINK} ${
           messagesActive ? "border-[#7C3AED]/50 text-[#7C3AED]" : "border-[#E8E4F2] text-[#64748B]"
         }`}
       >
         <MessageSquare className="h-[22px] w-[22px]" aria-hidden />
+        {messageUnreadCount > 0 ? (
+          <span className="absolute -right-1.5 -top-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1 text-[0.65rem] font-bold leading-none text-white ring-2 ring-white">
+            {formatBadgeCount(messageUnreadCount)}
+          </span>
+        ) : null}
       </Link>
 
       <div className="relative" ref={bellRef}>
@@ -238,8 +281,8 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
         >
           <Bell className={`h-[22px] w-[22px] ${unreadCount > 0 ? "text-rose-600" : ""}`} aria-hidden />
           {unreadCount > 0 ? (
-            <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1 text-[0.65rem] font-bold text-white ring-2 ring-white">
-              {unreadCount > 9 ? "9+" : unreadCount}
+            <span className="absolute -right-1.5 -top-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1 text-[0.65rem] font-bold leading-none text-white ring-2 ring-white">
+              {formatBadgeCount(unreadCount)}
             </span>
           ) : null}
         </button>

@@ -68,13 +68,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: validated.error, field: validated.field ?? null }, { status: 400 });
     }
 
+    const country = input.country.trim().toUpperCase();
+    const rawIban = input.iban ? input.iban.replace(/\s+/g, "").toUpperCase() : "";
+    const rawLocal = input.localAccountNumber ? input.localAccountNumber.replace(/\s+/g, "") : "";
+    // NO 11-digit kontonummer entered in the IBAN field → store as local account, not IBAN.
+    const norwegianLocal =
+      country === "NO" && (/^\d{11}$/.test(rawIban) || /^\d{11}$/.test(rawLocal))
+        ? /^\d{11}$/.test(rawIban)
+          ? rawIban
+          : rawLocal
+        : null;
     const normalized = {
-      country: input.country.trim().toUpperCase(),
+      country,
       account_holder: input.accountHolder.trim(),
       currency: input.currency.trim().toUpperCase(),
-      iban: input.iban ? input.iban.replace(/\s+/g, "").toUpperCase() : null,
+      iban: norwegianLocal ? null : rawIban || null,
       swift_bic: input.swiftBic ? input.swiftBic.replace(/\s+/g, "").toUpperCase() : null,
-      local_account_number: input.localAccountNumber ? input.localAccountNumber.replace(/\s+/g, "") : null,
+      local_account_number: norwegianLocal || rawLocal || null,
       local_routing_code: input.localRoutingCode ? input.localRoutingCode.replace(/\s+/g, "") : null,
     };
 

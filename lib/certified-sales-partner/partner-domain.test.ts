@@ -27,6 +27,25 @@ test("bank profile is country-aware", () => {
     validateBankProfile({ ...base, currency: "AUD", country: "AU", localAccountNumber: "12345678", swiftBic: "DEUTDEFF" }).ok,
     true,
   );
+  // Norwegian 11-digit kontonummer must not be rejected as invalid IBAN.
+  assert.equal(
+    validateBankProfile({
+      accountHolder: "Ada Example",
+      currency: "NOK",
+      country: "NO",
+      iban: "12345678901",
+    }).ok,
+    true,
+  );
+  assert.equal(
+    validateBankProfile({
+      accountHolder: "Ada Example",
+      currency: "NOK",
+      country: "NO",
+      localAccountNumber: "12345678901",
+    }).ok,
+    true,
+  );
 });
 
 const reg = {

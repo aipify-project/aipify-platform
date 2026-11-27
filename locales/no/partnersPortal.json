@@ -692,13 +692,16 @@
       "emptyBody": "Produkter vises her når Aipify har publisert dem. Du kan allerede lese leksjonene og øve i Aipify Academy.",
       "emptyCta": "Gå til Aipify Academy",
       "unknownProduct": "Produkt",
-      "signatureTitle": "Låst selgersignatur",
-      "signatureIntro": "Når Kompis Web-sertifiseringen din er aktiv, setter Aipify inn Certified Aipify Sales Partner-badgen automatisk. Du kan ikke endre badge, logo eller sertifiseringspåstand.",
-      "signatureLockedNote": "Kun godkjente kontaktopplysninger og din personlige salgslenke kan oppdateres via profilen. Signatur-HTML eies av systemet.",
+      "signatureTitle": "Selgersignatur",
+      "signatureIntro": "Profesjonell signatur med profilfoto, Certified Aipify Sales Partner-merke, Aipify-branding og personlig salgslenke når sertifisering er aktiv.",
+      "signatureLockedNote": "Merke, logo og sertifiseringspåstand eies av systemet. Profilfoto og salgslenke kommer fra din godkjente konto.",
       "signatureBadgeActive": "Badge aktiv for Kompis Web",
       "signatureBadgeInactive": "Badgen vises når du har bestått og partnerkontoen fortsatt er godkjent.",
       "signatureCopyHtml": "Kopier HTML",
-      "signatureCopied": "Kopiert"
+      "signatureCopied": "Kopiert",
+      "signatureCopyText": "Kopier tekst",
+      "signatureCopyLink": "Kopier personlig salgslenke",
+      "signatureMissing": "Bestå sertifisering, behold godkjent partnerstatus og opprett en aktiv salgslenke før du bruker en live signatur."
     },
     "salesList": {
       "title": "Registrerte salg",
@@ -926,7 +929,7 @@
         "gettingStarted": {
           "title": "Komme i gang",
           "body": "Fullfør profilen, bestå Academy-sertifisering, og opprett deretter personlige salgslenker for publiserte produkter du har rett til å selge.",
-          "cta": "Åpne startsiden"
+          "cta": "Åpne kom i gang"
         },
         "academy": {
           "title": "Academy",
@@ -941,7 +944,7 @@
         "commission": {
           "title": "Slik fungerer provisjon",
           "body": "Månedsabonnement opptjenes etter andre vellykkede betalingsperiode. Årsabonnement opptjenes etter første bekreftede betalte årsperiode. Én fast provisjon per kvalifisert salg — aldri på fornyelser.",
-          "cta": "Se salg"
+          "cta": "Åpne provisjonsguide"
         },
         "payouts": {
           "title": "Utbetalinger",
@@ -956,7 +959,7 @@
         "contact": {
           "title": "Kontakt Aipify",
           "body": "Bruk Meldinger i selgerpanelet for autorisert kommunikasjon med Platform Admin. For haste saker om kontoen, bruk tilbakemeldingsknappen i toppmenyen.",
-          "cta": "Åpne meldinger"
+          "cta": "Åpne kontaktskjema"
         }
       }
     },
@@ -1159,7 +1162,7 @@
       "openTwoFactor": "Administrer tofaktorautentisering",
       "openSettlement": "Åpne provisjon og utbetalinger",
       "notAvailable": "Ikke tilgjengelig",
-      "lockScreenTitle": "Skjermlås (klargjort)",
+      "lockScreenTitle": "Skjermlås er ikke aktivert",
       "lockScreenBody": "Sikker skjermlås krever serververifisert ny innlogging. Funksjonen er inaktiv til separat sikkerhetsgodkjenning — Aipify tilbyr ikke en klient-only lås."
     },
     "academyHub": {
@@ -1198,6 +1201,126 @@
         "follow_up": "Oppfølging",
         "meeting_request": "Møteforespørsel",
         "product_information": "Produktinformasjon"
+      }
+    },
+    "settlementLinks": {
+      "payoutTitle": "Utbetalingsopplysninger",
+      "payoutBody": "Rediger bankopplysninger kun under Min profil → Utbetaling. Denne siden beholder salgs- og provisjonshistorikk.",
+      "editPayoutCta": "Endre utbetalingsopplysninger",
+      "howCommissionCta": "Slik fungerer provisjon"
+    },
+    "guides": {
+      "gettingStarted": {
+        "title": "Kom i gang som selger",
+        "subtitle": "En praktisk sjekkliste med konkrete neste steg.",
+        "intro": "Fullfør stegene i rekkefølge. Fremdrift følger din faktiske partnerstatus, sertifisering og utbetalingsoppsett — ingenting er funnet på.",
+        "dailyGoalNote": "Valgfri veiledning: sikt mot inntil 10 relevante, tillatte innlegg eller delinger per dag. Ikke spam, og ikke bryt plattformregler.",
+        "stepLabel": "Steg {n}",
+        "openStep": "Åpne",
+        "motivation": "Jevn, nyttig kontakt bygger tillit. Aipify støtter salget ditt — du bestemmer hva du sender.",
+        "steps": {
+          "identity": {
+            "title": "Fullfør person og identitet",
+            "body": "Sørg for at profilnavn og bilde er klare."
+          },
+          "payout": {
+            "title": "Legg inn sikre utbetalingsopplysninger",
+            "body": "Lagre bankopplysninger under Min profil → Utbetaling."
+          },
+          "academy": {
+            "title": "Bestå produktsertifisering",
+            "body": "Fullfør Academy og ha sertifikatet klart."
+          },
+          "link": {
+            "title": "Få en kvalifisert salgslenke",
+            "body": "Bruk din personlige sporede lenke når du er godkjent og sertifisert."
+          },
+          "materials": {
+            "title": "Velg godkjent materiell",
+            "body": "Velg riktig språk og godkjente ressurser før du deler."
+          },
+          "share": {
+            "title": "Del og følg opp leads",
+            "body": "Bruk sosiale kanaler med omtanke og følg opp reell interesse."
+          },
+          "follow": {
+            "title": "Følg salg og provisjon",
+            "body": "Følg salg, provisjonsstatus og utbetalingshistorikk."
+          }
+        },
+        "done": "Fullført",
+        "pending": "Neste steg"
+      },
+      "commission": {
+        "title": "Slik fungerer provisjon",
+        "subtitle": "Tydelige regler for månedlig, årlig og engangssalg.",
+        "intro": "Provisjon tjenes fra bekreftede betalte kundebetalinger etter reglene under. Oppgjør forblir manuelt.",
+        "percentNotLive": "Prosentprovisjon er forberedt i produktpolicy, men er ikke live i oppgjør før Core er godkjent og testet.",
+        "illustrationNote": "Eventuelle beløp andre steder er illustrasjoner — ikke dine gjeldende tilbudspriser.",
+        "toSettlement": "Åpne provisjonsoversikt",
+        "toPayout": "Endre utbetalingsopplysninger",
+        "toSales": "Åpne mine salg",
+        "topics": {
+          "registration": {
+            "title": "Registrering av salg",
+            "body": "Et salg registreres ved første bekreftede vellykkede betaling."
+          },
+          "monthly": {
+            "title": "Månedlige abonnement",
+            "body": "Provisjon opptjenes etter andre vellykkede betalte periode. Første betalte periode registrerer salget."
+          },
+          "yearly": {
+            "title": "Årlige abonnement",
+            "body": "Provisjon opptjenes ved første vellykkede årsbetaling."
+          },
+          "oneTime": {
+            "title": "Engangskjøp",
+            "body": "Provisjon opptjenes ved første vellykkede betaling."
+          },
+          "trial": {
+            "title": "Prøveperioder",
+            "body": "Gratis prøveperioder teller aldri som betalte perioder."
+          },
+          "renewals": {
+            "title": "Fornyelser",
+            "body": "Det er ingen gjentakende provisjon ved senere fornyelser."
+          },
+          "basis": {
+            "title": "Fast eller prosent",
+            "body": "Fast er et engangsbeløp. Prosent, når aktivert, bruker betalt nettobeløp uten mva etter rabatt."
+          },
+          "refunds": {
+            "title": "Refusjon og chargeback",
+            "body": "Refusjon eller chargeback kan omklassifisere provisjon uten å slette historikk."
+          },
+          "payout": {
+            "title": "Utbetalinger",
+            "body": "Utbetalinger er manuelle etter kontroll. Det finnes ingen automatisk Stripe Connect-utbetaling."
+          }
+        }
+      },
+      "contact": {
+        "title": "Kontakt Aipify",
+        "subtitle": "Send en forespørsel om partnerkontoen din.",
+        "intro": "Beskriv hva du trenger hjelp til. Saker opprettes i Support Core når kanalen er aktiv.",
+        "category": "Kategori",
+        "subject": "Emne",
+        "description": "Beskrivelse",
+        "submit": "Send forespørsel",
+        "submitting": "Sender…",
+        "blockedTitle": "Ticketsystemet er ikke aktivt ennå",
+        "blockedBody": "Partner-tickets venter på aktivering av Support Core. Bruk e-post eller meldinger i mellomtiden — vi lager ikke et falskt saksnummer.",
+        "mailtoCta": "Send e-post til Aipify",
+        "messagesCta": "Åpne meldinger",
+        "success": "Forespørselen din ble registrert.",
+        "error": "Forespørselen kunne ikke sendes. Prøv igjen eller bruk meldinger.",
+        "categories": {
+          "general": "Generelt",
+          "payout": "Utbetaling",
+          "academy": "Academy",
+          "company": "Firmaopplysninger",
+          "technical": "Teknisk"
+        }
       }
     }
   }

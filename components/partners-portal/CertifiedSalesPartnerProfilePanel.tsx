@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
 import { Building2, ShieldCheck, UserRound, Wallet } from "lucide-react";
 import { PartnersProfileAvatarPanel } from "@/components/partners-portal/PartnersProfileAvatarPanel";
 import { CertifiedSalesPartnerBankPanel } from "@/components/partners-portal/CertifiedSalesPartnerBankPanel";
@@ -48,11 +49,18 @@ export function CertifiedSalesPartnerProfilePanel({
   initialAvatarUrl,
 }: Props) {
   const portal = useCspPortal();
-  const [tab, setTab] = useState("person");
+  const searchParams = useSearchParams();
+  const initialTab = useMemo(() => {
+    const raw = searchParams.get("tab");
+    if (raw === "company" || raw === "payout" || raw === "security" || raw === "person") return raw;
+    return "person";
+  }, [searchParams]);
+  const [tab, setTab] = useState(initialTab);
   const status = portal?.overview.partnerStatus ?? null;
   const approved = status === "approved" || status === "active" || status === "certified";
   const statusLabel =
     (status && labels.partnerStatus[status]) || labels.partnerStatus.unknown || labels.notAvailable;
+  const legalName = portal?.overview.legalBusinessName ?? null;
 
   return (
     <div className="space-y-5">
@@ -111,9 +119,29 @@ export function CertifiedSalesPartnerProfilePanel({
       ) : null}
 
       {tab === "company" ? (
-        <AipifyAlert tone="info" title={labels.companyUnavailableTitle}>
-          {labels.companyUnavailableBody}
-        </AipifyAlert>
+        legalName ? (
+          <AipifyCard>
+            <dl className="grid gap-4">
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-wide text-[#94A3B8]">
+                  {labels.companyTab}
+                </dt>
+                <dd className="mt-1 text-sm font-medium text-[#1E293B]">{legalName}</dd>
+              </div>
+            </dl>
+            <p className="mt-4 text-sm text-[#64748B]">{labels.companyUnavailableBody}</p>
+            <Link
+              href="/partners/account/help/contact"
+              className="mt-4 inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-4 text-sm font-semibold text-[#7C3AED]"
+            >
+              {labels.companyUnavailableTitle}
+            </Link>
+          </AipifyCard>
+        ) : (
+          <AipifyAlert tone="info" title={labels.companyUnavailableTitle}>
+            {labels.companyUnavailableBody}
+          </AipifyAlert>
+        )
       ) : null}
 
       {tab === "payout" ? (
