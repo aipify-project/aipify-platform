@@ -13,25 +13,38 @@ import {
 
 type Mode = "preview" | "edit" | "new";
 
-type Form = { name: string; category: string; subject: string; body: string };
+type Form = { name: string; category: string; subject: string; body: string; locale: string };
 
-const EMPTY_FORM: Form = { name: "", category: "intake", subject: "", body: "" };
+const EMPTY_FORM: Form = { name: "", category: "intake", subject: "", body: "", locale: "no" };
 
 type Props = {
   labels: SupportCenterLabels;
   templates: EditableSupportTemplate[];
+  persistConfigured: boolean;
   onReload: () => Promise<void>;
   onInsert: (template: EditableSupportTemplate) => void;
 };
 
+type Lifecycle = "active" | "archived";
+
+function lifecycleOf(template: EditableSupportTemplate): Lifecycle {
+  return template.archived || template.active === false ? "archived" : "active";
+}
+
 export default function SupportTemplatesTab({
   labels,
   templates,
+  persistConfigured,
   onReload,
   onInsert,
 }: Props) {
   const tl = labels.templates;
   const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"all" | Lifecycle>("all");
+  const [localeFilter, setLocaleFilter] = useState("all");
+  const [confirm, setConfirm] = useState<
+    null | { kind: "archive" | "activate" | "restore"; template: EditableSupportTemplate }
+  >(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [mode, setMode] = useState<Mode>("preview");
   const [form, setForm] = useState<Form>(EMPTY_FORM);
@@ -43,19 +56,16 @@ export default function SupportTemplatesTab({
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return templates;
-    return templates.filter((t) =>
-      [
-        t.name,
-        tl.categoryLabels[t.category] ?? "",
-        tl.localeLabels[t.locale] ?? "",
-        t.subject,
-      ]
+    return templates.filter((t) => {
+      if (statusFilter !== "all" && lifecycleOf(t) !== statusFilter) return false;
+      if (localeFilter !== "all" && t.locale !== localeFilter) return false;
+      if (!q) return true;
+      return [t.name, tl.categoryLabels[t.category] ?? "", tl.localeLabels[t.locale] ?? "", t.subject]
         .join(" ")
         .toLowerCase()
-        .includes(q),
-    );
-  }, [query, templates, tl.categoryLabels, tl.localeLabels]);
+        .includes(q);
+    });
+  }, [localeFilter, query, statusFilter, templates, tl.categoryLabels, tl.localeLabels]);
 
   const selected = templates.find((t) => t.id === selectedId) ?? null;
 
@@ -71,6 +81,7 @@ export default function SupportTemplatesTab({
       category: template.category,
       subject: template.subject,
       body: template.body,
+      locale: template.locale,
     });
     setMode("edit");
     setFlash(null);
@@ -118,12 +129,7 @@ export default function SupportTemplatesTab({
 
   async function save() {
     if (mode === "new") {
-      const json = await post({ action: "create", locale: "no", ...form });
-      if (json) {
-        if (json.template?.id) setSelectedId(json.template.id);
-        setMode("preview");
-        setFlash({ tone: "success", text: tl.saved });
-      }
+      await activateNew();
       return;
     }
     if (mode === "edit" && selected) {
@@ -136,12 +142,38 @@ export default function SupportTemplatesTab({
   }
 
   async function archive(template: EditableSupportTemplate) {
-    if (!window.confirm(tl.archiveConfirm)) return;
-    const json = await post({ action: "archive", id: template.id });
+    const json = await post({ action: "archive", id: template.id, locale: template.locale });
     if (json) {
+      setConfirm(null);
       setSelectedId(null);
       setMode("preview");
       setFlash({ tone: "success", text: tl.archived });
+    }
+  }
+
+  async function restore(template: EditableSupportTemplate) {
+    const json = await post({
+      action: "restore",
+      id: template.id,
+      locale: template.locale,
+      name: template.name,
+      category: template.category,
+      subject: template.subject,
+      body: template.body,
+    });
+    if (json) {
+      setConfirm(null);
+      setFlash({ tone: "success", text: tl.restored });
+    }
+  }
+
+  async function activateNew() {
+    const json = await post({ action: "create", ...form, locale: form.locale || "no" });
+    if (json) {
+      setConfirm(null);
+      if (json.template?.id) setSelectedId(json.template.id);
+      setMode("preview");
+      setFlash({ tone: "success", text: tl.savedActive });
     }
   }
 
@@ -152,8 +184,10 @@ export default function SupportTemplatesTab({
           <h2 className="text-lg font-semibold text-[color:var(--aipify-text)]">{tl.title}</h2>
           <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">{tl.subtitle}</p>
           <p className="mt-2 text-xs text-[color:var(--aipify-text-secondary)]">
-            {tl.persistBlocked}
+            {persistConfigured ? tl.persistReady : tl.persistBlocked}
           </p>
+          <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">{tl.draftBlocked}</p>
+          <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">{tl.deleteBlocked}</p>
           <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">{tl.localeNote}</p>
         </div>
         <button type="button" className={primaryButtonClass} onClick={startNew}>
@@ -163,6 +197,39 @@ export default function SupportTemplatesTab({
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <div className="space-y-3">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <label className="block text-sm">
+              <span className="mb-1 block text-xs font-medium text-[color:var(--aipify-text-secondary)]">
+                {tl.filterStatus}
+              </span>
+              <select
+                className={inputClass}
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value as "all" | Lifecycle)}
+              >
+                <option value="all">{tl.filterAll}</option>
+                <option value="active">{tl.statusActive}</option>
+                <option value="archived">{tl.statusArchived}</option>
+              </select>
+            </label>
+            <label className="block text-sm">
+              <span className="mb-1 block text-xs font-medium text-[color:var(--aipify-text-secondary)]">
+                {tl.filterLanguage}
+              </span>
+              <select
+                className={inputClass}
+                value={localeFilter}
+                onChange={(e) => setLocaleFilter(e.target.value)}
+              >
+                <option value="all">{tl.filterAll}</option>
+                {Object.entries(tl.localeLabels).map(([code, label]) => (
+                  <option key={code} value={code}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
           <label className="block text-sm">
             <span className="sr-only">{labels.search}</span>
             <input
@@ -207,7 +274,11 @@ export default function SupportTemplatesTab({
                         ) : null}
                       </span>
                       <span className="mt-1 block text-xs text-[color:var(--aipify-text-secondary)]">
+                        {lifecycleOf(tpl) === "archived" ? tl.statusArchived : tl.statusActive}
+                        {" · "}
                         {categoryLabel(tpl.category)} · {localeLabel(tpl.locale)}
+                        {" · "}
+                        {tl.versionLabel} {tpl.version}
                       </span>
                       <span className="mt-1 block truncate text-xs text-[color:var(--aipify-text-secondary)]">
                         {tpl.subject}
@@ -239,7 +310,11 @@ export default function SupportTemplatesTab({
                   ) : null}
                 </div>
                 <p className="mt-1 text-xs text-[color:var(--aipify-text-secondary)]">
+                  {lifecycleOf(selected) === "archived" ? tl.statusArchived : tl.statusActive}
+                  {" · "}
                   {categoryLabel(selected.category)} · {localeLabel(selected.locale)}
+                  {" · "}
+                  {tl.versionLabel} {selected.version}
                 </p>
               </div>
               <div>
@@ -259,11 +334,48 @@ export default function SupportTemplatesTab({
               <p className="text-xs text-[color:var(--aipify-text-secondary)]">
                 {tl.variables}: {selected.variables.map((v) => `{{${v}}}`).join(", ")}
               </p>
+              {confirm && confirm.template.id === selected.id ? (
+                <div
+                  role="dialog"
+                  aria-modal="true"
+                  className="rounded-lg border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface-muted)] p-3"
+                >
+                  <p className="text-sm text-[color:var(--aipify-text)]">
+                    {confirm.kind === "archive"
+                      ? tl.archiveConfirm
+                      : confirm.kind === "restore"
+                        ? tl.restoreConfirm
+                        : tl.activateConfirm}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      className={primaryButtonClass}
+                      disabled={busy || !persistConfigured}
+                      onClick={() =>
+                        void (confirm.kind === "archive"
+                          ? archive(confirm.template)
+                          : restore(confirm.template))
+                      }
+                    >
+                      {tl.confirmAction}
+                    </button>
+                    <button
+                      type="button"
+                      className={secondaryButtonClass}
+                      disabled={busy}
+                      onClick={() => setConfirm(null)}
+                    >
+                      {tl.cancelConfirm}
+                    </button>
+                  </div>
+                </div>
+              ) : null}
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
                   className={primaryButtonClass}
-                  disabled={busy}
+                  disabled={busy || lifecycleOf(selected) !== "active"}
                   onClick={() => onInsert(selected)}
                 >
                   {tl.insertDraft}
@@ -271,7 +383,7 @@ export default function SupportTemplatesTab({
                 <button
                   type="button"
                   className={secondaryButtonClass}
-                  disabled={busy}
+                  disabled={busy || lifecycleOf(selected) !== "active"}
                   onClick={() => startEdit(selected)}
                 >
                   {tl.edit}
@@ -279,10 +391,37 @@ export default function SupportTemplatesTab({
                 <button
                   type="button"
                   className={secondaryButtonClass}
-                  disabled={busy}
-                  onClick={() => void archive(selected)}
+                  disabled
+                  title={tl.draftBlocked}
                 >
-                  {tl.archive}
+                  {tl.saveDraft}
+                </button>
+                {lifecycleOf(selected) === "active" ? (
+                  <button
+                    type="button"
+                    className={secondaryButtonClass}
+                    disabled={busy || !persistConfigured}
+                    onClick={() => setConfirm({ kind: "archive", template: selected })}
+                  >
+                    {tl.archive}
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className={secondaryButtonClass}
+                    disabled={busy || !persistConfigured}
+                    onClick={() => setConfirm({ kind: "restore", template: selected })}
+                  >
+                    {tl.restore}
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className={secondaryButtonClass}
+                  disabled
+                  title={tl.deleteBlocked}
+                >
+                  {tl.delete}
                 </button>
               </div>
             </div>
@@ -329,6 +468,23 @@ export default function SupportTemplatesTab({
               </div>
               <label className="block text-sm">
                 <span className="mb-1 block text-xs font-medium text-[color:var(--aipify-text-secondary)]">
+                  {tl.filterLanguage}
+                </span>
+                <select
+                  className={inputClass}
+                  value={form.locale}
+                  onChange={(e) => setForm((f) => ({ ...f, locale: e.target.value }))}
+                  disabled={mode !== "new"}
+                >
+                  {Object.entries(tl.localeLabels).map(([code, label]) => (
+                    <option key={code} value={code}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="block text-sm">
+                <span className="mb-1 block text-xs font-medium text-[color:var(--aipify-text-secondary)]">
                   {tl.subject}
                 </span>
                 <input
@@ -353,8 +509,15 @@ export default function SupportTemplatesTab({
                   .join(", ")}
               </p>
               <div className="flex flex-wrap gap-2">
-                <button type="submit" className={primaryButtonClass} disabled={busy}>
-                  {tl.save}
+                <button
+                  type="submit"
+                  className={primaryButtonClass}
+                  disabled={busy || !persistConfigured}
+                >
+                  {mode === "new" ? tl.activate : tl.save}
+                </button>
+                <button type="button" className={secondaryButtonClass} disabled title={tl.draftBlocked}>
+                  {tl.saveDraft}
                 </button>
                 <button
                   type="button"

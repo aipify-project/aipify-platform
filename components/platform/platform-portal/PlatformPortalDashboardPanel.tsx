@@ -7,6 +7,12 @@ import {
   parsePlatformPortalDashboard,
   type PlatformPortalDashboard,
 } from "@/lib/platform-portal";
+import {
+  toPlatformDashboardLiveView,
+  type LiveCount,
+  type PlatformDashboardLiveView,
+} from "@/lib/platform-portal/dashboard-live-view";
+import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
 import { mapLookupLabel } from "@/lib/platform-portal/business-language";
 import type { PlatformNavGroupConfig } from "@/lib/platform/build-nav";
 import { PlatformLayoutClasses } from "@/lib/design";
@@ -18,6 +24,7 @@ import PlatformSuperAdminInsightPanel from "./PlatformSuperAdminInsightPanel";
 type PlatformPortalDashboardPanelProps = {
   labels: ReturnType<typeof buildPlatformPortalLabels>["dashboard"];
   navGroups: PlatformNavGroupConfig[];
+  locale: string;
   /** Present only when server confirmed active super_admin + verified 2FA + recovery codes. */
   superAdminInsightLabels?: PlatformSuperAdminInsightLabels | null;
 };
@@ -65,12 +72,16 @@ function countVariant(
 function MetricCard({
   label,
   value,
+  hint,
+  scope,
   variant = "neutral",
   href,
   actionLabel,
 }: {
   label: string;
   value: string | number;
+  hint?: string;
+  scope?: string;
   variant?: MetricVariant;
   href?: string;
   actionLabel?: string;
@@ -93,6 +104,8 @@ function MetricCard({
       <dd className={`mt-2 text-2xl font-semibold tabular-nums tracking-tight ${styles.value}`}>
         {value}
       </dd>
+      {hint ? <p className={`mt-1 text-xs leading-snug ${styles.label}`}>{hint}</p> : null}
+      {scope ? <p className={`mt-1 text-xs leading-snug ${styles.label}`}>{scope}</p> : null}
       {href && actionLabel ? (
         <span className={`mt-auto pt-2 text-xs font-medium ${styles.label}`}>{actionLabel}</span>
       ) : null}
@@ -148,37 +161,6 @@ function AttentionStatusIcon({ variant }: { variant: "success" | "warning" | "da
   );
 }
 
-function AttentionCard({
-  label,
-  value,
-  elevated = "warning",
-}: {
-  label: string;
-  value: number;
-  elevated?: "warning" | "danger";
-}) {
-  const variant = countVariant(value, elevated);
-  const styles = METRIC_VARIANT_STYLES[variant];
-
-  return (
-    <div
-      className={`rounded-xl border px-3.5 py-3 shadow-sm ${styles.card}`}
-      data-variant={variant}
-      data-attention="true"
-    >
-      <div className="flex items-center gap-2">
-        <AttentionStatusIcon variant={variant} />
-        <dt className={`min-w-0 truncate text-xs font-medium uppercase tracking-wide ${styles.label}`}>
-          {label}
-        </dt>
-      </div>
-      <dd className={`mt-1.5 text-xl font-semibold tabular-nums tracking-tight ${styles.value}`}>
-        {value}
-      </dd>
-    </div>
-  );
-}
-
 const FINANCE_NAV_ROUTES = [
   {
     href: "/platform/billing/invoices",
@@ -199,32 +181,6 @@ const FINANCE_NAV_ROUTES = [
 
 function flattenNavLinks(navGroups: PlatformNavGroupConfig[]) {
   return navGroups.flatMap((group) => group.items);
-}
-
-function FinanceMetricCard({
-  label,
-  value,
-  variant,
-}: {
-  label: string;
-  value: number;
-  variant: "success" | "warning" | "danger";
-}) {
-  const styles = METRIC_VARIANT_STYLES[variant];
-
-  return (
-    <div className={`rounded-xl border px-3.5 py-3 shadow-sm ${styles.card}`} data-variant={variant}>
-      <div className="flex items-center gap-2">
-        <AttentionStatusIcon variant={variant} />
-        <dt className={`min-w-0 truncate text-xs font-medium uppercase tracking-wide ${styles.label}`}>
-          {label}
-        </dt>
-      </div>
-      <dd className={`mt-1.5 text-xl font-semibold tabular-nums tracking-tight ${styles.value}`}>
-        {value}
-      </dd>
-    </div>
-  );
 }
 
 function FinanceNavIcon({ kind }: { kind: (typeof FINANCE_NAV_ROUTES)[number]["icon"] }) {
@@ -349,12 +305,26 @@ function PartnerNavCard({
   );
 }
 
+function countText(count: LiveCount, unavailable: string): string {
+  return count.state === "value" ? String(count.value) : unavailable;
+}
+
+function countCardVariant(
+  count: LiveCount,
+  elevated: "warning" | "danger" = "warning",
+): MetricVariant {
+  if (count.state !== "value") return "neutral";
+  return countVariant(count.value, elevated);
+}
+
 export function PlatformPortalDashboardPanel({
   labels,
   navGroups,
+  locale,
   superAdminInsightLabels = null,
 }: PlatformPortalDashboardPanelProps) {
   const [dashboard, setDashboard] = useState<PlatformPortalDashboard | null>(null);
+  const [live, setLive] = useState<PlatformDashboardLiveView | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
 
@@ -362,6 +332,7 @@ export function PlatformPortalDashboardPanel({
     setLoadError(false);
     setLoading(true);
     setDashboard(null);
+    setLive(null);
 
     try {
       const res = await fetch("/api/platform-portal/dashboard");
@@ -385,6 +356,7 @@ export function PlatformPortalDashboardPanel({
       }
 
       setDashboard(parsed);
+      setLive(toPlatformDashboardLiveView(payload));
     } catch {
       setLoadError(true);
     } finally {
@@ -404,7 +376,7 @@ export function PlatformPortalDashboardPanel({
     );
   }
 
-  if (loadError || !dashboard) {
+  if (loadError || !dashboard || !live) {
     return (
       <PlatformPageFrame>
         <div
@@ -456,16 +428,20 @@ export function PlatformPortalDashboardPanel({
     return [{ ...route, label: item.label }];
   });
   const activityUpdates = dashboard.product_deployment_updates.slice(0, 5);
-  const orgTotal = dashboard.customer_success_indicators.organizations_total;
-  const attentionCount = dashboard.organizations_requiring_attention;
-  const pastDue = dashboard.payment_status_summary.past_due;
-  const pendingReview = dashboard.marketplace_moderation.pending_review;
+  const checkedLabel = formatPlatformDateTimeShort(live.checkedAt, {
+    locale,
+    emptyFallback: labels.unavailable,
+    invalidFallback: labels.unavailable,
+  });
 
   return (
     <PlatformPageFrame>
       <header className={PlatformLayoutClasses.pageHeader}>
         <h1 className={PlatformLayoutClasses.pageTitle}>{labels.title}</h1>
         <p className={PlatformLayoutClasses.pageSubtitle}>{labels.subtitle}</p>
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+          {labels.lastChecked}: {checkedLabel}
+        </p>
       </header>
 
       {superAdminInsightLabels ? (
@@ -475,107 +451,117 @@ export function PlatformPortalDashboardPanel({
       <section className={PlatformLayoutClasses.card} data-area="top-kpis" aria-label={labels.title}>
         <dl className={PlatformLayoutClasses.metricGrid}>
           <MetricCard
-            label={labels.customerOrganizations}
-            value={orgTotal}
+            label={labels.openSupportWorkload}
+            value={countText(live.supportOpen, labels.unavailable)}
+            hint={labels.defSupportOpen}
+            scope={labels.scopeSupportInbox}
+            variant={countCardVariant(live.supportOpen)}
+            href="/platform/support"
+            actionLabel={labels.openSupport}
+          />
+          <MetricCard
+            label={labels.waitingForReply}
+            value={countText(live.supportWaiting, labels.unavailable)}
+            hint={labels.defSupportWaiting}
+            scope={labels.scopeSupportInbox}
+            variant={countCardVariant(live.supportWaiting)}
+            href="/platform/support"
+            actionLabel={labels.openSupport}
+          />
+          <MetricCard
+            label={labels.criticalSupport}
+            value={countText(live.supportCritical, labels.unavailable)}
+            hint={labels.defSupportCritical}
+            scope={labels.scopeSupportInbox}
             variant="neutral"
+            href="/platform/support"
+            actionLabel={labels.openSupport}
+          />
+          <MetricCard
+            label={labels.organizationsRequiringAttention}
+            value={countText(live.organizationsAttention, labels.unavailable)}
+            hint={labels.defAttention}
+            scope={labels.scopeCustomerOrganizations}
+            variant={countCardVariant(live.organizationsAttention)}
             href="/platform/customers"
-            actionLabel={labels.openModule}
+            actionLabel={labels.openCustomers}
           />
           <MetricCard
             label={labels.activeSubscriptions}
-            value={dashboard.active_subscriptions}
-            variant="success"
+            value={countText(live.activeAgreements, labels.unavailable)}
+            hint={labels.defActiveAgreements}
+            scope={labels.scopeCustomerAgreements}
+            variant="neutral"
             href="/platform/subscriptions"
-            actionLabel={labels.openModule}
-          />
-          <MetricCard
-            label={labels.organizationsRequiringAttention}
-            value={attentionCount}
-            variant={countVariant(attentionCount)}
-            href="/platform/customers"
-            actionLabel={labels.openModule}
-          />
-          <MetricCard
-            label={labels.openSupportWorkload}
-            value={dashboard.open_support_workload}
-            variant={countVariant(dashboard.open_support_workload)}
-            href="/platform/support"
-            actionLabel={labels.openModule}
+            actionLabel={labels.openAgreements}
           />
           <MetricCard
             label={labels.paymentPastDue}
-            value={pastDue}
-            variant={countVariant(pastDue, "danger")}
+            value={countText(live.pastDue, labels.unavailable)}
+            hint={labels.defPastDue}
+            scope={labels.scopeAllSubscriptions}
+            variant={countCardVariant(live.pastDue, "danger")}
             href="/platform/subscriptions"
-            actionLabel={labels.openModule}
+            actionLabel={labels.openAgreements}
           />
+        </dl>
+      </section>
+
+      <section className={PlatformLayoutClasses.card} data-area="scope-context">
+        <dl className={PlatformLayoutClasses.metricGrid}>
           <MetricCard
-            label={labels.pendingReview}
-            value={pendingReview}
-            variant={countVariant(pendingReview)}
-            href="/platform/skills"
-            actionLabel={labels.openModule}
-          />
-          <MetricCard
-            label={labels.published}
-            value={dashboard.marketplace_moderation.published}
-            variant="success"
-            href="/platform/skills"
-            actionLabel={labels.openModule}
+            label={labels.customerOrganizations}
+            value={countText(live.organizationsTotal, labels.unavailable)}
+            hint={labels.defOrganizations}
+            scope={labels.scopeCustomerOrganizations}
+            href="/platform/customers"
+            actionLabel={labels.openCustomers}
           />
           <MetricCard
             label={labels.healthyRatio}
-            value={`${dashboard.customer_success_indicators.healthy_ratio_pct}%`}
-            variant="success"
+            value={
+              live.healthyRatioPct.state === "value"
+                ? `${live.healthyRatioPct.value}%`
+                : labels.unavailable
+            }
+            hint={labels.defHealthy}
+            scope={labels.scopeCustomerOrganizations}
             href="/platform/customer-success"
             actionLabel={labels.openModule}
           />
+          <MetricCard
+            label={labels.paymentTrialing}
+            value={countText(live.trialing, labels.unavailable)}
+            hint={labels.defTrialing}
+            scope={labels.scopeAllSubscriptions}
+            href="/platform/subscriptions"
+            actionLabel={labels.openAgreements}
+          />
+          <MetricCard
+            label={labels.pendingReview}
+            value={countText(live.skillsPending, labels.unavailable)}
+            hint={labels.defSkillsPending}
+            scope={labels.scopeSkillsCatalog}
+            href="/platform/skills"
+            actionLabel={labels.openSkills}
+          />
+          <MetricCard
+            label={labels.published}
+            value={countText(live.skillsPublished, labels.unavailable)}
+            hint={labels.defSkillsPublished}
+            scope={labels.scopeSkillsCatalog}
+            href="/platform/skills"
+            actionLabel={labels.openSkills}
+          />
         </dl>
       </section>
 
-      <section className={PlatformLayoutClasses.card} data-area="requires-action">
-        <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
-          {labels.requiresActionTitle}
-        </h2>
-        <dl className={`mt-4 ${PlatformLayoutClasses.metricGrid}`}>
-          <AttentionCard
-            label={labels.organizationsRequiringAttention}
-            value={attentionCount}
-          />
-          <AttentionCard
-            label={labels.openSupportWorkload}
-            value={dashboard.open_support_workload}
-          />
-          <AttentionCard label={labels.paymentPastDue} value={pastDue} elevated="danger" />
-          <AttentionCard label={labels.pendingReview} value={pendingReview} />
-        </dl>
-      </section>
-
-      <section className={PlatformLayoutClasses.card}>
+      <section className={PlatformLayoutClasses.card} data-area="finance-links">
         <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
           {labels.financeOverviewTitle}
         </h2>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-          {labels.paymentStatusSummary}
-        </p>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{labels.financeScopeNote}</p>
         <div className={`mt-4 ${PlatformLayoutClasses.metricGridDense}`}>
-          <dl className="contents">
-            <FinanceMetricCard
-              label={labels.paymentActive}
-              value={dashboard.payment_status_summary.active}
-              variant="success"
-            />
-            <FinanceMetricCard
-              label={labels.paymentTrialing}
-              value={dashboard.payment_status_summary.trialing}
-              variant={countVariant(dashboard.payment_status_summary.trialing)}
-            />
-            <FinanceMetricCard
-              label={labels.paymentPastDue}
-              value={pastDue}
-              variant={countVariant(pastDue, "danger")}
-            />
-          </dl>
           {financeNavCards.map((card) => (
             <FinanceNavCard
               key={card.href}

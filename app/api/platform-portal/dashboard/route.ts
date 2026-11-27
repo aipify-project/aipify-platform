@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { getPlatformSupportTicketCounts } from "@/lib/platform-portal/support-tickets-read-adapter";
 import { getPlatformProfile } from "@/lib/tenant/get-platform-profile";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
@@ -35,7 +36,30 @@ export async function GET() {
       );
     }
 
-    return NextResponse.json(data, { headers: NO_STORE });
+    const inbox = await getPlatformSupportTicketCounts(supabase);
+    const supportInbox = inbox.ok
+      ? {
+          state: "value" as const,
+          open: inbox.counts.open,
+          waiting: inbox.counts.waiting,
+          resolved_or_closed: inbox.counts.resolved_or_closed,
+          source: inbox.source,
+        }
+      : { state: "unavailable" as const };
+
+    const payload =
+      data && typeof data === "object" && !Array.isArray(data)
+        ? (data as Record<string, unknown>)
+        : {};
+
+    return NextResponse.json(
+      {
+        ...payload,
+        checked_at: new Date().toISOString(),
+        support_inbox: supportInbox,
+      },
+      { headers: NO_STORE },
+    );
   } catch {
     return NextResponse.json(
       { error: "Unable to load platform dashboard." },

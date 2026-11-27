@@ -53,10 +53,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "validation" }, { status: 400, headers: NO_STORE });
   }
 
+  if (body.action === "delete") {
+    return NextResponse.json(
+      { error: "delete_not_persisted" },
+      { status: 409, headers: NO_STORE },
+    );
+  }
+  if (body.action === "create" && body.status === "draft") {
+    return NextResponse.json(
+      { error: "draft_not_persisted" },
+      { status: 409, headers: NO_STORE },
+    );
+  }
+
   if (
     body.action !== "create" &&
     body.action !== "update" &&
-    body.action !== "archive"
+    body.action !== "archive" &&
+    body.action !== "restore"
   ) {
     return NextResponse.json({ error: "unknown_action" }, { status: 400, headers: NO_STORE });
   }

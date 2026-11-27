@@ -142,6 +142,26 @@ export function updateSupportTemplate(
   };
 }
 
+export function restoreSupportTemplate(id: string): TemplateMutationResult {
+  const store = ensureStore();
+  const idx = store.templates.findIndex((t) => t.id === id);
+  if (idx < 0) return { ok: false, error: "not_found" };
+  const current = store.templates[idx];
+  if (!current.archived && current.active) return { ok: false, error: "not_archived" };
+  const updated: EditableSupportTemplate = {
+    ...current,
+    archived: false,
+    active: true,
+    version: current.version + 1,
+  };
+  store.templates[idx] = updated;
+  return {
+    ok: true,
+    template: updated,
+    persistConfigured: SUPPORT_TEMPLATE_PERSIST_CONFIGURED,
+  };
+}
+
 export function archiveSupportTemplate(id: string): TemplateMutationResult {
   const store = ensureStore();
   const idx = store.templates.findIndex((t) => t.id === id);

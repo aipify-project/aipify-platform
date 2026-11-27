@@ -95,6 +95,27 @@ export type SupportCenterLabels = {
     inserted: string;
     errorGeneric: string;
     errorValidation: string;
+    statusDraft: string;
+    statusActive: string;
+    statusArchived: string;
+    filterStatus: string;
+    filterLanguage: string;
+    filterAll: string;
+    saveDraft: string;
+    activate: string;
+    restore: string;
+    delete: string;
+    draftBlocked: string;
+    deleteBlocked: string;
+    activateConfirm: string;
+    restoreConfirm: string;
+    savedActive: string;
+    restored: string;
+    versionLabel: string;
+    statusLabel: string;
+    persistReady: string;
+    confirmAction: string;
+    cancelConfirm: string;
     categoryLabels: Record<string, string>;
     localeLabels: Record<string, string>;
   };
@@ -131,6 +152,11 @@ export type SupportCenterLabels = {
     errorInvalidEmail: string;
     errorInvalidWebsite: string;
     errorNameRequired: string;
+    technicalDisplayNotice: string;
+    supportEmailStatus: string;
+    supportEmailMissing: string;
+    confirmAction: string;
+    cancelConfirm: string;
   };
   channels: {
     title: string;
@@ -139,6 +165,8 @@ export type SupportCenterLabels = {
     notActivated: string;
     /** Shown as “Not configured” — channel is prepared but not set up. */
     preparedOnly: string;
+    incomingLive: string;
+    stagingOnly: string;
     web: string;
     webNote: string;
     app: string;

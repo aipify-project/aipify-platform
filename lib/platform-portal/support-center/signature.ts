@@ -26,6 +26,17 @@ export type SupportSignatureDraft = {
   version: number;
 };
 
+/** Verification labels must not be presented as the official signature name. */
+export function isTechnicalVerificationDisplayName(value: string): boolean {
+  return /^verify display\b/i.test(value.trim());
+}
+
+export function officialSignatureDisplayName(draft: SupportSignatureDraft): string {
+  const name = draft.displayName.trim();
+  if (!name || isTechnicalVerificationDisplayName(name)) return "Aipify Support";
+  return name;
+}
+
 export function createDefaultSupportSignature(
   overrides: Partial<SupportSignatureDraft> = {},
 ): SupportSignatureDraft {
@@ -72,7 +83,8 @@ export function renderSupportSignatureText(draft: SupportSignatureDraft): string
   const lines: string[] = [];
   const who = [draft.agentName.trim(), draft.agentTitle.trim()].filter(Boolean);
   if (who.length) lines.push(who.join(" · "));
-  if (draft.displayName.trim()) lines.push(draft.displayName.trim());
+  const officialName = officialSignatureDisplayName(draft);
+  if (officialName) lines.push(officialName);
   if (draft.companyName.trim()) lines.push(draft.companyName.trim());
   if (draft.supportEmail.trim()) lines.push(draft.supportEmail.trim());
   if (draft.phone.trim()) lines.push(draft.phone.trim());
@@ -99,9 +111,10 @@ export function renderSupportSignatureHtml(draft: SupportSignatureDraft): string
       `<div style="font-size:14px;font-weight:600;color:#111827;">${agentBits.join(" · ")}</div>`,
     );
   }
-  if (draft.displayName.trim()) {
+  const officialName = officialSignatureDisplayName(draft);
+  if (officialName && officialName !== draft.agentName.trim()) {
     rows.push(
-      `<div style="font-size:13px;color:#374151;">${escapeHtml(draft.displayName.trim())}</div>`,
+      `<div style="font-size:13px;color:#374151;">${escapeHtml(officialName)}</div>`,
     );
   }
   if (draft.companyName.trim()) {

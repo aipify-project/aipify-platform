@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import {
   createDefaultSupportSignature,
+  isTechnicalVerificationDisplayName,
   renderSupportSignatureHtml,
   renderSupportSignatureText,
   type SupportSignatureDraft,
@@ -54,6 +55,7 @@ export default function SupportSignatureTab({ labels, stored, onStored }: Props)
   const [edits, setEdits] = useState<SupportSignatureDraft | null>(null);
   const [busy, setBusy] = useState(false);
   const [flash, setFlash] = useState<SupportFlash | null>(null);
+  const [confirm, setConfirm] = useState<"save" | "reset" | null>(null);
 
   const form = edits ?? stored.signature;
   const dirty = edits !== null && !sameSignature(edits, stored.signature);
@@ -114,8 +116,8 @@ export default function SupportSignatureTab({ labels, stored, onStored }: Props)
   }
 
   async function save() {
-    if (!window.confirm(sl.saveConfirm)) return;
     if (await post({ action: "save", signature: form })) {
+      setConfirm(null);
       setFlash({ tone: "success", text: sl.saved });
     }
   }
@@ -127,8 +129,8 @@ export default function SupportSignatureTab({ labels, stored, onStored }: Props)
   }
 
   async function resetAndSave() {
-    if (!window.confirm(sl.resetAndSaveConfirm)) return;
     if (await post({ action: "reset" })) {
+      setConfirm(null);
       setFlash({ tone: "success", text: sl.resetSaved });
     }
   }
@@ -145,6 +147,16 @@ export default function SupportSignatureTab({ labels, stored, onStored }: Props)
             : stored.customized
               ? sl.customSaved
               : sl.usingDefaults}
+        </p>
+        {isTechnicalVerificationDisplayName(form.displayName) ? (
+          <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
+            {sl.technicalDisplayNotice}
+          </p>
+        ) : null}
+        <p className="text-sm text-[color:var(--aipify-text)]">
+          {form.supportEmail.trim()
+            ? `${sl.supportEmailStatus}: ${form.supportEmail.trim()}`
+            : sl.supportEmailMissing}
         </p>
         {FIELD_KEYS.map((key) => (
           <label key={key} className="block text-sm">
@@ -170,12 +182,41 @@ export default function SupportSignatureTab({ labels, stored, onStored }: Props)
           <p className="text-xs font-medium text-amber-800">{sl.unsaved}</p>
         ) : null}
         <FlashMessage flash={flash} />
+        {confirm ? (
+          <div
+            role="dialog"
+            aria-modal="true"
+            className="rounded-lg border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface-muted)] p-3"
+          >
+            <p className="text-sm text-[color:var(--aipify-text)]">
+              {confirm === "save" ? sl.saveConfirm : sl.resetAndSaveConfirm}
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                className={primaryButtonClass}
+                disabled={busy}
+                onClick={() => void (confirm === "save" ? save() : resetAndSave())}
+              >
+                {sl.confirmAction}
+              </button>
+              <button
+                type="button"
+                className={secondaryButtonClass}
+                disabled={busy}
+                onClick={() => setConfirm(null)}
+              >
+                {sl.cancelConfirm}
+              </button>
+            </div>
+          </div>
+        ) : null}
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
             className={primaryButtonClass}
             disabled={busy || !dirty}
-            onClick={() => void save()}
+            onClick={() => setConfirm("save")}
           >
             {sl.save}
           </button>
@@ -191,7 +232,7 @@ export default function SupportSignatureTab({ labels, stored, onStored }: Props)
             type="button"
             className={secondaryButtonClass}
             disabled={busy || !stored.customized}
-            onClick={() => void resetAndSave()}
+            onClick={() => setConfirm("reset")}
           >
             {sl.resetAndSave}
           </button>

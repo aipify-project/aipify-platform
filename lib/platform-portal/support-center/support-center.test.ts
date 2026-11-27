@@ -2,6 +2,12 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import {
+  TEMPLATE_LIFECYCLE_SQL_CANDIDATE_PATH,
+  TEMPLATE_LIFECYCLE_SQL_CANDIDATE_SHA256,
+  TEMPLATE_DRAFT_PERSISTED,
+  TEMPLATE_DELETE_PERSISTED,
+} from "./template-lifecycle";
+import {
   PLATFORM_SUPPORT_CENTER_SQL_CANDIDATE_APPLIED,
   PLATFORM_SUPPORT_CENTER_SQL_CANDIDATE_PATH,
   PLATFORM_SUPPORT_CENTER_SQL_CANDIDATE_SHA256,
@@ -18,6 +24,7 @@ import {
 } from "./reply-templates";
 import {
   createDefaultSupportSignature,
+  officialSignatureDisplayName,
   renderSupportSignatureHtml,
   renderSupportSignatureText,
   SUPPORT_SIGNATURE_LOGO_URL,
@@ -68,9 +75,9 @@ assert.equal(SUPPORT_TEMPLATE_PERSIST_CONFIGURED, false);
 
 const channels = listSupportChannelActivations();
 assert.equal(channels.length, 5);
-assert.equal(channels.find((c) => c.id === "web")?.status, "prepared_only");
-assert.equal(channels.find((c) => c.id === "app")?.status, "prepared_only");
-assert.equal(channels.find((c) => c.id === "partner")?.status, "prepared_only");
+assert.equal(channels.find((c) => c.id === "web")?.status, "staging_only");
+assert.equal(channels.find((c) => c.id === "app")?.status, "incoming_live");
+assert.equal(channels.find((c) => c.id === "partner")?.status, "staging_only");
 assert.equal(channels.find((c) => c.id === "kompis")?.status, "not_activated");
 
 const templates = listSupportReplyStarterTemplates();
@@ -114,7 +121,19 @@ assert.doesNotMatch(html, /<script/i);
 const text = renderSupportSignatureText(sig);
 assert.match(text, /Aipify Group AS/);
 assert.match(text, /Kari Nordmann/);
+const technical = createDefaultSupportSignature({ displayName: "Verify Display 20261127" });
+assert.equal(officialSignatureDisplayName(technical), "Aipify Support");
+assert.doesNotMatch(renderSupportSignatureText(technical), /Verify Display/);
 
+assert.equal(TEMPLATE_DRAFT_PERSISTED, false);
+assert.equal(TEMPLATE_DELETE_PERSISTED, false);
+const lifecycleSql = readFileSync(TEMPLATE_LIFECYCLE_SQL_CANDIDATE_PATH);
+assert.equal(
+  createHash("sha256").update(lifecycleSql).digest("hex"),
+  TEMPLATE_LIFECYCLE_SQL_CANDIDATE_SHA256,
+);
+assert.match(lifecycleSql.toString("utf8"), /PREPARED_ONLY/);
+assert.match(lifecycleSql.toString("utf8"), /DO NOT APPLY/i);
 assert.equal(PLATFORM_SUPPORT_CENTER_SQL_CANDIDATE_APPLIED, false);
 assert.ok(existsSync(PLATFORM_SUPPORT_CENTER_SQL_CANDIDATE_PATH));
 assert.doesNotMatch(PLATFORM_SUPPORT_CENTER_SQL_CANDIDATE_PATH, /supabase\/migrations\//);
@@ -292,6 +311,7 @@ __resetSupportSignatureStoreForTests();
 
 // Channel statuses stay accurate (Core intake is closed) and email stays off.
 assert.equal(listSupportChannelActivations().filter((c) => c.status === "active").length, 0);
+assert.equal(listSupportChannelActivations().filter((c) => c.status === "incoming_live").length, 1);
 assert.equal(getSupportCenterGateState().emailSendConfigured, false);
 
 // i18n: every core locale carries the full supportCenter key set; no jargon.
