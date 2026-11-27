@@ -6,13 +6,17 @@ import { requirePartnersPortalApiAccess } from "@/lib/partners-portal/server-acc
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 
 /** Partner inbox — own messages only via Core RPC. */
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const gate = await requirePartnersPortalApiAccess();
     if (!gate.ok) return gate.response;
 
+    const url = new URL(request.url);
+    const rawLimit = Number(url.searchParams.get("limit") ?? "50");
+    const limit = Number.isFinite(rawLimit) ? Math.min(100, Math.max(1, Math.floor(rawLimit))) : 50;
+
     const result = await callCspRpc(gate.access.supabase, "csp_list_partner_messages", {
-      p_limit: 100,
+      p_limit: limit,
     });
     if (!result.ready) {
       const closed = failClosedJson(result);

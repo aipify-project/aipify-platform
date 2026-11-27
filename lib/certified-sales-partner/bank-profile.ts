@@ -73,8 +73,18 @@ export function validateBankProfile(input: CspBankProfileInput): CspBankProfileR
   if (swift && !SWIFT_RE.test(swift)) return fail("swiftBic", "invalid_swift_bic");
 
   if (iban) {
+    // Norwegian kontonummer (11 digits) must not be treated as IBAN.
+    if (country === "NO" && /^\d{11}$/.test(iban)) {
+      return { ok: true };
+    }
     if (!isValidIbanChecksum(iban)) return fail("iban", "invalid_iban");
     return { ok: true };
+  }
+
+  // Norway: accept 11-digit local account when IBAN is not provided.
+  if (country === "NO") {
+    if (/^\d{11}$/.test(account)) return { ok: true };
+    return fail("iban", "norwegian_account_or_iban_required");
   }
 
   if (countryUsesIban(country)) return fail("iban", "iban_required_for_country");

@@ -75,8 +75,9 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
     const controller = new AbortController();
     abortRef.current = controller;
     const seq = ++loadSeqRef.current;
+    const timeout = window.setTimeout(() => controller.abort(), 15_000);
     try {
-      const res = await fetch("/api/certified-sales-partner/messages", {
+      const res = await fetch("/api/certified-sales-partner/messages?limit=50", {
         cache: "no-store",
         signal: controller.signal,
       });
@@ -112,12 +113,20 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
       setPhase(rows.length === 0 ? "empty" : "ready");
       return true;
     } catch {
-      if (controller.signal.aborted || seq !== loadSeqRef.current) return false;
+      if (controller.signal.aborted || seq !== loadSeqRef.current) {
+        if (!opts?.silent && seq === loadSeqRef.current) {
+          setMessages([]);
+          setPhase("error");
+        }
+        return false;
+      }
       if (!opts?.silent) {
         setMessages([]);
         setPhase("error");
       }
       return false;
+    } finally {
+      window.clearTimeout(timeout);
     }
   }, []);
 
@@ -130,8 +139,8 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
 
   usePollingTask({
     taskKey: "csp-partner-messages",
-    intervalMs: 15_000,
-    hiddenIntervalMs: 60_000,
+    intervalMs: 45_000,
+    hiddenIntervalMs: 120_000,
     enabled: true,
     runImmediately: true,
     execute: pollMessages,

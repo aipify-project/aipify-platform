@@ -116,6 +116,9 @@ export function CertifiedSalesPartnerExamPanel({
   autoStart = false,
   compact = false,
   onPhaseChange,
+  alreadyPassed = false,
+  passedScore = null,
+  passedAt = null,
 }: {
   labels: CspExamLabels;
   locale: string;
@@ -124,12 +127,27 @@ export function CertifiedSalesPartnerExamPanel({
   /** Slightly denser chrome for the desktop exam column. */
   compact?: boolean;
   onPhaseChange?: (phase: CspExamPhase) => void;
+  /** Server-authoritative certification already passed for this product. */
+  alreadyPassed?: boolean;
+  passedScore?: number | null;
+  passedAt?: string | null;
 }) {
-  const [phase, setPhase] = useState<CspExamPhase>("idle");
+  const [phase, setPhase] = useState<CspExamPhase>(alreadyPassed ? "result" : "idle");
   const [exam, setExam] = useState<StartPayload | null>(null);
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [result, setResult] = useState<ExamResultPayload | null>(null);
+  const [result, setResult] = useState<ExamResultPayload | null>(
+    alreadyPassed
+      ? {
+          passed: true,
+          scorePct: typeof passedScore === "number" ? passedScore : 100,
+          correct: 0,
+          total: 0,
+          certification_persisted: true,
+          attempt_recorded: true,
+        }
+      : null,
+  );
   const [message, setMessage] = useState<string | null>(null);
   const [nextAttempt, setNextAttempt] = useState(0);
 
@@ -144,6 +162,7 @@ export function CertifiedSalesPartnerExamPanel({
 
   const startExam = useCallback(
     async (attemptIndex: number) => {
+      if (alreadyPassed) return;
       setPhase("starting");
       setMessage(null);
       setResult(null);
@@ -153,10 +172,26 @@ export function CertifiedSalesPartnerExamPanel({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ product_key: COURSE_PRODUCT_KEY, locale, attempt_index: attemptIndex }),
         });
-        const data = (await res.json().catch(() => ({}))) as Partial<StartPayload> & { backend_ready?: boolean };
+        const data = (await res.json().catch(() => ({}))) as Partial<StartPayload> & {
+          backend_ready?: boolean;
+          already_passed?: boolean;
+          error?: string;
+        };
         if (res.status === 503 || data.backend_ready === false) {
           setMessage(labels.failClosed);
           setPhase("idle");
+          return;
+        }
+        if (data.already_passed === true || data.error === "already_passed") {
+          setResult({
+            passed: true,
+            scorePct: typeof passedScore === "number" ? passedScore : 100,
+            correct: 0,
+            total: 0,
+            certification_persisted: true,
+            attempt_recorded: true,
+          });
+          setPhase("result");
           return;
         }
         if (!res.ok || !Array.isArray(data.questions) || data.questions.length === 0) {
@@ -180,16 +215,17 @@ export function CertifiedSalesPartnerExamPanel({
         setPhase("idle");
       }
     },
-    [labels.error, labels.failClosed, locale],
+    [alreadyPassed, labels.error, labels.failClosed, locale, passedScore],
   );
 
   useEffect(() => {
+    if (alreadyPassed) return;
     if (!autoStart) return;
     if (phase !== "idle" || exam) return;
     void startExam(0);
     // Mount-only auto start for the right-column workspace.
     // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional one-shot
-  }, [autoStart]);
+  }, [autoStart, alreadyPassed]);
 
   async function submitExam() {
     if (!exam || !allAnswered) return;
@@ -231,6 +267,44 @@ export function CertifiedSalesPartnerExamPanel({
   const lessonsToReview = (result?.feedback?.lessons_to_review ?? [])
     .map((id) => KOMPIS_WEB_LESSONS.find((lesson) => lesson.id === id))
     .filter((lesson): lesson is (typeof KOMPIS_WEB_LESSONS)[number] => Boolean(lesson));
+
+  if (alreadyPassed || (result?.passed && result.certification_persisted !== false && !exam)) {
+    return (
+      <section
+        className={`rounded-2xl border border-teal-200 bg-teal-50/60 shadow-sm ${compact ? "p-5" : "p-6"}`}
+        aria-labelledby="csp-exam-passed-title"
+      >
+        <div className="flex items-start gap-3 text-teal-900">
+          <CheckIcon />
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide">{labels.passedBadge}</p>
+            <h2 id="csp-exam-passed-title" className="mt-1 text-lg font-semibold">
+              {labels.passedTitle}
+            </h2>
+            <p className="mt-2 text-sm">{labels.passedBody}</p>
+            {typeof (result?.scorePct ?? passedScore) === "number" ? (
+              <p className="mt-2 text-sm font-medium">
+                {fill(labels.score, {
+                  correct: result?.correct ?? "—",
+                  total: result?.total || "—",
+                  score: result?.scorePct ?? passedScore ?? "—",
+                })}
+              </p>
+            ) : null}
+            {passedAt ? (
+              <p className="mt-1 text-xs text-teal-800/80">{passedAt}</p>
+            ) : null}
+            <a
+              href={`/api/certified-sales-partner/academy/certificate?locale=${encodeURIComponent(locale)}`}
+              className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[#7C3AED] px-4 py-2 text-sm font-semibold text-white"
+            >
+              {labels.downloadCertificate}
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -438,13 +512,15 @@ export function CertifiedSalesPartnerExamPanel({
             </div>
           ) : null}
 
-          <button
-            type="button"
-            onClick={() => void startExam(nextAttempt)}
-            className="inline-flex rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-4 py-2 text-sm font-semibold text-[color:var(--aipify-text-primary)]"
-          >
-            {labels.retake}
-          </button>
+          {!result.passed ? (
+            <button
+              type="button"
+              onClick={() => void startExam(nextAttempt)}
+              className="inline-flex min-h-11 rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-4 py-2 text-sm font-semibold text-[color:var(--aipify-text-primary)]"
+            >
+              {labels.retake}
+            </button>
+          ) : null}
         </div>
       ) : null}
 

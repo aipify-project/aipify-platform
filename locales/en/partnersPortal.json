@@ -692,13 +692,16 @@
       "emptyBody": "Products appear here once Aipify has published them. You can already read the lessons and practise in the Aipify Academy.",
       "emptyCta": "Go to Aipify Academy",
       "unknownProduct": "Product",
-      "signatureTitle": "Locked seller signature",
-      "signatureIntro": "When your Kompis Web certification is active, Aipify inserts the Certified Aipify Sales Partner badge automatically. You cannot edit the badge, logo or certification claim.",
-      "signatureLockedNote": "Only approved contact details and your personal sales link can be updated through your profile. Signature HTML stays system-owned.",
+      "signatureTitle": "Seller signature",
+      "signatureIntro": "Professional signature with your photo, Certified Aipify Sales Partner badge, Aipify branding and personal sales link when certification is active.",
+      "signatureLockedNote": "Badge, logo and certification claim are system-owned. Profile photo and sales link come from your approved account.",
       "signatureBadgeActive": "Badge active for Kompis Web",
       "signatureBadgeInactive": "Badge appears after you pass and your partner account stays approved.",
       "signatureCopyHtml": "Copy HTML",
-      "signatureCopied": "Copied"
+      "signatureCopied": "Copied",
+      "signatureCopyText": "Copy text",
+      "signatureCopyLink": "Copy personal sales link",
+      "signatureMissing": "Pass certification, keep an approved partner status and create an active sales link before using a live signature."
     },
     "salesList": {
       "title": "Registered sales",
@@ -926,7 +929,7 @@
         "gettingStarted": {
           "title": "Getting started",
           "body": "Complete your profile, finish Academy certification, then create personal sales links for published products you may sell.",
-          "cta": "Open home"
+          "cta": "Open getting started"
         },
         "academy": {
           "title": "Academy",
@@ -941,7 +944,7 @@
         "commission": {
           "title": "How commission works",
           "body": "Monthly plans earn after the second successful paid period. Annual plans earn after the first confirmed paid year. One fixed commission per qualified sale — never on renewals.",
-          "cta": "View sales"
+          "cta": "Open commission guide"
         },
         "payouts": {
           "title": "Payouts",
@@ -956,7 +959,7 @@
         "contact": {
           "title": "Contact Aipify",
           "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
-          "cta": "Open messages"
+          "cta": "Open contact form"
         }
       }
     },
@@ -1159,8 +1162,8 @@
       "openTwoFactor": "Manage two-factor authentication",
       "openSettlement": "Open commission & payouts",
       "notAvailable": "Not available",
-      "lockScreenTitle": "Screen lock (prepared)",
-      "lockScreenBody": "Secure screen lock needs server-verified re-authentication. It stays inactive until a separate security approval — Aipify will not offer a client-only lock overlay."
+      "lockScreenTitle": "Screen lock not activated",
+      "lockScreenBody": "A secure screen lock needs server-verified re-authentication. It stays inactive until a separate security approval — Aipify does not offer a client-only lock."
     },
     "academyHub": {
       "productTabsLabel": "Academy products",
@@ -1198,6 +1201,126 @@
         "follow_up": "Follow-up",
         "meeting_request": "Meeting request",
         "product_information": "Product information"
+      }
+    },
+    "settlementLinks": {
+      "payoutTitle": "Payout details",
+      "payoutBody": "Edit bank details once under My profile → Payout. This page keeps sales and commission history.",
+      "editPayoutCta": "Edit payout details",
+      "howCommissionCta": "How commission works"
+    },
+    "guides": {
+      "gettingStarted": {
+        "title": "Get started as a seller",
+        "subtitle": "A practical checklist with real next steps.",
+        "intro": "Complete each step in order. Progress depends on your real partner status, certification and payout setup — nothing is invented here.",
+        "dailyGoalNote": "Optional guidance: aim for up to 10 relevant, allowed posts or shares per day. Never spam and never break platform rules.",
+        "stepLabel": "Step {n}",
+        "openStep": "Open",
+        "motivation": "Steady, helpful outreach builds trust. Aipify supports your selling — you decide what you send.",
+        "steps": {
+          "identity": {
+            "title": "Complete person and identity",
+            "body": "Make sure your profile name and photo are ready."
+          },
+          "payout": {
+            "title": "Add secure payout details",
+            "body": "Store bank details under My profile → Payout."
+          },
+          "academy": {
+            "title": "Pass product certification",
+            "body": "Finish Academy and keep your certificate ready."
+          },
+          "link": {
+            "title": "Create a qualified sales link",
+            "body": "Use your personal tracked link when you are approved and certified."
+          },
+          "materials": {
+            "title": "Choose approved materials",
+            "body": "Pick the right language and approved assets before sharing."
+          },
+          "share": {
+            "title": "Share and follow up leads",
+            "body": "Use social channels carefully and follow up real interest."
+          },
+          "follow": {
+            "title": "Track sales and commission",
+            "body": "Monitor sales, commission status and payout history."
+          }
+        },
+        "done": "Done",
+        "pending": "Next step"
+      },
+      "commission": {
+        "title": "How commission works",
+        "subtitle": "Clear rules for monthly, yearly and one-time sales.",
+        "intro": "Commission is earned from confirmed paid customer payments according to the rules below. Settlement stays manual.",
+        "percentNotLive": "Percent commission is prepared in product policy but is not live in settlement until Core is approved and tested.",
+        "illustrationNote": "Any amounts mentioned elsewhere are illustrations — not your live offer prices.",
+        "toSettlement": "Open commission overview",
+        "toPayout": "Edit payout details",
+        "toSales": "Open my sales",
+        "topics": {
+          "registration": {
+            "title": "Sale registration",
+            "body": "A sale is registered on the first confirmed successful payment."
+          },
+          "monthly": {
+            "title": "Monthly subscriptions",
+            "body": "Commission accrues after the second successful paid period. The first paid period registers the sale."
+          },
+          "yearly": {
+            "title": "Yearly subscriptions",
+            "body": "Commission accrues on the first successful annual payment."
+          },
+          "oneTime": {
+            "title": "One-time purchases",
+            "body": "Commission accrues on the first successful payment."
+          },
+          "trial": {
+            "title": "Trials",
+            "body": "Free trial periods never count as paid periods."
+          },
+          "renewals": {
+            "title": "Renewals",
+            "body": "There is no recurring commission on later renewals."
+          },
+          "basis": {
+            "title": "Fixed or percent",
+            "body": "Fixed is a one-time amount. Percent, when activated, uses paid net amount excluding VAT after discount."
+          },
+          "refunds": {
+            "title": "Refunds and chargebacks",
+            "body": "Refunds or chargebacks can reclassify commission without deleting history."
+          },
+          "payout": {
+            "title": "Payouts",
+            "body": "Payouts are manual after review. There is no automatic Stripe Connect payout."
+          }
+        }
+      },
+      "contact": {
+        "title": "Contact Aipify",
+        "subtitle": "Send a support request about your partner account.",
+        "intro": "Describe what you need help with. Tickets are created in Support Core when that channel is active.",
+        "category": "Category",
+        "subject": "Subject",
+        "description": "Description",
+        "submit": "Submit request",
+        "submitting": "Sending…",
+        "blockedTitle": "Ticket intake is not active yet",
+        "blockedBody": "Partner ticket writing is waiting for Support Core activation. Use email or messages meanwhile — we will not invent a ticket number.",
+        "mailtoCta": "Email Aipify",
+        "messagesCta": "Open messages",
+        "success": "Your request was registered.",
+        "error": "The request could not be sent. Try again or use messages.",
+        "categories": {
+          "general": "General",
+          "payout": "Payout",
+          "academy": "Academy",
+          "company": "Company details",
+          "technical": "Technical"
+        }
       }
     }
   }

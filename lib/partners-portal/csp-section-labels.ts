@@ -38,13 +38,13 @@ export function buildCspHelpLabels(t: (key: string) => string): CspHelpLabels {
     title: t(`${p}.title`),
     intro: t(`${p}.intro`),
     sections: [
-      section("gettingStarted", "/partners"),
+      section("gettingStarted", "/partners/account/help/getting-started"),
       section("academy", "/partners/academy/training"),
       section("salesLinks", "/partners/referrals/links"),
-      section("commission", "/partners/customers/pipeline"),
+      section("commission", "/partners/account/help/commission"),
       section("payouts", "/partners/settlement"),
       section("materials", "/partners/marketing/assets"),
-      section("contact", "/partners/account/messages"),
+      section("contact", "/partners/account/help/contact"),
     ],
   };
 }

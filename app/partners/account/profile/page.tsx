@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { CertifiedSalesPartnerProfilePanel } from "@/components/partners-portal/CertifiedSalesPartnerProfilePanel";
 import { CertifiedSalesPartnerWorkspacePanel } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -8,6 +9,7 @@ import { buildCspBankPanelLabels } from "@/lib/partners-portal/csp-section-label
 import { buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-labels";
 import { resolvePartnersPortalServerAccess } from "@/lib/partners-portal/server-access";
 import { buildPartnersPortalAvatarLabels } from "@/lib/partners-portal/shell-labels";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 
 const PARTNER_STATUS_KEYS = [
   "registered",
@@ -74,12 +76,14 @@ export default async function PartnersPortalProfilePage() {
 
   return (
     <CertifiedSalesPartnerWorkspacePanel labels={workspace}>
-      <CertifiedSalesPartnerProfilePanel
-        labels={labels}
-        avatarLabels={buildPartnersPortalAvatarLabels(t)}
-        bankLabels={buildCspBankPanelLabels(t)}
-        initialAvatarUrl={avatarUrl}
-      />
+      <Suspense fallback={<AipifyLoader centered size="sm" />}>
+        <CertifiedSalesPartnerProfilePanel
+          labels={labels}
+          avatarLabels={buildPartnersPortalAvatarLabels(t)}
+          bankLabels={buildCspBankPanelLabels(t)}
+          initialAvatarUrl={avatarUrl}
+        />
+      </Suspense>
     </CertifiedSalesPartnerWorkspacePanel>
   );
 }

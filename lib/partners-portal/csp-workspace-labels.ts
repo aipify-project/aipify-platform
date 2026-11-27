@@ -825,6 +825,9 @@ export function buildCspCertificationsLabels(t: Translator): CspCertificationsLa
     signatureBadgeActive: k("signatureBadgeActive"),
     signatureBadgeInactive: k("signatureBadgeInactive"),
     signatureCopyHtml: k("signatureCopyHtml"),
+    signatureCopyText: k("signatureCopyText"),
+    signatureCopyLink: k("signatureCopyLink"),
+    signatureMissing: k("signatureMissing"),
     signatureCopied: k("signatureCopied"),
   };
 }

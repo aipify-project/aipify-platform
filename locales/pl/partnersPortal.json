@@ -568,13 +568,16 @@
       "emptyBody": "Produkty pojawią się tutaj po opublikowaniu przez Aipify. Lekcje i ćwiczenia są już dostępne w Aipify Academy.",
       "emptyCta": "Przejdź do Aipify Academy",
       "unknownProduct": "Produkt",
-      "signatureTitle": "Locked seller signature",
-      "signatureIntro": "When your Kompis Web certification is active, Aipify inserts the Certified Aipify Sales Partner badge automatically. You cannot edit the badge, logo or certification claim.",
-      "signatureLockedNote": "Only approved contact details and your personal sales link can be updated through your profile. Signature HTML stays system-owned.",
+      "signatureTitle": "Podpis sprzedawcy",
+      "signatureIntro": "Profesjonalny podpis ze zdjęciem, odznaką Certified Aipify Sales Partner, brandingiem Aipify i osobistym linkiem sprzedażowym, gdy certyfikacja jest aktywna.",
+      "signatureLockedNote": "Odznaka, logo i twierdzenie o certyfikacji należą do systemu. Zdjęcie i link pochodzą z zatwierdzonego konta.",
       "signatureBadgeActive": "Badge active for Kompis Web",
       "signatureBadgeInactive": "Badge appears after you pass and your partner account stays approved.",
       "signatureCopyHtml": "Copy HTML",
-      "signatureCopied": "Copied"
+      "signatureCopied": "Copied",
+      "signatureCopyText": "Kopiuj tekst",
+      "signatureCopyLink": "Kopiuj osobisty link sprzedażowy",
+      "signatureMissing": "Zalicz certyfikację, utrzymaj zatwierdzony status partnera i utwórz aktywny link sprzedażowy, zanim użyjesz żywej sygnatury."
     },
     "salesList": {
       "title": "Zarejestrowana sprzedaż",
@@ -802,7 +805,7 @@
         "gettingStarted": {
           "title": "Getting started",
           "body": "Complete your profile, finish Academy certification, then create personal sales links for published products you may sell.",
-          "cta": "Open home"
+          "cta": "Otwórz przewodnik startowy"
         },
         "academy": {
           "title": "Academy",
@@ -817,7 +820,7 @@
         "commission": {
           "title": "How commission works",
           "body": "Monthly plans earn after the second successful paid period. Annual plans earn after the first confirmed paid year. One fixed commission per qualified sale — never on renewals.",
-          "cta": "View sales"
+          "cta": "Otwórz przewodnik prowizji"
         },
         "payouts": {
           "title": "Payouts",
@@ -832,7 +835,7 @@
         "contact": {
           "title": "Contact Aipify",
           "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
-          "cta": "Otwórz wiadomości"
+          "cta": "Otwórz formularz kontaktu"
         }
       }
     },
@@ -1035,8 +1038,8 @@
       "openTwoFactor": "Zarządzaj uwierzytelnianiem dwuskładnikowym",
       "openSettlement": "Otwórz prowizje i wypłaty",
       "notAvailable": "Niedostępne",
-      "lockScreenTitle": "Blokada ekranu (przygotowana)",
-      "lockScreenBody": "Bezpieczna blokada ekranu wymaga ponownego uwierzytelnienia po stronie serwera. Funkcja pozostaje nieaktywna do osobnej zgody bezpieczeństwa — Aipify nie oferuje blokady tylko po stronie klienta."
+      "lockScreenTitle": "Blokada ekranu nieaktywna",
+      "lockScreenBody": "Bezpieczna blokada ekranu wymaga ponownego uwierzytelnienia po stronie serwera. Funkcja pozostaje nieaktywna do osobnej zgody bezpieczeństwa — Aipify nie oferuje blokady tylko w przeglądarce."
     },
     "academyHub": {
       "productTabsLabel": "Produkty Academy",
@@ -1074,6 +1077,126 @@
         "follow_up": "Kontynuacja",
         "meeting_request": "Prośba o spotkanie",
         "product_information": "Informacje o produkcie"
+      }
+    },
+    "settlementLinks": {
+      "payoutTitle": "Dane do wypłaty",
+      "payoutBody": "Edytuj dane bankowe tylko w Moim profilu → Wypłata. Ta strona zachowuje historię sprzedaży i prowizji.",
+      "editPayoutCta": "Zmień dane do wypłaty",
+      "howCommissionCta": "Jak działa prowizja"
+    },
+    "guides": {
+      "gettingStarted": {
+        "title": "Zacznij jako sprzedawca",
+        "subtitle": "Praktyczna lista z konkretnymi kolejnymi krokami.",
+        "intro": "Wykonuj kroki po kolei. Postęp wynika z realnego statusu partnera, certyfikacji i ustawień wypłat.",
+        "dailyGoalNote": "Opcjonalna wskazówka: celuj w do 10 trafnych, dozwolonych wpisów lub udostępnień dziennie. Bez spamu.",
+        "stepLabel": "Krok {n}",
+        "openStep": "Otwórz",
+        "motivation": "Stały, pomocny kontakt buduje zaufanie. Aipify wspiera sprzedaż — Ty decydujesz, co wysyłasz.",
+        "steps": {
+          "identity": {
+            "title": "Uzupełnij osobę i tożsamość",
+            "body": "Upewnij się, że nazwa profilu i zdjęcie są gotowe."
+          },
+          "payout": {
+            "title": "Dodaj bezpieczne dane do wypłaty",
+            "body": "Zapisz dane bankowe w Moim profilu → Wypłata."
+          },
+          "academy": {
+            "title": "Zalicz certyfikację produktu",
+            "body": "Ukończ Academy i miej certyfikat gotowy."
+          },
+          "link": {
+            "title": "Utwórz kwalifikowany link sprzedażowy",
+            "body": "Używaj osobistego śledzonego linku, gdy jesteś zatwierdzony i certyfikowany."
+          },
+          "materials": {
+            "title": "Wybierz zatwierdzone materiały",
+            "body": "Wybierz właściwy język i zatwierdzone zasoby przed udostępnieniem."
+          },
+          "share": {
+            "title": "Udostępniaj i pilnuj leadów",
+            "body": "Korzystaj z kanałów społecznościowych ostrożnie i odpowiadaj na realne zainteresowanie."
+          },
+          "follow": {
+            "title": "Śledź sprzedaż i prowizję",
+            "body": "Monitoruj sprzedaż, status prowizji i historię wypłat."
+          }
+        },
+        "done": "Gotowe",
+        "pending": "Następny krok"
+      },
+      "commission": {
+        "title": "Jak działa prowizja",
+        "subtitle": "Jasne zasady dla sprzedaży miesięcznej, rocznej i jednorazowej.",
+        "intro": "Prowizja powstaje z potwierdzonych płatności klientów według reguł poniżej. Rozliczenie pozostaje ręczne.",
+        "percentNotLive": "Prowizja procentowa jest przygotowana w polityce produktu, ale nie jest aktywna w rozliczeniach, dopóki Core nie zostanie zatwierdzone i przetestowane.",
+        "illustrationNote": "Kwoty gdzie indziej są ilustracjami — nie Twoimi bieżącymi cenami oferty.",
+        "toSettlement": "Otwórz przegląd prowizji",
+        "toPayout": "Zmień dane do wypłaty",
+        "toSales": "Otwórz moje sprzedaże",
+        "topics": {
+          "registration": {
+            "title": "Rejestracja sprzedaży",
+            "body": "Sprzedaż jest rejestrowana przy pierwszej potwierdzonej udanej płatności."
+          },
+          "monthly": {
+            "title": "Subskrypcje miesięczne",
+            "body": "Prowizja nalicza się po drugim udanym płatnym okresie. Pierwszy płatny okres rejestruje sprzedaż."
+          },
+          "yearly": {
+            "title": "Subskrypcje roczne",
+            "body": "Prowizja nalicza się przy pierwszej udanej płatności rocznej."
+          },
+          "oneTime": {
+            "title": "Zakupy jednorazowe",
+            "body": "Prowizja nalicza się przy pierwszej udanej płatności."
+          },
+          "trial": {
+            "title": "Okresy próbne",
+            "body": "Bezpłatne okresy próbne nigdy nie liczą się jako okresy płatne."
+          },
+          "renewals": {
+            "title": "Odnowienia",
+            "body": "Nie ma cyklicznej prowizji przy późniejszych odnowieniach."
+          },
+          "basis": {
+            "title": "Stała lub procent",
+            "body": "Stała to kwota jednorazowa. Procent, gdy aktywny, używa zapłaconej kwoty netto bez VAT po rabacie."
+          },
+          "refunds": {
+            "title": "Zwroty i chargeback",
+            "body": "Zwrot lub chargeback może przeklasyfikować prowizję bez usuwania historii."
+          },
+          "payout": {
+            "title": "Wypłaty",
+            "body": "Wypłaty są ręczne po kontroli. Nie ma automatycznej wypłaty Stripe Connect."
+          }
+        }
+      },
+      "contact": {
+        "title": "Kontakt z Aipify",
+        "subtitle": "Wyślij zgłoszenie dotyczące konta partnerskiego.",
+        "intro": "Opisz, z czym potrzebujesz pomocy. Zgłoszenia powstają w Support Core, gdy kanał jest aktywny.",
+        "category": "Kategoria",
+        "subject": "Temat",
+        "description": "Opis",
+        "submit": "Wyślij zgłoszenie",
+        "submitting": "Wysyłanie…",
+        "blockedTitle": "System ticketów nie jest jeszcze aktywny",
+        "blockedBody": "Ticketypartnerskie czekają na aktywację Support Core. Na razie użyj e-maila lub wiadomości — nie tworzymy fałszywego numeru sprawy.",
+        "mailtoCta": "Napisz do Aipify",
+        "messagesCta": "Otwórz wiadomości",
+        "success": "Twoje zgłoszenie zostało zarejestrowane.",
+        "error": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie lub użyj wiadomości.",
+        "categories": {
+          "general": "Ogólne",
+          "payout": "Wypłata",
+          "academy": "Academy",
+          "company": "Dane firmy",
+          "technical": "Techniczne"
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Building2, GraduationCap, Mic2 } from "lucide-react";
 import {
   CertifiedSalesPartnerExamPanel,
@@ -11,6 +11,7 @@ import {
   CertifiedSalesPartnerLessonsPanel,
   type CspLessonsLabels,
 } from "@/components/partners-portal/CertifiedSalesPartnerLessonsPanel";
+import { useCspPortal } from "@/components/partners-portal/CspPortalSessionProvider";
 import { AipifyAlert, AipifyCard, AipifyTabs } from "./design";
 
 export type CspAcademyHubLabels = {
@@ -34,10 +35,30 @@ export function CertifiedSalesPartnerTrainingClient({
   examLabels: CspExamLabels;
   hubLabels: CspAcademyHubLabels;
 }) {
+  const portal = useCspPortal();
   const [examPhase, setExamPhase] = useState<CspExamPhase>("idle");
   const [examOpen, setExamOpen] = useState(false);
   const [product, setProduct] = useState("kompis_web");
   const examActive = examPhase === "starting" || examPhase === "in_progress" || examPhase === "submitting";
+
+  const kompisCert = useMemo(() => {
+    const rows = portal?.overview.certifications ?? [];
+    const fromCerts = rows.find((c) => c.productKey === "kompis_web") ?? null;
+    if (fromCerts) return fromCerts;
+    const product = portal?.overview.products.find((p) => p.productKey === "kompis_web");
+    if (product?.certificationStatus === "passed") {
+      return {
+        productId: product.id,
+        productKey: "kompis_web",
+        status: "passed",
+        score: null,
+        passedAt: null,
+      };
+    }
+    return null;
+  }, [portal]);
+
+  const alreadyPassed = kompisCert?.status === "passed";
 
   return (
     <div className="space-y-6">
@@ -101,10 +122,14 @@ export function CertifiedSalesPartnerTrainingClient({
               locale={locale}
               examLocked={examActive}
               hideHero
-              onStartExam={() => {
-                setExamOpen(true);
-                setExamPhase("idle");
-              }}
+              onStartExam={
+                alreadyPassed
+                  ? undefined
+                  : () => {
+                      setExamOpen(true);
+                      setExamPhase("idle");
+                    }
+              }
             />
           </div>
 
@@ -113,12 +138,15 @@ export function CertifiedSalesPartnerTrainingClient({
             className="xl:sticky xl:top-4"
             aria-label={examLabels.title}
           >
-            {examOpen || examPhase !== "idle" ? (
+            {alreadyPassed || examOpen || examPhase !== "idle" ? (
               <CertifiedSalesPartnerExamPanel
                 labels={examLabels}
                 locale={locale}
-                autoStart
+                autoStart={!alreadyPassed && examOpen}
                 compact
+                alreadyPassed={alreadyPassed}
+                passedScore={kompisCert?.score ?? null}
+                passedAt={kompisCert?.passedAt ?? null}
                 onPhaseChange={setExamPhase}
               />
             ) : (

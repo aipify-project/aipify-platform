@@ -81,6 +81,9 @@ export type CspCertificationsLabels = {
   signatureBadgeActive: string;
   signatureBadgeInactive: string;
   signatureCopyHtml: string;
+  signatureCopyText: string;
+  signatureCopyLink: string;
+  signatureMissing: string;
   signatureCopied: string;
 };
 
@@ -479,6 +482,10 @@ export function CertifiedSalesPartnerCertificationsPanel({
 
   const kompisPassed = rows.some((row) => row.productKey === "kompis_web" && row.status === "passed");
   const partnerActive = ["approved", "active", "certified"].includes(portal.overview.partnerStatus ?? "");
+  const activeLink = portal.links.find((link) => link.active && link.code);
+  const salesLink = activeLink?.code
+    ? `https://aipify.ai/p/${encodeURIComponent(activeLink.code)}/kompis_web?channel=referral_link&lang=${encodeURIComponent(locale)}`
+    : null;
 
   return (
     <div className="space-y-6">
@@ -544,13 +551,17 @@ export function CertifiedSalesPartnerCertificationsPanel({
           badgeActive: labels.signatureBadgeActive,
           badgeInactive: labels.signatureBadgeInactive,
           copyHtml: labels.signatureCopyHtml,
+          copyText: labels.signatureCopyText,
+          copyLink: labels.signatureCopyLink,
+          missingRequirements: labels.signatureMissing,
           copied: labels.signatureCopied,
         }}
         certificationActive={kompisPassed}
         partnerActive={partnerActive}
         partnerName={portal.overview.displayName ?? ""}
-        companyName={portal.overview.displayName ?? ""}
+        companyName={portal.overview.legalBusinessName ?? portal.overview.displayName ?? ""}
         productLabel="Kompis Web"
+        salesLink={salesLink}
       />
     </div>
   );
