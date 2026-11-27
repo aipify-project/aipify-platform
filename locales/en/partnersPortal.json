@@ -573,7 +573,8 @@
       "practiceNotice": "This result is practice only. No certification has been recorded or issued, because the partner backend did not confirm it. Certification and sales links become available once the result is recorded.",
       "certificationRecorded": "Your certification has been recorded.",
       "downloadCertificate": "Download certificate (PDF)",
-      "attemptRecorded": "Your attempt has been recorded. Review the lessons and try again when you are ready."
+      "attemptRecorded": "Your attempt has been recorded. Review the lessons and try again when you are ready.",
+      "scorePercentOnly": "Result: {score}% — passed"
     },
     "lessons": {
       "title": "Kompis Web lessons",

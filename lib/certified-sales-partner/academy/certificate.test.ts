@@ -5,7 +5,9 @@ import {
   CSP_CERTIFICATE_BLOCKED,
   CSP_CERTIFICATE_PRODUCT_LABEL,
   buildCertificateMeta,
+  buildCertificateVerifyUrl,
   deriveCspCertificateId,
+  formatCertificateDisplayRef,
   parseCspCertificateId,
   toPdfSafeText,
 } from "./certificate";
@@ -66,6 +68,22 @@ test("invalid name, date and locale are rejected", () => {
   assert.throws(() => buildCertificateMeta({ fullName: "x".repeat(121), passedAt }), /invalid_full_name/);
   assert.throws(() => buildCertificateMeta({ fullName: "Kari", passedAt: "not-a-date" }), /invalid_passed_at/);
   assert.throws(() => buildCertificateMeta({ fullName: "Kari", passedAt, locale: "xx" }), /invalid_locale/);
+});
+
+test("display ref is deterministic and verify URL stays on app.aipify.ai", () => {
+  const id = deriveCspCertificateId(partnerId, "kompis_web");
+  const ref = formatCertificateDisplayRef(id);
+  assert.equal(ref, `kompis_web · ${partnerId.slice(-8)}`);
+  assert.notEqual(ref, id);
+  const meta = buildCertificateMeta({
+    fullName: "Kari Nordmann",
+    passedAt,
+    locale: "no",
+    certificateId: id,
+  });
+  const url = buildCertificateVerifyUrl(meta.verifyPath);
+  assert.equal(url, `https://app.aipify.ai${meta.verifyPath}`);
+  assert.match(url, /^https:\/\/app\.aipify\.ai\/partners\/academy\/verify\//);
 });
 
 test("PDF embeds logo + Unicode names for en/no/pl/uk without transliteration", async () => {

@@ -573,7 +573,8 @@
       "practiceNotice": "Dette resultat er kun øvelse. Der er ikke registreret eller udstedt nogen certificering, fordi partnerløsningen ikke har bekræftet den. Certificering og salgslinks bliver tilgængelige, når resultatet er registreret.",
       "certificationRecorded": "Din certificering er registreret.",
       "downloadCertificate": "Download certifikat (PDF)",
-      "attemptRecorded": "Dit forsøg er registreret. Gennemgå lektionerne, og prøv igen, når du er klar."
+      "attemptRecorded": "Dit forsøg er registreret. Gennemgå lektionerne, og prøv igen, når du er klar.",
+      "scorePercentOnly": "Resultat: {score} % – bestået"
     },
     "lessons": {
       "title": "Kompis Web-oplæring",
