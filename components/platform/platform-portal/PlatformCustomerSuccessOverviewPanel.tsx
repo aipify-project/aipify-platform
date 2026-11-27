@@ -276,6 +276,7 @@ export function PlatformCustomerSuccessOverviewPanel({ labels, locale }: PanelPr
       labels.serviceStatuses,
       labels.notAvailable,
     );
+    const serviceTitle = labels.wkSetupSignalNote;
 
     return (
       <tr
@@ -342,7 +343,10 @@ export function PlatformCustomerSuccessOverviewPanel({ labels, locale }: PanelPr
         </td>
         <td className="px-4 py-3 align-top text-sm text-slate-700 dark:text-slate-200">
           <div>{formatTemplate(labels.servicesCount, customer.services.activeCount)}</div>
-          <div className="text-xs text-slate-500 dark:text-slate-400">
+          <div
+            className="text-xs text-slate-500 dark:text-slate-400"
+            title={serviceTitle}
+          >
             {labels.websiteKompis}: {serviceLabel}
           </div>
         </td>

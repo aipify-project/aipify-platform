@@ -1931,7 +1931,9 @@
         "successBody": "Saken er tilgjengelig i innboksen.",
         "openCase": "Åbn sagen",
         "validationTitle": "Tilføj et emne, før du sender.",
-        "validationDescription": "Tilføj en beskrivelse, før du sender."
+        "validationDescription": "Tilføj en beskrivelse, før du sender.",
+        "profileChangeTitle": "Ændring af kunde- eller firmaoplysninger",
+        "profileChangeDescription": "Beskriv hvilke kunde- eller firmafelter der skal opdateres (navn, telefon, adresse). Medtag ikke adgangskoder eller betalingsoplysninger."
       }
     },
     "supportHistory": {
@@ -8847,7 +8849,7 @@
       "cancel": "Annuller",
       "companyLegalNote": "Verificerede juridiske identitetsfelter er låst her. Anmod om ændring via support, når noget skal rettes.",
       "requestChange": "Anmod om ændring",
-      "requestChangeHref": "/app/support"
+      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change"
     },
     "workspaceDashboard": {
       "eyebrow": "Arbejdsområde",

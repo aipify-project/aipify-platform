@@ -41,6 +41,7 @@ import { PlatformPortalWebsiteKompisActivationPanel } from "@/components/platfor
 import { PlatformPortalKompisBedriftStatusPanel } from "@/components/platform/platform-portal/PlatformPortalKompisBedriftStatusPanel";
 import { PlatformPortalAdminProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalAdminProvisioningPanel";
 import { PlatformPortalCustomerIdentityPanel } from "@/components/platform/platform-portal/PlatformPortalCustomerIdentityPanel";
+import { PrimaryContactEditCard } from "@/components/platform/platform-portal/PrimaryContactEditCard";
 import type { PlatformCustomerIdentityLabels } from "@/lib/platform-portal/customer-identity-labels";
 import {
   parsePlatformPortalWebsiteKompisStatus,
@@ -194,13 +195,23 @@ function ControlPlaneOverviewCard({
         />
         <MetricCard
           label={cp.modules}
-          value={`${summary.modulesActiveCount}/${summary.modulesTotalCount}`}
-          variant={summary.modulesActiveCount > 0 ? "info" : "muted"}
+          value={
+            summary.modulesAvailable &&
+            summary.modulesActiveCount != null &&
+            summary.modulesTotalCount != null
+              ? `${summary.modulesActiveCount}/${summary.modulesTotalCount}`
+              : labels.notAvailable
+          }
+          variant={
+            summary.modulesAvailable && (summary.modulesActiveCount ?? 0) > 0
+              ? "info"
+              : "muted"
+          }
         />
         <MetricCard
-          label={cp.reason}
-          value={summary.overallReasonCode}
-          variant="muted"
+          label={cp.overallStatus}
+          value={statusLabel(summary.overallStatus)}
+          variant={controlPlaneStatusVariant(summary.overallStatus)}
         />
       </dl>
       <div className="mt-3">
@@ -642,6 +653,9 @@ export function PlatformPortalCustomerDetailPanel({
   const [websiteKompisSuccess, setWebsiteKompisSuccess] = useState<string | null>(
     null,
   );
+  const [activeTab, setActiveTab] = useState<
+    "contact" | "company" | "products" | "subscription" | "support" | "technical"
+  >("contact");
 
   const load = useCallback(async () => {
     setLoadState({ kind: "loading" });
@@ -978,74 +992,107 @@ export function PlatformPortalCustomerDetailPanel({
 
       <ControlPlaneOverviewCard labels={labels} data={data} />
 
+      <div
+        role="tablist"
+        aria-label={labels.tabsAria}
+        className="flex flex-wrap gap-1 rounded-xl border border-slate-200 bg-white p-1 shadow-sm dark:border-slate-700 dark:bg-slate-950/40"
+      >
+        {(
+          [
+            ["contact", labels.tabContact],
+            ["company", labels.tabCompany],
+            ["products", labels.tabProducts],
+            ["subscription", labels.tabSubscription],
+            ["support", labels.tabSupport],
+            ["technical", labels.tabTechnical],
+          ] as const
+        ).map(([id, label]) => {
+          const selected = activeTab === id;
+          return (
+            <button
+              key={id}
+              type="button"
+              role="tab"
+              aria-selected={selected}
+              onClick={() => setActiveTab(id)}
+              className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                selected
+                  ? "bg-violet-600 text-white shadow-sm"
+                  : "text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-900"
+              }`}
+            >
+              {label}
+            </button>
+          );
+        })}
+      </div>
+
       <div className="grid gap-4 lg:grid-cols-12 lg:items-start">
         <div className="space-y-4 lg:col-span-7 xl:col-span-8">
-          <SectionCard title={labels.sectionBusiness} compact>
-            <dl>
-              <DetailRow label={labels.customerName}>{customer.name}</DetailRow>
-              <DetailRow label={labels.legalName}>
-                {customer.legalName?.trim() ? customer.legalName : labels.notAvailable}
-              </DetailRow>
-              <DetailRow label={labels.organizationNumber}>
-                {customer.organizationNumber?.trim()
-                  ? customer.organizationNumber
-                  : labels.notAvailable}
-              </DetailRow>
-              <DetailRow label={labels.primaryContactName}>
-                {customer.primaryContactName?.trim()
-                  ? customer.primaryContactName
-                  : labels.primaryContactEmpty}
-              </DetailRow>
-              <DetailRow label={labels.primaryContactEmail}>
-                {customer.primaryContactEmail?.trim()
-                  ? customer.primaryContactEmail
-                  : labels.notAvailable}
-              </DetailRow>
-              <DetailRow label={labels.primaryContactPhone}>
-                {customer.primaryContactPhone?.trim()
-                  ? customer.primaryContactPhone
-                  : labels.notAvailable}
-              </DetailRow>
-              <DetailRow label={labels.createdAt}>
-                {formatDate(customer.createdAt, locale, labels.notAvailable)}
-              </DetailRow>
-              <DetailRow label={labels.updatedAt}>
-                {formatDate(customer.updatedAt, locale, labels.notAvailable)}
-              </DetailRow>
-            </dl>
-            <details className="mt-2 rounded-lg border border-slate-200 bg-slate-50/70 px-3 py-2 dark:border-slate-700 dark:bg-slate-900/40">
-              <summary className="cursor-pointer text-xs font-medium text-slate-600 dark:text-slate-300">
-                {labels.customerId} · {labels.companyId} · {labels.slug}
-              </summary>
-              <dl className="mt-2">
-                <DetailRow label={labels.customerId}>
-                  <CopyableValue
-                    value={customer.id}
-                    copyKey="business-customer-id"
-                    copiedKey={copiedKey}
-                    labels={labels}
-                    onCopy={(key, value) => void handleCopy(key, value)}
-                  />
+          {activeTab === "contact" ? (
+            <SectionCard title={labels.sectionContact} compact>
+              <dl className="grid gap-0 sm:grid-cols-2 sm:gap-x-6">
+                <DetailRow label={labels.primaryContactName}>
+                  {customer.primaryContactName?.trim()
+                    ? customer.primaryContactName
+                    : labels.primaryContactEmpty}
                 </DetailRow>
-                <DetailRow label={labels.companyId}>
-                  <CopyableValue
-                    value={customer.companyId}
-                    copyKey="business-company-id"
-                    copiedKey={copiedKey}
-                    labels={labels}
-                    onCopy={(key, value) => void handleCopy(key, value)}
-                  />
+                <DetailRow label={labels.primaryContactPhone}>
+                  {customer.primaryContactPhone?.trim()
+                    ? customer.primaryContactPhone
+                    : labels.notRegistered}
                 </DetailRow>
-                <DetailRow label={labels.slug}>
-                  <div className="space-y-1">
-                    <p>{customer.slug?.trim() ? customer.slug : labels.notAvailable}</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{labels.slugHelp}</p>
-                  </div>
+                <DetailRow label={labels.contactEmailLabel}>
+                  {customer.primaryContactEmail?.trim()
+                    ? customer.primaryContactEmail
+                    : labels.notRegistered}
                 </DetailRow>
               </dl>
-            </details>
-          </SectionCard>
+              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+                {labels.loginEmailLabel}
+              </p>
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+                {labels.highRiskIdentityNote}
+              </p>
+              <PrimaryContactEditCard
+                customerId={customerId}
+                initialName={customer.primaryContactName?.trim() ?? ""}
+                initialPhone={customer.primaryContactPhone?.trim() ?? ""}
+                labels={{
+                  ...labels.contactEdit,
+                  primaryContactName: labels.primaryContactName,
+                  primaryContactPhone: labels.primaryContactPhone,
+                }}
+                onSaved={() => {
+                  void load();
+                }}
+              />
+            </SectionCard>
+          ) : null}
 
+          {activeTab === "company" ? (
+            <SectionCard title={labels.sectionCompany} compact>
+              <dl className="grid gap-0 sm:grid-cols-2 sm:gap-x-6">
+                <DetailRow label={labels.customerName}>{customer.name}</DetailRow>
+                <DetailRow label={labels.legalName}>
+                  {customer.legalName?.trim() ? customer.legalName : labels.notRegistered}
+                </DetailRow>
+                <DetailRow label={labels.organizationNumber}>
+                  {customer.organizationNumber?.trim()
+                    ? customer.organizationNumber
+                    : labels.notRegistered}
+                </DetailRow>
+                <DetailRow label={labels.createdAt}>
+                  {formatDate(customer.createdAt, locale, labels.notAvailable)}
+                </DetailRow>
+                <DetailRow label={labels.updatedAt}>
+                  {formatDate(customer.updatedAt, locale, labels.notAvailable)}
+                </DetailRow>
+              </dl>
+            </SectionCard>
+          ) : null}
+
+          {activeTab === "subscription" ? (
           <SectionCard
             title={labels.sectionCommercial}
             compact
@@ -1124,7 +1171,11 @@ export function PlatformPortalCustomerDetailPanel({
               </p>
             ) : null}
           </SectionCard>
+          ) : null}
 
+          {activeTab === "products" ? (
+          <>
+          <p className="text-xs text-slate-600 dark:text-slate-300">{labels.productTruthNote}</p>
           <SectionCard
             title={labels.sectionLicenses}
             compact
@@ -1598,31 +1649,98 @@ export function PlatformPortalCustomerDetailPanel({
               </div>
             </div>
           </SectionCard>
+          </>
+          ) : null}
+
+          {activeTab === "support" ? (
+            <SectionCard title={labels.sectionSupport} compact>
+              <dl>
+                <DetailRow label={labels.openSupportCases}>
+                  {usage.openSupportCount > 0 ? (
+                    <StatusBadge
+                      label={String(usage.openSupportCount)}
+                      variant="warning"
+                    />
+                  ) : (
+                    <StatusBadge label={String(usage.openSupportCount)} variant="success" />
+                  )}
+                </DetailRow>
+              </dl>
+              <div className="mt-3">
+                <Link
+                  href="/platform/support"
+                  className="inline-flex items-center justify-center rounded-lg border border-violet-200 bg-white px-3 py-2 text-sm font-medium text-violet-700 transition hover:bg-violet-50 dark:border-violet-800 dark:bg-slate-950 dark:text-violet-300 dark:hover:bg-slate-900"
+                >
+                  {labels.viewSupportInbox}
+                </Link>
+              </div>
+            </SectionCard>
+          ) : null}
+
+          {activeTab === "technical" ? (
+            <SectionCard title={labels.sectionTechnical} compact>
+              <dl>
+                <DetailRow label={labels.customerId}>
+                  <CopyableValue
+                    value={customer.id}
+                    copyKey="technical-customer-id"
+                    copiedKey={copiedKey}
+                    labels={labels}
+                    onCopy={(key, value) => void handleCopy(key, value)}
+                  />
+                </DetailRow>
+                <DetailRow label={labels.companyId}>
+                  <CopyableValue
+                    value={customer.companyId}
+                    copyKey="technical-company-id"
+                    copiedKey={copiedKey}
+                    labels={labels}
+                    onCopy={(key, value) => void handleCopy(key, value)}
+                  />
+                </DetailRow>
+                <DetailRow label={labels.slug}>
+                  <div className="space-y-1">
+                    <p>{customer.slug?.trim() ? customer.slug : labels.notRegistered}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{labels.slugHelp}</p>
+                  </div>
+                </DetailRow>
+              </dl>
+            </SectionCard>
+          ) : null}
         </div>
 
         <aside className="space-y-4 lg:col-span-5 xl:col-span-4 lg:sticky lg:top-4 lg:self-start">
-          <PlatformPortalCustomerIdentityPanel
-            customerId={customerId}
-            labels={customerIdentityLabels}
-          />
-          <PlatformPortalAppKompisDeliveryPanel
-            customerId={customerId}
-            labels={appKompisDeliveryLabels}
-            locale={locale}
-          />
-          <CustomerWebsiteRuntimeDeliveryPanel
-            organizationId={customerId}
-            labels={websiteRuntimeLabels}
-            locale={locale}
-          />
-          <PlatformPortalKompisBedriftStatusPanel
-            customerId={customerId}
-            labels={kompisBedriftLabels}
-          />
-          <PlatformPortalAdminProvisioningPanel
-            customerId={customerId}
-            labels={adminProvisionLabels}
-          />
+          {activeTab === "contact" || activeTab === "technical" ? (
+            <PlatformPortalCustomerIdentityPanel
+              customerId={customerId}
+              labels={customerIdentityLabels}
+            />
+          ) : null}
+          {activeTab === "products" || activeTab === "technical" ? (
+            <>
+              <PlatformPortalAppKompisDeliveryPanel
+                customerId={customerId}
+                labels={appKompisDeliveryLabels}
+                locale={locale}
+              />
+              <CustomerWebsiteRuntimeDeliveryPanel
+                organizationId={customerId}
+                labels={websiteRuntimeLabels}
+                locale={locale}
+              />
+              <PlatformPortalKompisBedriftStatusPanel
+                customerId={customerId}
+                labels={kompisBedriftLabels}
+              />
+            </>
+          ) : null}
+          {activeTab === "technical" ? (
+            <PlatformPortalAdminProvisioningPanel
+              customerId={customerId}
+              labels={adminProvisionLabels}
+            />
+          ) : null}
+          {activeTab === "subscription" || activeTab === "support" ? (
           <SectionCard title={labels.sectionStatus} compact>
             <dl>
               <DetailRow label={labels.status}>
@@ -1690,6 +1808,7 @@ export function PlatformPortalCustomerDetailPanel({
               </DetailRow>
             </dl>
           </SectionCard>
+          ) : null}
         </aside>
       </div>
 

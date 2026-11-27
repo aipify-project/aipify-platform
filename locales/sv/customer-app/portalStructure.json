@@ -1931,7 +1931,9 @@
         "successBody": "Ärendet finns i inkorgen.",
         "openCase": "Öppna ärendet",
         "validationTitle": "Lägg till ett ämne innan du skickar.",
-        "validationDescription": "Lägg till en beskrivning innan du skickar."
+        "validationDescription": "Lägg till en beskrivning innan du skickar.",
+        "profileChangeTitle": "Ändring av kund- eller företagsuppgifter",
+        "profileChangeDescription": "Beskriv vilka kund- eller företagsfält som ska uppdateras (namn, telefon, adress). Inkludera inte lösenord eller betalningsuppgifter."
       }
     },
     "supportHistory": {
@@ -8847,7 +8849,7 @@
       "cancel": "Avbryt",
       "companyLegalNote": "Verifierade juridiska identitetsfält är låsta här. Begär ändring via support när något behöver korrigeras.",
       "requestChange": "Begär ändring",
-      "requestChangeHref": "/app/support"
+      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change"
     },
     "workspaceDashboard": {
       "eyebrow": "Arbetsyta",

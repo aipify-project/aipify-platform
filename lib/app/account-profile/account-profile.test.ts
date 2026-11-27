@@ -237,7 +237,10 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"]) {
   assert.ok(portal.portalStructure.accountProfile.tabSecurity);
   assert.ok(portal.portalStructure.accountProfile.loginEmail);
   assert.ok(portal.portalStructure.accountProfile.organizationLabel);
-  assert.ok(portal.portalStructure.accountProfile.requestChangeHref);
+  assert.match(
+    String(portal.portalStructure.accountProfile.requestChangeHref),
+    /\/app\/support\/requests\?new=1&category=account&intent=customer_profile_change/,
+  );
   if (locale !== "es") {
     assert.ok(portal.portalStructure.accountProfile.save);
     assert.ok(portal.portalStructure.accountProfile.avatarUpload);

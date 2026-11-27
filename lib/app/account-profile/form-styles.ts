@@ -4,9 +4,9 @@
  * Keep APP profile in the same form family — do not invent a third style.
  */
 
-/** Outer white form surface matching AuthLayout card. */
+/** Outer white form surface matching AuthLayout card (~650–750px desktop target). */
 export const ACCOUNT_PROFILE_FORM_CARD_CLASS =
-  "mx-auto w-full max-w-[40rem] rounded-[28px] border border-[rgba(96,82,176,.15)] bg-white p-6 shadow-[0_12px_30px_rgba(38,33,87,.07)] sm:p-8";
+  "mx-auto w-full max-w-[45rem] rounded-[28px] border border-[rgba(96,82,176,.15)] bg-white p-6 shadow-[0_12px_30px_rgba(38,33,87,.07)] sm:p-8";
 
 /** Label above each field — same weight/size as RegistrationWizard. */
 export const ACCOUNT_PROFILE_LABEL_CLASS = "block text-sm font-medium text-gray-700";

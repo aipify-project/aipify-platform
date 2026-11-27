@@ -123,6 +123,8 @@ export function buildSupportRequestsLabels(t: Translator): SupportRequestsLabels
       openCase: t(`${p}.form.openCase`),
       validationTitle: t(`${p}.form.validationTitle`),
       validationDescription: t(`${p}.form.validationDescription`),
+      profileChangeTitle: t(`${p}.form.profileChangeTitle`),
+      profileChangeDescription: t(`${p}.form.profileChangeDescription`),
     },
   };
 }

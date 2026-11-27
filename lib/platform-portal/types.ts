@@ -302,6 +302,21 @@ export type PlatformPortalCustomerDetailControlPlaneLabels = {
   statuses: Record<string, string>;
 };
 
+export type PlatformPortalCustomer360TabLabels = {
+  contact: string;
+  company: string;
+  products: string;
+  subscription: string;
+  support: string;
+  technical: string;
+  aria: string;
+  openSupportCenter: string;
+  supportEmpty: string;
+  notRegistered: string;
+  productTruthNote: string;
+  modulesUnavailableHint: string;
+};
+
 export type PlatformPortalCustomerDetailLabels = {
   title: string;
   backToCustomers: string;
@@ -317,6 +332,41 @@ export type PlatformPortalCustomerDetailLabels = {
   sectionDomains: string;
   sectionEntitlements: string;
   sectionStatus: string;
+  tabsAria: string;
+  tabContact: string;
+  tabCompany: string;
+  tabProducts: string;
+  tabSubscription: string;
+  tabSupport: string;
+  tabTechnical: string;
+  sectionContact: string;
+  sectionCompany: string;
+  sectionSupport: string;
+  sectionTechnical: string;
+  loginEmailLabel: string;
+  contactEmailLabel: string;
+  notRegistered: string;
+  dataUnavailable: string;
+  productTruthNote: string;
+  openSupportCases: string;
+  viewSupportInbox: string;
+  tabs: PlatformPortalCustomer360TabLabels;
+  contactEdit: {
+    editContact: string;
+    saveContact: string;
+    cancel: string;
+    reasonLabel: string;
+    reasonPlaceholder: string;
+    ticketLabel: string;
+    ticketPlaceholder: string;
+    confirmLabel: string;
+    success: string;
+    errorGeneric: string;
+    errorForbidden: string;
+    errorPhone: string;
+    errorCoreGatePending: string;
+  };
+  highRiskIdentityNote: string;
   controlPlane: PlatformPortalCustomerDetailControlPlaneLabels;
   organizationNumber: string;
   legalName: string;

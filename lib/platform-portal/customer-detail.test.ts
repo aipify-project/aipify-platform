@@ -200,7 +200,7 @@ test("customer detail page wires portal panel and labels", () => {
   assert.doesNotMatch(source, /CustomerMasterDetailView/);
 });
 
-test("panel is read-only, localized, and never shows raw statuses", () => {
+test("panel is localized Customer 360 with tabs and never shows raw statuses", () => {
   const source = readFileSync(
     join(ROOT, "components/platform/platform-portal/PlatformPortalCustomerDetailPanel.tsx"),
     "utf8",
@@ -209,13 +209,12 @@ test("panel is read-only, localized, and never shows raw statuses", () => {
   assert.match(source, /lg:grid-cols-12/);
   assert.match(source, /lg:sticky lg:top-4/);
   assert.match(source, /sectionActivatedServices/);
-  assert.match(
-    source,
-    /sectionActivatedServices[\s\S]*?<\/SectionCard>\s*<\/div>\s*<aside/,
-  );
+  assert.match(source, /role="tablist"/);
+  assert.match(source, /activeTab === "products"/);
+  assert.match(source, /PrimaryContactEditCard/);
   assert.doesNotMatch(source, /max-w-\[/);
   assert.doesNotMatch(source, /createClient|supabase/);
-  assert.doesNotMatch(source, /Delete customer|Edit customer|Coming soon|kommer snart/i);
+  assert.doesNotMatch(source, /Delete customer|Coming soon|kommer snart/i);
   assert.doesNotMatch(source, /Suspend customer|pauseSubscription|generateInvoice/i);
   assert.match(source, /labels\.backToCustomers/);
   assert.match(source, /\/platform\/customers/);

@@ -1,4 +1,5 @@
 import type { Translator } from "@/lib/i18n/translate";
+import { CUSTOMER_PROFILE_CHANGE_SUPPORT_HREF } from "@/lib/app-portal/support-requests/profile-change-intent";
 import type { AccountProfileLicense, AccountProfileRole } from "./types";
 
 const NS = "customerApp.portalStructure.accountProfile";
@@ -142,7 +143,7 @@ export function buildAccountProfileLabels(t: Translator): AccountProfileLabels {
     companyEmpty: t(`${NS}.companyEmpty`),
     companyEmptyBody: t(`${NS}.companyEmptyBody`),
     requestChange: t(`${NS}.requestChange`),
-    requestChangeHref: t(`${NS}.requestChangeHref`),
+    requestChangeHref: CUSTOMER_PROFILE_CHANGE_SUPPORT_HREF,
     workspace: t(`${NS}.workspace`),
     plan: t(`${NS}.plan`),
     license: t(`${NS}.license`),

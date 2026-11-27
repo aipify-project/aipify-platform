@@ -33,8 +33,9 @@ function fieldFallback(value: string | null, labels: AccountProfileLabels): stri
   return labels.notRegistered;
 }
 
-function phoneOptionLabel(flagEmoji: string, dial: string, countryName: string): string {
-  return [flagEmoji, countryName, dial].filter(Boolean).join(" ");
+/** Option text only — flag mark is rendered beside the select (avoids double flags). */
+function phoneOptionLabel(dial: string, countryName: string): string {
+  return [countryName, dial].filter(Boolean).join(" · ");
 }
 
 export function AccountPersonalEditor({ view, labels }: Props) {
@@ -262,7 +263,7 @@ export function AccountPersonalEditor({ view, labels }: Props) {
                   const name = labels.phoneCountries[country.labelKey] ?? country.iso2;
                   return (
                     <option key={country.iso2} value={country.dial}>
-                      {phoneOptionLabel(country.flagEmoji, country.dial, name)}
+                      {phoneOptionLabel(country.dial, name)}
                     </option>
                   );
                 })}
