@@ -58,13 +58,21 @@ function parseCreateResult(
     data && typeof data === "object" && !Array.isArray(data)
       ? (data as Record<string, unknown>)
       : null;
+  if (!row || row.ok === false) {
+    return {
+      ok: false,
+      live: false,
+      code: "unknown",
+      message: "Supportinntak returnerte ikke et gyldig saksnummer.",
+    };
+  }
   const ticketId =
-    typeof row?.ticket_id === "string"
+    typeof row.ticket_id === "string"
       ? row.ticket_id
-      : typeof row?.ticketId === "string"
+      : typeof row.ticketId === "string"
         ? row.ticketId
         : null;
-  if (!ticketId || row?.ok === false) {
+  if (!ticketId) {
     return {
       ok: false,
       live: false,
