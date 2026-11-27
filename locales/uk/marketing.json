@@ -1093,8 +1093,7 @@
     "mailtoFallback": "Email remains available as an alternative contact channel.",
     "mailtoLabel": "Email support@aipify.ai",
     "verificationRequired": "Complete the security check before submitting."
-  }
-,
+  },
   "personalSalesPage": {
     "metaTitle": "Aipify",
     "metaDescription": "Особисте знайомство з Aipify. Деталі продукту залишаються на опублікованій сторінці Aipify.",
@@ -1145,6 +1144,13 @@
     "pagePending": "Іменну сторінку для цього коду ще не опубліковано.",
     "share": "Поділитися",
     "seeLeads": "Мої ліди",
-    "leadsNote": "Ліди, клієнти, продажі та комісія залишаються окремо."
+    "leadsNote": "Ліди, клієнти, продажі та комісія залишаються окремо.",
+    "interestName": "Ім'я",
+    "interestEmail": "Електронна пошта",
+    "interestAcknowledgement": "Я хочу, щоб цей продавець зв'язався зі мною щодо продукту.",
+    "interestSaved": "Інтерес збережено для продавця.",
+    "platformInterestTitle": "Інтереси з особистої сторінки",
+    "platformInterestBody": "Контактні дані лишаються в цьому адміністративному перегляді. Вони не входять до публічних лічильників.",
+    "platformInterestEmpty": "Інтерес ще не збережено."
   }
 }

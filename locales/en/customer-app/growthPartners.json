@@ -414,7 +414,18 @@
       "restricted": "Restricted access",
       "verified": "Verified",
       "waiting": "Waiting"
-    }
+    },
+    "personalPageTitle": "Personal landing page",
+    "personalPageUnavailable": "Not available",
+    "personalPageEmpty": "No interest has been stored yet.",
+    "personalPageName": "Name",
+    "personalPageEmail": "Email",
+    "personalPageProduct": "Product",
+    "personalPageWhen": "Registered",
+    "personalPageSource": "Personal landing page",
+    "personalPageStatusNew": "New",
+    "personalPageStatusContacted": "Contacted",
+    "personalPageStatusClosed": "Closed"
   },
   "growthPartnerAttributionMarketing": {
     "title": "Growth Partner Marketing Center",

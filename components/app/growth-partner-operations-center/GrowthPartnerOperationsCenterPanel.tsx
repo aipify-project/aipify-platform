@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
   parseGrowthPartnerOperationsCenter,
   type GrowthPartnerOpsSection,
   type GrowthPartnerOperationsCenter,
 } from "@/lib/growth-partner-operations-center";
+import { getLocalizedCspCatalogProducts } from "@/lib/certified-sales-partner/product-catalog-display";
+import { parsePersonalPageInterests, type PersonalPageInterestRow } from "@/lib/personal-sales-page/interest";
 import { GrowthPartnerLinkCard } from "@/components/app/growth-partner-attribution";
 import type { GrowthPartnerOperationsCenterLabels } from "@/lib/growth-partner-operations-center/labels";
 import { GrowthPartnerOpsStatusBadge } from "./GrowthPartnerOpsStatusBadge";
@@ -15,6 +17,7 @@ import { GrowthPartnerOpsStatusBadge } from "./GrowthPartnerOpsStatusBadge";
 type Props = {
   labels: GrowthPartnerOperationsCenterLabels;
   activeSection: GrowthPartnerOpsSection;
+  locale: string;
 };
 
 function MetricGrid({
@@ -43,15 +46,32 @@ function MetricGrid({
   );
 }
 
-export function GrowthPartnerOperationsCenterPanel({ labels, activeSection }: Props) {
+export function GrowthPartnerOperationsCenterPanel({ labels, activeSection, locale }: Props) {
   const [center, setCenter] = useState<GrowthPartnerOperationsCenter | null>(null);
+  const [interests, setInterests] = useState<{ available: boolean; rows: PersonalPageInterestRow[] } | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const productNames = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const product of getLocalizedCspCatalogProducts(locale)) map.set(product.key, product.title);
+    return map;
+  }, [locale]);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const res = await fetch("/api/growth-partner/operations-center");
+    const [res, interestRes] = await Promise.all([
+      fetch("/api/growth-partner/operations-center"),
+      fetch("/api/growth-partner/personal-page-interests"),
+    ]);
     if (res.ok) setCenter(parseGrowthPartnerOperationsCenter(await res.json()));
     else setCenter(null);
+    if (interestRes.ok) {
+      const payload: unknown = await interestRes.json();
+      const available = Boolean(payload && typeof payload === "object" && (payload as { available?: unknown }).available === true);
+      setInterests({ available, rows: available ? parsePersonalPageInterests(payload) : [] });
+    } else {
+      setInterests({ available: false, rows: [] });
+    }
     setLoading(false);
   }, []);
 
@@ -186,6 +206,35 @@ export function GrowthPartnerOperationsCenterPanel({ labels, activeSection }: Pr
 
       {activeSection === "leads" ? (
         <div className="space-y-3">
+          <section className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm" aria-labelledby="personal-page-interests">
+            <h2 id="personal-page-interests" className="font-semibold text-zinc-900">{labels.personalPageTitle}</h2>
+            {!interests || !interests.available ? <p className="mt-2 text-sm text-zinc-600">{labels.personalPageUnavailable}</p> : null}
+            {interests?.available && interests.rows.length === 0 ? (
+              <p className="mt-2 text-sm text-zinc-600">{labels.personalPageEmpty}</p>
+            ) : null}
+            {interests?.available ? interests.rows.map((row) => {
+              const when = Number.isNaN(Date.parse(row.registeredAt))
+                ? labels.personalPageUnavailable
+                : new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeStyle: "short" }).format(new Date(row.registeredAt));
+              const status = row.followUpStatus === "new"
+                ? labels.personalPageStatusNew
+                : row.followUpStatus === "contacted"
+                  ? labels.personalPageStatusContacted
+                  : row.followUpStatus === "closed"
+                    ? labels.personalPageStatusClosed
+                    : labels.personalPageUnavailable;
+              return (
+                <article key={row.id} className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+                  <p><span className="text-zinc-500">{labels.personalPageName}:</span> {row.contactName}</p>
+                  <p><span className="text-zinc-500">{labels.personalPageEmail}:</span> {row.contactEmail}</p>
+                  <p><span className="text-zinc-500">{labels.personalPageProduct}:</span> {productNames.get(row.productKey) ?? labels.personalPageUnavailable}</p>
+                  <p><span className="text-zinc-500">{labels.personalPageWhen}:</span> {when}</p>
+                  <p><span className="text-zinc-500">{labels.leadSource}:</span> {labels.personalPageSource}</p>
+                  <p><span className="text-zinc-500">{labels.followUpTask}:</span> {status}</p>
+                </article>
+              );
+            }) : null}
+          </section>
           {center.leadManagement.map((lead) => (
             <div key={lead.id} className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
               <div className="flex flex-wrap items-start justify-between gap-2">

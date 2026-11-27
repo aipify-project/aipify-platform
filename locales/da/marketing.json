@@ -8883,8 +8883,7 @@
     "mailtoFallback": "E-mail forbliver tilgængelig som alternativ kontaktkanal.",
     "mailtoLabel": "Send e-mail til support@aipify.ai",
     "verificationRequired": "Fuldfør sikkerhedstjekket, før du sender."
-  }
-,
+  },
   "personalSalesPage": {
     "metaTitle": "Aipify",
     "metaDescription": "En personlig introduktion til Aipify. Produktdetaljerne ligger på den offentliggjorte Aipify-side.",
@@ -8935,6 +8934,13 @@
     "pagePending": "Den navngivne landingsside er ikke publiceret for denne kode endnu.",
     "share": "Del",
     "seeLeads": "Se mine leads",
-    "leadsNote": "Leads, kunder, salg og provision holdes adskilt."
+    "leadsNote": "Leads, kunder, salg og provision holdes adskilt.",
+    "interestName": "Navn",
+    "interestEmail": "E-mail",
+    "interestAcknowledgement": "Jeg vil have, at denne sælger kontakter mig om produktet.",
+    "interestSaved": "Interessen er gemt til sælgeren.",
+    "platformInterestTitle": "Interesser fra personlig side",
+    "platformInterestBody": "Kontaktoplysninger bliver i denne administrationsvisning. De indgår ikke i offentlige tal.",
+    "platformInterestEmpty": "Ingen interesse er gemt endnu."
   }
 }

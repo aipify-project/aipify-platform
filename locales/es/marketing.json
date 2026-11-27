@@ -425,8 +425,7 @@
     "mailtoFallback": "Email remains available as an alternative contact channel.",
     "mailtoLabel": "Email support@aipify.ai",
     "verificationRequired": "Complete the security check before submitting."
-  }
-,
+  },
   "personalSalesPage": {
     "metaTitle": "Aipify",
     "metaDescription": "Una presentación personal de Aipify. Los detalles del producto permanecen en la página publicada de Aipify.",
@@ -477,6 +476,13 @@
     "pagePending": "La página con nombre aún no está publicada para este código.",
     "share": "Compartir",
     "seeLeads": "Ver mis leads",
-    "leadsNote": "Los leads, los clientes, las ventas y la comisión permanecen separados."
+    "leadsNote": "Los leads, los clientes, las ventas y la comisión permanecen separados.",
+    "interestName": "Nombre",
+    "interestEmail": "Correo",
+    "interestAcknowledgement": "Quiero que este vendedor me contacte sobre el producto.",
+    "interestSaved": "El interés quedó guardado para el vendedor.",
+    "platformInterestTitle": "Intereses de la página personal",
+    "platformInterestBody": "Los datos de contacto permanecen en esta vista de administración. No forman parte de los recuentos públicos.",
+    "platformInterestEmpty": "Todavía no se ha guardado ningún interés."
   }
 }

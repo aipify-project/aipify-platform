@@ -15,5 +15,5 @@ export async function GrowthPartnerOpsSectionPage({
   const t = createTranslator(dict);
   const labels = buildGrowthPartnerOperationsCenterLabels(t);
 
-  return <GrowthPartnerOperationsCenterPanel labels={labels} activeSection={activeSection} />;
+  return <GrowthPartnerOperationsCenterPanel labels={labels} activeSection={activeSection} locale={locale} />;
 }

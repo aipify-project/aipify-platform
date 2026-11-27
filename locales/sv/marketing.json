@@ -8883,8 +8883,7 @@
     "mailtoFallback": "E-post finns kvar som alternativ kontaktkanal.",
     "mailtoLabel": "Mejla support@aipify.ai",
     "verificationRequired": "Slutför säkerhetskontrollen innan du skickar."
-  }
-,
+  },
   "personalSalesPage": {
     "metaTitle": "Aipify",
     "metaDescription": "En personlig introduktion till Aipify. Produktdetaljerna finns på den publicerade Aipify-sidan.",
@@ -8935,6 +8934,13 @@
     "pagePending": "Den namngivna landningssidan är inte publicerad för den här koden ännu.",
     "share": "Dela",
     "seeLeads": "Se mina leads",
-    "leadsNote": "Leads, kunder, försäljning och provision hålls åtskilda."
+    "leadsNote": "Leads, kunder, försäljning och provision hålls åtskilda.",
+    "interestName": "Namn",
+    "interestEmail": "E-post",
+    "interestAcknowledgement": "Jag vill att den här säljaren kontaktar mig om produkten.",
+    "interestSaved": "Intresset är sparat för säljaren.",
+    "platformInterestTitle": "Intressen från personlig sida",
+    "platformInterestBody": "Kontaktuppgifter stannar i den här administrationsvyn. De ingår inte i offentliga siffror.",
+    "platformInterestEmpty": "Inget intresse är sparat ännu."
   }
 }
