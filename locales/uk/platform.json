@@ -675,7 +675,7 @@
     "filterStatus": "Статус",
     "filterType": "Всі види",
     "filterAll": "Усі",
-    "customerNumber": "№ клієнта",
+    "customerNumber": "Номер клієнта",
     "name": "Ім'я",
     "type": "Тип",
     "plan": "План",
@@ -1009,7 +1009,8 @@
       },
       "highRiskIdentityNote": "Юридична ідентичність і контактна електронна пошта потребують процесу високого ризику.",
       "supportOpenCases": "Відкриті звернення",
-      "supportOpenQueue": "Відкрити чергу підтримки"
+      "supportOpenQueue": "Відкрити чергу підтримки",
+      "customerNumber": "Номер клієнта"
     },
     "createCustomer": "Створити клієнта",
     "creation": {
@@ -1948,7 +1949,8 @@
     "statusAttention": "Потребує уваги",
     "statusCritical": "Критично",
     "statusInfo": "Інформація",
-    "statusUnknown": "Невідомо"
+    "statusUnknown": "Невідомо",
+    "columnCustomerNumber": "Номер клієнта"
   },
   "customerDetail": {
     "back": "Назад до клієнтів",
@@ -9095,7 +9097,38 @@
       "name": "Назва",
       "plan": "Угода",
       "price_amount": "Ціна",
-      "billing_cycle": "Період оплати"
+      "billing_cycle": "Період оплати",
+      "total": "Разом",
+      "private": "Приватні клієнти",
+      "business": "Бізнес-клієнти",
+      "pools": "Групи ліцензій",
+      "active_domains": "Активні домени",
+      "purchased_domains": "Придбані домени",
+      "included_licenses": "Включені ліцензії",
+      "purchased_licenses": "Придбані ліцензії",
+      "total_licenses": "Ліцензії разом",
+      "customer_number": "Номер клієнта",
+      "customer_type": "Тип клієнта",
+      "display_name": "Назва",
+      "overdue": "Прострочено",
+      "paid": "Оплачено",
+      "trial": "Пробний"
+    },
+    "kidNotApplicable": "Не застосовується для онлайн-оплати",
+    "statuses": {
+      "paid": "Оплачено",
+      "overdue": "Прострочено",
+      "draft": "Чернетка",
+      "sent": "Надіслано",
+      "active": "Активний",
+      "trial": "Пробний",
+      "trialing": "Пробний",
+      "pending": "Очікує",
+      "cancelled": "Скасовано",
+      "failed": "Не вдалося",
+      "company": "Бізнес-клієнти",
+      "business": "Бізнес-клієнти",
+      "private": "Приватні клієнти"
     }
   }
 }

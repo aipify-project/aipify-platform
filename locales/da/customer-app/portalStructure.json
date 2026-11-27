@@ -8849,7 +8849,10 @@
       "cancel": "Annuller",
       "companyLegalNote": "Verificerede juridiske identitetsfelter er låst her. Anmod om ændring via support, når noget skal rettes.",
       "requestChange": "Anmod om ændring",
-      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change"
+      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
+      "officialCustomerNumber": "Kundenummer",
+      "copyCustomerNumber": "Kopiér",
+      "copiedCustomerNumber": "Kopieret"
     },
     "workspaceDashboard": {
       "eyebrow": "Arbejdsområde",

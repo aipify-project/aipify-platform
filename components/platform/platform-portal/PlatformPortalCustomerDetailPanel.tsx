@@ -1267,17 +1267,35 @@ export function PlatformPortalCustomerDetailPanel({
               </div>
             </div>
 
-            <div className="min-w-0 shrink-0 space-y-1 lg:text-right">
-              <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                {labels.customerId}
-              </p>
-              <CopyableValue
-                value={customer.id}
-                copyKey="header-customer-id"
-                copiedKey={copiedKey}
-                labels={labels}
-                onCopy={(key, value) => void handleCopy(key, value)}
-              />
+            <div className="min-w-0 shrink-0 space-y-3 lg:text-right">
+              <div>
+                <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                  {labels.customerNumber}
+                </p>
+                {customer.customerNumber ? (
+                  <CopyableValue
+                    value={customer.customerNumber}
+                    copyKey="header-customer-number"
+                    copiedKey={copiedKey}
+                    labels={labels}
+                    onCopy={(key, value) => void handleCopy(key, value)}
+                  />
+                ) : (
+                  <p className="text-sm text-slate-500">{labels.notAvailable}</p>
+                )}
+              </div>
+              <div>
+                <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                  {labels.customerId}
+                </p>
+                <CopyableValue
+                  value={customer.id}
+                  copyKey="header-customer-id"
+                  copiedKey={copiedKey}
+                  labels={labels}
+                  onCopy={(key, value) => void handleCopy(key, value)}
+                />
+              </div>
             </div>
           </div>
 

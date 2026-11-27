@@ -675,7 +675,7 @@
     "filterStatus": "Status",
     "filterType": "All types",
     "filterAll": "Alla",
-    "customerNumber": "Customer no.",
+    "customerNumber": "Kundnummer",
     "name": "Name",
     "type": "Type",
     "plan": "Plan",
@@ -1009,7 +1009,8 @@
       },
       "highRiskIdentityNote": "Juridisk identitet och kontakt-e-post kräver högriskflödet för identitet.",
       "supportOpenCases": "Öppna supportärenden",
-      "supportOpenQueue": "Öppna supportkö"
+      "supportOpenQueue": "Öppna supportkö",
+      "customerNumber": "Kundnummer"
     },
     "createCustomer": "Skapa kund",
     "creation": {
@@ -1948,7 +1949,8 @@
     "statusAttention": "Behöver uppföljning",
     "statusCritical": "Kritisk",
     "statusInfo": "Information",
-    "statusUnknown": "Okänd"
+    "statusUnknown": "Okänd",
+    "columnCustomerNumber": "Kundnummer"
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -9095,7 +9097,38 @@
       "name": "Namn",
       "plan": "Avtal",
       "price_amount": "Pris",
-      "billing_cycle": "Faktureringsperiod"
+      "billing_cycle": "Faktureringsperiod",
+      "total": "Totalt",
+      "private": "Privatkunder",
+      "business": "Företagskunder",
+      "pools": "Licensgrupper",
+      "active_domains": "Aktiva domäner",
+      "purchased_domains": "Köpta domäner",
+      "included_licenses": "Inkluderade licenser",
+      "purchased_licenses": "Köpta licenser",
+      "total_licenses": "Licenser totalt",
+      "customer_number": "Kundnummer",
+      "customer_type": "Kundtyp",
+      "display_name": "Namn",
+      "overdue": "Förfallen",
+      "paid": "Betald",
+      "trial": "Provperiod"
+    },
+    "kidNotApplicable": "Inte aktuellt vid nätbetalning",
+    "statuses": {
+      "paid": "Betald",
+      "overdue": "Förfallen",
+      "draft": "Utkast",
+      "sent": "Skickad",
+      "active": "Aktiv",
+      "trial": "Provperiod",
+      "trialing": "Provperiod",
+      "pending": "Väntar",
+      "cancelled": "Avbruten",
+      "failed": "Misslyckad",
+      "company": "Företagskunder",
+      "business": "Företagskunder",
+      "private": "Privatkunder"
     }
   }
 }

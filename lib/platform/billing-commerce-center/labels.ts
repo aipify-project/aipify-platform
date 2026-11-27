@@ -30,6 +30,37 @@ const ECONOMY_COLUMN_KEYS = [
   "plan",
   "price_amount",
   "billing_cycle",
+  "total",
+  "private",
+  "business",
+  "pools",
+  "active_domains",
+  "purchased_domains",
+  "included_licenses",
+  "purchased_licenses",
+  "total_licenses",
+  "customer_number",
+  "customer_type",
+  "display_name",
+  "overdue",
+  "paid",
+  "trial",
+] as const;
+
+const ECONOMY_STATUS_KEYS = [
+  "paid",
+  "overdue",
+  "draft",
+  "sent",
+  "active",
+  "trial",
+  "trialing",
+  "pending",
+  "cancelled",
+  "failed",
+  "company",
+  "business",
+  "private",
 ] as const;
 
 export function buildEconomyPhrases(t: Translator): EconomyPhrases {
@@ -54,7 +85,11 @@ export function buildEconomyPhrases(t: Translator): EconomyPhrases {
     seeSellers: t(`${root}.seeSellers`),
     sourceError: t(`${root}.sourceError`),
     noRecords: t(`${root}.noRecords`),
+    kidNotApplicable: t(`${root}.kidNotApplicable`),
     columns,
+    statuses: Object.fromEntries(
+      ECONOMY_STATUS_KEYS.map((key) => [key, t(`${root}.statuses.${key}`)]),
+    ),
   };
 }
 

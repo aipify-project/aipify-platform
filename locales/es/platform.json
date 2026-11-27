@@ -591,7 +591,8 @@
       },
       "highRiskIdentityNote": "La identidad legal y el correo de contacto requieren el flujo de alto riesgo.",
       "supportOpenCases": "Casos de soporte abiertos",
-      "supportOpenQueue": "Abrir cola de soporte"
+      "supportOpenQueue": "Abrir cola de soporte",
+      "customerNumber": "Número de cliente"
     },
     "paginationShowing": "Mostrando {from}–{to} de {total}",
     "paginationPrevious": "Anterior",
@@ -601,7 +602,9 @@
     "statusAttention": "Requiere atención",
     "statusCritical": "Crítico",
     "statusInfo": "Información",
-    "statusUnknown": "Desconocido"
+    "statusUnknown": "Desconocido",
+    "columnCustomerNumber": "Número de cliente",
+    "customerNumber": "Número de cliente"
   },
   "nav": {
     "kompisAi": "Kompis",
@@ -2306,7 +2309,38 @@
       "name": "Nombre",
       "plan": "Acuerdo",
       "price_amount": "Precio",
-      "billing_cycle": "Periodo de facturación"
+      "billing_cycle": "Periodo de facturación",
+      "total": "Total",
+      "private": "Clientes particulares",
+      "business": "Clientes de empresa",
+      "pools": "Grupos de licencias",
+      "active_domains": "Dominios activos",
+      "purchased_domains": "Dominios comprados",
+      "included_licenses": "Licencias incluidas",
+      "purchased_licenses": "Licencias compradas",
+      "total_licenses": "Licencias en total",
+      "customer_number": "Número de cliente",
+      "customer_type": "Tipo de cliente",
+      "display_name": "Nombre",
+      "overdue": "Vencido",
+      "paid": "Pagado",
+      "trial": "Prueba"
+    },
+    "kidNotApplicable": "No aplica al pago en línea",
+    "statuses": {
+      "paid": "Pagado",
+      "overdue": "Vencido",
+      "draft": "Borrador",
+      "sent": "Enviado",
+      "active": "Activo",
+      "trial": "Prueba",
+      "trialing": "Prueba",
+      "pending": "Pendiente",
+      "cancelled": "Cancelado",
+      "failed": "Fallido",
+      "company": "Clientes de empresa",
+      "business": "Clientes de empresa",
+      "private": "Clientes particulares"
     }
   },
   "status": {

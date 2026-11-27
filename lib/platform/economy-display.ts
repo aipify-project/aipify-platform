@@ -9,6 +9,7 @@ import {
   resolveAuthoritativeTimeZone,
   toBcp47Locale,
 } from "@/lib/platform-presentation-quality/bcp47";
+import { readOfficialCustomerNumber } from "@/lib/platform-portal/official-customer-number";
 
 const ZERO_DECIMAL = new Set([
   "BIF",
@@ -35,7 +36,6 @@ const MONEY_KEYS = new Set([
   "amount",
   "price",
   "price_amount",
-  "total",
   "total_amount",
   "subtotal",
   "subtotal_amount",
@@ -51,6 +51,8 @@ const MONEY_KEYS = new Set([
 
 const PERCENT_KEYS = new Set(["rate", "vat_rate", "tax_rate", "percent", "percentage"]);
 
+// Display the stored count. Do not add private+business, and do not treat a
+// limited row page (purchased domains, pools, attributed customers) as a full total.
 const COUNT_KEYS = new Set([
   "count",
   "total_sessions",
@@ -62,6 +64,22 @@ const COUNT_KEYS = new Set([
   "open_invoices",
   "overdue_customers",
   "checkout_sessions",
+  "total",
+  "private",
+  "business",
+  "pools",
+  "active_domains",
+  "purchased_domains",
+  "included_licenses",
+  "purchased_licenses",
+  "total_licenses",
+  "overdue",
+  "paid",
+  "trial",
+  "catalog_items",
+  "installed",
+  "attributed_customers",
+  "touch_events",
 ]);
 
 export type EconomyPhrases = {
@@ -81,7 +99,9 @@ export type EconomyPhrases = {
   seeSellers: string;
   sourceError: string;
   noRecords: string;
+  kidNotApplicable: string;
   columns: Record<string, string>;
+  statuses: Record<string, string>;
 };
 
 export type MoneyDisplay = { state: "value"; text: string } | { state: "unavailable" };
@@ -214,6 +234,41 @@ export function classifyKid(value: string | null | undefined): "missing" | "plac
   return "present";
 }
 
+const ONLINE_PAYMENT_METHODS = new Set([
+  "card",
+  "klarna",
+  "vipps",
+  "vipps_mobilepay",
+  "mobilepay",
+  "stripe",
+  "online",
+]);
+
+const KID_PAYMENT_METHODS = new Set([
+  "invoice",
+  "dnb",
+  "dnb_invoice",
+  "bank",
+  "bank_transfer",
+  "purchase_order",
+  "kid",
+]);
+
+export function presentKid(input: {
+  kid: string | null | undefined;
+  method?: string | null;
+  phrases: Pick<EconomyPhrases, "mustVerify" | "notRegistered" | "unavailable" | "kidNotApplicable">;
+}): string {
+  const kind = classifyKid(input.kid);
+  if (kind === "present") return String(input.kid).trim();
+  if (kind === "placeholder") return input.phrases.mustVerify;
+  const method = (input.method ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
+  if (ONLINE_PAYMENT_METHODS.has(method)) return input.phrases.kidNotApplicable;
+  if (KID_PAYMENT_METHODS.has(method)) return input.phrases.mustVerify;
+  if (!method) return input.phrases.notRegistered;
+  return input.phrases.unavailable;
+}
+
 export function classifyAddress(value: string | null | undefined): "missing" | "placeholder" | "present" {
   const text = (value ?? "").trim();
   if (!text) return "missing";
@@ -250,6 +305,7 @@ export function presentEconomyCell(input: {
   locale: string;
   phrases: EconomyPhrases;
   currency?: string | null;
+  method?: string | null;
 }): string {
   const { key, value, locale, phrases } = input;
   if (value === null || value === undefined || value === "") return phrases.notRegistered;
@@ -263,10 +319,21 @@ export function presentEconomyCell(input: {
 
   const text = String(value);
   if (key === "kid" || key === "kid_number" || key.endsWith("_kid")) {
-    const kind = classifyKid(text);
-    if (kind === "placeholder") return phrases.mustVerify;
-    if (kind === "missing") return phrases.notRegistered;
-    return text;
+    return presentKid({ kid: text, method: input.method, phrases });
+  }
+  if (key === "customer_number") {
+    return readOfficialCustomerNumber(text) ?? phrases.unavailable;
+  }
+  if (key === "customer_type") {
+    const type = text.toLowerCase();
+    if (type === "private" || type === "company" || type === "business") {
+      return phrases.statuses[type] ?? phrases.unavailable;
+    }
+  }
+  if (key === "status" || key === "payment_status" || key === "session_status" || key === "license_status") {
+    const mapped = phrases.statuses[text.toLowerCase()];
+    if (mapped && !mapped.startsWith("platform.")) return mapped;
+    if (/^[a-z0-9_]+$/.test(text)) return phrases.unavailable;
   }
   if (key.includes("address")) {
     const kind = classifyAddress(text);

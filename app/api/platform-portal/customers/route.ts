@@ -5,8 +5,10 @@ import {
   parsePlatformPortalCustomerCreationResult,
 } from "@/lib/platform-portal/create-customer";
 import { selectCustomerCreateEnvironmentTypeForRpc } from "@/lib/platform-portal/internal-customer-create-path";
+import { readOfficialCustomerNumber } from "@/lib/platform-portal/official-customer-number";
 import { parsePlatformPortalCustomersPayload } from "@/lib/platform-portal/parse";
 import { createClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/service-role";
 import { getPlatformProfile } from "@/lib/tenant/get-platform-profile";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
@@ -47,7 +49,31 @@ export async function GET() {
       );
     }
 
-    return NextResponse.json(parsePlatformPortalCustomersPayload(data), {
+    const payload = parsePlatformPortalCustomersPayload(data);
+    try {
+      const ids = payload.customers.map((customer) => customer.customerId);
+      if (ids.length > 0) {
+        const admin = createServiceRoleClient();
+        const { data: numbers } = await admin
+          .from("customers")
+          .select("id, customer_number")
+          .in("id", ids);
+        const byId = new Map<string, string>();
+        for (const row of numbers ?? []) {
+          const id = typeof row.id === "string" ? row.id : "";
+          const number = readOfficialCustomerNumber(row.customer_number);
+          if (id && number) byId.set(id, number);
+        }
+        payload.customers = payload.customers.map((customer) => ({
+          ...customer,
+          customerNumber: byId.get(customer.customerId) ?? customer.customerNumber,
+        }));
+      }
+    } catch {
+      // The registry stays available. Missing numbers render as not available.
+    }
+
+    return NextResponse.json(payload, {
       headers: NO_STORE,
     });
   } catch {

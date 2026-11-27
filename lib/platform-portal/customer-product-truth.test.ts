@@ -21,6 +21,7 @@ const emptyDetail: PlatformPortalCustomerDetail = {
     primaryContactName: null,
     primaryContactEmail: null,
     primaryContactPhone: null,
+    customerNumber: null,
   },
   commercial: {
     lifetime: true,

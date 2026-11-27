@@ -675,7 +675,7 @@
     "filterStatus": "Status",
     "filterType": "All types",
     "filterAll": "All",
-    "customerNumber": "Customer no.",
+    "customerNumber": "Customer number",
     "name": "Name",
     "type": "Type",
     "plan": "Plan",
@@ -1009,7 +1009,8 @@
       },
       "highRiskIdentityNote": "Legal identity and contact email changes require the high-risk identity flow.",
       "supportOpenCases": "Open support cases",
-      "supportOpenQueue": "Open support queue"
+      "supportOpenQueue": "Open support queue",
+      "customerNumber": "Customer number"
     },
     "createCustomer": "Create customer",
     "creation": {
@@ -1948,7 +1949,8 @@
     "statusAttention": "Needs attention",
     "statusCritical": "Critical",
     "statusInfo": "Information",
-    "statusUnknown": "Unknown"
+    "statusUnknown": "Unknown",
+    "columnCustomerNumber": "Customer number"
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -9095,7 +9097,38 @@
       "name": "Name",
       "plan": "Plan",
       "price_amount": "Price",
-      "billing_cycle": "Billing period"
+      "billing_cycle": "Billing period",
+      "total": "Total",
+      "private": "Private customers",
+      "business": "Business customers",
+      "pools": "License pools",
+      "active_domains": "Active domains",
+      "purchased_domains": "Purchased domains",
+      "included_licenses": "Included licenses",
+      "purchased_licenses": "Purchased licenses",
+      "total_licenses": "Total licenses",
+      "customer_number": "Customer number",
+      "customer_type": "Customer type",
+      "display_name": "Name",
+      "overdue": "Overdue",
+      "paid": "Paid",
+      "trial": "Trial"
+    },
+    "kidNotApplicable": "Not applicable for online payment",
+    "statuses": {
+      "paid": "Paid",
+      "overdue": "Overdue",
+      "draft": "Draft",
+      "sent": "Sent",
+      "active": "Active",
+      "trial": "Trial",
+      "trialing": "Trial",
+      "pending": "Pending",
+      "cancelled": "Cancelled",
+      "failed": "Failed",
+      "company": "Business customers",
+      "business": "Business customers",
+      "private": "Private customers"
     }
   }
 }
