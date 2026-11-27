@@ -90,10 +90,10 @@ void (async () => {
   assert.equal(counts.ok, false);
   if (!counts.ok) assert.equal(counts.code, "rpc_not_applied");
 
-  // While inactive, invalid channel is not reached; ensure filter allowlist is SoT-only.
+  // Filter allowlist includes intake V3 channels (web/partner) for Platform UI.
   assert.deepEqual(
     [...PLATFORM_SUPPORT_ALLOWED_CHANNEL_FILTERS],
-    ["app_portal", "email", "chat", "phone", "assistant"],
+    ["app_portal", "email", "chat", "phone", "assistant", "web", "partner"],
   );
 
   // SQL hash still matches prepare artifact

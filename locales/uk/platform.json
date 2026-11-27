@@ -8672,7 +8672,9 @@
       "email": "Електронна пошта",
       "chat": "Чат",
       "phone": "Телефон",
-      "assistant": "Асистент"
+      "assistant": "Асистент",
+      "web": "Вебсайт",
+      "partner": "Sales Partner"
     },
     "templates": {
       "title": "Шаблони відповідей",
