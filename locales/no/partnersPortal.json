@@ -1282,15 +1282,42 @@
         "flowTitle": "En nyttig rekkefølge",
         "flowBody": "Velg produkt, bekreft sertifisering og publisering, velg kanal, kopier godkjent tekst og lenke, og følg status under Leads og Mine salg.",
         "channels": {
-        "email": { "title": "E-post", "body": "Når du kjenner mottakeren og har en lovlig grunn til å skrive." },
-        "linkedin": { "title": "LinkedIn", "body": "Passer for profesjonelle relasjoner." },
-        "instagram": { "title": "Instagram", "body": "Del i nettverket ditt, ikke som masseutsending." },
-        "facebook": { "title": "Facebook", "body": "Relevante personer, ikke en bred utsendelse." },
-        "x": { "title": "X", "body": "Bare hvis publikum der faktisk passer." },
-        "tiktok": { "title": "TikTok", "body": "Bare hvis publikum der faktisk passer." },
-        "snapchat": { "title": "Snapchat", "body": "Bare hvis publikum der faktisk passer." },
-        "qr": { "title": "QR", "body": "Til et fysisk møte." },
-        "personal": { "title": "Personlig lenke", "body": "Når du anbefaler direkte." }
+          "email": {
+            "title": "E-post",
+            "body": "Når du kjenner mottakeren og har en lovlig grunn til å skrive."
+          },
+          "linkedin": {
+            "title": "LinkedIn",
+            "body": "Passer for profesjonelle relasjoner."
+          },
+          "instagram": {
+            "title": "Instagram",
+            "body": "Del i nettverket ditt, ikke som masseutsending."
+          },
+          "facebook": {
+            "title": "Facebook",
+            "body": "Relevante personer, ikke en bred utsendelse."
+          },
+          "x": {
+            "title": "X",
+            "body": "Bare hvis publikum der faktisk passer."
+          },
+          "tiktok": {
+            "title": "TikTok",
+            "body": "Bare hvis publikum der faktisk passer."
+          },
+          "snapchat": {
+            "title": "Snapchat",
+            "body": "Bare hvis publikum der faktisk passer."
+          },
+          "qr": {
+            "title": "QR",
+            "body": "Til et fysisk møte."
+          },
+          "personal": {
+            "title": "Personlig lenke",
+            "body": "Når du anbefaler direkte."
+          }
         }
       },
       "approvedLabel": "Godkjent tekst",
@@ -1465,11 +1492,11 @@
         }
       },
       "academy": {
-                "learnedStatus": "Leksjonene ligger på denne siden",
+        "learnedStatus": "Leksjonene ligger på denne siden",
         "passedStatus": "Sertifisering er registrert",
         "notPassedStatus": "Ikke registrert ennå",
         "sellStatus": "Del etter sertifisering",
-"learn": {
+        "learn": {
           "title": "Lær",
           "body": "Les de publiserte leksjonene for produktet.",
           "action": "Åpne leksjonen"
@@ -1487,7 +1514,7 @@
       },
       "commission": {
         "ledgerNote": "Beløp på hvert salg kommer fra partnerregnskapet. Denne forklaringen oppretter ikke en utbetaling.",
-        "timelineTitle": "Slik flytter et salg seg",
+        "timelineTitle": "Salgsflyten",
         "unavailableNote": "Mangler et tall, vises det som ikke tilgjengelig — ikke som null.",
         "intervalGap": "Partneroversikten registrerer kvalifisering etter andre vellykkede betalte periode for alle intervaller. Provisjon etter første årsbetaling og etter første engangsbetaling er ønsket regel. Den beregnes ikke per intervall her.",
         "rules": {
