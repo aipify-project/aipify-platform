@@ -32,8 +32,9 @@ export type PlatformNavGroup = {
 
 /**
  * Compact daily sidebar. Selgere is a single entry; in-page hub tabs cover the 13 routes.
- * Confirmed stubs (documentation, productManagement, translationManagement, activityLogs)
- * are not listed — routes remain reachable by direct URL.
+ * Confirmed stubs / superseded daily entries (documentation, productManagement,
+ * translationManagement, activityLogs, businessPacks) are not listed — routes remain
+ * reachable by direct URL. Product catalogue / licensing uses License registry.
  */
 export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
   {
@@ -61,7 +62,6 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
     defaultExpanded: true,
     items: [
       { id: "licenses", labelKey: "platform.nav.licenses" },
-      { id: "businessPacks", labelKey: "platform.nav.businessPacks" },
       { id: "marketplace", labelKey: "platform.nav.marketplace" },
       { id: "websiteKompisPlans", labelKey: "platform.nav.websiteKompisPlans" },
     ],

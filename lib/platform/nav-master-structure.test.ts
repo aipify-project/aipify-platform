@@ -40,11 +40,11 @@ test("operations owns Drift hubs plus system; modules exclude productManagement 
   ]);
   assert.deepEqual(modules!.items.map((i) => i.id), [
     "licenses",
-    "businessPacks",
     "marketplace",
     "websiteKompisPlans",
   ]);
   assert.equal(modules!.items.some((i) => i.id === "productManagement"), false);
+  assert.equal(modules!.items.some((i) => i.id === "businessPacks"), false);
 });
 
 test("settings keeps live advanced routes; stubs stay out of daily sidebar", () => {
