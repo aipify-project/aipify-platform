@@ -9,12 +9,14 @@ import {
   sanitizeSupportIntakePayload,
   submitSupportIntake,
 } from "@/lib/support-intake";
+import { createServiceRoleClient } from "@/lib/supabase/service-role";
+import { randomUUID } from "node:crypto";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 
 /**
- * Public website support intake — fail-closed until Core write RPCs apply.
- * Uses the same bot-protection stack as book-demo / early-access.
+ * Public website support intake — fail-closed until Core apply + feature gate.
+ * Bot protection at app layer; RPC is service_role-only (never anon EXECUTE).
  * Never accepts tenant/partner IDs from the client.
  */
 export async function POST(request: NextRequest) {
@@ -27,6 +29,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: "Ugyldig forespørsel.", code: "validation" },
         { status: 400, headers: NO_STORE },
+      );
+    }
+
+    if (
+      body.partner_id != null ||
+      body.partnerId != null ||
+      body.tenant_id != null ||
+      body.company_id != null
+    ) {
+      return NextResponse.json(
+        {
+          error: "Klientstyrte tenant-ID-er er ikke tillatt.",
+          code: "forbidden",
+          ...getSupportIntakeGateState(),
+        },
+        { status: 403, headers: NO_STORE },
       );
     }
 
@@ -64,9 +82,50 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const gate = getSupportIntakeGateState();
+    if (!gate.live) {
+      const denied = await submitSupportIntake({
+        payload: sanitized.value,
+        actor: { kind: "guest" },
+      });
+      if (!denied.ok) {
+        return NextResponse.json(
+          {
+            error: denied.message,
+            code: denied.code,
+            live: false,
+            ...gate,
+          },
+          { status: httpStatusForIntakeDenial(denied.code), headers: NO_STORE },
+        );
+      }
+    }
+
+    let rpc;
+    try {
+      rpc = createServiceRoleClient();
+    } catch {
+      return NextResponse.json(
+        {
+          error: "Supportinntak er midlertidig utilgjengelig.",
+          code: "unknown",
+          live: false,
+          ...gate,
+        },
+        { status: 503, headers: NO_STORE },
+      );
+    }
+
+    const idempotencyKey =
+      typeof body.idempotencyKey === "string" && body.idempotencyKey.trim().length >= 8
+        ? body.idempotencyKey.trim().slice(0, 120)
+        : randomUUID();
+
     const result = await submitSupportIntake({
       payload: sanitized.value,
       actor: { kind: "guest" },
+      rpc,
+      idempotencyKey,
     });
 
     if (!result.ok) {
@@ -74,6 +133,7 @@ export async function POST(request: NextRequest) {
         {
           error: result.message,
           code: result.code,
+          live: false,
           ...getSupportIntakeGateState(),
         },
         { status: httpStatusForIntakeDenial(result.code), headers: NO_STORE },
@@ -83,7 +143,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         ok: true,
+        live: true,
+        ticket_id: result.ticketId,
         ticketId: result.ticketId,
+        ticket_number: result.ticketNumber,
         ticketNumber: result.ticketNumber,
         source: result.source,
       },

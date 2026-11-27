@@ -363,6 +363,10 @@ export function SupportRequestsCenterPanel({ labels, locale }: Props) {
             />
           </Field>
 
+          <p className="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-3 py-2.5 text-xs text-slate-600">
+            {labels.detail.noAttachments}
+          </p>
+
           {formError ? <p className="text-sm text-rose-700" role="alert">{formError}</p> : null}
 
           <div className="flex flex-wrap gap-3">

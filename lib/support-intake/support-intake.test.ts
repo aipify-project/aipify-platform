@@ -16,6 +16,12 @@ import {
   SUPPORT_INTAKE_CSP_CATEGORIES,
 } from "./categories";
 import {
+  SUPPORT_ALL_CHANNELS_INTAKE_RPCS,
+  SUPPORT_ALL_CHANNELS_INTAKE_SQL_PATH,
+  SUPPORT_ALL_CHANNELS_INTAKE_SQL_SHA256,
+  SUPPORT_INTAKE_PLACEHOLDER_SQL_SHA256,
+} from "./sql-candidate";
+import {
   APP_PORTAL_SUPPORT_CREATE_LIVE,
   SUPPORT_EMAIL_TRANSPORT_ENABLED,
   SUPPORT_INTAKE_FEATURE_GATE,
@@ -174,6 +180,28 @@ async function main() {
     stagingSha,
     "96991c0cccce9ad23f7d6f4696b888aba9a13b4f37ee13e52652bbf715501c95",
   );
+
+  assert.ok(existsSync(SUPPORT_ALL_CHANNELS_INTAKE_SQL_PATH));
+  const intakeSql = readFileSync(SUPPORT_ALL_CHANNELS_INTAKE_SQL_PATH, "utf8");
+  const intakeSha = createHash("sha256").update(intakeSql).digest("hex");
+  assert.equal(intakeSha, SUPPORT_ALL_CHANNELS_INTAKE_SQL_SHA256);
+  assert.match(intakeSql, /PREPARED_ONLY/);
+  assert.match(intakeSql, /platform_support_intake_web_create/);
+  assert.match(intakeSql, /platform_support_intake_partner_create/);
+  assert.match(intakeSql, /list_partner_support_requests/);
+  assert.match(intakeSql, /grant execute[\s\S]*to service_role/i);
+  assert.doesNotMatch(
+    intakeSql
+      .split("\n")
+      .filter((l) => !l.trimStart().startsWith("--"))
+      .join("\n"),
+    /grant execute[\s\S]*platform_support_intake_web_create[\s\S]*to anon/i,
+  );
+  assert.doesNotMatch(intakeSql, /csp_sales_email_/);
+  for (const rpc of SUPPORT_ALL_CHANNELS_INTAKE_RPCS) {
+    assert.match(intakeSql, new RegExp(rpc));
+  }
+  assert.notEqual(intakeSha, SUPPORT_INTAKE_PLACEHOLDER_SQL_SHA256);
   assert.match(stagingSql, /PREPARED_ONLY/);
   assert.match(stagingSql, /platform_support_post_internal_note/);
   assert.match(stagingSql, /platform_support_post_external_reply_draft/);

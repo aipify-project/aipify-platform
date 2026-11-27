@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { resolveCspPartnerScope } from "@/lib/certified-sales-partner/partner-scoped-read";
 import {
   getSupportIntakeGateState,
   httpStatusForIntakeDenial,
@@ -6,12 +7,13 @@ import {
   submitSupportIntake,
 } from "@/lib/support-intake";
 import { createClient } from "@/lib/supabase/server";
+import { randomUUID } from "node:crypto";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 
 /**
- * CSP support intake — fail-closed until Core write RPCs apply.
- * Partner identity must come from the signed session, never the body.
+ * CSP support intake — fail-closed until Core write RPCs apply + feature gate ON.
+ * Partner identity comes from the signed session via Core profile lookup.
  * Does not touch csp_sales_email_* CRM tables.
  */
 export async function POST(request: NextRequest) {
@@ -38,7 +40,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Reject client-supplied partner/tenant IDs explicitly.
     if (
       body.partner_id != null ||
       body.partnerId != null ||
@@ -55,6 +56,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const scope = await resolveCspPartnerScope(user.id);
+    if (!scope.ok) {
+      return NextResponse.json(
+        {
+          error: "Partnerkontoen har ikke tilgang.",
+          code: "forbidden",
+          ...getSupportIntakeGateState(),
+        },
+        { status: 403, headers: NO_STORE },
+      );
+    }
+
     const sanitized = sanitizeSupportIntakePayload(body, "partner");
     if (!sanitized.ok) {
       return NextResponse.json(
@@ -63,13 +76,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Partner profile resolution is deferred to Core apply; until then fail-closed.
-    // We still require an authenticated user so the route is not anonymously probeable.
-    const partnerId = "session_pending_core";
+    const idempotencyKey =
+      typeof body.idempotencyKey === "string" && body.idempotencyKey.trim().length >= 8
+        ? body.idempotencyKey.trim().slice(0, 120)
+        : randomUUID();
 
     const result = await submitSupportIntake({
       payload: sanitized.value,
-      actor: { kind: "partner", userId: user.id, partnerId },
+      actor: { kind: "partner", userId: user.id, partnerId: scope.partnerId },
+      rpc: supabase,
+      idempotencyKey,
     });
 
     if (!result.ok) {
@@ -77,6 +93,7 @@ export async function POST(request: NextRequest) {
         {
           error: result.message,
           code: result.code,
+          live: false,
           ...getSupportIntakeGateState(),
         },
         { status: httpStatusForIntakeDenial(result.code), headers: NO_STORE },
@@ -86,7 +103,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         ok: true,
+        live: true,
+        ticket_id: result.ticketId,
         ticketId: result.ticketId,
+        ticket_number: result.ticketNumber,
         ticketNumber: result.ticketNumber,
         source: result.source,
       },
