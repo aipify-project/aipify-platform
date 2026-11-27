@@ -20,6 +20,8 @@ import {
   useCspSalesLinks,
   writeClipboard,
 } from "./csp-sales-links-client";
+import { SalesExperienceHero } from "./sales-experience";
+import type { SalesHeroModel } from "./sales-experience";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
 
 export type CspLinkLabels = {
@@ -73,7 +75,15 @@ const OTHER_CHANNELS = CSP_OTHER_SELF_SERVICE_CHANNELS.filter((c) =>
  * Sales link creator + existing links. Social platforms use a visual multi-select;
  * other channels use visual chips. Gates are always re-checked server-side.
  */
-export function CertifiedSalesPartnerLinkPanel({ labels, locale }: { labels: CspLinkLabels; locale: string }) {
+export function CertifiedSalesPartnerLinkPanel({
+  labels,
+  locale,
+  guide,
+}: {
+  labels: CspLinkLabels;
+  locale: string;
+  guide?: SalesHeroModel;
+}) {
   const portal = useCspPortal();
   const { state: linksState, reload: reloadLinks } = useCspSalesLinks(portal !== null);
   const [message, setMessage] = useState<{ text: string; ok: boolean } | null>(null);
@@ -190,6 +200,7 @@ export function CertifiedSalesPartnerLinkPanel({ labels, locale }: { labels: Csp
 
   return (
     <div className="w-full space-y-6">
+      {guide ? <SalesExperienceHero hero={guide} /> : null}
       <section className="rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-6 shadow-sm">
         <h2 className="text-lg font-semibold">{labels.existingTitle}</h2>
         {linksState.phase === "unavailable" ? (

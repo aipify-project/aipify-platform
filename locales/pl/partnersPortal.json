@@ -1120,6 +1120,252 @@
       "editPayoutCta": "Zmień dane do wypłaty",
       "howCommissionCta": "Jak działa prowizja"
     },
+    "salesExperience": {
+      "guidanceNotice": "To jest wskazówka, a nie automatyczna wysyłka sprzedażowa.",
+      "suggestionNotice": "Tylko propozycje. To nie są Twoje zadania ani zapis aktywności.",
+      "metricsNote": "Liczby pochodzą z Twojego konta partnerskiego. Zero oznacza, że nic nie zapisano. Brakująca liczba pozostaje niedostępna.",
+      "knowLabel": "To warto wiedzieć",
+      "know": "Udostępniaj tylko to, co jest opublikowane. Wariant bezpłatny nigdy nie nalicza prowizji. Brak ceny lub stawki oznacza, że jest niedostępna.",
+      "imageAlt": "Zdjęcie produktu",
+      "categoriesTitle": "Praktyczna pomoc",
+      "approvedLabel": "Zatwierdzony tekst",
+      "hero": {
+        "homeTitle": "Dobra sprzedaż zaczyna się od dobrej rozmowy.",
+        "homeSupport": "Znajdź produkt, który pasuje do klienta. Używaj zatwierdzonych narzędzi sprzedaży i śledź sprzedaż w jednym miejscu.",
+        "productsTitle": "Zrozum produkt. Znajdź właściwego klienta. Udostępniaj z pewnością.",
+        "productsSupport": "Zobacz, do kogo produkt pasuje, co otrzymuje klient oraz cenę i prowizję opublikowane dla Ciebie.",
+        "toolsTitle": "Dobre rozmowy zaczynają się od dobrych pytań.",
+        "toolsSupport": "Wybierz krok, zobacz, dlaczego pomaga, i kopiuj tekst tylko wtedy, gdy jest już zatwierdzony.",
+        "academyTitle": "Wiedza daje pewność. Certyfikacja pokazuje, że znasz produkt.",
+        "academySupport": "Ucz się, zdaj, a potem sprzedawaj. Zasady egzaminu na tej stronie pozostają bez zmian.",
+        "linksTitle": "Używaj osobistego linku sprzedażowego, gdy polecasz produkt.",
+        "linksSupport": "Link jest wystawiony na Twoje konto partnerskie. Udostępniaj ten link, a nie wymyślony adres kasy.",
+        "leadsTitle": "Od pierwszego zainteresowania do zarejestrowanej sprzedaży.",
+        "leadsSupport": "To rejestracje powiązane z Twoimi linkami. To nie jest rejestr prospektów.",
+        "customersTitle": "Klienci przypisani do Ciebie.",
+        "customersSupport": "Status sprzedaży i podstawa prowizji pochodzą z konta partnerskiego. Nic nie jest współdzielone między partnerami.",
+        "salesTitle": "Zarejestrowana sprzedaż.",
+        "salesSupport": "Śledź status zapisany przy każdej sprzedaży. Brakująca kwota pozostaje niedostępna.",
+        "commissionTitle": "Zobacz, co jest zarejestrowane, naliczone i gotowe do rozliczenia.",
+        "commissionSupport": "Oś czasu wyjaśnia statusy. Nie wylicza nowej prowizji."
+      },
+      "actions": {
+        "products": "Zobacz produkty",
+        "tools": "Otwórz narzędzia sprzedaży",
+        "links": "Zobacz moje linki sprzedażowe",
+        "readMore": "Czytaj więcej",
+        "close": "Zamknij",
+        "shareProduct": "Udostępnij produkt",
+        "copy": "Kopiuj",
+        "copied": "Skopiowano",
+        "copyFailed": "Nie udało się skopiować"
+      },
+      "labels": {
+        "why": "Dlaczego to działa",
+        "say": "Co możesz powiedzieć",
+        "example": "Przykład"
+      },
+      "start": {
+        "title": "Zacznij",
+        "product": {
+          "title": "Wybierz certyfikowany produkt",
+          "summary": "Zacznij od produktu, który możesz przedstawiać.",
+          "why": "Potrafisz wyjaśnić, co robi i czego nie robi.",
+          "say": "Polecam tylko produkt, do którego jestem certyfikowany.",
+          "example": "Otwórz produkt i przeczytaj, do kogo pasuje.",
+          "action": "Zobacz produkty"
+        },
+        "need": {
+          "title": "Zrozum potrzebę klienta",
+          "summary": "Szukaj istotnego problemu, zanim coś polecisz.",
+          "why": "Dobre pytanie jest użyteczniejsze niż długa prezentacja.",
+          "say": "Co zajmuje wam teraz najwięcej czasu?",
+          "example": "Posłuchaj, a potem oceń, czy produkt pasuje.",
+          "action": "Otwórz narzędzia sprzedaży"
+        },
+        "link": {
+          "title": "Udostępnij własny link sprzedażowy",
+          "summary": "Użyj osobistego linku wystawionego na Twoje konto.",
+          "why": "Dzięki temu późniejsza sprzedaż może być przypisana do Ciebie.",
+          "say": "Mogę wysłać mój link, jeśli chcesz obejrzeć to we własnym tempie.",
+          "example": "Kopiuj link dopiero, gdy certyfikacja na to pozwala.",
+          "action": "Zobacz moje linki sprzedażowe"
+        },
+        "review": {
+          "title": "Sprawdź zarejestrowaną sprzedaż i prowizję",
+          "summary": "Śledź status od rejestracji do rozliczenia.",
+          "why": "Prowizja jest widoczna tylko wtedy, gdy została zapisana.",
+          "say": "Sprawdzam status sprzedaży zamiast zgadywać kwotę.",
+          "example": "Otwórz Moją sprzedaż, gdy sprzedaż istnieje.",
+          "action": "Zobacz moją sprzedaż"
+        }
+      },
+      "talk": {
+        "title": "Rozmowa, krok po kroku",
+        "find": {
+          "title": "Znajdź właściwego klienta",
+          "summary": "Szukaj istotnego problemu.",
+          "why": "Trafność jest bardziej uprzejma niż szeroka wysyłka.",
+          "say": "Szukam zespołów, które powtarzają te same pytania.",
+          "example": "Nazwij problem, zanim nazwiesz produkt.",
+          "action": "Zobacz produkty"
+        },
+        "contact": {
+          "title": "Nawiąż pierwszy kontakt",
+          "summary": "Krótkie przedstawienie i jedno otwarte pytanie.",
+          "why": "Ludzie chętniej odpowiadają na pytanie niż na prezentację.",
+          "say": "Dzień dobry. Pomyślałem, że to może być istotne. Co zajmuje wam dziś najwięcej czasu?",
+          "example": "Mów krótko. Nie wymagaj odpowiedzi.",
+          "action": "Otwórz szablony e-mail"
+        },
+        "listen": {
+          "title": "Rozpoznaj potrzebę",
+          "summary": "Słuchaj, zanim polecisz.",
+          "why": "Dopasowanie jest w ich słowach, nie w Twoich.",
+          "say": "Czego już próbowaliście?",
+          "example": "Zapisz potrzebę, zanim wybierzesz produkt.",
+          "action": "Otwórz narzędzia sprzedaży"
+        },
+        "show": {
+          "title": "Pokaż właściwe rozwiązanie",
+          "summary": "Opisz realną korzyść i ograniczenia.",
+          "why": "Zaufanie bierze się z tego, czego nie obiecasz za dużo.",
+          "say": "To pomaga w problemie, który opisałeś. Nie robi wszystkiego innego.",
+          "example": "Użyj opublikowanego opisu produktu.",
+          "action": "Zobacz produkty"
+        },
+        "share": {
+          "title": "Udostępnij osobisty link sprzedażowy",
+          "summary": "Użyj linku, który już dla Ciebie istnieje.",
+          "why": "Wymyślony link do kasy nie jest sprzedażą.",
+          "say": "Oto mój link, jeśli chcesz obejrzeć to później.",
+          "example": "Skopiuj osobisty link z Linków sprzedażowych.",
+          "action": "Zobacz moje linki sprzedażowe"
+        },
+        "follow": {
+          "title": "Wróć z szacunkiem",
+          "summary": "Daj klientowi czas i pozwól powiedzieć nie.",
+          "why": "Spokojny kontakt podtrzymuje relację.",
+          "say": "Mogę to zostawić. Odmowa jest całkowicie w porządku.",
+          "example": "Wróć raz, a potem poczekaj.",
+          "action": "Zobacz leady"
+        }
+      },
+      "today": {
+        "title": "Co mogę zrobić dzisiaj?",
+        "reviewProduct": {
+          "title": "Przeczytaj jeden produkt, który możesz udostępnić",
+          "body": "To propozycja, nie zadanie i nie zapis Twojej aktywności.",
+          "action": "Zobacz produkty"
+        },
+        "readQuestion": {
+          "title": "Przeczytaj jedno pytanie w narzędziach sprzedaży",
+          "body": "Użyj go tylko wtedy, gdy pasuje do osoby, z którą rozmawiasz.",
+          "action": "Otwórz narzędzia sprzedaży"
+        },
+        "checkLink": {
+          "title": "Sprawdź, czy link sprzedażowy jest Twój",
+          "body": "Użyj osobistego linku na koncie, gdy będziesz gotów go udostępnić.",
+          "action": "Zobacz moje linki sprzedażowe"
+        }
+      },
+      "categories": {
+        "start": {
+          "title": "Zacznij rozmowę",
+          "body": "Krótkie przedstawienie i jedno otwarte pytanie. Kopiuj tylko zatwierdzony tekst.",
+          "action": "Otwórz szablony e-mail"
+        },
+        "questions": {
+          "title": "Zadawaj lepsze pytania",
+          "body": "Zapytaj, co jest dziś trudne, i poczekaj. Nie wypełniaj ciszy prezentacją."
+        },
+        "value": {
+          "title": "Pokaż wartość",
+          "body": "Opisz korzyść opublikowaną dla produktu, razem z ograniczeniami.",
+          "action": "Otwórz zatwierdzony tekst"
+        },
+        "objections": {
+          "title": "Typowe obiekcje",
+          "body": "Potwierdź obawę. Nie obiecuj dochodu, wyników ani rabatu, którego nie możesz dać."
+        },
+        "followUp": {
+          "title": "Wróć do rozmowy",
+          "body": "Bądź trafny. Bądź pomocny. Ułatw następny krok.",
+          "action": "Otwórz szablony e-mail"
+        },
+        "commission": {
+          "title": "Zrozum prowizję",
+          "body": "Przeczytaj zapisane zasady, zanim wyjaśnisz, co sprzedawca zarabia.",
+          "action": "Otwórz przewodnik prowizji"
+        }
+      },
+      "academy": {
+                "learnedStatus": "Lekcje są na tej stronie",
+        "passedStatus": "Certyfikacja jest zapisana",
+        "notPassedStatus": "Jeszcze nie zapisano",
+        "sellStatus": "Udostępniaj po certyfikacji",
+"learn": {
+          "title": "Ucz się",
+          "body": "Przeczytaj opublikowane lekcje produktu.",
+          "action": "Otwórz lekcję"
+        },
+        "pass": {
+          "title": "Zdawaj",
+          "body": "Certyfikacja jest zapisywana tylko wtedy, gdy mówią o tym istniejące zasady egzaminu.",
+          "action": "Zobacz status certyfikacji"
+        },
+        "sell": {
+          "title": "Sprzedawaj",
+          "body": "Udostępniaj produkt, który możesz przedstawiać, ze swoim osobistym linkiem.",
+          "action": "Zobacz produkty"
+        }
+      },
+      "commission": {
+        "ledgerNote": "Kwoty przy każdej sprzedaży pochodzą z księgi partnera. To wyjaśnienie nie tworzy wypłaty.",
+        "timelineTitle": "Jak przesuwa się sprzedaż",
+        "unavailableNote": "Jeśli brakuje liczby, jest pokazana jako niedostępna — nie jako zero.",
+        "intervalGap": "Ten widok partnera zapisuje kwalifikację po drugim udanym opłaconym okresie dla każdego interwału. Prowizja po pierwszej płatności rocznej i po pierwszej płatności jednorazowej to docelowa zasada. Nie jest tu liczona osobno dla interwału.",
+        "rules": {
+          "yearlyTitle": "Subskrypcje roczne",
+          "yearlyBody": "Docelowa zasada to prowizja przy pierwszej potwierdzonej płatności rocznej. Ten widok nie liczy interwału rocznego osobno.",
+          "oneTimeTitle": "Zakupy jednorazowe",
+          "oneTimeBody": "Docelowa zasada to prowizja przy pierwszej kwalifikującej płatności. Ten widok nie liczy zakupów jednorazowych osobno."
+        },
+        "timeline": {
+          "registered": {
+            "label": "Zarejestrowana",
+            "body": "Sprzedaż jest zapisana po potwierdzonej płatności."
+          },
+          "qualifying": {
+            "label": "W kwalifikacji",
+            "body": "Sprzedaż jest sprawdzana według zasad prowizji."
+          },
+          "earned": {
+            "label": "Naliczona",
+            "body": "Prowizja jest zapisywana, gdy spełniona jest zasada płatności kwalifikującej."
+          },
+          "approved": {
+            "label": "Zatwierdzona",
+            "body": "Kwota jest zatwierdzona do rozliczenia. Nie jest jeszcze wypłacona."
+          },
+          "paid": {
+            "label": "Wypłacona",
+            "body": "Wypłata odbywa się ręcznie według obowiązujących zasad."
+          }
+        }
+      },
+      "empty": {
+        "salesTitle": "Brak zarejestrowanej sprzedaży. Zobacz produkty, które możesz udostępnić.",
+        "salesBody": "Gdy sprzedaż zostanie zapisana na koncie, pojawi się tutaj ze statusem.",
+        "salesAction": "Zobacz produkty",
+        "leadsTitle": "Brak leadów.",
+        "leadsBody": "Zainteresowanie powiązane z Twoim osobistym linkiem pojawi się tutaj. Nic nie jest importowane.",
+        "leadsAction": "Zobacz moje linki sprzedażowe",
+        "customersTitle": "Brak klientów.",
+        "customersBody": "Klienci przypisani do Twojego konta pojawią się tutaj. Widzisz tylko swoich.",
+        "customersAction": "Zobacz moje linki sprzedażowe"
+      }
+    },
     "guides": {
       "gettingStarted": {
         "title": "Zacznij jako sprzedawca",

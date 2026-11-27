@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Award, GraduationCap, Link2, ShoppingBag, UserRound, Wallet } from "lucide-react";
+import { GuidedEmptyState, LearningPath, SalesActionCard, SalesExperienceHero, SalesGuidanceStepper } from "./sales-experience";
+import type { EmptyStateModel, GuidanceStepModel, LearningStageModel, SalesHeroModel, SuggestionModel } from "./sales-experience";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { buildCspPublicLinkPath } from "@/lib/certified-sales-partner/attribution-policy";
 import { getLocalizedCspCatalogProducts } from "@/lib/certified-sales-partner/product-catalog-display";
@@ -270,20 +272,12 @@ export function Pill({ kind, children }: { kind: "ok" | "info" | "warn"; childre
 }
 
 export function EmptyState({ title, body, cta, href }: { title: string; body: string; cta?: string; href?: string }) {
-  return (
-    <div className="rounded-xl border border-dashed border-[color:var(--aipify-border-strong)] p-6 text-center">
-      <h3 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{title}</h3>
-      <p className="mx-auto mt-2 max-w-xl text-sm text-[color:var(--aipify-text-secondary)]">{body}</p>
-      {cta && href ? (
-        <Link
-          href={href}
-          className="mt-4 inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-4 py-2 text-sm font-semibold text-white"
-        >
-          {cta}
-        </Link>
-      ) : null}
-    </div>
-  );
+  const model: EmptyStateModel = {
+    title,
+    body,
+    action: cta && href ? { href, label: cta } : undefined,
+  };
+  return <GuidedEmptyState model={model} />;
 }
 
 function Metric({ label, children }: { label: string; children: ReactNode }) {
@@ -324,8 +318,30 @@ function BalanceText({
   );
 }
 
+export type CspHomeExperience = {
+  hero: SalesHeroModel;
+  stepsLabel: string;
+  whyLabel: string;
+  sayLabel: string;
+  exampleLabel: string;
+  notice: string;
+  steps: GuidanceStepModel[];
+  suggestionsTitle: string;
+  suggestionNotice: string;
+  suggestions: SuggestionModel[];
+  metricsNote: string;
+};
+
 /** Partner dashboard — real metrics from the Core portal bundle; absent data is never faked. */
-export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels: CspOverviewLabels; locale: string }) {
+export function CertifiedSalesPartnerOverviewPanel({
+  labels,
+  locale,
+  experience,
+}: {
+  labels: CspOverviewLabels;
+  locale: string;
+  experience?: CspHomeExperience;
+}) {
   const portal = useCspPortal();
   if (!portal) return null;
 
@@ -354,39 +370,58 @@ export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels:
 
   return (
     <div className="space-y-5">
-      <AipifyCard aria-labelledby="csp-overview-title" className="overflow-hidden">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="min-w-0 space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#7C3AED]">Aipify</p>
-            <h2 id="csp-overview-title" className="text-xl font-semibold tracking-tight text-[#1E293B] sm:text-2xl">
-              {welcome}
-            </h2>
-            <p className="max-w-3xl text-sm leading-relaxed text-[#64748B]">{labels.intro}</p>
-            <div className="flex flex-wrap items-center gap-2 pt-1">
-              <AipifyStatusBadge
-                tone={approved ? "success" : "info"}
-                label={lookup(labels.partnerStatus, status)}
-              />
-              <span className="text-sm text-[#64748B]">{labels.statusLabel}</span>
+      {experience ? (
+        <SalesExperienceHero hero={experience.hero} />
+      ) : (
+        <AipifyCard aria-labelledby="csp-overview-title">
+          <h2 id="csp-overview-title" className="text-xl font-semibold text-[#1E293B]">
+            {welcome}
+          </h2>
+          <p className="mt-2 text-sm text-[#64748B]">{labels.intro}</p>
+        </AipifyCard>
+      )}
+
+      <div className="flex flex-wrap items-center gap-2">
+        <AipifyStatusBadge tone={approved ? "success" : "info"} label={lookup(labels.partnerStatus, status)} />
+        <span className="text-sm text-[#64748B]">
+          {labels.statusLabel}
+          {experience ? ` · ${welcome}` : ""}
+        </span>
+      </div>
+
+      {experience ? (
+        <>
+          <SalesGuidanceStepper
+            label={experience.stepsLabel}
+            steps={experience.steps}
+            whyLabel={experience.whyLabel}
+            sayLabel={experience.sayLabel}
+            exampleLabel={experience.exampleLabel}
+            notice={experience.notice}
+          />
+          <section aria-labelledby="csp-today-title" className="space-y-3">
+            <div>
+              <h2 id="csp-today-title" className="text-xl font-semibold text-[#1E293B]">
+                {experience.suggestionsTitle}
+              </h2>
+              <p className="mt-1 text-sm text-[#64748B]">{experience.suggestionNotice}</p>
             </div>
-          </div>
-          {next.href && labels.nextCta[next.key] ? (
-            <Link
-              href={next.href}
-              className="inline-flex min-h-11 items-center rounded-xl bg-[#7C3AED] px-4 text-sm font-semibold text-white"
-            >
-              {labels.nextCta[next.key]}
-            </Link>
-          ) : null}
-        </div>
-        <div className="mt-5 flex flex-wrap gap-2 border-t border-[#E8E4F2] pt-4">
+            <div className="grid gap-3 lg:grid-cols-3">
+              {experience.suggestions.map((item) => (
+                <SalesActionCard key={item.id} title={item.title} body={item.body} action={item.action} />
+              ))}
+            </div>
+          </section>
+        </>
+      ) : (
+        <div className="flex flex-wrap gap-2">
           {shortcuts.map((item) => {
             const Icon = item.icon;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[#E8E4F2] bg-white px-3 text-sm font-semibold text-[#1E293B] hover:border-[#7C3AED]/40 hover:bg-[#F7F4FF]"
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[#E8E4F2] bg-white px-3 text-sm font-semibold text-[#1E293B]"
               >
                 <Icon className="h-4 w-4 text-[#7C3AED]" aria-hidden />
                 {item.label}
@@ -394,8 +429,9 @@ export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels:
             );
           })}
         </div>
-      </AipifyCard>
+      )}
 
+      {experience?.metricsNote ? <p className="text-xs text-[#64748B]">{experience.metricsNote}</p> : null}
       <dl className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <AipifyStatCard
           label={labels.certificationsLabel}
@@ -455,9 +491,11 @@ export function CertifiedSalesPartnerOverviewPanel({ labels, locale }: { labels:
 export function CertifiedSalesPartnerCertificationsPanel({
   labels,
   locale,
+  learning,
 }: {
   labels: CspCertificationsLabels;
   locale: string;
+  learning?: { title: string; support: string; stages: LearningStageModel[]; passedStatus: string; notPassedStatus: string };
 }) {
   const portal = useCspPortal();
   const names = useMemo(() => {
@@ -480,6 +518,7 @@ export function CertifiedSalesPartnerCertificationsPanel({
     };
   });
 
+  const anyPassed = rows.some((row) => row.status === "passed");
   const kompisPassed = rows.some((row) => row.productKey === "kompis_web" && row.status === "passed");
   const partnerActive = ["approved", "active", "certified"].includes(portal.overview.partnerStatus ?? "");
   const activeLink = portal.links.find((link) => link.active && link.code);
@@ -489,6 +528,17 @@ export function CertifiedSalesPartnerCertificationsPanel({
 
   return (
     <div className="space-y-6">
+      {learning ? (
+        <LearningPath
+          title={learning.title}
+          support={learning.support}
+          stages={learning.stages.map((stage) =>
+            stage.id === "pass"
+              ? { ...stage, status: anyPassed ? learning.passedStatus : learning.notPassedStatus }
+              : stage,
+          )}
+        />
+      ) : null}
       <section className={CARD} aria-labelledby="csp-certs-title">
         <h2 id="csp-certs-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
           {labels.title}
@@ -612,7 +662,17 @@ export function ErrorState({ message, retry, onRetry }: { message: string; retry
 const EARNED_STATUSES = new Set(["earned", "approved_for_payout", "queued_for_payout", "paid"]);
 
 /** Sales page — partner's own qualified sales; commission only shown once earned. */
-export function CertifiedSalesPartnerSalesPanel({ labels, locale }: { labels: CspSalesLabels; locale: string }) {
+export function CertifiedSalesPartnerSalesPanel({
+  labels,
+  locale,
+  guide,
+  emptyModel,
+}: {
+  labels: CspSalesLabels;
+  locale: string;
+  guide?: SalesHeroModel;
+  emptyModel?: EmptyStateModel;
+}) {
   const portal = useCspPortal();
   const names = useMemo(() => {
     const map: Record<string, string> = {};
@@ -623,7 +683,9 @@ export function CertifiedSalesPartnerSalesPanel({ labels, locale }: { labels: Cs
   if (!portal) return null;
 
   return (
-    <section className={CARD} aria-labelledby="csp-sales-title">
+    <section className="space-y-5" aria-labelledby="csp-sales-title">
+      {guide ? <SalesExperienceHero hero={guide} /> : null}
+      <div className={CARD}>
       <h2 id="csp-sales-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
         {labels.title}
       </h2>
@@ -631,7 +693,11 @@ export function CertifiedSalesPartnerSalesPanel({ labels, locale }: { labels: Cs
       <div className="mt-4">
         {state.phase === "error" ? <ErrorState message={labels.loadError} retry={labels.retry} onRetry={reload} /> : null}
         {state.phase === "ready" && state.rows.length === 0 ? (
-          <EmptyState title={labels.emptyTitle} body={labels.emptyBody} cta={labels.emptyCta} href="/partners/marketing/product-catalog" />
+          emptyModel ? (
+            <GuidedEmptyState model={emptyModel} />
+          ) : (
+            <EmptyState title={labels.emptyTitle} body={labels.emptyBody} cta={labels.emptyCta} href="/partners/marketing/product-catalog" />
+          )
         ) : null}
         {state.phase === "ready" && state.rows.length > 0 ? (
           <div className="overflow-x-auto">
@@ -669,6 +735,7 @@ export function CertifiedSalesPartnerSalesPanel({ labels, locale }: { labels: Cs
             </table>
           </div>
         ) : null}
+      </div>
       </div>
     </section>
   );

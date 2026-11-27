@@ -24,6 +24,7 @@ import {
   useCspList,
   type CspStatusLabels,
 } from "./CertifiedSalesPartnerPortalPanels";
+import { GuidedEmptyState, SalesExperienceHero } from "./sales-experience";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
 
 export type CspCustomersLabels = {
@@ -68,7 +69,17 @@ const INPUT =
   "w-full rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] px-3 py-2 text-sm text-[color:var(--aipify-text-primary)]";
 
 /** Mine kunder — the partner's own attributed customers (qualified sales) and commission status. */
-export function CertifiedSalesPartnerCustomersPanel({ labels, locale }: { labels: CspCustomersLabels; locale: string }) {
+export function CertifiedSalesPartnerCustomersPanel({
+  labels,
+  locale,
+  guide,
+  emptyModel,
+}: {
+  labels: CspCustomersLabels;
+  locale: string;
+  guide?: import("./sales-experience").SalesHeroModel;
+  emptyModel?: import("./sales-experience").EmptyStateModel;
+}) {
   const portal = useCspPortal();
   const productNames = useMemo(() => {
     const map: Record<string, string> = {};
@@ -100,6 +111,8 @@ export function CertifiedSalesPartnerCustomersPanel({ labels, locale }: { labels
   const filtering = query.trim() !== "" || qualification !== "all";
 
   return (
+    <div className="space-y-5">
+      {guide ? <SalesExperienceHero hero={guide} /> : null}
     <section className={CARD} aria-labelledby="csp-customers-title">
       <h2 id="csp-customers-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
         {labels.title}
@@ -111,12 +124,11 @@ export function CertifiedSalesPartnerCustomersPanel({ labels, locale }: { labels
         {state.phase === "error" ? <ErrorState message={labels.loadError} retry={labels.retry} onRetry={reload} /> : null}
 
         {state.phase === "ready" && rows.length === 0 ? (
-          <EmptyState
-            title={labels.emptyTitle}
-            body={labels.emptyBody}
-            cta={labels.emptyCta}
-            href="/partners/referrals/links"
-          />
+          emptyModel ? (
+            <GuidedEmptyState model={emptyModel} />
+          ) : (
+            <EmptyState title={labels.emptyTitle} body={labels.emptyBody} cta={labels.emptyCta} href="/partners/referrals/links" />
+          )
         ) : null}
 
         {state.phase === "ready" && rows.length > 0 ? (
@@ -221,5 +233,6 @@ export function CertifiedSalesPartnerCustomersPanel({ labels, locale }: { labels
         ) : null}
       </div>
     </section>
+    </div>
   );
 }

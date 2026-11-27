@@ -26,8 +26,12 @@ import { LOCALES, LOCALE_LABELS, type Locale } from "@/lib/i18n/config";
 import { evaluateSalesLinkGates } from "@/lib/certified-sales-partner/partner-overview";
 import { AipifyAlert, AipifyCard, AipifyPageHeader, AipifyTabs } from "./design";
 import { CspSocialPlatformPicker } from "./CspSocialPlatformPicker";
+import { CopyableApprovedSnippet, SalesExperienceHero, SalesGuidanceStepper } from "./sales-experience";
 import { writeClipboard } from "./csp-sales-links-client";
 import { useCspPortal } from "./CspPortalSessionProvider";
+import type { buildToolsExperience } from "@/lib/partners-portal/sales-experience-content";
+
+type ToolsExperience = ReturnType<typeof buildToolsExperience>;
 import type { CspMarketingLabels } from "./CertifiedSalesPartnerPortalPanels";
 
 type ProductKey = "kompis_web" | "kompis_bedrift" | "aipify_voice";
@@ -55,9 +59,11 @@ function productSellable(portal: ReturnType<typeof useCspPortal>, product: Produ
 export function CertifiedSalesPartnerMarketingCenter({
   labels,
   locale,
+  experience,
 }: {
   labels: CspMarketingLabels;
   locale: string;
+  experience?: ToolsExperience;
 }) {
   const portal = useCspPortal();
   const router = useRouter();
@@ -235,9 +241,88 @@ export function CertifiedSalesPartnerMarketingCenter({
     { id: "kompis_bedrift", label: labels.filterKompisBedrift },
     { id: "aipify_voice", label: labels.filterVoice },
   ] as const;
+  const approvedTone: Record<string, "personal" | "informative" | "short" | undefined> = {
+    start: "personal",
+    value: "informative",
+    followUp: "short",
+  };
+  const approvedCopy = listPublishedSalesCopyForLocale({ productKey: product, locale: marketingLocale });
 
   return (
     <div className="w-full space-y-5">
+      {experience ? (
+        <>
+          <SalesExperienceHero hero={experience.hero} />
+          <SalesGuidanceStepper
+            label={experience.stepsLabel}
+            steps={experience.steps}
+            whyLabel={experience.whyLabel}
+            sayLabel={experience.sayLabel}
+            exampleLabel={experience.exampleLabel}
+            notice={experience.notice}
+          />
+          <section aria-labelledby="csp-help-categories" className="space-y-3">
+            <h2 id="csp-help-categories" className="text-xl font-semibold text-[#1E293B]">
+              {experience.categoriesTitle}
+            </h2>
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {experience.categories.map((category) => {
+                const tone = approvedTone[category.id];
+                const text = tone ? approvedCopy.find((row) => row.tone === tone)?.text ?? null : null;
+                return (
+                  <article key={category.id} className="flex h-full flex-col rounded-2xl border border-[#E8E4F2] bg-white p-5">
+                    <h3 className="text-base font-semibold text-[#1E293B]">{category.title}</h3>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-[#64748B]">{category.body}</p>
+                    {text ? (
+                      <CopyableApprovedSnippet
+                        label={experience.approvedLabel}
+                        text={text}
+                        copyLabel={experience.copy}
+                        copiedLabel={experience.copied}
+                        failedLabel={experience.copyFailed}
+                        onCopy={writeClipboard}
+                      />
+                    ) : null}
+                    {category.action ? (
+                      <Link
+                        href={category.action.href}
+                        className="mt-4 inline-flex min-h-11 items-center self-start text-sm font-semibold text-[#5538D3]"
+                      >
+                        {category.action.label}
+                      </Link>
+                    ) : null}
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        </>
+      ) : null}
+      {experience ? (
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="text-lg font-semibold text-[#1E293B]">{labels.centerTitle}</h2>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => chooseSection("center")}
+              className={`inline-flex min-h-10 items-center rounded-xl px-3 text-sm font-semibold ${
+                section === "center" ? "bg-[#7C3AED] text-white" : "border border-[#E8E4F2] text-[#475569]"
+              }`}
+            >
+              {labels.toolsTab}
+            </button>
+            <button
+              type="button"
+              onClick={() => chooseSection("library")}
+              className={`inline-flex min-h-10 items-center rounded-xl px-3 text-sm font-semibold ${
+                section === "library" ? "bg-[#7C3AED] text-white" : "border border-[#E8E4F2] text-[#475569]"
+              }`}
+            >
+              {labels.libraryTab}
+            </button>
+          </div>
+        </div>
+      ) : (
       <AipifyPageHeader
         title={labels.centerTitle}
         description={labels.centerIntro}
@@ -269,6 +354,7 @@ export function CertifiedSalesPartnerMarketingCenter({
           </div>
         }
       />
+      )}
 
       <AipifyCard padding="sm">
         <p className="text-xs font-semibold uppercase tracking-wide text-[#94A3B8]">{labels.productTabs}</p>

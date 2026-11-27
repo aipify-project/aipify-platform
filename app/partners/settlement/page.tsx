@@ -2,7 +2,9 @@ import Link from "next/link";
 import { Wallet } from "lucide-react";
 import { CertifiedSalesPartnerSettlementsPanel } from "@/components/partners-portal/CertifiedSalesPartnerPortalPanels";
 import { CertifiedSalesPartnerWorkspacePanel } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
+import { CommissionExplainerCard, CommissionStatusTimeline, SalesExperienceHero } from "@/components/partners-portal/sales-experience";
 import { buildCspSettlementsLabels, buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-labels";
+import { buildCommissionExperience } from "@/lib/partners-portal/sales-experience-content";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -21,9 +23,22 @@ export default async function PartnersSettlementPage() {
     "partnersPortal.certifiedSalesPartner.pages.settlement.subtitle",
   );
   const p = "partnersPortal.certifiedSalesPartner.settlementLinks";
+  const commission = buildCommissionExperience(t);
   return (
     <CertifiedSalesPartnerWorkspacePanel labels={labels}>
       <div className="space-y-6">
+        <SalesExperienceHero hero={commission.hero} />
+        <CommissionStatusTimeline title={commission.timelineTitle} steps={commission.steps} />
+        <div className="grid gap-3 md:grid-cols-2">
+          {commission.rules.map((card) => (
+            <CommissionExplainerCard key={card.id} card={card} />
+          ))}
+        </div>
+        {commission.notes.map((note) => (
+          <p key={note} className="text-sm text-[#64748B]">
+            {note}
+          </p>
+        ))}
         <aside className="flex flex-col gap-3 rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
             <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F3EDFF] text-[#7C3AED]">

@@ -1,6 +1,7 @@
 import { CertifiedSalesPartnerLinkPanel } from "@/components/partners-portal/CertifiedSalesPartnerLinkPanel";
 import { CertifiedSalesPartnerWorkspacePanel } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
 import { buildCspLinkLabels, buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-labels";
+import { buildSectionHero } from "@/lib/partners-portal/sales-experience-content";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -16,7 +17,11 @@ export default async function PartnersSalesLinksPage() {
   );
   return (
     <CertifiedSalesPartnerWorkspacePanel labels={labels}>
-      <CertifiedSalesPartnerLinkPanel labels={buildCspLinkLabels(t)} locale={locale} />
+      <CertifiedSalesPartnerLinkPanel
+        labels={buildCspLinkLabels(t)}
+        locale={locale}
+        guide={buildSectionHero(t, "links")}
+      />
     </CertifiedSalesPartnerWorkspacePanel>
   );
 }

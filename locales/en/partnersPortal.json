@@ -1244,6 +1244,252 @@
       "editPayoutCta": "Edit payout details",
       "howCommissionCta": "How commission works"
     },
+    "salesExperience": {
+      "guidanceNotice": "This is guidance, not an automatic sales send.",
+      "suggestionNotice": "Suggestions only. They are not your tasks and not a log of your activity.",
+      "metricsNote": "Figures come from your partner account. Zero means none recorded. A missing figure stays unavailable.",
+      "knowLabel": "What you should know",
+      "know": "Share only what is published. A free variant does not earn commission. If a price or rate is missing, treat it as not available.",
+      "imageAlt": "Product image",
+      "categoriesTitle": "Practical help",
+      "approvedLabel": "Approved wording",
+      "hero": {
+        "homeTitle": "Good sales start with a good conversation.",
+        "homeSupport": "Find the product that fits the customer. Use approved sales tools and follow your sales in one place.",
+        "productsTitle": "Understand the product. Find the right customer. Share with confidence.",
+        "productsSupport": "See who it fits, what the customer gets, and the price and commission published for you.",
+        "toolsTitle": "Good conversations start with good questions.",
+        "toolsSupport": "Pick a step, see why it helps, and copy wording only when it is already approved.",
+        "academyTitle": "Knowledge builds confidence. Certification shows that you know the product.",
+        "academySupport": "Learn, pass, then sell. The exam rules on this page stay as they are.",
+        "linksTitle": "Use your personal sales link when you recommend a product.",
+        "linksSupport": "The link is issued for your partner account. Share that link, not a checkout address you invent.",
+        "leadsTitle": "From first interest to a registered sale.",
+        "leadsSupport": "These are registrations attributed to your links. This is not a prospect register.",
+        "customersTitle": "Customers attributed to you.",
+        "customersSupport": "Sale status and commission qualification come from the partner account. Nothing here is shared across partners.",
+        "salesTitle": "Registered sales.",
+        "salesSupport": "Follow the status recorded for each sale. A missing amount stays unavailable.",
+        "commissionTitle": "See what is registered, earned, and ready for settlement.",
+        "commissionSupport": "The timeline explains the statuses. It does not calculate a new commission."
+      },
+      "actions": {
+        "products": "See products",
+        "tools": "Open sales tools",
+        "links": "See my sales links",
+        "readMore": "Read more",
+        "close": "Close",
+        "shareProduct": "Share product",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copyFailed": "Could not copy"
+      },
+      "labels": {
+        "why": "Why this helps",
+        "say": "What you can say",
+        "example": "Example"
+      },
+      "start": {
+        "title": "Get started",
+        "product": {
+          "title": "Choose a certified product",
+          "summary": "Start with a product you are allowed to present.",
+          "why": "You can explain it, including what it does not do.",
+          "say": "I will only recommend a product I am certified to present.",
+          "example": "Open the product and read who it is for.",
+          "action": "See products"
+        },
+        "need": {
+          "title": "Understand the customer's need",
+          "summary": "Look for a relevant problem before you recommend.",
+          "why": "A useful question beats a long pitch.",
+          "say": "What takes the most time for you right now?",
+          "example": "Listen, then decide whether a product fits.",
+          "action": "Open sales tools"
+        },
+        "link": {
+          "title": "Share your own sales link",
+          "summary": "Use the personal link issued to your account.",
+          "why": "That is how a later sale can be attributed to you.",
+          "say": "I can send you my link if you want to look at it in your own time.",
+          "example": "Copy the link only when certification allows it.",
+          "action": "See my sales links"
+        },
+        "review": {
+          "title": "Review the registered sale",
+          "summary": "Follow the status from registered to settlement.",
+          "why": "Commission is shown only when it has been recorded.",
+          "say": "I will check the sale status rather than guess the amount.",
+          "example": "Open My sales when a sale exists.",
+          "action": "See my sales"
+        }
+      },
+      "talk": {
+        "title": "A conversation, one step at a time",
+        "find": {
+          "title": "Find the right customer",
+          "summary": "Look for a relevant problem.",
+          "why": "Relevance is kinder than a wide blast.",
+          "say": "I look for teams who repeat the same questions.",
+          "example": "Name the problem before you name a product.",
+          "action": "See products"
+        },
+        "contact": {
+          "title": "Make first contact",
+          "summary": "A short introduction and one open question.",
+          "why": "People answer a question more readily than a pitch.",
+          "say": "Hello. I thought this might be relevant. What is taking the most time today?",
+          "example": "Keep it short. Do not attach a demand.",
+          "action": "Open email templates"
+        },
+        "listen": {
+          "title": "Map the need",
+          "summary": "Listen before you recommend.",
+          "why": "The fit shows up in their words, not yours.",
+          "say": "What have you already tried?",
+          "example": "Write down the need before you choose a product.",
+          "action": "Open sales tools"
+        },
+        "show": {
+          "title": "Show the right solution",
+          "summary": "Describe the real benefit and the limits.",
+          "why": "Trust comes from what you do not overclaim.",
+          "say": "This helps with the problem you described. It does not do everything else.",
+          "example": "Use the published product description.",
+          "action": "See products"
+        },
+        "share": {
+          "title": "Share your personal sales link",
+          "summary": "Use the link that already exists for you.",
+          "why": "A made-up checkout link is not a sale.",
+          "say": "Here is my link if you want to review it later.",
+          "example": "Copy the personal link from Sales links.",
+          "action": "See my sales links"
+        },
+        "follow": {
+          "title": "Follow up with respect",
+          "summary": "Give the customer time, and let them say no.",
+          "why": "A calm follow-up keeps the relationship.",
+          "say": "I can leave this with you. A no is completely fine.",
+          "example": "Follow up once, then wait.",
+          "action": "See leads"
+        }
+      },
+      "today": {
+        "title": "What can I do today?",
+        "reviewProduct": {
+          "title": "Read one product you can share",
+          "body": "A suggestion, not a task and not a record of your activity.",
+          "action": "See products"
+        },
+        "readQuestion": {
+          "title": "Read one question in the sales tools",
+          "body": "Use it only if it fits the person you are speaking with.",
+          "action": "Open sales tools"
+        },
+        "checkLink": {
+          "title": "Check that your sales link is yours",
+          "body": "Use the personal link on your account when you are ready to share.",
+          "action": "See my sales links"
+        }
+      },
+      "categories": {
+        "start": {
+          "title": "Start the conversation",
+          "body": "A short introduction and one open question. Copy only approved wording.",
+          "action": "Open email templates"
+        },
+        "questions": {
+          "title": "Ask better questions",
+          "body": "Ask what is hard today, then wait. Do not fill the silence with a pitch."
+        },
+        "value": {
+          "title": "Show the value",
+          "body": "Describe the benefit that is published for the product, including its limits.",
+          "action": "Open approved text"
+        },
+        "objections": {
+          "title": "Common objections",
+          "body": "Acknowledge the concern. Do not promise income, results, or a discount you cannot offer."
+        },
+        "followUp": {
+          "title": "Follow up",
+          "body": "Be relevant. Be helpful. Make the next step easy.",
+          "action": "Open email templates"
+        },
+        "commission": {
+          "title": "Understand commission",
+          "body": "Read the recorded rules before you describe what a seller earns.",
+          "action": "Open commission guide"
+        }
+      },
+      "academy": {
+                "learnedStatus": "Lessons are on this page",
+        "passedStatus": "Certification recorded",
+        "notPassedStatus": "Not recorded yet",
+        "sellStatus": "Share after certification",
+"learn": {
+          "title": "Learn",
+          "body": "Read the published lessons for the product.",
+          "action": "Open the lesson"
+        },
+        "pass": {
+          "title": "Pass",
+          "body": "Certification is recorded only when the existing exam rules say so.",
+          "action": "See certification status"
+        },
+        "sell": {
+          "title": "Sell",
+          "body": "Share a product you are certified to present, with your personal link.",
+          "action": "See products"
+        }
+      },
+      "commission": {
+        "ledgerNote": "Amounts on each sale come from the partner ledger. This explanation does not create a payout.",
+        "timelineTitle": "How a sale moves",
+        "unavailableNote": "If a figure is missing, it is shown as not available — not as zero.",
+        "intervalGap": "This partner view records qualification after the second successful paid period for every interval. Commission after the first annual payment, and after the first one-time payment, is the intended rule. It is not calculated per interval here.",
+        "rules": {
+          "yearlyTitle": "Yearly subscriptions",
+          "yearlyBody": "The intended rule is commission on the first confirmed annual payment. This overview does not calculate the yearly interval separately.",
+          "oneTimeTitle": "One-time purchases",
+          "oneTimeBody": "The intended rule is commission on the first qualifying payment. This overview does not calculate one-time purchases separately."
+        },
+        "timeline": {
+          "registered": {
+            "label": "Registered",
+            "body": "The sale is recorded after a confirmed payment."
+          },
+          "qualifying": {
+            "label": "Under qualification",
+            "body": "The sale is being checked against the commission rules."
+          },
+          "earned": {
+            "label": "Earned",
+            "body": "Commission is recorded once the qualifying payment rule is met."
+          },
+          "approved": {
+            "label": "Approved",
+            "body": "The amount is approved for settlement. It is not paid yet."
+          },
+          "paid": {
+            "label": "Paid",
+            "body": "Payout is manual, after review, by the programme owner."
+          }
+        }
+      },
+      "empty": {
+        "salesTitle": "No registered sales yet. See the products you can share.",
+        "salesBody": "When a sale is recorded on your account, it appears here with its status.",
+        "salesAction": "See products",
+        "leadsTitle": "No leads yet.",
+        "leadsBody": "Interest attributed to your personal link will show here. Nothing is imported for you.",
+        "leadsAction": "See my sales links",
+        "customersTitle": "No customers yet.",
+        "customersBody": "Customers attributed to your account will show here. You only see your own.",
+        "customersAction": "See my sales links"
+      }
+    },
     "guides": {
       "gettingStarted": {
         "title": "Get started as a seller",

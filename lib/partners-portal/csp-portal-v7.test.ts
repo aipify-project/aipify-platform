@@ -16,7 +16,8 @@ test("server pages do not call client label builders", () => {
   const settlement = readFileSync(new URL("app/partners/settlement/page.tsx", root), "utf8");
   assert.match(settings, /csp-section-labels/);
   assert.match(notifications, /csp-section-labels/);
-  assert.match(settlement, /csp-section-labels/);
+  assert.match(settlement, /csp-workspace-labels/);
+  assert.doesNotMatch(settlement, /csp-section-labels/);
   assert.doesNotMatch(settings, /buildCspHelpLabels[\s\S]*from "@\/components/);
   assert.doesNotMatch(notifications, /buildCspNotificationsLabels[\s\S]*from "@\/components/);
   assert.doesNotMatch(settlement, /buildCspBankPanelLabels[\s\S]*from "@\/components/);

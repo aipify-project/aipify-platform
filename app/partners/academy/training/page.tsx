@@ -5,6 +5,7 @@ import {
   buildCspLessonsLabels,
   buildCspWorkspaceLabels,
 } from "@/lib/partners-portal/csp-workspace-labels";
+import { buildAcademyExperience } from "@/lib/partners-portal/sales-experience-content";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -34,6 +35,7 @@ export default async function PartnersAcademyTrainingPage() {
           voiceFuture: t(`${hub}.voiceFuture`),
           voiceFutureBody: t(`${hub}.voiceFutureBody`),
         }}
+        learning={buildAcademyExperience(t)}
       />
     </CertifiedSalesPartnerWorkspacePanel>
   );
