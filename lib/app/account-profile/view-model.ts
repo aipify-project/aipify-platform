@@ -76,12 +76,20 @@ export function buildAccountProfileView(input: {
   const fullName = input.user?.full_name?.trim() || null;
   const workspace =
     (ready ? context?.workspace_name ?? context?.licensed_to : null)?.trim() || null;
-  const companyName = locked(input.company?.name ?? null, "unavailable");
+  // Organization display name from Core workspace — never invent firm legal data.
+  const explicitCompanyName = input.company?.name?.trim() || null;
+  const organizationName = explicitCompanyName || workspace || null;
+  const companyName = locked(
+    organizationName,
+    organizationName
+      ? "get_app_organization_context.workspace_name"
+      : "unavailable",
+  );
   const companyWebsite = locked(input.company?.website ?? null, "unavailable");
   const companyPhone = locked(input.company?.phone ?? null, "unavailable");
   const companyAddress = locked(input.company?.address ?? null, "unavailable");
   const hasCompanyDetails = Boolean(
-    companyName.value || companyWebsite.value || companyPhone.value || companyAddress.value
+    companyName.value || companyWebsite.value || companyPhone.value || companyAddress.value,
   );
   const reference = readableReference(ready ? context?.customer_id ?? null : null);
   const phone = input.phone?.trim() || null;
@@ -146,7 +154,11 @@ export function accountProfileDataMapping(): AccountProfileDataMappingRow[] {
       source: "get_app_organization_context.workspace_name",
       editable: false,
     },
-    { uiField: "companyName", source: "unavailable", editable: false },
+    {
+      uiField: "companyName",
+      source: "get_app_organization_context.workspace_name",
+      editable: false,
+    },
     { uiField: "companyWebsite", source: "unavailable", editable: false },
     { uiField: "companyPhone", source: "unavailable", editable: false },
     { uiField: "companyAddress", source: "unavailable", editable: false },

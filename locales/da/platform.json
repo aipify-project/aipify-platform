@@ -690,7 +690,11 @@
           "unavailable": "Utilgængelig",
           "conflict": "Kræver gennemgang"
         }
-      }
+      },
+      "primaryContactName": "Primærkontakt",
+      "primaryContactEmail": "Kontakt-e-mail",
+      "primaryContactPhone": "Kontakttelefon",
+      "primaryContactEmpty": "Ingen primærkontakt registreret"
     },
     "createCustomer": "Opret kunde",
     "creation": {
@@ -1619,6 +1623,7 @@
       "ordinaryProductionOnly": "Almindelig Platform-oprettelse bruger altid produktionsmiljøet.",
       "nextGateHelperAllowlistSql": "Næste ejerbeslutning: anvend kun SQL for tilladelseslisten til intern oprettelseshelper (tom tabel; helper stadig false). Ingen tenant-oprettelse."
     },
+    "primaryContact": "Primærkontakt",
     "paginationShowing": "Viser {from}–{to} af {total}",
     "paginationPrevious": "Forrige",
     "paginationNext": "Næste",

@@ -17,14 +17,26 @@ export type AccountProfileLabels = {
   tabSecurity: string;
   fullName: string;
   email: string;
+  loginEmail: string;
+  loginEmailHelp: string;
   phone: string;
+  phoneCountry: string;
+  phoneNational: string;
+  phoneNationalPlaceholder: string;
+  phoneHelp: string;
+  phoneInvalid: string;
+  phoneCountries: Record<string, string>;
   address: string;
+  addressUnavailable: string;
+  addressBlockedReason: string;
   role: string;
+  organizationLabel: string;
   notRegistered: string;
   unavailable: string;
   readOnlyReason: string;
   emailLockedReason: string;
   save: string;
+  cancel: string;
   saveSuccess: string;
   saveError: string;
   avatarUpload: string;
@@ -39,8 +51,11 @@ export type AccountProfileLabels = {
   companyPhone: string;
   companyAddress: string;
   companyOptionalNote: string;
+  companyLegalNote: string;
   companyEmpty: string;
   companyEmptyBody: string;
+  requestChange: string;
+  requestChangeHref: string;
   workspace: string;
   plan: string;
   license: string;
@@ -78,14 +93,37 @@ export function buildAccountProfileLabels(t: Translator): AccountProfileLabels {
     tabSecurity: t(`${NS}.tabSecurity`),
     fullName: t(`${NS}.fullName`),
     email: t(`${NS}.email`),
+    loginEmail: t(`${NS}.loginEmail`),
+    loginEmailHelp: t(`${NS}.loginEmailHelp`),
     phone: t(`${NS}.phone`),
+    phoneCountry: t(`${NS}.phoneCountry`),
+    phoneNational: t(`${NS}.phoneNational`),
+    phoneNationalPlaceholder: t(`${NS}.phoneNationalPlaceholder`),
+    phoneHelp: t(`${NS}.phoneHelp`),
+    phoneInvalid: t(`${NS}.phoneInvalid`),
+    phoneCountries: {
+      no: t(`${NS}.phoneCountries.no`),
+      se: t(`${NS}.phoneCountries.se`),
+      dk: t(`${NS}.phoneCountries.dk`),
+      fi: t(`${NS}.phoneCountries.fi`),
+      pl: t(`${NS}.phoneCountries.pl`),
+      ua: t(`${NS}.phoneCountries.ua`),
+      gb: t(`${NS}.phoneCountries.gb`),
+      de: t(`${NS}.phoneCountries.de`),
+      us: t(`${NS}.phoneCountries.us`),
+      other: t(`${NS}.phoneCountries.other`),
+    },
     address: t(`${NS}.address`),
+    addressUnavailable: t(`${NS}.addressUnavailable`),
+    addressBlockedReason: t(`${NS}.addressBlockedReason`),
     role: t(`${NS}.role`),
+    organizationLabel: t(`${NS}.organizationLabel`),
     notRegistered: t(`${NS}.notRegistered`),
     unavailable: t(`${NS}.unavailable`),
     readOnlyReason: t(`${NS}.readOnlyReason`),
     emailLockedReason: t(`${NS}.emailLockedReason`),
     save: t(`${NS}.save`),
+    cancel: t(`${NS}.cancel`),
     saveSuccess: t(`${NS}.saveSuccess`),
     saveError: t(`${NS}.saveError`),
     avatarUpload: t(`${NS}.avatarUpload`),
@@ -100,8 +138,11 @@ export function buildAccountProfileLabels(t: Translator): AccountProfileLabels {
     companyPhone: t(`${NS}.companyPhone`),
     companyAddress: t(`${NS}.companyAddress`),
     companyOptionalNote: t(`${NS}.companyOptionalNote`),
+    companyLegalNote: t(`${NS}.companyLegalNote`),
     companyEmpty: t(`${NS}.companyEmpty`),
     companyEmptyBody: t(`${NS}.companyEmptyBody`),
+    requestChange: t(`${NS}.requestChange`),
+    requestChangeHref: t(`${NS}.requestChangeHref`),
     workspace: t(`${NS}.workspace`),
     plan: t(`${NS}.plan`),
     license: t(`${NS}.license`),

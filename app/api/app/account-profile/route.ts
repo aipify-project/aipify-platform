@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { isPlausibleE164 } from "@/lib/app/account-profile/phone";
+import { syncCustomerPrimaryContactFromAppUser } from "@/lib/app/account-profile/sync-customer-contact";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
 
@@ -46,6 +48,9 @@ export async function PATCH(request: Request) {
     if (fullName !== undefined && fullName.length < 1) {
       return fail("full_name_required", 400);
     }
+    if (phone !== undefined && phone.length > 0 && !isPlausibleE164(phone)) {
+      return fail("phone_invalid", 400);
+    }
 
     const admin = createServiceRoleClient();
 
@@ -88,6 +93,15 @@ export async function PATCH(request: Request) {
         if (metaError) return fail("profile_unavailable", 503);
       }
     }
+
+    // Best-effort Platform primary-contact sync (existing columns only).
+    // Failure here must not roll back the confirmed APP user save.
+    await syncCustomerPrimaryContactFromAppUser({
+      admin,
+      authUserId: user.id,
+      fullName,
+      phone,
+    });
 
     return NextResponse.json(
       {

@@ -883,7 +883,11 @@
           "unavailable": "Niedostępny",
           "conflict": "Wymaga przeglądu"
         }
-      }
+      },
+      "primaryContactName": "Główny kontakt",
+      "primaryContactEmail": "E-mail kontaktowy",
+      "primaryContactPhone": "Telefon kontaktowy",
+      "primaryContactEmpty": "Brak głównego kontaktu"
     },
     "createCustomer": "Utwórz klienta",
     "creation": {
@@ -1812,6 +1816,7 @@
       "ordinaryProductionOnly": "Zwykłe tworzenie w Platform zawsze używa środowiska produkcyjnego.",
       "nextGateHelperAllowlistSql": "Następna decyzja właściciela: zastosuj wyłącznie SQL listy uprawnień helpera tworzenia wewnętrznego (pusta tabela; helper nadal false). Bez tworzenia tenanta."
     },
+    "primaryContact": "Główny kontakt",
     "paginationShowing": "Pokazano {from}–{to} z {total}",
     "paginationPrevious": "Poprzednia",
     "paginationNext": "Następna",

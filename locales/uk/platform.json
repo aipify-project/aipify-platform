@@ -883,7 +883,11 @@
           "unavailable": "Недоступний",
           "conflict": "Потребує перевірки"
         }
-      }
+      },
+      "primaryContactName": "Основний контакт",
+      "primaryContactEmail": "Контактна електронна пошта",
+      "primaryContactPhone": "Контактний телефон",
+      "primaryContactEmpty": "Основний контакт не зареєстровано"
     },
     "createCustomer": "Створити клієнта",
     "creation": {
@@ -1812,6 +1816,7 @@
       "ordinaryProductionOnly": "Звичайне створення в Platform завжди використовує production-середовище.",
       "nextGateHelperAllowlistSql": "Наступне рішення власника: застосувати лише SQL списку дозволів helper внутрішнього створення (порожня таблиця; helper досі false). Без створення тенанта."
     },
+    "primaryContact": "Основний контакт",
     "paginationShowing": "Показано {from}–{to} з {total}",
     "paginationPrevious": "Попередня",
     "paginationNext": "Наступна",

@@ -281,6 +281,15 @@ export function parsePlatformPortalCustomerDetail(
       createdAt: asNullableTrimmedString(customer.created_at),
       updatedAt: asNullableTrimmedString(customer.updated_at),
       requiresAttention: asStrictBoolean(customer.requires_attention),
+      primaryContactName: asNullableTrimmedString(
+        customer.primary_contact_name ?? customer.full_name,
+      ),
+      primaryContactEmail: asNullableTrimmedString(
+        customer.primary_contact_email ?? customer.email,
+      ),
+      primaryContactPhone: asNullableTrimmedString(
+        customer.primary_contact_phone ?? customer.phone,
+      ),
     },
     commercial: {
       lifetime: asStrictBoolean(commercial.lifetime),

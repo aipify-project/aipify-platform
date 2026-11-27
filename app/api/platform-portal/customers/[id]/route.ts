@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { enrichPlatformCustomerDetailPrimaryContact } from "@/lib/platform-portal/enrich-customer-primary-contact";
 import { parsePlatformPortalCustomerDetail } from "@/lib/platform-portal/parse";
 import { createClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/service-role";
+import { getPlatformProfile } from "@/lib/tenant/get-platform-profile";
 
 const UUID_REGEX =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -32,6 +35,11 @@ export async function GET(
       return jsonError("Unauthorized", 401);
     }
 
+    const profile = await getPlatformProfile(supabase);
+    if (!profile) {
+      return jsonError("Forbidden", 403);
+    }
+
     const { data, error } = await supabase.rpc("get_platform_portal_customer_detail", {
       p_customer_id: customerId,
     });
@@ -60,7 +68,13 @@ export async function GET(
       return jsonError("Unable to load customer detail.", 500);
     }
 
-    return NextResponse.json(parsed, { headers: NO_STORE });
+    // RPC already authorized platform access; enrich person contact from existing columns.
+    const enriched = await enrichPlatformCustomerDetailPrimaryContact({
+      admin: createServiceRoleClient(),
+      detail: parsed,
+    });
+
+    return NextResponse.json(enriched, { headers: NO_STORE });
   } catch {
     return jsonError("Unable to load customer detail.", 500);
   }

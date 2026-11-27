@@ -883,7 +883,11 @@
           "unavailable": "Otillgänglig",
           "conflict": "Kräver granskning"
         }
-      }
+      },
+      "primaryContactName": "Primärkontakt",
+      "primaryContactEmail": "Kontakt-e-post",
+      "primaryContactPhone": "Kontakttelefon",
+      "primaryContactEmpty": "Ingen primärkontakt registrerad"
     },
     "createCustomer": "Skapa kund",
     "creation": {
@@ -1812,6 +1816,7 @@
       "ordinaryProductionOnly": "Vanligt Platform-skapande använder alltid produktionsmiljön.",
       "nextGateHelperAllowlistSql": "Nästa ägarbeslut: tillämpa endast SQL för tillåtelselistan för intern skapandehelper (tom tabell; helper fortfarande false). Ingen tenant-skapande."
     },
+    "primaryContact": "Primärkontakt",
     "paginationShowing": "Visar {from}–{to} av {total}",
     "paginationPrevious": "Föregående",
     "paginationNext": "Nästa",

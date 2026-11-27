@@ -112,8 +112,12 @@ const companyView = buildAccountProfileView({
   canOpenCompanySettings: false,
 });
 
-assert.equal(companyView.hasCompanyDetails, false);
-assert.equal(companyView.companyName.value, null);
+assert.equal(companyView.hasCompanyDetails, true);
+assert.equal(companyView.companyName.value, "Example Workspace");
+assert.equal(
+  companyView.companyName.source,
+  "get_app_organization_context.workspace_name",
+);
 assert.equal(companyView.relationship.workspaceName.value, "Example Workspace");
 assert.equal(companyView.relationship.referenceHidden, false);
 assert.equal(companyView.links.license, "/app/license");
@@ -180,6 +184,18 @@ const editor = fs.readFileSync(
 );
 assert.match(editor, /\/api\/app\/account-profile/);
 assert.match(editor, /avatar/);
+assert.match(editor, /phoneCountries|phoneCountry/);
+assert.match(editor, /labels\.cancel/);
+
+const companySettings = fs.readFileSync(
+  path.join(ROOT, "app/app/settings/company-profile/page.tsx"),
+  "utf8",
+);
+assert.match(companySettings, /redirect/);
+assert.match(companySettings, /tab=company/);
+
+const route = fs.readFileSync(path.join(ROOT, "app/api/app/account-profile/route.ts"), "utf8");
+assert.match(route, /syncCustomerPrimaryContactFromAppUser/);
 
 for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"]) {
   const portal = JSON.parse(
@@ -198,6 +214,9 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"]) {
   assert.equal(portal.portalStructure.accountProfile.title, name);
   assert.ok(portal.portalStructure.accountProfile.companyEmpty);
   assert.ok(portal.portalStructure.accountProfile.tabSecurity);
+  assert.ok(portal.portalStructure.accountProfile.loginEmail);
+  assert.ok(portal.portalStructure.accountProfile.organizationLabel);
+  assert.ok(portal.portalStructure.accountProfile.requestChangeHref);
   if (locale !== "es") {
     assert.ok(portal.portalStructure.accountProfile.save);
     assert.ok(portal.portalStructure.accountProfile.avatarUpload);

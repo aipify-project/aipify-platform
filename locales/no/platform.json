@@ -732,7 +732,11 @@
           "unavailable": "Utilgjengelig",
           "conflict": "Krever gjennomgang"
         }
-      }
+      },
+      "primaryContactName": "Primærkontakt",
+      "primaryContactEmail": "Kontakt-e-post",
+      "primaryContactPhone": "Kontakttelefon",
+      "primaryContactEmpty": "Ingen primærkontakt registrert"
     },
     "createCustomer": "Opprett kunde",
     "creation": {
@@ -1661,6 +1665,7 @@
       "ordinaryProductionOnly": "Vanlig Platform-opprettelse bruker alltid produksjonsmiljøet.",
       "nextGateHelperAllowlistSql": "Neste eierbeslutning: bruk kun SQL for tillatelseslisten for intern opprettelseshelper (tom tabell; helper fortsatt false). Ingen tenant-opprettelse."
     },
+    "primaryContact": "Primærkontakt",
     "paginationShowing": "Viser {from}–{to} av {total}",
     "paginationPrevious": "Forrige",
     "paginationNext": "Neste",

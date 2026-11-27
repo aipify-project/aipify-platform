@@ -349,6 +349,13 @@
       "ordinaryProductionOnly": "La creación ordinaria en Platform siempre usa el entorno de producción.",
       "nextGateHelperAllowlistSql": "Próxima decisión del propietario: aplicar solo el SQL de lista de permisos del helper de creación interna (tabla vacía; el helper sigue en false). Sin creación de tenant."
     },
+    "primaryContact": "Contacto principal",
+    "detail": {
+      "primaryContactName": "Contacto principal",
+      "primaryContactEmail": "Correo de contacto",
+      "primaryContactPhone": "Teléfono de contacto",
+      "primaryContactEmpty": "No hay contacto principal registrado"
+    },
     "paginationShowing": "Mostrando {from}–{to} de {total}",
     "paginationPrevious": "Anterior",
     "paginationNext": "Siguiente",

@@ -861,6 +861,12 @@ export function PlatformPortalCustomerDetailPanel({
                   {labels.legalName}: {customer.legalName}
                 </p>
               ) : null}
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                {labels.primaryContactName}:{" "}
+                {customer.primaryContactName?.trim()
+                  ? customer.primaryContactName
+                  : labels.primaryContactEmpty}
+              </p>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-600 dark:text-slate-400">
                 {customer.organizationNumber ? (
                   <span>
@@ -983,6 +989,21 @@ export function PlatformPortalCustomerDetailPanel({
               <DetailRow label={labels.organizationNumber}>
                 {customer.organizationNumber?.trim()
                   ? customer.organizationNumber
+                  : labels.notAvailable}
+              </DetailRow>
+              <DetailRow label={labels.primaryContactName}>
+                {customer.primaryContactName?.trim()
+                  ? customer.primaryContactName
+                  : labels.primaryContactEmpty}
+              </DetailRow>
+              <DetailRow label={labels.primaryContactEmail}>
+                {customer.primaryContactEmail?.trim()
+                  ? customer.primaryContactEmail
+                  : labels.notAvailable}
+              </DetailRow>
+              <DetailRow label={labels.primaryContactPhone}>
+                {customer.primaryContactPhone?.trim()
+                  ? customer.primaryContactPhone
                   : labels.notAvailable}
               </DetailRow>
               <DetailRow label={labels.createdAt}>

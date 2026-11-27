@@ -98,6 +98,9 @@ test("parser accepts authoritative Unonight-shaped RPC payload", () => {
   assert.equal(parsed.customer.companyId, UNONIGHT_COMPANY);
   assert.equal(parsed.customer.organizationNumber, "937978960");
   assert.equal(parsed.customer.slug, "unonight");
+  assert.equal(parsed.customer.primaryContactName, null);
+  assert.equal(parsed.customer.primaryContactEmail, null);
+  assert.equal(parsed.customer.primaryContactPhone, null);
   assert.equal(parsed.usage.memberCount, 3);
   assert.equal(parsed.licenses.length, 1);
   assert.equal(parsed.domains.length, 1);

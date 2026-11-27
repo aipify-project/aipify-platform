@@ -1,9 +1,15 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { LockKeyhole, UserRound } from "lucide-react";
 import type { AccountProfileLabels } from "@/lib/app/account-profile/labels";
 import type { AccountProfileView } from "@/lib/app/account-profile/types";
+import {
+  ACCOUNT_PROFILE_PHONE_COUNTRIES,
+  composeE164,
+  isPlausibleE164,
+  splitStoredPhone,
+} from "@/lib/app/account-profile/phone";
 
 type Props = {
   view: AccountProfileView;
@@ -17,22 +23,54 @@ function fieldFallback(value: string | null, labels: AccountProfileLabels): stri
 
 export function AccountPersonalEditor({ view, labels }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
+  const initialPhone = splitStoredPhone(view.phone.value);
   const [fullName, setFullName] = useState(view.fullName.value ?? "");
-  const [phone, setPhone] = useState(view.phone.value ?? "");
+  const [dial, setDial] = useState(initialPhone.dial);
+  const [national, setNational] = useState(initialPhone.national);
   const [avatarUrl, setAvatarUrl] = useState(view.avatarUrl);
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
+  const composedPhone = composeE164(dial, national);
+  const baselineName = view.fullName.value ?? "";
+  const baselinePhone = view.phone.value ?? "";
+  const dirty =
+    fullName.trim() !== baselineName.trim() || composedPhone !== baselinePhone.trim();
+
+  useEffect(() => {
+    if (!dirty) return;
+    const onBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", onBeforeUnload);
+    return () => window.removeEventListener("beforeunload", onBeforeUnload);
+  }, [dirty]);
+
   const busy = pending || status === "saving";
+
+  function resetForm() {
+    setFullName(view.fullName.value ?? "");
+    const phone = splitStoredPhone(view.phone.value);
+    setDial(phone.dial);
+    setNational(phone.national);
+    setError(null);
+    setStatus("idle");
+  }
 
   async function saveProfile() {
     setStatus("saving");
     setError(null);
+    if (composedPhone && !isPlausibleE164(composedPhone)) {
+      setStatus("error");
+      setError(labels.phoneInvalid);
+      return;
+    }
     const res = await fetch("/api/app/account-profile", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fullName: fullName.trim(), phone: phone.trim() }),
+      body: JSON.stringify({ fullName: fullName.trim(), phone: composedPhone }),
     });
     if (!res.ok) {
       setStatus("error");
@@ -75,7 +113,7 @@ export function AccountPersonalEditor({ view, labels }: Props) {
   }
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-5">
       <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--app-text)]">
         <UserRound aria-hidden className="h-4 w-4 text-[var(--app-primary)]" />
         {labels.personalTitle}
@@ -132,59 +170,103 @@ export function AccountPersonalEditor({ view, labels }: Props) {
         </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        <label className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 py-3">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block space-y-1.5">
           <span className="text-xs font-medium text-[var(--app-text-muted)]">{labels.fullName}</span>
           <input
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             maxLength={120}
-            className="mt-1 w-full border-0 bg-transparent p-0 text-sm font-medium text-[var(--app-text)] outline-none focus:ring-0"
+            autoComplete="name"
+            className="min-h-11 w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 text-sm font-medium text-[var(--app-text)] outline-none focus:border-[var(--app-primary)] focus:ring-2 focus:ring-[var(--app-focus)]"
           />
         </label>
-        <div className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 py-3">
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-xs font-medium text-[var(--app-text-muted)]">{labels.email}</p>
-            <span className="inline-flex items-center text-[var(--app-text-muted)]" title={labels.emailLockedReason}>
+
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-xs font-medium text-[var(--app-text-muted)]">{labels.loginEmail}</p>
+            <span
+              className="inline-flex items-center text-[var(--app-text-muted)]"
+              title={labels.emailLockedReason}
+            >
               <LockKeyhole aria-hidden className="h-3.5 w-3.5" />
               <span className="sr-only">{labels.emailLockedReason}</span>
             </span>
           </div>
-          <p className="mt-1 break-words text-sm font-medium text-[var(--app-text)]">
+          <div className="min-h-11 rounded-xl border border-[var(--app-border)] bg-[var(--app-canvas)] px-3 py-2.5 text-sm font-medium text-[var(--app-text)]">
             {fieldFallback(view.email.value, labels)}
-          </p>
+          </div>
+          <p className="text-xs text-[var(--app-text-muted)]">{labels.loginEmailHelp}</p>
         </div>
-        <label className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 py-3">
-          <span className="text-xs font-medium text-[var(--app-text-muted)]">{labels.phone}</span>
-          <input
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            maxLength={40}
-            className="mt-1 w-full border-0 bg-transparent p-0 text-sm font-medium text-[var(--app-text)] outline-none focus:ring-0"
-          />
-        </label>
-        <div className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] px-4 py-3">
-          <div className="flex items-center justify-between gap-3">
+
+        <div className="space-y-1.5 sm:col-span-2">
+          <p className="text-xs font-medium text-[var(--app-text-muted)]">{labels.phone}</p>
+          <div className="grid gap-2 sm:grid-cols-[minmax(0,14rem)_1fr]">
+            <label className="block">
+              <span className="sr-only">{labels.phoneCountry}</span>
+              <select
+                value={dial}
+                onChange={(event) => setDial(event.target.value)}
+                className="min-h-11 w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 text-sm text-[var(--app-text)] outline-none focus:border-[var(--app-primary)] focus:ring-2 focus:ring-[var(--app-focus)]"
+              >
+                {ACCOUNT_PROFILE_PHONE_COUNTRIES.map((country) => (
+                  <option key={country.iso2} value={country.dial}>
+                    {labels.phoneCountries[country.labelKey] ?? country.iso2} ({country.dial})
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="block">
+              <span className="sr-only">{labels.phoneNational}</span>
+              <input
+                value={national}
+                onChange={(e) => setNational(e.target.value)}
+                inputMode="tel"
+                autoComplete="tel-national"
+                placeholder={labels.phoneNationalPlaceholder}
+                className="min-h-11 w-full rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] px-3 text-sm font-medium text-[var(--app-text)] outline-none focus:border-[var(--app-primary)] focus:ring-2 focus:ring-[var(--app-focus)]"
+              />
+            </label>
+          </div>
+          <p className="text-xs text-[var(--app-text-muted)]">{labels.phoneHelp}</p>
+        </div>
+
+        <div className="space-y-1.5 sm:col-span-2">
+          <div className="flex items-center justify-between gap-2">
             <p className="text-xs font-medium text-[var(--app-text-muted)]">{labels.address}</p>
-            <span className="inline-flex items-center text-[var(--app-text-muted)]" title={labels.readOnlyReason}>
+            <span
+              className="inline-flex items-center text-[var(--app-text-muted)]"
+              title={labels.addressBlockedReason}
+            >
               <LockKeyhole aria-hidden className="h-3.5 w-3.5" />
-              <span className="sr-only">{labels.readOnlyReason}</span>
+              <span className="sr-only">{labels.addressBlockedReason}</span>
             </span>
           </div>
-          <p className="mt-1 break-words text-sm font-medium text-[var(--app-text)]">
-            {view.address.source === "unavailable" ? labels.unavailable : fieldFallback(view.address.value, labels)}
-          </p>
+          <div className="min-h-11 rounded-xl border border-[var(--app-border)] bg-[var(--app-canvas)] px-3 py-2.5 text-sm font-medium text-[var(--app-text)]">
+            {view.address.source === "unavailable"
+              ? labels.addressUnavailable
+              : fieldFallback(view.address.value, labels)}
+          </div>
+          <p className="text-xs text-[var(--app-text-muted)]">{labels.addressBlockedReason}</p>
         </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
-          disabled={busy || fullName.trim().length < 1}
+          disabled={busy || fullName.trim().length < 1 || !dirty}
           onClick={() => startTransition(() => void saveProfile())}
           className="inline-flex min-h-11 items-center rounded-xl bg-[var(--app-primary)] px-4 text-sm font-semibold text-white disabled:opacity-60"
         >
           {labels.save}
+        </button>
+        <button
+          type="button"
+          disabled={busy || !dirty}
+          onClick={resetForm}
+          className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] px-4 text-sm font-medium text-[var(--app-text)] disabled:opacity-60"
+        >
+          {labels.cancel}
         </button>
         {status === "saved" ? (
           <p className="text-sm text-emerald-700">{labels.saveSuccess}</p>
