@@ -1,6 +1,7 @@
 import { CertifiedSalesPartnerCustomersPanel } from "@/components/partners-portal/CertifiedSalesPartnerCustomersPanel";
 import { renderCspSectionPage } from "@/lib/partners-portal/csp-section-page";
 import { buildCspCustomersLabels } from "@/lib/partners-portal/csp-workspace-labels";
+import { buildEmptyModel, buildSectionHero } from "@/lib/partners-portal/sales-experience-content";
 
 /** Route stays `/partners/customers/prospects`; the nav entry is "My customers" (Mine kunder). */
 export default function PartnersCustomersPage() {
@@ -8,7 +9,12 @@ export default function PartnersCustomersPage() {
     titleKey: "partnersPortal.certifiedSalesPartner.pages.customers.title",
     subtitleKey: "partnersPortal.certifiedSalesPartner.pages.customers.subtitle",
     children: ({ locale, t }) => (
-      <CertifiedSalesPartnerCustomersPanel labels={buildCspCustomersLabels(t)} locale={locale} />
+      <CertifiedSalesPartnerCustomersPanel
+        labels={buildCspCustomersLabels(t)}
+        locale={locale}
+        guide={buildSectionHero(t, "customers")}
+        emptyModel={buildEmptyModel(t, "customers", "/partners/referrals/links")}
+      />
     ),
   });
 }

@@ -1244,6 +1244,252 @@
       "editPayoutCta": "Ändra utbetalningsuppgifter",
       "howCommissionCta": "Så fungerar provision"
     },
+    "salesExperience": {
+      "guidanceNotice": "Det här är vägledning, inte ett automatiskt säljutskick.",
+      "suggestionNotice": "Bara förslag. De är inte dina uppgifter och inte en logg över din aktivitet.",
+      "metricsNote": "Siffrorna kommer från ditt partnerkonto. Noll betyder att inget är registrerat. En saknad siffra förblir inte tillgänglig.",
+      "knowLabel": "Det här bör du veta",
+      "know": "Dela bara det som är publicerat. En gratis variant ger aldrig intjänad provision. Saknas pris eller sats är den inte tillgänglig.",
+      "imageAlt": "Produktbild",
+      "categoriesTitle": "Praktisk hjälp",
+      "approvedLabel": "Godkänd text",
+      "hero": {
+        "homeTitle": "Bra försäljning börjar med ett bra samtal.",
+        "homeSupport": "Hitta produkten som passar kunden. Använd godkända säljverktyg och följ dina försäljningar på ett ställe.",
+        "productsTitle": "Förstå produkten. Hitta rätt kund. Dela med trygghet.",
+        "productsSupport": "Se vem produkten passar, vad kunden får och det pris och den provision som är publicerad för dig.",
+        "toolsTitle": "Bra samtal börjar med bra frågor.",
+        "toolsSupport": "Välj ett steg, se varför det hjälper, och kopiera text bara när den redan är godkänd.",
+        "academyTitle": "Kunskap ger trygghet. Certifiering visar att du kan produkten.",
+        "academySupport": "Lär, bli godkänd och sälj sedan. Provreglerna på sidan är oförändrade.",
+        "linksTitle": "Använd din personliga försäljningslänk när du rekommenderar en produkt.",
+        "linksSupport": "Länken är utfärdad till ditt partnerkonto. Dela den länken, inte en kassaadress du hittar på.",
+        "leadsTitle": "Från första intresse till registrerad försäljning.",
+        "leadsSupport": "Det här är registreringar kopplade till dina länkar. Det är inte ett prospektregister.",
+        "customersTitle": "Kunder kopplade till dig.",
+        "customersSupport": "Försäljningsstatus och provisionsunderlag kommer från partnerkontot. Inget delas mellan partner.",
+        "salesTitle": "Registrerade försäljningar.",
+        "salesSupport": "Följ statusen som är registrerad på varje försäljning. Ett saknat belopp visas som inte tillgängligt.",
+        "commissionTitle": "Se vad som är registrerat, intjänat och klart för avräkning.",
+        "commissionSupport": "Tidslinjen förklarar statusarna. Den räknar inte ut en ny provision."
+      },
+      "actions": {
+        "products": "Se produkter",
+        "tools": "Öppna säljverktyg",
+        "links": "Se mina försäljningslänkar",
+        "readMore": "Läs mer",
+        "close": "Stäng",
+        "shareProduct": "Dela produkt",
+        "copy": "Kopiera",
+        "copied": "Kopierad",
+        "copyFailed": "Kunde inte kopiera"
+      },
+      "labels": {
+        "why": "Varför det här fungerar",
+        "say": "Vad du kan säga",
+        "example": "Exempel"
+      },
+      "start": {
+        "title": "Kom igång",
+        "product": {
+          "title": "Välj certifierad produkt",
+          "summary": "Börja med en produkt du får presentera.",
+          "why": "Du kan förklara den, också det den inte gör.",
+          "say": "Jag rekommenderar bara en produkt jag är certifierad att presentera.",
+          "example": "Öppna produkten och läs vem den passar.",
+          "action": "Se produkter"
+        },
+        "need": {
+          "title": "Förstå kundbehovet",
+          "summary": "Leta efter ett relevant problem innan du rekommenderar.",
+          "why": "En bra fråga är mer användbar än en lång presentation.",
+          "say": "Vad tar mest tid hos er just nu?",
+          "example": "Lyssna, och bedöm sedan om en produkt passar.",
+          "action": "Öppna säljverktyg"
+        },
+        "link": {
+          "title": "Dela din egen försäljningslänk",
+          "summary": "Använd den personliga länk som är utfärdad till ditt konto.",
+          "why": "Så kan en senare försäljning kopplas till dig.",
+          "say": "Jag kan skicka min länk om du vill titta i din egen takt.",
+          "example": "Kopiera länken först när certifieringen tillåter det.",
+          "action": "Se mina försäljningslänkar"
+        },
+        "review": {
+          "title": "Se registrerad försäljning och provision",
+          "summary": "Följ statusen från registrerad till avräkning.",
+          "why": "Provision visas bara när den är registrerad.",
+          "say": "Jag kontrollerar försäljningsstatusen i stället för att gissa beloppet.",
+          "example": "Öppna Mina försäljningar när en försäljning finns.",
+          "action": "Se mina försäljningar"
+        }
+      },
+      "talk": {
+        "title": "Ett samtal, ett steg i taget",
+        "find": {
+          "title": "Hitta rätt kund",
+          "summary": "Leta efter ett relevant problem.",
+          "why": "Relevans är mer respektfullt än ett brett utskick.",
+          "say": "Jag letar efter team som ställer samma frågor om igen.",
+          "example": "Nämn problemet innan du nämner en produkt.",
+          "action": "Se produkter"
+        },
+        "contact": {
+          "title": "Ta första kontakten",
+          "summary": "Kort introduktion och en öppen fråga.",
+          "why": "Människor svarar lättare på en fråga än på en presentation.",
+          "say": "Hej. Jag tänkte att det här kunde vara relevant. Vad tar mest tid hos er i dag?",
+          "example": "Håll det kort. Kräv inget svar.",
+          "action": "Öppna e-postmallar"
+        },
+        "listen": {
+          "title": "Kartlägg behovet",
+          "summary": "Lyssna innan du rekommenderar.",
+          "why": "Passformen finns i det de säger, inte i det du säger.",
+          "say": "Vad har ni redan provat?",
+          "example": "Skriv ner behovet innan du väljer produkt.",
+          "action": "Öppna säljverktyg"
+        },
+        "show": {
+          "title": "Visa rätt lösning",
+          "summary": "Beskriv verklig nytta och begränsningarna.",
+          "why": "Förtroende kommer av det du inte lovar för mycket.",
+          "say": "Det här hjälper med problemet du beskrev. Det gör inte allt annat.",
+          "example": "Använd den publicerade produktbeskrivningen.",
+          "action": "Se produkter"
+        },
+        "share": {
+          "title": "Dela personlig försäljningslänk",
+          "summary": "Använd länken som redan finns för dig.",
+          "why": "En påhittad kassalänk är inte en försäljning.",
+          "say": "Här är min länk om du vill titta senare.",
+          "example": "Kopiera den personliga länken från Försäljningslänkar.",
+          "action": "Se mina försäljningslänkar"
+        },
+        "follow": {
+          "title": "Följ upp med respekt",
+          "summary": "Ge kunden tid, och låt kunden säga nej.",
+          "why": "En lugn uppföljning tar hand om relationen.",
+          "say": "Jag kan lämna det här hos dig. Ett nej är helt okej.",
+          "example": "Följ upp en gång, och vänta sedan.",
+          "action": "Se leads"
+        }
+      },
+      "today": {
+        "title": "Vad kan jag göra i dag?",
+        "reviewProduct": {
+          "title": "Läs en produkt du kan dela",
+          "body": "Ett förslag, inte en uppgift och inte en logg över din aktivitet.",
+          "action": "Se produkter"
+        },
+        "readQuestion": {
+          "title": "Läs en fråga i säljverktygen",
+          "body": "Använd den bara om den passar personen du talar med.",
+          "action": "Öppna säljverktyg"
+        },
+        "checkLink": {
+          "title": "Kontrollera att försäljningslänken är din",
+          "body": "Använd den personliga länken på ditt konto när du är redo att dela.",
+          "action": "Se mina försäljningslänkar"
+        }
+      },
+      "categories": {
+        "start": {
+          "title": "Starta samtalet",
+          "body": "Kort introduktion och en öppen fråga. Kopiera bara godkänd text.",
+          "action": "Öppna e-postmallar"
+        },
+        "questions": {
+          "title": "Ställ bättre frågor",
+          "body": "Fråga vad som är svårt i dag, och vänta. Fyll inte tystnaden med en presentation."
+        },
+        "value": {
+          "title": "Visa värdet",
+          "body": "Beskriv nyttan som är publicerad för produkten, inklusive begränsningarna.",
+          "action": "Öppna godkänd text"
+        },
+        "objections": {
+          "title": "Vanliga invändningar",
+          "body": "Bekräfta invändningen. Lova inte inkomst, resultat eller en rabatt du inte kan ge."
+        },
+        "followUp": {
+          "title": "Följ upp",
+          "body": "Var relevant. Var hjälpsam. Gör nästa steg enkelt.",
+          "action": "Öppna e-postmallar"
+        },
+        "commission": {
+          "title": "Förstå provision",
+          "body": "Läs de registrerade reglerna innan du förklarar vad en säljare tjänar.",
+          "action": "Öppna provisionsguiden"
+        }
+      },
+      "academy": {
+                "learnedStatus": "Lektionerna finns på den här sidan",
+        "passedStatus": "Certifiering är registrerad",
+        "notPassedStatus": "Inte registrerad ännu",
+        "sellStatus": "Dela efter certifiering",
+"learn": {
+          "title": "Lär",
+          "body": "Läs de publicerade lektionerna för produkten.",
+          "action": "Öppna lektionen"
+        },
+        "pass": {
+          "title": "Bli godkänd",
+          "body": "Certifiering registreras bara när de befintliga provreglerna säger det.",
+          "action": "Se certifieringsstatus"
+        },
+        "sell": {
+          "title": "Sälj",
+          "body": "Dela en produkt du är certifierad att presentera, med din personliga länk.",
+          "action": "Se produkter"
+        }
+      },
+      "commission": {
+        "ledgerNote": "Belopp på varje försäljning kommer från partnerreskontran. Den här förklaringen skapar ingen utbetalning.",
+        "timelineTitle": "Så flyttas en försäljning",
+        "unavailableNote": "Saknas en siffra visas den som inte tillgänglig — inte som noll.",
+        "intervalGap": "Partneröversikten registrerar kvalificering efter den andra lyckade betalda perioden för alla intervall. Provision efter första årsbetalningen och efter första engångsbetalningen är den avsedda regeln. Den beräknas inte per intervall här.",
+        "rules": {
+          "yearlyTitle": "Årsabonnemang",
+          "yearlyBody": "Den avsedda regeln är provision vid första bekräftade årsbetalningen. Den här översikten beräknar inte årsintervall separat.",
+          "oneTimeTitle": "Engångsköp",
+          "oneTimeBody": "Den avsedda regeln är provision vid första kvalificerande betalningen. Den här översikten beräknar inte engångsköp separat."
+        },
+        "timeline": {
+          "registered": {
+            "label": "Registrerad",
+            "body": "Försäljningen registreras efter en bekräftad betalning."
+          },
+          "qualifying": {
+            "label": "Under kvalificering",
+            "body": "Försäljningen kontrolleras mot provisionsreglerna."
+          },
+          "earned": {
+            "label": "Intjänad",
+            "body": "Provision registreras när regeln för kvalificerande betalning är uppfylld."
+          },
+          "approved": {
+            "label": "Godkänd",
+            "body": "Beloppet är godkänt för avräkning. Det är inte utbetalt ännu."
+          },
+          "paid": {
+            "label": "Utbetald",
+            "body": "Utbetalning sker manuellt enligt gällande regler."
+          }
+        }
+      },
+      "empty": {
+        "salesTitle": "Inga registrerade försäljningar ännu. Se produkterna du kan dela.",
+        "salesBody": "När en försäljning registreras på ditt konto visas den här med status.",
+        "salesAction": "Se produkter",
+        "leadsTitle": "Inga leads ännu.",
+        "leadsBody": "Intresse kopplat till din personliga länk visas här. Inget importeras åt dig.",
+        "leadsAction": "Se mina försäljningslänkar",
+        "customersTitle": "Inga kunder ännu.",
+        "customersBody": "Kunder kopplade till ditt konto visas här. Du ser bara dina egna.",
+        "customersAction": "Se mina försäljningslänkar"
+      }
+    },
     "guides": {
       "gettingStarted": {
         "title": "Kom igång som säljare",

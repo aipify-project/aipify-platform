@@ -22,7 +22,19 @@ import {
 } from "@/lib/product-catalog/variants";
 import { variantHasPaidCustomerPrice } from "@/lib/product-catalog/quota-labels";
 import { ensureCspSalesLink, useCspSalesLinks, writeClipboard } from "./csp-sales-links-client";
+import { GuidedProductCard, SalesExperienceHero } from "./sales-experience";
+import type { SalesHeroModel } from "./sales-experience";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
+
+export type CspProductExperience = {
+  hero: SalesHeroModel;
+  readMore: string;
+  close: string;
+  share: string;
+  knowLabel: string;
+  know: string;
+  imageAlt: string;
+};
 
 export type CspCatalogLabels = {
   title: string;
@@ -273,6 +285,7 @@ function SaleCatalogProductCard({
   pending,
   onCopyLink,
   portalOverview,
+  experience,
 }: {
   product: CspLocalizedCatalogProduct;
   locale: string;
@@ -284,6 +297,7 @@ function SaleCatalogProductCard({
   pending: boolean;
   onCopyLink: () => void;
   portalOverview: Parameters<typeof evaluateCspCopyLinkEligibility>[0];
+  experience?: CspProductExperience;
 }) {
   const [selectedVariant, setSelectedVariant] = useState<ProductVariantDefinition | null>(null);
   const cert = certificationPresentation(product, overview?.certificationStatus, labels);
@@ -299,145 +313,76 @@ function SaleCatalogProductCard({
         ? fill(labels.commissionAmount, { amount: formatMoney(amount, currency, locale) })
         : labels.commissionPending;
   const certPassed = overview?.certificationStatus === "passed";
+  const canShare = !product.future && eligibility.allowed;
+  const know = [experience?.know, product.future ? labels.futureNote : labels.plannedPriceNote].filter(Boolean).join(" ");
 
   return (
-    <li className="flex flex-col gap-3 rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-5 shadow-sm">
-      <div className="flex items-start justify-between gap-2">
-        <h3 className="text-base font-semibold text-[color:var(--aipify-text-primary)]">{product.title}</h3>
-        <span
-          className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold ${
-            product.future ? TONE_CLASSES.muted : TONE_CLASSES.progress
-          }`}
-        >
-          <StatusIcon tone={product.future ? "muted" : "progress"} />
-          {product.future ? labels.future : labels.sellable}
-        </span>
-      </div>
-
-      {product.imagePath ? (
-        // eslint-disable-next-line @next/next/no-img-element -- static brand asset under /public
-        <img
-          src={product.imagePath}
-          alt=""
-          className="h-36 w-full rounded-xl border border-[color:var(--aipify-border)] object-cover object-center"
+    <GuidedProductCard
+      title={product.title}
+      imageSrc={product.imagePath}
+      imageAlt={experience?.imageAlt ?? product.title}
+      statusLabel={product.future ? labels.future : labels.sellable}
+      value={product.description}
+      audienceLabel={labels.audienceLabel}
+      audience={product.audience}
+      knowLabel={experience?.knowLabel ?? labels.benefitsLabel}
+      know={know}
+      priceLabel={labels.plannedPriceNote}
+      price={
+        <SaleVariantPriceBlock
+          productKey={product.key}
+          locale={locale}
+          labels={labels}
+          fallbackMonthly={
+            product.plannedReferencePrice
+              ? {
+                  amount: product.plannedReferencePrice.fromMonthly,
+                  currency: product.plannedReferencePrice.currency,
+                }
+              : null
+          }
+          onVariantChange={setSelectedVariant}
         />
-      ) : null}
-
-      <p className="text-sm text-[color:var(--aipify-text-secondary)]">{product.description}</p>
-
-      <div className="space-y-2 text-sm">
-        <p className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
-          {labels.audienceLabel}
-        </p>
-        <p className="text-[color:var(--aipify-text-primary)]">{product.audience}</p>
-        {product.benefits.length > 0 ? (
-          <>
-            <p className="pt-1 text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
-              {labels.benefitsLabel}
-            </p>
-            <ul className="list-disc space-y-1 pl-5 text-[color:var(--aipify-text-primary)]">
+      }
+      commissionLabel={labels.commissionLabel}
+      commission={commissionText}
+      readMoreLabel={experience?.readMore ?? labels.shareMarketing}
+      closeLabel={experience?.close ?? labels.filterAll}
+      shareLabel={experience?.share ?? labels.copyLink}
+      sharePending={pending}
+      shareDisabledReason={product.future ? labels.futureNote : labels.linkGatesNotMet}
+      onShare={canShare ? onCopyLink : undefined}
+      details={
+        <div className="space-y-3">
+          {product.benefits.length > 0 ? (
+            <ul className="list-disc space-y-1 pl-5">
               {product.benefits.map((benefit) => (
                 <li key={benefit}>{benefit}</li>
               ))}
             </ul>
-          </>
-        ) : null}
-      </div>
-
-      <SaleVariantPriceBlock
-        productKey={product.key}
-        locale={locale}
-        labels={labels}
-        fallbackMonthly={
-          product.plannedReferencePrice
-            ? {
-                amount: product.plannedReferencePrice.fromMonthly,
-                currency: product.plannedReferencePrice.currency,
-              }
-            : null
-        }
-        onVariantChange={setSelectedVariant}
-      />
-
-      <dl className="space-y-2 text-sm">
-        <div>
-          <dt className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
-            {labels.commissionLabel}
-          </dt>
-          <dd className="text-[color:var(--aipify-text-primary)]">{commissionText}</dd>
-        </div>
-        <div>
-          <dt className="text-xs font-semibold uppercase tracking-wide text-[color:var(--aipify-text-muted)]">
-            {labels.certificationLabel}
-          </dt>
-          <dd>
-            <span
-              className={`mt-0.5 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold ${TONE_CLASSES[cert.tone]}`}
-            >
-              <StatusIcon tone={cert.tone} />
-              {cert.text}
-            </span>
-          </dd>
-        </div>
-      </dl>
-
-      <div className="mt-auto space-y-2 pt-1">
-        {product.future ? (
-          <p className="text-xs text-[color:var(--aipify-text-secondary)]">{labels.futureNote}</p>
-        ) : (
-          <div className="flex flex-wrap gap-2">
-            {eligibility.allowed ? (
-              <button
-                type="button"
-                onClick={onCopyLink}
-                disabled={pending}
-                className="inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-3 py-2 text-sm font-semibold text-white hover:bg-[color:var(--aipify-companion-purple-hover)] disabled:opacity-60"
-              >
-                {labels.copyLink}
-              </button>
-            ) : (
-              <p className="self-center text-xs text-[color:var(--aipify-text-secondary)]">{labels.linkGatesNotMet}</p>
-            )}
-            <Link
-              href="/partners/marketing/assets"
-              className="inline-flex rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
-            >
-              {labels.shareMarketing}
+          ) : null}
+          <p>
+            <StatusIcon tone={cert.tone} /> {labels.certificationLabel}: {cert.text}
+          </p>
+          <p>{labels.noBuy}</p>
+          {product.hasTraining ? (
+            <Link href={certPassed ? "/partners/academy/certifications" : "/partners/academy/training"} className="font-semibold text-[#5538D3]">
+              {certPassed ? labels.viewCertificate || labels.certPassed : labels.takeTraining}
             </Link>
-            {product.hasTraining ? (
-              certPassed ? (
-                <Link
-                  href="/partners/academy/certifications"
-                  className="inline-flex rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
-                >
-                  {labels.viewCertificate || labels.certPassed}
-                </Link>
-              ) : (
-                <Link
-                  href="/partners/academy/training"
-                  className="inline-flex rounded-xl border border-[color:var(--aipify-border-strong)] bg-[color:var(--aipify-surface)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
-                >
-                  {labels.takeTraining}
-                </Link>
-              )
-            ) : (
-              <span className="self-center text-xs text-[color:var(--aipify-text-secondary)]">
-                {labels.trainingNotPublished}
-              </span>
-            )}
-          </div>
-        )}
-        {note ? (
-          <p
-            className={`flex items-start gap-1.5 rounded-lg border p-2 text-xs ${TONE_CLASSES[note.tone]}`}
-            role="status"
-          >
+          ) : (
+            <p>{labels.trainingNotPublished}</p>
+          )}
+        </div>
+      }
+      footer={
+        note ? (
+          <p className={`mt-3 flex items-start gap-1.5 rounded-lg border p-2 text-xs ${TONE_CLASSES[note.tone]}`} role="status">
             <StatusIcon tone={note.tone} />
             <span className="break-all">{note.text}</span>
           </p>
-        ) : null}
-      </div>
-    </li>
+        ) : null
+      }
+    />
   );
 }
 
@@ -449,9 +394,11 @@ function SaleCatalogProductCard({
 export function CertifiedSalesPartnerProductCatalogPanel({
   labels,
   locale,
+  experience,
 }: {
   labels: CspCatalogLabels;
   locale: string;
+  experience?: CspProductExperience;
 }) {
   const portal = useCspPortal();
   const { state: linksState, reload: reloadLinks } = useCspSalesLinks(portal !== null);
@@ -547,13 +494,17 @@ export function CertifiedSalesPartnerProductCatalogPanel({
   }
 
   return (
-    <section className="w-full space-y-5" aria-labelledby="csp-catalog-title">
-      <div>
-        <h2 id="csp-catalog-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
-          {labels.title}
-        </h2>
-        <p className="mt-2 max-w-3xl text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
-      </div>
+    <section className="w-full space-y-5">
+      {experience ? (
+        <SalesExperienceHero hero={experience.hero} />
+      ) : (
+        <div>
+          <h2 id="csp-catalog-title" className="text-lg font-semibold text-[color:var(--aipify-text-primary)]">
+            {labels.title}
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm text-[color:var(--aipify-text-secondary)]">{labels.intro}</p>
+        </div>
+      )}
 
       <div role="group" aria-label={labels.filterLabel} className="flex flex-wrap gap-2">
         {CSP_CATALOG_FILTERS.map((value) => {
@@ -596,6 +547,7 @@ export function CertifiedSalesPartnerProductCatalogPanel({
                 pending={pendingKey === product.key}
                 onCopyLink={() => void copyLink(product)}
                 portalOverview={portal.overview}
+                experience={experience}
               />
             );
           })}

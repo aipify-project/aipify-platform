@@ -1244,6 +1244,252 @@
       "editPayoutCta": "Ændr udbetalingsoplysninger",
       "howCommissionCta": "Sådan fungerer provision"
     },
+    "salesExperience": {
+      "guidanceNotice": "Dette er vejledning, ikke en automatisk salgsudsendelse.",
+      "suggestionNotice": "Kun forslag. De er ikke dine opgaver og ikke en log over din aktivitet.",
+      "metricsNote": "Tallene kommer fra din partnerkonto. Nul betyder, at ingen er registreret. Et manglende tal forbliver ikke tilgængeligt.",
+      "knowLabel": "Det bør du vide",
+      "know": "Del kun det, der er offentliggjort. En gratis variant giver aldrig optjent provision. Mangler pris eller sats, er den ikke tilgængelig.",
+      "imageAlt": "Produktbillede",
+      "categoriesTitle": "Praktisk hjælp",
+      "approvedLabel": "Godkendt tekst",
+      "hero": {
+        "homeTitle": "Gode salg starter med en god samtale.",
+        "homeSupport": "Find det produkt, der passer til kunden. Brug godkendte salgsværktøjer, og følg dine salg ét sted.",
+        "productsTitle": "Forstå produktet. Find den rigtige kunde. Del med tryghed.",
+        "productsSupport": "Se hvem produktet passer til, hvad kunden får, og den pris og provision, der er offentliggjort for dig.",
+        "toolsTitle": "Gode samtaler starter med gode spørgsmål.",
+        "toolsSupport": "Vælg et trin, se hvorfor det hjælper, og kopiér kun tekst, der allerede er godkendt.",
+        "academyTitle": "Viden giver tryghed. Certificering viser, at du kender produktet.",
+        "academySupport": "Lær, bestå, og sælg derefter. Eksamensreglerne på siden er uændrede.",
+        "linksTitle": "Brug dit personlige salgslink, når du anbefaler et produkt.",
+        "linksSupport": "Linket er udstedt til din partnerkonto. Del det link, ikke en kasseadresse du finder på.",
+        "leadsTitle": "Fra første interesse til registreret salg.",
+        "leadsSupport": "Dette er registreringer knyttet til dine links. Det er ikke et prospektregister.",
+        "customersTitle": "Kunder knyttet til dig.",
+        "customersSupport": "Salgsstatus og provisionsgrundlag kommer fra partnerkontoen. Intet deles på tværs af partnere.",
+        "salesTitle": "Registrerede salg.",
+        "salesSupport": "Følg den status, der er registreret på hvert salg. Et manglende beløb vises som ikke tilgængeligt.",
+        "commissionTitle": "Se hvad der er registreret, optjent og klar til afregning.",
+        "commissionSupport": "Tidslinjen forklarer statusserne. Den beregner ikke en ny provision."
+      },
+      "actions": {
+        "products": "Se produkter",
+        "tools": "Åbn salgsværktøjer",
+        "links": "Se mine salgslinks",
+        "readMore": "Læs mere",
+        "close": "Luk",
+        "shareProduct": "Del produkt",
+        "copy": "Kopiér",
+        "copied": "Kopieret",
+        "copyFailed": "Kunne ikke kopiere"
+      },
+      "labels": {
+        "why": "Derfor virker det",
+        "say": "Hvad du kan sige",
+        "example": "Eksempel"
+      },
+      "start": {
+        "title": "Kom i gang",
+        "product": {
+          "title": "Vælg certificeret produkt",
+          "summary": "Start med et produkt, du må præsentere.",
+          "why": "Du kan forklare det, også det det ikke gør.",
+          "say": "Jeg anbefaler kun et produkt, jeg er certificeret til at præsentere.",
+          "example": "Åbn produktet, og læs hvem det passer til.",
+          "action": "Se produkter"
+        },
+        "need": {
+          "title": "Forstå kundebehovet",
+          "summary": "Led efter et relevant problem, før du anbefaler.",
+          "why": "Et godt spørgsmål er mere nyttigt end en lang præsentation.",
+          "say": "Hvad tager mest tid hos jer lige nu?",
+          "example": "Lyt, og vurder derefter om et produkt passer.",
+          "action": "Åbn salgsværktøjer"
+        },
+        "link": {
+          "title": "Del dit eget salgslink",
+          "summary": "Brug det personlige link, der er udstedt til din konto.",
+          "why": "Sådan kan et senere salg knyttes til dig.",
+          "say": "Jeg kan sende mit link, hvis du vil se på det i dit eget tempo.",
+          "example": "Kopiér linket først, når certificeringen tillader det.",
+          "action": "Se mine salgslinks"
+        },
+        "review": {
+          "title": "Se registreret salg og provision",
+          "summary": "Følg statussen fra registreret til afregning.",
+          "why": "Provision vises kun, når den er registreret.",
+          "say": "Jeg tjekker salgsstatussen i stedet for at gætte beløbet.",
+          "example": "Åbn Mine salg, når et salg findes.",
+          "action": "Se mine salg"
+        }
+      },
+      "talk": {
+        "title": "En samtale, ét trin ad gangen",
+        "find": {
+          "title": "Find den rigtige kunde",
+          "summary": "Led efter et relevant problem.",
+          "why": "Relevans er mere respektfuldt end en bred udsendelse.",
+          "say": "Jeg leder efter teams, der stiller de samme spørgsmål igen.",
+          "example": "Nævn problemet, før du nævner et produkt.",
+          "action": "Se produkter"
+        },
+        "contact": {
+          "title": "Tag første kontakt",
+          "summary": "Kort introduktion og ét åbent spørgsmål.",
+          "why": "Folk svarer lettere på et spørgsmål end på en præsentation.",
+          "say": "Hej. Jeg tænkte, det kunne være relevant. Hvad tager mest tid hos jer i dag?",
+          "example": "Hold det kort. Kræv ikke et svar.",
+          "action": "Åbn e-mailskabeloner"
+        },
+        "listen": {
+          "title": "Kortlæg behovet",
+          "summary": "Lyt, før du anbefaler.",
+          "why": "Passformen ligger i det, de siger, ikke i det du siger.",
+          "say": "Hvad har I allerede prøvet?",
+          "example": "Skriv behovet ned, før du vælger produkt.",
+          "action": "Åbn salgsværktøjer"
+        },
+        "show": {
+          "title": "Vis den rigtige løsning",
+          "summary": "Beskriv den reelle nytte og begrænsningerne.",
+          "why": "Tillid kommer af det, du ikke lover for meget.",
+          "say": "Det hjælper med det problem, du beskrev. Det gør ikke alt andet.",
+          "example": "Brug den offentliggjorte produktbeskrivelse.",
+          "action": "Se produkter"
+        },
+        "share": {
+          "title": "Del personligt salgslink",
+          "summary": "Brug det link, der allerede findes til dig.",
+          "why": "Et opdigtet kasselink er ikke et salg.",
+          "say": "Her er mit link, hvis du vil se på det senere.",
+          "example": "Kopiér det personlige link fra Salgslinks.",
+          "action": "Se mine salgslinks"
+        },
+        "follow": {
+          "title": "Følg op med respekt",
+          "summary": "Giv kunden tid, og lad kunden sige nej.",
+          "why": "En rolig opfølgning passer på relationen.",
+          "say": "Jeg kan lade det ligge hos dig. Et nej er helt fint.",
+          "example": "Følg op én gang, og vent derefter.",
+          "action": "Se leads"
+        }
+      },
+      "today": {
+        "title": "Hvad kan jeg gøre i dag?",
+        "reviewProduct": {
+          "title": "Læs ét produkt, du kan dele",
+          "body": "Et forslag, ikke en opgave og ikke en log over din aktivitet.",
+          "action": "Se produkter"
+        },
+        "readQuestion": {
+          "title": "Læs ét spørgsmål i salgsværktøjerne",
+          "body": "Brug det kun, hvis det passer til personen, du taler med.",
+          "action": "Åbn salgsværktøjer"
+        },
+        "checkLink": {
+          "title": "Tjek at salgslinket er dit",
+          "body": "Brug det personlige link på din konto, når du er klar til at dele.",
+          "action": "Se mine salgslinks"
+        }
+      },
+      "categories": {
+        "start": {
+          "title": "Start samtalen",
+          "body": "Kort introduktion og ét åbent spørgsmål. Kopiér kun godkendt tekst.",
+          "action": "Åbn e-mailskabeloner"
+        },
+        "questions": {
+          "title": "Stil bedre spørgsmål",
+          "body": "Spørg hvad der er svært i dag, og vent. Fyld ikke stilheden med en præsentation."
+        },
+        "value": {
+          "title": "Vis værdien",
+          "body": "Beskriv den nytte, der er offentliggjort for produktet, inklusive begrænsningerne.",
+          "action": "Åbn godkendt tekst"
+        },
+        "objections": {
+          "title": "Almindelige indvendinger",
+          "body": "Anerkend bekymringen. Lov ikke indtægt, resultater eller en rabat, du ikke kan give."
+        },
+        "followUp": {
+          "title": "Følg op",
+          "body": "Vær relevant. Vær hjælpsom. Gør næste trin enkelt.",
+          "action": "Åbn e-mailskabeloner"
+        },
+        "commission": {
+          "title": "Forstå provision",
+          "body": "Læs de registrerede regler, før du forklarer, hvad en sælger tjener.",
+          "action": "Åbn provisionsguiden"
+        }
+      },
+      "academy": {
+                "learnedStatus": "Lektionerne ligger på denne side",
+        "passedStatus": "Certificering er registreret",
+        "notPassedStatus": "Ikke registreret endnu",
+        "sellStatus": "Del efter certificering",
+"learn": {
+          "title": "Lær",
+          "body": "Læs de offentliggjorte lektioner for produktet.",
+          "action": "Åbn lektionen"
+        },
+        "pass": {
+          "title": "Bestå",
+          "body": "Certificering registreres kun, når de eksisterende eksamensregler siger det.",
+          "action": "Se certificeringsstatus"
+        },
+        "sell": {
+          "title": "Sælg",
+          "body": "Del et produkt, du er certificeret til at præsentere, med dit personlige link.",
+          "action": "Se produkter"
+        }
+      },
+      "commission": {
+        "ledgerNote": "Beløb på hvert salg kommer fra partnerregnskabet. Denne forklaring opretter ikke en udbetaling.",
+        "timelineTitle": "Sådan flytter et salg sig",
+        "unavailableNote": "Mangler et tal, vises det som ikke tilgængeligt — ikke som nul.",
+        "intervalGap": "Partneroversigten registrerer kvalificering efter den anden gennemførte betalte periode for alle intervaller. Provision efter første årsbetaling og efter første engangsbetaling er den tilsigtede regel. Den beregnes ikke pr. interval her.",
+        "rules": {
+          "yearlyTitle": "Årsabonnementer",
+          "yearlyBody": "Den tilsigtede regel er provision ved første bekræftede årsbetaling. Denne oversigt beregner ikke årsinterval separat.",
+          "oneTimeTitle": "Engangskøb",
+          "oneTimeBody": "Den tilsigtede regel er provision ved første kvalificerende betaling. Denne oversigt beregner ikke engangskøb separat."
+        },
+        "timeline": {
+          "registered": {
+            "label": "Registreret",
+            "body": "Salget er registreret efter en bekræftet betaling."
+          },
+          "qualifying": {
+            "label": "Under kvalificering",
+            "body": "Salget kontrolleres mod provisionsreglerne."
+          },
+          "earned": {
+            "label": "Optjent",
+            "body": "Provision registreres, når reglen for kvalificerende betaling er opfyldt."
+          },
+          "approved": {
+            "label": "Godkendt",
+            "body": "Beløbet er godkendt til afregning. Det er ikke udbetalt endnu."
+          },
+          "paid": {
+            "label": "Udbetalt",
+            "body": "Udbetaling sker manuelt efter de gældende regler."
+          }
+        }
+      },
+      "empty": {
+        "salesTitle": "Ingen registrerede salg endnu. Se de produkter, du kan dele.",
+        "salesBody": "Når et salg er registreret på din konto, vises det her med status.",
+        "salesAction": "Se produkter",
+        "leadsTitle": "Ingen leads endnu.",
+        "leadsBody": "Interesse knyttet til dit personlige link vises her. Intet importeres for dig.",
+        "leadsAction": "Se mine salgslinks",
+        "customersTitle": "Ingen kunder endnu.",
+        "customersBody": "Kunder knyttet til din konto vises her. Du ser kun dine egne.",
+        "customersAction": "Se mine salgslinks"
+      }
+    },
     "guides": {
       "gettingStarted": {
         "title": "Kom i gang som sælger",

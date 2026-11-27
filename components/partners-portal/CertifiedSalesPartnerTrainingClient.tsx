@@ -13,6 +13,8 @@ import {
 } from "@/components/partners-portal/CertifiedSalesPartnerLessonsPanel";
 import { useCspPortal } from "@/components/partners-portal/CspPortalSessionProvider";
 import { AipifyAlert, AipifyCard, AipifyTabs } from "./design";
+import { LearningPath } from "./sales-experience";
+import type { LearningStageModel } from "./sales-experience";
 
 export type CspAcademyHubLabels = {
   productTabsLabel: string;
@@ -29,11 +31,19 @@ export function CertifiedSalesPartnerTrainingClient({
   lessonsLabels,
   examLabels,
   hubLabels,
+  learning,
 }: {
   locale: string;
   lessonsLabels: CspLessonsLabels;
   examLabels: CspExamLabels;
   hubLabels: CspAcademyHubLabels;
+  learning?: {
+    title: string;
+    support: string;
+    stages: LearningStageModel[];
+    passedStatus: string;
+    notPassedStatus: string;
+  };
 }) {
   const portal = useCspPortal();
   const [examPhase, setExamPhase] = useState<CspExamPhase>("idle");
@@ -62,6 +72,17 @@ export function CertifiedSalesPartnerTrainingClient({
 
   return (
     <div className="space-y-6">
+      {learning ? (
+        <LearningPath
+          title={learning.title}
+          support={learning.support}
+          stages={learning.stages.map((stage) =>
+            stage.id === "pass"
+              ? { ...stage, status: alreadyPassed ? learning.passedStatus : learning.notPassedStatus }
+              : stage,
+          )}
+        />
+      ) : null}
       <header className="overflow-hidden rounded-2xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] shadow-sm">
         <div className="flex flex-col gap-5 bg-[linear-gradient(135deg,rgba(114,83,234,0.10),rgba(246,248,252,0.9))] px-6 py-7 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <div className="min-w-0 flex-1">

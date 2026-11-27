@@ -1120,6 +1120,252 @@
       "editPayoutCta": "Editar datos de cobro",
       "howCommissionCta": "Cómo funciona la comisión"
     },
+    "salesExperience": {
+      "guidanceNotice": "Esto es una orientación, no un envío automático de ventas.",
+      "suggestionNotice": "Solo sugerencias. No son tus tareas ni un registro de tu actividad.",
+      "metricsNote": "Las cifras vienen de tu cuenta de socio. Cero significa que no hay nada registrado. Una cifra que falta sigue como no disponible.",
+      "knowLabel": "Esto conviene saber",
+      "know": "Comparte solo lo publicado. Una variante gratuita nunca devenga comisión. Si falta un precio o una tasa, no está disponible.",
+      "imageAlt": "Imagen del producto",
+      "categoriesTitle": "Ayuda práctica",
+      "approvedLabel": "Texto aprobado",
+      "hero": {
+        "homeTitle": "Las buenas ventas empiezan con una buena conversación.",
+        "homeSupport": "Encuentra el producto que encaja con el cliente. Usa herramientas de venta aprobadas y sigue tus ventas en un solo lugar.",
+        "productsTitle": "Entiende el producto. Encuentra al cliente adecuado. Comparte con confianza.",
+        "productsSupport": "Mira a quién encaja, qué recibe el cliente y el precio y la comisión publicados para ti.",
+        "toolsTitle": "Las buenas conversaciones empiezan con buenas preguntas.",
+        "toolsSupport": "Elige un paso, mira por qué ayuda y copia un texto solo cuando ya está aprobado.",
+        "academyTitle": "El conocimiento da confianza. La certificación demuestra que conoces el producto.",
+        "academySupport": "Aprende, aprueba y después vende. Las reglas del examen en esta página no cambian.",
+        "linksTitle": "Usa tu enlace de venta personal cuando recomiendas un producto.",
+        "linksSupport": "El enlace está emitido para tu cuenta de socio. Comparte ese enlace, no una dirección de pago inventada.",
+        "leadsTitle": "Del primer interés a una venta registrada.",
+        "leadsSupport": "Son registros atribuidos a tus enlaces. No es un registro de prospectos.",
+        "customersTitle": "Clientes atribuidos a ti.",
+        "customersSupport": "El estado de la venta y la base de la comisión vienen de la cuenta de socio. Nada se comparte entre socios.",
+        "salesTitle": "Ventas registradas.",
+        "salesSupport": "Sigue el estado registrado en cada venta. Un importe que falta sigue como no disponible.",
+        "commissionTitle": "Mira qué está registrado, devengado y listo para liquidar.",
+        "commissionSupport": "La línea de tiempo explica los estados. No calcula una comisión nueva."
+      },
+      "actions": {
+        "products": "Ver productos",
+        "tools": "Abrir herramientas de venta",
+        "links": "Ver mis enlaces de venta",
+        "readMore": "Leer más",
+        "close": "Cerrar",
+        "shareProduct": "Compartir producto",
+        "copy": "Copiar",
+        "copied": "Copiado",
+        "copyFailed": "No se pudo copiar"
+      },
+      "labels": {
+        "why": "Por qué funciona",
+        "say": "Qué puedes decir",
+        "example": "Ejemplo"
+      },
+      "start": {
+        "title": "Empieza",
+        "product": {
+          "title": "Elige un producto certificado",
+          "summary": "Empieza por un producto que puedes presentar.",
+          "why": "Puedes explicar lo que hace y lo que no hace.",
+          "say": "Solo recomiendo un producto para el que estoy certificado.",
+          "example": "Abre el producto y lee a quién encaja.",
+          "action": "Ver productos"
+        },
+        "need": {
+          "title": "Entiende la necesidad del cliente",
+          "summary": "Busca un problema relevante antes de recomendar.",
+          "why": "Una buena pregunta vale más que una presentación larga.",
+          "say": "¿Qué os quita más tiempo ahora mismo?",
+          "example": "Escucha y después valora si un producto encaja.",
+          "action": "Abrir herramientas de venta"
+        },
+        "link": {
+          "title": "Comparte tu propio enlace de venta",
+          "summary": "Usa el enlace personal emitido para tu cuenta.",
+          "why": "Así una venta posterior puede atribuirse a ti.",
+          "say": "Puedo enviarte mi enlace si quieres verlo a tu ritmo.",
+          "example": "Copia el enlace solo cuando la certificación lo permite.",
+          "action": "Ver mis enlaces de venta"
+        },
+        "review": {
+          "title": "Revisa la venta registrada y la comisión",
+          "summary": "Sigue el estado desde el registro hasta la liquidación.",
+          "why": "La comisión se muestra solo cuando está registrada.",
+          "say": "Reviso el estado de la venta en lugar de adivinar el importe.",
+          "example": "Abre Mis ventas cuando exista una venta.",
+          "action": "Ver mis ventas"
+        }
+      },
+      "talk": {
+        "title": "Una conversación, un paso cada vez",
+        "find": {
+          "title": "Encuentra al cliente adecuado",
+          "summary": "Busca un problema relevante.",
+          "why": "La relevancia es más respetuosa que un envío amplio.",
+          "say": "Busco equipos que repiten las mismas preguntas.",
+          "example": "Nombra el problema antes de nombrar un producto.",
+          "action": "Ver productos"
+        },
+        "contact": {
+          "title": "Haz el primer contacto",
+          "summary": "Una presentación breve y una pregunta abierta.",
+          "why": "La gente responde antes a una pregunta que a una presentación.",
+          "say": "Hola. Pensé que esto podía ser relevante. ¿Qué os quita más tiempo hoy?",
+          "example": "Sé breve. No exijas una respuesta.",
+          "action": "Abrir plantillas de correo"
+        },
+        "listen": {
+          "title": "Entiende la necesidad",
+          "summary": "Escucha antes de recomendar.",
+          "why": "El encaje está en lo que dicen, no en lo que dices tú.",
+          "say": "¿Qué habéis probado ya?",
+          "example": "Anota la necesidad antes de elegir un producto.",
+          "action": "Abrir herramientas de venta"
+        },
+        "show": {
+          "title": "Muestra la solución adecuada",
+          "summary": "Describe el beneficio real y los límites.",
+          "why": "La confianza viene de lo que no prometes de más.",
+          "say": "Esto ayuda con el problema que describiste. No hace todo lo demás.",
+          "example": "Usa la descripción publicada del producto.",
+          "action": "Ver productos"
+        },
+        "share": {
+          "title": "Comparte tu enlace de venta personal",
+          "summary": "Usa el enlace que ya existe para ti.",
+          "why": "Un enlace de pago inventado no es una venta.",
+          "say": "Aquí está mi enlace si quieres verlo más tarde.",
+          "example": "Copia el enlace personal desde Enlaces de venta.",
+          "action": "Ver mis enlaces de venta"
+        },
+        "follow": {
+          "title": "Haz seguimiento con respeto",
+          "summary": "Da tiempo al cliente y deja que diga que no.",
+          "why": "Un seguimiento tranquilo cuida la relación.",
+          "say": "Puedo dejártelo. Un no está completamente bien.",
+          "example": "Haz seguimiento una vez y después espera.",
+          "action": "Ver leads"
+        }
+      },
+      "today": {
+        "title": "¿Qué puedo hacer hoy?",
+        "reviewProduct": {
+          "title": "Lee un producto que puedes compartir",
+          "body": "Una sugerencia, no una tarea ni un registro de tu actividad.",
+          "action": "Ver productos"
+        },
+        "readQuestion": {
+          "title": "Lee una pregunta en las herramientas de venta",
+          "body": "Úsala solo si encaja con la persona con la que hablas.",
+          "action": "Abrir herramientas de venta"
+        },
+        "checkLink": {
+          "title": "Comprueba que el enlace de venta es tuyo",
+          "body": "Usa el enlace personal de tu cuenta cuando estés listo para compartirlo.",
+          "action": "Ver mis enlaces de venta"
+        }
+      },
+      "categories": {
+        "start": {
+          "title": "Empieza la conversación",
+          "body": "Una presentación breve y una pregunta abierta. Copia solo texto aprobado.",
+          "action": "Abrir plantillas de correo"
+        },
+        "questions": {
+          "title": "Haz mejores preguntas",
+          "body": "Pregunta qué es difícil hoy y espera. No llenes el silencio con una presentación."
+        },
+        "value": {
+          "title": "Muestra el valor",
+          "body": "Describe el beneficio publicado del producto, incluidos los límites.",
+          "action": "Abrir texto aprobado"
+        },
+        "objections": {
+          "title": "Objeciones habituales",
+          "body": "Reconoce la duda. No prometas ingresos, resultados ni un descuento que no puedes ofrecer."
+        },
+        "followUp": {
+          "title": "Haz seguimiento",
+          "body": "Sé relevante. Sé útil. Haz fácil el siguiente paso.",
+          "action": "Abrir plantillas de correo"
+        },
+        "commission": {
+          "title": "Entiende la comisión",
+          "body": "Lee las reglas registradas antes de explicar lo que gana un vendedor.",
+          "action": "Abrir la guía de comisión"
+        }
+      },
+      "academy": {
+                "learnedStatus": "Las lecciones están en esta página",
+        "passedStatus": "Certificación registrada",
+        "notPassedStatus": "Aún no registrada",
+        "sellStatus": "Comparte después de la certificación",
+"learn": {
+          "title": "Aprende",
+          "body": "Lee las lecciones publicadas del producto.",
+          "action": "Abrir la lección"
+        },
+        "pass": {
+          "title": "Aprueba",
+          "body": "La certificación se registra solo cuando lo dicen las reglas de examen existentes.",
+          "action": "Ver el estado de certificación"
+        },
+        "sell": {
+          "title": "Vende",
+          "body": "Comparte un producto que puedes presentar, con tu enlace personal.",
+          "action": "Ver productos"
+        }
+      },
+      "commission": {
+        "ledgerNote": "Los importes de cada venta vienen del libro del socio. Esta explicación no crea un pago.",
+        "timelineTitle": "Cómo avanza una venta",
+        "unavailableNote": "Si falta una cifra, se muestra como no disponible, no como cero.",
+        "intervalGap": "Esta vista del partner registra la cualificación tras el segundo periodo de pago correcto para todos los intervalos. La comisión tras el primer pago anual y tras el primer pago único es la regla prevista. Aquí no se calcula por intervalo.",
+        "rules": {
+          "yearlyTitle": "Suscripciones anuales",
+          "yearlyBody": "La regla prevista es comisión en el primer pago anual confirmado. Esta vista no calcula el intervalo anual por separado.",
+          "oneTimeTitle": "Compras únicas",
+          "oneTimeBody": "La regla prevista es comisión en el primer pago que cumple las condiciones. Esta vista no calcula las compras únicas por separado."
+        },
+        "timeline": {
+          "registered": {
+            "label": "Registrada",
+            "body": "La venta queda registrada tras un pago confirmado."
+          },
+          "qualifying": {
+            "label": "En calificación",
+            "body": "La venta se comprueba según las reglas de comisión."
+          },
+          "earned": {
+            "label": "Devengada",
+            "body": "La comisión se registra cuando se cumple la regla del pago que califica."
+          },
+          "approved": {
+            "label": "Aprobada",
+            "body": "El importe está aprobado para liquidación. Aún no está pagado."
+          },
+          "paid": {
+            "label": "Pagada",
+            "body": "El pago es manual, según las reglas vigentes."
+          }
+        }
+      },
+      "empty": {
+        "salesTitle": "Aún no hay ventas registradas. Mira los productos que puedes compartir.",
+        "salesBody": "Cuando una venta se registre en tu cuenta, aparecerá aquí con su estado.",
+        "salesAction": "Ver productos",
+        "leadsTitle": "Aún no hay leads.",
+        "leadsBody": "El interés atribuido a tu enlace personal aparecerá aquí. No se importa nada por ti.",
+        "leadsAction": "Ver mis enlaces de venta",
+        "customersTitle": "Aún no hay clientes.",
+        "customersBody": "Los clientes atribuidos a tu cuenta aparecerán aquí. Solo ves los tuyos.",
+        "customersAction": "Ver mis enlaces de venta"
+      }
+    },
     "guides": {
       "gettingStarted": {
         "title": "Empieza como vendedor",
