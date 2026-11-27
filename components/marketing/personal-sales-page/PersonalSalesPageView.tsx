@@ -1,6 +1,6 @@
 import KompisWebSalesPage from "@/components/marketing/kompis-web-sales/KompisWebSalesPage";
 import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labels";
-import type { PublicFooterEnabledLocale } from "@/lib/i18n/public-locales";
+import { PUBLIC_FOOTER_ENABLED_LOCALES, type PublicFooterEnabledLocale } from "@/lib/i18n/public-locales";
 import type { PersonalSalesLabels } from "@/lib/personal-sales-page/labels";
 import type { PersonalSalesPublication } from "@/lib/personal-sales-page/contract";
 import { personalSalesLocalePath } from "@/lib/personal-sales-page/locale";
@@ -31,6 +31,9 @@ export function PersonalSalesPageView({
       ? labels.recommendedBy.replace("{name}", publication.advisorName)
       : null;
   const closedNotice = published ? null : productBlocked ? labels.productUnavailable : labels.closedNotice;
+  const localePaths = Object.fromEntries(
+    PUBLIC_FOOTER_ENABLED_LOCALES.map((item) => [item, personalSalesLocalePath(code, item)]),
+  ) as Record<PublicFooterEnabledLocale, string>;
 
   return (
     <>
@@ -42,7 +45,7 @@ export function PersonalSalesPageView({
         startHref={startHref}
         advisorLine={advisor}
         closedNotice={closedNotice}
-        localePath={(next) => personalSalesLocalePath(code, next)}
+        localePaths={localePaths}
         followUp={
           published
             ? {

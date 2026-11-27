@@ -59,6 +59,11 @@ test("seller pages are noindex and do not invent checkout", () => {
   assert.match(page, /index:\s*false/);
   assert.match(page, /KOMPIS_WEB_SALES_CANONICAL_URL/);
   assert.match(view, /KompisWebSalesPage/);
+  assert.match(view, /localePaths/);
+  assert.doesNotMatch(view, /localePath=\{/);
+  const sales = readFileSync("components/marketing/kompis-web-sales/KompisWebSalesPage.tsx", "utf8");
+  assert.match(sales, /localePaths\?:/);
+  assert.doesNotMatch(sales, /localePath\?: \(locale:/);
   assert.doesNotMatch(page, /checkoutEnabled:\s*true/);
   assert.doesNotMatch(page, /stripe/i);
   assert.doesNotMatch(view, /personal page is not available/i);
