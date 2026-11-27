@@ -60,5 +60,31 @@
   "status_rejected": "Rejected",
   "status_cancelled": "Cancelled",
   "status_finalized": "Finalized",
-  "viewCommissions": "View commissions"
+  "viewCommissions": "View commissions",
+  "statement": {
+    "title": "Rozliczenie prowizji",
+    "preview": "Podgląd",
+    "previewOnly": "To jest podgląd. Dokument nie został wystawiony.",
+    "documentNumber": "Numer dokumentu",
+    "notIssued": "Niewystawiony",
+    "coreActivation": "Wymaga aktywacji Core",
+    "issueBlocked": "Numerowany dokument pozostaje niedostępny, dopóki Core nie nada numeru i nie zweryfikuje podstawy podatkowej.",
+    "taxPending": "Rozliczenie podatku wymaga weryfikacji. Podgląd nie podaje kwoty podatku.",
+    "paymentUnavailable": "Data i referencja płatności pojawiają się po zapisaniu potwierdzonej wypłaty bankowej.",
+    "paidConfirm": "Potwierdzam, że wypłata bankowa została wykonana",
+    "paidConfirmRequired": "Potwierdź wykonaną wypłatę bankową, zanim status zostanie oznaczony jako zapłacony.",
+    "filterAll": "Wszystkie statusy",
+    "currencyNote": "Kwoty pozostają w swojej walucie.",
+    "earnIntervalNote": "Sprzedaż roczna i jednorazowa nie jest pokazywana jako naliczona, gdy interwał rozliczenia jest znany. Ta lista nie zawiera interwału, a Core nadal stosuje dwa opłacone okresy dla każdego interwału.",
+    "downloadPreview": "Pobierz podgląd",
+    "generateDisabled": "Utwórz dokument",
+    "recipientPending": "Zarejestrowane dane prawne partnera nie znajdują się na tym rozliczeniu.",
+    "issuer": "Wystawca",
+    "period": "Okres",
+    "amount": "Kwota",
+    "lines": "Pozycje",
+    "status": "Status",
+    "basis": "Podstawa obliczenia",
+    "previewFailed": "Nie udało się przygotować podglądu."
+  }
 }

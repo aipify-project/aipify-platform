@@ -60,5 +60,31 @@
   "status_rejected": "Rejected",
   "status_cancelled": "Cancelled",
   "status_finalized": "Finalized",
-  "viewCommissions": "View commissions"
+  "viewCommissions": "View commissions",
+  "statement": {
+    "title": "Provisionsafregning",
+    "preview": "Forhåndsvisning",
+    "previewOnly": "Dette er en forhåndsvisning. Dokumentet er ikke udstedt.",
+    "documentNumber": "Dokumentnummer",
+    "notIssued": "Ikke udstedt",
+    "coreActivation": "Kræver Core-aktivering",
+    "issueBlocked": "Et nummereret dokument kan ikke udstedes, før Core tildeler nummeret og afgiftsgrundlaget er verificeret.",
+    "taxPending": "Afgiftsbehandling kræver verificering. Forhåndsvisningen angiver ikke et afgiftsbeløb.",
+    "paymentUnavailable": "Betalingsdato og reference vises, når en bekræftet bankudbetaling er gemt.",
+    "paidConfirm": "Jeg bekræfter, at bankudbetalingen er gennemført",
+    "paidConfirmRequired": "Bekræft den gennemførte bankudbetaling, før Betalt registreres.",
+    "filterAll": "Alle statusser",
+    "currencyNote": "Beløb vises i deres egen valuta.",
+    "earnIntervalNote": "Årsabonnement og engangssalg vises ikke som optjent, når faktureringsintervallet er kendt. Denne liste har ikke intervallet, og Core bruger stadig to betalte perioder for alle intervaller.",
+    "downloadPreview": "Hent forhåndsvisning",
+    "generateDisabled": "Opret dokument",
+    "recipientPending": "Partnerens registrerede virksomhedsoplysninger ligger ikke på denne afregning.",
+    "issuer": "Udsteder",
+    "period": "Periode",
+    "amount": "Beløb",
+    "lines": "Linjer",
+    "status": "Status",
+    "basis": "Beregningsgrundlag",
+    "previewFailed": "Forhåndsvisningen kunne ikke gøres klar."
+  }
 }

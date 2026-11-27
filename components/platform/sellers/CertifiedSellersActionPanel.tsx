@@ -105,6 +105,8 @@ type Props = {
   standaloneEditor?: boolean;
   /** Called after Core accepted the request so the surrounding list can reload. */
   onSuccess?: () => void;
+  paidConfirmationLabel?: string;
+  paidConfirmationRequired?: string;
 };
 
 export function CertifiedSellersActionPanel({
@@ -129,10 +131,14 @@ export function CertifiedSellersActionPanel({
   editorLabels,
   standaloneEditor = false,
   onSuccess,
+  paidConfirmationLabel,
+  paidConfirmationRequired,
 }: Props) {
   const router = useRouter();
   const [message, setMessage] = useState<{ kind: "ok" | "closed" | "error"; text: string } | null>(null);
   const [pending, setPending] = useState(false);
+  const [paidConfirmed, setPaidConfirmed] = useState(false);
+  const [targetStatus, setTargetStatus] = useState(initialToStatus ?? "");
 
   /** Known codes map to translated copy; raw codes are never shown. */
   function errorText(code?: string): string {
@@ -224,6 +230,10 @@ export function CertifiedSellersActionPanel({
       setMessage({ kind: "error", text: errorText(check.error) });
       return;
     }
+    if (to === "paid" && !paidConfirmed) {
+      setMessage({ kind: "error", text: paidConfirmationRequired || labels.error });
+      return;
+    }
     void post("/api/platform/sellers/settlements", {
       settlement_id: String(fd.get("settlement_id") ?? "").trim(),
       from_status: from,
@@ -231,6 +241,7 @@ export function CertifiedSellersActionPanel({
       rejection_reason: rejectionReason,
       paid_at: paidAtRaw ? new Date(paidAtRaw).toISOString() : "",
       payment_reference: paymentReference,
+      bank_payout_confirmed: to === "paid" && paidConfirmed,
     });
   }
 
@@ -429,10 +440,22 @@ export function CertifiedSellersActionPanel({
             options={labels.settlementStatusOptions}
             defaultIndex={1}
             defaultValue={initialToStatus}
+            onValueChange={setTargetStatus}
           />
           <Field name="rejection_reason" label={labels.rejectionReason} hint={labels.rejectionReasonHint} />
           <Field name="paid_at" label={labels.paidAt} type="datetime-local" hint={labels.paidEvidenceHint} />
           <Field name="payment_reference" label={labels.paymentReference} />
+          {targetStatus === "paid" && paidConfirmationLabel ? (
+            <label className="flex items-start gap-2 text-sm">
+              <input
+                type="checkbox"
+                className="mt-1"
+                checked={paidConfirmed}
+                onChange={(event) => setPaidConfirmed(event.target.checked)}
+              />
+              <span>{paidConfirmationLabel}</span>
+            </label>
+          ) : null}
           <Submit pending={pending} label={labels.submitSettlement} />
         </form>
       ) : null}
@@ -490,12 +513,14 @@ function Select({
   options,
   defaultIndex = 0,
   defaultValue,
+  onValueChange,
 }: {
   name: string;
   label: string;
   options: SellersActionOption[];
   defaultIndex?: number;
   defaultValue?: string;
+  onValueChange?: (value: string) => void;
 }) {
   const initial =
     defaultValue && options.some((o) => o.value === defaultValue) ? defaultValue : options[defaultIndex]?.value;
@@ -507,6 +532,7 @@ function Select({
         defaultValue={initial}
         className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2"
         required
+        onChange={(event) => onValueChange?.(event.target.value)}
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
