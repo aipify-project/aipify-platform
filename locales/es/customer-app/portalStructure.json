@@ -7487,7 +7487,8 @@
       "companyLegalNote": "Verified legal identity fields are locked here. Request a change through support when a correction is required.",
       "requestChange": "Solicitar un cambio",
       "requestChangeHref": "/app/support",
-      "addCompanyDetails": "Open support"
+      "addCompanyDetails": "Open support",
+      "save": "Guardar cambios"
     },
     "workspaceDashboard": {
       "eyebrow": "Espacio de trabajo",
