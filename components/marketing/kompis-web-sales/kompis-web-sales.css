@@ -102,7 +102,15 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.kompis-web-sales-advisor {
+  margin: 0 0 8px;
+  color: var(--sales-purple-deep);
+  font-weight: 750;
+  font-size: 0.98rem;
 }
 
 .kompis-web-sales-lang {
@@ -1273,6 +1281,20 @@ a.kompis-web-sales-cta-quiet:hover {
 }
 
 @media (max-width: 560px) {
+  .kompis-web-sales-nav-inner {
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 0;
+    padding-block: 10px;
+    row-gap: 8px;
+  }
+
+  .kompis-web-sales-nav-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
   .kompis-web-sales-feature-strip,
   .kompis-web-sales-how-grid,
   .kompis-web-sales-faq-grid {

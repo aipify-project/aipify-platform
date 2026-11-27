@@ -74,6 +74,7 @@ export default async function PartnersPortalLayout({
     overview: t("partnersPortal.certifiedSalesPartner.nav.home"),
     productCatalog: t("partnersPortal.certifiedSalesPartner.nav.products"),
     referralLinks: t("partnersPortal.certifiedSalesPartner.nav.salesLinks"),
+    salesPage: t("partnersPortal.certifiedSalesPartner.nav.salesPage"),
     leads: t("partnersPortal.certifiedSalesPartner.nav.leads"),
     prospects: t("partnersPortal.certifiedSalesPartner.nav.customers"),
     pipeline: t("partnersPortal.certifiedSalesPartner.nav.sales"),

@@ -55,9 +55,15 @@ test("attributed start uses the existing /p route and locale", () => {
 
 test("seller pages are noindex and do not invent checkout", () => {
   const page = readFileSync("app/s/[code]/page.tsx", "utf8");
+  const view = readFileSync("components/marketing/personal-sales-page/PersonalSalesPageView.tsx", "utf8");
   assert.match(page, /index:\s*false/);
+  assert.match(page, /KOMPIS_WEB_SALES_CANONICAL_URL/);
+  assert.match(view, /KompisWebSalesPage/);
   assert.doesNotMatch(page, /checkoutEnabled:\s*true/);
   assert.doesNotMatch(page, /stripe/i);
+  assert.doesNotMatch(view, /personal page is not available/i);
+  assert.doesNotMatch(view, /api\/personal-sales-page\/interest/);
+  assert.match(view, /interestPending/);
 });
 
 test("interest registration stays closed and ignores a client seller id", async () => {

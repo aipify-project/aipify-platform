@@ -18,7 +18,9 @@ export type PersonalSalesLabels = {
   noCheckout: string;
   productTitle: string;
   productUnavailable: string;
+  closedNotice: string;
   closedCta: string;
+  leadsCta: string;
   previewTitle: string;
   previewBody: string;
   attributionLink: string;
@@ -80,12 +82,14 @@ const EN: PersonalSalesLabels = {
   perYear: "per year",
   noCheckout: "No payment is taken on this page.",
   productTitle: "Product",
-  productUnavailable: "This product is not available on the personal page.",
+  productUnavailable: "This product is not available on this page.",
+  closedNotice: "This introduction link is not active. You can still start with Aipify, without a partner connection.",
   closedCta: "Continue to Aipify",
+  leadsCta: "See my leads",
   previewTitle: "My sales page",
   previewBody: "The public page uses your existing partner code. A named recommendation is shown only when the public link is verified.",
   attributionLink: "Sales link",
-  personalLink: "Personal page",
+  personalLink: "Sales page",
   copy: "Copy",
   copied: "Copied",
   open: "Open",
@@ -132,7 +136,9 @@ export function parsePersonalSalesLabels(source: unknown): PersonalSalesLabels {
     noCheckout: text(row.noCheckout, EN.noCheckout),
     productTitle: text(row.productTitle, EN.productTitle),
     productUnavailable: text(row.productUnavailable, EN.productUnavailable),
+    closedNotice: text(row.closedNotice, EN.closedNotice),
     closedCta: text(row.closedCta, EN.closedCta),
+    leadsCta: text(row.leadsCta, EN.leadsCta),
     previewTitle: text(row.previewTitle, EN.previewTitle),
     previewBody: text(row.previewBody, EN.previewBody),
     attributionLink: text(row.attributionLink, EN.attributionLink),

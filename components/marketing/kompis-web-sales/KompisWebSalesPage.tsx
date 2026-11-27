@@ -27,6 +27,16 @@ type Props = {
   labels: KompisWebSalesLabels;
   locale: PublicFooterEnabledLocale;
   appName: string;
+  /** Registration action. Defaults to the main-site start path. */
+  startHref?: string;
+  /** Verified public name only. Omitted when the partner link is not published. */
+  advisorLine?: string | null;
+  /** Quiet notice for an unverified link. The product page stays the page. */
+  closedNotice?: string | null;
+  /** Keeps the current public path when the visitor changes language. */
+  localePath?: (locale: PublicFooterEnabledLocale) => string;
+  /** Fail-closed contact note. No write, no success claim. */
+  followUp?: { title: string; pending: string; privacy: string; privacyLabel: string } | null;
 };
 
 const BENEFIT_ICONS = [
@@ -66,8 +76,19 @@ function PlanCheckIcon() {
   );
 }
 
-export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
+export default function KompisWebSalesPage({
+  labels,
+  locale,
+  appName,
+  startHref,
+  advisorLine,
+  closedNotice,
+  localePath,
+  followUp,
+}: Props) {
   const router = useRouter();
+  const registrationHref = startHref || labels.hrefs.start;
+  const faqHref = localePath ? "#faq" : labels.hrefs.faq;
   const [pending, startTransition] = useTransition();
   const [langOpen, setLangOpen] = useState(false);
   const [langError, setLangError] = useState<string | null>(null);
@@ -125,7 +146,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
     event?.preventDefault();
     const form = event?.currentTarget;
     if (!(form instanceof HTMLFormElement)) {
-      router.push(labels.hrefs.start);
+      router.push(registrationHref);
       return;
     }
 
@@ -147,7 +168,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
     setSignupError(null);
     setSignupInvalidField(null);
     writeSignupHandoff(result.values);
-    router.push(labels.hrefs.start);
+    router.push(registrationHref);
   }
 
   function switchLocale(next: string) {
@@ -165,7 +186,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
           setLangError(labels.nav.languageSwitchFailed);
           return;
         }
-        window.location.assign("/");
+        window.location.assign(localePath ? localePath(next) : "/");
       } catch {
         setLangError(labels.nav.languageSwitchFailed);
       }
@@ -230,7 +251,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
               {labels.nav.login}
             </Link>
             <Link
-              href={labels.hrefs.start}
+              href={registrationHref}
               className="kompis-web-sales-primary"
               {...marketingDataAttr("cta_click", "kompis_web_sales_nav_start_free")}
             >
@@ -254,15 +275,21 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
       <main>
         <section className="kompis-web-sales-shell kompis-web-sales-hero" id="product" aria-labelledby="kompis-web-sales-hero-title">
           <div className="kompis-web-sales-hero-copy">
+            {advisorLine ? <p className="kompis-web-sales-advisor">{advisorLine}</p> : null}
             <p className="kompis-web-sales-eyebrow">{labels.hero.eyebrow}</p>
             <h1 id="kompis-web-sales-hero-title" className="kompis-web-sales-display">
               {labels.hero.titleBefore}{" "}
               <span className="kompis-web-sales-gradient-text">{labels.hero.titleHighlight}</span>
             </h1>
             <p className="kompis-web-sales-lead">{labels.hero.subtitle}</p>
+            {closedNotice ? (
+              <p className="kompis-web-sales-note" role="status">
+                {closedNotice}
+              </p>
+            ) : null}
             <div className="kompis-web-sales-cta-row">
               <Link
-                href={labels.hrefs.start}
+                href={registrationHref}
                 className="kompis-web-sales-primary"
                 {...marketingDataAttr("cta_click", "kompis_web_sales_hero_start_free")}
               >
@@ -514,7 +541,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                   ))}
                 </ul>
                 <Link
-                  href={labels.hrefs.start}
+                  href={registrationHref}
                   className="kompis-web-sales-primary kompis-web-sales-plan-cta"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_free")}
                 >
@@ -542,7 +569,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                   ))}
                 </ul>
                 <Link
-                  href={labels.hrefs.start}
+                  href={registrationHref}
                   className="kompis-web-sales-secondary kompis-web-sales-plan-cta"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_paid")}
                 >
@@ -571,7 +598,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                   ))}
                 </ul>
                 <Link
-                  href={labels.hrefs.start}
+                  href={registrationHref}
                   className="kompis-web-sales-secondary kompis-web-sales-plan-cta"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_pro")}
                 >
@@ -637,7 +664,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
               <p>{labels.finalCta.subtitle}</p>
               <div className="kompis-web-sales-cta-row">
                 <Link
-                  href={labels.hrefs.start}
+                  href={registrationHref}
                   className="kompis-web-sales-primary"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_final_start_free")}
                 >
@@ -661,6 +688,14 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             />
           </div>
         </section>
+        {followUp ? (
+          <section className="kompis-web-sales-shell kompis-web-sales-section" aria-labelledby="sales-follow-up">
+            <h2 id="sales-follow-up">{followUp.title}</h2>
+            <p className="kompis-web-sales-lead">{followUp.pending}</p>
+            <p className="kompis-web-sales-note">{followUp.privacy}</p>
+            <Link href={labels.hrefs.privacy}>{followUp.privacyLabel}</Link>
+          </section>
+        ) : null}
       </main>
 
       <footer className="kompis-web-sales-footer">
@@ -673,7 +708,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             <a href="#product">{labels.footer.product}</a>
             <a href="#how">{labels.footer.how}</a>
             <a href="#pricing">{labels.footer.pricing}</a>
-            <a href={labels.hrefs.faq}>{labels.footer.faq}</a>
+            <a href={faqHref}>{labels.footer.faq}</a>
             <Link href={labels.hrefs.privacy}>{labels.footer.privacy}</Link>
             <Link href={labels.hrefs.terms}>{labels.footer.terms}</Link>
             <Link href={labels.hrefs.contact}>{labels.footer.contact}</Link>
