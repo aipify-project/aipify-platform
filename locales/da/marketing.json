@@ -8578,7 +8578,7 @@
     },
     "pricing": {
       "title": "Start gratis. Opgrader, når du har brug for flere svar.",
-      "subtitle": "Ejerbesluttede Kompis Web-pakker. Gratis starter uden kort. Betalt Standard er den planlagte opgradering, der vises her.",
+      "subtitle": "Ejerbestemte Kompis Web-pakker. Gratis starter uden kort. Standard og Pro er planlagte betalte opgraderinger — betaling er ikke live endnu.",
       "plannedNote": "Pakkerne følger Kompis Web-kataloget. Live betaling er ikke aktiv endnu — start gratis for at fortsætte.",
       "free": {
         "badge": "Bedste sted at starte",
@@ -8611,7 +8611,23 @@
         "priceNote": "Opført planlagt pris · checkout er ikke live endnu"
       },
       "asideTitle": "Enkle pakker til websiteejere",
-      "asideBody": "Start med en gratis livstidskvote. Gå til Standard, når sitet har brug for månedlig kapacitet — checkout aktiveres i en senere betalingsport."
+      "asideBody": "Start med en gratis livstids-kvote for svar. Gå til Standard eller Pro, når webstedet har brug for månedlig kapacitet — betaling åbner i en senere faktureringsport.",
+      "pro": {
+        "name": "Pro",
+        "tagline": "Til websteder med høj trafik",
+        "quota": "{quota} svar pr. måned",
+        "quotaUnit": "svar hver måned",
+        "priceMonthly": "{currency} {amount} / måned",
+        "priceAnnual": "{currency} {amount} / år",
+        "priceNote": "Anført planlagt pris · betaling er ikke live endnu",
+        "features": [
+          "10.000 fornyende svar pr. måned pr. website-licens",
+          "Samme Kompis Web-produkt — højeste listede månedskapacitet",
+          "Aktiveres efter bekræftet betaling, når checkout åbner"
+        ],
+        "cta": "Start gratis",
+        "checkoutUnavailable": "Betalt checkout er ikke live endnu. Start gratis for at fortsætte, og opgrader når Pro-checkout åbner."
+      }
     },
     "faq": {
       "title": "Spørgsmål websiteejere stiller",

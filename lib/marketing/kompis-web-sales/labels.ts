@@ -99,6 +99,19 @@ export type KompisWebSalesLabels = {
       cta: string;
       checkoutUnavailable: string;
     };
+    pro: {
+      name: string;
+      tagline: string;
+      quota: string;
+      quotaFigure: string;
+      quotaUnit: string;
+      priceMonthly: string;
+      priceAnnual: string;
+      priceNote: string;
+      features: string[];
+      cta: string;
+      checkoutUnavailable: string;
+    };
   };
   faq: {
     title: string;
@@ -219,6 +232,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
   const pricing = (raw.pricing ?? {}) as Record<string, unknown>;
   const free = (pricing.free ?? {}) as Record<string, unknown>;
   const paid = (pricing.paid ?? {}) as Record<string, unknown>;
+  const pro = (pricing.pro ?? {}) as Record<string, unknown>;
   const faq = (raw.faq ?? {}) as Record<string, unknown>;
   const finalCta = (raw.finalCta ?? {}) as Record<string, unknown>;
   const footer = (raw.footer ?? {}) as Record<string, unknown>;
@@ -338,11 +352,14 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
     },
     pricing: {
       title: asString(pricing.title, "Start free. Upgrade when you need more answers."),
-      subtitle: asString(pricing.subtitle),
+      subtitle: asString(
+        pricing.subtitle,
+        "Owner-decided Kompis Web packages. Free starts without a card. Standard and Pro are planned paid upgrade paths — checkout is not live yet.",
+      ),
       asideTitle: asString(pricing.asideTitle, "Simple packages for website owners"),
       asideBody: asString(
         pricing.asideBody,
-        "Begin with a free lifetime answer allowance. Move to Standard when your site needs monthly capacity — checkout goes live in a later billing gate.",
+        "Begin with a free lifetime answer allowance. Move to Standard or Pro when your site needs monthly capacity — checkout goes live in a later billing gate.",
       ),
       plannedNote: asString(
         pricing.plannedNote,
@@ -392,6 +409,46 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
         checkoutUnavailable: asString(
           paid.checkoutUnavailable,
           "Paid checkout is not live yet. Start free to continue, then upgrade when Standard checkout opens.",
+        ),
+      },
+      pro: {
+        name: asString(pro.name, "Pro"),
+        tagline: asString(pro.tagline, "For high-traffic websites"),
+        quota: asString(pro.quota, `${truth.proAnswerQuota} answers per month`).replace(
+          "{quota}",
+          String(truth.proAnswerQuota),
+        ),
+        quotaFigure: asString(
+          pro.quotaFigure,
+          String(truth.proAnswerQuota).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+        ),
+        quotaUnit: asString(pro.quotaUnit, "answers per month"),
+        priceMonthly: asString(
+          pro.priceMonthly,
+          `NOK ${truth.proMonthlyDisplay} / month`,
+        )
+          .replace("{amount}", truth.proMonthlyDisplay)
+          .replace("{currency}", truth.paidCurrency),
+        priceAnnual: asString(
+          pro.priceAnnual,
+          `NOK ${truth.proAnnualDisplay} / year`,
+        )
+          .replace("{amount}", truth.proAnnualDisplay)
+          .replace("{currency}", truth.paidCurrency),
+        priceNote: asString(pro.priceNote, "Listed planned price · checkout not live yet"),
+        features: (() => {
+          const listed = asStringList(pro.features);
+          if (listed.length > 0) return listed;
+          return [
+            "10,000 renewing answers per month per website license",
+            "Same Kompis Web product — highest listed monthly capacity",
+            "Activated after verified payment when checkout opens",
+          ];
+        })(),
+        cta: asString(pro.cta, "Start free"),
+        checkoutUnavailable: asString(
+          pro.checkoutUnavailable,
+          "Paid checkout is not live yet. Start free to continue, then upgrade when Pro checkout opens.",
         ),
       },
     },

@@ -38,6 +38,14 @@ assert.equal(labels.pricing.paid.quotaFigure, "2,500");
 assert.ok(labels.pricing.paid.priceMonthly.includes("599"));
 assert.ok(labels.pricing.paid.priceNote.length > 0);
 assert.equal(labels.pricing.paid.cta, "Start free");
+assert.equal(truth.proMonthlyDisplay, "1 199");
+assert.equal(truth.proAnnualDisplay, "11 990");
+assert.ok(labels.pricing.pro.quota.includes("10000") || labels.pricing.pro.quota.includes("10,000"));
+assert.equal(labels.pricing.pro.quotaFigure, "10,000");
+assert.ok(labels.pricing.pro.priceMonthly.includes("1 199"));
+assert.ok(labels.pricing.pro.priceNote.length > 0);
+assert.equal(labels.pricing.pro.cta, "Start free");
+assert.ok(labels.pricing.pro.checkoutUnavailable.toLowerCase().includes("checkout"));
 assert.ok(labels.demo.illustrationBadge.toLowerCase().includes("illustration"));
 
 console.log("kompis-web-sales plans/labels: PASS");

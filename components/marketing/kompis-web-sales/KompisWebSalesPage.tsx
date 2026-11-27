@@ -550,6 +550,35 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                 </Link>
                 <p className="kompis-web-sales-hint">{labels.pricing.paid.checkoutUnavailable}</p>
               </article>
+              <article className="kompis-web-sales-plan kompis-web-sales-plan-pro">
+                <span className="kompis-web-sales-plan-tagline">{labels.pricing.pro.tagline}</span>
+                <h3>{labels.pricing.pro.name}</h3>
+                <p className="kompis-web-sales-plan-figure" aria-label={labels.pricing.pro.quota}>
+                  <span className="kompis-web-sales-plan-figure-num">{labels.pricing.pro.quotaFigure}</span>
+                  <span className="kompis-web-sales-plan-figure-unit">{labels.pricing.pro.quotaUnit}</span>
+                </p>
+                <div className="kompis-web-sales-plan-prices">
+                  <p className="kompis-web-sales-plan-price-main">{labels.pricing.pro.priceMonthly}</p>
+                  <p className="kompis-web-sales-plan-price-alt">{labels.pricing.pro.priceAnnual}</p>
+                  <p className="kompis-web-sales-plan-price-note">{labels.pricing.pro.priceNote}</p>
+                </div>
+                <ul className="kompis-web-sales-plan-features">
+                  {labels.pricing.pro.features.map((feature) => (
+                    <li key={feature}>
+                      <PlanCheckIcon />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={labels.hrefs.start}
+                  className="kompis-web-sales-secondary kompis-web-sales-plan-cta"
+                  {...marketingDataAttr("cta_click", "kompis_web_sales_pricing_pro")}
+                >
+                  {labels.pricing.pro.cta}
+                </Link>
+                <p className="kompis-web-sales-hint">{labels.pricing.pro.checkoutUnavailable}</p>
+              </article>
             </div>
           </div>
         </section>
