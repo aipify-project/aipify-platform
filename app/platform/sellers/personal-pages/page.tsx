@@ -19,7 +19,7 @@ export default async function PlatformPersonalSalesPages() {
   const overview = result.ready ? parseSellersOverview(result.data) : null;
   const interests = await callCspRpc(supabase, "list_platform_personal_sales_page_interests");
   const interestRows = interests.ready ? parsePersonalPageInterests(interests.data) : null;
-  const productNames = new Map(getLocalizedCspCatalogProducts(locale).map((product) => [product.key, product.title]));
+  const productNames = new Map<string, string>(getLocalizedCspCatalogProducts(locale).map((product) => [product.key, product.title]));
 
   return (
     <main className="mx-auto w-full max-w-5xl space-y-6 px-4 py-8 sm:px-6">
