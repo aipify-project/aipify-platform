@@ -165,12 +165,17 @@ export function buildCertificateMeta(
 
 export type CertificatePdfCopy = {
   title: string;
+  partnerTitle: string;
   certifiesThat: string;
   completedAssessment: string;
+  productName: string;
   certificateId: string;
   datePassed: string;
   issuedBy: string;
+  orgNumberLabel: string;
   verify: string;
+  /** Visual gold-seal word only — not a legal/state accreditation claim. */
+  certifiedSeal: string;
 };
 
 export function certificatePdfCopy(locale: Locale): CertificatePdfCopy {
@@ -178,72 +183,100 @@ export function certificatePdfCopy(locale: Locale): CertificatePdfCopy {
     case "no":
       return {
         title: "Sertifikat for produktsertifisering",
+        partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "Dette bekrefter at",
         completedAssessment: "har bestått godkjent produktsertifisering for",
+        productName: "Kompis Web",
         certificateId: "Sertifikat-ID",
         datePassed: "Dato",
         issuedBy: "Utstedt av",
+        orgNumberLabel: "Org.nr.",
         verify: "Verifiser",
+        certifiedSeal: "SERTIFISERT",
       };
     case "sv":
       return {
         title: "Intyg om produktcertifiering",
+        partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "Detta intygar att",
         completedAssessment: "har klarat godkänd produktcertifiering för",
+        productName: "Kompis Web",
         certificateId: "Certifikat-ID",
         datePassed: "Datum",
         issuedBy: "Utfärdat av",
+        orgNumberLabel: "Org.nr.",
         verify: "Verifiera",
+        certifiedSeal: "CERTIFIERAD",
       };
     case "da":
       return {
         title: "Certifikat for produktcertificering",
+        partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "Dette bekræfter, at",
         completedAssessment: "har bestået godkendt produktcertificering for",
+        productName: "Kompis Web",
         certificateId: "Certifikat-ID",
         datePassed: "Dato",
         issuedBy: "Udstedt af",
+        orgNumberLabel: "CVR",
         verify: "Verificér",
+        certifiedSeal: "CERTIFICERET",
       };
     case "pl":
       return {
         title: "Certyfikat ukończenia produktu",
+        partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "Niniejszym potwierdza się, że",
         completedAssessment: "pomyślnie ukończył(a) certyfikację produktu",
+        productName: "Kompis Web",
         certificateId: "ID certyfikatu",
         datePassed: "Data",
         issuedBy: "Wystawca",
+        orgNumberLabel: "Nr org.",
         verify: "Weryfikuj",
+        certifiedSeal: "CERTYFIKOWANY",
       };
     case "uk":
       return {
         title: "Сертифікат про сертифікацію продукту",
+        partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "Цим підтверджується, що",
         completedAssessment: "успішно пройшов(ла) сертифікацію продукту",
+        productName: "Kompis Web",
         certificateId: "ID сертифіката",
         datePassed: "Дата",
         issuedBy: "Видавець",
+        orgNumberLabel: "Орг. №",
         verify: "Перевірити",
+        certifiedSeal: "СЕРТИФІКОВАНО",
       };
     case "es":
       return {
         title: "Certificado de certificación de producto",
+        partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "Se certifica que",
         completedAssessment: "ha completado con éxito la certificación de producto de",
+        productName: "Kompis Web",
         certificateId: "ID del certificado",
         datePassed: "Fecha",
         issuedBy: "Emitido por",
+        orgNumberLabel: "N.º org.",
         verify: "Verificar",
+        certifiedSeal: "CERTIFICADO",
       };
     default:
       return {
         title: "Certificate of Completion",
+        partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "This certifies that",
         completedAssessment: "has successfully completed the product certification assessment for",
+        productName: "Kompis Web",
         certificateId: "Certificate ID",
         datePassed: "Date passed",
         issuedBy: "Issued by",
+        orgNumberLabel: "Org. no.",
         verify: "Verify",
+        certifiedSeal: "CERTIFIED",
       };
   }
 }
