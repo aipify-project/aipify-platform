@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import { enrichPlatformCustomerDetailPrimaryContact } from "@/lib/platform-portal/enrich-customer-primary-contact";
+import {
+  loadCustomer360CompanyAndInvoices,
+  unavailableCompanyProfile,
+  unavailableInvoiceSummary,
+} from "@/lib/platform-portal/load-customer-360-company-invoice";
 import { parsePlatformPortalCustomerDetail } from "@/lib/platform-portal/parse";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
@@ -69,12 +74,28 @@ export async function GET(
     }
 
     // RPC already authorized platform access; enrich person contact from existing columns.
+    const admin = createServiceRoleClient();
     const enriched = await enrichPlatformCustomerDetailPrimaryContact({
-      admin: createServiceRoleClient(),
+      admin,
       detail: parsed,
     });
 
-    return NextResponse.json(enriched, { headers: NO_STORE });
+    let companyProfile = unavailableCompanyProfile();
+    let invoiceSummary = unavailableInvoiceSummary();
+    try {
+      const loaded = await loadCustomer360CompanyAndInvoices({
+        userClient: supabase,
+        admin,
+        customerId: enriched.customer.id,
+      });
+      companyProfile = loaded.companyProfile;
+      invoiceSummary = loaded.invoiceSummary;
+    } catch {
+      companyProfile = unavailableCompanyProfile();
+      invoiceSummary = unavailableInvoiceSummary();
+    }
+
+    return NextResponse.json({ ...enriched, companyProfile, invoiceSummary }, { headers: NO_STORE });
   } catch {
     return jsonError("Unable to load customer detail.", 500);
   }

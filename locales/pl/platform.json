@@ -966,6 +966,47 @@
         "errorPhone": "Podaj prawidłowy numer telefonu w formacie międzynarodowym.",
         "errorCoreGatePending": "Aktualizacje kontaktu są przygotowane, ale oczekują na zatwierdzenie Core przed zapisaniem."
       },
+      "companyAddress": {
+        "title": "Adres firmy",
+        "invoiceTitle": "Adres do faktury",
+        "street": "Ulica",
+        "line2": "Druga linia adresu",
+        "postalCode": "Kod pocztowy",
+        "city": "Miejscowość",
+        "region": "Region",
+        "country": "Kraj",
+        "website": "Strona internetowa",
+        "sameAsCompany": "Taki sam jak adres firmy",
+        "readOnlyNote": "Zmiana adresu pozostaje zamknięta do osobnego zatwierdzenia w Core.",
+        "unavailable": "Niedostępne"
+      },
+      "invoiceKpi": {
+        "overdue": "Zaległe faktury",
+        "paid": "Opłacone faktury",
+        "amount": "Kwota",
+        "outstanding": "Zaległość",
+        "paidSum": "Suma zapłaconych kwot",
+        "unavailable": "Niedostępne",
+        "latestInvoice": "Ostatnia faktura",
+        "invoiceNumber": "Numer faktury",
+        "invoiceDate": "Data faktury",
+        "dueDate": "Termin płatności",
+        "nextInvoiceDate": "Data następnej faktury",
+        "noInvoices": "Dla tego klienta nie ma zarejestrowanych faktur.",
+        "openFilteredList": "Otwórz listę faktur",
+        "zeroOpen": "Brak kwoty do zapłaty",
+        "statuses": {
+          "draft": "Szkic",
+          "open": "Jeszcze niezaległa",
+          "paid": "Opłacona",
+          "overdue": "Zaległa",
+          "cancelled": "Anulowana",
+          "failed": "Nieudana",
+          "credited": "Uznana",
+          "zero_open": "Brak kwoty do zapłaty",
+          "other": "Inny status"
+        }
+      },
       "highRiskIdentityNote": "Tożsamość prawna i e-mail kontaktowy wymagają procesu wysokiego ryzyka.",
       "supportOpenCases": "Otwarte zgłoszenia",
       "supportOpenQueue": "Otwórz kolejkę supportu"
@@ -4708,7 +4749,9 @@
     "kid": "KID",
     "downloadPdf": "PDF",
     "actionPending": "W toku",
-    "actionDone": "Zaktualizowano"
+    "actionDone": "Zaktualizowano",
+    "backToCustomer": "Wróć do klienta",
+    "filteredEmpty": "Żadna faktura nie pasuje do tego filtra."
   },
   "metrics": {
     "title": "Metryki platformy",

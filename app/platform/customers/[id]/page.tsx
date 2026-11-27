@@ -1,4 +1,5 @@
 import { PlatformPortalCustomerDetailPanel } from "@/components/platform/platform-portal/PlatformPortalCustomerDetailPanel";
+import { isCustomer360Tab } from "@/lib/platform-portal/customer-360-tabs";
 import {
   buildPlatformPortalAdminProvisionLabels,
   buildPlatformPortalAppKompisDeliveryLabels,
@@ -17,10 +18,13 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 type CustomerDetailPageProps = {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
-export default async function PlatformCustomerDetailPage({ params }: CustomerDetailPageProps) {
+export default async function PlatformCustomerDetailPage({ params, searchParams }: CustomerDetailPageProps) {
   const { id } = await params;
+  const query = (await searchParams) ?? {};
+  const rawTab = typeof query.tab === "string" ? query.tab : Array.isArray(query.tab) ? query.tab[0] : null;
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["platform"]);
   const t = createTranslator(dict);
@@ -49,6 +53,7 @@ export default async function PlatformCustomerDetailPage({ params }: CustomerDet
       websiteRuntimeLabels={websiteRuntimeLabels}
       customerIdentityLabels={customerIdentityLabels}
       locale={locale}
+      initialTab={isCustomer360Tab(rawTab) ? rawTab : "contact"}
     />
   );
 }

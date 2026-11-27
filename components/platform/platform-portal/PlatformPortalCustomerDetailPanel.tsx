@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
@@ -48,6 +49,11 @@ import {
   reasonLabel,
   websiteKompisStatusVariant,
 } from "@/lib/platform-portal/website-kompis-activation";
+import { isCustomer360Tab, type Customer360Tab } from "@/lib/platform-portal/customer-360-tabs";
+import type { CustomerCompanyProfile } from "@/lib/platform-portal/customer-company-address";
+import type { CurrencyAmount, CustomerInvoiceSummary } from "@/lib/platform-portal/customer-invoice-status";
+import { formatEconomyCount, formatEconomyMoney, moneyText } from "@/lib/platform/economy-display";
+import { toBcp47Locale } from "@/lib/platform-presentation-quality/bcp47";
 import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
 
 type Props = {
@@ -63,6 +69,7 @@ type Props = {
   websiteRuntimeLabels: CustomerWebsiteRuntimeLabels;
   customerIdentityLabels: PlatformCustomerIdentityLabels;
   locale: string;
+  initialTab?: Customer360Tab;
 };
 
 type LoadState =
@@ -392,14 +399,17 @@ function MetricCard({
   label,
   value,
   variant = "neutral",
+  detail,
+  href,
 }: {
   label: string;
   value: string | number;
   variant?: MetricVariant;
+  detail?: string;
+  href?: string;
 }) {
   const styles = METRIC_VARIANT_STYLES[variant];
-
-  return (
+  const body = (
     <div
       className={`flex h-full flex-col rounded-lg border px-3 py-2.5 shadow-sm ${styles.card}`}
       data-variant={variant}
@@ -413,7 +423,20 @@ function MetricCard({
       <dd className={`mt-1 text-lg font-semibold tabular-nums tracking-tight ${styles.value}`}>
         {value}
       </dd>
+      {detail ? (
+        <p className="mt-1 text-xs leading-5 text-slate-600 dark:text-slate-300">{detail}</p>
+      ) : null}
     </div>
+  );
+
+  if (!href) return body;
+  return (
+    <Link
+      href={href}
+      className="block min-w-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+    >
+      {body}
+    </Link>
   );
 }
 
@@ -600,6 +623,301 @@ function EmptyTableMessage({ message }: { message: string }) {
   );
 }
 
+function formatCalendarDate(value: string | null | undefined, locale: string, fallback: string) {
+  const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return fallback;
+  const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]), 12));
+  return new Intl.DateTimeFormat(toBcp47Locale(locale), {
+    dateStyle: "medium",
+    timeZone: "UTC",
+  }).format(date);
+}
+
+function formatAmountList(
+  amounts: CurrencyAmount[],
+  locale: string,
+  unavailable: string,
+): string {
+  if (amounts.length === 0) {
+    const zero = formatEconomyCount(0, locale);
+    return zero.state === "value" ? zero.text : unavailable;
+  }
+  return amounts
+    .map((entry) =>
+      moneyText(
+        formatEconomyMoney({
+          amount: entry.amount,
+          currency: entry.currency,
+          locale,
+          scale: "major",
+        }),
+        unavailable,
+      ),
+    )
+    .join(" · ");
+}
+
+function countText(value: number, locale: string, unavailable: string) {
+  const formatted = formatEconomyCount(value, locale);
+  return formatted.state === "value" ? formatted.text : unavailable;
+}
+
+function registeredOrEmpty(
+  value: string | null | undefined,
+  ready: boolean,
+  notRegistered: string,
+  unavailable: string,
+) {
+  if (!ready) return unavailable;
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : notRegistered;
+}
+
+function invoiceListHref(customerId: string, bucket?: "overdue" | "paid") {
+  const returnTo = encodeURIComponent(`/platform/customers/${customerId}?tab=subscription`);
+  const bucketQuery = bucket ? `&bucket=${bucket}` : "";
+  return `/platform/billing/invoices?customerId=${encodeURIComponent(customerId)}${bucketQuery}&returnTo=${returnTo}`;
+}
+
+function AddressFields({
+  labels,
+  ready,
+  street,
+  line2,
+  postalCode,
+  city,
+  region,
+  country,
+  website,
+}: {
+  labels: PlatformPortalCustomerDetailLabels;
+  ready: boolean;
+  street: string | null;
+  line2: string | null;
+  postalCode: string | null;
+  city: string | null;
+  region: string | null;
+  country: string | null;
+  website?: string | null;
+}) {
+  const address = labels.companyAddress;
+  const show = (value: string | null) =>
+    registeredOrEmpty(value, ready, labels.notRegistered, address.unavailable);
+  return (
+    <dl className="grid gap-0 sm:grid-cols-2 sm:gap-x-6">
+      <DetailRow label={address.street}>{show(street)}</DetailRow>
+      <DetailRow label={address.line2}>{show(line2)}</DetailRow>
+      <DetailRow label={address.postalCode}>{show(postalCode)}</DetailRow>
+      <DetailRow label={address.city}>{show(city)}</DetailRow>
+      <DetailRow label={address.region}>{show(region)}</DetailRow>
+      <DetailRow label={address.country}>{show(country)}</DetailRow>
+      {website !== undefined ? (
+        <DetailRow label={address.website}>{show(website)}</DetailRow>
+      ) : null}
+    </dl>
+  );
+}
+
+function CompanyAddressSection({
+  customerName,
+  legalName,
+  organizationNumber,
+  createdAt,
+  updatedAt,
+  profile,
+  labels,
+}: {
+  customerName: string;
+  legalName: string | null;
+  organizationNumber: string | null;
+  createdAt: string;
+  updatedAt: string;
+  profile: CustomerCompanyProfile | undefined;
+  labels: PlatformPortalCustomerDetailLabels;
+}) {
+  const companyReady = profile?.readState === "ready";
+  const invoiceReady = profile?.invoiceAddress.readState === "ready";
+  const shownLegal = legalName?.trim()
+    ? legalName
+    : registeredOrEmpty(profile?.legalName, Boolean(companyReady), labels.notRegistered, labels.companyAddress.unavailable);
+  const shownOrg = organizationNumber?.trim()
+    ? organizationNumber
+    : registeredOrEmpty(
+        profile?.organizationNumber,
+        Boolean(companyReady),
+        labels.notRegistered,
+        labels.companyAddress.unavailable,
+      );
+
+  return (
+    <div className="grid gap-4 md:grid-cols-2">
+      <SectionCard title={labels.companyAddress.title} compact>
+        <dl className="grid gap-0 sm:grid-cols-2 sm:gap-x-6">
+          <DetailRow label={labels.customerName}>{customerName}</DetailRow>
+          <DetailRow label={labels.legalName}>{shownLegal}</DetailRow>
+          <DetailRow label={labels.organizationNumber}>{shownOrg}</DetailRow>
+          <DetailRow label={labels.createdAt}>{createdAt}</DetailRow>
+          <DetailRow label={labels.updatedAt}>{updatedAt}</DetailRow>
+        </dl>
+        <div className="mt-3 border-t border-slate-100 pt-3 dark:border-slate-800">
+          <AddressFields
+            labels={labels}
+            ready={Boolean(companyReady)}
+            street={profile?.street ?? null}
+            line2={profile?.line2 ?? null}
+            postalCode={profile?.postalCode ?? null}
+            city={profile?.city ?? null}
+            region={profile?.region ?? null}
+            country={profile?.country ?? null}
+            website={profile?.website ?? null}
+          />
+        </div>
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{labels.companyAddress.readOnlyNote}</p>
+      </SectionCard>
+      <SectionCard title={labels.companyAddress.invoiceTitle} compact>
+        {!profile || !invoiceReady ? (
+          <p className="text-sm text-slate-600 dark:text-slate-300">{labels.companyAddress.unavailable}</p>
+        ) : profile.invoiceAddress.sameAsCompany ? (
+          <p className="text-sm font-medium text-slate-800 dark:text-slate-100">
+            {labels.companyAddress.sameAsCompany}
+          </p>
+        ) : (
+          <AddressFields
+            labels={labels}
+            ready
+            street={profile.invoiceAddress.street}
+            line2={profile.invoiceAddress.line2}
+            postalCode={profile.invoiceAddress.postalCode}
+            city={profile.invoiceAddress.city}
+            region={profile.invoiceAddress.region}
+            country={profile.invoiceAddress.country}
+          />
+        )}
+      </SectionCard>
+    </div>
+  );
+}
+
+function LatestInvoiceBlock({
+  summary,
+  labels,
+  locale,
+  customerId,
+}: {
+  summary: CustomerInvoiceSummary | undefined;
+  labels: PlatformPortalCustomerDetailLabels;
+  locale: string;
+  customerId: string;
+}) {
+  const kpi = labels.invoiceKpi;
+  if (!summary || summary.readState !== "ready") {
+    return <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{kpi.unavailable}</p>;
+  }
+  const statusLabelText = summary.latest
+    ? (kpi.statuses[summary.latest.presentation] ?? kpi.unavailable)
+    : null;
+  return (
+    <div className="mt-4 border-t border-slate-100 pt-3 dark:border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{kpi.latestInvoice}</h3>
+        <Link
+          href={invoiceListHref(customerId)}
+          className="text-sm font-medium text-violet-700 hover:text-violet-800 dark:text-violet-300"
+        >
+          {kpi.openFilteredList}
+        </Link>
+      </div>
+      {summary.latest ? (
+        <dl className="mt-2">
+          <DetailRow label={kpi.invoiceNumber}>
+            {summary.latest.invoiceNumber ?? labels.notRegistered}
+          </DetailRow>
+          <DetailRow label={kpi.amount}>
+            {moneyText(
+              formatEconomyMoney({
+                amount: summary.latest.amount,
+                currency: summary.latest.currency,
+                locale,
+                scale: "major",
+              }),
+              kpi.unavailable,
+            )}
+          </DetailRow>
+          <DetailRow label={kpi.invoiceDate}>
+            {formatCalendarDate(summary.latest.issuedAt, locale, labels.notAvailable)}
+          </DetailRow>
+          <DetailRow label={kpi.dueDate}>
+            {formatCalendarDate(summary.latest.dueDate, locale, labels.notAvailable)}
+          </DetailRow>
+          <DetailRow label={labels.status}>
+            <StatusBadge
+              label={statusLabelText ?? kpi.unavailable}
+              variant={
+                summary.latest.presentation === "paid"
+                  ? "success"
+                  : summary.latest.presentation === "overdue"
+                    ? "danger"
+                    : summary.latest.presentation === "zero_open"
+                      ? "info"
+                      : "muted"
+              }
+            />
+          </DetailRow>
+        </dl>
+      ) : (
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{kpi.noInvoices}</p>
+      )}
+      {summary.nextBillingDate ? (
+        <p className="mt-2 text-sm text-slate-700 dark:text-slate-200">
+          {kpi.nextInvoiceDate}: {formatCalendarDate(summary.nextBillingDate, locale, labels.notAvailable)}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function InvoiceStatusCards({
+  customerId,
+  summary,
+  labels,
+  locale,
+}: {
+  customerId: string;
+  summary: CustomerInvoiceSummary | undefined;
+  labels: PlatformPortalCustomerDetailLabels;
+  locale: string;
+}) {
+  const readySummary = summary?.readState === "ready" ? summary : null;
+  const unavailable = labels.invoiceKpi.unavailable;
+  const overdueValue = readySummary ? countText(readySummary.overdueCount, locale, unavailable) : unavailable;
+  const paidValue = readySummary ? countText(readySummary.paidCount, locale, unavailable) : unavailable;
+  const overdueDetail = readySummary
+    ? `${labels.invoiceKpi.outstanding}: ${formatAmountList(readySummary.overdueAmounts, locale, unavailable)}`
+    : unavailable;
+  const paidDetail = readySummary
+    ? `${labels.invoiceKpi.paidSum}: ${formatAmountList(readySummary.paidAmounts, locale, unavailable)}`
+    : unavailable;
+
+  return (
+    <div className="mt-2 grid gap-2 sm:grid-cols-2">
+      <MetricCard
+        label={labels.invoiceKpi.overdue}
+        value={overdueValue}
+        detail={overdueDetail}
+        variant={readySummary && readySummary.overdueCount > 0 ? "danger" : "muted"}
+        href={readySummary ? invoiceListHref(customerId, "overdue") : undefined}
+      />
+      <MetricCard
+        label={labels.invoiceKpi.paid}
+        value={paidValue}
+        detail={paidDetail}
+        variant={readySummary && readySummary.paidCount > 0 ? "success" : "muted"}
+        href={readySummary ? invoiceListHref(customerId, "paid") : undefined}
+      />
+    </div>
+  );
+}
+
 function subscriptionKpi(data: PlatformPortalCustomerDetail, labels: PlatformPortalCustomerDetailLabels) {
   if (data.commercial.lifetime) {
     return { label: labels.duration, value: labels.lifetime, variant: "info" as MetricVariant };
@@ -638,6 +956,7 @@ export function PlatformPortalCustomerDetailPanel({
   websiteRuntimeLabels,
   customerIdentityLabels,
   locale,
+  initialTab = "contact",
 }: Props) {
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -653,9 +972,19 @@ export function PlatformPortalCustomerDetailPanel({
   const [websiteKompisSuccess, setWebsiteKompisSuccess] = useState<string | null>(
     null,
   );
-  const [activeTab, setActiveTab] = useState<
-    "contact" | "company" | "products" | "subscription" | "support" | "technical"
-  >("contact");
+  const router = useRouter();
+  const pathname = usePathname();
+  const [activeTab, setActiveTab] = useState<Customer360Tab>(
+    isCustomer360Tab(initialTab) ? initialTab : "contact",
+  );
+
+  const selectTab = useCallback(
+    (tab: Customer360Tab) => {
+      setActiveTab(tab);
+      router.replace(`${pathname}?tab=${tab}`, { scroll: false });
+    },
+    [pathname, router],
+  );
 
   const load = useCallback(async () => {
     setLoadState({ kind: "loading" });
@@ -987,6 +1316,12 @@ export function PlatformPortalCustomerDetailPanel({
               variant={usage.openSupportCount > 0 ? "warning" : "success"}
             />
           </dl>
+          <InvoiceStatusCards
+            customerId={customer.id}
+            summary={data.invoiceSummary}
+            labels={labels}
+            locale={locale}
+          />
         </div>
       </header>
 
@@ -1014,7 +1349,7 @@ export function PlatformPortalCustomerDetailPanel({
               type="button"
               role="tab"
               aria-selected={selected}
-              onClick={() => setActiveTab(id)}
+              onClick={() => selectTab(id)}
               className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
                 selected
                   ? "bg-violet-600 text-white shadow-sm"
@@ -1071,25 +1406,15 @@ export function PlatformPortalCustomerDetailPanel({
           ) : null}
 
           {activeTab === "company" ? (
-            <SectionCard title={labels.sectionCompany} compact>
-              <dl className="grid gap-0 sm:grid-cols-2 sm:gap-x-6">
-                <DetailRow label={labels.customerName}>{customer.name}</DetailRow>
-                <DetailRow label={labels.legalName}>
-                  {customer.legalName?.trim() ? customer.legalName : labels.notRegistered}
-                </DetailRow>
-                <DetailRow label={labels.organizationNumber}>
-                  {customer.organizationNumber?.trim()
-                    ? customer.organizationNumber
-                    : labels.notRegistered}
-                </DetailRow>
-                <DetailRow label={labels.createdAt}>
-                  {formatDate(customer.createdAt, locale, labels.notAvailable)}
-                </DetailRow>
-                <DetailRow label={labels.updatedAt}>
-                  {formatDate(customer.updatedAt, locale, labels.notAvailable)}
-                </DetailRow>
-              </dl>
-            </SectionCard>
+            <CompanyAddressSection
+              customerName={customer.name}
+              legalName={customer.legalName}
+              organizationNumber={customer.organizationNumber}
+              createdAt={formatDate(customer.createdAt, locale, labels.notAvailable)}
+              updatedAt={formatDate(customer.updatedAt, locale, labels.notAvailable)}
+              profile={data.companyProfile}
+              labels={labels}
+            />
           ) : null}
 
           {activeTab === "subscription" ? (
@@ -1170,6 +1495,12 @@ export function PlatformPortalCustomerDetailPanel({
                 {commercialPlanLabels.success}
               </p>
             ) : null}
+            <LatestInvoiceBlock
+              summary={data.invoiceSummary}
+              labels={labels}
+              locale={locale}
+              customerId={customer.id}
+            />
           </SectionCard>
           ) : null}
 

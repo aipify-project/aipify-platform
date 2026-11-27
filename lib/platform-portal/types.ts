@@ -284,6 +284,8 @@ export type PlatformPortalCustomerDetail = {
   metadata: {
     generatedAt: string;
   };
+  companyProfile?: import("./customer-company-address").CustomerCompanyProfile;
+  invoiceSummary?: import("./customer-invoice-status").CustomerInvoiceSummary;
 };
 
 export type PlatformPortalCustomerDetailControlPlaneLabels = {
@@ -367,6 +369,37 @@ export type PlatformPortalCustomerDetailLabels = {
     errorCoreGatePending: string;
   };
   highRiskIdentityNote: string;
+  companyAddress: {
+    title: string;
+    invoiceTitle: string;
+    street: string;
+    line2: string;
+    postalCode: string;
+    city: string;
+    region: string;
+    country: string;
+    website: string;
+    sameAsCompany: string;
+    readOnlyNote: string;
+    unavailable: string;
+  };
+  invoiceKpi: {
+    overdue: string;
+    paid: string;
+    amount: string;
+    outstanding: string;
+    paidSum: string;
+    unavailable: string;
+    latestInvoice: string;
+    invoiceNumber: string;
+    invoiceDate: string;
+    dueDate: string;
+    nextInvoiceDate: string;
+    noInvoices: string;
+    openFilteredList: string;
+    zeroOpen: string;
+    statuses: Record<string, string>;
+  };
   controlPlane: PlatformPortalCustomerDetailControlPlaneLabels;
   organizationNumber: string;
   legalName: string;

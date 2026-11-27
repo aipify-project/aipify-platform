@@ -966,6 +966,47 @@
         "errorPhone": "Enter a valid phone number in international format.",
         "errorCoreGatePending": "Contact updates are prepared but waiting for Core approval before they can be saved."
       },
+      "companyAddress": {
+        "title": "Company address",
+        "invoiceTitle": "Invoice address",
+        "street": "Street address",
+        "line2": "Address line 2",
+        "postalCode": "Postal code",
+        "city": "City",
+        "region": "Region",
+        "country": "Country",
+        "website": "Website",
+        "sameAsCompany": "Same as company address",
+        "readOnlyNote": "Address changes stay closed until a separate Core approval is in place.",
+        "unavailable": "Not available"
+      },
+      "invoiceKpi": {
+        "overdue": "Overdue invoices",
+        "paid": "Paid invoices",
+        "amount": "Amount",
+        "outstanding": "Outstanding",
+        "paidSum": "Sum of paid amounts",
+        "unavailable": "Not available",
+        "latestInvoice": "Latest invoice",
+        "invoiceNumber": "Invoice number",
+        "invoiceDate": "Invoice date",
+        "dueDate": "Due date",
+        "nextInvoiceDate": "Next invoice date",
+        "noInvoices": "No invoices are registered for this customer.",
+        "openFilteredList": "Open invoice list",
+        "zeroOpen": "No amount due",
+        "statuses": {
+          "draft": "Draft",
+          "open": "Not yet due",
+          "paid": "Paid",
+          "overdue": "Overdue",
+          "cancelled": "Cancelled",
+          "failed": "Failed",
+          "credited": "Credited",
+          "zero_open": "No amount due",
+          "other": "Other"
+        }
+      },
       "highRiskIdentityNote": "Legal identity and contact email changes require the high-risk identity flow.",
       "supportOpenCases": "Open support cases",
       "supportOpenQueue": "Open support queue"
@@ -4708,7 +4749,9 @@
     "kid": "KID",
     "downloadPdf": "PDF",
     "actionPending": "Working",
-    "actionDone": "Updated"
+    "actionDone": "Updated",
+    "backToCustomer": "Back to customer",
+    "filteredEmpty": "No invoices match this filter."
   },
   "metrics": {
     "title": "Platform Metrics",

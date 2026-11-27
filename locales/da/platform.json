@@ -773,6 +773,47 @@
         "errorPhone": "Angiv et gyldigt telefonnummer i internationalt format.",
         "errorCoreGatePending": "Kontaktopdateringer er forberedt, men afventer Core-godkendelse, før de kan gemmes."
       },
+      "companyAddress": {
+        "title": "Firmaadresse",
+        "invoiceTitle": "Fakturaadresse",
+        "street": "Gadeadresse",
+        "line2": "Adresselinje 2",
+        "postalCode": "Postnummer",
+        "city": "By",
+        "region": "Region",
+        "country": "Land",
+        "website": "Websted",
+        "sameAsCompany": "Samme som firmaadresse",
+        "readOnlyNote": "Adresseændringer er lukket, indtil en separat Core-godkendelse er på plads.",
+        "unavailable": "Ikke tilgængelig"
+      },
+      "invoiceKpi": {
+        "overdue": "Forfaldne fakturaer",
+        "paid": "Betalte fakturaer",
+        "amount": "Beløb",
+        "outstanding": "Udestående",
+        "paidSum": "Summeret betalt beløb",
+        "unavailable": "Ikke tilgængelig",
+        "latestInvoice": "Seneste faktura",
+        "invoiceNumber": "Fakturanummer",
+        "invoiceDate": "Fakturadato",
+        "dueDate": "Forfald",
+        "nextInvoiceDate": "Næste fakturadato",
+        "noInvoices": "Ingen fakturaer er registreret for denne kunde.",
+        "openFilteredList": "Åbn fakturaliste",
+        "zeroOpen": "Intet udestående",
+        "statuses": {
+          "draft": "Kladde",
+          "open": "Ikke forfaldet",
+          "paid": "Betalt",
+          "overdue": "Forfalden",
+          "cancelled": "Annulleret",
+          "failed": "Mislykket",
+          "credited": "Krediteret",
+          "zero_open": "Intet udestående",
+          "other": "Anden status"
+        }
+      },
       "highRiskIdentityNote": "Juridisk identitet og kontakt-e-mail kræver højrisisiko-identitetsflowet.",
       "supportOpenCases": "Åbne supportsager",
       "supportOpenQueue": "Åbn supportkø"
@@ -2023,7 +2064,9 @@
     "kid": "KID",
     "downloadPdf": "PDF",
     "actionPending": "Arbejder",
-    "actionDone": "Opdateret"
+    "actionDone": "Opdateret",
+    "backToCustomer": "Tilbage til kunden",
+    "filteredEmpty": "Ingen fakturaer matcher dette filter."
   },
   "metrics": {
     "title": "Platform Metrics",

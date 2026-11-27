@@ -190,6 +190,24 @@ test("API route enforces UUID, auth statuses, no-store, and RPC-only access", ()
   assert.doesNotMatch(source, /\.from\(/);
 });
 
+test("company and invoice reads stay on existing sources and do not write", () => {
+  const loader = readFileSync(
+    join(ROOT, "lib/platform-portal/load-customer-360-company-invoice.ts"),
+    "utf8",
+  );
+  assert.match(loader, /get_platform_customer_detail/);
+  assert.match(loader, /organization_registration_profiles/);
+  assert.match(loader, /payment_profiles/);
+  assert.match(loader, /\.eq\("customer_id", customerId\)/);
+  assert.doesNotMatch(loader, /\.(insert|update|delete|upsert)\(/);
+  const route = readFileSync(
+    join(ROOT, "app/api/platform-portal/customers/[id]/route.ts"),
+    "utf8",
+  );
+  assert.doesNotMatch(route, /\.from\(/);
+  assert.match(route, /enriched\.customer\.id/);
+});
+
 test("customer detail page wires portal panel and labels", () => {
   const source = readFileSync(
     join(ROOT, "app/platform/customers/[id]/page.tsx"),
