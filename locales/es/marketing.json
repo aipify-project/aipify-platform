@@ -116,7 +116,7 @@
     },
     "pricing": {
       "title": "Empieza gratis. Mejora cuando necesites más respuestas.",
-      "subtitle": "Paquetes Kompis Web decididos por el propietario. El gratis empieza sin tarjeta. Standard de pago es la ruta de mejora planificada que se muestra aquí.",
+      "subtitle": "Paquetes Kompis Web definidos por el propietario. Free empieza sin tarjeta. Standard y Pro son rutas de pago previstas — el checkout aún no está activo.",
       "plannedNote": "Estos paquetes siguen el catálogo de Kompis Web. El checkout de compra aún no está activo — empieza gratis para continuar.",
       "free": {
         "badge": "Mejor punto de partida",
@@ -149,7 +149,23 @@
         "priceNote": "Precio previsto listado · el pago aún no está activo"
       },
       "asideTitle": "Paquetes simples para dueños de sitios",
-      "asideBody": "Empieza con una cuota gratuita de por vida. Pasa a Standard cuando el sitio necesite capacidad mensual — el checkout se activa en una puerta de facturación posterior."
+      "asideBody": "Empieza con un cupo gratuito de respuestas de por vida. Pasa a Standard o Pro cuando tu sitio necesite capacidad mensual — el checkout se activa en una puerta de facturación posterior.",
+      "pro": {
+        "name": "Pro",
+        "tagline": "Para sitios con mucho tráfico",
+        "quota": "{quota} respuestas al mes",
+        "quotaUnit": "respuestas cada mes",
+        "priceMonthly": "{currency} {amount} / mes",
+        "priceAnnual": "{currency} {amount} / año",
+        "priceNote": "Precio previsto del catálogo · el pago aún no está activo",
+        "features": [
+          "10 000 respuestas renovables al mes por licencia de sitio",
+          "El mismo producto Kompis Web — mayor capacidad mensual del catálogo",
+          "Se activa tras un pago verificado cuando el checkout esté disponible"
+        ],
+        "cta": "Empezar gratis",
+        "checkoutUnavailable": "El checkout de pago aún no está activo. Empieza gratis y actualiza a Pro cuando el pago esté disponible."
+      }
     },
     "faq": {
       "title": "Preguntas de dueños de sitios",

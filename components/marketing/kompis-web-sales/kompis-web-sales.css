@@ -804,8 +804,14 @@ a.kompis-web-sales-cta-quiet:hover {
 
 .kompis-web-sales-plans {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+}
+
+@media (max-width: 1100px) {
+  .kompis-web-sales-plans {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .kompis-web-sales-plan {
@@ -845,7 +851,8 @@ a.kompis-web-sales-cta-quiet:hover {
   box-shadow: 0 12px 28px rgba(87, 92, 245, 0.32);
 }
 
-.kompis-web-sales-plan-standard {
+.kompis-web-sales-plan-standard,
+.kompis-web-sales-plan-pro {
   background: linear-gradient(180deg, #ffffff 0%, #fafbff 100%);
 }
 

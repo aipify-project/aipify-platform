@@ -8593,7 +8593,7 @@
     },
     "pricing": {
       "title": "Start gratis. Oppgrader når du trenger flere svar.",
-      "subtitle": "Eierbesluttede Kompis Web-pakker. Gratis starter uten kort. Betalt Standard er den planlagte oppgraderingen som vises her.",
+      "subtitle": "Eiers bestemte Kompis Web-pakker. Gratis starter uten kort. Standard og Pro er planlagte betalte oppgraderinger — betaling er ikke live ennå.",
       "plannedNote": "Pakkene følger Kompis Web-katalogen. Live kjøpskasse er ikke aktiv ennå — start gratis for å gå videre.",
       "free": {
         "badge": "Beste sted å starte",
@@ -8626,7 +8626,23 @@
         "priceNote": "Oppført planlagt pris · betaling er ikke live ennå"
       },
       "asideTitle": "Enkle pakker for nettstedeiere",
-      "asideBody": "Start med en gratis livstidskvote. Gå til Standard når siden trenger månedlig kapasitet — kasse aktiveres i en senere betalingsgate."
+      "asideBody": "Start med en gratis livstids-kvote for svar. Gå til Standard eller Pro når nettstedet trenger månedlig kapasitet — betaling åpnes i en senere faktureringsport.",
+      "pro": {
+        "name": "Pro",
+        "tagline": "For nettsteder med høy trafikk",
+        "quota": "{quota} svar per måned",
+        "quotaUnit": "svar hver måned",
+        "priceMonthly": "{currency} {amount} / måned",
+        "priceAnnual": "{currency} {amount} / år",
+        "priceNote": "Oppført planlagt pris · betaling er ikke live ennå",
+        "features": [
+          "10 000 fornyende svar per måned per nettstedslisens",
+          "Samme Kompis Web-produkt — høyeste listede månedskapasitet",
+          "Aktiveres etter bekreftet betaling når betaling åpnes"
+        ],
+        "cta": "Start gratis",
+        "checkoutUnavailable": "Betalt utsjekk er ikke live ennå. Start gratis for å fortsette, og oppgrader når Pro-utsjekk åpnes."
+      }
     },
     "faq": {
       "title": "Spørsmål nettstedeiere stiller",

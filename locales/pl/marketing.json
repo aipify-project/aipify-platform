@@ -784,7 +784,7 @@
     },
     "pricing": {
       "title": "Zacznij za darmo. Ulepsz, gdy potrzebujesz więcej odpowiedzi.",
-      "subtitle": "Pakiety Kompis Web ustalone przez właściciela. Darmowy start bez karty. Płatny Standard to planowana ścieżka aktualizacji pokazana tutaj.",
+      "subtitle": "Pakiety Kompis Web ustalone przez właściciela. Free zaczyna bez karty. Standard i Pro to planowane płatne ścieżki — checkout nie jest jeszcze aktywny.",
       "plannedNote": "Pakiety zgodne z katalogiem Kompis Web. Płatny checkout nie jest jeszcze aktywny — zacznij za darmo, aby kontynuować.",
       "free": {
         "badge": "Najlepszy start",
@@ -817,7 +817,23 @@
         "priceNote": "Podana cena planowana · checkout nie jest jeszcze aktywny"
       },
       "asideTitle": "Proste pakiety dla właścicieli stron",
-      "asideBody": "Zacznij od darmowego limitu lifetime. Przejdź na Standard, gdy strona potrzebuje miesięcznej pojemności — checkout włączy się w późniejszej bramce płatności."
+      "asideBody": "Zacznij od darmowego limitu odpowiedzi na całe życie. Przejdź na Standard lub Pro, gdy strona potrzebuje miesięcznej pojemności — checkout otworzy się w późniejszej bramce rozliczeniowej.",
+      "pro": {
+        "name": "Pro",
+        "tagline": "Dla stron o dużym ruchu",
+        "quota": "{quota} odpowiedzi miesięcznie",
+        "quotaUnit": "odpowiedzi co miesiąc",
+        "priceMonthly": "{currency} {amount} / miesiąc",
+        "priceAnnual": "{currency} {amount} / rok",
+        "priceNote": "Planowana cena katalogowa · płatność jeszcze niedostępna",
+        "features": [
+          "10 000 odnawialnych odpowiedzi miesięcznie na licencję strony",
+          "Ten sam produkt Kompis Web — najwyższa katalogowa pojemność miesięczna",
+          "Aktywacja po zweryfikowanej płatności, gdy checkout się otworzy"
+        ],
+        "cta": "Zacznij za darmo",
+        "checkoutUnavailable": "Płatny checkout nie jest jeszcze dostępny. Zacznij za darmo, a potem przejdź na Pro, gdy płatność będzie otwarta."
+      }
     },
     "faq": {
       "title": "Pytania właścicieli stron",
