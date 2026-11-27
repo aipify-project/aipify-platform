@@ -3,7 +3,8 @@
  * csp_transition_settlement(p_settlement_id, p_to, p_reason, p_paid_at, p_payment_reference).
  * Paid is refused unless the operator confirms the bank transfer already happened.
  */
-import { validateSettlementTransition, type CspSettlementStatus } from "./settlement-rules";
+import type { CspSettlementStatus } from "./constants";
+import { validateSettlementTransition } from "./settlement-rules";
 
 const STATUSES = new Set(["open", "closed", "approved", "paid", "voided"]);
 
