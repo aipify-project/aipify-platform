@@ -9,8 +9,8 @@ import {
 } from "./interest";
 import { personalSalesLeadEnabled } from "./lead-gate";
 
-test("rejects client seller identity and keeps the public gate closed", () => {
-  assert.equal(personalSalesLeadEnabled(), false);
+test("rejects client seller identity and keeps the public gate open for code-only registration", () => {
+  assert.equal(personalSalesLeadEnabled(), true);
   assert.equal(
     validatePersonalPageInterest({
       seller_id: "x",
@@ -98,7 +98,7 @@ test("parses only personal-page interests and never invents a store", () => {
   assert.equal(mapInterestRpcError({ error: "rate_limited" }), "rate_limited");
 });
 
-test("interest route stays gated and never trusts a browser seller id", () => {
+test("interest route is live and never trusts a browser seller id", () => {
   const route = readFileSync("app/api/personal-sales-page/interest/route.ts", "utf8");
   assert.match(route, /personalSalesLeadEnabled/);
   assert.match(route, /createServiceRoleClient/);
@@ -111,7 +111,8 @@ test("interest route stays gated and never trusts a browser seller id", () => {
   assert.match(view, /personalSalesLeadEnabled/);
   assert.doesNotMatch(view, /enabled\s*\?\s*true/);
   const gate = readFileSync("lib/personal-sales-page/lead-gate.ts", "utf8");
-  assert.match(gate, /return false/);
+  assert.match(gate, /return true/);
+  assert.match(gate, /PERSONAL_SALES_LEAD_GATE = "live"/);
 });
 
 test("CRM and platform surfaces read the Growth Partner lead register", () => {
