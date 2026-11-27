@@ -348,7 +348,16 @@
       "notAuthorized": "La creación de cliente interno no está autorizada. Las puertas de Platform y Core permanecen cerradas.",
       "ordinaryProductionOnly": "La creación ordinaria en Platform siempre usa el entorno de producción.",
       "nextGateHelperAllowlistSql": "Próxima decisión del propietario: aplicar solo el SQL de lista de permisos del helper de creación interna (tabla vacía; el helper sigue en false). Sin creación de tenant."
-    }
+    },
+    "paginationShowing": "Mostrando {from}–{to} de {total}",
+    "paginationPrevious": "Anterior",
+    "paginationNext": "Siguiente",
+    "paginationPage": "Página {page} de {pages}",
+    "statusOk": "Verificado",
+    "statusAttention": "Requiere atención",
+    "statusCritical": "Crítico",
+    "statusInfo": "Información",
+    "statusUnknown": "Desconocido"
   },
   "nav": {
     "kompisAi": "Kompis",
@@ -1899,5 +1908,47 @@
     },
     "_fallbackFrom": "en",
     "_fallbackNote": "Admin Norwegian is authoritative; this locale falls back structurally to English until human translation."
+  },
+  "customersHub": {
+    "tabsAria": "Pestañas de la sección Clientes",
+    "supportLink": "Abrir Support",
+    "tabs": {
+      "overview": "Resumen",
+      "organizations": "Organizaciones",
+      "customerSuccess": "Éxito del cliente"
+    },
+    "overview": {
+      "title": "Resumen de clientes",
+      "subtitle": "Cifras de clientes en vivo desde Platform Core: organizaciones, acuerdos, seguimiento y soporte.",
+      "scopeNote": "Alcance: organizaciones de clientes fuera de la plataforma. Admin de plataforma e identidades de partner no cuentan como clientes.",
+      "loading": "Cargando resumen de clientes",
+      "errorTitle": "El resumen de clientes no está disponible",
+      "errorMessage": "Ocurrió algo inesperado. Nuestro equipo ha sido notificado. Inténtelo de nuevo.",
+      "retry": "Intentar de nuevo",
+      "unavailable": "No disponible",
+      "openOrganizations": "Abrir organizaciones",
+      "openSuccess": "Abrir éxito del cliente",
+      "openSupport": "Abrir soporte",
+      "kpiCustomerOrgs": "Organizaciones de clientes",
+      "kpiCustomerOrgsHelp": "Cuenta organizaciones de clientes desde Core. Excluye empresas platform/is_platform e identidades de partner como clientes.",
+      "kpiActiveSubscriptions": "Acuerdos activos",
+      "kpiActiveSubscriptionsHelp": "Cuenta suscripciones activas — no usuarios, licencias ni solicitudes de partner.",
+      "kpiTrialing": "Acuerdos de prueba",
+      "kpiTrialingHelp": "Cuenta suscripciones en periodo de prueba. Separado del estado del ciclo de vida de la organización.",
+      "kpiPastDue": "Atención de pago",
+      "kpiPastDueHelp": "Cuenta suscripciones con estado de pago past_due. No es una previsión de abandono.",
+      "kpiFollowUp": "Requiere seguimiento",
+      "kpiFollowUpHelp": "Organizaciones marcadas para seguimiento por Core. Los datos faltantes nunca se tratan como riesgo.",
+      "kpiOpenSupport": "Casos de soporte abiertos",
+      "kpiOpenSupportHelp": "Carga de soporte abierta desde Support Core cuando está disponible.",
+      "followUpTitle": "Resumen de seguimiento",
+      "followUpEmpty": "No hay señales de seguimiento registradas ahora.",
+      "definitionsTitle": "Qué cuenta cada cifra",
+      "statusOk": "Verificado",
+      "statusAttention": "Requiere atención",
+      "statusCritical": "Crítico",
+      "statusInfo": "Información",
+      "statusUnknown": "Desconocido"
+    }
   }
 }

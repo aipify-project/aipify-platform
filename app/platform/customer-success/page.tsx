@@ -1,3 +1,4 @@
+import { PlatformCustomersHubShell } from "@/components/platform/customers/PlatformCustomersHubShell";
 import { PlatformCustomerSuccessOverviewPanel } from "@/components/platform/platform-portal/PlatformCustomerSuccessOverviewPanel";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -10,5 +11,9 @@ export default async function PlatformCustomerSuccessOverviewPage() {
   const t = createTranslator(dict);
   const labels = buildPlatformCustomerSuccessLabels(t);
 
-  return <PlatformCustomerSuccessOverviewPanel labels={labels} locale={locale} />;
+  return (
+    <PlatformCustomersHubShell>
+      <PlatformCustomerSuccessOverviewPanel labels={labels} locale={locale} />
+    </PlatformCustomersHubShell>
+  );
 }

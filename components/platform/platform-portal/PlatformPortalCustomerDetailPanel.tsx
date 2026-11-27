@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import type { AipifyStatusKind } from "@/lib/design/status-system";
 import type {
   PlatformPortalAppKompisDeliveryLabels,
   PlatformPortalCommercialPlanLabels,
@@ -395,17 +397,30 @@ function MetricCard({
         <dt className={`text-[11px] font-medium uppercase tracking-wide ${styles.label}`}>
           {label}
         </dt>
-        <span
-          className={`mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full ring-2 ${styles.marker}`}
-          aria-hidden="true"
-          data-status={variant}
-        />
+        <AipifyStatusBadge kind={variantToKind(variant)} label={label} />
       </div>
       <dd className={`mt-1 text-lg font-semibold tabular-nums tracking-tight ${styles.value}`}>
         {value}
       </dd>
     </div>
   );
+}
+
+function variantToKind(variant: MetricVariant): AipifyStatusKind {
+  switch (variant) {
+    case "success":
+      return "verified";
+    case "warning":
+      return "needs_attention";
+    case "danger":
+      return "not_allowed";
+    case "info":
+      return "information";
+    case "muted":
+      return "waiting";
+    default:
+      return "information";
+  }
 }
 
 function StatusBadge({
@@ -415,14 +430,7 @@ function StatusBadge({
   label: string;
   variant: MetricVariant;
 }) {
-  return (
-    <span
-      className={`inline-flex max-w-full items-center rounded-md border px-2 py-0.5 text-xs font-medium ${BADGE_STYLES[variant]}`}
-      data-variant={variant}
-    >
-      <span className="truncate">{label}</span>
-    </span>
-  );
+  return <AipifyStatusBadge kind={variantToKind(variant)} label={label} />;
 }
 
 function SectionCard({

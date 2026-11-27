@@ -1811,7 +1811,16 @@
       "notAuthorized": "Internal customer create is not authorized. Platform and Core gates remain closed.",
       "ordinaryProductionOnly": "Ordinary Platform create always uses the production environment.",
       "nextGateHelperAllowlistSql": "Next owner decision: apply only the internal create helper-allowlist SQL (empty table; helper still false). No tenant create."
-    }
+    },
+    "paginationShowing": "Showing {from}–{to} of {total}",
+    "paginationPrevious": "Previous",
+    "paginationNext": "Next",
+    "paginationPage": "Page {page} of {pages}",
+    "statusOk": "Verified",
+    "statusAttention": "Needs attention",
+    "statusCritical": "Critical",
+    "statusInfo": "Information",
+    "statusUnknown": "Unknown"
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -8833,6 +8842,48 @@
         "unauthorized": "Your session has expired. Please sign in again.",
         "unknown": "The change could not be saved. Your text is still here — please try again."
       }
+    }
+  },
+  "customersHub": {
+    "tabsAria": "Customers section tabs",
+    "supportLink": "Open Support",
+    "tabs": {
+      "overview": "Overview",
+      "organizations": "Organizations",
+      "customerSuccess": "Customer success"
+    },
+    "overview": {
+      "title": "Customer overview",
+      "subtitle": "Live customer counts from Platform Core — organizations, agreements, follow-up, and support.",
+      "scopeNote": "Scope: non-platform customer organizations. Platform admin and partner identities are excluded from customer counts.",
+      "loading": "Loading customer overview",
+      "errorTitle": "Customer overview is unavailable",
+      "errorMessage": "Something unexpected happened. Our team has been notified. Please try again.",
+      "retry": "Try again",
+      "unavailable": "Not available",
+      "openOrganizations": "Open organizations",
+      "openSuccess": "Open customer success",
+      "openSupport": "Open support",
+      "kpiCustomerOrgs": "Customer organizations",
+      "kpiCustomerOrgsHelp": "Counts customer organizations from Core. Excludes platform/is_platform companies and partner identities counted as customers.",
+      "kpiActiveSubscriptions": "Active agreements",
+      "kpiActiveSubscriptionsHelp": "Counts active subscriptions — not users, licenses, or partner applications.",
+      "kpiTrialing": "Trialing agreements",
+      "kpiTrialingHelp": "Counts subscriptions in trial. Separate from organization lifecycle status.",
+      "kpiPastDue": "Payment attention",
+      "kpiPastDueHelp": "Counts subscriptions with past_due payment status. Not a churn forecast.",
+      "kpiFollowUp": "Needs follow-up",
+      "kpiFollowUpHelp": "Organizations flagged for follow-up by Core. Missing data is never treated as risk.",
+      "kpiOpenSupport": "Open support cases",
+      "kpiOpenSupportHelp": "Open support workload from Support Core when available.",
+      "followUpTitle": "Follow-up summary",
+      "followUpEmpty": "No follow-up signals registered right now.",
+      "definitionsTitle": "What each number counts",
+      "statusOk": "Verified",
+      "statusAttention": "Needs attention",
+      "statusCritical": "Critical",
+      "statusInfo": "Information",
+      "statusUnknown": "Unknown"
     }
   }
 }
