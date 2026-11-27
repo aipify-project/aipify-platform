@@ -100,6 +100,8 @@ export type EconomyPhrases = {
   sourceError: string;
   noRecords: string;
   kidNotApplicable: string;
+  kidNotApplicablePaidOnline: string;
+  kidMissingReview: string;
   columns: Record<string, string>;
   statuses: Record<string, string>;
 };
@@ -246,6 +248,7 @@ const ONLINE_PAYMENT_METHODS = new Set([
 
 const KID_PAYMENT_METHODS = new Set([
   "invoice",
+  "manual",
   "dnb",
   "dnb_invoice",
   "bank",
@@ -257,15 +260,20 @@ const KID_PAYMENT_METHODS = new Set([
 export function presentKid(input: {
   kid: string | null | undefined;
   method?: string | null;
-  phrases: Pick<EconomyPhrases, "mustVerify" | "notRegistered" | "unavailable" | "kidNotApplicable">;
+  invoiceStatus?: string | null;
+  phrases: Pick<
+    EconomyPhrases,
+    "unavailable" | "kidNotApplicable" | "kidNotApplicablePaidOnline" | "kidMissingReview"
+  >;
 }): string {
   const kind = classifyKid(input.kid);
   if (kind === "present") return String(input.kid).trim();
-  if (kind === "placeholder") return input.phrases.mustVerify;
   const method = (input.method ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
-  if (ONLINE_PAYMENT_METHODS.has(method)) return input.phrases.kidNotApplicable;
-  if (KID_PAYMENT_METHODS.has(method)) return input.phrases.mustVerify;
-  if (!method) return input.phrases.notRegistered;
+  const paid = (input.invoiceStatus ?? "").trim().toLowerCase() === "paid";
+  if (ONLINE_PAYMENT_METHODS.has(method)) {
+    return paid ? input.phrases.kidNotApplicablePaidOnline : input.phrases.kidNotApplicable;
+  }
+  if (KID_PAYMENT_METHODS.has(method)) return input.phrases.kidMissingReview;
   return input.phrases.unavailable;
 }
 
@@ -306,8 +314,17 @@ export function presentEconomyCell(input: {
   phrases: EconomyPhrases;
   currency?: string | null;
   method?: string | null;
+  invoiceStatus?: string | null;
 }): string {
   const { key, value, locale, phrases } = input;
+  if (key === "kid" || key === "kid_number" || key.endsWith("_kid")) {
+    return presentKid({
+      kid: value === null || value === undefined ? "" : String(value),
+      method: input.method,
+      invoiceStatus: input.invoiceStatus,
+      phrases,
+    });
+  }
   if (value === null || value === undefined || value === "") return phrases.notRegistered;
   if (typeof value === "boolean") {
     if (key === "active" || key.endsWith("_active") || key === "is_active") {
@@ -318,9 +335,6 @@ export function presentEconomyCell(input: {
   if (typeof value === "object") return phrases.unavailable;
 
   const text = String(value);
-  if (key === "kid" || key === "kid_number" || key.endsWith("_kid")) {
-    return presentKid({ kid: text, method: input.method, phrases });
-  }
   if (key === "customer_number") {
     return readOfficialCustomerNumber(text) ?? phrases.unavailable;
   }

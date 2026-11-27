@@ -55,6 +55,8 @@ export default async function PlatformBillingInvoicesPage({ searchParams }: Page
         unavailable: t("platform.economyDisplay.unavailable"),
         mustVerify: t("platform.economyDisplay.mustVerify"),
         kidNotApplicable: t("platform.economyDisplay.kidNotApplicable"),
+        kidNotApplicablePaidOnline: t("platform.economyDisplay.kidNotApplicablePaidOnline"),
+        kidMissingReview: t("platform.economyDisplay.kidMissingReview"),
         notRegistered: t("platform.economyDisplay.notRegistered"),
         backToCustomer: t("platform.invoices.backToCustomer"),
         filteredEmpty: t("platform.invoices.filteredEmpty"),
