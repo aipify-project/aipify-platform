@@ -8507,7 +8507,10 @@
       "companyPlaceholder": "Ditt företag",
       "languageLabel": "Språk",
       "submit": "Skapa gratis konto",
-      "continueHint": "Fortsätter till enkel Kompis Web-registrering. Inget kort krävs för den gratis svarkvoten."
+      "continueHint": "Fortsätter till enkel Kompis Web-registrering. Inget kort krävs för den gratis svarkvoten.",
+      "errorRequired": "Fyll i alla obligatoriska fält.",
+      "errorEmail": "Ange en giltig arbetsmejl.",
+      "errorWebsite": "Ange en giltig webbplatsadress (till exempel example.com)."
     },
     "benefits": {
       "title": "Därför väljer webbplatsägare Kompis Web",
@@ -8658,7 +8661,8 @@
       "terms": "Villkor",
       "contact": "Kontakt",
       "home": "Aipify hem",
-      "tagline": "Aipify works for you · Kompis Web"
+      "tagline": "Aipify works for you · Kompis Web",
+      "becomeSeller": "Bli säljare"
     },
     "start": {
       "metaTitle": "Starta gratis | Kompis Web",
@@ -8687,7 +8691,14 @@
       "errorTerms": "Godkänn villkor och integritet för att fortsätta.",
       "errorGeneric": "Något gick fel. Försök igen.",
       "errorExists": "Det finns redan ett konto med den här e-postadressen. Logga in i stället.",
-      "errorRateLimit": "För många försök. Vänta och försök igen."
+      "errorRateLimit": "För många försök. Vänta och försök igen.",
+      "errorWebsite": "Ange en giltig webbplatsadress (till exempel example.com)."
+    },
+    "growthPartners": {
+      "title": "Aipify Growth Partners",
+      "body": "Oberoende partners kan ansöka, genomföra utbildning och certifiering, dela godkända säljlänkar och tjäna provision på kvalificerade betalda produktförsäljningar — aldrig på gratisplaner.",
+      "commissionNote": "Provisionen är produktspecifik och betalas endast efter kvalificerande bekräftade betalningar. Det är inte garanterad inkomst, anställning eller livstidsprovision.",
+      "cta": "Bli säljare"
     }
   },
   "certifiedSalesPartner": {

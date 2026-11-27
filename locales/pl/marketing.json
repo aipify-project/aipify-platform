@@ -713,7 +713,10 @@
       "companyPlaceholder": "Twoja firma",
       "languageLabel": "Język",
       "submit": "Utwórz darmowe konto",
-      "continueHint": "Przechodzi do prostej rejestracji Kompis Web. Karta nie jest wymagana do darmowego limitu."
+      "continueHint": "Przechodzi do prostej rejestracji Kompis Web. Karta nie jest wymagana do darmowego limitu.",
+      "errorRequired": "Wypełnij wszystkie wymagane pola.",
+      "errorEmail": "Podaj prawidłowy służbowy adres e-mail.",
+      "errorWebsite": "Podaj prawidłowy adres strony (na przykład example.com)."
     },
     "benefits": {
       "title": "Dlaczego właściciele stron wybierają Kompis Web",
@@ -864,7 +867,8 @@
       "terms": "Warunki",
       "contact": "Kontakt",
       "home": "Strona Aipify",
-      "tagline": "Aipify works for you · Kompis Web"
+      "tagline": "Aipify works for you · Kompis Web",
+      "becomeSeller": "Zostań sprzedawcą"
     },
     "start": {
       "metaTitle": "Zacznij za darmo | Kompis Web",
@@ -893,7 +897,14 @@
       "errorTerms": "Zaakceptuj Regulamin i prywatność, aby kontynuować.",
       "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie.",
       "errorExists": "Konto z tym emailem już istnieje. Zaloguj się.",
-      "errorRateLimit": "Zbyt wiele prób. Poczekaj i spróbuj ponownie."
+      "errorRateLimit": "Zbyt wiele prób. Poczekaj i spróbuj ponownie.",
+      "errorWebsite": "Podaj prawidłowy adres strony (na przykład example.com)."
+    },
+    "growthPartners": {
+      "title": "Aipify Growth Partners",
+      "body": "Niezależni partnerzy mogą aplikować, ukończyć szkolenie i certyfikację, udostępniać zatwierdzone linki sprzedażowe i zarabiać prowizję od kwalifikowanych płatnych sprzedaży produktów — nigdy od planów darmowych.",
+      "commissionNote": "Prowizja jest zależna od produktu i wypłacana dopiero po kwalifikujących potwierdzonych płatnościach. To nie jest gwarantowany dochód, zatrudnienie ani dożywotnia prowizja.",
+      "cta": "Zostań sprzedawcą"
     }
   },
   "meta": {

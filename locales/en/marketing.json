@@ -8097,7 +8097,16 @@
       "companyPlaceholder": "Your company",
       "languageLabel": "Language",
       "submit": "Create free account",
-      "continueHint": "Continues to a simple Kompis Web signup. No card is required for the free answer allowance."
+      "continueHint": "Continues to a simple Kompis Web signup. No card is required for the free answer allowance.",
+      "errorRequired": "Please fill in all required fields.",
+      "errorEmail": "Enter a valid work email.",
+      "errorWebsite": "Enter a valid website address (for example example.com)."
+    },
+    "growthPartners": {
+      "title": "Aipify Growth Partners",
+      "body": "Independent partners can apply, complete training and certification, share approved sales links, and earn commission on qualified paid product sales — never on free plans.",
+      "commissionNote": "Commission is product-specific and paid only after qualifying confirmed payments. It is not guaranteed income, employment, or lifetime recurring payout.",
+      "cta": "Become a seller"
     },
     "benefits": {
       "title": "Why website owners choose Kompis Web",
@@ -8247,6 +8256,7 @@
       "privacy": "Privacy",
       "terms": "Terms",
       "contact": "Contact",
+      "becomeSeller": "Become a seller",
       "home": "Aipify home",
       "tagline": "Aipify works for you · Kompis Web"
     },
@@ -8272,6 +8282,7 @@
       "homeCta": "Back to home",
       "errorRequired": "Please fill in all required fields.",
       "errorEmail": "Enter a valid work email.",
+      "errorWebsite": "Enter a valid website address (for example example.com).",
       "errorPasswordShort": "Password must be at least 8 characters.",
       "errorPasswordMismatch": "Passwords do not match.",
       "errorTerms": "Accept Terms and Privacy to continue.",
