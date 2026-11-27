@@ -45,7 +45,7 @@ function buildSupportCenterLabels(t: (key: string) => string): SupportCenterLabe
     "feedback",
     "bug",
   ] as const;
-  const channelKeys = ["app_portal", "email", "chat", "phone", "assistant"] as const;
+  const channelKeys = ["app_portal", "email", "chat", "phone", "assistant", "web", "partner"] as const;
   const templateCategoryKeys = [
     "intake",
     "followup",
@@ -58,7 +58,7 @@ function buildSupportCenterLabels(t: (key: string) => string): SupportCenterLabe
     "bug",
     "feedback",
   ] as const;
-  const localeKeys = ["en", "no", "sv", "da", "pl", "uk"] as const;
+  const localeKeys = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
   const entryKindKeys = ["internal_note", "reply_draft", "reply", "event"] as const;
   const deliveryKeys = [
     "blocked_unconfigured",
@@ -174,6 +174,27 @@ function buildSupportCenterLabels(t: (key: string) => string): SupportCenterLabe
         "inserted",
         "errorGeneric",
         "errorValidation",
+        "statusDraft",
+        "statusActive",
+        "statusArchived",
+        "filterStatus",
+        "filterLanguage",
+        "filterAll",
+        "saveDraft",
+        "activate",
+        "restore",
+        "delete",
+        "draftBlocked",
+        "deleteBlocked",
+        "activateConfirm",
+        "restoreConfirm",
+        "savedActive",
+        "restored",
+        "versionLabel",
+        "statusLabel",
+        "persistReady",
+        "confirmAction",
+        "cancelConfirm",
       ] as const),
       categoryLabels: pick(t, "templates.categoryLabels", templateCategoryKeys),
       localeLabels: pick(t, "templates.localeLabels", localeKeys),
@@ -211,6 +232,11 @@ function buildSupportCenterLabels(t: (key: string) => string): SupportCenterLabe
       "errorInvalidEmail",
       "errorInvalidWebsite",
       "errorNameRequired",
+      "technicalDisplayNotice",
+      "supportEmailStatus",
+      "supportEmailMissing",
+      "confirmAction",
+      "cancelConfirm",
     ] as const),
     channels: pick(t, "channels", [
       "title",
@@ -218,6 +244,8 @@ function buildSupportCenterLabels(t: (key: string) => string): SupportCenterLabe
       "active",
       "notActivated",
       "preparedOnly",
+      "incomingLive",
+      "stagingOnly",
       "web",
       "webNote",
       "app",

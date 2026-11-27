@@ -22,6 +22,7 @@ export default async function PlatformPortalPage() {
     <PlatformPortalDashboardPanel
       labels={labels.dashboard}
       navGroups={navGroups}
+      locale={locale}
       superAdminInsightLabels={superAdminInsightLabels}
     />
   );

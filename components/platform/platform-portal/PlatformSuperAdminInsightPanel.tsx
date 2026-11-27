@@ -181,6 +181,11 @@ export default function PlatformSuperAdminInsightPanel({
         </Link>
       </div>
 
+      <details className="mt-4">
+        <summary className="cursor-pointer text-sm font-medium text-slate-700 dark:text-slate-200">
+          {labels.showCounts}
+        </summary>
+
       {loading ? <InsightLoadingSkeleton label={labels.loading} /> : null}
 
       {!loading && loadError ? (
@@ -247,6 +252,7 @@ export default function PlatformSuperAdminInsightPanel({
           </p>
         </>
       ) : null}
+      </details>
     </section>
   );
 }

@@ -8,7 +8,7 @@ import { PLATFORM_SUPPORT_PRODUCT_CHANNEL_LINK } from "@/lib/platform-portal/sup
 export type SupportChannelActivation = {
   id: string;
   labelKey: string;
-  status: "active" | "not_activated" | "prepared_only";
+  status: "active" | "incoming_live" | "staging_only" | "not_activated" | "prepared_only";
   noteKey: string;
   sotChannels: readonly string[];
 };
@@ -19,23 +19,24 @@ export function listSupportChannelActivations(): SupportChannelActivation[] {
     {
       id: "web",
       labelKey: "channels.web",
-      // Form + API exist at /contact/support and /api/support-intake/web — Core write still gated.
-      status: "prepared_only",
+      // Public form exists. Intake V3 is applied on Staging only; Production intake stays off.
+      status: "staging_only",
       noteKey: "channels.webNote",
       sotChannels: link.aipify_public_site.sotChannels,
     },
     {
       id: "app",
       labelKey: "channels.app",
-      status: link.kompis_bedrift_app.linked ? "prepared_only" : "not_activated",
+      // Production inbox already holds APP channel tickets. Email send stays off.
+      status: "incoming_live",
       noteKey: "channels.appNote",
       sotChannels: link.kompis_bedrift_app.sotChannels,
     },
     {
       id: "partner",
       labelKey: "channels.partner",
-      // Authenticated CSP intake route prepared; Core write still gated. CRM stays separate.
-      status: "prepared_only",
+      // Partner intake V3 is applied on Staging only. Production feature stays off.
+      status: "staging_only",
       noteKey: "channels.partnerNote",
       sotChannels: link.sellers_partners.sotChannels,
     },

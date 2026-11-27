@@ -166,6 +166,7 @@ export default function PlatformSupportCenterPanel({
   const [workspaceTemplates, setWorkspaceTemplates] = useState<
     EditableSupportTemplate[] | null
   >(null);
+  const [templatesPersist, setTemplatesPersist] = useState(false);
   const [signatureStored, setSignatureStored] = useState<StoredSignatureState>(() => ({
     signature: createDefaultSupportSignature(),
     customized: false,
@@ -176,9 +177,13 @@ export default function PlatformSupportCenterPanel({
   const channels = useMemo(() => listSupportChannelActivations(), []);
   const requestRef = useRef(0);
 
-  const templates = useMemo(
-    () => (workspaceTemplates ?? starterAsEditable()).filter((t) => !t.archived),
+  const allTemplates = useMemo(
+    () => workspaceTemplates ?? starterAsEditable(),
     [workspaceTemplates],
+  );
+  const templates = useMemo(
+    () => allTemplates.filter((t) => !t.archived && t.active !== false),
+    [allTemplates],
   );
 
   // ----- navigation ------------------------------------------------------
@@ -343,12 +348,16 @@ export default function PlatformSupportCenterPanel({
 
   const loadTemplates = useCallback(async () => {
     try {
-      const res = await fetch("/api/platform-portal/support-templates", {
+      const res = await fetch("/api/platform-portal/support-templates?include_archived=1", {
         cache: "no-store",
       });
       if (!res.ok) return;
-      const json = (await res.json()) as { items?: EditableSupportTemplate[] };
+      const json = (await res.json()) as {
+        items?: EditableSupportTemplate[];
+        persistConfigured?: boolean;
+      };
       if (Array.isArray(json.items)) setWorkspaceTemplates(json.items);
+      setTemplatesPersist(json.persistConfigured === true);
     } catch {
       /* keep starters */
     }
@@ -906,7 +915,8 @@ export default function PlatformSupportCenterPanel({
           <FlashMessage flash={flash} />
           <SupportTemplatesTab
             labels={labels}
-            templates={templates}
+            templates={allTemplates}
+            persistConfigured={templatesPersist}
             onReload={loadTemplates}
             onInsert={insertTemplate}
           />
@@ -944,9 +954,13 @@ export default function PlatformSupportCenterPanel({
               const statusLabel =
                 ch.status === "active"
                   ? labels.channels.active
-                  : ch.status === "prepared_only"
-                    ? labels.channels.preparedOnly
-                    : labels.channels.notActivated;
+                  : ch.status === "incoming_live"
+                    ? labels.channels.incomingLive
+                    : ch.status === "staging_only"
+                      ? labels.channels.stagingOnly
+                      : ch.status === "prepared_only"
+                        ? labels.channels.preparedOnly
+                        : labels.channels.notActivated;
               const copy = {
                 web: [labels.channels.web, labels.channels.webNote],
                 app: [labels.channels.app, labels.channels.appNote],
@@ -955,9 +969,9 @@ export default function PlatformSupportCenterPanel({
                 kompis: [labels.channels.kompis, labels.channels.kompisNote],
               }[ch.id as "web" | "app" | "partner" | "module" | "kompis"];
               const tone =
-                ch.status === "active"
+                ch.status === "active" || ch.status === "incoming_live"
                   ? "border-emerald-200 bg-emerald-50 text-emerald-900"
-                  : ch.status === "prepared_only"
+                  : ch.status === "prepared_only" || ch.status === "staging_only"
                     ? "border-sky-200 bg-sky-50 text-sky-900"
                     : "border-slate-200 bg-slate-50 text-slate-800";
               return (

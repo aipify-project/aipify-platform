@@ -20,6 +20,7 @@ import {
   archiveSupportTemplate as archiveWorkspaceTemplate,
   createSupportTemplate as createWorkspaceTemplate,
   listEditableSupportTemplates,
+  restoreSupportTemplate as restoreWorkspaceTemplate,
   updateSupportTemplate as updateWorkspaceTemplate,
   type EditableSupportTemplate,
   type TemplateMutationResult,
@@ -421,13 +422,23 @@ export async function listSupportTemplatesForUser(input: {
 
 export async function mutateSupportTemplateForUser(input: {
   rpc?: RpcClient | null;
-  action: "create" | "update" | "archive";
+  action: "create" | "update" | "archive" | "restore";
   body: Record<string, unknown>;
 }): Promise<
   | (TemplateMutationResult & { source: "core" | "workspace" })
   | { ok: false; error: string; status?: number }
 > {
   const preferCore = Boolean(input.rpc && isSupportPersistCorePreferred());
+
+  if (input.action === "restore") {
+    if (preferCore && input.rpc) {
+      return mutateSupportTemplateForUser({ ...input, action: "update" });
+    }
+    const local = restoreWorkspaceTemplate(String(input.body.id ?? ""));
+    return local.ok
+      ? { ...local, source: "workspace" }
+      : { ok: false, error: local.error, status: local.error === "not_found" ? 404 : 400 };
+  }
 
   if (input.action === "create") {
     const name = String(input.body.name ?? "");

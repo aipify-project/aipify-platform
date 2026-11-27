@@ -18,6 +18,7 @@ export type PlatformSuperAdminInsightLabels = {
   subscriptionGrowth30d: string;
   executiveAlertCount: string;
   openSuperDashboard: string;
+  showCounts: string;
   statuses: {
     operational: string;
     attention_required: string;
@@ -47,6 +48,7 @@ export function buildPlatformSuperAdminInsightLabels(
     subscriptionGrowth30d: t(`${k}.subscriptionGrowth30d`),
     executiveAlertCount: t(`${k}.executiveAlertCount`),
     openSuperDashboard: t(`${k}.openSuperDashboard`),
+    showCounts: t(`${k}.showCounts`),
     statuses: {
       operational: t(`${k}.statuses.operational`),
       attention_required: t(`${k}.statuses.attention_required`),
