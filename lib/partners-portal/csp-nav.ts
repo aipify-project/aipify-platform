@@ -17,6 +17,7 @@ export const CSP_PARTNER_PORTAL_NAV_GROUPS: PartnersPortalNavGroup[] = [
     items: [
       { id: "productCatalog", href: "/partners/marketing/product-catalog", labelKey: "certifiedSalesPartner.nav.products" },
       { id: "referralLinks", href: "/partners/referrals/links", labelKey: "certifiedSalesPartner.nav.salesLinks" },
+      { id: "salesPage", href: "/partners/sales-page", labelKey: "certifiedSalesPartner.nav.salesPage" },
       { id: "leads", href: "/partners/customers/leads", labelKey: "certifiedSalesPartner.nav.leads" },
       { id: "prospects", href: "/partners/customers/prospects", labelKey: "certifiedSalesPartner.nav.customers" },
       { id: "pipeline", href: "/partners/customers/pipeline", labelKey: "certifiedSalesPartner.nav.sales" },

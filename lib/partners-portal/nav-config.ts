@@ -14,6 +14,7 @@ export type PartnersPortalNavId =
   | "prospects"
   | "followUps"
   | "referralLinks"
+  | "salesPage"
   | "referralPerformance"
   | "referralRewards"
   | "settlementPortal"

@@ -8517,6 +8517,14 @@
     "partners": "Partners",
     "publishedProducts": "Published products",
     "registrations": "Registrations",
-    "sales": "Sales"
+    "sales": "Sales",
+    "interestTitle": "Be contacted",
+    "interestPending": "Interest registration is not active yet. Nothing is stored from this page.",
+    "interestPrivacy": "When registration opens, the interest is sent only to the named Aipify seller for follow-up. It is not a sale and it is not marketing consent.",
+    "privacyLink": "Privacy",
+    "pagePending": "The named landing page is not published for this code yet.",
+    "share": "Share",
+    "seeLeads": "See my leads",
+    "leadsNote": "Leads, customers, sales, and commission stay separate."
   }
 }

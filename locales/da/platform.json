@@ -8025,6 +8025,7 @@
       "materialTitle": "Titel",
       "materialCategory": "Kategori",
       "materialAssetPath": "Asset path (must start with /)",
+      "materialUploadPending": "Filupload er ikke aktiv. Feltet gemmer den eksisterende Core-reference. Upublicerede filer vises ikke for sælgere.",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publicer",
       "withdrawCta": "Træk tilbage",

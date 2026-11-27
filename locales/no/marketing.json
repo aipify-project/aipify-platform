@@ -8942,6 +8942,14 @@
     "partners": "Partnere",
     "publishedProducts": "Publiserte produkter",
     "registrations": "Registreringer",
-    "sales": "Salg"
+    "sales": "Salg",
+    "interestTitle": "Bli kontaktet",
+    "interestPending": "Registrering av interesse er ikke aktiv ennå. Ingenting lagres fra denne siden.",
+    "interestPrivacy": "Når registrering åpner, sendes interessen bare til den navngitte Aipify-selgeren for oppfølging. Det er ikke et salg og ikke samtykke til markedsføring.",
+    "privacyLink": "Personvern",
+    "pagePending": "Den navngitte landingssiden er ikke publisert for denne koden ennå.",
+    "share": "Del",
+    "seeLeads": "Se mine leads",
+    "leadsNote": "Leads, kunder, salg og provisjon holdes atskilt."
   }
 }

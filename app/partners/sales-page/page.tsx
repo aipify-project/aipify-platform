@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CertifiedSalesPartnerWorkspacePanel } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
 import { CopyLinkButton } from "@/components/personal-sales-page/CopyLinkButton";
+import { ShareLinkButton } from "@/components/personal-sales-page/ShareLinkButton";
 import { callCspRpc } from "@/lib/certified-sales-partner/core-rpc";
 import { evaluateSalesLinkGates } from "@/lib/certified-sales-partner/partner-overview";
 import { parseCspPortalView } from "@/lib/certified-sales-partner/portal-view";
@@ -13,8 +14,8 @@ import { buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-lab
 import { createClient } from "@/lib/supabase/server";
 
 /**
- * Isolated from the open sales-tools navigation in PR #445.
- * Reachable at /partners/sales-page until that navigation can take a new label.
+ * Partner sales center. The public named page stays unpublished until Core
+ * can resolve this code, so the working action is the existing sales link.
  */
 export default async function PartnerPersonalSalesPage() {
   const locale = await getLocale();
@@ -53,24 +54,33 @@ export default async function PartnerPersonalSalesPage() {
         {view && !gate?.allowed ? <p>{labels.gateBlocked}</p> : null}
         {view && gate?.allowed && !link ? <p>{labels.noLink}</p> : null}
         {personalPath ? (
-          <div className="space-y-2">
+          <div className="space-y-2 rounded-2xl border border-[#E8E4F2] bg-white p-4">
             <h3 className="text-sm font-semibold text-slate-800">{labels.personalLink}</h3>
+            <p className="text-sm text-slate-600">{labels.pagePending}</p>
             <p className="break-all text-sm">{personalPath}</p>
             <div className="flex flex-wrap gap-2">
               <CopyLinkButton value={personalPath} copyLabel={labels.copy} copiedLabel={labels.copied} />
-              <Link className="inline-flex min-h-11 items-center text-sm font-semibold text-[#5538D3]" href={personalPath}>
+              <ShareLinkButton value={personalPath} shareLabel={labels.share} copiedLabel={labels.copied} />
+            </div>
+          </div>
+        ) : null}
+        {salesPath ? (
+          <div className="space-y-2 rounded-2xl border border-[#E8E4F2] bg-white p-4">
+            <h3 className="text-sm font-semibold text-slate-800">{labels.attributionLink}</h3>
+            <p className="break-all text-sm">{salesPath}{`&lang=${locale}`}</p>
+            <div className="flex flex-wrap gap-2">
+              <CopyLinkButton value={`${salesPath}&lang=${locale}`} copyLabel={labels.copy} copiedLabel={labels.copied} />
+              <ShareLinkButton value={`${salesPath}&lang=${locale}`} shareLabel={labels.share} copiedLabel={labels.copied} />
+              <Link className="inline-flex min-h-11 items-center text-sm font-semibold text-[#5538D3]" href={`${salesPath}&lang=${locale}`}>
                 {labels.open}
               </Link>
             </div>
           </div>
         ) : null}
-        {salesPath ? (
-          <div className="space-y-2">
-            <h3 className="text-sm font-semibold text-slate-800">{labels.attributionLink}</h3>
-            <p className="break-all text-sm">{salesPath}{`&lang=${locale}`}</p>
-            <CopyLinkButton value={`${salesPath}&lang=${locale}`} copyLabel={labels.copy} copiedLabel={labels.copied} />
-          </div>
-        ) : null}
+        <p className="text-sm text-slate-600">{labels.leadsNote}</p>
+        <Link className="inline-flex min-h-11 items-center text-sm font-semibold text-[#5538D3]" href="/partners/customers/leads">
+          {labels.seeLeads}
+        </Link>
         <dl className="grid gap-3 sm:grid-cols-2">
           <div>
             <dt className="text-sm font-semibold">{labels.sales}</dt>

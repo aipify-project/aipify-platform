@@ -1137,6 +1137,14 @@
     "partners": "Partnerzy",
     "publishedProducts": "Opublikowane produkty",
     "registrations": "Rejestracje",
-    "sales": "Sprzedaż"
+    "sales": "Sprzedaż",
+    "interestTitle": "Poproś o kontakt",
+    "interestPending": "Rejestracja zainteresowania nie jest jeszcze aktywna. Nic nie jest zapisywane z tej strony.",
+    "interestPrivacy": "Gdy rejestracja zostanie otwarta, zainteresowanie trafi tylko do wskazanego sprzedawcy Aipify w celu kontaktu. To nie jest sprzedaż ani zgoda marketingowa.",
+    "privacyLink": "Prywatność",
+    "pagePending": "Nazwana strona nie jest jeszcze opublikowana dla tego kodu.",
+    "share": "Udostępnij",
+    "seeLeads": "Zobacz moje leady",
+    "leadsNote": "Leady, klienci, sprzedaż i prowizja pozostają rozdzielone."
   }
 }

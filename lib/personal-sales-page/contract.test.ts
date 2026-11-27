@@ -59,3 +59,21 @@ test("seller pages are noindex and do not invent checkout", () => {
   assert.doesNotMatch(page, /checkoutEnabled:\s*true/);
   assert.doesNotMatch(page, /stripe/i);
 });
+
+test("interest registration stays closed and ignores a client seller id", async () => {
+  const gate = await import("./lead-gate");
+  assert.equal(gate.personalSalesLeadEnabled(), false);
+  assert.equal(gate.PERSONAL_SALES_LEAD_GATE, "core_pending");
+  assert.equal(gate.rejectClientSellerIdentity({ seller_id: "x" }), true);
+  assert.equal(gate.rejectClientSellerIdentity({ email: "ada@example.com" }), false);
+  const view = readFileSync("components/marketing/personal-sales-page/PersonalSalesPageView.tsx", "utf8");
+  assert.doesNotMatch(view, /<form/);
+  assert.doesNotMatch(view, /fetch\(/);
+  assert.match(view, /interestPending/);
+  const materials = readFileSync("components/platform/sellers/CertifiedSellersOpsPanel.tsx", "utf8");
+  assert.match(materials, /type="file" disabled/);
+  const nav = readFileSync("lib/partners-portal/csp-nav.ts", "utf8");
+  assert.match(nav, /\/partners\/sales-page/);
+  const norwegian = readFileSync("locales/no/partnersPortal.json", "utf8");
+  assert.match(norwegian, /Salgsflyten/);
+});

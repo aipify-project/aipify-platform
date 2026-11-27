@@ -1795,6 +1795,7 @@
       "materialTitle": "Título",
       "materialCategory": "Categoría",
       "materialAssetPath": "Asset path (must start with /)",
+      "materialUploadPending": "La carga de archivos no está activa. Este campo guarda la referencia Core existente. Los archivos no publicados permanecen ocultos.",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publish",
       "withdrawCta": "Withdraw",

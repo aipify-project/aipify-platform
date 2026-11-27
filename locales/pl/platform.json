@@ -8547,6 +8547,7 @@
       "materialTitle": "Tytuł",
       "materialCategory": "Kategoria",
       "materialAssetPath": "Asset path (must start with /)",
+      "materialUploadPending": "Przesyłanie plików nie jest aktywne. To pole zapisuje istniejące odwołanie Core. Nieopublikowane pliki pozostają ukryte.",
       "registerMaterialCta": "Save draft",
       "publishCta": "Publish",
       "withdrawCta": "Withdraw",

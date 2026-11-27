@@ -469,6 +469,14 @@
     "partners": "Partners",
     "publishedProducts": "Productos publicados",
     "registrations": "Registros",
-    "sales": "Ventas"
+    "sales": "Ventas",
+    "interestTitle": "Quiero que me contacten",
+    "interestPending": "El registro de interés aún no está activo. Esta página no guarda nada.",
+    "interestPrivacy": "Cuando el registro se abra, el interés se envía solo al vendedor de Aipify indicado para el seguimiento. No es una venta ni un consentimiento de marketing.",
+    "privacyLink": "Privacidad",
+    "pagePending": "La página con nombre aún no está publicada para este código.",
+    "share": "Compartir",
+    "seeLeads": "Ver mis leads",
+    "leadsNote": "Los leads, los clientes, las ventas y la comisión permanecen separados."
   }
 }

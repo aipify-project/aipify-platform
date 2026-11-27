@@ -72,6 +72,7 @@ export function PersonalSalesPageView({
       </section>
       <section aria-labelledby="personal-sales-price">
         <h2 id="personal-sales-price">{labels.priceTitle}</h2>
+        <h3>{labels.productTitle}</h3>
         {monthly && annual ? (
           <>
             <p>{labels.pricePlanned}</p>
@@ -86,6 +87,14 @@ export function PersonalSalesPageView({
           <p>{labels.priceMissing}</p>
         )}
       </section>
+      {published ? (
+        <section aria-labelledby="personal-sales-interest">
+          <h2 id="personal-sales-interest">{labels.interestTitle}</h2>
+          <p>{labels.interestPending}</p>
+          <p>{labels.interestPrivacy}</p>
+          <Link href="/privacy">{labels.privacyLink}</Link>
+        </section>
+      ) : null}
     </KompisWebSalesChrome>
   );
 }

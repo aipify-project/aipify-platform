@@ -8927,6 +8927,14 @@
     "partners": "Partner",
     "publishedProducts": "Publicerade produkter",
     "registrations": "Registreringar",
-    "sales": "Försäljning"
+    "sales": "Försäljning",
+    "interestTitle": "Bli kontaktad",
+    "interestPending": "Intresseanmälan är inte aktiv ännu. Ingenting sparas från den här sidan.",
+    "interestPrivacy": "När anmälan öppnar skickas intresset bara till den namngivna Aipify-säljaren för uppföljning. Det är inte en försäljning och inte samtycke till marknadsföring.",
+    "privacyLink": "Integritet",
+    "pagePending": "Den namngivna landningssidan är inte publicerad för den här koden ännu.",
+    "share": "Dela",
+    "seeLeads": "Se mina leads",
+    "leadsNote": "Leads, kunder, försäljning och provision hålls åtskilda."
   }
 }

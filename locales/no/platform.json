@@ -8280,6 +8280,7 @@
       "materialTitle": "Tittel",
       "materialCategory": "Kategori",
       "materialAssetPath": "Asset path (must start with /)",
+      "materialUploadPending": "Filopplasting er ikke aktiv. Feltet lagrer den eksisterende Core-referansen. Upubliserte filer vises ikke for selgere.",
       "registerMaterialCta": "Lagre utkast",
       "publishCta": "Publiser",
       "withdrawCta": "Trekk tilbake",
