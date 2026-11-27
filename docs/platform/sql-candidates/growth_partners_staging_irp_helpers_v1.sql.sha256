@@ -1,0 +1,4 @@
+SUPERSEDED by PR #472 — do not apply.
+Authoritative applied: 20261127_staging_growth_partner_permission_helpers_v1.sql
+Optional remaining: growth_partners_staging_irp_require_permission_v1.sql
+Former helpers SHA (obsolete): c535d71e397d0b8d6437d8d9dae6e09a3317eaeb398fa356cb5e8698d0bbad93
