@@ -62,10 +62,13 @@ export type SupportIntakeResult =
 /** Outbound/inbound email transport — separate owner gate. */
 export const SUPPORT_EMAIL_TRANSPORT_ENABLED = false as const;
 
-/** Intake Core write RPCs — false until Staging batch applied + activation. */
 /**
- * Intake create RPCs were not included in the Staging Support Center batch.
- * Stay closed on Staging and Production until a separate SQL + owner YES.
+ * Unified Platform intake write RPCs (web / partner / guest) —
+ * false until Staging batch + separate activation YES.
+ * APP tenant create already uses `create_app_portal_support_request` (LIVE).
  */
 export const SUPPORT_INTAKE_RPC_CONNECTED = false as const;
 export const SUPPORT_INTAKE_FEATURE_GATE = false as const;
+
+/** Honesty: APP customer create path is already live via app portal RPC. */
+export const APP_PORTAL_SUPPORT_CREATE_LIVE = true as const;

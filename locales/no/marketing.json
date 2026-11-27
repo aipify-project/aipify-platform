@@ -8857,17 +8857,18 @@
   },
   "supportIntake": {
     "title": "Kontakt support",
-    "subtitle": "Send en supportsak. Ticket-lagring aktiveres når Core er godkjent — e-postfallback forblir tilgjengelig.",
+    "subtitle": "Send en supportforespørsel. Automatisk saksregistrering aktiveres etter godkjenning — e-post forblir et alternativ.",
     "name": "Navn",
     "email": "E-post",
     "subject": "Emne",
     "message": "Melding",
-    "submit": "Send henvendelse",
+    "submit": "Send forespørsel",
     "submitting": "Sender…",
-    "successCorePending": "Supportinntak er forberedt, men krever Core-oppsett før saken lagres automatisk. Bruk e-postfallback nedenfor imens.",
-    "errorGeneric": "Kunne ikke sende henvendelsen. Prøv igjen eller bruk e-post.",
-    "mailtoFallback": "Offentlig e-postkontakt forblir tilgjengelig som fallback.",
+    "successCorePending": "Automatisk saksinntak er ikke aktivt ennå. Bruk e-postalternativet nedenfor — vi lager ikke et falskt saksnummer.",
+    "successSubmitted": "Forespørselen din ble registrert.",
+    "errorGeneric": "Kunne ikke sende forespørselen. Prøv igjen eller bruk e-post.",
+    "mailtoFallback": "E-post forblir tilgjengelig som alternativ kontaktkanal.",
     "mailtoLabel": "Send e-post til support@aipify.ai",
-    "verificationRequired": "Fullfør sikkerhetskontrollen før innsending."
+    "verificationRequired": "Fullfør sikkerhetskontrollen før du sender."
   }
 }

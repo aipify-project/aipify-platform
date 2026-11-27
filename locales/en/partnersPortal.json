@@ -1305,24 +1305,34 @@
       "contact": {
         "title": "Contact Aipify",
         "subtitle": "Send a support request about your partner account.",
-        "intro": "Describe what you need help with. Tickets are created in Support Core when that channel is active.",
+        "intro": "Describe what you need help with. When ticket intake is active, your request is registered with Aipify. Until then, use email or messages — we will not invent a ticket number.",
         "category": "Category",
+        "priority": "Priority",
         "subject": "Subject",
         "description": "Description",
         "submit": "Submit request",
         "submitting": "Sending…",
         "blockedTitle": "Ticket intake is not active yet",
-        "blockedBody": "Partner ticket writing is waiting for Support Core activation. Use email or messages meanwhile — we will not invent a ticket number.",
+        "blockedBody": "Partner ticket writing is not active yet. Use email or messages meanwhile — we will not invent a ticket number.",
         "mailtoCta": "Email Aipify",
         "messagesCta": "Open messages",
         "success": "Your request was registered.",
         "error": "The request could not be sent. Try again or use messages.",
+        "senderTitle": "Your partner profile",
+        "senderName": "Name",
+        "senderEmail": "Email",
         "categories": {
-          "general": "General",
-          "payout": "Payout",
-          "academy": "Academy",
-          "company": "Company details",
-          "technical": "Technical"
+          "billing": "Billing / invoice",
+          "product": "Product / module",
+          "account": "Account / license",
+          "technical": "Technical issue",
+          "other": "Other",
+          "partner_commission": "Commission / payout"
+        },
+        "priorities": {
+          "normal": "Normal",
+          "urgent": "Urgent",
+          "critical": "Critical"
         }
       }
     }

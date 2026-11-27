@@ -11,6 +11,12 @@ import {
   submitSupportIntake,
 } from "./submit";
 import {
+  mapIntakeCategoryToAppCategory,
+  mapIntakePriorityToAppPriority,
+  SUPPORT_INTAKE_CSP_CATEGORIES,
+} from "./categories";
+import {
+  APP_PORTAL_SUPPORT_CREATE_LIVE,
   SUPPORT_EMAIL_TRANSPORT_ENABLED,
   SUPPORT_INTAKE_FEATURE_GATE,
   SUPPORT_INTAKE_RPC_CONNECTED,
@@ -36,7 +42,13 @@ async function main() {
   assert.equal(SUPPORT_INTAKE_RPC_CONNECTED, false);
   assert.equal(SUPPORT_INTAKE_FEATURE_GATE, false);
   assert.equal(SUPPORT_EMAIL_TRANSPORT_ENABLED, false);
+  assert.equal(APP_PORTAL_SUPPORT_CREATE_LIVE, true);
   assert.equal(getSupportIntakeGateState().live, false);
+  assert.equal(mapIntakeCategoryToAppCategory("billing"), "billing");
+  assert.equal(mapIntakeCategoryToAppCategory("product"), "business_packs");
+  assert.equal(mapIntakePriorityToAppPriority("critical"), "urgent");
+  assert.equal(mapIntakePriorityToAppPriority("normal"), "medium");
+  assert.ok(SUPPORT_INTAKE_CSP_CATEGORIES.includes("partner_commission"));
   // Write/read live on Production Core; intake stays closed until intake RPC.
   assert.equal(getSupportWriteGateState().live, true);
   assert.equal(getSupportWriteGateState().stagingBound, false);
@@ -141,6 +153,17 @@ async function main() {
     assert.equal(archived.ok, true);
   }
   assert.equal(listEditableSupportTemplates().length, 10);
+
+  const readRpcPath =
+    "docs/platform/NOT_APPLIED_platform_support_tickets_cross_tenant_read_rpc_v1.sql";
+  assert.ok(existsSync(readRpcPath));
+  const readRpcSha = createHash("sha256")
+    .update(readFileSync(readRpcPath, "utf8"))
+    .digest("hex");
+  assert.equal(
+    readRpcSha,
+    "63ed974a50229e828b34e0eb99be00080a8b84b48258414f64ce802039134291",
+  );
 
   const stagingPath =
     "docs/platform/sql-candidates/platform_support_center_staging_batch_v1.sql";

@@ -1179,26 +1179,36 @@
         }
       },
       "contact": {
-        "title": "Contactar con Aipify",
-        "subtitle": "Envía una solicitud sobre tu cuenta de partner.",
-        "intro": "Describe en qué necesitas ayuda. Los tickets se crean en Support Core cuando el canal está activo.",
+        "title": "Contactar a Aipify",
+        "subtitle": "Envía una solicitud de soporte sobre tu cuenta de partner.",
+        "intro": "Describe en qué necesitas ayuda. Cuando la recepción de tickets esté activa, tu solicitud se registra en Aipify. Mientras tanto, usa el correo o los mensajes: no inventaremos un número de ticket.",
         "category": "Categoría",
+        "priority": "Prioridad",
         "subject": "Asunto",
         "description": "Descripción",
         "submit": "Enviar solicitud",
         "submitting": "Enviando…",
-        "blockedTitle": "El sistema de tickets aún no está activo",
-        "blockedBody": "Los tickets de partner esperan la activación de Support Core. Mientras tanto usa el correo o los mensajes: no inventaremos un número de ticket.",
-        "mailtoCta": "Enviar correo a Aipify",
+        "blockedTitle": "La recepción de tickets aún no está activa",
+        "blockedBody": "La creación automática de tickets de partner aún no está activa. Mientras tanto usa el correo o los mensajes: no inventaremos un número de ticket.",
+        "mailtoCta": "Escribir a Aipify",
         "messagesCta": "Abrir mensajes",
-        "success": "Tu solicitud se registró.",
+        "success": "Tu solicitud quedó registrada.",
         "error": "No se pudo enviar la solicitud. Inténtalo de nuevo o usa los mensajes.",
+        "senderTitle": "Tu perfil de partner",
+        "senderName": "Nombre",
+        "senderEmail": "Correo",
         "categories": {
-          "general": "General",
-          "payout": "Cobro",
-          "academy": "Academy",
-          "company": "Datos de empresa",
-          "technical": "Técnico"
+          "billing": "Factura / pago",
+          "product": "Producto / módulo",
+          "account": "Cuenta / licencia",
+          "technical": "Problema técnico",
+          "other": "Otro",
+          "partner_commission": "Comisión / pago"
+        },
+        "priorities": {
+          "normal": "Normal",
+          "urgent": "Urgente",
+          "critical": "Crítico"
         }
       }
     }
