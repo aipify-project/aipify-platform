@@ -6,7 +6,7 @@
 | Staging | `auedugihkduoaikfusqe` |
 | Production | untouched |
 | SQL apply this control | **none** |
-| **Status** | **`SEED_AND_CLEANUP_VERIFIED_READY_FOR_EXACT_YES`** |
+| **Status** | **superseded** — see `AIPIFY_SUPPORT_E2E_SEED_FINAL_SAFETY_FIX_20261127.md` (`SEED_CLEANUP_FINAL_VERIFIED_READY_FOR_YES`) |
 
 ---
 

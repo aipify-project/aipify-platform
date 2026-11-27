@@ -1,60 +1,40 @@
 -- PREPARED_ONLY — NO_SQL_APPLY / NO_UNAPPROVED_SEED without exact owner YES.
 -- Package: AIPIFY_SUPPORT_STAGING_AUTHENTICATED_E2E_V1
 -- Target: Staging Core auedugihkduoaikfusqe ONLY
--- Purpose: Fully synthetic, reversible tenants for authenticated Support E2E.
+-- Purpose: Fully synthetic, reversible tenants for authenticated Support E2E (RPC/JWT).
 -- Creates NEW auth.users + identities + public rows only.
 -- Does NOT update/reactivate any existing csp_partner_profiles / sellers.
+-- Does NOT install fake _mta_create_audit_log (org switch remains blocked until real MTA audit).
+-- Does NOT store or document login passwords in this file.
+-- Auth for E2E: set_config('request.jwt.claim.sub', <auth_id>, true) as service/postgres.
 -- Does NOT send email. Does NOT touch Production. Does NOT change #459/#383.
---
--- Auth (RPC): set_config('request.jwt.claim.sub', <auth_id>, true)
--- Auth (browser optional): email/password below (Staging-only).
--- Password (all four): E2eSupport!StagingOnly2026
 --
 -- Companion cleanup:
 --   docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql
 --
 -- APPROVAL TEXT:
 -- "JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql
---  SHA256 <see .sha256 sidecar / preflight report> on auedugihkduoaikfusqe only.
+--  SHA256 <see .sha256 sidecar / final safety report> on auedugihkduoaikfusqe only.
 --  No email. No Production. No #459. No #383. Cleanup required after E2E."
 
 begin;
 
 -- ---------------------------------------------------------------------------
--- Fixed synthetic IDs (e2e00001-… namespace only)
+-- Fixed synthetic IDs (RFC UUID hex only, e2e00001-… namespace)
 -- ---------------------------------------------------------------------------
 -- auth APP A:        e2e00001-0001-4000-8000-0000000000a0
 -- auth APP B:        e2e00001-0001-4000-8000-0000000000b0
 -- auth Platform:     e2e00001-0001-4000-8000-0000000000f0
--- auth Partner:      e2e00001-0001-4000-8000-0000000000p0
--- identity ids:      …a9 / …b9 / …f9 / …p9
+-- auth Partner:      e2e00001-0001-4000-8000-0000000000c0
+-- identity ids:      …a9 / …b9 / …f9 / …c9
 -- platform company:  e2e00001-0001-4000-8000-000000000001
 -- company A/B:       …00000a1 / …00000b1
 -- org+customer A/B:  …00000a2 / …00000b2
--- partner profile:   e2e00001-0001-4000-8000-0000000000p1
+-- partner profile:   e2e00001-0001-4000-8000-0000000000c1
 -- platform_admins:   e2e00001-0001-4000-8000-0000000000f1
 
--- Minimal switch audit stub (switch_app_organization requires this).
-create or replace function public._mta_create_audit_log(
-  p_organization_id uuid,
-  p_action_type text,
-  p_entity_type text,
-  p_entity_id uuid
-)
-returns void
-language plpgsql
-security definer
-set search_path = public
-as $$
-begin
-  return;
-end;
-$$;
-
-revoke all on function public._mta_create_audit_log(uuid, text, text, uuid) from public, anon, authenticated;
-
 -- ---------------------------------------------------------------------------
--- Synthetic auth.users (new only)
+-- Synthetic auth.users (new only; no usable password in repo)
 -- ---------------------------------------------------------------------------
 insert into auth.users (
   instance_id,
@@ -82,7 +62,7 @@ values
     'authenticated',
     'authenticated',
     'e2e-support-app-a@example.com',
-    '$2a$10$cApVDR0ID/XpxlryVavJrOl8SGsHJjuUpF7RymEqNKmxRhS/3vbVS',
+    null,
     now(),
     '{"provider":"email","providers":["email"]}'::jsonb,
     '{"full_name":"E2E APP Owner A"}'::jsonb,
@@ -101,7 +81,7 @@ values
     'authenticated',
     'authenticated',
     'e2e-support-app-b@example.com',
-    '$2a$10$cApVDR0ID/XpxlryVavJrOl8SGsHJjuUpF7RymEqNKmxRhS/3vbVS',
+    null,
     now(),
     '{"provider":"email","providers":["email"]}'::jsonb,
     '{"full_name":"E2E APP Owner B"}'::jsonb,
@@ -120,7 +100,7 @@ values
     'authenticated',
     'authenticated',
     'e2e-support-platform@example.com',
-    '$2a$10$cApVDR0ID/XpxlryVavJrOl8SGsHJjuUpF7RymEqNKmxRhS/3vbVS',
+    null,
     now(),
     '{"provider":"email","providers":["email"]}'::jsonb,
     '{"full_name":"E2E Platform Support"}'::jsonb,
@@ -135,11 +115,11 @@ values
   ),
   (
     '00000000-0000-0000-0000-000000000000',
-    'e2e00001-0001-4000-8000-0000000000p0',
+    'e2e00001-0001-4000-8000-0000000000c0',
     'authenticated',
     'authenticated',
     'e2e-support-partner@example.com',
-    '$2a$10$cApVDR0ID/XpxlryVavJrOl8SGsHJjuUpF7RymEqNKmxRhS/3vbVS',
+    null,
     now(),
     '{"provider":"email","providers":["email"]}'::jsonb,
     '{"full_name":"E2E Growth Partner"}'::jsonb,
@@ -154,7 +134,7 @@ values
   )
 on conflict (id) do update
 set email = excluded.email,
-    encrypted_password = excluded.encrypted_password,
+    encrypted_password = null,
     email_confirmed_at = coalesce(auth.users.email_confirmed_at, excluded.email_confirmed_at),
     updated_at = now();
 
@@ -216,15 +196,15 @@ values
     'e2e-support-platform@example.com'
   ),
   (
-    'e2e00001-0001-4000-8000-0000000000p9',
-    'e2e00001-0001-4000-8000-0000000000p0',
+    'e2e00001-0001-4000-8000-0000000000c9',
+    'e2e00001-0001-4000-8000-0000000000c0',
     jsonb_build_object(
-      'sub', 'e2e00001-0001-4000-8000-0000000000p0',
+      'sub', 'e2e00001-0001-4000-8000-0000000000c0',
       'email', 'e2e-support-partner@example.com',
       'email_verified', true
     ),
     'email',
-    'e2e00001-0001-4000-8000-0000000000p0',
+    'e2e00001-0001-4000-8000-0000000000c0',
     now(),
     now(),
     now(),
@@ -349,8 +329,8 @@ values
     now()
   ),
   (
-    'e2e00001-0001-4000-8000-0000000000p0',
-    'e2e00001-0001-4000-8000-0000000000p0',
+    'e2e00001-0001-4000-8000-0000000000c0',
+    'e2e00001-0001-4000-8000-0000000000c0',
     'e2e00001-0001-4000-8000-000000000001',
     'E2E Growth Partner [Support E2E]',
     'staff',
@@ -427,8 +407,8 @@ insert into public.csp_partner_profiles (
   updated_at
 )
 values (
-  'e2e00001-0001-4000-8000-0000000000p1',
-  'e2e00001-0001-4000-8000-0000000000p0',
+  'e2e00001-0001-4000-8000-0000000000c1',
+  'e2e00001-0001-4000-8000-0000000000c0',
   'E2E Growth Partner [Support E2E]',
   'NO',
   'approved',

@@ -70,25 +70,27 @@ Schema-only notes strip / message filter: **PASS** (static function def).
 
 | File | SHA256 |
 |------|--------|
-| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `0d99efbad88c523158cd71f24164826e33ba3db14b568de3b71e5ff3ddcf3786` |
-| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql` | `f862b32929c275c36a930bb31644d3eb1d0f1b28d25c114c3ae5ef3b9d429250` |
+| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `2b7b7875ef1b1821bb9d06e0ee620a9c006e9e736455b4c200e4385096964c3a` |
+| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql` | `328b768689b0e4417b55058289690fd509af32b477d2d51dfa08583b4aba35f6` |
 
-**Supersedes** rejected SHAs `7886fb84…` / `f46752db…` (those reactivated an existing seller).
-
-Revised seed: fully synthetic `auth.users` + new approved partner only — see `AIPIFY_SUPPORT_STAGING_E2E_SEED_FINAL_PREFLIGHT_20261127.md`.
+See `AIPIFY_SUPPORT_E2E_SEED_FINAL_SAFETY_FIX_20261127.md` (valid hex UUIDs, no passwords, no fake audit stub).
 
 ---
 
 ## 5. Exact approval line (seed)
 
 ```
-JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 0d99efbad88c523158cd71f24164826e33ba3db14b568de3b71e5ff3ddcf3786 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383. Cleanup required after E2E via 20261127_staging_support_e2e_test_data_cleanup_v1.sql SHA256 f862b32929c275c36a930bb31644d3eb1d0f1b28d25c114c3ae5ef3b9d429250.
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 2b7b7875ef1b1821bb9d06e0ee620a9c006e9e736455b4c200e4385096964c3a on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
 ```
 
-After seed YES + apply: re-run authenticated matrix (APP↔Platform, Partner↔Platform, isolation, notes, idempotency, optional browser 375/768/1440), then cleanup YES.
+Cleanup after E2E:
+
+```
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql SHA256 328b768689b0e4417b55058289690fd509af32b477d2d51dfa08583b4aba35f6 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
+```
 
 ---
 
 ## 6. Status
 
-**`SEED_AND_CLEANUP_VERIFIED_READY_FOR_EXACT_YES`** (final preflight; SQL not applied)
+**`SEED_CLEANUP_FINAL_VERIFIED_READY_FOR_YES`** (SQL not applied)
