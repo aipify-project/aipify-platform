@@ -30,9 +30,12 @@ type PlatformActionsListPanelProps = {
       rollbacks: string;
     };
     card: PlatformActionCardLabels;
+    loadError?: string;
   };
   showDashboard?: boolean;
   showActions?: boolean;
+  /** Parent page owns title/subtitle chrome. */
+  hideHeader?: boolean;
 };
 
 export default function PlatformActionsListPanel({
@@ -41,22 +44,28 @@ export default function PlatformActionsListPanel({
   labels,
   showDashboard = false,
   showActions = false,
+  hideHeader = false,
 }: PlatformActionsListPanelProps) {
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [actions, setActions] = useState<PlatformAction[]>([]);
   const [dashboard, setDashboard] = useState<ActionCenterDashboard | null>(null);
 
   const load = useCallback(async () => {
+    setLoadError(false);
     const supabase = createClient();
     const actionsResult = await supabase.rpc("list_platform_actions", {
       p_status: statusFilter,
     });
 
-    setActions(
-      actionsResult.error || !actionsResult.data
-        ? []
-        : parsePlatformActions(actionsResult.data)
-    );
+    if (actionsResult.error) {
+      setActions([]);
+      setLoadError(true);
+    } else {
+      setActions(
+        !actionsResult.data ? [] : parsePlatformActions(actionsResult.data),
+      );
+    }
 
     if (showDashboard) {
       const dashboardResult = await supabase.rpc("get_action_center_dashboard");
@@ -89,10 +98,12 @@ export default function PlatformActionsListPanel({
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
-        <p className="mt-2 text-sm text-gray-600">{labels.subtitle}</p>
-      </div>
+      {!hideHeader ? (
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
+          <p className="mt-2 text-sm text-gray-600">{labels.subtitle}</p>
+        </div>
+      ) : null}
 
       {showDashboard && dashboard && (
         <>
@@ -117,7 +128,11 @@ export default function PlatformActionsListPanel({
         </>
       )}
 
-      {actions.length === 0 ? (
+      {loadError ? (
+        <p role="alert" className="text-sm text-rose-700">
+          {labels.loadError ?? labels.empty}
+        </p>
+      ) : actions.length === 0 ? (
         <p className="text-sm text-gray-500">{labels.empty}</p>
       ) : (
         <div className="space-y-4">

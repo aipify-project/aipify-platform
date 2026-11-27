@@ -19,7 +19,11 @@ export default async function PlatformKompisAiPage() {
 
   return (
     <PlatformDriftHubShell hub={DRIFT_KOMPIS_HUB_ID}>
-      <KompisAiGovernancePanel labels={labels} canCheck={Boolean(canCheck)} />
+      <KompisAiGovernancePanel
+        labels={labels}
+        canCheck={Boolean(canCheck)}
+        locale={locale}
+      />
     </PlatformDriftHubShell>
   );
 }

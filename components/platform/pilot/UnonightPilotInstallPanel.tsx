@@ -104,7 +104,7 @@ export function UnonightPilotInstallPanel({ labels }: UnonightPilotInstallPanelP
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-6">
+    <div className="w-full space-y-6 p-6">
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">{labels.title}</h1>
         <p className="mt-2 text-sm text-gray-600">{labels.subtitle}</p>

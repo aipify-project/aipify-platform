@@ -323,47 +323,59 @@ export default function GroupedSidebar({
     setHydrated(true);
   }, [storage.legacyCompactKey, isPlatform]);
 
+  // Customer APP: open-group hydrate + keep active group visible.
   useEffect(() => {
-    if (!hydrated) return;
+    if (!hydrated || isPlatform) return;
 
-    if (!isPlatform) {
-      if (activeGroupId && !storage.fixedGroupIds.includes(activeGroupId)) {
-        applyOpenGroup(activeGroupId);
-        return;
-      }
-
-      if (
-        typeof window !== "undefined" &&
-        window.localStorage.getItem(storage.initializedKey) === "1"
-      ) {
-        const raw = window.localStorage.getItem(storage.openGroupKey);
-        if (raw && storage.collapsibleGroups.includes(raw)) {
-          setOpenGroupId(raw);
-        }
-        return;
-      }
-
-      void fetch("/api/auth/2fa/status")
-        .then(async (res) => {
-          if (!res.ok) {
-            applyOpenGroup(storage.defaultOpenGroup);
-            window.localStorage.setItem(storage.initializedKey, "1");
-            return;
-          }
-          const status = (await res.json()) as { required?: boolean; enabled?: boolean };
-          const defaultGroup =
-            status.required && !status.enabled ? "governance" : storage.defaultOpenGroup;
-          applyOpenGroup(defaultGroup);
-          window.localStorage.setItem(storage.initializedKey, "1");
-        })
-        .catch(() => {
-          applyOpenGroup(storage.defaultOpenGroup);
-          window.localStorage.setItem(storage.initializedKey, "1");
-        });
+    if (activeGroupId && !storage.fixedGroupIds.includes(activeGroupId)) {
+      applyOpenGroup(activeGroupId);
       return;
     }
 
-    // Platform: multi-expand on desktop; accordion on narrow viewports.
+    if (
+      typeof window !== "undefined" &&
+      window.localStorage.getItem(storage.initializedKey) === "1"
+    ) {
+      const raw = window.localStorage.getItem(storage.openGroupKey);
+      if (raw && storage.collapsibleGroups.includes(raw)) {
+        setOpenGroupId(raw);
+      }
+      return;
+    }
+
+    void fetch("/api/auth/2fa/status")
+      .then(async (res) => {
+        if (!res.ok) {
+          applyOpenGroup(storage.defaultOpenGroup);
+          window.localStorage.setItem(storage.initializedKey, "1");
+          return;
+        }
+        const status = (await res.json()) as { required?: boolean; enabled?: boolean };
+        const defaultGroup =
+          status.required && !status.enabled ? "governance" : storage.defaultOpenGroup;
+        applyOpenGroup(defaultGroup);
+        window.localStorage.setItem(storage.initializedKey, "1");
+      })
+      .catch(() => {
+        applyOpenGroup(storage.defaultOpenGroup);
+        window.localStorage.setItem(storage.initializedKey, "1");
+      });
+  }, [
+    hydrated,
+    isPlatform,
+    activeGroupId,
+    applyOpenGroup,
+    storage.collapsibleGroups,
+    storage.defaultOpenGroup,
+    storage.fixedGroupIds,
+    storage.initializedKey,
+    storage.openGroupKey,
+  ]);
+
+  // Platform: hydrate expanded groups once. Soft-nav must not re-read localStorage
+  // and reset accordion state (that felt like pages "jumping" between hubs).
+  useEffect(() => {
+    if (!hydrated || !isPlatform) return;
     const defaults = new Set(getPlatformDefaultExpandedGroupIds());
     const stored =
       typeof window !== "undefined" && storage.expandedSetKey
@@ -379,9 +391,6 @@ export default function GroupedSidebar({
     let next: Set<string>;
     if (isDesktopViewport) {
       next = initialized && stored.size > 0 ? new Set(stored) : new Set(defaults);
-      if (activeGroupId && !storage.fixedGroupIds.includes(activeGroupId)) {
-        next.add(activeGroupId);
-      }
     } else {
       const focus =
         activeGroupId && !storage.fixedGroupIds.includes(activeGroupId)
@@ -389,19 +398,43 @@ export default function GroupedSidebar({
           : storage.defaultOpenGroup;
       next = new Set(focus ? [focus] : []);
     }
-
+    if (activeGroupId && !storage.fixedGroupIds.includes(activeGroupId)) {
+      next.add(activeGroupId);
+    }
     applyExpandedSet(next);
     if (typeof window !== "undefined") {
       window.localStorage.setItem(storage.initializedKey, "1");
     }
+    // Mount / viewport-mode hydrate only — active group ensure is separate.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional mount+viewport hydrate
+  }, [hydrated, isPlatform, isDesktopViewport, storage.expandedSetKey, storage.initializedKey]);
+
+  // Platform soft-nav: ensure the active hub stays visible without resetting others.
+  useEffect(() => {
+    if (!hydrated || !isPlatform) return;
+    if (!activeGroupId || storage.fixedGroupIds.includes(activeGroupId)) return;
+
+    setExpandedGroupIds((prev) => {
+      if (isDesktopViewport) {
+        if (prev.has(activeGroupId)) return prev;
+        const next = new Set(prev);
+        next.add(activeGroupId);
+        persistExpandedSet(next);
+        return next;
+      }
+      // Narrow viewport: accordion focus on the active hub only.
+      if (prev.size === 1 && prev.has(activeGroupId)) return prev;
+      const next = new Set([activeGroupId]);
+      persistExpandedSet(next);
+      return next;
+    });
   }, [
     hydrated,
-    activeGroupId,
-    applyOpenGroup,
-    applyExpandedSet,
     isPlatform,
     isDesktopViewport,
-    storage,
+    activeGroupId,
+    persistExpandedSet,
+    storage.fixedGroupIds,
   ]);
 
   useEffect(() => {

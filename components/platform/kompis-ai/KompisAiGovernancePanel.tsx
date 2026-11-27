@@ -2,8 +2,18 @@
 
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatDateTime } from "@/lib/i18n/format-date";
 import type { KompisAiGovernanceLabels } from "@/lib/platform/kompis-ai-labels";
 import { SEVERITY_BADGE_CLASS, providerReadinessTone, type KompisOperatorSeverityTone } from "@/lib/kompis-operator/severity";
+
+function formatOpsTimestamp(value: string | null | undefined, locale: string): string {
+  if (!value) return "—";
+  try {
+    return formatDateTime(value, locale);
+  } catch {
+    return value;
+  }
+}
 
 type StatusPayload = {
   readiness?: {
@@ -83,9 +93,11 @@ function Metric({ label, value }: { label: string; value: string }) {
 export function KompisAiGovernancePanel({
   labels,
   canCheck,
+  locale = "en",
 }: {
   labels: KompisAiGovernanceLabels;
   canCheck: boolean;
+  locale?: string;
 }) {
   const [data, setData] = useState<StatusPayload | null>(null);
   const [error, setError] = useState(false);
@@ -171,7 +183,7 @@ export function KompisAiGovernancePanel({
   const fallbackShare = events > 0 ? Math.round((fallbackEvents / events) * 100) : 0;
 
   return (
-    <div className="mx-auto w-full max-w-[1400px] space-y-6 px-4 py-6">
+    <div className="w-full space-y-6 py-2">
       <header className="space-y-2">
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">{labels.title}</h1>
@@ -225,13 +237,19 @@ export function KompisAiGovernancePanel({
             <div className="flex justify-between gap-4">
               <dt className="text-slate-500">{labels.lastCheck}</dt>
               <dd className="font-medium text-slate-900 dark:text-slate-100">
-                {data.lastHealthAt ?? data.readiness?.lastHealthAt ?? "—"}
+                {formatOpsTimestamp(
+                  data.lastHealthAt ?? data.readiness?.lastHealthAt,
+                  locale,
+                )}
               </dd>
             </div>
             <div className="flex justify-between gap-4">
               <dt className="text-slate-500">{labels.lastSuccessfulCall}</dt>
               <dd className="font-medium text-slate-900 dark:text-slate-100">
-                {data.lastSuccessAt ?? data.readiness?.lastSuccessAt ?? "—"}
+                {formatOpsTimestamp(
+                  data.lastSuccessAt ?? data.readiness?.lastSuccessAt,
+                  locale,
+                )}
               </dd>
             </div>
             <div className="flex justify-between gap-4">
@@ -254,7 +272,11 @@ export function KompisAiGovernancePanel({
             <Metric label={labels.errors} value={String(data.usage24h?.error_24h ?? 0)} />
             <Metric
               label={labels.activeOrganizations}
-              value={String(data.activeOrganizations24h ?? 0)}
+              value={
+                data.activeOrganizations24h == null
+                  ? "—"
+                  : String(data.activeOrganizations24h)
+              }
             />
           </div>
         </div>

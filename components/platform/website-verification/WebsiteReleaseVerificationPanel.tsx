@@ -323,7 +323,7 @@ export function WebsiteReleaseVerificationPanel({
   const control = overview.control;
 
   return (
-    <div className="mx-auto w-full max-w-[1400px] space-y-6 px-4 py-6" lang={locale}>
+    <div className="w-full space-y-6 py-2" lang={locale}>
       <header className="space-y-2">
         <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">{labels.title}</h1>
         <p className="max-w-3xl text-sm text-slate-600 dark:text-slate-300">{labels.subtitle}</p>
@@ -444,10 +444,16 @@ export function WebsiteReleaseVerificationPanel({
           <div className="flex justify-between gap-3">
             <dt className="text-slate-500">{labels.checksumMatch}</dt>
             <dd>
-              <Badge
-                tone={control.checksumMatch ? "success" : "warning"}
-                label={control.checksumMatch ? labels.checksumMatch : labels.checksumMismatch}
-              />
+              {control.actualChecksum == null || control.expectedChecksum == null ? (
+                <Badge tone="info" label={labels.absent} />
+              ) : (
+                <Badge
+                  tone={control.checksumMatch ? "success" : "danger"}
+                  label={
+                    control.checksumMatch ? labels.checksumMatch : labels.checksumMismatch
+                  }
+                />
+              )}
             </dd>
           </div>
           <div className="flex justify-between gap-3">

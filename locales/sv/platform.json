@@ -4738,7 +4738,9 @@
     "syncStale": "Föråldrad synkronisering",
     "syncFresh": "Nyligen synkroniserad",
     "lifecycleActive": "Installation aktiv",
-    "neverSynced": "Aldrig synkroniserad"
+    "neverSynced": "Aldrig synkroniserad",
+    "hoursAgo": "{count} timmar sedan",
+    "daysAgo": "{count} dagar sedan"
   },
   "support": {
     "title": "Support",
@@ -8530,7 +8532,12 @@
       "subtitle": "Operativ händelse- och revisionhistorik för Platform Admin.",
       "notConfiguredTitle": "Ingen händelsekälla ansluten",
       "notConfiguredBody": "Den här Drift-fliken fabricerar inte händelser. Ett autentiserat Platform-revisions-/händelseflöde är ännu inte kopplat till den här ytan. Använd aktivitetsloggen under Styrning när den finns.",
-      "openGovernance": "Öppna aktivitetslogg"
+      "openGovernance": "Öppna aktivitetslogg",
+      "scopeNote": "Källa: autentiserad plattformshandlingsfeed. Skild från supportärenden och webbpubliceringar.",
+      "empty": "Inga plattformsåtgärder registrerade ännu.",
+      "loadError": "Kunde inte ladda plattformshandlingsfeeden.",
+      "retry": "Försök igen",
+      "openActions": "Öppna Action Center"
     },
     "deployments": {
       "title": "Publiceringar",
@@ -8538,7 +8545,12 @@
       "notConfiguredTitle": "Ingen dedikerad publiceringskälla på den här fliken",
       "notConfiguredBody": "Den här ytan startar inte publiceringar. Aktuella distributionsrader visas under Plattformsstatus. Webbplatsverifiering har egna kontroller.",
       "openHealth": "Öppna plattformsstatus",
-      "openVerification": "Öppna webbplatsverifiering"
+      "openVerification": "Öppna webbplatsverifiering",
+      "scopeNote": "Source: platform updates feed when available. Website verification has its own controls.",
+      "rpcMissingTitle": "Update history RPC is not available in this environment",
+      "rpcMissingBody": "list_platform_updates is not installed on the connected Core database. Empty history is not proof that no publishes occurred.",
+      "empty": "No platform updates recorded yet.",
+      "loadError": "Could not load publishing history."
     }
   },
   "supportCenter": {

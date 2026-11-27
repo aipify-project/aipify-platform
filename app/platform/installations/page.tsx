@@ -45,6 +45,8 @@ export default async function PlatformInstallationsPage() {
               automationActive: t("platform.installations.automationActive"),
               automationInactive: t("platform.installations.automationInactive"),
               minutesAgo: t("platform.installations.minutesAgo"),
+              hoursAgo: t("platform.installations.hoursAgo"),
+              daysAgo: t("platform.installations.daysAgo"),
               syncUnknown: t("platform.installations.syncUnknown"),
               syncStale: t("platform.installations.syncStale"),
               neverSynced: t("platform.installations.neverSynced"),

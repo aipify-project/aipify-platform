@@ -42,6 +42,8 @@ type PlatformInstallationsPanelProps = {
     automationActive: string;
     automationInactive: string;
     minutesAgo: string;
+    hoursAgo: string;
+    daysAgo: string;
     syncUnknown: string;
     syncStale: string;
     neverSynced: string;
@@ -58,15 +60,26 @@ type PlatformInstallationsPanelProps = {
 
 const STALE_SYNC_MINUTES = 24 * 60;
 
+/** Human-readable age — never dump raw minute counts like "243883 minutes ago". */
 function formatSyncFreshness(
   minutesAgo: number | null,
   labels: PlatformInstallationsPanelProps["labels"],
 ): string {
   if (minutesAgo == null) return labels.neverSynced;
-  if (minutesAgo >= STALE_SYNC_MINUTES) {
-    return `${labels.syncStale} · ${labels.minutesAgo.replace("{count}", String(minutesAgo))}`;
+  const days = Math.floor(minutesAgo / (24 * 60));
+  const hours = Math.floor(minutesAgo / 60);
+  let age: string;
+  if (days >= 1) {
+    age = labels.daysAgo.replace("{count}", String(days));
+  } else if (hours >= 1) {
+    age = labels.hoursAgo.replace("{count}", String(hours));
+  } else {
+    age = labels.minutesAgo.replace("{count}", String(minutesAgo));
   }
-  return labels.minutesAgo.replace("{count}", String(minutesAgo));
+  if (minutesAgo >= STALE_SYNC_MINUTES) {
+    return `${labels.syncStale} · ${age}`;
+  }
+  return age;
 }
 
 export default function PlatformInstallationsPanel({

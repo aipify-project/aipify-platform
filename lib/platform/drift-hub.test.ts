@@ -5,6 +5,7 @@ import test from "node:test";
 import {
   DRIFT_OPERATIONS_TABS,
   DRIFT_PUBLISH_VERIFY_TABS,
+  PUBLISH_AND_VERIFY_HREF,
   getDriftActiveTabId,
   getDriftSidebarNavId,
   isDriftOperationsPath,
@@ -77,6 +78,14 @@ test("installation freshness never invents minutes when sync is missing", () => 
   } as unknown as PlatformInstallationRow;
   const health = deriveInstallationHealth(row);
   assert.equal(health.lastScanMinutesAgo, null);
+  // Active agreement without sync evidence is attention — not healthy/Frisk.
+  assert.equal(health.health, "attention");
+  assert.equal(health.automationActive, false);
+});
+
+test("publishAndVerify hub href lands on deployments without redirect hop", () => {
+  assert.equal(PUBLISH_AND_VERIFY_HREF, "/platform/operations/deployments");
+  assert.equal(getPlatformActiveNavId("/platform/operations/deployments"), "publishAndVerify");
 });
 
 test("locale parity for Drift hub keys", () => {

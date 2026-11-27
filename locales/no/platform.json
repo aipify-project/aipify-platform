@@ -2243,7 +2243,9 @@
     "syncStale": "Utdatert synkronisering",
     "syncFresh": "Nylig synkronisert",
     "lifecycleActive": "Installasjon aktiv",
-    "neverSynced": "Aldri synkronisert"
+    "neverSynced": "Aldri synkronisert",
+    "hoursAgo": "{count} timer siden",
+    "daysAgo": "{count} dager siden"
   },
   "support": {
     "title": "Support",
@@ -8256,18 +8258,28 @@
     },
     "auditLogs": {
       "title": "Hendelseslogg",
-      "subtitle": "Operativ hendelses- og revisjonshistorikk for Platform Admin.",
+      "subtitle": "Historikk for plattformhandlinger og godkjenninger (admin-drift). Dette er ikke full tjenestetelemetri.",
       "notConfiguredTitle": "Ingen hendelseskilde er koblet",
       "notConfiguredBody": "Denne Drift-fanen lager ikke hendelser. En autentisert Platform-revisjons-/hendelsesfeed er ikke koblet til denne flaten ennå. Bruk Aktivitetslogg under Kontroll og styring for registrerte adminhandlinger når den er tilgjengelig.",
-      "openGovernance": "Åpne aktivitetslogg"
+      "openGovernance": "Åpne aktivitetslogg",
+      "scopeNote": "Kilde: autentisert feed for plattformhandlinger. Skilt fra kundestøttesaker og nettstedspubliseringer.",
+      "empty": "Ingen plattformhandlinger er registrert ennå.",
+      "loadError": "Kunne ikke laste feeden for plattformhandlinger.",
+      "retry": "Prøv igjen",
+      "openActions": "Åpne Action Center"
     },
     "deployments": {
       "title": "Publiseringer",
-      "subtitle": "Skrivebeskyttet publiseringsstatus for Drift.",
+      "subtitle": "Skrivebeskyttet historikk for plattformoppdateringer og utrulling. Starter ikke publiseringer.",
       "notConfiguredTitle": "Ingen egen publiseringsfeed på denne fanen",
       "notConfiguredBody": "Denne flaten starter ikke publiseringer. Levende utrullingsrader som finnes i dag vises under Plattformstatus. Nettsideverifisering har egne kontrollfunksjoner.",
       "openHealth": "Åpne plattformstatus",
-      "openVerification": "Åpne nettsideverifisering"
+      "openVerification": "Åpne nettsideverifisering",
+      "scopeNote": "Kilde: feed for plattformoppdateringer når den er tilgjengelig. Nettsideverifisering har egne kontroller.",
+      "rpcMissingTitle": "Oppdaterings-RPC er ikke tilgjengelig i dette miljøet",
+      "rpcMissingBody": "list_platform_updates er ikke installert på tilkoblet Core-database. Tom historikk beviser ikke at ingen publiseringer har skjedd. Nettsideverifisering er fortsatt tilgjengelig separat.",
+      "empty": "Ingen plattformoppdateringer er registrert ennå.",
+      "loadError": "Kunne ikke laste publiseringshistorikk."
     }
   },
   "supportCenter": {

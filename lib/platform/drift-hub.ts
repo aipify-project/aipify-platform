@@ -95,7 +95,8 @@ export const DRIFT_KOMPIS_TABS: readonly DriftHubTab[] = [
   },
 ] as const;
 
-export const PUBLISH_AND_VERIFY_HREF = "/platform/operations/publish-verify";
+/** Canonical hub entry — deployments tab (no intermediate redirect). */
+export const PUBLISH_AND_VERIFY_HREF = "/platform/operations/deployments";
 
 /** Paths that belong to Driftsoversikt hub (sidebar highlight). */
 export function isDriftOperationsPath(pathname: string): boolean {

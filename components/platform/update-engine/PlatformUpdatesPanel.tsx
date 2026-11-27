@@ -22,6 +22,8 @@ type UpdateRow = {
 
 type PlatformUpdatesPanelProps = {
   locale: string;
+  /** When true, omit outer title/max-width (parent page owns chrome). */
+  embedded?: boolean;
   labels: {
     title: string;
     subtitle: string;
@@ -42,38 +44,102 @@ type PlatformUpdatesPanelProps = {
       rollback: string;
     };
     pulseLabel: string;
+    sourceUnavailableTitle?: string;
+    sourceUnavailableBody?: string;
+    loadError?: string;
   };
 };
 
+type LoadState = "loading" | "ready" | "empty" | "rpc_missing" | "error";
+
+function isMissingRpcError(message: string | undefined): boolean {
+  if (!message) return false;
+  const m = message.toLowerCase();
+  return (
+    m.includes("could not find the function") ||
+    m.includes("does not exist") ||
+    m.includes("list_platform_updates") ||
+    m.includes("42883") ||
+    m.includes("pgrst202")
+  );
+}
+
 export default function PlatformUpdatesPanel({
   locale,
+  embedded = false,
   labels,
 }: PlatformUpdatesPanelProps) {
   const [rows, setRows] = useState<UpdateRow[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [state, setState] = useState<LoadState>("loading");
 
   useEffect(() => {
+    let cancelled = false;
+
     async function load() {
       const supabase = createClient();
       const { data, error } = await supabase.rpc("list_platform_updates");
-      if (!error && Array.isArray(data)) {
-        setRows(data as UpdateRow[]);
+      if (cancelled) return;
+
+      if (error) {
+        setRows([]);
+        setState(isMissingRpcError(error.message) ? "rpc_missing" : "error");
+        return;
       }
-      setLoading(false);
+
+      const next = Array.isArray(data) ? (data as UpdateRow[]) : [];
+      setRows(next);
+      setState(next.length === 0 ? "empty" : "ready");
     }
+
     void load();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  if (loading) {
-    return <p className="p-6 text-sm text-gray-500">{labels.loading}</p>;
+  if (state === "loading") {
+    return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  }
+
+  const shellClass = embedded ? "space-y-6" : "mx-auto max-w-5xl space-y-6 p-6";
+
+  if (state === "rpc_missing") {
+    return (
+      <div
+        role="status"
+        className="rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-950/30"
+      >
+        <h2 className="text-base font-semibold text-amber-950 dark:text-amber-50">
+          {labels.sourceUnavailableTitle ?? labels.empty}
+        </h2>
+        <p className="mt-2 text-sm text-amber-900/90 dark:text-amber-100/90">
+          {labels.sourceUnavailableBody ?? labels.loadError ?? labels.empty}
+        </p>
+      </div>
+    );
+  }
+
+  if (state === "error") {
+    return (
+      <div
+        role="alert"
+        className="rounded-2xl border border-rose-200 bg-rose-50 p-5 dark:border-rose-800 dark:bg-rose-950/40"
+      >
+        <p className="text-sm font-medium text-rose-950 dark:text-rose-50">
+          {labels.loadError ?? labels.empty}
+        </p>
+      </div>
+    );
   }
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-6">
-      <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{labels.title}</h1>
-        <p className="mt-2 text-sm text-gray-600">{labels.subtitle}</p>
-      </div>
+    <div className={shellClass}>
+      {!embedded ? (
+        <div>
+          <h1 className="text-2xl font-semibold text-gray-900">{labels.title}</h1>
+          <p className="mt-2 text-sm text-gray-600">{labels.subtitle}</p>
+        </div>
+      ) : null}
 
       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {Object.values(labels.areas).map((area) => (
@@ -86,13 +152,10 @@ export default function PlatformUpdatesPanel({
         ))}
       </ul>
 
-      {rows.length === 0 ? (
-        <AipifyEmptyState
-          message={labels.empty}
-          pulseLabel={labels.pulseLabel}
-        />
+      {state === "empty" ? (
+        <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+        <div className="overflow-x-auto overflow-hidden rounded-xl border border-gray-200 bg-white">
           <table className="min-w-full divide-y divide-gray-200 text-sm">
             <thead className="bg-gray-50 text-left text-xs uppercase tracking-wide text-gray-500">
               <tr>
@@ -116,9 +179,7 @@ export default function PlatformUpdatesPanel({
                   <td className="px-4 py-3">{row.update_type}</td>
                   <td className="px-4 py-3">{row.update_channel}</td>
                   <td className="px-4 py-3">
-                    {row.scheduled_at
-                      ? formatDate(row.scheduled_at, locale)
-                      : "—"}
+                    {row.scheduled_at ? formatDate(row.scheduled_at, locale) : "—"}
                   </td>
                   <td className="px-4 py-3">{row.affected_installations}</td>
                   <td className="px-4 py-3 text-right">
