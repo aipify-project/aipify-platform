@@ -27,11 +27,12 @@
 
 | File | SHA256 |
 |------|--------|
-| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `2b7b7875ef1b1821bb9d06e0ee620a9c006e9e736455b4c200e4385096964c3a` |
+| `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql` | `b0e306861229243e8df8aa1a63bced0529ce3b6b99620137b6188872cd586077` |
 | `docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_cleanup_v1.sql` | `328b768689b0e4417b55058289690fd509af32b477d2d51dfa08583b4aba35f6` |
 
 ### Superseded (do not approve)
 
+- `2b7b7875…` (insert into generated `auth.identities.email` — Staging apply failed + rolled back)
 - `0d99efba…` / `f862b329…` (had invalid `p` UUIDs, password material, fake audit stub)
 - `7886fb84…` / `f46752db…` (seller reactivation)
 
@@ -54,7 +55,7 @@ Browser password login is **out of scope** for this seed (no passwords stored). 
 Seed:
 
 ```
-JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 2b7b7875ef1b1821bb9d06e0ee620a9c006e9e736455b4c200e4385096964c3a on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_support_e2e_test_data_seed_v1.sql SHA256 b0e306861229243e8df8aa1a63bced0529ce3b6b99620137b6188872cd586077 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
 ```
 
 Cleanup (after E2E):

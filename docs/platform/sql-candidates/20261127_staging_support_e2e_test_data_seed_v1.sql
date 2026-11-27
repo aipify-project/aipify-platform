@@ -138,6 +138,7 @@ set email = excluded.email,
     email_confirmed_at = coalesce(auth.users.email_confirmed_at, excluded.email_confirmed_at),
     updated_at = now();
 
+-- auth.identities.email is GENERATED ALWAYS from identity_data->>'email' — do not insert/update it.
 insert into auth.identities (
   id,
   user_id,
@@ -146,8 +147,7 @@ insert into auth.identities (
   provider_id,
   last_sign_in_at,
   created_at,
-  updated_at,
-  email
+  updated_at
 )
 values
   (
@@ -162,8 +162,7 @@ values
     'e2e00001-0001-4000-8000-0000000000a0',
     now(),
     now(),
-    now(),
-    'e2e-support-app-a@example.com'
+    now()
   ),
   (
     'e2e00001-0001-4000-8000-0000000000b9',
@@ -177,8 +176,7 @@ values
     'e2e00001-0001-4000-8000-0000000000b0',
     now(),
     now(),
-    now(),
-    'e2e-support-app-b@example.com'
+    now()
   ),
   (
     'e2e00001-0001-4000-8000-0000000000f9',
@@ -192,8 +190,7 @@ values
     'e2e00001-0001-4000-8000-0000000000f0',
     now(),
     now(),
-    now(),
-    'e2e-support-platform@example.com'
+    now()
   ),
   (
     'e2e00001-0001-4000-8000-0000000000c9',
@@ -207,12 +204,10 @@ values
     'e2e00001-0001-4000-8000-0000000000c0',
     now(),
     now(),
-    now(),
-    'e2e-support-partner@example.com'
+    now()
   )
 on conflict (id) do update
-set email = excluded.email,
-    identity_data = excluded.identity_data,
+set identity_data = excluded.identity_data,
     updated_at = now();
 
 -- ---------------------------------------------------------------------------
