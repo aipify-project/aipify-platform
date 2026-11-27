@@ -1811,7 +1811,16 @@
       "notAuthorized": "Tworzenie klienta wewnętrznego nie jest autoryzowane. Bramki Platform i Core pozostają zamknięte.",
       "ordinaryProductionOnly": "Zwykłe tworzenie w Platform zawsze używa środowiska produkcyjnego.",
       "nextGateHelperAllowlistSql": "Następna decyzja właściciela: zastosuj wyłącznie SQL listy uprawnień helpera tworzenia wewnętrznego (pusta tabela; helper nadal false). Bez tworzenia tenanta."
-    }
+    },
+    "paginationShowing": "Pokazano {from}–{to} z {total}",
+    "paginationPrevious": "Poprzednia",
+    "paginationNext": "Następna",
+    "paginationPage": "Strona {page} z {pages}",
+    "statusOk": "Zweryfikowano",
+    "statusAttention": "Wymaga uwagi",
+    "statusCritical": "Krytyczne",
+    "statusInfo": "Informacja",
+    "statusUnknown": "Nieznane"
   },
   "customerDetail": {
     "back": "Powrót do klientów",
@@ -8835,6 +8844,48 @@
         "unauthorized": "Twoja sesja wygasła. Zaloguj się ponownie.",
         "unknown": "Nie udało się zapisać zmiany. Twój tekst nadal tu jest — spróbuj ponownie."
       }
+    }
+  },
+  "customersHub": {
+    "tabsAria": "Karty sekcji Klienci",
+    "supportLink": "Otwórz Support",
+    "tabs": {
+      "overview": "Przegląd",
+      "organizations": "Organizacje",
+      "customerSuccess": "Sukces klienta"
+    },
+    "overview": {
+      "title": "Przegląd klientów",
+      "subtitle": "Aktualne liczby klientów z Platform Core — organizacje, umowy, działania i support.",
+      "scopeNote": "Zakres: organizacje klientów poza platformą. Administratorzy platformy i tożsamości partnerskie nie są liczone jako klienci.",
+      "loading": "Ładowanie przeglądu klientów",
+      "errorTitle": "Przegląd klientów jest niedostępny",
+      "errorMessage": "Wystąpił nieoczekiwany błąd. Nasz zespół został powiadomiony. Spróbuj ponownie.",
+      "retry": "Spróbuj ponownie",
+      "unavailable": "Niedostępne",
+      "openOrganizations": "Otwórz organizacje",
+      "openSuccess": "Otwórz sukces klienta",
+      "openSupport": "Otwórz support",
+      "kpiCustomerOrgs": "Organizacje klientów",
+      "kpiCustomerOrgsHelp": "Liczy organizacje klientów z Core. Wyklucza firmy platform/is_platform oraz tożsamości partnerskie jako klientów.",
+      "kpiActiveSubscriptions": "Aktywne umowy",
+      "kpiActiveSubscriptionsHelp": "Liczy aktywne subskrypcje — nie użytkowników, licencje ani wnioski partnerskie.",
+      "kpiTrialing": "Umowy próbne",
+      "kpiTrialingHelp": "Liczy subskrypcje w okresie próbnym. Oddzielnie od statusu cyklu życia organizacji.",
+      "kpiPastDue": "Uwaga płatnicza",
+      "kpiPastDueHelp": "Liczy subskrypcje ze statusem past_due. To nie prognoza churn.",
+      "kpiFollowUp": "Wymaga działań",
+      "kpiFollowUpHelp": "Organizacje oznaczone do działań przez Core. Brak danych nigdy nie jest traktowany jako ryzyko.",
+      "kpiOpenSupport": "Otwarte sprawy supportu",
+      "kpiOpenSupportHelp": "Otwarte obciążenie supportu z Support Core, gdy dostępne.",
+      "followUpTitle": "Podsumowanie działań",
+      "followUpEmpty": "Brak zarejestrowanych sygnałów działań w tej chwili.",
+      "definitionsTitle": "Co liczy każda liczba",
+      "statusOk": "Zweryfikowano",
+      "statusAttention": "Wymaga uwagi",
+      "statusCritical": "Krytyczne",
+      "statusInfo": "Informacja",
+      "statusUnknown": "Nieznane"
     }
   }
 }

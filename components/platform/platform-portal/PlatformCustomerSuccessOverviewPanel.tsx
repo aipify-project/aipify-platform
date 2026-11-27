@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
+import type { AipifyStatusKind } from "@/lib/design/status-system";
 import type {
   PlatformCustomerSuccessCustomer,
   PlatformCustomerSuccessLabels,
@@ -25,68 +27,67 @@ type MetricVariant = "neutral" | "info" | "success" | "warning" | "danger" | "mu
 
 const METRIC_VARIANT_STYLES: Record<
   MetricVariant,
-  { card: string; label: string; value: string; marker: string }
+  { card: string; label: string; value: string }
 > = {
   neutral: {
     card: "border-slate-200 bg-slate-50/80 dark:border-slate-700 dark:bg-slate-900/50",
     label: "text-slate-500 dark:text-slate-400",
     value: "text-slate-900 dark:text-slate-100",
-    marker: "bg-slate-400 ring-slate-200 dark:bg-slate-500 dark:ring-slate-700",
   },
   info: {
     card: "border-violet-200/90 bg-violet-50/70 dark:border-violet-800/70 dark:bg-violet-950/35",
     label: "text-violet-800/80 dark:text-violet-300/90",
     value: "text-violet-950 dark:text-violet-50",
-    marker: "bg-violet-500 ring-violet-200 dark:bg-violet-400 dark:ring-violet-900",
   },
   success: {
     card: "border-emerald-200/90 bg-emerald-50/70 dark:border-emerald-800/70 dark:bg-emerald-950/35",
     label: "text-emerald-800/80 dark:text-emerald-300/90",
     value: "text-emerald-950 dark:text-emerald-50",
-    marker: "bg-emerald-500 ring-emerald-200 dark:bg-emerald-400 dark:ring-emerald-900",
   },
   warning: {
     card: "border-amber-200/90 bg-amber-50/70 dark:border-amber-800/70 dark:bg-amber-950/35",
     label: "text-amber-800/80 dark:text-amber-300/90",
     value: "text-amber-950 dark:text-amber-50",
-    marker: "bg-amber-500 ring-amber-200 dark:bg-amber-400 dark:ring-amber-900",
   },
   danger: {
     card: "border-rose-200/90 bg-rose-50/70 dark:border-rose-800/70 dark:bg-rose-950/35",
     label: "text-rose-800/80 dark:text-rose-300/90",
     value: "text-rose-950 dark:text-rose-50",
-    marker: "bg-rose-500 ring-rose-200 dark:bg-rose-400 dark:ring-rose-900",
   },
   muted: {
     card: "border-slate-200 bg-slate-50/60 dark:border-slate-700 dark:bg-slate-900/40",
     label: "text-slate-500 dark:text-slate-400",
     value: "text-slate-700 dark:text-slate-300",
-    marker: "bg-slate-400 ring-slate-200 dark:bg-slate-500 dark:ring-slate-700",
   },
 };
 
-const BADGE_STYLES: Record<MetricVariant, string> = {
-  neutral:
-    "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-600 dark:bg-slate-800/70 dark:text-slate-200",
-  info: "border-violet-200 bg-violet-50 text-violet-800 dark:border-violet-700 dark:bg-violet-950/50 dark:text-violet-200",
-  success:
-    "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-200",
-  warning:
-    "border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-700 dark:bg-amber-950/50 dark:text-amber-200",
-  danger:
-    "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-700 dark:bg-rose-950/50 dark:text-rose-200",
-  muted:
-    "border-slate-200 bg-slate-100 text-slate-600 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300",
-};
+function variantToKind(variant: MetricVariant): AipifyStatusKind {
+  switch (variant) {
+    case "success":
+      return "verified";
+    case "warning":
+      return "needs_attention";
+    case "danger":
+      return "not_allowed";
+    case "info":
+      return "information";
+    case "muted":
+      return "waiting";
+    default:
+      return "information";
+  }
+}
 
 function MetricCard({
   label,
   value,
   variant = "neutral",
+  statusLabel,
 }: {
   label: string;
   value: string | number;
   variant?: MetricVariant;
+  statusLabel: string;
 }) {
   const styles = METRIC_VARIANT_STYLES[variant];
   return (
@@ -96,10 +97,7 @@ function MetricCard({
     >
       <div className="flex items-start justify-between gap-3">
         <dt className={`text-xs font-medium uppercase tracking-wide ${styles.label}`}>{label}</dt>
-        <span
-          className={`mt-0.5 h-2 w-2 shrink-0 rounded-full ring-2 ${styles.marker}`}
-          aria-hidden="true"
-        />
+        <AipifyStatusBadge kind={variantToKind(variant)} label={statusLabel} />
       </div>
       <dd className={`mt-2 text-2xl font-semibold tabular-nums tracking-tight ${styles.value}`}>
         {value}
@@ -109,14 +107,7 @@ function MetricCard({
 }
 
 function StatusBadge({ label, variant }: { label: string; variant: MetricVariant }) {
-  return (
-    <span
-      className={`inline-flex max-w-full items-center rounded-md border px-2 py-0.5 text-xs font-medium ${BADGE_STYLES[variant]}`}
-      data-variant={variant}
-    >
-      <span className="truncate">{label}</span>
-    </span>
-  );
+  return <AipifyStatusBadge kind={variantToKind(variant)} label={label} />;
 }
 
 function formatTemplate(template: string, count: number): string {
@@ -155,11 +146,14 @@ export function PlatformCustomerSuccessOverviewPanel({ labels, locale }: PanelPr
   const load = useCallback(async () => {
     setLoading(true);
     setError(false);
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 20_000);
     try {
       const response = await fetch("/api/platform-portal/customer-success", {
         method: "GET",
         cache: "no-store",
         headers: { Accept: "application/json" },
+        signal: controller.signal,
       });
       if (!response.ok) {
         setError(true);
@@ -172,6 +166,7 @@ export function PlatformCustomerSuccessOverviewPanel({ labels, locale }: PanelPr
       setError(true);
       setOverview(null);
     } finally {
+      window.clearTimeout(timeout);
       setLoading(false);
     }
   }, []);
@@ -385,28 +380,63 @@ export function PlatformCustomerSuccessOverviewPanel({ labels, locale }: PanelPr
       <dl className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5">
         <MetricCard
           label={labels.kpiTotal}
-          value={overview?.metrics.totalCustomers ?? (loading ? "—" : 0)}
-          variant="neutral"
+          value={
+            overview
+              ? overview.metrics.totalCustomers
+              : loading
+                ? "—"
+                : labels.notAvailable
+          }
+          variant={error || !overview ? "muted" : "neutral"}
+          statusLabel={error || !overview ? labels.notAvailable : labels.kpiTotal}
         />
         <MetricCard
           label={labels.kpiHealthy}
-          value={overview?.metrics.healthyCustomers ?? (loading ? "—" : 0)}
-          variant="success"
+          value={
+            overview
+              ? overview.metrics.healthyCustomers
+              : loading
+                ? "—"
+                : labels.notAvailable
+          }
+          variant={error || !overview ? "muted" : "success"}
+          statusLabel={error || !overview ? labels.notAvailable : labels.kpiHealthy}
         />
         <MetricCard
           label={labels.kpiAttention}
-          value={overview?.metrics.attentionCustomers ?? (loading ? "—" : 0)}
-          variant="warning"
+          value={
+            overview
+              ? overview.metrics.attentionCustomers
+              : loading
+                ? "—"
+                : labels.notAvailable
+          }
+          variant={error || !overview ? "muted" : "warning"}
+          statusLabel={error || !overview ? labels.notAvailable : labels.kpiAttention}
         />
         <MetricCard
           label={labels.kpiCritical}
-          value={overview?.metrics.criticalCustomers ?? (loading ? "—" : 0)}
-          variant="danger"
+          value={
+            overview
+              ? overview.metrics.criticalCustomers
+              : loading
+                ? "—"
+                : labels.notAvailable
+          }
+          variant={error || !overview ? "muted" : "danger"}
+          statusLabel={error || !overview ? labels.notAvailable : labels.kpiCritical}
         />
         <MetricCard
           label={labels.kpiIncomplete}
-          value={overview?.metrics.incompleteCustomers ?? (loading ? "—" : 0)}
-          variant="info"
+          value={
+            overview
+              ? overview.metrics.incompleteCustomers
+              : loading
+                ? "—"
+                : labels.notAvailable
+          }
+          variant={error || !overview ? "muted" : "info"}
+          statusLabel={error || !overview ? labels.notAvailable : labels.kpiIncomplete}
         />
       </dl>
 

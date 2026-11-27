@@ -1,3 +1,4 @@
+import { PlatformCustomersHubShell } from "@/components/platform/customers/PlatformCustomersHubShell";
 import { PlatformPortalCustomersPanel } from "@/components/platform/platform-portal/PlatformPortalCustomersPanel";
 import { buildPlatformPortalCustomersLabels } from "@/lib/platform-portal";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -10,5 +11,9 @@ export default async function PlatformCustomersPage() {
   const t = createTranslator(dict);
   const labels = buildPlatformPortalCustomersLabels(t);
 
-  return <PlatformPortalCustomersPanel labels={labels} locale={locale} />;
+  return (
+    <PlatformCustomersHubShell>
+      <PlatformPortalCustomersPanel labels={labels} locale={locale} />
+    </PlatformCustomersHubShell>
+  );
 }

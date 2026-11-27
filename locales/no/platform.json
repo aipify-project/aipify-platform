@@ -1660,7 +1660,16 @@
       "notAuthorized": "Intern kundeopprettelse er ikke autorisert. Plattform- og Core-porter forblir stengt.",
       "ordinaryProductionOnly": "Vanlig Platform-opprettelse bruker alltid produksjonsmiljøet.",
       "nextGateHelperAllowlistSql": "Neste eierbeslutning: bruk kun SQL for tillatelseslisten for intern opprettelseshelper (tom tabell; helper fortsatt false). Ingen tenant-opprettelse."
-    }
+    },
+    "paginationShowing": "Viser {from}–{to} av {total}",
+    "paginationPrevious": "Forrige",
+    "paginationNext": "Neste",
+    "paginationPage": "Side {page} av {pages}",
+    "statusOk": "Verifisert",
+    "statusAttention": "Trenger oppfølging",
+    "statusCritical": "Kritisk",
+    "statusInfo": "Informasjon",
+    "statusUnknown": "Ukjent"
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -8564,6 +8573,48 @@
         "unauthorized": "Økten din er utløpt. Logg inn på nytt.",
         "unknown": "Endringen kunne ikke lagres. Teksten din ligger fortsatt her — prøv igjen."
       }
+    }
+  },
+  "customersHub": {
+    "tabsAria": "Faner i Kunder-seksjonen",
+    "supportLink": "Åpne Support",
+    "tabs": {
+      "overview": "Oversikt",
+      "organizations": "Organisasjoner",
+      "customerSuccess": "Kundesuksess"
+    },
+    "overview": {
+      "title": "Kundeoversikt",
+      "subtitle": "Levende kundetall fra Platform Core — organisasjoner, avtaler, oppfølging og support.",
+      "scopeNote": "Omfang: kundeorganisasjoner utenfor plattformen. Plattformadmin og partneridentiteter telles ikke som kunder.",
+      "loading": "Laster kundeoversikt",
+      "errorTitle": "Kundeoversikt er utilgjengelig",
+      "errorMessage": "Noe uventet skjedde. Teamet vårt er varslet. Prøv igjen.",
+      "retry": "Prøv igjen",
+      "unavailable": "Ikke tilgjengelig",
+      "openOrganizations": "Åpne organisasjoner",
+      "openSuccess": "Åpne kundesuksess",
+      "openSupport": "Åpne support",
+      "kpiCustomerOrgs": "Kundeorganisasjoner",
+      "kpiCustomerOrgsHelp": "Teller kundeorganisasjoner fra Core. Ekskluderer plattform-/is_platform-selskaper og partneridentiteter som kunder.",
+      "kpiActiveSubscriptions": "Aktive avtaler",
+      "kpiActiveSubscriptionsHelp": "Teller aktive abonnementer — ikke brukere, lisenser eller partnersøknader.",
+      "kpiTrialing": "Prøveavtaler",
+      "kpiTrialingHelp": "Teller abonnementer i prøveperiode. Skilt fra organisasjonens livssyklusstatus.",
+      "kpiPastDue": "Betalingsoppfølging",
+      "kpiPastDueHelp": "Teller abonnementer med past_due betalingsstatus. Ikke en churn-prognose.",
+      "kpiFollowUp": "Trenger oppfølging",
+      "kpiFollowUpHelp": "Organisasjoner merket for oppfølging av Core. Manglende data behandles aldri som risiko.",
+      "kpiOpenSupport": "Åpne supportsaker",
+      "kpiOpenSupportHelp": "Åpen supportbelastning fra Support Core når tilgjengelig.",
+      "followUpTitle": "Oppfølgingssammendrag",
+      "followUpEmpty": "Ingen oppfølgingssignaler registrert akkurat nå.",
+      "definitionsTitle": "Hva hvert tall teller",
+      "statusOk": "Verifisert",
+      "statusAttention": "Trenger oppfølging",
+      "statusCritical": "Kritisk",
+      "statusInfo": "Informasjon",
+      "statusUnknown": "Ukjent"
     }
   }
 }

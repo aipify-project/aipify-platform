@@ -1811,7 +1811,16 @@
       "notAuthorized": "Внутрішнє створення клієнта не авторизовано. Шлюзи Platform і Core залишаються закритими.",
       "ordinaryProductionOnly": "Звичайне створення в Platform завжди використовує production-середовище.",
       "nextGateHelperAllowlistSql": "Наступне рішення власника: застосувати лише SQL списку дозволів helper внутрішнього створення (порожня таблиця; helper досі false). Без створення тенанта."
-    }
+    },
+    "paginationShowing": "Показано {from}–{to} з {total}",
+    "paginationPrevious": "Попередня",
+    "paginationNext": "Наступна",
+    "paginationPage": "Сторінка {page} з {pages}",
+    "statusOk": "Підтверджено",
+    "statusAttention": "Потребує уваги",
+    "statusCritical": "Критично",
+    "statusInfo": "Інформація",
+    "statusUnknown": "Невідомо"
   },
   "customerDetail": {
     "back": "Назад до клієнтів",
@@ -8835,6 +8844,48 @@
         "unauthorized": "Сеанс завершився. Увійдіть знову.",
         "unknown": "Не вдалося зберегти зміну. Ваш текст усе ще тут — спробуйте ще раз."
       }
+    }
+  },
+  "customersHub": {
+    "tabsAria": "Вкладки розділу Клієнти",
+    "supportLink": "Відкрити Support",
+    "tabs": {
+      "overview": "Огляд",
+      "organizations": "Організації",
+      "customerSuccess": "Успіх клієнта"
+    },
+    "overview": {
+      "title": "Огляд клієнтів",
+      "subtitle": "Живі показники клієнтів з Platform Core — організації, угоди, супровід і підтримка.",
+      "scopeNote": "Обсяг: клієнтські організації поза платформою. Адмінів платформи та партнерські ідентичності не рахують як клієнтів.",
+      "loading": "Завантаження огляду клієнтів",
+      "errorTitle": "Огляд клієнтів недоступний",
+      "errorMessage": "Сталося щось несподіване. Нашу команду повідомлено. Спробуйте ще раз.",
+      "retry": "Спробувати ще раз",
+      "unavailable": "Недоступно",
+      "openOrganizations": "Відкрити організації",
+      "openSuccess": "Відкрити успіх клієнта",
+      "openSupport": "Відкрити підтримку",
+      "kpiCustomerOrgs": "Клієнтські організації",
+      "kpiCustomerOrgsHelp": "Рахує клієнтські організації з Core. Виключає компанії platform/is_platform і партнерські ідентичності як клієнтів.",
+      "kpiActiveSubscriptions": "Активні угоди",
+      "kpiActiveSubscriptionsHelp": "Рахує активні підписки — не користувачів, ліцензії чи партнерські заявки.",
+      "kpiTrialing": "Пробні угоди",
+      "kpiTrialingHelp": "Рахує підписки в пробному періоді. Окремо від статусу життєвого циклу організації.",
+      "kpiPastDue": "Увага до оплати",
+      "kpiPastDueHelp": "Рахує підписки зі статусом past_due. Це не прогноз відтоку.",
+      "kpiFollowUp": "Потребує супроводу",
+      "kpiFollowUpHelp": "Організації, позначені Core для супроводу. Відсутні дані ніколи не вважаються ризиком.",
+      "kpiOpenSupport": "Відкриті звернення підтримки",
+      "kpiOpenSupportHelp": "Відкрите навантаження підтримки з Support Core, коли доступно.",
+      "followUpTitle": "Підсумок супроводу",
+      "followUpEmpty": "Зараз немає зареєстрованих сигналів супроводу.",
+      "definitionsTitle": "Що рахує кожне число",
+      "statusOk": "Підтверджено",
+      "statusAttention": "Потребує уваги",
+      "statusCritical": "Критично",
+      "statusInfo": "Інформація",
+      "statusUnknown": "Невідомо"
     }
   }
 }

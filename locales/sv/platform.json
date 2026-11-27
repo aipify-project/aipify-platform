@@ -1811,7 +1811,16 @@
       "notAuthorized": "Internt kundskapande är inte auktoriserat. Plattforms- och Core-grindar förblir stängda.",
       "ordinaryProductionOnly": "Vanligt Platform-skapande använder alltid produktionsmiljön.",
       "nextGateHelperAllowlistSql": "Nästa ägarbeslut: tillämpa endast SQL för tillåtelselistan för intern skapandehelper (tom tabell; helper fortfarande false). Ingen tenant-skapande."
-    }
+    },
+    "paginationShowing": "Visar {from}–{to} av {total}",
+    "paginationPrevious": "Föregående",
+    "paginationNext": "Nästa",
+    "paginationPage": "Sida {page} av {pages}",
+    "statusOk": "Verifierad",
+    "statusAttention": "Behöver uppföljning",
+    "statusCritical": "Kritisk",
+    "statusInfo": "Information",
+    "statusUnknown": "Okänd"
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -8835,6 +8844,48 @@
         "unauthorized": "Din session har gått ut. Logga in igen.",
         "unknown": "Ändringen kunde inte sparas. Din text finns kvar här — försök igen."
       }
+    }
+  },
+  "customersHub": {
+    "tabsAria": "Flikar i Kundsektionen",
+    "supportLink": "Öppna Support",
+    "tabs": {
+      "overview": "Översikt",
+      "organizations": "Organisationer",
+      "customerSuccess": "Kundframgång"
+    },
+    "overview": {
+      "title": "Kundöversikt",
+      "subtitle": "Live kundsiffror från Platform Core — organisationer, avtal, uppföljning och support.",
+      "scopeNote": "Omfattning: kundorganisationer utanför plattformen. Plattformsadmin och partneridentiteter räknas inte som kunder.",
+      "loading": "Laddar kundöversikt",
+      "errorTitle": "Kundöversikten är otillgänglig",
+      "errorMessage": "Något oväntat hände. Vårt team har meddelats. Försök igen.",
+      "retry": "Försök igen",
+      "unavailable": "Inte tillgängligt",
+      "openOrganizations": "Öppna organisationer",
+      "openSuccess": "Öppna kundframgång",
+      "openSupport": "Öppna support",
+      "kpiCustomerOrgs": "Kundorganisationer",
+      "kpiCustomerOrgsHelp": "Räknar kundorganisationer från Core. Exkluderar plattforms-/is_platform-bolag och partneridentiteter som kunder.",
+      "kpiActiveSubscriptions": "Aktiva avtal",
+      "kpiActiveSubscriptionsHelp": "Räknar aktiva prenumerationer — inte användare, licenser eller partneransökningar.",
+      "kpiTrialing": "Provavtal",
+      "kpiTrialingHelp": "Räknar prenumerationer i provperiod. Separat från organisationens livscykelstatus.",
+      "kpiPastDue": "Betalningsuppföljning",
+      "kpiPastDueHelp": "Räknar prenumerationer med past_due-betalningsstatus. Inte en churn-prognos.",
+      "kpiFollowUp": "Behöver uppföljning",
+      "kpiFollowUpHelp": "Organisationer markerade för uppföljning av Core. Saknad data behandlas aldrig som risk.",
+      "kpiOpenSupport": "Öppna supportärenden",
+      "kpiOpenSupportHelp": "Öppen supportbelastning från Support Core när tillgängligt.",
+      "followUpTitle": "Uppföljningssammanfattning",
+      "followUpEmpty": "Inga uppföljningssignaler registrerade just nu.",
+      "definitionsTitle": "Vad varje siffra räknar",
+      "statusOk": "Verifierad",
+      "statusAttention": "Behöver uppföljning",
+      "statusCritical": "Kritisk",
+      "statusInfo": "Information",
+      "statusUnknown": "Okänd"
     }
   }
 }
