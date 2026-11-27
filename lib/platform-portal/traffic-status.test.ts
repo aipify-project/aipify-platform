@@ -115,10 +115,15 @@ const view = buildPlatformTrafficStatus({
   newSellersToday: { state: "unavailable", reason: "source_unavailable" },
 });
 assert.equal(view.operational, "console_responding");
-assert.equal(view.appCustomersOnline.reason, "not_measured");
-assert.equal(view.sellersOnline.reason, "not_measured");
-assert.equal(view.signedInUsers.reason, "not_measured");
-assert.equal(view.visitorsToday.reason, "not_measured");
+for (const count of [
+  view.appCustomersOnline,
+  view.sellersOnline,
+  view.signedInUsers,
+  view.visitorsToday,
+]) {
+  assert.equal(count.state, "unavailable");
+  if (count.state === "unavailable") assert.equal(count.reason, "not_measured");
+}
 assert.equal(view.newAppCustomersToday.state, "value");
 
 console.log("traffic-status.test.ts: ok");
