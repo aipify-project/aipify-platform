@@ -62,11 +62,15 @@ import {
 } from "./write-ops";
 import {
   SUPPORT_SEND_PUBLIC_REPLY_APPLIED,
+  SUPPORT_SEND_PUBLIC_REPLY_STAGING_APPLIED,
+  SUPPORT_SEND_PUBLIC_REPLY_PRODUCTION_APPLIED,
   SUPPORT_SEND_PUBLIC_REPLY_SQL_PATH,
   SUPPORT_SEND_PUBLIC_REPLY_SQL_SHA256,
   SUPPORT_APP_VISIBLE_MESSAGES_SQL_PATH,
   SUPPORT_APP_VISIBLE_MESSAGES_SQL_SHA256,
+  isSupportSendPublicReplyApplied,
 } from "./send-public-reply-contract";
+import { AIPIFY_CORE_STAGING_PROJECT_REF } from "./staging-core-activation";
 import {
   SUPPORT_EMAIL_DELIVERY_LIVE,
   SUPPORT_EMAIL_TEMPLATE_KEYS,
@@ -374,8 +378,20 @@ assert.equal(enChannels.notActivated, "Not activated");
 assert.equal(enChannels.preparedOnly, "Not configured");
 assert.match(enChannels.emailSendBlocked, /not configured/i);
 
-// Send vs draft + status transitions + email gates stay fail-closed.
+// Send vs draft + status transitions + email gates: Staging ON, Production OFF.
+assert.equal(SUPPORT_SEND_PUBLIC_REPLY_STAGING_APPLIED, true);
+assert.equal(SUPPORT_SEND_PUBLIC_REPLY_PRODUCTION_APPLIED, false);
 assert.equal(SUPPORT_SEND_PUBLIC_REPLY_APPLIED, false);
+assert.equal(
+  isSupportSendPublicReplyApplied(
+    `https://${AIPIFY_CORE_STAGING_PROJECT_REF}.supabase.co`,
+  ),
+  true,
+);
+assert.equal(
+  isSupportSendPublicReplyApplied("https://qbcqoixhrvhnuwphefvw.supabase.co"),
+  false,
+);
 assert.equal(SUPPORT_EMAIL_DELIVERY_LIVE, false);
 assert.equal(getSupportEmailNotifyGateState().deliveryLive, false);
 assert.ok(SUPPORT_EMAIL_TEMPLATE_KEYS.includes("public-reply-to-customer"));
