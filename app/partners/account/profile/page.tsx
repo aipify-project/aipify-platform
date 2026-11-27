@@ -31,14 +31,17 @@ export default async function PartnersPortalProfilePage() {
   // Shares React cache() with layout gate — no duplicate Core round-trip in this request.
   const access = await resolvePartnersPortalServerAccess();
   let avatarUrl: string | null = null;
+  let loginEmail: string | null = null;
   if (access.kind === "allowed") {
     try {
       const {
         data: { user },
       } = await access.supabase.auth.getUser();
       avatarUrl = resolvePartnersAvatarPointer(user?.user_metadata?.avatar_url);
+      loginEmail = typeof user?.email === "string" && user.email.trim() ? user.email.trim() : null;
     } catch {
       avatarUrl = null;
+      loginEmail = null;
     }
   }
 
@@ -54,11 +57,28 @@ export default async function PartnersPortalProfilePage() {
     status: t(`${p}.status`),
     email: t(`${p}.email`),
     emailUnavailable: t(`${p}.emailUnavailable`),
+    phone: t(`${p}.phone`),
+    phoneUnavailable: t(`${p}.phoneUnavailable`),
+    country: t(`${p}.country`),
+    certification: t(`${p}.certification`),
+    certificationPassed: t(`${p}.certificationPassed`),
+    certificationNone: t(`${p}.certificationNone`),
+    readOnlyHint: t(`${p}.readOnlyHint`),
+    coreBlockedHint: t(`${p}.coreBlockedHint`),
+    formIntroPerson: t(`${p}.formIntroPerson`),
+    formIntroCompany: t(`${p}.formIntroCompany`),
+    companyContact: t(`${p}.companyContact`),
+    organizationNumber: t(`${p}.organizationNumber`),
+    address: t(`${p}.address`),
+    website: t(`${p}.website`),
+    contactCta: t(`${p}.contactCta`),
     companyUnavailableTitle: t(`${p}.companyUnavailableTitle`),
     companyUnavailableBody: t(`${p}.companyUnavailableBody`),
     payoutIntro: t(`${p}.payoutIntro`),
     securityIntro: t(`${p}.securityIntro`),
     securityAccountNote: t(`${p}.securityAccountNote`),
+    securityPasswordTitle: t(`${p}.securityPasswordTitle`),
+    twoFactorTitle: t(`${p}.twoFactorTitle`),
     openTwoFactor: t(`${p}.openTwoFactor`),
     lockScreenTitle: t(`${p}.lockScreenTitle`),
     lockScreenBody: t(`${p}.lockScreenBody`),
@@ -82,6 +102,8 @@ export default async function PartnersPortalProfilePage() {
           avatarLabels={buildPartnersPortalAvatarLabels(t)}
           bankLabels={buildCspBankPanelLabels(t)}
           initialAvatarUrl={avatarUrl}
+          loginEmail={loginEmail}
+          locale={locale}
         />
       </Suspense>
     </CertifiedSalesPartnerWorkspacePanel>

@@ -17,11 +17,13 @@ type Props = {
   labels: PartnersPortalAvatarLabels;
   /** Same-origin pointer from auth metadata (server-resolved), or null when no photo is set. */
   initialAvatarUrl: string | null;
+  /** Sit inside the profile identity row instead of a separate tall card. */
+  embedded?: boolean;
 };
 
 type Notice = { tone: "success" | "error"; text: string } | null;
 
-export function PartnersProfileAvatarPanel({ labels, initialAvatarUrl }: Props) {
+export function PartnersProfileAvatarPanel({ labels, initialAvatarUrl, embedded = false }: Props) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(initialAvatarUrl);
@@ -115,31 +117,40 @@ export function PartnersProfileAvatarPanel({ labels, initialAvatarUrl }: Props) 
   const buttonBase =
     "inline-flex min-h-[44px] items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus disabled:opacity-60";
 
-  return (
-    <section className={`${AipifyShellClasses.surfaceCard} p-6 sm:p-8`} aria-labelledby="partners-avatar-title">
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-        <div
-          className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-full border border-aipify-border bg-aipify-surface-muted text-aipify-text-muted"
-          aria-busy={busy !== null}
-        >
+  const frame = embedded
+    ? "flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center"
+    : "flex flex-col gap-6 sm:flex-row sm:items-center";
+  const photoClass = embedded
+    ? "flex h-[4.5rem] w-[4.5rem] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-aipify-border bg-aipify-surface-muted text-aipify-text-muted"
+    : "flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-full border border-aipify-border bg-aipify-surface-muted text-aipify-text-muted";
+
+  const body = (
+      <div className={frame}>
+        <div className={photoClass} aria-busy={busy !== null}>
           {avatarUrl ? (
             // eslint-disable-next-line @next/next/no-img-element -- private same-origin pointer, not optimizable
             <img src={avatarUrl} alt={labels.avatarAlt} className="h-full w-full object-cover" />
           ) : (
-            <UserRound className="h-10 w-10" aria-hidden />
+            <UserRound className={embedded ? "h-7 w-7" : "h-10 w-10"} aria-hidden />
           )}
         </div>
 
-        <div className="min-w-0 space-y-3">
-          <div>
-            <h2 id="partners-avatar-title" className="text-lg font-semibold text-aipify-text">
-              {labels.title}
-            </h2>
-            <p className="mt-1 text-sm text-aipify-text-secondary">{labels.subtitle}</p>
-            <p className="mt-1 text-xs text-aipify-text-muted">
+          <div className="min-w-0 space-y-3">
+          {embedded ? (
+            <p className="text-xs text-aipify-text-muted">
               {avatarUrl ? labels.current : labels.empty} · {labels.hint}
             </p>
-          </div>
+          ) : (
+            <div>
+              <h2 id="partners-avatar-title" className="text-lg font-semibold text-aipify-text">
+                {labels.title}
+              </h2>
+              <p className="mt-1 text-sm text-aipify-text-secondary">{labels.subtitle}</p>
+              <p className="mt-1 text-xs text-aipify-text-muted">
+                {avatarUrl ? labels.current : labels.empty} · {labels.hint}
+              </p>
+            </div>
+          )}
 
           <div className="flex flex-wrap gap-3">
             <input
@@ -198,6 +209,17 @@ export function PartnersProfileAvatarPanel({ labels, initialAvatarUrl }: Props) 
           <p className="text-xs text-aipify-text-muted">{labels.privacyNote}</p>
         </div>
       </div>
+  );
+
+  if (embedded) {
+    return (
+      <div aria-label={labels.title}>{body}</div>
+    );
+  }
+
+  return (
+    <section className={`${AipifyShellClasses.surfaceCard} p-6 sm:p-8`} aria-labelledby="partners-avatar-title">
+      {body}
     </section>
   );
 }

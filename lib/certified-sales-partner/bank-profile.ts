@@ -21,6 +21,19 @@ function compact(v: string): string {
   return v.replace(/\s+/g, "").toUpperCase();
 }
 
+/**
+ * UI hint for a stored account reference.
+ * A value that is already masked (stars, at most 4 visible characters) is kept.
+ * Anything else is reduced to the last 4 characters.
+ */
+export function displayBankHint(raw: string | null | undefined): string | null {
+  const value = typeof raw === "string" ? raw.trim() : "";
+  if (!value) return null;
+  const visible = value.replace(/[\s*]/g, "");
+  if (value.includes("*") && visible.length <= 4) return value;
+  return maskIban(value);
+}
+
 /** Shows only the last 4 characters; never reveals more. */
 export function maskIban(iban: string | null | undefined): string {
   const c = compact(String(iban ?? ""));
