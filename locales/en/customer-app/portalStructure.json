@@ -8697,7 +8697,7 @@
       "companyWebsite": "Company website",
       "companyPhone": "Company phone",
       "companyAddress": "Company address",
-      "companyOptionalNote": "Organization name comes from your Aipify customer relationship. Website, company phone and address appear only when stored.",
+      "companyOptionalNote": "Organization name comes from the Aipify customer relationship. Website, organization number, company phone, and address appear only when stored in Core.",
       "plan": "Plan",
       "license": "License status",
       "customerReference": "Customer reference",
@@ -8730,7 +8730,7 @@
       "tabCompany": "Company",
       "tabRelationship": "Relationship",
       "tabSecurity": "Security and privacy",
-      "unavailable": "Not available in this view",
+      "unavailable": "Not available",
       "companyEmpty": "No organization linked yet",
       "companyEmptyBody": "When your workspace is connected, the organization name appears here. Separate legal contact and address fields stay empty until registered.",
       "workspace": "Workspace",
@@ -8776,7 +8776,13 @@
       "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
       "officialCustomerNumber": "Customer number",
       "copyCustomerNumber": "Copy",
-      "copiedCustomerNumber": "Copied"
+      "copiedCustomerNumber": "Copied",
+      "companyOrganizationNumber": "Organization number",
+      "companyInvoiceAddress": "Invoice address",
+      "personalFormNote": "Login email stays locked here. Name, phone, and photo can be updated for your account.",
+      "securityLoginBody": "Manage two-factor authentication and sign-in protection for your account.",
+      "securityPrivacyBody": "Review privacy choices and how Aipify handles your workspace data.",
+      "securityNotificationsBody": "Choose how Aipify notifies you about important workspace activity."
     },
     "workspaceDashboard": {
       "eyebrow": "Workspace",

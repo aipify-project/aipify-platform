@@ -6,6 +6,7 @@ import { createServiceRoleClient } from "@/lib/supabase/service-role";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 import { resolveCustomerAvatarPointer } from "./avatar";
+import { loadAccountCompanyProfile } from "./load-company-profile";
 import { buildAccountProfileView } from "./view-model";
 import type { AccountProfileView } from "./types";
 
@@ -31,17 +32,23 @@ export async function loadAccountProfileView(): Promise<AccountProfileView | nul
   ]);
   const context = parseAppOrganizationContext(orgResult.data);
   let officialCustomerNumber: string | null = null;
+  let company = null;
   if (context.state === "ready" && context.customer_id) {
     try {
       const admin = createServiceRoleClient();
-      const { data } = await admin
-        .from("customers")
-        .select("customer_number")
-        .eq("id", context.customer_id)
-        .maybeSingle();
+      const [{ data }, companyProfile] = await Promise.all([
+        admin
+          .from("customers")
+          .select("customer_number")
+          .eq("id", context.customer_id)
+          .maybeSingle(),
+        loadAccountCompanyProfile(admin, context.customer_id),
+      ]);
       officialCustomerNumber = readOfficialCustomerNumber(data?.customer_number);
+      company = companyProfile;
     } catch {
       officialCustomerNumber = null;
+      company = null;
     }
   }
   const role = (profile?.user.role ?? context.user_role ?? "").toLowerCase();
@@ -62,8 +69,7 @@ export async function loadAccountProfileView(): Promise<AccountProfileView | nul
     updatedAt: user.updated_at ?? null,
     avatarUrl: avatarFromAuthMetadata(user.user_metadata),
     context,
-    // Organization name is resolved from workspace context inside the view model.
-    company: null,
+    company,
     canOpenCompanySettings,
     officialCustomerNumber,
   });

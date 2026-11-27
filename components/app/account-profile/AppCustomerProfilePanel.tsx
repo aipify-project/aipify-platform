@@ -1,5 +1,6 @@
 import {
   Ban,
+  Bell,
   Building2,
   CheckCircle2,
   CircleAlert,
@@ -7,6 +8,7 @@ import {
   Hourglass,
   PauseCircle,
   ShieldCheck,
+  ShieldEllipsis,
 } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -19,6 +21,7 @@ import type {
   AccountProfileView,
 } from "@/lib/app/account-profile/types";
 import {
+  ACCOUNT_PROFILE_FIELD_GRID_CLASS,
   ACCOUNT_PROFILE_HINT_CLASS,
   ACCOUNT_PROFILE_LINK_BUTTON_CLASS,
   ACCOUNT_PROFILE_READONLY_VALUE_CLASS,
@@ -110,25 +113,11 @@ export function AppCustomerProfilePanel({
     emptyFallback: labels.notRegistered,
     invalidFallback: labels.unavailable,
   });
-  const reference = view.relationship.referenceHidden
-    ? labels.referenceHidden
-    : fieldText(view.relationship.customerReference, labels);
 
-  const companyRows = [
-    { label: labels.companyName, value: fieldText(view.companyName, labels) },
-    {
-      label: labels.companyWebsite,
-      value: view.companyWebsite.value ?? labels.notRegistered,
-    },
-    {
-      label: labels.companyPhone,
-      value: view.companyPhone.value ?? labels.notRegistered,
-    },
-    {
-      label: labels.companyAddress,
-      value: view.companyAddress.value ?? labels.notRegistered,
-    },
-  ];
+  const companyValue = (field: AccountProfileField) => {
+    if (view.companyReadUnavailable) return labels.unavailable;
+    return fieldText(field, labels);
+  };
 
   const relationshipLinks = [
     { href: view.links.subscription, label: labels.openSubscription },
@@ -136,14 +125,29 @@ export function AppCustomerProfilePanel({
     { href: view.links.invoices, label: labels.openInvoices },
   ];
   const securityLinks = [
-    { href: view.links.security, label: labels.openSecurity },
-    { href: view.links.privacy, label: labels.openPrivacy },
-    { href: view.links.notifications, label: labels.openNotifications },
+    {
+      href: view.links.security,
+      label: labels.openSecurity,
+      body: labels.securityLoginBody,
+      icon: <ShieldCheck aria-hidden className="h-5 w-5 text-[#7C3AED]" />,
+    },
+    {
+      href: view.links.privacy,
+      label: labels.openPrivacy,
+      body: labels.securityPrivacyBody,
+      icon: <ShieldEllipsis aria-hidden className="h-5 w-5 text-[#7C3AED]" />,
+    },
+    {
+      href: view.links.notifications,
+      label: labels.openNotifications,
+      body: labels.securityNotificationsBody,
+      icon: <Bell aria-hidden className="h-5 w-5 text-[#7C3AED]" />,
+    },
   ];
 
   return (
-    <div className="space-y-6">
-      <section className="flex flex-col gap-4 rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)] sm:flex-row sm:items-center sm:justify-between">
+    <div className="mx-auto w-full max-w-[50rem] space-y-6">
+      <section className="flex flex-col gap-4 rounded-[28px] border border-[rgba(96,82,176,.15)] bg-white p-5 shadow-[0_12px_30px_rgba(38,33,87,.07)] sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center">
           {view.avatarUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -156,28 +160,28 @@ export function AppCustomerProfilePanel({
             />
           ) : (
             <div
-              className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl bg-[var(--app-primary-soft)] text-xl font-semibold text-[var(--app-primary)]"
+              className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl bg-[rgba(124,58,237,.12)] text-xl font-semibold text-[#7C3AED]"
               aria-hidden
             >
               {view.initials}
             </div>
           )}
           <div className="min-w-0">
-            <p className="truncate text-xl font-semibold text-[var(--app-text)]">{name}</p>
+            <p className="truncate text-xl font-semibold text-gray-900">{name}</p>
             {view.companyName.value ? (
-              <p className="mt-1 truncate text-sm text-[var(--app-text)]">
-                <span className="text-[var(--app-text-muted)]">{labels.organizationLabel}: </span>
+              <p className="mt-1 truncate text-sm text-gray-900">
+                <span className="text-gray-500">{labels.organizationLabel}: </span>
                 {view.companyName.value}
               </p>
             ) : null}
-            <p className="mt-1 text-sm text-[var(--app-text-muted)]">{roleLabel}</p>
+            <p className="mt-1 text-sm text-gray-500">{roleLabel}</p>
           </div>
         </div>
         <StatusPill label={license.label} icon={license.icon} tone={license.tone} />
       </section>
 
       <div className="-mx-1 overflow-x-auto px-1" role="tablist" aria-label={labels.tabsAria}>
-        <div className="flex min-w-max gap-2 border-b border-[var(--app-border)]">
+        <div className="flex min-w-max gap-2 border-b border-gray-200">
           {ACCOUNT_PROFILE_TABS.map((tab) => {
             const selected = tab === activeTab;
             const label = labels[TAB_LABEL[tab]];
@@ -189,10 +193,10 @@ export function AppCustomerProfilePanel({
                 role="tab"
                 aria-selected={selected}
                 aria-controls={`account-panel-${tab}`}
-                className={`inline-flex min-h-11 items-center rounded-t-xl px-4 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] ${
+                className={`inline-flex min-h-11 items-center rounded-t-xl px-4 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-100 ${
                   selected
-                    ? "border-b-2 border-[var(--app-primary)] font-semibold text-[var(--app-primary)]"
-                    : "text-[var(--app-text-muted)] hover:text-[var(--app-text)]"
+                    ? "border-b-2 border-[#7C3AED] font-semibold text-[#7C3AED]"
+                    : "text-gray-500 hover:text-gray-900"
                 }`}
               >
                 {typeof label === "string" ? label : tab}
@@ -219,18 +223,72 @@ export function AppCustomerProfilePanel({
               </Link>
             }
           >
-            <p className={ACCOUNT_PROFILE_HINT_CLASS}>{labels.companyOptionalNote}</p>
-            {view.companyName.value ? (
-              <div className="space-y-4">
-                {companyRows.map((row) => (
+            {view.companyName.value || view.hasCompanyDetails ? (
+              <div className="space-y-5">
+                <p className={ACCOUNT_PROFILE_HINT_CLASS}>{labels.companyOptionalNote}</p>
+                <div className={ACCOUNT_PROFILE_FIELD_GRID_CLASS}>
                   <AccountProfileFormField
-                    key={row.label}
-                    label={row.label}
+                    label={labels.companyName}
                     lockReason={labels.companyLegalNote}
                   >
-                    <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>{row.value}</div>
+                    <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+                      {companyValue(view.companyName)}
+                    </div>
                   </AccountProfileFormField>
-                ))}
+                  <AccountProfileFormField
+                    label={labels.companyOrganizationNumber}
+                    lockReason={labels.companyLegalNote}
+                  >
+                    <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+                      {companyValue(view.companyOrganizationNumber)}
+                    </div>
+                  </AccountProfileFormField>
+                  <AccountProfileFormField
+                    label={labels.companyWebsite}
+                    lockReason={labels.companyLegalNote}
+                  >
+                    <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+                      {view.companyWebsiteHref && view.companyWebsite.value ? (
+                        <a
+                          href={view.companyWebsiteHref}
+                          className="font-medium text-[#7C3AED] underline-offset-2 hover:underline"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          {view.companyWebsite.value}
+                        </a>
+                      ) : (
+                        companyValue(view.companyWebsite)
+                      )}
+                    </div>
+                  </AccountProfileFormField>
+                  <AccountProfileFormField
+                    label={labels.companyPhone}
+                    lockReason={labels.companyLegalNote}
+                  >
+                    <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+                      {companyValue(view.companyPhone)}
+                    </div>
+                  </AccountProfileFormField>
+                </div>
+                <AccountProfileFormField
+                  label={labels.companyAddress}
+                  lockReason={labels.companyLegalNote}
+                >
+                  <div className={`${ACCOUNT_PROFILE_READONLY_VALUE_CLASS} whitespace-pre-line`}>
+                    {companyValue(view.companyAddress)}
+                  </div>
+                </AccountProfileFormField>
+                {view.companyInvoiceAddress.value || view.companyReadUnavailable ? (
+                  <AccountProfileFormField
+                    label={labels.companyInvoiceAddress}
+                    lockReason={labels.companyLegalNote}
+                  >
+                    <div className={`${ACCOUNT_PROFILE_READONLY_VALUE_CLASS} whitespace-pre-line`}>
+                      {companyValue(view.companyInvoiceAddress)}
+                    </div>
+                  </AccountProfileFormField>
+                ) : null}
                 <p className={ACCOUNT_PROFILE_HINT_CLASS}>{labels.companyLegalNote}</p>
               </div>
             ) : (
@@ -244,22 +302,19 @@ export function AppCustomerProfilePanel({
 
         {activeTab === "relationship" ? (
           <AccountProfileFormCard title={labels.relationshipTitle}>
-            <div className="space-y-4">
-              <AccountProfileFormField label={labels.workspace} lockReason={labels.readOnlyReason}>
-                <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
-                  {fieldText(view.relationship.workspaceName, labels)}
-                </div>
-              </AccountProfileFormField>
-              <AccountProfileFormField label={labels.plan} lockReason={labels.readOnlyReason}>
-                <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
-                  {fieldText(view.relationship.planName, labels)}
-                </div>
-              </AccountProfileFormField>
-              <AccountProfileFormField label={labels.license} lockReason={labels.readOnlyReason}>
-                <div className="mt-2">
-                  <StatusPill label={license.label} icon={license.icon} tone={license.tone} />
-                </div>
-              </AccountProfileFormField>
+            <div className="space-y-5">
+              <div className={ACCOUNT_PROFILE_FIELD_GRID_CLASS}>
+                <AccountProfileFormField label={labels.workspace} lockReason={labels.readOnlyReason}>
+                  <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+                    {fieldText(view.relationship.workspaceName, labels)}
+                  </div>
+                </AccountProfileFormField>
+                <AccountProfileFormField label={labels.license} lockReason={labels.readOnlyReason}>
+                  <div className="mt-2">
+                    <StatusPill label={license.label} icon={license.icon} tone={license.tone} />
+                  </div>
+                </AccountProfileFormField>
+              </div>
               <AccountProfileFormField
                 label={labels.officialCustomerNumber}
                 lockReason={labels.readOnlyReason}
@@ -271,13 +326,12 @@ export function AppCustomerProfilePanel({
                   copiedLabel={labels.copiedCustomerNumber}
                 />
               </AccountProfileFormField>
-              <AccountProfileFormField
-                label={labels.customerReference}
-                lockReason={labels.readOnlyReason}
-              >
-                <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>{reference}</div>
+              <AccountProfileFormField label={labels.plan} lockReason={labels.readOnlyReason}>
+                <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>
+                  {fieldText(view.relationship.planName, labels)}
+                </div>
               </AccountProfileFormField>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className={ACCOUNT_PROFILE_FIELD_GRID_CLASS}>
                 <AccountProfileFormField
                   label={labels.registeredAt}
                   lockReason={labels.readOnlyReason}
@@ -291,7 +345,7 @@ export function AppCustomerProfilePanel({
                   <div className={ACCOUNT_PROFILE_READONLY_VALUE_CLASS}>{updatedAt}</div>
                 </AccountProfileFormField>
               </div>
-              <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
+              <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap">
                 {relationshipLinks.map((link) => (
                   <Link key={link.href} href={link.href} className={ACCOUNT_PROFILE_LINK_BUTTON_CLASS}>
                     {link.label}
@@ -307,16 +361,20 @@ export function AppCustomerProfilePanel({
             title={labels.securityTitle}
             titleIcon={<ShieldCheck aria-hidden className="h-4 w-4 text-[#7C3AED]" />}
           >
-            <div className="space-y-5">
+            <div className="space-y-4">
               {securityLinks.map((link) => (
                 <div
                   key={link.href}
-                  className="flex flex-col gap-3 border-b border-gray-100 pb-5 last:border-b-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between"
+                  className="flex flex-col gap-3 rounded-2xl border border-gray-100 bg-gray-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"
                 >
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold text-gray-900">{link.label}</p>
+                  <div className="flex min-w-0 items-start gap-3">
+                    <span className="mt-0.5 shrink-0">{link.icon}</span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-gray-900">{link.label}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-gray-600">{link.body}</p>
+                    </div>
                   </div>
-                  <Link href={link.href} className={ACCOUNT_PROFILE_LINK_BUTTON_CLASS}>
+                  <Link href={link.href} className={`${ACCOUNT_PROFILE_LINK_BUTTON_CLASS} shrink-0`}>
                     {link.label}
                   </Link>
                 </div>

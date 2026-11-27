@@ -15,6 +15,8 @@ export type AccountProfileFieldSource =
   | "get_app_organization_context.license_status"
   | "get_app_organization_context.customer_id"
   | "customers.customer_number"
+  | "organization_registration_profiles"
+  | "payment_profiles"
   | "auth.user_metadata.avatar_url"
   | "unavailable";
 
@@ -50,12 +52,17 @@ export type AccountProfileView = {
   avatarUrl: string | null;
   avatarSource: AccountProfileFieldSource;
   initials: string;
-  /** True only when a company field has a stored value. Workspace name is not company data. */
+  /** True when any stored company registration field is present. */
   hasCompanyDetails: boolean;
+  /** Failed Core company read — show unavailable, not empty invent. */
+  companyReadUnavailable: boolean;
   companyName: AccountProfileField;
+  companyOrganizationNumber: AccountProfileField;
   companyWebsite: AccountProfileField;
+  companyWebsiteHref: string | null;
   companyPhone: AccountProfileField;
   companyAddress: AccountProfileField;
+  companyInvoiceAddress: AccountProfileField;
   relationship: {
     workspaceName: AccountProfileField;
     planName: AccountProfileField;
@@ -88,4 +95,22 @@ export type AccountProfileDataMappingRow = {
   uiField: string;
   source: AccountProfileFieldSource;
   editable: boolean;
+};
+
+/** Tenant-scoped company registration snapshot for APP profile. */
+export type AccountCompanyProfileRead = {
+  readState: "ready" | "unavailable";
+  legalName: string | null;
+  organizationNumber: string | null;
+  website: string | null;
+  phone: string | null;
+  street: string | null;
+  postalCode: string | null;
+  city: string | null;
+  country: string | null;
+  invoiceStreet: string | null;
+  invoicePostalCode: string | null;
+  invoiceCity: string | null;
+  invoiceCountry: string | null;
+  invoiceSameAsCompany: boolean;
 };

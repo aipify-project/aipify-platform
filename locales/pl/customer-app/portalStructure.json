@@ -7712,7 +7712,7 @@
       "companyWebsite": "Strona firmy",
       "companyPhone": "Telefon firmowy",
       "companyAddress": "Adres firmy",
-      "companyOptionalNote": "Organization name comes from your Aipify customer relationship. Website, company phone and address appear only when stored.",
+      "companyOptionalNote": "Nazwa organizacji pochodzi z relacji klienta Aipify. Witryna, numer organizacji, telefon firmowy i adres pojawiają się tylko wtedy, gdy są zapisane w Core.",
       "plan": "Plan",
       "license": "Status licencji",
       "customerReference": "Numer klienta",
@@ -7745,7 +7745,7 @@
       "tabCompany": "Firma",
       "tabRelationship": "Relacja z klientem",
       "tabSecurity": "Bezpieczeństwo i prywatność",
-      "unavailable": "Niedostępne w tym widoku",
+      "unavailable": "Niedostępne",
       "companyEmpty": "Brak powiązanej organizacji",
       "companyEmptyBody": "When your workspace is connected, the organization name appears here. Separate legal contact and address fields stay empty until registered.",
       "workspace": "Obszar roboczy",
@@ -7791,7 +7791,13 @@
       "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
       "officialCustomerNumber": "Numer klienta",
       "copyCustomerNumber": "Kopiuj",
-      "copiedCustomerNumber": "Skopiowano"
+      "copiedCustomerNumber": "Skopiowano",
+      "companyOrganizationNumber": "Numer organizacji",
+      "companyInvoiceAddress": "Adres do faktury",
+      "personalFormNote": "E-mail logowania jest tu zablokowany. Imię i nazwisko, telefon oraz zdjęcie można zaktualizować dla konta.",
+      "securityLoginBody": "Zarządzaj uwierzytelnianiem dwuskładnikowym i ochroną logowania konta.",
+      "securityPrivacyBody": "Przejrzyj ustawienia prywatności i sposób, w jaki Aipify przetwarza dane obszaru roboczego.",
+      "securityNotificationsBody": "Wybierz, jak Aipify powiadamia Cię o ważnej aktywności w obszarze roboczym."
     },
     "workspaceDashboard": {
       "eyebrow": "Obszar roboczy",

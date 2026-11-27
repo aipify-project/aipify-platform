@@ -7421,7 +7421,7 @@
       "companyWebsite": "Sitio web de la empresa",
       "companyPhone": "Teléfono de la empresa",
       "companyAddress": "Dirección de la empresa",
-      "companyOptionalNote": "Organization name comes from your Aipify customer relationship. Website, company phone and address appear only when stored.",
+      "companyOptionalNote": "El nombre de la organización proviene de la relación de cliente de Aipify. El sitio web, el número de organización, el teléfono de la empresa y la dirección aparecen solo cuando están almacenados en Core.",
       "plan": "Plan",
       "license": "Estado de la licencia",
       "customerReference": "Referencia del cliente",
@@ -7454,7 +7454,7 @@
       "tabCompany": "Empresa",
       "tabRelationship": "Relación con el cliente",
       "tabSecurity": "Seguridad y privacidad",
-      "unavailable": "No disponible en esta vista",
+      "unavailable": "No disponible",
       "companyEmpty": "Aún no hay organización vinculada",
       "companyEmptyBody": "When your workspace is connected, the organization name appears here. Separate legal contact and address fields stay empty until registered.",
       "workspace": "Espacio de trabajo",
@@ -7493,7 +7493,13 @@
       "save": "Guardar cambios",
       "officialCustomerNumber": "Número de cliente",
       "copyCustomerNumber": "Copiar",
-      "copiedCustomerNumber": "Copiado"
+      "copiedCustomerNumber": "Copiado",
+      "companyOrganizationNumber": "Número de organización",
+      "companyInvoiceAddress": "Dirección de facturación",
+      "personalFormNote": "El correo de inicio de sesión permanece bloqueado aquí. Puedes actualizar el nombre, el teléfono y la foto de tu cuenta.",
+      "securityLoginBody": "Gestiona la autenticación en dos pasos y la protección de inicio de sesión de tu cuenta.",
+      "securityPrivacyBody": "Revisa las opciones de privacidad y cómo Aipify trata los datos de tu espacio de trabajo.",
+      "securityNotificationsBody": "Elige cómo Aipify te notifica sobre la actividad importante del espacio de trabajo."
     },
     "workspaceDashboard": {
       "eyebrow": "Espacio de trabajo",

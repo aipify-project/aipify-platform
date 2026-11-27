@@ -7712,7 +7712,7 @@
       "companyWebsite": "Вебсайт компанії",
       "companyPhone": "Телефон компанії",
       "companyAddress": "Адреса компанії",
-      "companyOptionalNote": "Organization name comes from your Aipify customer relationship. Website, company phone and address appear only when stored.",
+      "companyOptionalNote": "Назва організації походить із клієнтських відносин Aipify. Сайт, реєстраційний номер, телефон компанії та адреса відображаються лише якщо збережені в Core.",
       "plan": "План",
       "license": "Статус ліцензії",
       "customerReference": "Посилання клієнта",
@@ -7745,7 +7745,7 @@
       "tabCompany": "Компанія",
       "tabRelationship": "Відносини з клієнтом",
       "tabSecurity": "Безпека та конфіденційність",
-      "unavailable": "Недоступно в цьому поданні",
+      "unavailable": "Недоступно",
       "companyEmpty": "Організацію ще не пов’язано",
       "companyEmptyBody": "When your workspace is connected, the organization name appears here. Separate legal contact and address fields stay empty until registered.",
       "workspace": "Робочий простір",
@@ -7791,7 +7791,13 @@
       "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
       "officialCustomerNumber": "Номер клієнта",
       "copyCustomerNumber": "Копіювати",
-      "copiedCustomerNumber": "Скопійовано"
+      "copiedCustomerNumber": "Скопійовано",
+      "companyOrganizationNumber": "Реєстраційний номер",
+      "companyInvoiceAddress": "Адреса для рахунків",
+      "personalFormNote": "Електронну пошту для входу тут заблоковано. Ім’я, телефон і фото можна оновити для облікового запису.",
+      "securityLoginBody": "Керуйте двофакторною автентифікацією та захистом входу до облікового запису.",
+      "securityPrivacyBody": "Перегляньте налаштування конфіденційності та те, як Aipify обробляє дані робочого простору.",
+      "securityNotificationsBody": "Оберіть, як Aipify сповіщає вас про важливу активність у робочому просторі."
     },
     "workspaceDashboard": {
       "eyebrow": "Робочий простір",

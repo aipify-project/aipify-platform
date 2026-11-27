@@ -2,7 +2,12 @@ import { companyProfileInitials } from "@/lib/app/settings/company-profile-view"
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import type { AppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 import type { AppUser } from "@/lib/tenant/types";
+import {
+  companyWebsiteHref,
+  formatCompanyAddressLines,
+} from "./company-profile-format";
 import type {
+  AccountCompanyProfileRead,
   AccountProfileDataMappingRow,
   AccountProfileField,
   AccountProfileLicense,
@@ -63,12 +68,7 @@ export function buildAccountProfileView(input: {
   updatedAt?: string | null;
   avatarUrl: string | null;
   context: AppOrganizationContext | null;
-  company?: {
-    name?: string | null;
-    website?: string | null;
-    phone?: string | null;
-    address?: string | null;
-  } | null;
+  company?: AccountCompanyProfileRead | null;
   canOpenCompanySettings: boolean;
   officialCustomerNumber?: string | null;
 }): AccountProfileView {
@@ -77,20 +77,60 @@ export function buildAccountProfileView(input: {
   const fullName = input.user?.full_name?.trim() || null;
   const workspace =
     (ready ? context?.workspace_name ?? context?.licensed_to : null)?.trim() || null;
-  // Organization display name from Core workspace — never invent firm legal data.
-  const explicitCompanyName = input.company?.name?.trim() || null;
-  const organizationName = explicitCompanyName || workspace || null;
+  const companyReadUnavailable = input.company?.readState === "unavailable";
+  const regSource = companyReadUnavailable
+    ? "unavailable"
+    : ("organization_registration_profiles" as const);
+  const paySource = companyReadUnavailable ? "unavailable" : ("payment_profiles" as const);
+
+  const legalName = input.company?.legalName?.trim() || null;
+  const organizationName = legalName || workspace || null;
   const companyName = locked(
     organizationName,
-    organizationName
-      ? "get_app_organization_context.workspace_name"
-      : "unavailable",
+    legalName
+      ? "organization_registration_profiles"
+      : organizationName
+        ? "get_app_organization_context.workspace_name"
+        : "unavailable",
   );
-  const companyWebsite = locked(input.company?.website ?? null, "unavailable");
-  const companyPhone = locked(input.company?.phone ?? null, "unavailable");
-  const companyAddress = locked(input.company?.address ?? null, "unavailable");
+  const companyOrganizationNumber = locked(
+    companyReadUnavailable ? null : input.company?.organizationNumber ?? null,
+    regSource,
+  );
+  const websiteValue = companyReadUnavailable ? null : input.company?.website ?? null;
+  const companyWebsite = locked(websiteValue, regSource);
+  const companyPhone = locked(
+    companyReadUnavailable ? null : input.company?.phone ?? null,
+    regSource,
+  );
+  const companyAddress = locked(
+    companyReadUnavailable
+      ? null
+      : formatCompanyAddressLines({
+          street: input.company?.street ?? null,
+          postalCode: input.company?.postalCode ?? null,
+          city: input.company?.city ?? null,
+          country: input.company?.country ?? null,
+        }),
+    regSource,
+  );
+  const invoiceAddressValue =
+    companyReadUnavailable || input.company?.invoiceSameAsCompany
+      ? null
+      : formatCompanyAddressLines({
+          street: input.company?.invoiceStreet ?? null,
+          postalCode: input.company?.invoicePostalCode ?? null,
+          city: input.company?.invoiceCity ?? null,
+          country: input.company?.invoiceCountry ?? null,
+        });
+  const companyInvoiceAddress = locked(invoiceAddressValue, paySource);
   const hasCompanyDetails = Boolean(
-    companyName.value || companyWebsite.value || companyPhone.value || companyAddress.value,
+    legalName ||
+      companyOrganizationNumber.value ||
+      companyWebsite.value ||
+      companyPhone.value ||
+      companyAddress.value ||
+      companyInvoiceAddress.value,
   );
   const reference = readableReference(ready ? context?.customer_id ?? null : null);
   const phone = input.phone?.trim() || null;
@@ -108,10 +148,14 @@ export function buildAccountProfileView(input: {
       : "unavailable",
     initials: companyProfileInitials(fullName || workspace),
     hasCompanyDetails,
+    companyReadUnavailable,
     companyName,
+    companyOrganizationNumber,
     companyWebsite,
+    companyWebsiteHref: companyWebsiteHref(websiteValue),
     companyPhone,
     companyAddress,
+    companyInvoiceAddress,
     relationship: {
       workspaceName: locked(workspace, "get_app_organization_context.workspace_name"),
       planName: locked(
@@ -161,12 +205,18 @@ export function accountProfileDataMapping(): AccountProfileDataMappingRow[] {
     },
     {
       uiField: "companyName",
-      source: "get_app_organization_context.workspace_name",
+      source: "organization_registration_profiles",
       editable: false,
     },
-    { uiField: "companyWebsite", source: "unavailable", editable: false },
-    { uiField: "companyPhone", source: "unavailable", editable: false },
-    { uiField: "companyAddress", source: "unavailable", editable: false },
+    {
+      uiField: "companyOrganizationNumber",
+      source: "organization_registration_profiles",
+      editable: false,
+    },
+    { uiField: "companyWebsite", source: "organization_registration_profiles", editable: false },
+    { uiField: "companyPhone", source: "organization_registration_profiles", editable: false },
+    { uiField: "companyAddress", source: "organization_registration_profiles", editable: false },
+    { uiField: "companyInvoiceAddress", source: "payment_profiles", editable: false },
     {
       uiField: "planName",
       source: "get_app_organization_context.plan_name",
