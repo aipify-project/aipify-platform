@@ -7,6 +7,13 @@
 
 export type AddressReadState = "ready" | "unavailable";
 
+/** Presentation quality for invoice address — never invent values. */
+export type InvoiceAddressQuality =
+  | "registered"
+  | "not_registered"
+  | "needs_verification"
+  | "unavailable";
+
 export type StoredCompanyAddress = {
   readState: AddressReadState;
   street: string | null;
@@ -14,6 +21,7 @@ export type StoredCompanyAddress = {
   city: string | null;
   country: string | null;
   website: string | null;
+  phone: string | null;
   organizationNumber: string | null;
   legalName: string | null;
 };
@@ -37,10 +45,12 @@ export type CustomerCompanyProfile = {
   region: string | null;
   country: string | null;
   website: string | null;
+  phone: string | null;
   organizationNumber: string | null;
   legalName: string | null;
   invoiceAddress: {
     readState: AddressReadState;
+    quality: InvoiceAddressQuality;
     sameAsCompany: boolean;
     street: string | null;
     line2: string | null;
@@ -69,6 +79,55 @@ function sameText(left: string | null, right: string | null): boolean {
   return (left ?? "").toLocaleLowerCase() === (right ?? "").toLocaleLowerCase();
 }
 
+/**
+ * Narrow placeholder detection for known Core seed placeholders.
+ * Must not hide real customer addresses.
+ */
+export function isInvoiceAddressPlaceholder(input: {
+  street: string | null;
+  postalCode: string | null;
+  city: string | null;
+  country: string | null;
+}): boolean {
+  const street = clean(input.street)?.toLowerCase() ?? "";
+  const postal = clean(input.postalCode) ?? "";
+  const city = clean(input.city)?.toLowerCase() ?? "";
+  const country = clean(input.country)?.toUpperCase() ?? "";
+  if (street.includes("billing address pending")) return true;
+  if (street.includes("address pending") && postal === "0000") return true;
+  if (postal === "0000" && city === "oslo" && country === "NO" && street.includes("pending")) {
+    return true;
+  }
+  return false;
+}
+
+function invoiceQuality(input: {
+  readState: AddressReadState;
+  rowPresent: boolean;
+  street: string | null;
+  postalCode: string | null;
+  city: string | null;
+  country: string | null;
+  sameAsCompany: boolean;
+}): InvoiceAddressQuality {
+  if (input.readState !== "ready") return "unavailable";
+  if (!input.rowPresent && input.sameAsCompany) return "not_registered";
+  if (!input.street && !input.postalCode && !input.city && !input.country) {
+    return input.sameAsCompany ? "not_registered" : "not_registered";
+  }
+  if (
+    isInvoiceAddressPlaceholder({
+      street: input.street,
+      postalCode: input.postalCode,
+      city: input.city,
+      country: input.country,
+    })
+  ) {
+    return "needs_verification";
+  }
+  return "registered";
+}
+
 export function buildCustomerCompanyProfile(
   company: StoredCompanyAddress,
   invoice: StoredInvoiceAddress,
@@ -78,6 +137,16 @@ export function buildCustomerCompanyProfile(
     const invoicePostal = clean(invoice.postalCode);
     const invoiceCity = clean(invoice.city);
     const invoiceCountry = clean(invoice.country);
+    const invoiceReady = invoice.readState === "ready";
+    const quality = invoiceQuality({
+      readState: invoice.readState,
+      rowPresent: invoice.rowPresent,
+      street: invoiceStreet,
+      postalCode: invoicePostal,
+      city: invoiceCity,
+      country: invoiceCountry,
+      sameAsCompany: false,
+    });
     return {
       readState: "unavailable",
       street: null,
@@ -87,17 +156,19 @@ export function buildCustomerCompanyProfile(
       region: null,
       country: null,
       website: null,
+      phone: null,
       organizationNumber: null,
       legalName: null,
       invoiceAddress: {
-        readState: invoice.readState === "ready" ? "ready" : "unavailable",
+        readState: invoiceReady ? "ready" : "unavailable",
+        quality,
         sameAsCompany: false,
-        street: invoice.readState === "ready" ? invoiceStreet : null,
+        street: invoiceReady ? invoiceStreet : null,
         line2: null,
-        postalCode: invoice.readState === "ready" ? invoicePostal : null,
-        city: invoice.readState === "ready" ? invoiceCity : null,
+        postalCode: invoiceReady ? invoicePostal : null,
+        city: invoiceReady ? invoiceCity : null,
         region: null,
-        country: invoice.readState === "ready" ? invoiceCountry : null,
+        country: invoiceReady ? invoiceCountry : null,
       },
     };
   }
@@ -107,6 +178,7 @@ export function buildCustomerCompanyProfile(
   const city = clean(company.city);
   const country = clean(company.country);
   const website = cleanWebsite(company.website);
+  const phone = clean(company.phone);
   const organizationNumber = clean(company.organizationNumber);
   const legalName = clean(company.legalName);
 
@@ -123,6 +195,18 @@ export function buildCustomerCompanyProfile(
     sameText(invoicePostal, postalCode) &&
     sameText(invoiceCity, city) &&
     sameText(invoiceCountry, country);
+  const sameAsCompany =
+    invoice.readState === "ready" && (!invoiceHasDistinct || matchesCompany);
+  const showDistinct = invoice.readState === "ready" && invoiceHasDistinct && !matchesCompany;
+  const quality = invoiceQuality({
+    readState: invoice.readState,
+    rowPresent: invoice.rowPresent,
+    street: invoiceStreet,
+    postalCode: invoicePostal,
+    city: invoiceCity,
+    country: invoiceCountry,
+    sameAsCompany,
+  });
 
   return {
     readState: "ready",
@@ -133,17 +217,19 @@ export function buildCustomerCompanyProfile(
     region: null,
     country,
     website,
+    phone,
     organizationNumber,
     legalName,
     invoiceAddress: {
       readState: invoice.readState,
-      sameAsCompany: invoice.readState === "ready" && (!invoiceHasDistinct || matchesCompany),
-      street: invoice.readState === "ready" && invoiceHasDistinct && !matchesCompany ? invoiceStreet : null,
+      quality,
+      sameAsCompany,
+      street: showDistinct ? invoiceStreet : null,
       line2: null,
-      postalCode: invoice.readState === "ready" && invoiceHasDistinct && !matchesCompany ? invoicePostal : null,
-      city: invoice.readState === "ready" && invoiceHasDistinct && !matchesCompany ? invoiceCity : null,
+      postalCode: showDistinct ? invoicePostal : null,
+      city: showDistinct ? invoiceCity : null,
       region: null,
-      country: invoice.readState === "ready" && invoiceHasDistinct && !matchesCompany ? invoiceCountry : null,
+      country: showDistinct ? invoiceCountry : null,
     },
   };
 }

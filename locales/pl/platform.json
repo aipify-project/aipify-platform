@@ -977,8 +977,13 @@
         "country": "Kraj",
         "website": "Strona internetowa",
         "sameAsCompany": "Taki sam jak adres firmy",
-        "readOnlyNote": "Zmiana adresu pozostaje zamknięta do osobnego zatwierdzenia w Core.",
-        "unavailable": "Niedostępne"
+        "readOnlyNote": "Zwykłe zmiany adresu wymagają aktywacji Core. Tożsamość prawna pozostaje w ścieżce wysokiego ryzyka.",
+        "unavailable": "Niedostępne",
+        "companyPhone": "Telefon firmowy",
+        "legalLockedNote": "Prawna nazwa firmy i numer organizacji wymagają osobnej zgody wysokiego ryzyka i pozostają zablokowane tutaj.",
+        "invoiceNotRegistered": "Adres do faktury nie jest zarejestrowany",
+        "needsVerification": "Wymaga weryfikacji",
+        "needsVerificationBody": "Zapisany adres do faktury wygląda jak placeholder i musi zostać zweryfikowany przez administratora Platformy, zanim będzie traktowany jako gotowy do rozliczeń."
       },
       "invoiceKpi": {
         "overdue": "Zaległe faktury",
@@ -1010,7 +1015,24 @@
       "highRiskIdentityNote": "Tożsamość prawna i e-mail kontaktowy wymagają procesu wysokiego ryzyka.",
       "supportOpenCases": "Otwarte zgłoszenia",
       "supportOpenQueue": "Otwórz kolejkę supportu",
-      "customerNumber": "Numer klienta"
+      "customerNumber": "Numer klienta",
+      "companyAddressEdit": {
+        "editCompany": "Edytuj dane firmy",
+        "saveChanges": "Zapisz zmiany",
+        "cancel": "Anuluj",
+        "reasonLabel": "Wewnętrzne uzasadnienie",
+        "reasonPlaceholder": "Dlaczego ta zmiana jest potrzebna?",
+        "ticketLabel": "Numer zgłoszenia (opcjonalnie)",
+        "ticketPlaceholder": "SUP-…",
+        "confirmLabel": "Potwierdzam, że ta zwykła aktualizacja firmy jest poprawna i będzie audytowana.",
+        "confirmInvoiceLabel": "Potwierdzam, że zmiana adresu do faktury jest zamierzona i poprawna.",
+        "coreGateLocked": "Wymaga aktywacji Core — zapis adresu firmy i faktury jest przygotowany, ale nieaktywny do czasu zastosowania zatwierdzonego kandydata SQL.",
+        "success": "Dane firmy zostały zaktualizowane.",
+        "errorGeneric": "Nie udało się zaktualizować danych firmy. Spróbuj ponownie.",
+        "errorForbidden": "Nie masz uprawnień do aktualizacji tej firmy.",
+        "errorValidation": "Sprawdź pola i potwierdzenie, a następnie spróbuj ponownie.",
+        "errorCoreGatePending": "Aktualizacje adresu są przygotowane, ale oczekują na aktywację Core przed zapisaniem."
+      }
     },
     "createCustomer": "Utwórz klienta",
     "creation": {

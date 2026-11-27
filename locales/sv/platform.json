@@ -977,8 +977,13 @@
         "country": "Land",
         "website": "Webbplats",
         "sameAsCompany": "Samma som företagsadress",
-        "readOnlyNote": "Adressändringar är stängda tills ett separat Core-godkännande finns.",
-        "unavailable": "Inte tillgängligt"
+        "readOnlyNote": "Vanliga adressändringar kräver Core-aktivering. Juridisk identitet följer högriskflödet.",
+        "unavailable": "Inte tillgängligt",
+        "companyPhone": "Företagstelefon",
+        "legalLockedNote": "Juridiskt företagsnamn och organisationsnummer kräver särskild godkännande och förblir låsta här.",
+        "invoiceNotRegistered": "Fakturaadress inte registrerad",
+        "needsVerification": "Måste verifieras",
+        "needsVerificationBody": "Den sparade fakturaadressen ser ut som en platshållare och måste verifieras av en plattformsadministratör innan den behandlas som faktureringsklar."
       },
       "invoiceKpi": {
         "overdue": "Förfallna fakturor",
@@ -1010,7 +1015,24 @@
       "highRiskIdentityNote": "Juridisk identitet och kontakt-e-post kräver högriskflödet för identitet.",
       "supportOpenCases": "Öppna supportärenden",
       "supportOpenQueue": "Öppna supportkö",
-      "customerNumber": "Kundnummer"
+      "customerNumber": "Kundnummer",
+      "companyAddressEdit": {
+        "editCompany": "Redigera företagsuppgifter",
+        "saveChanges": "Spara ändringar",
+        "cancel": "Avbryt",
+        "reasonLabel": "Intern motivering",
+        "reasonPlaceholder": "Varför behövs denna ändring?",
+        "ticketLabel": "Supportsärendesreferens (valfritt)",
+        "ticketPlaceholder": "SUP-…",
+        "confirmLabel": "Jag bekräftar att denna vanliga företagsuppdatering är korrekt och granskas.",
+        "confirmInvoiceLabel": "Jag bekräftar att ändringen av fakturaadress är avsiktlig och korrekt.",
+        "coreGateLocked": "Kräver Core-aktivering — skrivning av företags- och fakturaadress är förberedd men inte aktiverad förrän den ägargodkända SQL-kandidaten är installerad.",
+        "success": "Företagsuppgifterna uppdaterades.",
+        "errorGeneric": "Företagsuppgifterna kunde inte uppdateras. Försök igen.",
+        "errorForbidden": "Du har inte behörighet att uppdatera detta företag.",
+        "errorValidation": "Kontrollera fälten och bekräftelsen och försök igen.",
+        "errorCoreGatePending": "Adressuppdateringar är förberedda men väntar på Core-aktivering innan de kan sparas."
+      }
     },
     "createCustomer": "Skapa kund",
     "creation": {
