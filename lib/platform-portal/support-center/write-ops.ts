@@ -10,11 +10,14 @@ import { resolveSupportCenterStagingLiveGates } from "./staging-core-activation"
 import { stripUnresolvedTemplatePlaceholders } from "@/lib/support-intake/sanitize";
 import { draftHasSupportSignature } from "./signature";
 import {
-  SUPPORT_SEND_PUBLIC_REPLY_APPLIED,
+  isSupportSendPublicReplyApplied,
   SUPPORT_SEND_PUBLIC_REPLY_RPC,
 } from "./send-public-reply-contract";
 
-export { SUPPORT_SEND_PUBLIC_REPLY_RPC } from "./send-public-reply-contract";
+export {
+  SUPPORT_SEND_PUBLIC_REPLY_RPC,
+  isSupportSendPublicReplyApplied,
+} from "./send-public-reply-contract";
 
 /** Compile-time Production default — closed. */
 export const SUPPORT_WRITE_RPC_CONNECTED = false as const;
@@ -260,7 +263,7 @@ export async function sendPublicSupportReply(input: {
 }): Promise<SupportWriteResult> {
   const gated = ensureWriteGates();
   if (gated) return gated;
-  if (!SUPPORT_SEND_PUBLIC_REPLY_APPLIED) {
+  if (!isSupportSendPublicReplyApplied()) {
     return deny(
       "core_not_applied",
       "Send svar venter på plattformaktivering. Utkast kan fortsatt lagres.",
