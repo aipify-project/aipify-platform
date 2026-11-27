@@ -433,7 +433,18 @@
       "restricted": "Begränsad åtkomst",
       "verified": "Verifierad",
       "waiting": "Väntar"
-    }
+    },
+    "personalPageTitle": "Personlig landningssida",
+    "personalPageUnavailable": "Inte tillgänglig",
+    "personalPageEmpty": "Inget intresse är sparat ännu.",
+    "personalPageName": "Namn",
+    "personalPageEmail": "E-post",
+    "personalPageProduct": "Produkt",
+    "personalPageWhen": "Registrerad",
+    "personalPageSource": "Personlig landningssida",
+    "personalPageStatusNew": "Ny",
+    "personalPageStatusContacted": "Kontaktad",
+    "personalPageStatusClosed": "Stängd"
   },
   "growthPartnerAttributionMarketing": {
     "title": "Growth Partner marknadsföringscenter",

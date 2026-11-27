@@ -67,9 +67,9 @@ test("interest registration stays closed and ignores a client seller id", async 
   assert.equal(gate.rejectClientSellerIdentity({ seller_id: "x" }), true);
   assert.equal(gate.rejectClientSellerIdentity({ email: "ada@example.com" }), false);
   const view = readFileSync("components/marketing/personal-sales-page/PersonalSalesPageView.tsx", "utf8");
-  assert.doesNotMatch(view, /<form/);
+  assert.match(view, /PersonalSalesInterestForm/);
+  assert.match(view, /personalSalesLeadEnabled\(\)/);
   assert.doesNotMatch(view, /fetch\(/);
-  assert.match(view, /interestPending/);
   const materials = readFileSync("components/platform/sellers/CertifiedSellersOpsPanel.tsx", "utf8");
   assert.match(materials, /type="file" disabled/);
   const nav = readFileSync("lib/partners-portal/csp-nav.ts", "utf8");

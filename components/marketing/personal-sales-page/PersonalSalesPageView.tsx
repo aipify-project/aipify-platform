@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { PersonalSalesLabels } from "@/lib/personal-sales-page/labels";
 import type { PersonalSalesPublication } from "@/lib/personal-sales-page/contract";
+import { personalSalesLeadEnabled } from "@/lib/personal-sales-page/lead-gate";
+import { PersonalSalesInterestForm } from "@/components/marketing/personal-sales-page/PersonalSalesInterestForm";
 import KompisWebSalesChrome from "@/components/marketing/kompis-web-sales/KompisWebSalesChrome";
 import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labels";
 import type { PublicFooterEnabledLocale } from "@/lib/i18n/public-locales";
@@ -87,13 +89,13 @@ export function PersonalSalesPageView({
           <p>{labels.priceMissing}</p>
         )}
       </section>
-      {published ? (
-        <section aria-labelledby="personal-sales-interest">
-          <h2 id="personal-sales-interest">{labels.interestTitle}</h2>
-          <p>{labels.interestPending}</p>
-          <p>{labels.interestPrivacy}</p>
-          <Link href="/privacy">{labels.privacyLink}</Link>
-        </section>
+      {published && !productBlocked ? (
+        <PersonalSalesInterestForm
+          labels={labels}
+          enabled={personalSalesLeadEnabled()}
+          productKey="kompis_web"
+          locale={locale}
+        />
       ) : null}
     </KompisWebSalesChrome>
   );
