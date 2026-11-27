@@ -2534,5 +2534,23 @@
       "vippsPositioning": "Configuración de pago local. La conexión no está activada aquí.",
       "dnbPositioning": "Configuración de facturas para organizaciones más grandes. La conexión no está activada aquí."
     }
+  },
+  "trafficStatus": {
+    "region": "Actividad de la plataforma",
+    "operational": "La plataforma está en funcionamiento",
+    "operationalHint": "Platform Admin respondió a esta solicitud. No es una comprobación separada de todos los servicios.",
+    "newAppCustomers": "Nuevos clientes de APP hoy",
+    "newAppCustomersHint": "Organizaciones de clientes creadas en este día natural. Las empresas internas de la plataforma y los entornos de prueba no se incluyen.",
+    "newSellers": "Nuevos vendedores hoy",
+    "newSellersHint": "Perfiles de vendedor creados en este día natural. Las consultas sin perfil no se incluyen.",
+    "appCustomersOnline": "Clientes de APP en línea ahora",
+    "sellersOnline": "Vendedores en línea ahora",
+    "signedInUsers": "Usuarios con sesión ahora",
+    "visitors": "Visitantes hoy",
+    "notMeasured": "—",
+    "notMeasuredHint": "Aún no medido. No hay una actividad ni un recuento de visitas fiables para este periodo.",
+    "unavailable": "No disponible",
+    "dayScope": "Día natural ({zone})",
+    "lastChecked": "Última comprobación"
   }
 }

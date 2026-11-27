@@ -9165,5 +9165,23 @@
     },
     "kidNotApplicablePaidOnline": "Not applicable – paid online",
     "kidMissingReview": "KID missing – needs review"
+  },
+  "trafficStatus": {
+    "region": "Platform activity",
+    "operational": "Platform is operating",
+    "operationalHint": "Platform Admin answered this request. This is not a separate check of every service.",
+    "newAppCustomers": "New APP customers today",
+    "newAppCustomersHint": "Customer organizations created during this calendar day. Internal platform companies and test environments are not included.",
+    "newSellers": "New sellers today",
+    "newSellersHint": "Seller profiles created during this calendar day. Enquiries without a profile are not included.",
+    "appCustomersOnline": "APP customers online now",
+    "sellersOnline": "Sellers online now",
+    "signedInUsers": "Signed-in users now",
+    "visitors": "Visitors today",
+    "notMeasured": "—",
+    "notMeasuredHint": "Not measured yet. There is no reliable activity or visitor count for this window.",
+    "unavailable": "Not available",
+    "dayScope": "Calendar day ({zone})",
+    "lastChecked": "Last checked"
   }
 }
