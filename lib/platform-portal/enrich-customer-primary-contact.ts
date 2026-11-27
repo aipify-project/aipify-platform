@@ -1,6 +1,7 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { readOfficialCustomerNumber } from "./official-customer-number";
 import type { PlatformPortalCustomerDetail } from "./types";
 
 /**
@@ -14,7 +15,7 @@ export async function enrichPlatformCustomerDetailPrimaryContact(input: {
   const customerId = input.detail.customer.id;
   const { data, error } = await input.admin
     .from("customers")
-    .select("full_name, email, phone")
+    .select("full_name, email, phone, customer_number")
     .eq("id", customerId)
     .maybeSingle();
 
@@ -34,6 +35,8 @@ export async function enrichPlatformCustomerDetailPrimaryContact(input: {
       primaryContactName: fullName ?? input.detail.customer.primaryContactName,
       primaryContactEmail: email ?? input.detail.customer.primaryContactEmail,
       primaryContactPhone: phone ?? input.detail.customer.primaryContactPhone,
+      customerNumber:
+        readOfficialCustomerNumber(data.customer_number) ?? input.detail.customer.customerNumber,
     },
   };
 }

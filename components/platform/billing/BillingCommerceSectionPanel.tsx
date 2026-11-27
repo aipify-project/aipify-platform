@@ -160,6 +160,12 @@ export function BillingCommerceSectionPanel({
                                 locale,
                                 phrases: economy,
                                 currency,
+                                method:
+                                  typeof row.provider === "string"
+                                    ? row.provider
+                                    : typeof row.payment_method === "string"
+                                      ? row.payment_method
+                                      : null,
                               })
                             : value === null || value === undefined
                               ? "—"

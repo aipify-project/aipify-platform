@@ -285,6 +285,7 @@ function baseSnapshotInput(
       primaryContactName: null,
       primaryContactEmail: null,
       primaryContactPhone: null,
+      customerNumber: null,
     },
     commercial: {
       lifetime: false,

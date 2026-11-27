@@ -70,6 +70,7 @@ export function buildAccountProfileView(input: {
     address?: string | null;
   } | null;
   canOpenCompanySettings: boolean;
+  officialCustomerNumber?: string | null;
 }): AccountProfileView {
   const context = input.context;
   const ready = context?.state === "ready";
@@ -124,6 +125,10 @@ export function buildAccountProfileView(input: {
         "get_app_organization_context.customer_id"
       ),
       referenceHidden: reference.hidden,
+      officialCustomerNumber: locked(
+        input.officialCustomerNumber ?? null,
+        input.officialCustomerNumber ? "customers.customer_number" : "unavailable",
+      ),
       registeredAt: locked(input.user?.created_at ?? null, "users.created_at"),
       updatedAt: locked(input.updatedAt ?? null, "auth.users.updated_at"),
     },
@@ -175,6 +180,11 @@ export function accountProfileDataMapping(): AccountProfileDataMappingRow[] {
     {
       uiField: "customerReference",
       source: "get_app_organization_context.customer_id",
+      editable: false,
+    },
+    {
+      uiField: "officialCustomerNumber",
+      source: "customers.customer_number",
       editable: false,
     },
     { uiField: "registeredAt", source: "users.created_at", editable: false },

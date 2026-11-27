@@ -152,6 +152,36 @@ const hiddenReference = buildAccountProfileView({
 });
 assert.equal(hiddenReference.relationship.referenceHidden, true);
 assert.equal(hiddenReference.relationship.customerReference.value, null);
+assert.equal(hiddenReference.relationship.officialCustomerNumber.value, null);
+const withNumber = buildAccountProfileView({
+  user: null,
+  loginEmail: null,
+  avatarUrl: null,
+  context: hiddenReference ? {
+    authenticated: true,
+    state: "ready",
+    user_role: null,
+    organization_role: null,
+    company_id: null,
+    customer_id: "11111111-1111-4111-8111-111111111111",
+    organization_id: "org-1",
+    workspace_name: null,
+    licensed_to: null,
+    plan_name: null,
+    license_status: null,
+    has_customer: true,
+    has_organization_membership: true,
+    has_app_access: true,
+    can_access_self_support: true,
+    eligible_organization_count: 1,
+  } : null,
+  company: { name: "North Studio" },
+  canOpenCompanySettings: false,
+  officialCustomerNumber: "AIP-000042",
+});
+assert.equal(withNumber.relationship.officialCustomerNumber.value, "AIP-000042");
+assert.equal(withNumber.relationship.officialCustomerNumber.editable, false);
+assert.equal(withNumber.relationship.customerReference.value, null);
 assert.equal(hiddenReference.hasCompanyDetails, true);
 assert.equal(hiddenReference.companyName.value, "North Studio");
 
@@ -159,6 +189,11 @@ const mapping = accountProfileDataMapping();
 assert.ok(mapping.some((row) => row.uiField === "email" && row.source === "auth.users.email"));
 assert.ok(mapping.some((row) => row.uiField === "email" && row.editable === false));
 assert.ok(mapping.some((row) => row.uiField === "fullName"));
+assert.ok(
+  mapping.some(
+    (row) => row.uiField === "officialCustomerNumber" && row.editable === false && row.source === "customers.customer_number",
+  ),
+);
 assert.ok(mapping.some((row) => row.uiField === "avatar"));
 
 const page = fs.readFileSync(path.join(ROOT, "app/app/profile/page.tsx"), "utf8");

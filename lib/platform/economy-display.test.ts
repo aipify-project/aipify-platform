@@ -9,6 +9,8 @@ import {
   formatEconomyPercent,
   isNonPayingEnvironment,
   presentEconomyCell,
+  presentEconomyStat,
+  presentKid,
   type EconomyPhrases,
 } from "./economy-display";
 
@@ -29,7 +31,9 @@ const phrases: EconomyPhrases = {
   seeSellers: "Åpne under Selgere",
   sourceError: "Kilden svarte ikke.",
   noRecords: "Ingen poster er registrert.",
-  columns: { amount: "Beløp", active: "Aktiv" },
+  kidNotApplicable: "Ikke aktuelt ved nettbetaling",
+  columns: { amount: "Beløp", active: "Aktiv", total: "Totalt" },
+  statuses: { paid: "Betalt", private: "Privatkunder", company: "Bedriftskunder", business: "Bedriftskunder" },
 };
 
 test("Norwegian major-unit currency keeps øre and uses space grouping", () => {
@@ -137,7 +141,45 @@ test("placeholder payment details and staging identities are not presented as sa
   );
   assert.equal(
     presentEconomyCell({ key: "status", value: "paid", locale: "no", phrases }),
-    "paid",
+    "Betalt",
+  );
+  assert.equal(
+    presentEconomyStat({ key: "total", value: 3, locale: "no", phrases }),
+    "3",
+  );
+  assert.equal(
+    presentEconomyStat({ key: "total", value: 0, locale: "no", phrases }),
+    "0",
+  );
+  assert.equal(
+    presentEconomyStat({ key: "total", value: null, locale: "no", phrases }),
+    "Ikke tilgjengelig",
+  );
+  assert.equal(
+    presentKid({ kid: null, method: "stripe", phrases }),
+    "Ikke aktuelt ved nettbetaling",
+  );
+  assert.equal(presentKid({ kid: null, method: "dnb", phrases }), "Må verifiseres");
+  assert.equal(presentKid({ kid: null, method: null, phrases }), "Ikke registrert");
+  assert.equal(presentKid({ kid: null, method: null, phrases }) === "Betalt", false);
+  assert.equal(presentKid({ kid: "12345678901", phrases }), "12345678901");
+  assert.equal(
+    presentEconomyCell({
+      key: "customer_number",
+      value: "AIP-000042",
+      locale: "no",
+      phrases,
+    }),
+    "AIP-000042",
+  );
+  assert.equal(
+    presentEconomyCell({
+      key: "customer_number",
+      value: "11111111-1111-4111-8111-111111111111",
+      locale: "no",
+      phrases,
+    }),
+    "Ikke tilgjengelig",
   );
 });
 

@@ -6,6 +6,7 @@ import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/bran
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
   classifyKid,
+  presentKid,
   formatEconomyDate,
   formatEconomyMoney,
   moneyText,
@@ -45,6 +46,7 @@ type InvoicesPanelProps = {
     pulseLabel: string;
     unavailable: string;
     mustVerify: string;
+    kidNotApplicable: string;
     notRegistered: string;
     backToCustomer: string;
     filteredEmpty: string;
@@ -268,11 +270,7 @@ export default function InvoicesPanel({
                             : undefined
                         }
                       >
-                        {classifyKid(invoice.kid_number) === "present"
-                          ? invoice.kid_number
-                          : classifyKid(invoice.kid_number) === "placeholder"
-                            ? labels.mustVerify
-                            : labels.notRegistered}
+                        {presentKid({ kid: invoice.kid_number, phrases: labels })}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {formatEconomyDate(invoice.due_date, locale) ?? labels.notRegistered}

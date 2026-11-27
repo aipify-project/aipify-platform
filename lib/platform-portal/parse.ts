@@ -1,3 +1,4 @@
+import { readOfficialCustomerNumber } from "./official-customer-number";
 import type {
   PlatformPortalCustomerDetail,
   PlatformPortalCustomerDetailDomain,
@@ -105,6 +106,7 @@ function parseCustomerRecord(raw: unknown): PlatformPortalCustomerRecord | null 
     openSupportCount: asNonNegativeCount(row.open_support_count),
     lastActivityAt: asNullableTrimmedString(row.last_activity_at),
     requiresAttention: asStrictBoolean(row.requires_attention),
+    customerNumber: readOfficialCustomerNumber(row.customer_number),
   };
 }
 
@@ -290,6 +292,7 @@ export function parsePlatformPortalCustomerDetail(
       primaryContactPhone: asNullableTrimmedString(
         customer.primary_contact_phone ?? customer.phone,
       ),
+      customerNumber: readOfficialCustomerNumber(customer.customer_number),
     },
     commercial: {
       lifetime: asStrictBoolean(commercial.lifetime),

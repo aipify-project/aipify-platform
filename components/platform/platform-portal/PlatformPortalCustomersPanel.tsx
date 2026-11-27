@@ -587,6 +587,12 @@ export function PlatformPortalCustomersPanel({
                         scope="col"
                         className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
                       >
+                        {labels.columnCustomerNumber}
+                      </th>
+                      <th
+                        scope="col"
+                        className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+                      >
                         {labels.columnOrganizationNumber}
                       </th>
                       <th
@@ -685,6 +691,9 @@ export function PlatformPortalCustomersPanel({
                                   : labels.notAvailable}
                               </p>
                             </div>
+                          </td>
+                          <td className="whitespace-nowrap px-4 py-3 align-top font-medium text-slate-800 dark:text-slate-200">
+                            {customer.customerNumber ?? labels.notAvailable}
                           </td>
                           <td className="whitespace-nowrap px-4 py-3 align-top text-slate-700 dark:text-slate-300">
                             {customer.organizationNumber?.trim()

@@ -67,6 +67,7 @@ export type PlatformPortalCustomerRecord = {
   openSupportCount: number;
   lastActivityAt: string | null;
   requiresAttention: boolean;
+  customerNumber: string | null;
 };
 
 export type PlatformPortalCustomersPayload = {
@@ -175,6 +176,7 @@ export type PlatformPortalCustomersLabels = {
   columnSupport: string;
   columnLastActivity: string;
   columnActions: string;
+  columnCustomerNumber: string;
   requiresAttention: string;
   lifetime: string;
   partnerCustomer: string;
@@ -217,6 +219,8 @@ export type PlatformPortalCustomerDetailCustomer = {
   primaryContactName: string | null;
   primaryContactEmail: string | null;
   primaryContactPhone: string | null;
+  /** Official AIP-###### number when customers.customer_number is present. */
+  customerNumber: string | null;
 };
 
 export type PlatformPortalCustomerDetailCommercial = {
@@ -409,6 +413,7 @@ export type PlatformPortalCustomerDetailLabels = {
   primaryContactPhone: string;
   primaryContactEmpty: string;
   customerId: string;
+  customerNumber: string;
   companyId: string;
   createdAt: string;
   updatedAt: string;

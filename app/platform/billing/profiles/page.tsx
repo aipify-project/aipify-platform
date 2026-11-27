@@ -33,6 +33,7 @@ export default async function PlatformBillingProfilesPage() {
         pulseLabel: t("branding.pulseLabel"),
         unavailable: t("platform.economyDisplay.unavailable"),
         mustVerify: t("platform.economyDisplay.mustVerify"),
+        kidNotApplicable: t("platform.economyDisplay.kidNotApplicable"),
         notRegistered: t("platform.economyDisplay.notRegistered"),
       }}
     />

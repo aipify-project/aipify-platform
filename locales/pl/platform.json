@@ -675,7 +675,7 @@
     "filterStatus": "Status",
     "filterType": "Wszystkie typy",
     "filterAll": "Wszyscy",
-    "customerNumber": "Nr klienta",
+    "customerNumber": "Numer klienta",
     "name": "Nazwa",
     "type": "Typ",
     "plan": "Plan",
@@ -1009,7 +1009,8 @@
       },
       "highRiskIdentityNote": "Tożsamość prawna i e-mail kontaktowy wymagają procesu wysokiego ryzyka.",
       "supportOpenCases": "Otwarte zgłoszenia",
-      "supportOpenQueue": "Otwórz kolejkę supportu"
+      "supportOpenQueue": "Otwórz kolejkę supportu",
+      "customerNumber": "Numer klienta"
     },
     "createCustomer": "Utwórz klienta",
     "creation": {
@@ -1948,7 +1949,8 @@
     "statusAttention": "Wymaga uwagi",
     "statusCritical": "Krytyczne",
     "statusInfo": "Informacja",
-    "statusUnknown": "Nieznane"
+    "statusUnknown": "Nieznane",
+    "columnCustomerNumber": "Numer klienta"
   },
   "customerDetail": {
     "back": "Powrót do klientów",
@@ -9095,7 +9097,38 @@
       "name": "Nazwa",
       "plan": "Umowa",
       "price_amount": "Cena",
-      "billing_cycle": "Okres rozliczeniowy"
+      "billing_cycle": "Okres rozliczeniowy",
+      "total": "Razem",
+      "private": "Klienci prywatni",
+      "business": "Klienci firmowi",
+      "pools": "Pule licencji",
+      "active_domains": "Aktywne domeny",
+      "purchased_domains": "Kupione domeny",
+      "included_licenses": "Licencje wliczone",
+      "purchased_licenses": "Kupione licencje",
+      "total_licenses": "Licencje razem",
+      "customer_number": "Numer klienta",
+      "customer_type": "Typ klienta",
+      "display_name": "Nazwa",
+      "overdue": "Po terminie",
+      "paid": "Opłacone",
+      "trial": "Okres próbny"
+    },
+    "kidNotApplicable": "Nie dotyczy płatności online",
+    "statuses": {
+      "paid": "Opłacone",
+      "overdue": "Po terminie",
+      "draft": "Wersja robocza",
+      "sent": "Wysłane",
+      "active": "Aktywne",
+      "trial": "Okres próbny",
+      "trialing": "Okres próbny",
+      "pending": "Oczekuje",
+      "cancelled": "Anulowane",
+      "failed": "Niepowodzenie",
+      "company": "Klienci firmowi",
+      "business": "Klienci firmowi",
+      "private": "Klienci prywatni"
     }
   }
 }

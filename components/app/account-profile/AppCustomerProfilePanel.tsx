@@ -25,6 +25,7 @@ import {
 } from "@/lib/app/account-profile/form-styles";
 import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
 import { AccountPersonalEditor } from "./AccountPersonalEditor";
+import { OfficialCustomerNumberValue } from "./OfficialCustomerNumberValue";
 import {
   AccountProfileFormCard,
   AccountProfileFormField,
@@ -258,6 +259,17 @@ export function AppCustomerProfilePanel({
                 <div className="mt-2">
                   <StatusPill label={license.label} icon={license.icon} tone={license.tone} />
                 </div>
+              </AccountProfileFormField>
+              <AccountProfileFormField
+                label={labels.officialCustomerNumber}
+                lockReason={labels.readOnlyReason}
+              >
+                <OfficialCustomerNumberValue
+                  value={view.relationship.officialCustomerNumber.value}
+                  empty={labels.unavailable}
+                  copyLabel={labels.copyCustomerNumber}
+                  copiedLabel={labels.copiedCustomerNumber}
+                />
               </AccountProfileFormField>
               <AccountProfileFormField
                 label={labels.customerReference}

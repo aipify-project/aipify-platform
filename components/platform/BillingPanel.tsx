@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { PlatformLayoutClasses } from "@/lib/design";
-import { classifyAddress, classifyKid } from "@/lib/platform/economy-display";
+import { classifyAddress, presentKid } from "@/lib/platform/economy-display";
 import { createClient } from "@/lib/supabase/client";
 import type { PaymentProfileRow } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
@@ -30,6 +30,7 @@ type BillingPanelProps = {
     pulseLabel: string;
     unavailable: string;
     mustVerify: string;
+    kidNotApplicable: string;
     notRegistered: string;
   };
 };
@@ -139,11 +140,11 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
                       />
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600" title={row.kid_number ?? undefined}>
-                      {classifyKid(row.kid_number) === "present"
-                        ? row.kid_number
-                        : classifyKid(row.kid_number) === "placeholder"
-                          ? labels.mustVerify
-                          : labels.notRegistered}
+                      {presentKid({
+                        kid: row.kid_number,
+                        method: row.provider,
+                        phrases: labels,
+                      })}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {row.billing_email}

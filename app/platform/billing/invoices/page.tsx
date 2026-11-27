@@ -54,6 +54,7 @@ export default async function PlatformBillingInvoicesPage({ searchParams }: Page
         pulseLabel: t("branding.pulseLabel"),
         unavailable: t("platform.economyDisplay.unavailable"),
         mustVerify: t("platform.economyDisplay.mustVerify"),
+        kidNotApplicable: t("platform.economyDisplay.kidNotApplicable"),
         notRegistered: t("platform.economyDisplay.notRegistered"),
         backToCustomer: t("platform.invoices.backToCustomer"),
         filteredEmpty: t("platform.invoices.filteredEmpty"),
