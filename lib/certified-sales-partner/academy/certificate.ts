@@ -285,3 +285,28 @@ export function certificatePdfCopy(locale: Locale): CertificatePdfCopy {
 export function toPdfSafeText(value: string): string {
   return value.normalize("NFC");
 }
+
+/**
+ * Short, deterministic display reference derived from the reversible certificate id.
+ * Full id remains authoritative for verify routes — this is presentation only.
+ */
+export function formatCertificateDisplayRef(certificateId: string): string {
+  const parsed = parseCspCertificateId(certificateId);
+  if (!parsed) {
+    const id = certificateId.trim();
+    if (id.length <= 22) return id;
+    return `${id.slice(0, 10)}…${id.slice(-8)}`;
+  }
+  return `${parsed.productKey} · ${parsed.partnerId.slice(-8)}`;
+}
+
+/** Canonical public origin for partner certificate verification links. */
+export const CSP_CERTIFICATE_PUBLIC_ORIGIN = "https://app.aipify.ai" as const;
+
+/** Full HTTPS verification URL for a certificate verify path or absolute URL. */
+export function buildCertificateVerifyUrl(verifyPathOrUrl: string): string {
+  const value = verifyPathOrUrl.trim();
+  if (/^https:\/\//i.test(value)) return value;
+  const path = value.startsWith("/") ? value : `/${value}`;
+  return `${CSP_CERTIFICATE_PUBLIC_ORIGIN}${path}`;
+}

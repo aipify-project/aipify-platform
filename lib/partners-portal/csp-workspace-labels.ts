@@ -652,6 +652,7 @@ export function buildCspExamLabels(t: Translator): CspExamLabels {
     passedBadge: k("passed"),
     failedBadge: k("failed"),
     score: k("score"),
+    scorePercentOnly: k("scorePercentOnly"),
     passMark: k("passMark"),
     reviewLessons: k("reviewLessons"),
     retake: k("retake"),
