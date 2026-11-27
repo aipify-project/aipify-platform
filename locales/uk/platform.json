@@ -8041,7 +8041,10 @@
       "editorVariantRemove": "Видалити",
       "editorVariantEmpty": "Варіантів ще немає. Додайте варіант з окремою місячною та річною ціною або залиште порожнім для одного продукту.",
       "editorVariantPersistenceNote": "Збереження варіантів потребує Core SQL (підготовлено). Значення лишаються в редакторі до схваленої міграції.",
-      "editorVariantAnnualRenewsMonthly": "Річний план поновлює квоту щомісяця"
+      "editorVariantAnnualRenewsMonthly": "Річний план поновлює квоту щомісяця",
+      "editorModuleBinding": "Програмний модуль APP",
+      "editorModuleReady": "Готовий до меню APP за наявності прав",
+      "editorModuleNotReady": "Ще не готовий до меню"
     },
     "live": {
       "loading": "Завантаження даних продавців",

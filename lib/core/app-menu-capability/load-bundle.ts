@@ -10,6 +10,7 @@ import {
   KOMPIS_BEDRIFT_MODULE_KEY,
   WEBSITE_KOMPIS_MODULE_KEY,
 } from "@/lib/core/access-control-plane/tenant-module-lookup";
+import { userHasCspPartnerAccess } from "@/lib/certified-sales-partner/partner-access";
 import {
   buildFailClosedAppMenuCapabilityBundle,
   resolveAppMenuCapabilityBundle,
@@ -118,9 +119,10 @@ export async function loadAppMenuCapabilityBundle(
     // Job 62: denied → sentinel; enabled → key; missing/error → empty (fail-closed for Web).
     const activeModuleKeys = new Set<string>();
     const tenantId = context.customer_id ?? context.organization_id;
+    let salesPartnerAuthorized = false;
     if (tenantId) {
       try {
-        const [websiteKompis, kompisBedrift] = await Promise.all([
+        const [websiteKompis, kompisBedrift, partnerAccess] = await Promise.all([
           supabase.rpc("is_tenant_module_enabled", {
             p_tenant_id: tenantId,
             p_module_key: WEBSITE_KOMPIS_MODULE_KEY,
@@ -129,11 +131,13 @@ export async function loadAppMenuCapabilityBundle(
             p_tenant_id: tenantId,
             p_module_key: KOMPIS_BEDRIFT_MODULE_KEY,
           }),
+          userHasCspPartnerAccess(supabase, user.id).catch(() => false),
         ]);
         applyTenantModuleLookup(activeModuleKeys, WEBSITE_KOMPIS_MODULE_KEY, websiteKompis);
         applyTenantModuleLookup(activeModuleKeys, KOMPIS_BEDRIFT_MODULE_KEY, kompisBedrift);
+        salesPartnerAuthorized = partnerAccess === true;
       } catch {
-        // Fail closed: leave empty so Web and Bedrift stay hidden.
+        // Fail closed: leave empty so Web and Bedrift stay hidden; partner stays false.
       }
     }
 
@@ -147,6 +151,7 @@ export async function loadAppMenuCapabilityBundle(
       pendingPackKeys,
       revokedPackKeys,
       activeModuleKeys,
+      salesPartnerAuthorized,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message.slice(0, 160) : "capability_load_failed";

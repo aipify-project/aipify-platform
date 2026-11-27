@@ -278,7 +278,15 @@
       "accountIntegrations": "Інтеграції",
       "kompisBedriftConnection": "Підключення та ліцензія",
       "appDashboard": "Головна",
-      "accountProfile": "Відносини з клієнтом"
+      "accountProfile": "Відносини з клієнтом",
+      "workspaceDashboard": "Панель",
+      "softwareStore": "Магазин продуктів",
+      "supportTickets": "Підтримка клієнтів",
+      "salesPartnerOverview": "Огляд",
+      "salesPartnerProducts": "Продукти для продажу",
+      "salesPartnerCustomers": "Мої клієнти",
+      "salesPartnerCommissions": "Продажі та комісія",
+      "salesPartnerAcademy": "Академія та допомога"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -3592,7 +3600,11 @@
       "integrations": "Інтеграції",
       "kompisWeb": "Kompis Web",
       "productsAndSubscription": "Продукти та підписка",
-      "kompisBedrift": "Kompis Бізнес"
+      "kompisBedrift": "Kompis Бізнес",
+      "shared": "Робочий простір",
+      "myProducts": "Мої продукти",
+      "salesPartner": "Sales Partner",
+      "administration": "Адміністрування"
     },
     "executiveCompanion": {
       "title": "Executive Companion",
@@ -7749,6 +7761,67 @@
       "avatarRemoveError": "Не вдалося видалити фото. Спробуйте ще раз.",
       "emailLockedReason": "Зміна електронної пошти відбувається через перевірений вхід.",
       "addCompanyDetails": "Додати дані компанії"
+    },
+    "workspaceDashboard": {
+      "eyebrow": "Робочий простір",
+      "title": "Огляд робочого простору",
+      "description": "Спільний центр керування модулями Aipify, зверненнями підтримки та партнерською активністю.",
+      "lastUpdated": "Останнє оновлення",
+      "notAvailable": "Недоступно",
+      "summaryTitle": "Підсумок",
+      "activeModules": "Активні модулі",
+      "setupModules": "Потрібне налаштування",
+      "openTickets": "Відкриті звернення",
+      "subscriptionStatus": "Підписка",
+      "modulesTitle": "Мої модулі",
+      "modulesDescription": "Модулі, на які ваша організація має права.",
+      "openModule": "Відкрити модуль",
+      "states": {
+        "active": "Активний",
+        "setupRequired": "Потребує налаштування",
+        "pendingApproval": "Очікує схвалення",
+        "temporarilyUnavailable": "Тимчасово недоступний",
+        "expired": "Закінчився",
+        "unknown": "Статус недоступний"
+      },
+      "ticketsTitle": "Мої звернення",
+      "ticketsDescription": "Звернення вашої організації до служби підтримки Aipify.",
+      "ticketOpen": "Відкриті",
+      "ticketWaitingAipify": "Очікує Aipify",
+      "ticketWaitingCustomer": "Очікує вас",
+      "ticketResolved": "Вирішені",
+      "viewAllTickets": "Переглянути всі звернення",
+      "createTicket": "Створити звернення",
+      "ticketsUnavailable": "Огляд звернень ще недоступний.",
+      "ticketsForbidden": "У вас немає доступу до звернень.",
+      "ticketsError": "Не вдалося завантажити звернення. Спробуйте ще раз.",
+      "recentTickets": "Нещодавні звернення",
+      "noRecentTickets": "Немає нещодавніх звернень.",
+      "partnerTitle": "Sales Partner",
+      "partnerDescription": "Ваші зареєстровані продажі та комісії з партнерського порталу.",
+      "partnerSales": "Зареєстровані продажі",
+      "partnerPending": "Комісія в очікуванні",
+      "partnerEarned": "Нарахована комісія",
+      "partnerPayable": "До виплати / розраховано",
+      "openPartner": "Відкрити партнерський портал",
+      "partnerUnavailable": "Партнерський підсумок ще недоступний.",
+      "partnerNotAuthorized": "Доступ Sales Partner не активний для цього облікового запису.",
+      "partnerError": "Не вдалося завантажити партнерський підсумок.",
+      "attentionTitle": "Потребує уваги",
+      "attentionEmpty": "Зараз нічого не потребує уваги.",
+      "attentionModuleSetup": "Модуль потребує налаштування.",
+      "attentionTicketsWaitingCustomer": "Звернення очікує вашої відповіді.",
+      "ticketStatuses": {
+        "new": "Нове",
+        "inProgress": "В обробці",
+        "waitingAipify": "Очікує Aipify",
+        "waitingCustomer": "Очікує вас",
+        "resolved": "Вирішено",
+        "closed": "Закрито",
+        "reopened": "Відкрито знову",
+        "archived": "Архівовано",
+        "unknown": "Невідомий статус"
+      }
     }
   }
 }

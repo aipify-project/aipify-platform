@@ -149,6 +149,19 @@ function resolveOne(
     }
   }
 
+  // Sales Partner nav — partner identity only (approved/active/certified/in_academy).
+  if (capabilityId.startsWith("salesPartner")) {
+    if (ctx.salesPartnerAuthorized !== true) {
+      return {
+        capabilityId,
+        state: "available",
+        visibleInNavigation: false,
+        usable: false,
+        reasonCode: "partner_not_authorized",
+      };
+    }
+  }
+
   if (contract.visibilityPolicy === "catalog_only") {
     return {
       capabilityId,
@@ -200,8 +213,12 @@ export function resolveAppMenuCapabilityBundle(
 /** Fail-closed minimal allowlist when resolver cannot load entitlements. */
 export const FAIL_CLOSED_SAFE_CAPABILITY_IDS = [
   "appDashboard",
+  "workspaceDashboard",
+  "softwareStore",
+  "supportTickets",
   "accountNotifications",
   "accountSubscription",
+  "accountInvoices",
   "accountProfile",
 ] as const;
 

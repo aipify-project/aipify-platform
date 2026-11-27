@@ -14,6 +14,14 @@ export type AppOrganizationRole = (typeof APP_ORGANIZATION_ROLES)[number];
 /** Foundation nav ids (job 58) plus legacy ids retained for deep-link / type compatibility. */
 export type AppPortalNavId =
   | "appDashboard"
+  | "workspaceDashboard"
+  | "softwareStore"
+  | "supportTickets"
+  | "salesPartnerOverview"
+  | "salesPartnerProducts"
+  | "salesPartnerCustomers"
+  | "salesPartnerCommissions"
+  | "salesPartnerAcademy"
   | "kompisWebDashboard"
   | "kompisWebQa"
   | "kompisWebFaq"
@@ -124,8 +132,12 @@ export type AppPortalNavId =
   | "organizationSettings";
 
 export type AppPortalNavGroupId =
+  | "shared"
+  | "myProducts"
   | "kompisWeb"
   | "kompisBedrift"
+  | "salesPartner"
+  | "administration"
   | "account"
   | "home"
   | "organization"
@@ -155,8 +167,8 @@ export type AppPortalNavGroup = {
 };
 
 /**
- * Job 60 — flat product menus (no nested Account group in the sidebar).
- * Shared Faktura/Abonnement items appear in both product order lists.
+ * Unified APP shell — shared workspace + Mine Produkter module groups + administration.
+ * Product-specific flat lists remain for capability contracts and deep-link stability.
  * Integrations & notifications are settings-page cards, not primary nav.
  * Appearance remains a route under Web settings, not a sidebar row.
  */
@@ -175,13 +187,27 @@ const SHARED_ACCOUNT_SUBSCRIPTION: AppPortalNavItem = {
   featureKey: "billing",
 };
 
-/** Exact Kompis Web sidebar order (owner decision). Home first — distinct from product dashboard. */
-export const KOMPIS_WEB_FLAT_NAV: AppPortalNavItem[] = [
+/** Shared workspace rows — Home, total Dashboard, product store. */
+export const SHARED_WORKSPACE_NAV: AppPortalNavItem[] = [
   {
     id: "appDashboard",
     href: FOUNDATION_NAV_BINDINGS.appHome,
     labelKey: "customerApp.portalStructure.nav.appDashboard",
   },
+  {
+    id: "workspaceDashboard",
+    href: FOUNDATION_NAV_BINDINGS.workspaceDashboard,
+    labelKey: "customerApp.portalStructure.nav.workspaceDashboard",
+  },
+  {
+    id: "softwareStore",
+    href: FOUNDATION_NAV_BINDINGS.softwareStore,
+    labelKey: "customerApp.portalStructure.nav.softwareStore",
+  },
+];
+
+/** Kompis Web module children (Mine Produkter) — no shared Home duplicate. */
+export const KOMPIS_WEB_MODULE_NAV: AppPortalNavItem[] = [
   {
     id: "kompisWebDashboard",
     href: FOUNDATION_NAV_BINDINGS.kompisWebDashboard,
@@ -212,19 +238,10 @@ export const KOMPIS_WEB_FLAT_NAV: AppPortalNavItem[] = [
     labelKey: "customerApp.portalStructure.nav.kompisWebSettings",
     moduleKey: "website_kompis",
   },
-  {
-    ...SHARED_ACCOUNT_SUBSCRIPTION,
-    menuBand: "commerce",
-  },
 ];
 
-/** Exact Kompis Bedrift sidebar order (owner decision). Home first — distinct from product dashboard. */
-export const KOMPIS_BEDRIFT_FLAT_NAV: AppPortalNavItem[] = [
-  {
-    id: "appDashboard",
-    href: FOUNDATION_NAV_BINDINGS.appHome,
-    labelKey: "customerApp.portalStructure.nav.appDashboard",
-  },
+/** Kompis Bedrift module children (Mine Produkter). */
+export const KOMPIS_BEDRIFT_MODULE_NAV: AppPortalNavItem[] = [
   {
     id: "kompisBedriftDashboard",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard,
@@ -268,10 +285,6 @@ export const KOMPIS_BEDRIFT_FLAT_NAV: AppPortalNavItem[] = [
     moduleKey: "kompis_bedrift",
   },
   {
-    ...SHARED_ACCOUNT_SUBSCRIPTION,
-    menuBand: "commerce",
-  },
-  {
     id: "kompisBedriftConnection",
     href: FOUNDATION_NAV_BINDINGS.kompisBedriftConnection,
     labelKey: "customerApp.portalStructure.nav.kompisBedriftConnection",
@@ -286,22 +299,114 @@ export const KOMPIS_BEDRIFT_FLAT_NAV: AppPortalNavItem[] = [
 ];
 
 /**
- * Capability contract source — product groups only (no Account sidebar group).
- * Shared invoice/subscription items are listed once per product for order;
+ * Sales Partner module children — only when partner identity is authorized.
+ * Routes point at the existing Partners portal (no parallel sales app).
+ */
+export const SALES_PARTNER_MODULE_NAV: AppPortalNavItem[] = [
+  {
+    id: "salesPartnerOverview",
+    href: FOUNDATION_NAV_BINDINGS.salesPartnerOverview,
+    labelKey: "customerApp.portalStructure.nav.salesPartnerOverview",
+  },
+  {
+    id: "salesPartnerProducts",
+    href: FOUNDATION_NAV_BINDINGS.salesPartnerProducts,
+    labelKey: "customerApp.portalStructure.nav.salesPartnerProducts",
+  },
+  {
+    id: "salesPartnerCustomers",
+    href: FOUNDATION_NAV_BINDINGS.salesPartnerCustomers,
+    labelKey: "customerApp.portalStructure.nav.salesPartnerCustomers",
+  },
+  {
+    id: "salesPartnerCommissions",
+    href: FOUNDATION_NAV_BINDINGS.salesPartnerCommissions,
+    labelKey: "customerApp.portalStructure.nav.salesPartnerCommissions",
+  },
+  {
+    id: "salesPartnerAcademy",
+    href: FOUNDATION_NAV_BINDINGS.salesPartnerAcademy,
+    labelKey: "customerApp.portalStructure.nav.salesPartnerAcademy",
+  },
+];
+
+/** Shared administration — subscription, invoices, tickets, account. */
+export const ADMINISTRATION_NAV: AppPortalNavItem[] = [
+  SHARED_ACCOUNT_SUBSCRIPTION,
+  SHARED_ACCOUNT_INVOICES,
+  {
+    id: "supportTickets",
+    href: FOUNDATION_NAV_BINDINGS.supportTickets,
+    labelKey: "customerApp.portalStructure.nav.supportTickets",
+  },
+  {
+    id: "accountProfile",
+    href: FOUNDATION_NAV_BINDINGS.accountProfile,
+    labelKey: "customerApp.portalStructure.nav.accountProfile",
+  },
+];
+
+/**
+ * Legacy flat product menus (Job 60 order) — retained for capability contracts /
+ * activeProduct presentation helpers. Unified shell uses module nav + shared groups.
+ */
+export const KOMPIS_WEB_FLAT_NAV: AppPortalNavItem[] = [
+  SHARED_WORKSPACE_NAV[0]!,
+  ...KOMPIS_WEB_MODULE_NAV,
+  {
+    ...SHARED_ACCOUNT_SUBSCRIPTION,
+    menuBand: "commerce",
+  },
+];
+
+export const KOMPIS_BEDRIFT_FLAT_NAV: AppPortalNavItem[] = [
+  SHARED_WORKSPACE_NAV[0]!,
+  ...KOMPIS_BEDRIFT_MODULE_NAV.filter(
+    (item) => item.id !== "kompisBedriftConnection" && item.id !== "kompisBedriftSettings"
+  ),
+  {
+    ...SHARED_ACCOUNT_SUBSCRIPTION,
+    menuBand: "commerce",
+  },
+  ...KOMPIS_BEDRIFT_MODULE_NAV.filter(
+    (item) => item.id === "kompisBedriftConnection" || item.id === "kompisBedriftSettings"
+  ),
+];
+
+/**
+ * Capability contract source — shared + module + administration groups.
  * `buildCanonicalNavContracts` de-duplicates by id.
  */
 export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
   {
+    id: "shared",
+    labelKey: "customerApp.portalStructure.navGroups.shared",
+    defaultExpanded: true,
+    items: SHARED_WORKSPACE_NAV,
+  },
+  {
     id: "kompisWeb",
     labelKey: "customerApp.portalStructure.navGroups.kompisWeb",
     defaultExpanded: true,
-    items: KOMPIS_WEB_FLAT_NAV,
+    items: KOMPIS_WEB_MODULE_NAV,
   },
   {
     id: "kompisBedrift",
     labelKey: "customerApp.portalStructure.navGroups.kompisBedrift",
     defaultExpanded: true,
-    items: KOMPIS_BEDRIFT_FLAT_NAV,
+    items: KOMPIS_BEDRIFT_MODULE_NAV,
+  },
+  {
+    id: "salesPartner",
+    labelKey: "customerApp.portalStructure.navGroups.salesPartner",
+    defaultExpanded: false,
+    items: SALES_PARTNER_MODULE_NAV,
+  },
+  {
+    id: "administration",
+    labelKey: "customerApp.portalStructure.navGroups.administration",
+    defaultExpanded: true,
+    items: ADMINISTRATION_NAV,
   },
 ];
 
@@ -339,8 +444,11 @@ export const APP_PORTAL_NAV: AppPortalNavItem[] = (() => {
   const seen = new Set<string>();
   const items: AppPortalNavItem[] = [];
   for (const item of [
-    ...KOMPIS_WEB_FLAT_NAV,
-    ...KOMPIS_BEDRIFT_FLAT_NAV,
+    ...SHARED_WORKSPACE_NAV,
+    ...KOMPIS_WEB_MODULE_NAV,
+    ...KOMPIS_BEDRIFT_MODULE_NAV,
+    ...SALES_PARTNER_MODULE_NAV,
+    ...ADMINISTRATION_NAV,
     ...APP_SETTINGS_SURFACE_ITEMS,
   ]) {
     if (seen.has(item.id)) continue;
@@ -352,6 +460,24 @@ export const APP_PORTAL_NAV: AppPortalNavItem[] = (() => {
 
 export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   // Most-specific foundation routes first (canonical hubs + legacy deep links).
+  if (pathname === "/app/dashboard" || pathname.startsWith("/app/dashboard/")) {
+    return "workspaceDashboard";
+  }
+  if (pathname.startsWith("/app/explore")) {
+    return "softwareStore";
+  }
+  if (pathname.startsWith("/app/support/requests") || pathname.startsWith("/app/support/history")) {
+    return "supportTickets";
+  }
+  if (pathname.startsWith("/partners/academy")) return "salesPartnerAcademy";
+  if (pathname.startsWith("/partners/business-continuity/commission")) {
+    return "salesPartnerCommissions";
+  }
+  if (pathname.startsWith("/partners/customers")) return "salesPartnerCustomers";
+  if (pathname.startsWith("/partners/marketing/product-catalog")) {
+    return "salesPartnerProducts";
+  }
+  if (pathname === "/partners" || pathname === "/partners/") return "salesPartnerOverview";
   if (
     pathname === "/app/profile" ||
     pathname.startsWith("/app/profile/") ||

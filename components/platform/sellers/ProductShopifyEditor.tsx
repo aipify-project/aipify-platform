@@ -16,6 +16,7 @@ import {
 } from "@/components/platform/sellers/ProductVariantBuilder";
 import type { ProductVariantDefinition } from "@/lib/product-catalog/variants";
 import { variantsForProduct } from "@/lib/product-catalog/merge";
+import { resolveProductModuleBinding } from "@/lib/product-catalog/module-binding";
 
 export type ProductEditorMode = "create" | "edit";
 
@@ -50,6 +51,9 @@ export type ProductShopifyEditorLabels = SellersActionLabels & {
   organizationTitle: string;
   productType: string;
   advancedSku: string;
+  moduleBinding: string;
+  moduleReady: string;
+  moduleNotReady: string;
   languageTitle: string;
   languageHint: string;
   previewSecondary: string;
@@ -516,6 +520,20 @@ export function ProductShopifyEditor({
               </span>
               {productType || category || "—"}
             </p>
+            {(() => {
+              const binding = resolveProductModuleBinding(productKey);
+              if (!binding.moduleKey) return null;
+              return (
+                <p className="mt-3 text-sm text-[color:var(--aipify-text-secondary)]">
+                  <span className="font-medium text-[color:var(--aipify-text-primary)]">
+                    {labels.moduleBinding}:{" "}
+                  </span>
+                  <span className="font-mono text-xs">{binding.moduleKey}</span>
+                  {" · "}
+                  {binding.appMenuEligible ? labels.moduleReady : labels.moduleNotReady}
+                </p>
+              );
+            })()}
           </EditorCard>
 
           <EditorCard title={labels.languageTitle}>

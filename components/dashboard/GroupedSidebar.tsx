@@ -106,7 +106,7 @@ function createStorageHelpers(mode: "customer" | "platform") {
     fixedGroupIds:
       mode === "platform"
         ? ([...PLATFORM_FIXED_NAV_GROUPS] as string[])
-        : (["home"] as string[]),
+        : (["home", "shared"] as string[]),
   };
 }
 

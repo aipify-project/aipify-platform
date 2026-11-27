@@ -15,7 +15,11 @@
       "integrations": "Integrations",
       "kompisWeb": "Kompis Web",
       "productsAndSubscription": "Products and subscription",
-      "kompisBedrift": "Kompis Bedrift"
+      "kompisBedrift": "Kompis Bedrift",
+      "shared": "Workspace",
+      "myProducts": "My products",
+      "salesPartner": "Sales Partner",
+      "administration": "Administration"
     },
     "nav": {
       "dashboard": "Dashboard",
@@ -131,7 +135,15 @@
       "accountIntegrations": "Integrations",
       "kompisBedriftConnection": "Connection and license",
       "appDashboard": "Home",
-      "accountProfile": "Account"
+      "accountProfile": "Account",
+      "workspaceDashboard": "Dashboard",
+      "softwareStore": "Product store",
+      "supportTickets": "Customer service",
+      "salesPartnerOverview": "Overview",
+      "salesPartnerProducts": "Sales products",
+      "salesPartnerCustomers": "My customers",
+      "salesPartnerCommissions": "Sales and commission",
+      "salesPartnerAcademy": "Academy and help"
     },
     "dashboard": {
       "title": "APP Dashboard",
@@ -8734,6 +8746,67 @@
       "avatarRemoveError": "Could not remove the photo. Please try again.",
       "emailLockedReason": "Email changes follow the verified sign-in flow.",
       "addCompanyDetails": "Add company details"
+    },
+    "workspaceDashboard": {
+      "eyebrow": "Workspace",
+      "title": "Overview of your workspace",
+      "description": "A shared control center for your Aipify modules, support cases, and partner activity.",
+      "lastUpdated": "Last updated",
+      "notAvailable": "Not available",
+      "summaryTitle": "Summary",
+      "activeModules": "Active modules",
+      "setupModules": "Need setup",
+      "openTickets": "Open cases",
+      "subscriptionStatus": "Subscription",
+      "modulesTitle": "My modules",
+      "modulesDescription": "Modules you are entitled to use in this organization.",
+      "openModule": "Open module",
+      "states": {
+        "active": "Active",
+        "setupRequired": "Requires setup",
+        "pendingApproval": "Pending approval",
+        "temporarilyUnavailable": "Temporarily unavailable",
+        "expired": "Expired",
+        "unknown": "Status unavailable"
+      },
+      "ticketsTitle": "My support cases",
+      "ticketsDescription": "Cases for your organization with Aipify Customer Service.",
+      "ticketOpen": "Open",
+      "ticketWaitingAipify": "Waiting for Aipify",
+      "ticketWaitingCustomer": "Waiting for you",
+      "ticketResolved": "Resolved",
+      "viewAllTickets": "View all cases",
+      "createTicket": "Create case",
+      "ticketsUnavailable": "Case overview is not available yet.",
+      "ticketsForbidden": "You do not have access to support cases.",
+      "ticketsError": "Support cases could not be loaded. Please try again.",
+      "recentTickets": "Recent cases",
+      "noRecentTickets": "No recent cases.",
+      "partnerTitle": "Sales Partner",
+      "partnerDescription": "Your registered sales and commission summary from the partner portal.",
+      "partnerSales": "Registered sales",
+      "partnerPending": "Pending commission",
+      "partnerEarned": "Earned commission",
+      "partnerPayable": "Payable / settled",
+      "openPartner": "Open partner portal",
+      "partnerUnavailable": "Partner summary is not available yet.",
+      "partnerNotAuthorized": "Sales Partner access is not active for this account.",
+      "partnerError": "Partner summary could not be loaded.",
+      "attentionTitle": "Needs attention",
+      "attentionEmpty": "Nothing needs attention right now.",
+      "attentionModuleSetup": "A module requires setup.",
+      "attentionTicketsWaitingCustomer": "A support case is waiting for your reply.",
+      "ticketStatuses": {
+        "new": "New",
+        "inProgress": "In progress",
+        "waitingAipify": "Waiting for Aipify",
+        "waitingCustomer": "Waiting for you",
+        "resolved": "Resolved",
+        "closed": "Closed",
+        "reopened": "Reopened",
+        "archived": "Archived",
+        "unknown": "Unknown status"
+      }
     }
   }
 }

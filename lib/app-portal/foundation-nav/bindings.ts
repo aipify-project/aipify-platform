@@ -5,6 +5,15 @@
 
 export const FOUNDATION_NAV_BINDINGS = {
   appHome: "/app",
+  /** Shared workspace control center (all entitled modules + tickets). */
+  workspaceDashboard: "/app/dashboard",
+  softwareStore: "/app/explore",
+  supportTickets: "/app/support/requests",
+  salesPartnerOverview: "/partners",
+  salesPartnerProducts: "/partners/marketing/product-catalog",
+  salesPartnerCustomers: "/partners/customers",
+  salesPartnerCommissions: "/partners/business-continuity/commission",
+  salesPartnerAcademy: "/partners/academy",
   kompisWebDashboard: "/app/website-kompis",
   kompisWebQa: "/app/website-kompis/feedback",
   kompisWebFaq: "/app/website-kompis/faq",

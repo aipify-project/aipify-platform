@@ -40,4 +40,6 @@ export type AppMenuCapabilityLoadContext = {
   pendingPackKeys: Set<string>;
   revokedPackKeys: Set<string>;
   activeModuleKeys: Set<string>;
+  /** Server-verified CSP partner portal access — never client-supplied. */
+  salesPartnerAuthorized?: boolean;
 };

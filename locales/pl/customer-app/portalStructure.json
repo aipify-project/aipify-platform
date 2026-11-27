@@ -278,7 +278,15 @@
       "accountIntegrations": "Integracje",
       "kompisBedriftConnection": "Połączenie i licencja",
       "appDashboard": "Start",
-      "accountProfile": "Relacja z klientem"
+      "accountProfile": "Relacja z klientem",
+      "workspaceDashboard": "Panel",
+      "softwareStore": "Sklep produktów",
+      "supportTickets": "Obsługa klienta",
+      "salesPartnerOverview": "Przegląd",
+      "salesPartnerProducts": "Produkty sprzedażowe",
+      "salesPartnerCustomers": "Moi klienci",
+      "salesPartnerCommissions": "Sprzedaż i prowizja",
+      "salesPartnerAcademy": "Akademia i pomoc"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -3592,7 +3600,11 @@
       "integrations": "Integracje",
       "kompisWeb": "Kompis Web",
       "productsAndSubscription": "Produkty i subskrypcja",
-      "kompisBedrift": "Kompis Firma"
+      "kompisBedrift": "Kompis Firma",
+      "shared": "Obszar roboczy",
+      "myProducts": "Moje produkty",
+      "salesPartner": "Sales Partner",
+      "administration": "Administracja"
     },
     "executiveCompanion": {
       "title": "Executive Companion",
@@ -7749,6 +7761,67 @@
       "avatarRemoveError": "Nie udało się usunąć zdjęcia. Spróbuj ponownie.",
       "emailLockedReason": "Zmiana e-maila odbywa się w zweryfikowanym procesie logowania.",
       "addCompanyDetails": "Dodaj dane firmy"
+    },
+    "workspaceDashboard": {
+      "eyebrow": "Obszar roboczy",
+      "title": "Przegląd obszaru roboczego",
+      "description": "Wspólne centrum kontroli modułów Aipify, spraw wsparcia i aktywności partnerskiej.",
+      "lastUpdated": "Ostatnia aktualizacja",
+      "notAvailable": "Niedostępne",
+      "summaryTitle": "Podsumowanie",
+      "activeModules": "Aktywne moduły",
+      "setupModules": "Wymagają konfiguracji",
+      "openTickets": "Otwarte sprawy",
+      "subscriptionStatus": "Subskrypcja",
+      "modulesTitle": "Moje moduły",
+      "modulesDescription": "Moduły, do których organizacja ma uprawnienia.",
+      "openModule": "Otwórz moduł",
+      "states": {
+        "active": "Aktywny",
+        "setupRequired": "Wymaga konfiguracji",
+        "pendingApproval": "Oczekuje na zatwierdzenie",
+        "temporarilyUnavailable": "Tymczasowo niedostępny",
+        "expired": "Wygasły",
+        "unknown": "Status niedostępny"
+      },
+      "ticketsTitle": "Moje sprawy wsparcia",
+      "ticketsDescription": "Sprawy Twojej organizacji w Aipify Customer Service.",
+      "ticketOpen": "Otwarte",
+      "ticketWaitingAipify": "Oczekuje na Aipify",
+      "ticketWaitingCustomer": "Oczekuje na Ciebie",
+      "ticketResolved": "Rozwiązane",
+      "viewAllTickets": "Zobacz wszystkie sprawy",
+      "createTicket": "Utwórz sprawę",
+      "ticketsUnavailable": "Przegląd spraw nie jest jeszcze dostępny.",
+      "ticketsForbidden": "Nie masz dostępu do spraw wsparcia.",
+      "ticketsError": "Nie udało się wczytać spraw wsparcia. Spróbuj ponownie.",
+      "recentTickets": "Ostatnie sprawy",
+      "noRecentTickets": "Brak ostatnich spraw.",
+      "partnerTitle": "Sales Partner",
+      "partnerDescription": "Zarejestrowana sprzedaż i prowizja z portalu partnerskiego.",
+      "partnerSales": "Zarejestrowana sprzedaż",
+      "partnerPending": "Oczekująca prowizja",
+      "partnerEarned": "Naliczona prowizja",
+      "partnerPayable": "Do wypłaty / rozliczone",
+      "openPartner": "Otwórz portal partnerski",
+      "partnerUnavailable": "Podsumowanie partnerskie nie jest jeszcze dostępne.",
+      "partnerNotAuthorized": "Dostęp Sales Partner nie jest aktywny dla tego konta.",
+      "partnerError": "Nie udało się wczytać podsumowania partnerskiego.",
+      "attentionTitle": "Wymaga uwagi",
+      "attentionEmpty": "Nic nie wymaga uwagi w tej chwili.",
+      "attentionModuleSetup": "Moduł wymaga konfiguracji.",
+      "attentionTicketsWaitingCustomer": "Sprawa wsparcia oczekuje na Twoją odpowiedź.",
+      "ticketStatuses": {
+        "new": "Nowa",
+        "inProgress": "W trakcie",
+        "waitingAipify": "Oczekuje na Aipify",
+        "waitingCustomer": "Oczekuje na Ciebie",
+        "resolved": "Rozwiązana",
+        "closed": "Zamknięta",
+        "reopened": "Ponownie otwarta",
+        "archived": "Zarchiwizowana",
+        "unknown": "Nieznany status"
+      }
     }
   }
 }

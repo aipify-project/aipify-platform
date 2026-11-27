@@ -15,7 +15,11 @@
       "integrations": "Integrationer",
       "kompisWeb": "Kompis Web",
       "productsAndSubscription": "Produkter och abonnemang",
-      "kompisBedrift": "Kompis Företag"
+      "kompisBedrift": "Kompis Företag",
+      "shared": "Arbetsyta",
+      "myProducts": "Mina produkter",
+      "salesPartner": "Sales Partner",
+      "administration": "Administration"
     },
     "nav": {
       "dashboard": "Dashboard",
@@ -131,7 +135,15 @@
       "accountIntegrations": "Integrationer",
       "kompisBedriftConnection": "Anslutning/licens",
       "appDashboard": "Hem",
-      "accountProfile": "Kundrelation"
+      "accountProfile": "Kundrelation",
+      "workspaceDashboard": "Dashboard",
+      "softwareStore": "Produktbutik",
+      "supportTickets": "Kundservice",
+      "salesPartnerOverview": "Overview",
+      "salesPartnerProducts": "Sales products",
+      "salesPartnerCustomers": "Mina kunder",
+      "salesPartnerCommissions": "Försäljning och provision",
+      "salesPartnerAcademy": "Akademi och hjälp"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -8810,6 +8822,67 @@
       "avatarRemoveError": "Kunde inte ta bort fotot. Försök igen.",
       "emailLockedReason": "E-poständringar följer den verifierade inloggningsflödet.",
       "addCompanyDetails": "Lägg till företagsuppgifter"
+    },
+    "workspaceDashboard": {
+      "eyebrow": "Arbetsyta",
+      "title": "Översikt över arbetsytan",
+      "description": "Ett gemensamt kontrollcenter för dina Aipify-moduler, supportärenden och partneraktivitet.",
+      "lastUpdated": "Senast uppdaterad",
+      "notAvailable": "Inte tillgängligt",
+      "summaryTitle": "Sammanfattning",
+      "activeModules": "Aktiva moduler",
+      "setupModules": "Behöver installation",
+      "openTickets": "Öppna ärenden",
+      "subscriptionStatus": "Prenumeration",
+      "modulesTitle": "Mina moduler",
+      "modulesDescription": "Moduler din organisation har rätt att använda.",
+      "openModule": "Öppna modul",
+      "states": {
+        "active": "Aktiv",
+        "setupRequired": "Kräver installation",
+        "pendingApproval": "Väntar på godkännande",
+        "temporarilyUnavailable": "Tillfälligt otillgänglig",
+        "expired": "Utgången",
+        "unknown": "Status otillgänglig"
+      },
+      "ticketsTitle": "Mina supportärenden",
+      "ticketsDescription": "Ärenden för din organisation hos Aipify Kundservice.",
+      "ticketOpen": "Öppna",
+      "ticketWaitingAipify": "Väntar på Aipify",
+      "ticketWaitingCustomer": "Väntar på dig",
+      "ticketResolved": "Lösta",
+      "viewAllTickets": "Visa alla ärenden",
+      "createTicket": "Skapa ärende",
+      "ticketsUnavailable": "Ärendeöversikt är inte tillgänglig ännu.",
+      "ticketsForbidden": "Du har inte åtkomst till supportärenden.",
+      "ticketsError": "Supportärenden kunde inte laddas. Försök igen.",
+      "recentTickets": "Senaste ärenden",
+      "noRecentTickets": "Inga senaste ärenden.",
+      "partnerTitle": "Sales Partner",
+      "partnerDescription": "Din registrerade försäljning och provisionssammanfattning från partnerportalen.",
+      "partnerSales": "Registrerad försäljning",
+      "partnerPending": "Väntande provision",
+      "partnerEarned": "Intjänad provision",
+      "partnerPayable": "Att betala ut / reglerat",
+      "openPartner": "Öppna partnerportal",
+      "partnerUnavailable": "Partnersammanfattning är inte tillgänglig ännu.",
+      "partnerNotAuthorized": "Sales Partner-åtkomst är inte aktiv för det här kontot.",
+      "partnerError": "Partnersammanfattning kunde inte laddas.",
+      "attentionTitle": "Kräver uppmärksamhet",
+      "attentionEmpty": "Inget kräver uppmärksamhet just nu.",
+      "attentionModuleSetup": "En modul kräver installation.",
+      "attentionTicketsWaitingCustomer": "Ett supportärende väntar på ditt svar.",
+      "ticketStatuses": {
+        "new": "Ny",
+        "inProgress": "Under behandling",
+        "waitingAipify": "Väntar på Aipify",
+        "waitingCustomer": "Väntar på dig",
+        "resolved": "Löst",
+        "closed": "Stängd",
+        "reopened": "Återöppnad",
+        "archived": "Arkiverad",
+        "unknown": "Okänd status"
+      }
     }
   }
 }

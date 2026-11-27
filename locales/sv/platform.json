@@ -8041,7 +8041,10 @@
       "editorVariantRemove": "Ta bort",
       "editorVariantEmpty": "Inga varianter ännu. Lägg till en variant med separat månads- och årspris, eller lämna tomt för en enda produkt.",
       "editorVariantPersistenceNote": "Variantlagring kräver Core SQL (förberedd). Värdena stannar i editorn tills ägargodkänd migrering är tillämpad.",
-      "editorVariantAnnualRenewsMonthly": "Årsplan förnyar kvot månadsvis"
+      "editorVariantAnnualRenewsMonthly": "Årsplan förnyar kvot månadsvis",
+      "editorModuleBinding": "APP-programvarumodul",
+      "editorModuleReady": "Redo för APP-meny när behörighet är aktiv",
+      "editorModuleNotReady": "Inte menyklar ännu"
     },
     "live": {
       "loading": "Läser in säljardata",

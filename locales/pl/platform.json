@@ -8041,7 +8041,10 @@
       "editorVariantRemove": "Usuń",
       "editorVariantEmpty": "Brak wariantów. Dodaj wariant z osobną ceną miesięczną i roczną albo zostaw puste dla jednego produktu.",
       "editorVariantPersistenceNote": "Przechowywanie wariantów wymaga Core SQL (przygotowane). Wartości pozostają w edytorze do zatwierdzonej migracji.",
-      "editorVariantAnnualRenewsMonthly": "Plan roczny odnawia limit co miesiąc"
+      "editorVariantAnnualRenewsMonthly": "Plan roczny odnawia limit co miesiąc",
+      "editorModuleBinding": "Moduł oprogramowania APP",
+      "editorModuleReady": "Gotowy do menu APP przy uprawnieniu",
+      "editorModuleNotReady": "Jeszcze nie gotowy do menu"
     },
     "live": {
       "loading": "Ładowanie danych sprzedawców",

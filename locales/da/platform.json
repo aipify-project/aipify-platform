@@ -7515,7 +7515,10 @@
       "editorVariantRemove": "Fjern",
       "editorVariantEmpty": "Ingen varianter endnu. Tilføj en variant med separat måneds- og årspris, eller lad stå tom for ét produkt.",
       "editorVariantPersistenceNote": "Variantlagring kræver Core SQL (forberedt). Værdierne bliver i editoren, indtil ejergodkendt migrering er anvendt.",
-      "editorVariantAnnualRenewsMonthly": "Årsplan fornyer kvote månedligt"
+      "editorVariantAnnualRenewsMonthly": "Årsplan fornyer kvote månedligt",
+      "editorModuleBinding": "APP-softwaremodul",
+      "editorModuleReady": "Klar til APP-menu når rettighed er aktiv",
+      "editorModuleNotReady": "Ikke menuklar endnu"
     },
     "live": {
       "loading": "Indlæser sælgerdata",
