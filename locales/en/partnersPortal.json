@@ -623,7 +623,10 @@
       "takeTraining": "Take training",
       "trainingNotPublished": "Training not published yet",
       "empty": "No products in this category.",
-      "shareMarketing": "Share"
+      "shareMarketing": "Share",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "annualQuotaNote": "Annual billing still renews the quota each month."
     },
     "overview": {
       "title": "Your partner overview",

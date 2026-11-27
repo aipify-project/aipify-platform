@@ -1251,7 +1251,15 @@
       "contactAipify": "Kontakt z Aipify",
       "notForPurchase": "Jeszcze niedostępne do zakupu",
       "plannedPriceNote": "Planowana cena klienta od {price} — nie jest to oferta zakupu na żywo.",
-      "coreChannelPending": "Publikacja APP z Core nie jest jeszcze podłączona. Wyświetlane produkty mogą używać tymczasowego fallbacku rejestru i są wyraźnie oznaczone — to nie jest aktywna flaga publikacji APP w Core."
+      "coreChannelPending": "Publikacja APP z Core nie jest jeszcze podłączona. Wyświetlane produkty mogą używać tymczasowego fallbacku rejestru i są wyraźnie oznaczone — to nie jest aktywna flaga publikacji APP w Core.",
+      "mostPopular": "Najpopularniejszy",
+      "monthly": "Miesięcznie",
+      "yearly": "Rocznie",
+      "fromPrice": "Od {price}",
+      "annualQuotaNote": "Roczna płatność nadal odnawia limit co miesiąc.",
+      "featuresHeading": "W zestawie",
+      "closeDetails": "Zamknij",
+      "vatUnknown": "Wyświetlanie VAT nie jest jeszcze ustalone."
     },
     "modules": {
       "title": "Moduły dodatkowe",

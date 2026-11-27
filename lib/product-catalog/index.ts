@@ -4,6 +4,7 @@ export {
   buildUnifiedCatalog,
   filterAppStoreProducts,
   filterSalesCatalogProducts,
+  variantsForProduct,
   type AppEntitlementHint,
   type CoreSalesProductRow,
 } from "./merge";
@@ -19,6 +20,22 @@ export {
   PERCENT_COMMISSION_STATUS,
   isPercentCommissionActivatable,
 } from "./percent-commission-contract";
+export {
+  percentCommissionRuntimeGate,
+  qualifyFixedCommission,
+  qualifyPercentCommission,
+} from "./commission-rules";
+export {
+  isVariantIntervalPurchasable,
+  resolveAppCheckoutCta,
+} from "./checkout-readiness";
+export {
+  formatVariantQuotaLabel,
+  priceForInterval,
+  type ProductBillingInterval,
+  type ProductVariantDefinition,
+  type ProductVariantPrice,
+} from "./variants";
 export { CANONICAL_PRODUCT_REGISTRY, getCanonicalProduct } from "./registry";
 export type {
   CanonicalProductDefinition,

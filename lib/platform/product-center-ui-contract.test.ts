@@ -21,6 +21,18 @@ test("Shopify product editor exists with sticky save and channel picker", () => 
   assert.match(editor, /Publishing channels|channelsCardTitle|channelApp/);
   assert.match(editor, /statusActive|statusDraft|statusUnlisted/);
   assert.match(editor, /lg:grid-cols-\[minmax\(0,2fr\)_minmax\(16rem,1fr\)\]/);
+  assert.match(editor, /ProductVariantBuilder/);
+  assert.match(editor, /variants_json|variantsForProduct/);
+});
+
+test("premium catalog card and variant SQL candidate are prepared", () => {
+  const card = read("components/shared/product-catalog/PremiumProductCatalogCard.tsx");
+  assert.match(card, /data-catalog-mode/);
+  assert.match(card, /resolveAppCheckoutCta/);
+  assert.doesNotMatch(card, /Stripe Checkout Session/i);
+  const sql = read("docs/platform/sql-candidates/csp_product_variants_billing_v1.sql");
+  assert.match(sql, /PREPARED_ONLY/);
+  assert.match(sql, /csp_product_variants/);
 });
 
 test("create and edit product pages are routed separately from the list", () => {

@@ -33,6 +33,9 @@ export const PRODUCT_CATALOG_FIELD_OWNERSHIP = {
   mediaPathsPersisted: "core_channel_sql_pending",
   entitlementActive: "tenant_entitlement",
   customerPrice: "planned_catalog_reference",
+  /** Planned catalog until Core `csp_product_variants` SQL is applied. */
+  variants: "planned_catalog_reference",
+  variantPrices: "planned_catalog_reference",
   checkoutLive: "blocked_needs_owner_contract",
   percentCommission: "blocked_needs_owner_contract",
 } as const satisfies Record<string, ProductCatalogFieldOwner>;

@@ -913,7 +913,15 @@
       "contactAipify": "Contact Aipify",
       "notForPurchase": "Not available for purchase yet",
       "plannedPriceNote": "Planned customer price from {price} — not a live checkout offer.",
-      "coreChannelPending": "APP publication from Core is not connected yet. Listed products may use a temporary registry fallback and are clearly marked — not a live Core APP publish flag."
+      "coreChannelPending": "APP publication from Core is not connected yet. Listed products may use a temporary registry fallback and are clearly marked — not a live Core APP publish flag.",
+      "mostPopular": "Most popular",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "fromPrice": "From {price}",
+      "annualQuotaNote": "Annual billing still renews the quota each month.",
+      "featuresHeading": "Included",
+      "closeDetails": "Close",
+      "vatUnknown": "VAT display is not decided yet."
     },
     "modules": {
       "title": "Add-on modules",

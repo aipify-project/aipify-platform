@@ -70,5 +70,13 @@ export function buildSoftwareShowcaseLabels(t: Translator) {
     notForPurchase: t(`${SHOW}.notForPurchase`),
     plannedPriceNote: t(`${SHOW}.plannedPriceNote`),
     coreChannelPending: t(`${SHOW}.coreChannelPending`),
+    mostPopular: t(`${SHOW}.mostPopular`),
+    monthly: t(`${SHOW}.monthly`),
+    yearly: t(`${SHOW}.yearly`),
+    fromPrice: t(`${SHOW}.fromPrice`),
+    annualQuotaNote: t(`${SHOW}.annualQuotaNote`),
+    featuresHeading: t(`${SHOW}.featuresHeading`),
+    closeDetails: t(`${SHOW}.closeDetails`),
+    vatUnknown: t(`${SHOW}.vatUnknown`),
   };
 }

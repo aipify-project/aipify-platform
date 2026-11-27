@@ -499,7 +499,10 @@
       "takeTraining": "Пройти навчання",
       "trainingNotPublished": "Навчання ще не опубліковано",
       "empty": "У цій категорії немає продуктів.",
-      "shareMarketing": "Поділитися"
+      "shareMarketing": "Поділитися",
+      "monthly": "Щомісяця",
+      "yearly": "Щорічно",
+      "annualQuotaNote": "Річна оплата все одно поновлює квоту щомісяця."
     },
     "overview": {
       "title": "Ваш огляд партнера",

@@ -623,7 +623,10 @@
       "takeTraining": "Ta opplæring",
       "trainingNotPublished": "Opplæring er ikke publisert ennå",
       "empty": "Ingen produkter i denne kategorien.",
-      "shareMarketing": "Del"
+      "shareMarketing": "Del",
+      "monthly": "Månedlig",
+      "yearly": "Årlig",
+      "annualQuotaNote": "Årlig betaling fornyer fortsatt kvoten hver måned."
     },
     "overview": {
       "title": "Din partneroversikt",
