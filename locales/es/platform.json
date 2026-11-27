@@ -1208,7 +1208,10 @@
       "editorVariantRemove": "Eliminar",
       "editorVariantEmpty": "Aún no hay variantes. Añade una variante con precio mensual y anual separados, o déjalo vacío para un solo producto.",
       "editorVariantPersistenceNote": "El almacenamiento de variantes requiere Core SQL (preparado). Los valores permanecen en el editor hasta la migración aprobada.",
-      "editorVariantAnnualRenewsMonthly": "El plan anual renueva la cuota mensualmente"
+      "editorVariantAnnualRenewsMonthly": "El plan anual renueva la cuota mensualmente",
+      "editorModuleBinding": "Módulo de software APP",
+      "editorModuleReady": "Listo para el menú APP con derecho activo",
+      "editorModuleNotReady": "Aún no listo para el menú"
     },
     "live": {
       "loading": "Cargando datos de vendedores",

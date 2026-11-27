@@ -390,8 +390,15 @@ function DashboardShellFrame({
     [navConfig]
   );
 
+  /**
+   * Unified APP shell uses GroupedSidebar (shared + Mine Produkter + administration).
+   * Flat product sidebar is retained only when a single synthetic product group is presented.
+   */
   const useFlatProductSidebar =
-    shellVariant === "customer" && pathname.startsWith("/app") && Boolean(productContext);
+    shellVariant === "customer" &&
+    pathname.startsWith("/app") &&
+    Boolean(productContext) &&
+    (navGroups?.length ?? 0) <= 1;
 
   const profileName =
     customerContext?.profile?.user.full_name ??

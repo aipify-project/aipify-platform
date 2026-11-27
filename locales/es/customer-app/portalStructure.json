@@ -168,7 +168,15 @@
       "accountIntegrations": "Integraciones",
       "kompisBedriftConnection": "Conexión y licencia",
       "appDashboard": "Inicio",
-      "accountProfile": "Relación con el cliente"
+      "accountProfile": "Relación con el cliente",
+      "workspaceDashboard": "Panel",
+      "softwareStore": "Tienda de productos",
+      "supportTickets": "Atención al cliente",
+      "salesPartnerOverview": "Resumen",
+      "salesPartnerProducts": "Productos de venta",
+      "salesPartnerCustomers": "Mis clientes",
+      "salesPartnerCommissions": "Ventas y comisión",
+      "salesPartnerAcademy": "Academia y ayuda"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -3462,7 +3470,11 @@
       "integrations": "Integraciones",
       "kompisWeb": "Kompis Web",
       "productsAndSubscription": "Productos y suscripción",
-      "kompisBedrift": "Kompis Empresa"
+      "kompisBedrift": "Kompis Empresa",
+      "shared": "Espacio de trabajo",
+      "myProducts": "Mis productos",
+      "salesPartner": "Sales Partner",
+      "administration": "Administración"
     },
     "executiveCompanion": {
       "title": "Executive Companion",
@@ -7449,6 +7461,67 @@
       "statusUnknown": "Estado no disponible",
       "openLicense": "Centro de licencias",
       "openPrivacy": "Ajustes de privacidad"
+    },
+    "workspaceDashboard": {
+      "eyebrow": "Espacio de trabajo",
+      "title": "Resumen del espacio de trabajo",
+      "description": "Un centro de control compartido para tus módulos Aipify, casos de soporte y actividad de partner.",
+      "lastUpdated": "Última actualización",
+      "notAvailable": "No disponible",
+      "summaryTitle": "Resumen",
+      "activeModules": "Módulos activos",
+      "setupModules": "Requieren configuración",
+      "openTickets": "Casos abiertos",
+      "subscriptionStatus": "Suscripción",
+      "modulesTitle": "Mis módulos",
+      "modulesDescription": "Módulos a los que tu organización tiene derecho.",
+      "openModule": "Abrir módulo",
+      "states": {
+        "active": "Activo",
+        "setupRequired": "Requiere configuración",
+        "pendingApproval": "Pendiente de aprobación",
+        "temporarilyUnavailable": "Temporalmente no disponible",
+        "expired": "Caducado",
+        "unknown": "Estado no disponible"
+      },
+      "ticketsTitle": "Mis casos de soporte",
+      "ticketsDescription": "Casos de tu organización con Atención al cliente de Aipify.",
+      "ticketOpen": "Abiertos",
+      "ticketWaitingAipify": "Esperando a Aipify",
+      "ticketWaitingCustomer": "Esperándote",
+      "ticketResolved": "Resueltos",
+      "viewAllTickets": "Ver todos los casos",
+      "createTicket": "Crear caso",
+      "ticketsUnavailable": "El resumen de casos aún no está disponible.",
+      "ticketsForbidden": "No tienes acceso a los casos de soporte.",
+      "ticketsError": "No se pudieron cargar los casos de soporte. Inténtalo de nuevo.",
+      "recentTickets": "Casos recientes",
+      "noRecentTickets": "No hay casos recientes.",
+      "partnerTitle": "Sales Partner",
+      "partnerDescription": "Tus ventas registradas y resumen de comisión del portal de partners.",
+      "partnerSales": "Ventas registradas",
+      "partnerPending": "Comisión pendiente",
+      "partnerEarned": "Comisión ganada",
+      "partnerPayable": "Por pagar / liquidado",
+      "openPartner": "Abrir portal de partners",
+      "partnerUnavailable": "El resumen de partner aún no está disponible.",
+      "partnerNotAuthorized": "El acceso de Sales Partner no está activo para esta cuenta.",
+      "partnerError": "No se pudo cargar el resumen de partner.",
+      "attentionTitle": "Requiere atención",
+      "attentionEmpty": "Nada requiere atención ahora.",
+      "attentionModuleSetup": "Un módulo requiere configuración.",
+      "attentionTicketsWaitingCustomer": "Un caso de soporte espera tu respuesta.",
+      "ticketStatuses": {
+        "new": "Nuevo",
+        "inProgress": "En curso",
+        "waitingAipify": "Esperando a Aipify",
+        "waitingCustomer": "Esperándote",
+        "resolved": "Resuelto",
+        "closed": "Cerrado",
+        "reopened": "Reabierto",
+        "archived": "Archivado",
+        "unknown": "Estado desconocido"
+      }
     }
   }
 }

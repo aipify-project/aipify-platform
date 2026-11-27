@@ -8041,7 +8041,10 @@
       "editorVariantRemove": "Remove",
       "editorVariantEmpty": "No variants yet. Add a variant with separate monthly and yearly prices, or leave empty for a single product.",
       "editorVariantPersistenceNote": "Variant storage requires Core SQL (prepared). Values stay in this editor until the owner-approved migration is applied.",
-      "editorVariantAnnualRenewsMonthly": "Annual plan renews quota monthly"
+      "editorVariantAnnualRenewsMonthly": "Annual plan renews quota monthly",
+      "editorModuleBinding": "APP software module",
+      "editorModuleReady": "Ready for APP menu when entitled",
+      "editorModuleNotReady": "Not menu-ready yet"
     },
     "live": {
       "loading": "Loading seller data",

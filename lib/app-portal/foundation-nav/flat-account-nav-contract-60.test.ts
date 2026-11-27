@@ -66,10 +66,10 @@ assert.deepEqual(
   BEDRIFT_ORDER
 );
 
-// 2. No Account sidebar group; product groups only
+// 2. Unified groups include shared + modules + administration
 assert.deepEqual(
   APP_PORTAL_NAV_GROUPS.map((g) => g.id),
-  ["kompisWeb", "kompisBedrift"]
+  ["shared", "kompisWeb", "kompisBedrift", "salesPartner", "administration"]
 );
 
 // 3. Integrations / notifications / appearance are settings surfaces, not primary rows
@@ -99,19 +99,14 @@ const bothBundle = resolveAppMenuCapabilityBundle({
   revokedPackKeys: new Set(),
   activeModuleKeys: new Set(["website_kompis", "kompis_bedrift"]),
 });
-const webPresented = presentAppNavFromCapabilities(bothBundle, t, { activeProduct: "kompisWeb" });
+const webPresented = presentAppNavFromCapabilities(bothBundle, t, {
+  mode: "flat_product",
+  activeProduct: "kompisWeb",
+});
 assert.equal(webPresented.navGroups.length, 1);
 assert.deepEqual(
   webPresented.navConfig.map((i) => i.id),
   WEB_ORDER
-);
-assert.equal(
-  webPresented.navConfig.find((item) => item.id === "accountSubscription")?.sectionLabel,
-  "customerApp.portalStructure.navGroups.productsAndSubscription",
-);
-assert.equal(
-  webPresented.navConfig.filter((item) => item.sectionLabel).length,
-  1,
 );
 assert.ok(!webPresented.navConfig.some((i) => i.id === "accountInvoices"));
 assert.ok(!webPresented.navConfig.some((i) => i.id === "kompisWebModules"));
@@ -122,6 +117,7 @@ assert.equal(
 assert.ok(!webPresented.navConfig.some((i) => i.id.startsWith("kompisBedrift")));
 
 const bedriftPresented = presentAppNavFromCapabilities(bothBundle, t, {
+  mode: "flat_product",
   activeProduct: "kompisBedrift",
 });
 assert.deepEqual(
@@ -129,6 +125,14 @@ assert.deepEqual(
   BEDRIFT_ORDER
 );
 assert.ok(!bedriftPresented.navConfig.some((i) => i.id.startsWith("kompisWeb")));
+
+// Unified presentation shows both entitled modules without mixing into one flat list.
+const unified = presentAppNavFromCapabilities(bothBundle, t);
+assert.ok(unified.navGroups.some((g) => g.id === "shared"));
+assert.ok(unified.navGroups.some((g) => g.id === "kompisWeb"));
+assert.ok(unified.navGroups.some((g) => g.id === "kompisBedrift"));
+assert.ok(unified.navGroups.some((g) => g.id === "administration"));
+assert.ok(unified.navConfig.some((i) => i.id === "workspaceDashboard"));
 
 // 6. Web-only when website_kompis denied
 const denied = resolveAppMenuCapabilityBundle({
@@ -145,6 +149,7 @@ const denied = resolveAppMenuCapabilityBundle({
 const availableDenied = availableProductsFromBundle(denied);
 assert.deepEqual(availableDenied, []);
 const deniedPresented = presentAppNavFromCapabilities(denied, t, {
+  mode: "flat_product",
   activeProduct: resolveActiveProductContext({
     availableProducts: availableDenied,
     cookieValue: "kompisWeb",

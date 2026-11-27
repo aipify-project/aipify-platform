@@ -15,7 +15,11 @@
       "integrations": "Integrasjoner",
       "kompisWeb": "Kompis Web",
       "productsAndSubscription": "Produkter og abonnement",
-      "kompisBedrift": "Kompis Bedrift"
+      "kompisBedrift": "Kompis Bedrift",
+      "shared": "Arbeidsområde",
+      "myProducts": "Mine produkter",
+      "salesPartner": "Sales Partner",
+      "administration": "Administrasjon"
     },
     "nav": {
       "dashboard": "Dashboard",
@@ -131,7 +135,15 @@
       "accountIntegrations": "Integrasjoner",
       "kompisBedriftConnection": "Tilkobling/lisens",
       "appDashboard": "Hjem",
-      "accountProfile": "Kundeforhold"
+      "accountProfile": "Kundeforhold",
+      "workspaceDashboard": "Dashboard",
+      "softwareStore": "Produktbutikk",
+      "supportTickets": "Kundeservice",
+      "salesPartnerOverview": "Oversikt",
+      "salesPartnerProducts": "Salgsprodukter",
+      "salesPartnerCustomers": "Mine kunder",
+      "salesPartnerCommissions": "Salg og provisjon",
+      "salesPartnerAcademy": "Akademi og hjelp"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -8811,6 +8823,67 @@
       "avatarRemoveError": "Kunne ikke fjerne bildet. Prøv igjen.",
       "emailLockedReason": "E-postendring følger den verifiserte innloggingsflyten.",
       "addCompanyDetails": "Legg til firmaopplysninger"
+    },
+    "workspaceDashboard": {
+      "eyebrow": "Arbeidsområde",
+      "title": "Oversikt over arbeidsområdet",
+      "description": "Et felles kontrollsenter for modulene dine, supportsaker og partneraktivitet.",
+      "lastUpdated": "Sist oppdatert",
+      "notAvailable": "Ikke tilgjengelig",
+      "summaryTitle": "Sammendrag",
+      "activeModules": "Aktive moduler",
+      "setupModules": "Trenger oppsett",
+      "openTickets": "Åpne saker",
+      "subscriptionStatus": "Abonnement",
+      "modulesTitle": "Mine moduler",
+      "modulesDescription": "Moduler organisasjonen din har rettighet til å bruke.",
+      "openModule": "Åpne modul",
+      "states": {
+        "active": "Aktiv",
+        "setupRequired": "Krever oppsett",
+        "pendingApproval": "Avventer godkjenning",
+        "temporarilyUnavailable": "Midlertidig utilgjengelig",
+        "expired": "Utløpt",
+        "unknown": "Status utilgjengelig"
+      },
+      "ticketsTitle": "Mine supportsaker",
+      "ticketsDescription": "Saker for organisasjonen din hos Aipify Kundeservice.",
+      "ticketOpen": "Åpne",
+      "ticketWaitingAipify": "Avventer Aipify",
+      "ticketWaitingCustomer": "Avventer deg",
+      "ticketResolved": "Løste",
+      "viewAllTickets": "Se alle saker",
+      "createTicket": "Opprett sak",
+      "ticketsUnavailable": "Saksoversikt er ikke tilgjengelig ennå.",
+      "ticketsForbidden": "Du har ikke tilgang til supportsaker.",
+      "ticketsError": "Supportsaker kunne ikke lastes. Prøv igjen.",
+      "recentTickets": "Nylige saker",
+      "noRecentTickets": "Ingen nylige saker.",
+      "partnerTitle": "Sales Partner",
+      "partnerDescription": "Dine registrerte salg og provisjonssammendrag fra partnerportalen.",
+      "partnerSales": "Registrerte salg",
+      "partnerPending": "Avventer provisjon",
+      "partnerEarned": "Opptjent provisjon",
+      "partnerPayable": "Til utbetaling / oppgjort",
+      "openPartner": "Åpne partnerportal",
+      "partnerUnavailable": "Partnersammendrag er ikke tilgjengelig ennå.",
+      "partnerNotAuthorized": "Sales Partner-tilgang er ikke aktiv for denne kontoen.",
+      "partnerError": "Partnersammendrag kunne ikke lastes.",
+      "attentionTitle": "Krever oppmerksomhet",
+      "attentionEmpty": "Ingenting krever oppmerksomhet akkurat nå.",
+      "attentionModuleSetup": "En modul krever oppsett.",
+      "attentionTicketsWaitingCustomer": "En supportsak venter på svar fra deg.",
+      "ticketStatuses": {
+        "new": "Ny",
+        "inProgress": "Under behandling",
+        "waitingAipify": "Avventer Aipify",
+        "waitingCustomer": "Avventer deg",
+        "resolved": "Løst",
+        "closed": "Lukket",
+        "reopened": "Gjenåpnet",
+        "archived": "Arkivert",
+        "unknown": "Ukjent status"
+      }
     }
   }
 }

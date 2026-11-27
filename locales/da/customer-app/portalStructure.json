@@ -15,7 +15,11 @@
       "integrations": "Integrationer",
       "kompisWeb": "Kompis Web",
       "productsAndSubscription": "Produkter og abonnement",
-      "kompisBedrift": "Kompis Virksomhed"
+      "kompisBedrift": "Kompis Virksomhed",
+      "shared": "Arbejdsområde",
+      "myProducts": "Mine produkter",
+      "salesPartner": "Sales Partner",
+      "administration": "Administration"
     },
     "nav": {
       "dashboard": "Dashboard",
@@ -131,7 +135,15 @@
       "accountIntegrations": "Integrationer",
       "kompisBedriftConnection": "Forbindelse/licens",
       "appDashboard": "Hjem",
-      "accountProfile": "Kundeforhold"
+      "accountProfile": "Kundeforhold",
+      "workspaceDashboard": "Dashboard",
+      "softwareStore": "Produktbutik",
+      "supportTickets": "Kundeservice",
+      "salesPartnerOverview": "Overview",
+      "salesPartnerProducts": "Sales products",
+      "salesPartnerCustomers": "Mine kunder",
+      "salesPartnerCommissions": "Salg og provision",
+      "salesPartnerAcademy": "Akademi og hjælp"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -8810,6 +8822,67 @@
       "avatarRemoveError": "Kunne ikke fjerne fotoet. Prøv igen.",
       "emailLockedReason": "E-mailændringer følger den verificerede login-flow.",
       "addCompanyDetails": "Tilføj firmadetaljer"
+    },
+    "workspaceDashboard": {
+      "eyebrow": "Arbejdsområde",
+      "title": "Oversigt over arbejdsområdet",
+      "description": "Et fælles kontrolcenter for dine Aipify-moduler, supportsager og partneraktivitet.",
+      "lastUpdated": "Sidst opdateret",
+      "notAvailable": "Ikke tilgængelig",
+      "summaryTitle": "Oversigt",
+      "activeModules": "Aktive moduler",
+      "setupModules": "Kræver opsætning",
+      "openTickets": "Åbne sager",
+      "subscriptionStatus": "Abonnement",
+      "modulesTitle": "Mine moduler",
+      "modulesDescription": "Moduler din organisation har ret til at bruge.",
+      "openModule": "Åbn modul",
+      "states": {
+        "active": "Aktiv",
+        "setupRequired": "Kræver opsætning",
+        "pendingApproval": "Afventer godkendelse",
+        "temporarilyUnavailable": "Midlertidigt utilgængelig",
+        "expired": "Udløbet",
+        "unknown": "Status utilgængelig"
+      },
+      "ticketsTitle": "Mine supportsager",
+      "ticketsDescription": "Sager for din organisation hos Aipify Kundeservice.",
+      "ticketOpen": "Åbne",
+      "ticketWaitingAipify": "Afventer Aipify",
+      "ticketWaitingCustomer": "Afventer dig",
+      "ticketResolved": "Løste",
+      "viewAllTickets": "Se alle sager",
+      "createTicket": "Opret sag",
+      "ticketsUnavailable": "Sagsoversigt er ikke tilgængelig endnu.",
+      "ticketsForbidden": "Du har ikke adgang til supportsager.",
+      "ticketsError": "Supportsager kunne ikke indlæses. Prøv igen.",
+      "recentTickets": "Seneste sager",
+      "noRecentTickets": "Ingen seneste sager.",
+      "partnerTitle": "Sales Partner",
+      "partnerDescription": "Dine registrerede salg og provisionsoversigt fra partnerportalen.",
+      "partnerSales": "Registrerede salg",
+      "partnerPending": "Afventer provision",
+      "partnerEarned": "Optjent provision",
+      "partnerPayable": "Til udbetaling / afregnet",
+      "openPartner": "Åbn partnerportal",
+      "partnerUnavailable": "Partneroversigt er ikke tilgængelig endnu.",
+      "partnerNotAuthorized": "Sales Partner-adgang er ikke aktiv for denne konto.",
+      "partnerError": "Partneroversigt kunne ikke indlæses.",
+      "attentionTitle": "Kræver opmærksomhed",
+      "attentionEmpty": "Intet kræver opmærksomhed lige nu.",
+      "attentionModuleSetup": "Et modul kræver opsætning.",
+      "attentionTicketsWaitingCustomer": "En supportsag venter på dit svar.",
+      "ticketStatuses": {
+        "new": "Ny",
+        "inProgress": "Under behandling",
+        "waitingAipify": "Afventer Aipify",
+        "waitingCustomer": "Afventer dig",
+        "resolved": "Løst",
+        "closed": "Lukket",
+        "reopened": "Genåbnet",
+        "archived": "Arkiveret",
+        "unknown": "Ukendt status"
+      }
     }
   }
 }

@@ -43,11 +43,14 @@ function emptyCtx(overrides: Partial<Parameters<typeof resolveAppMenuCapabilityB
 }
 
 describe("core app menu capability contract", () => {
-  it("presents one flat product menu at a time (job 60)", () => {
+  it("presents one flat product menu at a time when mode is flat_product", () => {
     const bundle = resolveAppMenuCapabilityBundle(
       emptyCtx({ activeModuleKeys: new Set(["website_kompis"]) })
     );
-    const presented = presentAppNavFromCapabilities(bundle, t, { activeProduct: "kompisWeb" });
+    const presented = presentAppNavFromCapabilities(bundle, t, {
+      mode: "flat_product",
+      activeProduct: "kompisWeb",
+    });
     assert.deepEqual(presented.navGroups.map((g) => g.id), ["kompisWeb"]);
     assert.ok(!presented.navConfig.some((i) => i.id.startsWith("kompisBedrift")));
     const bedrift = presentAppNavFromCapabilities(
@@ -55,10 +58,26 @@ describe("core app menu capability contract", () => {
         emptyCtx({ activeModuleKeys: new Set(["website_kompis", "kompis_bedrift"]) })
       ),
       t,
-      { activeProduct: "kompisBedrift" }
+      { mode: "flat_product", activeProduct: "kompisBedrift" }
     );
     assert.deepEqual(bedrift.navGroups.map((g) => g.id), ["kompisBedrift"]);
     assert.ok(!bedrift.navConfig.some((i) => i.id.startsWith("kompisWeb")));
+  });
+
+  it("presents unified shared + Mine Produkter groups by default", () => {
+    const bundle = resolveAppMenuCapabilityBundle(
+      emptyCtx({
+        activeModuleKeys: new Set(["website_kompis", "kompis_bedrift"]),
+        salesPartnerAuthorized: true,
+      })
+    );
+    const presented = presentAppNavFromCapabilities(bundle, t);
+    assert.ok(presented.navGroups.some((g) => g.id === "shared"));
+    assert.ok(presented.navGroups.some((g) => g.id === "kompisWeb"));
+    assert.ok(presented.navGroups.some((g) => g.id === "kompisBedrift"));
+    assert.ok(presented.navGroups.some((g) => g.id === "salesPartner"));
+    assert.ok(presented.navGroups.some((g) => g.id === "administration"));
+    assert.ok(presented.navConfig.some((i) => i.id === "workspaceDashboard"));
   });
 
   it("hides Kompis Web when website_kompis module is denied", () => {
