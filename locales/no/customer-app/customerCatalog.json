@@ -32,6 +32,8 @@
     "exploreLink": "Utforsk Aipify-produkter",
     "startPurchase": "Start kjøp",
     "purchasePending": "Åpner sikker betaling…",
-    "purchaseError": "Kjøpet kunne ikke startes. Prøv igjen."
+    "purchaseError": "Kjøpet kunne ikke startes. Prøv igjen.",
+    "emptyTitle": "Ingen produkter i denne visningen",
+    "emptyDescription": "Prøv en annen kategori, eller åpne Abonnement for å se aktive tjenester."
   }
 }

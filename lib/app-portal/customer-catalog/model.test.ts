@@ -105,7 +105,7 @@ assert.equal(unknown.products.every((product) => product.prices.length === 0), t
 assert.equal(unknown.categories.some((category) => category.id === "voice"), false);
 assert.equal(unknown.products.find((product) => product.id === "website_kompis")?.openHref, null);
 
-assert.equal(getAppPortalActiveNavId("/app/explore"), "kompisWebModules");
+assert.equal(getAppPortalActiveNavId("/app/explore"), "softwareStore");
 
 const page = readFileSync(join(process.cwd(), "app/app/explore/page.tsx"), "utf8");
 const view = readFileSync(join(process.cwd(), "components/app/catalog/CustomerProductCatalog.tsx"), "utf8");

@@ -3,8 +3,8 @@
  * Sidebar keeps a single Abonnement entry; deep-links land on the matching tab.
  *
  * Visible tabs (owner V2): Oversikt | Mine produkter | Kapasitet | Lisens | Fakturaer.
- * Produktbutikk is a global menu destination — still a valid deep-link tab (`store`).
- * `addons` (Tilleggsmoduler) is a legacy alias redirected to the store.
+ * Produktbutikk is the global `/app/explore` destination.
+ * `?tab=store` / `addons` are deep-link aliases that redirect to `/app/explore`.
  */
 
 export const SUBSCRIPTION_TAB_IDS = [

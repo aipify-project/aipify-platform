@@ -32,6 +32,8 @@
     "exploreLink": "Utforska Aipify-produkter",
     "startPurchase": "Start köp",
     "purchasePending": "Öppnar säker betalning…",
-    "purchaseError": "Köp kunde inte startas. Försök igen."
+    "purchaseError": "Köp kunde inte startas. Försök igen.",
+    "emptyTitle": "Inga produkter i den här vyn",
+    "emptyDescription": "Prova en annan kategori, eller öppna Prenumeration för att se aktiva tjänster."
   }
 }

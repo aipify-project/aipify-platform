@@ -31,11 +31,13 @@ import {
   subscriptionTabHref,
   type SubscriptionTabId,
 } from "@/lib/commercial-packages/subscription-tabs";
+import { CUSTOMER_CATALOG_ROUTE } from "@/lib/app-portal/customer-catalog/model";
 import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import type { AipifyStatusKind } from "@/lib/design/status-system";
 import { formatDate } from "@/lib/i18n/format-date";
 import { Boxes, FileText, Globe, Monitor, Package, ShieldCheck, Users, type LucideIcon } from "lucide-react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
 
@@ -167,8 +169,23 @@ export function SubscriptionWorkspace({
     setActiveTab(urlTab);
   }, [urlTab]);
 
+  // Produktbutikk lives at /app/explore — keep ?tab=store as a deep-link alias only.
+  useEffect(() => {
+    if (urlTab === "store" || urlTab === "addons") {
+      startTransition(() => {
+        router.replace(CUSTOMER_CATALOG_ROUTE);
+      });
+    }
+  }, [urlTab, router]);
+
   const selectTab = useCallback(
     (tab: SubscriptionTabId) => {
+      if (tab === "store" || tab === "addons") {
+        startTransition(() => {
+          router.push(CUSTOMER_CATALOG_ROUTE);
+        });
+        return;
+      }
       setActiveTab(tab);
       startTransition(() => {
         router.replace(subscriptionTabHref(tab), { scroll: false });
@@ -330,14 +347,13 @@ export function SubscriptionWorkspace({
                 <p className="mt-2 text-sm leading-relaxed text-[var(--app-text-muted)]">
                   {portfolio.exploreProducts}
                 </p>
-                <button
-                  type="button"
-                  onClick={() => selectTab("store")}
+                <Link
+                  href={CUSTOMER_CATALOG_ROUTE}
                   className={`mt-auto inline-flex min-h-11 items-center gap-2 pt-4 text-sm font-medium text-[var(--app-primary)] hover:underline ${AppPremiumShell.focusRing}`}
                 >
                   <Boxes aria-hidden className="size-4" />
                   {portfolio.exploreProductsCta}
-                </button>
+                </Link>
               </article>
 
               <article className={`${AppLayoutClasses.card} flex h-full flex-col`}>
@@ -376,15 +392,19 @@ export function SubscriptionWorkspace({
               labels={portfolio}
               access={access}
               mineOnly
-              onExploreStore={() => selectTab("store")}
+              onExploreStore={() => {
+                startTransition(() => {
+                  router.push(CUSTOMER_CATALOG_ROUTE);
+                });
+              }}
             />
           </div>
         ) : null}
 
         {activeTab === "store" ? (
-          <div className={AppLayoutClasses.card}>
-            {/* Planned catalog prices stay off — never present WEBSITE_KOMPIS_PLAN_CATALOG as purchasable. */}
-            <KompisProductPortfolio labels={portfolio} access={access} storeOnly showCatalog={false} />
+          <div className={`${AppLayoutClasses.card} flex flex-col items-start gap-4`}>
+            <AipifyLoader centered />
+            <p className="sr-only">{portfolio.exploreProducts}</p>
           </div>
         ) : null}
 
