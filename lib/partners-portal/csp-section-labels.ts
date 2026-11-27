@@ -85,6 +85,9 @@ export type CspBankPanelLabels = {
   noneSaved: string;
   retry: string;
   manualPayoutNote: string;
+  cancel: string;
+  unsaved: string;
+  fieldErrors: Record<string, string>;
 };
 
 /** Server-safe. Must not live in a client component module (settlement P0). */
@@ -107,5 +110,19 @@ export function buildCspBankPanelLabels(t: (key: string) => string): CspBankPane
     noneSaved: t(`${p}.noneSaved`),
     retry: t(`${p}.retry`),
     manualPayoutNote: t(`${p}.manualPayoutNote`),
+    cancel: t(`${p}.cancel`),
+    unsaved: t(`${p}.unsaved`),
+    fieldErrors: {
+      country_must_be_two_letter_code: t(`${p}.fieldErrors.country_must_be_two_letter_code`),
+      account_holder_required: t(`${p}.fieldErrors.account_holder_required`),
+      currency_must_be_three_letter_code: t(`${p}.fieldErrors.currency_must_be_three_letter_code`),
+      invalid_swift_bic: t(`${p}.fieldErrors.invalid_swift_bic`),
+      invalid_iban: t(`${p}.fieldErrors.invalid_iban`),
+      norwegian_account_or_iban_required: t(`${p}.fieldErrors.norwegian_account_or_iban_required`),
+      iban_required_for_country: t(`${p}.fieldErrors.iban_required_for_country`),
+      us_routing_number_required: t(`${p}.fieldErrors.us_routing_number_required`),
+      local_account_number_required: t(`${p}.fieldErrors.local_account_number_required`),
+      swift_bic_required: t(`${p}.fieldErrors.swift_bic_required`),
+    },
   };
 }

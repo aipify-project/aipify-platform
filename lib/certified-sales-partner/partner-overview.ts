@@ -27,6 +27,8 @@ export type CspParsedOverview = {
   partnerId: string | null;
   partnerStatus: string | null;
   displayName: string | null;
+  /** ISO 3166-1 alpha-2 when Core returns it. */
+  country: string | null;
   /** Registered business name when Core returns it. Empty metadata is not a substitute. */
   legalBusinessName: string | null;
   /** `agreement_accepted` when Core exposes it; null when the payload has no such field. */
@@ -40,6 +42,11 @@ function rec(v: unknown): Record<string, unknown> {
 }
 function str(v: unknown): string | null {
   return typeof v === "string" && v.trim().length > 0 ? v : null;
+}
+function isoCountry(v: unknown): string | null {
+  if (typeof v !== "string") return null;
+  const code = v.trim().toUpperCase();
+  return /^[A-Z]{2}$/.test(code) ? code : null;
 }
 function num(v: unknown): number | null {
   if (typeof v === "number" && Number.isFinite(v)) return v;
@@ -57,6 +64,7 @@ export function parsePartnerOverview(data: unknown): CspParsedOverview {
     partnerId: str(partner.id),
     partnerStatus: str(partner.status),
     displayName: str(partner.display_name),
+    country: isoCountry(partner.country),
     legalBusinessName: str(partner.legal_business_name),
     agreementAccepted: typeof partner.agreement_accepted === "boolean" ? partner.agreement_accepted : null,
     products: list(root.products).map((item) => {
