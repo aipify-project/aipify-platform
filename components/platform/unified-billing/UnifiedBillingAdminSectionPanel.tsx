@@ -3,6 +3,13 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { PlatformLayoutClasses } from "@/lib/design";
+import {
+  economyColumnLabel,
+  presentEconomyCell,
+  presentEconomyStat,
+  type EconomyPhrases,
+} from "@/lib/platform/economy-display";
 
 type Props = {
   section: string;
@@ -14,6 +21,8 @@ type Props = {
     back: string;
     stats: string;
     records: string;
+    locale?: string;
+    economy?: EconomyPhrases;
   };
 };
 
@@ -48,24 +57,32 @@ export function UnifiedBillingAdminSectionPanel({ section, title, subtitle, labe
 
   const rows = (center.rows as Record<string, unknown>[]) ?? [];
   const stats = (center.stats as Record<string, unknown>) ?? {};
+  const locale = labels.locale ?? "en";
+  const economy = labels.economy;
 
   return (
-    <div className="space-y-8">
+    <div className={PlatformLayoutClasses.page}>
       <div>
         <Link href="/platform/billing" className="text-sm font-medium text-sky-700 hover:text-sky-800">
           ← {labels.back}
         </Link>
-        <h1 className="mt-3 text-2xl font-semibold tracking-tight text-gray-900">{title}</h1>
-        <p className="mt-2 max-w-3xl text-gray-600">{subtitle}</p>
+        <h1 className={PlatformLayoutClasses.pageTitle}>{title}</h1>
+        <p className={PlatformLayoutClasses.pageSubtitle}>{subtitle}</p>
       </div>
       {Object.keys(stats).length > 0 ? (
-        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <dl className={PlatformLayoutClasses.metricGrid}>
           {Object.entries(stats).map(([key, value]) => (
             <div key={key} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-              <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                {key.replace(/_/g, " ")}
+              <dt className="text-xs font-semibold tracking-wide text-gray-500">
+                {economy ? economyColumnLabel(key, economy) : key.replace(/_/g, " ")}
               </dt>
-              <dd className="mt-2 text-xl font-semibold text-gray-900">{String(value)}</dd>
+              <dd className="mt-2 text-xl font-semibold text-gray-900">
+                {economy
+                  ? presentEconomyStat({ key, value, locale, phrases: economy })
+                  : value === null || value === undefined
+                    ? "—"
+                    : String(value)}
+              </dd>
             </div>
           ))}
         </dl>
@@ -80,27 +97,38 @@ export function UnifiedBillingAdminSectionPanel({ section, title, subtitle, labe
               <thead className="bg-gray-50/80">
                 <tr>
                   {Object.keys(rows[0] ?? {}).map((key) => (
-                    <th key={key} className="px-4 py-3 text-left text-xs font-semibold uppercase text-gray-500">
-                      {key.replace(/_/g, " ")}
+                    <th key={key} className="px-4 py-3 text-left text-xs font-semibold tracking-wide text-gray-500">
+                      {economy ? economyColumnLabel(key, economy) : key.replace(/_/g, " ")}
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {rows.map((row, index) => (
-                  <tr key={index}>
-                    {Object.values(row).map((value, cellIndex) => (
-                      <td key={cellIndex} className="px-4 py-3 text-gray-700">
-                        {value === null || value === undefined ? "—" : String(value)}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                {rows.map((row, index) => {
+                  const currency = typeof row.currency === "string" ? row.currency : null;
+                  return (
+                    <tr key={index}>
+                      {Object.entries(row).map(([key, value]) => (
+                        <td key={key} className="px-4 py-3 text-gray-700">
+                          {economy
+                            ? presentEconomyCell({ key, value, locale, phrases: economy, currency })
+                            : value === null || value === undefined
+                              ? "—"
+                              : String(value)}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         </section>
-      ) : null}
+      ) : (
+        <p className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-700">
+          {economy?.noRecords ?? labels.empty}
+        </p>
+      )}
     </div>
   );
 }

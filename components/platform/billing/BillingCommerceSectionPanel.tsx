@@ -4,6 +4,13 @@ import Link from "next/link";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import type { BillingCommerceCenterPayload } from "@/lib/platform/billing-commerce-center/types";
+import {
+  economyColumnLabel,
+  presentEconomyCell,
+  presentEconomyStat,
+  type EconomyPhrases,
+} from "@/lib/platform/economy-display";
+import { PlatformLayoutClasses } from "@/lib/design";
 
 type BillingCommerceSectionPanelProps = {
   section: string;
@@ -16,17 +23,24 @@ type BillingCommerceSectionPanelProps = {
     stats: string;
     records: string;
     legalReviewBanner?: string;
+    locale?: string;
+    economy?: EconomyPhrases;
   };
   backHref?: string;
   children?: ReactNode;
 };
 
-function StatCard({ label, value }: { label: string; value: number | string | boolean }) {
-  const display = typeof value === "boolean" ? (value ? "Yes" : "No") : value;
+function storedTrace(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  if (/placeholder|pending|\b0000\b|staging|sandbox|demo/i.test(value)) return value;
+  return undefined;
+}
+
+function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-sm">
-      <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</dt>
-      <dd className="mt-2 text-xl font-semibold text-slate-900">{display}</dd>
+      <dt className="text-xs font-semibold tracking-wide text-slate-500">{label}</dt>
+      <dd className="mt-2 text-xl font-semibold text-slate-900">{value}</dd>
     </div>
   );
 }
@@ -69,16 +83,20 @@ export function BillingCommerceSectionPanel({
 
   const rows = center.rows ?? [];
   const stats = center.stats ?? {};
-  const statEntries = Object.entries(stats).filter(([key]) => key !== "phase_note" && key !== "legal_review_required");
+  const locale = labels.locale ?? "en";
+  const economy = labels.economy;
+  const statEntries = Object.entries(stats).filter(
+    ([key]) => key !== "phase_note" && key !== "legal_review_required",
+  );
 
   return (
-    <div className="space-y-8">
+    <div className={PlatformLayoutClasses.page}>
       <div>
         <Link href={backHref} className="text-sm font-medium text-sky-700 hover:text-sky-800">
           ← {labels.back}
         </Link>
-        <h1 className="mt-3 text-2xl font-semibold tracking-tight text-gray-900">{title}</h1>
-        <p className="mt-2 max-w-3xl text-gray-600">{subtitle}</p>
+        <h1 className={PlatformLayoutClasses.pageTitle}>{title}</h1>
+        <p className={PlatformLayoutClasses.pageSubtitle}>{subtitle}</p>
         {labels.legalReviewBanner && stats.legal_review_required ? (
           <p className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-900">
             {labels.legalReviewBanner}
@@ -91,12 +109,18 @@ export function BillingCommerceSectionPanel({
       {statEntries.length > 0 ? (
         <section>
           <h2 className="mb-4 font-semibold text-gray-900">{labels.stats}</h2>
-          <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <dl className={PlatformLayoutClasses.metricGrid}>
             {statEntries.map(([key, value]) => (
               <StatCard
                 key={key}
-                label={key.replace(/_/g, " ")}
-                value={value as number | string | boolean}
+                label={economy ? economyColumnLabel(key, economy) : key.replace(/_/g, " ")}
+                value={
+                  economy
+                    ? presentEconomyStat({ key, value, locale, phrases: economy })
+                    : value === null || value === undefined
+                      ? "—"
+                      : String(value)
+                }
               />
             ))}
           </dl>
@@ -115,28 +139,45 @@ export function BillingCommerceSectionPanel({
                   {Object.keys(rows[0] ?? {}).map((key) => (
                     <th
                       key={key}
-                      className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"
+                      className="px-4 py-3 text-left text-xs font-semibold tracking-wide text-gray-500"
                     >
-                      {key.replace(/_/g, " ")}
+                      {economy ? economyColumnLabel(key, economy) : key.replace(/_/g, " ")}
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {rows.map((row, index) => (
-                  <tr key={index}>
-                    {Object.values(row).map((value, cellIndex) => (
-                      <td key={cellIndex} className="px-4 py-3 text-gray-700">
-                        {value === null || value === undefined ? "—" : String(value)}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                {rows.map((row, index) => {
+                  const currency = typeof row.currency === "string" ? row.currency : null;
+                  return (
+                    <tr key={index}>
+                      {Object.entries(row).map(([key, value]) => (
+                        <td key={key} className="px-4 py-3 text-gray-700" title={storedTrace(value)}>
+                          {economy
+                            ? presentEconomyCell({
+                                key,
+                                value,
+                                locale,
+                                phrases: economy,
+                                currency,
+                              })
+                            : value === null || value === undefined
+                              ? "—"
+                              : String(value)}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         </section>
-      ) : null}
+      ) : (
+        <p className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-700">
+          {economy?.noRecords ?? labels.empty}
+        </p>
+      )}
 
       {typeof stats.phase_note === "string" ? (
         <p className="text-xs text-gray-500">{stats.phase_note}</p>

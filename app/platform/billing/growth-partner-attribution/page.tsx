@@ -9,7 +9,7 @@ export default async function PlatformBillingGrowthPartnerAttributionPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["platform"]);
   const t = createTranslator(dict);
-  const labels = buildBillingCommerceCenterLabels(t);
+  const labels = buildBillingCommerceCenterLabels(t, locale);
 
   return (
     <BillingCommerceSectionPanel
@@ -19,10 +19,10 @@ export default async function PlatformBillingGrowthPartnerAttributionPage() {
       labels={labels}
     >
       <Link
-        href="/platform/pilot-operations"
-        className="inline-flex rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50"
+        href="/platform/sellers/attribution"
+        className="text-sm font-medium text-sky-800 hover:text-sky-900"
       >
-        {labels.openModule} — {t("platform.nav.growthPartners")}
+        {labels.economy.seeSellers}
       </Link>
     </BillingCommerceSectionPanel>
   );

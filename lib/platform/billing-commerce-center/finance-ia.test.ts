@@ -71,6 +71,17 @@ test("shared Platform shell removes redundant portal banner stripe", () => {
   assert.doesNotMatch(layout, /bannerTitle|bannerBody/);
 });
 
+test("economy overview links the product catalog instead of a second Business Packs admin", () => {
+  const panel = readFileSync(
+    join(ROOT, "components/platform/billing/BillingCommerceOverviewPanel.tsx"),
+    "utf8",
+  );
+  assert.match(panel, /item\.id !== "businessPacks"/);
+  assert.match(panel, /\/platform\/product\/business-packs/);
+  assert.match(panel, /\/platform\/sellers\/attribution/);
+  assert.doesNotMatch(panel, /moduleStats\.get/);
+});
+
 test("billing overview uses Økonomioversikt title and drops decorative principle box", () => {
   const panel = readFileSync(
     join(ROOT, "components/platform/billing/BillingCommerceOverviewPanel.tsx"),

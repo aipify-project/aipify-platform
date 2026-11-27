@@ -34,6 +34,9 @@ export default async function PlatformBillingInvoicesPage() {
         actionDone: t("platform.invoices.actionDone"),
         statusLabels: invoiceStatusLabels(t),
         pulseLabel: t("branding.pulseLabel"),
+        unavailable: t("platform.economyDisplay.unavailable"),
+        mustVerify: t("platform.economyDisplay.mustVerify"),
+        notRegistered: t("platform.economyDisplay.notRegistered"),
       }}
     />
   );

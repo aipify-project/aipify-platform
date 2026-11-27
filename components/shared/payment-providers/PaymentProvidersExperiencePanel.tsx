@@ -159,7 +159,7 @@ export function PaymentProvidersExperiencePanel({
   );
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 p-6">
+    <div className={scope === "platform" ? "w-full space-y-8" : "mx-auto max-w-6xl space-y-8 p-6"}>
       <div>
         <Link href={backHref} className="text-sm font-medium text-indigo-600 hover:text-indigo-700">
           ← {labels.back}

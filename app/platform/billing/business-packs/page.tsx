@@ -9,7 +9,7 @@ export default async function PlatformBillingBusinessPacksPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["platform"]);
   const t = createTranslator(dict);
-  const labels = buildBillingCommerceCenterLabels(t);
+  const labels = buildBillingCommerceCenterLabels(t, locale);
 
   return (
     <BillingCommerceSectionPanel
@@ -19,10 +19,10 @@ export default async function PlatformBillingBusinessPacksPage() {
       labels={labels}
     >
       <Link
-        href="/platform/business-pack-factory"
-        className="inline-flex rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+        href="/platform/product/business-packs"
+        className="text-sm font-medium text-sky-800 hover:text-sky-900"
       >
-        {labels.openModule} — {t("platform.nav.businessPacks")}
+        {labels.economy.seeProductCatalog}
       </Link>
     </BillingCommerceSectionPanel>
   );

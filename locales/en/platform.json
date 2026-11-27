@@ -612,7 +612,7 @@
     },
     "payment": {
       "not_connected": "Not connected",
-      "pending_setup": "Pending setup",
+      "pending_setup": "Setup remaining",
       "active": "Active",
       "failed": "Failed",
       "cancelled": "Cancelled"
@@ -1930,10 +1930,10 @@
     "noEvents": "No payment events yet."
   },
   "billing": {
-    "title": "Payment profiles",
-    "subtitle": "Provider-agnostic payment setup, KID placeholders, and billing addresses.",
-    "loading": "Loading payment profiles...",
-    "empty": "No payment profiles yet.",
+    "title": "Payments",
+    "subtitle": "Payment profiles and invoice addresses. This screen does not take a payment.",
+    "loading": "Preparing payments",
+    "empty": "No payment profiles are registered.",
     "customer": "Customer",
     "billingEmail": "Billing email",
     "address": "Address",
@@ -1944,21 +1944,21 @@
     "providerMandateId": "Provider mandate ID"
   },
   "taxVerification": {
-    "title": "Tax verification",
-    "subtitle": "Checkout VAT, customer type, business number validation, and invoice tax records.",
-    "loading": "Preparing tax verification center",
-    "legalReviewBanner": "Review checkout VAT logic with accounting and legal before public launch.",
+    "title": "Fees and VAT",
+    "subtitle": "Read-only view of checkout VAT and invoice tax records. Calculation rules are not changed here.",
+    "loading": "Preparing fees and VAT",
+    "legalReviewBanner": "Review the fee and VAT display with accounting and legal before any checkout change.",
     "customerType": "Checkout sessions",
     "vatNumber": "VAT number",
     "validationStatus": "Validation status",
     "vatApplied": "VAT applied",
     "reverseCharge": "Reverse charge",
     "invoiceHistory": "Invoice tax records",
-    "validationLogs": "Validation logs",
+    "validationLogs": "Validation log",
     "taxNotes": "Tax notes",
-    "empty": "Tax verification data is unavailable.",
+    "empty": "Fee and VAT data is not available.",
     "stats": {
-      "totalSessions": "Total sessions",
+      "totalSessions": "Sessions",
       "reverseChargeCount": "Reverse charge",
       "invalidValidations": "Invalid validations",
       "serviceFailures": "Service failures"
@@ -2087,23 +2087,23 @@
     }
   },
   "subscriptions": {
-    "title": "Subscriptions",
-    "subtitle": "Plans, trial periods, and subscription lifecycle.",
-    "loading": "Loading subscriptions...",
-    "empty": "No subscriptions yet.",
+    "title": "Customer agreements",
+    "subtitle": "Agreements and plan lifecycle. The next charge date is shown only when it is stored.",
+    "loading": "Preparing agreements",
+    "empty": "No customer agreements are registered.",
     "customer": "Customer",
-    "plan": "Plan",
-    "planType": "Plan type",
+    "plan": "Agreement",
+    "planType": "Type",
     "status": "Status",
     "trial": "Trial",
     "price": "Price",
-    "billingCycle": "Billing cycle",
+    "billingCycle": "Billing period",
     "maxUsers": "Max users",
     "maxInstallations": "Max installations",
     "trialActive": "Trial active",
     "daysRemaining": "Days remaining",
     "trialEnds": "Trial ends",
-    "nextBillingDate": "Next billing date",
+    "nextBillingDate": "Next charge date",
     "provider": "Provider",
     "paymentStatus": "Payment status"
   },
@@ -2143,9 +2143,9 @@
     },
     "statuses": {
       "operational": "Operational",
-      "pendingSetup": "Setup Required",
-      "setupRequired": "Setup Required",
-      "requiresAttention": "Requires attention",
+      "pendingSetup": "Setup remaining",
+      "setupRequired": "Setup remaining",
+      "requiresAttention": "Needs attention",
       "disabled": "Disabled",
       "disconnected": "Disconnected",
       "failed": "Failed"
@@ -2161,7 +2161,7 @@
       "failed": "Settlement failed"
     },
     "modes": {
-      "test": "Sandbox",
+      "test": "Test",
       "live": "Production"
     },
     "environments": {
@@ -4690,11 +4690,11 @@
     }
   },
   "invoices": {
-    "title": "Invoices",
-    "subtitle": "Invoice registry with placeholder send, pay, and PDF actions.",
-    "loading": "Loading invoices...",
-    "empty": "No invoices yet.",
-    "invoiceNumber": "Invoice no.",
+    "title": "Customer invoices",
+    "subtitle": "Invoices Aipify issues to customers.",
+    "loading": "Preparing invoices",
+    "empty": "No customer invoices are registered.",
+    "invoiceNumber": "Invoice number",
     "customer": "Customer",
     "amount": "Amount",
     "status": "Status",
@@ -4707,7 +4707,7 @@
     "markFailed": "Mark failed",
     "kid": "KID",
     "downloadPdf": "PDF",
-    "actionPending": "Processing...",
+    "actionPending": "Working",
     "actionDone": "Updated"
   },
   "metrics": {
@@ -9007,5 +9007,52 @@
   "sellersHub": {
     "tabsAria": "Sellers sections",
     "tabsLabel": "Sellers sections"
+  },
+  "economyDisplay": {
+    "unavailable": "Not available",
+    "notRegistered": "Not registered",
+    "mustVerify": "Needs verification",
+    "active": "Active",
+    "inactive": "Inactive",
+    "yes": "Yes",
+    "no": "No",
+    "staging": "Internal or staging — not customer revenue",
+    "lifetime": "Unlimited",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "oneTime": "One-time",
+    "seeProductCatalog": "See the product catalog under Modules",
+    "seeSellers": "Open under Sellers",
+    "sourceError": "The source did not respond. Values are not shown as zero.",
+    "noRecords": "No records are registered.",
+    "columns": {
+      "rate": "Rate",
+      "label": "Label",
+      "scope": "Scope",
+      "active": "Active",
+      "rule_key": "Rule key",
+      "amount": "Amount",
+      "currency": "Currency",
+      "status": "Status",
+      "customer": "Customer",
+      "invoice_number": "Invoice number",
+      "kid": "KID",
+      "kid_number": "KID",
+      "due_date": "Due date",
+      "email": "Email",
+      "organization_id": "Organization reference",
+      "environment_type": "Environment",
+      "connected": "Connected",
+      "provider": "Provider",
+      "billing_email": "Billing email",
+      "billing_address": "Billing address",
+      "vat_amount": "VAT amount",
+      "total_amount": "Total",
+      "commission_amount": "Commission",
+      "name": "Name",
+      "plan": "Plan",
+      "price_amount": "Price",
+      "billing_cycle": "Billing period"
+    }
   }
 }

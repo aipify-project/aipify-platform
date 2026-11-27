@@ -11,6 +11,7 @@ import {
 } from "@/lib/platform/billing-commerce-center/config";
 import type { BillingCommerceCenterPayload } from "@/lib/platform/billing-commerce-center/types";
 import { PlatformLayoutClasses, PlatformStatusToneClasses } from "@/lib/design";
+import { formatEconomyCount, type EconomyPhrases } from "@/lib/platform/economy-display";
 
 type BillingCommerceOverviewPanelProps = {
   labels: {
@@ -37,6 +38,8 @@ type BillingCommerceOverviewPanelProps = {
       productHint: string;
       sellersHint: string;
     };
+    locale?: string;
+    economy?: EconomyPhrases;
   };
 };
 
@@ -46,12 +49,12 @@ function OverviewStat({
   tone = "neutral",
 }: {
   label: string;
-  value: number | string;
+  value: string;
   tone?: keyof typeof PlatformStatusToneClasses;
 }) {
   return (
     <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-[0_1px_2px_rgba(32,35,54,0.04),0_8px_24px_rgba(32,35,54,0.05)] sm:p-5 dark:border-slate-700 dark:bg-slate-950/40">
-      <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</dt>
+      <dt className="text-xs font-semibold tracking-wide text-slate-500">{label}</dt>
       <dd className={`mt-1.5 text-2xl font-semibold ${PlatformStatusToneClasses[tone]}`}>{value}</dd>
     </div>
   );
@@ -62,13 +65,11 @@ function ModuleCard({
   title,
   description,
   openLabel,
-  stat,
 }: {
   item: BillingCommerceNavItem;
   title: string;
   description: string;
   openLabel: string;
-  stat: number | string;
 }) {
   return (
     <Link
@@ -85,9 +86,6 @@ function ModuleCard({
             <p className="mt-1 text-sm leading-relaxed text-slate-600">{description}</p>
           </div>
         </div>
-        <span className="shrink-0 rounded-full bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-700 ring-1 ring-slate-200">
-          {stat}
-        </span>
       </div>
       <span className="mt-3 inline-block text-sm font-medium text-sky-700">
         {openLabel} →
@@ -101,13 +99,11 @@ function ModuleSection({
   hint,
   items,
   labels,
-  moduleStats,
 }: {
   title: string;
   hint?: string;
   items: BillingCommerceNavItem[];
   labels: BillingCommerceOverviewPanelProps["labels"];
-  moduleStats: Map<string, number | string>;
 }) {
   if (items.length === 0) return null;
   return (
@@ -124,7 +120,6 @@ function ModuleSection({
             title={labels.modules[item.id] ?? item.id}
             description={labels.moduleDescriptions[item.id] ?? ""}
             openLabel={labels.openModule}
-            stat={moduleStats.get(item.section) ?? 0}
           />
         ))}
       </div>
@@ -162,8 +157,23 @@ export function BillingCommerceOverviewPanel({ labels }: BillingCommerceOverview
   }
 
   const stats = center.stats ?? {};
-  const moduleStats = new Map((center.modules ?? []).map((m) => [m.id, m.stat]));
-  const overdue = Number(stats.overdue_customers ?? 0);
+  const locale = labels.locale ?? "en";
+  const unavailable = labels.economy?.unavailable ?? "—";
+  const countText = (value: unknown) => {
+    if (value === null || value === undefined || value === "") return unavailable;
+    const formatted = formatEconomyCount(value as number | string, locale);
+    return formatted.state === "value" ? formatted.text : unavailable;
+  };
+  const overdueRaw = stats.overdue_customers;
+  const overdueNumber = typeof overdueRaw === "number" ? overdueRaw : Number(overdueRaw);
+  const productItems = getBillingCommerceNavByPlacement("relatedProduct").filter(
+    (item) => item.id !== "businessPacks",
+  );
+  const sellerItems = getBillingCommerceNavByPlacement("relatedSellers").map((item) =>
+    item.id === "growthPartnerAttribution"
+      ? { ...item, href: "/platform/sellers/attribution" }
+      : item,
+  );
 
   return (
     <div className="space-y-5 lg:space-y-6">
@@ -176,21 +186,21 @@ export function BillingCommerceOverviewPanel({ labels }: BillingCommerceOverview
         <dl className={PlatformLayoutClasses.metricGrid}>
           <OverviewStat
             label={labels.overviewStats.activeCustomers}
-            value={Number(stats.active_customers ?? 0)}
+            value={countText(stats.active_customers)}
             tone="positive"
           />
           <OverviewStat
             label={labels.overviewStats.overdueCustomers}
-            value={overdue}
-            tone={overdue > 0 ? "warning" : "neutral"}
+            value={countText(overdueRaw)}
+            tone={Number.isFinite(overdueNumber) && overdueNumber > 0 ? "warning" : "neutral"}
           />
           <OverviewStat
             label={labels.overviewStats.openInvoices}
-            value={Number(stats.open_invoices ?? 0)}
+            value={countText(stats.open_invoices)}
           />
           <OverviewStat
             label={labels.overviewStats.draftCheckouts}
-            value={Number(stats.checkout_sessions ?? 0)}
+            value={countText(stats.checkout_sessions)}
           />
         </dl>
       </section>
@@ -199,7 +209,6 @@ export function BillingCommerceOverviewPanel({ labels }: BillingCommerceOverview
         title={labels.sections.finance}
         items={getBillingCommercePrimaryNav()}
         labels={labels}
-        moduleStats={moduleStats}
       />
 
       <ModuleSection
@@ -207,23 +216,25 @@ export function BillingCommerceOverviewPanel({ labels }: BillingCommerceOverview
         hint={labels.sections.customersHint}
         items={getBillingCommerceNavByPlacement("relatedCustomers")}
         labels={labels}
-        moduleStats={moduleStats}
       />
 
       <ModuleSection
         title={labels.sections.product}
         hint={labels.sections.productHint}
-        items={getBillingCommerceNavByPlacement("relatedProduct")}
+        items={productItems}
         labels={labels}
-        moduleStats={moduleStats}
       />
+      <p className="text-sm text-slate-700">
+        <Link href="/platform/product/business-packs" className="font-medium text-sky-800 hover:text-sky-900">
+          {labels.economy?.seeProductCatalog ?? labels.openModule}
+        </Link>
+      </p>
 
       <ModuleSection
         title={labels.sections.sellers}
         hint={labels.sections.sellersHint}
-        items={getBillingCommerceNavByPlacement("relatedSellers")}
+        items={sellerItems}
         labels={labels}
-        moduleStats={moduleStats}
       />
 
       <section className="space-y-2.5">

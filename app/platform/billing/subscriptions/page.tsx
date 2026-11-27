@@ -39,6 +39,12 @@ export default async function PlatformBillingSubscriptionsPage() {
         providerLabels: paymentProviderLabels(t),
         paymentStatusLabels: paymentStatusLabels(t),
         pulseLabel: t("branding.pulseLabel"),
+        unavailable: t("platform.economyDisplay.unavailable"),
+        notRegistered: t("platform.economyDisplay.notRegistered"),
+        lifetime: t("platform.economyDisplay.lifetime"),
+        monthly: t("platform.economyDisplay.monthly"),
+        yearly: t("platform.economyDisplay.yearly"),
+        oneTime: t("platform.economyDisplay.oneTime"),
       }}
     />
   );

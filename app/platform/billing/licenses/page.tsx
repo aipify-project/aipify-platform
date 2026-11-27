@@ -8,12 +8,12 @@ export default async function PlatformBillingLicensesPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["platform"]);
   const t = createTranslator(dict);
-  const labels = buildBillingCommerceCenterLabels(t);
+  const labels = buildBillingCommerceCenterLabels(t, locale);
   return (
     <UnifiedBillingAdminSectionPanel
       section="licenses"
-      title={t("platform.unifiedBillingAdmin.licenses.title")}
-      subtitle={t("platform.unifiedBillingAdmin.licenses.subtitle")}
+      title={labels.modules.licenses}
+      subtitle={labels.moduleDescriptions.licenses}
       labels={labels}
     />
   );

@@ -3,7 +3,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
-import { formatDate } from "@/lib/i18n/format-date";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { PlatformLayoutClasses } from "@/lib/design";
+import {
+  formatEconomyDate,
+  formatEconomyMoney,
+  moneyText,
+  presentBillingCycle,
+} from "@/lib/platform/economy-display";
 import { createClient } from "@/lib/supabase/client";
 import { getTrialDaysRemaining, isTrialActive } from "@/lib/platform/trial";
 import type { SubscriptionRow } from "@/lib/platform/types";
@@ -33,12 +40,19 @@ type SubscriptionsPanelProps = {
     providerLabels: Record<string, string>;
     paymentStatusLabels: Record<string, string>;
     pulseLabel: string;
+    unavailable: string;
+    notRegistered: string;
+    lifetime: string;
+    monthly: string;
+    yearly: string;
+    oneTime: string;
   };
 };
 
 export default function SubscriptionsPanel({ locale, labels }: SubscriptionsPanelProps) {
   const [rows, setRows] = useState<SubscriptionRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -48,6 +62,7 @@ export default function SubscriptionsPanel({ locale, labels }: SubscriptionsPane
       const { data, error } = await supabase.rpc("list_platform_subscriptions");
 
       if (!cancelled) {
+        setLoadError(Boolean(error));
         setRows(error || !data ? [] : (data as SubscriptionRow[]));
         setLoading(false);
       }
@@ -61,7 +76,7 @@ export default function SubscriptionsPanel({ locale, labels }: SubscriptionsPane
   }, []);
 
   return (
-    <div className="mx-auto max-w-6xl">
+    <div className={PlatformLayoutClasses.pageWidth}>
       <AipifyBillingDocumentHeader
         title={labels.title}
         subtitle={labels.subtitle}
@@ -69,7 +84,14 @@ export default function SubscriptionsPanel({ locale, labels }: SubscriptionsPane
       />
 
       {loading ? (
-        <p className="text-sm text-gray-500">{labels.loading}</p>
+        <div className="flex min-h-[24vh] items-center justify-center">
+          <AipifyLoader centered />
+          <span className="sr-only">{labels.loading}</span>
+        </div>
+      ) : loadError ? (
+        <p className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-700">
+          {labels.unavailable}
+        </p>
       ) : rows.length === 0 ? (
         <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
@@ -140,7 +162,7 @@ export default function SubscriptionsPanel({ locale, labels }: SubscriptionsPane
                           : "—"}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
-                        {formatDate(row.next_billing_date, locale)}
+                        {formatEconomyDate(row.next_billing_date, locale) ?? labels.notRegistered}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {row.provider
@@ -148,7 +170,17 @@ export default function SubscriptionsPanel({ locale, labels }: SubscriptionsPane
                           : "—"}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-900">
-                        {row.price_amount} {row.currency} / {row.billing_cycle}
+                        {moneyText(
+                          formatEconomyMoney({
+                            amount: row.price_amount,
+                            currency: row.currency,
+                            locale,
+                            scale: "major",
+                          }),
+                          labels.unavailable,
+                        )}{" "}
+                        /{" "}
+                        {presentBillingCycle(row.billing_cycle, labels)}
                       </td>
                     </tr>
                   );

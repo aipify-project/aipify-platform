@@ -3,7 +3,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
-import { formatDate } from "@/lib/i18n/format-date";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import {
+  classifyKid,
+  formatEconomyDate,
+  formatEconomyMoney,
+  moneyText,
+} from "@/lib/platform/economy-display";
+import { PlatformLayoutClasses } from "@/lib/design";
 import { createClient } from "@/lib/supabase/client";
 import type { CustomerRecord, Invoice, InvoiceAction } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
@@ -32,6 +39,9 @@ type InvoicesPanelProps = {
     actionDone: string;
     statusLabels: Record<string, string>;
     pulseLabel: string;
+    unavailable: string;
+    mustVerify: string;
+    notRegistered: string;
   };
 };
 
@@ -40,6 +50,7 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
   const [customers, setCustomers] = useState<Record<string, CustomerRecord>>({});
   const [loading, setLoading] = useState(true);
   const [actingId, setActingId] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -52,7 +63,8 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
       ]);
 
       if (!cancelled) {
-        setInvoices(invoiceRes.data ? (invoiceRes.data as Invoice[]) : []);
+        setLoadError(Boolean(invoiceRes.error));
+        setInvoices(invoiceRes.error || !invoiceRes.data ? [] : (invoiceRes.data as Invoice[]));
         const customerMap: Record<string, CustomerRecord> = {};
         if (customerRes.data) {
           for (const row of customerRes.data as CustomerRecord[]) {
@@ -86,7 +98,8 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
         supabase.rpc("list_platform_customer_records"),
       ]);
 
-      setInvoices(invoiceRes.data ? (invoiceRes.data as Invoice[]) : []);
+      setLoadError(Boolean(invoiceRes.error));
+      setInvoices(invoiceRes.error || !invoiceRes.data ? [] : (invoiceRes.data as Invoice[]));
       const customerMap: Record<string, CustomerRecord> = {};
       if (customerRes.data) {
         for (const row of customerRes.data as CustomerRecord[]) {
@@ -100,7 +113,7 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
   }
 
   return (
-    <div className="mx-auto max-w-6xl">
+    <div className={PlatformLayoutClasses.pageWidth}>
       <AipifyBillingDocumentHeader
         title={labels.title}
         subtitle={labels.subtitle}
@@ -108,7 +121,14 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
       />
 
       {loading ? (
-        <p className="text-sm text-gray-500">{labels.loading}</p>
+        <div className="flex min-h-[24vh] items-center justify-center">
+          <AipifyLoader centered />
+          <span className="sr-only">{labels.loading}</span>
+        </div>
+      ) : loadError ? (
+        <p className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-700">
+          {labels.unavailable}
+        </p>
       ) : invoices.length === 0 ? (
         <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
@@ -163,7 +183,15 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
                         )}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-900">
-                        {invoice.amount} {invoice.currency}
+                        {moneyText(
+                          formatEconomyMoney({
+                            amount: invoice.amount,
+                            currency: invoice.currency,
+                            locale,
+                            scale: "major",
+                          }),
+                          labels.unavailable,
+                        )}
                       </td>
                       <td className="px-6 py-4">
                         <StatusBadge
@@ -171,11 +199,22 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
                           label={labels.statusLabels[invoice.status] ?? invoice.status}
                         />
                       </td>
-                      <td className="px-6 py-4 font-mono text-sm text-gray-600">
-                        {invoice.kid_number ?? "—"}
+                      <td
+                        className="px-6 py-4 text-sm text-gray-600"
+                        title={
+                          classifyKid(invoice.kid_number) === "placeholder"
+                            ? (invoice.kid_number ?? undefined)
+                            : undefined
+                        }
+                      >
+                        {classifyKid(invoice.kid_number) === "present"
+                          ? invoice.kid_number
+                          : classifyKid(invoice.kid_number) === "placeholder"
+                            ? labels.mustVerify
+                            : labels.notRegistered}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
-                        {formatDate(invoice.due_date, locale)}
+                        {formatEconomyDate(invoice.due_date, locale) ?? labels.notRegistered}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap justify-end gap-2">

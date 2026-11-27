@@ -9,5 +9,5 @@ export default async function PlatformBillingPage() {
   const dict = await getDictionary(locale, ["platform"]);
   const t = createTranslator(dict);
 
-  return <BillingCommerceOverviewPanel labels={buildBillingCommerceCenterLabels(t)} />;
+  return <BillingCommerceOverviewPanel labels={buildBillingCommerceCenterLabels(t, locale)} />;
 }

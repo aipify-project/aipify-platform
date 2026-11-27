@@ -8,7 +8,7 @@ export default async function PlatformBillingDomainLicensesPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["platform"]);
   const t = createTranslator(dict);
-  const labels = buildBillingCommerceCenterLabels(t);
+  const labels = buildBillingCommerceCenterLabels(t, locale);
 
   return (
     <BillingCommerceSectionPanel
