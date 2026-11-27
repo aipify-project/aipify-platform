@@ -41,8 +41,8 @@ export async function GET(request: NextRequest) {
             ? "Supportsaker er midlertidig utilgjengelige."
             : "Kunne ikke hente supportsaker.",
           code: missing ? "core_not_applied" : "unknown",
-          live: false,
           ...getSupportIntakeGateState(),
+          live: false,
         },
         { status: missing ? 503 : 500, headers: NO_STORE },
       );

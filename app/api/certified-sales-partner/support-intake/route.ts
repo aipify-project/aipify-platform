@@ -93,8 +93,8 @@ export async function POST(request: NextRequest) {
         {
           error: result.message,
           code: result.code,
-          live: false,
           ...getSupportIntakeGateState(),
+          live: false,
         },
         { status: httpStatusForIntakeDenial(result.code), headers: NO_STORE },
       );

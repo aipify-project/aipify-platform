@@ -90,12 +90,12 @@ export async function POST(request: NextRequest) {
       });
       if (!denied.ok) {
         return NextResponse.json(
-          {
-            error: denied.message,
-            code: denied.code,
-            live: false,
-            ...gate,
-          },
+        {
+          error: denied.message,
+          code: denied.code,
+          ...gate,
+          live: false,
+        },
           { status: httpStatusForIntakeDenial(denied.code), headers: NO_STORE },
         );
       }
@@ -109,8 +109,8 @@ export async function POST(request: NextRequest) {
         {
           error: "Supportinntak er midlertidig utilgjengelig.",
           code: "unknown",
-          live: false,
           ...gate,
+          live: false,
         },
         { status: 503, headers: NO_STORE },
       );
@@ -133,8 +133,8 @@ export async function POST(request: NextRequest) {
         {
           error: result.message,
           code: result.code,
-          live: false,
           ...getSupportIntakeGateState(),
+          live: false,
         },
         { status: httpStatusForIntakeDenial(result.code), headers: NO_STORE },
       );
