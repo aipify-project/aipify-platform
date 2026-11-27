@@ -198,13 +198,6 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
         supportAiHoursSaved: (hours) =>
           labels.recommendations.supportAiHoursSaved.replace("{hours}", String(hours)),
       }),
-      // Do not invent per-status trend arrows — Core has no status time-series.
-      healthTrends: {
-        active: "flat" as const,
-        trial: "flat" as const,
-        paused: "flat" as const,
-        cancelled: "flat" as const,
-      },
     };
   }, [labels, metrics]);
 
@@ -224,14 +217,13 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
         : labels.executive.healthAttention;
 
   const customerStatuses = [
-    { key: "active", value: metrics.customers.active, label: labels.customerInsights.active, trend: dashboard.healthTrends.active },
-    { key: "trial", value: metrics.customers.trial, label: labels.customerInsights.trial, trend: dashboard.healthTrends.trial },
-    { key: "paused", value: metrics.customers.paused, label: labels.customerInsights.paused, trend: dashboard.healthTrends.paused },
+    { key: "active", value: metrics.customers.active, label: labels.customerInsights.active },
+    { key: "trial", value: metrics.customers.trial, label: labels.customerInsights.trial },
+    { key: "paused", value: metrics.customers.paused, label: labels.customerInsights.paused },
     {
       key: "cancelled",
       value: metrics.customers.cancelled,
       label: labels.customerInsights.cancelled,
-      trend: dashboard.healthTrends.cancelled,
     },
   ];
 
@@ -354,21 +346,7 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
         <SectionHeading id="metrics-customers" title={labels.customerInsights.title} />
         <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-            {customerStatuses.map((item) => {
-              const trendLabel =
-                item.trend > 0
-                  ? `↑ ${item.trend}${labels.customerInsights.trendUp}`
-                  : item.trend < 0
-                    ? `↓ ${Math.abs(item.trend)}${labels.customerInsights.trendDown}`
-                    : labels.customerInsights.trendFlat;
-              const trendClass =
-                item.trend > 0
-                  ? "text-emerald-600"
-                  : item.trend < 0
-                    ? "text-rose-600"
-                    : "text-gray-500";
-
-              return (
+            {customerStatuses.map((item) => (
                 <div
                   key={item.key}
                   className="rounded-xl bg-gray-50/80 px-4 py-3 text-center ring-1 ring-gray-100"
@@ -379,10 +357,12 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
                   <p className="mt-2 text-2xl font-bold text-gray-900">
                     {formatMetricNumber(item.value)}
                   </p>
-                  <p className={`mt-1 text-xs font-medium ${trendClass}`}>{trendLabel}</p>
+                  {/* Core has no per-status time-series — never invent trend arrows. */}
+                  <p className="mt-1 text-xs font-medium text-gray-500">
+                    {labels.customerInsights.trendFlat}
+                  </p>
                 </div>
-              );
-            })}
+            ))}
           </div>
         </div>
       </section>
