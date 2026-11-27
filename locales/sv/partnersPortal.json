@@ -1231,13 +1231,13 @@
       "previewReady": "Förhandsvisning och kopiering är tillgängliga",
       "sendNotActivated": "Direktutskick är inte aktiverat",
       "copySubject": "Kopiera ämne",
-      "copyBody": "Kopiera text",
-      "copyWithLink": "Kopiera text och länk",
-      "copied": "Kopierad",
+      "copyBody": "Kopiera brödtext",
+      "copyWithLink": "Kopiera med personlig länk",
+      "copied": "Kopierat",
       "copyFailed": "Kunde inte kopiera",
       "howSendingTitle": "Så fungerar utskick",
       "howSendingBody": "Utskick förblir avstängt tills transport, samtycke och godkännande finns. Kopiering skickar inte meddelandet.",
-      "linkUnavailable": "Personlig säljlänk är inte tillgänglig ännu",
+      "linkUnavailable": "Personlig säljlänk är inte tillgänglig ännu.",
       "inboxTitle": "E-postkonversationer",
       "inboxIntro": "Svar som hör till ditt säljmejl visas här.",
       "inboxEmpty": "Välj en konversation från aviseringsklockan.",
@@ -1246,7 +1246,8 @@
         "follow_up": "Uppföljning",
         "meeting_request": "Mötesförfrågan",
         "product_information": "Produktinformation"
-      }
+      },
+      "personalLinkLabel": "Personlig säljlänk"
     },
     "settlementLinks": {
       "payoutTitle": "Utbetalningsuppgifter",
@@ -1282,15 +1283,42 @@
         "flowTitle": "En användbar ordning",
         "flowBody": "Välj produkt, bekräfta certifiering och publicering, välj kanal, kopiera godkänd text och länk, och följ status under Leads och Mina försäljningar.",
         "channels": {
-        "email": { "title": "E-post", "body": "När du känner mottagaren och har en laglig grund för att skriva." },
-        "linkedin": { "title": "LinkedIn", "body": "Passar en professionell relation." },
-        "instagram": { "title": "Instagram", "body": "Dela i ditt nätverk, inte som massutskick." },
-        "facebook": { "title": "Facebook", "body": "Relevanta personer, inte ett brett utskick." },
-        "x": { "title": "X", "body": "Bara om publiken där faktiskt passar." },
-        "tiktok": { "title": "TikTok", "body": "Bara om publiken där faktiskt passar." },
-        "snapchat": { "title": "Snapchat", "body": "Bara om publiken där faktiskt passar." },
-        "qr": { "title": "QR", "body": "För ett fysiskt möte." },
-        "personal": { "title": "Personlig länk", "body": "När du rekommenderar direkt." }
+          "email": {
+            "title": "E-post",
+            "body": "När du känner mottagaren och har en laglig grund för att skriva."
+          },
+          "linkedin": {
+            "title": "LinkedIn",
+            "body": "Passar en professionell relation."
+          },
+          "instagram": {
+            "title": "Instagram",
+            "body": "Dela i ditt nätverk, inte som massutskick."
+          },
+          "facebook": {
+            "title": "Facebook",
+            "body": "Relevanta personer, inte ett brett utskick."
+          },
+          "x": {
+            "title": "X",
+            "body": "Bara om publiken där faktiskt passar."
+          },
+          "tiktok": {
+            "title": "TikTok",
+            "body": "Bara om publiken där faktiskt passar."
+          },
+          "snapchat": {
+            "title": "Snapchat",
+            "body": "Bara om publiken där faktiskt passar."
+          },
+          "qr": {
+            "title": "QR",
+            "body": "För ett fysiskt möte."
+          },
+          "personal": {
+            "title": "Personlig länk",
+            "body": "När du rekommenderar direkt."
+          }
         }
       },
       "approvedLabel": "Godkänd text",
@@ -1465,11 +1493,11 @@
         }
       },
       "academy": {
-                "learnedStatus": "Lektionerna finns på den här sidan",
+        "learnedStatus": "Lektionerna finns på den här sidan",
         "passedStatus": "Certifiering är registrerad",
         "notPassedStatus": "Inte registrerad ännu",
         "sellStatus": "Dela efter certifiering",
-"learn": {
+        "learn": {
           "title": "Lär",
           "body": "Läs de publicerade lektionerna för produkten.",
           "action": "Öppna lektionen"

@@ -1231,13 +1231,13 @@
       "previewReady": "Forhåndsvisning og kopiering er tilgjengelig",
       "sendNotActivated": "Direkte utsending er ikke aktivert",
       "copySubject": "Kopier emne",
-      "copyBody": "Kopier tekst",
-      "copyWithLink": "Kopier tekst og lenke",
+      "copyBody": "Kopier brødtekst",
+      "copyWithLink": "Kopier med personlig lenke",
       "copied": "Kopiert",
       "copyFailed": "Kunne ikke kopiere",
       "howSendingTitle": "Slik fungerer utsending",
       "howSendingBody": "Utsending blir liggende av til transport, samtykke og godkjenning er på plass. Kopiering sender ikke meldingen.",
-      "linkUnavailable": "Personlig salgslenke er ikke tilgjengelig ennå",
+      "linkUnavailable": "Personlig salgslenke er ikke tilgjengelig ennå.",
       "inboxTitle": "E-postsamtaler",
       "inboxIntro": "Svar som hører til salgs-e-posten din vises her.",
       "inboxEmpty": "Velg en samtale fra varslingsbjellen.",
@@ -1246,7 +1246,8 @@
         "follow_up": "Oppfølging",
         "meeting_request": "Møteforespørsel",
         "product_information": "Produktinformasjon"
-      }
+      },
+      "personalLinkLabel": "Personlig salgslenke"
     },
     "settlementLinks": {
       "payoutTitle": "Utbetalingsopplysninger",

@@ -1231,13 +1231,13 @@
       "previewReady": "Preview and copying are available",
       "sendNotActivated": "Direct sending is not activated",
       "copySubject": "Copy subject",
-      "copyBody": "Copy text",
-      "copyWithLink": "Copy text and link",
+      "copyBody": "Copy body",
+      "copyWithLink": "Copy with personal link",
       "copied": "Copied",
       "copyFailed": "Could not copy",
       "howSendingTitle": "How sending works",
       "howSendingBody": "Sending stays off until transport, consent, and approval are in place. Copying does not send the message.",
-      "linkUnavailable": "Personal sales link is not available yet",
+      "linkUnavailable": "Personal sales link is not available yet.",
       "inboxTitle": "Email conversations",
       "inboxIntro": "Replies that belong to your sales email appear here.",
       "inboxEmpty": "Choose a conversation from the notification bell.",
@@ -1246,7 +1246,8 @@
         "follow_up": "Follow-up",
         "meeting_request": "Meeting request",
         "product_information": "Product information"
-      }
+      },
+      "personalLinkLabel": "Personal sales link"
     },
     "settlementLinks": {
       "payoutTitle": "Payout details",
@@ -1282,15 +1283,42 @@
         "flowTitle": "A useful order",
         "flowBody": "Choose the product, confirm certification and publishing, choose a channel, copy the approved text and link, then follow the status under Leads and My sales.",
         "channels": {
-        "email": { "title": "Email", "body": "Use it when you know the recipient and have a lawful reason to write." },
-        "linkedin": { "title": "LinkedIn", "body": "Fits a professional relationship." },
-        "instagram": { "title": "Instagram", "body": "Share with your network, not as a mass send." },
-        "facebook": { "title": "Facebook", "body": "Relevant people, not a wide blast." },
-        "x": { "title": "X", "body": "Only if the audience there actually fits." },
-        "tiktok": { "title": "TikTok", "body": "Only if the audience there actually fits." },
-        "snapchat": { "title": "Snapchat", "body": "Only if the audience there actually fits." },
-        "qr": { "title": "QR", "body": "For a meeting in person." },
-        "personal": { "title": "Personal link", "body": "When you recommend someone directly." }
+          "email": {
+            "title": "Email",
+            "body": "Use it when you know the recipient and have a lawful reason to write."
+          },
+          "linkedin": {
+            "title": "LinkedIn",
+            "body": "Fits a professional relationship."
+          },
+          "instagram": {
+            "title": "Instagram",
+            "body": "Share with your network, not as a mass send."
+          },
+          "facebook": {
+            "title": "Facebook",
+            "body": "Relevant people, not a wide blast."
+          },
+          "x": {
+            "title": "X",
+            "body": "Only if the audience there actually fits."
+          },
+          "tiktok": {
+            "title": "TikTok",
+            "body": "Only if the audience there actually fits."
+          },
+          "snapchat": {
+            "title": "Snapchat",
+            "body": "Only if the audience there actually fits."
+          },
+          "qr": {
+            "title": "QR",
+            "body": "For a meeting in person."
+          },
+          "personal": {
+            "title": "Personal link",
+            "body": "When you recommend someone directly."
+          }
         }
       },
       "approvedLabel": "Approved wording",
@@ -1465,11 +1493,11 @@
         }
       },
       "academy": {
-                "learnedStatus": "Lessons are on this page",
+        "learnedStatus": "Lessons are on this page",
         "passedStatus": "Certification recorded",
         "notPassedStatus": "Not recorded yet",
         "sellStatus": "Share after certification",
-"learn": {
+        "learn": {
           "title": "Learn",
           "body": "Read the published lessons for the product.",
           "action": "Open the lesson"

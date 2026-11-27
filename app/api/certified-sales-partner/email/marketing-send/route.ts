@@ -101,7 +101,7 @@ export async function POST(request: Request) {
       seller_company: signature.company,
       seller_contact: signature.contact,
       product_name: productKey,
-      product_description: cspMarketingProductDescription(productKey),
+      product_description: cspMarketingProductDescription(productKey, locale),
       referral_url: referralUrl,
       company_branding: "Aipify",
     };

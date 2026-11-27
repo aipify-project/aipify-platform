@@ -1,10 +1,15 @@
-/** Product lines already used by the live template preview. Shared so send matches preview. */
-export function cspMarketingProductDescription(productKey: string): string {
-  if (productKey === "kompis_web") {
-    return "Kompis Web answers visitor questions using content you approve.";
-  }
-  if (productKey === "kompis_bedrift") {
-    return "Kompis Bedrift supports internal knowledge with approved sources.";
-  }
+import { listPublishedSalesCopyForLocale } from "@/lib/certified-sales-partner/sales-materials-catalog";
+
+/**
+ * Product lines for live template preview and marketing send.
+ * Prefer approved short copy for the marketing locale; never invent claims.
+ * Missing locale returns empty — callers must not fall back to English silently.
+ */
+export function cspMarketingProductDescription(productKey: string, locale = "en"): string {
+  const localized = listPublishedSalesCopyForLocale({ productKey, locale });
+  const short = localized.find((item) => item.tone === "short");
+  if (short?.text.trim()) return short.text.trim();
+  const informative = localized.find((item) => item.tone === "informative");
+  if (informative?.text.trim()) return informative.text.trim();
   return "";
 }
