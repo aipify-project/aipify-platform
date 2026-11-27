@@ -2111,7 +2111,9 @@
       "resolved": "Resolved",
       "closed": "Closed",
       "reopened": "Reopened",
-      "archived": "Archived"
+      "archived": "Archived",
+      "in_review": "En revisión",
+      "waiting_for_aipify": "Esperando a Aipify"
     },
     "priorityLabels": {
       "low": "Low",
@@ -2228,7 +2230,20 @@
       "send": "Send reply",
       "sendBlocked": "Email sending not configured — button disabled until transport is approved.",
       "internalNote": "Internal note",
-      "attachSignature": "Attach signature"
+      "attachSignature": "Attach signature",
+      "customerReplyHint": "Escriba una respuesta para el cliente. Guardar borrador lo mantiene interno. Enviar respuesta lo publica en la bandeja del cliente (el correo permanece desactivado hasta configurarlo).",
+      "replyPlaceholder": "Escriba la respuesta…",
+      "saveDraft": "Guardar borrador",
+      "draftSaved": "Borrador guardado. No se ha publicado en la bandeja del cliente.",
+      "sendReply": "Enviar respuesta",
+      "sendReplySaved": "Respuesta publicada en la bandeja del cliente. No se envió correo.",
+      "sendReplyCorePending": "Enviar respuesta requiere activación de plataforma antes de aparecer en la bandeja del cliente. Hasta entonces Aipify indica con claridad que este paso aún no está listo.",
+      "emailOff": "El envío de correo no está configurado. La entrega a la bandeja es independiente del correo.",
+      "internalNoteHint": "Solo visible para el equipo de soporte.",
+      "notePlaceholder": "Nota interna…",
+      "saveNote": "Guardar nota",
+      "noteSaved": "Nota guardada.",
+      "signatureAttached": "Firma añadida."
     },
     "detail": {
       "title": "Select a ticket to see details",
@@ -2236,7 +2251,13 @@
       "internalNotes": "Internal notes",
       "noMessages": "No messages yet.",
       "messagesBlocked": "Message threads are stored only after owner-approved Core SQL for support messages.",
-      "back": "Close"
+      "back": "Close",
+      "deliveryLabels": {
+        "inbox_persisted": "Publicado en bandeja — correo no enviado"
+      },
+      "writeErrors": {
+        "invalid_transition": "Ese cambio de estado no está permitido para este caso."
+      }
     },
     "_fallbackFrom": "en",
     "_fallbackNote": "Admin Norwegian is authoritative; this locale falls back structurally to English until human translation."

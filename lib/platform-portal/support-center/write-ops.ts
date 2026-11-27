@@ -1,13 +1,20 @@
 /**
  * Platform Support write operations.
- * Live only when bound to Staging Core. Email send stays separately gated OFF.
- * External replies store drafts as blocked_unconfigured — never send.
+ * Live when bound to Staging/Production Core. Email send stays separately gated OFF.
+ * Draft path: platform_support_post_external_reply_draft (blocked_unconfigured).
+ * Public send path: platform_support_send_public_reply (inbox_persisted) — fail-closed until applied.
  */
 
 import { SUPPORT_EMAIL_SEND_CONFIGURED } from "./channel-status";
 import { resolveSupportCenterStagingLiveGates } from "./staging-core-activation";
 import { stripUnresolvedTemplatePlaceholders } from "@/lib/support-intake/sanitize";
 import { draftHasSupportSignature } from "./signature";
+import {
+  SUPPORT_SEND_PUBLIC_REPLY_APPLIED,
+  SUPPORT_SEND_PUBLIC_REPLY_RPC,
+} from "./send-public-reply-contract";
+
+export { SUPPORT_SEND_PUBLIC_REPLY_RPC } from "./send-public-reply-contract";
 
 /** Compile-time Production default — closed. */
 export const SUPPORT_WRITE_RPC_CONNECTED = false as const;
@@ -19,6 +26,7 @@ export type SupportWriteDenialCode =
   | "feature_gate_off"
   | "email_not_configured"
   | "validation"
+  | "invalid_transition"
   | "forbidden"
   | "unknown";
 
@@ -71,12 +79,28 @@ export function getSupportWriteGateState() {
   };
 }
 
-/** Allowed status transitions for Platform agents. */
+/** Allowed status transitions for Platform agents (aligned with Core check). */
 export const SUPPORT_STATUS_TRANSITIONS: Record<string, readonly string[]> = {
-  new: ["open", "in_progress", "closed"],
-  open: ["in_progress", "waiting_for_customer", "waiting_internal", "resolved", "closed"],
-  in_progress: ["waiting_for_customer", "waiting_internal", "resolved", "closed"],
-  waiting_for_customer: ["in_progress", "resolved", "closed"],
+  new: ["open", "in_progress", "in_review", "closed"],
+  open: [
+    "in_progress",
+    "in_review",
+    "waiting_for_customer",
+    "waiting_for_aipify",
+    "waiting_internal",
+    "resolved",
+    "closed",
+  ],
+  in_progress: [
+    "waiting_for_customer",
+    "waiting_for_aipify",
+    "waiting_internal",
+    "resolved",
+    "closed",
+  ],
+  in_review: ["in_progress", "waiting_for_customer", "resolved", "closed"],
+  waiting_for_customer: ["in_progress", "waiting_for_aipify", "resolved", "closed"],
+  waiting_for_aipify: ["in_progress", "waiting_for_customer", "resolved", "closed"],
   waiting_internal: ["in_progress", "resolved", "closed"],
   resolved: ["closed", "reopened"],
   closed: ["reopened"],
@@ -94,8 +118,27 @@ export function canTransitionSupportStatus(
 
 function mapRpcError(message: string): SupportWriteResult {
   const lower = message.toLowerCase();
+  if (
+    lower.includes("could not find the function") ||
+    (lower.includes("function") && lower.includes("does not exist")) ||
+    lower.includes("schema cache")
+  ) {
+    return deny(
+      "core_not_applied",
+      "Denne skriveoperasjonen venter på Core-godkjenning (RPC mangler).",
+    );
+  }
   if (lower.includes("platform portal access denied") || lower.includes("forbidden")) {
     return deny("forbidden", "Ingen tilgang.");
+  }
+  if (
+    lower.includes("invalid_transition") ||
+    lower.includes("invalid status") ||
+    lower.includes("cannot change status") ||
+    lower.includes("status transition") ||
+    (lower.includes("check constraint") && lower.includes("status"))
+  ) {
+    return deny("invalid_transition", "Ugyldig status for denne saken.");
   }
   if (lower.includes("invalid") || lower.includes("not found")) {
     return deny("validation", message);
@@ -199,6 +242,72 @@ export async function postExternalReply(input: {
   };
 }
 
+/**
+ * Persists a public reply into the customer-visible APP thread.
+ * Fail-closed with core_not_applied until platform_support_send_public_reply is applied.
+ * Never claims email was sent.
+ */
+export async function sendPublicSupportReply(input: {
+  ticketId: string;
+  body: string;
+  agentUserId: string;
+  templateId?: string | null;
+  templateVersion?: number | null;
+  includeSignature: boolean;
+  signatureText?: string | null;
+  idempotencyKey?: string | null;
+  rpc?: RpcClient;
+}): Promise<SupportWriteResult> {
+  const gated = ensureWriteGates();
+  if (gated) return gated;
+  if (!SUPPORT_SEND_PUBLIC_REPLY_APPLIED) {
+    return deny(
+      "core_not_applied",
+      "Send svar venter på plattformaktivering. Utkast kan fortsatt lagres.",
+    );
+  }
+
+  const cleaned = stripUnresolvedTemplatePlaceholders(input.body);
+  if (cleaned.length < 1) {
+    return deny("validation", "Svartekst mangler.");
+  }
+
+  const bodyWithOptionalSignature =
+    input.includeSignature &&
+    input.signatureText &&
+    !draftHasSupportSignature(cleaned)
+      ? `${cleaned}\n\n${input.signatureText}`
+      : cleaned;
+
+  if (!input.rpc) {
+    return deny("unknown", "Svar-RPC er ikke tilgjengelig.");
+  }
+
+  const { data, error } = await input.rpc.rpc(SUPPORT_SEND_PUBLIC_REPLY_RPC, {
+    p_ticket_id: input.ticketId,
+    p_body: bodyWithOptionalSignature,
+    p_idempotency_key: input.idempotencyKey ?? null,
+    p_template_id: input.templateId ?? null,
+    p_template_version: input.templateVersion ?? null,
+    p_include_signature: Boolean(input.includeSignature),
+  });
+  if (error) return mapRpcError(error.message ?? "");
+  const row = asObject(data);
+  if (!row || row.ok !== true || typeof row.id !== "string") {
+    return deny("unknown", "Send-svar-RPC returnerte ugyldig svar.");
+  }
+  return {
+    ok: true,
+    live: true,
+    id: row.id,
+    direction: typeof row.direction === "string" ? row.direction : "outbound",
+    deliveryStatus:
+      typeof row.delivery_status === "string"
+        ? row.delivery_status
+        : "inbox_persisted",
+  };
+}
+
 export async function updateSupportTicketStatus(input: {
   ticketId: string;
   fromStatus: string;
@@ -209,7 +318,10 @@ export async function updateSupportTicketStatus(input: {
   const gated = ensureWriteGates();
   if (gated) return gated;
   if (!canTransitionSupportStatus(input.fromStatus, input.toStatus)) {
-    return deny("validation", "Ugyldig statusovergang.");
+    return deny(
+      "invalid_transition",
+      `Kan ikke endre status fra «${input.fromStatus}» til «${input.toStatus}».`,
+    );
   }
   if (!input.rpc) {
     return deny("unknown", "Status-RPC er ikke tilgjengelig.");
@@ -264,6 +376,7 @@ export function httpStatusForWriteDenial(code: SupportWriteDenialCode): number {
     case "forbidden":
       return 403;
     case "validation":
+    case "invalid_transition":
       return 400;
     case "email_not_configured":
     case "core_not_applied":

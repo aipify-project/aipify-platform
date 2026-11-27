@@ -55,7 +55,24 @@ import {
   resolveTicketDescription,
   ticketFromDetailItem,
 } from "./ticket-view";
-import { SUPPORT_STATUS_TRANSITIONS } from "./write-ops";
+import {
+  SUPPORT_STATUS_TRANSITIONS,
+  canTransitionSupportStatus,
+  sendPublicSupportReply,
+} from "./write-ops";
+import {
+  SUPPORT_SEND_PUBLIC_REPLY_APPLIED,
+  SUPPORT_SEND_PUBLIC_REPLY_SQL_PATH,
+  SUPPORT_SEND_PUBLIC_REPLY_SQL_SHA256,
+  SUPPORT_APP_VISIBLE_MESSAGES_SQL_PATH,
+  SUPPORT_APP_VISIBLE_MESSAGES_SQL_SHA256,
+} from "./send-public-reply-contract";
+import {
+  SUPPORT_EMAIL_DELIVERY_LIVE,
+  SUPPORT_EMAIL_TEMPLATE_KEYS,
+  getSupportEmailNotifyGateState,
+} from "./email-notify-contract";
+import { SUPPORT_ALL_CHANNELS_INTAKE_SQL_SHA256 } from "@/lib/support-intake/sql-candidate";
 import type { PlatformSupportTicketsListItem } from "@/lib/platform-portal/support-tickets-read-adapter";
 import { readFileSync as readLocale } from "node:fs";
 
@@ -357,4 +374,74 @@ assert.equal(enChannels.notActivated, "Not activated");
 assert.equal(enChannels.preparedOnly, "Not configured");
 assert.match(enChannels.emailSendBlocked, /not configured/i);
 
-console.log("support-center.test.ts: ok");
+// Send vs draft + status transitions + email gates stay fail-closed.
+assert.equal(SUPPORT_SEND_PUBLIC_REPLY_APPLIED, false);
+assert.equal(SUPPORT_EMAIL_DELIVERY_LIVE, false);
+assert.equal(getSupportEmailNotifyGateState().deliveryLive, false);
+assert.ok(SUPPORT_EMAIL_TEMPLATE_KEYS.includes("public-reply-to-customer"));
+assert.ok(SUPPORT_EMAIL_TEMPLATE_KEYS.includes("public-reply-to-partner"));
+assert.equal(canTransitionSupportStatus("open", "in_progress"), true);
+assert.equal(canTransitionSupportStatus("closed", "open"), false);
+assert.equal(canTransitionSupportStatus("archived", "open"), false);
+assert.ok(SUPPORT_STATUS_TRANSITIONS.open.includes("waiting_for_aipify"));
+assert.ok(SUPPORT_STATUS_TRANSITIONS.open.includes("in_review"));
+
+assert.equal(existsSync(SUPPORT_SEND_PUBLIC_REPLY_SQL_PATH), true);
+assert.equal(
+  createHash("sha256")
+    .update(readFileSync(SUPPORT_SEND_PUBLIC_REPLY_SQL_PATH))
+    .digest("hex"),
+  SUPPORT_SEND_PUBLIC_REPLY_SQL_SHA256,
+);
+assert.equal(existsSync(SUPPORT_APP_VISIBLE_MESSAGES_SQL_PATH), true);
+assert.equal(
+  createHash("sha256")
+    .update(readFileSync(SUPPORT_APP_VISIBLE_MESSAGES_SQL_PATH))
+    .digest("hex"),
+  SUPPORT_APP_VISIBLE_MESSAGES_SQL_SHA256,
+);
+assert.equal(
+  SUPPORT_ALL_CHANNELS_INTAKE_SQL_SHA256,
+  "24bac8714ebc07e3311b47db0a6fe9716d0328c107e1a872cb79a0c796db0a46",
+);
+
+for (const locale of ["en", "no", "sv", "da", "pl", "uk"]) {
+  const reply = localeDicts[locale].reply as Record<string, string>;
+  assert.ok(reply.sendReply?.trim());
+  assert.ok(reply.saveDraft?.trim());
+  assert.ok(reply.sendReplySaved?.trim());
+  assert.ok(reply.sendReplyCorePending?.trim());
+  assert.doesNotMatch(reply.sendReplyCorePending, /\bCore\b/);
+  assert.notEqual(reply.sendReply, reply.saveDraft);
+  const delivery = (localeDicts[locale].detail as { deliveryLabels: Record<string, string> })
+    .deliveryLabels;
+  assert.ok(delivery.inbox_persisted?.trim());
+  const errors = (localeDicts[locale].detail as { writeErrors: Record<string, string> })
+    .writeErrors;
+  assert.ok(errors.invalid_transition?.trim());
+}
+
+async function assertSendPublicReplyFailClosed() {
+  const sendDenied = await sendPublicSupportReply({
+    ticketId: "00000000-0000-4000-8000-000000000001",
+    body: "Hei — dette er et testsvar.",
+    agentUserId: "00000000-0000-4000-8000-000000000002",
+    includeSignature: false,
+    rpc: {
+      rpc: async () => ({ data: null, error: null }),
+    },
+  });
+  assert.equal(sendDenied.ok, false);
+  if (!sendDenied.ok) {
+    assert.equal(sendDenied.code, "core_not_applied");
+  }
+}
+
+assertSendPublicReplyFailClosed()
+  .then(() => {
+    console.log("support-center.test.ts: ok");
+  })
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });

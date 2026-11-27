@@ -507,11 +507,27 @@ export default function PlatformSupportCenterPanel({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ticketId: selectedId, ...payload }),
       });
-      const json = (await res.json().catch(() => ({}))) as { code?: string };
+      const json = (await res.json().catch(() => ({}))) as {
+        code?: string;
+        error?: string;
+        message?: string;
+      };
       if (!res.ok) {
-        const text =
+        const mapped =
           labels.detail.writeErrors[json.code ?? "unknown"] ??
           labels.detail.writeErrors.unknown;
+        const detail =
+          typeof json.error === "string" && json.error.trim().length > 0
+            ? json.error.trim()
+            : typeof json.message === "string" && json.message.trim().length > 0
+              ? json.message.trim()
+              : null;
+        const text =
+          json.code === "invalid_transition" && detail
+            ? detail
+            : json.code === "validation" && detail
+              ? `${mapped} (${detail})`
+              : mapped;
         // Drafts are left untouched so nothing typed is lost.
         setFeedback({ scope, flash: { tone: "error", text } });
         return;
@@ -542,6 +558,33 @@ export default function PlatformSupportCenterPanel({
       },
       labels.reply.draftSaved,
       () => setDrafts({ ...draftsForSelected, ticketId: selectedId, replyBaseline: body }),
+    );
+  }
+
+  function sendReply() {
+    const body = replyDraft;
+    const key =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `send-${Date.now()}`;
+    void runWrite(
+      "send",
+      {
+        action: "send_public_reply",
+        body,
+        templateId: draftsForSelected.templateId || null,
+        includeSignature: false,
+        idempotencyKey: key,
+      },
+      labels.reply.sendReplySaved,
+      () =>
+        setDrafts({
+          ...draftsForSelected,
+          ticketId: selectedId,
+          reply: "",
+          replyBaseline: "",
+          templateId: "",
+        }),
     );
   }
 
@@ -739,6 +782,7 @@ export default function PlatformSupportCenterPanel({
                 if (tpl) insertTemplate(tpl);
               }}
               onSaveDraft={saveDraft}
+              onSendReply={sendReply}
               onSaveNote={saveNote}
               onUpdateStatus={updateStatus}
               onAssignToMe={assignToMe}

@@ -8811,7 +8811,9 @@
       "resolved": "Rozwiązane",
       "closed": "Zamknięte",
       "reopened": "Otwarte ponownie",
-      "archived": "Zarchiwizowane"
+      "archived": "Zarchiwizowane",
+      "in_review": "W przeglądzie",
+      "waiting_for_aipify": "Oczekuje na Aipify"
     },
     "priorityLabels": {
       "low": "Niski",
@@ -8977,20 +8979,23 @@
     "reply": {
       "title": "Odpowiedź",
       "draft": "Wersja robocza odpowiedzi dla klienta",
-      "customerReplyHint": "Ten tekst jest przeznaczony dla klienta. Zapisywany jest tylko jako wersja robocza — nie jest wysyłany.",
+      "customerReplyHint": "Napisz odpowiedź dla klienta. Zapisz szkic pozostawia go wewnętrznie. Wyślij odpowiedź publikuje ją w skrzynce klienta (e-mail pozostaje wyłączony do konfiguracji).",
       "replyPlaceholder": "Napisz odpowiedź dla klienta…",
       "chooseTemplate": "Wybierz szablon",
       "preview": "Podgląd",
-      "saveDraft": "Zapisz wersję roboczą",
-      "draftSaved": "Wersja robocza zapisana. Nie została wysłana do klienta.",
-      "emailOff": "Wysyłanie e-maili nie jest skonfigurowane. Odpowiedzi pozostają wersjami roboczymi i nie są wysyłane.",
+      "saveDraft": "Zapisz szkic",
+      "draftSaved": "Szkic zapisany. Nie opublikowano go w skrzynce klienta.",
+      "emailOff": "Wysyłka e-mail nie jest skonfigurowana. Dostawa do skrzynki jest oddzielona od e-maila.",
       "internalNote": "Notatka wewnętrzna",
       "internalNoteHint": "Widoczna tylko dla zespołu wsparcia. Nigdy nie jest pokazywana klientowi.",
       "notePlaceholder": "Napisz notatkę dla współpracowników…",
       "saveNote": "Zapisz notatkę wewnętrzną",
       "noteSaved": "Notatka wewnętrzna zapisana.",
       "attachSignature": "Dołącz podpis",
-      "signatureAttached": "Podpis dołączono do wersji roboczej."
+      "signatureAttached": "Podpis dołączono do wersji roboczej.",
+      "sendReply": "Wyślij odpowiedź",
+      "sendReplySaved": "Odpowiedź opublikowana w skrzynce klienta. E-mail nie został wysłany.",
+      "sendReplyCorePending": "Wyślij odpowiedź wymaga aktywacji platformy, zanim pojawi się w skrzynce klienta. Do tego czasu Aipify uczciwie informuje, że ten krok nie jest jeszcze gotowy."
     },
     "detail": {
       "title": "Wybierz zgłoszenie, aby zobaczyć szczegóły",
@@ -9017,7 +9022,8 @@
         "draft": "Wersja robocza",
         "queued": "W kolejce",
         "sent": "Wysłane",
-        "failed": "Niewysłane — dostarczenie nie powiodło się"
+        "failed": "Niewysłane — dostarczenie nie powiodło się",
+        "inbox_persisted": "Opublikowano w skrzynce — e-mail nie wysłany"
       },
       "writeErrors": {
         "core_not_applied": "Zapisywanie nie jest jeszcze włączone w tym środowisku.",
@@ -9025,7 +9031,8 @@
         "validation": "Sprawdź tekst i spróbuj ponownie.",
         "forbidden": "Nie masz uprawnień do wykonania tej czynności.",
         "unauthorized": "Twoja sesja wygasła. Zaloguj się ponownie.",
-        "unknown": "Nie udało się zapisać zmiany. Twój tekst nadal tu jest — spróbuj ponownie."
+        "unknown": "Nie udało się zapisać zmiany. Twój tekst nadal tu jest — spróbuj ponownie.",
+        "invalid_transition": "Ta zmiana statusu nie jest dozwolona dla tego zgłoszenia."
       }
     }
   },

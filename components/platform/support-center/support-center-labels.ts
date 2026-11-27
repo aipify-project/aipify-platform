@@ -188,6 +188,9 @@ export type SupportCenterLabels = {
     preview: string;
     saveDraft: string;
     draftSaved: string;
+    sendReply: string;
+    sendReplySaved: string;
+    sendReplyCorePending: string;
     emailOff: string;
     internalNote: string;
     internalNoteHint: string;

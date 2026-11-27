@@ -8811,7 +8811,9 @@
       "resolved": "Resolved",
       "closed": "Closed",
       "reopened": "Reopened",
-      "archived": "Archived"
+      "archived": "Archived",
+      "in_review": "In review",
+      "waiting_for_aipify": "Waiting for Aipify"
     },
     "priorityLabels": {
       "low": "Low",
@@ -8977,20 +8979,23 @@
     "reply": {
       "title": "Reply",
       "draft": "Customer reply draft",
-      "customerReplyHint": "This text is meant for the customer. It is saved as a draft only — it is not sent.",
+      "customerReplyHint": "Write a reply for the customer. Save draft keeps it internal. Send reply posts it to the customer inbox (email stays off until configured).",
       "replyPlaceholder": "Write a reply for the customer…",
       "chooseTemplate": "Choose template",
       "preview": "Preview",
       "saveDraft": "Save draft",
-      "draftSaved": "Draft saved. It has not been sent to the customer.",
-      "emailOff": "Email sending is not configured. Replies stay as drafts and are not sent.",
+      "draftSaved": "Draft saved. It has not been posted to the customer inbox.",
+      "emailOff": "Email sending is not configured. In-app inbox delivery is separate from email.",
       "internalNote": "Internal note",
       "internalNoteHint": "Only visible to the support team. Never shown to the customer.",
       "notePlaceholder": "Write a note for your colleagues…",
       "saveNote": "Save internal note",
       "noteSaved": "Internal note saved.",
       "attachSignature": "Attach signature",
-      "signatureAttached": "Signature attached to the draft."
+      "signatureAttached": "Signature attached to the draft.",
+      "sendReply": "Send reply",
+      "sendReplySaved": "Reply posted to the customer inbox. Email was not sent.",
+      "sendReplyCorePending": "Send reply needs platform activation before it appears in the customer inbox. Until then Aipify reports that this step is not ready yet."
     },
     "detail": {
       "title": "Select a ticket to see details",
@@ -9017,7 +9022,8 @@
         "draft": "Draft",
         "queued": "Queued",
         "sent": "Sent",
-        "failed": "Not sent — delivery failed"
+        "failed": "Not sent — delivery failed",
+        "inbox_persisted": "Posted to inbox — email not sent"
       },
       "writeErrors": {
         "core_not_applied": "Saving is not switched on for this environment yet.",
@@ -9025,7 +9031,8 @@
         "validation": "Please check the text and try again.",
         "forbidden": "You do not have access to do this.",
         "unauthorized": "Your session has expired. Please sign in again.",
-        "unknown": "The change could not be saved. Your text is still here — please try again."
+        "unknown": "The change could not be saved. Your text is still here — please try again.",
+        "invalid_transition": "That status change is not allowed for this ticket."
       }
     }
   },

@@ -1,0 +1,1 @@
+6d19b67fd8c8e6fbaba5658773992d3b688f66a60f1e56cd9fa564ce3ab4fa89  docs/sql-candidates/20261127_platform_support_send_public_reply_v1.sql
