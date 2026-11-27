@@ -8,7 +8,7 @@ import {
   type SupportIntakeCspCategory,
   type SupportIntakePriority,
 } from "@/lib/support-intake/categories";
-import { AipifyAlert, AipifyCard } from "./design";
+import { AipifyCard } from "./design";
 import { useCspPortal } from "./CspPortalSessionProvider";
 
 export type CspContactLabels = {
@@ -102,11 +102,11 @@ export function CertifiedSalesPartnerContactPanel({
         body?.code === "channel_not_activated" ||
         body?.code === "feature_gate_off"
       ) {
-        setError(body?.message || labels.error);
+        setError(labels.error);
         return;
       }
       if (!res.ok || !body?.ok) {
-        setError(body?.message || labels.error);
+        setError(labels.error);
         return;
       }
       setNotice(labels.success);
@@ -129,9 +129,10 @@ export function CertifiedSalesPartnerContactPanel({
       </AipifyCard>
 
       {!ticketLive ? (
-        <AipifyAlert tone="warning" title={labels.blockedTitle}>
-          <p>{labels.blockedBody}</p>
-          <div className="mt-3 flex flex-wrap gap-2">
+        <section className="rounded-2xl border border-[#E8E4F2] bg-white p-5 shadow-sm">
+          <h2 className="text-lg font-semibold text-[#1E293B]">{labels.blockedTitle}</h2>
+          <p className="mt-2 text-sm leading-relaxed text-[#64748B]">{labels.blockedBody}</p>
+          <div className="mt-4 flex flex-wrap gap-2">
             <a
               href={mailto}
               className="inline-flex min-h-11 items-center rounded-xl bg-[#7C3AED] px-4 text-sm font-semibold text-white"
@@ -145,7 +146,7 @@ export function CertifiedSalesPartnerContactPanel({
               {labels.messagesCta}
             </Link>
           </div>
-        </AipifyAlert>
+        </section>
       ) : null}
 
       {(displayName || contactEmail) && (

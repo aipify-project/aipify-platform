@@ -15,6 +15,8 @@ export function SalesGuidanceStepper({
   sayLabel,
   exampleLabel,
   notice,
+  avoidLabel,
+  avoid,
 }: {
   label: string;
   steps: GuidanceStepModel[];
@@ -22,6 +24,8 @@ export function SalesGuidanceStepper({
   sayLabel: string;
   exampleLabel: string;
   notice?: string;
+  avoidLabel?: string;
+  avoid?: string;
 }) {
   const [activeId, setActiveId] = useState(steps[0]?.id ?? "");
   const baseId = useId();
@@ -55,7 +59,9 @@ export function SalesGuidanceStepper({
                         {step.indexLabel}
                       </span>
                       <span className="mt-0.5 block text-base font-semibold text-[#1E293B]">{step.title}</span>
-                      <span className="mt-1 block text-sm leading-relaxed text-[#64748B]">{step.summary}</span>
+                      {selected ? (
+                        <span className="mt-1 block text-sm leading-relaxed text-[#64748B]">{step.summary}</span>
+                      ) : null}
                     </span>
                   </button>
                   {selected ? (
@@ -65,6 +71,8 @@ export function SalesGuidanceStepper({
                         whyLabel={whyLabel}
                         sayLabel={sayLabel}
                         exampleLabel={exampleLabel}
+                        avoidLabel={avoidLabel}
+                        avoid={avoid}
                         panelId={`${baseId}-panel-mobile-${step.id}`}
                         labelledBy={`${baseId}-${step.id}-tab`}
                       />
@@ -81,6 +89,8 @@ export function SalesGuidanceStepper({
             whyLabel={whyLabel}
             sayLabel={sayLabel}
             exampleLabel={exampleLabel}
+            avoidLabel={avoidLabel}
+            avoid={avoid}
             panelId={`${baseId}-panel`}
             labelledBy={`${baseId}-${active.id}-tab`}
           />
@@ -96,6 +106,8 @@ function StepDetail({
   whyLabel,
   sayLabel,
   exampleLabel,
+  avoidLabel,
+  avoid,
   panelId,
   labelledBy,
 }: {
@@ -103,6 +115,8 @@ function StepDetail({
   whyLabel: string;
   sayLabel: string;
   exampleLabel: string;
+  avoidLabel?: string;
+  avoid?: string;
   panelId: string;
   labelledBy: string;
 }) {
@@ -128,6 +142,12 @@ function StepDetail({
           <dt className="text-sm font-semibold text-[#1E293B]">{exampleLabel}</dt>
           <dd className="mt-1 text-sm leading-relaxed text-[#475569]">{step.example}</dd>
         </div>
+        {avoid && avoidLabel ? (
+          <div>
+            <dt className="text-sm font-semibold text-[#1E293B]">{avoidLabel}</dt>
+            <dd className="mt-1 text-sm leading-relaxed text-[#475569]">{avoid}</dd>
+          </div>
+        ) : null}
       </dl>
       {step.action ? (
         <Link

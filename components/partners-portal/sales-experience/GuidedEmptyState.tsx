@@ -4,7 +4,7 @@ import type { EmptyStateModel, LearningStageModel } from "./types";
 
 export function GuidedEmptyState({ model }: { model: EmptyStateModel }) {
   return (
-    <div className="rounded-2xl border border-dashed border-[#D3C7FF] bg-[#F7F4FF] px-6 py-10 text-center">
+    <div className="rounded-2xl border border-dashed border-[#D3C7FF] bg-[#F7F4FF] px-5 py-6 text-center">
       <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#7C3AED] ring-1 ring-[#E8E4F2]">
         <Inbox className="h-6 w-6" aria-hidden />
       </span>

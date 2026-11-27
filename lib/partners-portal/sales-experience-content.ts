@@ -46,6 +46,15 @@ const CATEGORIES: { id: string; href?: string }[] = [
 ];
 
 const COMMISSION_GUIDE_TOPICS = ["monthly", "renewals", "refunds", "payout"] as const;
+const SHARE_CHANNELS = ["email", "linkedin", "instagram", "facebook", "x", "tiktok", "snapchat", "qr", "personal"] as const;
+
+function shareChannels(t: Translator) {
+  return SHARE_CHANNELS.map((id) => ({
+    id,
+    title: t(`${NS}.polish.channels.${id}.title`),
+    body: t(`${NS}.polish.channels.${id}.body`),
+  }));
+}
 
 const TIMELINE = ["registered", "qualifying", "earned", "approved", "paid"] as const;
 
@@ -149,6 +158,13 @@ export function buildToolsExperience(t: Translator): {
   copy: string;
   copied: string;
   copyFailed: string;
+  tabsLabel: string;
+  tabs: { process: string; conversations: string; materials: string; sharing: string };
+  avoidLabel: string;
+  avoid: string;
+  sharingTitle: string;
+  sharingBody: string;
+  channels: { id: string; title: string; body: string }[];
 } {
   return {
     hero: {
@@ -174,6 +190,40 @@ export function buildToolsExperience(t: Translator): {
     copy: t(`${NS}.actions.copy`),
     copied: t(`${NS}.actions.copied`),
     copyFailed: t(`${NS}.actions.copyFailed`),
+    tabsLabel: t(`${NS}.polish.tabsLabel`),
+    tabs: {
+      process: t(`${NS}.polish.tabs.process`),
+      conversations: t(`${NS}.polish.tabs.conversations`),
+      materials: t(`${NS}.polish.tabs.materials`),
+      sharing: t(`${NS}.polish.tabs.sharing`),
+    },
+    avoidLabel: t(`${NS}.polish.avoidLabel`),
+    avoid: t(`${NS}.polish.avoid`),
+    sharingTitle: t(`${NS}.polish.sharingTitle`),
+    sharingBody: t(`${NS}.polish.sharingBody`),
+    channels: shareChannels(t),
+  };
+}
+
+export function buildLinkGuide(t: Translator): {
+  title: string;
+  body: string;
+  recordedTitle: string;
+  recordedBody: string;
+  visitsNote: string;
+  flowTitle: string;
+  flowBody: string;
+  channels: { id: string; title: string; body: string }[];
+} {
+  return {
+    title: t(`${NS}.polish.linkTitle`),
+    body: t(`${NS}.polish.linkBody`),
+    recordedTitle: t(`${NS}.polish.recordedTitle`),
+    recordedBody: t(`${NS}.polish.recordedBody`),
+    visitsNote: t(`${NS}.polish.visitsNote`),
+    flowTitle: t(`${NS}.polish.flowTitle`),
+    flowBody: t(`${NS}.polish.flowBody`),
+    channels: shareChannels(t),
   };
 }
 

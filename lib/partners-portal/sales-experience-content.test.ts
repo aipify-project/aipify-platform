@@ -6,6 +6,7 @@ import {
   buildAcademyExperience,
   buildCommissionExperience,
   buildHomeExperience,
+  buildLinkGuide,
   buildProductExperience,
   buildToolsExperience,
 } from "@/lib/partners-portal/sales-experience-content";
@@ -34,6 +35,9 @@ test("sales experience copy exists in every portal locale", () => {
       products.hero.title,
       products.know,
       tools.hero.title,
+      tools.tabs.process,
+      tools.avoid,
+      tools.channels[0]?.title ?? "",
       academy.title,
       academy.passedStatus,
       commission.hero.title,
@@ -47,6 +51,8 @@ test("sales experience copy exists in every portal locale", () => {
     assert.equal(tools.steps.length, 6);
     assert.equal(commission.steps.length, 5);
     assert.equal(tools.categories.length, 6);
+    assert.equal(tools.channels.length, 9);
+    assert.equal(Object.keys(tools.tabs).length, 4);
     homeTitles.add(`${locale}:${home.hero.title}`);
   }
   assert.equal(homeTitles.size, LOCALES.length);
@@ -77,6 +83,30 @@ test("presentation components stay free of tenant brand names", () => {
     assert.equal(source.includes("stripe"), false, name);
     assert.equal(/fetch\(/.test(source), false, name);
   }
+});
+
+test("workspace guidance stays honest about missing actions", () => {
+  const guide = buildLinkGuide(translator("no"));
+  assert.equal(guide.channels.length, 9);
+  assert.match(guide.recordedBody, /ikke unike personer/);
+  assert.match(guide.visitsNote, /ikke tilgjengelig/);
+  const email = readFileSync(
+    new URL("components/partners-portal/CertifiedSalesPartnerEmailTemplatesPanel.tsx", root),
+    "utf8",
+  );
+  assert.match(email, /disabled=\{!sellable \|\| !resolved \|\| !resolved\.ok/);
+  assert.match(email, /disabled=\{!values\.referral_url\}/);
+  const contact = readFileSync(
+    new URL("components/partners-portal/CertifiedSalesPartnerContactPanel.tsx", root),
+    "utf8",
+  );
+  assert.doesNotMatch(contact, /body\?\.message/);
+  const profile = readFileSync(
+    new URL("components/partners-portal/CertifiedSalesPartnerProfilePanel.tsx", root),
+    "utf8",
+  );
+  assert.match(profile, /max-w-\[680px\]/);
+  assert.match(profile, /ReadOnlyField/);
 });
 
 test("seller product card does not offer purchase", () => {
