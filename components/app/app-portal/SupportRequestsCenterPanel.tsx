@@ -23,6 +23,11 @@ import {
   type SupportRequestPriority,
   type SupportRequestsLabels,
 } from "@/lib/app-portal/support-requests";
+import {
+  buildCustomerProfileChangePrefill,
+  CUSTOMER_PROFILE_CHANGE_CATEGORY,
+  isCustomerProfileChangeIntent,
+} from "@/lib/app-portal/support-requests/profile-change-intent";
 
 type Props = {
   labels: SupportRequestsLabels;
@@ -82,6 +87,31 @@ export function SupportRequestsCenterPanel({ labels, locale }: Props) {
     if (openCreate) {
       queueMicrotask(() => setMode("create"));
     }
+
+    const categoryParam = (params.get("category") ?? "").trim();
+    if (
+      categoryParam &&
+      (CATEGORIES as readonly string[]).includes(categoryParam)
+    ) {
+      queueMicrotask(() =>
+        setFormCategory(categoryParam as SupportRequestCategory),
+      );
+    }
+
+    if (isCustomerProfileChangeIntent(params.get("intent"))) {
+      const prefill = buildCustomerProfileChangePrefill({
+        title: labels.form.profileChangeTitle,
+        description: labels.form.profileChangeDescription,
+      });
+      queueMicrotask(() => {
+        setMode("create");
+        setFormCategory(CUSTOMER_PROFILE_CHANGE_CATEGORY);
+        setFormTitle(prefill.title);
+        setFormDescription(prefill.description);
+        setFormProduct(prefill.relatedModule);
+      });
+    }
+
     if (params.get("from") !== "assistant" && params.get("from") !== "companion") return;
     const raw = sessionStorage.getItem(SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY);
     if (!raw) return;
@@ -245,6 +275,8 @@ export function SupportRequestsCenterPanel({ labels, locale }: Props) {
       url.searchParams.delete("new");
       url.searchParams.delete("create");
       url.searchParams.delete("from");
+      url.searchParams.delete("intent");
+      url.searchParams.delete("category");
       window.history.replaceState({}, "", url.pathname + (url.search ? url.search : ""));
     }
   }

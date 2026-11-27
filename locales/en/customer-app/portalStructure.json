@@ -807,7 +807,9 @@
         "successBody": "Your case is available in the inbox.",
         "openCase": "Open case",
         "validationTitle": "Add a subject before sending.",
-        "validationDescription": "Add a description before sending."
+        "validationDescription": "Add a description before sending.",
+        "profileChangeTitle": "Change to customer or company details",
+        "profileChangeDescription": "Describe which customer or company fields need updating (name, phone, address). Do not include passwords or payment details."
       }
     },
     "supportHistory": {
@@ -8771,7 +8773,7 @@
       "cancel": "Cancel",
       "companyLegalNote": "Verified legal identity fields are locked here. Request a change through support when a correction is required.",
       "requestChange": "Request a change",
-      "requestChangeHref": "/app/support"
+      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change"
     },
     "workspaceDashboard": {
       "eyebrow": "Workspace",

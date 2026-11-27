@@ -1,4 +1,8 @@
 import type { PlatformPortalCustomerDetail } from "@/lib/platform-portal/types";
+import {
+  buildKompisBedriftTruthFromDetail,
+  buildModulesTruth,
+} from "@/lib/platform-portal/customer-product-truth";
 import { createAccessCorrelationId } from "./correlation";
 import type {
   AccessProductStatus,
@@ -46,9 +50,30 @@ function hasWebsiteKompisSignal(detail: PlatformPortalCustomerDetail): boolean {
   );
 }
 
+function bedriftTruthToAccessStatus(
+  truthStatus: ReturnType<typeof buildKompisBedriftTruthFromDetail>["status"]
+): { status: AccessProductStatus; reason: AccessReasonCode } {
+  switch (truthStatus) {
+    case "active":
+    case "entitled":
+      return { status: "active", reason: "ok" };
+    case "suspended":
+      return { status: "suspended", reason: "product_suspended" };
+    case "not_entitled":
+      return { status: "unavailable", reason: "product_not_entitled" };
+    case "ready_for_activation":
+    case "needs_setup":
+      return { status: "pending", reason: "product_pending" };
+    default:
+      return { status: "unavailable", reason: "product_not_entitled" };
+  }
+}
+
 /**
  * Read-only Platform control-plane summary over existing customer detail payload.
  * One understandable status — drill-down remains in existing detail sections.
+ * Kompis Bedrift is never inferred from APP membership.
+ * Modules never report fake 0/0 when entitlements are empty.
  */
 export function buildPlatformCustomerControlPlaneSummary(
   detail: PlatformPortalCustomerDetail
@@ -61,6 +86,8 @@ export function buildPlatformCustomerControlPlaneSummary(
     detail.usage.domainCount > 0 &&
     detail.usage.installationCount > 0 &&
     licenseOverall.status === "active";
+  const bedrift = bedriftTruthToAccessStatus(buildKompisBedriftTruthFromDetail(detail).status);
+  const modules = buildModulesTruth(detail);
 
   const products: PlatformCustomerControlPlaneSummary["products"] = [
     {
@@ -86,18 +113,8 @@ export function buildPlatformCustomerControlPlaneSummary(
     {
       productId: "kompisBedrift",
       labelKey: "bedrift",
-      status: membershipReady
-        ? subscriptionStatus === "cancelled" || subscriptionStatus === "expired"
-          ? subscriptionStatus === "expired"
-            ? "expired"
-            : "cancelled"
-          : "active"
-        : "unavailable",
-      reasonCode: membershipReady
-        ? subscriptionStatus === "cancelled" || subscriptionStatus === "expired"
-          ? "subscription_invalid"
-          : "ok"
-        : "membership_missing",
+      status: bedrift.status,
+      reasonCode: bedrift.reason,
     },
   ];
 
@@ -128,10 +145,9 @@ export function buildPlatformCustomerControlPlaneSummary(
     subscriptionStatus,
     licenseOverall: licenseOverall.status,
     products,
-    modulesActiveCount: detail.entitlements.filter(
-      (e) => (e.status ?? "").toLowerCase() === "active"
-    ).length,
-    modulesTotalCount: detail.entitlements.length,
+    modulesActiveCount: modules.activeCount,
+    modulesTotalCount: modules.totalCount,
+    modulesAvailable: modules.available,
     domainCount: detail.usage.domainCount,
     installationCount: detail.usage.installationCount,
     provisioningReady,

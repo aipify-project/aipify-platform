@@ -136,8 +136,10 @@ export type PlatformCustomerControlPlaneSummary = {
     status: AccessProductStatus;
     reasonCode: AccessReasonCode;
   }>;
-  modulesActiveCount: number;
-  modulesTotalCount: number;
+  /** Null when entitlement source is empty/unavailable — UI must not show fake 0/0. */
+  modulesActiveCount: number | null;
+  modulesTotalCount: number | null;
+  modulesAvailable: boolean;
   domainCount: number;
   installationCount: number;
   provisioningReady: boolean;

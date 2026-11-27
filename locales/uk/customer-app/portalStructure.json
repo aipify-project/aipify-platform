@@ -682,7 +682,9 @@
         "successBody": "Your case is available in the inbox.",
         "openCase": "Відкрити звернення",
         "validationTitle": "Додайте тему перед надсиланням.",
-        "validationDescription": "Додайте опис перед надсиланням."
+        "validationDescription": "Додайте опис перед надсиланням.",
+        "profileChangeTitle": "Зміна даних клієнта або компанії",
+        "profileChangeDescription": "Опишіть, які поля клієнта чи компанії потрібно оновити (ім’я, телефон, адреса). Не додавайте паролі чи платіжні дані."
       }
     },
     "supportAssistant": {
@@ -7786,7 +7788,7 @@
       "cancel": "Скасувати",
       "companyLegalNote": "Verified legal identity fields are locked here. Request a change through support when a correction is required.",
       "requestChange": "Запросити зміну",
-      "requestChangeHref": "/app/support"
+      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change"
     },
     "workspaceDashboard": {
       "eyebrow": "Робочий простір",

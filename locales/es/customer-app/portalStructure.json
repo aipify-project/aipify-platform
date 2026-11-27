@@ -572,7 +572,9 @@
         "successBody": "Your case is available in the inbox.",
         "openCase": "Abrir el caso",
         "validationTitle": "Añade un asunto antes de enviar.",
-        "validationDescription": "Añade una descripción antes de enviar."
+        "validationDescription": "Añade una descripción antes de enviar.",
+        "profileChangeTitle": "Cambio de datos de cliente o empresa",
+        "profileChangeDescription": "Describa qué campos de cliente o empresa deben actualizarse (nombre, teléfono, dirección). No incluya contraseñas ni datos de pago."
       }
     },
     "supportAssistant": {
@@ -7486,7 +7488,7 @@
       "cancel": "Cancelar",
       "companyLegalNote": "Verified legal identity fields are locked here. Request a change through support when a correction is required.",
       "requestChange": "Solicitar un cambio",
-      "requestChangeHref": "/app/support",
+      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
       "addCompanyDetails": "Open support",
       "save": "Guardar cambios"
     },

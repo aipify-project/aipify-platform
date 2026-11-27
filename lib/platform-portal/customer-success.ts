@@ -162,6 +162,8 @@ export type PlatformCustomerSuccessLabels = {
   licenseStatuses: Record<string, string>;
   setupStatuses: Record<string, string>;
   serviceStatuses: Record<string, string>;
+  /** Clarifies Success WK column is provisioning-derived, not activation RPC truth. */
+  wkSetupSignalNote: string;
   unknownStatus: string;
   clearFilters: string;
 };

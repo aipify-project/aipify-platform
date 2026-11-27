@@ -1932,7 +1932,9 @@
         "successBody": "Saken er tilgjengelig i innboksen.",
         "openCase": "Åpne saken",
         "validationTitle": "Legg inn et emne før du sender.",
-        "validationDescription": "Legg inn en beskrivelse før du sender."
+        "validationDescription": "Legg inn en beskrivelse før du sender.",
+        "profileChangeTitle": "Endring av kunde- eller firmaopplysninger",
+        "profileChangeDescription": "Beskriv hvilke kunde- eller firmafelt som skal oppdateres (navn, telefon, adresse). Ikke inkluder passord eller betalingsopplysninger."
       }
     },
     "supportHistory": {
@@ -8848,7 +8850,7 @@
       "cancel": "Avbryt",
       "companyLegalNote": "Verifiserte juridiske identitetsfelt er låst her. Be om endring via support når noe må korrigeres.",
       "requestChange": "Be om endring",
-      "requestChangeHref": "/app/support"
+      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change"
     },
     "workspaceDashboard": {
       "eyebrow": "Arbeidsområde",

@@ -210,5 +210,8 @@ export type SupportRequestsLabels = {
     openCase: string;
     validationTitle: string;
     validationDescription: string;
+    /** Prefill when opened from APP «Be om endring». */
+    profileChangeTitle: string;
+    profileChangeDescription: string;
   };
 };
