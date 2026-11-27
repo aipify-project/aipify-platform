@@ -6,22 +6,20 @@
 | Staging | `auedugihkduoaikfusqe` |
 | Production | untouched |
 | Rules | `NO_SQL_APPLY` · `NO_PRODUCTION_WRITE` · `NO_EMAIL_SEND` |
-| **Status** | **`BLOCKED`** |
+| **Status** | **`STEP_2_READY_FOR_EXACT_STAGING_APPROVAL`** (updated after step 1 apply) |
 
-## Block reason
+## Step 1 prerequisite
 
-**Step 1 is not `APPLIED_VERIFIED` on Staging.**
+**Step 1 is `APPLIED_VERIFIED`** — see `AIPIFY_SUPPORT_APP_CORE_FOUNDATION_STAGING_STEP_1_APPLY_RESULT_20261127.md`.
 
-Live inventory (`auedugihkduoaikfusqe`):
+Live inventory (`auedugihkduoaikfusqe`) after step 1:
 
 | Object | Result |
 |--------|--------|
-| `public.organization_users` | **missing** (`to_regclass` → null) |
-| `public.organization_user_context` | **missing** |
-| `public._mta_membership_active(uuid,uuid)` | **missing** |
-| `public._mta_app_user_id()` | **missing** |
-
-Step 2 must not proceed until step 1 is applied and verified.
+| `public.organization_users` | present · RLS on · auth/anon SELECT false |
+| `public.organization_user_context` | present · RLS on · auth/anon SELECT false |
+| `public._mta_membership_active(uuid,uuid)` | present · auth/anon EXECUTE false |
+| `public._mta_app_user_id()` | present · auth/anon EXECUTE false |
 
 ## Regression checks (still green)
 
@@ -34,7 +32,7 @@ Step 2 must not proceed until step 1 is applied and verified.
 | APSF helpers already on Staging | none (expected before step 2) |
 | `subscriptions` / `invoices` | absent (step-2 soft-open still valid) |
 
-## Step-2 candidate readiness (held)
+## Step-2 candidate readiness
 
 | Field | Value |
 |-------|--------|
@@ -43,18 +41,10 @@ Step 2 must not proceed until step 1 is applied and verified.
 | Repo SHA256 | **match** |
 | Schema fit | Compatible: helpers soft-open when `subscriptions` missing; no conflicting procs today |
 
-## Unblock
-
-1. Owner YES for **step 1** (exact line from preflight):
+## Exact JA line for step 2
 
 ```
-JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_app_tenant_org_membership_foundation_v1.sql SHA256 bf71f44ce88847ca104dd0cea686f7e489ae8ed488dde6125a69d5a74c97c495 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
+JA STAGING APPLY docs/platform/sql-candidates/20261127_staging_app_apsf260_access_helpers_v1.sql SHA256 3fcefe8dc88a249d43b8d7ce5ce6fa6e180cc7e3a2e86450b304994c39537337 on auedugihkduoaikfusqe only. No email. No Production. No #459. No #383.
 ```
 
-2. After apply, verify tables + `_mta_membership_active` + RLS revoke + Platform/Intake still present → mark step 1 `APPLIED_VERIFIED`.
-
-3. Re-run this step-2 gate; expected then: `STEP_2_READY_FOR_EXACT_STAGING_APPROVAL` with JA line for helpers SHA `3fcefe8d…`.
-
-## Not returned
-
-No step-2 JA line while step 1 is missing. No SQL applied.
+Step 2 SQL **not** applied until the line above is sent.
