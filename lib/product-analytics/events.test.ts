@@ -8,6 +8,7 @@ import {
   sanitizeProductAnalyticsParams,
 } from "./events";
 import { buildPlatformAnalyticsOverview } from "@/lib/platform-analytics/overview";
+import { parseAnalyticsPeriod } from "@/lib/platform-analytics/period";
 import {
   resetGa4PageViewDedupForTests,
   sendGa4PageView,
@@ -102,12 +103,14 @@ async function main() {
   });
 
   await test("overview builder never invents metrics", () => {
+    const period = parseAnalyticsPeriod("30d");
     const empty = buildPlatformAnalyticsOverview({
       metrics: null,
       metricsError: "missing",
       cspOverview: null,
       cspError: "missing",
       measurementIdConfigured: false,
+      period,
       generatedAt: "2026-11-25T00:00:00.000Z",
     });
     for (const card of Object.values(empty.metrics)) {
@@ -117,18 +120,21 @@ async function main() {
 
     const filled = buildPlatformAnalyticsOverview({
       metrics: {
-        customers: { active: 12, total: 20 },
-        revenue: { mrr: 5000 },
+        customers: { active: 12, total: 20, trial: 2, cancelled: 1 },
+        revenue: { mrr: 5000, arr: 60000 },
         growth: { new_customers_30d: 3, most_used_modules: ["website_kompis"] },
         installations: { active: 8, total: 10 },
       },
       cspOverview: { approved_partners: 2, academy: { partners_in_academy: 1 } },
       measurementIdConfigured: true,
+      period,
       generatedAt: "2026-11-25T00:00:00.000Z",
     });
     assert.equal(filled.metrics.activeAppCustomers.value, 12);
     assert.equal(filled.metrics.activeGrowthPartners.value, 2);
     assert.equal(filled.metrics.academyPartners.value, 1);
+    assert.equal(filled.metrics.activeSubscriptions.available, false);
+    assert.equal(filled.metrics.revenueArr.value, 60000);
     assert.deepEqual(filled.mostUsedModules, ["website_kompis"]);
     assert.equal(filled.ga4.measurementConfigured, true);
   });

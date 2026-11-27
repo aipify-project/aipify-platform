@@ -3222,12 +3222,58 @@
         "activeSubscriptions": "Aktiva prenumerationer",
         "revenueMrr": "Månatlig återkommande intäkt",
         "moduleUsage": "Modulusage-signal",
-        "academyPartners": "Growth Academy-partners"
+        "academyPartners": "Growth Academy-partners",
+        "customersTotal": "Total customers",
+        "customerRegistrationsPeriod": "New registrations (Core 30d window)",
+        "trialCustomers": "Trial customers",
+        "cancelledCustomers": "Cancelled customers",
+        "installationsTotal": "Installations (total)",
+        "revenueArr": "Annual recurring revenue",
+        "outstandingInvoices": "Outstanding invoices",
+        "certifiedPartners": "Certified sellers"
       },
       "links": {
         "metrics": "Öppna detaljerade mätvärden",
         "customerJourneys": "Kundresor",
         "sellers": "Säljarpartners"
+      },
+      "periodLabel": "Period",
+      "period7d": "Senaste 7 dagarna",
+      "period30d": "Senaste 30 dagarna",
+      "period90d": "Senaste 90 dagarna",
+      "period365d": "Senaste 12 månaderna",
+      "periodAll": "Alla perioder",
+      "exportCsv": "Exportera CSV",
+      "definitionsTitle": "KPI-definitioner",
+      "currencyPolicyTitle": "Valutapolicy",
+      "previousPeriodNoteTitle": "Jämförelse med föregående period",
+      "productsTitle": "Produkter och moduler",
+      "productsEmpty": "Inga publicerade produkt- eller modulrader finns tillgängliga från Core ännu.",
+      "salesPartnersTitle": "Säljaraggregat",
+      "journeyTitle": "Kundresa"
+    },
+    "journey": {
+      "title": "Kundresa",
+      "subtitle": "Authoritative Core counts for each available step. Conversion rates are not invented when events are missing.",
+      "loading": "Preparing customer journey…",
+      "errorTitle": "Journey unavailable",
+      "errorBody": "Something unexpected happened while loading the journey. Please try again.",
+      "retry": "Try again",
+      "privacyNote": "Aggregates only. Anonymous visits are not joined to identified customers.",
+      "incompleteDataNote": "Partial or unavailable steps lack a dedicated Core event.",
+      "lastChecked": "Last checked",
+      "unavailable": "Not available",
+      "partial": "Partial data",
+      "available": "Available",
+      "back": "Back to analytics",
+      "steps": {
+        "visit": "Visit",
+        "registration": "Registration",
+        "company": "Company / active account",
+        "productSelected": "Product / installation recorded",
+        "installationActivated": "Installation activated",
+        "paidSubscription": "Paid subscription (proxy)",
+        "trial": "Trial customers"
       }
     }
   },
@@ -4814,9 +4860,9 @@
     "revenueGrowth": {
       "title": "Revenue & Growth",
       "mrrChart": "MRR trend",
-      "mrrChartHint": "Illustrative MRR progression (placeholder data)",
+      "mrrChartHint": "Historical MRR series is not available from Core yet — trend charts stay empty rather than invent data.",
       "customerGrowth": "Customer growth",
-      "customerGrowthHint": "New customers per month (placeholder data)",
+      "customerGrowthHint": "Monthly customer growth history is not available from Core yet — charts stay empty rather than invent data.",
       "trialConversion": "Trial conversion",
       "trialConversionHint": "Trial to paid conversion rate",
       "monthLabels": {

@@ -23,36 +23,28 @@ export function formatMetricNumber(value: number) {
   return new Intl.NumberFormat("en").format(value);
 }
 
-export function buildMrrTrendSeries(currentMrr: number): number[] {
-  const factors = [0.72, 0.78, 0.85, 0.91, 0.96, 1];
-  return factors.map((factor) => Math.round(currentMrr * factor));
+/**
+ * Historical MRR series is not exposed by Core. Do not invent progressive curves.
+ * Callers must treat an empty array as “trend unavailable”.
+ */
+export function buildMrrTrendSeries(_currentMrr: number): number[] {
+  return [];
 }
 
-export function buildCustomerGrowthSeries(recentCount: number, total: number): number[] {
-  const anchor = Math.max(recentCount, 1);
-  const base = Math.max(total - anchor * 3, 0);
-  return [
-    Math.max(base, 1),
-    Math.max(base + anchor, 1),
-    Math.max(base + anchor * 2, 1),
-    Math.max(base + anchor * 2, 1),
-    Math.max(base + anchor * 3, 1),
-    Math.max(recentCount, 1),
-  ];
+/**
+ * Monthly customer growth series is not exposed by Core beyond a single 30d count.
+ */
+export function buildCustomerGrowthSeries(_recentCount: number, _total: number): number[] {
+  return [];
 }
 
-export function estimateMrrGrowthPercent(metrics: PlatformMetrics): number {
-  if (metrics.revenue.mrr <= 0) return 0;
-  const lift = metrics.growth.new_customers_30d * 8;
-  return Math.min(Math.max(lift, 0), 28);
+/** Percent change vs previous period is unavailable without metrics history. */
+export function estimateMrrGrowthPercent(_metrics: PlatformMetrics): number | null {
+  return null;
 }
 
-export function estimateActiveCustomerTrend(metrics: PlatformMetrics): number {
-  if (metrics.customers.active <= 0) return 0;
-  return Math.min(
-    Math.round((metrics.growth.new_customers_30d / Math.max(metrics.customers.active, 1)) * 100),
-    24
-  );
+export function estimateActiveCustomerTrend(_metrics: PlatformMetrics): number | null {
+  return null;
 }
 
 export function getTrialsEndingSoon(metrics: PlatformMetrics): number {

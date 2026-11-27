@@ -3222,12 +3222,58 @@
         "activeSubscriptions": "Aktywne subskrypcje",
         "revenueMrr": "Miesięczny przychód cykliczny",
         "moduleUsage": "Sygnał użycia modułów",
-        "academyPartners": "Partnerzy Growth Academy"
+        "academyPartners": "Partnerzy Growth Academy",
+        "customersTotal": "Total customers",
+        "customerRegistrationsPeriod": "New registrations (Core 30d window)",
+        "trialCustomers": "Trial customers",
+        "cancelledCustomers": "Cancelled customers",
+        "installationsTotal": "Installations (total)",
+        "revenueArr": "Annual recurring revenue",
+        "outstandingInvoices": "Outstanding invoices",
+        "certifiedPartners": "Certified sellers"
       },
       "links": {
         "metrics": "Otwórz szczegółowe metryki",
         "customerJourneys": "Ścieżki klientów",
         "sellers": "Partnerzy sprzedaży"
+      },
+      "periodLabel": "Okres",
+      "period7d": "Ostatnie 7 dni",
+      "period30d": "Ostatnie 30 dni",
+      "period90d": "Ostatnie 90 dni",
+      "period365d": "Ostatnie 12 miesięcy",
+      "periodAll": "Cały okres",
+      "exportCsv": "Eksportuj CSV",
+      "definitionsTitle": "Definicje KPI",
+      "currencyPolicyTitle": "Polityka walutowa",
+      "previousPeriodNoteTitle": "Porównanie z poprzednim okresem",
+      "productsTitle": "Produkty i moduły",
+      "productsEmpty": "Brak opublikowanych produktów lub modułów z Core.",
+      "salesPartnersTitle": "Agregaty partnerów sprzedaży",
+      "journeyTitle": "Ścieżka klienta"
+    },
+    "journey": {
+      "title": "Ścieżka klienta",
+      "subtitle": "Authoritative Core counts for each available step. Conversion rates are not invented when events are missing.",
+      "loading": "Preparing customer journey…",
+      "errorTitle": "Journey unavailable",
+      "errorBody": "Something unexpected happened while loading the journey. Please try again.",
+      "retry": "Try again",
+      "privacyNote": "Aggregates only. Anonymous visits are not joined to identified customers.",
+      "incompleteDataNote": "Partial or unavailable steps lack a dedicated Core event.",
+      "lastChecked": "Last checked",
+      "unavailable": "Not available",
+      "partial": "Partial data",
+      "available": "Available",
+      "back": "Back to analytics",
+      "steps": {
+        "visit": "Visit",
+        "registration": "Registration",
+        "company": "Company / active account",
+        "productSelected": "Product / installation recorded",
+        "installationActivated": "Installation activated",
+        "paidSubscription": "Paid subscription (proxy)",
+        "trial": "Trial customers"
       }
     }
   },
@@ -4814,9 +4860,9 @@
     "revenueGrowth": {
       "title": "Przychody",
       "mrrChart": "Trend MRR",
-      "mrrChartHint": "Poglądowy przebieg MRR (dane zastępcze)",
+      "mrrChartHint": "Historical MRR series is not available from Core yet — trend charts stay empty rather than invent data.",
       "customerGrowth": "Wzrost liczby klientów",
-      "customerGrowthHint": "Nowi klienci miesięcznie (dane zastępcze)",
+      "customerGrowthHint": "Monthly customer growth history is not available from Core yet — charts stay empty rather than invent data.",
       "trialConversion": "Konwersja okresów próbnych",
       "trialConversionHint": "Współczynnik konwersji z okresu próbnego na płatny",
       "monthLabels": {
