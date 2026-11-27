@@ -60,5 +60,31 @@
   "status_rejected": "Rejected",
   "status_cancelled": "Cancelled",
   "status_finalized": "Finalized",
-  "viewCommissions": "View commissions"
+  "viewCommissions": "View commissions",
+  "statement": {
+    "title": "Provisionsavräkning",
+    "preview": "Förhandsvisning",
+    "previewOnly": "Detta är en förhandsvisning. Dokumentet är inte utfärdat.",
+    "documentNumber": "Dokumentnummer",
+    "notIssued": "Inte utfärdat",
+    "coreActivation": "Kräver Core-aktivering",
+    "issueBlocked": "Ett numrerat dokument kan inte utfärdas förrän Core tilldelar numret och skatteunderlaget är verifierat.",
+    "taxPending": "Skattehantering kräver verifiering. Förhandsvisningen anger inget skattebelopp.",
+    "paymentUnavailable": "Betalningsdatum och referens visas efter att en bekräftad bankutbetalning har lagrats.",
+    "paidConfirm": "Jag bekräftar att bankutbetalningen är genomförd",
+    "paidConfirmRequired": "Bekräfta den genomförda bankutbetalningen innan Betald registreras.",
+    "filterAll": "Alla statusar",
+    "currencyNote": "Belopp visas i sin egen valuta.",
+    "earnIntervalNote": "Årsavtal och engångsförsäljning visas inte som intjänade när faktureringsintervallet är känt. Den här listan saknar intervallet, och Core använder fortfarande två betalda perioder för alla intervall.",
+    "downloadPreview": "Ladda ner förhandsvisning",
+    "generateDisabled": "Skapa dokument",
+    "recipientPending": "Partnerns registrerade företagsuppgifter finns inte på denna avräkning.",
+    "issuer": "Utfärdare",
+    "period": "Period",
+    "amount": "Belopp",
+    "lines": "Rader",
+    "status": "Status",
+    "basis": "Beräkningsunderlag",
+    "previewFailed": "Förhandsvisningen kunde inte förberedas."
+  }
 }

@@ -60,5 +60,31 @@
   "status_rejected": "Rejected",
   "status_cancelled": "Cancelled",
   "status_finalized": "Finalized",
-  "viewCommissions": "View commissions"
+  "viewCommissions": "View commissions",
+  "statement": {
+    "title": "Commission statement",
+    "preview": "Preview",
+    "previewOnly": "This is a preview. It is not an issued document.",
+    "documentNumber": "Document number",
+    "notIssued": "Not issued",
+    "coreActivation": "Requires Core activation",
+    "issueBlocked": "A numbered document stays unavailable until Core assigns the number and the tax basis is verified.",
+    "taxPending": "Tax treatment requires verification. This preview states no tax amount.",
+    "paymentUnavailable": "Payment date and reference appear after a confirmed bank payout is stored.",
+    "paidConfirm": "I confirm that the bank payout has been completed",
+    "paidConfirmRequired": "Confirm the completed bank payout before registering Paid.",
+    "filterAll": "All statuses",
+    "currencyNote": "Amounts stay in their own currency.",
+    "earnIntervalNote": "Yearly and one-time sales are not treated as earned when the billing interval is known. This list does not include the interval, and Core still applies two paid periods to every interval.",
+    "downloadPreview": "Download preview",
+    "generateDisabled": "Generate document",
+    "recipientPending": "The partner's registered legal details are not on this settlement record.",
+    "issuer": "Issuer",
+    "period": "Period",
+    "amount": "Amount",
+    "lines": "Lines",
+    "status": "Status",
+    "basis": "Calculation basis",
+    "previewFailed": "The preview could not be prepared."
+  }
 }

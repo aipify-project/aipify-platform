@@ -4,6 +4,7 @@ import { CertifiedSalesPartnerSettlementsPanel } from "@/components/partners-por
 import { CertifiedSalesPartnerWorkspacePanel } from "@/components/partners-portal/CertifiedSalesPartnerWorkspacePanel";
 import { CommissionExplainerCard, CommissionStatusTimeline, SalesExperienceHero } from "@/components/partners-portal/sales-experience";
 import { buildCspSettlementsLabels, buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-labels";
+import { buildSettlementStatementLabels } from "@/lib/certified-sales-partner/settlement-statement-labels";
 import { buildCommissionExperience } from "@/lib/partners-portal/sales-experience-content";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -15,7 +16,7 @@ import { createTranslator } from "@/lib/i18n/translate";
  */
 export default async function PartnersSettlementPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["partnersPortal"]);
+  const dict = await getDictionary(locale, ["partnersPortal", "partnerSettlements"]);
   const t = createTranslator(dict);
   const labels = buildCspWorkspaceLabels(
     t,
@@ -66,7 +67,11 @@ export default async function PartnersSettlementPage() {
             </Link>
           </div>
         </aside>
-        <CertifiedSalesPartnerSettlementsPanel labels={buildCspSettlementsLabels(t)} locale={locale} />
+        <CertifiedSalesPartnerSettlementsPanel
+          labels={buildCspSettlementsLabels(t)}
+          statementLabels={buildSettlementStatementLabels(t)}
+          locale={locale}
+        />
       </div>
     </CertifiedSalesPartnerWorkspacePanel>
   );

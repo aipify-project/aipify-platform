@@ -37,6 +37,8 @@ import {
 import { toBcp47Locale } from "@/lib/platform-presentation-quality/bcp47";
 import { formatPlatformDateTimeShort } from "@/lib/platform-presentation-quality/date-time";
 import type { SellersLiveLabels } from "@/lib/partners-portal/csp-workspace-labels";
+import type { SettlementStatementLabels } from "@/lib/certified-sales-partner/settlement-statement-labels";
+import { CommissionStatementPreview } from "@/components/certified-sales-partner/CommissionStatementPreview";
 
 export type SellersLiveSection = "overview" | "partners" | "products" | "settlements" | "commissions" | "academy";
 
@@ -49,6 +51,7 @@ type Props = {
   notReadyBody: string;
   labels: SellersLiveLabels;
   actionLabels: SellersActionLabels;
+  statementLabels: SettlementStatementLabels;
 };
 
 type Phase = "loading" | "ready" | "closed" | "forbidden" | "error";
@@ -170,6 +173,7 @@ export function CertifiedSellersLivePanel({
   notReadyBody,
   labels,
   actionLabels,
+  statementLabels,
 }: Props) {
   const [state, setState] = useState<LoadState>(EMPTY_STATE);
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -182,6 +186,8 @@ export function CertifiedSellersLivePanel({
     fromStatus?: string;
     toStatus?: string;
   } | null>(null);
+  const [settlementFilter, setSettlementFilter] = useState<string>("all");
+  const [previewId, setPreviewId] = useState<string | null>(null);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -549,6 +555,7 @@ export function CertifiedSellersLivePanel({
         {ready && section === "commissions" ? (
           <>
             <p className="text-sm text-[color:var(--aipify-text-secondary)]">{l.commissionsReportNote}</p>
+            <p className="text-sm text-[color:var(--aipify-text-secondary)]">{statementLabels.earnIntervalNote}</p>
             {(commissionLines ?? []).length === 0 ? (
               <EmptyCard title={l.commissionsEmptyTitle} body={l.commissionsReportNote} />
             ) : (
@@ -594,15 +601,34 @@ export function CertifiedSellersLivePanel({
 
         {ready && section === "settlements" ? (
           <>
-            {(settlements ?? []).length === 0 ? (
+            <p className="text-sm text-[color:var(--aipify-text-secondary)]">{statementLabels.currencyNote}</p>
+            <div className="flex flex-wrap gap-2" role="group" aria-label={statementLabels.status}>
+              {["all", "open", "approved", "closed", "paid", "voided"].map((status) => (
+                <button
+                  key={status}
+                  type="button"
+                  className={
+                    settlementFilter === status
+                      ? "min-h-11 rounded-full bg-[#7C3AED] px-3 text-sm font-semibold text-white"
+                      : "min-h-11 rounded-full border border-[color:var(--aipify-border)] px-3 text-sm font-semibold text-[color:var(--aipify-text-primary)]"
+                  }
+                  onClick={() => setSettlementFilter(status)}
+                >
+                  {status === "all" ? statementLabels.filterAll : (labels.settlementStatus[status] ?? labels.settlementStatus.unknown)}
+                </button>
+              ))}
+            </div>
+            {(settlements ?? []).filter((row) => settlementFilter === "all" || row.status === settlementFilter).length === 0 ? (
               <EmptyCard title={l.settlementsEmptyTitle} body={l.settlementsEmptyBody} />
             ) : (
               <Card title={labels.sectionTitles.settlements}>
                 <DataTable
                   caption={labels.sectionTitles.settlements}
-                  headers={[l.colPeriod, l.colPartner, l.colStatus, l.colTotal, l.colLines, l.colAction]}
+                  headers={[l.colPeriod, l.colPartner, l.colStatus, l.colTotal, l.colLines, statementLabels.documentNumber, l.colAction]}
                 >
-                  {(settlements ?? []).map((s) => {
+                  {(settlements ?? [])
+                    .filter((row) => settlementFilter === "all" || row.status === settlementFilter)
+                    .map((s) => {
                     const next = nextSettlementStep(s.status);
                     return (
                       <tr key={s.id} className="border-t border-[color:var(--aipify-border)]">
@@ -618,27 +644,33 @@ export function CertifiedSellersLivePanel({
                         </td>
                         <td className="px-3 py-2">{formatMoney(s.totalAmount, s.currency, locale, l.notReported)}</td>
                         <td className="px-3 py-2">{s.lineCount === null ? l.dateEmpty : nf.format(s.lineCount)}</td>
+                        <td className="px-3 py-2 text-sm text-[color:var(--aipify-text-secondary)]">{statementLabels.notIssued}</td>
                         <td className="px-3 py-2">
-                          {isFinalSettlementStatus(s.status) || !next ? (
-                            <span className="text-xs text-[color:var(--aipify-text-secondary)]">
-                              {l.settlementsNoFurtherSteps}
-                            </span>
-                          ) : (
-                            <button
-                              type="button"
-                              className={LINK_BUTTON}
-                              onClick={() =>
-                                setSelection((prev) => ({
-                                  id: s.id,
-                                  seq: (prev?.seq ?? 0) + 1,
-                                  fromStatus: s.status,
-                                  toStatus: next,
-                                }))
-                              }
-                            >
-                              {l.selectAction}
+                          <div className="flex flex-wrap gap-2">
+                            <button type="button" className={LINK_BUTTON} onClick={() => setPreviewId(s.id)}>
+                              {statementLabels.preview}
                             </button>
-                          )}
+                            {isFinalSettlementStatus(s.status) || !next ? (
+                              <span className="text-xs text-[color:var(--aipify-text-secondary)]">
+                                {l.settlementsNoFurtherSteps}
+                              </span>
+                            ) : (
+                              <button
+                                type="button"
+                                className={LINK_BUTTON}
+                                onClick={() =>
+                                  setSelection((prev) => ({
+                                    id: s.id,
+                                    seq: (prev?.seq ?? 0) + 1,
+                                    fromStatus: s.status,
+                                    toStatus: next,
+                                  }))
+                                }
+                              >
+                                {l.selectAction}
+                              </button>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     );
@@ -646,6 +678,26 @@ export function CertifiedSellersLivePanel({
                 </DataTable>
               </Card>
             )}
+            {previewId ? (
+              <CommissionStatementPreview
+                locale={locale}
+                labels={statementLabels}
+                statusLabel={
+                  labels.settlementStatus[(settlements ?? []).find((row) => row.id === previewId)?.status ?? ""] ??
+                  labels.settlementStatus.unknown
+                }
+                previewHref={`/api/platform/sellers/settlements/${previewId}/preview`}
+                source={{
+                  settlementId: previewId,
+                  periodMonth: (settlements ?? []).find((row) => row.id === previewId)?.periodMonth ?? null,
+                  status: (settlements ?? []).find((row) => row.id === previewId)?.status ?? null,
+                  totalAmount: (settlements ?? []).find((row) => row.id === previewId)?.totalAmount ?? null,
+                  currency: (settlements ?? []).find((row) => row.id === previewId)?.currency ?? null,
+                  lineCount: (settlements ?? []).find((row) => row.id === previewId)?.lineCount ?? null,
+                  partnerReference: (settlements ?? []).find((row) => row.id === previewId)?.partnerId ?? null,
+                }}
+              />
+            ) : null}
             {(settlements ?? []).length > 0 ? (
               selection ? (
                 <CertifiedSellersActionPanel
@@ -655,6 +707,8 @@ export function CertifiedSellersLivePanel({
                   initialSettlementId={selection.id}
                   initialFromStatus={selection.fromStatus}
                   initialToStatus={selection.toStatus}
+                  paidConfirmationLabel={statementLabels.paidConfirm}
+                  paidConfirmationRequired={statementLabels.paidConfirmRequired}
                   onSuccess={() => void load()}
                 />
               ) : (

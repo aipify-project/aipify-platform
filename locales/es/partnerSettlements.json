@@ -60,5 +60,31 @@
   "status_rejected": "Rejected",
   "status_cancelled": "Cancelled",
   "status_finalized": "Finalized",
-  "viewCommissions": "View commissions"
+  "viewCommissions": "View commissions",
+  "statement": {
+    "title": "Liquidación de comisiones",
+    "preview": "Vista previa",
+    "previewOnly": "Esta es una vista previa. El documento no está emitido.",
+    "documentNumber": "Número de documento",
+    "notIssued": "No emitido",
+    "coreActivation": "Requiere activación de Core",
+    "issueBlocked": "Un documento numerado no se emite hasta que Core asigne el número y se verifique la base fiscal.",
+    "taxPending": "El tratamiento fiscal requiere verificación. Esta vista previa no indica un importe fiscal.",
+    "paymentUnavailable": "La fecha y la referencia de pago aparecen cuando el pago bancario confirmado queda registrado.",
+    "paidConfirm": "Confirmo que la transferencia bancaria se ha realizado",
+    "paidConfirmRequired": "Confirme la transferencia bancaria realizada antes de registrar Pagado.",
+    "filterAll": "Todos los estados",
+    "currencyNote": "Los importes permanecen en su propia moneda.",
+    "earnIntervalNote": "Las ventas anuales y de pago único no se muestran como devengadas cuando el intervalo de facturación es conocido. Esta lista no incluye el intervalo, y Core sigue aplicando dos periodos pagados a todos los intervalos.",
+    "downloadPreview": "Descargar vista previa",
+    "generateDisabled": "Generar documento",
+    "recipientPending": "Los datos legales registrados del socio no constan en esta liquidación.",
+    "issuer": "Emisor",
+    "period": "Periodo",
+    "amount": "Importe",
+    "lines": "Líneas",
+    "status": "Estado",
+    "basis": "Base de cálculo",
+    "previewFailed": "No se pudo preparar la vista previa."
+  }
 }

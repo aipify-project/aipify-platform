@@ -4,6 +4,7 @@ import {
 } from "@/components/platform/sellers/CertifiedSellersLivePanel";
 import { PlatformSellersHubShell } from "@/components/platform/sellers/PlatformSellersHubShell";
 import { buildSellersActionLabels, buildSellersLiveLabels } from "@/lib/partners-portal/csp-workspace-labels";
+import { buildSettlementStatementLabels } from "@/lib/certified-sales-partner/settlement-statement-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -20,7 +21,7 @@ export async function renderPlatformSellersLivePage(input: {
   section: SellersLiveSection;
 }) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["platform"]);
+  const dict = await getDictionary(locale, ["platform", "partnerSettlements"]);
   const t = createTranslator(dict);
 
   return (
@@ -34,6 +35,7 @@ export async function renderPlatformSellersLivePage(input: {
         notReadyBody={t("platform.sellers.backend.notReadyBody")}
         labels={buildSellersLiveLabels(t)}
         actionLabels={buildSellersActionLabels(t)}
+        statementLabels={buildSettlementStatementLabels(t)}
       />
     </PlatformSellersHubShell>
   );

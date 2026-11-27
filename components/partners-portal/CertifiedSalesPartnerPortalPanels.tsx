@@ -35,6 +35,8 @@ import { CertifiedSalesPartnerSignaturePreview } from "./CertifiedSalesPartnerSi
 import { CspSocialPlatformPicker } from "./CspSocialPlatformPicker";
 import { writeClipboard } from "./csp-sales-links-client";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
+import { CommissionStatementPreview } from "@/components/certified-sales-partner/CommissionStatementPreview";
+import type { SettlementStatementLabels } from "@/lib/certified-sales-partner/settlement-statement-labels";
 
 /** Shared label shapes — built from `partnersPortal.certifiedSalesPartner.*` (see csp-workspace-labels.ts). */
 export type CspStatusLabels = Record<string, string>;
@@ -744,9 +746,11 @@ export function CertifiedSalesPartnerSalesPanel({
 /** Settlement page — read-only monthly settlements and Core ledger balance. */
 export function CertifiedSalesPartnerSettlementsPanel({
   labels,
+  statementLabels,
   locale,
 }: {
   labels: CspSettlementsLabels;
+  statementLabels: SettlementStatementLabels;
   locale: string;
 }) {
   const portal = useCspPortal();
@@ -755,7 +759,9 @@ export function CertifiedSalesPartnerSettlementsPanel({
     parseCspSettlementRows,
     portal !== null,
   );
+  const [previewId, setPreviewId] = useState<string | null>(null);
   if (!portal) return null;
+  const preview = state.phase === "ready" ? state.rows.find((row) => row.id === previewId) ?? null : null;
 
   return (
     <div className="space-y-6">
@@ -796,6 +802,8 @@ export function CertifiedSalesPartnerSettlementsPanel({
                     <th className={TH}>{labels.statusCol}</th>
                     <th className={TH}>{labels.linesCol}</th>
                     <th className={TH}>{labels.totalCol}</th>
+                    <th className={TH}>{statementLabels.documentNumber}</th>
+                    <th className={TH}>{statementLabels.preview}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[color:var(--aipify-border)]">
@@ -811,6 +819,16 @@ export function CertifiedSalesPartnerSettlementsPanel({
                       <td className={TD}>
                         {row.totalAmount !== null && row.currency ? formatMoney(row.totalAmount, row.currency, locale) : "—"}
                       </td>
+                      <td className={TD}>{statementLabels.notIssued}</td>
+                      <td className={TD}>
+                        {row.id ? (
+                          <button type="button" className="font-semibold text-[#7C3AED]" onClick={() => setPreviewId(row.id)}>
+                            {statementLabels.preview}
+                          </button>
+                        ) : (
+                          "—"
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -819,6 +837,25 @@ export function CertifiedSalesPartnerSettlementsPanel({
           ) : null}
         </div>
       </section>
+      <p className="text-sm text-[color:var(--aipify-text-secondary)]">{statementLabels.currencyNote}</p>
+      <p className="text-sm text-[color:var(--aipify-text-secondary)]">{statementLabels.earnIntervalNote}</p>
+      {preview?.id ? (
+        <CommissionStatementPreview
+          locale={locale}
+          labels={statementLabels}
+          statusLabel={lookup(labels.status, preview.status)}
+          previewHref={`/api/certified-sales-partner/settlements/${preview.id}/preview`}
+          source={{
+            settlementId: preview.id,
+            periodMonth: preview.periodMonth,
+            status: preview.status,
+            totalAmount: preview.totalAmount,
+            currency: preview.currency,
+            lineCount: preview.lineCount,
+            partnerReference: null,
+          }}
+        />
+      ) : null}
     </div>
   );
 }
