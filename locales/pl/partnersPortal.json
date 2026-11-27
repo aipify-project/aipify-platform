@@ -1107,13 +1107,13 @@
       "previewReady": "Podgląd i kopiowanie są dostępne",
       "sendNotActivated": "Wysyłka bezpośrednia nie jest włączona",
       "copySubject": "Kopiuj temat",
-      "copyBody": "Kopiuj tekst",
-      "copyWithLink": "Kopiuj tekst i link",
+      "copyBody": "Kopiuj treść",
+      "copyWithLink": "Kopiuj z osobistym linkiem",
       "copied": "Skopiowano",
       "copyFailed": "Nie udało się skopiować",
       "howSendingTitle": "Jak działa wysyłka",
       "howSendingBody": "Wysyłka pozostaje wyłączona, dopóki transport, zgoda i zatwierdzenie nie są gotowe. Kopiowanie nie wysyła wiadomości.",
-      "linkUnavailable": "Osobisty link sprzedażowy nie jest jeszcze dostępny",
+      "linkUnavailable": "Osobisty link sprzedażowy nie jest jeszcze dostępny.",
       "inboxTitle": "Rozmowy e-mail",
       "inboxIntro": "Odpowiedzi należące do Twojego e-maila sprzedażowego pojawiają się tutaj.",
       "inboxEmpty": "Wybierz rozmowę z dzwonka powiadomień.",
@@ -1122,7 +1122,8 @@
         "follow_up": "Kontynuacja",
         "meeting_request": "Prośba o spotkanie",
         "product_information": "Informacje o produkcie"
-      }
+      },
+      "personalLinkLabel": "Osobisty link sprzedażowy"
     },
     "settlementLinks": {
       "payoutTitle": "Dane do wypłaty",
@@ -1158,15 +1159,42 @@
         "flowTitle": "Przydatna kolejność",
         "flowBody": "Wybierz produkt, potwierdź certyfikację i publikację, wybierz kanał, skopiuj zatwierdzony tekst i link, a potem śledź status w Leads i Moja sprzedaż.",
         "channels": {
-        "email": { "title": "E-mail", "body": "Gdy znasz odbiorcę i masz podstawę prawną, aby napisać." },
-        "linkedin": { "title": "LinkedIn", "body": "Pasuje do relacji zawodowej." },
-        "instagram": { "title": "Instagram", "body": "Udostępniaj w swojej sieci, nie jako wysyłkę masową." },
-        "facebook": { "title": "Facebook", "body": "Właściwe osoby, nie szeroka wysyłka." },
-        "x": { "title": "X", "body": "Tylko jeśli odbiorcy tam naprawdę pasują." },
-        "tiktok": { "title": "TikTok", "body": "Tylko jeśli odbiorcy tam naprawdę pasują." },
-        "snapchat": { "title": "Snapchat", "body": "Tylko jeśli odbiorcy tam naprawdę pasują." },
-        "qr": { "title": "QR", "body": "Na spotkanie osobiste." },
-        "personal": { "title": "Link osobisty", "body": "Gdy polecasz kogoś bezpośrednio." }
+          "email": {
+            "title": "E-mail",
+            "body": "Gdy znasz odbiorcę i masz podstawę prawną, aby napisać."
+          },
+          "linkedin": {
+            "title": "LinkedIn",
+            "body": "Pasuje do relacji zawodowej."
+          },
+          "instagram": {
+            "title": "Instagram",
+            "body": "Udostępniaj w swojej sieci, nie jako wysyłkę masową."
+          },
+          "facebook": {
+            "title": "Facebook",
+            "body": "Właściwe osoby, nie szeroka wysyłka."
+          },
+          "x": {
+            "title": "X",
+            "body": "Tylko jeśli odbiorcy tam naprawdę pasują."
+          },
+          "tiktok": {
+            "title": "TikTok",
+            "body": "Tylko jeśli odbiorcy tam naprawdę pasują."
+          },
+          "snapchat": {
+            "title": "Snapchat",
+            "body": "Tylko jeśli odbiorcy tam naprawdę pasują."
+          },
+          "qr": {
+            "title": "QR",
+            "body": "Na spotkanie osobiste."
+          },
+          "personal": {
+            "title": "Link osobisty",
+            "body": "Gdy polecasz kogoś bezpośrednio."
+          }
         }
       },
       "approvedLabel": "Zatwierdzony tekst",
@@ -1341,11 +1369,11 @@
         }
       },
       "academy": {
-                "learnedStatus": "Lekcje są na tej stronie",
+        "learnedStatus": "Lekcje są na tej stronie",
         "passedStatus": "Certyfikacja jest zapisana",
         "notPassedStatus": "Jeszcze nie zapisano",
         "sellStatus": "Udostępniaj po certyfikacji",
-"learn": {
+        "learn": {
           "title": "Ucz się",
           "body": "Przeczytaj opublikowane lekcje produktu.",
           "action": "Otwórz lekcję"

@@ -3,17 +3,20 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
+  CSP_EMAIL_TEMPLATE_LOCALES,
+  CSP_EMAIL_TEMPLATE_PRODUCTS,
+  CSP_EMAIL_TEMPLATE_TYPES,
   listPublishedCspEmailTemplates,
   resolveCspEmailTemplate,
   type CspEmailPlaceholderValues,
   type CspEmailTemplateLocale,
+  type CspEmailTemplateProduct,
   type CspEmailTemplateType,
 } from "@/lib/certified-sales-partner/email-templates";
 import { cspMarketingProductDescription } from "@/lib/certified-sales-partner/email-templates/product-copy";
 import { publicEmailAvatarUrl, buildSalesReferralUrl } from "@/lib/certified-sales-partner/email-crm/signature";
 import { LOCALE_LABELS } from "@/lib/i18n/config";
-import { writeClipboard } from "./csp-sales-links-client";
-import { AipifyAlert, AipifyCard, AipifyPageHeader } from "./design";
+import { AipifyAlert, AipifyCard, AipifyPageHeader, AipifyTabs } from "./design";
 import { useCspPortal } from "./CspPortalSessionProvider";
 
 export type CspEmailTemplatesPanelLabels = {
@@ -35,28 +38,16 @@ export type CspEmailTemplatesPanelLabels = {
   noTemplates: string;
   previewSubject: string;
   inboxLink: string;
-  previewReady: string;
-  sendNotActivated: string;
   copySubject: string;
   copyBody: string;
   copyWithLink: string;
   copied: string;
   copyFailed: string;
-  howSendingTitle: string;
-  howSendingBody: string;
   linkUnavailable: string;
+  personalLinkLabel: string;
   types: Record<CspEmailTemplateType, string>;
   products: Record<string, string>;
 };
-
-const TYPES: CspEmailTemplateType[] = [
-  "product_introduction",
-  "follow_up",
-  "meeting_request",
-  "product_information",
-];
-
-const MARKETING_LOCALES: CspEmailTemplateLocale[] = ["en", "no", "sv", "da", "pl", "uk", "es"];
 
 function certPassed(portal: ReturnType<typeof useCspPortal>, product: string): boolean {
   if (!portal) return false;
@@ -67,8 +58,9 @@ function certPassed(portal: ReturnType<typeof useCspPortal>, product: string): b
 
 /**
  * Seller Marketing → Email templates.
- * Preview always available for published+locale-complete templates.
+ * Preview and copy always available for published+locale-complete templates.
  * Send stays fail-closed until transport + owner unlock + consent.
+ * Product and language options come from registries — never hardcode future options here.
  */
 export function CertifiedSalesPartnerEmailTemplatesPanel({
   labels,
@@ -84,10 +76,10 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
   avatarUrl: string | null;
 }) {
   const portal = useCspPortal();
-  const [product, setProduct] = useState("kompis_web");
+  const [product, setProduct] = useState<CspEmailTemplateProduct>("kompis_web");
   const [type, setType] = useState<CspEmailTemplateType>("product_introduction");
   const [marketingLocale, setMarketingLocale] = useState<CspEmailTemplateLocale>(
-    MARKETING_LOCALES.includes(portalLocale as CspEmailTemplateLocale)
+    (CSP_EMAIL_TEMPLATE_LOCALES as readonly string[]).includes(portalLocale)
       ? (portalLocale as CspEmailTemplateLocale)
       : "en",
   );
@@ -100,8 +92,13 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
     [product, type],
   );
   const template = templates[0] ?? null;
-  const sellable = product !== "aipify_voice" && certPassed(portal, product);
+  const sellable = certPassed(portal, product);
   const activeLink = portal?.links.find((l) => l.active && l.code) ?? null;
+  const referralUrl = buildSalesReferralUrl({
+    code: activeLink?.code,
+    productKey: product,
+    locale: marketingLocale,
+  });
 
   const values: CspEmailPlaceholderValues = {
     seller_display_name: portal?.overview.displayName || "",
@@ -109,12 +106,8 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
     seller_company: companyName.trim(),
     seller_contact: contactEmail.trim(),
     product_name: labels.products[product] || product,
-    product_description: cspMarketingProductDescription(product),
-    referral_url: buildSalesReferralUrl({
-      code: activeLink?.code,
-      productKey: product,
-      locale: marketingLocale,
-    }),
+    product_description: cspMarketingProductDescription(product, marketingLocale),
+    referral_url: referralUrl,
     company_branding: "Aipify",
   };
 
@@ -127,19 +120,13 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
         })
       : null;
 
-  const localeCopy = template?.locales[marketingLocale] ?? null;
-
-  function fillPreview(source: string) {
-    return source.replace(/\{\{\s*([a-z0-9_]+)\s*\}\}/gi, (_match, key: string) => {
-      if (key === "referral_url") return values.referral_url || labels.linkUnavailable;
-      const value = values[key as keyof CspEmailPlaceholderValues];
-      return typeof value === "string" ? value : "";
-    });
-  }
-
   async function copyValue(value: string) {
-    const ok = await writeClipboard(value);
-    setNotice(ok ? labels.copied : labels.copyFailed);
+    try {
+      await navigator.clipboard.writeText(value);
+      setNotice(labels.copied);
+    } catch {
+      setNotice(labels.copyFailed);
+    }
   }
 
   async function onSend() {
@@ -161,11 +148,11 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
       gate_reason?: string;
       message?: string;
     } | null;
-    if (!res.ok || body?.status !== "accepted_by_provider") {
-      setNotice(labels.sendLockedTitle);
+    if (!res.ok) {
+      setNotice(body?.message || labels.sendLockedTitle);
       return;
     }
-    setNotice(null);
+    setNotice(body?.message || body?.status || labels.sendLockedBody);
   }
 
   return (
@@ -175,7 +162,7 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
       <AipifyCard padding="sm">
         <p className="text-xs font-semibold uppercase tracking-wide text-[#94A3B8]">{labels.productLabel}</p>
         <div className="mt-2 flex flex-wrap gap-2">
-          {(["kompis_web", "kompis_bedrift"] as const).map((key) => (
+          {CSP_EMAIL_TEMPLATE_PRODUCTS.map((key) => (
             <button
               key={key}
               type="button"
@@ -186,18 +173,25 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
                   : "border border-[#E8E4F2] text-[#475569]"
               }`}
             >
-              {labels.products[key]}
+              {labels.products[key] ?? key}
             </button>
           ))}
         </div>
         {!sellable ? <p className="mt-3 text-sm text-[#64748B]">{labels.certRequired}</p> : null}
       </AipifyCard>
 
+      <AipifyTabs
+        ariaLabel={labels.templateTypeLabel}
+        activeId={type}
+        onChange={(id) => setType(id as CspEmailTemplateType)}
+        items={CSP_EMAIL_TEMPLATE_TYPES.map((id) => ({ id, label: labels.types[id] }))}
+      />
+
       <AipifyCard padding="sm">
         <p className="text-xs font-semibold uppercase tracking-wide text-[#94A3B8]">{labels.localeLabel}</p>
         <p className="mt-1 text-xs text-[#64748B]">{labels.localeNote}</p>
         <div className="mt-2 flex flex-wrap gap-2">
-          {MARKETING_LOCALES.map((code) => (
+          {CSP_EMAIL_TEMPLATE_LOCALES.map((code) => (
             <button
               key={code}
               type="button"
@@ -214,63 +208,65 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
         </div>
       </AipifyCard>
 
-      <div className="grid gap-4 lg:grid-cols-[minmax(220px,280px)_minmax(0,1fr)]">
-        <div className="rounded-2xl border border-[#E8E4F2] bg-white p-3" role="tablist" aria-label={labels.templateTypeLabel}>
-          {TYPES.map((id) => {
-            const published = listPublishedCspEmailTemplates({ productKey: product, type: id }).length > 0;
-            return (
-              <button
-                key={id}
-                type="button"
-                role="tab"
-                aria-selected={type === id}
-                disabled={!published}
-                onClick={() => setType(id)}
-                className={`mb-2 flex min-h-11 w-full items-center rounded-xl px-3 text-left text-sm font-semibold last:mb-0 disabled:opacity-40 ${
-                  type === id ? "bg-[#7C3AED] text-white" : "bg-[#F6F4FB] text-[#1E293B]"
-                }`}
-              >
-                {labels.types[id]}
-              </button>
-            );
-          })}
-        </div>
-        {!template ? (
-          <AipifyAlert tone="info" title={labels.noTemplates}>
-            <Link href="/partners/marketing/assets" className="font-semibold text-[#7C3AED]">
-              {labels.noTemplates}
-            </Link>
-          </AipifyAlert>
-        ) : !localeCopy ? (
-          <AipifyAlert tone="info" title={labels.localeUnavailable}>
-            {labels.localeUnavailable}
-          </AipifyAlert>
-        ) : (
-          <AipifyCard>
-            <p className="text-sm font-medium text-[#5538D3]">{labels.previewReady}</p>
-            <h2 className="mt-2 text-base font-semibold text-[#1E293B]">{labels.previewTitle}</h2>
-            <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[#94A3B8]">{labels.previewSubject}</p>
-            <p className="mt-1 text-sm font-medium text-[#1E293B]">{fillPreview(localeCopy.subject)}</p>
-            <pre className="mt-4 whitespace-pre-wrap rounded-xl bg-[#F8F7FC] p-4 text-sm text-[#475569]">{fillPreview(localeCopy.body)}</pre>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <button type="button" onClick={() => void copyValue(fillPreview(localeCopy.subject))} className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-3 text-sm font-semibold text-[#1E293B]">
-                {labels.copySubject}
-              </button>
-              <button type="button" onClick={() => void copyValue(fillPreview(localeCopy.body))} className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-3 text-sm font-semibold text-[#1E293B]">
-                {labels.copyBody}
-              </button>
-              <button
-                type="button"
-                disabled={!values.referral_url}
-                onClick={() => void copyValue(`${fillPreview(localeCopy.body)}\n\n${values.referral_url}`)}
-                className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-3 text-sm font-semibold text-[#1E293B] disabled:opacity-40"
-              >
-                {labels.copyWithLink}
-              </button>
-            </div>
-          </AipifyCard>
-        )}
-      </div>
+      {!template ? (
+        <AipifyAlert tone="info" title={labels.noTemplates}>
+          {labels.noTemplates}
+        </AipifyAlert>
+      ) : !referralUrl ? (
+        <AipifyAlert tone="info" title={labels.linkUnavailable}>
+          <Link href="/partners/referrals/links" className="font-semibold text-[#7C3AED]">
+            {labels.certRequired}
+          </Link>
+        </AipifyAlert>
+      ) : resolved && !resolved.ok && resolved.reason === "locale_unavailable" ? (
+        <AipifyAlert tone="warning" title={labels.localeUnavailable}>
+          {labels.localeUnavailable}
+        </AipifyAlert>
+      ) : resolved && resolved.ok ? (
+        <AipifyCard>
+          <h2 className="text-base font-semibold text-[#1E293B]">{labels.previewTitle}</h2>
+          <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[#94A3B8]">
+            {labels.previewSubject}
+          </p>
+          <p className="mt-1 text-sm font-medium text-[#1E293B]">{resolved.subject}</p>
+          <pre className="mt-4 whitespace-pre-wrap rounded-xl bg-[#F8F7FC] p-4 text-sm text-[#475569]">
+            {resolved.textBody}
+          </pre>
+          <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-[#94A3B8]">
+            {labels.personalLinkLabel}
+          </p>
+          <p className="mt-1 break-all text-sm text-[#475569]">{referralUrl}</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => void copyValue(resolved.subject)}
+              className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-3 text-sm font-semibold text-[#1E293B]"
+            >
+              {labels.copySubject}
+            </button>
+            <button
+              type="button"
+              onClick={() => void copyValue(resolved.textBody)}
+              className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-3 text-sm font-semibold text-[#1E293B]"
+            >
+              {labels.copyBody}
+            </button>
+            <button
+              type="button"
+              onClick={() => void copyValue(`${resolved.textBody}\n\n${referralUrl}`)}
+              className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-3 text-sm font-semibold text-[#1E293B]"
+            >
+              {labels.copyWithLink}
+            </button>
+          </div>
+        </AipifyCard>
+      ) : (
+        <AipifyAlert tone="info">
+          <Link href="/partners/referrals/links" className="font-semibold text-[#7C3AED]">
+            {labels.certRequired}
+          </Link>
+        </AipifyAlert>
+      )}
 
       <AipifyCard>
         <label className="block text-sm font-semibold text-[#1E293B]" htmlFor="csp-email-recipient">
@@ -294,22 +290,19 @@ export function CertifiedSalesPartnerEmailTemplatesPanel({
           />
           <span>{labels.consentLabel}</span>
         </label>
-        <p className="mt-4 text-sm font-medium text-[#64748B]">
-          {!sellable || !resolved || !resolved.ok ? labels.sendNotActivated : labels.previewReady}
-        </p>
         <button
           type="button"
           disabled={!sellable || !resolved || !resolved.ok || !recipient.trim() || !consent}
           onClick={() => void onSend()}
-          className="mt-3 inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-4 text-sm font-semibold text-[#475569] disabled:opacity-40"
+          className="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[#7C3AED] px-4 text-sm font-semibold text-white disabled:opacity-40"
         >
           {labels.sendCta}
         </button>
-        <details className="mt-4 rounded-xl bg-[#F6F4FB] p-4">
-          <summary className="cursor-pointer text-sm font-semibold text-[#1E293B]">{labels.howSendingTitle}</summary>
-          <p className="mt-2 text-sm leading-relaxed text-[#475569]">{labels.howSendingBody}</p>
-          <p className="mt-2 text-sm leading-relaxed text-[#475569]">{labels.sendLockedBody}</p>
-        </details>
+        <div className="mt-4">
+          <AipifyAlert tone="neutral" title={labels.sendLockedTitle}>
+            {labels.sendLockedBody}
+          </AipifyAlert>
+        </div>
         {notice ? <p className="mt-3 text-sm text-[#64748B]">{notice}</p> : null}
         <p className="mt-4">
           <Link href="/partners/marketing/email-inbox" className="text-sm font-semibold text-[#7C3AED]">

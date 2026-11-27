@@ -1231,13 +1231,13 @@
       "previewReady": "Forhåndsvisning og kopiering er tilgængelig",
       "sendNotActivated": "Direkte udsendelse er ikke aktiveret",
       "copySubject": "Kopiér emne",
-      "copyBody": "Kopiér tekst",
-      "copyWithLink": "Kopiér tekst og link",
+      "copyBody": "Kopiér brødtekst",
+      "copyWithLink": "Kopiér med personligt link",
       "copied": "Kopieret",
       "copyFailed": "Kunne ikke kopiere",
       "howSendingTitle": "Sådan fungerer udsendelse",
       "howSendingBody": "Udsendelse forbliver slået fra, indtil transport, samtykke og godkendelse er på plads. Kopiering sender ikke beskeden.",
-      "linkUnavailable": "Personligt salgslink er ikke tilgængeligt endnu",
+      "linkUnavailable": "Personligt salgslink er ikke tilgængeligt endnu.",
       "inboxTitle": "E-mailsamtaler",
       "inboxIntro": "Svar der hører til din salgsmail vises her.",
       "inboxEmpty": "Vælg en samtale fra notifikationsklokken.",
@@ -1246,7 +1246,8 @@
         "follow_up": "Opfølgning",
         "meeting_request": "Mødeforespørgsel",
         "product_information": "Produktinformation"
-      }
+      },
+      "personalLinkLabel": "Personligt salgslink"
     },
     "settlementLinks": {
       "payoutTitle": "Udbetalingsoplysninger",
@@ -1282,15 +1283,42 @@
         "flowTitle": "En nyttig rækkefølge",
         "flowBody": "Vælg produkt, bekræft certificering og publicering, vælg kanal, kopiér godkendt tekst og link, og følg status under Leads og Mine salg.",
         "channels": {
-        "email": { "title": "E-mail", "body": "Når du kender modtageren og har et lovligt grundlag for at skrive." },
-        "linkedin": { "title": "LinkedIn", "body": "Passer til professionelle relationer." },
-        "instagram": { "title": "Instagram", "body": "Del i dit netværk, ikke som masseudsendelse." },
-        "facebook": { "title": "Facebook", "body": "Relevante personer, ikke en bred udsendelse." },
-        "x": { "title": "X", "body": "Kun hvis publikum dér faktisk passer." },
-        "tiktok": { "title": "TikTok", "body": "Kun hvis publikum dér faktisk passer." },
-        "snapchat": { "title": "Snapchat", "body": "Kun hvis publikum dér faktisk passer." },
-        "qr": { "title": "QR", "body": "Til et fysisk møde." },
-        "personal": { "title": "Personligt link", "body": "Når du anbefaler direkte." }
+          "email": {
+            "title": "E-mail",
+            "body": "Når du kender modtageren og har et lovligt grundlag for at skrive."
+          },
+          "linkedin": {
+            "title": "LinkedIn",
+            "body": "Passer til professionelle relationer."
+          },
+          "instagram": {
+            "title": "Instagram",
+            "body": "Del i dit netværk, ikke som masseudsendelse."
+          },
+          "facebook": {
+            "title": "Facebook",
+            "body": "Relevante personer, ikke en bred udsendelse."
+          },
+          "x": {
+            "title": "X",
+            "body": "Kun hvis publikum dér faktisk passer."
+          },
+          "tiktok": {
+            "title": "TikTok",
+            "body": "Kun hvis publikum dér faktisk passer."
+          },
+          "snapchat": {
+            "title": "Snapchat",
+            "body": "Kun hvis publikum dér faktisk passer."
+          },
+          "qr": {
+            "title": "QR",
+            "body": "Til et fysisk møde."
+          },
+          "personal": {
+            "title": "Personligt link",
+            "body": "Når du anbefaler direkte."
+          }
         }
       },
       "approvedLabel": "Godkendt tekst",
@@ -1465,11 +1493,11 @@
         }
       },
       "academy": {
-                "learnedStatus": "Lektionerne ligger på denne side",
+        "learnedStatus": "Lektionerne ligger på denne side",
         "passedStatus": "Certificering er registreret",
         "notPassedStatus": "Ikke registreret endnu",
         "sellStatus": "Del efter certificering",
-"learn": {
+        "learn": {
           "title": "Lær",
           "body": "Læs de offentliggjorte lektioner for produktet.",
           "action": "Åbn lektionen"
