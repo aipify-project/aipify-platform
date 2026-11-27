@@ -10,6 +10,10 @@ import {
   formatEconomyMoney,
   moneyText,
 } from "@/lib/platform/economy-display";
+import {
+  calendarDateInTimeZone,
+  classifyPlatformInvoice,
+} from "@/lib/platform-portal/customer-invoice-status";
 import { PlatformLayoutClasses } from "@/lib/design";
 import { createClient } from "@/lib/supabase/client";
 import type { CustomerRecord, Invoice, InvoiceAction } from "@/lib/platform/types";
@@ -42,10 +46,23 @@ type InvoicesPanelProps = {
     unavailable: string;
     mustVerify: string;
     notRegistered: string;
+    backToCustomer: string;
+    filteredEmpty: string;
   };
+  timeZone: string;
+  customerId: string | null;
+  bucket: "overdue" | "paid" | null;
+  returnTo: string | null;
 };
 
-export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
+export default function InvoicesPanel({
+  locale,
+  labels,
+  timeZone,
+  customerId,
+  bucket,
+  returnTo,
+}: InvoicesPanelProps) {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [customers, setCustomers] = useState<Record<string, CustomerRecord>>({});
   const [loading, setLoading] = useState(true);
@@ -112,6 +129,36 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
     }
   }
 
+  const today = calendarDateInTimeZone(new Date(), timeZone);
+  const scoped = customerId
+    ? invoices.filter((invoice) => invoice.customer_id === customerId)
+    : invoices;
+  let classificationFailed = false;
+  const bucketRows = scoped.filter((invoice) => {
+    const classified = classifyPlatformInvoice(
+      {
+        id: invoice.id,
+        invoiceNumber: invoice.invoice_number,
+        status: invoice.status,
+        amount: invoice.amount,
+        currency: invoice.currency,
+        dueDate: invoice.due_date,
+        issuedAt: invoice.issued_at,
+        paidAt: invoice.paid_at,
+      },
+      today,
+    );
+    if (!classified.ok) {
+      classificationFailed = true;
+      return false;
+    }
+    return classified.presentation === bucket;
+  });
+  const filtered = {
+    invalid: Boolean(bucket) && classificationFailed,
+    rows: bucket ? bucketRows : scoped,
+  };
+
   return (
     <div className={PlatformLayoutClasses.pageWidth}>
       <AipifyBillingDocumentHeader
@@ -119,6 +166,14 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
         subtitle={labels.subtitle}
         pulseLabel={labels.pulseLabel}
       />
+
+      {returnTo ? (
+        <p className="mb-4">
+          <Link href={returnTo} className="text-sm font-medium text-violet-700 hover:text-violet-800">
+            {labels.backToCustomer}
+          </Link>
+        </p>
+      ) : null}
 
       {loading ? (
         <div className="flex min-h-[24vh] items-center justify-center">
@@ -131,6 +186,12 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
         </p>
       ) : invoices.length === 0 ? (
         <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
+      ) : filtered.invalid ? (
+        <p className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-700">
+          {labels.unavailable}
+        </p>
+      ) : filtered.rows.length === 0 ? (
+        <AipifyEmptyState message={labels.filteredEmpty} pulseLabel={labels.pulseLabel} />
       ) : (
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
           <div className="overflow-x-auto">
@@ -161,7 +222,7 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {invoices.map((invoice) => {
+                {filtered.rows.map((invoice) => {
                   const customer = customers[invoice.customer_id];
                   const busy = actingId === invoice.id;
 
@@ -173,7 +234,7 @@ export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
                       <td className="px-6 py-4">
                         {customer ? (
                           <Link
-                            href={`/platform/customers/${customer.id}`}
+                            href={`/platform/customers/${customer.id}?tab=subscription`}
                             className="text-sm font-semibold text-violet-600 hover:text-violet-700"
                           >
                             {customer.display_name}

@@ -966,6 +966,47 @@
         "errorPhone": "Ange ett giltigt telefonnummer i internationellt format.",
         "errorCoreGatePending": "Kontaktuppdateringar är förberedda men väntar på Core-godkännande innan de kan sparas."
       },
+      "companyAddress": {
+        "title": "Företagsadress",
+        "invoiceTitle": "Fakturaadress",
+        "street": "Gatuadress",
+        "line2": "Adressrad 2",
+        "postalCode": "Postnummer",
+        "city": "Ort",
+        "region": "Region",
+        "country": "Land",
+        "website": "Webbplats",
+        "sameAsCompany": "Samma som företagsadress",
+        "readOnlyNote": "Adressändringar är stängda tills ett separat Core-godkännande finns.",
+        "unavailable": "Inte tillgängligt"
+      },
+      "invoiceKpi": {
+        "overdue": "Förfallna fakturor",
+        "paid": "Betalda fakturor",
+        "amount": "Belopp",
+        "outstanding": "Utestående",
+        "paidSum": "Summerat betalt belopp",
+        "unavailable": "Inte tillgängligt",
+        "latestInvoice": "Senaste faktura",
+        "invoiceNumber": "Fakturanummer",
+        "invoiceDate": "Fakturadatum",
+        "dueDate": "Förfallodatum",
+        "nextInvoiceDate": "Nästa fakturadatum",
+        "noInvoices": "Inga fakturor är registrerade för den här kunden.",
+        "openFilteredList": "Öppna fakturalista",
+        "zeroOpen": "Inget utestående",
+        "statuses": {
+          "draft": "Utkast",
+          "open": "Inte förfallen",
+          "paid": "Betald",
+          "overdue": "Förfallen",
+          "cancelled": "Avbruten",
+          "failed": "Misslyckad",
+          "credited": "Krediterad",
+          "zero_open": "Inget utestående",
+          "other": "Annan status"
+        }
+      },
       "highRiskIdentityNote": "Juridisk identitet och kontakt-e-post kräver högriskflödet för identitet.",
       "supportOpenCases": "Öppna supportärenden",
       "supportOpenQueue": "Öppna supportkö"
@@ -4708,7 +4749,9 @@
     "kid": "KID",
     "downloadPdf": "PDF",
     "actionPending": "Arbetar",
-    "actionDone": "Uppdaterad"
+    "actionDone": "Uppdaterad",
+    "backToCustomer": "Tillbaka till kunden",
+    "filteredEmpty": "Inga fakturor matchar det här filtret."
   },
   "metrics": {
     "title": "Platform Metrics",

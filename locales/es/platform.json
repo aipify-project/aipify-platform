@@ -548,6 +548,47 @@
         "errorPhone": "Introduzca un teléfono válido en formato internacional.",
         "errorCoreGatePending": "Las actualizaciones de contacto están preparadas, pero esperan la aprobación de Core antes de guardarse."
       },
+      "companyAddress": {
+        "title": "Dirección de la empresa",
+        "invoiceTitle": "Dirección de facturación",
+        "street": "Calle",
+        "line2": "Línea de dirección 2",
+        "postalCode": "Código postal",
+        "city": "Ciudad",
+        "region": "Región",
+        "country": "País",
+        "website": "Sitio web",
+        "sameAsCompany": "Igual que la dirección de la empresa",
+        "readOnlyNote": "Los cambios de dirección permanecen cerrados hasta una aprobación distinta en Core.",
+        "unavailable": "No disponible"
+      },
+      "invoiceKpi": {
+        "overdue": "Facturas vencidas",
+        "paid": "Facturas pagadas",
+        "amount": "Importe",
+        "outstanding": "Pendiente",
+        "paidSum": "Suma de importes pagados",
+        "unavailable": "No disponible",
+        "latestInvoice": "Última factura",
+        "invoiceNumber": "Número de factura",
+        "invoiceDate": "Fecha de factura",
+        "dueDate": "Vencimiento",
+        "nextInvoiceDate": "Fecha de la próxima factura",
+        "noInvoices": "No hay facturas registradas para este cliente.",
+        "openFilteredList": "Abrir lista de facturas",
+        "zeroOpen": "Sin importe pendiente",
+        "statuses": {
+          "draft": "Borrador",
+          "open": "Aún no vencida",
+          "paid": "Pagada",
+          "overdue": "Vencida",
+          "cancelled": "Cancelada",
+          "failed": "Fallida",
+          "credited": "Abonada",
+          "zero_open": "Sin importe pendiente",
+          "other": "Otro estado"
+        }
+      },
       "highRiskIdentityNote": "La identidad legal y el correo de contacto requieren el flujo de alto riesgo.",
       "supportOpenCases": "Casos de soporte abiertos",
       "supportOpenQueue": "Abrir cola de soporte"
@@ -2338,7 +2379,9 @@
     "kid": "KID",
     "downloadPdf": "PDF",
     "actionPending": "En curso",
-    "actionDone": "Actualizada"
+    "actionDone": "Actualizada",
+    "backToCustomer": "Volver al cliente",
+    "filteredEmpty": "Ninguna factura coincide con este filtro."
   },
   "subscriptions": {
     "title": "Acuerdos de clientes",

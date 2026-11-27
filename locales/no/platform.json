@@ -815,6 +815,47 @@
         "errorPhone": "Oppgi et gyldig telefonnummer i internasjonalt format.",
         "errorCoreGatePending": "Kontaktoppdateringer er forberedt, men venter på Core-godkjenning før de kan lagres."
       },
+      "companyAddress": {
+        "title": "Firmaadresse",
+        "invoiceTitle": "Fakturaadresse",
+        "street": "Gateadresse",
+        "line2": "Adresselinje 2",
+        "postalCode": "Postnummer",
+        "city": "Poststed",
+        "region": "Region",
+        "country": "Land",
+        "website": "Nettsted",
+        "sameAsCompany": "Samme som firmaadresse",
+        "readOnlyNote": "Adresseendringer er stengt til en egen Core-godkjenning er på plass.",
+        "unavailable": "Ikke tilgjengelig"
+      },
+      "invoiceKpi": {
+        "overdue": "Forfalte fakturaer",
+        "paid": "Betalte fakturaer",
+        "amount": "Beløp",
+        "outstanding": "Utestående",
+        "paidSum": "Summert betalt beløp",
+        "unavailable": "Ikke tilgjengelig",
+        "latestInvoice": "Siste faktura",
+        "invoiceNumber": "Fakturanummer",
+        "invoiceDate": "Fakturadato",
+        "dueDate": "Forfall",
+        "nextInvoiceDate": "Neste fakturadato",
+        "noInvoices": "Ingen fakturaer er registrert for denne kunden.",
+        "openFilteredList": "Åpne fakturaliste",
+        "zeroOpen": "Ingen utestående",
+        "statuses": {
+          "draft": "Utkast",
+          "open": "Ikke forfalt",
+          "paid": "Betalt",
+          "overdue": "Forfalt",
+          "cancelled": "Kansellert",
+          "failed": "Mislykket",
+          "credited": "Kreditert",
+          "zero_open": "Ingen utestående",
+          "other": "Annen status"
+        }
+      },
       "highRiskIdentityNote": "Juridisk identitet og kontakt-e-post krever høyrisikoflyten for identitet.",
       "supportOpenCases": "Åpne supportsaker",
       "supportOpenQueue": "Åpne supportkø"
@@ -2217,7 +2258,9 @@
     "kid": "KID",
     "downloadPdf": "PDF",
     "actionPending": "Arbeider",
-    "actionDone": "Oppdatert"
+    "actionDone": "Oppdatert",
+    "backToCustomer": "Tilbake til kunden",
+    "filteredEmpty": "Ingen fakturaer samsvarer med dette filteret."
   },
   "metrics": {
     "title": "Platform Metrics",
