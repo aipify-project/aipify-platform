@@ -33,8 +33,8 @@ type Props = {
   advisorLine?: string | null;
   /** Quiet notice for an unverified link. The product page stays the page. */
   closedNotice?: string | null;
-  /** Keeps the current public path when the visitor changes language. */
-  localePath?: (locale: PublicFooterEnabledLocale) => string;
+  /** Keeps the current public path when the visitor changes language. Plain paths only. */
+  localePaths?: Partial<Record<PublicFooterEnabledLocale, string>>;
   /** Fail-closed contact note. No write, no success claim. */
   followUp?: { title: string; pending: string; privacy: string; privacyLabel: string } | null;
 };
@@ -83,12 +83,12 @@ export default function KompisWebSalesPage({
   startHref,
   advisorLine,
   closedNotice,
-  localePath,
+  localePaths,
   followUp,
 }: Props) {
   const router = useRouter();
   const registrationHref = startHref || labels.hrefs.start;
-  const faqHref = localePath ? "#faq" : labels.hrefs.faq;
+  const faqHref = localePaths ? "#faq" : labels.hrefs.faq;
   const [pending, startTransition] = useTransition();
   const [langOpen, setLangOpen] = useState(false);
   const [langError, setLangError] = useState<string | null>(null);
@@ -186,7 +186,7 @@ export default function KompisWebSalesPage({
           setLangError(labels.nav.languageSwitchFailed);
           return;
         }
-        window.location.assign(localePath ? localePath(next) : "/");
+        window.location.assign(localePaths?.[next] ?? "/");
       } catch {
         setLangError(labels.nav.languageSwitchFailed);
       }
