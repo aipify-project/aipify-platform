@@ -63,6 +63,23 @@ export const SUPPORT_PROPOSAL_UNDERSTANDING_REQUIRED = "support_proposal_underst
 export const SUPPORT_PROPOSAL_UNDERSTANDING_STALE = "support_proposal_understanding_stale" as const;
 export const SUPPORT_PROPOSAL_KNOWLEDGE_REQUIRED = "support_proposal_knowledge_required" as const;
 export const SUPPORT_PROPOSAL_KNOWLEDGE_STALE = "support_proposal_knowledge_stale" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_RPC =
+  "approve_organization_support_case_response_proposal" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID =
+  "support_proposal_approval_expected_hash_invalid" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_HASH_MISMATCH =
+  "support_proposal_approval_hash_mismatch" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_NOT_APPROVABLE =
+  "support_proposal_approval_not_approvable" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_CASE_NOT_OPEN =
+  "support_proposal_approval_case_not_open" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_REQUIRED = "support_proposal_approval_required" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_CONTRACT_MISSING =
+  "support_proposal_approval_contract_missing" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_BODY_REJECTED =
+  "support_proposal_approval_body_rejected" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_REJECTED = "support_proposal_approval_rejected" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_PERMISSION_DENIED = "Permission denied: support.reply" as const;
 
 export const SUPPORT_KNOWLEDGE_STATUSES = ["complete", "needs_human_knowledge_review"] as const;
 export type SupportKnowledgeStatus = (typeof SUPPORT_KNOWLEDGE_STATUSES)[number];
@@ -236,6 +253,104 @@ export function mapSupportCaseProposalRpcError(message: string): { status: numbe
     return { status: 404, error: "Case not found" };
   }
   return { status: 403, error: message };
+}
+
+const SUPPORT_PROPOSAL_APPROVAL_HASH_PATTERN = /^[a-f0-9]{64}$/;
+const SUPPORT_PROPOSAL_APPROVAL_BODY_KEYS = new Set([
+  "expected_proposal_input_hash",
+  "expected_proposed_body_hash",
+]);
+
+export type ParsedSupportProposalApprovalBody =
+  | {
+      ok: true;
+      expectedProposalInputHash: string;
+      expectedProposedBodyHash: string;
+    }
+  | { ok: false; error: string };
+
+export function parseSupportProposalApprovalBody(raw: unknown): ParsedSupportProposalApprovalBody {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    return { ok: false, error: SUPPORT_PROPOSAL_APPROVAL_BODY_REJECTED };
+  }
+
+  const record = raw as Record<string, unknown>;
+  for (const key of Object.keys(record)) {
+    if (!SUPPORT_PROPOSAL_APPROVAL_BODY_KEYS.has(key)) {
+      return { ok: false, error: SUPPORT_PROPOSAL_APPROVAL_BODY_REJECTED };
+    }
+  }
+
+  const inputHash = record.expected_proposal_input_hash;
+  const bodyHash = record.expected_proposed_body_hash;
+  if (typeof inputHash !== "string" || typeof bodyHash !== "string") {
+    return { ok: false, error: SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID };
+  }
+  if (
+    !SUPPORT_PROPOSAL_APPROVAL_HASH_PATTERN.test(inputHash) ||
+    !SUPPORT_PROPOSAL_APPROVAL_HASH_PATTERN.test(bodyHash)
+  ) {
+    return { ok: false, error: SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID };
+  }
+
+  return {
+    ok: true,
+    expectedProposalInputHash: inputHash,
+    expectedProposedBodyHash: bodyHash,
+  };
+}
+
+export function mapSupportCaseProposalApprovalRpcError(message: string): {
+  status: number;
+  error: string;
+} {
+  const normalized = message.toLowerCase();
+  if (
+    normalized.includes("could not find the function") ||
+    normalized.includes("schema cache") ||
+    normalized.includes("pgrst202") ||
+    (normalized.includes("does not exist") &&
+      (normalized.includes("function") || normalized.includes("relation")))
+  ) {
+    return { status: 501, error: SUPPORT_PROPOSAL_APPROVAL_CONTRACT_MISSING };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID)) {
+    return { status: 400, error: SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_APPROVAL_HASH_MISMATCH)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_APPROVAL_HASH_MISMATCH };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_APPROVAL_NOT_APPROVABLE)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_APPROVAL_NOT_APPROVABLE };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_APPROVAL_CASE_NOT_OPEN)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_APPROVAL_CASE_NOT_OPEN };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_APPROVAL_REQUIRED)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_APPROVAL_REQUIRED };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_UNDERSTANDING_REQUIRED)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_UNDERSTANDING_REQUIRED };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_UNDERSTANDING_STALE)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_UNDERSTANDING_STALE };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_KNOWLEDGE_REQUIRED)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_KNOWLEDGE_REQUIRED };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_KNOWLEDGE_STALE)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_KNOWLEDGE_STALE };
+  }
+  if (message.includes("Case not found")) {
+    return { status: 404, error: "Case not found" };
+  }
+  if (message.includes("Unauthorized")) {
+    return { status: 401, error: "Unauthorized" };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_APPROVAL_PERMISSION_DENIED)) {
+    return { status: 403, error: SUPPORT_PROPOSAL_APPROVAL_PERMISSION_DENIED };
+  }
+  return { status: 403, error: SUPPORT_PROPOSAL_APPROVAL_REJECTED };
 }
 
 type SupportCaseCreateClient = SupportRpcClient & {
@@ -582,6 +697,48 @@ export async function processSupportCaseProposalRequest(
     return { status: 200, body: (data as Record<string, unknown>) ?? {} };
   } catch {
     return { status: 500, body: { error: "Failed to propose support case response" } };
+  }
+}
+
+export async function processSupportCaseProposalApprovalRequest(
+  supabase: SupportCaseProposalClient,
+  caseId: string,
+  rawBody: unknown
+): Promise<{ status: number; body: Record<string, unknown> }> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return { status: 401, body: { error: "Unauthorized" } };
+  }
+
+  if (!isValidSupportCaseId(caseId)) {
+    return { status: 400, body: { error: "Invalid case id" } };
+  }
+
+  const parsed = parseSupportProposalApprovalBody(rawBody);
+  if (!parsed.ok) {
+    return { status: 400, body: { error: parsed.error } };
+  }
+
+  try {
+    const { data, error } = await supabase.rpc(SUPPORT_PROPOSAL_APPROVAL_RPC, {
+      p_case_id: caseId.trim(),
+      p_expected_proposal_input_hash: parsed.expectedProposalInputHash,
+      p_expected_proposed_body_hash: parsed.expectedProposedBodyHash,
+    });
+    if (error) {
+      const mapped = mapSupportCaseProposalApprovalRpcError(error.message);
+      return { status: mapped.status, body: { error: mapped.error } };
+    }
+
+    const body = { ...((data as Record<string, unknown> | null) ?? {}) };
+    delete body.proposed_body;
+    delete body.subject;
+    delete body.content;
+    return { status: 200, body };
+  } catch {
+    return { status: 500, body: { error: "Failed to approve support case response proposal" } };
   }
 }
 
