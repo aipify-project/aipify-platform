@@ -1038,6 +1038,8 @@ export function buildPlatformPortalCustomerDetailLabels(
     primaryContactPhone: t(`${d}.primaryContactPhone`),
     primaryContactEmpty: t(`${d}.primaryContactEmpty`),
     customerId: t(`${d}.customerId`),
+    customerNumber: t(`${d}.customerNumber`),
+    technicalCustomerId: t(`${d}.technicalCustomerId`),
     companyId: t(`${d}.companyId`),
     createdAt: t(`${d}.createdAt`),
     updatedAt: t(`${d}.updatedAt`),

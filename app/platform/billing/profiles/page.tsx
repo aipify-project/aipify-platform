@@ -34,6 +34,10 @@ export default async function PlatformBillingProfilesPage() {
         unavailable: t("platform.economyDisplay.unavailable"),
         mustVerify: t("platform.economyDisplay.mustVerify"),
         notRegistered: t("platform.economyDisplay.notRegistered"),
+        paymentReference: t("platform.economyDisplay.paymentReference"),
+        kidNotApplicable: t("platform.economyDisplay.kidNotApplicable"),
+        kidNotApplicablePaidOnline: t("platform.economyDisplay.kidNotApplicablePaidOnline"),
+        kidMissingReview: t("platform.economyDisplay.kidMissingReview"),
       }}
     />
   );

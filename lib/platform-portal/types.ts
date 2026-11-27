@@ -409,6 +409,8 @@ export type PlatformPortalCustomerDetailLabels = {
   primaryContactPhone: string;
   primaryContactEmpty: string;
   customerId: string;
+  customerNumber: string;
+  technicalCustomerId: string;
   companyId: string;
   createdAt: string;
   updatedAt: string;
