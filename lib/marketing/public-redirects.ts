@@ -15,6 +15,9 @@ export const MARKETING_PUBLIC_REDIRECTS: Redirect[] = [
   { source: "/kompis-web", destination: "/", permanent: true },
   /** Enterprise demo is not part of the Kompis Web self-serve funnel. */
   { source: "/book-demo", destination: "/", permanent: true },
-  /** Legacy contact hub; sales footer uses mailto instead. */
-  { source: "/contact", destination: "/", permanent: true },
+  /**
+   * Legacy contact hub — keep redirect so old bookmarks do not 404.
+   * Working public intake is `/contact/support` (fail-closed until Core LIVE).
+   */
+  { source: "/contact", destination: "/contact/support", permanent: true },
 ];

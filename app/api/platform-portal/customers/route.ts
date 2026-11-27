@@ -25,15 +25,36 @@ function jsonError(
 export async function GET() {
   try {
     const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return jsonError("Unauthorized", 401, "unauthorized");
+    }
+
+    const profile = await getPlatformProfile(supabase);
+    if (!profile) {
+      return jsonError("Forbidden", 403, "forbidden");
+    }
+
     const { data, error } = await supabase.rpc("get_platform_portal_customers");
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+      return NextResponse.json(
+        { error: error.message },
+        { status: 403, headers: NO_STORE },
+      );
     }
 
-    return NextResponse.json(parsePlatformPortalCustomersPayload(data));
+    return NextResponse.json(parsePlatformPortalCustomersPayload(data), {
+      headers: NO_STORE,
+    });
   } catch {
-    return NextResponse.json({ error: "Unable to load platform customers." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Unable to load platform customers." },
+      { status: 500, headers: NO_STORE },
+    );
   }
 }
 

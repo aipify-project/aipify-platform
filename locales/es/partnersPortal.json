@@ -449,7 +449,8 @@
       "practiceNotice": "Este resultado es solo de práctica. No se ha registrado ni emitido ninguna certificación porque el sistema de socios no la ha confirmado. La certificación y los enlaces de ventas estarán disponibles cuando se registre el resultado.",
       "certificationRecorded": "Su certificación se ha registrado.",
       "downloadCertificate": "Descargar certificado (PDF)",
-      "attemptRecorded": "Tu intento se ha registrado. Repasa las lecciones e inténtalo de nuevo cuando quieras."
+      "attemptRecorded": "Tu intento se ha registrado. Repasa las lecciones e inténtalo de nuevo cuando quieras.",
+      "scorePercentOnly": "Resultado: {score}% — aprobado"
     },
     "lessons": {
       "title": "Lecciones de Kompis Web",

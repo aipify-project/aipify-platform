@@ -1,23 +1,32 @@
 import type { MetadataRoute } from "next";
 
 /**
- * Public crawl policy for aipify.ai after Kompis Web sales became root.
- * Prefer the clean sales home + legal pages; do not advertise legacy hub URLs.
+ * Public crawl policy for aipify.ai after public website cleanup.
+ * Prefer sales home, legal, Growth Partners apply, and honest contact intake.
  */
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/privacy", "/terms", "/start", "/login"],
+        allow: [
+          "/",
+          "/privacy",
+          "/terms",
+          "/start",
+          "/login",
+          "/growth-partners",
+          "/certified-sales-partner",
+          "/contact/support",
+        ],
         disallow: [
           "/api/",
           "/app/",
           "/platform/",
           "/super/",
           "/dashboard/",
+          "/partners/",
           "/book-demo",
-          "/contact",
           "/kompis-web",
         ],
       },

@@ -9,10 +9,13 @@ import { join } from "node:path";
 import fontkit from "@pdf-lib/fontkit";
 import { PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import {
+  buildCertificateVerifyUrl,
   certificatePdfCopy,
+  formatCertificateDisplayRef,
   toPdfSafeText,
   type CspCertificateMeta,
 } from "./certificate";
+import { formatExamPassedAtDisplay } from "./exam-result-display";
 
 const ASSETS_DIR = join(
   /* turbopackIgnore: true */ process.cwd(),
@@ -21,14 +24,14 @@ const ASSETS_DIR = join(
 
 const PAGE_WIDTH = 842;
 const PAGE_HEIGHT = 595;
-const CONTENT_MAX = 620;
+const CONTENT_MAX = 580;
 
 const INK = rgb(0.118, 0.137, 0.216);
 const MUTED = rgb(0.38, 0.44, 0.54);
 const BRAND = rgb(0.486, 0.227, 0.929); // #7C3AED Companion Purple
 const GOLD = rgb(0.78, 0.62, 0.22);
 const GOLD_SOFT = rgb(0.9, 0.8, 0.48);
-const PAPER = rgb(0.973, 0.969, 0.957); // warm off-white
+const PAPER = rgb(0.973, 0.969, 0.957);
 const PAPER_INNER = rgb(1, 1, 1);
 
 function loadAsset(name: string): Uint8Array {
@@ -51,7 +54,6 @@ function wrapText(text: string, font: PDFFont, size: number, maxWidth: number): 
     if (font.widthOfTextAtSize(word, size) <= maxWidth) {
       current = word;
     } else {
-      // Hard-break oversized tokens (e.g. long IDs) without overflowing.
       let chunk = "";
       for (const ch of word) {
         const next = chunk + ch;
@@ -102,7 +104,7 @@ function drawCentered(
       font,
       color,
     });
-    cursor -= size + 6;
+    cursor -= size + 5;
   }
   return cursor;
 }
@@ -114,7 +116,7 @@ function drawGoldSeal(
   cx: number,
   cy: number,
 ): void {
-  const outer = 54;
+  const outer = 58;
   page.drawCircle({ x: cx, y: cy, size: outer, color: GOLD_SOFT, borderColor: GOLD, borderWidth: 2.2 });
   page.drawCircle({ x: cx, y: cy, size: outer - 7, borderColor: GOLD, borderWidth: 1.2, color: PAPER_INNER });
   page.drawCircle({ x: cx, y: cy, size: outer - 14, borderColor: GOLD, borderWidth: 0.8 });
@@ -136,6 +138,9 @@ function drawGoldSeal(
  */
 export async function buildCertificatePdfText(meta: CspCertificateMeta): Promise<Uint8Array> {
   const copy = certificatePdfCopy(meta.locale);
+  const verifyUrl = buildCertificateVerifyUrl(meta.verifyPath);
+  const displayRef = formatCertificateDisplayRef(meta.certificateId);
+  const passedLabel = formatExamPassedAtDisplay(meta.passedAt, meta.locale);
 
   const pdfDoc = await PDFDocument.create();
   pdfDoc.registerFontkit(fontkit);
@@ -146,7 +151,6 @@ export async function buildCertificatePdfText(meta: CspCertificateMeta): Promise
 
   const page = pdfDoc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
 
-  // Warm paper canvas
   page.drawRectangle({
     x: 0,
     y: 0,
@@ -155,7 +159,6 @@ export async function buildCertificatePdfText(meta: CspCertificateMeta): Promise
     color: PAPER,
   });
 
-  // Soft brand ribbon
   page.drawRectangle({
     x: 0,
     y: PAGE_HEIGHT - 10,
@@ -171,83 +174,81 @@ export async function buildCertificatePdfText(meta: CspCertificateMeta): Promise
     color: GOLD_SOFT,
   });
 
-  // Double frame — purple outer, gold inner accent
   page.drawRectangle({
-    x: 24,
-    y: 24,
-    width: PAGE_WIDTH - 48,
-    height: PAGE_HEIGHT - 48,
+    x: 22,
+    y: 22,
+    width: PAGE_WIDTH - 44,
+    height: PAGE_HEIGHT - 44,
     borderColor: BRAND,
     borderWidth: 2.4,
     color: PAPER_INNER,
   });
   page.drawRectangle({
-    x: 32,
-    y: 32,
-    width: PAGE_WIDTH - 64,
-    height: PAGE_HEIGHT - 64,
+    x: 30,
+    y: 30,
+    width: PAGE_WIDTH - 60,
+    height: PAGE_HEIGHT - 60,
     borderColor: GOLD,
-    borderWidth: 1.1,
+    borderWidth: 1.15,
   });
   page.drawRectangle({
-    x: 38,
-    y: 38,
-    width: PAGE_WIDTH - 76,
-    height: PAGE_HEIGHT - 76,
+    x: 36,
+    y: 36,
+    width: PAGE_WIDTH - 72,
+    height: PAGE_HEIGHT - 72,
     borderColor: BRAND,
     borderWidth: 0.7,
   });
 
-  // Official logo (top-left)
-  const logoWidth = 148;
+  const logoWidth = 142;
   const logoHeight = (logo.height / logo.width) * logoWidth;
   page.drawImage(logo, {
-    x: 56,
-    y: PAGE_HEIGHT - 52 - logoHeight,
+    x: 54,
+    y: PAGE_HEIGHT - 50 - logoHeight,
     width: logoWidth,
     height: logoHeight,
   });
 
-  // Discrete Kompis figure (bottom-right) — keeps center text readable
-  const kompisSize = 92;
+  // Larger discrete Kompis — bottom-right, fills previously empty space
+  const kompisSize = 132;
   page.drawImage(kompis, {
-    x: PAGE_WIDTH - 56 - kompisSize,
-    y: 52,
+    x: PAGE_WIDTH - 54 - kompisSize,
+    y: 48,
     width: kompisSize,
     height: kompisSize,
-    opacity: 0.92,
+    opacity: 0.95,
   });
 
-  // Decorative gold seal (visual only)
-  drawGoldSeal(page, bold, copy.certifiedSeal, PAGE_WIDTH - 118, PAGE_HEIGHT - 118);
+  drawGoldSeal(page, bold, copy.certifiedSeal, PAGE_WIDTH - 112, PAGE_HEIGHT - 108);
 
-  let y = PAGE_HEIGHT - 118;
-  y = drawCentered(page, copy.title, 24, bold, y, BRAND) - 4;
-  y = drawCentered(page, copy.partnerTitle, 13, regular, y, MUTED) - 10;
-  y = drawCentered(page, copy.certifiesThat, 12, regular, y, MUTED) - 6;
+  let y = PAGE_HEIGHT - 108;
+  y = drawCentered(page, copy.title, 23, bold, y, BRAND) - 2;
+  y = drawCentered(page, copy.partnerTitle, 12, regular, y, MUTED) - 12;
+  y = drawCentered(page, copy.certifiesThat, 12, regular, y, MUTED) - 4;
 
-  const nameSize = fitSize(meta.fullName, bold, 28, 16, CONTENT_MAX);
-  y = drawCentered(page, meta.fullName, nameSize, bold, y, INK) - 8;
+  const nameSize = fitSize(meta.fullName, bold, 27, 15, CONTENT_MAX);
+  y = drawCentered(page, meta.fullName, nameSize, bold, y, INK) - 6;
 
-  y = drawCentered(page, copy.completedAssessment, 12, regular, y, MUTED) - 4;
-  y = drawCentered(page, copy.productName, 20, bold, y, BRAND) - 2;
-  y = drawCentered(page, meta.productLabel, 10, regular, y, MUTED) - 14;
+  y = drawCentered(page, copy.completedAssessment, 12, regular, y, MUTED) - 2;
+  y = drawCentered(page, copy.productName, 20, bold, y, BRAND) - 1;
+  y = drawCentered(page, meta.productLabel, 10, regular, y, MUTED) - 16;
 
-  const idLine = `${copy.certificateId}: ${meta.certificateId}`;
-  const idSize = fitSize(idLine, regular, 10, 7, CONTENT_MAX);
-  y = drawCentered(page, idLine, idSize, regular, y, INK) - 2;
+  const refLine = `${copy.certificateId}: ${displayRef}`;
+  y = drawCentered(page, refLine, 11, bold, y, INK) - 1;
+  const fullIdLine = meta.certificateId;
+  const fullIdSize = fitSize(fullIdLine, regular, 8, 6, CONTENT_MAX - 40);
+  y = drawCentered(page, fullIdLine, fullIdSize, regular, y, MUTED) - 4;
 
-  const dateLine = `${copy.datePassed}: ${meta.passedAt.slice(0, 10)} (UTC)`;
+  const dateLine = `${copy.datePassed}: ${passedLabel}`;
   y = drawCentered(page, dateLine, 10, regular, y, INK) - 2;
 
   const issuerLine = `${copy.issuedBy} ${meta.issuer} · ${copy.orgNumberLabel} ${meta.orgNumber} · ${meta.country}`;
   const issuerSize = fitSize(issuerLine, regular, 10, 7, CONTENT_MAX);
-  y = drawCentered(page, issuerLine, issuerSize, regular, y, MUTED) - 8;
+  y = drawCentered(page, issuerLine, issuerSize, regular, y, MUTED) - 10;
 
-  // Leave clear space above Kompis for the verify URL
-  const verifyLine = `${copy.verify}: ${meta.verifyPath}`;
-  const verifySize = fitSize(verifyLine, regular, 9, 6.5, CONTENT_MAX - 110);
-  drawCentered(page, verifyLine, verifySize, regular, Math.min(y, 96), MUTED, CONTENT_MAX - 110);
+  const verifyLine = `${copy.verify}: ${verifyUrl}`;
+  const verifySize = fitSize(verifyLine, regular, 9, 6.5, CONTENT_MAX - 140);
+  drawCentered(page, verifyLine, verifySize, regular, Math.min(y, 108), BRAND, CONTENT_MAX - 140);
 
   const saved = await pdfDoc.save();
   return saved instanceof Uint8Array ? saved : new Uint8Array(saved);

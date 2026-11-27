@@ -160,6 +160,15 @@ export type PlatformPortalCustomersLabels = {
   openCustomer: string;
   noOpenSupport: string;
   createCustomer: string;
+  paginationShowing: string;
+  paginationPrevious: string;
+  paginationNext: string;
+  paginationPage: string;
+  statusOk: string;
+  statusAttention: string;
+  statusCritical: string;
+  statusInfo: string;
+  statusUnknown: string;
   customerStatuses: Record<string, string>;
   subscriptionStatuses: Record<string, string>;
   agreementDisplayNames: {

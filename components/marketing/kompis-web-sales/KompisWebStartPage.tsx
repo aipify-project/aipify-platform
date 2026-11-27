@@ -6,6 +6,10 @@ import { useSearchParams } from "next/navigation";
 import { useMemo, useState, type FormEvent } from "react";
 import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labels";
 import {
+  normalizeWebsiteUrl,
+  validateSignupCollectFields,
+} from "@/lib/marketing/kompis-web-sales/signup-preflight";
+import {
   isPublicFooterEnabledLocale,
   publicFooterLocaleOptions,
   type PublicFooterEnabledLocale,
@@ -25,24 +29,42 @@ type Props = {
   appName: string;
 };
 
-function looksLikeEmail(value: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+function initialCollectFromSearch(
+  search: ReturnType<typeof useSearchParams>,
+  fallbackLocale: PublicFooterEnabledLocale,
+) {
+  const languageRaw = search.get("language");
+  const language =
+    languageRaw && isPublicFooterEnabledLocale(languageRaw) ? languageRaw : fallbackLocale;
+  const validated = validateSignupCollectFields({
+    email: search.get("email") ?? "",
+    website: search.get("website") ?? "",
+    company: search.get("company") ?? "",
+    language,
+  });
+  if (validated.ok) {
+    return { step: "account" as const, ...validated.values };
+  }
+  return {
+    step: "collect" as const,
+    email: search.get("email") ?? "",
+    website: search.get("website") ?? "",
+    company: search.get("company") ?? "",
+    language,
+  };
 }
 
 export default function KompisWebStartPage({ labels, locale, appName }: Props) {
   const search = useSearchParams();
   const localeOptions = publicFooterLocaleOptions();
   const start = labels.start;
+  const initial = useMemo(() => initialCollectFromSearch(search, locale), [search, locale]);
 
-  const [step, setStep] = useState<Step>("collect");
-  const [email, setEmail] = useState(() => search.get("email") ?? "");
-  const [website, setWebsite] = useState(() => search.get("website") ?? "");
-  const [company, setCompany] = useState(() => search.get("company") ?? "");
-  const [language, setLanguage] = useState(() => {
-    const fromQuery = search.get("language");
-    if (fromQuery && isPublicFooterEnabledLocale(fromQuery)) return fromQuery;
-    return locale;
-  });
+  const [step, setStep] = useState<Step>(initial.step);
+  const [email, setEmail] = useState(initial.email);
+  const [website, setWebsite] = useState(initial.website);
+  const [company, setCompany] = useState(initial.company);
+  const [language, setLanguage] = useState(initial.language);
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -58,14 +80,17 @@ export default function KompisWebStartPage({ labels, locale, appName }: Props) {
   function onCollect(event: FormEvent) {
     event.preventDefault();
     setError(null);
-    if (!email.trim() || !website.trim() || !company.trim() || !language) {
-      setError(start.errorRequired);
+    const result = validateSignupCollectFields({ email, website, company, language });
+    if (!result.ok) {
+      if (result.code === "email") setError(start.errorEmail);
+      else if (result.code === "website") setError(start.errorWebsite);
+      else setError(start.errorRequired);
       return;
     }
-    if (!looksLikeEmail(email)) {
-      setError(start.errorEmail);
-      return;
-    }
+    setEmail(result.values.email);
+    setWebsite(result.values.website);
+    setCompany(result.values.company);
+    setLanguage(result.values.language);
     setStep("account");
   }
 
@@ -89,20 +114,30 @@ export default function KompisWebStartPage({ labels, locale, appName }: Props) {
       return;
     }
 
+    const collect = validateSignupCollectFields({ email, website, company, language });
+    if (!collect.ok) {
+      setStep("collect");
+      if (collect.code === "email") setError(start.errorEmail);
+      else if (collect.code === "website") setError(start.errorWebsite);
+      else setError(start.errorRequired);
+      return;
+    }
+
     setLoading(true);
     try {
       const supabase = createClient();
       const emailRedirectTo = buildClientAuthCallbackRedirectUrl(AUTH_REDIRECT_PATHS.login);
+      const websiteNormalized = normalizeWebsiteUrl(collect.values.website) ?? collect.values.website;
       const { data, error: signUpError } = await supabase.auth.signUp({
-        email: email.trim().toLowerCase(),
+        email: collect.values.email,
         password,
         options: {
           emailRedirectTo,
           data: {
             full_name: fullName.trim(),
-            company_name: company.trim(),
-            website: website.trim(),
-            preferred_language: language,
+            company_name: collect.values.company,
+            website: websiteNormalized,
+            preferred_language: collect.values.language,
             product_intent: "kompis_web",
           },
         },
@@ -233,6 +268,9 @@ export default function KompisWebStartPage({ labels, locale, appName }: Props) {
             <h1 style={{ fontSize: "1.55rem", margin: "0 0 8px" }}>{start.accountTitle}</h1>
             <p className="kompis-web-sales-hint" style={{ marginTop: 0 }}>
               {start.accountSubtitle}
+            </p>
+            <p className="kompis-web-sales-hint" style={{ marginTop: 0 }} aria-live="polite">
+              {email} · {website} · {company}
             </p>
             <div className="kompis-web-sales-field">
               <label htmlFor="kws-start-name">{start.fullNameLabel}</label>

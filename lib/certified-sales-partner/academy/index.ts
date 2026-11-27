@@ -8,4 +8,5 @@ export * from "./kompis-web-question-bank";
 export * from "./exam-selection";
 export * from "./exam-persistence";
 export * from "./certificate";
+export * from "./exam-result-display";
 export * from "./core-mapping";

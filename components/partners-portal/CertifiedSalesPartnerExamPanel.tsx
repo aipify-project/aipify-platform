@@ -8,6 +8,10 @@ import {
   pickLocale,
   type CspPublicExamQuestion,
 } from "@/lib/certified-sales-partner/academy";
+import {
+  formatExamPassedAtDisplay,
+  formatExamScoreDisplay,
+} from "@/lib/certified-sales-partner/academy/exam-result-display";
 
 /**
  * Client-safe imports only: this panel never touches the answer key. Questions arrive from the
@@ -40,6 +44,8 @@ export type CspExamLabels = {
   failedBadge: string;
   /** Template with {correct}, {total} and {score}. */
   score: string;
+  /** Template with {score} only — used when correct/total are not verified. */
+  scorePercentOnly: string;
   /** Template with {pass}. */
   passMark: string;
   reviewLessons: string;
@@ -54,9 +60,10 @@ export type CspExamLabels = {
 
 type ExamResultPayload = {
   passed: boolean;
-  scorePct: number;
-  correct: number;
-  total: number;
+  scorePct: number | null;
+  /** Verified count from a scored attempt — null when only percentage is known. */
+  correct: number | null;
+  total: number | null;
   pass_score_pct?: number;
   backend_ready?: boolean;
   certification_persisted?: boolean;
@@ -140,9 +147,10 @@ export function CertifiedSalesPartnerExamPanel({
     alreadyPassed
       ? {
           passed: true,
-          scorePct: typeof passedScore === "number" ? passedScore : 100,
-          correct: 0,
-          total: 0,
+          // Prefer Core score; never invent 100% or fake correct/total counts.
+          scorePct: typeof passedScore === "number" ? passedScore : null,
+          correct: null,
+          total: null,
           certification_persisted: true,
           attempt_recorded: true,
         }
@@ -185,9 +193,9 @@ export function CertifiedSalesPartnerExamPanel({
         if (data.already_passed === true || data.error === "already_passed") {
           setResult({
             passed: true,
-            scorePct: typeof passedScore === "number" ? passedScore : 100,
-            correct: 0,
-            total: 0,
+            scorePct: typeof passedScore === "number" ? passedScore : null,
+            correct: null,
+            total: null,
             certification_persisted: true,
             attempt_recorded: true,
           });
@@ -282,17 +290,20 @@ export function CertifiedSalesPartnerExamPanel({
               {labels.passedTitle}
             </h2>
             <p className="mt-2 text-sm">{labels.passedBody}</p>
-            {typeof (result?.scorePct ?? passedScore) === "number" ? (
-              <p className="mt-2 text-sm font-medium">
-                {fill(labels.score, {
-                  correct: result?.correct ?? "—",
-                  total: result?.total || "—",
-                  score: result?.scorePct ?? passedScore ?? "—",
-                })}
-              </p>
-            ) : null}
+            {(() => {
+              const scoreLine = formatExamScoreDisplay({
+                scorePct: result?.scorePct ?? passedScore,
+                correct: result?.correct,
+                total: result?.total,
+                scoreWithCounts: labels.score,
+                scorePercentOnly: labels.scorePercentOnly,
+              });
+              return scoreLine ? <p className="mt-2 text-sm font-medium">{scoreLine}</p> : null;
+            })()}
             {passedAt ? (
-              <p className="mt-1 text-xs text-teal-800/80">{passedAt}</p>
+              <p className="mt-1 text-xs text-teal-800/80">
+                {formatExamPassedAtDisplay(passedAt, locale)}
+              </p>
             ) : null}
             <a
               href={`/api/certified-sales-partner/academy/certificate?locale=${encodeURIComponent(locale)}`}
@@ -454,9 +465,19 @@ export function CertifiedSalesPartnerExamPanel({
               <h3 className="text-base font-semibold">{result.passed ? labels.passedTitle : labels.failedTitle}</h3>
               <p className="text-sm">{result.passed ? labels.passedBody : labels.failedBody}</p>
               <p className="text-sm font-medium">
-                {fill(labels.score, { correct: result.correct, total: result.total, score: result.scorePct })}
-                {" · "}
-                {fill(labels.passMark, { pass: result.pass_score_pct ?? 80 })}
+                {formatExamScoreDisplay({
+                  scorePct: result.scorePct,
+                  correct: result.correct,
+                  total: result.total,
+                  scoreWithCounts: labels.score,
+                  scorePercentOnly: labels.scorePercentOnly,
+                }) ?? null}
+                {typeof result.scorePct === "number" ? (
+                  <>
+                    {" · "}
+                    {fill(labels.passMark, { pass: result.pass_score_pct ?? 80 })}
+                  </>
+                ) : null}
               </p>
             </div>
           </div>
