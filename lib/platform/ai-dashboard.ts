@@ -55,6 +55,9 @@ export function computeCustomerHealth(customer: CustomerRecord): CustomerHealth 
   return "healthy";
 }
 
+/** Expected sync window used when deciding stale monitoring (not inventing downtime). */
+export const INSTALLATION_SYNC_STALE_MINUTES = 24 * 60;
+
 export function deriveInstallationHealth(row: PlatformInstallationRow): InstallationHealth {
   const integrationErrors = row.integrations.filter(
     (integration) => integration.status === "error"
@@ -62,21 +65,37 @@ export function deriveInstallationHealth(row: PlatformInstallationRow): Installa
   const issuesDetected =
     integrationErrors + (row.status === "revoked" || row.status === "paused" ? 1 : 0);
 
-  let health: CustomerHealth = "healthy";
-  if (row.status === "revoked") health = "at_risk";
-  else if (row.status === "paused" || integrationErrors > 0) health = "attention";
-
   const lastSync = row.last_synced_at ? new Date(row.last_synced_at).getTime() : NaN;
   // Never invent freshness: null sync → null minutes (UI shows unknown/never).
   const lastScanMinutesAgo = Number.isFinite(lastSync)
     ? Math.max(0, Math.floor((Date.now() - lastSync) / 60_000))
     : null;
 
+  // Agreement/install status is not the same as telemetry freshness.
+  // Missing or stale sync evidence → attention (outdated/unknown monitoring),
+  // not "healthy/Frisk". Revoked remains at_risk.
+  let health: CustomerHealth = "healthy";
+  if (row.status === "revoked") {
+    health = "at_risk";
+  } else if (
+    row.status === "paused" ||
+    integrationErrors > 0 ||
+    lastScanMinutesAgo == null ||
+    lastScanMinutesAgo >= INSTALLATION_SYNC_STALE_MINUTES
+  ) {
+    health = "attention";
+  }
+
   return {
     health,
     lastScanMinutesAgo,
     issuesDetected,
-    automationActive: row.status === "active" && integrationErrors === 0,
+    // Active agreement alone is not proof of live sync automation.
+    automationActive:
+      row.status === "active" &&
+      integrationErrors === 0 &&
+      lastScanMinutesAgo != null &&
+      lastScanMinutesAgo < INSTALLATION_SYNC_STALE_MINUTES,
   };
 }
 

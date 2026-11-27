@@ -330,7 +330,8 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   { id: "kompisAi", href: "/platform/kompis-ai", labelKey: "platform.nav.kompisAi" },
   {
     id: "publishAndVerify",
-    href: "/platform/operations/publish-verify",
+    // Direct deployments URL — avoid /publish-verify → redirect hop that felt like navigation jump.
+    href: "/platform/operations/deployments",
     labelKey: "platform.nav.publishAndVerify",
   },
   { id: "deployments", href: "/platform/operations/deployments", labelKey: "platform.nav.deployments" },

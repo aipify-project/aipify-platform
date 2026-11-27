@@ -202,6 +202,8 @@ export default function PlatformOverviewPanel({
 
         if (cancelled) return;
 
+        // Partial-load policy: KPIs need snapshot. Login session is optional
+        // (since-login window). Metrics enrich recommendations only.
         const nextSession =
           sessionResult.error || !sessionResult.data
             ? null
@@ -215,10 +217,16 @@ export default function PlatformOverviewPanel({
             ? null
             : (metricsResult.data as PlatformMetrics);
 
-        setSession(nextSession);
+        setSession(
+          nextSession ?? {
+            admin_name: "",
+            previous_login_at: null,
+            last_login_at: new Date().toISOString(),
+          },
+        );
         setSnapshot(nextSnapshot);
         setMetrics(nextMetrics);
-        setLoadError(!nextSession || !nextSnapshot);
+        setLoadError(!nextSnapshot);
       } catch {
         if (!cancelled) {
           setSession(null);

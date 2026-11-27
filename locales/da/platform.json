@@ -2049,7 +2049,9 @@
     "syncStale": "Forældet synkronisering",
     "syncFresh": "Nyligt synkroniseret",
     "lifecycleActive": "Installation aktiv",
-    "neverSynced": "Aldrig synkroniseret"
+    "neverSynced": "Aldrig synkroniseret",
+    "hoursAgo": "{count} timer siden",
+    "daysAgo": "{count} dage siden"
   },
   "support": {
     "title": "Support",
@@ -8004,7 +8006,12 @@
       "subtitle": "Operativ hændelses- og revisionhistorik for Platform Admin.",
       "notConfiguredTitle": "Ingen hændelseskilde er tilsluttet",
       "notConfiguredBody": "Denne Drift-fane opfinder ikke hændelser. Et autentificeret Platform-revisions-/hændelsesfeed er endnu ikke koblet til denne flade. Brug aktivitetsloggen under Styring, når den er tilgængelig.",
-      "openGovernance": "Åbn aktivitetslog"
+      "openGovernance": "Åbn aktivitetslog",
+      "scopeNote": "Source: authenticated platform actions feed. Separate from support tickets and website publishes.",
+      "empty": "No platform actions recorded yet.",
+      "loadError": "Could not load the platform actions feed.",
+      "retry": "Try again",
+      "openActions": "Open Action Center"
     },
     "deployments": {
       "title": "Publiceringer",
@@ -8012,7 +8019,12 @@
       "notConfiguredTitle": "Ingen dedikeret publiceringsfeed på denne fane",
       "notConfiguredBody": "Denne flade starter ikke publiceringer. Levende udrulningsrækker vises under Platformstatus. Webstedverificering har egne kontroller.",
       "openHealth": "Åbn platformstatus",
-      "openVerification": "Åbn webstedverificering"
+      "openVerification": "Åbn webstedverificering",
+      "scopeNote": "Source: platform updates feed when available. Website verification has its own controls.",
+      "rpcMissingTitle": "Update history RPC is not available in this environment",
+      "rpcMissingBody": "list_platform_updates is not installed on the connected Core database. Empty history is not proof that no publishes occurred.",
+      "empty": "No platform updates recorded yet.",
+      "loadError": "Could not load publishing history."
     }
   },
   "supportCenter": {

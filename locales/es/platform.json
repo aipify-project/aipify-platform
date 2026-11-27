@@ -1700,7 +1700,12 @@
       "subtitle": "Historial operativo de eventos y auditoría para Platform Admin.",
       "notConfiguredTitle": "No hay fuente de eventos conectada",
       "notConfiguredBody": "Esta pestaña de Drift no inventa eventos. Un feed autenticado de auditoría/eventos de Platform aún no está conectado. Use el registro de actividad en Gobernanza cuando esté disponible.",
-      "openGovernance": "Abrir registro de actividad"
+      "openGovernance": "Abrir registro de actividad",
+      "scopeNote": "Source: authenticated platform actions feed. Separate from support tickets and website publishes.",
+      "empty": "No platform actions recorded yet.",
+      "loadError": "Could not load the platform actions feed.",
+      "retry": "Try again",
+      "openActions": "Open Action Center"
     },
     "deployments": {
       "title": "Publicaciones",
@@ -1708,7 +1713,12 @@
       "notConfiguredTitle": "No hay un feed de publicación dedicado en esta pestaña",
       "notConfiguredBody": "Esta superficie no inicia publicaciones. Las filas de implementación en vivo están en Estado de la plataforma. La verificación del sitio tiene sus propios controles.",
       "openHealth": "Abrir estado de la plataforma",
-      "openVerification": "Abrir verificación del sitio"
+      "openVerification": "Abrir verificación del sitio",
+      "scopeNote": "Source: platform updates feed when available. Website verification has its own controls.",
+      "rpcMissingTitle": "Update history RPC is not available in this environment",
+      "rpcMissingBody": "list_platform_updates is not installed on the connected Core database. Empty history is not proof that no publishes occurred.",
+      "empty": "No platform updates recorded yet.",
+      "loadError": "Could not load publishing history."
     }
   },
   "installations": {
@@ -1716,7 +1726,9 @@
     "syncStale": "Sincronización desactualizada",
     "syncFresh": "Sincronizado recientemente",
     "lifecycleActive": "Instalación activa",
-    "neverSynced": "Nunca sincronizado"
+    "neverSynced": "Nunca sincronizado",
+    "hoursAgo": "hace {count} horas",
+    "daysAgo": "hace {count} días"
   },
   "supportCenter": {
     "title": "Support",

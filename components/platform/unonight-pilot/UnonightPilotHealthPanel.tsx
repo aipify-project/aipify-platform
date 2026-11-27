@@ -86,7 +86,7 @@ export function UnonightPilotHealthPanel({ labels }: UnonightPilotHealthPanelPro
 
   if (!dashboard?.found) {
     return (
-      <div className="mx-auto max-w-4xl p-6">
+      <div className="w-full p-6">
         <h1 className="text-2xl font-bold text-gray-900">{labels.title}</h1>
         <p className="mt-4 text-gray-600">{dashboard?.reason ?? "Unonight organization not found."}</p>
       </div>
@@ -98,7 +98,7 @@ export function UnonightPilotHealthPanel({ labels }: UnonightPilotHealthPanelPro
     labels.healthStates[settings?.health_state ?? "disabled"] ?? settings?.health_state;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-6">
+    <div className="w-full space-y-6 p-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
         <p className="mt-2 text-gray-600">{labels.subtitle}</p>

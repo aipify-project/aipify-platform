@@ -4738,7 +4738,9 @@
     "syncStale": "Outdated sync",
     "syncFresh": "Recently synced",
     "lifecycleActive": "Installation active",
-    "neverSynced": "Never synced"
+    "neverSynced": "Never synced",
+    "hoursAgo": "{count} hours ago",
+    "daysAgo": "{count} days ago"
   },
   "support": {
     "title": "Support",
@@ -8527,18 +8529,28 @@
     },
     "auditLogs": {
       "title": "Event log",
-      "subtitle": "Operational event and audit history for Platform Admin.",
+      "subtitle": "Platform action and approval history (admin operations). This is not full service telemetry.",
       "notConfiguredTitle": "No event source connected",
       "notConfiguredBody": "This Drift tab does not fabricate events. An authenticated Platform audit/event feed is not wired to this surface yet. Use Governance activity logs for recorded admin actions when available.",
-      "openGovernance": "Open activity log"
+      "openGovernance": "Open activity log",
+      "scopeNote": "Source: authenticated platform actions feed. Separate from customer support tickets and website publish events.",
+      "empty": "No platform actions recorded yet.",
+      "loadError": "Could not load the platform actions feed.",
+      "retry": "Try again",
+      "openActions": "Open Action Center"
     },
     "deployments": {
       "title": "Publishing",
-      "subtitle": "Read-only publishing status for Platform operations.",
+      "subtitle": "Read-only platform update and rollout history. This does not start publishes.",
       "notConfiguredTitle": "No dedicated publishing feed on this tab",
       "notConfiguredBody": "This surface does not start publishes. Live deployment rows that exist today are shown under Platform status. Website staging verification has its own verification controls.",
       "openHealth": "Open Platform status",
-      "openVerification": "Open website verification"
+      "openVerification": "Open website verification",
+      "scopeNote": "Source: platform updates feed when available. Website verification has its own controls.",
+      "rpcMissingTitle": "Update history RPC is not available in this environment",
+      "rpcMissingBody": "list_platform_updates is not installed on the connected Core database. Empty history is not proof that no publishes occurred. Website verification remains available separately.",
+      "empty": "No platform updates recorded yet.",
+      "loadError": "Could not load publishing history."
     }
   },
   "supportCenter": {
