@@ -66,6 +66,7 @@ export default async function PlatformDeploymentsPage() {
             sourceUnavailableTitle: t("platform.driftHub.deployments.rpcMissingTitle"),
             sourceUnavailableBody: t("platform.driftHub.deployments.rpcMissingBody"),
             loadError: t("platform.driftHub.deployments.loadError"),
+            retry: t("platform.driftHub.deployments.retry"),
           }}
         />
       </div>

@@ -1715,10 +1715,11 @@
       "openHealth": "Abrir estado de la plataforma",
       "openVerification": "Abrir verificación del sitio",
       "scopeNote": "Source: platform updates feed when available. Website verification has its own controls.",
-      "rpcMissingTitle": "Update history RPC is not available in this environment",
-      "rpcMissingBody": "list_platform_updates is not installed on the connected Core database. Empty history is not proof that no publishes occurred.",
-      "empty": "No platform updates recorded yet.",
-      "loadError": "Could not load publishing history."
+      "rpcMissingTitle": "El historial de actualizaciones no está disponible en este entorno",
+      "rpcMissingBody": "La función de lectura del historial de actualizaciones de la plataforma aún no está instalada en la base Core conectada. Un historial vacío no prueba que no haya habido publicaciones. La verificación del sitio sigue disponible por separado.",
+      "empty": "Aún no hay actualizaciones de plataforma registradas.",
+      "loadError": "No se pudo cargar el historial de publicación.",
+      "retry": "Reintentar"
     }
   },
   "installations": {

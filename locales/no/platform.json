@@ -8276,10 +8276,11 @@
       "openHealth": "Åpne plattformstatus",
       "openVerification": "Åpne nettsideverifisering",
       "scopeNote": "Kilde: feed for plattformoppdateringer når den er tilgjengelig. Nettsideverifisering har egne kontroller.",
-      "rpcMissingTitle": "Oppdaterings-RPC er ikke tilgjengelig i dette miljøet",
-      "rpcMissingBody": "list_platform_updates er ikke installert på tilkoblet Core-database. Tom historikk beviser ikke at ingen publiseringer har skjedd. Nettsideverifisering er fortsatt tilgjengelig separat.",
+      "rpcMissingTitle": "Oppdateringshistorikk er ikke tilgjengelig i dette miljøet",
+      "rpcMissingBody": "Lesefunksjonen for plattformens oppdateringshistorikk er ikke installert på tilkoblet Core-database ennå. Tom historikk beviser ikke at ingen publiseringer har skjedd. Nettsideverifisering er fortsatt tilgjengelig separat.",
       "empty": "Ingen plattformoppdateringer er registrert ennå.",
-      "loadError": "Kunne ikke laste publiseringshistorikk."
+      "loadError": "Kunne ikke laste publiseringshistorikk.",
+      "retry": "Prøv igjen"
     }
   },
   "supportCenter": {
