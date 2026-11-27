@@ -45,7 +45,10 @@
       "companyPlaceholder": "Tu empresa",
       "languageLabel": "Idioma",
       "submit": "Crear cuenta gratis",
-      "continueHint": "Continúa a un registro sencillo de Kompis Web. No se requiere tarjeta para la cuota gratis."
+      "continueHint": "Continúa a un registro sencillo de Kompis Web. No se requiere tarjeta para la cuota gratis.",
+      "errorRequired": "Rellena todos los campos obligatorios.",
+      "errorEmail": "Introduce un correo de trabajo válido.",
+      "errorWebsite": "Introduce una dirección web válida (por ejemplo example.com)."
     },
     "benefits": {
       "title": "Por qué los dueños de sitios eligen Kompis Web",
@@ -196,7 +199,8 @@
       "terms": "Términos",
       "contact": "Contacto",
       "home": "Inicio Aipify",
-      "tagline": "Aipify works for you · Kompis Web"
+      "tagline": "Aipify works for you · Kompis Web",
+      "becomeSeller": "Hazte vendedor"
     },
     "start": {
       "metaTitle": "Empezar gratis | Kompis Web",
@@ -225,7 +229,14 @@
       "errorTerms": "Acepta Términos y Privacidad para continuar.",
       "errorGeneric": "Algo salió mal. Inténtalo de nuevo.",
       "errorExists": "Ya existe una cuenta con este email. Inicia sesión.",
-      "errorRateLimit": "Demasiados intentos. Espera e inténtalo de nuevo."
+      "errorRateLimit": "Demasiados intentos. Espera e inténtalo de nuevo.",
+      "errorWebsite": "Introduce una dirección web válida (por ejemplo example.com)."
+    },
+    "growthPartners": {
+      "title": "Aipify Growth Partners",
+      "body": "Los partners independientes pueden solicitar, completar formación y certificación, compartir enlaces de venta aprobados y ganar comisión por ventas de producto de pago cualificadas — nunca en planes gratuitos.",
+      "commissionNote": "La comisión depende del producto y se paga solo tras pagos confirmados cualificadores. No es ingreso garantizado, empleo ni comisión vitalicia.",
+      "cta": "Hazte vendedor"
     }
   },
   "meta": {

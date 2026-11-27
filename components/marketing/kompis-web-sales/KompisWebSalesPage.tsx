@@ -7,6 +7,11 @@ import { useEffect, useId, useRef, useState, useTransition, type FormEvent } fro
 import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labels";
 import { kompisWebSalesHelperDisplayName } from "@/lib/marketing/kompis-web-sales/locale";
 import {
+  signupCollectQueryString,
+  validateSignupCollectFields,
+  type SignupCollectField,
+} from "@/lib/marketing/kompis-web-sales/signup-preflight";
+import {
   isPublicFooterEnabledLocale,
   publicFooterLocaleOptions,
   type PublicFooterEnabledLocale,
@@ -72,6 +77,12 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
   const activeLocale = localeOptions.find((opt) => opt.locale === locale) ?? localeOptions[0];
   const helperName = kompisWebSalesHelperDisplayName(locale);
   const [signupLanguage, setSignupLanguage] = useState(locale);
+  const [signupError, setSignupError] = useState<string | null>(null);
+  const [signupInvalidField, setSignupInvalidField] = useState<SignupCollectField | null>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const websiteInputRef = useRef<HTMLInputElement>(null);
+  const companyInputRef = useRef<HTMLInputElement>(null);
+  const languageSelectRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
     setSignupLanguage(locale);
@@ -92,21 +103,50 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
     };
   }, []);
 
+  function messageForSignupFailure(code: "required" | "email" | "website" | "language"): string {
+    if (code === "email") return labels.signupCard.errorEmail;
+    if (code === "website") return labels.signupCard.errorWebsite;
+    return labels.signupCard.errorRequired;
+  }
+
+  function focusSignupField(field: SignupCollectField) {
+    const node =
+      field === "email"
+        ? emailInputRef.current
+        : field === "website"
+          ? websiteInputRef.current
+          : field === "company"
+            ? companyInputRef.current
+            : languageSelectRef.current;
+    node?.focus();
+  }
+
   function goStart(event?: FormEvent) {
     event?.preventDefault();
     const form = event?.currentTarget;
-    if (form instanceof HTMLFormElement) {
-      const data = new FormData(form);
-      const params = new URLSearchParams();
-      for (const key of ["email", "website", "company", "language"] as const) {
-        const value = String(data.get(key) ?? "").trim();
-        if (value) params.set(key, value);
-      }
-      const qs = params.toString();
-      router.push(qs ? `${labels.hrefs.start}?${qs}` : labels.hrefs.start);
+    if (!(form instanceof HTMLFormElement)) {
+      router.push(labels.hrefs.start);
       return;
     }
-    router.push(labels.hrefs.start);
+
+    const data = new FormData(form);
+    const result = validateSignupCollectFields({
+      email: String(data.get("email") ?? ""),
+      website: String(data.get("website") ?? ""),
+      company: String(data.get("company") ?? ""),
+      language: String(data.get("language") ?? signupLanguage),
+    });
+
+    if (!result.ok) {
+      setSignupInvalidField(result.field);
+      setSignupError(messageForSignupFailure(result.code));
+      focusSignupField(result.field);
+      return;
+    }
+
+    setSignupError(null);
+    setSignupInvalidField(null);
+    router.push(`${labels.hrefs.start}?${signupCollectQueryString(result.values)}`);
   }
 
   function switchLocale(next: string) {
@@ -227,13 +267,13 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
               >
                 {labels.hero.primaryCta}
               </Link>
-              <a
-                href={labels.hrefs.contactMailto}
+              <Link
+                href={labels.hrefs.contact}
                 className="kompis-web-sales-cta-quiet"
                 {...marketingDataAttr("cta_click", "kompis_web_sales_hero_contact")}
               >
                 {labels.hero.secondaryCta}
-              </a>
+              </Link>
             </div>
             <div className="kompis-web-sales-trust">
               <span>{labels.hero.trustNoCard}</span>
@@ -266,25 +306,70 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             <h2>{labels.signupCard.title}</h2>
             <div className="kompis-web-sales-field">
               <label htmlFor="kws-email">{labels.signupCard.emailLabel}</label>
-              <input id="kws-email" name="email" type="email" autoComplete="email" placeholder={labels.signupCard.emailPlaceholder} />
+              <input
+                ref={emailInputRef}
+                id="kws-email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                aria-invalid={signupInvalidField === "email" ? true : undefined}
+                aria-describedby={signupError ? "kws-signup-error" : undefined}
+                placeholder={labels.signupCard.emailPlaceholder}
+                onChange={() => {
+                  if (signupError) setSignupError(null);
+                  if (signupInvalidField) setSignupInvalidField(null);
+                }}
+              />
             </div>
             <div className="kompis-web-sales-field">
               <label htmlFor="kws-website">{labels.signupCard.websiteLabel}</label>
-              <input id="kws-website" name="website" type="url" autoComplete="url" placeholder={labels.signupCard.websitePlaceholder} />
+              <input
+                ref={websiteInputRef}
+                id="kws-website"
+                name="website"
+                type="url"
+                autoComplete="url"
+                required
+                aria-invalid={signupInvalidField === "website" ? true : undefined}
+                placeholder={labels.signupCard.websitePlaceholder}
+                onChange={() => {
+                  if (signupError) setSignupError(null);
+                  if (signupInvalidField) setSignupInvalidField(null);
+                }}
+              />
             </div>
             <div className="kompis-web-sales-field">
               <label htmlFor="kws-company">{labels.signupCard.companyLabel}</label>
-              <input id="kws-company" name="company" type="text" autoComplete="organization" placeholder={labels.signupCard.companyPlaceholder} />
+              <input
+                ref={companyInputRef}
+                id="kws-company"
+                name="company"
+                type="text"
+                autoComplete="organization"
+                required
+                aria-invalid={signupInvalidField === "company" ? true : undefined}
+                placeholder={labels.signupCard.companyPlaceholder}
+                onChange={() => {
+                  if (signupError) setSignupError(null);
+                  if (signupInvalidField) setSignupInvalidField(null);
+                }}
+              />
             </div>
             <div className="kompis-web-sales-field">
               <label htmlFor="kws-language">{labels.signupCard.languageLabel}</label>
               <select
+                ref={languageSelectRef}
                 id="kws-language"
                 name="language"
                 value={signupLanguage}
+                required
+                aria-invalid={signupInvalidField === "language" ? true : undefined}
                 onChange={(e) => {
                   const next = e.target.value;
                   if (isPublicFooterEnabledLocale(next)) setSignupLanguage(next);
+                  if (signupError) setSignupError(null);
+                  if (signupInvalidField) setSignupInvalidField(null);
                 }}
               >
                 {localeOptions.map((opt) => (
@@ -294,6 +379,11 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                 ))}
               </select>
             </div>
+            {signupError ? (
+              <p id="kws-signup-error" className="kompis-web-sales-alert" role="alert">
+                {signupError}
+              </p>
+            ) : null}
             <button
               type="submit"
               className="kompis-web-sales-primary"
@@ -463,6 +553,36 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
           </div>
         </section>
 
+        <section
+          className="kompis-web-sales-shell kompis-web-sales-section"
+          id="growth-partners"
+          aria-labelledby="kompis-web-sales-partners-title"
+        >
+          <div className="kompis-web-sales-how">
+            <div className="kompis-web-sales-how-copy">
+              <h2 id="kompis-web-sales-partners-title">{labels.growthPartners.title}</h2>
+              <p>{labels.growthPartners.body}</p>
+              <p className="kompis-web-sales-note">{labels.growthPartners.commissionNote}</p>
+              <div className="kompis-web-sales-cta-row" style={{ marginTop: 20 }}>
+                <Link
+                  href={labels.hrefs.becomeSeller}
+                  className="kompis-web-sales-primary"
+                  {...marketingDataAttr("cta_click", "kompis_web_sales_become_seller")}
+                >
+                  {labels.growthPartners.cta}
+                </Link>
+                <Link
+                  href={labels.hrefs.growthPartners}
+                  className="kompis-web-sales-cta-quiet"
+                  {...marketingDataAttr("cta_click", "kompis_web_sales_growth_partners_info")}
+                >
+                  {labels.footer.becomeSeller}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="kompis-web-sales-shell kompis-web-sales-section" id="faq" aria-labelledby="kompis-web-sales-faq-title">
           <h2 id="kompis-web-sales-faq-title" className="kompis-web-sales-section-title">
             {labels.faq.title}
@@ -493,13 +613,13 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                 >
                   {labels.finalCta.primary}
                 </Link>
-                <a
-                  href={labels.hrefs.contactMailto}
+                <Link
+                  href={labels.hrefs.contact}
                   className="kompis-web-sales-cta-quiet"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_final_contact")}
                 >
                   {labels.finalCta.secondary}
-                </a>
+                </Link>
               </div>
             </div>
             <Image
@@ -526,7 +646,13 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
             <a href={labels.hrefs.faq}>{labels.footer.faq}</a>
             <Link href={labels.hrefs.privacy}>{labels.footer.privacy}</Link>
             <Link href={labels.hrefs.terms}>{labels.footer.terms}</Link>
-            <a href={labels.hrefs.contactMailto}>{labels.footer.contact}</a>
+            <Link href={labels.hrefs.contact}>{labels.footer.contact}</Link>
+            <Link
+              href={labels.hrefs.becomeSeller}
+              {...marketingDataAttr("cta_click", "kompis_web_sales_footer_become_seller")}
+            >
+              {labels.footer.becomeSeller}
+            </Link>
             <a href={labels.hrefs.aipify} rel="noreferrer">
               aipify.ai
             </a>

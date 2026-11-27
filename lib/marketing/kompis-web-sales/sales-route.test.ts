@@ -41,10 +41,15 @@ const sources = MARKETING_PUBLIC_REDIRECTS.map((r) => r.source);
 assert.ok(sources.includes("/kompis-web"));
 assert.ok(sources.includes("/book-demo"));
 assert.ok(sources.includes("/contact"));
-for (const path of ["/kompis-web", "/book-demo", "/contact"]) {
+for (const path of ["/kompis-web", "/book-demo"]) {
   const rule = MARKETING_PUBLIC_REDIRECTS.find((r) => r.source === path);
   assert.equal(rule?.destination, "/");
   assert.equal(rule?.permanent, true);
 }
+const contactRule = MARKETING_PUBLIC_REDIRECTS.find((r) => r.source === "/contact");
+assert.equal(contactRule?.destination, "/contact/support");
+assert.equal(contactRule?.permanent, true);
+assert.equal(labels.hrefs.contact, "/contact/support");
+assert.equal(labels.hrefs.becomeSeller, "/certified-sales-partner#apply");
 
 console.log("kompis-web-sales sales-route metadata: PASS");

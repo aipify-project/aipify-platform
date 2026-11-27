@@ -38,6 +38,15 @@ export type KompisWebSalesLabels = {
     languageLabel: string;
     submit: string;
     continueHint: string;
+    errorRequired: string;
+    errorEmail: string;
+    errorWebsite: string;
+  };
+  growthPartners: {
+    title: string;
+    body: string;
+    commissionNote: string;
+    cta: string;
   };
   benefits: {
     title: string;
@@ -109,6 +118,7 @@ export type KompisWebSalesLabels = {
     privacy: string;
     terms: string;
     contact: string;
+    becomeSeller: string;
     home: string;
     tagline: string;
   };
@@ -134,6 +144,7 @@ export type KompisWebSalesLabels = {
     homeCta: string;
     errorRequired: string;
     errorEmail: string;
+    errorWebsite: string;
     errorPasswordShort: string;
     errorPasswordMismatch: string;
     errorTerms: string;
@@ -146,7 +157,10 @@ export type KompisWebSalesLabels = {
     login: "/login";
     privacy: "/privacy";
     terms: "/terms";
+    contact: "/contact/support";
     contactMailto: "mailto:hello@aipify.ai";
+    growthPartners: "/growth-partners";
+    becomeSeller: "/certified-sales-partner#apply";
     faq: "/#faq";
     home: "/";
     aipify: "https://aipify.ai";
@@ -197,6 +211,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
   const raw = getSection<Record<string, unknown>>(marketing, "kompisWebSales");
   const nav = (raw.nav ?? {}) as Record<string, unknown>;
   const hero = (raw.hero ?? {}) as Record<string, unknown>;
+  const growthPartners = (raw.growthPartners ?? {}) as Record<string, unknown>;
   const signupCard = (raw.signupCard ?? {}) as Record<string, unknown>;
   const benefits = (raw.benefits ?? {}) as Record<string, unknown>;
   const how = (raw.how ?? {}) as Record<string, unknown>;
@@ -275,6 +290,24 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
         signupCard.continueHint,
         "Continues to the real Aipify registration. No card is required for the free answer allowance.",
       ),
+      errorRequired: asString(signupCard.errorRequired, "Please fill in all required fields."),
+      errorEmail: asString(signupCard.errorEmail, "Enter a valid work email."),
+      errorWebsite: asString(
+        signupCard.errorWebsite,
+        "Enter a valid website address (for example example.com).",
+      ),
+    },
+    growthPartners: {
+      title: asString(growthPartners.title, "Aipify Growth Partners"),
+      body: asString(
+        growthPartners.body,
+        "Independent partners can apply, complete training and certification, share approved sales links, and earn commission on qualified paid product sales — never on free plans.",
+      ),
+      commissionNote: asString(
+        growthPartners.commissionNote,
+        "Commission is product-specific and paid only after qualifying confirmed payments. It is not guaranteed income, employment, or lifetime recurring payout.",
+      ),
+      cta: asString(growthPartners.cta, "Become a seller"),
     },
     benefits: {
       title: asString(benefits.title, "Why website owners choose Kompis Web"),
@@ -313,7 +346,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       ),
       plannedNote: asString(
         pricing.plannedNote,
-        "Packages below follow the owner-decided Kompis Web catalog. Live checkout is not enabled yet — start free registration or book a demo.",
+        `Packages below follow the owner-decided Kompis Web catalog (Free ${truth.freeAnswerQuota}, Standard ${truth.paidAnswerQuota}/month, Pro ${truth.proAnswerQuota}/month). Live checkout is not enabled yet — start free registration to continue.`,
       ),
       free: {
         badge: asString(free.badge, "Best place to start"),
@@ -380,6 +413,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       privacy: asString(footer.privacy, "Privacy"),
       terms: asString(footer.terms, "Terms"),
       contact: asString(footer.contact, "Contact"),
+      becomeSeller: asString(footer.becomeSeller, "Become a seller"),
       home: asString(footer.home, "Aipify home"),
       tagline: asString(footer.tagline, "Aipify works for you · Kompis Web"),
     },
@@ -414,6 +448,10 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       homeCta: asString(start.homeCta, "Back to home"),
       errorRequired: asString(start.errorRequired, "Please fill in all required fields."),
       errorEmail: asString(start.errorEmail, "Enter a valid work email."),
+      errorWebsite: asString(
+        start.errorWebsite,
+        "Enter a valid website address (for example example.com).",
+      ),
       errorPasswordShort: asString(start.errorPasswordShort, "Password must be at least 8 characters."),
       errorPasswordMismatch: asString(start.errorPasswordMismatch, "Passwords do not match."),
       errorTerms: asString(start.errorTerms, "Accept Terms and Privacy to continue."),
@@ -426,7 +464,10 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       login: "/login",
       privacy: "/privacy",
       terms: "/terms",
+      contact: "/contact/support",
       contactMailto: "mailto:hello@aipify.ai",
+      growthPartners: "/growth-partners",
+      becomeSeller: "/certified-sales-partner#apply",
       faq: "/#faq",
       home: "/",
       aipify: "https://aipify.ai",

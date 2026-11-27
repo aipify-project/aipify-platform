@@ -4,16 +4,17 @@ import MarketingAnalyticsShell from "@/components/marketing/MarketingAnalyticsSh
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildAnalyticsConsentLabels } from "@/lib/product-analytics/consent";
-import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
+import { loadKompisWebSalesRouteContext } from "@/lib/marketing/kompis-web-sales/sales-route";
 
 /**
- * Isolated sales shell for `/` and `/kompis-web` — page owns its own header/footer.
- * Other marketing routes keep `app/(marketing)/layout.tsx`.
+ * Isolated sales shell for `/`, `/kompis-web`, `/start`, and public legal pages.
+ * Consent labels must follow the same cookie-only sales locale as the page
+ * (not Accept-Language), so English anonymous visitors do not see Norwegian consent.
  */
 export default async function KompisSalesLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const { locale } = await getMarketingContext();
+  const { locale } = await loadKompisWebSalesRouteContext();
   const consentDict = await getDictionary(locale, ["analyticsConsent"]);
   const consentLabels = buildAnalyticsConsentLabels(createTranslator(consentDict));
 
