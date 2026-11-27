@@ -46,12 +46,15 @@ assert.ok(!JSON.stringify(handoff).includes("?"));
 clearSignupHandoff();
 assert.equal(readSignupHandoff(), null);
 
-writeSignupHandoff({
-  email: "bad",
-  website: "not-a-url",
-  company: "",
-  language: "xx",
-});
+storage.setItem(
+  KOMPIS_WEB_SIGNUP_HANDOFF_KEY,
+  JSON.stringify({
+    email: "bad",
+    website: "not-a-url",
+    company: "",
+    language: "xx",
+  }),
+);
 assert.equal(readSignupHandoff(), null);
 
 console.log("signup-handoff: PASS");
