@@ -30,12 +30,6 @@ const ECONOMY_COLUMN_KEYS = [
   "plan",
   "price_amount",
   "billing_cycle",
-  "customer_number",
-  "customer_type",
-  "display_name",
-  "organization_number",
-  "country",
-  "company_id",
   "total",
   "private",
   "business",
@@ -45,18 +39,28 @@ const ECONOMY_COLUMN_KEYS = [
   "included_licenses",
   "purchased_licenses",
   "total_licenses",
-  "tenant_overrides",
-  "revenue_invoices",
-  "accounting_exports",
-  "partner_commissions",
-  "catalog_items",
-  "installed",
-  "attributed_customers",
-  "touch_events",
-  "domain",
-  "license_status",
-  "payment_status",
-  "provider_payment_id",
+  "customer_number",
+  "customer_type",
+  "display_name",
+  "overdue",
+  "paid",
+  "trial",
+] as const;
+
+const ECONOMY_STATUS_KEYS = [
+  "paid",
+  "overdue",
+  "draft",
+  "sent",
+  "active",
+  "trial",
+  "trialing",
+  "pending",
+  "cancelled",
+  "failed",
+  "company",
+  "business",
+  "private",
 ] as const;
 
 export function buildEconomyPhrases(t: Translator): EconomyPhrases {
@@ -82,9 +86,10 @@ export function buildEconomyPhrases(t: Translator): EconomyPhrases {
     sourceError: t(`${root}.sourceError`),
     noRecords: t(`${root}.noRecords`),
     kidNotApplicable: t(`${root}.kidNotApplicable`),
-    kidNotApplicablePaidOnline: t(`${root}.kidNotApplicablePaidOnline`),
-    kidMissingReview: t(`${root}.kidMissingReview`),
     columns,
+    statuses: Object.fromEntries(
+      ECONOMY_STATUS_KEYS.map((key) => [key, t(`${root}.statuses.${key}`)]),
+    ),
   };
 }
 

@@ -61,6 +61,9 @@ export type AccountProfileLabels = {
   plan: string;
   license: string;
   customerReference: string;
+  officialCustomerNumber: string;
+  copyCustomerNumber: string;
+  copiedCustomerNumber: string;
   registeredAt: string;
   updatedAt: string;
   referenceHidden: string;
@@ -148,6 +151,9 @@ export function buildAccountProfileLabels(t: Translator): AccountProfileLabels {
     plan: t(`${NS}.plan`),
     license: t(`${NS}.license`),
     customerReference: t(`${NS}.customerReference`),
+    officialCustomerNumber: t(`${NS}.officialCustomerNumber`),
+    copyCustomerNumber: t(`${NS}.copyCustomerNumber`),
+    copiedCustomerNumber: t(`${NS}.copiedCustomerNumber`),
     registeredAt: t(`${NS}.registeredAt`),
     updatedAt: t(`${NS}.updatedAt`),
     referenceHidden: t(`${NS}.referenceHidden`),

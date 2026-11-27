@@ -479,7 +479,7 @@
     "filterStatus": "Status",
     "filterType": "All types",
     "filterAll": "Alle",
-    "customerNumber": "Customer no.",
+    "customerNumber": "Kundenummer",
     "name": "Name",
     "type": "Type",
     "plan": "Plan",
@@ -816,7 +816,8 @@
       },
       "highRiskIdentityNote": "Juridisk identitet og kontakt-e-mail kræver højrisisiko-identitetsflowet.",
       "supportOpenCases": "Åbne supportsager",
-      "supportOpenQueue": "Åbn supportkø"
+      "supportOpenQueue": "Åbn supportkø",
+      "customerNumber": "Kundenummer"
     },
     "createCustomer": "Opret kunde",
     "creation": {
@@ -1755,7 +1756,8 @@
     "statusAttention": "Kræver opfølgning",
     "statusCritical": "Kritisk",
     "statusInfo": "Information",
-    "statusUnknown": "Ukendt"
+    "statusUnknown": "Ukendt",
+    "columnCustomerNumber": "Kundenummer"
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -8573,7 +8575,38 @@
       "name": "Navn",
       "plan": "Aftale",
       "price_amount": "Pris",
-      "billing_cycle": "Faktureringsperiode"
+      "billing_cycle": "Faktureringsperiode",
+      "total": "I alt",
+      "private": "Privatkunder",
+      "business": "Erhvervskunder",
+      "pools": "Licensgrupper",
+      "active_domains": "Aktive domæner",
+      "purchased_domains": "Købte domæner",
+      "included_licenses": "Inkluderede licenser",
+      "purchased_licenses": "Købte licenser",
+      "total_licenses": "Licenser i alt",
+      "customer_number": "Kundenummer",
+      "customer_type": "Kundetype",
+      "display_name": "Navn",
+      "overdue": "Forfalden",
+      "paid": "Betalt",
+      "trial": "Prøve"
+    },
+    "kidNotApplicable": "Ikke relevant ved netbetaling",
+    "statuses": {
+      "paid": "Betalt",
+      "overdue": "Forfalden",
+      "draft": "Udkast",
+      "sent": "Sendt",
+      "active": "Aktiv",
+      "trial": "Prøve",
+      "trialing": "Prøve",
+      "pending": "Afventer",
+      "cancelled": "Annulleret",
+      "failed": "Mislykkedes",
+      "company": "Erhvervskunder",
+      "business": "Erhvervskunder",
+      "private": "Privatkunder"
     }
   },
   "taxVerification": {

@@ -8850,7 +8850,10 @@
       "cancel": "Avbryt",
       "companyLegalNote": "Verifiserte juridiske identitetsfelt er låst her. Be om endring via support når noe må korrigeres.",
       "requestChange": "Be om endring",
-      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change"
+      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
+      "officialCustomerNumber": "Kundenummer",
+      "copyCustomerNumber": "Kopier",
+      "copiedCustomerNumber": "Kopiert"
     },
     "workspaceDashboard": {
       "eyebrow": "Arbeidsområde",

@@ -152,17 +152,7 @@ export function BillingCommerceSectionPanel({
                   return (
                     <tr key={index}>
                       {Object.entries(row).map(([key, value]) => (
-                        <td
-                          key={key}
-                          className="px-4 py-3 text-gray-700"
-                          title={
-                            key === "label" && typeof row.rule_key === "string"
-                              ? row.rule_key
-                              : key.includes("kid")
-                                ? undefined
-                                : storedTrace(value)
-                          }
-                        >
+                        <td key={key} className="px-4 py-3 text-gray-700" title={storedTrace(value)}>
                           {economy
                             ? presentEconomyCell({
                                 key,
@@ -170,9 +160,12 @@ export function BillingCommerceSectionPanel({
                                 locale,
                                 phrases: economy,
                                 currency,
-                                provider: typeof row.provider === "string" ? row.provider : null,
-                                invoiceStatus: typeof row.status === "string" ? row.status : null,
-                                ruleKey: typeof row.rule_key === "string" ? row.rule_key : null,
+                                method:
+                                  typeof row.provider === "string"
+                                    ? row.provider
+                                    : typeof row.payment_method === "string"
+                                      ? row.payment_method
+                                      : null,
                               })
                             : value === null || value === undefined
                               ? "—"

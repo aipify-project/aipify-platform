@@ -55,8 +55,6 @@ import type { CurrencyAmount, CustomerInvoiceSummary } from "@/lib/platform-port
 import { formatEconomyCount, formatEconomyMoney, moneyText } from "@/lib/platform/economy-display";
 import { toBcp47Locale } from "@/lib/platform-presentation-quality/bcp47";
 import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
-import { presentCustomerNumber } from "@/lib/platform/economy-display";
-import { createClient } from "@/lib/supabase/client";
 
 type Props = {
   customerId: string;
@@ -979,7 +977,6 @@ export function PlatformPortalCustomerDetailPanel({
   const [activeTab, setActiveTab] = useState<Customer360Tab>(
     isCustomer360Tab(initialTab) ? initialTab : "contact",
   );
-  const [businessCustomerNumber, setBusinessCustomerNumber] = useState<string | null>(null);
 
   const selectTab = useCallback(
     (tab: Customer360Tab) => {
@@ -1037,42 +1034,6 @@ export function PlatformPortalCustomerDetailPanel({
   useEffect(() => {
     void load();
   }, [load]);
-
-  const detailCompanyId =
-    loadState.kind === "success" ? loadState.data.customer.companyId : null;
-
-  useEffect(() => {
-    if (!detailCompanyId) {
-      setBusinessCustomerNumber(null);
-      return;
-    }
-    let cancelled = false;
-    void (async () => {
-      const { data, error } = await createClient().rpc("list_platform_customer_records");
-      if (cancelled) return;
-      if (error || !Array.isArray(data)) {
-        setBusinessCustomerNumber(null);
-        return;
-      }
-      const numbers = [
-        ...new Set(
-          data
-            .filter(
-              (row): row is { company_id?: string | null; customer_number?: string | null } =>
-                Boolean(row) &&
-                typeof row === "object" &&
-                (row as { company_id?: string | null }).company_id === detailCompanyId,
-            )
-            .map((row) => (row.customer_number ?? "").trim())
-            .filter((value) => value.length > 0),
-        ),
-      ];
-      setBusinessCustomerNumber(numbers.length === 1 ? numbers[0] : null);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [detailCompanyId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -1306,22 +1267,35 @@ export function PlatformPortalCustomerDetailPanel({
               </div>
             </div>
 
-            <div className="min-w-0 shrink-0 space-y-1 lg:text-right">
-              <p className="text-[11px] font-medium tracking-normal text-slate-500 dark:text-slate-400">
-                {labels.customerNumber}
-              </p>
-              {businessCustomerNumber &&
-              presentCustomerNumber(businessCustomerNumber, "") === businessCustomerNumber.trim() ? (
+            <div className="min-w-0 shrink-0 space-y-3 lg:text-right">
+              <div>
+                <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                  {labels.customerNumber}
+                </p>
+                {customer.customerNumber ? (
+                  <CopyableValue
+                    value={customer.customerNumber}
+                    copyKey="header-customer-number"
+                    copiedKey={copiedKey}
+                    labels={labels}
+                    onCopy={(key, value) => void handleCopy(key, value)}
+                  />
+                ) : (
+                  <p className="text-sm text-slate-500">{labels.notAvailable}</p>
+                )}
+              </div>
+              <div>
+                <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                  {labels.customerId}
+                </p>
                 <CopyableValue
-                  value={(businessCustomerNumber ?? "").trim()}
-                  copyKey="header-customer-number"
+                  value={customer.id}
+                  copyKey="header-customer-id"
                   copiedKey={copiedKey}
                   labels={labels}
                   onCopy={(key, value) => void handleCopy(key, value)}
                 />
-              ) : (
-                <p className="text-sm text-slate-600 dark:text-slate-300">{labels.dataUnavailable}</p>
-              )}
+              </div>
             </div>
           </div>
 
@@ -2055,12 +2029,7 @@ export function PlatformPortalCustomerDetailPanel({
           {activeTab === "technical" ? (
             <SectionCard title={labels.sectionTechnical} compact>
               <dl>
-                <DetailRow label={labels.customerNumber}>
-                  <p>
-                    {presentCustomerNumber(businessCustomerNumber, labels.dataUnavailable)}
-                  </p>
-                </DetailRow>
-                <DetailRow label={labels.technicalCustomerId}>
+                <DetailRow label={labels.customerId}>
                   <CopyableValue
                     value={customer.id}
                     copyKey="technical-customer-id"
@@ -2159,8 +2128,23 @@ export function PlatformPortalCustomerDetailPanel({
                   <StatusBadge label={String(usage.openSupportCount)} variant="success" />
                 )}
               </DetailRow>
-              <DetailRow label={labels.customerNumber}>
-                {presentCustomerNumber(businessCustomerNumber, labels.dataUnavailable)}
+              <DetailRow label={labels.customerId}>
+                <CopyableValue
+                  value={customer.id}
+                  copyKey="status-customer-id"
+                  copiedKey={copiedKey}
+                  labels={labels}
+                  onCopy={(key, value) => void handleCopy(key, value)}
+                />
+              </DetailRow>
+              <DetailRow label={labels.companyId}>
+                <CopyableValue
+                  value={customer.companyId}
+                  copyKey="status-company-id"
+                  copiedKey={copiedKey}
+                  labels={labels}
+                  onCopy={(key, value) => void handleCopy(key, value)}
+                />
               </DetailRow>
               <DetailRow label={labels.slug}>
                 <div className="space-y-1">

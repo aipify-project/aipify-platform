@@ -14,6 +14,7 @@ export type AccountProfileFieldSource =
   | "get_app_organization_context.plan_name"
   | "get_app_organization_context.license_status"
   | "get_app_organization_context.customer_id"
+  | "customers.customer_number"
   | "auth.user_metadata.avatar_url"
   | "unavailable";
 
@@ -63,6 +64,8 @@ export type AccountProfileView = {
     customerReference: AccountProfileField;
     /** Raw UUID references stay off the page. */
     referenceHidden: boolean;
+    /** Official AIP-###### number for this organization only. */
+    officialCustomerNumber: AccountProfileField;
     registeredAt: AccountProfileField;
     updatedAt: AccountProfileField;
   };

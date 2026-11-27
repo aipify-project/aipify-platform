@@ -7788,7 +7788,10 @@
       "cancel": "Anuluj",
       "companyLegalNote": "Verified legal identity fields are locked here. Request a change through support when a correction is required.",
       "requestChange": "Poproś o zmianę",
-      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change"
+      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
+      "officialCustomerNumber": "Numer klienta",
+      "copyCustomerNumber": "Kopiuj",
+      "copiedCustomerNumber": "Skopiowano"
     },
     "workspaceDashboard": {
       "eyebrow": "Obszar roboczy",

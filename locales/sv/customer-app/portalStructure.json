@@ -8849,7 +8849,10 @@
       "cancel": "Avbryt",
       "companyLegalNote": "Verifierade juridiska identitetsfält är låsta här. Begär ändring via support när något behöver korrigeras.",
       "requestChange": "Begär ändring",
-      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change"
+      "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
+      "officialCustomerNumber": "Kundnummer",
+      "copyCustomerNumber": "Kopiera",
+      "copiedCustomerNumber": "Kopierad"
     },
     "workspaceDashboard": {
       "eyebrow": "Arbetsyta",

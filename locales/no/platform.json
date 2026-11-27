@@ -418,8 +418,8 @@
     "linkSupport": "Support"
   },
   "customerType": {
-    "company": "Company",
-    "private": "Private"
+    "company": "Bedrift",
+    "private": "Privat"
   },
   "planType": {
     "starter": "Starter",
@@ -431,8 +431,8 @@
     "klarna": "Klarna",
     "stripe": "Stripe",
     "vipps": "Vipps",
-    "manual": "Manual",
-    "invoice": "Invoice"
+    "manual": "Manuell",
+    "invoice": "Faktura"
   },
   "status": {
     "customer": {
@@ -635,7 +635,7 @@
       "organizationNumber": "Organisasjonsnummer",
       "legalName": "Juridisk navn",
       "customerName": "Kundenavn",
-      "customerId": "Kunde-ID",
+      "customerId": "Kunde-ID (intern)",
       "companyId": "Selskaps-ID",
       "createdAt": "Opprettet",
       "updatedAt": "Sist oppdatert",
@@ -859,8 +859,7 @@
       "highRiskIdentityNote": "Juridisk identitet og kontakt-e-post krever høyrisikoflyten for identitet.",
       "supportOpenCases": "Åpne supportsaker",
       "supportOpenQueue": "Åpne supportkø",
-      "customerNumber": "Kundenummer",
-      "technicalCustomerId": "Teknisk kunde-ID"
+      "customerNumber": "Kundenummer"
     },
     "createCustomer": "Opprett kunde",
     "creation": {
@@ -1799,7 +1798,8 @@
     "statusAttention": "Trenger oppfølging",
     "statusCritical": "Kritisk",
     "statusInfo": "Informasjon",
-    "statusUnknown": "Ukjent"
+    "statusUnknown": "Ukjent",
+    "columnCustomerNumber": "Kundenummer"
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -1832,8 +1832,8 @@
     "provider": "Betalingsleverandør",
     "paymentStatus": "Betalingsstatus",
     "kid": "KID",
-    "providerCustomerId": "Provider customer ID",
-    "providerMandateId": "Provider mandate ID"
+    "providerCustomerId": "Leverandørens kunde-ID",
+    "providerMandateId": "Leverandørens avtale-ID"
   },
   "billingCommerceCenter": {
     "title": "Avtaler og salg — økonomi",
@@ -1946,8 +1946,8 @@
     "trial": "Prøveperiode",
     "price": "Pris",
     "billingCycle": "Faktureringsperiode",
-    "maxUsers": "Maks antall brukere",
-    "maxInstallations": "Maks antall installasjoner",
+    "maxUsers": "Maks brukere",
+    "maxInstallations": "Maks installasjoner",
     "trialActive": "Prøveperiode aktiv",
     "daysRemaining": "Dager igjen",
     "trialEnds": "Prøveperioden slutter",
@@ -1959,17 +1959,17 @@
     "title": "Betalingsleverandører",
     "subtitle": "Konfigurasjon for Klarna, Vipps MobilePay og Stripe. Status her er oppsett, ikke en registrert betaling.",
     "loading": "Forbereder betalingsleverandører",
-    "principle": "Aipify eier fakturaopplevelsen. Kunden velger betalingsleverandør.",
-    "paidAccessNow": "Betalt gir tilgang. Avtalen åpnes når betalingen er bekreftet.",
+    "principle": "Aipify eier betalingsopplevelsen. Kunden velger betalingsleverandør.",
+    "paidAccessNow": "Betalt gir tilgang når betalingen er bekreftet. Dette kortet aktiverer ikke leverandøren.",
     "configure": "Konfigurer",
-    "testConnection": "Test tilkoblingen",
+    "testConnection": "Test tilkobling",
     "testing": "Tester…",
-    "save": "Lagre tilkobling",
+    "save": "Lagre legitimasjon",
     "saving": "Lagrer…",
     "copyUrl": "Kopier adresse",
     "copied": "Kopiert",
     "back": "Tilbake til økonomioversikt",
-    "auditTitle": "Revisjonslogg for leverandører",
+    "auditTitle": "Leverandørlogg",
     "noAudit": "Ingen leverandørhendelser er registrert ennå.",
     "regionalStrategy": "Regional leverandørstrategi",
     "fields": {
@@ -2012,10 +2012,10 @@
       "oneTime": "Engangsbetalinger",
       "refunds": "Refusjoner",
       "invoices": "Fakturaer",
-      "webhooks": "Webhooks",
+      "webhooks": "Webhooker",
       "upgrades": "Oppgraderinger",
       "downgrades": "Nedgraderinger",
-      "enterpriseContracts": "Enterprise-avtaler"
+      "enterpriseContracts": "Bedriftsavtaler"
     },
     "setupStatus": {
       "complete": "Oppsett fullført",
@@ -2023,7 +2023,7 @@
     },
     "testResult": {
       "success": "Tilkoblingen er verifisert.",
-      "failure": "Tilkoblingen feilet."
+      "failure": "Tilkoblingen mislyktes."
     },
     "upgrade": {
       "title": "Bekreft oppgradering",
@@ -2035,7 +2035,7 @@
       "paymentProvider": "Betalingsleverandør",
       "access": "Tilgang",
       "confirm": "Bekreft oppgradering",
-      "confirming": "Behandler betalingen…",
+      "confirming": "Behandler betaling…",
       "perMonth": "/ måned"
     },
     "providers": {
@@ -2059,10 +2059,10 @@
       "dnbPositioning": "Fakturaoppsett for større organisasjoner. Tilkoblingen er ikke aktivert her."
     },
     "enterpriseBilling": {
-      "title": "Bedriftsinnkjøp",
-      "description": "For organisasjoner som trenger innkjøpsordre, faktura, godkjenning og egne betalingsavtaler.",
+      "title": "Bedriftsfakturering",
+      "description": "For organisasjoner som trenger innkjøpsordre, faktura, godkjenning og avtalte betalingsvilkår. Tilkoblingen er ikke aktivert her.",
       "methods": "DNB-faktura · Innkjøpsordre · Bankoverføring · 30/60/90 dager · Rammeavtaler",
-      "manageLink": "Åpne enterprise-fakturasenter"
+      "manageLink": "Åpne bedriftsfakturering"
     },
     "provider": "Leverandør",
     "customers": "Kunder",
@@ -2134,7 +2134,7 @@
       "tenant": "Kunde",
       "bankTransfer": "Bankoverføring",
       "kid": "KID",
-      "paymentMethod": "Betalingsmåte"
+      "paymentMethod": "Payment method"
     },
     "paymentTerms": {
       "due_on_receipt": "Betales ved mottak",
@@ -2171,13 +2171,13 @@
       "approve": "Godkjenn",
       "cancel": "Avbryt",
       "markOverdue": "Merk forfalt",
-      "view": "Vis"
+      "view": "View"
     },
     "billingModel": {
-      "selfService": "Umiddelbar aktivering",
-      "enterprise": "Bedriftsinnkjøp",
-      "selfServiceNote": "For team som vil ha tilgang med en gang etter bekreftet betaling.",
-      "enterpriseNote": "For organisasjoner som trenger innkjøpsordre, faktura, godkjenning og egne betalingsavtaler."
+      "selfService": "Instant Activation",
+      "enterprise": "Enterprise Procurement",
+      "selfServiceNote": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
+      "enterpriseNote": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements."
     },
     "upgrade": {
       "title": "Enterprise-oppgradering",
@@ -4119,26 +4119,26 @@
     }
   },
   "billingExperience": {
-    "principle": "Aipify støtter både rask betaling og innkjøp med godkjenning.",
+    "principle": "Aipify støtter både umiddelbar aktivering og bedriftsfakturering. Dette er en visning, ikke en aktiv betaling.",
     "commercialPrinciple": {
-      "instant": "Umiddelbar aktivering: for kunder som kan betale med en gang.",
-      "enterprise": "Bedriftsinnkjøp: for organisasjoner med godkjenning og innkjøpsordre.",
-      "footer": "Aipify Group AS serves both customer segments equally well. From Norway. For the world."
+      "instant": "Umiddelbar aktivering: visning for kunder som kan velge selv. Aktiverer ingen leverandør.",
+      "enterprise": "Bedriftsfakturering: visning av innkjøp, faktura og godkjenning. Aktiverer ingen leverandør.",
+      "footer": "Aipify Group AS. From Norway. For the world."
     },
     "instantActivation": {
       "title": "Umiddelbar aktivering",
-      "description": "For team som vil ha tilgang med en gang etter bekreftet betaling.",
-      "message": "Aktiver avtalen når betalingen er bekreftet, og start i Aipify.",
-      "activateWith": "Tilgjengelige betalingsleverandører",
-      "checkout": "Aktiver nå",
-      "checkingOut": "Starter betalingen…"
+      "description": "For team som kan velge selv. Kortet beskriver en mulig vei og aktiverer ingen betaling.",
+      "message": "Tilgang følger først etter at en betaling er bekreftet. Denne visningen starter ingen betaling.",
+      "activateWith": "Mulige betalingsleverandører",
+      "checkout": "Se aktivering",
+      "checkingOut": "Forbereder visning…"
     },
     "enterpriseProcurement": {
-      "title": "Bedriftsinnkjøp",
-      "description": "For organisasjoner som trenger innkjøpsordre, faktura, godkjenning og egne betalingsavtaler.",
-      "message": "Aipify støtter innkjøpsordre, DNB-faktura, bankoverføring, betalingsfrist og rammeavtaler.",
-      "manageLink": "Åpne enterprise-fakturasenter",
-      "supportedMethodsLabel": "Støttede innkjøpsmåter",
+      "title": "Bedriftsfakturering",
+      "description": "For organisasjoner med innkjøpsordre, faktura og godkjenning. Tilkoblingen er ikke aktivert her.",
+      "message": "Viser mulige metoder: innkjøpsordre, DNB-faktura, bankoverføring og avtalte vilkår. Ingen metode er aktivert av denne teksten.",
+      "manageLink": "Åpne bedriftsfakturering",
+      "supportedMethodsLabel": "Mulige innkjøpsmetoder",
       "methods": {
         "dnb_invoice": "DNB-faktura",
         "purchase_orders": "Innkjøpsordre",
@@ -4149,40 +4149,40 @@
         "framework_agreements": "Rammeavtaler"
       },
       "actions": {
-        "contact_enterprise_team": "Kontakt enterprise-teamet",
+        "contact_enterprise_team": "Kontakt bedriftsteamet",
         "request_invoice_account": "Be om fakturakonto",
         "purchase_order_support": "Støtte for innkjøpsordre",
         "dnb_invoice_setup": "Oppsett av DNB-faktura"
       }
     },
     "smartRouting": {
-      "title": "Hvordan vil kunden kjøpe Aipify?",
+      "title": "Hvordan skal kjøpet vises?",
       "instant": {
         "label": "Umiddelbar aktivering",
-        "description": "Passer for mindre team og virksomheter."
+        "description": "For mindre team. Ingen betaling startes her."
       },
       "enterprise": {
-        "label": "Bedriftsinnkjøp",
-        "description": "Passer når faktura eller intern godkjenning kreves."
+        "label": "Bedriftsfakturering",
+        "description": "For organisasjoner med faktura eller intern godkjenning."
       }
     }
   },
   "paymentOperations": {
-    "title": "Betalingsdrift",
-    "subtitle": "Oversikt over betalingsoppsettet. Kortene viser konfigurasjon, ikke oppgjør.",
-    "loading": "Forbereder betalingsdrift",
-    "back": "Tilbake til fakturering",
-    "principle": "Aipify skal ikke være avhengig av én betalingsleverandør.",
+    "title": "Payment Operations Center",
+    "subtitle": "Complete visibility and control over Aipify's global payment infrastructure.",
+    "loading": "Preparing payment operations overview…",
+    "back": "Back to billing",
+    "principle": "Aipify should never depend on a single payment provider. The platform must remain resilient through provider diversity.",
     "foundingPrinciple": "Payment infrastructure is not only about collecting money. It is about removing friction, increasing trust, and enabling global growth. Aipify Group AS. From Norway. For the world.",
     "sections": {
-      "executiveSummary": "Betalingssammendrag",
-      "summary": "Driftsoversikt",
-      "providers": "Betalingsleverandører",
-      "configuration": "Leverandøroppsett",
-      "settlements": "Oppgjør",
-      "regionalCoverage": "Regional dekning",
-      "alerts": "Varsler",
-      "audit": "Revisjonslogg"
+      "executiveSummary": "Executive payment summary",
+      "summary": "Operations overview",
+      "providers": "Payment providers",
+      "configuration": "Provider configuration",
+      "settlements": "Settlement center",
+      "regionalCoverage": "Regional coverage map",
+      "alerts": "Alert center",
+      "audit": "Audit log"
     },
     "executive": {
       "healthScore": "Payment infrastructure health score",
@@ -4198,11 +4198,11 @@
       "pendingSettlementTotal": "Pending settlement total"
     },
     "indicators": {
-      "healthy": "Stabil",
-      "stable": "Stabil",
-      "attention": "Trenger oppfølging",
-      "critical": "Kritisk",
-      "needsReview": "Trenger gjennomgang"
+      "healthy": "Healthy",
+      "stable": "Stable",
+      "attention": "Requires attention",
+      "critical": "Critical issue",
+      "needsReview": "Needs review"
     },
     "summary": {
       "activeProviders": "Active payment providers",
@@ -4265,20 +4265,20 @@
       "critical": "Critical"
     },
     "statuses": {
-      "operational": "I drift",
-      "pendingSetup": "Oppsett gjenstår",
-      "setupRequired": "Oppsett gjenstår",
-      "requiresAttention": "Trenger oppfølging",
-      "disabled": "Deaktivert",
-      "completed": "Fullført",
-      "pending": "Venter",
-      "failed": "Mislykket",
-      "current": "Gjeldende",
-      "attention": "Trenger oppfølging"
+      "operational": "Operational",
+      "pendingSetup": "Setup Required",
+      "setupRequired": "Setup Required",
+      "requiresAttention": "Requires attention",
+      "disabled": "Disabled",
+      "completed": "Completed",
+      "pending": "Pending",
+      "failed": "Failed",
+      "current": "Current",
+      "attention": "Requires attention"
     },
     "apiStatuses": {
-      "connected": "Tilkoblet",
-      "disconnected": "Ikke tilkoblet"
+      "connected": "Connected",
+      "disconnected": "Disconnected"
     },
     "environments": {
       "sandbox": "Sandbox",
@@ -8818,53 +8818,51 @@
       "kid_number": "KID",
       "due_date": "Forfallsdato",
       "email": "E-post",
-      "organization_id": "Teknisk organisasjons-ID",
+      "organization_id": "Organisasjonsreferanse",
       "environment_type": "Miljø",
       "connected": "Tilkoblet",
       "provider": "Leverandør",
       "billing_email": "Faktura-e-post",
       "billing_address": "Fakturaadresse",
       "vat_amount": "MVA-beløp",
-      "total_amount": "Totalbeløp",
+      "total_amount": "Totalt",
       "commission_amount": "Provisjon",
       "name": "Navn",
       "plan": "Avtale",
       "price_amount": "Pris",
       "billing_cycle": "Faktureringsperiode",
-      "customer_number": "Kundenummer",
-      "customer_type": "Kundetype",
-      "display_name": "Visningsnavn",
-      "organization_number": "Organisasjonsnummer",
-      "country": "Land",
-      "company_id": "Teknisk selskaps-ID",
       "total": "Totalt",
-      "private": "Privat",
-      "business": "Bedrift",
+      "private": "Privatkunder",
+      "business": "Bedriftskunder",
       "pools": "Lisensgrupper",
       "active_domains": "Aktive domener",
       "purchased_domains": "Kjøpte domener",
       "included_licenses": "Inkluderte lisenser",
       "purchased_licenses": "Kjøpte lisenser",
       "total_licenses": "Lisenser totalt",
-      "tenant_overrides": "Kundeoverstyringer",
-      "revenue_invoices": "Inntektsfakturaer",
-      "accounting_exports": "Regnskapseksporter",
-      "partner_commissions": "Selgerprovisjoner",
-      "catalog_items": "Katalogelementer",
-      "installed": "Installert",
-      "attributed_customers": "Tilskrevne kunder",
-      "touch_events": "Kontaktpunkter",
-      "domain": "Domene",
-      "license_status": "Lisensstatus",
-      "payment_status": "Betalingsstatus",
-      "provider_payment_id": "Betalingsreferanse"
+      "customer_number": "Kundenummer",
+      "customer_type": "Kundetype",
+      "display_name": "Navn",
+      "overdue": "Forfalt",
+      "paid": "Betalt",
+      "trial": "Prøve"
     },
-    "kidNotApplicable": "Ikke aktuelt",
-    "kidNotApplicablePaidOnline": "Ikke aktuelt – betalt på nett",
-    "kidMissingReview": "Mangler KID – krever kontroll",
-    "customerNumber": "Kundenummer",
-    "paymentReference": "Betalingsreferanse",
-    "totalAmount": "Totalbeløp"
+    "kidNotApplicable": "Ikke aktuelt ved nettbetaling",
+    "statuses": {
+      "paid": "Betalt",
+      "overdue": "Forfalt",
+      "draft": "Utkast",
+      "sent": "Sendt",
+      "active": "Aktiv",
+      "trial": "Prøve",
+      "trialing": "Prøve",
+      "pending": "Venter",
+      "cancelled": "Kansellert",
+      "failed": "Mislykket",
+      "company": "Bedriftskunder",
+      "business": "Bedriftskunder",
+      "private": "Privatkunder"
+    }
   },
   "taxVerification": {
     "title": "Avgifter og MVA",

@@ -9,6 +9,7 @@ import {
   resolveAuthoritativeTimeZone,
   toBcp47Locale,
 } from "@/lib/platform-presentation-quality/bcp47";
+import { readOfficialCustomerNumber } from "@/lib/platform-portal/official-customer-number";
 
 const ZERO_DECIMAL = new Set([
   "BIF",
@@ -50,6 +51,8 @@ const MONEY_KEYS = new Set([
 
 const PERCENT_KEYS = new Set(["rate", "vat_rate", "tax_rate", "percent", "percentage"]);
 
+// Display the stored count. Do not add private+business, and do not treat a
+// limited row page (purchased domains, pools, attributed customers) as a full total.
 const COUNT_KEYS = new Set([
   "count",
   "total_sessions",
@@ -67,6 +70,16 @@ const COUNT_KEYS = new Set([
   "pools",
   "active_domains",
   "purchased_domains",
+  "included_licenses",
+  "purchased_licenses",
+  "total_licenses",
+  "overdue",
+  "paid",
+  "trial",
+  "catalog_items",
+  "installed",
+  "attributed_customers",
+  "touch_events",
 ]);
 
 export type EconomyPhrases = {
@@ -87,9 +100,8 @@ export type EconomyPhrases = {
   sourceError: string;
   noRecords: string;
   kidNotApplicable: string;
-  kidNotApplicablePaidOnline: string;
-  kidMissingReview: string;
   columns: Record<string, string>;
+  statuses: Record<string, string>;
 };
 
 export type MoneyDisplay = { state: "value"; text: string } | { state: "unavailable" };
@@ -222,78 +234,39 @@ export function classifyKid(value: string | null | undefined): "missing" | "plac
   return "present";
 }
 
-const ONLINE_PAYMENT_PROVIDERS = new Set(["klarna", "stripe", "vipps"]);
-const INVOICE_PAYMENT_PROVIDERS = new Set(["invoice", "manual", "dnb", "bank_transfer"]);
-const CUSTOMER_NUMBER_PATTERN = /^AIP-\d{6}$/;
-const TECHNICAL_ID_PATTERN =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const ONLINE_PAYMENT_METHODS = new Set([
+  "card",
+  "klarna",
+  "vipps",
+  "vipps_mobilepay",
+  "mobilepay",
+  "stripe",
+  "online",
+]);
 
-export type KidRequirement = "not_applicable" | "required" | "unknown";
+const KID_PAYMENT_METHODS = new Set([
+  "invoice",
+  "dnb",
+  "dnb_invoice",
+  "bank",
+  "bank_transfer",
+  "purchase_order",
+  "kid",
+]);
 
-/** Online card and wallet providers do not use a Norwegian KID. Invoice and manual collection do. */
-export function kidRequirementForProvider(provider: string | null | undefined): KidRequirement {
-  const key = (provider ?? "").trim().toLowerCase();
-  if (!key) return "unknown";
-  if (ONLINE_PAYMENT_PROVIDERS.has(key)) return "not_applicable";
-  if (INVOICE_PAYMENT_PROVIDERS.has(key)) return "required";
-  return "unknown";
-}
-
-export function presentKidDisplay(input: {
+export function presentKid(input: {
   kid: string | null | undefined;
-  provider: string | null | undefined;
-  invoiceStatus?: string | null;
-  phrases: Pick<
-    EconomyPhrases,
-    "kidNotApplicable" | "kidNotApplicablePaidOnline" | "kidMissingReview" | "unavailable"
-  >;
-}): { text: string; storedPlaceholder: string | null } {
+  method?: string | null;
+  phrases: Pick<EconomyPhrases, "mustVerify" | "notRegistered" | "unavailable" | "kidNotApplicable">;
+}): string {
   const kind = classifyKid(input.kid);
-  const storedPlaceholder = kind === "placeholder" ? (input.kid ?? "").trim() : null;
-  if (kind === "present") return { text: (input.kid ?? "").trim(), storedPlaceholder: null };
-  const requirement = kidRequirementForProvider(input.provider);
-  if (requirement === "not_applicable") {
-    const paidOnline = (input.invoiceStatus ?? "").trim().toLowerCase() === "paid";
-    return {
-      text: paidOnline ? input.phrases.kidNotApplicablePaidOnline : input.phrases.kidNotApplicable,
-      storedPlaceholder,
-    };
-  }
-  if (requirement === "required") {
-    return { text: input.phrases.kidMissingReview, storedPlaceholder };
-  }
-  return { text: input.phrases.unavailable, storedPlaceholder };
-}
-
-export function presentCustomerNumber(value: string | null | undefined, unavailable: string): string {
-  const text = (value ?? "").trim();
-  if (CUSTOMER_NUMBER_PATTERN.test(text)) return text;
-  return unavailable;
-}
-
-export function isTechnicalCustomerId(value: string | null | undefined): boolean {
-  return TECHNICAL_ID_PATTERN.test((value ?? "").trim());
-}
-
-const TAX_RULE_LABELS: Record<string, Record<string, string>> = {
-  no: {
-    no_private_business: "Norsk MVA for privat og bedrift",
-    eu_b2b_reverse_charge: "EU bedrift med omvendt avgiftsplikt",
-    invalid_business_standard: "Ugyldig bedrift — standardsats",
-    service_unavailable_standard: "Register utilgjengelig — standardsats",
-  },
-};
-
-export function presentTaxRuleLabel(
-  ruleKey: string | null | undefined,
-  storedLabel: string | null | undefined,
-  locale: string,
-): string {
-  const key = (ruleKey ?? "").trim();
-  const mapped = TAX_RULE_LABELS[locale]?.[key];
-  if (mapped) return mapped;
-  const stored = (storedLabel ?? "").trim();
-  return stored || key;
+  if (kind === "present") return String(input.kid).trim();
+  if (kind === "placeholder") return input.phrases.mustVerify;
+  const method = (input.method ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_");
+  if (ONLINE_PAYMENT_METHODS.has(method)) return input.phrases.kidNotApplicable;
+  if (KID_PAYMENT_METHODS.has(method)) return input.phrases.mustVerify;
+  if (!method) return input.phrases.notRegistered;
+  return input.phrases.unavailable;
 }
 
 export function classifyAddress(value: string | null | undefined): "missing" | "placeholder" | "present" {
@@ -332,19 +305,9 @@ export function presentEconomyCell(input: {
   locale: string;
   phrases: EconomyPhrases;
   currency?: string | null;
-  provider?: string | null;
-  invoiceStatus?: string | null;
-  ruleKey?: string | null;
+  method?: string | null;
 }): string {
   const { key, value, locale, phrases } = input;
-  if (key === "kid" || key === "kid_number" || key.endsWith("_kid")) {
-    return presentKidDisplay({
-      kid: value === null || value === undefined ? "" : String(value),
-      provider: input.provider,
-      invoiceStatus: input.invoiceStatus,
-      phrases,
-    }).text;
-  }
   if (value === null || value === undefined || value === "") return phrases.notRegistered;
   if (typeof value === "boolean") {
     if (key === "active" || key.endsWith("_active") || key === "is_active") {
@@ -355,9 +318,22 @@ export function presentEconomyCell(input: {
   if (typeof value === "object") return phrases.unavailable;
 
   const text = String(value);
-  if (key === "customer_number") return presentCustomerNumber(text, phrases.unavailable);
-  if (key === "label") {
-    return presentTaxRuleLabel(input.ruleKey, text, locale);
+  if (key === "kid" || key === "kid_number" || key.endsWith("_kid")) {
+    return presentKid({ kid: text, method: input.method, phrases });
+  }
+  if (key === "customer_number") {
+    return readOfficialCustomerNumber(text) ?? phrases.unavailable;
+  }
+  if (key === "customer_type") {
+    const type = text.toLowerCase();
+    if (type === "private" || type === "company" || type === "business") {
+      return phrases.statuses[type] ?? phrases.unavailable;
+    }
+  }
+  if (key === "status" || key === "payment_status" || key === "session_status" || key === "license_status") {
+    const mapped = phrases.statuses[text.toLowerCase()];
+    if (mapped && !mapped.startsWith("platform.")) return mapped;
+    if (/^[a-z0-9_]+$/.test(text)) return phrases.unavailable;
   }
   if (key.includes("address")) {
     const kind = classifyAddress(text);
@@ -393,30 +369,6 @@ export function presentEconomyCell(input: {
   }
   if (text === "true") return phrases.yes;
   if (text === "false") return phrases.no;
-  if (
-    (locale === "no" || locale === "nb") &&
-    (key === "status" || key === "payment_status" || key === "customer_type" || key === "license_status")
-  ) {
-    const known: Record<string, string> = {
-      active: "Aktiv",
-      inactive: "Inaktiv",
-      paid: "Betalt",
-      draft: "Utkast",
-      sent: "Sendt",
-      overdue: "Forfalt",
-      cancelled: "Kansellert",
-      canceled: "Kansellert",
-      failed: "Mislykket",
-      pending: "Venter",
-      company: "Bedrift",
-      private: "Privat",
-      not_connected: "Ikke tilkoblet",
-      pending_setup: "Oppsett gjenstår",
-      trial: "Prøveperiode",
-      trialing: "Prøveperiode",
-    };
-    return known[text.trim().toLowerCase()] ?? text;
-  }
   return text;
 }
 

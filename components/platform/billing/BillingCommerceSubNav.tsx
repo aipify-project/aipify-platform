@@ -104,7 +104,7 @@ export function BillingCommerceSubNav({
 
             return (
               <div key={group.id} className="min-w-0 space-y-1.5">
-                <p className="text-[11px] font-semibold tracking-normal text-slate-500">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500">
                   {group.label}
                 </p>
                 <div className="flex flex-wrap gap-1.5">

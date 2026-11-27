@@ -10,7 +10,6 @@ import {
   formatEconomyMoney,
   moneyText,
   presentBillingCycle,
-  presentCustomerNumber,
 } from "@/lib/platform/economy-display";
 import { createClient } from "@/lib/supabase/client";
 import { getTrialDaysRemaining, isTrialActive } from "@/lib/platform/trial";
@@ -101,28 +100,28 @@ export default function SubscriptionsPanel({ locale, labels }: SubscriptionsPane
             <table className="min-w-full divide-y divide-gray-100">
               <thead className="bg-gray-50/80">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.customerNumber}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.customer}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.plan}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.status}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.trial}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.nextBillingDate}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.provider}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.price}
                   </th>
                 </tr>
@@ -135,7 +134,7 @@ export default function SubscriptionsPanel({ locale, labels }: SubscriptionsPane
                   return (
                     <tr key={row.id} className="hover:bg-gray-50/60">
                       <td className="whitespace-nowrap px-6 py-4 font-mono text-sm">
-                        {presentCustomerNumber(row.customer_number, labels.unavailable)}
+                        {row.customer_number}
                       </td>
                       <td className="px-6 py-4">
                         <Link

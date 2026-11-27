@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { PlatformLayoutClasses } from "@/lib/design";
-import { classifyAddress, presentCustomerNumber, presentKidDisplay } from "@/lib/platform/economy-display";
+import { classifyAddress, presentKid } from "@/lib/platform/economy-display";
 import { createClient } from "@/lib/supabase/client";
 import type { PaymentProfileRow } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
@@ -30,11 +30,8 @@ type BillingPanelProps = {
     pulseLabel: string;
     unavailable: string;
     mustVerify: string;
-    notRegistered: string;
-    paymentReference: string;
     kidNotApplicable: string;
-    kidNotApplicablePaidOnline: string;
-    kidMissingReview: string;
+    notRegistered: string;
   };
 };
 
@@ -89,25 +86,22 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
             <table className="min-w-full divide-y divide-gray-100">
               <thead className="bg-gray-50/80">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.customerNumber}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.customer}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.provider}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.paymentStatus}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.kid}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
-                    {labels.paymentReference}
-                  </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.billingEmail}
                   </th>
                 </tr>
@@ -116,7 +110,7 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
                 {rows.map((row) => (
                   <tr key={row.id} className="hover:bg-gray-50/60">
                     <td className="whitespace-nowrap px-6 py-4 font-mono text-sm">
-                      {presentCustomerNumber(row.customer_number, labels.unavailable)}
+                      {row.customer_number}
                     </td>
                     <td className="px-6 py-4">
                       <Link
@@ -145,26 +139,12 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
                         }
                       />
                     </td>
-                    <td
-                      className="px-6 py-4 text-sm text-gray-600"
-                      title={
-                        presentKidDisplay({
-                          kid: row.kid_number,
-                          provider: row.provider,
-                          phrases: labels,
-                        }).storedPlaceholder ?? undefined
-                      }
-                    >
-                      {
-                        presentKidDisplay({
-                          kid: row.kid_number,
-                          provider: row.provider,
-                          phrases: labels,
-                        }).text
-                      }
-                    </td>
-                    <td className="px-6 py-4 font-mono text-sm text-gray-600">
-                      {row.provider_customer_id?.trim() || labels.unavailable}
+                    <td className="px-6 py-4 text-sm text-gray-600" title={row.kid_number ?? undefined}>
+                      {presentKid({
+                        kid: row.kid_number,
+                        method: row.provider,
+                        phrases: labels,
+                      })}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {row.billing_email}

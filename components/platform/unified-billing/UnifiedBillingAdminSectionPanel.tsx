@@ -111,16 +111,7 @@ export function UnifiedBillingAdminSectionPanel({ section, title, subtitle, labe
                       {Object.entries(row).map(([key, value]) => (
                         <td key={key} className="px-4 py-3 text-gray-700">
                           {economy
-                            ? presentEconomyCell({
-                                key,
-                                value,
-                                locale,
-                                phrases: economy,
-                                currency,
-                                provider: typeof row.provider === "string" ? row.provider : null,
-                                invoiceStatus: typeof row.status === "string" ? row.status : null,
-                                ruleKey: typeof row.rule_key === "string" ? row.rule_key : null,
-                              })
+                            ? presentEconomyCell({ key, value, locale, phrases: economy, currency })
                             : value === null || value === undefined
                               ? "—"
                               : String(value)}

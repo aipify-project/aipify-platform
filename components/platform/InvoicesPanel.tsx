@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
+  classifyKid,
+  presentKid,
   formatEconomyDate,
   formatEconomyMoney,
   moneyText,
-  presentCustomerNumber,
-  presentKidDisplay,
 } from "@/lib/platform/economy-display";
 import {
   calendarDateInTimeZone,
@@ -33,11 +33,6 @@ type InvoicesPanelProps = {
     status: string;
     dueDate: string;
     kid: string;
-    customerNumber: string;
-    paymentReference: string;
-    kidNotApplicable: string;
-    kidNotApplicablePaidOnline: string;
-    kidMissingReview: string;
     actions: string;
     send: string;
     resend: string;
@@ -51,6 +46,7 @@ type InvoicesPanelProps = {
     pulseLabel: string;
     unavailable: string;
     mustVerify: string;
+    kidNotApplicable: string;
     notRegistered: string;
     backToCustomer: string;
     filteredEmpty: string;
@@ -60,17 +56,6 @@ type InvoicesPanelProps = {
   bucket: "overdue" | "paid" | null;
   returnTo: string | null;
 };
-
-function providerMap(data: unknown): Record<string, string> {
-  const map: Record<string, string> = {};
-  if (!Array.isArray(data)) return map;
-  for (const row of data) {
-    if (!row || typeof row !== "object") continue;
-    const record = row as { customer_id?: string; provider?: string };
-    if (record.customer_id && record.provider) map[record.customer_id] = record.provider;
-  }
-  return map;
-}
 
 export default function InvoicesPanel({
   locale,
@@ -82,7 +67,6 @@ export default function InvoicesPanel({
 }: InvoicesPanelProps) {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [customers, setCustomers] = useState<Record<string, CustomerRecord>>({});
-  const [providers, setProviders] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [actingId, setActingId] = useState<string | null>(null);
   const [loadError, setLoadError] = useState(false);
@@ -92,10 +76,9 @@ export default function InvoicesPanel({
 
     async function load() {
       const supabase = createClient();
-      const [invoiceRes, customerRes, profileRes] = await Promise.all([
+      const [invoiceRes, customerRes] = await Promise.all([
         supabase.rpc("list_platform_invoices"),
         supabase.rpc("list_platform_customer_records"),
-        supabase.rpc("list_platform_payment_profiles"),
       ]);
 
       if (!cancelled) {
@@ -108,7 +91,6 @@ export default function InvoicesPanel({
           }
         }
         setCustomers(customerMap);
-        setProviders(providerMap(profileRes.data));
         setLoading(false);
       }
     }
@@ -130,10 +112,9 @@ export default function InvoicesPanel({
       });
 
       const supabase = createClient();
-      const [invoiceRes, customerRes, profileRes] = await Promise.all([
+      const [invoiceRes, customerRes] = await Promise.all([
         supabase.rpc("list_platform_invoices"),
         supabase.rpc("list_platform_customer_records"),
-        supabase.rpc("list_platform_payment_profiles"),
       ]);
 
       setLoadError(Boolean(invoiceRes.error));
@@ -145,7 +126,6 @@ export default function InvoicesPanel({
         }
       }
       setCustomers(customerMap);
-      setProviders(providerMap(profileRes.data));
     } finally {
       setActingId(null);
     }
@@ -220,31 +200,25 @@ export default function InvoicesPanel({
             <table className="min-w-full divide-y divide-gray-100">
               <thead className="bg-gray-50/80">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.invoiceNumber}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.customer}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
-                    {labels.customerNumber}
-                  </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.amount}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.status}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.kid}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
-                    {labels.paymentReference}
-                  </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.dueDate}
                   </th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold tracking-normal text-gray-500">
+                  <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.actions}
                   </th>
                 </tr>
@@ -268,11 +242,8 @@ export default function InvoicesPanel({
                             {customer.display_name}
                           </Link>
                         ) : (
-                          <span className="text-sm text-gray-500">{labels.unavailable}</span>
+                          <span className="text-sm text-gray-500">—</span>
                         )}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4 font-mono text-sm text-gray-700">
-                        {presentCustomerNumber(customer?.customer_number, labels.unavailable)}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-900">
                         {moneyText(
@@ -294,25 +265,12 @@ export default function InvoicesPanel({
                       <td
                         className="px-6 py-4 text-sm text-gray-600"
                         title={
-                          presentKidDisplay({
-                            kid: invoice.kid_number,
-                            provider: providers[invoice.customer_id],
-                            invoiceStatus: invoice.status,
-                            phrases: labels,
-                          }).storedPlaceholder ?? undefined
+                          classifyKid(invoice.kid_number) === "placeholder"
+                            ? (invoice.kid_number ?? undefined)
+                            : undefined
                         }
                       >
-                        {
-                          presentKidDisplay({
-                            kid: invoice.kid_number,
-                            provider: providers[invoice.customer_id],
-                            invoiceStatus: invoice.status,
-                            phrases: labels,
-                          }).text
-                        }
-                      </td>
-                      <td className="px-6 py-4 font-mono text-sm text-gray-600">
-                        {invoice.provider_payment_id?.trim() || labels.unavailable}
+                        {presentKid({ kid: invoice.kid_number, phrases: labels })}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {formatEconomyDate(invoice.due_date, locale) ?? labels.notRegistered}

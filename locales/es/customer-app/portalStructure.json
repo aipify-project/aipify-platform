@@ -7490,7 +7490,10 @@
       "requestChange": "Solicitar un cambio",
       "requestChangeHref": "/app/support/requests?new=1&category=account&intent=customer_profile_change",
       "addCompanyDetails": "Open support",
-      "save": "Guardar cambios"
+      "save": "Guardar cambios",
+      "officialCustomerNumber": "Número de cliente",
+      "copyCustomerNumber": "Copiar",
+      "copiedCustomerNumber": "Copiado"
     },
     "workspaceDashboard": {
       "eyebrow": "Espacio de trabajo",

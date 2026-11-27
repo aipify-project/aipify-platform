@@ -1,6 +1,8 @@
 import "server-only";
 
+import { readOfficialCustomerNumber } from "@/lib/platform-portal/official-customer-number";
 import { createClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/service-role";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 import { resolveCustomerAvatarPointer } from "./avatar";
@@ -28,6 +30,20 @@ export async function loadAccountProfileView(): Promise<AccountProfileView | nul
     supabase.rpc("get_app_organization_context"),
   ]);
   const context = parseAppOrganizationContext(orgResult.data);
+  let officialCustomerNumber: string | null = null;
+  if (context.state === "ready" && context.customer_id) {
+    try {
+      const admin = createServiceRoleClient();
+      const { data } = await admin
+        .from("customers")
+        .select("customer_number")
+        .eq("id", context.customer_id)
+        .maybeSingle();
+      officialCustomerNumber = readOfficialCustomerNumber(data?.customer_number);
+    } catch {
+      officialCustomerNumber = null;
+    }
+  }
   const role = (profile?.user.role ?? context.user_role ?? "").toLowerCase();
   const canOpenCompanySettings = role.includes("owner") || role.includes("admin");
 
@@ -49,5 +65,6 @@ export async function loadAccountProfileView(): Promise<AccountProfileView | nul
     // Organization name is resolved from workspace context inside the view model.
     company: null,
     canOpenCompanySettings,
+    officialCustomerNumber,
   });
 }
