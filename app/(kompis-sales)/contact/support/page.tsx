@@ -1,17 +1,30 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import KompisWebSalesChrome from "@/components/marketing/kompis-web-sales/KompisWebSalesChrome";
 import SupportIntakeForm from "@/components/marketing/SupportIntakeForm";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
-import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { loadKompisWebSalesRouteContext } from "@/lib/marketing/kompis-web-sales/sales-route";
 import { getSupportIntakeGateState } from "@/lib/support-intake";
 import { buildHumanVerificationLabels } from "@/lib/system-notice/labels";
 
+export async function generateMetadata(): Promise<Metadata> {
+  const { locale } = await loadKompisWebSalesRouteContext();
+  const dict = await getDictionary(locale, ["marketing"]);
+  const t = createTranslator(dict);
+  return {
+    title: t("marketing.supportIntake.title"),
+    description: t("marketing.supportIntake.subtitle"),
+  };
+}
+
 export default async function ContactSupportPage() {
-  const locale = await getLocale();
+  const { labels: salesLabels, appName, locale } = await loadKompisWebSalesRouteContext();
   const dict = await getDictionary(locale, ["marketing", "common"]);
   const t = createTranslator(dict);
   const intakeLive = getSupportIntakeGateState().live;
 
-  const labels = {
+  const formLabels = {
     title: t("marketing.supportIntake.title"),
     subtitle: t("marketing.supportIntake.subtitle"),
     name: t("marketing.supportIntake.name"),
@@ -29,12 +42,24 @@ export default async function ContactSupportPage() {
   };
 
   return (
-    <main className="px-4 py-12 sm:px-6 lg:px-8">
+    <KompisWebSalesChrome
+      labels={salesLabels}
+      appName={appName}
+      locale={locale}
+      showTitle={false}
+      contentMaxWidth={720}
+    >
+      <p className="kompis-web-sales-eyebrow">{appName}</p>
       <SupportIntakeForm
-        labels={labels}
+        labels={formLabels}
         verificationLabels={buildHumanVerificationLabels(t)}
         intakeLive={intakeLive}
       />
-    </main>
+      <p style={{ marginTop: 28 }}>
+        <Link href={salesLabels.hrefs.home} className="kompis-web-sales-cta-quiet">
+          {salesLabels.start.backHome}
+        </Link>
+      </p>
+    </KompisWebSalesChrome>
   );
 }

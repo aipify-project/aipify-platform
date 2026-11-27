@@ -606,7 +606,7 @@ export default function KompisWebSalesPage({ labels, locale, appName }: Props) {
                   className="kompis-web-sales-cta-quiet"
                   {...marketingDataAttr("cta_click", "kompis_web_sales_growth_partners_info")}
                 >
-                  {labels.footer.becomeSeller}
+                  {labels.growthPartners.learnMore}
                 </Link>
               </div>
             </div>

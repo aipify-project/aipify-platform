@@ -7,7 +7,8 @@ import { buildAnalyticsConsentLabels } from "@/lib/product-analytics/consent";
 import { loadKompisWebSalesRouteContext } from "@/lib/marketing/kompis-web-sales/sales-route";
 
 /**
- * Isolated sales shell for `/`, `/kompis-web`, `/start`, and public legal pages.
+ * Isolated sales shell for `/`, `/kompis-web`, `/start`, `/contact/support`,
+ * `/certified-sales-partner`, and public legal pages.
  * Consent labels must follow the same cookie-only sales locale as the page
  * (not Accept-Language), so English anonymous visitors do not see Norwegian consent.
  */

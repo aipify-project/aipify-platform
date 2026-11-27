@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CspVerifyEmailResend } from "@/components/marketing/CspVerifyEmailResend";
-import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
+import KompisWebSalesChrome from "@/components/marketing/kompis-web-sales/KompisWebSalesChrome";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
-import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { loadKompisWebSalesRouteContext } from "@/lib/marketing/kompis-web-sales/sales-route";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
 const KEY = "marketing.certifiedSalesPartner.verifyEmail";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
+  const { locale } = await loadKompisWebSalesRouteContext();
   const t = createTranslator(await getDictionary(locale, ["marketing", "common"]));
   return {
     title: t(`${KEY}.meta.title`),
@@ -30,23 +30,32 @@ export default async function CertifiedSalesPartnerVerifyEmailPage({
 }: {
   searchParams: Promise<SearchParams>;
 }) {
-  const locale = await getLocale();
+  const { labels: salesLabels, appName, locale } = await loadKompisWebSalesRouteContext();
   const t = createTranslator(await getDictionary(locale, ["marketing", "common"]));
   const invalid = hasLinkError(await searchParams);
 
   return (
-    <div className={`min-w-0 ${AipifyMarketingClasses.canvas}`}>
-      <div className="mx-auto w-full max-w-2xl px-4 py-16 sm:px-6">
-        <div className={`${AipifyMarketingClasses.card} space-y-5 bg-aipify-surface p-6 sm:p-8`}>
-          <h1 className="text-2xl font-semibold tracking-tight text-aipify-text sm:text-3xl">
-            {invalid ? t(`${KEY}.invalidTitle`) : t(`${KEY}.title`)}
-          </h1>
-          <p className="text-base leading-relaxed text-aipify-text-secondary">
-            {invalid ? t(`${KEY}.invalidBody`) : t(`${KEY}.body`)}
+    <KompisWebSalesChrome
+      labels={salesLabels}
+      appName={appName}
+      locale={locale}
+      showTitle={false}
+      contentMaxWidth={720}
+    >
+      <p className="kompis-web-sales-eyebrow">{appName}</p>
+      <div className="kompis-web-sales-panel" style={{ padding: 28 }}>
+        <h1 className="kompis-web-sales-display" style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.1rem)" }}>
+          {invalid ? t(`${KEY}.invalidTitle`) : t(`${KEY}.title`)}
+        </h1>
+        <p className="kompis-web-sales-lead" style={{ marginTop: 12 }}>
+          {invalid ? t(`${KEY}.invalidBody`) : t(`${KEY}.body`)}
+        </p>
+        {invalid ? null : (
+          <p className="kompis-web-sales-note" style={{ marginTop: 10 }}>
+            {t(`${KEY}.hint`)}
           </p>
-          {invalid ? null : (
-            <p className="text-sm text-aipify-text-secondary">{t(`${KEY}.hint`)}</p>
-          )}
+        )}
+        <div style={{ marginTop: 22 }}>
           <CspVerifyEmailResend
             labels={{
               resendCta: t(`${KEY}.resendCta`),
@@ -57,11 +66,13 @@ export default async function CertifiedSalesPartnerVerifyEmailPage({
               loginCta: t(`${KEY}.loginCta`),
             }}
           />
-          <Link href="/certified-sales-partner" className="inline-flex text-sm font-semibold text-aipify-companion">
+        </div>
+        <p style={{ marginTop: 22 }}>
+          <Link href="/certified-sales-partner" className="kompis-web-sales-cta-quiet">
             {t(`${KEY}.backCta`)}
           </Link>
-        </div>
+        </p>
       </div>
-    </div>
+    </KompisWebSalesChrome>
   );
 }

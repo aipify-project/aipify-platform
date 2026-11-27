@@ -47,6 +47,8 @@ export type KompisWebSalesLabels = {
     body: string;
     commissionNote: string;
     cta: string;
+    /** Distinct secondary action — never duplicate the primary “Become a seller” label. */
+    learnMore: string;
   };
   benefits: {
     title: string;
@@ -322,6 +324,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
         "Commission is product-specific and paid only after qualifying confirmed payments. It is not guaranteed income, employment, or lifetime recurring payout.",
       ),
       cta: asString(growthPartners.cta, "Become a seller"),
+      learnMore: asString(growthPartners.learnMore, "Learn about Growth Partners"),
     },
     benefits: {
       title: asString(benefits.title, "Why website owners choose Kompis Web"),

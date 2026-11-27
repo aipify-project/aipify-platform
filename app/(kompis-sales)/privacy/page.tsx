@@ -28,6 +28,7 @@ export default async function PrivacyPage() {
     <KompisWebLegalShell
       labels={labels}
       appName={appName}
+      locale={locale}
       title={privacyPage.title ?? labels.footer.privacy}
       subtitle={privacyPage.updated}
     >

@@ -28,6 +28,7 @@ export default async function TermsPage() {
     <KompisWebLegalShell
       labels={labels}
       appName={appName}
+      locale={locale}
       title={termsPage.title ?? labels.footer.terms}
       subtitle={termsPage.updated}
     >
