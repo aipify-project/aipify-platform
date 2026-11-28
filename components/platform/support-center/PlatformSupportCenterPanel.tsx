@@ -10,6 +10,7 @@ import {
   createDefaultSupportSignature,
   filterTicketsForTab,
   getSupportCenterGateState,
+  isSupportSendPublicReplyApplied,
   listSupportChannelActivations,
   listSupportReplyStarterTemplates,
   normalizeSupportTimeline,
@@ -772,6 +773,7 @@ export default function PlatformSupportCenterPanel({
               feedback={feedback}
               replySaved={replySaved}
               signatureReady={signatureStored.loaded}
+              sendPublicReplyReady={isSupportSendPublicReplyApplied()}
               onReplyChange={(value) => updateDrafts({ reply: value })}
               onNoteChange={(value) => updateDrafts({ note: value })}
               onStatusChoice={(value) =>
