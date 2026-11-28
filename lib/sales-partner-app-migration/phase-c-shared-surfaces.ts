@@ -32,7 +32,7 @@ export const SALES_PARTNER_PARTNERS_TO_APP_HREF: Readonly<Record<string, string>
   "/partners/marketing/assets?section=library": `${SALES_PARTNER_APP_MODULE_BASE}/materials`,
   "/partners/marketing/email-templates": `${SALES_PARTNER_APP_MODULE_BASE}/email-templates`,
   "/partners/account/messages": `${SALES_PARTNER_APP_MODULE_BASE}/messages`,
-  "/partners/account/notifications": `${SALES_PARTNER_APP_MODULE_BASE}/notifications`,
+  "/partners/account/notifications": "/app/notifications",
   "/partners/account/profile": `${SALES_PARTNER_APP_MODULE_BASE}/profile`,
   "/partners/account/settings": `${SALES_PARTNER_APP_MODULE_BASE}/help`,
 };
@@ -41,8 +41,8 @@ export const SALES_PARTNER_PARTNERS_TO_APP_HREF: Readonly<Record<string, string>
 export const SALES_PARTNER_PHASE_C_SHARED_SURFACES = {
   notificationsApp: {
     href: "/app/notifications",
-    parity: "unknown_without_signed_in_qa",
-    interimHost: `${SALES_PARTNER_APP_MODULE_BASE}/notifications`,
+    parity: "shared_app_notifications_not_csp_inbox",
+    interimHost: "/app/notifications",
   },
   profileApp: {
     href: "/app/profile",
@@ -125,6 +125,6 @@ export function salesPartnerPathIsActive(
 
 export function phaseCThinHostsIncludeShared(): boolean {
   const caps = new Set(SALES_PARTNER_THIN_HOSTS.map((h) => h.capability));
-  // Phase C adds notifications / profile / help hosts beyond Phase B registry.
-  return caps.has("messages");
+  // Messages + profile/help remain thin hosts; Varsler reuses shared /app/notifications.
+  return caps.has("messages") && caps.has("profile") && caps.has("help");
 }

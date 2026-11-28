@@ -1,0 +1,34 @@
+-- SQL CANDIDATE ONLY — NOT APPLIED.
+-- AIPIFY_SALES_PARTNER_MESSAGING_PERFORMANCE_V1
+--
+-- Purpose: lightweight unread count for Aipify Partner topbar badge without
+-- downloading full csp_partner_messages bodies (limit 40/50).
+--
+-- Proposed RPC name: public.csp_partner_message_unread_count()
+-- Returns jsonb: { found: true, unread_count: int, backend_ready: true }
+-- Scope: session partner_id only; admin_to_partner AND read_at IS NULL.
+--
+-- Do NOT apply in Messaging Performance V1. Requires separate owner YES + apply job.
+-- Until applied, client must DEFER badge (never full-list fallback, never invent 0).
+
+-- Placeholder sketch (not executable as-is — needs partner scope helpers from CSP Core):
+--
+-- create or replace function public.csp_partner_message_unread_count()
+-- returns jsonb
+-- language plpgsql
+-- security definer
+-- set search_path = public
+-- as $$
+-- declare
+--   v_partner_id uuid;
+--   v_count int;
+-- begin
+--   -- resolve partner from auth.uid() via existing CSP helpers; fail-closed
+--   -- count only own unread admin_to_partner rows
+--   return jsonb_build_object(
+--     'found', true,
+--     'backend_ready', true,
+--     'unread_count', coalesce(v_count, 0)
+--   );
+-- end;
+-- $$;

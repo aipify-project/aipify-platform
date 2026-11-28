@@ -71,13 +71,12 @@ async function main() {
   assert.match(alerts, /partner_to_admin/);
   assert.match(alerts, /messages\/read/);
   const topbar = read("components/partners-portal/PartnersPortalTopbarActions.tsx");
-  assert.match(topbar, /bg-rose-500/);
-  assert.match(topbar, /admin_to_partner/);
-  assert.match(topbar, /Own partner→admin messages must never count as unread/);
-  assert.match(topbar, /usePollingTask/);
+  // Messaging Performance V1: topbar must not fetch message lists or poll unread.
+  assert.doesNotMatch(topbar, /\/api\/certified-sales-partner\/messages/);
+  assert.doesNotMatch(topbar, /usePollingTask/);
+  assert.doesNotMatch(topbar, /subscribeCspUnreadInvalidate/);
+  assert.match(topbar, /PARTNER_MESSAGE_UNREAD_BADGE/);
   assert.match(topbar, /h-\[22px\] w-\[22px\]/);
-  assert.match(topbar, /subscribeCspUnreadInvalidate/);
-  assert.match(topbar, /Soft-nav must not re-fetch/);
   assert.doesNotMatch(topbar, /setInterval/);
   assert.match(partnerPanel, /invalidateCspUnreadBadges/);
   assert.match(alerts, /onSellersSurface/);

@@ -34,7 +34,7 @@ test("partners hrefs map to APP thin hosts", () => {
   );
   assert.equal(
     mapPartnersHrefToAppHost("/partners/account/notifications"),
-    "/app/sales-partner/notifications",
+    "/app/notifications",
   );
 });
 
@@ -72,14 +72,15 @@ test("Phase C shared surfaces document Agent 3 fence and no auto profile merge",
   );
 });
 
-test("Phase C thin hosts exist for notifications profile help", () => {
-  for (const cap of ["notifications", "profile", "help"] as const) {
+test("Phase C thin hosts exist for profile help; notifications redirects to APP", () => {
+  for (const cap of ["profile", "help"] as const) {
     const host = SALES_PARTNER_THIN_HOSTS.find((h) => h.capability === cap);
     assert.ok(host, cap);
     // appPath is `/app/sales-partner/...` → file under repo `app/app/sales-partner/...`
     const fileRel = path.join("app", host!.appPath.replace(/^\//, ""), "page.tsx");
     assert.ok(existsSync(path.join(root, fileRel)), fileRel);
   }
+  assert.ok(existsSync(path.join(root, "app/app/sales-partner/notifications/page.tsx")));
 });
 
 test("route matrix thin hosts are covered by Phase B/C host registry", () => {
@@ -97,16 +98,13 @@ test("href map covers every partners path in map keys", () => {
   }
 });
 
-test("perf contracts: parallel unread, portal abort, session auth", () => {
+test("perf contracts: no topbar message list; portal abort; session auth", () => {
   const topbar = readFileSync(
     path.join(root, "components/partners-portal/PartnersPortalTopbarActions.tsx"),
     "utf8",
   );
-  assert.match(topbar, /Promise\.all/);
-  assert.doesNotMatch(
-    topbar,
-    /if \(onMessages \|\| onNotifications\) \{\s*void refreshUnread\(\);/,
-  );
+  assert.doesNotMatch(topbar, /\/api\/certified-sales-partner\/messages/);
+  assert.doesNotMatch(topbar, /usePollingTask/);
 
   const portal = readFileSync(
     path.join(root, "components/partners-portal/CspPortalSessionProvider.tsx"),
@@ -114,12 +112,6 @@ test("perf contracts: parallel unread, portal abort, session auth", () => {
   );
   assert.match(portal, /AbortController/);
   assert.match(portal, /CSP_PORTAL_CLIENT_FETCH_TIMEOUT_MS/);
-
-  const notifications = readFileSync(
-    path.join(root, "components/partners-portal/CertifiedSalesPartnerNotificationsPanel.tsx"),
-    "utf8",
-  );
-  assert.match(notifications, /AbortController/);
 
   const accessApi = readFileSync(
     path.join(root, "app/api/partners-portal/access/route.ts"),
