@@ -29,7 +29,10 @@ export function applyTenantModuleLookup(
   }
 }
 
-/** Operational Kompis Web URLs. The storefront at /app/explore stays outside this gate. */
+/**
+ * Operational Kompis Web URLs (product use / install / domains).
+ * Catalog browse stays outside this gate: `/app/explore` and `/app/software` (+ detail).
+ */
 export function isKompisWebOperationalPath(pathname: string | null | undefined): boolean {
   if (!pathname) return false;
   const path = pathname.split("?")[0]?.split("#")[0] ?? "";
@@ -37,9 +40,7 @@ export function isKompisWebOperationalPath(pathname: string | null | undefined):
     path === "/app/website-kompis" ||
     path.startsWith("/app/website-kompis/") ||
     path === "/app/domains" ||
-    path.startsWith("/app/domains/") ||
-    path === "/app/software" ||
-    path.startsWith("/app/software/")
+    path.startsWith("/app/domains/")
   );
 }
 

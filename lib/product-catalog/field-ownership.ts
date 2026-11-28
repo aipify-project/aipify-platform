@@ -32,8 +32,13 @@ export const PRODUCT_CATALOG_FIELD_OWNERSHIP = {
   productType: "core_csp_sales_products",
   categoryId: "core_csp_sales_products",
   dependsOnProductKeys: "core_csp_sales_products",
-  localeCopyApproved: "core_channel_sql_pending",
-  mediaPathsPersisted: "core_channel_sql_pending",
+  /** Core locale RPCs live; Product Center editor wires draft/approve explicitly. */
+  localeCopyApproved: "core_csp_sales_products",
+  /**
+   * Path columns/RPCs + private bucket live.
+   * Upload API fail-closed until PRODUCT_MEDIA_UPLOAD_ACTIVATION=staging (Prod separate YES).
+   */
+  mediaPathsPersisted: "core_csp_sales_products",
   entitlementActive: "tenant_entitlement",
   customerPrice: "planned_catalog_reference",
   /** Planned catalog until Core `csp_product_variants` SQL is applied. */

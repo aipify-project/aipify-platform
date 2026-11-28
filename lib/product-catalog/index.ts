@@ -77,6 +77,72 @@ export {
   type PublicationReadinessReport,
 } from "./publication-readiness";
 export {
+  PRODUCT_MEDIA_ALLOWED_MIME,
+  PRODUCT_MEDIA_CONTROL_OWNERSHIP,
+  PRODUCT_MEDIA_MAX_BYTES,
+  PRODUCT_MEDIA_PATH_PATTERN,
+  PRODUCT_MEDIA_STORAGE_BUCKET,
+  PRODUCT_MEDIA_UPLOAD_API_CONTRACT,
+  buildProductMediaObjectPath,
+  isProductMediaPath,
+  type ProductMediaKind,
+  type ProductMediaMime,
+} from "./product-media-storage-contract";
+export {
+  applyApprovedContentToPresentation,
+  loadApprovedProductContent,
+  parseApprovedProductContent,
+  PARTNER_CONTENT_REUSE_NOTES,
+  PRODUCT_CONTENT_LOCALES,
+  PRODUCT_LOCALE_MEDIA_RPCS,
+  isProductContentLocale,
+  type ApprovedProductContent,
+  type ProductContentChannel,
+  type ProductContentLocale,
+  type ProductLocaleCopy,
+} from "./locale-media-core";
+export {
+  detectProductMediaMime,
+  validateProductMediaBytes,
+  type ProductMediaBytesValidation,
+} from "./product-media-bytes";
+export {
+  PRODUCT_MEDIA_PRODUCTION_UPLOAD_ACTIVATION_PLAN,
+  isProductMediaUploadEnabled,
+  resolveProductMediaUploadGate,
+  type ProductMediaUploadGate,
+} from "./product-media-upload-gate";
+export {
+  PRODUCT_MEDIA_SIGNED_URL_TTL_SECONDS,
+  createChannelProductMediaSignedUrl,
+  type ProductMediaSignedUrlResult,
+} from "./product-media-signed-url";
+export {
+  enrichUnifiedCatalogProduct,
+  isPublicCatalogAsset,
+  overlayApprovedProductPresentation,
+  type EnrichedCatalogProduct,
+} from "./content-media-presentation";
+export {
+  enrichCatalogProductsWithApprovedMedia,
+  loadApprovedContentForProducts,
+} from "./content-media-enrich";
+export {
+  APP_BILLING_ROUTE,
+  APP_CUSTOMER_JOURNEY_OWNERS,
+  APP_CUSTOMER_JOURNEY_STEPS,
+  APP_LICENSE_ROUTE,
+  APP_SOFTWARE_STORE_ROUTE,
+  APP_SUBSCRIPTION_ROUTE,
+  KOMPIS_PRODUCT_OPEN_HREFS,
+  appSoftwareDetailHref,
+  exploreProductIdToSoftwareKey,
+  isValidAppProductKeyParam,
+  resolveAppProductAccessState,
+  resolveAppProductPrimaryAction,
+  type AppProductAccessState,
+} from "./app-customer-journey";
+export {
   formatVariantQuotaLabel,
   priceForInterval,
   type ProductBillingInterval,

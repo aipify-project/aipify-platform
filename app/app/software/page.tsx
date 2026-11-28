@@ -5,7 +5,6 @@ import { resolveStoreCategoryId, sortStoreCategoryIds } from "@/lib/app-portal/c
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon } from "@/lib/app-portal/hubs/hub-copy";
-import { loadSubscriptionProductReads } from "@/lib/commercial-packages/load-kompis-product-access";
 import { buildSoftwareShowcaseLabels } from "@/lib/commercial-packages/modules-panel-labels";
 import { buildPortfolioLabels } from "@/lib/commercial-packages/portfolio-labels";
 import { AppLayoutClasses } from "@/lib/design/app-layout";
@@ -13,20 +12,12 @@ import {
   formatHubContextLine,
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
-import {
-  buildUnifiedCatalog,
-  filterAppStoreProducts,
-  loadAppStoreCoreProducts,
-  type ProductCatalogLocaleCode,
-} from "@/lib/product-catalog";
-import {
-  applyAuthoritativeCorePricing,
-  loadAuthoritativeVariantsForProducts,
-} from "@/lib/product-catalog/authoritative-pricing";
+import type { ProductCatalogLocaleCode } from "@/lib/product-catalog";
+import { loadAppSoftwareCatalog } from "@/lib/product-catalog/load-app-software-catalog";
+import { parseSoftwareCatalogScope } from "@/lib/product-catalog/product-activation-journey";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
-import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -37,7 +28,16 @@ const LOCALES = new Set<ProductCatalogLocaleCode>(["en", "no", "sv", "da", "pl",
 /** APP Store — APP-channel products only (not SALE-only partner catalogue). */
 type SoftwareSearchParams = {
   category?: string | string[];
+  scope?: string | string[];
 };
+
+function softwareListHref(input: { category: string; scope: "all" | "licensed" }): string {
+  const params = new URLSearchParams();
+  if (input.category && input.category !== "all") params.set("category", input.category);
+  if (input.scope === "licensed") params.set("scope", "licensed");
+  const q = params.toString();
+  return q ? `/app/software?${q}` : "/app/software";
+}
 
 export default async function SoftwareCatalogPage({
   searchParams,
@@ -55,77 +55,20 @@ export default async function SoftwareCatalogPage({
   ]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
-  const [ctx, productReads, supabase, params] = await Promise.all([
+  const [ctx, catalog, params] = await Promise.all([
     resolveHubWorkspaceContext(),
-    loadSubscriptionProductReads(),
-    createClient(),
+    loadAppSoftwareCatalog(catalogLocale),
     searchParams ?? Promise.resolve({} as SoftwareSearchParams),
   ]);
   const portfolio = buildPortfolioLabels(t);
   const showcase = buildSoftwareShowcaseLabels(t);
-  const catalog = buildCustomerCatalogLabels(t);
+  const catalogLabels = buildCustomerCatalogLabels(t);
 
-  const access = productReads.access;
-  const webActive = access.webKind === "known_plan" && Boolean(access.webPlan);
-  const bedriftActive = access.bedrift === "licensed";
-
-  // Prefer Core APP publish flags when channel RPC is applied; otherwise keep
-  // labelled registry fallback (never pretend Core persisted publish_app).
-  // When Core answers successfully with 0 publish_app rows → honest empty store.
-  const coreLoad = await loadAppStoreCoreProducts(supabase);
-  const coreChannelApplied = coreLoad.ok;
-  const coreProducts = coreLoad.ok ? coreLoad.products : null;
-
-  let allProducts = filterAppStoreProducts(
-    buildUnifiedCatalog({
-      locale: catalogLocale,
-      coreProducts,
-      coreChannelApplied,
-      entitlements: [
-        { productKey: "kompis_web", active: webActive },
-        { productKey: "kompis_bedrift", active: bedriftActive },
-      ],
-    }),
-  );
-
-  // Authoritative Core variant prices — never keep planned/hardcoded amounts once Core answers.
-  let coreVariantsNote: string | null = null;
-  if (coreChannelApplied && allProducts.length > 0) {
-    const loaded = await loadAuthoritativeVariantsForProducts(
-      supabase,
-      allProducts.map((p) => p.productKey),
-    );
-    if (loaded.ok) {
-      const map = { ...loaded.variantsByProductKey };
-      for (const product of allProducts) {
-        if (!Object.prototype.hasOwnProperty.call(map, product.productKey)) {
-          map[product.productKey] = [];
-        }
-      }
-      allProducts = applyAuthoritativeCorePricing({
-        products: allProducts,
-        coreVariantsByKey: map,
-        coreVariantsResolved: true,
-        stripCommission: true,
-      });
-      if (loaded.failedKeys.length > 0) {
-        coreVariantsNote = showcase.coreChannelPending ?? null;
-      }
-    } else {
-      // Fail closed: do not present planned catalog as Core price.
-      allProducts = applyAuthoritativeCorePricing({
-        products: allProducts,
-        coreVariantsByKey: Object.fromEntries(allProducts.map((p) => [p.productKey, []])),
-        coreVariantsResolved: true,
-        stripCommission: true,
-      });
-      coreVariantsNote = showcase.coreChannelPending ?? null;
-    }
-  }
+  const allProducts = catalog.products;
+  const scopeFilter = parseSoftwareCatalogScope(params.scope);
 
   const rawCategory = params.category;
   const categoryParam = Array.isArray(rawCategory) ? rawCategory[0] : rawCategory;
-  // Keep literal "all" — resolveStoreCategoryId intentionally ignores "all".
   const categoryFilter =
     typeof categoryParam === "string" && categoryParam.trim().toLowerCase() === "all"
       ? "all"
@@ -133,10 +76,15 @@ export default async function SoftwareCatalogPage({
         ? resolveStoreCategoryId({ productKey: null, category: categoryParam })
         : "all";
 
+  const scopedProducts =
+    scopeFilter === "licensed"
+      ? allProducts.filter((p) => p.entitlementActive)
+      : allProducts;
+
   const products =
     categoryFilter === "all"
-      ? allProducts
-      : allProducts.filter(
+      ? scopedProducts
+      : scopedProducts.filter(
           (p) =>
             resolveStoreCategoryId({
               productKey: p.productKey,
@@ -154,10 +102,7 @@ export default async function SoftwareCatalogPage({
     ),
   ]);
 
-  const corePendingNote =
-    (!coreLoad.ok && coreLoad.reason === "missing") || coreVariantsNote
-      ? showcase.coreChannelPending ?? null
-      : null;
+  const corePendingNote = catalog.corePending ? showcase.coreChannelPending ?? null : null;
 
   return (
     <AppHubShell
@@ -180,34 +125,75 @@ export default async function SoftwareCatalogPage({
             {corePendingNote}
           </p>
         ) : null}
+        <div
+          role="group"
+          aria-label={showcase.scopeLabel}
+          className="flex flex-wrap gap-2"
+        >
+          {(
+            [
+              { id: "all" as const, label: showcase.scopeAll },
+              { id: "licensed" as const, label: showcase.scopeLicensed },
+            ] as const
+          ).map((scope) => {
+            const active = scope.id === scopeFilter;
+            return (
+              <Link
+                key={scope.id}
+                href={softwareListHref({ category: categoryFilter, scope: scope.id })}
+                aria-current={active ? "page" : undefined}
+                className={`inline-flex min-h-10 items-center rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] ${
+                  active
+                    ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                    : "border border-[var(--app-border)] bg-[var(--app-card)] text-[var(--app-text)] hover:bg-[color:var(--aipify-accent-soft)]"
+                }`}
+              >
+                {scope.label}
+              </Link>
+            );
+          })}
+        </div>
         <SoftwareProductShowcase
           embedded
           showcase={showcase}
           labels={portfolio}
-          catalogLabels={catalog}
+          catalogLabels={catalogLabels}
           products={products}
           categories={categories}
           activeCategory={categoryFilter}
-          emptyTitle={showcase.emptyTitle}
-          emptyBody={showcase.emptyBody}
+          accessScope={scopeFilter}
+          emptyTitle={
+            scopeFilter === "licensed" ? showcase.emptyLicensedTitle : showcase.emptyTitle
+          }
+          emptyBody={
+            scopeFilter === "licensed" ? showcase.emptyLicensedBody : showcase.emptyBody
+          }
           seeInformation={showcase.seeInformation}
           contactAipify={showcase.contactAipify}
           notForPurchase={showcase.notForPurchase}
           plannedPriceNote={showcase.plannedPriceNote}
           locale={catalogLocale}
         />
-        <Link
-          href={CUSTOMER_CATALOG_ROUTE}
-          className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-        >
-          {catalog.exploreLink}
-        </Link>
-        <Link
-          href="/app/settings/billing/packages"
-          className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-        >
-          {portfolio.packagesTitle}
-        </Link>
+        <div className="flex flex-wrap gap-4">
+          <Link
+            href={CUSTOMER_CATALOG_ROUTE}
+            className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+          >
+            {catalogLabels.exploreLink}
+          </Link>
+          <Link
+            href="/app/account/subscription"
+            className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+          >
+            {portfolio.viewSubscriptionDetails}
+          </Link>
+          <Link
+            href={FOUNDATION_NAV_BINDINGS.supportTickets}
+            className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+          >
+            {t("customerApp.portalStructure.nav.supportTickets")}
+          </Link>
+        </div>
       </div>
     </AppHubShell>
   );

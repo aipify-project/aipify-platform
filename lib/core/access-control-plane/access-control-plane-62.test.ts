@@ -245,7 +245,8 @@ function baseSnapshotInput(
   assert.match(layout, /authz\.pathDenied && isKompisWebOperationalPath\(requestPathname\)/);
   assert.match(layout, /redirect\("\/app"\)/);
   assert.equal(isKompisWebOperationalPath("/app/website-kompis/faq"), true);
-  assert.equal(isKompisWebOperationalPath("/app/software"), true);
+  assert.equal(isKompisWebOperationalPath("/app/software"), false);
+  assert.equal(isKompisWebOperationalPath("/app/software/kompis_web"), false);
   assert.equal(isKompisWebOperationalPath("/app/explore"), false);
   assert.equal(isKompisWebOperationalPath("/app/account/invoices"), false);
 }

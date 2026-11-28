@@ -9,6 +9,10 @@ import type {
   CatalogProduct,
   CatalogProductState,
 } from "@/lib/app-portal/customer-catalog/model";
+import {
+  appSoftwareDetailHref,
+  exploreProductIdToSoftwareKey,
+} from "@/lib/product-catalog/app-customer-journey";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import type { AipifyStatusKind } from "@/lib/design/status-system";
 import { Check } from "lucide-react";
@@ -314,7 +318,18 @@ export function CustomerProductCatalog({
                     </div>
                   ) : null}
 
-                  <div className="mt-auto pt-5">
+                  <div className="mt-auto space-y-2 pt-5">
+                    {(() => {
+                      const softwareKey = exploreProductIdToSoftwareKey(product.id);
+                      return softwareKey ? (
+                        <Link
+                          href={appSoftwareDetailHref(softwareKey)}
+                          className={`inline-flex min-h-11 w-full items-center justify-center rounded-[var(--app-radius-md)] border border-[var(--app-border)] px-4 text-sm font-medium text-[var(--app-text)] ${AppPremiumShell.focusRing}`}
+                        >
+                          {labels.seeAllFeatures}
+                        </Link>
+                      ) : null;
+                    })()}
                     {product.openHref ? (
                       <Link
                         href={product.openHref}

@@ -19,8 +19,12 @@ assert.match(page, /lg:grid-cols-2/);
 assert.doesNotMatch(page, /kompisWebModules/);
 
 const appearance = readFileSync(join(ROOT, "app/app/website-kompis/appearance/page.tsx"), "utf8");
-assert.match(appearance, /DomainLicenseCenterPanel/);
+assert.doesNotMatch(appearance, /DomainLicenseCenterPanel/);
 assert.match(appearance, /AppHubShell/);
+assert.match(appearance, /appearanceHonestNote/);
+assert.match(appearance, /kompisWebConnection/);
+assert.match(appearance, /kompisWebFaq/);
+assert.match(appearance, /supportTickets/);
 assert.doesNotMatch(appearance, /WebsiteKompisSettingsIntro/);
 
 const integrations = readFileSync(join(ROOT, "app/app/account/integrations/page.tsx"), "utf8");

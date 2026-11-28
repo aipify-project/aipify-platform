@@ -8529,7 +8529,7 @@
       "qaDescription": "Review visitor questions and feedback from your website.",
       "faqDescription": "Publish and maintain public FAQ and knowledge for your website — pages and documents when available.",
       "connectionDescription": "Connect domains, installs, and visitor access for Buddy Web.",
-      "appearanceDescription": "Choose widget look, welcome messages, and presentation for visitors.",
+      "appearanceDescription": "Open the places that shape visitor presentation — connection, knowledge, and advanced website tools.",
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
       "operatorLink": "Open website publisher (Buddy)",
       "presenceReady": "Aipify is ready to help on your verified pages.",
@@ -8626,7 +8626,13 @@
         "connectionDomainsTitle": "Domains and installs",
         "connectionDomainsCard": "Review domains and visitor access for this website companion.",
         "connectionVsSubscription": "Subscription shows your Aipify plan. Connection shows product readiness for this account.",
-        "connectionLicenseNote": "Need plan or billing details?"
+        "connectionLicenseNote": "Need plan or billing details?",
+        "appearanceHonestNote": "Visitor widget look is tied to your website connection and published knowledge. There is no separate save form here that invents settings.",
+        "appearanceConnectionCard": "Confirm the website connection before visitors see Buddy on your pages.",
+        "appearanceFaqCard": "Publish FAQ and knowledge visitors can read — this shapes what Buddy can answer.",
+        "appearanceOperatorCard": "Open advanced website publishing tools when you need candidate pages and publish controls.",
+        "appearanceProfileCard": "Workspace profile and account presentation live under Account — not duplicated here.",
+        "appearanceSupportCard": "Need help with visitor presentation? Open customer support requests."
       },
       "bedrift": {
         "dashboardTitle": "Buddy Business overview",
@@ -8659,7 +8665,11 @@
         "connectionDescription": "See whether Buddy Business is available and valid for this account. Plan changes belong under Subscription.",
         "connectionAccessCard": "Review people and access for this organization.",
         "connectionVsSubscription": "Subscription shows your Aipify plan. Connection shows product readiness for this account.",
-        "connectionLicenseNote": "Need plan or billing details?"
+        "connectionLicenseNote": "Need plan or billing details?",
+        "connectionCard": "See product readiness and license status for Buddy Business on this account.",
+        "connectionModulesCard": "Review modules available for Buddy Business — this view does not purchase or activate them.",
+        "connectionSupportCard": "Open customer support when connection or access needs help.",
+        "connectionSoftwareCard": "Browse APP products and entitlements without leaving this workspace context."
       },
       "account": {
         "overviewTitle": "Account center",

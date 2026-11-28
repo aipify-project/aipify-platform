@@ -1,4 +1,13 @@
-import { ArrowUpRight, Bell, Palette, PanelTop, Puzzle, type LucideIcon } from "lucide-react";
+import {
+  ArrowUpRight,
+  Bell,
+  Link2,
+  MessagesSquare,
+  Palette,
+  PanelTop,
+  Puzzle,
+  type LucideIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
@@ -7,6 +16,7 @@ import {
   formatHubContextLine,
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
+import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -26,6 +36,12 @@ export default async function WebsiteKompisSettingsPage() {
     icon: LucideIcon;
   }> = [
     {
+      href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
+      title: t("customerApp.portalStructure.nav.kompisWebConnection"),
+      description: t("customerApp.portalStructure.webHub.connectionDescription"),
+      icon: Link2,
+    },
+    {
       href: FOUNDATION_NAV_BINDINGS.kompisWebAppearance,
       title: t("customerApp.portalStructure.nav.kompisWebAppearance"),
       description: t("customerApp.portalStructure.webHub.appearanceDescription"),
@@ -42,6 +58,12 @@ export default async function WebsiteKompisSettingsPage() {
       title: t("customerApp.portalStructure.nav.accountNotifications"),
       description: hubT(t, "account.notificationsCard"),
       icon: Bell,
+    },
+    {
+      href: FOUNDATION_NAV_BINDINGS.supportTickets,
+      title: t("customerApp.portalStructure.nav.supportTickets"),
+      description: hubT(t, "web.appearanceSupportCard"),
+      icon: MessagesSquare,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisOperatorPreserved,
@@ -67,7 +89,7 @@ export default async function WebsiteKompisSettingsPage() {
       description={t("customerApp.portalStructure.webHub.settingsDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
     >
-      <div className="space-y-6">
+      <div className={`${AppLayoutClasses.pageWidth} space-y-6`}>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {cards.map((card) => {
             const Icon = card.icon;

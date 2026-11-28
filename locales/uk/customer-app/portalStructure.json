@@ -7544,7 +7544,7 @@
       "qaDescription": "Review visitor questions and feedback from your website.",
       "faqDescription": "Публікуйте та підтримуйте публічні FAQ і знання для вашого сайту — сторінки та документи коли доступні.",
       "connectionDescription": "Connect domains, installs, and visitor access for Buddy Web.",
-      "appearanceDescription": "Choose widget look, welcome messages, and presentation for visitors.",
+      "appearanceDescription": "Відкрийте місця, що формують презентацію для відвідувачів — підключення, знання та розширені інструменти сайту.",
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
       "operatorLink": "Open website publisher (Buddy)",
       "presenceReady": "Aipify готовий допомагати на перевірених сторінках.",
@@ -7641,7 +7641,13 @@
         "connectionDomainsTitle": "Домени та встановлення",
         "connectionDomainsCard": "Перегляньте домени та доступ відвідувачів для супутника сайту.",
         "connectionVsSubscription": "Підписка показує план Aipify. Підключення показує готовність продукту для облікового запису.",
-        "connectionLicenseNote": "Потрібні деталі плану або оплати?"
+        "connectionLicenseNote": "Потрібні деталі плану або оплати?",
+        "appearanceHonestNote": "Вигляд віджету для відвідувачів пов’язаний із підключенням сайту та опублікованими знаннями. Тут немає окремої форми збереження, яка вигадує налаштування.",
+        "appearanceConnectionCard": "Підтвердіть підключення сайту, перш ніж відвідувачі побачать Buddy на ваших сторінках.",
+        "appearanceFaqCard": "Опублікуйте FAQ і знання для відвідувачів — це формує, на що Buddy може відповідати.",
+        "appearanceOperatorCard": "Відкрийте розширені інструменти публікації, коли потрібні кандидатні сторінки та контроль публікації.",
+        "appearanceProfileCard": "Профіль робочої області та представлення облікового запису — у розділі Обліковий запис, без дублювання тут.",
+        "appearanceSupportCard": "Потрібна допомога з презентацією для відвідувачів? Відкрийте запити до підтримки."
       },
       "bedrift": {
         "dashboardTitle": "Огляд Buddy Business",
@@ -7674,7 +7680,11 @@
         "connectionDescription": "Перевірте, чи доступний і дійсний Buddy Business для цього облікового запису. Зміни плану — в Підписці.",
         "connectionAccessCard": "Перегляньте людей і доступ в організації.",
         "connectionVsSubscription": "Підписка показує план Aipify. Підключення показує готовність продукту для облікового запису.",
-        "connectionLicenseNote": "Потрібні деталі плану або оплати?"
+        "connectionLicenseNote": "Потрібні деталі плану або оплати?",
+        "connectionCard": "Перегляньте готовність продукту та статус ліцензії Buddy Business на цьому обліковому записі.",
+        "connectionModulesCard": "Перегляньте модулі Buddy Business — цей екран їх не купує й не активує.",
+        "connectionSupportCard": "Відкрийте підтримку клієнтів, коли підключення або доступ потребують допомоги.",
+        "connectionSoftwareCard": "Переглядайте продукти й права APP, не виходячи з контексту цієї робочої області."
       },
       "account": {
         "overviewTitle": "Центр облікового запису",

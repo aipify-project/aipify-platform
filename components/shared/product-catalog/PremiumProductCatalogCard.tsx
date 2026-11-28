@@ -41,6 +41,8 @@ export type PremiumCatalogCardLabels = {
   vatUnknown: string;
   /** Shown when the selected variant has no paid customer price. */
   freePrice?: string;
+  /** APP open CTA when entitlement is active. */
+  openProduct?: string;
 };
 
 export type PremiumCatalogCardMode = "app" | "sale";
@@ -78,6 +80,7 @@ export function PremiumProductCatalogCard({
   resolveSaleCommission,
   detailsExtra,
   footerNote,
+  detailsHref,
 }: {
   product: UnifiedCatalogProduct;
   mode: PremiumCatalogCardMode;
@@ -85,6 +88,8 @@ export function PremiumProductCatalogCard({
   labels: PremiumCatalogCardLabels;
   heroSrc?: string | null;
   features?: Array<{ label: string; included: boolean }>;
+  /** When set (APP), See information navigates to product detail instead of only opening the dialog. */
+  detailsHref?: string | null;
   onShare?: (input: {
     productKey: string;
     variantKey: string | null;
@@ -272,14 +277,24 @@ export function PremiumProductCatalogCard({
         ) : null}
 
         <div className="mt-auto flex flex-wrap gap-2 pt-2">
-          <button
-            type="button"
-            onClick={() => setDetailsOpen(true)}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-[color:var(--aipify-border-strong)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
-          >
-            <Info className="size-4" aria-hidden />
-            {labels.seeDetails}
-          </button>
+          {detailsHref ? (
+            <Link
+              href={detailsHref}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[color:var(--aipify-border-strong)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+            >
+              <Info className="size-4" aria-hidden />
+              {labels.seeDetails}
+            </Link>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setDetailsOpen(true)}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[color:var(--aipify-border-strong)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+            >
+              <Info className="size-4" aria-hidden />
+              {labels.seeDetails}
+            </button>
+          )}
 
           {mode === "app" ? (
             cta.kind === "open" ? (
@@ -287,7 +302,7 @@ export function PremiumProductCatalogCard({
                 href={cta.href}
                 className="inline-flex rounded-xl bg-[color:var(--aipify-companion-purple)] px-3 py-2 text-sm font-semibold text-white"
               >
-                {labels.seeDetails}
+                {labels.openProduct || labels.seeDetails}
               </Link>
             ) : cta.kind === "contact" ? (
               <Link

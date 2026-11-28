@@ -5,6 +5,7 @@ import type { buildSoftwareShowcaseLabels } from "@/lib/commercial-packages/modu
 import type { CustomerCatalogLabels } from "@/lib/app-portal/customer-catalog/labels";
 import { storeCategoryLabelKey } from "@/lib/app-portal/customer-catalog/categories";
 import type { UnifiedCatalogProduct } from "@/lib/product-catalog";
+import { appSoftwareDetailHref } from "@/lib/product-catalog/app-customer-journey";
 import { formatVariantQuotaLabel } from "@/lib/product-catalog/variants";
 import {
   PremiumProductCatalogCard,
@@ -18,6 +19,9 @@ function featureRows(
   product: UnifiedCatalogProduct,
   locale: string,
 ): Array<{ label: string; included: boolean }> {
+  if (Array.isArray(product.benefits) && product.benefits.length > 0) {
+    return product.benefits.slice(0, 6).map((label) => ({ label, included: true }));
+  }
   if (product.productKey === "kompis_web") {
     return product.variants
       .filter((v) => v.active)
@@ -45,21 +49,23 @@ function categoryDisplayLabel(
   return catalog.otherCategory;
 }
 
-function softwareHref(category: string): string {
-  if (!category || category === "all") return "/app/software";
+function softwareHref(category: string, scope: "all" | "licensed" = "all"): string {
   const params = new URLSearchParams();
-  params.set("category", category);
-  return `/app/software?${params.toString()}`;
+  if (category && category !== "all") params.set("category", category);
+  if (scope === "licensed") params.set("scope", "licensed");
+  const q = params.toString();
+  return q ? `/app/software?${q}` : "/app/software";
 }
 
 export function SoftwareProductShowcase({
   embedded = false,
   showcase,
-  labels: _labels,
+  labels: portfolioLabels,
   catalogLabels,
   products,
   categories,
   activeCategory = "all",
+  accessScope = "all",
   emptyTitle,
   emptyBody,
   seeInformation,
@@ -75,6 +81,7 @@ export function SoftwareProductShowcase({
   products: UnifiedCatalogProduct[];
   categories: string[];
   activeCategory?: string;
+  accessScope?: "all" | "licensed";
   emptyTitle: string;
   emptyBody: string;
   seeInformation: string;
@@ -83,7 +90,6 @@ export function SoftwareProductShowcase({
   plannedPriceNote: string;
   locale?: string;
 }) {
-  void _labels;
 
   const cardLabels: PremiumCatalogCardLabels = {
     mostPopular: showcase.mostPopular,
@@ -105,6 +111,7 @@ export function SoftwareProductShowcase({
     closeDetails: showcase.closeDetails,
     vatUnknown: showcase.vatUnknown,
     freePrice: showcase.freePrice,
+    openProduct: portfolioLabels.openProduct,
   };
 
   return (
@@ -120,7 +127,7 @@ export function SoftwareProductShowcase({
             return (
               <Link
                 key={id}
-                href={softwareHref(id)}
+                href={softwareHref(id, accessScope)}
                 aria-current={active ? "page" : undefined}
                 className={`inline-flex min-h-10 items-center rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] ${
                   active
@@ -173,7 +180,9 @@ export function SoftwareProductShowcase({
                 mode="app"
                 locale={locale}
                 labels={cardLabels}
+                heroSrc={product.heroImagePath ?? product.logoSrc}
                 features={featureRows(product, locale)}
+                detailsHref={appSoftwareDetailHref(product.productKey)}
               />
             </div>
           ))}

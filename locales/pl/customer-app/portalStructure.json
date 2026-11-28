@@ -7544,7 +7544,7 @@
       "qaDescription": "Review visitor questions and feedback from your website.",
       "faqDescription": "Publikuj i utrzymuj publiczne FAQ i wiedzę dla swojej witryny — strony i dokumenty gdy dostępne.",
       "connectionDescription": "Connect domains, installs, and visitor access for Buddy Web.",
-      "appearanceDescription": "Choose widget look, welcome messages, and presentation for visitors.",
+      "appearanceDescription": "Otwórz miejsca, które kształtują prezentację dla odwiedzających — połączenie, wiedzę i zaawansowane narzędzia witryny.",
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
       "operatorLink": "Open website publisher (Buddy)",
       "presenceReady": "Aipify jest gotowe pomagać na zweryfikowanych stronach.",
@@ -7641,7 +7641,13 @@
         "connectionDomainsTitle": "Domeny i instalacje",
         "connectionDomainsCard": "Przejrzyj domeny i dostęp odwiedzających dla towarzysza witryny.",
         "connectionVsSubscription": "Abonament pokazuje plan Aipify. Połączenie pokazuje gotowość produktu dla konta.",
-        "connectionLicenseNote": "Potrzebujesz szczegółów planu lub płatności?"
+        "connectionLicenseNote": "Potrzebujesz szczegółów planu lub płatności?",
+        "appearanceHonestNote": "Wygląd widżetu dla odwiedzających jest powiązany z połączeniem witryny i opublikowaną wiedzą. Nie ma tu osobnego formularza zapisu, który wymyśla ustawienia.",
+        "appearanceConnectionCard": "Potwierdź połączenie witryny, zanim odwiedzający zobaczą Buddy na Twoich stronach.",
+        "appearanceFaqCard": "Opublikuj FAQ i wiedzę dla odwiedzających — to kształtuje, na co Buddy może odpowiadać.",
+        "appearanceOperatorCard": "Otwórz zaawansowane narzędzia publikacji, gdy potrzebujesz stron kandydatów i kontroli publikacji.",
+        "appearanceProfileCard": "Profil przestrzeni roboczej i prezentacja konta są w Koncie — nie są tu powielane.",
+        "appearanceSupportCard": "Potrzebujesz pomocy z prezentacją dla odwiedzających? Otwórz zgłoszenia obsługi klienta."
       },
       "bedrift": {
         "dashboardTitle": "Przegląd Buddy Business",
@@ -7674,7 +7680,11 @@
         "connectionDescription": "Sprawdź, czy Buddy Business jest dostępny i ważny dla tego konta. Zmiany planu są w Abonamencie.",
         "connectionAccessCard": "Przejrzyj osoby i dostęp w organizacji.",
         "connectionVsSubscription": "Abonament pokazuje plan Aipify. Połączenie pokazuje gotowość produktu dla konta.",
-        "connectionLicenseNote": "Potrzebujesz szczegółów planu lub płatności?"
+        "connectionLicenseNote": "Potrzebujesz szczegółów planu lub płatności?",
+        "connectionCard": "Zobacz gotowość produktu i status licencji Buddy Business na tym koncie.",
+        "connectionModulesCard": "Przejrzyj moduły dostępne dla Buddy Business — ten widok ich nie kupuje ani nie aktywuje.",
+        "connectionSupportCard": "Otwórz obsługę klienta, gdy połączenie lub dostęp wymaga pomocy.",
+        "connectionSoftwareCard": "Przeglądaj produkty i uprawnienia APP bez opuszczania kontekstu tej przestrzeni."
       },
       "account": {
         "overviewTitle": "Centrum konta",

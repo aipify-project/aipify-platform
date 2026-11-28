@@ -1,0 +1,47 @@
+-- NOT_APPLIED — SEPARATE STORAGE-POLICY APPROVAL REQUIRED
+-- Job: AIPIFY_PRODUCT_CENTER_CORE_CONTENT_MEDIA_FOUNDATION_V1 (storage slice)
+--
+-- Do NOT apply with the locale/media RPC foundation. Owner must name this file,
+-- its SHA256, and the target environment in a separate YES.
+--
+-- Purpose: private Storage bucket for Platform Product Center product marks.
+-- Paths registered via csp_set_product_media_paths after a successful upload.
+--
+-- Design
+--   Bucket: csp-product-media (private)
+--   Path layout: products/{product_key}/{logo|hero}/{uuid}.{ext}
+--   MIME allowlist: image/png, image/jpeg, image/webp, image/svg+xml
+--   Max size: 2 MiB
+--   Access: Platform Admin upload/read via signed URLs only (server routes).
+--           APP/Partner receive path strings from RPCs; public CDN may later
+--           serve approved registry-mirrored assets — not in this candidate.
+--   Tenant isolation: Platform-owned catalog assets (not customer tenant media).
+--   Lifecycle: supersede prior object on replace; never hard-delete audit of paths
+--           in csp_sales_products without Platform confirmation.
+--
+-- NON-EFFECTS
+--   Does not reuse companion-attachments or company-profile-logos
+--   Does not grant anon/authenticated insert on storage.objects
+--   Does not expose service-role to clients
+--
+-- APPLY ORDER (after RPC foundation YES)
+--   1) Staging — create bucket + policies
+--   2) Wire Platform upload API (separate task)
+--   3) Production — separate YES
+
+-- Example shape (DO NOT APPLY without YES) — illustrative only:
+--
+-- insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+-- values (
+--   'csp-product-media',
+--   'csp-product-media',
+--   false,
+--   2097152,
+--   array['image/png','image/jpeg','image/webp','image/svg+xml']
+-- )
+-- on conflict (id) do nothing;
+--
+-- Policies must require platform admin claim via security definer helpers —
+-- exact policy SQL is authored with the upload API task, not here.
+
+select 'NOT_APPLIED_csp_product_media_storage_v1' as candidate_status;
