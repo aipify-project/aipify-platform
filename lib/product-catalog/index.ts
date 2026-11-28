@@ -77,6 +77,18 @@ export {
   type PublicationReadinessReport,
 } from "./publication-readiness";
 export {
+  PRODUCT_MEDIA_ALLOWED_MIME,
+  PRODUCT_MEDIA_CONTROL_OWNERSHIP,
+  PRODUCT_MEDIA_MAX_BYTES,
+  PRODUCT_MEDIA_PATH_PATTERN,
+  PRODUCT_MEDIA_STORAGE_BUCKET,
+  PRODUCT_MEDIA_UPLOAD_API_CONTRACT,
+  buildProductMediaObjectPath,
+  isProductMediaPath,
+  type ProductMediaKind,
+  type ProductMediaMime,
+} from "./product-media-storage-contract";
+export {
   formatVariantQuotaLabel,
   priceForInterval,
   type ProductBillingInterval,
