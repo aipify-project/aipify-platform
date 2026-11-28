@@ -7359,7 +7359,15 @@
         "appearanceOperatorCard": "Abre herramientas avanzadas de publicación cuando necesites páginas candidatas y controles de publicación.",
         "appearanceProfileCard": "El perfil del espacio de trabajo y la presentación de la cuenta están en Cuenta; no se duplican aquí.",
         "appearanceSupportCard": "¿Necesitas ayuda con la presentación para visitantes? Abre solicitudes de atención al cliente.",
-        "usageCard": "Revisa el cupo de respuestas y la capacidad restante sin inventar ceros."
+        "appearanceWriterUnavailableTitle": "El editor de apariencia aún no está disponible",
+        "appearanceWriterUnavailableBody": "Aipify no puede guardar la apariencia del widget para visitantes hasta que el escritor de Core esté aprobado y activado. Esta página permanece fail-closed: sin ajustes inventados ni éxito falso.",
+        "appearanceCandidateReadyNote": "Hay un candidato SQL de Core preparado para la aprobación del propietario. Apply y la activación requieren un YES exacto por entorno.",
+        "appearanceConfigStatusLabel": "Estado de configuración",
+        "appearanceWriterStatusUnavailable": "Escritor no disponible",
+        "usageCard": "Revisa el cupo de respuestas y la capacidad restante sin inventar ceros.",
+        "appearanceInstallChromeCard": "Abre Conexión para editar el icono de inicio, el tono y el estilo de bienvenida de un dominio verificado, con la configuración de instalación Core existente.",
+        "appearanceWriterUnavailable": "Editor de tema no activado",
+        "appearanceWriterBlockedBody": "El color de acento y el mensaje libre de bienvenida aún no se pueden editar aquí. La configuración de apariencia de Core requiere una aprobación aparte del propietario. El aspecto de instalación permanece en Conexión."
       },
       "bedrift": {
         "dashboardTitle": "Resumen de Buddy Business",

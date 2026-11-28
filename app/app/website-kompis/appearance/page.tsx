@@ -12,11 +12,12 @@ import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { readWebsiteKompisAppearanceFailClosed } from "@/lib/website-kompis-appearance";
 
 /**
- * Kompis Web appearance — honest hub to existing presentation surfaces.
- * Does not embed Domain License (that belongs on Connection).
- * Does not invent widget save forms or mutate frozen public runtime.
+ * Kompis Web appearance — fail-closed for theme/welcome Core writer (candidate only).
+ * Install chrome (icon / tone / welcome variant) is edited on Connection via existing
+ * domain settings API — not duplicated here. Public-chain runtime is not mutated.
  */
 export default async function WebsiteKompisAppearancePage() {
   const locale = await getLocale();
@@ -24,6 +25,8 @@ export default async function WebsiteKompisAppearancePage() {
   const t = createTranslator(dict);
   const common = hubCommon(t);
   const ctx = await resolveHubWorkspaceContext();
+  const appearanceRead = readWebsiteKompisAppearanceFailClosed();
+  const writerUnavailable = appearanceRead.kind === "writer_unavailable";
 
   const cards: Array<{
     href: string;
@@ -33,9 +36,9 @@ export default async function WebsiteKompisAppearancePage() {
     icon: HubFeatureIconKind;
   }> = [
     {
-      href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
+      href: `${FOUNDATION_NAV_BINDINGS.kompisWebConnection}?section=domains`,
       title: t("customerApp.portalStructure.nav.kompisWebConnection"),
-      description: hubT(t, "web.appearanceConnectionCard"),
+      description: hubT(t, "web.appearanceInstallChromeCard"),
       tone: "purple",
       icon: "connection",
     },
@@ -87,8 +90,40 @@ export default async function WebsiteKompisAppearancePage() {
       title={t("customerApp.portalStructure.nav.kompisWebAppearance")}
       description={t("customerApp.portalStructure.webHub.appearanceDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
+      status={
+        writerUnavailable
+          ? { label: hubT(t, "web.appearanceWriterUnavailable"), tone: "amber" }
+          : { label: common.statusReady, tone: "emerald" }
+      }
     >
       <div className={`${AppLayoutClasses.pageWidth} space-y-6`}>
+        {writerUnavailable ? (
+          <section
+            className="rounded-xl border border-amber-200/80 bg-amber-50/70 px-4 py-4 text-sm leading-relaxed text-[var(--app-text)]"
+            role="status"
+            aria-live="polite"
+          >
+            <p className="text-xs font-medium uppercase tracking-wide text-amber-900/70">
+              {hubT(t, "web.appearanceConfigStatusLabel")}
+            </p>
+            <h2 className="mt-1 text-base font-semibold text-[var(--app-text)]">
+              {hubT(t, "web.appearanceWriterUnavailableTitle")}
+            </h2>
+            <p className="mt-2 text-[var(--app-text-muted)]">
+              {hubT(t, "web.appearanceWriterUnavailableBody")}
+            </p>
+            <p className="mt-2 text-[var(--app-text-muted)]">
+              {hubT(t, "web.appearanceWriterBlockedBody")}
+            </p>
+            <p className="mt-2 text-[var(--app-text-muted)]">
+              <span className="font-medium text-[var(--app-text)]">
+                {hubT(t, "web.appearanceWriterStatusUnavailable")}
+              </span>
+              {" — "}
+              {hubT(t, "web.appearanceCandidateReadyNote")}
+            </p>
+          </section>
+        ) : null}
         <p
           className="rounded-xl border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-4 py-3 text-sm leading-relaxed text-[var(--app-text-muted)]"
           role="note"
