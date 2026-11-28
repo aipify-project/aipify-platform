@@ -79,22 +79,35 @@ export async function POST(request: NextRequest) {
       request.headers.get("x-real-ip") ||
       "unknown";
     const rateKey = `aipify:public-support:v1:${createHash("sha256").update(ip).digest("hex")}`;
+    const correlationId =
+      request.headers.get("x-vercel-id")?.slice(0, 24) ||
+      createHash("sha256").update(`${Date.now()}:${ip}`).digest("hex").slice(0, 12);
     const rate = await consumeSharedRateLimit({
       key: rateKey,
       limit: PUBLIC_SUPPORT_INTAKE_RATE.limit,
       windowSeconds: PUBLIC_SUPPORT_INTAKE_RATE.windowSeconds,
     });
     if (!rate.ok) {
+      const category =
+        rate.status === 429 ? "rate_limited" : "rate_limit_unavailable";
       if (rate.status === 429) {
         logSuspiciousSubmission("support_intake_web", "rate_limit", ip);
       }
+      // Sanitized diagnostics only — no PII, tokens, Redis URLs, or payloads.
+      console.info("[support-intake:diag]", {
+        step: "rate_limit",
+        category,
+        status: rate.status,
+        correlationId,
+      });
       return NextResponse.json(
         {
           error:
             rate.status === 429
               ? "Forespørselen ble avvist."
               : "Supportinntak er midlertidig utilgjengelig.",
-          code: rate.status === 429 ? "rate_limited" : "rate_limit_unavailable",
+          code: category,
+          correlationId,
           ...getSupportIntakeGateState(),
           live: false,
         },

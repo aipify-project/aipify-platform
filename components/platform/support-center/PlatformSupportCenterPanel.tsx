@@ -1006,9 +1006,19 @@ export default function PlatformSupportCenterPanel({
                         ? labels.channels.preparedOnly
                         : labels.channels.notActivated;
               const copy = {
-                web: [labels.channels.web, labels.channels.webNote],
+                web: [
+                  labels.channels.web,
+                  ch.noteKey === "channels.webNoteLive"
+                    ? labels.channels.webNoteLive
+                    : labels.channels.webNote,
+                ],
                 app: [labels.channels.app, labels.channels.appNote],
-                partner: [labels.channels.partner, labels.channels.partnerNote],
+                partner: [
+                  labels.channels.partner,
+                  ch.noteKey === "channels.partnerNoteLive"
+                    ? labels.channels.partnerNoteLive
+                    : labels.channels.partnerNote,
+                ],
                 module: [labels.channels.module, labels.channels.moduleNote],
                 kompis: [labels.channels.kompis, labels.channels.kompisNote],
               }[ch.id as "web" | "app" | "partner" | "module" | "kompis"];
@@ -1022,12 +1032,19 @@ export default function PlatformSupportCenterPanel({
                 <li key={ch.id} className={`rounded-xl border p-4 ${tone}`}>
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="font-semibold">{copy[0]}</h3>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-medium">
-                      <span
-                        aria-hidden
-                        className="h-1.5 w-1.5 rounded-full bg-current opacity-70"
-                      />
-                      {statusLabel}
+                    <span className="inline-flex flex-col items-end gap-0.5 text-xs font-medium">
+                      <span className="inline-flex items-center gap-1.5">
+                        <span
+                          aria-hidden
+                          className="h-1.5 w-1.5 rounded-full bg-current opacity-70"
+                        />
+                        {statusLabel}
+                      </span>
+                      {ch.runtimeHealth === "unverified" ? (
+                        <span className="font-normal opacity-80">
+                          {labels.channels.runtimeUnverified}
+                        </span>
+                      ) : null}
                     </span>
                   </div>
                   <p className="mt-2 text-sm opacity-90">{copy[1]}</p>

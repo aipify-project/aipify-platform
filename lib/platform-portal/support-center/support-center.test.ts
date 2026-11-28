@@ -99,9 +99,11 @@ assert.equal(SUPPORT_TEMPLATE_PERSIST_CONFIGURED, false);
 
 const channels = listSupportChannelActivations();
 assert.equal(channels.length, 5);
-assert.equal(channels.find((c) => c.id === "web")?.status, "staging_only");
+assert.equal(channels.find((c) => c.id === "web")?.status, "active");
+assert.equal(channels.find((c) => c.id === "web")?.runtimeHealth, "unverified");
 assert.equal(channels.find((c) => c.id === "app")?.status, "incoming_live");
-assert.equal(channels.find((c) => c.id === "partner")?.status, "staging_only");
+assert.equal(channels.find((c) => c.id === "partner")?.status, "active");
+assert.equal(channels.find((c) => c.id === "partner")?.runtimeHealth, "unverified");
 assert.equal(channels.find((c) => c.id === "kompis")?.status, "not_activated");
 
 const templates = listSupportReplyStarterTemplates();
@@ -333,8 +335,8 @@ assert.equal(resetResult.ok && resetResult.customized, false);
 assert.equal(getStoredSupportSignature().signature.agentName, "");
 __resetSupportSignatureStoreForTests();
 
-// Channel statuses stay accurate (Core intake is closed) and email stays off.
-assert.equal(listSupportChannelActivations().filter((c) => c.status === "active").length, 0);
+// Channel statuses follow Support intake gates; email stays off.
+assert.equal(listSupportChannelActivations().filter((c) => c.status === "active").length, 2);
 assert.equal(listSupportChannelActivations().filter((c) => c.status === "incoming_live").length, 1);
 assert.equal(getSupportCenterGateState().emailSendConfigured, false);
 
