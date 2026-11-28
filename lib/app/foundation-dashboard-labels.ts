@@ -20,6 +20,9 @@ export function buildFoundationDashboardLabels(t: Translator): AppFoundationDash
     webUnavailable: t("customerApp.portalStructure.foundationDashboard.webUnavailable"),
     webDataUnavailable: t("customerApp.portalStructure.foundationDashboard.webDataUnavailable"),
     bedriftUnavailable: t("customerApp.portalStructure.foundationDashboard.bedriftUnavailable"),
+    bedriftDataUnavailable: t(
+      "customerApp.portalStructure.foundationDashboard.bedriftDataUnavailable"
+    ),
     bedriftTitle: t("customerApp.portalStructure.foundationDashboard.bedriftTitle"),
     bedriftDescription: t("customerApp.portalStructure.foundationDashboard.bedriftDescription"),
     setupTitle: t("customerApp.portalStructure.foundationDashboard.setupTitle"),
@@ -48,6 +51,13 @@ export function buildFoundationDashboardLabels(t: Translator): AppFoundationDash
     attentionTitle: t("customerApp.portalStructure.foundationDashboard.attentionTitle"),
     attentionDescription: t("customerApp.portalStructure.foundationDashboard.attentionDescription"),
     attentionEmpty: t("customerApp.portalStructure.foundationDashboard.attentionEmpty"),
+    attentionEmptyTitle: t(
+      "customerApp.portalStructure.foundationDashboard.attentionEmptyTitle"
+    ),
+    attentionEmptyDescription: t(
+      "customerApp.portalStructure.foundationDashboard.attentionEmptyDescription"
+    ),
+    attentionEmptyCta: t("customerApp.portalStructure.foundationDashboard.attentionEmptyCta"),
     attentionConnectionNeedsSetup: t(
       "customerApp.portalStructure.foundationDashboard.attentionConnectionNeedsSetup"
     ),
@@ -71,5 +81,10 @@ export function buildFoundationDashboardLabels(t: Translator): AppFoundationDash
     statusReady: t("customerApp.portalStructure.foundationDashboard.statusReady"),
     exploreTitle: t("customerApp.portalStructure.foundationDashboard.exploreTitle"),
     exploreDescription: t("customerApp.portalStructure.foundationDashboard.exploreDescription"),
+    loadErrorTitle: t("customerApp.portalStructure.foundationDashboard.loadErrorTitle"),
+    loadErrorDescription: t(
+      "customerApp.portalStructure.foundationDashboard.loadErrorDescription"
+    ),
+    retryLabel: t("customerApp.portalStructure.foundationDashboard.retryLabel"),
   };
 }

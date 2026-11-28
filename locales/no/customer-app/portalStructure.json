@@ -8625,7 +8625,7 @@
     "foundationDashboard": {
       "eyebrow": "Oversikt",
       "title": "Ditt Aipify-arbeidsområde",
-      "description": "Et rolig utgangspunkt for produktene og kontoen din.",
+      "description": "Ditt personlige Aipify-hjem — velkomst, produkter og kontosnarveier.",
       "welcomeNamed": "Velkommen tilbake. Du arbeider i {organization}.",
       "welcomeGeneric": "Velkommen tilbake. Velg et produkt eller se gjennom kontoen.",
       "orgFallback": "Din organisasjon",
@@ -8644,7 +8644,7 @@
       "integrationsTitle": "Integrasjoner",
       "integrationsDescription": "Se tilkoblede apper og fullfør ventende tilkoblinger.",
       "accountTitle": "Konto",
-      "accountDescription": "Abonnementsstatus og varslingsinnstillinger — uten falske fakturalister.",
+      "accountDescription": "Personlige snarveier til abonnement og fakturaer. Operative nøkkeltall finner du under Dashboard.",
       "subscriptionTitle": "Abonnement og fakturering",
       "subscriptionDescription": "Se planstatus og faktureringsdetaljer på ett sted.",
       "attentionTitle": "Krever oppmerksomhet",
@@ -8678,7 +8678,14 @@
       "openInvoices": "Se fakturaer",
       "openSubscription": "Administrer abonnement",
       "openExplore": "Utforsk produkter",
-      "openHelp": "Åpne hjelp"
+      "openHelp": "Åpne hjelp",
+      "bedriftDataUnavailable": "Status for Kompis Bedrift kunne ikke leses. Det er ikke det samme som at produktet er inaktivt.",
+      "attentionEmptyTitle": "Alt i orden",
+      "attentionEmptyDescription": "Ingenting krever oppmerksomhet nå. Utforsk produkter eller sjekk tilkoblingen når du er klar.",
+      "attentionEmptyCta": "Utforsk produkter",
+      "loadErrorTitle": "Arbeidsområdet kunne ikke lastes",
+      "loadErrorDescription": "Noe uventet skjedde mens Aipify forberedte hjemmet ditt. Prøv igjen.",
+      "retryLabel": "Prøv igjen"
     },
     "productHubs": {
       "common": {
@@ -8864,7 +8871,7 @@
     "workspaceDashboard": {
       "eyebrow": "Arbeidsområde",
       "title": "Oversikt over arbeidsområdet",
-      "description": "Et felles kontrollsenter for modulene dine, supportsaker og partneraktivitet.",
+      "description": "Operativ arbeidsoversikt — moduler, supportsaker og nøkkelstatus for organisasjonen.",
       "lastUpdated": "Sist oppdatert",
       "notAvailable": "Ikke tilgjengelig",
       "summaryTitle": "Sammendrag",
@@ -8920,7 +8927,17 @@
         "reopened": "Gjenåpnet",
         "archived": "Arkivert",
         "unknown": "Ukjent status"
-      }
+      },
+      "modulesEmptyTitle": "Ingen moduler å vise ennå",
+      "modulesEmptyDescription": "Når produkter er tilgjengelige for organisasjonen, vises de her. Utforsk katalogen for å se hva som er tilgjengelig.",
+      "modulesEmptyCta": "Utforsk produkter",
+      "ticketsCountsPartial": "Saksantall er basert på den innlastede listen og kan være ufullstendige.",
+      "attentionEmptyTitle": "Ingenting krever oppmerksomhet",
+      "attentionEmptyDescription": "Moduler og support ser rolige ut. Åpne Utforsk når du vil se tilgjengelige produkter.",
+      "attentionEmptyCta": "Utforsk produkter",
+      "loadErrorTitle": "Dashboard kunne ikke lastes",
+      "loadErrorDescription": "Noe uventet skjedde mens Aipify forberedte arbeidsoversikten. Prøv igjen.",
+      "retryLabel": "Prøv igjen"
     }
   }
 }

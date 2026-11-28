@@ -2,13 +2,20 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import {
   AppContentWidth,
+  AppEmptyState,
   AppIconActionCard,
   AppIconStatusCard,
   AppWorkspaceHero,
 } from "@/components/app/design";
 import type { WorkspaceDashboardLabels } from "@/lib/app-workspace-dashboard/labels";
 import type { WorkspaceDashboardBundle } from "@/lib/app-workspace-dashboard/types";
+import {
+  shouldShowPartnerSection,
+  ticketCountsArePartial,
+  workspaceModulesAreEmpty,
+} from "@/lib/app-workspace-dashboard/presentation";
 import { mapTicketStatusLabelKey } from "@/lib/app-workspace-dashboard/ticket-summary";
+import { CUSTOMER_CATALOG_ROUTE } from "@/lib/app-portal/customer-catalog/model";
 import { formatPlatformDateTimeClock } from "@/lib/platform-presentation-quality";
 import { AppVisualClasses } from "@/lib/design/app-visual-system";
 
@@ -114,6 +121,9 @@ export function WorkspaceDashboardPanel({
     emptyFallback: labels.notAvailable,
     invalidFallback: labels.notAvailable,
   });
+  const modulesEmpty = workspaceModulesAreEmpty(bundle.modules);
+  const showPartner = shouldShowPartnerSection(bundle.partner.availability);
+  const ticketsPartial = ticketCountsArePartial(bundle.tickets);
 
   return (
     <AppContentWidth className="relative">
@@ -150,13 +160,18 @@ export function WorkspaceDashboardPanel({
               value={bundle.licenseStatusLabel || labels.notAvailable}
             />
           </div>
+          {ticketsPartial ? (
+            <p className="text-xs leading-relaxed text-[var(--app-text-muted)]">
+              {labels.ticketsCountsPartial}
+            </p>
+          ) : null}
         </section>
 
-        {bundle.attention.length > 0 ? (
-          <section className="space-y-3" aria-labelledby="workspace-attention-heading">
-            <h2 id="workspace-attention-heading" className="text-lg font-semibold text-[var(--app-text)]">
-              {labels.attentionTitle}
-            </h2>
+        <section className="space-y-3" aria-labelledby="workspace-attention-heading">
+          <h2 id="workspace-attention-heading" className="text-lg font-semibold text-[var(--app-text)]">
+            {labels.attentionTitle}
+          </h2>
+          {bundle.attention.length > 0 ? (
             <ul className="space-y-2">
               {bundle.attention.map((item) => {
                 const title =
@@ -184,8 +199,15 @@ export function WorkspaceDashboardPanel({
                 );
               })}
             </ul>
-          </section>
-        ) : null}
+          ) : (
+            <AppEmptyState
+              title={labels.attentionEmptyTitle}
+              description={labels.attentionEmptyDescription}
+              actionHref={CUSTOMER_CATALOG_ROUTE}
+              actionLabel={labels.attentionEmptyCta}
+            />
+          )}
+        </section>
 
         <section className="space-y-3" aria-labelledby="workspace-modules-heading">
           <div>
@@ -196,39 +218,48 @@ export function WorkspaceDashboardPanel({
               {labels.modulesDescription}
             </p>
           </div>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {bundle.modules.map((mod) => {
-              const state = moduleState(labels, mod.state);
-              const icon: ReactNode = (
-                <MetricIcon path="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-              );
-              if (mod.openHref) {
+          {modulesEmpty ? (
+            <AppEmptyState
+              title={labels.modulesEmptyTitle}
+              description={labels.modulesEmptyDescription}
+              actionHref={CUSTOMER_CATALOG_ROUTE}
+              actionLabel={labels.modulesEmptyCta}
+            />
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {bundle.modules.map((mod) => {
+                const state = moduleState(labels, mod.state);
+                const icon: ReactNode = (
+                  <MetricIcon path="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                );
+                if (mod.openHref) {
+                  return (
+                    <AppIconActionCard
+                      key={mod.moduleKey}
+                      href={mod.openHref}
+                      title={moduleTitle(labels, mod.moduleKey)}
+                      description={labels.openModule}
+                      icon={icon}
+                      tone="purple"
+                      statusLabel={state.label}
+                      statusTone={state.tone}
+                    />
+                  );
+                }
                 return (
-                  <AppIconActionCard
+                  <AppIconStatusCard
                     key={mod.moduleKey}
-                    href={mod.openHref}
                     title={moduleTitle(labels, mod.moduleKey)}
-                    description={labels.openModule}
+                    description={state.label}
                     icon={icon}
-                    tone="purple"
+                    tone="slate"
                     statusLabel={state.label}
                     statusTone={state.tone}
                   />
                 );
-              }
-              return (
-                <AppIconStatusCard
-                  key={mod.moduleKey}
-                  title={moduleTitle(labels, mod.moduleKey)}
-                  description={state.label}
-                  icon={icon}
-                  tone="slate"
-                  statusLabel={state.label}
-                  statusTone={state.tone}
-                />
-              );
-            })}
-          </div>
+              })}
+            </div>
+          )}
         </section>
 
         <section className="space-y-3" aria-labelledby="workspace-tickets-heading">
@@ -268,6 +299,11 @@ export function WorkspaceDashboardPanel({
                   value={displayCount(bundle.tickets.counts.resolved, labels.notAvailable)}
                 />
               </div>
+              {ticketsPartial ? (
+                <p className="text-xs leading-relaxed text-[var(--app-text-muted)]">
+                  {labels.ticketsCountsPartial}
+                </p>
+              ) : null}
               <div className="flex flex-wrap gap-2">
                 <Link href={bundle.tickets.listHref} className={BTN_PRIMARY}>
                   {labels.viewAllTickets}
@@ -315,7 +351,7 @@ export function WorkspaceDashboardPanel({
           )}
         </section>
 
-        {bundle.partner.availability !== "not_authorized" ? (
+        {showPartner ? (
           <section className="space-y-3" aria-labelledby="workspace-partner-heading">
             <div>
               <h2 id="workspace-partner-heading" className="text-lg font-semibold text-[var(--app-text)]">
@@ -325,39 +361,29 @@ export function WorkspaceDashboardPanel({
                 {labels.partnerDescription}
               </p>
             </div>
-            {bundle.partner.availability !== "authorized" ? (
-              <p className={`${AppVisualClasses.card} text-sm text-[var(--app-text-muted)]`}>
-                {bundle.partner.messageKey === "error"
-                  ? labels.partnerError
-                  : labels.partnerUnavailable}
-              </p>
-            ) : (
-              <>
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                  <KpiTile
-                    label={labels.partnerSales}
-                    value={displayCount(bundle.partner.kpis.registeredSales, labels.notAvailable)}
-                  />
-                  <KpiTile
-                    label={labels.partnerPending}
-                    value={displayCount(bundle.partner.kpis.pendingCommission, labels.notAvailable)}
-                  />
-                  <KpiTile
-                    label={labels.partnerEarned}
-                    value={displayCount(bundle.partner.kpis.earnedCommission, labels.notAvailable)}
-                  />
-                  <KpiTile
-                    label={labels.partnerPayable}
-                    value={displayCount(bundle.partner.kpis.payableCommission, labels.notAvailable)}
-                  />
-                </div>
-                {bundle.partner.partnerHref ? (
-                  <Link href={bundle.partner.partnerHref} className={BTN_PRIMARY}>
-                    {labels.openPartner}
-                  </Link>
-                ) : null}
-              </>
-            )}
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <KpiTile
+                label={labels.partnerSales}
+                value={displayCount(bundle.partner.kpis.registeredSales, labels.notAvailable)}
+              />
+              <KpiTile
+                label={labels.partnerPending}
+                value={displayCount(bundle.partner.kpis.pendingCommission, labels.notAvailable)}
+              />
+              <KpiTile
+                label={labels.partnerEarned}
+                value={displayCount(bundle.partner.kpis.earnedCommission, labels.notAvailable)}
+              />
+              <KpiTile
+                label={labels.partnerPayable}
+                value={displayCount(bundle.partner.kpis.payableCommission, labels.notAvailable)}
+              />
+            </div>
+            {bundle.partner.partnerHref ? (
+              <Link href={bundle.partner.partnerHref} className={BTN_PRIMARY}>
+                {labels.openPartner}
+              </Link>
+            ) : null}
           </section>
         ) : null}
       </div>

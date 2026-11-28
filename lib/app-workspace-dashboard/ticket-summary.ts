@@ -24,6 +24,33 @@ function countBy(
   return items.filter((item) => statuses.includes(item.status)).length;
 }
 
+function asRecord(value: unknown): Record<string, unknown> | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+  return value as Record<string, unknown>;
+}
+
+/**
+ * Counts from a list RPC are partial when the payload signals truncation, or
+ * always when we only have the loaded list (no authoritative total).
+ */
+export function detectTicketListCountsPartial(
+  listPayload: unknown,
+  itemCount: number
+): boolean {
+  const root = asRecord(listPayload);
+  if (!root) return true;
+  if (root.truncated === true || root.has_more === true) return true;
+  const total =
+    typeof root.total_count === "number" && Number.isFinite(root.total_count)
+      ? root.total_count
+      : typeof root.total === "number" && Number.isFinite(root.total)
+        ? root.total
+        : null;
+  if (total != null && total > itemCount) return true;
+  // List-derived without an aggregate total — label as partial for honesty.
+  return true;
+}
+
 /**
  * Fail-closed ticket summary for the shared APP dashboard.
  * Never invents zero counts when Core is unavailable.
@@ -37,6 +64,7 @@ export function buildWorkspaceTicketSummary(input: {
     listHref: SUPPORT_REQUESTS_HREF,
     createHref: SUPPORT_CREATE_HREF,
     createEnabled: true,
+    countsPartial: false,
   };
 
   if (input.httpStatus === 403 || input.listError === "Unauthorized") {
@@ -95,6 +123,7 @@ export function buildWorkspaceTicketSummary(input: {
   return {
     ...base,
     availability: "available",
+    countsPartial: detectTicketListCountsPartial(input.listPayload, items.length),
     counts: {
       open: countBy(items, OPEN_STATUSES),
       waitingAipify: countBy(items, WAITING_AIPIFY),

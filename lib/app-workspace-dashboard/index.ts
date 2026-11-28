@@ -9,8 +9,17 @@ export type {
   WorkspaceTicketPreview,
   WorkspaceTicketSummary,
 } from "./types";
-export { buildWorkspaceTicketSummary, mapTicketStatusLabelKey } from "./ticket-summary";
+export {
+  buildWorkspaceTicketSummary,
+  detectTicketListCountsPartial,
+  mapTicketStatusLabelKey,
+} from "./ticket-summary";
 export { buildWorkspacePartnerSummary } from "./partner-summary";
+export {
+  shouldShowPartnerSection,
+  ticketCountsArePartial,
+  workspaceModulesAreEmpty,
+} from "./presentation";
 export { loadWorkspaceDashboardBundle } from "./load";
 export {
   buildWorkspaceDashboardLabels,

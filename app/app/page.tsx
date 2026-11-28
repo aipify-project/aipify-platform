@@ -1,3 +1,4 @@
+import { AppErrorState, AppContentWidth } from "@/components/app/design";
 import { AppFoundationDashboard } from "@/components/app/foundation/AppFoundationDashboard";
 import { buildFoundationDashboardLabels } from "@/lib/app/foundation-dashboard-labels";
 import {
@@ -31,6 +32,7 @@ export default async function AppPortalHomePage() {
   let websiteKompisAvailable: boolean | null = null;
   let kompisBedriftAvailable: boolean | null = null;
   let attentionItems = buildWebsiteKompisConnectionAttention(null, null);
+  let criticalFailure = false;
 
   const greetingPeriod = resolveWelcomeGreetingHour(new Date().getUTCHours());
 
@@ -40,29 +42,42 @@ export default async function AppPortalHomePage() {
       supabase.rpc("get_app_organization_context"),
       getDashboardProfile(supabase),
     ]);
-    const context = parseAppOrganizationContext(orgResult.data);
-    if (context.state === "ready") {
-      organizationName = context.workspace_name ?? context.licensed_to ?? null;
-      planLabel = context.plan_name ?? null;
-      licenseStatusLabel = context.license_status ?? null;
-      websiteKompisAvailable = await loadWebsiteKompisEntitlementForAppTenant(
-        supabase,
-        context.customer_id
-      );
-      const snapshot = await loadRequestAccessControlPlaneSnapshot();
-      kompisBedriftAvailable = isModuleUsableInSnapshot(snapshot, "kompis_bedrift");
 
-      if (websiteKompisAvailable === true) {
+    if (orgResult.error) {
+      criticalFailure = true;
+    } else {
+      const context = parseAppOrganizationContext(orgResult.data);
+      if (context.state === "ready") {
+        organizationName = context.workspace_name ?? context.licensed_to ?? null;
+        planLabel = context.plan_name ?? null;
+        licenseStatusLabel = context.license_status ?? null;
         try {
-          const connection = await loadWebsiteKompisConnectionSummary(supabase);
-          if (!connection.accessDenied) {
-            attentionItems = buildWebsiteKompisConnectionAttention(
-              websiteKompisAvailable,
-              connection.summary.aggregate
-            );
-          }
+          websiteKompisAvailable = await loadWebsiteKompisEntitlementForAppTenant(
+            supabase,
+            context.customer_id
+          );
         } catch {
-          // Attention stays empty when connection summary cannot be read.
+          websiteKompisAvailable = null;
+        }
+        try {
+          const snapshot = await loadRequestAccessControlPlaneSnapshot();
+          kompisBedriftAvailable = isModuleUsableInSnapshot(snapshot, "kompis_bedrift");
+        } catch {
+          kompisBedriftAvailable = null;
+        }
+
+        if (websiteKompisAvailable === true) {
+          try {
+            const connection = await loadWebsiteKompisConnectionSummary(supabase);
+            if (!connection.accessDenied) {
+              attentionItems = buildWebsiteKompisConnectionAttention(
+                websiteKompisAvailable,
+                connection.summary.aggregate
+              );
+            }
+          } catch {
+            // Attention stays empty when connection summary cannot be read.
+          }
         }
       }
     }
@@ -73,8 +88,23 @@ export default async function AppPortalHomePage() {
       profileName = fullName;
     }
   } catch {
+    criticalFailure = true;
     websiteKompisAvailable = null;
     kompisBedriftAvailable = null;
+  }
+
+  if (criticalFailure) {
+    return (
+      <AppContentWidth className="relative">
+        <AppErrorState
+          title={labels.loadErrorTitle}
+          description={labels.loadErrorDescription}
+          retryLabel={labels.retryLabel}
+          returnHref="/app"
+          returnLabel={labels.retryLabel}
+        />
+      </AppContentWidth>
+    );
   }
 
   return (

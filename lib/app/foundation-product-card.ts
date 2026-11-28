@@ -1,9 +1,13 @@
 /**
  * Home product cards. Kompis Bedrift opens only when Core says the module is usable.
- * Unknown and false stay closed, matching the shell redirect.
+ * Unknown stays distinct from unavailable — same contract as Kompis Web.
  */
-export function bedriftHomeCardState(available: boolean | null): "open" | "unavailable" {
-  return available === true ? "open" : "unavailable";
+export function bedriftHomeCardState(
+  available: boolean | null
+): "open" | "unavailable" | "unknown" {
+  if (available === true) return "open";
+  if (available === false) return "unavailable";
+  return "unknown";
 }
 
 /** Home and connection cards open only on a positive entitlement read. */

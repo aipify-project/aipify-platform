@@ -6,7 +6,7 @@ import { accountSettingsParent } from "@/lib/app-portal/product-context/account-
 
 assert.equal(bedriftHomeCardState(true), "open");
 assert.equal(bedriftHomeCardState(false), "unavailable");
-assert.equal(bedriftHomeCardState(null), "unavailable");
+assert.equal(bedriftHomeCardState(null), "unknown");
 
 assert.equal(accountSettingsParent("kompisBedrift"), "kompisBedrift");
 assert.equal(accountSettingsParent("kompisWeb"), "kompisWeb");

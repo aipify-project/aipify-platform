@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   AppContentWidth,
+  AppEmptyState,
   AppIconActionCard,
   AppIconStatusCard,
   AppWorkspaceHero,
@@ -29,6 +30,7 @@ export type AppFoundationDashboardLabels = {
   webUnavailable: string;
   webDataUnavailable: string;
   bedriftUnavailable: string;
+  bedriftDataUnavailable: string;
   bedriftTitle: string;
   bedriftDescription: string;
   setupTitle: string;
@@ -51,6 +53,9 @@ export type AppFoundationDashboardLabels = {
   attentionTitle: string;
   attentionDescription: string;
   attentionEmpty: string;
+  attentionEmptyTitle: string;
+  attentionEmptyDescription: string;
+  attentionEmptyCta: string;
   attentionConnectionNeedsSetup: string;
   attentionConnectionNeedsAction: string;
   attentionConnectionPending: string;
@@ -68,6 +73,9 @@ export type AppFoundationDashboardLabels = {
   statusReady: string;
   exploreTitle: string;
   exploreDescription: string;
+  loadErrorTitle: string;
+  loadErrorDescription: string;
+  retryLabel: string;
 };
 
 export type AppFoundationDashboardProps = {
@@ -128,14 +136,25 @@ export function AppFoundationDashboard({
       : labels.welcomeGeneric;
 
   const webCard = webHomeCardState(websiteKompisAvailable);
+  const bedriftCard = bedriftHomeCardState(kompisBedriftAvailable);
   const webStatus =
     webCard === "open"
       ? { label: labels.statusAvailable, tone: "emerald" as const }
       : webCard === "unavailable"
         ? { label: labels.statusUnavailable, tone: "amber" as const }
         : { label: labels.dataUnavailable, tone: "slate" as const };
+  const bedriftStatus =
+    bedriftCard === "open"
+      ? { label: labels.statusAvailable, tone: "emerald" as const }
+      : bedriftCard === "unavailable"
+        ? { label: labels.statusUnavailable, tone: "slate" as const }
+        : { label: labels.dataUnavailable, tone: "slate" as const };
 
   const contextBits = [org || labels.orgFallback, planLabel].filter(Boolean);
+  const attentionCtaHref =
+    webCard === "open"
+      ? FOUNDATION_NAV_BINDINGS.kompisWebConnection
+      : CUSTOMER_CATALOG_ROUTE;
 
   return (
     <AppContentWidth className="relative">
@@ -170,7 +189,7 @@ export function AppFoundationDashboard({
                 {labels.openWeb}
               </Link>
             ) : null}
-            {bedriftHomeCardState(kompisBedriftAvailable) === "open" ? (
+            {bedriftCard === "open" ? (
               <Link
                 href={FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard}
                 className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-4 py-2 text-sm font-medium text-[var(--app-text)] transition hover:bg-[var(--app-soft-surface)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
@@ -205,16 +224,16 @@ export function AppFoundationDashboard({
           </div>
         </section>
 
-        {attentionItems.length > 0 ? (
-          <section className="space-y-3" aria-labelledby="foundation-attention-heading">
-            <div>
-              <h2 id="foundation-attention-heading" className="text-lg font-semibold text-[var(--app-text)]">
-                {labels.attentionTitle}
-              </h2>
-              <p className="mt-1 text-sm leading-relaxed text-[var(--app-text-muted)]">
-                {labels.attentionDescription}
-              </p>
-            </div>
+        <section className="space-y-3" aria-labelledby="foundation-attention-heading">
+          <div>
+            <h2 id="foundation-attention-heading" className="text-lg font-semibold text-[var(--app-text)]">
+              {labels.attentionTitle}
+            </h2>
+            <p className="mt-1 text-sm leading-relaxed text-[var(--app-text-muted)]">
+              {labels.attentionDescription}
+            </p>
+          </div>
+          {attentionItems.length > 0 ? (
             <ul className="space-y-2">
               {attentionItems.map((item) => (
                 <li key={item.id}>
@@ -232,8 +251,15 @@ export function AppFoundationDashboard({
                 </li>
               ))}
             </ul>
-          </section>
-        ) : null}
+          ) : (
+            <AppEmptyState
+              title={labels.attentionEmptyTitle}
+              description={labels.attentionEmptyDescription}
+              actionHref={attentionCtaHref}
+              actionLabel={labels.attentionEmptyCta}
+            />
+          )}
+        </section>
 
         <section className="space-y-3" aria-labelledby="foundation-products-heading">
           <div>
@@ -278,7 +304,7 @@ export function AppFoundationDashboard({
                 <DashboardIcon path="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
               }
             />
-            {bedriftHomeCardState(kompisBedriftAvailable) === "open" ? (
+            {bedriftCard === "open" ? (
               <AppIconActionCard
                 href={FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard}
                 title={labels.bedriftTitle}
@@ -293,9 +319,13 @@ export function AppFoundationDashboard({
             ) : (
               <AppIconStatusCard
                 title={labels.bedriftTitle}
-                description={labels.bedriftUnavailable}
+                description={
+                  bedriftCard === "unknown"
+                    ? labels.bedriftDataUnavailable
+                    : labels.bedriftUnavailable
+                }
                 tone="slate"
-                statusLabel={labels.statusUnavailable}
+                statusLabel={bedriftStatus.label}
                 statusTone="slate"
                 icon={
                   <DashboardIcon path="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
@@ -412,10 +442,6 @@ export function AppFoundationDashboard({
             </Link>
           </div>
         </section>
-
-        {attentionItems.length === 0 ? (
-          <p className="text-sm text-[var(--app-text-muted)]">{labels.attentionEmpty}</p>
-        ) : null}
       </div>
     </AppContentWidth>
   );
