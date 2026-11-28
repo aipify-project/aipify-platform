@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useRef, useState } from "react";
 import {
   AipifyHumanVerification,
   PublicFormHoneypot,
@@ -88,6 +88,7 @@ export default function SupportIntakeForm({
   const [status, setStatus] = useState<FormStatus>("idle");
   const [error, setError] = useState<string | null>(null);
   const [ticketNumber, setTicketNumber] = useState<string | null>(null);
+  const idempotencyKey = useRef(crypto.randomUUID());
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -138,6 +139,7 @@ export default function SupportIntakeForm({
             contactEmail: sanitized.value.contactEmail,
             subject: sanitized.value.subject,
             message: sanitized.value.message,
+            idempotencyKey: idempotencyKey.current,
             _honeypot: new FormData(e.currentTarget).get("_honeypot"),
           }),
         ),
@@ -181,6 +183,7 @@ export default function SupportIntakeForm({
       }
       setTicketNumber(returned);
       setStatus("done");
+      idempotencyKey.current = crypto.randomUUID();
       setName("");
       setEmail("");
       setSubject("");

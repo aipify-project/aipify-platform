@@ -19,6 +19,7 @@
 --   - channel values web + partner (extend check; keep existing values)
 --   - partner_id / guest_contact_id / invoice_reference columns
 --   - idempotency table for intake creates
+--   - transaction lock so concurrent identical keys return one ticket
 --   - web create RPC (service_role only — app layer rate-limits + bot protection)
 --   - partner create / list / get / reply RPCs (authenticated; auth.uid → partner)
 --   - revoke EXECUTE from public/anon on privileged APP create/list/get where present
@@ -26,6 +27,7 @@
 -- Non-goals:
 --   No email SEND · no CSP sales-email CRM · no secrets/DNS · no attachment buckets
 --   No parallel ticket database — writes stay on app_portal_support_requests
+--   No insert or update of public.companies (platform company is a separate candidate)
 --
 -- BEFORE: web/CSP create CORE_BLOCKED; APP create LIVE on Production only
 -- AFTER:  web/CSP create RPCs exist (code gate still required for activation)
@@ -153,6 +155,29 @@ end;
 $$;
 
 revoke all on function public._psacv3_platform_company_id() from public, anon, authenticated;
+
+-- Serializes concurrent creates that share one idempotency identity.
+-- Called only from the security-definer intake functions below.
+create or replace function public._psacv3_lock_intake_idempotency(
+  p_scope text,
+  p_actor_key text,
+  p_idempotency_key text
+)
+returns void
+language plpgsql
+as $$
+begin
+  perform pg_advisory_xact_lock(
+    hashtextextended(
+      'psacv3:' || p_scope || chr(31) || p_actor_key || chr(31) || p_idempotency_key,
+      0
+    )
+  );
+end;
+$$;
+
+revoke all on function public._psacv3_lock_intake_idempotency(text, text, text)
+  from public, anon, authenticated;
 
 create or replace function public._psacv3_map_category(p_category text)
 returns text
@@ -292,23 +317,27 @@ begin
     raise exception 'invalid body';
   end if;
 
-  if v_idem is not null then
-    select i.ticket_id into v_existing
-    from public.platform_support_intake_idempotency i
-    where i.scope = 'web'
-      and i.actor_key = v_email
-      and i.idempotency_key = v_idem
-    limit 1;
-    if v_existing is not null then
-      return jsonb_build_object(
-        'ok', true,
-        'idempotent', true,
-        'ticket_id', v_existing,
-        'ticket_number', public._psacv3_ticket_number(v_existing),
-        'channel', 'web',
-        'status', 'open'
-      );
-    end if;
+  if v_idem is null or char_length(v_idem) < 8 or char_length(v_idem) > 120 then
+    raise exception 'invalid idempotency key';
+  end if;
+
+  perform public._psacv3_lock_intake_idempotency('web', v_email, v_idem);
+
+  select i.ticket_id into v_existing
+  from public.platform_support_intake_idempotency i
+  where i.scope = 'web'
+    and i.actor_key = v_email
+    and i.idempotency_key = v_idem
+  limit 1;
+  if v_existing is not null then
+    return jsonb_build_object(
+      'ok', true,
+      'idempotent', true,
+      'ticket_id', v_existing,
+      'ticket_number', public._psacv3_ticket_number(v_existing),
+      'channel', 'web',
+      'status', 'open'
+    );
   end if;
 
   insert into public.platform_support_guest_contacts (email, display_name)
@@ -374,11 +403,13 @@ begin
     );
   end if;
 
-  if v_idem is not null then
-    insert into public.platform_support_intake_idempotency (
-      scope, actor_key, idempotency_key, ticket_id
-    ) values ('web', v_email, v_idem, v_ticket_id)
-    on conflict (scope, actor_key, idempotency_key) do nothing;
+  insert into public.platform_support_intake_idempotency (
+    scope, actor_key, idempotency_key, ticket_id
+  ) values ('web', v_email, v_idem, v_ticket_id)
+  on conflict (scope, actor_key, idempotency_key) do nothing;
+
+  if not found then
+    raise exception 'idempotency conflict';
   end if;
 
   return jsonb_build_object(
@@ -438,6 +469,12 @@ begin
   end if;
 
   if v_idem is not null then
+    if char_length(v_idem) < 8 or char_length(v_idem) > 120 then
+      raise exception 'invalid idempotency key';
+    end if;
+
+    perform public._psacv3_lock_intake_idempotency('partner', v_partner_id::text, v_idem);
+
     select i.ticket_id into v_existing
     from public.platform_support_intake_idempotency i
     where i.scope = 'partner'
@@ -518,6 +555,10 @@ begin
       scope, actor_key, idempotency_key, ticket_id
     ) values ('partner', v_partner_id::text, v_idem, v_ticket_id)
     on conflict (scope, actor_key, idempotency_key) do nothing;
+
+    if not found then
+      raise exception 'idempotency conflict';
+    end if;
   end if;
 
   return jsonb_build_object(
@@ -692,6 +733,16 @@ begin
   end if;
 
   if v_idem is not null then
+    if char_length(v_idem) < 8 or char_length(v_idem) > 120 then
+      raise exception 'invalid idempotency key';
+    end if;
+
+    perform public._psacv3_lock_intake_idempotency(
+      'partner',
+      v_partner_id::text || ':reply:' || p_id::text,
+      v_idem
+    );
+
     select i.ticket_id into v_existing
     from public.platform_support_intake_idempotency i
     where i.scope = 'partner'
@@ -724,6 +775,10 @@ begin
       p_id
     )
     on conflict (scope, actor_key, idempotency_key) do nothing;
+
+    if not found then
+      raise exception 'idempotency conflict';
+    end if;
   end if;
 
   return jsonb_build_object(

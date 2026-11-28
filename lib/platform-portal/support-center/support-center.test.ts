@@ -76,7 +76,10 @@ import {
   SUPPORT_EMAIL_TEMPLATE_KEYS,
   getSupportEmailNotifyGateState,
 } from "./email-notify-contract";
-import { SUPPORT_ALL_CHANNELS_INTAKE_SQL_SHA256 } from "@/lib/support-intake/sql-candidate";
+import {
+  SUPPORT_ALL_CHANNELS_INTAKE_SQL_PATH,
+  SUPPORT_ALL_CHANNELS_INTAKE_SQL_SHA256,
+} from "@/lib/support-intake/sql-candidate";
 import type { PlatformSupportTicketsListItem } from "@/lib/platform-portal/support-tickets-read-adapter";
 import { readFileSync as readLocale } from "node:fs";
 
@@ -417,8 +420,10 @@ assert.equal(
   SUPPORT_APP_VISIBLE_MESSAGES_SQL_SHA256,
 );
 assert.equal(
+  createHash("sha256")
+    .update(readFileSync(SUPPORT_ALL_CHANNELS_INTAKE_SQL_PATH))
+    .digest("hex"),
   SUPPORT_ALL_CHANNELS_INTAKE_SQL_SHA256,
-  "24bac8714ebc07e3311b47db0a6fe9716d0328c107e1a872cb79a0c796db0a46",
 );
 
 for (const locale of ["en", "no", "sv", "da", "pl", "uk"]) {
