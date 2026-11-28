@@ -39,7 +39,8 @@ export const VARIANT_COMMISSION_PERSISTENCE = {
   canPersist: false as const,
   sqlDependencies: [
     "docs/platform/sql-candidates/csp_product_variants_billing_v1.sql",
-    "csp_variant_commission_rate_versions (design — not shipped)",
+    "docs/platform/sql-candidates/csp_variant_commission_rate_versions_v1.sql",
+    "docs/platform/sql-candidates/NOT_APPLIED_csp_variant_commission_staging_verify_harness_v1.sql",
   ] as const,
 };
 

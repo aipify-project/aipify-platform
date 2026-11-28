@@ -24,9 +24,10 @@ Source of truth in code: `LEGACY_PRODUCT_COMMISSION_RATES_NEEDING_VARIANT_MAPPIN
 
 ## SQL / RPC dependencies (not applied)
 
-- `docs/platform/sql-candidates/csp_product_variants_billing_v1.sql` — variant price storage (candidate)
-- `csp_variant_commission_rate_versions` — design table (PR #486); **not shipped**
-- Persist gate: `VARIANT_COMMISSION_PERSISTENCE.canPersist === false`
+- `docs/platform/sql-candidates/csp_product_variants_billing_v1.sql` — variant price storage
+- `docs/platform/sql-candidates/csp_variant_commission_rate_versions_v1.sql` — versioned commission per variant × interval
+- Preflight: `docs/platform/AIPIFY_VARIANT_COMMISSION_CORE_STAGING_PREFLIGHT_V1.md`
+- Persist gate: `VARIANT_COMMISSION_PERSISTENCE.canPersist === false` until owner Staging apply + separate activation
 
 ## UI behaviour until Core is ready
 
