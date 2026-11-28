@@ -36,10 +36,10 @@ export type ProductTaxonomySnapshot = {
 };
 
 export type ProductTaxonomyInput = {
-  productKey: string;
-  productType: string | null | undefined;
-  categoryId: string | null | undefined;
-  dependsOnProductKeys: string[] | null | undefined;
+  productKey: unknown;
+  productType: unknown;
+  categoryId: unknown;
+  dependsOnProductKeys: unknown;
 };
 
 export type ProductTaxonomyValidation =

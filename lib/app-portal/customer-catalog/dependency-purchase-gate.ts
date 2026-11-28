@@ -49,10 +49,12 @@ export type DependencyPurchaseDecision =
     };
 
 function asKeySet(input: WorkspaceEntitlementSnapshot["activeProductKeys"]): Set<string> {
-  if (input instanceof Set) {
-    return new Set([...input].map((k) => k.trim().toLowerCase()).filter(Boolean));
-  }
-  return new Set(input.map((k) => k.trim().toLowerCase()).filter(Boolean));
+  const values = Array.from(input as Iterable<string>);
+  return new Set(
+    values
+      .map((k) => k.trim().toLowerCase())
+      .filter((k) => Boolean(k)),
+  );
 }
 
 export function normalizeDependencyKeys(keys: string[] | null | undefined): string[] {

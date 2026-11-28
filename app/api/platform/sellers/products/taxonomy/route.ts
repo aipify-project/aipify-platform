@@ -92,10 +92,9 @@ export async function POST(request: Request) {
 
     const validated = validateProductTaxonomyInput({
       productKey: body.product_key ?? body.productKey,
-      productType: (body.product_type ?? body.productType) as string | null | undefined,
-      categoryId: (body.category_id ?? body.categoryId) as string | null | undefined,
-      dependsOnProductKeys: (body.depends_on_product_keys ??
-        body.dependsOnProductKeys) as string[] | null | undefined,
+      productType: body.product_type ?? body.productType,
+      categoryId: body.category_id ?? body.categoryId,
+      dependsOnProductKeys: body.depends_on_product_keys ?? body.dependsOnProductKeys,
     });
     if (!validated.ok) {
       return NextResponse.json(
