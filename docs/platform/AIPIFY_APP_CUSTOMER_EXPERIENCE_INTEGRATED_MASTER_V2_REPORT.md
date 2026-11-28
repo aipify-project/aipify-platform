@@ -6,7 +6,7 @@
 | --- | --- |
 | PR | https://github.com/aipify-project/aipify-platform/pull/531 |
 | Baseline | `e9d2b8316` |
-| Delivery tip | `28db3c26b` (`28db3c26b55e0bc0ccaa3160444d5c3b6daaab28`) |
+| Delivery tip | `7032f782f` |
 | Agent 1 (#525/#530) | not edited by Agent 2; merge-from-main for coexistence |
 | Agent 3 support/public site | not edited by Agent 2; frozen public chain not touched |
 | Production media upload | fail-closed |
