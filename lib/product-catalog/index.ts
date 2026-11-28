@@ -128,6 +128,20 @@ export {
   loadApprovedContentForProducts,
 } from "./content-media-enrich";
 export {
+  APP_BILLING_ROUTE,
+  APP_CUSTOMER_JOURNEY_OWNERS,
+  APP_CUSTOMER_JOURNEY_STEPS,
+  APP_LICENSE_ROUTE,
+  APP_SOFTWARE_STORE_ROUTE,
+  APP_SUBSCRIPTION_ROUTE,
+  KOMPIS_PRODUCT_OPEN_HREFS,
+  appSoftwareDetailHref,
+  isValidAppProductKeyParam,
+  resolveAppProductAccessState,
+  resolveAppProductPrimaryAction,
+  type AppProductAccessState,
+} from "./app-customer-journey";
+export {
   formatVariantQuotaLabel,
   priceForInterval,
   type ProductBillingInterval,

@@ -5,6 +5,7 @@ import type { buildSoftwareShowcaseLabels } from "@/lib/commercial-packages/modu
 import type { CustomerCatalogLabels } from "@/lib/app-portal/customer-catalog/labels";
 import { storeCategoryLabelKey } from "@/lib/app-portal/customer-catalog/categories";
 import type { UnifiedCatalogProduct } from "@/lib/product-catalog";
+import { appSoftwareDetailHref } from "@/lib/product-catalog/app-customer-journey";
 import { formatVariantQuotaLabel } from "@/lib/product-catalog/variants";
 import {
   PremiumProductCatalogCard,
@@ -58,7 +59,7 @@ function softwareHref(category: string): string {
 export function SoftwareProductShowcase({
   embedded = false,
   showcase,
-  labels: _labels,
+  labels: portfolioLabels,
   catalogLabels,
   products,
   categories,
@@ -86,7 +87,6 @@ export function SoftwareProductShowcase({
   plannedPriceNote: string;
   locale?: string;
 }) {
-  void _labels;
 
   const cardLabels: PremiumCatalogCardLabels = {
     mostPopular: showcase.mostPopular,
@@ -108,6 +108,7 @@ export function SoftwareProductShowcase({
     closeDetails: showcase.closeDetails,
     vatUnknown: showcase.vatUnknown,
     freePrice: showcase.freePrice,
+    openProduct: portfolioLabels.openProduct,
   };
 
   return (
@@ -178,6 +179,7 @@ export function SoftwareProductShowcase({
                 labels={cardLabels}
                 heroSrc={product.heroImagePath ?? product.logoSrc}
                 features={featureRows(product, locale)}
+                detailsHref={appSoftwareDetailHref(product.productKey)}
               />
             </div>
           ))}

@@ -1260,7 +1260,14 @@
       "featuresHeading": "Включено",
       "closeDetails": "Закрити",
       "vatUnknown": "Відображення ПДВ ще не визначено.",
-      "freePrice": "Безкоштовно"
+      "freePrice": "Безкоштовно",
+      "backToStore": "Назад до продуктів",
+      "entitlementActive": "Активно для цієї робочої області",
+      "entitlementInactive": "Ще не активно для цієї робочої області",
+      "dependencyBlocked": "Потрібен інший продукт, перш ніж можна користуватися цим",
+      "checkoutClosed": "Покупку ще не відкрито — зверніться до Aipify або керуйте підпискою",
+      "productNotFound": "Цей продукт недоступний у магазині APP",
+      "variantsHeading": "Плани"
     },
     "modules": {
       "title": "Додаткові модулі",

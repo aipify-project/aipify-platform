@@ -1375,7 +1375,14 @@
       "featuresHeading": "Ingår",
       "closeDetails": "Stäng",
       "vatUnknown": "Momsvisning är inte beslutad ännu.",
-      "freePrice": "Gratis"
+      "freePrice": "Gratis",
+      "backToStore": "Tillbaka till produkter",
+      "entitlementActive": "Aktiv för den här arbetsytan",
+      "entitlementInactive": "Inte aktiv för den här arbetsytan ännu",
+      "dependencyBlocked": "Kräver en annan produkt innan den här kan användas",
+      "checkoutClosed": "Köp är inte öppet ännu — kontakta Aipify eller hantera prenumeration",
+      "productNotFound": "Den här produkten finns inte i APP-butiken",
+      "variantsHeading": "Planer"
     },
     "modules": {
       "title": "Tilläggsmoduler",

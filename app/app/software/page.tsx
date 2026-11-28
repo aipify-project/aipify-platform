@@ -5,7 +5,6 @@ import { resolveStoreCategoryId, sortStoreCategoryIds } from "@/lib/app-portal/c
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon } from "@/lib/app-portal/hubs/hub-copy";
-import { loadSubscriptionProductReads } from "@/lib/commercial-packages/load-kompis-product-access";
 import { buildSoftwareShowcaseLabels } from "@/lib/commercial-packages/modules-panel-labels";
 import { buildPortfolioLabels } from "@/lib/commercial-packages/portfolio-labels";
 import { AppLayoutClasses } from "@/lib/design/app-layout";
@@ -13,21 +12,11 @@ import {
   formatHubContextLine,
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
-import {
-  buildUnifiedCatalog,
-  filterAppStoreProducts,
-  loadAppStoreCoreProducts,
-  type ProductCatalogLocaleCode,
-} from "@/lib/product-catalog";
-import { enrichCatalogProductsWithApprovedMedia } from "@/lib/product-catalog/content-media-enrich";
-import {
-  applyAuthoritativeCorePricing,
-  loadAuthoritativeVariantsForProducts,
-} from "@/lib/product-catalog/authoritative-pricing";
+import type { ProductCatalogLocaleCode } from "@/lib/product-catalog";
+import { loadAppSoftwareCatalog } from "@/lib/product-catalog/load-app-software-catalog";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
-import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -56,96 +45,25 @@ export default async function SoftwareCatalogPage({
   ]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
-  const [ctx, productReads, supabase, params] = await Promise.all([
+  const [ctx, catalog, params] = await Promise.all([
     resolveHubWorkspaceContext(),
-    loadSubscriptionProductReads(),
-    createClient(),
+    loadAppSoftwareCatalog(catalogLocale),
     searchParams ?? Promise.resolve({} as SoftwareSearchParams),
   ]);
   const portfolio = buildPortfolioLabels(t);
   const showcase = buildSoftwareShowcaseLabels(t);
-  const catalog = buildCustomerCatalogLabels(t);
+  const catalogLabels = buildCustomerCatalogLabels(t);
 
-  const access = productReads.access;
-  const webActive = access.webKind === "known_plan" && Boolean(access.webPlan);
-  const bedriftActive = access.bedrift === "licensed";
-
-  // Prefer Core APP publish flags when channel RPC is applied; otherwise keep
-  // labelled registry fallback (never pretend Core persisted publish_app).
-  // When Core answers successfully with 0 publish_app rows → honest empty store.
-  const coreLoad = await loadAppStoreCoreProducts(supabase);
-  const coreChannelApplied = coreLoad.ok;
-  const coreProducts = coreLoad.ok ? coreLoad.products : null;
-
-  let allProducts = filterAppStoreProducts(
-    buildUnifiedCatalog({
-      locale: catalogLocale,
-      coreProducts,
-      coreChannelApplied,
-      entitlements: [
-        { productKey: "kompis_web", active: webActive },
-        { productKey: "kompis_bedrift", active: bedriftActive },
-      ],
-    }),
-  );
-
-  // Authoritative Core variant prices — never keep planned/hardcoded amounts once Core answers.
-  let coreVariantsNote: string | null = null;
-  if (coreChannelApplied && allProducts.length > 0) {
-    const loaded = await loadAuthoritativeVariantsForProducts(
-      supabase,
-      allProducts.map((p) => p.productKey),
-    );
-    if (loaded.ok) {
-      const map = { ...loaded.variantsByProductKey };
-      for (const product of allProducts) {
-        if (!Object.prototype.hasOwnProperty.call(map, product.productKey)) {
-          map[product.productKey] = [];
-        }
-      }
-      allProducts = applyAuthoritativeCorePricing({
-        products: allProducts,
-        coreVariantsByKey: map,
-        coreVariantsResolved: true,
-        stripCommission: true,
-      });
-      if (loaded.failedKeys.length > 0) {
-        coreVariantsNote = showcase.coreChannelPending ?? null;
-      }
-    } else {
-      // Fail closed: do not present planned catalog as Core price.
-      allProducts = applyAuthoritativeCorePricing({
-        products: allProducts,
-        coreVariantsByKey: Object.fromEntries(allProducts.map((p) => [p.productKey, []])),
-        coreVariantsResolved: true,
-        stripCommission: true,
-      });
-      coreVariantsNote = showcase.coreChannelPending ?? null;
-    }
-  }
+  const allProducts = catalog.products;
 
   const rawCategory = params.category;
   const categoryParam = Array.isArray(rawCategory) ? rawCategory[0] : rawCategory;
-  // Keep literal "all" — resolveStoreCategoryId intentionally ignores "all".
   const categoryFilter =
     typeof categoryParam === "string" && categoryParam.trim().toLowerCase() === "all"
       ? "all"
       : typeof categoryParam === "string" && categoryParam.trim() !== ""
         ? resolveStoreCategoryId({ productKey: null, category: categoryParam })
         : "all";
-
-  // Core approved locale + short-lived signed media (channel=app). Missing stays missing.
-  if (coreChannelApplied && allProducts.length > 0) {
-    try {
-      allProducts = await enrichCatalogProductsWithApprovedMedia(supabase, {
-        products: allProducts,
-        locale: catalogLocale,
-        channel: "app",
-      });
-    } catch {
-      // Soft-fail: keep registry presentation; never invent Core copy/media.
-    }
-  }
 
   const products =
     categoryFilter === "all"
@@ -168,10 +86,7 @@ export default async function SoftwareCatalogPage({
     ),
   ]);
 
-  const corePendingNote =
-    (!coreLoad.ok && coreLoad.reason === "missing") || coreVariantsNote
-      ? showcase.coreChannelPending ?? null
-      : null;
+  const corePendingNote = catalog.corePending ? showcase.coreChannelPending ?? null : null;
 
   return (
     <AppHubShell
@@ -198,7 +113,7 @@ export default async function SoftwareCatalogPage({
           embedded
           showcase={showcase}
           labels={portfolio}
-          catalogLabels={catalog}
+          catalogLabels={catalogLabels}
           products={products}
           categories={categories}
           activeCategory={categoryFilter}
@@ -214,7 +129,7 @@ export default async function SoftwareCatalogPage({
           href={CUSTOMER_CATALOG_ROUTE}
           className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
         >
-          {catalog.exploreLink}
+          {catalogLabels.exploreLink}
         </Link>
         <Link
           href="/app/settings/billing/packages"

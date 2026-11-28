@@ -1405,7 +1405,14 @@
       "featuresHeading": "Inkludert",
       "closeDetails": "Lukk",
       "vatUnknown": "MVA-visning er ikke bestemt ennå.",
-      "freePrice": "Gratis"
+      "freePrice": "Gratis",
+      "backToStore": "Tilbake til produkter",
+      "entitlementActive": "Aktiv for dette arbeidsområdet",
+      "entitlementInactive": "Ikke aktiv for dette arbeidsområdet ennå",
+      "dependencyBlocked": "Krever et annet produkt før dette kan brukes",
+      "checkoutClosed": "Kjøp er ikke åpent ennå — kontakt Aipify eller administrer abonnement",
+      "productNotFound": "Dette produktet er ikke tilgjengelig i APP-butikken",
+      "variantsHeading": "Planer"
     },
     "modules": {
       "title": "Tilleggsmoduler",

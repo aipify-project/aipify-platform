@@ -208,7 +208,14 @@
       "featuresHeading": "Incluido",
       "closeDetails": "Cerrar",
       "vatUnknown": "La visualización del IVA aún no está decidida.",
-      "freePrice": "Gratis"
+      "freePrice": "Gratis",
+      "backToStore": "Volver a productos",
+      "entitlementActive": "Activo para este espacio de trabajo",
+      "entitlementInactive": "Aún no activo para este espacio de trabajo",
+      "dependencyBlocked": "Requiere otro producto antes de poder usarlo",
+      "checkoutClosed": "La compra aún no está abierta: contacta a Aipify o gestiona la suscripción",
+      "productNotFound": "Este producto no está disponible en la tienda APP",
+      "variantsHeading": "Planes"
     },
     "modules": {
       "title": "Módulos complementarios",

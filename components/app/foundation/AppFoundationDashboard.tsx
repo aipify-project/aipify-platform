@@ -210,10 +210,16 @@ export function AppFoundationDashboard({
               {labels.openInvoices}
             </Link>
             <Link
-              href={CUSTOMER_CATALOG_ROUTE}
+              href={FOUNDATION_NAV_BINDINGS.kompisWebModules}
               className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-4 py-2 text-sm font-medium text-[var(--app-text)] transition hover:bg-[var(--app-soft-surface)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {labels.openExplore}
+            </Link>
+            <Link
+              href={CUSTOMER_CATALOG_ROUTE}
+              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-4 py-2 text-sm font-medium text-[var(--app-text)] transition hover:bg-[var(--app-soft-surface)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+            >
+              {labels.exploreTitle}
             </Link>
             <Link
               href={helpHref}
