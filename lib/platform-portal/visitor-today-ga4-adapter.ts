@@ -19,7 +19,7 @@ export type Ga4VisitorTodayEnv = {
 };
 
 export function readGa4VisitorTodayEnv(
-  env: NodeJS.ProcessEnv = process.env,
+  env: Record<string, string | undefined> = process.env,
 ): Ga4VisitorTodayEnv {
   const propertyId =
     typeof env.GA4_PROPERTY_ID === "string" && env.GA4_PROPERTY_ID.trim()
