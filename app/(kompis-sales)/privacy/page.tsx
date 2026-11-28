@@ -9,7 +9,12 @@ export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary(locale, ["marketing"]);
   const marketing = dict.marketing as Record<string, unknown>;
   const meta = getSection<{ privacyTitle?: string; privacyDescription?: string }>(marketing, "meta");
-  return { title: meta.privacyTitle, description: meta.privacyDescription };
+  return {
+    title: meta.privacyTitle,
+    description: meta.privacyDescription,
+    robots: { index: true, follow: true },
+    alternates: { canonical: "https://aipify.ai/privacy" },
+  };
 }
 
 export default async function PrivacyPage() {

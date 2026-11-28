@@ -439,6 +439,7 @@ export function SupportRequestsCenterPanel({ labels, locale }: Props) {
         <div>
           <h1 className="text-2xl font-semibold text-slate-900">{labels.title}</h1>
           <p className="mt-1 text-sm text-slate-600">{labels.subtitle}</p>
+          <p className="mt-2 max-w-2xl text-xs text-slate-500">{labels.unreadUnavailableNote}</p>
         </div>
         <button
           type="button"

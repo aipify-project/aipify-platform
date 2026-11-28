@@ -15,6 +15,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t("marketing.certifiedSalesPartner.meta.title"),
     description: t("marketing.certifiedSalesPartner.meta.description"),
+    robots: { index: true, follow: true },
+    alternates: { canonical: "https://aipify.ai/certified-sales-partner" },
   };
 }
 

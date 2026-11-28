@@ -20,6 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
         ? "marketing.supportIntake.subtitle"
         : "marketing.supportIntake.subtitleInactive",
     ),
+    robots: { index: true, follow: true },
+    alternates: { canonical: "https://aipify.ai/contact/support" },
   };
 }
 

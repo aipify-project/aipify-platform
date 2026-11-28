@@ -11,7 +11,7 @@ type Body = {
 /**
  * Customer portal reply on an APP support request.
  * Core RPC `reply_app_portal_support_request` is live on Production/Staging.
- * APP thread history still requires companion get-messages SQL (separate YES).
+ * APP get returns customer_visible messages (Production applied).
  * Email stays OFF; internal notes are never returned.
  */
 export async function POST(request: Request, context: RouteContext) {
