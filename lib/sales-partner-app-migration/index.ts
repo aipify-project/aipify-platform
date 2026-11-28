@@ -27,7 +27,10 @@ export {
   thinHostsCoverMatrix,
 } from "./phase-b-hosts";
 
-export { SALES_PARTNER_LICENSE_ARCHITECTURE } from "./phase-b-license-contract";
+export {
+  SALES_PARTNER_LICENSE_ARCHITECTURE,
+  SALES_PARTNER_COMMERCIAL_LICENSE_FOUNDATION,
+} from "./phase-b-license-contract";
 
 export {
   SALES_PARTNER_APP_MIGRATION_PHASE_C,
