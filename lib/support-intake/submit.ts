@@ -14,6 +14,7 @@ import {
   mapIntakeCategoryToAppCategory,
   mapIntakePriorityToAppPriority,
 } from "./categories";
+import { isSupportIntakeIdempotencyKey } from "./idempotency";
 
 export type IntakeActor =
   | { kind: "guest" }
@@ -182,6 +183,14 @@ export async function submitSupportIntake(input: {
   const idem = input.idempotencyKey?.trim() || null;
 
   if (payload.source === "web") {
+    if (!isSupportIntakeIdempotencyKey(idem)) {
+      return {
+        ok: false,
+        live: false,
+        code: "validation",
+        message: "Supportinntak krever en gyldig idempotensnøkkel.",
+      };
+    }
     const { data, error } = await input.rpc.rpc("platform_support_intake_web_create", {
       p_email: payload.contactEmail,
       p_display_name: payload.contactName,

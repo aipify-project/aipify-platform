@@ -70,19 +70,12 @@ export function resolvePublicFormGuardCode(
   return guard.log ? (PUBLIC_FORM_GUARD_CODE_BY_LOG[guard.log] ?? null) : null;
 }
 
-export function assertPublicFormSubmission(
-  request: Request,
+/** Honeypot, timing, and human verification. Rate limit stays with the caller. */
+export function assertPublicFormHumanChecks(
   body: PublicFormBody,
-  formKey: string,
 ): PublicFormGuardResult {
-  const ip = clientIp(request);
-
   if (typeof body._honeypot === "string" && body._honeypot.trim()) {
     return { ok: false, error: "Submission blocked", status: 400, log: "honeypot", code: "submission_blocked" };
-  }
-
-  if (!rateLimit(ip)) {
-    return { ok: false, error: "Too many requests. Please try again later.", status: 429, log: "rate_limit", code: "rate_limited" };
   }
 
   const startedAt = Number(body._form_started_at);
@@ -95,6 +88,26 @@ export function assertPublicFormSubmission(
   if (!verifyHumanChallenge(token, answer)) {
     return { ok: false, error: "Verification required. Complete the security check and try again.", status: 400, log: "verification", code: "verification_required" };
   }
+
+  return { ok: true };
+}
+
+export function assertPublicFormSubmission(
+  request: Request,
+  body: PublicFormBody,
+  formKey: string,
+): PublicFormGuardResult {
+  const ip = clientIp(request);
+  const human = assertPublicFormHumanChecks(body);
+  if (!human.ok && human.log !== "timing" && human.log !== "verification") {
+    return human;
+  }
+
+  if (!rateLimit(ip)) {
+    return { ok: false, error: "Too many requests. Please try again later.", status: 429, log: "rate_limit", code: "rate_limited" };
+  }
+
+  if (!human.ok) return human;
 
   const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
   if (email) {
