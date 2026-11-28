@@ -192,4 +192,60 @@ export {
   NORDIC_FOUNDER_EXCHANGE_HOOKS,
   PRESERVED_SURFACES,
 } from "./agent-contracts";
-export type { Agent2CommercialContracts, Agent3CommercialContracts } from "./agent-contracts";
+export type {
+  Agent2CommercialContracts,
+  Agent3CommercialContracts,
+  Agent3VerifiedPurchaseAnalyticsEvent,
+  Agent4CommercialContracts,
+  Agent4PresenceCommercialHint,
+} from "./agent-contracts";
+
+export {
+  ACTIVATION_ACTIONS,
+  ACTIVATION_CODE_LOCKS,
+  ACTIVATION_ENVIRONMENTS,
+  ACTIVATION_FACT_KEYS,
+  ACTIVATION_READINESS,
+  ACTIVATION_WRITER_KEYS,
+  ActivationBlockedError,
+  activationMatrixAgreesWithMasterSwitches,
+  assertActivationAllowed,
+  COMMERCIAL_ACTIVATION_YES_PACKAGES,
+  describeActivationAction,
+  evaluateActivation,
+  listOpenOwnerApprovals,
+  resolveActivationReadiness,
+} from "./activation-gates";
+export type {
+  ActivationAction,
+  ActivationDecision,
+  ActivationDenyReason,
+  ActivationReadiness,
+  ActivationReadinessKey,
+  OpenOwnerApproval,
+} from "./activation-gates";
+
+export {
+  AGENT4_PRESENCE_CONTRACT,
+  COMMERCIAL_PURCHASE_ANALYTICS_EVENT,
+  KOMPIS_FIRST_REVENUE_PATH,
+  buildAgent2CheckoutIntentDto,
+  buildAgent2EntitlementStateDto,
+  buildAgent2ProductDetailActivationContract,
+  buildAgent2ReceiptReadDto,
+  buildAgent3SupportNotificationEnvelope,
+  buildVerifiedPurchaseAnalyticsEvent,
+} from "./activation-contracts";
+export type {
+  Agent2CheckoutIntentDto,
+  Agent2EntitlementAccessKind,
+  Agent2EntitlementStateDto,
+  Agent2ProductDetailActivationContract,
+  Agent2ReceiptReadDto,
+  Agent3NotificationAudience,
+  Agent3SupportNotificationEnvelope,
+  Agent4PresenceEventName,
+  AnalyticsConsent,
+  VerifiedPurchaseAnalyticsEvent,
+  VerifiedPurchaseAnalyticsResult,
+} from "./activation-contracts";
