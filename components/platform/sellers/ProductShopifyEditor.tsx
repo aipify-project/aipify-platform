@@ -98,6 +98,24 @@ export type ProductShopifyEditorLabels = SellersActionLabels & {
   taxonomySaveFailed: string;
   taxonomyPartialSave: string;
   publicationReadiness: ProductPublicationReadinessLabels;
+  /** Locale Core persistence */
+  contentBenefits?: string;
+  contentSaveDraft?: string;
+  contentApprove?: string;
+  contentReload?: string;
+  contentSavedDraft?: string;
+  contentSavedApproved?: string;
+  contentSaveFailed?: string;
+  contentMissingHint?: string;
+  contentStatusDraft?: string;
+  contentStatusApproved?: string;
+  /** Media upload (fail-closed until Staging activation) */
+  mediaUploadActivationRequired?: string;
+  mediaUploadFailed?: string;
+  mediaCommitFailed?: string;
+  mediaRegistered?: string;
+  mediaHero?: string;
+  mediaLogo?: string;
 };
 
 const CONTENT_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
@@ -109,9 +127,19 @@ type LocaleDraft = {
   title: string;
   tagline: string;
   description: string;
+  benefits: string;
+  approved: boolean;
+  fromCore: boolean;
 };
 
-const emptyLocale = (): LocaleDraft => ({ title: "", tagline: "", description: "" });
+const emptyLocale = (): LocaleDraft => ({
+  title: "",
+  tagline: "",
+  description: "",
+  benefits: "",
+  approved: false,
+  fromCore: false,
+});
 
 export function ProductShopifyEditor({
   labels,
@@ -187,12 +215,18 @@ export function ProductShopifyEditor({
       CONTENT_LOCALES.map((code) => [code, emptyLocale()]),
     ) as Record<ContentLocale, LocaleDraft>;
     base.no = {
+      ...emptyLocale(),
       title: initialTitle ?? "",
-      tagline: "",
-      description: "",
     };
     return base;
   });
+  const [localeBusy, setLocaleBusy] = useState(false);
+  const [localeMessage, setLocaleMessage] = useState<string | null>(null);
+  const [localeLoadError, setLocaleLoadError] = useState<string | null>(null);
+  const [mediaBusy, setMediaBusy] = useState(false);
+  const [mediaMessage, setMediaMessage] = useState<string | null>(null);
+  const [localLogoPreview, setLocalLogoPreview] = useState<string | null>(null);
+  const [localHeroPreview, setLocalHeroPreview] = useState<string | null>(null);
   const [channelQuery, setChannelQuery] = useState("");
   const [dirty, setDirty] = useState(false);
   const [saleDetailsOpen, setSaleDetailsOpen] = useState(true);
@@ -315,14 +349,177 @@ export function ProductShopifyEditor({
     };
   }, [initialKey, labels.taxonomyLoadFailed, mode]);
 
+  const reloadLocalesFromCore = useCallback(async () => {
+    if (mode !== "edit" || !initialKey) return;
+    setLocaleBusy(true);
+    setLocaleLoadError(null);
+    try {
+      const res = await fetch(
+        `/api/platform/sellers/products/locale?product_key=${encodeURIComponent(initialKey)}`,
+        { cache: "no-store" },
+      );
+      const body = (await res.json().catch(() => null)) as {
+        found?: boolean;
+        locales?: Array<{
+          locale?: string;
+          title?: string;
+          tagline?: string | null;
+          description?: string;
+          benefits?: string[];
+          approved?: boolean;
+        }>;
+        missing_locales?: string[];
+        error?: string;
+      } | null;
+      if (!res.ok || !body?.found) {
+        setLocaleLoadError(labels.contentSaveFailed || labels.error);
+        return;
+      }
+      setLocaleDrafts((prev) => {
+        const next = { ...prev };
+        for (const code of CONTENT_LOCALES) {
+          const row = (body.locales ?? []).find((item) => item.locale === code);
+          if (!row) {
+            next[code] = {
+              ...emptyLocale(),
+              title: code === "no" ? initialTitle ?? prev.no.title : "",
+            };
+            continue;
+          }
+          next[code] = {
+            title: row.title ?? "",
+            tagline: row.tagline ?? "",
+            description: row.description ?? "",
+            benefits: Array.isArray(row.benefits) ? row.benefits.join("\n") : "",
+            approved: row.approved === true,
+            fromCore: true,
+          };
+        }
+        return next;
+      });
+      setLocaleMessage(null);
+    } catch {
+      setLocaleLoadError(labels.contentSaveFailed || labels.error);
+    } finally {
+      setLocaleBusy(false);
+    }
+  }, [initialKey, initialTitle, labels.contentSaveFailed, labels.error, mode]);
+
+  useEffect(() => {
+    if (mode !== "edit" || !initialKey) return;
+    void reloadLocalesFromCore();
+  }, [initialKey, mode, reloadLocalesFromCore]);
+
   const draft = localeDrafts[contentLocale];
 
   function patchLocale(partial: Partial<LocaleDraft>) {
     setLocaleDrafts((prev) => ({
       ...prev,
-      [contentLocale]: { ...prev[contentLocale], ...partial },
+      [contentLocale]: { ...prev[contentLocale], ...partial, fromCore: false },
     }));
     markDirty();
+  }
+
+  async function saveLocaleContent(approved: boolean) {
+    const key = (mode === "edit" ? initialKey : productKey)?.trim().toLowerCase();
+    if (!key) return;
+    const current = localeDrafts[contentLocale];
+    if (!current.title.trim() || !current.description.trim()) {
+      setLocaleMessage(labels.contentSaveFailed || labels.error);
+      return;
+    }
+    setLocaleBusy(true);
+    setLocaleMessage(null);
+    try {
+      const res = await fetch("/api/platform/sellers/products/locale", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          product_key: key,
+          locale: contentLocale,
+          title: current.title.trim(),
+          tagline: current.tagline.trim() || null,
+          description: current.description.trim(),
+          benefits: current.benefits
+            .split("\n")
+            .map((line) => line.trim())
+            .filter(Boolean)
+            .slice(0, 12),
+          approved,
+        }),
+      });
+      const body = (await res.json().catch(() => null)) as { found?: boolean; error?: string } | null;
+      if (!res.ok || !body?.found) {
+        setLocaleMessage(labels.contentSaveFailed || labels.error);
+        return;
+      }
+      setLocaleDrafts((prev) => ({
+        ...prev,
+        [contentLocale]: { ...prev[contentLocale], approved, fromCore: true },
+      }));
+      setLocaleMessage(
+        approved
+          ? labels.contentSavedApproved || labels.saved
+          : labels.contentSavedDraft || labels.saved,
+      );
+      setDirty(false);
+    } catch {
+      setLocaleMessage(labels.contentSaveFailed || labels.error);
+    } finally {
+      setLocaleBusy(false);
+    }
+  }
+
+  async function uploadProductMedia(kind: "logo" | "hero", file: File) {
+    const key = (mode === "edit" ? initialKey : productKey)?.trim().toLowerCase();
+    if (!key) return;
+    setMediaBusy(true);
+    setMediaMessage(null);
+    const previewUrl = URL.createObjectURL(file);
+    if (kind === "logo") setLocalLogoPreview(previewUrl);
+    else setLocalHeroPreview(previewUrl);
+    try {
+      const form = new FormData();
+      form.set("product_key", key);
+      form.set("kind", kind);
+      form.set("file", file);
+      const uploadRes = await fetch("/api/platform/sellers/products/media/upload", {
+        method: "POST",
+        body: form,
+      });
+      const uploadBody = (await uploadRes.json().catch(() => null)) as {
+        ok?: boolean;
+        error?: string;
+        path?: string;
+        gate?: string;
+      } | null;
+      if (!uploadRes.ok || !uploadBody?.ok || !uploadBody.path) {
+        setMediaMessage(
+          uploadBody?.error === "upload_activation_required"
+            ? labels.mediaUploadActivationRequired || labels.mediaBlocked
+            : labels.mediaUploadFailed || labels.error,
+        );
+        return;
+      }
+      const commitRes = await fetch("/api/platform/sellers/products/media/commit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product_key: key, kind, path: uploadBody.path }),
+      });
+      const commitBody = (await commitRes.json().catch(() => null)) as {
+        ok?: boolean;
+        error?: string;
+      } | null;
+      if (!commitRes.ok || !commitBody?.ok) {
+        setMediaMessage(labels.mediaCommitFailed || labels.error);
+        return;
+      }
+      setMediaMessage(labels.mediaRegistered || labels.saved);
+    } catch {
+      setMediaMessage(labels.mediaUploadFailed || labels.error);
+    } finally {
+      setMediaBusy(false);
+    }
   }
 
   const channelOptions = useMemo(() => {
@@ -526,39 +723,122 @@ export function ProductShopifyEditor({
               className="w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
               placeholder={labels.descriptionHint}
             />
+            <label className="mt-3 block text-sm">
+              <span className="font-medium">{labels.contentBenefits}</span>
+              <textarea
+                value={draft.benefits}
+                onChange={(event) => patchLocale({ benefits: event.target.value })}
+                rows={4}
+                className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm"
+                placeholder={labels.contentBenefits}
+              />
+            </label>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                disabled={localeBusy || mode === "create"}
+                onClick={() => void saveLocaleContent(false)}
+                className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold disabled:opacity-60"
+              >
+                {labels.contentSaveDraft || labels.save}
+              </button>
+              <button
+                type="button"
+                disabled={localeBusy || mode === "create"}
+                onClick={() => void saveLocaleContent(true)}
+                className="rounded-xl bg-[color:var(--aipify-companion-purple)] px-3 py-2 text-sm font-semibold text-white disabled:opacity-60"
+              >
+                {labels.contentApprove || labels.save}
+              </button>
+              <button
+                type="button"
+                disabled={localeBusy || mode === "create"}
+                onClick={() => void reloadLocalesFromCore()}
+                className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold disabled:opacity-60"
+              >
+                {labels.contentReload || labels.discard}
+              </button>
+              <span className="text-xs text-[color:var(--aipify-text-secondary)]">
+                {draft.fromCore
+                  ? draft.approved
+                    ? labels.contentStatusApproved
+                    : labels.contentStatusDraft
+                  : labels.contentMissingHint || labels.languageNotStored}
+              </span>
+            </div>
+            {localeLoadError ? (
+              <p className="mt-2 text-sm text-red-700" role="alert">
+                {localeLoadError}
+              </p>
+            ) : null}
+            {localeMessage ? (
+              <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{localeMessage}</p>
+            ) : null}
             <p className="mt-2 text-xs text-[color:var(--aipify-text-secondary)]">
-              {labels.languageNotStored}
+              {labels.contentMissingHint || labels.languageNotStored}
             </p>
           </EditorCard>
 
           <EditorCard title={labels.mediaTitle}>
             <div className="flex flex-wrap items-center gap-3">
-              {logoSrc ? (
-                // eslint-disable-next-line @next/next/no-img-element -- registry brand mark
-                <img src={logoSrc} alt="" className="h-16 w-16 rounded-xl object-contain" />
+              {localLogoPreview || logoSrc ? (
+                // eslint-disable-next-line @next/next/no-img-element -- registry or local preview
+                <img
+                  src={localLogoPreview || logoSrc || undefined}
+                  alt=""
+                  className="h-16 w-16 rounded-xl object-contain"
+                />
               ) : (
                 <span className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-[color:var(--aipify-accent-soft)] text-lg font-semibold text-[color:var(--aipify-companion-purple)]">
                   {(draft.title || productKey || "?").slice(0, 1).toUpperCase()}
                 </span>
               )}
+              {localHeroPreview || heroImagePath ? (
+                // eslint-disable-next-line @next/next/no-img-element -- registry or local preview
+                <img
+                  src={localHeroPreview || heroImagePath || undefined}
+                  alt=""
+                  className="h-16 max-w-[8rem] rounded-xl object-cover"
+                />
+              ) : null}
               <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  disabled
-                  className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold opacity-60"
-                >
-                  {labels.mediaUpload}
-                </button>
-                <button
-                  type="button"
-                  disabled
-                  className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold opacity-60"
-                >
-                  {labels.mediaChooseExisting}
-                </button>
+                <label className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold cursor-pointer">
+                  {labels.mediaLogo || labels.mediaUpload}
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    className="sr-only"
+                    disabled={mediaBusy || mode === "create"}
+                    onChange={(event) => {
+                      const file = event.target.files?.[0];
+                      event.target.value = "";
+                      if (file) void uploadProductMedia("logo", file);
+                    }}
+                  />
+                </label>
+                <label className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold cursor-pointer">
+                  {labels.mediaHero || labels.mediaUpload}
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    className="sr-only"
+                    disabled={mediaBusy || mode === "create"}
+                    onChange={(event) => {
+                      const file = event.target.files?.[0];
+                      event.target.value = "";
+                      if (file) void uploadProductMedia("hero", file);
+                    }}
+                  />
+                </label>
               </div>
             </div>
-            <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.mediaBlocked}</p>
+            {mediaMessage ? (
+              <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{mediaMessage}</p>
+            ) : (
+              <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">
+                {labels.mediaUploadActivationRequired || labels.mediaBlocked}
+              </p>
+            )}
           </EditorCard>
 
           <EditorCard title={labels.taxonomyTitle || labels.category}>

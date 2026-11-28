@@ -89,6 +89,36 @@ export {
   type ProductMediaMime,
 } from "./product-media-storage-contract";
 export {
+  applyApprovedContentToPresentation,
+  loadApprovedProductContent,
+  parseApprovedProductContent,
+  PARTNER_CONTENT_REUSE_NOTES,
+  PRODUCT_CONTENT_LOCALES,
+  PRODUCT_LOCALE_MEDIA_RPCS,
+  isProductContentLocale,
+  type ApprovedProductContent,
+  type ProductContentChannel,
+  type ProductContentLocale,
+  type ProductLocaleCopy,
+} from "./locale-media-core";
+export {
+  detectProductMediaMime,
+  validateProductMediaBytes,
+  type ProductMediaBytesValidation,
+} from "./product-media-bytes";
+export {
+  PRODUCT_MEDIA_PRODUCTION_UPLOAD_ACTIVATION_PLAN,
+  isProductMediaUploadEnabled,
+  resolveProductMediaUploadGate,
+  type ProductMediaUploadGate,
+} from "./product-media-upload-gate";
+export {
+  PRODUCT_MEDIA_SIGNED_URL_TTL_SECONDS,
+  createChannelProductMediaSignedUrl,
+  type ProductMediaSignedUrlResult,
+} from "./product-media-signed-url";
+export { overlayApprovedProductPresentation } from "./content-media-presentation";
+export {
   formatVariantQuotaLabel,
   priceForInterval,
   type ProductBillingInterval,
