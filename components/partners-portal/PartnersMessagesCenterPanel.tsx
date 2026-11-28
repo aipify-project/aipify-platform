@@ -12,6 +12,10 @@ import {
 } from "@/lib/platform-presentation-quality/date-time";
 import { invalidateCspUnreadBadges } from "@/lib/certified-sales-partner/unread-invalidate";
 import { usePollingTask } from "@/lib/polling/use-polling-task";
+import {
+  CSP_MESSAGES_CLIENT_FETCH_TIMEOUT_MS,
+  mapPartnersHrefToAppHost,
+} from "@/lib/sales-partner-app-migration/phase-c-shared-surfaces";
 import { AipifyAlert, AipifyCard, AipifyTabs } from "./design";
 
 type Props = { labels: PartnersPortalMessagesLabels; locale: string };
@@ -75,7 +79,7 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
     const controller = new AbortController();
     abortRef.current = controller;
     const seq = ++loadSeqRef.current;
-    const timeout = window.setTimeout(() => controller.abort(), 15_000);
+    const timeout = window.setTimeout(() => controller.abort(), CSP_MESSAGES_CLIENT_FETCH_TIMEOUT_MS);
     try {
       const res = await fetch("/api/certified-sales-partner/messages?limit=50", {
         cache: "no-store",
@@ -288,7 +292,9 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
     }
   }
 
-  const showComposer = (phase === "ready" || phase === "empty") && (selected != null || phase === "empty");
+  // Always expose send when inbox is usable — do not hide composer behind thread selection.
+  const showComposer = phase === "ready" || phase === "empty";
+  const notificationsHref = mapPartnersHrefToAppHost("/partners/account/notifications");
 
   return (
     <div className="space-y-5">
@@ -328,7 +334,7 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
                   {labels.retry}
                 </button>
                 <Link
-                  href="/partners/account/notifications"
+                  href={notificationsHref}
                   className="inline-flex min-h-[44px] items-center rounded-xl bg-aipify-companion px-4 py-2 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
                 >
                   {labels.notificationsCta}
@@ -505,8 +511,9 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
                           type="button"
                           disabled={sending || !reply.trim()}
                           onClick={() => void sendReply()}
-                          className="inline-flex min-h-[44px] items-center rounded-xl bg-aipify-companion px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+                          className="inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#7C3AED] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED] disabled:opacity-50"
                         >
+                          <Send className="h-4 w-4" aria-hidden />
                           {sending ? labels.sending : labels.sendReply}
                         </button>
                         {sendNotice ? (
@@ -527,7 +534,7 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
         </div>
       ) : null}
 
-      {phase === "empty" && showComposer ? (
+      {showComposer && (phase === "empty" || !selected) ? (
         <section className={`${AipifyShellClasses.surfaceCard} space-y-3 p-5`}>
           <h2 className="text-base font-semibold text-aipify-text">{labels.replyTitle}</h2>
           <label className="block text-sm">
@@ -546,8 +553,9 @@ export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
               type="button"
               disabled={sending || !reply.trim()}
               onClick={() => void sendReply()}
-              className="inline-flex min-h-[44px] items-center rounded-xl bg-aipify-companion px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#7C3AED] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED] disabled:opacity-50"
             >
+              <Send className="h-4 w-4" aria-hidden />
               {sending ? labels.sending : labels.sendReply}
             </button>
             {sendNotice ? <p className="text-sm text-aipify-text-secondary">{sendNotice}</p> : null}

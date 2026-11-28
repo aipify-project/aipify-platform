@@ -300,7 +300,7 @@ export const KOMPIS_BEDRIFT_MODULE_NAV: AppPortalNavItem[] = [
 
 /**
  * Sales Partner module children — only when partner identity is authorized.
- * Routes point at the existing Partners portal (no parallel sales app).
+ * Routes point at APP thin hosts under /app/sales-partner/* (Phase B/C).
  */
 export const SALES_PARTNER_MODULE_NAV: AppPortalNavItem[] = [
   {

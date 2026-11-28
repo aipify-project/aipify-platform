@@ -28,3 +28,14 @@ export {
 } from "./phase-b-hosts";
 
 export { SALES_PARTNER_LICENSE_ARCHITECTURE } from "./phase-b-license-contract";
+
+export {
+  SALES_PARTNER_APP_MIGRATION_PHASE_C,
+  CSP_PORTAL_CLIENT_FETCH_TIMEOUT_MS,
+  CSP_MESSAGES_CLIENT_FETCH_TIMEOUT_MS,
+  CSP_TOPBAR_UNREAD_TIMEOUT_MS,
+  SALES_PARTNER_PARTNERS_TO_APP_HREF,
+  SALES_PARTNER_PHASE_C_SHARED_SURFACES,
+  mapPartnersHrefToAppHost,
+  salesPartnerPathIsActive,
+} from "./phase-c-shared-surfaces";

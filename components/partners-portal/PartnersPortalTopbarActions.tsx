@@ -15,6 +15,11 @@ import {
 } from "@/lib/platform-presentation-quality/date-time";
 import { subscribeCspUnreadInvalidate } from "@/lib/certified-sales-partner/unread-invalidate";
 import { usePollingTask } from "@/lib/polling/use-polling-task";
+import {
+  CSP_TOPBAR_UNREAD_TIMEOUT_MS,
+  mapPartnersHrefToAppHost,
+} from "@/lib/sales-partner-app-migration/phase-c-shared-surfaces";
+import { PARTNER_FEEDBACK_POLICY_ARTICLE_PATH } from "@/lib/voice-of-the-customer/constants";
 
 const ICON_LINK =
   `relative inline-flex h-11 min-h-11 min-w-11 items-center justify-center overflow-visible rounded-xl border bg-white transition hover:border-[#7C3AED]/35 hover:text-[#7C3AED] sm:h-12 sm:min-w-12 ${SELLER_PORTAL_LAYOUT.focusRing}`;
@@ -63,23 +68,31 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
     abortUnreadRef.current?.abort();
     const controller = new AbortController();
     abortUnreadRef.current = controller;
-    const timeout = window.setTimeout(() => controller.abort(), 12_000);
+    const timeout = window.setTimeout(() => controller.abort(), CSP_TOPBAR_UNREAD_TIMEOUT_MS);
     try {
-      const res = await fetch("/api/certified-sales-partner/messages?limit=40", {
-        cache: "no-store",
-        signal: controller.signal,
-      });
-      const body = (await res.json().catch(() => null)) as {
+      // Parallel fetches — do not serialize messages behind email CRM latency.
+      const [msgRes, emailRes] = await Promise.all([
+        fetch("/api/certified-sales-partner/messages?limit=40", {
+          cache: "no-store",
+          signal: controller.signal,
+        }),
+        fetch("/api/certified-sales-partner/email/notifications", {
+          cache: "no-store",
+          signal: controller.signal,
+        }).catch(() => null),
+      ]);
+      const body = (await msgRes.json().catch(() => null)) as {
         found?: boolean;
         backend_ready?: boolean;
         messages?: Array<Record<string, unknown>>;
       } | null;
       if (seq !== unreadSeqRef.current) return false;
-      if (!res.ok || !body?.found || body.backend_ready === false) {
+      if (!msgRes.ok || !body?.found || body.backend_ready === false) {
         setUnread([]);
         return false;
       }
       const rows = Array.isArray(body.messages) ? body.messages : [];
+      const messagesHref = mapPartnersHrefToAppHost("/partners/account/messages");
       const next = rows.flatMap((row) => {
         // Own partner→admin messages must never count as unread for the sender.
         if (row.direction !== "admin_to_partner") return [];
@@ -94,44 +107,44 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
             subject: typeof row.subject === "string" ? row.subject : null,
             excerpt: bodyText.slice(0, 120),
             created_at: typeof row.created_at === "string" ? row.created_at : "",
-            href: "/partners/account/messages",
+            href: messagesHref,
           },
         ];
       });
-      // Email unread is optional — never block the messages badge on CRM latency.
       let emailRows: UnreadPreview[] = [];
-      try {
-        const emailRes = await fetch("/api/certified-sales-partner/email/notifications", {
-          cache: "no-store",
-          signal: controller.signal,
-        });
-        const emailBody = (await emailRes.json().catch(() => null)) as {
-          found?: boolean;
-          backend_ready?: boolean;
-          unread?: Array<Record<string, unknown>>;
-        } | null;
-        if (seq !== unreadSeqRef.current) return false;
-        emailRows =
-          emailRes.ok && emailBody?.found && emailBody.backend_ready === true && Array.isArray(emailBody.unread)
-            ? emailBody.unread.flatMap((row) => {
-                const id = typeof row.id === "string" ? row.id : "";
-                const leadId = typeof row.lead_id === "string" ? row.lead_id : "";
-                if (!id || !leadId) return [];
-                const subject = typeof row.product_key === "string" ? row.product_key : null;
-                return [
-                  {
-                    id: `email:${id}`,
-                    sender: labels.notifications,
-                    subject,
-                    excerpt: subject || labels.notifications,
-                    created_at: typeof row.created_at === "string" ? row.created_at : "",
-                    href: `/partners/marketing/email-inbox?lead=${encodeURIComponent(leadId)}`,
-                  },
-                ];
-              })
-            : [];
-      } catch {
-        emailRows = [];
+      if (emailRes) {
+        try {
+          const emailBody = (await emailRes.json().catch(() => null)) as {
+            found?: boolean;
+            backend_ready?: boolean;
+            unread?: Array<Record<string, unknown>>;
+          } | null;
+          if (seq !== unreadSeqRef.current) return false;
+          emailRows =
+            emailRes.ok &&
+            emailBody?.found &&
+            emailBody.backend_ready === true &&
+            Array.isArray(emailBody.unread)
+              ? emailBody.unread.flatMap((row) => {
+                  const id = typeof row.id === "string" ? row.id : "";
+                  const leadId = typeof row.lead_id === "string" ? row.lead_id : "";
+                  if (!id || !leadId) return [];
+                  const subject = typeof row.product_key === "string" ? row.product_key : null;
+                  return [
+                    {
+                      id: `email:${id}`,
+                      sender: labels.notifications,
+                      subject,
+                      excerpt: subject || labels.notifications,
+                      created_at: typeof row.created_at === "string" ? row.created_at : "",
+                      href: `/partners/marketing/email-inbox?lead=${encodeURIComponent(leadId)}`,
+                    },
+                  ];
+                })
+              : [];
+        } catch {
+          emailRows = [];
+        }
       }
       if (seq !== unreadSeqRef.current) return false;
       setUnread(
@@ -170,11 +183,10 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
   // a refresh when entering communication surfaces where the unread set matters.
   useEffect(() => {
     const onMessages =
-      pathname === "/partners/account/messages" ||
-      pathname.startsWith("/partners/account/messages/");
+      pathname.includes("/account/messages") || pathname.includes("/sales-partner/messages");
     const onNotifications =
-      pathname === "/partners/account/notifications" ||
-      pathname.startsWith("/partners/account/notifications/");
+      pathname.includes("/account/notifications") ||
+      pathname.includes("/sales-partner/notifications");
     if (onMessages || onNotifications) {
       void refreshUnread();
     }
@@ -221,11 +233,15 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
     messageUnreadCount > 0
       ? `${labels.messages} (${formatBadgeCount(messageUnreadCount)})`
       : labels.messages;
+  const messagesHref = mapPartnersHrefToAppHost("/partners/account/messages");
+  const notificationsHref = mapPartnersHrefToAppHost("/partners/account/notifications");
+  const profileHref = mapPartnersHrefToAppHost("/partners/account/profile");
+  const helpHref = mapPartnersHrefToAppHost("/partners/account/settings");
   const messagesActive =
-    pathname === "/partners/account/messages" || pathname.startsWith("/partners/account/messages/");
+    pathname.includes("/account/messages") || pathname.includes("/sales-partner/messages");
   const notificationsActive =
-    pathname === "/partners/account/notifications" ||
-    pathname.startsWith("/partners/account/notifications/");
+    pathname.includes("/account/notifications") ||
+    pathname.includes("/sales-partner/notifications");
 
   return (
     <>
@@ -233,6 +249,7 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
         labels={labels.feedback}
         pageContext={pathname}
         failureMessage={labels.feedbackUnavailable}
+        policyHref={PARTNER_FEEDBACK_POLICY_ARTICLE_PATH}
       />
       <AppLanguageSelector
         currentLocale={locale}
@@ -242,7 +259,7 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
       />
 
       <Link
-        href="/partners/account/messages"
+        href={messagesHref}
         aria-label={messagesLabel}
         aria-current={messagesActive ? "page" : undefined}
         title={messagesLabel}
@@ -339,7 +356,7 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
             <div className="border-t border-[#E8E4F2] p-2">
               <Link
                 role="menuitem"
-                href="/partners/account/notifications"
+                href={notificationsHref}
                 className="flex items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold text-[#7C3AED] hover:bg-[#F6F4FB]"
                 onClick={() => setBellOpen(false)}
               >
@@ -363,7 +380,9 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
             setBellOpen(false);
           }}
           className={`${ICON_LINK} ${
-            menuOpen || pathname.startsWith("/partners/account/profile")
+            menuOpen ||
+            pathname.includes("/account/profile") ||
+            pathname.includes("/sales-partner/profile")
               ? "border-[#7C3AED]/50 text-[#7C3AED]"
               : "border-[#E8E4F2] text-[#64748B]"
           }`}
@@ -383,7 +402,7 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
           >
             <Link
               role="menuitem"
-              href="/partners/account/profile"
+              href={profileHref}
               className="flex items-center gap-2 px-3 py-2.5 text-sm text-[#1E293B] hover:bg-[#F6F4FB]"
               onClick={() => setMenuOpen(false)}
             >
@@ -392,7 +411,7 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
             </Link>
             <Link
               role="menuitem"
-              href="/partners/account/settings"
+              href={helpHref}
               className="flex items-center gap-2 px-3 py-2.5 text-sm text-[#1E293B] hover:bg-[#F6F4FB]"
               onClick={() => setMenuOpen(false)}
             >

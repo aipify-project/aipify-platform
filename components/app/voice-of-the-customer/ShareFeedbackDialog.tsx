@@ -22,6 +22,8 @@ type ShareFeedbackDialogProps = {
   pageContext?: string;
   /** Calm localized message shown when submission is not accepted (e.g. no organization scope). */
   failureMessage?: string;
+  /** Guidelines article href — defaults to customer APP Knowledge Center path. */
+  policyHref?: string;
 };
 
 const FOCUSABLE_SELECTOR =
@@ -42,6 +44,7 @@ export function ShareFeedbackDialog({
   returnFocusRef,
   pageContext,
   failureMessage,
+  policyHref = CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH,
 }: ShareFeedbackDialogProps) {
   const titleId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -206,7 +209,7 @@ export function ShareFeedbackDialog({
             <p className="mt-3 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2 text-xs text-slate-700">
               {labels.trustNote}{" "}
               <Link
-                href={CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH}
+                href={policyHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={labels.trustStatementLinkAria}
@@ -367,7 +370,7 @@ export function ShareFeedbackDialog({
               type="button"
               disabled={busy || !form.title.trim()}
               onClick={() => void handleSubmit()}
-              className="w-full rounded-lg bg-[image:var(--app-primary-gradient,#6366f1)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-95 disabled:opacity-50"
+              className="sticky bottom-0 w-full rounded-lg bg-[image:var(--app-primary-gradient,linear-gradient(135deg,#7357e8,#5577f2))] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED] disabled:opacity-50"
             >
               {busy ? labels.submitting : labels.submit}
             </button>

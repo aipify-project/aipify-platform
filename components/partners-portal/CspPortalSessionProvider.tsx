@@ -24,6 +24,7 @@ import {
 } from "react";
 import { classifyCspPortalResponse, type CspPendingStatus } from "@/lib/certified-sales-partner/portal-gate";
 import { parseCspPortalView, type CspPortalView } from "@/lib/certified-sales-partner/portal-view";
+import { CSP_PORTAL_CLIENT_FETCH_TIMEOUT_MS } from "@/lib/sales-partner-app-migration/phase-c-shared-surfaces";
 import { getBrowserSupabaseClient } from "@/lib/supabase/browser-client";
 
 export type CspPortalSessionState =
@@ -105,8 +106,13 @@ export function CspPortalSessionProvider({ children }: Props) {
 
     const seq = ++loadSeq.current;
     const run = (async () => {
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), CSP_PORTAL_CLIENT_FETCH_TIMEOUT_MS);
       try {
-        const res = await fetch("/api/certified-sales-partner/portal", { cache: "no-store" });
+        const res = await fetch("/api/certified-sales-partner/portal", {
+          cache: "no-store",
+          signal: controller.signal,
+        });
         const data: unknown = await res.json().catch(() => ({}));
         if (seq !== loadSeq.current) return;
         const gate = classifyCspPortalResponse(res.status, data);
@@ -152,14 +158,20 @@ export function CspPortalSessionProvider({ children }: Props) {
         }
         hasLoadedOnce.current = true;
         if (silent) lastSilentAt.current = Date.now();
-      } catch {
+      } catch (err) {
         if (seq !== loadSeq.current) return;
         if (!silent) {
           setPortal(null);
           setPendingStatus(null);
-          setDetail(null);
+          const timedOut =
+            err instanceof DOMException
+              ? err.name === "AbortError"
+              : err instanceof Error && err.name === "AbortError";
+          setDetail(timedOut ? "portal_load_timeout" : null);
           setState("error");
         }
+      } finally {
+        window.clearTimeout(timeout);
       }
     })();
 

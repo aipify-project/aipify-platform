@@ -183,23 +183,26 @@ export const SALES_PARTNER_APP_ROUTE_MATRIX: readonly SalesPartnerRouteRow[] = [
   {
     capability: "notifications",
     currentPartnersPath: "/partners/account/notifications",
-    targetAppPath: "/app/notifications",
-    hostStrategy: "reuse_app_surface",
-    parityNotes: "Reuse APP notifications when parity + auth proven; else thin host interim",
+    targetAppPath: "/app/sales-partner/notifications",
+    hostStrategy: "thin_app_host",
+    parityNotes:
+      "Phase C interim thin host (CSP unread). Shared /app/notifications reuse remains unknown until signed-in QA",
   },
   {
     capability: "profile",
     currentPartnersPath: "/partners/account/profile",
-    targetAppPath: "/app/profile",
-    hostStrategy: "reuse_app_surface",
-    parityNotes: "Reuse APP profile with CSP seller fields when parity proven",
+    targetAppPath: "/app/sales-partner/profile",
+    hostStrategy: "thin_app_host",
+    parityNotes:
+      "Phase C thin host preserves payout/certification; do not auto-merge into /app/profile",
   },
   {
     capability: "help",
     currentPartnersPath: "/partners/account/settings",
-    targetAppPath: "/app/support",
-    hostStrategy: "reuse_app_surface",
-    parityNotes: "Coordinate with Agent 3 for support; do not edit Agent 3 files in Phase A/B without fence",
+    targetAppPath: "/app/sales-partner/help",
+    hostStrategy: "thin_app_host",
+    parityNotes:
+      "Phase C thin host for partner settings; Support Ticket intake fenced to Agent 3 — dual-role may also open /app/support",
   },
 ] as const;
 
@@ -466,8 +469,9 @@ export const SALES_PARTNER_PHASE_A_PROVEN_VS_UNKNOWN: readonly ProvenUnknown[] =
   },
   {
     id: "messages_merge_into_app_comms",
-    status: "unknown",
-    detail: "Whether CSP inbox becomes APP communications or stays module-local — decide in Phase C",
+    status: "proven",
+    detail:
+      "Phase C keeps CSP inbox module-local at /app/sales-partner/messages — not merged into APP communications",
   },
   {
     id: "dual_role_ux_default_landing",

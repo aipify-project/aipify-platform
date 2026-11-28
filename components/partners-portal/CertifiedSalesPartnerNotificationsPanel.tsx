@@ -9,6 +9,10 @@ import {
   compareTimestampsDesc,
   formatPlatformDateTimeClock,
 } from "@/lib/platform-presentation-quality/date-time";
+import {
+  CSP_MESSAGES_CLIENT_FETCH_TIMEOUT_MS,
+  mapPartnersHrefToAppHost,
+} from "@/lib/sales-partner-app-migration/phase-c-shared-surfaces";
 import { AipifyAlert, AipifyCard, AipifyPageHeader } from "./design";
 
 export type { CspNotificationsLabels };
@@ -37,10 +41,18 @@ export function CertifiedSalesPartnerNotificationsPanel({
   const [unread, setUnread] = useState<UnreadRow[]>([]);
   const dateOptions = { locale, emptyFallback: "—", invalidFallback: "—" };
 
+  const messagesHref = mapPartnersHrefToAppHost("/partners/account/messages");
+  const homeHref = mapPartnersHrefToAppHost("/partners");
+
   const load = useCallback(async () => {
     setPhase("loading");
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), CSP_MESSAGES_CLIENT_FETCH_TIMEOUT_MS);
     try {
-      const res = await fetch("/api/certified-sales-partner/messages", { cache: "no-store" });
+      const res = await fetch("/api/certified-sales-partner/messages", {
+        cache: "no-store",
+        signal: controller.signal,
+      });
       const body = (await res.json().catch(() => null)) as {
         found?: boolean;
         backend_ready?: boolean;
@@ -82,6 +94,8 @@ export function CertifiedSalesPartnerNotificationsPanel({
     } catch {
       setUnread([]);
       setPhase("error");
+    } finally {
+      window.clearTimeout(timeout);
     }
   }, []);
 
@@ -120,13 +134,13 @@ export function CertifiedSalesPartnerNotificationsPanel({
           actions={
             <>
               <Link
-                href="/partners/account/messages"
+                href={messagesHref}
                 className="inline-flex rounded-xl bg-aipify-companion px-4 py-2 text-sm font-semibold text-white"
               >
                 {labels.messagesCta}
               </Link>
               <Link
-                href="/partners"
+                href={homeHref}
                 className="inline-flex rounded-xl border border-aipify-border px-4 py-2 text-sm font-semibold text-aipify-text"
               >
                 {labels.homeCta}
@@ -155,7 +169,7 @@ export function CertifiedSalesPartnerNotificationsPanel({
                       title={row.subject || labels.messagesCta}
                       actions={
                         <Link
-                          href="/partners/account/messages"
+                          href={messagesHref}
                           className="inline-flex items-center gap-2 text-sm font-semibold text-[#7C3AED]"
                         >
                           <MessageSquare className="h-4 w-4" aria-hidden />
