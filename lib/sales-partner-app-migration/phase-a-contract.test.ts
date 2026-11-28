@@ -47,7 +47,7 @@ test("manifest sales_partner stays partner_identity (no automatic product entitl
   const m = getSoftwareModuleManifest("sales_partner");
   assert.ok(m);
   assert.equal(m!.accessPolicy, "partner_identity");
-  assert.equal(m!.canonicalRoute, "/partners");
+  assert.equal(m!.canonicalRoute, "/app/sales-partner");
   assert.equal(SALES_PARTNER_PROGRAM_IDENTITY.aipifyCertifiedProgram.automaticAppProductEntitlement, false);
   assert.equal(SALES_PARTNER_PROGRAM_IDENTITY.futureExternalPaidModule.commercialEngineInPhaseA, false);
 });
@@ -86,23 +86,27 @@ test("CSP nav hrefs are covered by route matrix (materials query allowed)", () =
   }
 });
 
-test("live binding gaps flag customers, commissions, academy", () => {
+test("live bindings point at Phase B APP thin hosts", () => {
   const byId = Object.fromEntries(SALES_PARTNER_LIVE_BINDING_GAPS.map((g) => [g.navId, g]));
-  assert.equal(byId.salesPartnerCustomers?.issue, "missing_page_root");
-  assert.equal(byId.salesPartnerCustomers?.liveHref, FOUNDATION_NAV_BINDINGS.salesPartnerCustomers);
-  assert.equal(byId.salesPartnerAcademy?.issue, "missing_page_root");
-  assert.equal(byId.salesPartnerCommissions?.issue, "diverges_from_csp_nav");
-  assert.equal(byId.salesPartnerCommissions?.liveHref, "/partners/business-continuity/commission");
-  assert.equal(FOUNDATION_NAV_BINDINGS.salesPartnerCommissions, "/partners/business-continuity/commission");
+  for (const gap of SALES_PARTNER_LIVE_BINDING_GAPS) {
+    assert.equal(gap.issue, "ok", gap.navId);
+    assert.equal(gap.liveHref, gap.contractTarget, gap.navId);
+  }
+  assert.equal(byId.salesPartnerCustomers?.liveHref, "/app/sales-partner/customers");
+  assert.equal(byId.salesPartnerAcademy?.liveHref, "/app/sales-partner/academy");
+  assert.equal(byId.salesPartnerCommissions?.liveHref, "/app/sales-partner/commissions");
+  assert.equal(FOUNDATION_NAV_BINDINGS.salesPartnerCommissions, "/app/sales-partner/commissions");
   assert.ok(findMatrixRowByCurrentPath("/partners/settlement"));
 });
 
-test("proven missing page roots on disk", () => {
-  assert.equal(existsSync(join(REPO_ROOT, "app/partners/customers/page.tsx")), false);
-  assert.equal(existsSync(join(REPO_ROOT, "app/partners/academy/page.tsx")), false);
+test("partners roots and settlement sources exist; APP thin hosts exist", () => {
+  assert.equal(existsSync(join(REPO_ROOT, "app/partners/customers/page.tsx")), true);
+  assert.equal(existsSync(join(REPO_ROOT, "app/partners/academy/page.tsx")), true);
   assert.equal(existsSync(join(REPO_ROOT, "app/partners/settlement/page.tsx")), true);
   assert.equal(existsSync(join(REPO_ROOT, "app/partners/customers/prospects/page.tsx")), true);
   assert.equal(existsSync(join(REPO_ROOT, "app/partners/academy/training/page.tsx")), true);
+  assert.equal(existsSync(join(REPO_ROOT, "app/app/sales-partner/page.tsx")), true);
+  assert.equal(existsSync(join(REPO_ROOT, "app/app/sales-partner/commissions/page.tsx")), true);
 });
 
 test("excluded surfaces are not in route matrix targets", () => {
