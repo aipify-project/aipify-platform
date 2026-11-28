@@ -70,6 +70,19 @@ export {
   type PublicationReadinessReport,
 } from "./publication-readiness";
 export {
+  applyApprovedContentToPresentation,
+  loadApprovedProductContent,
+  parseApprovedProductContent,
+  PARTNER_CONTENT_REUSE_NOTES,
+  PRODUCT_CONTENT_LOCALES,
+  PRODUCT_LOCALE_MEDIA_RPCS,
+  isProductContentLocale,
+  type ApprovedProductContent,
+  type ProductContentChannel,
+  type ProductContentLocale,
+  type ProductLocaleCopy,
+} from "./locale-media-core";
+export {
   formatVariantQuotaLabel,
   priceForInterval,
   type ProductBillingInterval,
