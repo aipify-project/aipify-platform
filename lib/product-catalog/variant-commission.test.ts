@@ -11,10 +11,14 @@ import {
 } from "./variant-commission";
 import { qualifyFixedCommission, qualifyPercentCommission } from "./commission-rules";
 
-test("variant commission persistence is fail-closed until Core RPC", () => {
+test("variant commission persistence is fail-closed on Production / unbound env", () => {
+  const previous = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  process.env.NEXT_PUBLIC_SUPABASE_URL = "https://qbcqoixhrvhnuwphefvw.supabase.co";
   assert.equal(VARIANT_COMMISSION_PERSISTENCE.canPersist, false);
   assert.equal(canPersistVariantCommissionRules(), false);
-  assert.equal(VARIANT_COMMISSION_PERSISTENCE.status, "blocked_needs_core_rpc");
+  assert.equal(VARIANT_COMMISSION_PERSISTENCE.status, "production_fail_closed");
+  if (previous === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+  else process.env.NEXT_PUBLIC_SUPABASE_URL = previous;
 });
 
 test("normalize fixed and percent rules; free variant allows 0", () => {

@@ -1,0 +1,9 @@
+9d7c6643f58054d29656ccee8a0bcfbb3fd932b42825e32766bd6741af98d426  docs/platform/sql-candidates/csp_product_variants_billing_v1.sql
+8a732222ca1aa9aa08e0c6300e71c9875934797393c1c7a5e9c3dcae03fb721e  docs/platform/sql-candidates/csp_variant_commission_rate_versions_v1.sql
+017ee8fbd4f548025d54b450ab677a1fa554bf3f730be4ee8f97bcc16992c945  docs/platform/sql-candidates/NOT_APPLIED_csp_variant_commission_staging_verify_harness_v1.sql
+
+# Staging auedugihkduoaikfusqe — Step 1 applied as 9d7c6643…
+# Staging Step 2:
+#   original owner-YES SHA (failed PL/pgSQL CASE parse): d34ecae9bc2d6b4c94de64b88c6e6ff5ddec017fcf389e3bea12d39a0aba864f
+#   installed + Git-aligned SHA (CASE parentheses only): 8a732222ca1aa9aa08e0c6300e71c9875934797393c1c7a5e9c3dcae03fb721e
+# See docs/platform/AIPIFY_VARIANT_COMMISSION_STAGING_SQL_DEVIATION_REVIEW_V1.md

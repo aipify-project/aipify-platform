@@ -8,6 +8,8 @@ import {
   ProductShopifyEditor,
   type ProductShopifyEditorLabels,
 } from "@/components/platform/sellers/ProductShopifyEditor";
+import { canPersistVariantCommissionRules } from "@/lib/product-catalog/variant-commission";
+import { parseVariantsJsonInput } from "@/lib/product-catalog/variant-commission-core";
 
 export type SellersActionOption = { value: string; label: string };
 
@@ -245,10 +247,80 @@ export function CertifiedSellersActionPanel({
     });
   }
 
+  async function finishProductSave(
+    productKey: string,
+    baseSuccess: string,
+    variantsRaw: string,
+  ) {
+    const parsed = parseVariantsJsonInput(variantsRaw || "[]");
+    if (!parsed.ok) {
+      setMessage({
+        kind: "error",
+        text: editorLabels?.variantCommissionSaveFailed ?? labels.error,
+      });
+      return;
+    }
+
+    const canPersist = canPersistVariantCommissionRules();
+    if (!canPersist) {
+      setMessage({
+        kind: "ok",
+        text: editorLabels?.variantCommissionNotSaved
+          ? `${baseSuccess} ${editorLabels.variantCommissionNotSaved}`
+          : baseSuccess,
+      });
+      onSuccess?.();
+      if (standaloneEditor && editorMode === "create") {
+        router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
+      }
+      return;
+    }
+
+    if (parsed.variants.length === 0) {
+      setMessage({ kind: "ok", text: baseSuccess });
+      onSuccess?.();
+      if (standaloneEditor && editorMode === "create") {
+        router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
+      }
+      return;
+    }
+
+    const variantsOutcome = await post(
+      "/api/platform/sellers/products/variants",
+      {
+        product_key: productKey,
+        variants: parsed.variants,
+      },
+      { quiet: true },
+    );
+    if (variantsOutcome === "ok") {
+      setMessage({
+        kind: "ok",
+        text: editorLabels?.variantCommissionSaved
+          ? `${baseSuccess} ${editorLabels.variantCommissionSaved}`
+          : baseSuccess,
+      });
+      onSuccess?.();
+      if (standaloneEditor && editorMode === "create") {
+        router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
+      }
+      return;
+    }
+    // Never claim variant/commission success when Core persist fails.
+    setMessage({
+      kind: variantsOutcome === "closed" ? "closed" : "error",
+      text:
+        variantsOutcome === "closed"
+          ? labels.failClosed
+          : (editorLabels?.variantCommissionSaveFailed ?? labels.error),
+    });
+  }
+
   async function onProducts(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const productKey = String(fd.get("product_key") ?? "").trim();
+    const variantsRaw = String(fd.get("variants_json") ?? "");
     const publishSale = fd.get("publish_sale") === "on" || fd.get("published") === "on";
     const publishAppChecked = fd.get("publish_app") === "on";
     const channelOnly = fd.get("channel_only") === "on";
@@ -310,16 +382,7 @@ export function CertifiedSellersActionPanel({
         (masterActive === true && (publishAppChecked || publishSale));
 
       if (!needsChannelWrite) {
-        setMessage({
-          kind: "ok",
-          text: editorLabels?.variantCommissionNotSaved
-            ? `${labels.success} ${editorLabels.variantCommissionNotSaved}`
-            : labels.success,
-        });
-        onSuccess?.();
-        if (standaloneEditor && editorMode === "create") {
-          router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
-        }
+        await finishProductSave(productKey, labels.success, variantsRaw);
         return;
       }
 
@@ -334,16 +397,7 @@ export function CertifiedSellersActionPanel({
         { quiet: true },
       );
       if (channelOutcome === "ok") {
-        setMessage({
-          kind: "ok",
-          text: editorLabels?.variantCommissionNotSaved
-            ? `${labels.success} ${editorLabels.variantCommissionNotSaved}`
-            : labels.success,
-        });
-        onSuccess?.();
-        if (standaloneEditor && editorMode === "create") {
-          router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
-        }
+        await finishProductSave(productKey, labels.success, variantsRaw);
         return;
       }
       if (channelOutcome === "closed") {

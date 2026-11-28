@@ -1,9 +1,11 @@
 /**
  * Variant × billing-interval seller commission — shared types for Opprett produkt
- * and Provisjonspriser. Core persistence is fail-closed until owner-approved SQL/RPC.
+ * and Provisjonspriser. Staging Core may persist; Production stays fail-closed.
  *
  * Does not change historical product-level rates or qualified sales.
  */
+
+import { resolveVariantCommissionPersistCapability } from "@/lib/product-catalog/variant-commission-core-gate";
 
 /** Mirrors ProductBillingInterval — kept local to avoid circular import with variants.ts. */
 export type VariantCommissionBillingInterval = "month" | "year" | "one_time";
@@ -31,20 +33,31 @@ export type VariantCommissionByInterval = {
 };
 
 /**
- * Persistence gate — UI must not claim successful save of variant commissions
- * until Core RPCs exist and are owner-approved.
+ * Persistence gate — Staging Core env may attempt Core RPCs.
+ * Production and unbound envs stay fail-closed (never claim save success).
  */
 export const VARIANT_COMMISSION_PERSISTENCE = {
-  status: "blocked_needs_core_rpc" as const,
-  canPersist: false as const,
+  get status(): "staging_core_enabled" | "production_fail_closed" | "blocked_needs_core_rpc" {
+    const cap = resolveVariantCommissionPersistCapability();
+    if (cap.stagingBound) return "staging_core_enabled";
+    if (cap.productionBound) return "production_fail_closed";
+    return "blocked_needs_core_rpc";
+  },
+  get canPersist(): boolean {
+    return resolveVariantCommissionPersistCapability().canAttemptPersist;
+  },
   sqlDependencies: [
     "docs/platform/sql-candidates/csp_product_variants_billing_v1.sql",
-    "csp_variant_commission_rate_versions (design — not shipped)",
+    "docs/platform/sql-candidates/csp_variant_commission_rate_versions_v1.sql",
+    "docs/platform/sql-candidates/NOT_APPLIED_csp_variant_commission_staging_verify_harness_v1.sql",
   ] as const,
 };
 
-export function canPersistVariantCommissionRules(): false {
-  return VARIANT_COMMISSION_PERSISTENCE.canPersist;
+/** True only when Staging Core is bound. Production always false. */
+export function canPersistVariantCommissionRules(
+  url: string | null | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL,
+): boolean {
+  return resolveVariantCommissionPersistCapability(url).canAttemptPersist;
 }
 
 export function emptyVariantCommissionRule(

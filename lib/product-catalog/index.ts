@@ -48,6 +48,21 @@ export {
   type VariantIntervalCommissionRule,
 } from "./variant-commission";
 export {
+  AIPIFY_CORE_PRODUCTION_PROJECT_REF,
+  AIPIFY_CORE_STAGING_PROJECT_REF,
+  isVariantCommissionProductionCoreBound,
+  isVariantCommissionStagingPersistEnvEnabled,
+  resolveVariantCommissionPersistCapability,
+} from "./variant-commission-core-gate";
+export {
+  VARIANT_COMMISSION_CORE_RPCS,
+  loadProductVariantsBundle,
+  listVariantCommissionRatesFromCore,
+  mapCoreBundleToVariantDefinitions,
+  persistProductVariantsToCore,
+  parseVariantsJsonInput,
+} from "./variant-commission-core";
+export {
   localizeQuotaUnit,
   variantHasPaidCustomerPrice,
 } from "./quota-labels";

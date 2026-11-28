@@ -15,7 +15,7 @@ import {
   type ProductVariantBuilderLabels,
 } from "@/components/platform/sellers/ProductVariantBuilder";
 import type { ProductVariantDefinition } from "@/lib/product-catalog/variants";
-import { variantsForProduct } from "@/lib/product-catalog/merge";
+import { canPersistVariantCommissionRules } from "@/lib/product-catalog/variant-commission";
 import { resolveProductModuleBinding } from "@/lib/product-catalog/module-binding";
 
 export type ProductEditorMode = "create" | "edit";
@@ -61,8 +61,12 @@ export type ProductShopifyEditorLabels = SellersActionLabels & {
   channelSaleDetails: string;
   variantsTitle: string;
   variantBuilder: ProductVariantBuilderLabels;
-  /** Shown after Core product save — variant commissions are not persisted yet. */
+  /** Shown after Core product save when Staging persist is unavailable. */
   variantCommissionNotSaved: string;
+  /** Shown after successful Staging Core variant/commission persist. */
+  variantCommissionSaved: string;
+  /** Shown when variant persist fails — never claim success. */
+  variantCommissionSaveFailed: string;
   legacyProductCommissionHint: string;
 };
 
@@ -145,9 +149,9 @@ export function ProductShopifyEditor({
   const [dirty, setDirty] = useState(false);
   const [saleDetailsOpen, setSaleDetailsOpen] = useState(true);
   const [appDetailsOpen, setAppDetailsOpen] = useState(false);
-  const [variants, setVariants] = useState<ProductVariantDefinition[]>(() =>
-    initialKey ? variantsForProduct(initialKey) : [],
-  );
+  const [variants, setVariants] = useState<ProductVariantDefinition[]>([]);
+  const [variantsLoadError, setVariantsLoadError] = useState<string | null>(null);
+  const canPersistVariants = canPersistVariantCommissionRules();
 
   const markDirty = useCallback(() => setDirty(true), []);
 
@@ -160,6 +164,38 @@ export function ProductShopifyEditor({
     window.addEventListener("beforeunload", onBeforeUnload);
     return () => window.removeEventListener("beforeunload", onBeforeUnload);
   }, [dirty]);
+
+  useEffect(() => {
+    if (!canPersistVariants || mode !== "edit" || !initialKey) {
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(
+          `/api/platform/sellers/products/variants?product_key=${encodeURIComponent(initialKey)}`,
+          { cache: "no-store" },
+        );
+        const body = (await res.json().catch(() => null)) as {
+          found?: boolean;
+          variants?: ProductVariantDefinition[];
+          error?: string;
+        } | null;
+        if (cancelled) return;
+        if (!res.ok || !body?.found) {
+          setVariantsLoadError(labels.variantCommissionSaveFailed);
+          return;
+        }
+        setVariants(Array.isArray(body.variants) ? body.variants : []);
+        setVariantsLoadError(null);
+      } catch {
+        if (!cancelled) setVariantsLoadError(labels.variantCommissionSaveFailed);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [canPersistVariants, initialKey, labels.variantCommissionSaveFailed, mode]);
 
   const draft = localeDrafts[contentLocale];
 
@@ -362,9 +398,16 @@ export function ProductShopifyEditor({
             <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
               {labels.priceNotCommission}
             </p>
-            <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
-              {labels.variantCommissionNotSaved}
-            </p>
+            {!canPersistVariants ? (
+              <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
+                {labels.variantCommissionNotSaved}
+              </p>
+            ) : null}
+            {variantsLoadError ? (
+              <p className="mt-1 text-sm text-red-700" role="alert">
+                {variantsLoadError}
+              </p>
+            ) : null}
           </EditorCard>
         </div>
 
