@@ -43,8 +43,8 @@ YES — APPLY TO PRODUCTION CORE qbcqoixhrvhnuwphefvw
 FILE: docs/platform/sql-candidates/csp_product_variants_billing_v1.sql
 SHA256: 9d7c6643f58054d29656ccee8a0bcfbb3fd932b42825e32766bd6741af98d426
 ORDER: 1 of 2
-COMMIT: 86116e55965d8f8c4b493a7426b343bfdcf9a1d6
-PR: see GitHub section below
+COMMIT: 8992dd855a6317021d4de72956980ee0b3b1ab3c
+PR: https://github.com/aipify-project/aipify-platform/pull/496
 ```
 
 Step 2 remains separate: `csp_variant_commission_rate_versions_v1.sql` SHA `8a732222…` (unchanged by this PR).
@@ -56,8 +56,9 @@ Step 2 remains separate: `csp_variant_commission_rate_versions_v1.sql` SHA `8a73
 | Field | Value |
 |---|---|
 | Branch | `feat/variant-billing-production-source-v1` |
-| Commit | `86116e55965d8f8c4b493a7426b343bfdcf9a1d6` |
-| PR | *(filled after open)* |
+| Commit (branch tip) | `8992dd855a6317021d4de72956980ee0b3b1ab3c` |
+| SQL introduced in | `86116e55965d8f8c4b493a7426b343bfdcf9a1d6` |
+| PR | https://github.com/aipify-project/aipify-platform/pull/496 |
 
 ---
 
