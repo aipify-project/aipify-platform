@@ -2,9 +2,11 @@
 
 **Status:** READY for owner YES — **STOP before install**  
 **Date:** 2026-11-28  
-**Worktree:** `/tmp/aipify-variant-commission-prod-preflight-v1` @ `origin/main` (`ea3708f7e6475e726bf6185e1d32b933146627ac`)  
+**Source PR:** https://github.com/aipify-project/aipify-platform/pull/496 (`feat/variant-billing-production-source-v1` @ `e680098cb83b8ac1a42ad8d2b13ce601e9c27b79`)  
+**SQL content commit:** `86116e55965d8f8c4b493a7426b343bfdcf9a1d6`  
 **Target Core:** Production `qbcqoixhrvhnuwphefvw`  
-**Gates honored:** READ_ONLY · NO_SQL_APPLY · NO_PRODUCTION_WRITE · NO_GATE_ACTIVATION · NO_STRIPE_CHANGE · NO_PAYMENT · NO_COMMISSION_ACTIVATION
+**Gates honored:** READ_ONLY · NO_SQL_APPLY · NO_PRODUCTION_WRITE · NO_GATE_ACTIVATION · NO_STRIPE_CHANGE · NO_PAYMENT · NO_COMMISSION_ACTIVATION  
+**SOURCE_READY:** `docs/platform/AIPIFY_VARIANT_BILLING_PRODUCTION_SOURCE_READY.md`
 
 ---
 
