@@ -5,11 +5,13 @@ import { createHash } from "node:crypto";
 import { classifyBridgeAccessDenial, mapGpStatusFromCsp } from "./parse";
 import {
   UNIFIED_SELLER_BRIDGE_SQL_CANDIDATE,
+  UNIFIED_SELLER_BRIDGE_MODULE_SEED_SKIP_PATCH,
   UNIFIED_SELLER_BRIDGE_TENANT_TYPE_PATCH,
 } from "./constants";
 
 const sql = readFileSync(UNIFIED_SELLER_BRIDGE_SQL_CANDIDATE, "utf8");
 const tenantTypePatch = readFileSync(UNIFIED_SELLER_BRIDGE_TENANT_TYPE_PATCH, "utf8");
+const moduleSeedSkipPatch = readFileSync(UNIFIED_SELLER_BRIDGE_MODULE_SEED_SKIP_PATCH, "utf8");
 
 test("negative access: unauthenticated callers are unauthorized", () => {
   for (const rpc of ["ensureForCsp", "ensureOwn", "syncFromCsp", "getOwnLinks"] as const) {
@@ -162,6 +164,30 @@ test("any-product cert alone does not certify without status+product key", () =>
   // Pure helper: productCertPassed must be computed for kompis_web by Core.
   assert.equal(mapGpStatusFromCsp({ cspStatus: "approved", productCertPassed: false }).linkActive, false);
   assert.equal(mapGpStatusFromCsp({ cspStatus: "in_academy", productCertPassed: true }).partnerStatus, "certification_required");
+});
+
+test("SQL skips drifted APP module seed and keeps settings + GP IRP seed", () => {
+  assert.doesNotMatch(sql, /perform public\._mta_seed_organization_modules/);
+  assert.match(sql, /perform public\._mta_seed_organization_settings/);
+  assert.match(sql, /perform public\._gp455_seed_role_permissions/);
+  assert.equal((sql.match(/perform public\._mta_seed_organization_settings/g) || []).length, 2);
+  assert.equal((sql.match(/perform public\._gp455_seed_role_permissions/g) || []).length, 2);
+});
+
+test("module-seed skip Production patch removes only module seed calls", () => {
+  assert.match(moduleSeedSkipPatch, /_usb_provision_dedicated_gp_org_for_auth/);
+  assert.match(moduleSeedSkipPatch, /complete_growth_partner_public_signup/);
+  assert.doesNotMatch(moduleSeedSkipPatch, /perform public\._mta_seed_organization_modules/);
+  assert.match(moduleSeedSkipPatch, /perform public\._mta_seed_organization_settings/);
+  assert.match(moduleSeedSkipPatch, /perform public\._gp455_seed_role_permissions/);
+  assert.doesNotMatch(moduleSeedSkipPatch, /create or replace function public\._mta_seed_organization_modules/i);
+  assert.doesNotMatch(moduleSeedSkipPatch, /alter table/i);
+  assert.doesNotMatch(moduleSeedSkipPatch, /_usb_staging_/);
+  const digest = createHash("sha256")
+    .update(readFileSync(UNIFIED_SELLER_BRIDGE_MODULE_SEED_SKIP_PATCH))
+    .digest("hex");
+  const shaFile = readFileSync(`${UNIFIED_SELLER_BRIDGE_MODULE_SEED_SKIP_PATCH}.sha256`, "utf8").trim();
+  assert.equal(shaFile.split(/\s+/)[0], digest);
 });
 
 test("SHA-256 sidecar matches hardened candidate", () => {

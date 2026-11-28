@@ -393,7 +393,10 @@ begin
     updated_at = now()
   where id = v_org_id;
 
-  perform public._mta_seed_organization_modules(v_org_id);
+  -- Production organization_modules uses status (not enabled/plan_required).
+  -- Dedicated GP bridge orgs do not need APP starter module rows for portal/CRM/links;
+  -- capability is gated by CSP + growth_partner_app_profiles + growth_partner.* IRP.
+  -- Skip global module seed helper here (schema-drifted vs Production table).
   perform public._mta_seed_organization_settings(v_org_id);
   perform public._gp455_seed_role_permissions(v_org_id);
 
@@ -928,7 +931,10 @@ begin
     subscription_plan = 'internal', updated_at = now()
   where id = v_org_id;
 
-  perform public._mta_seed_organization_modules(v_org_id);
+  -- Production organization_modules uses status (not enabled/plan_required).
+  -- Dedicated GP bridge orgs do not need APP starter module rows for portal/CRM/links;
+  -- capability is gated by CSP + growth_partner_app_profiles + growth_partner.* IRP.
+  -- Skip global module seed helper here (schema-drifted vs Production table).
   perform public._mta_seed_organization_settings(v_org_id);
   perform public._gp455_seed_role_permissions(v_org_id);
 
