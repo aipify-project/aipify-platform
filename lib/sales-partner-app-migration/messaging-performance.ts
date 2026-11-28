@@ -17,13 +17,22 @@ export const SHARED_APP_NOTIFICATIONS_PATH = "/app/notifications" as const;
  * Unread badge policy: no lightweight count RPC exists yet.
  * Do not fall back to full-list fetches. Do not invent unread=0 on error.
  */
-export const PARTNER_MESSAGE_UNREAD_BADGE = {
-  status: "deferred_no_count_rpc" as const,
+export type PartnerMessageUnreadBadgeStatus =
+  | "deferred_no_count_rpc"
+  | "live_count_rpc";
+
+export const PARTNER_MESSAGE_UNREAD_BADGE: {
+  status: PartnerMessageUnreadBadgeStatus;
+  forbiddenFallback: "full_list_fetch";
+  sqlCandidatePath: string;
+  rpcNameProposed: string;
+} = {
+  status: "deferred_no_count_rpc",
   forbiddenFallback: "full_list_fetch",
   sqlCandidatePath:
     "docs/platform/sql-candidates/csp_partner_message_unread_count_rpc_v1.sql",
   rpcNameProposed: "csp_partner_message_unread_count",
-} as const;
+};
 
 export const PARTNER_MESSAGES_CLIENT_RULES = {
   listFetchAllowedOn: [PARTNER_MESSAGES_APP_PATH] as const,

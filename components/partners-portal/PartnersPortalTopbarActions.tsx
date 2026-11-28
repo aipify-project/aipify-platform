@@ -90,8 +90,10 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
         }`}
       >
         <MessageSquare className="h-[22px] w-[22px]" aria-hidden />
-        {/* Badge deferred: PARTNER_MESSAGE_UNREAD_BADGE.status === deferred_no_count_rpc */}
-        {PARTNER_MESSAGE_UNREAD_BADGE.status === "live_count_rpc" ? null : null}
+        {PARTNER_MESSAGE_UNREAD_BADGE.status === "live_count_rpc" ? (
+          // Count RPC not shipped — reserved for future badge render.
+          null
+        ) : null}
       </Link>
 
       <Link
