@@ -6,7 +6,7 @@
 | --- | --- |
 | PR | https://github.com/aipify-project/aipify-platform/pull/531 |
 | Baseline | `e9d2b8316` |
-| Delivery tip | tip after V2 push (this report) |
+| Delivery tip | `28db3c26b` (`28db3c26b55e0bc0ccaa3160444d5c3b6daaab28`) |
 | Agent 1 (#525/#530) | not edited by Agent 2; merge-from-main for coexistence |
 | Agent 3 support/public site | not edited by Agent 2; frozen public chain not touched |
 | Production media upload | fail-closed |
@@ -72,3 +72,8 @@
 2. Production media upload YES  
 3. Live checkout / Stripe YES (Agent 1)  
 4. Optional: Core-backed visitor widget appearance editor (new contract) — not invented here  
+
+
+## Known upstream (not this job)
+
+`spanish-bedrift-eke-coverage` frozen-hash check fails on `origin/main` for Website Kompis public-chain files (manifest vs widget). Agent 2 did not modify frozen runtime files; do not “fix” hashes here without Agent 3 / freeze approval.
