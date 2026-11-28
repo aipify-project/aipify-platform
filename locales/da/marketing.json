@@ -8882,7 +8882,14 @@
     "errorGeneric": "Kunne ikke sende anmodningen. Prøv igen eller brug e-mail.",
     "mailtoFallback": "E-mail forbliver tilgængelig som alternativ kontaktkanal.",
     "mailtoLabel": "Send e-mail til support@aipify.ai",
-    "verificationRequired": "Fuldfør sikkerhedstjekket, før du sender."
+    "verificationRequired": "Fuldfør sikkerhedstjekket, før du sender.",
+    "privacy": "Aipify Group AS gemmer kun navn, e-mail, emne og besked, som du sender, så support kan svare. Oplysningerne sælges ikke. Du får ikke adgang til andre henvendelser.",
+    "privacyInactive": "Formularen gemmer ikke henvendelser endnu. Aipify Group AS gemmer ikke det, du skriver her, før sagsindtag er godkendt. Brug e-mailalternativet, hvis du vil i kontakt nu.",
+    "nameRequired": "Skriv dit navn.",
+    "emailInvalid": "Skriv en gyldig e-mailadresse.",
+    "subjectTooShort": "Emnet skal have mindst 3 tegn.",
+    "messageTooShort": "Beskeden skal have mindst 10 tegn.",
+    "referenceLabel": "Reference"
   },
   "personalSalesPage": {
     "metaTitle": "Aipify",

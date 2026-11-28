@@ -77,7 +77,12 @@ export async function POST(request: NextRequest) {
     const sanitized = sanitizeSupportIntakePayload(body, "web");
     if (!sanitized.ok) {
       return NextResponse.json(
-        { error: sanitized.message, code: "validation", ...getSupportIntakeGateState() },
+        {
+          error: sanitized.message,
+          code: "validation",
+          field: sanitized.field,
+          ...getSupportIntakeGateState(),
+        },
         { status: 400, headers: NO_STORE },
       );
     }

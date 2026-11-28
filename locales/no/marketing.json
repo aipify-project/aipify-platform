@@ -8897,7 +8897,14 @@
     "errorGeneric": "Kunne ikke sende forespørselen. Prøv igjen eller bruk e-post.",
     "mailtoFallback": "E-post forblir tilgjengelig som alternativ kontaktkanal.",
     "mailtoLabel": "Send e-post til support@aipify.ai",
-    "verificationRequired": "Fullfør sikkerhetskontrollen før du sender."
+    "verificationRequired": "Fullfør sikkerhetskontrollen før du sender.",
+    "privacy": "Aipify Group AS lagrer bare navn, e-post, emne og melding du sender, slik at support kan svare. Opplysningene selges ikke. Du får ikke tilgang til andre henvendelser.",
+    "privacyInactive": "Skjemaet lagrer ikke henvendelser ennå. Aipify Group AS lagrer ikke det du skriver her før saksinntak er godkjent. Bruk e-postalternativet hvis du vil nå oss nå.",
+    "nameRequired": "Skriv inn navnet ditt.",
+    "emailInvalid": "Skriv inn en gyldig e-postadresse.",
+    "subjectTooShort": "Emnet må ha minst 3 tegn.",
+    "messageTooShort": "Meldingen må ha minst 10 tegn.",
+    "referenceLabel": "Referanse"
   },
   "personalSalesPage": {
     "metaTitle": "Aipify",
