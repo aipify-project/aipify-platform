@@ -51,6 +51,11 @@ type Props = {
   /** True right after a successful draft save and before further edits. */
   replySaved: boolean;
   signatureReady: boolean;
+  /**
+   * True only when Core `platform_support_send_public_reply` is applied for the
+   * bound environment. Send stays disabled otherwise — never a false-ready CTA.
+   */
+  sendPublicReplyReady: boolean;
   onReplyChange: (value: string) => void;
   onNoteChange: (value: string) => void;
   onStatusChoice: (value: string) => void;
@@ -263,9 +268,11 @@ export default function SupportTicketDetail(props: Props) {
             onChange={(e) => props.onReplyChange(e.target.value)}
           />
           <p className="text-xs text-amber-800">{labels.reply.emailOff}</p>
-          <p className="text-xs text-[color:var(--aipify-text-secondary)]">
-            {labels.reply.sendReplyCorePending}
-          </p>
+          {!props.sendPublicReplyReady ? (
+            <p className="text-xs text-[color:var(--aipify-text-secondary)]">
+              {labels.reply.sendReplyCorePending}
+            </p>
+          ) : null}
           <FlashMessage flash={scopedFlash("reply") ?? scopedFlash("send") ?? scopedFlash("template")} />
           <div className="flex flex-wrap gap-2">
             <button
@@ -287,7 +294,11 @@ export default function SupportTicketDetail(props: Props) {
             <button
               type="button"
               className={primaryButtonClass}
-              disabled={busy !== null || !props.replyDraft.trim()}
+              disabled={
+                busy !== null ||
+                !props.sendPublicReplyReady ||
+                !props.replyDraft.trim()
+              }
               onClick={props.onSendReply}
             >
               {labels.reply.sendReply}

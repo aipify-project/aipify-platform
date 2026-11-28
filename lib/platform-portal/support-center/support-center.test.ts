@@ -68,6 +68,7 @@ import {
   SUPPORT_SEND_PUBLIC_REPLY_SQL_SHA256,
   SUPPORT_APP_VISIBLE_MESSAGES_SQL_PATH,
   SUPPORT_APP_VISIBLE_MESSAGES_SQL_SHA256,
+  SUPPORT_APP_VISIBLE_MESSAGES_APPLIED,
   isSupportSendPublicReplyApplied,
 } from "./send-public-reply-contract";
 import { AIPIFY_CORE_STAGING_PROJECT_REF } from "./staging-core-activation";
@@ -387,6 +388,19 @@ assert.match(enChannels.emailSendBlocked, /not configured/i);
 assert.equal(SUPPORT_SEND_PUBLIC_REPLY_STAGING_APPLIED, true);
 assert.equal(SUPPORT_SEND_PUBLIC_REPLY_PRODUCTION_APPLIED, false);
 assert.equal(SUPPORT_SEND_PUBLIC_REPLY_APPLIED, false);
+assert.equal(SUPPORT_APP_VISIBLE_MESSAGES_APPLIED, false);
+{
+  const detailUi = readFileSync(
+    "components/platform/support-center/SupportTicketDetail.tsx",
+    "utf8",
+  );
+  assert.match(detailUi, /sendPublicReplyReady/);
+  assert.match(detailUi, /!props\.sendPublicReplyReady/);
+  assert.match(
+    detailUi,
+    /disabled=\{\s*busy !== null \|\|\s*!props\.sendPublicReplyReady/,
+  );
+}
 assert.equal(
   isSupportSendPublicReplyApplied(
     `https://${AIPIFY_CORE_STAGING_PROJECT_REF}.supabase.co`,

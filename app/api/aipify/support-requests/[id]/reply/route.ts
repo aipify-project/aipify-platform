@@ -10,7 +10,8 @@ type Body = {
 
 /**
  * Customer portal reply on an APP support request.
- * Requires Core RPC `reply_app_portal_support_request` (SQL candidate — not applied yet).
+ * Core RPC `reply_app_portal_support_request` is live on Production/Staging.
+ * APP thread history still requires companion get-messages SQL (separate YES).
  * Email stays OFF; internal notes are never returned.
  */
 export async function POST(request: Request, context: RouteContext) {
