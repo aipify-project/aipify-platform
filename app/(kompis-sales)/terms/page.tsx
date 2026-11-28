@@ -9,7 +9,13 @@ export async function generateMetadata(): Promise<Metadata> {
   const dict = await getDictionary(locale, ["marketing"]);
   const marketing = dict.marketing as Record<string, unknown>;
   const meta = getSection<{ termsTitle?: string }>(marketing, "meta");
-  return { title: meta.termsTitle, description: "Aipify Terms of Service" };
+  const termsPage = getSection<{ title?: string; updated?: string }>(marketing, "termsPage");
+  return {
+    title: meta.termsTitle ?? termsPage.title,
+    description: termsPage.updated ?? meta.termsTitle ?? termsPage.title,
+    robots: { index: true, follow: true },
+    alternates: { canonical: "https://aipify.ai/terms" },
+  };
 }
 
 export default async function TermsPage() {

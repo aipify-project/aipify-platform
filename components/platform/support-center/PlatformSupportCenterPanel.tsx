@@ -74,6 +74,11 @@ type Drafts = {
   replyBaseline: string;
   note: string;
   templateId: string;
+  /**
+   * Stable send idempotency key for this draft — reused until a successful send
+   * clears the draft (avoids duplicate customer-visible messages on retry).
+   */
+  sendIdempotencyKey: string | null;
 };
 
 const EMPTY_DRAFTS: Drafts = {
@@ -82,6 +87,7 @@ const EMPTY_DRAFTS: Drafts = {
   replyBaseline: "",
   note: "",
   templateId: "",
+  sendIdempotencyKey: null,
 };
 
 const SEARCH_DEBOUNCE_MS = 300;
@@ -157,6 +163,8 @@ export default function PlatformSupportCenterPanel({
   const [busy, setBusy] = useState<SupportBusyScope | null>(null);
 
   const [drafts, setDrafts] = useState<Drafts>(EMPTY_DRAFTS);
+  /** Sync map so rapid Send retries reuse the same key before React state flushes. */
+  const sendIdempotencyByTicketRef = useRef<Record<string, string>>({});
   const [statusChoice, setStatusChoice] = useState<{
     ticketId: string;
     value: string;
@@ -564,10 +572,24 @@ export default function PlatformSupportCenterPanel({
 
   function sendReply() {
     const body = replyDraft;
+    const ticketKey = selectedId ?? "unknown";
+    const existing =
+      draftsForSelected.sendIdempotencyKey ??
+      sendIdempotencyByTicketRef.current[ticketKey] ??
+      null;
     const key =
-      typeof crypto !== "undefined" && "randomUUID" in crypto
+      existing ??
+      (typeof crypto !== "undefined" && "randomUUID" in crypto
         ? crypto.randomUUID()
-        : `send-${Date.now()}`;
+        : `send-${Date.now()}`);
+    sendIdempotencyByTicketRef.current[ticketKey] = key;
+    if (draftsForSelected.sendIdempotencyKey !== key) {
+      setDrafts({
+        ...draftsForSelected,
+        ticketId: selectedId,
+        sendIdempotencyKey: key,
+      });
+    }
     void runWrite(
       "send",
       {
@@ -578,14 +600,17 @@ export default function PlatformSupportCenterPanel({
         idempotencyKey: key,
       },
       labels.reply.sendReplySaved,
-      () =>
+      () => {
+        delete sendIdempotencyByTicketRef.current[ticketKey];
         setDrafts({
           ...draftsForSelected,
           ticketId: selectedId,
           reply: "",
           replyBaseline: "",
           templateId: "",
-        }),
+          sendIdempotencyKey: null,
+        });
+      },
     );
   }
 

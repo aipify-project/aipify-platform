@@ -212,6 +212,7 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"]) {
   assert.doesNotMatch(detail, /internalNotes|auditHistory|commentsPlaceholder/);
   assert.match(detail, /sendReply/);
   assert.match(panel, /get\("new"\)/);
+  assert.match(panel, /unreadUnavailableNote/);
 }
 
 console.log("inbox-design-v3.test.ts: ok");

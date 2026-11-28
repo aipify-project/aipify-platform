@@ -26,6 +26,7 @@ export default function robots(): MetadataRoute.Robots {
           "/super/",
           "/dashboard/",
           "/partners/",
+          "/login",
           "/book-demo",
           "/kompis-web",
         ],

@@ -5,22 +5,15 @@ import {
 } from "./constants";
 import type { WebsiteHealthReport } from "./types";
 
+/** Preferred indexable / allowed public surfaces after sales chrome cleanup. */
 const REQUIRED_PUBLIC_ROUTES = [
   "/",
-  "/product",
-  "/pricing",
-  "/enterprise",
-  "/security",
-  "/knowledge",
-  "/growth-partners",
-  "/company",
-  "/careers",
-  "/media",
-  "/contact",
   "/privacy",
   "/terms",
-  "/get-started",
-  "/book-demo",
+  "/growth-partners",
+  "/certified-sales-partner",
+  "/contact/support",
+  "/start",
 ];
 
 export function buildWebsiteHealthReport(options?: {
@@ -54,17 +47,18 @@ export function buildWebsiteHealthReport(options?: {
       {
         id: "seo_health" as const,
         status: "pass" as const,
-        summary: "Sitemap, knowledge articles, and Business Pack landing pages active.",
+        summary:
+          "Sitemap lists sales chrome only; legacy marketing shell stays noindex,follow.",
       },
       {
         id: "localization_coverage" as const,
         status: locales >= 4 ? ("pass" as const) : ("warn" as const),
-        summary: `Marketing locales: ${locales} (en, no, sv, da).`,
+        summary: `Public sales locales: ${locales} (en, no, sv, da, pl, uk, es).`,
       },
       {
         id: "conversion_paths" as const,
         status: "pass" as const,
-        summary: "Book Demo, Early Access, and Growth Partner paths tracked.",
+        summary: "Start, Growth Partner apply, CSP apply, and contact/support paths tracked.",
       },
     ],
     completion: WEBSITE_COMPLETION_CHECKPOINTS.map((id) => ({
