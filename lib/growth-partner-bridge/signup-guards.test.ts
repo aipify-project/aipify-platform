@@ -43,21 +43,24 @@ test("personal sales path prefers active GP slug and rejects csp- codes", () => 
   );
 });
 
-test("maps CSP status + verified product cert without inventing certification", () => {
+test("maps CSP status + product-specific cert without inventing certification", () => {
   assert.deepEqual(mapGpStatusFromCsp({ cspStatus: "approved", productCertPassed: true }), {
     partnerStatus: "certified",
     certificationStatus: "passed",
     linkActive: true,
+    productKey: "kompis_web",
   });
   assert.deepEqual(mapGpStatusFromCsp({ cspStatus: "approved", productCertPassed: false }), {
     partnerStatus: "certification_required",
     certificationStatus: "pending",
     linkActive: false,
+    productKey: "kompis_web",
   });
   assert.deepEqual(mapGpStatusFromCsp({ cspStatus: "suspended", productCertPassed: true }), {
     partnerStatus: "suspended",
     certificationStatus: "passed",
     linkActive: false,
+    productKey: "kompis_web",
   });
 });
 

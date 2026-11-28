@@ -84,22 +84,33 @@ export function parseUnifiedSellerEnsureResult(data: unknown): UnifiedSellerEnsu
   };
 }
 
-/** Map CSP status + product-cert passed → GP capability (mirrors SQL `_usb_map_gp_status_from_csp`). */
+/** Personal sales product key mirrored by Core bridge mapping. */
+export const UNIFIED_SELLER_PERSONAL_PRODUCT_KEY = "kompis_web" as const;
+
+/**
+ * Map CSP status + product-specific cert → GP capability.
+ * Mirrors SQL `_usb_map_gp_status_from_csp(..., p_product_key)` — never invents certification.
+ */
 export function mapGpStatusFromCsp(input: {
   cspStatus: string | null | undefined;
+  /** Must be the personal-sales product cert (default kompis_web), not "any product". */
   productCertPassed: boolean;
+  productKey?: string | null;
 }): {
   partnerStatus: "certified" | "suspended" | "certification_required";
   certificationStatus: "passed" | "pending";
   linkActive: boolean;
+  productKey: string;
 } {
   const status = (input.cspStatus ?? "").trim().toLowerCase();
+  const productKey = (input.productKey ?? UNIFIED_SELLER_PERSONAL_PRODUCT_KEY).trim().toLowerCase() || UNIFIED_SELLER_PERSONAL_PRODUCT_KEY;
   const passed = input.productCertPassed === true;
   if (status === "suspended" || status === "terminated" || status === "rejected") {
     return {
       partnerStatus: "suspended",
       certificationStatus: passed ? "passed" : "pending",
       linkActive: false,
+      productKey,
     };
   }
   if ((status === "approved" || status === "active" || status === "certified") && passed) {
@@ -107,11 +118,35 @@ export function mapGpStatusFromCsp(input: {
       partnerStatus: "certified",
       certificationStatus: "passed",
       linkActive: true,
+      productKey,
     };
   }
   return {
     partnerStatus: "certification_required",
     certificationStatus: passed ? "passed" : "pending",
     linkActive: false,
+    productKey,
   };
+}
+
+/** Negative access expectations for bridge RPC wrappers (fail-closed). */
+export function classifyBridgeAccessDenial(input: {
+  authenticated: boolean;
+  isPlatformAdmin: boolean;
+  ownsCspPartner: boolean;
+  rpc: "ensureForCsp" | "ensureOwn" | "syncFromCsp" | "getOwnLinks" | "internalMap" | "internalSync" | "internalEnsure";
+}): "unauthorized" | "forbidden" | "allowed" {
+  if (!input.authenticated) return "unauthorized";
+  if (input.rpc === "internalMap" || input.rpc === "internalSync" || input.rpc === "internalEnsure") {
+    return "forbidden";
+  }
+  if (input.rpc === "ensureForCsp") {
+    return input.isPlatformAdmin ? "allowed" : "forbidden";
+  }
+  if (input.rpc === "ensureOwn" || input.rpc === "getOwnLinks") {
+    return "allowed"; // ownership enforced inside RPC via auth.uid()
+  }
+  // syncFromCsp: platform admin or CSP owner
+  if (input.isPlatformAdmin || input.ownsCspPartner) return "allowed";
+  return "forbidden";
 }

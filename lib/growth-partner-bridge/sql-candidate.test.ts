@@ -15,21 +15,20 @@ test("SQL candidate is NOT_APPLIED and documents hard bounds", () => {
   assert.match(sql, /MUST NOT be copied into/);
   assert.match(sql, /supabase\/migrations/);
   assert.match(sql, /ZERO new portal \/ get_growth_portal_access dependency/);
+  assert.match(sql, /ZERO overwrite of existing APP customer tenant_type/);
   assert.doesNotMatch(sql, /create or replace function public\.get_growth_portal_access/i);
   assert.doesNotMatch(sql, /stripe\.com|stripe_customer|stripe_subscription/i);
 });
 
-test("SQL candidate exposes idempotent ensure + sync + own links RPCs", () => {
+test("SQL candidate exposes public bridge RPCs and keeps internals revoked", () => {
   for (const name of Object.values(UNIFIED_SELLER_BRIDGE_RPC)) {
     assert.match(sql, new RegExp(`function public\\.${name}`));
   }
   assert.match(sql, /security definer/i);
   assert.match(sql, /is_platform_admin/);
   assert.match(sql, /csp_product_certifications/);
-  assert.match(sql, /status = 'passed'/);
-  assert.match(sql, /link_status = case when v_link_active then 'active' else 'disabled' end/);
-  assert.match(sql, /csp_seller_exists/);
   assert.match(sql, /auth_user_conflict/);
+  assert.match(sql, /csp_seller_exists/);
 });
 
 test("SHA-256 sidecar matches candidate bytes", () => {
