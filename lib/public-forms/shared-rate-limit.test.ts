@@ -22,7 +22,7 @@ test("prefers documented REST pair when it is a valid HTTPS Upstash URL", () => 
     UPSTASH_REDIS_REST_TOKEN: "Bearer primary-token",
     UPSTASH_REDIS_REST_KV_REST_API_URL: "https://marketplace.upstash.io",
     UPSTASH_REDIS_REST_KV_REST_API_TOKEN: "marketplace-token",
-  } as NodeJS.ProcessEnv);
+  } as unknown as NodeJS.ProcessEnv);
   assert.deepEqual(credentials, {
     url: "https://primary.upstash.io",
     token: "primary-token",
@@ -33,7 +33,7 @@ test("falls back to Marketplace KV REST names when documented pair is missing or
   const missing = resolveSharedRateLimitRestCredentials({
     UPSTASH_REDIS_REST_KV_REST_API_URL: "https://marketplace.upstash.io",
     UPSTASH_REDIS_REST_KV_REST_API_TOKEN: "marketplace-token",
-  } as NodeJS.ProcessEnv);
+  } as unknown as NodeJS.ProcessEnv);
   assert.deepEqual(missing, {
     url: "https://marketplace.upstash.io",
     token: "marketplace-token",
@@ -44,7 +44,7 @@ test("falls back to Marketplace KV REST names when documented pair is missing or
     UPSTASH_REDIS_REST_TOKEN: "ignored",
     UPSTASH_REDIS_REST_KV_REST_API_URL: "https://marketplace.upstash.io",
     UPSTASH_REDIS_REST_KV_REST_API_TOKEN: "marketplace-token",
-  } as NodeJS.ProcessEnv);
+  } as unknown as NodeJS.ProcessEnv);
   assert.deepEqual(redisDoc, {
     url: "https://marketplace.upstash.io",
     token: "marketplace-token",
@@ -52,7 +52,7 @@ test("falls back to Marketplace KV REST names when documented pair is missing or
 });
 
 test("fails closed when no usable REST credentials exist", () => {
-  assert.equal(resolveSharedRateLimitRestCredentials({} as NodeJS.ProcessEnv), null);
+  assert.equal(resolveSharedRateLimitRestCredentials({} as unknown as NodeJS.ProcessEnv), null);
   assert.equal(
     createUpstashRestBackend({
       url: "rediss://default:x@example.upstash.io:6379",
