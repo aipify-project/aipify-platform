@@ -146,7 +146,7 @@ export function AppCustomerProfilePanel({
   ];
 
   return (
-    <div className="mx-auto w-full max-w-[50rem] space-y-6">
+    <div className="w-full min-w-0 space-y-6">
       <section className="flex flex-col gap-4 rounded-[28px] border border-[rgba(96,82,176,.15)] bg-white p-5 shadow-[0_12px_30px_rgba(38,33,87,.07)] sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center">
           {view.avatarUrl ? (
