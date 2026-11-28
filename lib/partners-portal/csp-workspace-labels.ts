@@ -260,6 +260,8 @@ export function buildProductShopifyEditorLabels(t: Translator): ProductShopifyEd
     channelSaleDetails: k("editorChannelSaleDetails"),
     variantsTitle: k("editorVariantsTitle"),
     variantCommissionNotSaved: k("editorVariantCommissionNotSaved"),
+    variantCommissionSaved: k("editorVariantCommissionSaved"),
+    variantCommissionSaveFailed: k("editorVariantCommissionSaveFailed"),
     legacyProductCommissionHint: k("editorLegacyProductCommissionHint"),
     variantBuilder: {
       title: k("editorVariantsTitle"),

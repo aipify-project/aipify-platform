@@ -2,9 +2,9 @@
 
 /**
  * Platform Product Center — variant builder (monthly + yearly + one-time).
- * Local editor state only until Core variant + commission SQL is applied.
+ * Staging Core may persist via products/variants API; Production stays fail-closed.
  * Never invents Stripe IDs or marks purchasable without provider mapping.
- * Never claims variant commission persistence while Core RPC is blocked.
+ * Never claims variant commission persistence while canPersist is false.
  */
 
 import { useMemo } from "react";

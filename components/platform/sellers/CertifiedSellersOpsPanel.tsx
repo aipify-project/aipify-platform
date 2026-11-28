@@ -124,10 +124,16 @@ export type SellersOpsLabels = {
   ratesReadOnly: string;
   ratesVariantMappingNote: string;
   ratesPersistenceBlocked: string;
+  ratesCoreEnabled: string;
   ratesOpenProductEditor: string;
   ratesColVariantMapping: string;
   ratesMappingRequired: string;
   ratesExVat: string;
+  ratesColVariant: string;
+  ratesColInterval: string;
+  ratesColModel: string;
+  ratesLegacyProductTitle: string;
+  ratesVariantCoreTitle: string;
   ratesCommissionDraft: VariantCommissionFieldsLabels;
   ratesCommissionMonth: string;
   ratesCommissionYear: string;
@@ -196,6 +202,8 @@ export function CertifiedSellersOpsPanel({
 }: Props) {
   const [phase, setPhase] = useState<Phase>("loading");
   const [rows, setRows] = useState<Array<Record<string, unknown>>>([]);
+  const [variantRateRows, setVariantRateRows] = useState<Array<Record<string, unknown>>>([]);
+  const [variantRatesPersistEnabled, setVariantRatesPersistEnabled] = useState(false);
   const [query, setQuery] = useState("");
   const [partnerFilter, setPartnerFilter] = useState("");
   const [recipients, setRecipients] = useState<CspMessageRecipient[]>([]);
@@ -300,6 +308,35 @@ export function CertifiedSellersOpsPanel({
         return false;
       }
       setRows(rowsFrom(body));
+      if (section === "commissionRates") {
+        try {
+          const variantRes = await fetch("/api/platform/sellers/commission-rates/variants", {
+            cache: "no-store",
+            signal: controller.signal,
+          });
+          const variantBody = (await variantRes.json().catch(() => null)) as {
+            found?: boolean;
+            persist_enabled?: boolean;
+            rows?: Array<Record<string, unknown>>;
+          } | null;
+          if (seq !== loadSeqRef.current) return false;
+          if (variantRes.ok && variantBody?.found && variantBody.persist_enabled) {
+            setVariantRatesPersistEnabled(true);
+            setVariantRateRows(Array.isArray(variantBody.rows) ? variantBody.rows : []);
+          } else {
+            setVariantRatesPersistEnabled(false);
+            setVariantRateRows([]);
+          }
+        } catch {
+          if (!controller.signal.aborted && seq === loadSeqRef.current) {
+            setVariantRatesPersistEnabled(false);
+            setVariantRateRows([]);
+          }
+        }
+      } else {
+        setVariantRatesPersistEnabled(false);
+        setVariantRateRows([]);
+      }
       setPhase("ready");
       return true;
     } catch {
@@ -307,10 +344,12 @@ export function CertifiedSellersOpsPanel({
       if (!opts?.silent) {
         setPhase("error");
         setRows([]);
+        setVariantRateRows([]);
+        setVariantRatesPersistEnabled(false);
       }
       return false;
     }
-  }, [endpoint]);
+  }, [endpoint, section]);
 
   useEffect(() => {
     pollPrimedRef.current = false;
@@ -612,12 +651,21 @@ export function CertifiedSellersOpsPanel({
                 {section === "commissionRates" ? (
                   <>
                   <p className="mb-3 text-sm text-[color:var(--aipify-text-secondary)]">{l.ratesReadOnly}</p>
-                  <p
-                    className="mb-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950"
-                    role="status"
-                  >
-                    {l.ratesPersistenceBlocked}
-                  </p>
+                  {variantRatesPersistEnabled ? (
+                    <p
+                      className="mb-3 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-950"
+                      role="status"
+                    >
+                      {l.ratesCoreEnabled}
+                    </p>
+                  ) : (
+                    <p
+                      className="mb-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950"
+                      role="status"
+                    >
+                      {l.ratesPersistenceBlocked}
+                    </p>
+                  )}
                   <p className="mb-3 text-sm text-[color:var(--aipify-text-secondary)]">
                     {l.ratesVariantMappingNote}
                   </p>
@@ -629,17 +677,60 @@ export function CertifiedSellersOpsPanel({
                       {l.ratesOpenProductEditor}
                     </a>
                   </p>
-                  <CommissionRatesVariantDraft
-                    labels={l.ratesCommissionDraft}
-                    intervalTitles={{
-                      month: l.ratesCommissionMonth,
-                      year: l.ratesCommissionYear,
-                      one_time: l.ratesCommissionOneTime,
-                    }}
-                    persistenceBlocked={l.ratesPersistenceBlocked}
-                  />
+                  {!variantRatesPersistEnabled ? (
+                    <CommissionRatesVariantDraft
+                      labels={l.ratesCommissionDraft}
+                      intervalTitles={{
+                        month: l.ratesCommissionMonth,
+                        year: l.ratesCommissionYear,
+                        one_time: l.ratesCommissionOneTime,
+                      }}
+                      persistenceBlocked={l.ratesPersistenceBlocked}
+                    />
+                  ) : (
+                    <div className="mb-6">
+                      <h3 className="mb-2 text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+                        {l.ratesVariantCoreTitle}
+                      </h3>
+                      <Table
+                        caption={l.ratesVariantCoreTitle}
+                        headers={[
+                          l.colProduct,
+                          l.ratesColVariant,
+                          l.ratesColInterval,
+                          l.ratesColModel,
+                          l.colAmount,
+                          l.colEffectiveFrom,
+                        ]}
+                      >
+                        {variantRateRows.map((r) => (
+                          <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
+                            <td className="px-3 py-2 font-mono text-sm">{str(r.productKey) || l.notReported}</td>
+                            <td className="px-3 py-2 font-mono text-sm">{str(r.variantKey) || l.notReported}</td>
+                            <td className="px-3 py-2 text-sm">{str(r.billingInterval) || l.notReported}</td>
+                            <td className="px-3 py-2 text-sm">{str(r.model) || l.notReported}</td>
+                            <td className="px-3 py-2 text-sm">
+                              {str(r.model) === "percent"
+                                ? r.ratePct == null
+                                  ? l.notReported
+                                  : `${num(r.ratePct)}% (${l.ratesExVat})`
+                                : r.amount == null
+                                  ? l.notReported
+                                  : `${num(r.amount).toLocaleString(bcp47)} ${str(r.currency)} (${l.ratesExVat})`}
+                            </td>
+                            <td className="px-3 py-2">
+                              {formatPlatformDateTimeShort(str(r.effectiveFrom) || null, dateOptions)}
+                            </td>
+                          </tr>
+                        ))}
+                      </Table>
+                    </div>
+                  )}
+                  <h3 className="mb-2 text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+                    {l.ratesLegacyProductTitle}
+                  </h3>
                   <Table
-                    caption={title}
+                    caption={l.ratesLegacyProductTitle}
                     headers={[l.colProduct, l.colAmount, l.colEffectiveFrom, l.ratesColVariantMapping]}
                   >
                     {filtered.map((r) => (
