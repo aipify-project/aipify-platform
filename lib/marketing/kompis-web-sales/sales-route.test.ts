@@ -21,7 +21,13 @@ assert.equal(
   typeof root.twitter === "object" && root.twitter && "title" in root.twitter
     ? root.twitter.title
     : null,
-  "Aipify works for you",
+  KOMPIS_WEB_SALES_BROWSER_TITLE,
+);
+assert.equal(
+  typeof root.robots === "object" && root.robots && "index" in root.robots
+    ? root.robots.index
+    : null,
+  true,
 );
 
 const startMeta = buildKompisWebStartMetadata(labels);
