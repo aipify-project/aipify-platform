@@ -12,9 +12,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const { locale } = await loadKompisWebSalesRouteContext();
   const dict = await getDictionary(locale, ["marketing"]);
   const t = createTranslator(dict);
+  const intakeLive = getSupportIntakeGateState().live;
   return {
     title: t("marketing.supportIntake.title"),
-    description: t("marketing.supportIntake.subtitle"),
+    description: t(
+      intakeLive
+        ? "marketing.supportIntake.subtitle"
+        : "marketing.supportIntake.subtitleInactive",
+    ),
   };
 }
 
@@ -26,7 +31,11 @@ export default async function ContactSupportPage() {
 
   const formLabels = {
     title: t("marketing.supportIntake.title"),
-    subtitle: t("marketing.supportIntake.subtitle"),
+    subtitle: t(
+      intakeLive
+        ? "marketing.supportIntake.subtitle"
+        : "marketing.supportIntake.subtitleInactive",
+    ),
     name: t("marketing.supportIntake.name"),
     email: t("marketing.supportIntake.email"),
     subject: t("marketing.supportIntake.subject"),
@@ -34,6 +43,7 @@ export default async function ContactSupportPage() {
     submit: t("marketing.supportIntake.submit"),
     submitting: t("marketing.supportIntake.submitting"),
     successCorePending: t("marketing.supportIntake.successCorePending"),
+    temporaryUnavailable: t("marketing.supportIntake.temporaryUnavailable"),
     successSubmitted: t("marketing.supportIntake.successSubmitted"),
     errorGeneric: t("marketing.supportIntake.errorGeneric"),
     mailtoFallback: t("marketing.supportIntake.mailtoFallback"),

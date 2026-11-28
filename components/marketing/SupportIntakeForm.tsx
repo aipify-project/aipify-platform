@@ -20,8 +20,10 @@ export type SupportIntakeFormLabels = {
   message: string;
   submit: string;
   submitting: string;
-  /** Shown when intake is not live or Core returns 503 — never a success claim. */
+  /** Shown when intake gates are off — never a success claim. */
   successCorePending: string;
+  /** Shown when intake is live but the server is temporarily unavailable (e.g. 503). */
+  temporaryUnavailable: string;
   /** Shown only after a real accepted ticket write. */
   successSubmitted?: string;
   errorGeneric: string;
@@ -104,7 +106,13 @@ export default function SupportIntakeForm({
     () => mailtoHref({ name, email, subject, message }),
     [name, email, subject, message],
   );
-  const storageClosed = !intakeLive || status === "blocked";
+  const gateClosed = !intakeLive;
+  const temporarilyUnavailable = intakeLive && status === "blocked";
+  const availabilityNotice = gateClosed
+    ? labels.successCorePending
+    : temporarilyUnavailable
+      ? labels.temporaryUnavailable
+      : null;
   const confirmed = status === "done" && ticketNumber != null;
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -208,13 +216,13 @@ export default function SupportIntakeForm({
         </div>
       ) : (
         <form className={AipifyPublicFormClasses.formStack} onSubmit={onSubmit} noValidate>
-          {storageClosed ? (
+          {availabilityNotice ? (
             <div
               id="support-intake-closed"
               className={AipifyPublicFormClasses.noticeWarning}
               role="status"
             >
-              {labels.successCorePending}
+              {availabilityNotice}
             </div>
           ) : null}
 
@@ -302,7 +310,7 @@ export default function SupportIntakeForm({
             <button
               type="submit"
               disabled={!intakeLive || status === "submitting"}
-              aria-describedby={storageClosed ? "support-intake-closed" : undefined}
+              aria-describedby={availabilityNotice ? "support-intake-closed" : undefined}
               className={
                 intakeLive ? AipifyPublicFormClasses.submit : AipifyPublicFormClasses.submitQuiet
               }
