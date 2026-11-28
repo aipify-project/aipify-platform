@@ -61,6 +61,8 @@ export function isCspSellerExistsPayload(data: unknown): boolean {
   return code.trim().toLowerCase() === CSP_SELLER_EXISTS_CODE;
 }
 
+const PUBLIC_AIPIFY_ORIGIN = "https://aipify.ai";
+
 /** Prefer GP personal slug path; never treat a CSP attribution code as `/s/{code}`. */
 export function resolvePersonalSalesPath(input: {
   growthPartnerSlug: string | null | undefined;
@@ -73,4 +75,13 @@ export function resolvePersonalSalesPath(input: {
   if (slug.startsWith("csp-")) return null;
   const lang = encodeURIComponent(input.locale);
   return `/s/${encodeURIComponent(slug)}?lang=${lang}`;
+}
+
+/** Absolute public URL for copy/share. Rejects CSP-code paths. */
+export function toPublicPersonalSalesUrl(path: string | null | undefined): string | null {
+  if (typeof path !== "string") return null;
+  const trimmed = path.trim();
+  if (!trimmed.startsWith("/s/")) return null;
+  if (trimmed.includes("/s/csp-")) return null;
+  return `${PUBLIC_AIPIFY_ORIGIN}${trimmed}`;
 }

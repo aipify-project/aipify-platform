@@ -8926,9 +8926,9 @@
     "productUnavailable": "Dette produktet er ikke tilgjengelig på denne siden.",
     "closedCta": "Fortsett til Aipify",
     "previewTitle": "Min salgsside",
-    "previewBody": "Den offentlige siden bruker den eksisterende partnerkoden din. Et navn vises bare når den offentlige lenken er verifisert.",
+    "previewBody": "Din personlige landingsside bruker Growth Partner-lenken. Salgslenken under forblir den separate CSP-attribusjonsstien.",
     "attributionLink": "Salgslenke",
-    "personalLink": "Salgsside",
+    "personalLink": "Min landingsside",
     "leadsCta": "Se mine leads",
     "copy": "Kopier",
     "copied": "Kopiert",
@@ -8948,7 +8948,7 @@
     "interestPending": "Registrering av interesse er ikke aktiv ennå. Ingenting lagres fra denne siden.",
     "interestPrivacy": "Når registrering åpner, sendes interessen bare til den navngitte Aipify-selgeren for oppfølging. Det er ikke et salg og ikke samtykke til markedsføring.",
     "privacyLink": "Personvern",
-    "pagePending": "Den navngitte landingssiden er ikke publisert for denne koden ennå.",
+    "pagePending": "Den navngitte landingssiden er ikke publisert ennå.",
     "share": "Del",
     "seeLeads": "Se mine leads",
     "leadsNote": "Leads, kunder, salg og provisjon holdes atskilt.",
@@ -8963,6 +8963,7 @@
     "interestErrorClosed": "Denne siden kan ikke lagre interesse nå.",
     "platformInterestTitle": "Interesser fra personlig side",
     "platformInterestBody": "Kontaktopplysninger blir i denne administrasjonsvisningen. De er ikke del av offentlige tall.",
-    "platformInterestEmpty": "Ingen interesse er lagret ennå."
+    "platformInterestEmpty": "Ingen interesse er lagret ennå.",
+    "pagePublished": "Publisert"
   }
 }

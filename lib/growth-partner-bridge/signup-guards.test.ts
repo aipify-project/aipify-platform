@@ -5,6 +5,7 @@ import {
   isCspSellerExistsPayload,
   noticeCspRegisterWithExistingGrowthPartner,
   resolvePersonalSalesPath,
+  toPublicPersonalSalesUrl,
 } from "./signup-guards";
 import { mapGpStatusFromCsp } from "./parse";
 import { CSP_SELLER_EXISTS_CODE, PARTNERS_PORTAL_REDIRECT } from "./constants";
@@ -41,6 +42,19 @@ test("personal sales path prefers active GP slug and rejects csp- codes", () => 
     resolvePersonalSalesPath({ growthPartnerSlug: "csp-0123456789ab", linkStatus: "active", locale: "en" }),
     null,
   );
+  assert.equal(
+    resolvePersonalSalesPath({ growthPartnerSlug: "svein-csp-e2e", linkStatus: "active", locale: "en" }),
+    "/s/svein-csp-e2e?lang=en",
+  );
+});
+
+test("public personal sales URL is absolute and never a CSP code path", () => {
+  assert.equal(
+    toPublicPersonalSalesUrl("/s/svein-csp-e2e?lang=no"),
+    "https://aipify.ai/s/svein-csp-e2e?lang=no",
+  );
+  assert.equal(toPublicPersonalSalesUrl("/s/csp-e31836d28c3b?lang=no"), null);
+  assert.equal(toPublicPersonalSalesUrl(null), null);
 });
 
 test("maps CSP status + product-specific cert without inventing certification", () => {

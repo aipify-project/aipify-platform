@@ -1121,9 +1121,9 @@
     "productUnavailable": "Ten produkt nie jest dostępny na tej stronie.",
     "closedCta": "Przejdź do Aipify",
     "previewTitle": "Moja strona sprzedaży",
-    "previewBody": "Strona publiczna używa istniejącego kodu partnera. Imię pojawia się tylko wtedy, gdy link publiczny jest zweryfikowany.",
+    "previewBody": "Twoja osobista strona sprzedażowa używa linku Growth Partner. Link sprzedażowy poniżej pozostaje osobną ścieżką atrybucji CSP.",
     "attributionLink": "Link sprzedaży",
-    "personalLink": "Strona sprzedaży",
+    "personalLink": "Moja strona docelowa",
     "leadsCta": "Zobacz moje leady",
     "copy": "Kopiuj",
     "copied": "Skopiowano",
@@ -1143,7 +1143,7 @@
     "interestPending": "Rejestracja zainteresowania nie jest jeszcze aktywna. Nic nie jest zapisywane z tej strony.",
     "interestPrivacy": "Gdy rejestracja zostanie otwarta, zainteresowanie trafi tylko do wskazanego sprzedawcy Aipify w celu kontaktu. To nie jest sprzedaż ani zgoda marketingowa.",
     "privacyLink": "Prywatność",
-    "pagePending": "Nazwana strona nie jest jeszcze opublikowana dla tego kodu.",
+    "pagePending": "Nazwana strona nie jest jeszcze opublikowana.",
     "share": "Udostępnij",
     "seeLeads": "Zobacz moje leady",
     "leadsNote": "Leady, klienci, sprzedaż i prowizja pozostają rozdzielone.",
@@ -1158,6 +1158,7 @@
     "interestErrorClosed": "Ta strona nie może teraz zapisać zainteresowania.",
     "platformInterestTitle": "Zainteresowania ze strony osobistej",
     "platformInterestBody": "Dane kontaktowe pozostają w tym widoku administracyjnym. Nie są częścią publicznych liczb.",
-    "platformInterestEmpty": "Nie zapisano jeszcze żadnego zainteresowania."
+    "platformInterestEmpty": "Nie zapisano jeszcze żadnego zainteresowania.",
+    "pagePublished": "Opublikowano"
   }
 }
