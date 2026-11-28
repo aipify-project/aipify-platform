@@ -63,7 +63,11 @@ test("design tokens remain 1560 pageWidth", () => {
 test("license architecture is documentation-only (no activation)", () => {
   assert.equal(SALES_PARTNER_LICENSE_ARCHITECTURE.activationInThisPhase, false);
   assert.equal(SALES_PARTNER_LICENSE_ARCHITECTURE.aipifyPartner.automaticProductEntitlement, false);
-  assert.equal(SALES_PARTNER_LICENSE_ARCHITECTURE.commercialSalesPartnerModule.status, "not_activated");
+  assert.equal(
+    SALES_PARTNER_LICENSE_ARCHITECTURE.commercialSalesPartnerModule.status,
+    "foundation_ts_ready_sql_prepared_only",
+  );
+  assert.equal(SALES_PARTNER_LICENSE_ARCHITECTURE.foundationModule, "lib/sales-partner-commercial-license");
 });
 
 test("materials host is distinct from tools host", () => {
