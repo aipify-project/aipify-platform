@@ -20,10 +20,10 @@ export {
 
 /**
  * Production UI/API persist activation switch.
- * Keep false until exact owner YES for Production persistence activation.
+ * Owner-activated for Production Platform Admin persist (YES 2026-11-28).
  * Does not enable Stripe, checkout, or commission settlement/earn.
  */
-export const VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION = false;
+export const VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION = true;
 
 /** True only when the app is bound to Staging Core. */
 export function isVariantCommissionStagingPersistEnvEnabled(

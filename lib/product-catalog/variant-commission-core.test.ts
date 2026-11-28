@@ -22,12 +22,12 @@ import { variantsForProduct } from "./merge";
 
 const previousUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
-test("Production Core stays fail-closed for variant commission persist", () => {
+test("Production Core persist attempts are enabled when activation flag is true", () => {
   process.env.NEXT_PUBLIC_SUPABASE_URL = `https://${AIPIFY_CORE_PRODUCTION_PROJECT_REF}.supabase.co`;
-  assert.equal(canPersistVariantCommissionRules(), false);
-  assert.equal(VARIANT_COMMISSION_PERSISTENCE.canPersist, false);
-  assert.equal(VARIANT_COMMISSION_PERSISTENCE.status, "production_fail_closed");
-  assert.equal(resolveVariantCommissionPersistCapability().reason, "production_fail_closed");
+  assert.equal(canPersistVariantCommissionRules(), true);
+  assert.equal(VARIANT_COMMISSION_PERSISTENCE.canPersist, true);
+  assert.equal(VARIANT_COMMISSION_PERSISTENCE.status, "production_core_enabled");
+  assert.equal(resolveVariantCommissionPersistCapability().reason, "production_core_bound");
 });
 
 test("Staging Core env enables persist attempts", () => {
@@ -37,16 +37,27 @@ test("Staging Core env enables persist attempts", () => {
   assert.equal(VARIANT_COMMISSION_PERSISTENCE.status, "staging_core_enabled");
 });
 
-test("persistProductVariantsToCore refuses Production even if RPC client is mocked", async () => {
+test("persistProductVariantsToCore on Production proceeds past gate when activation is true", async () => {
   const result = await persistProductVariantsToCore(
     {
-      rpc: async () => ({ data: {}, error: null }),
+      rpc: async (name: string) => {
+        if (name === "get_csp_product_variants_bundle") {
+          return {
+            data: { product_key: "demo_product", product_id: "11111111-1111-1111-1111-111111111111", variants: [] },
+            error: null,
+          };
+        }
+        return { data: { ok: true }, error: null };
+      },
     },
     { productKey: "demo_product", variants: [] },
     { supabaseUrl: `https://${AIPIFY_CORE_PRODUCTION_PROJECT_REF}.supabase.co` },
   );
-  assert.equal(result.ok, false);
-  if (!result.ok) assert.equal(result.error, "production_fail_closed");
+  assert.equal(result.ok, true);
+  if (result.ok) {
+    assert.equal(result.settlementActivated, false);
+    assert.equal(result.variantsSaved, 0);
+  }
 });
 
 test("mapCoreBundleToVariantDefinitions maps prices and commission rules", () => {
