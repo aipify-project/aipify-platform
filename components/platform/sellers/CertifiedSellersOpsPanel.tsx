@@ -6,6 +6,8 @@ import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { CertifiedSellersMessageDesk } from "@/components/platform/sellers/CertifiedSellersMessageDesk";
 import { CertifiedSellersSectionPanel } from "@/components/platform/sellers/CertifiedSellersSectionPanel";
+import { CommissionRatesVariantDraft } from "@/components/platform/sellers/CommissionRatesVariantDraft";
+import type { VariantCommissionFieldsLabels } from "@/components/platform/sellers/VariantCommissionFields";
 import {
   isCspMessageRecipientEligible,
   parseCspMessageRecipients,
@@ -120,6 +122,16 @@ export type SellersOpsLabels = {
   settingsApprovalPercent: string;
   settingsApprovalMessages: string;
   ratesReadOnly: string;
+  ratesVariantMappingNote: string;
+  ratesPersistenceBlocked: string;
+  ratesOpenProductEditor: string;
+  ratesColVariantMapping: string;
+  ratesMappingRequired: string;
+  ratesExVat: string;
+  ratesCommissionDraft: VariantCommissionFieldsLabels;
+  ratesCommissionMonth: string;
+  ratesCommissionYear: string;
+  ratesCommissionOneTime: string;
   newMessage: string;
   closeCompose: string;
   fromAdmin: string;
@@ -600,7 +612,36 @@ export function CertifiedSellersOpsPanel({
                 {section === "commissionRates" ? (
                   <>
                   <p className="mb-3 text-sm text-[color:var(--aipify-text-secondary)]">{l.ratesReadOnly}</p>
-                  <Table caption={title} headers={[l.colProduct, l.colAmount, l.colEffectiveFrom]}>
+                  <p
+                    className="mb-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950"
+                    role="status"
+                  >
+                    {l.ratesPersistenceBlocked}
+                  </p>
+                  <p className="mb-3 text-sm text-[color:var(--aipify-text-secondary)]">
+                    {l.ratesVariantMappingNote}
+                  </p>
+                  <p className="mb-4">
+                    <a
+                      href="/platform/sellers/products"
+                      className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+                    >
+                      {l.ratesOpenProductEditor}
+                    </a>
+                  </p>
+                  <CommissionRatesVariantDraft
+                    labels={l.ratesCommissionDraft}
+                    intervalTitles={{
+                      month: l.ratesCommissionMonth,
+                      year: l.ratesCommissionYear,
+                      one_time: l.ratesCommissionOneTime,
+                    }}
+                    persistenceBlocked={l.ratesPersistenceBlocked}
+                  />
+                  <Table
+                    caption={title}
+                    headers={[l.colProduct, l.colAmount, l.colEffectiveFrom, l.ratesColVariantMapping]}
+                  >
                     {filtered.map((r) => (
                       <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
                         <td className="px-3 py-2">
@@ -615,9 +656,12 @@ export function CertifiedSellersOpsPanel({
                         <td className="px-3 py-2">
                           {r.amount == null
                             ? l.notReported
-                            : `${num(r.amount).toLocaleString(bcp47)} ${str(r.currency)}`}
+                            : `${num(r.amount).toLocaleString(bcp47)} ${str(r.currency)} (${l.ratesExVat})`}
                         </td>
                         <td className="px-3 py-2">{formatPlatformDateTimeShort(str(r.effectiveFrom) || null, dateOptions)}</td>
+                        <td className="px-3 py-2 text-sm text-[color:var(--aipify-text-secondary)]">
+                          {l.ratesMappingRequired}
+                        </td>
                       </tr>
                     ))}
                   </Table>

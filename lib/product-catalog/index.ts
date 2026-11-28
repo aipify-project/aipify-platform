@@ -37,6 +37,17 @@ export {
   type ProductVariantPrice,
 } from "./variants";
 export {
+  LEGACY_PRODUCT_COMMISSION_RATES_NEEDING_VARIANT_MAPPING,
+  VARIANT_COMMISSION_PERSISTENCE,
+  VARIANT_COMMISSION_PERCENT_BASIS,
+  canPersistVariantCommissionRules,
+  emptyVariantCommissionRule,
+  normalizeVariantCommissionRule,
+  previewVariantCommissionExVat,
+  type VariantCommissionModel,
+  type VariantIntervalCommissionRule,
+} from "./variant-commission";
+export {
   localizeQuotaUnit,
   variantHasPaidCustomerPrice,
 } from "./quota-labels";

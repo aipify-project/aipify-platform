@@ -1519,7 +1519,25 @@
       "editorVariantAnnualRenewsMonthly": "El plan anual renueva la cuota mensualmente",
       "editorModuleBinding": "Módulo de software APP",
       "editorModuleReady": "Listo para el menú APP con derecho activo",
-      "editorModuleNotReady": "Aún no listo para el menú"
+      "editorModuleNotReady": "Aún no listo para el menú",
+      "editorVariantVatExclusive": "Todos los importes son sin IVA.",
+      "editorVariantCommissionNotSaved": "La comisión del vendedor por variante no se guardó: el almacenamiento en Core aún no está disponible.",
+      "editorLegacyProductCommissionHint": "La comisión fija del producto abajo es la tarifa histórica. Asígnela a variantes antes de cualquier backfill.",
+      "editorVariantCommissionPersistenceBlocked": "La comisión del vendedor por variante no se puede guardar hasta aplicar la actualización Core aprobada. La edición aquí es solo vista previa.",
+      "editorVariantCommissionMonth": "Comisión del vendedor — mensual",
+      "editorVariantCommissionYear": "Comisión del vendedor — anual",
+      "editorVariantCommissionOneTime": "Comisión del vendedor — compra única",
+      "editorVariantCommissionTitle": "Comisión del vendedor",
+      "editorVariantCommissionActive": "Activa",
+      "editorVariantCommissionInactive": "Inactiva",
+      "editorVariantCommissionModelFixed": "Importe fijo (sin IVA)",
+      "editorVariantCommissionModelPercent": "Porcentaje del precio (sin IVA)",
+      "editorVariantCommissionAmountFixed": "Comisión fija (sin IVA)",
+      "editorVariantCommissionRatePercent": "Porcentaje de comisión",
+      "editorVariantCommissionPreview": "Comisión calculada (sin IVA)",
+      "editorVariantCommissionPreviewInactive": "Inactiva: no se acumula comisión para este periodo.",
+      "editorVariantCommissionPercentBasis": "El porcentaje se calcula sobre el importe neto de venta sin IVA.",
+      "editorVariantCommissionFreeHint": "Las variantes gratuitas pueden usar comisión 0."
     },
     "live": {
       "loading": "Cargando datos de vendedores",
@@ -1859,7 +1877,13 @@
       "settingsApprovalTitle": "Requiere aprobación de la plataforma",
       "settingsApprovalPercent": "La comisión porcentual no está guardada. Sigue vigente el importe fijo único.",
       "settingsApprovalMessages": "El estado de lectura de los mensajes se actualiza al abrir la conversación.",
-      "unread": "No leído"
+      "unread": "No leído",
+      "ratesVariantMappingNote": "Las tarifas a nivel de producto deben asignarse explícitamente a variantes antes de cualquier backfill. Las ventas y tarifas históricas no cambian.",
+      "ratesPersistenceBlocked": "El almacenamiento de comisión por variante no está disponible hasta aplicar el SQL y RPC de Core aprobados. No trate los borradores del editor como guardados.",
+      "ratesOpenProductEditor": "Abrir el editor de producto para definir la comisión del vendedor por variante",
+      "ratesColVariantMapping": "Asignación de variantes",
+      "ratesMappingRequired": "Requiere asignación explícita de variantes antes del backfill",
+      "ratesExVat": "sin IVA"
     },
     "messages": {
       "title": "Comunicación",

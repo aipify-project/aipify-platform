@@ -8253,7 +8253,25 @@
       "editorVariantAnnualRenewsMonthly": "Річний план поновлює квоту щомісяця",
       "editorModuleBinding": "Програмний модуль APP",
       "editorModuleReady": "Готовий до меню APP за наявності прав",
-      "editorModuleNotReady": "Ще не готовий до меню"
+      "editorModuleNotReady": "Ще не готовий до меню",
+      "editorVariantVatExclusive": "Усі суми без ПДВ.",
+      "editorVariantCommissionNotSaved": "Комісію продавця за варіант не збережено — збереження в Core ще недоступне.",
+      "editorLegacyProductCommissionHint": "Фіксована комісія продукту нижче — історична ставка. Зіставте її з варіантами перед можливим backfill.",
+      "editorVariantCommissionPersistenceBlocked": "Комісію продавця за варіант не можна зберегти, доки не застосовано схвалене оновлення Core. Редагування тут лише для попереднього перегляду.",
+      "editorVariantCommissionMonth": "Комісія продавця — щомісячна",
+      "editorVariantCommissionYear": "Комісія продавця — річна",
+      "editorVariantCommissionOneTime": "Комісія продавця — одноразова",
+      "editorVariantCommissionTitle": "Комісія продавця",
+      "editorVariantCommissionActive": "Активна",
+      "editorVariantCommissionInactive": "Неактивна",
+      "editorVariantCommissionModelFixed": "Фіксована сума (без ПДВ)",
+      "editorVariantCommissionModelPercent": "Відсоток від ціни (без ПДВ)",
+      "editorVariantCommissionAmountFixed": "Фіксована комісія (без ПДВ)",
+      "editorVariantCommissionRatePercent": "Відсоток комісії",
+      "editorVariantCommissionPreview": "Розрахована комісія (без ПДВ)",
+      "editorVariantCommissionPreviewInactive": "Неактивна — за цей період комісія не нараховується.",
+      "editorVariantCommissionPercentBasis": "Відсоток рахується від чистої суми продажу без ПДВ.",
+      "editorVariantCommissionFreeHint": "Безкоштовні варіанти можуть мати комісію 0."
     },
     "live": {
       "loading": "Завантаження даних продавців",
@@ -8611,7 +8629,13 @@
       "settingsApprovalTitle": "Потребує схвалення платформи",
       "settingsApprovalPercent": "Відсоткова комісія не збережена. Чинною лишається фіксована разова сума.",
       "settingsApprovalMessages": "Статус прочитання повідомлень оновлюється після відкриття розмови.",
-      "unread": "Непрочитане"
+      "unread": "Непрочитане",
+      "ratesVariantMappingNote": "Існуючі ставки на рівні продукту потрібно явно зіставити з варіантами перед можливим backfill. Історичні продажі та ставки залишаються без змін.",
+      "ratesPersistenceBlocked": "Збереження комісії за варіант недоступне, доки не застосовано схвалені SQL і RPC Core. Не вважайте чернетки редактора збереженими.",
+      "ratesOpenProductEditor": "Відкрити редактор продукту, щоб задати комісію продавця за варіант",
+      "ratesColVariantMapping": "Зіставлення варіантів",
+      "ratesMappingRequired": "Потрібне явне зіставлення варіантів перед backfill",
+      "ratesExVat": "без ПДВ"
     },
     "messages": {
       "title": "Комунікація",

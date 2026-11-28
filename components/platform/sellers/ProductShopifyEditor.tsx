@@ -61,6 +61,9 @@ export type ProductShopifyEditorLabels = SellersActionLabels & {
   channelSaleDetails: string;
   variantsTitle: string;
   variantBuilder: ProductVariantBuilderLabels;
+  /** Shown after Core product save — variant commissions are not persisted yet. */
+  variantCommissionNotSaved: string;
+  legacyProductCommissionHint: string;
 };
 
 const CONTENT_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
@@ -359,6 +362,9 @@ export function ProductShopifyEditor({
             <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
               {labels.priceNotCommission}
             </p>
+            <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
+              {labels.variantCommissionNotSaved}
+            </p>
           </EditorCard>
         </div>
 
@@ -467,6 +473,9 @@ export function ProductShopifyEditor({
                   <p className="text-sm text-[color:var(--aipify-text-secondary)]">
                     {labels.percentUnavailable}
                   </p>
+                  <p className="text-sm text-[color:var(--aipify-text-secondary)]">
+                    {labels.legacyProductCommissionHint}
+                  </p>
                   <label className="text-sm">
                     <span className="font-medium">{labels.currency}</span>
                     <input
@@ -490,6 +499,9 @@ export function ProductShopifyEditor({
                       }}
                       className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2"
                     />
+                    <span className="mt-1 block text-xs text-[color:var(--aipify-text-secondary)]">
+                      {labels.variantBuilder.vatExclusive}
+                    </span>
                   </label>
                   <p className="text-xs text-[color:var(--aipify-text-secondary)]">{labels.publishMeaning}</p>
                 </div>

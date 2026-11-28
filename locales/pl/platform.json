@@ -8253,7 +8253,25 @@
       "editorVariantAnnualRenewsMonthly": "Plan roczny odnawia limit co miesiąc",
       "editorModuleBinding": "Moduł oprogramowania APP",
       "editorModuleReady": "Gotowy do menu APP przy uprawnieniu",
-      "editorModuleNotReady": "Jeszcze nie gotowy do menu"
+      "editorModuleNotReady": "Jeszcze nie gotowy do menu",
+      "editorVariantVatExclusive": "Wszystkie kwoty są bez VAT.",
+      "editorVariantCommissionNotSaved": "Prowizja sprzedawcy na wariant nie została zapisana — przechowywanie w Core nie jest jeszcze dostępne.",
+      "editorLegacyProductCommissionHint": "Poniższa stała prowizja produktowa to historyczna stawka. Przypisz ją do wariantów przed ewentualnym uzupełnieniem.",
+      "editorVariantCommissionPersistenceBlocked": "Prowizji sprzedawcy na wariant nie można zapisać, dopóki zatwierdzona aktualizacja Core nie zostanie zastosowana. Edycja tutaj to tylko podgląd.",
+      "editorVariantCommissionMonth": "Prowizja sprzedawcy — miesięczna",
+      "editorVariantCommissionYear": "Prowizja sprzedawcy — roczna",
+      "editorVariantCommissionOneTime": "Prowizja sprzedawcy — jednorazowa",
+      "editorVariantCommissionTitle": "Prowizja sprzedawcy",
+      "editorVariantCommissionActive": "Aktywna",
+      "editorVariantCommissionInactive": "Nieaktywna",
+      "editorVariantCommissionModelFixed": "Stała kwota (bez VAT)",
+      "editorVariantCommissionModelPercent": "Procent ceny (bez VAT)",
+      "editorVariantCommissionAmountFixed": "Stała prowizja (bez VAT)",
+      "editorVariantCommissionRatePercent": "Procent prowizji",
+      "editorVariantCommissionPreview": "Obliczona prowizja (bez VAT)",
+      "editorVariantCommissionPreviewInactive": "Nieaktywna — za ten okres nie nalicza się prowizji.",
+      "editorVariantCommissionPercentBasis": "Procent liczony jest od kwoty netto sprzedaży bez VAT.",
+      "editorVariantCommissionFreeHint": "Warianty bezpłatne mogą mieć prowizję 0."
     },
     "live": {
       "loading": "Ładowanie danych sprzedawców",
@@ -8611,7 +8629,13 @@
       "settingsApprovalTitle": "Wymaga zatwierdzenia platformy",
       "settingsApprovalPercent": "Prowizja procentowa nie jest zapisana. Obowiązuje stała kwota jednorazowa.",
       "settingsApprovalMessages": "Status przeczytania wiadomości aktualizuje się po otwarciu rozmowy.",
-      "unread": "Nieprzeczytane"
+      "unread": "Nieprzeczytane",
+      "ratesVariantMappingNote": "Istniejące stawki na poziomie produktu muszą być wyraźnie przypisane do wariantów przed ewentualnym uzupełnieniem. Historyczne sprzedaże i stawki pozostają bez zmian.",
+      "ratesPersistenceBlocked": "Przechowywanie prowizji wariantowej jest niedostępne, dopóki zatwierdzone SQL i RPC Core nie zostaną zastosowane. Nie traktuj szkiców edytora jako zapisanych.",
+      "ratesOpenProductEditor": "Otwórz edytor produktu, aby ustawić prowizję sprzedawcy na wariant",
+      "ratesColVariantMapping": "Mapowanie wariantów",
+      "ratesMappingRequired": "Wymaga wyraźnego mapowania wariantów przed uzupełnieniem",
+      "ratesExVat": "bez VAT"
     },
     "messages": {
       "title": "Komunikacja",
