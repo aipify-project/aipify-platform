@@ -23,6 +23,40 @@ export type Agent3CommercialContracts = {
   notification: CommercialNotificationDto;
 };
 
+/**
+ * Verified-payment-only purchase analytics event (Agent 3).
+ * Never emit from redirect/success; require ledger capture + consent.
+ */
+export type Agent3VerifiedPurchaseAnalyticsEvent = {
+  event: "commercial.purchase_verified";
+  ownerTenantId: string;
+  paymentId: string;
+  productKey: string;
+  amountMinor: number;
+  currency: string;
+  /** Must be true only after signature-verified captured payment. */
+  paymentVerified: true;
+  consentOk: boolean;
+  dedupeKey: string;
+  containsPii: false;
+  containsPaymentSecrets: false;
+};
+
+/** Agent 4 presence — event names only; never mutate global statusbar (Agent 4 owns that). */
+export type Agent4PresenceCommercialHint = {
+  event:
+    | "commercial.payment_captured"
+    | "commercial.payment_failed"
+    | "commercial.entitlement_active"
+    | "commercial.capacity_reached";
+  deliveryImplementedHere: false;
+  mutatesGlobalStatusbar: false;
+};
+
+export type Agent4CommercialContracts = {
+  presenceHint: Agent4PresenceCommercialHint;
+};
+
 export const AGENT_CONTRACT_RULES = {
   agent2: {
     catalogBrowseRequiresLicense: false,
@@ -31,12 +65,20 @@ export const AGENT_CONTRACT_RULES = {
     successRedirectIsPaymentProof: false,
     purchaseCtaFromThisModule: false,
     commissionVisibleInApp: false,
+    ownsAppProductOnboardingUi: true,
   },
   agent3: {
     deliveryImplementedHere: false,
     sellerSideEventsMustNotReachCustomerTenant: true,
     notificationsContainSecrets: false,
     dedupeKeyProvided: true,
+    analyticsPurchaseRequiresVerifiedPayment: true,
+    ownsSupportAnalyticsCommunication: true,
+  },
+  agent4: {
+    deliveryImplementedHere: false,
+    mutatesGlobalStatusbar: false,
+    ownsPresenceSurfaces: true,
   },
 } as const;
 
