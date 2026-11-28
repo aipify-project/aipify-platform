@@ -3,6 +3,7 @@ import {
   APP_CUSTOMER_JOURNEY_OWNERS,
   APP_SOFTWARE_STORE_ROUTE,
   appSoftwareDetailHref,
+  exploreProductIdToSoftwareKey,
   isValidAppProductKeyParam,
   resolveAppProductAccessState,
   resolveAppProductPrimaryAction,
@@ -16,6 +17,10 @@ assert.equal(appSoftwareDetailHref("Kompis_Web"), `${APP_SOFTWARE_STORE_ROUTE}/k
 assert.equal(isValidAppProductKeyParam("kompis_web"), true);
 assert.equal(isValidAppProductKeyParam("../evil"), false);
 assert.equal(isValidAppProductKeyParam("a".repeat(65)), false);
+assert.equal(exploreProductIdToSoftwareKey("website_kompis"), "kompis_web");
+assert.equal(exploreProductIdToSoftwareKey("kompis_bedrift"), "kompis_bedrift");
+assert.equal(exploreProductIdToSoftwareKey("aipify_voice"), "aipify_voice");
+assert.equal(exploreProductIdToSoftwareKey("../x"), null);
 
 function product(partial: Partial<UnifiedCatalogProduct>): UnifiedCatalogProduct {
   return {

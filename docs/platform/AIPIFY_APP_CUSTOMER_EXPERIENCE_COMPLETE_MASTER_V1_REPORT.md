@@ -22,7 +22,7 @@
 | A PR #531 read paths + locale editor | **CODE READY** | Locale/media read paths; writers fail-closed; Staging E2E **BLOCKED** (no admin session) |
 | B Product Center coherence | **INTEGRATION READY** (contract) | Publication readiness + editor; Agent 1 owns price/commission writers |
 | C Dashboard / nav 1560 | **CODE READY** | Home quick action → `/app/software`; width tokens preserved |
-| D `/app/software` + detail | **CODE READY** | Detail route `/app/software/[productKey]`; Core catalog + approved content; checkout fail-closed |
+| D `/app/software` + detail | **CODE READY** | Detail route; list+explore link to detail; `/app/software` **not** Web-ops gated (browse without Web license) |
 | E Mine produkter / subscription | **INTEGRATION READY** | Links to subscription + billing; entitlement states honest; no client-invented access |
 | F Kompis Web/Bedrift journey | **CODE READY** (links) | Open → existing `/app/website-kompis` / `/app/kompis-bedrift`; no Core runtime change |
 | G UX / i18n | **CODE READY** | Detail keys en/no/sv/da/pl/uk/es |

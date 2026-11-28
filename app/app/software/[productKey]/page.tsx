@@ -11,7 +11,6 @@ import { buildSoftwareShowcaseLabels } from "@/lib/commercial-packages/modules-p
 import { buildPortfolioLabels } from "@/lib/commercial-packages/portfolio-labels";
 import { AppLayoutClasses } from "@/lib/design/app-layout";
 import {
-  APP_BILLING_ROUTE,
   APP_SOFTWARE_STORE_ROUTE,
   APP_SUBSCRIPTION_ROUTE,
   appSoftwareDetailHref,
@@ -64,7 +63,6 @@ export default async function AppSoftwareProductDetailPage({
     ),
     checkoutClosed: t("customerApp.commercialPackages.softwareShowcase.checkoutClosed"),
     viewSubscription: portfolio.viewSubscriptionDetails,
-    viewBilling: portfolio.manageSubscription,
     openProduct: portfolio.openProduct,
     productNotFound: t("customerApp.commercialPackages.softwareShowcase.productNotFound"),
     variantsHeading: t("customerApp.commercialPackages.softwareShowcase.variantsHeading"),
@@ -270,12 +268,6 @@ export default async function AppSoftwareProductDetailPage({
                 className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] px-4 py-2 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
               >
                 {detail.viewSubscription}
-              </Link>
-              <Link
-                href={APP_BILLING_ROUTE}
-                className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] px-4 py-2 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-              >
-                {detail.viewBilling}
               </Link>
               <Link
                 href={APP_SOFTWARE_STORE_ROUTE}

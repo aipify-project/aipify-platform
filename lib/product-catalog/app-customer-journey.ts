@@ -31,6 +31,16 @@ export function isValidAppProductKeyParam(value: string): boolean {
   return /^[a-z0-9_-]{1,64}$/.test(value.trim().toLowerCase());
 }
 
+/** Map explore / family catalog ids onto unified software detail keys. */
+export function exploreProductIdToSoftwareKey(productId: string): string | null {
+  const key = productId.trim().toLowerCase();
+  if (!key) return null;
+  if (key === "website_kompis" || key === "kompis-web" || key === "kompis_web") return "kompis_web";
+  if (key === "kompis_bedrift" || key === "kompis-bedrift") return "kompis_bedrift";
+  if (!isValidAppProductKeyParam(key)) return null;
+  return key;
+}
+
 /** Entitlement presentation — never invent active from client alone. */
 export type AppProductAccessState =
   | "active"

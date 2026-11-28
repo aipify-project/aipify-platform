@@ -136,6 +136,7 @@ export {
   APP_SUBSCRIPTION_ROUTE,
   KOMPIS_PRODUCT_OPEN_HREFS,
   appSoftwareDetailHref,
+  exploreProductIdToSoftwareKey,
   isValidAppProductKeyParam,
   resolveAppProductAccessState,
   resolveAppProductPrimaryAction,

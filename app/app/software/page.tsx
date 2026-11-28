@@ -132,10 +132,10 @@ export default async function SoftwareCatalogPage({
           {catalogLabels.exploreLink}
         </Link>
         <Link
-          href="/app/settings/billing/packages"
+          href="/app/account/subscription"
           className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
         >
-          {portfolio.packagesTitle}
+          {portfolio.viewSubscriptionDetails}
         </Link>
       </div>
     </AppHubShell>
