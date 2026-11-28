@@ -111,6 +111,7 @@ assert.match(panel, /workspaceModulesAreEmpty/);
 assert.match(panel, /CUSTOMER_CATALOG_ROUTE/);
 assert.match(panel, /ticketsCountsPartial/);
 assert.match(panel, /AppEmptyState/);
+assert.match(panel, /variant="compact"/);
 assert.doesNotMatch(panel, /bundle\.partner\.availability !== "not_authorized"/);
 
 const home = readFileSync(
@@ -121,6 +122,8 @@ assert.match(home, /bedriftCard === "unknown"/);
 assert.match(home, /bedriftDataUnavailable/);
 assert.match(home, /attentionEmptyTitle/);
 assert.match(home, /AppEmptyState/);
+assert.match(home, /variant="compact"/);
+assert.match(home, /foundation-products-heading[\s\S]*md:grid-cols-3/);
 
 const homePage = readFileSync(join(root, "app/app/page.tsx"), "utf8");
 assert.match(homePage, /AppErrorState/);
@@ -129,6 +132,8 @@ assert.match(homePage, /criticalFailure/);
 const dashPage = readFileSync(join(root, "app/app/dashboard/page.tsx"), "utf8");
 assert.match(dashPage, /AppErrorState/);
 assert.match(dashPage, /countsPartial: false/);
+assert.match(dashPage, /presentWorkspaceLicenseStatusLabel/);
+assert.doesNotMatch(dashPage, /licenseStatusLabel = context\.license_status/);
 
 const homeLoading = readFileSync(join(root, "app/app/loading.tsx"), "utf8");
 const dashLoading = readFileSync(join(root, "app/app/dashboard/loading.tsx"), "utf8");
@@ -159,5 +164,10 @@ const enWd = JSON.parse(
   readFileSync(join(root, "locales/en/customer-app/portalStructure.json"), "utf8")
 ).portalStructure.workspaceDashboard;
 assert.notEqual(enFd.description, enWd.description);
+assert.match(enFd.webDescription, /visitors|answers|guidance/i);
+assert.doesNotMatch(enFd.webDescription, /Public website companion, FAQ/);
+
+const noLicense = JSON.parse(readFileSync(join(root, "locales/no/license.json"), "utf8"));
+assert.equal(noLicense.center.subscription.licenseActive, "Aktiv");
 
 console.log("workspace-dashboard-completion.test.ts: OK");

@@ -3,10 +3,11 @@ import { WorkspaceDashboardPanel } from "@/components/app/workspace-dashboard/Wo
 import {
   buildWorkspaceDashboardLabels,
   loadWorkspaceDashboardBundle,
+  presentWorkspaceLicenseStatusLabel,
   type WorkspaceDashboardBundle,
 } from "@/lib/app-workspace-dashboard";
 import { loadAppMenuCapabilityBundle } from "@/lib/core/app-menu-capability";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { createClient } from "@/lib/supabase/server";
@@ -60,7 +61,11 @@ function emptyForbiddenBundle(): WorkspaceDashboardBundle {
 /** Shared workspace control center — modules, tickets, and authorized partner KPIs. */
 export default async function AppWorkspaceDashboardPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "core"]);
+  const [customerDict, licenseDict] = await Promise.all([
+    getCustomerAppDictionaryForSplits(locale, ["portalStructure", "core"]),
+    getDictionary(locale, ["license"]),
+  ]);
+  const dict = { ...customerDict, ...licenseDict };
   const t = createTranslator(dict);
   const labels = buildWorkspaceDashboardLabels(t);
 
@@ -92,7 +97,7 @@ export default async function AppWorkspaceDashboardPage() {
         if (context.state === "ready") {
           organizationName = context.workspace_name ?? context.licensed_to ?? null;
           planLabel = context.plan_name ?? null;
-          licenseStatusLabel = context.license_status ?? null;
+          licenseStatusLabel = presentWorkspaceLicenseStatusLabel(context.license_status, t);
           try {
             const webAvailable = await loadWebsiteKompisEntitlementForAppTenant(
               supabase,

@@ -25,3 +25,4 @@ export {
   buildWorkspaceDashboardLabels,
   type WorkspaceDashboardLabels,
 } from "./labels";
+export { presentWorkspaceLicenseStatusLabel } from "./license-status-label";
