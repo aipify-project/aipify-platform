@@ -142,6 +142,7 @@ export function ProductEditorPageClient({
       selectedLogoSrc={selected?.logoSrc ?? null}
       selectedCategory={selected?.category ?? null}
       selectedProductType={selected?.category ?? null}
+      dependencyCandidates={(overview?.products ?? []).map((p) => p.productKey)}
       onSuccess={() => void load()}
     />
   );

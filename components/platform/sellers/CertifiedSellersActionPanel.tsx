@@ -101,6 +101,8 @@ type Props = {
   selectedLogoSrc?: string | null;
   selectedCategory?: string | null;
   selectedProductType?: string | null;
+  /** Core product keys for dependency picker (same register). */
+  dependencyCandidates?: string[];
   /** Shopify-layout editor labels (required when section=products). */
   editorLabels?: ProductShopifyEditorLabels;
   /** Standalone editor page — hide outer section chrome. */
@@ -130,6 +132,7 @@ export function CertifiedSellersActionPanel({
   selectedLogoSrc = null,
   selectedCategory = null,
   selectedProductType = null,
+  dependencyCandidates = [],
   editorLabels,
   standaloneEditor = false,
   onSuccess,
@@ -247,11 +250,60 @@ export function CertifiedSellersActionPanel({
     });
   }
 
+  async function saveProductTaxonomy(
+    productKey: string,
+    fd: FormData,
+  ): Promise<"ok" | "closed" | "error" | "skipped"> {
+    const productTypeRaw = String(fd.get("product_type") ?? "").trim();
+    const categoryIdRaw = String(fd.get("category_id") ?? "").trim();
+    let dependsOn: string[] = [];
+    try {
+      const parsed = JSON.parse(String(fd.get("depends_on_product_keys") ?? "[]"));
+      dependsOn = Array.isArray(parsed)
+        ? parsed.filter((k): k is string => typeof k === "string")
+        : [];
+    } catch {
+      return "error";
+    }
+
+    const taxonomyDirty = fd.get("taxonomy_dirty") === "on";
+    const taxonomyLoadFailed = fd.get("taxonomy_load_failed") === "on";
+    // Never wipe Core taxonomy when load failed and the operator did not edit fields.
+    if (!taxonomyDirty && (taxonomyLoadFailed || (!productTypeRaw && !categoryIdRaw && dependsOn.length === 0))) {
+      return "skipped";
+    }
+
+    return post(
+      "/api/platform/sellers/products/taxonomy",
+      {
+        product_key: productKey,
+        product_type: productTypeRaw || null,
+        category_id: categoryIdRaw || null,
+        depends_on_product_keys: dependsOn,
+      },
+      { quiet: true },
+    );
+  }
+
   async function finishProductSave(
     productKey: string,
     baseSuccess: string,
     variantsRaw: string,
+    taxonomyOutcome: "ok" | "closed" | "error" | "skipped",
   ) {
+    const taxonomySuffix =
+      taxonomyOutcome === "ok"
+        ? editorLabels?.taxonomySaved
+          ? ` ${editorLabels.taxonomySaved}`
+          : ""
+        : taxonomyOutcome === "skipped"
+          ? ""
+          : editorLabels?.taxonomyPartialSave
+            ? ` ${editorLabels.taxonomyPartialSave}`
+            : editorLabels?.taxonomySaveFailed
+              ? ` ${editorLabels.taxonomySaveFailed}`
+              : "";
+
     const parsed = parseVariantsJsonInput(variantsRaw || "[]");
     if (!parsed.ok) {
       setMessage({
@@ -263,11 +315,13 @@ export function CertifiedSellersActionPanel({
 
     const canPersist = canPersistVariantCommissionRules();
     if (!canPersist) {
+      const kind =
+        taxonomyOutcome === "error" || taxonomyOutcome === "closed" ? "error" : "ok";
       setMessage({
-        kind: "ok",
+        kind: kind === "ok" && taxonomyOutcome === "closed" ? "closed" : kind,
         text: editorLabels?.variantCommissionNotSaved
-          ? `${baseSuccess} ${editorLabels.variantCommissionNotSaved}`
-          : baseSuccess,
+          ? `${baseSuccess}${taxonomySuffix} ${editorLabels.variantCommissionNotSaved}`
+          : `${baseSuccess}${taxonomySuffix}`,
       });
       onSuccess?.();
       if (standaloneEditor && editorMode === "create") {
@@ -277,7 +331,15 @@ export function CertifiedSellersActionPanel({
     }
 
     if (parsed.variants.length === 0) {
-      setMessage({ kind: "ok", text: baseSuccess });
+      setMessage({
+        kind:
+          taxonomyOutcome === "closed"
+            ? "closed"
+            : taxonomyOutcome === "error"
+              ? "error"
+              : "ok",
+        text: `${baseSuccess}${taxonomySuffix}`,
+      });
       onSuccess?.();
       if (standaloneEditor && editorMode === "create") {
         router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
@@ -295,10 +357,11 @@ export function CertifiedSellersActionPanel({
     );
     if (variantsOutcome === "ok") {
       setMessage({
-        kind: "ok",
+        kind:
+          taxonomyOutcome === "error" || taxonomyOutcome === "closed" ? "error" : "ok",
         text: editorLabels?.variantCommissionSaved
-          ? `${baseSuccess} ${editorLabels.variantCommissionSaved}`
-          : baseSuccess,
+          ? `${baseSuccess}${taxonomySuffix} ${editorLabels.variantCommissionSaved}`
+          : `${baseSuccess}${taxonomySuffix}`,
       });
       onSuccess?.();
       if (standaloneEditor && editorMode === "create") {
@@ -381,8 +444,10 @@ export function CertifiedSellersActionPanel({
         masterActive === false ||
         (masterActive === true && (publishAppChecked || publishSale));
 
+      const taxonomyOutcome = await saveProductTaxonomy(productKey, fd);
+
       if (!needsChannelWrite) {
-        await finishProductSave(productKey, labels.success, variantsRaw);
+        await finishProductSave(productKey, labels.success, variantsRaw, taxonomyOutcome);
         return;
       }
 
@@ -397,7 +462,7 @@ export function CertifiedSellersActionPanel({
         { quiet: true },
       );
       if (channelOutcome === "ok") {
-        await finishProductSave(productKey, labels.success, variantsRaw);
+        await finishProductSave(productKey, labels.success, variantsRaw, taxonomyOutcome);
         return;
       }
       if (channelOutcome === "closed") {
@@ -444,6 +509,7 @@ export function CertifiedSellersActionPanel({
           logoSrc={selectedLogoSrc}
           category={selectedCategory}
           productType={selectedProductType}
+          dependencyCandidates={dependencyCandidates}
           pending={pending}
           onSubmit={onProducts}
           onDiscard={() => {

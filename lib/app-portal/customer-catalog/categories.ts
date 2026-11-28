@@ -98,6 +98,8 @@ export function sortStoreCategoryIds(ids: Iterable<string>): string[] {
 /** Parse Core-declared product dependencies only — never invent barriers. */
 export function parseDeclaredDependencies(row: Record<string, unknown>): string[] {
   const raw =
+    row.depends_on_product_keys ??
+    row.dependsOnProductKeys ??
     row.depends_on ??
     row.dependsOn ??
     row.requires_product_keys ??

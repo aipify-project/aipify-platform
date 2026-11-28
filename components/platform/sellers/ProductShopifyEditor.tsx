@@ -17,6 +17,12 @@ import {
 import type { ProductVariantDefinition } from "@/lib/product-catalog/variants";
 import { canPersistVariantCommissionRules } from "@/lib/product-catalog/variant-commission";
 import { resolveProductModuleBinding } from "@/lib/product-catalog/module-binding";
+import {
+  PRODUCT_TAXONOMY_CATEGORY_OPTIONS,
+  PRODUCT_TAXONOMY_TYPES,
+  taxonomyShowsDependencyPicker,
+  type ProductTaxonomyType,
+} from "@/lib/product-catalog/product-taxonomy";
 
 export type ProductEditorMode = "create" | "edit";
 
@@ -68,6 +74,22 @@ export type ProductShopifyEditorLabels = SellersActionLabels & {
   /** Shown when variant persist fails — never claim success. */
   variantCommissionSaveFailed: string;
   legacyProductCommissionHint: string;
+  taxonomyTitle: string;
+  taxonomyUnconfigured: string;
+  taxonomyTypeUnset: string;
+  taxonomyTypePrimary: string;
+  taxonomyTypeAddon: string;
+  taxonomyTypeVoice: string;
+  taxonomyTypeSalesGrowth: string;
+  taxonomyTypeOther: string;
+  taxonomyCategoryHint: string;
+  taxonomyDependsOn: string;
+  taxonomyDependsOnHint: string;
+  taxonomyAllSemantics: string;
+  taxonomyLoadFailed: string;
+  taxonomySaved: string;
+  taxonomySaveFailed: string;
+  taxonomyPartialSave: string;
 };
 
 const CONTENT_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
@@ -94,8 +116,9 @@ export function ProductShopifyEditor({
   publishApp: initialPublishApp,
   masterActive: initialMasterActive,
   logoSrc,
-  category,
-  productType,
+  category: _legacyCategory,
+  productType: _legacyProductType,
+  dependencyCandidates = [],
   pending,
   onSubmit,
   onDiscard,
@@ -114,11 +137,15 @@ export function ProductShopifyEditor({
   logoSrc?: string | null;
   category?: string | null;
   productType?: string | null;
+  /** Other Core product keys available as dependency targets (same register). */
+  dependencyCandidates?: string[];
   pending: boolean;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onDiscard?: () => void;
   backHref?: string;
 }) {
+  void _legacyCategory;
+  void _legacyProductType;
   const [productKey, setProductKey] = useState(initialKey ?? "");
   const [currency, setCurrency] = useState(initialCurrency ?? "NOK");
   const [commission, setCommission] = useState(
@@ -152,8 +179,18 @@ export function ProductShopifyEditor({
   const [variants, setVariants] = useState<ProductVariantDefinition[]>([]);
   const [variantsLoadError, setVariantsLoadError] = useState<string | null>(null);
   const canPersistVariants = canPersistVariantCommissionRules();
+  const [taxonomyType, setTaxonomyType] = useState<ProductTaxonomyType | "">("");
+  const [taxonomyCategoryId, setTaxonomyCategoryId] = useState("");
+  const [taxonomyDependsOn, setTaxonomyDependsOn] = useState<string[]>([]);
+  const [taxonomyUnconfigured, setTaxonomyUnconfigured] = useState(true);
+  const [taxonomyLoadError, setTaxonomyLoadError] = useState<string | null>(null);
+  const [taxonomyDirty, setTaxonomyDirty] = useState(false);
 
   const markDirty = useCallback(() => setDirty(true), []);
+  const markTaxonomyDirty = useCallback(() => {
+    setTaxonomyDirty(true);
+    setDirty(true);
+  }, []);
 
   useEffect(() => {
     const onBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -196,6 +233,66 @@ export function ProductShopifyEditor({
       cancelled = true;
     };
   }, [canPersistVariants, initialKey, labels.variantCommissionSaveFailed, mode]);
+
+  useEffect(() => {
+    if (mode !== "edit" || !initialKey) {
+      setTaxonomyType("");
+      setTaxonomyCategoryId("");
+      setTaxonomyDependsOn([]);
+      setTaxonomyUnconfigured(true);
+      setTaxonomyLoadError(null);
+      setTaxonomyDirty(false);
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(
+          `/api/platform/sellers/products/taxonomy?product_key=${encodeURIComponent(initialKey)}`,
+          { cache: "no-store" },
+        );
+        const body = (await res.json().catch(() => null)) as {
+          found?: boolean;
+          taxonomy?: {
+            productType?: string | null;
+            categoryId?: string | null;
+            dependsOnProductKeys?: string[];
+            unconfigured?: boolean;
+          };
+        } | null;
+        if (cancelled) return;
+        if (!res.ok || !body?.found || !body.taxonomy) {
+          setTaxonomyLoadError(labels.taxonomyLoadFailed);
+          setTaxonomyUnconfigured(true);
+          return;
+        }
+        const type = body.taxonomy.productType;
+        setTaxonomyType(
+          type && (PRODUCT_TAXONOMY_TYPES as readonly string[]).includes(type)
+            ? (type as ProductTaxonomyType)
+            : "",
+        );
+        setTaxonomyCategoryId(body.taxonomy.categoryId ?? "");
+        setTaxonomyDependsOn(
+          Array.isArray(body.taxonomy.dependsOnProductKeys)
+            ? body.taxonomy.dependsOnProductKeys
+            : [],
+        );
+        setTaxonomyUnconfigured(body.taxonomy.unconfigured !== false);
+        setTaxonomyLoadError(null);
+        setTaxonomyDirty(false);
+      } catch {
+        if (!cancelled) {
+          setTaxonomyLoadError(labels.taxonomyLoadFailed);
+          setTaxonomyUnconfigured(true);
+          setTaxonomyDirty(false);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [initialKey, labels.taxonomyLoadFailed, mode]);
 
   const draft = localeDrafts[contentLocale];
 
@@ -251,6 +348,15 @@ export function ProductShopifyEditor({
         type="hidden"
         name="published"
         value={masterStatus === "active" && publishSale ? "on" : ""}
+      />
+      <input type="hidden" name="product_type" value={taxonomyType} />
+      <input type="hidden" name="category_id" value={taxonomyCategoryId} />
+      <input type="hidden" name="depends_on_product_keys" value={JSON.stringify(taxonomyDependsOn)} />
+      <input type="hidden" name="taxonomy_dirty" value={taxonomyDirty ? "on" : ""} />
+      <input
+        type="hidden"
+        name="taxonomy_load_failed"
+        value={taxonomyLoadError ? "on" : ""}
       />
 
       <div className="sticky top-0 z-20 -mx-1 flex flex-wrap items-center gap-2 rounded-2xl border border-[color:var(--aipify-border)] bg-white/95 px-3 py-2 shadow-sm backdrop-blur">
@@ -378,10 +484,100 @@ export function ProductShopifyEditor({
             <p className="mt-2 text-sm text-[color:var(--aipify-text-secondary)]">{labels.mediaBlocked}</p>
           </EditorCard>
 
-          <EditorCard title={labels.category}>
-            <p className="text-sm text-[color:var(--aipify-text-primary)]">
-              {category || productType || "—"}
+          <EditorCard title={labels.taxonomyTitle || labels.category}>
+            {taxonomyUnconfigured ? (
+              <p className="mb-3 text-sm text-[color:var(--aipify-text-secondary)]">
+                {labels.taxonomyUnconfigured}
+              </p>
+            ) : null}
+            {taxonomyLoadError ? (
+              <p className="mb-3 text-sm text-red-700" role="alert">
+                {taxonomyLoadError}
+              </p>
+            ) : null}
+            <label className="block text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+              {labels.productType}
+              <select
+                className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] bg-white px-3 py-2 text-sm"
+                value={taxonomyType}
+                onChange={(event) => {
+                  const next = event.target.value as ProductTaxonomyType | "";
+                  setTaxonomyType(next);
+                  if (next !== "addon") setTaxonomyDependsOn([]);
+                  setTaxonomyUnconfigured(false);
+                  markTaxonomyDirty();
+                }}
+              >
+                <option value="">{labels.taxonomyTypeUnset}</option>
+                <option value="primary">{labels.taxonomyTypePrimary}</option>
+                <option value="addon">{labels.taxonomyTypeAddon}</option>
+                <option value="voice">{labels.taxonomyTypeVoice}</option>
+                <option value="sales_growth">{labels.taxonomyTypeSalesGrowth}</option>
+                <option value="other">{labels.taxonomyTypeOther}</option>
+              </select>
+            </label>
+            <label className="mt-3 block text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+              {labels.category}
+              <select
+                className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] bg-white px-3 py-2 text-sm"
+                value={taxonomyCategoryId}
+                onChange={(event) => {
+                  setTaxonomyCategoryId(event.target.value);
+                  setTaxonomyUnconfigured(false);
+                  markTaxonomyDirty();
+                }}
+              >
+                <option value="">{labels.taxonomyTypeUnset}</option>
+                {PRODUCT_TAXONOMY_CATEGORY_OPTIONS.map((id) => (
+                  <option key={id} value={id}>
+                    {id}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <p className="mt-1 text-sm text-[color:var(--aipify-text-secondary)]">
+              {labels.taxonomyCategoryHint}
             </p>
+            {taxonomyShowsDependencyPicker(taxonomyType || null) ? (
+              <fieldset className="mt-4 space-y-2">
+                <legend className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+                  {labels.taxonomyDependsOn}
+                </legend>
+                <p className="text-sm text-[color:var(--aipify-text-secondary)]">
+                  {labels.taxonomyDependsOnHint}
+                </p>
+                <p className="text-xs text-[color:var(--aipify-text-secondary)]">
+                  {labels.taxonomyAllSemantics}
+                </p>
+                <div className="max-h-40 space-y-1 overflow-y-auto rounded-xl border border-[color:var(--aipify-border)] p-2">
+                  {dependencyCandidates
+                    .filter((key) => key !== productKey.trim().toLowerCase())
+                    .map((key) => {
+                      const checked = taxonomyDependsOn.includes(key);
+                      return (
+                        <label key={key} className="flex items-center gap-2 text-sm">
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() => {
+                              setTaxonomyDependsOn((prev) =>
+                                checked ? prev.filter((k) => k !== key) : [...prev, key],
+                              );
+                              setTaxonomyUnconfigured(false);
+                              markTaxonomyDirty();
+                            }}
+                          />
+                          <span className="font-mono text-xs">{key}</span>
+                        </label>
+                      );
+                    })}
+                  {dependencyCandidates.filter((key) => key !== productKey.trim().toLowerCase())
+                    .length === 0 ? (
+                    <p className="text-sm text-[color:var(--aipify-text-secondary)]">—</p>
+                  ) : null}
+                </div>
+              </fieldset>
+            ) : null}
           </EditorCard>
 
           <EditorCard title={labels.variantsTitle || labels.priceCardTitle}>
@@ -573,7 +769,7 @@ export function ProductShopifyEditor({
               <span className="font-medium text-[color:var(--aipify-text-primary)]">
                 {labels.productType}:{" "}
               </span>
-              {productType || category || "—"}
+              {taxonomyType || taxonomyCategoryId || labels.taxonomyTypeUnset}
             </p>
             {(() => {
               const binding = resolveProductModuleBinding(productKey);
