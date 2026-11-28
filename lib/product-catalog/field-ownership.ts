@@ -29,6 +29,9 @@ export const PRODUCT_CATALOG_FIELD_OWNERSHIP = {
   /** Staging schema applied; Production + RPC apply remain gated. */
   publishApp: "core_csp_sales_products",
   publishSale: "core_csp_sales_products",
+  productType: "core_csp_sales_products",
+  categoryId: "core_csp_sales_products",
+  dependsOnProductKeys: "core_csp_sales_products",
   localeCopyApproved: "core_channel_sql_pending",
   mediaPathsPersisted: "core_channel_sql_pending",
   entitlementActive: "tenant_entitlement",

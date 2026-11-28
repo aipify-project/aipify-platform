@@ -14,7 +14,14 @@ import {
   ProductVariantBuilder,
   type ProductVariantBuilderLabels,
 } from "@/components/platform/sellers/ProductVariantBuilder";
+import {
+  buildEditorPublicationReport,
+  ProductPublicationReadinessPanel,
+  type ProductPublicationReadinessLabels,
+} from "@/components/platform/sellers/ProductPublicationReadinessPanel";
+import type { UnifiedCatalogProduct } from "@/lib/product-catalog";
 import type { ProductVariantDefinition } from "@/lib/product-catalog/variants";
+import { variantHasPaidCustomerPrice } from "@/lib/product-catalog/quota-labels";
 import { canPersistVariantCommissionRules } from "@/lib/product-catalog/variant-commission";
 import { resolveProductModuleBinding } from "@/lib/product-catalog/module-binding";
 import {
@@ -90,6 +97,7 @@ export type ProductShopifyEditorLabels = SellersActionLabels & {
   taxonomySaved: string;
   taxonomySaveFailed: string;
   taxonomyPartialSave: string;
+  publicationReadiness: ProductPublicationReadinessLabels;
 };
 
 const CONTENT_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
@@ -116,9 +124,15 @@ export function ProductShopifyEditor({
   publishApp: initialPublishApp,
   masterActive: initialMasterActive,
   logoSrc,
+  heroImagePath = null,
   category: _legacyCategory,
   productType: _legacyProductType,
   dependencyCandidates = [],
+  catalogProduct = null,
+  coreProductId = null,
+  channelSchemaAvailable = true,
+  titleFromCore = null,
+  previewLocale = "en",
   pending,
   onSubmit,
   onDiscard,
@@ -135,10 +149,17 @@ export function ProductShopifyEditor({
   /** null = unknown / not returned from Core yet */
   masterActive?: boolean | null;
   logoSrc?: string | null;
+  heroImagePath?: string | null;
   category?: string | null;
   productType?: string | null;
   /** Other Core product keys available as dependency targets (same register). */
   dependencyCandidates?: string[];
+  /** Unified catalog row for honest APP/SALE preview cards. */
+  catalogProduct?: UnifiedCatalogProduct | null;
+  coreProductId?: string | null;
+  channelSchemaAvailable?: boolean;
+  titleFromCore?: string | null;
+  previewLocale?: string;
   pending: boolean;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onDiscard?: () => void;
@@ -324,6 +345,65 @@ export function ProductShopifyEditor({
         ? labels.statusUnlistedHint
         : labels.statusDraftHint;
 
+  const readinessReport = useMemo(() => {
+    const key = productKey.trim().toLowerCase();
+    if (!key) return null;
+    const commissionAmount = Number(commission);
+    const variantsSource =
+      canPersistVariants && variants.length > 0
+        ? ("core" as const)
+        : variants.length > 0 || key === "kompis_web"
+          ? ("planned" as const)
+          : ("empty" as const);
+    return buildEditorPublicationReport({
+      productKey: key,
+      coreProductId: coreProductId ?? (mode === "edit" ? catalogProduct?.coreProductId ?? null : null),
+      channelSchemaAvailable,
+      publishApp,
+      publishSale,
+      masterActive:
+        masterStatus === "unlisted" ? false : masterStatus === "active" ? true : initialMasterActive ?? null,
+      titleFromCore,
+      productType: taxonomyType || null,
+      categoryId: taxonomyCategoryId || null,
+      dependsOnProductKeys: taxonomyDependsOn,
+      registryLogoSrc: logoSrc ?? catalogProduct?.logoSrc ?? null,
+      registryHeroSrc: heroImagePath ?? catalogProduct?.heroImagePath ?? null,
+      variantsSource,
+      variants: variants.map((v) => ({
+        variantKey: v.variantKey,
+        monthlyAmount: v.monthlyPrice?.amountMajor ?? null,
+        yearlyAmount: v.yearlyPrice?.amountMajor ?? null,
+        oneTimeAmount: v.oneTimePrice?.amountMajor ?? null,
+        hasPaidCustomerPrice: variantHasPaidCustomerPrice(v),
+      })),
+      fixedCommissionAmount: Number.isFinite(commissionAmount) ? commissionAmount : null,
+      currency: currency.trim() || null,
+    });
+  }, [
+    canPersistVariants,
+    catalogProduct?.coreProductId,
+    catalogProduct?.heroImagePath,
+    catalogProduct?.logoSrc,
+    channelSchemaAvailable,
+    commission,
+    coreProductId,
+    currency,
+    heroImagePath,
+    initialMasterActive,
+    logoSrc,
+    masterStatus,
+    mode,
+    productKey,
+    publishApp,
+    publishSale,
+    taxonomyCategoryId,
+    taxonomyDependsOn,
+    taxonomyType,
+    titleFromCore,
+    variants,
+  ]);
+
   return (
     <form
       className="space-y-4"
@@ -395,15 +475,12 @@ export function ProductShopifyEditor({
         >
           {labels.discard}
         </button>
-        <button
-          type="button"
+        <a
+          href="#product-publication-readiness"
           className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 text-sm font-semibold text-[color:var(--aipify-text-secondary)]"
-          onClick={() => {
-            /* Preview is secondary — no fake storefront. */
-          }}
         >
           {labels.previewSecondary}
-        </button>
+        </a>
         <button
           type="submit"
           disabled={pending}
@@ -807,6 +884,17 @@ export function ProductShopifyEditor({
           </EditorCard>
         </div>
       </div>
+
+      {readinessReport ? (
+        <div id="product-publication-readiness">
+          <ProductPublicationReadinessPanel
+            labels={labels.publicationReadiness}
+            report={readinessReport}
+            catalogProduct={catalogProduct}
+            previewLocale={previewLocale}
+          />
+        </div>
+      ) : null}
     </form>
   );
 }

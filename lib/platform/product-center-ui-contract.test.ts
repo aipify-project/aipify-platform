@@ -22,7 +22,7 @@ test("Shopify product editor exists with sticky save and channel picker", () => 
   assert.match(editor, /statusActive|statusDraft|statusUnlisted/);
   assert.match(editor, /lg:grid-cols-\[minmax\(0,2fr\)_minmax\(16rem,1fr\)\]/);
   assert.match(editor, /ProductVariantBuilder/);
-  assert.match(editor, /variants_json|variantsForProduct/);
+  assert.match(editor, /ProductPublicationReadinessPanel|publication-readiness/);
 });
 
 test("premium catalog card and variant SQL candidate are prepared", () => {
