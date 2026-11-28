@@ -34,6 +34,9 @@
     "purchasePending": "Åpner sikker betaling…",
     "purchaseError": "Kjøpet kunne ikke startes. Prøv igjen.",
     "emptyTitle": "Ingen produkter i denne visningen",
-    "emptyDescription": "Prøv en annen kategori, eller åpne Abonnement for å se aktive tjenester."
+    "emptyDescription": "Prøv en annen kategori, eller åpne Abonnement for å se aktive tjenester.",
+    "salesGrowth": "Salg og vekst",
+    "addons": "Tilleggspakker",
+    "requiresProduct": "Krever"
   }
 }

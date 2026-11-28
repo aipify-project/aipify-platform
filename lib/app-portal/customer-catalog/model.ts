@@ -1,11 +1,17 @@
 import type { KompisProductAccessRead } from "@/lib/commercial-packages/portfolio-presentation";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
+import {
+  parseDeclaredDependencies,
+  resolveStoreCategoryId,
+  sortStoreCategoryIds,
+  storeCategoryLabelKey,
+} from "@/lib/app-portal/customer-catalog/categories";
 
 /**
  * Customer storefront read model.
  * Prices and purchase actions come only from a published Platform payload.
- * Kompis Web and Kompis Bedrift cards always reflect the live entitlement read.
- * Missing prices stay unpublished. Checkout stays closed in this adapter.
+ * Family cards for web/bedrift reflect live entitlement reads — technical keys unchanged.
+ * Missing prices stay unpublished. Checkout stays closed unless the commerce gate is on.
  */
 
 export const CUSTOMER_CATALOG_ROUTE = "/app/explore";
@@ -49,6 +55,8 @@ export type CatalogProduct = {
   /** Published prices only. Empty means the price is not published. */
   prices: CatalogPrice[];
   features: string[];
+  /** Core-declared product keys this add-on depends on. Empty when undeclared. */
+  dependsOnProductKeys: string[];
   /** Product workspace. Null when the product is not an active entitlement. */
   openHref: string | null;
   /**
@@ -60,7 +68,7 @@ export type CatalogProduct = {
 
 export type CatalogCategory = {
   id: string;
-  labelKey: "all" | "kompis" | "voice" | null;
+  labelKey: ReturnType<typeof storeCategoryLabelKey>;
   label: string | null;
   count: number;
 };
@@ -91,13 +99,6 @@ function humanText(value: unknown, max = 180): string | null {
   if (/^[a-z0-9_.:/-]+$/i.test(text) && !text.includes(" ")) return null;
   if (text.includes("customerApp.")) return null;
   return text;
-}
-
-function categoryId(value: unknown): string | null {
-  if (typeof value !== "string") return null;
-  const id = value.trim().toLowerCase();
-  if (!/^[a-z0-9_-]{1,40}$/.test(id)) return null;
-  return id;
 }
 
 function finiteAmount(value: unknown): number | null {
@@ -156,7 +157,10 @@ function pricesFromRow(row: Record<string, unknown>): CatalogPrice[] {
 
 function featuresFromRow(row: Record<string, unknown>): string[] {
   if (!Array.isArray(row.features)) return [];
-  return row.features.map((feature) => humanText(feature, 120)).filter((feature): feature is string => Boolean(feature)).slice(0, 12);
+  return row.features
+    .map((feature) => humanText(feature, 120))
+    .filter((feature): feature is string => Boolean(feature))
+    .slice(0, 12);
 }
 
 function safeImage(value: unknown, fallbackId: string): string | null {
@@ -211,6 +215,7 @@ function mergeOffer(
   const description = humanText(row.description);
   const features = featuresFromRow(row);
   const prices = pricesFromRow(row);
+  const dependsOn = parseDeclaredDependencies(row);
   const comingLater = row.availability === "coming_later" || row.purchasable === false;
   const mergedPrices = prices.length > 0 ? prices : product.prices;
   const canPurchase =
@@ -220,10 +225,12 @@ function mergeOffer(
     mergedPrices.some((price) => Boolean(price.offerId));
   return {
     ...product,
+    categoryId: resolveStoreCategoryId({ productKey: product.id, category: row.category }),
     description: description ?? product.description,
     imagePath: safeImage(row.image_path ?? row.imagePath, product.id),
     features: features.length > 0 ? features : product.features,
     prices: mergedPrices,
+    dependsOnProductKeys: dependsOn.length > 0 ? dependsOn : product.dependsOnProductKeys,
     state: comingLater && product.state !== "active" ? "coming_later" : product.state,
     checkoutEnabled: canPurchase,
   };
@@ -236,14 +243,13 @@ function dynamicProduct(
   const id = rowId(row);
   if (!id) return null;
   if (matchesFamily(id, "website_kompis") || matchesFamily(id, "kompis_bedrift")) return null;
-  const category = categoryId(row.category) ?? "other";
   const title = humanText(row.name ?? row.title);
   if (!title) return null;
   const comingLater = row.availability === "coming_later" || row.purchasable === false;
   const prices = pricesFromRow(row);
   return {
     id,
-    categoryId: category,
+    categoryId: resolveStoreCategoryId({ productKey: id, category: row.category }),
     titleKey: null,
     title,
     descriptionKey: null,
@@ -252,17 +258,13 @@ function dynamicProduct(
     state: comingLater ? "coming_later" : "not_licensed",
     prices,
     features: featuresFromRow(row),
+    dependsOnProductKeys: parseDeclaredDependencies(row),
     openHref: null,
     checkoutEnabled:
       commerceCheckoutEnabled &&
       !comingLater &&
       prices.some((price) => Boolean(price.offerId)),
   };
-}
-
-function categoryLabelKey(id: string): CatalogCategory["labelKey"] {
-  if (id === "all" || id === "kompis" || id === "voice") return id;
-  return null;
 }
 
 export function buildCustomerCatalog(input: CustomerCatalogInput): CustomerCatalog {
@@ -280,7 +282,10 @@ export function buildCustomerCatalog(input: CustomerCatalogInput): CustomerCatal
   const webStateValue = webState(input.access);
   let web: CatalogProduct = {
     id: "website_kompis",
-    categoryId: "kompis",
+    categoryId: resolveStoreCategoryId({
+      productKey: "website_kompis",
+      category: webOffer?.category ?? "kompis",
+    }),
     titleKey: "kompisWeb",
     title: null,
     descriptionKey: "kompisWeb",
@@ -289,6 +294,7 @@ export function buildCustomerCatalog(input: CustomerCatalogInput): CustomerCatal
     state: webStateValue,
     prices: [],
     features: [],
+    dependsOnProductKeys: [],
     openHref: webStateValue === "active" ? FOUNDATION_NAV_BINDINGS.kompisWebDashboard : null,
     checkoutEnabled: false,
   };
@@ -297,7 +303,10 @@ export function buildCustomerCatalog(input: CustomerCatalogInput): CustomerCatal
   const bedriftStateValue = bedriftState(input.access);
   let bedrift: CatalogProduct = {
     id: "kompis_bedrift",
-    categoryId: "kompis",
+    categoryId: resolveStoreCategoryId({
+      productKey: "kompis_bedrift",
+      category: bedriftOffer?.category ?? "kompis",
+    }),
     titleKey: "kompisBedrift",
     title: null,
     descriptionKey: "kompisBedrift",
@@ -306,6 +315,7 @@ export function buildCustomerCatalog(input: CustomerCatalogInput): CustomerCatal
     state: bedriftStateValue,
     prices: [],
     features: [],
+    dependsOnProductKeys: [],
     openHref: bedriftStateValue === "active" ? FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard : null,
     checkoutEnabled: false,
   };
@@ -316,14 +326,19 @@ export function buildCustomerCatalog(input: CustomerCatalogInput): CustomerCatal
     .filter((product): product is CatalogProduct => Boolean(product));
 
   const products = [web, bedrift, ...dynamic];
-  const categoryIds = ["all", ...new Set(products.map((product) => product.categoryId))];
+  const categoryIds = sortStoreCategoryIds(["all", ...products.map((product) => product.categoryId)]);
   const categories: CatalogCategory[] = categoryIds.map((id) => {
     const sample = products.find((product) => product.categoryId === id);
-    const offer = offers.find((row) => categoryId(row.category) === id);
+    const offer = offers.find(
+      (row) => resolveStoreCategoryId({ productKey: rowId(row), category: row.category }) === id
+    );
     return {
       id,
-      labelKey: categoryLabelKey(id),
-      label: id === "all" || categoryLabelKey(id) ? null : humanText(offer?.category_label) ?? sample?.title ?? null,
+      labelKey: storeCategoryLabelKey(id),
+      label:
+        id === "all" || storeCategoryLabelKey(id)
+          ? null
+          : humanText(offer?.category_label) ?? sample?.title ?? null,
       count: id === "all" ? products.length : products.filter((product) => product.categoryId === id).length,
     };
   });

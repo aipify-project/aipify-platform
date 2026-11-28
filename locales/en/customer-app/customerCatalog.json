@@ -5,13 +5,13 @@
     "description": "Published products and your current access. Prices appear only when Platform has published them.",
     "categoriesLabel": "Product categories",
     "all": "All products",
-    "kompis": "Kompis",
+    "kompis": "Buddy",
     "voice": "Aipify Voice",
     "otherCategory": "Other products",
-    "kompisWebTitle": "Kompis Web",
-    "kompisWebDescription": "Answers for visitors, based on the company's approved website content.",
-    "kompisBedriftTitle": "Kompis Bedrift",
-    "kompisBedriftDescription": "Internal knowledge and workflows for the company team.",
+    "kompisWebTitle": "Buddy Web",
+    "kompisWebDescription": "Helps website visitors get clear answers from your approved site content.",
+    "kompisBedriftTitle": "Buddy Business",
+    "kompisBedriftDescription": "Internal knowledge and workflows for your company team.",
     "stateActive": "Licensed",
     "stateNotLicensed": "Not licensed",
     "stateUnknown": "Status unavailable",
@@ -34,6 +34,9 @@
     "purchasePending": "Opening secure checkout…",
     "purchaseError": "Purchase could not be started. Please try again.",
     "emptyTitle": "No products in this view",
-    "emptyDescription": "Try another category, or open Abonnement to review your active services."
+    "emptyDescription": "Try another category, or open Abonnement to review your active services.",
+    "salesGrowth": "Sales & Growth",
+    "addons": "Add-ons",
+    "requiresProduct": "Requires"
   }
 }

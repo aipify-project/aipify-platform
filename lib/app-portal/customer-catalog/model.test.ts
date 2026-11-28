@@ -34,7 +34,7 @@ const catalog = buildCustomerCatalog({
       },
       {
         id: "storage_plus",
-        category: "kompis",
+        category: "addons",
         name: "Knowledge Storage+",
         published: true,
         price_status: "published",
@@ -43,6 +43,20 @@ const catalog = buildCustomerCatalog({
         checkout_enabled: true,
         stripe_price_id: "price_test",
         features: ["5 000 extra entries", "storage_plus_key"],
+        depends_on: ["website_kompis"],
+      },
+      {
+        id: "growth_partner_pack",
+        category: "sales_growth",
+        name: "Growth Partner toolkit",
+        published: true,
+        price_status: "published",
+        monthly: {
+          offer_id: "offer_gp_month",
+          price_status: "published",
+          amount: 199,
+          currency: "NOK",
+        },
       },
     ],
   },
@@ -64,15 +78,38 @@ assert.equal(storage?.prices.length, 2);
 assert.equal(storage?.checkoutEnabled, false);
 assert.deepEqual(storage?.features, ["5 000 extra entries"]);
 assert.equal(catalog.categories.some((category) => category.id === "voice"), true);
-assert.equal(catalogHasBothIntervals(selectCatalogProducts(catalog, "kompis")), true);
+assert.equal(catalog.categories.some((category) => category.id === "addons"), true);
+assert.equal(catalog.categories.some((category) => category.id === "sales_growth"), true);
+assert.equal(catalog.categories[0]?.id, "all");
+assert.deepEqual(
+  catalog.products.find((product) => product.id === "storage_plus")?.dependsOnProductKeys,
+  ["website_kompis"]
+);
+assert.equal(selectCatalogProducts(catalog, "addons").length, 1);
+assert.equal(catalogHasBothIntervals(selectCatalogProducts(catalog, "addons")), true);
 assert.equal(selectCatalogProducts(catalog, "missing").length, catalog.products.length);
+
+const enCatalog = JSON.parse(
+  readFileSync(join(process.cwd(), "locales/en/customer-app/customerCatalog.json"), "utf8")
+).customerCatalog;
+const noCatalog = JSON.parse(
+  readFileSync(join(process.cwd(), "locales/no/customer-app/customerCatalog.json"), "utf8")
+).customerCatalog;
+assert.equal(enCatalog.kompis, "Buddy");
+assert.equal(enCatalog.kompisWebTitle, "Buddy Web");
+assert.equal(enCatalog.kompisBedriftTitle, "Buddy Business");
+assert.equal(noCatalog.kompis, "Kompis");
+assert.equal(noCatalog.kompisWebTitle, "Kompis Web");
+assert.match(enCatalog.salesGrowth, /Sales/);
+assert.match(noCatalog.salesGrowth, /Salg/);
+assert.doesNotMatch(enCatalog.kompisWebTitle, /Kompis/);
 
 const purchasable = buildCustomerCatalog({
   billing: {
     catalog_products: [
       {
         id: "storage_plus",
-        category: "kompis",
+        category: "addons",
         name: "Knowledge Storage+",
         published: true,
         price_status: "published",

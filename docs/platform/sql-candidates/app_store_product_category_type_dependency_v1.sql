@@ -1,0 +1,27 @@
+-- PREPARED_ONLY — NOT APPLIED
+-- AIPIFY_APP_PRODUCT_STORE_CATEGORIES_V1
+-- Purpose: optional Core columns so published APP store products can declare
+-- product_type and depends_on without APP inventing taxonomy or barriers.
+-- APPLY: owner YES only. NO_PRODUCTION_DB_WRITE from this agent stream.
+--
+-- Safe additive sketch (adjust to the authoritative published-catalog table name
+-- once Platform confirms the live relation — do not apply blindly):
+--
+-- alter table public.<published_app_store_products>
+--   add column if not exists product_type text
+--     check (product_type is null or product_type in (
+--       'primary', 'addon', 'voice', 'sales_growth', 'other'
+--     )),
+--   add column if not exists depends_on_product_keys text[] not null default '{}'::text[],
+--   add column if not exists category_id text;
+--
+-- RPC list payloads should emit:
+--   category / category_id
+--   category_label (optional display override for unknown categories)
+--   product_type
+--   depends_on / depends_on_product_keys
+--
+-- APP already parses category + depends_on when present; missing fields stay fail-closed
+-- (no invented add-on prices, no invented dependency blocks).
+
+select 'PREPARED_ONLY_app_store_product_category_type_dependency_v1' as candidate_status;

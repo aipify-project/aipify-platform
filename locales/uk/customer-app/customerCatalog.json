@@ -5,12 +5,12 @@
     "description": "Опубліковані продукти та поточний доступ компанії. Ціни з’являються лише тоді, коли Platform їх опублікує.",
     "categoriesLabel": "Категорії продуктів",
     "all": "Усі продукти",
-    "kompis": "Kompis",
+    "kompis": "Buddy",
     "voice": "Aipify Voice",
     "otherCategory": "Інші продукти",
-    "kompisWebTitle": "Kompis Web",
-    "kompisWebDescription": "Відповіді для відвідувачів на основі схваленого вмісту сайту компанії.",
-    "kompisBedriftTitle": "Kompis Bedrift",
+    "kompisWebTitle": "Buddy Web",
+    "kompisWebDescription": "Допомагає відвідувачам отримувати зрозумілі відповіді з затвердженого вмісту сайту.",
+    "kompisBedriftTitle": "Buddy Business",
     "kompisBedriftDescription": "Внутрішні знання та робочі процеси для команди компанії.",
     "stateActive": "Ліцензовано",
     "stateNotLicensed": "Без ліцензії",
@@ -34,6 +34,9 @@
     "purchasePending": "Відкриваємо безпечну оплату…",
     "purchaseError": "Не вдалося розпочати покупку. Спробуйте ще раз.",
     "emptyTitle": "Немає продуктів у цьому перегляді",
-    "emptyDescription": "Спробуйте іншу категорію або відкрийте Підписку, щоб переглянути активні послуги."
+    "emptyDescription": "Спробуйте іншу категорію або відкрийте Підписку, щоб переглянути активні послуги.",
+    "salesGrowth": "Продажі та зростання",
+    "addons": "Додатки",
+    "requiresProduct": "Потребує"
   }
 }

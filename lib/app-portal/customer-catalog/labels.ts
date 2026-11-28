@@ -9,8 +9,11 @@ export type CustomerCatalogLabels = {
   categoriesLabel: string;
   all: string;
   kompis: string;
+  salesGrowth: string;
   voice: string;
+  addons: string;
   otherCategory: string;
+  requiresProduct: string;
   kompisWebTitle: string;
   kompisWebDescription: string;
   kompisBedriftTitle: string;
@@ -49,8 +52,11 @@ export function buildCustomerCatalogLabels(t: Translator): CustomerCatalogLabels
     categoriesLabel: pick("categoriesLabel"),
     all: pick("all"),
     kompis: pick("kompis"),
+    salesGrowth: pick("salesGrowth"),
     voice: pick("voice"),
+    addons: pick("addons"),
     otherCategory: pick("otherCategory"),
+    requiresProduct: pick("requiresProduct"),
     kompisWebTitle: pick("kompisWebTitle"),
     kompisWebDescription: pick("kompisWebDescription"),
     kompisBedriftTitle: pick("kompisBedriftTitle"),
