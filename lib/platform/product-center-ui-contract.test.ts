@@ -25,6 +25,12 @@ test("Shopify product editor exists with sticky save and channel picker", () => 
   assert.match(editor, /ProductPublicationReadinessPanel|publication-readiness/);
 });
 
+test("variant commission editor clears commission when price cleared and scopes radio names", () => {
+  const builder = read("components/platform/sellers/ProductVariantBuilder.tsx");
+  assert.match(builder, /commission: amount == null \? null/);
+  assert.match(builder, /fieldId=\{`\$\{variant\.variantKey/);
+});
+
 test("premium catalog card and variant SQL candidate are prepared", () => {
   const card = read("components/shared/product-catalog/PremiumProductCatalogCard.tsx");
   assert.match(card, /data-catalog-mode/);

@@ -3,7 +3,9 @@
  * Used by Opprett/Rediger produkt and Provisjonspriser.
  *
  * Never activates settlement earn path. Never creates Stripe objects.
- * Production env stays fail-closed via variant-commission-core-gate.
+ * Persist gated by variant-commission-core-gate.
+ * Server-side validation: null commission = unset; explicit 0 is valid;
+ * commission requires a configured price (never invent defaults).
  */
 
 import { callCspRpc, type CspRpcClient, type CspRpcResult } from "@/lib/certified-sales-partner/core-rpc";
@@ -258,6 +260,179 @@ export function mapCoreListToVariantCommissionRows(raw: unknown): VariantCommiss
   });
 }
 
+function isBillingInterval(raw: unknown): raw is ProductBillingInterval {
+  return raw === "month" || raw === "year" || raw === "one_time";
+}
+
+function validateCommissionRule(
+  rule: unknown,
+  currencyFallback: string,
+): { ok: true; rule: VariantIntervalCommissionRule } | { ok: false; error: string } {
+  if (rule == null || typeof rule !== "object") {
+    return { ok: false, error: "invalid_commission_rule" };
+  }
+  const raw = rule as Partial<VariantIntervalCommissionRule>;
+  const model = raw.model === "percent" ? "percent" : raw.model === "fixed" ? "fixed" : null;
+  if (!model) {
+    return { ok: false, error: "invalid_commission_model" };
+  }
+  const currency = String(raw.currency || currencyFallback || "NOK")
+    .trim()
+    .toUpperCase();
+  if (!currency || currency.length < 3) {
+    return { ok: false, error: "invalid_commission_currency" };
+  }
+  if (model === "fixed") {
+    if (raw.amountMajor == null || !Number.isFinite(Number(raw.amountMajor))) {
+      return { ok: false, error: "invalid_fixed_commission_amount" };
+    }
+    const amountMajor = Number(raw.amountMajor);
+    if (amountMajor < 0) {
+      return { ok: false, error: "invalid_fixed_commission_amount" };
+    }
+    return {
+      ok: true,
+      rule: {
+        active: raw.active !== false,
+        model: "fixed",
+        amountMajor,
+        ratePct: null,
+        currency,
+        percentBasis: VARIANT_COMMISSION_PERCENT_BASIS,
+      },
+    };
+  }
+  if (raw.ratePct == null || !Number.isFinite(Number(raw.ratePct))) {
+    return { ok: false, error: "invalid_percent_commission_rate" };
+  }
+  const ratePct = Number(raw.ratePct);
+  if (ratePct < 0 || ratePct > 100) {
+    return { ok: false, error: "invalid_percent_commission_rate" };
+  }
+  return {
+    ok: true,
+    rule: {
+      active: raw.active !== false,
+      model: "percent",
+      amountMajor: null,
+      ratePct,
+      currency,
+      percentBasis: VARIANT_COMMISSION_PERCENT_BASIS,
+    },
+  };
+}
+
+function validatePriceForPersist(
+  price: unknown,
+  expectedInterval: ProductBillingInterval,
+): { ok: true; price: ProductVariantPrice | null } | { ok: false; error: string } {
+  if (price == null) return { ok: true, price: null };
+  if (typeof price !== "object") return { ok: false, error: "invalid_price_row" };
+  const raw = price as Partial<ProductVariantPrice>;
+  const interval = isBillingInterval(raw.interval) ? raw.interval : expectedInterval;
+  if (interval !== expectedInterval) {
+    return { ok: false, error: "invalid_price_interval" };
+  }
+  const currency = String(raw.currency || "NOK").trim().toUpperCase() || "NOK";
+  const hasAmount = raw.amountMajor != null && Number.isFinite(Number(raw.amountMajor));
+  const amountMajor = hasAmount ? Number(raw.amountMajor) : null;
+  if (amountMajor != null && amountMajor < 0) {
+    return { ok: false, error: "invalid_price_amount" };
+  }
+
+  let commission: VariantIntervalCommissionRule | null = null;
+  if (raw.commission != null) {
+    if (!hasAmount) {
+      return { ok: false, error: "commission_requires_configured_price" };
+    }
+    const validated = validateCommissionRule(raw.commission, currency);
+    if (!validated.ok) return validated;
+    commission = validated.rule;
+  }
+
+  return {
+    ok: true,
+    price: {
+      currency,
+      amountMajor,
+      amountMinor:
+        raw.amountMinor != null && Number.isFinite(Number(raw.amountMinor))
+          ? Math.round(Number(raw.amountMinor))
+          : amountMajor != null
+            ? Math.round(amountMajor * 100)
+            : null,
+      interval,
+      vatLabel: "exclusive",
+      providerPriceId:
+        typeof raw.providerPriceId === "string" && raw.providerPriceId.trim()
+          ? raw.providerPriceId.trim()
+          : null,
+      purchasable: false,
+      commission,
+    },
+  };
+}
+
+/**
+ * Server-side validation for Product Center persist.
+ * null commission = unset; explicit 0 is valid; commission without price rejected.
+ */
+export function validateAndNormalizeVariantsForPersist(
+  rows: unknown[],
+): { ok: true; variants: ProductVariantDefinition[] } | { ok: false; error: string } {
+  const variants: ProductVariantDefinition[] = [];
+  const seenKeys = new Set<string>();
+  for (const item of rows) {
+    if (!item || typeof item !== "object") {
+      return { ok: false, error: "invalid_variant_row" };
+    }
+    const row = item as Partial<ProductVariantDefinition>;
+    const variantKey = typeof row.variantKey === "string" ? row.variantKey.trim() : "";
+    if (!variantKey) {
+      return { ok: false, error: "variant_key_required" };
+    }
+    if (seenKeys.has(variantKey)) {
+      return { ok: false, error: "duplicate_variant_key" };
+    }
+    seenKeys.add(variantKey);
+    const productKey =
+      typeof row.productKey === "string" && row.productKey.trim()
+        ? row.productKey.trim()
+        : "product";
+
+    const month = validatePriceForPersist(row.monthlyPrice, "month");
+    if (!month.ok) return month;
+    const year = validatePriceForPersist(row.yearlyPrice, "year");
+    if (!year.ok) return year;
+    const oneTime = validatePriceForPersist(row.oneTimePrice, "one_time");
+    if (!oneTime.ok) return oneTime;
+
+    variants.push({
+      variantKey,
+      productKey,
+      adminName: typeof row.adminName === "string" ? row.adminName : variantKey,
+      customerLabel: typeof row.customerLabel === "string" ? row.customerLabel : variantKey,
+      sortOrder: Number.isFinite(Number(row.sortOrder)) ? Number(row.sortOrder) : 0,
+      active: row.active !== false,
+      recommended: row.recommended === true,
+      quotaValue:
+        row.quotaValue == null || !Number.isFinite(Number(row.quotaValue))
+          ? null
+          : Number(row.quotaValue),
+      quotaUnit: typeof row.quotaUnit === "string" ? row.quotaUnit : null,
+      quotaKind: asQuotaKind(typeof row.quotaKind === "string" ? row.quotaKind : null),
+      annualRenewsQuotaMonthly: row.annualRenewsQuotaMonthly === true,
+      monthlyPrice: month.price,
+      yearlyPrice: year.price,
+      oneTimePrice: oneTime.price,
+      features: Array.isArray(row.features)
+        ? row.features.filter((f): f is string => typeof f === "string")
+        : [],
+    });
+  }
+  return { ok: true, variants };
+}
+
 export function parseVariantsJsonInput(raw: unknown): {
   ok: true;
   variants: ProductVariantDefinition[];
@@ -276,19 +451,7 @@ export function parseVariantsJsonInput(raw: unknown): {
   if (!Array.isArray(parsed)) {
     return { ok: false, error: "variants_must_be_array" };
   }
-  const variants: ProductVariantDefinition[] = [];
-  for (const item of parsed) {
-    if (!item || typeof item !== "object") {
-      return { ok: false, error: "invalid_variant_row" };
-    }
-    const row = item as ProductVariantDefinition;
-    const variantKey = typeof row.variantKey === "string" ? row.variantKey.trim() : "";
-    if (!variantKey) {
-      return { ok: false, error: "variant_key_required" };
-    }
-    variants.push(row);
-  }
-  return { ok: true, variants };
+  return validateAndNormalizeVariantsForPersist(parsed);
 }
 
 function commissionPayloadArgs(rule: VariantIntervalCommissionRule): {
@@ -352,6 +515,16 @@ export type PersistVariantsError = {
     | "variants_must_be_array"
     | "invalid_variant_row"
     | "variant_key_required"
+    | "duplicate_variant_key"
+    | "invalid_commission_rule"
+    | "invalid_commission_model"
+    | "invalid_commission_currency"
+    | "invalid_fixed_commission_amount"
+    | "invalid_percent_commission_rate"
+    | "commission_requires_configured_price"
+    | "invalid_price_row"
+    | "invalid_price_interval"
+    | "invalid_price_amount"
     | "csp_backend_not_applied"
     | "partner_not_found"
     | "partner_not_active";
@@ -669,13 +842,17 @@ export async function persistProductVariantsToCore(
     const variantKey = String(variant.variantKey ?? "").trim();
     const intervals: Array<{
       interval: ProductBillingInterval;
-      rule: VariantIntervalCommissionRule | null | undefined;
+      price: ProductVariantPrice | null | undefined;
     }> = [
-      { interval: "month", rule: variant.monthlyPrice?.commission },
-      { interval: "year", rule: variant.yearlyPrice?.commission },
-      { interval: "one_time", rule: variant.oneTimePrice?.commission },
+      { interval: "month", price: variant.monthlyPrice },
+      { interval: "year", price: variant.yearlyPrice },
+      { interval: "one_time", price: variant.oneTimePrice },
     ];
-    for (const { interval, rule } of intervals) {
+    for (const { interval, price } of intervals) {
+      // Commission only next to a configured price (incl. explicit 0).
+      const priceConfigured =
+        price != null && price.amountMajor != null && Number.isFinite(price.amountMajor);
+      const rule = priceConfigured ? price?.commission : null;
       if (!rule) continue;
       const commissionResult = await persistOneCommission(
         supabase,

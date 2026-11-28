@@ -2,9 +2,10 @@
 
 /**
  * Platform Product Center — variant builder (monthly + yearly + one-time).
- * Staging Core may persist via products/variants API; Production stays fail-closed.
+ * Persist via products/variants API when Core gate allows.
  * Never invents Stripe IDs or marks purchasable without provider mapping.
  * Never claims variant commission persistence while canPersist is false.
+ * Clearing a price amount also clears that period's commission (null = unset).
  */
 
 import { useMemo } from "react";
@@ -132,8 +133,8 @@ export function ProductVariantBuilder({
       vatLabel: "exclusive",
       providerPriceId: existing?.providerPriceId ?? null,
       purchasable: false,
-      // Preserve null (not configured); never invent emptyVariantCommissionRule(0).
-      commission: existing?.commission ?? null,
+      // Price cleared → commission unset. Configured price keeps existing rule (incl. explicit 0).
+      commission: amount == null ? null : (existing?.commission ?? null),
     };
     if (interval === "month") patch(index, { monthlyPrice: nextPrice });
     else if (interval === "year") patch(index, { yearlyPrice: nextPrice });
@@ -228,6 +229,7 @@ export function ProductVariantBuilder({
                         value={variant.monthlyPrice?.commission}
                         labels={{ ...labels.commission, title: labels.commissionMonth }}
                         compactVat
+                        fieldId={`${variant.variantKey || index}-month`}
                         onChange={(next) => {
                           const base =
                             variant.monthlyPrice ?? priceShell("month", currency, null);
@@ -252,6 +254,7 @@ export function ProductVariantBuilder({
                         value={variant.yearlyPrice?.commission}
                         labels={{ ...labels.commission, title: labels.commissionYear }}
                         compactVat
+                        fieldId={`${variant.variantKey || index}-year`}
                         onChange={(next) => {
                           const base = variant.yearlyPrice ?? priceShell("year", currency, null);
                           patch(index, { yearlyPrice: { ...base, commission: next } });
@@ -275,6 +278,7 @@ export function ProductVariantBuilder({
                         value={variant.oneTimePrice?.commission}
                         labels={{ ...labels.commission, title: labels.commissionOneTime }}
                         compactVat
+                        fieldId={`${variant.variantKey || index}-one_time`}
                         onChange={(next) => {
                           const base =
                             variant.oneTimePrice ?? priceShell("one_time", currency, null);

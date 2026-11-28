@@ -68,6 +68,7 @@ import {
   SUPPORT_SEND_PUBLIC_REPLY_SQL_SHA256,
   SUPPORT_APP_VISIBLE_MESSAGES_SQL_PATH,
   SUPPORT_APP_VISIBLE_MESSAGES_SQL_SHA256,
+  SUPPORT_APP_VISIBLE_MESSAGES_APPLIED,
   isSupportSendPublicReplyApplied,
 } from "./send-public-reply-contract";
 import { AIPIFY_CORE_STAGING_PROJECT_REF } from "./staging-core-activation";
@@ -383,10 +384,23 @@ assert.equal(enChannels.notActivated, "Not activated");
 assert.equal(enChannels.preparedOnly, "Not configured");
 assert.match(enChannels.emailSendBlocked, /not configured/i);
 
-// Send vs draft + status transitions + email gates: Staging ON, Production OFF.
+// Send vs draft + status transitions + email gates: Staging + Production ON; email OFF.
 assert.equal(SUPPORT_SEND_PUBLIC_REPLY_STAGING_APPLIED, true);
-assert.equal(SUPPORT_SEND_PUBLIC_REPLY_PRODUCTION_APPLIED, false);
-assert.equal(SUPPORT_SEND_PUBLIC_REPLY_APPLIED, false);
+assert.equal(SUPPORT_SEND_PUBLIC_REPLY_PRODUCTION_APPLIED, true);
+assert.equal(SUPPORT_SEND_PUBLIC_REPLY_APPLIED, true);
+assert.equal(SUPPORT_APP_VISIBLE_MESSAGES_APPLIED, true);
+{
+  const detailUi = readFileSync(
+    "components/platform/support-center/SupportTicketDetail.tsx",
+    "utf8",
+  );
+  assert.match(detailUi, /sendPublicReplyReady/);
+  assert.match(detailUi, /!props\.sendPublicReplyReady/);
+  assert.match(
+    detailUi,
+    /disabled=\{\s*busy !== null \|\|\s*!props\.sendPublicReplyReady/,
+  );
+}
 assert.equal(
   isSupportSendPublicReplyApplied(
     `https://${AIPIFY_CORE_STAGING_PROJECT_REF}.supabase.co`,
@@ -395,8 +409,10 @@ assert.equal(
 );
 assert.equal(
   isSupportSendPublicReplyApplied("https://qbcqoixhrvhnuwphefvw.supabase.co"),
-  false,
+  true,
 );
+assert.equal(isSupportSendPublicReplyApplied(null), false);
+assert.equal(isSupportSendPublicReplyApplied("https://example.supabase.co"), false);
 assert.equal(SUPPORT_EMAIL_DELIVERY_LIVE, false);
 assert.equal(getSupportEmailNotifyGateState().deliveryLive, false);
 assert.ok(SUPPORT_EMAIL_TEMPLATE_KEYS.includes("public-reply-to-customer"));
@@ -445,6 +461,7 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"]) {
 }
 
 async function assertSendPublicReplyFailClosed() {
+  // Unbound / non-Core URL: write gates stay fail-closed (no false send).
   const sendDenied = await sendPublicSupportReply({
     ticketId: "00000000-0000-4000-8000-000000000001",
     body: "Hei — dette er et testsvar.",
