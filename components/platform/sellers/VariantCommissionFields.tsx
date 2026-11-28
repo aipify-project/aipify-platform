@@ -39,6 +39,7 @@ export function VariantCommissionFields({
   labels,
   onChange,
   compactVat = false,
+  fieldId,
 }: {
   interval: ProductBillingInterval;
   currency: string;
@@ -48,7 +49,10 @@ export function VariantCommissionFields({
   onChange: (next: VariantIntervalCommissionRule | null) => void;
   /** When true, skip repeating ex-VAT lines already shown on the parent price card. */
   compactVat?: boolean;
+  /** Unique per variant×interval so radio groups do not collide across variants. */
+  fieldId?: string;
 }) {
+  const radioName = `commission-model-${fieldId ?? interval}`;
   if (value == null) {
     return (
       <div
@@ -108,7 +112,7 @@ export function VariantCommissionFields({
         <label className="inline-flex items-center gap-2">
           <input
             type="radio"
-            name={`commission-model-${interval}`}
+            name={radioName}
             checked={rule.model === "fixed"}
             disabled={!rule.active}
             onChange={() =>
@@ -130,7 +134,7 @@ export function VariantCommissionFields({
         <label className="inline-flex items-center gap-2">
           <input
             type="radio"
-            name={`commission-model-${interval}`}
+            name={radioName}
             checked={rule.model === "percent"}
             disabled={!rule.active}
             onChange={() =>

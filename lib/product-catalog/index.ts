@@ -110,6 +110,7 @@ export {
   mapCoreBundleToVariantDefinitions,
   persistProductVariantsToCore,
   parseVariantsJsonInput,
+  validateAndNormalizeVariantsForPersist,
 } from "./variant-commission-core";
 export {
   localizeQuotaUnit,
