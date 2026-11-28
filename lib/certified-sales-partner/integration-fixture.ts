@@ -180,7 +180,7 @@ export class CspCommercialChainFixture {
     return buildCertifiedSellerBadge({
       certificationActive: this.certificationPassed,
       partnerActive: this.partnerStatus !== null && LINK_ELIGIBLE.includes(this.partnerStatus),
-      productLabel: "Kompis Web",
+      productLabel: "Buddy Web",
     });
   }
 

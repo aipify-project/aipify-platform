@@ -10,7 +10,7 @@ const baseValues = {
   seller_avatar_url: "",
   seller_company: "Example AS",
   seller_contact: "ada@example.com",
-  product_name: "Kompis Web",
+  product_name: "Buddy Web",
   product_description: "Answers from approved content.",
   referral_url: "https://aipify.ai/p/csp-0123456789ab/kompis_web?channel=referral_link&lang=no",
   company_branding: "Aipify",
@@ -36,6 +36,7 @@ test("Norwegian locale resolves without English fallback", () => {
 });
 
 test("all seven marketing locales resolve for published kompis_web introduction", () => {
+  const nordic = new Set(["no", "sv", "da"]);
   for (const locale of CSP_EMAIL_TEMPLATE_LOCALES) {
     const resolved = resolveCspEmailTemplate({
       templateId: "kompis-web-product-introduction-v1",
@@ -47,7 +48,11 @@ test("all seven marketing locales resolve for published kompis_web introduction"
     });
     assert.equal(resolved.ok, true, `locale ${locale} should resolve`);
     if (!resolved.ok) continue;
-    assert.match(resolved.subject, /Kompis Web/);
+    assert.match(
+      resolved.subject,
+      nordic.has(locale) ? /Kompis Web/ : /Buddy Web/,
+      `locale ${locale} product name`,
+    );
     assert.ok(resolved.textBody.includes("Ada \"Seller\"") || resolved.textBody.includes("Ada"));
   }
 });
@@ -91,6 +96,6 @@ test("product description uses approved sales-copy locale when present", () => {
   const no = cspMarketingProductDescription("kompis_web", "no");
   const pl = cspMarketingProductDescription("kompis_web", "pl");
   assert.match(no, /Kompis Web/);
-  assert.match(pl, /Kompis Web/);
+  assert.match(pl, /Buddy Web/);
   assert.notEqual(no, pl);
 });

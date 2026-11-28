@@ -23,13 +23,13 @@ export async function GET() {
     if (error) {
       const mapped = mapKompisOperatorRpcError(error.message);
       return NextResponse.json(
-        { error: "Unable to load Kompis workspace.", code: mapped.code },
+        { error: "Unable to load Buddy workspace.", code: mapped.code },
         { status: mapped.status, headers },
       );
     }
     const parsed = parseWorkspace(data);
     if (!parsed) {
-      return NextResponse.json({ error: "Unable to load Kompis workspace.", code: "unknown" }, { status: 500, headers });
+      return NextResponse.json({ error: "Unable to load Buddy workspace.", code: "unknown" }, { status: 500, headers });
     }
     let providerState: Record<string, unknown> = {};
     const stateRes = await supabase.rpc("get_app_kompis_ai_provider_state");
@@ -60,6 +60,6 @@ export async function GET() {
       { headers },
     );
   } catch {
-    return NextResponse.json({ error: "Unable to load Kompis workspace.", code: "unknown" }, { status: 500, headers });
+    return NextResponse.json({ error: "Unable to load Buddy workspace.", code: "unknown" }, { status: 500, headers });
   }
 }

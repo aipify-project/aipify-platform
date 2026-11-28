@@ -161,7 +161,7 @@ export function resolveApprovalSourceLabel(
   labels: Record<string, string>,
 ): string {
   if (detail.isWebsiteKompisPublish || detail.isWebsiteKompisRollback || source === "kompis") {
-    return labels.kompis ?? labels.website_kompis ?? labels.websiteKompis ?? "Website Kompis";
+    return labels.kompis ?? labels.website_kompis ?? labels.websiteKompis ?? "Website Buddy";
   }
   const key = source.trim().toLowerCase();
   return labels[key] ?? labels.aipify ?? labels.default ?? source;

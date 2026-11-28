@@ -170,8 +170,8 @@ export function buildApprovalsCenterLabels(
   };
 
   const sourceLabels: Record<string, string> = {
-    kompis: tOr(t, "customerApp.approvals.websiteKompisSource", "Website Kompis"),
-    website_kompis: tOr(t, "customerApp.approvals.websiteKompisSource", "Website Kompis"),
+    kompis: tOr(t, "customerApp.approvals.websiteKompisSource", "Website Buddy"),
+    website_kompis: tOr(t, "customerApp.approvals.websiteKompisSource", "Website Buddy"),
     aipify: tOr(t, "customerApp.approvals.sourceLabels.aipify", "Aipify"),
     default: tOr(t, "customerApp.approvals.sourceLabels.aipify", "Aipify"),
   };
@@ -228,7 +228,7 @@ export function buildApprovalsCenterLabels(
     summaryWebsitePublish: tOr(
       t,
       "customerApp.approvals.summaryWebsitePublish",
-      "Kompis has prepared an update. The change applies only to {path}. The homepage and other pages are not affected.",
+      "Buddy has prepared an update. The change applies only to {path}. The homepage and other pages are not affected.",
     ),
     recommendationWebsitePublish: tOr(
       t,
@@ -248,7 +248,7 @@ export function buildApprovalsCenterLabels(
     afterRejectWebsitePublish: tOr(
       t,
       "customerApp.approvals.afterRejectWebsitePublish",
-      "Nothing is published. The draft remains available for review in Kompis.",
+      "Nothing is published. The draft remains available for review in Buddy.",
     ),
     whatChangesWebsitePublish: [
       tOr(t, "customerApp.approvals.whatChanges", "Only the approved draft for the selected path is published."),

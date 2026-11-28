@@ -68,13 +68,13 @@ export const PLATFORM_SUPPORT_FOUR_CHANNEL_MAPPING_PLAN = {
       "New intake → app_portal_support_requests with an additive channel or source marker (owner migration)",
   },
   kompis_web: {
-    desiredLabel: "Kompis Web",
+    desiredLabel: "Buddy Web",
     today: "Website Kompis ask/FAQ (frozen public chain) — not APP tickets",
     futureSoTHint:
       "Optional human-request path → ticket; product badge from website_kompis entitlement only",
   },
   kompis_bedrift_app: {
-    desiredLabel: "Kompis Bedrift / APP",
+    desiredLabel: "Buddy Business / APP",
     today: "app_portal_support_requests (channel default app_portal)",
     futureSoTHint: "Primary SoT for Platform read RPCs in this contract",
   },

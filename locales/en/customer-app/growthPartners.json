@@ -393,15 +393,33 @@
       "openMarketing": "Open Marketing Center",
       "partnerId": "Partner ID"
     },
-    "leads": { "title": "Lead Management Center" },
-    "opportunities": { "title": "Opportunity Pipeline" },
-    "customers": { "title": "Customer Portfolio" },
-    "commissions": { "title": "Commission Center" },
-    "payouts": { "title": "Payout Center" },
-    "resources": { "title": "Marketing Resource Center" },
-    "training": { "title": "Training Center" },
-    "certifications": { "title": "Certifications" },
-    "performance": { "title": "Performance Center" },
+    "leads": {
+      "title": "Lead Management Center"
+    },
+    "opportunities": {
+      "title": "Opportunity Pipeline"
+    },
+    "customers": {
+      "title": "Customer Portfolio"
+    },
+    "commissions": {
+      "title": "Commission Center"
+    },
+    "payouts": {
+      "title": "Payout Center"
+    },
+    "resources": {
+      "title": "Marketing Resource Center"
+    },
+    "training": {
+      "title": "Training Center"
+    },
+    "certifications": {
+      "title": "Certifications"
+    },
+    "performance": {
+      "title": "Performance Center"
+    },
     "support": {
       "title": "Partner Support",
       "body": "Aipify support for Growth Partners covers certification, payouts, and sales enablement. Customer operational support remains with each customer's workspace."
@@ -455,16 +473,46 @@
     "subtitle": "Growth Partners represent Aipify Group AS. These values guide how we sell, support customers, and build trust.",
     "termsLink": "Growth Partner Terms & Conditions",
     "values": {
-      "1": { "title": "Customers First", "body": "We help customers succeed before we sell more." },
-      "2": { "title": "Honesty Before Sales", "body": "We represent Aipify truthfully and professionally." },
-      "3": { "title": "Long-Term Relationships", "body": "We build trust, not pressure." },
-      "4": { "title": "Professional Representation", "body": "Growth Partners represent Aipify Group AS and must act accordingly." },
-      "5": { "title": "Respect Customer Privacy", "body": "Customer information must be handled responsibly." },
-      "6": { "title": "Continuous Learning", "body": "Aipify Growth Partners keep learning as the platform evolves." },
-      "7": { "title": "Norwegian Values. Global Ambitions.", "body": "Aipify is built from Bergen, Norway, for the world." },
-      "8": { "title": "Sell Solutions. Not Hype.", "body": "We explain real value, not unrealistic promises." },
-      "9": { "title": "Human Control", "body": "Aipify helps people work better. It does not replace human responsibility." },
-      "10": { "title": "Represent Aipify With Pride", "body": "Every Growth Partner contributes to the trust and reputation of Aipify Group AS." }
+      "1": {
+        "title": "Customers First",
+        "body": "We help customers succeed before we sell more."
+      },
+      "2": {
+        "title": "Honesty Before Sales",
+        "body": "We represent Aipify truthfully and professionally."
+      },
+      "3": {
+        "title": "Long-Term Relationships",
+        "body": "We build trust, not pressure."
+      },
+      "4": {
+        "title": "Professional Representation",
+        "body": "Growth Partners represent Aipify Group AS and must act accordingly."
+      },
+      "5": {
+        "title": "Respect Customer Privacy",
+        "body": "Customer information must be handled responsibly."
+      },
+      "6": {
+        "title": "Continuous Learning",
+        "body": "Aipify Growth Partners keep learning as the platform evolves."
+      },
+      "7": {
+        "title": "Norwegian Values. Global Ambitions.",
+        "body": "Aipify is built from Bergen, Norway, for the world."
+      },
+      "8": {
+        "title": "Sell Solutions. Not Hype.",
+        "body": "We explain real value, not unrealistic promises."
+      },
+      "9": {
+        "title": "Human Control",
+        "body": "Aipify helps people work better. It does not replace human responsibility."
+      },
+      "10": {
+        "title": "Represent Aipify With Pride",
+        "body": "Every Growth Partner contributes to the trust and reputation of Aipify Group AS."
+      }
     }
   }
 }

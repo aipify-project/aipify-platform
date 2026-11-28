@@ -1052,7 +1052,7 @@
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Dokończ oczekujące zatwierdzenie kierownictwa jeszcze dziś.",
         "level3ActionAwaitingApproval": "Działanie o krytycznym ryzyku musi zostać zatwierdzone, zanim praca będzie mogła być kontynuowana.",
-        "kompisWebsitePublishPrepared": "Kompis przygotował zmianę wymagającą zatwierdzenia."
+        "kompisWebsitePublishPrepared": "Buddy przygotował zmianę wymagającą zatwierdzenia."
       },
       "integrationSignalMeta": "{events} zdarzeń · {alerts} alertów",
       "orgNameUnavailable": "Organizacja niedostępna",

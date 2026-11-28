@@ -8566,7 +8566,7 @@
     "title": "Certified Sales Partner",
     "subtitle": "Sell Aipify products with certified training, trackable links and fair one-time commission.",
     "backendNotReady": "Seller ledger and settlement APIs are not active in this environment yet. Platform controls remain fail-closed until Core migration is approved and applied.",
-    "kompisHelpDisabled": "Kompis help is disabled during partner certification and test flows. Use Academy materials instead.",
+    "kompisHelpDisabled": "Buddy help is disabled during partner certification and test flows. Use Academy materials instead.",
     "portal": {
       "badge": "Partner portal",
       "title": "Certified Sales Partner",
@@ -8577,8 +8577,8 @@
       "notReadyBody": "Seller ledger and settlement APIs are not active in this environment yet. Platform controls remain fail-closed until Core migration is approved and applied."
     },
     "kompis": {
-      "honestBlockedTitle": "Kompis help unavailable here",
-      "honestBlockedBody": "Kompis help is disabled during partner certification and test flows. Use Academy materials instead."
+      "honestBlockedTitle": "Buddy help unavailable here",
+      "honestBlockedBody": "Buddy help is disabled during partner certification and test flows. Use Academy materials instead."
     },
     "recruitment": {
       "cta": "Become a Certified Aipify Sales Partner",

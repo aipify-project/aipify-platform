@@ -612,7 +612,7 @@ export function CertifiedSalesPartnerCertificationsPanel({
         partnerActive={partnerActive}
         partnerName={portal.overview.displayName ?? ""}
         companyName={portal.overview.legalBusinessName ?? portal.overview.displayName ?? ""}
-        productLabel="Kompis Web"
+        productLabel={names.kompis_web ?? "Buddy Web"}
         salesLink={salesLink}
       />
     </div>

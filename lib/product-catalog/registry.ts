@@ -29,7 +29,7 @@ export const CANONICAL_PRODUCT_REGISTRY: readonly CanonicalProductDefinition[] =
     letter: "W",
     copy: {
       en: copy(
-        "Kompis Web",
+        "Buddy Web",
         "Website answers from approved content",
         "Aipify helps your business give visitors faster access to information from your own website, based on approved and available content."
       ),
@@ -49,17 +49,17 @@ export const CANONICAL_PRODUCT_REGISTRY: readonly CanonicalProductDefinition[] =
         "Aipify hjælper din virksomhed med at give besøgende hurtigere adgang til information fra jeres eget website, baseret på godkendt og tilgængeligt indhold."
       ),
       pl: copy(
-        "Kompis Web",
+        "Buddy Web",
         "Odpowiedzi witryny z zatwierdzonych treści",
         "Aipify pomaga Twojej firmie szybciej udostępniać odwiedzającym informacje z własnej witryny na podstawie zatwierdzonych i dostępnych treści."
       ),
       uk: copy(
-        "Kompis Web",
+        "Buddy Web",
         "Відповіді сайту зі схваленого вмісту",
         "Aipify допомагає вашому бізнесу швидше надавати відвідувачам інформацію з власного сайту на основі схваленого та доступного вмісту."
       ),
       es: copy(
-        "Kompis Web",
+        "Buddy Web",
         "Respuestas del sitio desde contenido aprobado",
         "Aipify ayuda a tu empresa a dar a los visitantes un acceso más rápido a la información de tu propio sitio web, basada en contenido aprobado y disponible."
       ),
@@ -79,7 +79,7 @@ export const CANONICAL_PRODUCT_REGISTRY: readonly CanonicalProductDefinition[] =
     letter: "B",
     copy: {
       en: copy(
-        "Kompis Bedrift",
+        "Buddy Business",
         "Approved internal knowledge for teams",
         "Aipify helps your organisation make approved internal knowledge easier to find, share, and use across the team."
       ),
@@ -99,17 +99,17 @@ export const CANONICAL_PRODUCT_REGISTRY: readonly CanonicalProductDefinition[] =
         "Aipify hjælper din organisation med at gøre godkendt intern viden lettere at finde, dele og bruge i teamet."
       ),
       pl: copy(
-        "Kompis Bedrift",
+        "Buddy Business",
         "Zatwierdzona wiedza wewnętrzna dla zespołów",
         "Aipify pomaga Twojej organizacji ułatwić znajdowanie, udostępnianie i używanie zatwierdzonej wiedzy wewnętrznej w zespole."
       ),
       uk: copy(
-        "Kompis Bedrift",
+        "Buddy Business",
         "Схвалені внутрішні знання для команд",
         "Aipify допомагає вашій організації зробити схвалені внутрішні знання доступнішими для пошуку, обміну та використання в команді."
       ),
       es: copy(
-        "Kompis Bedrift",
+        "Buddy Business",
         "Conocimiento interno aprobado para equipos",
         "Aipify ayuda a tu organización a facilitar el acceso, el intercambio y el uso del conocimiento interno aprobado en el equipo."
       ),

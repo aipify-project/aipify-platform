@@ -1052,7 +1052,7 @@
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Завершіть очікуване керівне погодження сьогодні.",
         "level3ActionAwaitingApproval": "Дію з критичним ризиком потрібно схвалити, перш ніж роботу можна продовжити.",
-        "kompisWebsitePublishPrepared": "Kompis підготував зміну, яка потребує затвердження."
+        "kompisWebsitePublishPrepared": "Buddy підготував зміну, яка потребує затвердження."
       },
       "integrationSignalMeta": "{events} подій · {alerts} сповіщень",
       "orgNameUnavailable": "Організація недоступна",

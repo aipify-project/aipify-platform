@@ -74,7 +74,7 @@ export const KOMPIS_OPERATOR_TOOL_REGISTRY: readonly KompisOperatorToolDefinitio
   { key: "agreement_status_read", version: "1", category: "license", description: "Read agreement status", riskClass: 0, ...READ, timeoutMs: 8000 },
   { key: "license_status_read", version: "1", category: "license", description: "Read APP license", riskClass: 0, ...READ, timeoutMs: 8000 },
   { key: "domain_installation_status_read", version: "1", category: "install", description: "Read domain and installation", riskClass: 0, ...READ, timeoutMs: 8000 },
-  { key: "website_kompis_status_read", version: "1", category: "kompis", description: "Read Website Kompis delivery", riskClass: 0, ...READ, timeoutMs: 8000 },
+  { key: "website_kompis_status_read", version: "1", category: "kompis", description: "Read Website Buddy delivery", riskClass: 0, ...READ, timeoutMs: 8000 },
   { key: "app_access_status_read", version: "1", category: "access", description: "Read APP access status", riskClass: 0, ...READ, timeoutMs: 8000 },
   { key: "support_cases_read", version: "1", category: "support", description: "List organization support cases", riskClass: 0, ...READ, timeoutMs: 10000 },
   { key: "support_case_read", version: "1", category: "support", description: "Read one support case", riskClass: 0, ...READ, timeoutMs: 10000 },

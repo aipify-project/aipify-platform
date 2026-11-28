@@ -11,11 +11,11 @@ describe("certified seller badge", () => {
     const on = buildCertifiedSellerBadge({
       certificationActive: true,
       partnerActive: true,
-      productLabel: "Kompis Web",
+      productLabel: "Buddy Web",
     });
     assert.equal(on.show, true);
     assert.match(on.text, new RegExp(CSP_CERTIFIED_SELLER_BADGE_TEXT));
-    assert.match(on.text, /Kompis Web/);
+    assert.match(on.text, /Buddy Web/);
     assert.match(on.html, /data-csp-certified-badge/);
   });
 

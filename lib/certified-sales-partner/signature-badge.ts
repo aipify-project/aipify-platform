@@ -10,7 +10,7 @@ export type CspSignatureBadgeInput = {
   certificationActive: boolean;
   /** Partner must not be suspended/rejected/terminated. */
   partnerActive: boolean;
-  /** Optional product label, e.g. "Kompis Web". */
+  /** Optional product label, e.g. "Buddy Web" / "Kompis Web". */
   productLabel?: string | null;
 };
 

@@ -78,9 +78,9 @@
     "heroTitleMid": "Twoją stronę",
     "heroTitleAnd": "i",
     "heroTitleEnd": "Twoją firmę.",
-    "heroCopy": "Kompis Web helps your customers in public. Kompis Bedrift brings employees, conversations, and internal knowledge together in a closed workspace.",
-    "ctaExploreWeb": "Explore Kompis Web",
-    "ctaExploreBedrift": "See Kompis Bedrift",
+    "heroCopy": "Buddy Web helps your customers in public. Buddy Business brings employees, conversations, and internal knowledge together in a closed workspace.",
+    "ctaExploreWeb": "Explore Buddy Web",
+    "ctaExploreBedrift": "See Buddy Business",
     "trustSource": "Source-based answers",
     "trustMultilingual": "Multilingual",
     "trustHuman": "Human control",
@@ -88,25 +88,25 @@
     "demoAddress": "aipify.ai / product demo",
     "demoInputPlaceholder": "Type a question …",
     "demoSwitchAria": "Choose product preview",
-    "demoWebTab": "Kompis Web",
-    "demoCompanyTab": "Kompis Bedrift",
+    "demoWebTab": "Buddy Web",
+    "demoCompanyTab": "Buddy Business",
     "demoOnline": "Ready to help",
     "demoWeb": {
-      "kicker": "Kompis Web",
+      "kicker": "Buddy Web",
       "title": "Help on the right page, at the right moment.",
-      "text": "Kompis reads approved website content, published FAQ, and documents — and shows the sources behind the answer.",
+      "text": "Buddy reads approved website content, published FAQ, and documents — and shows the sources behind the answer.",
       "pills": [
         "Current page",
         "Published FAQ",
         "Multiple languages"
       ],
-      "name": "Aipify Kompis",
+      "name": "Aipify Buddy",
       "question": "Where can I use the gift card?",
       "answer": "The gift card can be used on experiences and products available in the gift card guide. I can also show you how to redeem it.",
       "source": "↗ Source: Gift card guide"
     },
     "demoCompany": {
-      "kicker": "Kompis Bedrift",
+      "kicker": "Buddy Business",
       "title": "Zamknięta przestrzeń dla zespołu — rozwijana krok po kroku.",
       "text": "Dziś zespoły zarządzają pracownikami, dostępem i wiedzą wewnętrzną w APP. Prywatny czat, presence i współpraca nad dokumentami są planowane.",
       "pills": [
@@ -114,15 +114,15 @@
         "Wiedza wewnętrzna",
         "Planowana współpraca"
       ],
-      "name": "Kompis Bedrift",
+      "name": "Buddy Business",
       "question": "Gdzie zarządzamy dostępem pracowników?",
       "answer": "Użyj Pracownicy i dostęp w panelu APP, aby zobaczyć, kto należy do przestrzeni i jakie ma role.",
       "source": "↗ Źródło: APP · Pracownicy i dostęp"
     },
     "productsLabel": "Two products",
-    "productsTitle": "The right Kompis for the right conversation.",
+    "productsTitle": "The right Buddy for the right conversation.",
     "productsSubtitle": "The public helper meets customers. The internal helper works with employees. Both are governed from Aipify.",
-    "productWebTitle": "Kompis Web",
+    "productWebTitle": "Buddy Web",
     "productWebBody": "A public helper that understands the page a customer is on and finds answers across the approved website.",
     "productWebFeatures": [
       {
@@ -142,8 +142,8 @@
         "status": "available"
       }
     ],
-    "productWebCta": "See Kompis Web →",
-    "productBedriftTitle": "Kompis Bedrift",
+    "productWebCta": "See Buddy Web →",
+    "productBedriftTitle": "Buddy Business",
     "productBedriftBody": "Zamknięta przestrzeń dla pracowników — z hubami APP do dostępu, wiedzy i ustawień już dziś, oraz bogatszą współpracą rozwijaną dalej.",
     "productBedriftFeatures": [
       {
@@ -159,15 +159,15 @@
         "status": "planned"
       },
       {
-        "text": "Udostępnianie dokumentów i odpowiedzi Kompis w rozmowach",
+        "text": "Udostępnianie dokumentów i odpowiedzi Buddy w rozmowach",
         "status": "planned"
       }
     ],
-    "productBedriftCta": "See Kompis Bedrift →",
-    "productIconAlt": "Aipify Kompis mascot",
+    "productBedriftCta": "See Buddy Business →",
+    "productIconAlt": "Aipify Buddy mascot",
     "coreLabel": "Aipify Core",
     "coreTitle": "One controlled path from knowledge to answer.",
-    "coreBody": "Customers manage content in APP. Core controls language, access, and publishing. Kompis only uses approved sources when answering.",
+    "coreBody": "Customers manage content in APP. Core controls language, access, and publishing. Buddy only uses approved sources when answering.",
     "coreCta": "See how we build trust",
     "coreSteps": [
       {
@@ -198,7 +198,7 @@
       {
         "icon": "⌁",
         "title": "Source-based",
-        "body": "Kompis uses published knowledge and shows the sources behind the answer."
+        "body": "Buddy uses published knowledge and shows the sources behind the answer."
       },
       {
         "icon": "◎",
@@ -229,21 +229,21 @@
     "addonsLabel": "Add-on modules",
     "addonsTitle": "Extend Aipify as needs grow.",
     "addonsSubtitle": "Start with the core. Activate specialized modules when they create value.",
-    "addonDesignTitle": "Kompis Design Studio",
+    "addonDesignTitle": "Buddy Design Studio",
     "addonDesignBody": "Choose Design Packs, colors, backgrounds, and communication for Web or Bedrift.",
     "addonTranslatorTitle": "Aipify AI Translator",
     "addonTranslatorBody": "Create controlled translation drafts with credits and cost visibility. Human approval before publishing.",
     "plannedTag": "Planowany dodatek",
-    "ctaTitle": "Give customers and teams a Kompis that actually knows the business.",
-    "ctaBody": "Choose Kompis Web, Kompis Bedrift, or both. Aipify keeps control in one clear APP panel.",
+    "ctaTitle": "Give customers and teams a Buddy that actually knows the business.",
+    "ctaBody": "Choose Buddy Web, Buddy Business, or both. Aipify keeps control in one clear APP panel.",
     "ctaButton": "Umów demo",
     "availableNowLabel": "Dostępne teraz",
     "plannedLabel": "Planowane"
   },
   "growthPartnersPageRedesign": {
     "meta": {
-      "title": "Growth Partners — Sell Kompis Web and Kompis Bedrift with Aipify",
-      "description": "Companies and sole proprietorships can apply to become an Aipify Growth Partner and present Kompis Web and Kompis Bedrift under the partner agreement."
+      "title": "Growth Partners — Sell Buddy Web and Buddy Business with Aipify",
+      "description": "Companies and sole proprietorships can apply to become an Aipify Growth Partner and present Buddy Web and Buddy Business under the partner agreement."
     },
     "breadcrumbs": {
       "home": "Home",
@@ -252,10 +252,10 @@
     "hero": {
       "eyebrow": "AIPIFY GROWTH PARTNER",
       "headline": "Zostań partnerem Aipify. Pomagaj firmom w lepszej obsłudze klienta i wiedzy wewnętrznej.",
-      "copy": "Prowadzisz firmę lub działalność jednoosobową? Aplikuj o status Growth Partner, prezentuj Kompis Web i Kompis Bedrift oraz zarabiaj prowizję od sprzedaży objętych umową partnerską.",
+      "copy": "Prowadzisz firmę lub działalność jednoosobową? Aplikuj o status Growth Partner, prezentuj Buddy Web i Buddy Business oraz zarabiaj prowizję od sprzedaży objętych umową partnerską.",
       "keyPoints": [
         {
-          "text": "Present Kompis Web for public website help and Kompis Bedrift for internal company knowledge."
+          "text": "Present Buddy Web for public website help and Buddy Business for internal company knowledge."
         },
         {
           "text": "Operate as a registered company or sole proprietorship (ENK) — complete review before selling rights."
@@ -276,7 +276,7 @@
           "Submit your application with registered business details.",
           "Aipify reviews your application and confirms next steps.",
           "Complete any required partner onboarding for the products you will represent.",
-          "After approval, present Kompis Web and Kompis Bedrift under the partner agreement."
+          "After approval, present Buddy Web and Buddy Business under the partner agreement."
         ]
       }
     },
@@ -365,7 +365,7 @@
       "youBuild": {
         "title": "What you do as a partner",
         "items": [
-          "Introduce Kompis Web and Kompis Bedrift to businesses in your market.",
+          "Introduce Buddy Web and Buddy Business to businesses in your market.",
           "Build trusted customer relationships around real needs.",
           "Guide customers through onboarding when that is part of your service.",
           "Follow partner terms for accurate representation of what is available today.",
@@ -375,8 +375,8 @@
       "aipifyProvides": {
         "title": "What Aipify delivers",
         "items": [
-          "Kompis Web — public answers from approved website content and published FAQ, with relevant sources.",
-          "Kompis Bedrift — a closed workspace direction for employees and internal knowledge (communicate only shipped capabilities).",
+          "Buddy Web — public answers from approved website content and published FAQ, with relevant sources.",
+          "Buddy Business — a closed workspace direction for employees and internal knowledge (communicate only shipped capabilities).",
           "Aipify Core as the shared engine for knowledge, language, and governance.",
           "Partner application, review, and agreement process.",
           "Commission terms for eligible sales covered by the partner agreement.",
@@ -440,11 +440,11 @@
         "heading": "Certification progress",
         "modules": [
           {
-            "name": "Kompis Web fundamentals",
+            "name": "Buddy Web fundamentals",
             "status": "Planned / required when offered"
           },
           {
-            "name": "Kompis Bedrift fundamentals",
+            "name": "Buddy Business fundamentals",
             "status": "Planned / required when offered"
           },
           {
@@ -460,8 +460,8 @@
       "resources": {
         "heading": "Partner resources",
         "items": [
-          "Product overview for Kompis Web",
-          "Product overview for Kompis Bedrift",
+          "Product overview for Buddy Web",
+          "Product overview for Buddy Business",
           "Partner onboarding materials (when available)",
           "Knowledge Center",
           "Brand guidelines",
@@ -482,7 +482,7 @@
         },
         {
           "title": "Onboarding",
-          "description": "Complete required onboarding for Kompis Web, Kompis Bedrift, security basics, and responsible selling when those modules are offered."
+          "description": "Complete required onboarding for Buddy Web, Buddy Business, security basics, and responsible selling when those modules are offered."
         },
         {
           "title": "Approval",
@@ -500,10 +500,10 @@
     },
     "certification": {
       "title": "Training and onboarding",
-      "intro": "Partners should understand Kompis Web, Kompis Bedrift, basic security, and responsible selling before representing Aipify. Exact modules follow what Aipify currently offers in partner onboarding.",
+      "intro": "Partners should understand Buddy Web, Buddy Business, basic security, and responsible selling before representing Aipify. Exact modules follow what Aipify currently offers in partner onboarding.",
       "topics": [
-        "Kompis Web",
-        "Kompis Bedrift",
+        "Buddy Web",
+        "Buddy Business",
         "Security basics",
         "Responsible selling",
         "Source-based answers",
@@ -589,7 +589,7 @@
         {
           "title": "Aipify responsibilities",
           "items": [
-            "Kompis Web and Kompis Bedrift product delivery",
+            "Buddy Web and Buddy Business product delivery",
             "Core platform development and governance",
             "Partner application and agreement process",
             "Commission terms under the partner agreement"
@@ -611,7 +611,7 @@
       "items": [
         {
           "question": "What is an Aipify Growth Partner?",
-          "answer": "A registered company or sole proprietorship that applies to present Kompis Web and Kompis Bedrift and earn commission on eligible sales under the partner agreement — not a simple affiliate link program."
+          "answer": "A registered company or sole proprietorship that applies to present Buddy Web and Buddy Business and earn commission on eligible sales under the partner agreement — not a simple affiliate link program."
         },
         {
           "question": "Is this an affiliate or referral program?",
@@ -623,7 +623,7 @@
         },
         {
           "question": "Which products can I present?",
-          "answer": "Primary products are Kompis Web and Kompis Bedrift, with Aipify Core as the shared engine. Do not present planned add-ons as available unless released."
+          "answer": "Primary products are Buddy Web and Buddy Business, with Aipify Core as the shared engine. Do not present planned add-ons as available unless released."
         },
         {
           "question": "When can I start selling?",
@@ -653,7 +653,7 @@
     },
     "finalCta": {
       "title": "Ready to partner with Aipify?",
-      "subtitle": "Apply as a Growth Partner for Kompis Web and Kompis Bedrift. Commission follows the partner agreement — income is not guaranteed.",
+      "subtitle": "Apply as a Growth Partner for Buddy Web and Buddy Business. Commission follows the partner agreement — income is not guaranteed.",
       "primary": "Aplikuj o status Growth Partner",
       "secondary": "Contact partners@aipify.ai"
     },
@@ -677,8 +677,8 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Aipify works for you | Kompis Web",
-      "description": "Kompis Web odpowiada na pytania odwiedzających na podstawie zatwierdzonych treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
+      "title": "Aipify works for you | Buddy Web",
+      "description": "Buddy Web odpowiada na pytania odwiedzających na podstawie zatwierdzonych treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
     },
     "nav": {
       "product": "Produkt",
@@ -692,10 +692,10 @@
       "languageSwitchFailed": "Zmiana języka nie powiodła się. Spróbuj ponownie."
     },
     "hero": {
-      "eyebrow": "Aipify Kompis Web",
+      "eyebrow": "Aipify Buddy Web",
       "titleBefore": "Aipify — asystent AI dla Twoich",
       "titleHighlight": "odwiedzających stronę",
-      "subtitle": "Kompis Web odpowiada na pytania, prowadzi odwiedzających i ułatwia znalezienie zatwierdzonych treści na Twojej stronie.",
+      "subtitle": "Buddy Web odpowiada na pytania, prowadzi odwiedzających i ułatwia znalezienie zatwierdzonych treści na Twojej stronie.",
       "primaryCta": "Zacznij za darmo",
       "secondaryCta": "Pytania? Skontaktuj się",
       "trustNoCard": "Bez karty płatniczej",
@@ -713,13 +713,13 @@
       "companyPlaceholder": "Twoja firma",
       "languageLabel": "Język",
       "submit": "Utwórz darmowe konto",
-      "continueHint": "Przechodzi do prostej rejestracji Kompis Web. Karta nie jest wymagana do darmowego limitu.",
+      "continueHint": "Przechodzi do prostej rejestracji Buddy Web. Karta nie jest wymagana do darmowego limitu.",
       "errorRequired": "Wypełnij wszystkie wymagane pola.",
       "errorEmail": "Podaj prawidłowy służbowy adres e-mail.",
       "errorWebsite": "Podaj prawidłowy adres strony (na przykład example.com)."
     },
     "benefits": {
-      "title": "Dlaczego właściciele stron wybierają Kompis Web",
+      "title": "Dlaczego właściciele stron wybierają Buddy Web",
       "items": [
         {
           "title": "Odpowiedzi oparte na źródłach",
@@ -766,7 +766,7 @@
       "intro": "Podłącz stronę, pozwól odwiedzającym pytać, zachowaj kontrolę i ogranicz powtarzalne wsparcie — w czterech jasnych krokach."
     },
     "demo": {
-      "title": "Zobacz Kompis Web w kontekście",
+      "title": "Zobacz Buddy Web w kontekście",
       "subtitle": "Szybki podgląd pomocnika dla odwiedzających i centrum kontroli — tylko ilustracja, nie dane Production na żywo.",
       "illustrationBadge": "Ilustracja — nie żywe zapytanie Production",
       "widgetTitle": "Pomocnik na Twojej stronie",
@@ -784,8 +784,8 @@
     },
     "pricing": {
       "title": "Zacznij za darmo. Ulepsz, gdy potrzebujesz więcej odpowiedzi.",
-      "subtitle": "Pakiety Kompis Web ustalone przez właściciela. Free zaczyna bez karty. Standard i Pro to planowane płatne ścieżki — checkout nie jest jeszcze aktywny.",
-      "plannedNote": "Pakiety zgodne z katalogiem Kompis Web. Płatny checkout nie jest jeszcze aktywny — zacznij za darmo, aby kontynuować.",
+      "subtitle": "Pakiety Buddy Web ustalone przez właściciela. Free zaczyna bez karty. Standard i Pro to planowane płatne ścieżki — checkout nie jest jeszcze aktywny.",
+      "plannedNote": "Pakiety zgodne z katalogiem Buddy Web. Płatny checkout nie jest jeszcze aktywny — zacznij za darmo, aby kontynuować.",
       "free": {
         "badge": "Najlepszy start",
         "name": "Darmowy",
@@ -807,7 +807,7 @@
         "priceAnnual": "{currency} {amount} / rok",
         "features": [
           "2500 odnawianych odpowiedzi miesięcznie na licencję strony",
-          "Ten sam produkt Kompis Web — większa miesięczna pojemność",
+          "Ten sam produkt Buddy Web — większa miesięczna pojemność",
           "Aktywacja po zweryfikowanej płatności, gdy checkout będzie gotowy"
         ],
         "cta": "Zacznij za darmo",
@@ -828,7 +828,7 @@
         "priceNote": "Planowana cena katalogowa · płatność jeszcze niedostępna",
         "features": [
           "10 000 odnawialnych odpowiedzi miesięcznie na licencję strony",
-          "Ten sam produkt Kompis Web — najwyższa katalogowa pojemność miesięczna",
+          "Ten sam produkt Buddy Web — najwyższa katalogowa pojemność miesięczna",
           "Aktywacja po zweryfikowanej płatności, gdy checkout się otworzy"
         ],
         "cta": "Zacznij za darmo",
@@ -839,8 +839,8 @@
       "title": "Pytania właścicieli stron",
       "items": [
         {
-          "question": "Gdzie uzyskać Kompis Web?",
-          "answer": "Zacznij na aipify.ai — utwórz darmowe konto przez Zacznij za darmo, potem połącz i aktywuj Kompis Web na swojej stronie."
+          "question": "Gdzie uzyskać Buddy Web?",
+          "answer": "Zacznij na aipify.ai — utwórz darmowe konto przez Zacznij za darmo, potem połącz i aktywuj Buddy Web na swojej stronie."
         },
         {
           "question": "Jak zainstalować?",
@@ -887,9 +887,9 @@
       "becomeSeller": "Zostań sprzedawcą"
     },
     "start": {
-      "metaTitle": "Zacznij za darmo | Kompis Web",
-      "metaDescription": "Utwórz darmowe konto Kompis Web: email służbowy, strona, firma i język.",
-      "backHome": "Wróć do Kompis Web",
+      "metaTitle": "Zacznij za darmo | Buddy Web",
+      "metaDescription": "Utwórz darmowe konto Buddy Web: email służbowy, strona, firma i język.",
+      "backHome": "Wróć do Buddy Web",
       "collectTitle": "Utwórz darmowe konto",
       "collectSubtitle": "Cztery dane na start. Bez karty.",
       "accountTitle": "Zabezpiecz konto",
@@ -903,7 +903,7 @@
       "createAccount": "Utwórz darmowe konto",
       "back": "Wstecz",
       "successTitle": "Sprawdź email",
-      "successBody": "Wysłaliśmy link potwierdzający na {email}. Po potwierdzeniu zaloguj się, aby kontynuować z Kompis Web.",
+      "successBody": "Wysłaliśmy link potwierdzający na {email}. Po potwierdzeniu zaloguj się, aby kontynuować z Buddy Web.",
       "loginCta": "Przejdź do logowania",
       "homeCta": "Wróć do strony głównej",
       "errorRequired": "Wypełnij wszystkie wymagane pola.",
@@ -925,8 +925,8 @@
     }
   },
   "meta": {
-    "kompisWebTitle": "Aipify works for you | Kompis Web",
-    "kompisWebDescription": "Kompis Web odpowiada na pytania odwiedzających na podstawie zatwierdzonych treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
+    "kompisWebTitle": "Aipify works for you | Buddy Web",
+    "kompisWebDescription": "Buddy Web odpowiada na pytania odwiedzających na podstawie zatwierdzonych treści Twojej strony. Zacznij od 150 darmowych odpowiedzi — bez karty."
   },
   "certifiedSalesPartner": {
     "verifyEmail": {

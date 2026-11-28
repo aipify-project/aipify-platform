@@ -172,7 +172,7 @@ export async function GET(request: Request) {
     if (err instanceof DomainCenterAccessError) {
       return NextResponse.json({ error: "forbidden", found: false }, { status: 403 });
     }
-    const message = err instanceof Error ? err.message : "Failed to load Website Kompis settings";
+    const message = err instanceof Error ? err.message : "Failed to load Website Buddy settings";
     return NextResponse.json({ error: message, found: false }, { status: 500 });
   }
 }
@@ -333,7 +333,7 @@ export async function POST(request: Request) {
     if (err instanceof DomainCenterAccessError) {
       return NextResponse.json({ error: "forbidden", found: false }, { status: 403 });
     }
-    const message = err instanceof Error ? err.message : "Failed to update Website Kompis settings";
+    const message = err instanceof Error ? err.message : "Failed to update Website Buddy settings";
     return NextResponse.json({ error: message, found: false }, { status: 500 });
   }
 }

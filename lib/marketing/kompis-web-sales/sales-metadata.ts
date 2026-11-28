@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { kompisWebSalesBrowserTitle } from "@/lib/brand/kompis-buddy-display";
 import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labels";
 
 export type KompisWebSalesRoutePath = "/" | "/kompis-web";
@@ -6,18 +7,22 @@ export type KompisWebSalesRoutePath = "/" | "/kompis-web";
 /** Canonical home for the shared sales experience. */
 export const KOMPIS_WEB_SALES_CANONICAL_URL = "https://aipify.ai/";
 
-/** Established brand SEO title — never replaced by a localized translation. */
-export const KOMPIS_WEB_SALES_BROWSER_TITLE = "Aipify works for you | Kompis Web";
+/**
+ * @deprecated Prefer `kompisWebSalesBrowserTitle(locale)`.
+ * Kept as the English (Buddy Web) default for callers without a locale.
+ */
+export const KOMPIS_WEB_SALES_BROWSER_TITLE = kompisWebSalesBrowserTitle("en");
 
 /**
- * Metadata for Kompis Web sales.
- * Browser title keeps the established English brand phrase; description stays localized.
+ * Metadata for Buddy Web / Kompis Web sales.
+ * Browser title uses locale-aware product naming; description stays localized.
  */
 export function buildKompisWebSalesMetadata(
   labels: KompisWebSalesLabels,
   _path: KompisWebSalesRoutePath = "/",
+  locale: string = "en",
 ): Metadata {
-  const title = KOMPIS_WEB_SALES_BROWSER_TITLE;
+  const title = kompisWebSalesBrowserTitle(locale);
   const description = labels.meta.description;
   return {
     title,

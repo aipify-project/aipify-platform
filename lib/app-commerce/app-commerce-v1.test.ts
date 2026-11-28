@@ -18,7 +18,7 @@ const publishedBilling = {
       id: "website_kompis",
       product_key: "website_kompis",
       category: "kompis",
-      name: "Kompis Web",
+      name: "Buddy Web",
       published: true,
       publication_status: "published",
       purchasable: true,

@@ -290,8 +290,8 @@
       "notReadyBody": "El libro de vendedores y las liquidaciones aún no están activos en este entorno. Las funciones permanecen no disponibles hasta que Aipify las active."
     },
     "kompis": {
-      "honestBlockedTitle": "Kompis help unavailable here",
-      "honestBlockedBody": "Kompis help is disabled during partner certification and test flows. Use Academy materials instead."
+      "honestBlockedTitle": "Buddy help unavailable here",
+      "honestBlockedBody": "Buddy help is disabled during partner certification and test flows. Use Academy materials instead."
     },
     "workspace": {
       "loading": "Cargando el espacio de socio…",
@@ -358,7 +358,7 @@
       },
       "academy": {
         "title": "Academia de crecimiento",
-        "subtitle": "Formación de producto y certificación. La nota de aprobado es el 80 %. La ayuda de Kompis está desactivada durante la prueba."
+        "subtitle": "Formación de producto y certificación. La nota de aprobado es el 80 %. La ayuda de Buddy está desactivada durante la prueba."
       },
       "certifications": {
         "title": "Mis certificaciones",
@@ -428,7 +428,7 @@
       "intro": "You are ready for the certification test. Answer 15 questions. You must get at least 12 of 15 correct to pass.",
       "start": "Iniciar la prueba",
       "starting": "Iniciando la prueba",
-      "kompisBlocked": "La ayuda de Kompis está desactivada durante esta prueba. Aipify no ofrece pistas durante el examen.",
+      "kompisBlocked": "La ayuda de Buddy está desactivada durante esta prueba. Aipify no ofrece pistas durante el examen.",
       "progress": "Pregunta {current} de {total}",
       "answered": "{count} de {total} respondidas",
       "previous": "Anterior",
@@ -437,7 +437,7 @@
       "submitting": "Enviando",
       "submitDisabledHint": "Responda a todas las preguntas para enviar. Use Anterior para encontrar las que omitió.",
       "questionRegion": "Pregunta del examen",
-      "passedTitle": "Congratulations! You are now certified in Kompis Web.",
+      "passedTitle": "Congratulations! You are now certified in Buddy Web.",
       "passedBody": "You answered enough questions correctly. Your certificate is ready when Aipify has recorded the result.",
       "failedTitle": "Sorry, you did not pass this time.",
       "failedBody": "You need at least 12 of 15 correct (80%). Review the chapters below, then try again with a new question set.",
@@ -454,13 +454,13 @@
       "scorePercentOnly": "Resultado: {score}% — aprobado"
     },
     "lessons": {
-      "title": "Lecciones de Kompis Web",
-      "intro": "You can revisit any chapter before the test. Kompis help is not available during the exam.",
+      "title": "Lecciones de Buddy Web",
+      "intro": "You can revisit any chapter before the test. Buddy help is not available during the exam.",
       "lessonNumber": "Lección {number}",
       "plannedCatalogNote": "Los paquetes y precios de esta lección son el catálogo previsto y aún no están activos en la facturación. No los presente nunca como ofertas vinculantes.",
-      "eyebrow": "Growth Academy · Kompis Web",
-      "heroTitle": "Get certified in Kompis Web",
-      "heroBody": "Learn to present Kompis Web in a safe and professional way. Read the six chapters, then take the certification test (at least 12 of 15 correct).",
+      "eyebrow": "Growth Academy · Buddy Web",
+      "heroTitle": "Get certified in Buddy Web",
+      "heroBody": "Learn to present Buddy Web in a safe and professional way. Read the six chapters, then take the certification test (at least 12 of 15 correct).",
       "chapterProgress": "Capítulos vistos: {viewed} de {total}",
       "continueLesson": "Continue training",
       "startExamCta": "Start the certification test",
@@ -473,7 +473,7 @@
       "intro": "Vea cómo se describe cada producto, su precio de referencia previsto y su comisión una vez que Aipify lo publique.",
       "filterLabel": "Filtrar por categoría",
       "filterAll": "Todos",
-      "filterKompis": "Kompis",
+      "filterKompis": "Buddy",
       "filterVoice": "Aipify Voice (futuro)",
       "sellable": "Vendible",
       "future": "Próximamente",
@@ -576,7 +576,7 @@
       "signatureTitle": "Firma del vendedor",
       "signatureIntro": "Firma profesional con foto, insignia Certified Aipify Sales Partner, marca Aipify y enlace personal de venta cuando la certificación está activa.",
       "signatureLockedNote": "La insignia, el logotipo y la afirmación de certificación son del sistema. La foto y el enlace provienen de tu cuenta aprobada.",
-      "signatureBadgeActive": "Badge active for Kompis Web",
+      "signatureBadgeActive": "Badge active for Buddy Web",
       "signatureBadgeInactive": "Badge appears after you pass and your partner account stays approved.",
       "signatureCopyHtml": "Copy HTML",
       "signatureCopied": "Copied",
@@ -654,13 +654,13 @@
       "linkCta": "Crear enlace de venta",
       "assetsTitle": "Biblioteca de banners y plantillas",
       "assetsEmptyTitle": "Los materiales de marketing aún no se han importado",
-      "assetsEmptyBody": "Los banners Budda/Buddy del propietario todavía no están en este repositorio. Importe banners de producto aprobados a la biblioteca de socios; entonces aparecerán aquí por producto e idioma. Mientras tanto, use solo su enlace personal con texto aprobado.",
+      "assetsEmptyBody": "Los banners Buddy del propietario todavía no están en este repositorio. Importe banners de producto aprobados a la biblioteca de socios; entonces aparecerán aquí por producto e idioma. Mientras tanto, use solo su enlace personal con texto aprobado.",
       "productTabs": "Producto",
       "localeTabs": "Idioma",
       "voiceNote": "Aipify Voice estará disponible pronto y no admite banners de venta activos.",
       "signatureNote": "Las insignias de certificación y el texto de producto bloqueado los controla Aipify. Solo puede añadir nombre, foto y enlace autenticado en los campos permitidos.",
-      "filterKompisWeb": "Kompis Web",
-      "filterKompisBedrift": "Kompis Bedrift",
+      "filterKompisWeb": "Buddy Web",
+      "filterKompisBedrift": "Buddy Business",
       "filterVoice": "Aipify Voice"
     },
     "verify": {
@@ -1079,10 +1079,10 @@
     },
     "academyHub": {
       "productTabsLabel": "Productos de Academy",
-      "kompisWeb": "Kompis Web",
-      "kompisBedrift": "Kompis Bedrift",
+      "kompisWeb": "Buddy Web",
+      "kompisBedrift": "Buddy Business",
       "bedriftNotPublishedTitle": "Formación aún no publicada",
-      "bedriftNotPublishedBody": "Academy de Kompis Bedrift aún no está disponible. Tu progreso y certificado de Kompis Web no cambian.",
+      "bedriftNotPublishedBody": "Academy de Buddy Business aún no está disponible. Tu progreso y certificado de Buddy Web no cambian.",
       "voiceFuture": "Aipify Voice",
       "voiceFutureBody": "El contenido de Academy para este producto aún no está publicado."
     },

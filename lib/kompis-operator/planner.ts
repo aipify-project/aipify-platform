@@ -270,8 +270,8 @@ const RULES: IntentRule[] = [
   },
   {
     intent: "check_kompis_delivery",
-    title: "Check APP and Website Kompis",
-    summary: "Review APP license, Website Kompis capability, domain, installation, and acknowledgement.",
+    title: "Check APP and Website Buddy",
+    summary: "Review APP license, Website Buddy capability, domain, installation, and acknowledgement.",
     patterns: [/kompis/i, /website\s*kompis/i, /leverans/i, /delivery/i, /installasjons?status/i, /installation\s*status/i, /kontroller.*app/i, /check.*(app|kompis)/i],
     tools: ["app_access_status_read", "license_status_read", "website_kompis_status_read", "domain_installation_status_read"],
   },

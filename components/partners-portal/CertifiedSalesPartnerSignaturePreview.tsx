@@ -39,7 +39,7 @@ export function CertifiedSalesPartnerSignaturePreview({
   partnerActive,
   partnerName,
   companyName,
-  productLabel = "Kompis Web",
+  productLabel = "Buddy Web",
   avatarUrl = null,
   salesLink = null,
 }: {

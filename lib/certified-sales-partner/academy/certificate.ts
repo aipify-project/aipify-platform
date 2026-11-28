@@ -9,7 +9,7 @@
 import { COMPANY_CONFIG } from "@/lib/company/company.config";
 import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/lib/i18n/config";
 
-export const CSP_CERTIFICATE_PRODUCT_LABEL = "Certified Aipify Sales Partner – Kompis Web" as const;
+export const CSP_CERTIFICATE_PRODUCT_LABEL = "Certified Aipify Sales Partner – Buddy Web" as const;
 export const CSP_CERTIFICATE_VERIFY_PATH_PREFIX = "/partners/academy/verify/" as const;
 
 export const CSP_CERTIFICATE_BLOCKED = {
@@ -228,7 +228,7 @@ export function certificatePdfCopy(locale: Locale): CertificatePdfCopy {
         partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "Niniejszym potwierdza się, że",
         completedAssessment: "pomyślnie ukończył(a) certyfikację produktu",
-        productName: "Kompis Web",
+        productName: "Buddy Web",
         certificateId: "ID certyfikatu",
         datePassed: "Data",
         issuedBy: "Wystawca",
@@ -242,7 +242,7 @@ export function certificatePdfCopy(locale: Locale): CertificatePdfCopy {
         partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "Цим підтверджується, що",
         completedAssessment: "успішно пройшов(ла) сертифікацію продукту",
-        productName: "Kompis Web",
+        productName: "Buddy Web",
         certificateId: "ID сертифіката",
         datePassed: "Дата",
         issuedBy: "Видавець",
@@ -256,7 +256,7 @@ export function certificatePdfCopy(locale: Locale): CertificatePdfCopy {
         partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "Se certifica que",
         completedAssessment: "ha completado con éxito la certificación de producto de",
-        productName: "Kompis Web",
+        productName: "Buddy Web",
         certificateId: "ID del certificado",
         datePassed: "Fecha",
         issuedBy: "Emitido por",
@@ -270,7 +270,7 @@ export function certificatePdfCopy(locale: Locale): CertificatePdfCopy {
         partnerTitle: "Certified Aipify Sales Partner",
         certifiesThat: "This certifies that",
         completedAssessment: "has successfully completed the product certification assessment for",
-        productName: "Kompis Web",
+        productName: "Buddy Web",
         certificateId: "Certificate ID",
         datePassed: "Date passed",
         issuedBy: "Issued by",

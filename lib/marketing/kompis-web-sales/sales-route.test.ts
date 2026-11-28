@@ -11,8 +11,10 @@ import { MARKETING_PUBLIC_REDIRECTS } from "@/lib/marketing/public-redirects";
 
 const labels = parseKompisWebSalesLabels(enMarketing as Record<string, unknown>);
 
-const root = buildKompisWebSalesMetadata(labels, "/");
+const root = buildKompisWebSalesMetadata(labels, "/", "en");
 assert.equal(root.title, KOMPIS_WEB_SALES_BROWSER_TITLE);
+assert.equal(root.title, "Aipify works for you | Buddy Web");
+assert.equal(buildKompisWebSalesMetadata(labels, "/", "no").title, "Aipify works for you | Kompis Web");
 assert.equal(root.alternates?.canonical, KOMPIS_WEB_SALES_CANONICAL_URL);
 assert.ok(String(root.title).includes("Aipify works for you"));
 assert.equal(

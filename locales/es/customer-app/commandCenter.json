@@ -777,7 +777,7 @@
       },
       "recordDescriptions": {
         "level3ActionAwaitingApproval": "Una acción de riesgo crítico debe aprobarse antes de que el trabajo pueda continuar.",
-        "kompisWebsitePublishPrepared": "Kompis ha preparado un cambio que requiere aprobación."
+        "kompisWebsitePublishPrepared": "Buddy ha preparado un cambio que requiere aprobación."
       }
     },
     "tabs": {

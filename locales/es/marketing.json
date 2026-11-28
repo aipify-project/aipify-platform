@@ -9,8 +9,8 @@
   },
   "kompisWebSales": {
     "meta": {
-      "title": "Aipify works for you | Kompis Web",
-      "description": "Kompis Web responde preguntas de visitantes con el contenido aprobado de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
+      "title": "Aipify works for you | Buddy Web",
+      "description": "Buddy Web responde preguntas de visitantes con el contenido aprobado de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
     },
     "nav": {
       "product": "Producto",
@@ -24,10 +24,10 @@
       "languageSwitchFailed": "El cambio de idioma falló. Inténtalo de nuevo."
     },
     "hero": {
-      "eyebrow": "Aipify Kompis Web",
+      "eyebrow": "Aipify Buddy Web",
       "titleBefore": "Aipify — el asistente de IA para tus",
       "titleHighlight": "visitantes del sitio",
-      "subtitle": "Kompis Web responde preguntas, guía a los visitantes y hace que el contenido aprobado de tu sitio sea más fácil de encontrar.",
+      "subtitle": "Buddy Web responde preguntas, guía a los visitantes y hace que el contenido aprobado de tu sitio sea más fácil de encontrar.",
       "primaryCta": "Empezar gratis",
       "secondaryCta": "¿Preguntas? Contáctanos",
       "trustNoCard": "Sin tarjeta de crédito",
@@ -45,13 +45,13 @@
       "companyPlaceholder": "Tu empresa",
       "languageLabel": "Idioma",
       "submit": "Crear cuenta gratis",
-      "continueHint": "Continúa a un registro sencillo de Kompis Web. No se requiere tarjeta para la cuota gratis.",
+      "continueHint": "Continúa a un registro sencillo de Buddy Web. No se requiere tarjeta para la cuota gratis.",
       "errorRequired": "Rellena todos los campos obligatorios.",
       "errorEmail": "Introduce un correo de trabajo válido.",
       "errorWebsite": "Introduce una dirección web válida (por ejemplo example.com)."
     },
     "benefits": {
-      "title": "Por qué los dueños de sitios eligen Kompis Web",
+      "title": "Por qué los dueños de sitios eligen Buddy Web",
       "items": [
         {
           "title": "Respuestas basadas en fuentes",
@@ -98,7 +98,7 @@
       "intro": "Conecta tu sitio, deja que los visitantes pregunten, mantén el control y reduce el soporte repetitivo — en cuatro pasos claros."
     },
     "demo": {
-      "title": "Ve Kompis Web en contexto",
+      "title": "Ve Buddy Web en contexto",
       "subtitle": "Una vista rápida del ayudante para visitantes y tu centro de control — solo ilustrativo, no datos de Production en vivo.",
       "illustrationBadge": "Ilustración — no es una consulta Production en vivo",
       "widgetTitle": "El asistente en tu sitio",
@@ -116,8 +116,8 @@
     },
     "pricing": {
       "title": "Empieza gratis. Mejora cuando necesites más respuestas.",
-      "subtitle": "Paquetes Kompis Web definidos por el propietario. Free empieza sin tarjeta. Standard y Pro son rutas de pago previstas — el checkout aún no está activo.",
-      "plannedNote": "Estos paquetes siguen el catálogo de Kompis Web. El checkout de compra aún no está activo — empieza gratis para continuar.",
+      "subtitle": "Paquetes Buddy Web definidos por el propietario. Free empieza sin tarjeta. Standard y Pro son rutas de pago previstas — el checkout aún no está activo.",
+      "plannedNote": "Estos paquetes siguen el catálogo de Buddy Web. El checkout de compra aún no está activo — empieza gratis para continuar.",
       "free": {
         "badge": "Mejor punto de partida",
         "name": "Gratis",
@@ -139,7 +139,7 @@
         "priceAnnual": "{currency} {amount} / año",
         "features": [
           "2.500 respuestas renovadas al mes por licencia de sitio",
-          "El mismo producto Kompis Web — más capacidad mensual",
+          "El mismo producto Buddy Web — más capacidad mensual",
           "Se activa tras el pago verificado cuando abra el checkout"
         ],
         "cta": "Empezar gratis",
@@ -160,7 +160,7 @@
         "priceNote": "Precio previsto del catálogo · el pago aún no está activo",
         "features": [
           "10 000 respuestas renovables al mes por licencia de sitio",
-          "El mismo producto Kompis Web — mayor capacidad mensual del catálogo",
+          "El mismo producto Buddy Web — mayor capacidad mensual del catálogo",
           "Se activa tras un pago verificado cuando el checkout esté disponible"
         ],
         "cta": "Empezar gratis",
@@ -171,8 +171,8 @@
       "title": "Preguntas de dueños de sitios",
       "items": [
         {
-          "question": "¿Dónde obtengo Kompis Web?",
-          "answer": "Empieza en aipify.ai — crea una cuenta gratis con Empezar gratis, luego conecta y activa Kompis Web en tu sitio."
+          "question": "¿Dónde obtengo Buddy Web?",
+          "answer": "Empieza en aipify.ai — crea una cuenta gratis con Empezar gratis, luego conecta y activa Buddy Web en tu sitio."
         },
         {
           "question": "¿Cómo lo instalo?",
@@ -219,9 +219,9 @@
       "becomeSeller": "Hazte vendedor"
     },
     "start": {
-      "metaTitle": "Empezar gratis | Kompis Web",
-      "metaDescription": "Crea tu cuenta gratis de Kompis Web con email de trabajo, sitio, empresa e idioma.",
-      "backHome": "Volver a Kompis Web",
+      "metaTitle": "Empezar gratis | Buddy Web",
+      "metaDescription": "Crea tu cuenta gratis de Buddy Web con email de trabajo, sitio, empresa e idioma.",
+      "backHome": "Volver a Buddy Web",
       "collectTitle": "Crea tu cuenta gratis",
       "collectSubtitle": "Cuatro datos para empezar. Sin tarjeta.",
       "accountTitle": "Protege tu cuenta",
@@ -235,7 +235,7 @@
       "createAccount": "Crear cuenta gratis",
       "back": "Atrás",
       "successTitle": "Revisa tu email",
-      "successBody": "Enviamos un enlace de confirmación a {email}. Tras confirmar, inicia sesión para continuar con Kompis Web.",
+      "successBody": "Enviamos un enlace de confirmación a {email}. Tras confirmar, inicia sesión para continuar con Buddy Web.",
       "loginCta": "Ir al inicio de sesión",
       "homeCta": "Volver al inicio",
       "errorRequired": "Completa todos los campos obligatorios.",
@@ -257,8 +257,8 @@
     }
   },
   "meta": {
-    "kompisWebTitle": "Aipify works for you | Kompis Web",
-    "kompisWebDescription": "Kompis Web responde preguntas de visitantes con el contenido aprobado de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
+    "kompisWebTitle": "Aipify works for you | Buddy Web",
+    "kompisWebDescription": "Buddy Web responde preguntas de visitantes con el contenido aprobado de tu sitio. Empieza con 150 respuestas gratis — sin tarjeta."
   },
   "certifiedSalesPartner": {
     "verifyEmail": {

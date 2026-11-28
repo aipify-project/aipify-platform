@@ -40,7 +40,7 @@ const labels: ApprovalPresentationLabels = {
     approver: "Godkjenner",
   },
   sourceLabels: {
-    kompis: "Website Kompis",
+    kompis: "Website Buddy",
     aipify: "Aipify",
   },
   categoryLabels: {
@@ -49,7 +49,7 @@ const labels: ApprovalPresentationLabels = {
   kompisPublishTitle: "Publiser nettstedutkast",
   kompisRollbackTitle: "Rull tilbake nettstedversjon",
   kompisPublishDetailTitle: "Publiser nettstedutkast",
-  websiteKompisSource: "Website Kompis",
+  websiteKompisSource: "Website Buddy",
   localeNames: { no: "Norsk", en: "Engelsk" },
   createdAtLabel: "Opprettet",
   expiresAtLabel: "Utløper",
@@ -138,7 +138,7 @@ test("website Kompis approval builds premium view model without jargon in primar
   assert.equal(vm!.statusLabel, "Venter på godkjenning");
   assert.equal(vm!.riskLabel, "Høy risiko");
   assert.equal(vm!.roleLabel, "Eier");
-  assert.equal(vm!.sourceLabel, "Website Kompis");
+  assert.equal(vm!.sourceLabel, "Website Buddy");
   assert.equal(vm!.localeLabel, "Norsk");
   assert.ok(vm!.whatUnchanged.includes("Forsiden endres ikke"));
   assert.ok(vm!.technicalRows.some((row) => row.key === "candidate"));
