@@ -27,6 +27,7 @@ export type AppPortalNavId =
   | "kompisWebFaq"
   | "kompisWebConnection"
   | "kompisWebAppearance"
+  | "kompisWebUsage"
   | "kompisWebModules"
   | "kompisWebSettings"
   | "kompisBedriftDashboard"
@@ -429,6 +430,13 @@ export const APP_SETTINGS_SURFACE_ITEMS: AppPortalNavItem[] = [
     labelKey: "customerApp.portalStructure.nav.kompisWebAppearance",
     moduleKey: "website_kompis",
   },
+  /** Usage/quota read — deep-link from Web hub; not a separate commerce checkout. */
+  {
+    id: "kompisWebUsage",
+    href: FOUNDATION_NAV_BINDINGS.kompisWebUsage,
+    labelKey: "customerApp.portalStructure.nav.kompisWebUsage",
+    moduleKey: "website_kompis",
+  },
   /** Software surface — deep-link / store; not a sidebar commerce row in V3. */
   {
     id: "kompisWebModules",
@@ -566,6 +574,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/website-kompis/feedback")) return "kompisWebQa";
   if (pathname.startsWith("/app/website-kompis/faq")) return "kompisWebFaq";
   if (pathname.startsWith("/app/website-kompis/connection")) return "kompisWebConnection";
+  if (pathname.startsWith("/app/website-kompis/usage")) return "kompisWebUsage";
   if (pathname.startsWith("/app/website-kompis/settings")) return "kompisWebSettings";
   if (pathname === "/app/website-kompis" || pathname === "/app/website-kompis/") {
     return "kompisWebDashboard";

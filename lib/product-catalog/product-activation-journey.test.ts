@@ -22,6 +22,7 @@ const activeWeb = resolveProductActivationNextSteps({
 });
 assert.ok(activeWeb.some((s) => s.id === "open_product"));
 assert.ok(activeWeb.some((s) => s.id === "web_connection"));
+assert.ok(activeWeb.some((s) => s.id === "web_usage"));
 assert.ok(activeWeb.some((s) => s.id === "support"));
 assert.ok(!activeWeb.some((s) => s.href.includes("checkout")));
 

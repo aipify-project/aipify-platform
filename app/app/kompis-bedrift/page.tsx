@@ -8,6 +8,8 @@ import {
   formatHubContextLine,
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
+import { loadSubscriptionProductReads } from "@/lib/commercial-packages/load-kompis-product-access";
+import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -18,7 +20,18 @@ export default async function KompisBedriftDashboardPage() {
   const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
-  const ctx = await resolveHubWorkspaceContext();
+  const [ctx, productReads] = await Promise.all([
+    resolveHubWorkspaceContext(),
+    loadSubscriptionProductReads(),
+  ]);
+
+  const bedriftAccess = productReads.access.bedrift;
+  const status =
+    bedriftAccess === "licensed"
+      ? { label: hubT(t, "bedrift.licenseActive"), tone: "emerald" as const }
+      : bedriftAccess === "not_licensed"
+        ? { label: hubT(t, "bedrift.licenseInactive"), tone: "amber" as const }
+        : { label: hubT(t, "bedrift.licenseUnknown"), tone: "slate" as const };
 
   const cards: Array<{
     href: string;
@@ -89,30 +102,46 @@ export default async function KompisBedriftDashboardPage() {
       title={hubT(t, "bedrift.dashboardTitle")}
       description={hubT(t, "bedrift.dashboardDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
-      status={{ label: common.statusReady, tone: "emerald" }}
+      status={status}
     >
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {cards.map((card) => (
-          <AppIconActionCard
-            key={card.href}
-            href={card.href}
-            title={card.title}
-            description={card.description}
-            tone={card.tone}
-            icon={<HubFeatureIcon kind={card.icon} />}
-          />
-        ))}
+      <div className={`${AppLayoutClasses.pageWidth} space-y-6`}>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {cards.map((card) => (
+            <AppIconActionCard
+              key={card.href}
+              href={card.href}
+              title={card.title}
+              description={card.description}
+              tone={card.tone}
+              icon={<HubFeatureIcon kind={card.icon} />}
+            />
+          ))}
+        </div>
+        <p className="text-sm text-aipify-text-secondary">
+          <Link
+            href={FOUNDATION_NAV_BINDINGS.kompisBedriftSettings}
+            className="rounded font-medium text-aipify-accent hover:text-aipify-companion focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
+          >
+            {t("customerApp.portalStructure.nav.kompisBedriftSettings")}
+          </Link>
+          {" — "}
+          {hubT(t, "bedrift.settingsHint")}
+          {" · "}
+          <Link
+            href={FOUNDATION_NAV_BINDINGS.accountSubscription}
+            className="rounded font-medium text-aipify-accent hover:text-aipify-companion focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
+          >
+            {t("customerApp.portalStructure.nav.accountSubscription")}
+          </Link>
+          {" · "}
+          <Link
+            href={FOUNDATION_NAV_BINDINGS.supportTickets}
+            className="rounded font-medium text-aipify-accent hover:text-aipify-companion focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
+          >
+            {t("customerApp.portalStructure.nav.supportTickets")}
+          </Link>
+        </p>
       </div>
-      <p className="text-sm text-aipify-text-secondary">
-        <Link
-          href={FOUNDATION_NAV_BINDINGS.kompisBedriftSettings}
-          className="font-medium text-aipify-accent hover:text-aipify-companion focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus rounded"
-        >
-          {t("customerApp.portalStructure.nav.kompisBedriftSettings")}
-        </Link>
-        {" — "}
-        {hubT(t, "bedrift.settingsHint")}
-      </p>
     </AppHubShell>
   );
 }

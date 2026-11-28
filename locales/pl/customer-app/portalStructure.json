@@ -286,7 +286,8 @@
       "salesPartnerProducts": "Produkty sprzedażowe",
       "salesPartnerCustomers": "Moi klienci",
       "salesPartnerCommissions": "Sprzedaż i prowizja",
-      "salesPartnerAcademy": "Akademia i pomoc"
+      "salesPartnerAcademy": "Akademia i pomoc",
+      "kompisWebUsage": "Użycie i plan"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7558,7 +7559,8 @@
       "hintReviewUnseparated": "Pokazywane jako niepomocne, dopóki otwarte sprawy nie mogą być zapisane osobno",
       "knowledgeWindowNote": "Liczby obejmują najnowsze {minimum} FAQ, nie całą bibliotekę.",
       "shortcutCreate": "Zacznij szkic FAQ, który publikujesz samodzielnie.",
-      "domainCount": "{count} domen"
+      "domainCount": "{count} domen",
+      "usageDescription": "Zobacz przypisany plan Buddy Web i użycie odpowiedzi z Core. Ta strona nie rozpoczyna zakupu."
     },
     "foundationDashboard": {
       "eyebrow": "Przegląd",
@@ -7647,7 +7649,8 @@
         "appearanceFaqCard": "Opublikuj FAQ i wiedzę dla odwiedzających — to kształtuje, na co Buddy może odpowiadać.",
         "appearanceOperatorCard": "Otwórz zaawansowane narzędzia publikacji, gdy potrzebujesz stron kandydatów i kontroli publikacji.",
         "appearanceProfileCard": "Profil przestrzeni roboczej i prezentacja konta są w Koncie — nie są tu powielane.",
-        "appearanceSupportCard": "Potrzebujesz pomocy z prezentacją dla odwiedzających? Otwórz zgłoszenia obsługi klienta."
+        "appearanceSupportCard": "Potrzebujesz pomocy z prezentacją dla odwiedzających? Otwórz zgłoszenia obsługi klienta.",
+        "usageCard": "Sprawdź limit odpowiedzi i pozostałą pojemność bez wymyślania zer."
       },
       "bedrift": {
         "dashboardTitle": "Przegląd Buddy Business",
@@ -7684,7 +7687,10 @@
         "connectionCard": "Zobacz gotowość produktu i status licencji Buddy Business na tym koncie.",
         "connectionModulesCard": "Przejrzyj moduły dostępne dla Buddy Business — ten widok ich nie kupuje ani nie aktywuje.",
         "connectionSupportCard": "Otwórz obsługę klienta, gdy połączenie lub dostęp wymaga pomocy.",
-        "connectionSoftwareCard": "Przeglądaj produkty i uprawnienia APP bez opuszczania kontekstu tej przestrzeni."
+        "connectionSoftwareCard": "Przeglądaj produkty i uprawnienia APP bez opuszczania kontekstu tej przestrzeni.",
+        "licenseActive": "Buddy Business ma licencję w tej przestrzeni",
+        "licenseInactive": "Buddy Business nie ma jeszcze licencji w tej przestrzeni",
+        "licenseUnknown": "Nie udało się potwierdzić statusu licencji Buddy Business"
       },
       "account": {
         "overviewTitle": "Centrum konta",

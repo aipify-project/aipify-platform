@@ -3,6 +3,7 @@ import {
   BookOpen,
   CircleAlert,
   FileText,
+  Gauge,
   Globe,
   Link2,
   MessagesSquare,
@@ -33,6 +34,8 @@ import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { createClient } from "@/lib/supabase/server";
+import { buildWebsiteKompisPlanLabels } from "@/lib/website-kompis-plans/labels";
+import { loadWebsiteKompisLicenseQuotaRead } from "@/lib/website-kompis-plans/load-license-quota-read";
 
 /** Kompis Web product hub. Feature owner: CUSTOMER APP. */
 export default async function WebsiteKompisHubPage() {
@@ -44,12 +47,14 @@ export default async function WebsiteKompisHubPage() {
   const feedbackLabels = buildWebsiteKompisFeedbackLabels(t);
   const knowledgeLabels = buildWebsiteKompisKnowledgeLabels(t);
   const connectionLabels = buildWebsiteKompisConnectionLabels(t);
+  const planLabels = buildWebsiteKompisPlanLabels(t);
 
   const supabase = await createClient();
-  const [overview, knowledge, connection] = await Promise.all([
+  const [overview, knowledge, connection, quotaRead] = await Promise.all([
     getWebsiteKompisAnswerFeedbackOverview(supabase, { limit: 1 }),
     loadWebsiteKompisKnowledgeSummary(supabase),
     loadWebsiteKompisConnectionSummary(supabase),
+    loadWebsiteKompisLicenseQuotaRead(),
   ]);
 
   const aggregate = connection.summary.aggregate;
@@ -84,6 +89,46 @@ export default async function WebsiteKompisHubPage() {
       },
     ];
   });
+
+  const quotaSignals =
+    quotaRead.kind === "known_plan"
+      ? [
+          {
+            label: planLabels.assignment.planLabel,
+            value: planLabels.plans[quotaRead.plan].name,
+            icon: Gauge,
+          },
+          {
+            label: planLabels.assignment.remainingLabel,
+            value: String(quotaRead.remaining),
+            icon: Gauge,
+          },
+        ]
+      : quotaRead.kind === "no_module"
+        ? [
+            {
+              label: planLabels.assignment.planLabel,
+              value: planLabels.assignment.noModuleTitle,
+              icon: Gauge,
+            },
+          ]
+        : quotaRead.kind === "unknown_plan"
+          ? [
+              {
+                label: planLabels.assignment.planLabel,
+                value: planLabels.assignment.unknownPlanTitle,
+                icon: Gauge,
+              },
+            ]
+          : quotaRead.kind === "unavailable"
+            ? [
+                {
+                  label: planLabels.assignment.planLabel,
+                  value: planLabels.assignment.unavailableTitle,
+                  icon: Gauge,
+                },
+              ]
+            : [];
 
   return (
     <AppHubShell
@@ -148,6 +193,7 @@ export default async function WebsiteKompisHubPage() {
             value: t("customerApp.portalStructure.webHub.domainCount").replace("{count}", String(connection.summary.domains.length)),
             icon: Globe,
           },
+          ...quotaSignals,
           ...checkpointSignals,
         ]}
         manageConnectionLabel={connectionLabels.openConnection}
@@ -181,16 +227,22 @@ export default async function WebsiteKompisHubPage() {
             icon: Plus,
           },
           {
-            href: `${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=pages`,
-            title: knowledgeLabels.sections.pages,
-            description: knowledgeLabels.sectionHints.pages,
-            icon: Globe,
+            href: `${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=followUp`,
+            title: knowledgeLabels.sections.followUp,
+            description: knowledgeLabels.sectionHints.followUp,
+            icon: CircleAlert,
           },
           {
             href: `${FOUNDATION_NAV_BINDINGS.kompisWebConnection}?section=domains`,
             title: connectionLabels.domainsTitle,
             description: t("customerApp.portalStructure.webHub.connectionDescription"),
             icon: Link2,
+          },
+          {
+            href: FOUNDATION_NAV_BINDINGS.kompisWebUsage,
+            title: t("customerApp.portalStructure.nav.kompisWebUsage"),
+            description: hubT(t, "web.usageCard"),
+            icon: Gauge,
           },
           {
             href: FOUNDATION_NAV_BINDINGS.kompisWebAppearance,
@@ -203,6 +255,12 @@ export default async function WebsiteKompisHubPage() {
             title: t("customerApp.portalStructure.nav.kompisWebModules"),
             description: hubT(t, "web.modulesCard"),
             icon: Puzzle,
+          },
+          {
+            href: FOUNDATION_NAV_BINDINGS.supportTickets,
+            title: t("customerApp.portalStructure.nav.supportTickets"),
+            description: hubT(t, "web.appearanceSupportCard"),
+            icon: MessagesSquare,
           },
         ]}
         operatorHref={FOUNDATION_NAV_BINDINGS.kompisOperatorPreserved}

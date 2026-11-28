@@ -143,7 +143,8 @@
       "salesPartnerProducts": "Sales products",
       "salesPartnerCustomers": "Mina kunder",
       "salesPartnerCommissions": "Försäljning och provision",
-      "salesPartnerAcademy": "Akademi och hjälp"
+      "salesPartnerAcademy": "Akademi och hjälp",
+      "kompisWebUsage": "Användning och plan"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -8619,7 +8620,8 @@
       "hintReviewUnseparated": "Visas som inte hjälpsamma tills öppna ärenden kan lagras för sig",
       "knowledgeWindowNote": "Siffrorna gäller de senaste {minimum} FAQ-erna, inte hela biblioteket.",
       "shortcutCreate": "Starta ett FAQ-utkast som du publicerar själv.",
-      "domainCount": "{count} domäner"
+      "domainCount": "{count} domäner",
+      "usageDescription": "Se tilldelad Kompis Web-plan och svarsanvändning från Core. Den här sidan startar inget köp."
     },
     "foundationDashboard": {
       "eyebrow": "Översikt",
@@ -8708,7 +8710,8 @@
         "appearanceFaqCard": "Publicera FAQ och kunskap som besökare kan läsa — det formar vad Kompis kan svara.",
         "appearanceOperatorCard": "Öppna avancerade publiceringsverktyg när du behöver kandidatsidor och publiceringskontroller.",
         "appearanceProfileCard": "Arbetsytans profil och kontopresentation finns under Konto — inte duplicerat här.",
-        "appearanceSupportCard": "Behöver du hjälp med besökarpresentation? Öppna kundsupportsärenden."
+        "appearanceSupportCard": "Behöver du hjälp med besökarpresentation? Öppna kundsupportsärenden.",
+        "usageCard": "Granska svarsutrymme och återstående kapacitet utan att hitta på nollvärden."
       },
       "bedrift": {
         "dashboardTitle": "Översikt för Kompis Bedrift",
@@ -8745,7 +8748,10 @@
         "connectionCard": "Se produktberedskap och licensstatus för Kompis Bedrift på det här kontot.",
         "connectionModulesCard": "Se moduler tillgängliga för Kompis Bedrift — den här vyn köper eller aktiverar dem inte.",
         "connectionSupportCard": "Öppna kundsupport när anslutning eller åtkomst behöver hjälp.",
-        "connectionSoftwareCard": "Bläddra bland APP-produkter och rättigheter utan att lämna den här arbetsytekontexten."
+        "connectionSoftwareCard": "Bläddra bland APP-produkter och rättigheter utan att lämna den här arbetsytekontexten.",
+        "licenseActive": "Kompis Bedrift är licensierad för den här arbetsytan",
+        "licenseInactive": "Kompis Bedrift är ännu inte licensierad för den här arbetsytan",
+        "licenseUnknown": "Licensstatus för Kompis Bedrift kunde inte bekräftas"
       },
       "account": {
         "overviewTitle": "Kontocenter",

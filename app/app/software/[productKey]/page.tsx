@@ -139,6 +139,8 @@ export default async function AppSoftwareProductDetailPage({
         return t("customerApp.portalStructure.nav.kompisWebConnection");
       case "web_knowledge":
         return t("customerApp.portalStructure.nav.kompisWebFaq");
+      case "web_usage":
+        return t("customerApp.portalStructure.nav.kompisWebUsage");
       case "web_settings":
         return t("customerApp.portalStructure.nav.kompisWebSettings");
       case "bedrift_connection":

@@ -18,6 +18,7 @@ export type ProductActivationStepId =
   | "support"
   | "web_connection"
   | "web_knowledge"
+  | "web_usage"
   | "web_settings"
   | "bedrift_connection"
   | "bedrift_employees"
@@ -69,6 +70,7 @@ export function resolveProductActivationNextSteps(input: {
       steps.push(
         { id: "web_connection", href: FOUNDATION_NAV_BINDINGS.kompisWebConnection },
         { id: "web_knowledge", href: FOUNDATION_NAV_BINDINGS.kompisWebFaq },
+        { id: "web_usage", href: FOUNDATION_NAV_BINDINGS.kompisWebUsage },
         { id: "web_settings", href: FOUNDATION_NAV_BINDINGS.kompisWebSettings },
       );
     } else if (key === "kompis_bedrift") {
