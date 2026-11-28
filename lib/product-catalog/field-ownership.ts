@@ -32,7 +32,14 @@ export const PRODUCT_CATALOG_FIELD_OWNERSHIP = {
   productType: "core_csp_sales_products",
   categoryId: "core_csp_sales_products",
   dependsOnProductKeys: "core_csp_sales_products",
+  /**
+   * Schema present; writer/reader RPCs authored in
+   * docs/platform/sql-candidates/csp_product_locale_media_foundation_v1.sql (APPROVAL_READY).
+   */
   localeCopyApproved: "core_channel_sql_pending",
+  /**
+   * Path columns present; setter RPC authored; storage bucket SEPARATE NOT_APPLIED candidate.
+   */
   mediaPathsPersisted: "core_channel_sql_pending",
   entitlementActive: "tenant_entitlement",
   customerPrice: "planned_catalog_reference",
