@@ -16,7 +16,82 @@ test("accepts only HTTPS Upstash REST URLs", () => {
   assert.equal(isUpstashRestUrl(""), false);
 });
 
-test("prefers documented REST pair when it is a valid HTTPS Upstash URL", () => {
+test("prefers Aipify Core Redis write pair over legacy keys", () => {
+  const credentials = resolveSharedRateLimitRestCredentials({
+    AIPIFY_CORE_REDIS_KV_REST_API_URL: "https://core.upstash.io/",
+    AIPIFY_CORE_REDIS_KV_REST_API_TOKEN: "Bearer core-write-token",
+    AIPIFY_CORE_REDIS_KV_REST_API_READ_ONLY_TOKEN: "core-readonly-token",
+    UPSTASH_REDIS_REST_URL: "https://primary.upstash.io/",
+    UPSTASH_REDIS_REST_TOKEN: "Bearer primary-token",
+    UPSTASH_REDIS_REST_KV_REST_API_URL: "https://marketplace.upstash.io",
+    UPSTASH_REDIS_REST_KV_REST_API_TOKEN: "marketplace-token",
+  } as unknown as NodeJS.ProcessEnv);
+  assert.deepEqual(credentials, {
+    url: "https://core.upstash.io",
+    token: "core-write-token",
+  });
+});
+
+test("partial or invalid Core pair fails closed without legacy fallback", () => {
+  assert.equal(
+    resolveSharedRateLimitRestCredentials({
+      AIPIFY_CORE_REDIS_KV_REST_API_URL: "https://core.upstash.io",
+      UPSTASH_REDIS_REST_URL: "https://primary.upstash.io",
+      UPSTASH_REDIS_REST_TOKEN: "primary-token",
+    } as unknown as NodeJS.ProcessEnv),
+    null,
+  );
+
+  assert.equal(
+    resolveSharedRateLimitRestCredentials({
+      AIPIFY_CORE_REDIS_KV_REST_API_TOKEN: "core-write-token",
+      UPSTASH_REDIS_REST_KV_REST_API_URL: "https://marketplace.upstash.io",
+      UPSTASH_REDIS_REST_KV_REST_API_TOKEN: "marketplace-token",
+    } as unknown as NodeJS.ProcessEnv),
+    null,
+  );
+
+  assert.equal(
+    resolveSharedRateLimitRestCredentials({
+      AIPIFY_CORE_REDIS_KV_REST_API_URL: "rediss://default:x@core.upstash.io:6379",
+      AIPIFY_CORE_REDIS_KV_REST_API_TOKEN: "core-write-token",
+      UPSTASH_REDIS_REST_URL: "https://primary.upstash.io",
+      UPSTASH_REDIS_REST_TOKEN: "primary-token",
+    } as unknown as NodeJS.ProcessEnv),
+    null,
+  );
+
+  assert.equal(
+    resolveSharedRateLimitRestCredentials({
+      AIPIFY_CORE_REDIS_KV_REST_API_URL: "https://core.upstash.io",
+      AIPIFY_CORE_REDIS_KV_REST_API_TOKEN: "   ",
+      KV_REST_API_URL: "https://kv.upstash.io",
+      KV_REST_API_TOKEN: "kv-token",
+    } as unknown as NodeJS.ProcessEnv),
+    null,
+  );
+});
+
+test("never selects Core READ_ONLY token or mixes pairs", () => {
+  assert.equal(
+    resolveSharedRateLimitRestCredentials({
+      AIPIFY_CORE_REDIS_KV_REST_API_URL: "https://core.upstash.io",
+      AIPIFY_CORE_REDIS_KV_REST_API_READ_ONLY_TOKEN: "core-readonly-token",
+      UPSTASH_REDIS_REST_TOKEN: "primary-token",
+    } as unknown as NodeJS.ProcessEnv),
+    null,
+  );
+
+  assert.equal(
+    resolveSharedRateLimitRestCredentials({
+      AIPIFY_CORE_REDIS_KV_REST_API_URL: "https://core.upstash.io",
+      UPSTASH_REDIS_REST_TOKEN: "primary-token",
+    } as unknown as NodeJS.ProcessEnv),
+    null,
+  );
+});
+
+test("prefers documented REST pair when Core is unset and URL is valid HTTPS Upstash", () => {
   const credentials = resolveSharedRateLimitRestCredentials({
     UPSTASH_REDIS_REST_URL: "https://primary.upstash.io/",
     UPSTASH_REDIS_REST_TOKEN: "Bearer primary-token",
@@ -29,7 +104,7 @@ test("prefers documented REST pair when it is a valid HTTPS Upstash URL", () => 
   });
 });
 
-test("falls back to Marketplace KV REST names when documented pair is missing or redis URL", () => {
+test("falls back to Marketplace KV REST names when Core unset and documented pair missing or redis URL", () => {
   const missing = resolveSharedRateLimitRestCredentials({
     UPSTASH_REDIS_REST_KV_REST_API_URL: "https://marketplace.upstash.io",
     UPSTASH_REDIS_REST_KV_REST_API_TOKEN: "marketplace-token",

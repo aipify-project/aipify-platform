@@ -1,10 +1,13 @@
 /**
  * Shared public-form rate limit.
  *
- * Uses the existing Upstash Redis REST store. Prefer the documented pair
- * (`UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`). Fall back to the
- * Vercel Marketplace Upstash / KV REST names when that pair is missing or is
- * not an HTTPS Upstash REST endpoint. One counter is visible to every Vercel
+ * Prefer the Aipify Core Redis Marketplace pair
+ * (`AIPIFY_CORE_REDIS_KV_REST_API_URL` + `AIPIFY_CORE_REDIS_KV_REST_API_TOKEN`,
+ * write token only). When that pair is present but incomplete or invalid,
+ * fail closed — never mix credentials across pairs and never fall through
+ * on a partial Core config. When Core is unset, keep legacy compatibility:
+ * documented `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`, then
+ * Marketplace / KV REST aliases. One counter is visible to every Vercel
  * instance. No new service and no new dependency.
  *
  * Missing configuration or a store error fails closed. Callers must not
@@ -79,35 +82,60 @@ function normalizeRestToken(token: string): string {
   return token.replace(/^Bearer\s+/i, "").trim();
 }
 
+function envPair(
+  env: NodeJS.ProcessEnv,
+  urlKey: string,
+  tokenKey: string,
+): { url: string; token: string } {
+  const record = env as Record<string, string | undefined>;
+  return {
+    url: record[urlKey]?.trim() ?? "",
+    token: record[tokenKey]?.trim() ?? "",
+  };
+}
+
+function usableRestPair(pair: {
+  url: string;
+  token: string;
+}): SharedRateLimitRestCredentials | null {
+  const token = normalizeRestToken(pair.token);
+  if (!isUpstashRestUrl(pair.url) || !token) return null;
+  return {
+    url: pair.url.replace(/\/$/, ""),
+    token,
+  };
+}
+
 /**
- * Resolve REST credentials from the documented pair first, then Marketplace
- * Upstash/KV aliases. Reject redis:// and empty values — fail closed instead.
+ * Resolve REST credentials. Core Redis pair wins when configured; a partial
+ * or invalid Core pair fails closed. Legacy pairs apply only when Core is
+ * unset. Never mix URL/token across pairs. Never use READ_ONLY tokens.
  */
 export function resolveSharedRateLimitRestCredentials(
   env: NodeJS.ProcessEnv = process.env,
 ): SharedRateLimitRestCredentials | null {
-  const candidates: Array<{ url: string; token: string }> = [
-    {
-      url: env.UPSTASH_REDIS_REST_URL?.trim() ?? "",
-      token: env.UPSTASH_REDIS_REST_TOKEN?.trim() ?? "",
-    },
-    {
-      url: env.UPSTASH_REDIS_REST_KV_REST_API_URL?.trim() ?? "",
-      token: env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN?.trim() ?? "",
-    },
-    {
-      url: env.KV_REST_API_URL?.trim() ?? "",
-      token: env.KV_REST_API_TOKEN?.trim() ?? "",
-    },
+  const core = envPair(
+    env,
+    "AIPIFY_CORE_REDIS_KV_REST_API_URL",
+    "AIPIFY_CORE_REDIS_KV_REST_API_TOKEN",
+  );
+  if (core.url || core.token) {
+    return usableRestPair(core);
+  }
+
+  const legacyCandidates = [
+    envPair(env, "UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"),
+    envPair(
+      env,
+      "UPSTASH_REDIS_REST_KV_REST_API_URL",
+      "UPSTASH_REDIS_REST_KV_REST_API_TOKEN",
+    ),
+    envPair(env, "KV_REST_API_URL", "KV_REST_API_TOKEN"),
   ];
 
-  for (const candidate of candidates) {
-    const token = normalizeRestToken(candidate.token);
-    if (!isUpstashRestUrl(candidate.url) || !token) continue;
-    return {
-      url: candidate.url.replace(/\/$/, ""),
-      token,
-    };
+  for (const candidate of legacyCandidates) {
+    const resolved = usableRestPair(candidate);
+    if (resolved) return resolved;
   }
   return null;
 }
