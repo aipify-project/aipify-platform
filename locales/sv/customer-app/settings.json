@@ -1382,7 +1382,13 @@
       "dependencyBlocked": "Kräver en annan produkt innan den här kan användas",
       "checkoutClosed": "Köp är inte öppet ännu — kontakta Aipify eller hantera prenumeration",
       "productNotFound": "Den här produkten finns inte i APP-butiken",
-      "variantsHeading": "Planer"
+      "variantsHeading": "Planer",
+      "scopeAll": "Alla produkter",
+      "scopeLicensed": "Licensierat för den här arbetsytan",
+      "scopeLabel": "Produktåtkomst",
+      "emptyLicensedTitle": "Inga licensierade produkter ännu",
+      "emptyLicensedBody": "När en produkt är aktiv för den här arbetsytan visas den här. Bläddra bland alla produkter för att se vad som finns.",
+      "setupNextHeading": "Fortsätt installation"
     },
     "modules": {
       "title": "Tilläggsmoduler",

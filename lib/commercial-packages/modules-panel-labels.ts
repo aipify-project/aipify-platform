@@ -79,5 +79,11 @@ export function buildSoftwareShowcaseLabels(t: Translator) {
     closeDetails: t(`${SHOW}.closeDetails`),
     vatUnknown: t(`${SHOW}.vatUnknown`),
     freePrice: t(`${SHOW}.freePrice`),
+    scopeAll: t(`${SHOW}.scopeAll`),
+    scopeLicensed: t(`${SHOW}.scopeLicensed`),
+    scopeLabel: t(`${SHOW}.scopeLabel`),
+    emptyLicensedTitle: t(`${SHOW}.emptyLicensedTitle`),
+    emptyLicensedBody: t(`${SHOW}.emptyLicensedBody`),
+    setupNextHeading: t(`${SHOW}.setupNextHeading`),
   };
 }

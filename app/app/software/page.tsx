@@ -14,6 +14,7 @@ import {
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
 import type { ProductCatalogLocaleCode } from "@/lib/product-catalog";
 import { loadAppSoftwareCatalog } from "@/lib/product-catalog/load-app-software-catalog";
+import { parseSoftwareCatalogScope } from "@/lib/product-catalog/product-activation-journey";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -27,7 +28,16 @@ const LOCALES = new Set<ProductCatalogLocaleCode>(["en", "no", "sv", "da", "pl",
 /** APP Store — APP-channel products only (not SALE-only partner catalogue). */
 type SoftwareSearchParams = {
   category?: string | string[];
+  scope?: string | string[];
 };
+
+function softwareListHref(input: { category: string; scope: "all" | "licensed" }): string {
+  const params = new URLSearchParams();
+  if (input.category && input.category !== "all") params.set("category", input.category);
+  if (input.scope === "licensed") params.set("scope", "licensed");
+  const q = params.toString();
+  return q ? `/app/software?${q}` : "/app/software";
+}
 
 export default async function SoftwareCatalogPage({
   searchParams,
@@ -55,6 +65,7 @@ export default async function SoftwareCatalogPage({
   const catalogLabels = buildCustomerCatalogLabels(t);
 
   const allProducts = catalog.products;
+  const scopeFilter = parseSoftwareCatalogScope(params.scope);
 
   const rawCategory = params.category;
   const categoryParam = Array.isArray(rawCategory) ? rawCategory[0] : rawCategory;
@@ -65,10 +76,15 @@ export default async function SoftwareCatalogPage({
         ? resolveStoreCategoryId({ productKey: null, category: categoryParam })
         : "all";
 
+  const scopedProducts =
+    scopeFilter === "licensed"
+      ? allProducts.filter((p) => p.entitlementActive)
+      : allProducts;
+
   const products =
     categoryFilter === "all"
-      ? allProducts
-      : allProducts.filter(
+      ? scopedProducts
+      : scopedProducts.filter(
           (p) =>
             resolveStoreCategoryId({
               productKey: p.productKey,
@@ -109,6 +125,34 @@ export default async function SoftwareCatalogPage({
             {corePendingNote}
           </p>
         ) : null}
+        <div
+          role="group"
+          aria-label={showcase.scopeLabel}
+          className="flex flex-wrap gap-2"
+        >
+          {(
+            [
+              { id: "all" as const, label: showcase.scopeAll },
+              { id: "licensed" as const, label: showcase.scopeLicensed },
+            ] as const
+          ).map((scope) => {
+            const active = scope.id === scopeFilter;
+            return (
+              <Link
+                key={scope.id}
+                href={softwareListHref({ category: categoryFilter, scope: scope.id })}
+                aria-current={active ? "page" : undefined}
+                className={`inline-flex min-h-10 items-center rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] ${
+                  active
+                    ? "bg-[color:var(--aipify-companion-purple)] text-white"
+                    : "border border-[var(--app-border)] bg-[var(--app-card)] text-[var(--app-text)] hover:bg-[color:var(--aipify-accent-soft)]"
+                }`}
+              >
+                {scope.label}
+              </Link>
+            );
+          })}
+        </div>
         <SoftwareProductShowcase
           embedded
           showcase={showcase}
@@ -117,26 +161,39 @@ export default async function SoftwareCatalogPage({
           products={products}
           categories={categories}
           activeCategory={categoryFilter}
-          emptyTitle={showcase.emptyTitle}
-          emptyBody={showcase.emptyBody}
+          accessScope={scopeFilter}
+          emptyTitle={
+            scopeFilter === "licensed" ? showcase.emptyLicensedTitle : showcase.emptyTitle
+          }
+          emptyBody={
+            scopeFilter === "licensed" ? showcase.emptyLicensedBody : showcase.emptyBody
+          }
           seeInformation={showcase.seeInformation}
           contactAipify={showcase.contactAipify}
           notForPurchase={showcase.notForPurchase}
           plannedPriceNote={showcase.plannedPriceNote}
           locale={catalogLocale}
         />
-        <Link
-          href={CUSTOMER_CATALOG_ROUTE}
-          className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-        >
-          {catalogLabels.exploreLink}
-        </Link>
-        <Link
-          href="/app/account/subscription"
-          className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
-        >
-          {portfolio.viewSubscriptionDetails}
-        </Link>
+        <div className="flex flex-wrap gap-4">
+          <Link
+            href={CUSTOMER_CATALOG_ROUTE}
+            className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+          >
+            {catalogLabels.exploreLink}
+          </Link>
+          <Link
+            href="/app/account/subscription"
+            className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+          >
+            {portfolio.viewSubscriptionDetails}
+          </Link>
+          <Link
+            href={FOUNDATION_NAV_BINDINGS.supportTickets}
+            className="inline-flex min-h-11 items-center rounded text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+          >
+            {t("customerApp.portalStructure.nav.supportTickets")}
+          </Link>
+        </div>
       </div>
     </AppHubShell>
   );

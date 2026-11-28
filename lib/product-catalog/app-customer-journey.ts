@@ -55,10 +55,11 @@ export function resolveAppProductAccessState(input: {
   activeProductKeys?: ReadonlySet<string> | readonly string[];
 }): AppProductAccessState {
   const { product } = input;
+  const keys = input.activeProductKeys;
   const activeSet =
-    input.activeProductKeys instanceof Set
-      ? input.activeProductKeys
-      : new Set((input.activeProductKeys ?? []).map((k) => k.toLowerCase()));
+    keys instanceof Set
+      ? keys
+      : new Set((Array.isArray(keys) ? keys : []).map((k) => k.toLowerCase()));
 
   if (product.dependsOnProductKeys.length > 0) {
     const unmet = product.dependsOnProductKeys.some((dep) => !activeSet.has(dep.toLowerCase()));

@@ -7,6 +7,7 @@ import {
   formatHubContextLine,
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
+import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -22,6 +23,13 @@ export default async function KompisBedriftSettingsPage() {
   const ctx = await resolveHubWorkspaceContext();
 
   const cards = [
+    {
+      href: FOUNDATION_NAV_BINDINGS.kompisBedriftConnection,
+      title: t("customerApp.portalStructure.nav.kompisBedriftConnection"),
+      description: hubT(t, "bedrift.connectionCard"),
+      tone: "purple" as const,
+      icon: "connection" as const,
+    },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisBedriftModules,
       title: t("customerApp.portalStructure.nav.kompisBedriftModules"),
@@ -48,14 +56,28 @@ export default async function KompisBedriftSettingsPage() {
       title: t("customerApp.portalStructure.nav.accountIntegrations"),
       description: hubT(t, "account.integrationsCard"),
       tone: "slate" as const,
-      icon: "connection" as const,
+      icon: "settings" as const,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.accountNotifications,
       title: t("customerApp.portalStructure.nav.accountNotifications"),
       description: hubT(t, "account.notificationsCard"),
-      tone: "emerald" as const,
+      tone: "blue" as const,
       icon: "messages" as const,
+    },
+    {
+      href: FOUNDATION_NAV_BINDINGS.supportTickets,
+      title: t("customerApp.portalStructure.nav.supportTickets"),
+      description: hubT(t, "bedrift.connectionSupportCard"),
+      tone: "lavender" as const,
+      icon: "messages" as const,
+    },
+    {
+      href: FOUNDATION_NAV_BINDINGS.accountSubscription,
+      title: t("customerApp.portalStructure.nav.accountSubscription"),
+      description: hubT(t, "bedrift.connectionVsSubscription"),
+      tone: "slate" as const,
+      icon: "connection" as const,
     },
   ];
 
@@ -75,17 +97,19 @@ export default async function KompisBedriftSettingsPage() {
       description={hubT(t, "bedrift.settingsDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
     >
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {cards.map((card) => (
-          <AppIconActionCard
-            key={card.href}
-            href={card.href}
-            title={card.title}
-            description={card.description}
-            tone={card.tone}
-            icon={<HubFeatureIcon kind={card.icon} />}
-          />
-        ))}
+      <div className={`${AppLayoutClasses.pageWidth}`}>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {cards.map((card) => (
+            <AppIconActionCard
+              key={card.href}
+              href={card.href}
+              title={card.title}
+              description={card.description}
+              tone={card.tone}
+              icon={<HubFeatureIcon kind={card.icon} />}
+            />
+          ))}
+        </div>
       </div>
     </AppHubShell>
   );

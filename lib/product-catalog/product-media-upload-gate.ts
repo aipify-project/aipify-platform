@@ -24,7 +24,7 @@ function readEnv(name: string): string {
  * - AIPIFY_CORE_ENV is not "production" (when set)
  */
 export function resolveProductMediaUploadGate(
-  env: NodeJS.ProcessEnv = process.env,
+  env: Record<string, string | undefined> = process.env,
 ): ProductMediaUploadGate {
   const activation = (env.PRODUCT_MEDIA_UPLOAD_ACTIVATION ?? "").trim().toLowerCase();
   const vercelEnv = (env.VERCEL_ENV ?? env.NODE_ENV ?? "development").trim().toLowerCase();

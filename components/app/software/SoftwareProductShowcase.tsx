@@ -49,11 +49,12 @@ function categoryDisplayLabel(
   return catalog.otherCategory;
 }
 
-function softwareHref(category: string): string {
-  if (!category || category === "all") return "/app/software";
+function softwareHref(category: string, scope: "all" | "licensed" = "all"): string {
   const params = new URLSearchParams();
-  params.set("category", category);
-  return `/app/software?${params.toString()}`;
+  if (category && category !== "all") params.set("category", category);
+  if (scope === "licensed") params.set("scope", "licensed");
+  const q = params.toString();
+  return q ? `/app/software?${q}` : "/app/software";
 }
 
 export function SoftwareProductShowcase({
@@ -64,6 +65,7 @@ export function SoftwareProductShowcase({
   products,
   categories,
   activeCategory = "all",
+  accessScope = "all",
   emptyTitle,
   emptyBody,
   seeInformation,
@@ -79,6 +81,7 @@ export function SoftwareProductShowcase({
   products: UnifiedCatalogProduct[];
   categories: string[];
   activeCategory?: string;
+  accessScope?: "all" | "licensed";
   emptyTitle: string;
   emptyBody: string;
   seeInformation: string;
@@ -124,7 +127,7 @@ export function SoftwareProductShowcase({
             return (
               <Link
                 key={id}
-                href={softwareHref(id)}
+                href={softwareHref(id, accessScope)}
                 aria-current={active ? "page" : undefined}
                 className={`inline-flex min-h-10 items-center rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] ${
                   active

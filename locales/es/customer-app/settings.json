@@ -215,7 +215,13 @@
       "dependencyBlocked": "Requiere otro producto antes de poder usarlo",
       "checkoutClosed": "La compra aún no está abierta: contacta a Aipify o gestiona la suscripción",
       "productNotFound": "Este producto no está disponible en la tienda APP",
-      "variantsHeading": "Planes"
+      "variantsHeading": "Planes",
+      "scopeAll": "Todos los productos",
+      "scopeLicensed": "Con licencia en este espacio de trabajo",
+      "scopeLabel": "Acceso a productos",
+      "emptyLicensedTitle": "Aún no hay productos con licencia",
+      "emptyLicensedBody": "Cuando un producto esté activo en este espacio de trabajo, aparecerá aquí. Explora todos los productos para ver lo disponible.",
+      "setupNextHeading": "Continuar la configuración"
     },
     "modules": {
       "title": "Módulos complementarios",

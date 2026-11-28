@@ -1267,7 +1267,13 @@
       "dependencyBlocked": "Wymaga innego produktu, zanim będzie można go użyć",
       "checkoutClosed": "Zakup nie jest jeszcze otwarty — skontaktuj się z Aipify lub zarządzaj subskrypcją",
       "productNotFound": "Ten produkt nie jest dostępny w sklepie APP",
-      "variantsHeading": "Plany"
+      "variantsHeading": "Plany",
+      "scopeAll": "Wszystkie produkty",
+      "scopeLicensed": "Licencjonowane w tej przestrzeni",
+      "scopeLabel": "Dostęp do produktów",
+      "emptyLicensedTitle": "Brak licencjonowanych produktów",
+      "emptyLicensedBody": "Gdy produkt będzie aktywny w tej przestrzeni, pojawi się tutaj. Przeglądaj wszystkie produkty, aby zobaczyć dostępne oferty.",
+      "setupNextHeading": "Kontynuuj konfigurację"
     },
     "modules": {
       "title": "Moduły dodatkowe",

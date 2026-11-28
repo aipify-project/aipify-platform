@@ -929,7 +929,13 @@
       "dependencyBlocked": "Requires another product before this one can be used",
       "checkoutClosed": "Purchase is not open yet — contact Aipify or manage subscription",
       "productNotFound": "This product is not available in the APP store",
-      "variantsHeading": "Plans"
+      "variantsHeading": "Plans",
+      "scopeAll": "All products",
+      "scopeLicensed": "Licensed for this workspace",
+      "scopeLabel": "Product access",
+      "emptyLicensedTitle": "No licensed products yet",
+      "emptyLicensedBody": "When a product is active for this workspace, it appears here. Browse all products to see what is available.",
+      "setupNextHeading": "Continue setup"
     },
     "modules": {
       "title": "Add-on modules",

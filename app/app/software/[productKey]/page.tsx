@@ -13,11 +13,14 @@ import { AppLayoutClasses } from "@/lib/design/app-layout";
 import {
   APP_SOFTWARE_STORE_ROUTE,
   APP_SUBSCRIPTION_ROUTE,
-  appSoftwareDetailHref,
   isValidAppProductKeyParam,
   resolveAppProductAccessState,
   resolveAppProductPrimaryAction,
 } from "@/lib/product-catalog/app-customer-journey";
+import {
+  resolveProductActivationNextSteps,
+  type ProductActivationStepId,
+} from "@/lib/product-catalog/product-activation-journey";
 import { loadAppSoftwareCatalog } from "@/lib/product-catalog/load-app-software-catalog";
 import { formatVariantQuotaLabel, priceForInterval } from "@/lib/product-catalog/variants";
 import type { ProductCatalogLocaleCode } from "@/lib/product-catalog";
@@ -52,7 +55,7 @@ export default async function AppSoftwareProductDetailPage({
   const showcase = buildSoftwareShowcaseLabels(t);
   const detail = {
     backToStore: t("customerApp.commercialPackages.softwareShowcase.backToStore"),
-    openProduct: t("customerApp.commercialPackages.portfolio.openProduct"),
+    openProduct: portfolio.openProduct,
     entitlementActive: t("customerApp.commercialPackages.softwareShowcase.entitlementActive"),
     entitlementInactive: t(
       "customerApp.commercialPackages.softwareShowcase.entitlementInactive",
@@ -63,7 +66,6 @@ export default async function AppSoftwareProductDetailPage({
     ),
     checkoutClosed: t("customerApp.commercialPackages.softwareShowcase.checkoutClosed"),
     viewSubscription: portfolio.viewSubscriptionDetails,
-    openProduct: portfolio.openProduct,
     productNotFound: t("customerApp.commercialPackages.softwareShowcase.productNotFound"),
     variantsHeading: t("customerApp.commercialPackages.softwareShowcase.variantsHeading"),
   };
@@ -124,6 +126,38 @@ export default async function AppSoftwareProductDetailPage({
   });
   const monthPrice = recommended ? priceForInterval(recommended, "month") : null;
   const image = product.heroImagePath ?? product.logoSrc;
+  const activationSteps = resolveProductActivationNextSteps({
+    productKey: product.productKey,
+    accessState,
+    openHref: product.openHref,
+  }).filter((step) => step.id !== "product_detail" && step.id !== "open_product");
+
+  const stepLabel = (id: ProductActivationStepId): string => {
+    switch (id) {
+      case "web_connection":
+        return t("customerApp.portalStructure.nav.kompisWebConnection");
+      case "web_knowledge":
+        return t("customerApp.portalStructure.nav.kompisWebFaq");
+      case "web_settings":
+        return t("customerApp.portalStructure.nav.kompisWebSettings");
+      case "bedrift_connection":
+        return t("customerApp.portalStructure.nav.kompisBedriftConnection");
+      case "bedrift_employees":
+        return t("customerApp.portalStructure.nav.kompisBedriftEmployees");
+      case "bedrift_knowledge":
+        return t("customerApp.portalStructure.nav.kompisBedriftFaq");
+      case "bedrift_settings":
+        return t("customerApp.portalStructure.nav.kompisBedriftSettings");
+      case "subscription":
+        return t("customerApp.portalStructure.nav.accountSubscription");
+      case "support":
+        return t("customerApp.portalStructure.nav.supportTickets");
+      case "explore_catalog":
+        return portfolio.myProducts;
+      default:
+        return id;
+    }
+  };
 
   return (
     <AppHubShell
@@ -270,12 +304,38 @@ export default async function AppSoftwareProductDetailPage({
                 {detail.viewSubscription}
               </Link>
               <Link
+                href={FOUNDATION_NAV_BINDINGS.supportTickets}
+                className="inline-flex min-h-11 items-center rounded-xl border border-[var(--app-border)] px-4 py-2 text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              >
+                {t("customerApp.portalStructure.nav.supportTickets")}
+              </Link>
+              <Link
                 href={APP_SOFTWARE_STORE_ROUTE}
                 className="inline-flex min-h-11 items-center rounded-xl px-4 py-2 text-sm font-medium text-[var(--app-primary)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
               >
                 {detail.backToStore}
               </Link>
             </div>
+
+            {accessState === "active" && activationSteps.length > 0 ? (
+              <div className="space-y-2 border-t border-[var(--app-border)] pt-4">
+                <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--app-text-muted)]">
+                  {showcase.setupNextHeading}
+                </h2>
+                <ul className="grid gap-2 sm:grid-cols-2">
+                  {activationSteps.map((step) => (
+                    <li key={step.id}>
+                      <Link
+                        href={step.href}
+                        className="inline-flex min-h-11 w-full items-center rounded-xl border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-4 py-2 text-sm font-medium text-[var(--app-text)] hover:bg-[color:var(--aipify-accent-soft)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+                      >
+                        {stepLabel(step.id)}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         </article>
 

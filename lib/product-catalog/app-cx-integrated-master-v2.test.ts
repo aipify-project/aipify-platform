@@ -52,7 +52,13 @@ assert.match(bedriftConn, /AppLayoutClasses\.pageWidth/);
 
 const softwarePage = read("app/app/software/page.tsx");
 assert.match(softwarePage, /account\/subscription/);
+assert.match(softwarePage, /parseSoftwareCatalogScope/);
+assert.match(softwarePage, /params\.set\("scope", "licensed"\)/);
 assert.doesNotMatch(softwarePage, /settings\/billing\/packages/);
+
+const activation = read("lib/product-catalog/product-activation-journey.ts");
+assert.match(activation, /PRODUCT_ACTIVATION_FREE_ACCOUNT_RULES/);
+assert.match(activation, /resolveProductActivationNextSteps/);
 
 assert.equal(APP_CUSTOMER_JOURNEY_OWNERS.variantCommissionWriters.includes("Agent 1"), true);
 assert.equal(APP_CUSTOMER_JOURNEY_OWNERS.supportWebsite.includes("Agent 3"), true);
