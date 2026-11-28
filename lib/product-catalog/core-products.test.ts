@@ -35,6 +35,20 @@ assert.equal(camel.productKey, "kompis_bedrift");
 assert.equal(camel.publishApp, true);
 assert.equal(camel.publishSale, false);
 
+const taxonomy = parseCoreSalesProductRow({
+  id: "uuid-3",
+  product_key: "aipify_voice",
+  publish_app: true,
+  publish_sale: false,
+  product_type: "addon",
+  category_id: "voice",
+  depends_on_product_keys: ["kompis_web", "bad key!", "kompis_web"],
+});
+assert.ok(taxonomy);
+assert.equal(taxonomy.productType, "addon");
+assert.equal(taxonomy.categoryId, "voice");
+assert.deepEqual(taxonomy.dependsOnProductKeys, ["kompis_web"]);
+
 assert.equal(parseCoreSalesProductRow({ title: "no id" }), null);
 
 const products = parsePlatformOverviewProducts({

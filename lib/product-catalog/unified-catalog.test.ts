@@ -92,12 +92,21 @@ const saleOnlyDraft = buildUnifiedCatalog({
 assert.equal(filterSalesCatalogProducts(saleOnlyDraft).length, 0);
 assert.ok(!filterAppStoreProducts(saleOnlyDraft).some((p) => p.productKey === "kompis_web"));
 
-// No Core rows → controlled registry fallback for default APP products only.
+// No Core rows + channel not applied → controlled registry fallback for default APP products only.
 const registryOnly = buildUnifiedCatalog({ locale: "en", coreProducts: [] });
 assert.ok(
   assertChannelIsolation(registryOnly).registryFallbackAppKeys.includes("kompis_web"),
 );
 assert.ok(filterAppStoreProducts(registryOnly).some((p) => p.productKey === "kompis_web"));
+
+// Core APP channel applied with 0 publish_app rows → honest empty APP store (no registry seed).
+const coreEmptyChannel = buildUnifiedCatalog({
+  locale: "en",
+  coreProducts: [],
+  coreChannelApplied: true,
+});
+assert.equal(filterAppStoreProducts(coreEmptyChannel).length, 0);
+assert.equal(assertChannelIsolation(coreEmptyChannel).registryFallbackAppKeys.length, 0);
 
 const withCoreApp = buildUnifiedCatalog({
   locale: "en",
@@ -110,6 +119,9 @@ const withCoreApp = buildUnifiedCatalog({
       published: true,
       publishApp: false,
       publishSale: true,
+      productType: "main",
+      categoryId: "kompis",
+      dependsOnProductKeys: [],
     },
     {
       id: "uuid-voice",
@@ -119,14 +131,23 @@ const withCoreApp = buildUnifiedCatalog({
       published: true,
       publishApp: true,
       publishSale: true,
+      productType: "addon",
+      categoryId: "voice",
+      dependsOnProductKeys: ["kompis_web"],
     },
   ],
+  coreChannelApplied: true,
 });
 const coreApp = withCoreApp.find((p) => p.productKey === "kompis_web");
 assert.equal(coreApp?.app.source, "core");
 assert.equal(coreApp?.app.visibleInStore, false);
+assert.equal(coreApp?.storeCategoryId, "kompis");
+assert.equal(coreApp?.productType, "main");
 assert.ok(!filterAppStoreProducts(withCoreApp).some((p) => p.productKey === "kompis_web"));
 assert.ok(filterAppStoreProducts(withCoreApp).some((p) => p.productKey === "aipify_voice"));
+const voiceApp = filterAppStoreProducts(withCoreApp).find((p) => p.productKey === "aipify_voice");
+assert.deepEqual(voiceApp?.dependsOnProductKeys, ["kompis_web"]);
+assert.equal(voiceApp?.productType, "addon");
 assert.ok(filterSalesCatalogProducts(withCoreApp).some((p) => p.productKey === "kompis_web"));
 
 const spanish = buildUnifiedCatalog({ locale: "es", coreProducts: [] });
