@@ -84,7 +84,7 @@ function normalizeRestToken(token: string): string {
  * Upstash/KV aliases. Reject redis:// and empty values — fail closed instead.
  */
 export function resolveSharedRateLimitRestCredentials(
-  env: NodeJS.ProcessEnv = process.env,
+  env: Record<string, string | undefined> = process.env,
 ): SharedRateLimitRestCredentials | null {
   const candidates: Array<{ url: string; token: string }> = [
     {
