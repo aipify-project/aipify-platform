@@ -1,96 +1,74 @@
-# UNIFIED_SELLER_BRIDGE_STAGING_E2E_READY_FOR_EXACT_YES
+# UNIFIED_SELLER_BRIDGE_STAGING_E2E_SAFE_READY
 
-STATUS: **READY_FOR_EXACT_YES** — no testdata created · Production untouched
+STATUS: **SAFE_READY** — candidates patched · no SQL apply · no testdata · Production untouched
 
-## Staging inventory (read-only)
+## Staging inventory (unchanged RO)
 
 | Check | Result |
 |---|---|
 | Project | `auedugihkduoaikfusqe` |
-| CSP partners | 10 — **all `terminated`** |
-| Approved | 0 |
-| Approved + Kompis Web `passed` | **0** (no suitable seller) |
-| Bridged GP profiles / links | **0 / 0** |
+| Suitable approved + Kompis Web seller | **0** (all CSP partners terminated) |
+| GP profiles / links | 0 / 0 |
 | Bridge ensure RPC | present |
-| `provision_growth_partner_tracking_link` | **missing** until deps shim |
-| Production `qbcqoixhrvhnuwphefvw` bridge fns | **0** |
+| Production bridge fns | **0** |
 
-Baselines (must hold after E2E + cleanup):
+Baselines: attribution_fp `e77e6a818267812c2171e30e38315219` · commission_fp `a5d4f70523b809757f7c3c2b860a6009` · qs=4
 
-| Metric | Value |
-|---|---|
-| attribution_fp | `e77e6a818267812c2171e30e38315219` (12 links) |
-| commission_fp | `a5d4f70523b809757f7c3c2b860a6009` (4 rows) |
-| qualified_sales | 4 |
+## Safety patch summary
 
-## Decision
-
-**Synthetic Staging fixture required.** All existing CSP partners are terminated (bridge would map to suspended / inactive personal links). Do not reactivate real partners for E2E.
+1. Cleanup deletes **exact UUIDs** from the current `verify()` run only.
+2. Removed marker/email/slug `DELETE` patterns (dropped `_usb_staging_e2e_cleanup(text)`).
+3. Cleanup cannot match existing CSP sellers, APP users, or orgs (no pattern match).
+4. Deps shim uses **create-if-absent** for helpers; replaces `_usb_provision_dedicated_gp_org_for_auth` **only** when `aipify_tenant_profiles` is absent.
+5. CRM assert requires `list_own_personal_sales_page_interests() -> ok=true` for the fixture certified seller.
+6. PASS path verifies all fixture IDs gone + full attribution/commission fingerprints restored; FAIL path cleans exact IDs (or auth-only if partner never created). Transactional rollback of `verify()` also prevents leftovers.
 
 ## SQL candidates (NOT_APPLIED)
 
-### Already on Staging (reference only)
+| Step | File | SHA-256 |
+|---|---|---|
+| Ref (already on Staging) | `NOT_APPLIED_growth_partners_unified_seller_bridge_v1.sql` | `3980f7795e3e4a77ac55ba876fbc8128d44a7bd3f000dc7893fafc4ce2d42d8f` |
+| **A** deps shim | `NOT_APPLIED_staging_unified_seller_bridge_e2e_deps_shim_v1.sql` | 433230883a18ea265d604f0ec515b860f5f80d207bfe827283fc4f77109e1646 |
+| **B** harness | `NOT_APPLIED_staging_unified_seller_bridge_e2e_harness_v1.sql` | 3d604e2d527e059b41071b3c10aa65e563cf8b8eca9bb24ea2ac30df76a7c313 |
 
-| File | SHA-256 |
-|---|---|
-| `docs/platform/sql-candidates/NOT_APPLIED_growth_partners_unified_seller_bridge_v1.sql` | `3980f7795e3e4a77ac55ba876fbc8128d44a7bd3f000dc7893fafc4ce2d42d8f` |
+## Staging-simplified functions — what E2E does / does not prove
 
-### Step A — deps shim (creates **no** sellers)
+| Function | Staging behavior | Proves on Staging | Does **not** prove about Production |
+|---|---|---|---|
+| `slugify_company_name` / `_awr_unique_slug` | Created only if missing | Slug uniqueness vs Staging orgs/companies | Production slug helpers / AWR rules |
+| `_gp455a_generate_partner_public_id` / `_gp455a_slugify_partner_slug` | Created only if missing | Local ID/slug generation | Production GP455a ID formats |
+| `provision_growth_partner_tracking_link` | Created only if missing (shim) | Ensure can attach primary `/s/{slug}` | Full Production provision + URL packaging |
+| `_gp455_seed_training` / `_gp455_seed_role_permissions` | No-op if missing | Ensure does not hard-fail on seed | Training modules / role permission seeding |
+| `_mta_sync_*` / `_mta_seed_*` | No-op if missing | Ensure continues without MTA tables | Multi-tenant sync / module settings |
+| `_usb_provision_dedicated_gp_org_for_auth` | Staging override **only if** `aipify_tenant_profiles` absent; refuses existing `public.users` | Dedicated org on thin schema; no APP reuse | Production tenant profiles, customer_number_seq, org plan=`growth_partner`, registration profiles |
 
-| | |
-|---|---|
-| File | `docs/platform/sql-candidates/NOT_APPLIED_staging_unified_seller_bridge_e2e_deps_shim_v1.sql` |
-| SHA-256 | `2836cdc3ece545bd8546a9d5484f903b23f25a9037e010187f47926f10111c0f` |
-| Effect | Staging-compatible `provision_growth_partner_tracking_link`, slug helpers, MTA/training stubs, replace `_usb_provision_dedicated_gp_org_for_auth` for thin `customers` schema; org plan=`internal` (Staging check has no `growth_partner`) |
-
-### Step B — harness + cleanup (installs functions only)
-
-| | |
-|---|---|
-| File | `docs/platform/sql-candidates/NOT_APPLIED_staging_unified_seller_bridge_e2e_harness_v1.sql` |
-| SHA-256 | `bad85657b28e133dad8f790c5d9a71409d9f80176042295b28676f9b60c12e68` |
-| Functions | `_usb_staging_e2e_verify()` · `_usb_staging_e2e_cleanup(text)` |
-| Fixture marker | display_name `USB-E2E%` · emails `usb-e2e-*@example.com` |
-
-### Step C — run (first testdata op)
-
-```sql
-select public._usb_staging_e2e_verify();
-```
-
-Creates one approved + Kompis-certified CSP seller → ensure → assert matrix → self-cleanup.
+**Bridge RPCs under test (real Staging-applied):** `ensure_growth_partner_app_profile_for_csp_partner`, status sync trigger, `get_own_unified_seller_sales_links`, `list_own_personal_sales_page_interests`, `resolve_growth_partner_public_link`, `csp_set_partner_status`.
 
 ## Test matrix
 
 | # | Assert |
 |---|---|
 | 1 | ensure creates certified + active personal slug (1:1 auth) |
-| 2 | ensure second call idempotent (`created=false`, same profile) |
-| 3 | public `/s/{slug}` resolve published while certified+active |
-| 4 | `get_own_unified_seller_sales_links` returns personal path + CSP codes |
-| 5 | `list_own_personal_sales_page_interests` callable (CRM gate) |
-| 6 | suspend → personal links `disabled`, public resolve closed |
-| 7 | GP profile + link rows retained after suspend (history) |
-| 8 | Non-fixture CSP attribution fingerprint unchanged |
-| 9 | Commission ledger + qualified sales unchanged |
-| 10 | Only dedicated fixture org added; cleanup restores org count |
+| 2 | ensure second call idempotent |
+| 3 | public slug published for fixture profile |
+| 4 | own links path + CSP codes for fixture profile |
+| 5 | `list_own_personal_sales_page_interests` returns **`ok=true`** + `interests` array for certified seller |
+| 6 | suspend → personal links `disabled`, public closed |
+| 7 | history rows retained after suspend |
+| 8 | Non-fixture CSP attribution unchanged during run |
+| 9 | Commission + qualified sales unchanged |
+| 10 | Exact-ID cleanup restores org count + full attribution/commission fingerprints; fixture IDs gone |
 
-## Cleanup plan (separate)
+## Cleanup plan
 
-1. Preferred: harness end-path + exception path call `_usb_staging_e2e_cleanup('USB-E2E')`.
-2. Manual leftover: `select public._usb_staging_e2e_cleanup('USB-E2E');`
-3. Scope: fixture CSP partner, certs, attribution, GP profile/links/audits/leads, dedicated org/company, auth users `usb-e2e-*@example.com`, platform admin fixture.
-4. Does **not** delete pre-existing terminated CSP partners, commission, or qualified sales.
+- PASS: `_usb_staging_e2e_cleanup(partner, admin, seller, profile, org, company, user, attr_link)`
+- FAIL: same exact IDs; if partner never created → delete only this run’s admin/seller auth UUIDs
+- Manual leftover (only if verify aborted outside SQL): call cleanup with IDs from `fixture_ids` in the JSON result — never by name/email/slug
 
-## Exact YES (Staging only — quote SHA)
+## Exact YES (Staging only)
 
-1. `YES STAGING APPLY` deps shim — cite path + `2836cdc3ece545bd8546a9d5484f903b23f25a9037e010187f47926f10111c0f`
-2. `YES STAGING APPLY` harness — cite path + `bad85657b28e133dad8f790c5d9a71409d9f80176042295b28676f9b60c12e68`
+1. `YES STAGING APPLY` deps shim — cite path + SHA-256  
+2. `YES STAGING APPLY` harness — cite path + SHA-256  
 3. `YES STAGING RUN` `select public._usb_staging_e2e_verify();`
-4. Report matrix; if `ok=false`, run cleanup and stop
 
-**Out of scope / forbidden:** Production apply · mass seller conversion · email · Stripe · commission/settlement mutation · SQL apply without Exact YES
-
-## Bounds respected this preflight
-
-`NO_SQL_APPLY` · `NO_PRODUCTION_WRITE` · `NO_SELLER_CONVERSION` · `NO_EMAIL` · `NO_STRIPE_CHANGE` · `NO_COMMISSION_CHANGE`
+Forbidden without separate approval: Production · mass conversion · email · Stripe · commission mutation

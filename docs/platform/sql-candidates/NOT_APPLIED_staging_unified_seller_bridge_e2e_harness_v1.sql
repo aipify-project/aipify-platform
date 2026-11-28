@@ -1,92 +1,108 @@
 -- =============================================================================
--- NOT_APPLIED — STAGING-ONLY Unified Seller Bridge E2E harness + cleanup
+-- NOT_APPLIED — STAGING-ONLY Unified Seller Bridge E2E harness + ID-scoped cleanup
 -- Target: auedugihkduoaikfusqe ONLY. Never Production.
--- Creates disposable synthetic CSP seller, bridges once, asserts matrix, cleans up.
+-- Creates one disposable CSP seller, bridges once, asserts matrix, cleans exact IDs.
 -- Prerequisite: bridge SQL APPLIED + deps shim APPLIED on Staging.
 -- =============================================================================
--- Job: AIPIFY_UNIFIED_SELLER_BRIDGE_STAGING_E2E_PREFLIGHT / HARNESS
--- Marker email domain: @example.com (reserved). Fixture display_name prefix: USB-E2E
+-- Job: AIPIFY_UNIFIED_SELLER_BRIDGE_STAGING_E2E_SAFETY_PATCH / HARNESS
+-- Cleanup rule: delete ONLY exact UUIDs created by the current verify() run.
+-- No DELETE by display_name, email prefix, or slug pattern.
 -- =============================================================================
 
-create or replace function public._usb_staging_e2e_cleanup(p_marker text default 'USB-E2E')
+-- Drop previous marker-based cleanup overload if present (unsafe pattern removed).
+drop function if exists public._usb_staging_e2e_cleanup(text);
+
+create or replace function public._usb_staging_e2e_cleanup(
+  p_partner_id uuid,
+  p_admin_auth_id uuid,
+  p_seller_auth_id uuid,
+  p_profile_id uuid default null,
+  p_org_id uuid default null,
+  p_company_id uuid default null,
+  p_user_id uuid default null,
+  p_attr_link_id uuid default null
+)
 returns jsonb
 language plpgsql
 security definer
 set search_path = public, auth
 as $$
 declare
-  v_partner_ids uuid[];
-  v_auth_ids uuid[];
-  v_profile_ids uuid[];
-  v_org_ids uuid[];
-  v_company_ids uuid[];
-  v_n int := 0;
+  v_deleted jsonb := '{}'::jsonb;
+  v_n int;
 begin
-  select coalesce(array_agg(id), '{}'::uuid[]) into v_partner_ids
-  from public.csp_partner_profiles
-  where display_name like p_marker || '%';
+  -- Hard guard: refuse empty partner/auth IDs (would otherwise no-op silently).
+  if p_partner_id is null or p_admin_auth_id is null or p_seller_auth_id is null then
+    return jsonb_build_object('ok', false, 'error', 'exact_ids_required');
+  end if;
 
-  select coalesce(array_agg(auth_user_id), '{}'::uuid[]) into v_auth_ids
-  from public.csp_partner_profiles
-  where id = any(v_partner_ids);
+  -- GP child rows by exact profile_id only
+  if p_profile_id is not null then
+    delete from public.growth_partner_ops_leads where profile_id = p_profile_id;
+    get diagnostics v_n = row_count;
+    v_deleted := v_deleted || jsonb_build_object('ops_leads', v_n);
 
-  select coalesce(array_agg(id), '{}'::uuid[]) into v_profile_ids
-  from public.growth_partner_app_profiles
-  where auth_user_id = any(v_auth_ids)
-     or coalesce(profile_metadata->>'e2e_marker','') = p_marker;
+    delete from public.growth_partner_link_audit where profile_id = p_profile_id;
+    delete from public.growth_partner_app_audit where profile_id = p_profile_id;
+    delete from public.growth_partner_tracking_links where profile_id = p_profile_id;
+    delete from public.growth_partner_app_profiles where id = p_profile_id;
+  end if;
 
-  select coalesce(array_agg(organization_id), '{}'::uuid[]) into v_org_ids
-  from public.growth_partner_app_profiles
-  where id = any(v_profile_ids);
+  -- Dedicated org / customer / company / users by exact IDs only
+  if p_org_id is not null then
+    delete from public.organization_users where organization_id = p_org_id;
+    if p_user_id is not null then
+      delete from public.organization_users where user_id = p_user_id;
+    end if;
+    delete from public.organizations where id = p_org_id;
+    delete from public.customers where id = p_org_id;
+  end if;
 
-  delete from public.growth_partner_ops_leads where profile_id = any(v_profile_ids);
-  get diagnostics v_n = row_count;
-  delete from public.growth_partner_link_audit where profile_id = any(v_profile_ids);
-  delete from public.growth_partner_app_audit where profile_id = any(v_profile_ids);
-  delete from public.growth_partner_tracking_links where profile_id = any(v_profile_ids);
-  delete from public.growth_partner_app_profiles where id = any(v_profile_ids);
+  if p_user_id is not null then
+    delete from public.users where id = p_user_id and auth_user_id = p_seller_auth_id;
+  end if;
 
-  delete from public.organization_users where organization_id = any(v_org_ids);
-  delete from public.organizations where id = any(v_org_ids);
-  delete from public.customers where id = any(v_org_ids);
+  if p_company_id is not null then
+    -- Only if no remaining users point at this company (fixture company).
+    if not exists (select 1 from public.users u where u.company_id = p_company_id) then
+      delete from public.companies where id = p_company_id;
+    end if;
+  end if;
 
-  select coalesce(array_agg(distinct company_id), '{}'::uuid[]) into v_company_ids
-  from public.users
-  where auth_user_id = any(v_auth_ids)
-    and company_id is not null
-    and exists (
-      select 1 from public.companies c
-      where c.id = users.company_id and c.slug like '%-gp%'
+  -- CSP fixture rows by exact partner / link IDs
+  if p_attr_link_id is not null then
+    delete from public.csp_attribution_events where link_id = p_attr_link_id;
+    delete from public.csp_attribution_links where id = p_attr_link_id and partner_id = p_partner_id;
+  else
+    delete from public.csp_attribution_events
+    where link_id in (
+      select id from public.csp_attribution_links where partner_id = p_partner_id
     );
+    delete from public.csp_attribution_links where partner_id = p_partner_id;
+  end if;
 
-  -- Only delete users created for this harness (email @example.com + marker partners).
-  delete from public.users where auth_user_id = any(v_auth_ids);
-  delete from public.companies where id = any(v_company_ids) and slug like '%-gp%';
+  delete from public.csp_product_certifications where partner_id = p_partner_id;
+  delete from public.csp_partner_profiles where id = p_partner_id;
 
-  delete from public.csp_attribution_events
-  where link_id in (select id from public.csp_attribution_links where partner_id = any(v_partner_ids));
-  delete from public.csp_attribution_links where partner_id = any(v_partner_ids);
-  delete from public.csp_product_certifications where partner_id = any(v_partner_ids);
-  delete from public.csp_partner_profiles where id = any(v_partner_ids);
-
-  delete from public.platform_admins
-  where auth_user_id in (
-    select id from auth.users where email like 'usb-e2e-admin-%@example.com'
-  );
-  delete from auth.users
-  where email like 'usb-e2e-%@example.com';
+  -- Auth + platform admin by exact auth UUIDs only
+  delete from public.platform_admins where auth_user_id = p_admin_auth_id;
+  delete from auth.users where id = p_admin_auth_id;
+  delete from auth.users where id = p_seller_auth_id;
 
   return jsonb_build_object(
     'ok', true,
-    'cleaned_partners', coalesce(array_length(v_partner_ids, 1), 0),
-    'cleaned_profiles', coalesce(array_length(v_profile_ids, 1), 0),
-    'leads_deleted', v_n
+    'partner_id', p_partner_id,
+    'profile_id', p_profile_id,
+    'org_id', p_org_id,
+    'company_id', p_company_id,
+    'deleted', v_deleted
   );
 end;
 $$;
 
-revoke all on function public._usb_staging_e2e_cleanup(text) from public, anon, authenticated;
--- Callable by postgres / service during approved Staging ops only.
+revoke all on function public._usb_staging_e2e_cleanup(
+  uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid
+) from public, anon, authenticated;
 
 create or replace function public._usb_staging_e2e_verify()
 returns jsonb
@@ -96,12 +112,12 @@ set search_path = public, auth
 as $$
 declare
   v_results jsonb := '[]'::jsonb;
-  v_marker text := 'USB-E2E';
   v_admin uuid := gen_random_uuid();
   v_seller uuid := gen_random_uuid();
   v_pwd text := extensions.crypt('usb-e2e-fixture-x', extensions.gen_salt('bf'));
   v_inst uuid := '00000000-0000-0000-0000-000000000000';
   v_partner_id uuid;
+  v_attr_link_id uuid;
   v_prod uuid;
   v_code text := 'csp-usb' || substr(replace(gen_random_uuid()::text, '-', ''), 1, 9);
   v_attr_before text;
@@ -112,19 +128,22 @@ declare
   v_qs_after int;
   v_ensure1 jsonb;
   v_ensure2 jsonb;
-  v_sync jsonb;
   v_links jsonb;
+  v_crm jsonb;
   v_resolve jsonb;
   v_slug text;
   v_link_status text;
   v_partner_status text;
   v_ok boolean;
   v_profile_id uuid;
+  v_org_id uuid;
+  v_company_id uuid;
+  v_user_id uuid;
   v_org_count_before int;
   v_org_count_after int;
   v_cleanup jsonb;
+  v_pass boolean;
 begin
-  -- Preconditions
   if to_regprocedure('public.ensure_growth_partner_app_profile_for_csp_partner(uuid)') is null then
     return jsonb_build_object('ok', false, 'error', 'bridge_rpc_missing');
   end if;
@@ -137,7 +156,7 @@ begin
     return jsonb_build_object('ok', false, 'error', 'kompis_web_missing');
   end if;
 
-  -- Baseline fingerprints BEFORE fixture rows exist (non-fixture universe).
+  -- Baseline BEFORE any fixture rows
   select md5(coalesce(string_agg(id::text || ':' || code || ':' || active::text, '|' order by id::text), ''))
     into v_attr_before from public.csp_attribution_links;
   select md5(coalesce(string_agg(id::text, '|' order by id::text), ''))
@@ -145,7 +164,6 @@ begin
   select count(*)::int into v_qs_before from public.csp_qualified_sales;
   select count(*)::int into v_org_count_before from public.organizations;
 
-  -- Disposable identities
   insert into auth.users (
     instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,
     created_at, updated_at, raw_app_meta_data, raw_user_meta_data
@@ -163,10 +181,10 @@ begin
     auth_user_id, display_name, country, status, legal_business_name, business_registration_number, business_address, phone
   ) values (
     v_seller,
-    v_marker || ' Seller',
+    'USB-E2E Seller',
     'NO',
     'approved',
-    v_marker || ' AS',
+    'USB-E2E AS',
     '999999999',
     'Testveien 1',
     '+47 90000000'
@@ -178,9 +196,9 @@ begin
     set status = 'passed', score = 100, passed_at = now();
 
   insert into public.csp_attribution_links (partner_id, code, channel_origin, active)
-  values (v_partner_id, v_code, 'referral_link', true);
+  values (v_partner_id, v_code, 'referral_link', true)
+  returning id into v_attr_link_id;
 
-  -- Act as platform admin
   perform set_config('request.jwt.claim.sub', v_admin::text, true);
   perform set_config('request.jwt.claims', json_build_object('sub', v_admin::text, 'role', 'authenticated')::text, true);
 
@@ -190,13 +208,22 @@ begin
       and coalesce(v_ensure1->>'partner_status', '') = 'certified'
       and coalesce((v_ensure1->>'link_active')::boolean, false) = true;
   v_results := v_results || jsonb_build_array(jsonb_build_object('t','ensure_create_certified','ok',v_ok,'r',v_ensure1));
+
   v_profile_id := nullif(v_ensure1->>'profile_id', '')::uuid;
+  v_org_id := nullif(v_ensure1->>'organization_id', '')::uuid;
   v_slug := v_ensure1->>'primary_link_slug';
 
-  -- Tag metadata for cleanup safety
-  update public.growth_partner_app_profiles
-  set profile_metadata = coalesce(profile_metadata, '{}'::jsonb) || jsonb_build_object('e2e_marker', v_marker)
-  where id = v_profile_id;
+  if v_profile_id is not null then
+    select user_id, organization_id into v_user_id, v_org_id
+    from public.growth_partner_app_profiles
+    where id = v_profile_id;
+  end if;
+  if v_user_id is not null then
+    select company_id into v_company_id from public.users where id = v_user_id;
+  end if;
+  if v_org_id is not null and v_company_id is null then
+    select company_id into v_company_id from public.customers where id = v_org_id;
+  end if;
 
   -- Idempotence
   v_ensure2 := public.ensure_growth_partner_app_profile_for_csp_partner(v_partner_id);
@@ -208,12 +235,13 @@ begin
   -- 1:1 auth
   v_ok := (
     select count(*) = 1 from public.growth_partner_app_profiles where auth_user_id = v_seller
-  );
+  ) and v_profile_id is not null;
   v_results := v_results || jsonb_build_array(jsonb_build_object('t','one_to_one_auth','ok',v_ok));
 
   -- Public resolve / personal slug
   v_resolve := public.resolve_growth_partner_public_link(v_slug);
-  v_ok := coalesce((v_resolve->>'found')::boolean, false) = true;
+  v_ok := coalesce((v_resolve->>'found')::boolean, false) = true
+      and coalesce(v_resolve->>'profile_id','') = coalesce(v_profile_id::text,'');
   v_results := v_results || jsonb_build_array(jsonb_build_object('t','public_slug_published','ok',v_ok,'slug',v_slug,'r',v_resolve));
 
   -- Own links as seller
@@ -222,17 +250,23 @@ begin
   v_links := public.get_own_unified_seller_sales_links();
   v_ok := coalesce((v_links->>'ok')::boolean, false)
       and coalesce(v_links->>'personal_sales_path','') = '/s/' || v_slug
+      and coalesce(v_links->>'growth_partner_profile_id','') = coalesce(v_profile_id::text,'')
       and jsonb_typeof(v_links->'csp_attribution_links') = 'array';
   v_results := v_results || jsonb_build_array(jsonb_build_object('t','own_links_crm_ready','ok',v_ok,'r',v_links));
 
-  -- CRM list access (certified profile)
-  begin
-    perform public.list_own_personal_sales_page_interests();
-    v_ok := true;
-  exception when others then
-    v_ok := false;
-  end;
-  v_results := v_results || jsonb_build_array(jsonb_build_object('t','list_own_interests_callable','ok',v_ok));
+  -- CRM list: must return ok=true for this certified seller (not merely "callable")
+  v_crm := public.list_own_personal_sales_page_interests();
+  v_ok := coalesce((v_crm->>'ok')::boolean, false) = true
+      and jsonb_typeof(v_crm->'interests') = 'array'
+      and exists (
+        select 1 from public.growth_partner_app_profiles gp
+        where gp.id = v_profile_id
+          and gp.auth_user_id = v_seller
+          and gp.partner_status = 'certified'
+      );
+  v_results := v_results || jsonb_build_array(jsonb_build_object(
+    't','list_own_interests_ok_for_seller','ok',v_ok,'r',v_crm
+  ));
 
   -- Suspend via platform admin
   perform set_config('request.jwt.claim.sub', v_admin::text, true);
@@ -249,21 +283,19 @@ begin
     'partner_status', v_partner_status, 'link_status', v_link_status
   ));
 
-  -- History preserved (profile + link rows still exist)
   v_ok := exists (select 1 from public.growth_partner_app_profiles where id = v_profile_id)
       and exists (select 1 from public.growth_partner_tracking_links where profile_id = v_profile_id);
   v_results := v_results || jsonb_build_array(jsonb_build_object('t','history_preserved_after_suspend','ok',v_ok));
 
-  -- Public page closed after suspend
   v_resolve := public.resolve_growth_partner_public_link(v_slug);
   v_ok := coalesce((v_resolve->>'found')::boolean, true) = false;
   v_results := v_results || jsonb_build_array(jsonb_build_object('t','public_slug_closed_after_suspend','ok',v_ok,'r',v_resolve));
 
-  -- Non-fixture CSP attribution unchanged (exclude fixture partner rows).
+  -- Non-fixture CSP attribution unchanged during run
   select md5(coalesce(string_agg(id::text || ':' || code || ':' || active::text, '|' order by id::text), ''))
     into v_attr_after
   from public.csp_attribution_links
-  where partner_id is distinct from v_partner_id;
+  where id is distinct from v_attr_link_id;
 
   select md5(coalesce(string_agg(id::text, '|' order by id::text), ''))
     into v_comm_after from public.csp_commission_ledger;
@@ -283,40 +315,94 @@ begin
     'qs_before', v_qs_before, 'qs_after', v_qs_after
   ));
 
-  -- Org growth is only the dedicated fixture org (+0 or +1 net after cleanup). During run, org count may increase by 1.
   v_ok := v_org_count_after = v_org_count_before + 1;
   v_results := v_results || jsonb_build_array(jsonb_build_object(
     't','only_dedicated_org_added','ok',v_ok,
     'orgs_before', v_org_count_before, 'orgs_after', v_org_count_after
   ));
 
-  -- Cleanup
-  v_cleanup := public._usb_staging_e2e_cleanup(v_marker);
+  -- Exact-ID cleanup (PASS path)
+  v_cleanup := public._usb_staging_e2e_cleanup(
+    v_partner_id, v_admin, v_seller, v_profile_id, v_org_id, v_company_id, v_user_id, v_attr_link_id
+  );
+
   select count(*)::int into v_org_count_after from public.organizations;
+  select md5(coalesce(string_agg(id::text || ':' || code || ':' || active::text, '|' order by id::text), ''))
+    into v_attr_after from public.csp_attribution_links;
+  select md5(coalesce(string_agg(id::text, '|' order by id::text), ''))
+    into v_comm_after from public.csp_commission_ledger;
+  select count(*)::int into v_qs_after from public.csp_qualified_sales;
+
   v_ok := coalesce((v_cleanup->>'ok')::boolean, false)
       and v_org_count_after = v_org_count_before
-      and not exists (select 1 from public.csp_partner_profiles where display_name like v_marker || '%')
-      and not exists (select 1 from public.growth_partner_app_profiles where coalesce(profile_metadata->>'e2e_marker','') = v_marker);
-  v_results := v_results || jsonb_build_array(jsonb_build_object('t','cleanup_complete','ok',v_ok,'r',v_cleanup));
+      and v_attr_after = v_attr_before
+      and v_comm_after = v_comm_before
+      and v_qs_after = v_qs_before
+      and not exists (select 1 from public.csp_partner_profiles where id = v_partner_id)
+      and (v_profile_id is null or not exists (select 1 from public.growth_partner_app_profiles where id = v_profile_id))
+      and (v_org_id is null or not exists (select 1 from public.organizations where id = v_org_id))
+      and (v_company_id is null or not exists (select 1 from public.companies where id = v_company_id))
+      and (v_user_id is null or not exists (select 1 from public.users where id = v_user_id))
+      and not exists (select 1 from auth.users where id = v_admin)
+      and not exists (select 1 from auth.users where id = v_seller)
+      and not exists (select 1 from public.platform_admins where auth_user_id = v_admin);
+  v_results := v_results || jsonb_build_array(jsonb_build_object('t','cleanup_exact_ids_complete','ok',v_ok,'r',v_cleanup));
+
+  v_pass := not exists (
+    select 1 from jsonb_array_elements(v_results) e where coalesce((e->>'ok')::boolean, false) = false
+  );
 
   return jsonb_build_object(
-    'ok', not exists (select 1 from jsonb_array_elements(v_results) e where coalesce((e->>'ok')::boolean, false) = false),
-    'marker', v_marker,
+    'ok', v_pass,
+    'fixture_ids', jsonb_build_object(
+      'partner_id', v_partner_id,
+      'admin_auth_id', v_admin,
+      'seller_auth_id', v_seller,
+      'profile_id', v_profile_id,
+      'org_id', v_org_id,
+      'company_id', v_company_id,
+      'user_id', v_user_id,
+      'attr_link_id', v_attr_link_id
+    ),
     'results', v_results
   );
 exception when others then
+  -- Failure path: remove exact IDs from this run; never leave partial fixture accounts.
   begin
-    perform public._usb_staging_e2e_cleanup('USB-E2E');
+    if v_partner_id is not null then
+      perform public._usb_staging_e2e_cleanup(
+        v_partner_id, v_admin, v_seller, v_profile_id, v_org_id, v_company_id, v_user_id, v_attr_link_id
+      );
+    else
+      -- Pre-partner failure: still delete this run's exact auth/admin rows only.
+      delete from public.platform_admins where auth_user_id = v_admin;
+      delete from auth.users where id = v_admin;
+      delete from auth.users where id = v_seller;
+    end if;
   exception when others then
     null;
   end;
-  return jsonb_build_object('ok', false, 'error', sqlerrm, 'results', v_results);
+  return jsonb_build_object(
+    'ok', false,
+    'error', sqlerrm,
+    'fixture_ids', jsonb_build_object(
+      'partner_id', v_partner_id,
+      'admin_auth_id', v_admin,
+      'seller_auth_id', v_seller,
+      'profile_id', v_profile_id,
+      'org_id', v_org_id,
+      'company_id', v_company_id,
+      'user_id', v_user_id,
+      'attr_link_id', v_attr_link_id
+    ),
+    'results', v_results
+  );
 end;
 $$;
 
 revoke all on function public._usb_staging_e2e_verify() from public, anon, authenticated;
 
 comment on function public._usb_staging_e2e_verify() is
-  'STAGING-ONLY disposable Unified Seller Bridge E2E. Create → assert → cleanup. Never Production.';
-comment on function public._usb_staging_e2e_cleanup(text) is
-  'STAGING-ONLY cleanup for USB-E2E synthetic sellers/profiles.';
+  'STAGING-ONLY disposable Unified Seller Bridge E2E. Create → assert → exact-ID cleanup. Never Production.';
+comment on function public._usb_staging_e2e_cleanup(uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid) is
+  'STAGING-ONLY exact-ID cleanup for one USB-E2E verify() run. No name/email/slug deletes.';
