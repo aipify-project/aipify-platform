@@ -70,11 +70,12 @@ function assertNoTicket(json: Record<string, unknown>) {
   assert.equal(json.ticket_id, undefined);
 }
 
-test("intake stays closed and does not send email", () => {
-  assert.equal(SUPPORT_INTAKE_RPC_CONNECTED, false);
-  assert.equal(SUPPORT_INTAKE_FEATURE_GATE, false);
+test("intake is live for web writes while email transport stays off", () => {
+  assert.equal(SUPPORT_INTAKE_RPC_CONNECTED, true);
+  assert.equal(SUPPORT_INTAKE_FEATURE_GATE, true);
   assert.equal(SUPPORT_EMAIL_TRANSPORT_ENABLED, false);
-  assert.equal(getSupportIntakeGateState().live, false);
+  assert.equal(getSupportIntakeGateState().live, true);
+  assert.equal(getSupportIntakeGateState().emailTransportEnabled, false);
 });
 
 test("idempotency keys are reused, never invented", () => {
@@ -88,19 +89,27 @@ test("idempotency keys are reused, never invented", () => {
   );
 });
 
-test("a closed intake returns no ticket for one or two identical attempts", async () => {
+test("without a service-role client, live intake fails closed without a ticket", async () => {
   setSharedRateLimitBackendForTests(createMemoryRateLimitBackend());
+  const previousUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const previousKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+  delete process.env.SUPABASE_SERVICE_ROLE_KEY;
   try {
     const body = validBody("attempt-same");
     const first = await post(body, "203.0.113.10");
     const second = await post(body, "203.0.113.11");
     assert.equal(first.status, 503);
-    assert.equal(first.json.code, "core_not_applied");
+    assert.equal(first.json.code, "unknown");
     assert.equal(second.status, 503);
     assert.equal(second.json.live, false);
     assertNoTicket(first.json);
     assertNoTicket(second.json);
   } finally {
+    if (previousUrl === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+    else process.env.NEXT_PUBLIC_SUPABASE_URL = previousUrl;
+    if (previousKey === undefined) delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+    else process.env.SUPABASE_SERVICE_ROLE_KEY = previousKey;
     setSharedRateLimitBackendForTests(undefined);
   }
 });
@@ -240,7 +249,7 @@ test("honeypot is still rejected before the shared store is required", async () 
   }
 });
 
-test("closed intake and a failed create do not invent a ticket number", async () => {
+test("a live create without rpc client does not invent a ticket number", async () => {
   const denied = await submitSupportIntake({
     payload: {
       source: "web",
@@ -254,7 +263,7 @@ test("closed intake and a failed create do not invent a ticket number", async ()
   });
   assert.equal(denied.ok, false);
   if (!denied.ok) {
-    assert.equal(denied.code, "core_not_applied");
+    assert.equal(denied.code, "unknown");
     assert.equal("ticketNumber" in denied, false);
   }
 });

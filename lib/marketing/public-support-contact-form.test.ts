@@ -39,10 +39,10 @@ const page = read("app/(kompis-sales)/contact/support/page.tsx");
 const api = read("app/api/support-intake/web/route.ts");
 const appContact = read("app/app/support/contact/page.tsx");
 
-assert.equal(SUPPORT_INTAKE_RPC_CONNECTED, false);
-assert.equal(SUPPORT_INTAKE_FEATURE_GATE, false);
+assert.equal(SUPPORT_INTAKE_RPC_CONNECTED, true);
+assert.equal(SUPPORT_INTAKE_FEATURE_GATE, true);
 assert.equal(SUPPORT_EMAIL_TRANSPORT_ENABLED, false);
-assert.equal(getSupportIntakeGateState().live, false);
+assert.equal(getSupportIntakeGateState().live, true);
 assert.equal(getSupportIntakeGateState().emailTransportEnabled, false);
 
 assert.match(page, /getSupportIntakeGateState\(\)\.live/);
