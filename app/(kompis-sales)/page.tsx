@@ -8,8 +8,8 @@ import { loadKompisWebSalesRouteContext } from "@/lib/marketing/kompis-web-sales
  * Same component and locale policy as `/kompis-web` (no duplicate sales UI).
  */
 export async function generateMetadata(): Promise<Metadata> {
-  const { labels } = await loadKompisWebSalesRouteContext();
-  return buildKompisWebSalesMetadata(labels, "/");
+  const { labels, locale } = await loadKompisWebSalesRouteContext();
+  return buildKompisWebSalesMetadata(labels, "/", locale);
 }
 
 export default async function RootKompisWebSalesPage() {

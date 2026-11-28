@@ -48,13 +48,13 @@ export const KOMPIS_WEB_QUESTION_BANK: readonly CspAcademyExamQuestion[] = [
   q(
     "kw_q01", "easy", "lesson_01",
     L(
-      "What is Kompis Web?",
+      "What is Buddy Web?",
       "Hva er Kompis Web?",
       "Vad är Kompis Web?",
       "Hvad er Kompis Web?",
-      "Czym jest Kompis Web?",
-      "Що таке Kompis Web?",
-      "¿Qué es Kompis Web?",
+      "Czym jest Buddy Web?",
+      "Що таке Buddy Web?",
+      "¿Qué es Buddy Web?",
     ),
     L(
       "A payment system for online shops",
@@ -96,13 +96,13 @@ export const KOMPIS_WEB_QUESTION_BANK: readonly CspAcademyExamQuestion[] = [
   q(
     "kw_q02", "easy", "lesson_01",
     L(
-      "What should Kompis Web do when it has no reliable answer?",
+      "What should Buddy Web do when it has no reliable answer?",
       "Hva skal Kompis Web gjøre når den ikke har et pålitelig svar?",
       "Vad ska Kompis Web göra när den inte har ett pålitligt svar?",
       "Hvad skal Kompis Web gøre, når den ikke har et pålideligt svar?",
-      "Co powinien zrobić Kompis Web, gdy nie ma wiarygodnej odpowiedzi?",
-      "Що має робити Kompis Web, коли в нього немає надійної відповіді?",
-      "¿Qué debe hacer Kompis Web cuando no tiene una respuesta fiable?",
+      "Co powinien zrobić Buddy Web, gdy nie ma wiarygodnej odpowiedzi?",
+      "Що має робити Buddy Web, коли в нього немає надійної відповіді?",
+      "¿Qué debe hacer Buddy Web cuando no tiene una respuesta fiable?",
     ),
     L(
       "Guess the most likely answer",
@@ -144,13 +144,13 @@ export const KOMPIS_WEB_QUESTION_BANK: readonly CspAcademyExamQuestion[] = [
   q(
     "kw_q03", "easy", "lesson_02",
     L(
-      "Which customer is typically a good fit for Kompis Web?",
+      "Which customer is typically a good fit for Buddy Web?",
       "Hvilken kunde passer typisk godt for Kompis Web?",
       "Vilken kund passar typiskt bra för Kompis Web?",
       "Hvilken kunde passer typisk godt til Kompis Web?",
-      "Który klient zwykle dobrze pasuje do Kompis Web?",
-      "Який клієнт зазвичай добре підходить для Kompis Web?",
-      "¿Qué cliente suele encajar bien con Kompis Web?",
+      "Który klient zwykle dobrze pasuje do Buddy Web?",
+      "Який клієнт зазвичай добре підходить для Buddy Web?",
+      "¿Qué cliente suele encajar bien con Buddy Web?",
     ),
     L(
       "A site with useful, up-to-date content and questions that visitors ask repeatedly",
@@ -180,25 +180,25 @@ export const KOMPIS_WEB_QUESTION_BANK: readonly CspAcademyExamQuestion[] = [
       "Un cliente que quiere asesoramiento legal automático",
     ),
     L(
-      "A customer who wants Kompis Web to process payments",
+      "A customer who wants Buddy Web to process payments",
       "En kunde som vil at Kompis Web skal behandle betalinger",
       "En kund som vill att Kompis Web ska hantera betalningar",
       "En kunde, der vil have Kompis Web til at behandle betalinger",
-      "Klient, który chce, aby Kompis Web przetwarzał płatności",
-      "Клієнт, який хоче, щоб Kompis Web обробляв платежі",
-      "Un cliente que quiere que Kompis Web procese pagos",
+      "Klient, który chce, aby Buddy Web przetwarzał płatności",
+      "Клієнт, який хоче, щоб Buddy Web обробляв платежі",
+      "Un cliente que quiere que Buddy Web procese pagos",
     ),
   ),
   q(
     "kw_q04", "medium", "lesson_03",
     L(
-      "Where does Kompis Web run?",
+      "Where does Buddy Web run?",
       "Hvor kjører Kompis Web?",
       "Var körs Kompis Web?",
       "Hvor kører Kompis Web?",
-      "Gdzie działa Kompis Web?",
-      "Де працює Kompis Web?",
-      "¿Dónde funciona Kompis Web?",
+      "Gdzie działa Buddy Web?",
+      "Де працює Buddy Web?",
+      "¿Dónde funciona Buddy Web?",
     ),
     L(
       "Only inside the partner's own account",
@@ -530,13 +530,13 @@ export const KOMPIS_WEB_QUESTION_BANK: readonly CspAcademyExamQuestion[] = [
   q(
     "kw_q11", "easy", "lesson_02",
     L(
-      "Which visitor question can Kompis Web typically help with?",
+      "Which visitor question can Buddy Web typically help with?",
       "Hvilket spørsmål fra besøkende kan Kompis Web typisk hjelpe med?",
       "Vilken besökarfråga kan Kompis Web typiskt hjälpa till med?",
       "Hvilket spørgsmål fra besøgende kan Kompis Web typisk hjælpe med?",
-      "W jakim pytaniu odwiedzającego Kompis Web zwykle pomoże?",
-      "З яким запитанням відвідувача Kompis Web зазвичай допомагає?",
-      "¿Con qué pregunta de un visitante puede ayudar normalmente Kompis Web?",
+      "W jakim pytaniu odwiedzającego Buddy Web zwykle pomoże?",
+      "З яким запитанням відвідувача Buddy Web зазвичай допомагає?",
+      "¿Con qué pregunta de un visitante puede ayudar normalmente Buddy Web?",
     ),
     L(
       "Opening hours and services that are described on the website",
@@ -578,13 +578,13 @@ export const KOMPIS_WEB_QUESTION_BANK: readonly CspAcademyExamQuestion[] = [
   q(
     "kw_q12", "easy", "lesson_01",
     L(
-      "How should you describe the role of Kompis Web?",
+      "How should you describe the role of Buddy Web?",
       "Hvordan skal du beskrive rollen til Kompis Web?",
       "Hur ska du beskriva Kompis Webs roll?",
       "Hvordan skal du beskrive Kompis Webs rolle?",
-      "Jak opisać rolę Kompis Web?",
-      "Як слід описувати роль Kompis Web?",
-      "¿Cómo debe describir el papel de Kompis Web?",
+      "Jak opisać rolę Buddy Web?",
+      "Як слід описувати роль Buddy Web?",
+      "¿Cómo debe describir el papel de Buddy Web?",
     ),
     L(
       "A replacement for employees",
@@ -870,13 +870,13 @@ export const KOMPIS_WEB_QUESTION_BANK: readonly CspAcademyExamQuestion[] = [
   q(
     "kw_q18", "medium", "lesson_02",
     L(
-      "Which request is a poor fit for Kompis Web?",
+      "Which request is a poor fit for Buddy Web?",
       "Hvilken forespørsel passer dårlig for Kompis Web?",
       "Vilken förfrågan passar dåligt för Kompis Web?",
       "Hvilken forespørgsel passer dårligt til Kompis Web?",
-      "Które zapytanie słabo pasuje do Kompis Web?",
-      "Який запит погано підходить для Kompis Web?",
-      "¿Qué petición encaja mal con Kompis Web?",
+      "Które zapytanie słabo pasuje do Buddy Web?",
+      "Який запит погано підходить для Buddy Web?",
+      "¿Qué petición encaja mal con Buddy Web?",
     ),
     L(
       "Answering questions about published opening hours",
@@ -1210,13 +1210,13 @@ export const KOMPIS_WEB_QUESTION_BANK: readonly CspAcademyExamQuestion[] = [
   q(
     "kw_q25", "hard", "lesson_06",
     L(
-      "A prospect says Kompis Web is too expensive. What is the best response?",
+      "A prospect says Buddy Web is too expensive. What is the best response?",
       "En kunde sier at Kompis Web er for dyrt. Hva er beste respons?",
       "En kund säger att Kompis Web är för dyrt. Vad är bästa respons?",
       "En kunde siger, at Kompis Web er for dyrt. Hvad er det bedste svar?",
-      "Klient mówi, że Kompis Web jest za drogi. Jaka jest najlepsza reakcja?",
-      "Клієнт каже, що Kompis Web надто дорогий. Яка найкраща реакція?",
-      "Un cliente dice que Kompis Web es demasiado caro. ¿Cuál es la mejor respuesta?",
+      "Klient mówi, że Buddy Web jest za drogi. Jaka jest najlepsza reakcja?",
+      "Клієнт каже, що Buddy Web надто дорогий. Яка найкраща реакція?",
+      "Un cliente dice que Buddy Web es demasiado caro. ¿Cuál es la mejor respuesta?",
     ),
     L(
       "Offer an invented discount",

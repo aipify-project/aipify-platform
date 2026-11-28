@@ -1,3 +1,4 @@
+import { kompisFamilyName } from "@/lib/brand/kompis-buddy-display";
 import {
   isPublicFooterEnabledLocale,
   type PublicFooterEnabledLocale,
@@ -24,6 +25,5 @@ export function resolveKompisWebSalesLocale(input: {
 export function kompisWebSalesHelperDisplayName(
   locale: PublicFooterEnabledLocale,
 ): "Kompis" | "Buddy" {
-  if (locale === "no" || locale === "sv" || locale === "da") return "Kompis";
-  return "Buddy";
+  return kompisFamilyName(locale);
 }

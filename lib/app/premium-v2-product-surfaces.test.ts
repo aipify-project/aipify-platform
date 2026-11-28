@@ -27,7 +27,7 @@ assert.equal(webHomeCardState(null), "unknown");
 assert.equal(webHomeCardState(false), "unavailable");
 assert.equal(webHomeCardState(true), "open");
 assert.equal(customerFacingPlanLabel("active"), null);
-assert.equal(customerFacingPlanLabel("Kompis Web"), "Kompis Web");
+assert.equal(customerFacingPlanLabel("Buddy Web"), "Buddy Web");
 assert.equal(integrationCategoryLabel("CRM", labels), "Customer relationships");
 assert.equal(integrationCategoryLabel(" general ", labels), "General");
 assert.equal(integrationCategoryLabel("unonight_special", labels), "Other");

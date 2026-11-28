@@ -24,7 +24,7 @@ test("metadata takes issuer, org number and country from COMPANY_CONFIG", () => 
   assert.ok(meta.orgNumber.length > 0);
   assert.equal(meta.country, "Norway");
   assert.equal(meta.fullName, "Kari Nordmann");
-  assert.equal(meta.productLabel, "Certified Aipify Sales Partner – Kompis Web");
+  assert.equal(meta.productLabel, "Certified Aipify Sales Partner – Buddy Web");
   assert.equal(meta.productLabel, CSP_CERTIFICATE_PRODUCT_LABEL);
   assert.equal(meta.passedAt, passedAt);
   assert.equal(meta.locale, "no");

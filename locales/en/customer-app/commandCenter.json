@@ -1650,7 +1650,7 @@
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Complete the pending executive approval today.",
         "level3ActionAwaitingApproval": "A critical-risk action must be approved before work can continue.",
-        "kompisWebsitePublishPrepared": "Kompis has prepared a change that requires approval."
+        "kompisWebsitePublishPrepared": "Buddy has prepared a change that requires approval."
       },
       "integrationSignalMeta": "{events} events · {alerts} alerts",
       "orgNameUnavailable": "Organization unavailable",

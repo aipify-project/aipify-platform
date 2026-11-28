@@ -109,7 +109,7 @@ async function executeTool(
       return {
         ok: true,
         verified: true,
-        summary: "Website Kompis delivery status loaded.",
+        summary: "Website Buddy delivery status loaded.",
         data: { websiteKompis: asRecord(workspace.website_kompis) },
       };
     case "app_access_status_read":

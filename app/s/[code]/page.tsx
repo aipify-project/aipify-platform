@@ -48,7 +48,7 @@ export async function generateMetadata({
   });
   const dict = await getDictionary(locale, ["marketing"]);
   const chrome = parseKompisWebSalesLabels(dict.marketing as Record<string, unknown>);
-  const shared = buildKompisWebSalesMetadata(chrome, "/");
+  const shared = buildKompisWebSalesMetadata(chrome, "/", locale);
   const languages = Object.fromEntries(
     PUBLIC_FOOTER_ENABLED_LOCALES.map((item) => [item, personalSalesLocalePath(code, item)]),
   );

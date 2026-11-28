@@ -8,8 +8,8 @@ import { loadKompisWebSalesRouteContext } from "@/lib/marketing/kompis-web-sales
  * Canonical/SEO cleanup of duplicates is queued separately.
  */
 export async function generateMetadata(): Promise<Metadata> {
-  const { labels } = await loadKompisWebSalesRouteContext();
-  return buildKompisWebSalesMetadata(labels, "/kompis-web");
+  const { labels, locale } = await loadKompisWebSalesRouteContext();
+  return buildKompisWebSalesMetadata(labels, "/kompis-web", locale);
 }
 
 export default async function KompisWebSalesRoutePage() {

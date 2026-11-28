@@ -100,9 +100,11 @@ assert.equal(enCatalog.kompisWebTitle, "Buddy Web");
 assert.equal(enCatalog.kompisBedriftTitle, "Buddy Business");
 assert.equal(noCatalog.kompis, "Kompis");
 assert.equal(noCatalog.kompisWebTitle, "Kompis Web");
+assert.equal(noCatalog.kompisBedriftTitle, "Kompis Bedrift");
 assert.match(enCatalog.salesGrowth, /Sales/);
 assert.match(noCatalog.salesGrowth, /Salg/);
 assert.doesNotMatch(enCatalog.kompisWebTitle, /Kompis/);
+assert.doesNotMatch(noCatalog.kompisWebTitle, /Buddy/);
 
 const purchasable = buildCustomerCatalog({
   billing: {

@@ -18,10 +18,10 @@ function L(
 
 const WEB_INTRO = L(
   {
-    subject: "A short introduction to Kompis Web",
+    subject: "A short introduction to Buddy Web",
     preheader: "Website help based on content you approve.",
     body:
-      "Hello,\n\n{{seller_display_name}} from {{seller_company}} would like to introduce Kompis Web — Aipify’s companion that answers visitor questions using content you have approved.\n\n{{product_description}}\n\nYou stay in control of what it can use. No invented claims or prices are included here.\n\nIf this is relevant, open the personal link below.",
+      "Hello,\n\n{{seller_display_name}} from {{seller_company}} would like to introduce Buddy Web — Aipify’s companion that answers visitor questions using content you have approved.\n\n{{product_description}}\n\nYou stay in control of what it can use. No invented claims or prices are included here.\n\nIf this is relevant, open the personal link below.",
     ctaLabel: "Learn more",
   },
   {
@@ -46,34 +46,34 @@ const WEB_INTRO = L(
     ctaLabel: "Læs mere",
   },
   {
-    subject: "Krótkie wprowadzenie do Kompis Web",
+    subject: "Krótkie wprowadzenie do Buddy Web",
     preheader: "Pomoc na stronie w oparciu o treści, które zatwierdzasz.",
     body:
-      "Dzień dobry,\n\n{{seller_display_name}} z {{seller_company}} chciał(a)by przedstawić Kompis Web — rozwiązanie Aipify, które odpowiada na pytania odwiedzających na podstawie treści, które zatwierdzisz.\n\n{{product_description}}\n\nZachowujesz kontrolę nad tym, z czego może korzystać. Nie ma tu cen ani obietnic wyników.\n\nJeśli to jest istotne, otwórz osobisty link poniżej.",
+      "Dzień dobry,\n\n{{seller_display_name}} z {{seller_company}} chciał(a)by przedstawić Buddy Web — rozwiązanie Aipify, które odpowiada na pytania odwiedzających na podstawie treści, które zatwierdzisz.\n\n{{product_description}}\n\nZachowujesz kontrolę nad tym, z czego może korzystać. Nie ma tu cen ani obietnic wyników.\n\nJeśli to jest istotne, otwórz osobisty link poniżej.",
     ctaLabel: "Dowiedz się więcej",
   },
   {
-    subject: "Коротке знайомство з Kompis Web",
+    subject: "Коротке знайомство з Buddy Web",
     preheader: "Допомога на сайті на основі матеріалів, які ви схвалюєте.",
     body:
-      "Вітаємо,\n\n{{seller_display_name}} з {{seller_company}} хоче представити Kompis Web — рішення Aipify, яке відповідає на запитання відвідувачів на основі матеріалів, які ви схвалили.\n\n{{product_description}}\n\nВи зберігаєте контроль над тим, що він може використовувати. Тут немає цін і обіцянок результатів.\n\nЯкщо це актуально, відкрийте персональне посилання нижче.",
+      "Вітаємо,\n\n{{seller_display_name}} з {{seller_company}} хоче представити Buddy Web — рішення Aipify, яке відповідає на запитання відвідувачів на основі матеріалів, які ви схвалили.\n\n{{product_description}}\n\nВи зберігаєте контроль над тим, що він може використовувати. Тут немає цін і обіцянок результатів.\n\nЯкщо це актуально, відкрийте персональне посилання нижче.",
     ctaLabel: "Дізнатися більше",
   },
   {
-    subject: "Una breve introducción a Kompis Web",
+    subject: "Una breve introducción a Buddy Web",
     preheader: "Ayuda en el sitio web con contenido que tú apruebas.",
     body:
-      "Hola,\n\n{{seller_display_name}} de {{seller_company}} desea presentar Kompis Web — el companion de Aipify que responde a las preguntas de los visitantes con el contenido que hayas aprobado.\n\n{{product_description}}\n\nTú conservas el control de lo que puede usar. Aquí no se incluyen precios ni promesas de resultados.\n\nSi te resulta relevante, abre el enlace personal más abajo.",
+      "Hola,\n\n{{seller_display_name}} de {{seller_company}} desea presentar Buddy Web — el companion de Aipify que responde a las preguntas de los visitantes con el contenido que hayas aprobado.\n\n{{product_description}}\n\nTú conservas el control de lo que puede usar. Aquí no se incluyen precios ni promesas de resultados.\n\nSi te resulta relevante, abre el enlace personal más abajo.",
     ctaLabel: "Más información",
   },
 );
 
 const WEB_FOLLOW = L(
   {
-    subject: "Following up on Kompis Web",
+    subject: "Following up on Buddy Web",
     preheader: "A calm follow-up — no pressure.",
     body:
-      "Hello,\n\nThis is a short follow-up from {{seller_display_name}} ({{seller_company}}) about Kompis Web.\n\nIf you have questions, reply to this email. {{seller_contact}}\n\nPersonal link:",
+      "Hello,\n\nThis is a short follow-up from {{seller_display_name}} ({{seller_company}}) about Buddy Web.\n\nIf you have questions, reply to this email. {{seller_contact}}\n\nPersonal link:",
     ctaLabel: "Open link",
   },
   {
@@ -98,34 +98,34 @@ const WEB_FOLLOW = L(
     ctaLabel: "Åbn link",
   },
   {
-    subject: "Kontynuacja w sprawie Kompis Web",
+    subject: "Kontynuacja w sprawie Buddy Web",
     preheader: "Spokojna kontynuacja — bez nacisku.",
     body:
-      "Dzień dobry,\n\nTo krótka kontynuacja od {{seller_display_name}} ({{seller_company}}) w sprawie Kompis Web.\n\nJeśli masz pytania, odpowiedz na tę wiadomość. {{seller_contact}}\n\nOsobisty link:",
+      "Dzień dobry,\n\nTo krótka kontynuacja od {{seller_display_name}} ({{seller_company}}) w sprawie Buddy Web.\n\nJeśli masz pytania, odpowiedz na tę wiadomość. {{seller_contact}}\n\nOsobisty link:",
     ctaLabel: "Otwórz link",
   },
   {
-    subject: "Продовження щодо Kompis Web",
+    subject: "Продовження щодо Buddy Web",
     preheader: "Спокійне продовження — без тиску.",
     body:
-      "Вітаємо,\n\nЦе коротке продовження від {{seller_display_name}} ({{seller_company}}) щодо Kompis Web.\n\nЯкщо маєте запитання, просто відповідайте на цей лист. {{seller_contact}}\n\nПерсональне посилання:",
+      "Вітаємо,\n\nЦе коротке продовження від {{seller_display_name}} ({{seller_company}}) щодо Buddy Web.\n\nЯкщо маєте запитання, просто відповідайте на цей лист. {{seller_contact}}\n\nПерсональне посилання:",
     ctaLabel: "Відкрити посилання",
   },
   {
-    subject: "Seguimiento sobre Kompis Web",
+    subject: "Seguimiento sobre Buddy Web",
     preheader: "Un seguimiento calmado — sin presión.",
     body:
-      "Hola,\n\nEste es un breve seguimiento de {{seller_display_name}} ({{seller_company}}) sobre Kompis Web.\n\nSi tienes preguntas, responde a este correo. {{seller_contact}}\n\nEnlace personal:",
+      "Hola,\n\nEste es un breve seguimiento de {{seller_display_name}} ({{seller_company}}) sobre Buddy Web.\n\nSi tienes preguntas, responde a este correo. {{seller_contact}}\n\nEnlace personal:",
     ctaLabel: "Abrir enlace",
   },
 );
 
 const WEB_MEET = L(
   {
-    subject: "Would a short meeting about Kompis Web help?",
+    subject: "Would a short meeting about Buddy Web help?",
     preheader: "Optional meeting request — you decide.",
     body:
-      "Hello,\n\n{{seller_display_name}} from {{seller_company}} is available for a short meeting about Kompis Web if that would be useful.\n\n{{product_description}}\n\nReply to this email if you want to schedule something. No obligation.",
+      "Hello,\n\n{{seller_display_name}} from {{seller_company}} is available for a short meeting about Buddy Web if that would be useful.\n\n{{product_description}}\n\nReply to this email if you want to schedule something. No obligation.",
     ctaLabel: "View product page",
   },
   {
@@ -150,34 +150,34 @@ const WEB_MEET = L(
     ctaLabel: "Se produktsiden",
   },
   {
-    subject: "Czy krótkie spotkanie o Kompis Web byłoby pomocne?",
+    subject: "Czy krótkie spotkanie o Buddy Web byłoby pomocne?",
     preheader: "Opcjonalna prośba o spotkanie — Ty decydujesz.",
     body:
-      "Dzień dobry,\n\n{{seller_display_name}} z {{seller_company}} może umówić krótkie spotkanie o Kompis Web, jeśli to będzie pomocne.\n\n{{product_description}}\n\nOdpowiedz na tę wiadomość, jeśli chcesz coś ustalić. Bez zobowiązań.",
+      "Dzień dobry,\n\n{{seller_display_name}} z {{seller_company}} może umówić krótkie spotkanie o Buddy Web, jeśli to będzie pomocne.\n\n{{product_description}}\n\nOdpowiedz na tę wiadomość, jeśli chcesz coś ustalić. Bez zobowiązań.",
     ctaLabel: "Zobacz stronę produktu",
   },
   {
-    subject: "Чи була б корисною коротка зустріч про Kompis Web?",
+    subject: "Чи була б корисною коротка зустріч про Buddy Web?",
     preheader: "Необов’язковий запит на зустріч — ви вирішуєте.",
     body:
-      "Вітаємо,\n\n{{seller_display_name}} з {{seller_company}} може провести коротку зустріч про Kompis Web, якщо це буде корисно.\n\n{{product_description}}\n\nВідповідайте на цей лист, якщо хочете щось узгодити. Без зобов’язань.",
+      "Вітаємо,\n\n{{seller_display_name}} з {{seller_company}} може провести коротку зустріч про Buddy Web, якщо це буде корисно.\n\n{{product_description}}\n\nВідповідайте на цей лист, якщо хочете щось узгодити. Без зобов’язань.",
     ctaLabel: "Переглянути сторінку продукту",
   },
   {
-    subject: "¿Ayudaría una breve reunión sobre Kompis Web?",
+    subject: "¿Ayudaría una breve reunión sobre Buddy Web?",
     preheader: "Solicitud de reunión opcional — tú decides.",
     body:
-      "Hola,\n\n{{seller_display_name}} de {{seller_company}} puede mantener una breve reunión sobre Kompis Web si te resulta útil.\n\n{{product_description}}\n\nResponde a este correo si quieres concertar algo. Sin compromiso.",
+      "Hola,\n\n{{seller_display_name}} de {{seller_company}} puede mantener una breve reunión sobre Buddy Web si te resulta útil.\n\n{{product_description}}\n\nResponde a este correo si quieres concertar algo. Sin compromiso.",
     ctaLabel: "Ver página del producto",
   },
 );
 
 const WEB_INFO = L(
   {
-    subject: "Product information: Kompis Web",
+    subject: "Product information: Buddy Web",
     preheader: "Approved product information only.",
     body:
-      "Hello,\n\nHere is approved product information for Kompis Web from {{seller_display_name}} at {{seller_company}}.\n\n{{product_description}}\n\nUse the personal referral link for the official page.",
+      "Hello,\n\nHere is approved product information for Buddy Web from {{seller_display_name}} at {{seller_company}}.\n\n{{product_description}}\n\nUse the personal referral link for the official page.",
     ctaLabel: "Open referral link",
   },
   {
@@ -202,24 +202,24 @@ const WEB_INFO = L(
     ctaLabel: "Åbn salgslink",
   },
   {
-    subject: "Informacje o produkcie: Kompis Web",
+    subject: "Informacje o produkcie: Buddy Web",
     preheader: "Wyłącznie zatwierdzone informacje o produkcie.",
     body:
-      "Dzień dobry,\n\nOto zatwierdzone informacje o produkcie Kompis Web od {{seller_display_name}} z {{seller_company}}.\n\n{{product_description}}\n\nUżyj osobistego linku sprzedażowego do oficjalnej strony.",
+      "Dzień dobry,\n\nOto zatwierdzone informacje o produkcie Buddy Web od {{seller_display_name}} z {{seller_company}}.\n\n{{product_description}}\n\nUżyj osobistego linku sprzedażowego do oficjalnej strony.",
     ctaLabel: "Otwórz link sprzedażowy",
   },
   {
-    subject: "Інформація про продукт: Kompis Web",
+    subject: "Інформація про продукт: Buddy Web",
     preheader: "Лише схвалена інформація про продукт.",
     body:
-      "Вітаємо,\n\nОсь схвалена інформація про продукт Kompis Web від {{seller_display_name}} з {{seller_company}}.\n\n{{product_description}}\n\nВикористовуйте персональне посилання для продажу на офіційну сторінку.",
+      "Вітаємо,\n\nОсь схвалена інформація про продукт Buddy Web від {{seller_display_name}} з {{seller_company}}.\n\n{{product_description}}\n\nВикористовуйте персональне посилання для продажу на офіційну сторінку.",
     ctaLabel: "Відкрити посилання для продажу",
   },
   {
-    subject: "Información del producto: Kompis Web",
+    subject: "Información del producto: Buddy Web",
     preheader: "Solo información de producto aprobada.",
     body:
-      "Hola,\n\nAquí tienes información de producto aprobada sobre Kompis Web de {{seller_display_name}} en {{seller_company}}.\n\n{{product_description}}\n\nUsa el enlace personal de venta para la página oficial.",
+      "Hola,\n\nAquí tienes información de producto aprobada sobre Buddy Web de {{seller_display_name}} en {{seller_company}}.\n\n{{product_description}}\n\nUsa el enlace personal de venta para la página oficial.",
     ctaLabel: "Abrir enlace de venta",
   },
 );
@@ -271,9 +271,9 @@ export const CSP_EMAIL_TEMPLATE_REGISTRY: readonly CspEmailTemplateDefinition[] 
     published: false,
     locales: L(
       {
-        subject: "A short introduction to Kompis Bedrift",
+        subject: "A short introduction to Buddy Business",
         preheader: "Internal knowledge companion — draft template.",
-        body: "Hello,\n\n{{seller_display_name}} from {{seller_company}} would like to introduce Kompis Bedrift.\n\n{{product_description}}",
+        body: "Hello,\n\n{{seller_display_name}} from {{seller_company}} would like to introduce Buddy Business.\n\n{{product_description}}",
         ctaLabel: "Learn more",
       },
       {
@@ -295,21 +295,21 @@ export const CSP_EMAIL_TEMPLATE_REGISTRY: readonly CspEmailTemplateDefinition[] 
         ctaLabel: "Læs mere",
       },
       {
-        subject: "Krótkie wprowadzenie do Kompis Bedrift",
+        subject: "Krótkie wprowadzenie do Buddy Business",
         preheader: "Wewnętrzny companion wiedzy — szkic.",
-        body: "Dzień dobry,\n\n{{seller_display_name}} z {{seller_company}} chciał(a)by przedstawić Kompis Bedrift.\n\n{{product_description}}",
+        body: "Dzień dobry,\n\n{{seller_display_name}} z {{seller_company}} chciał(a)by przedstawić Buddy Business.\n\n{{product_description}}",
         ctaLabel: "Dowiedz się więcej",
       },
       {
-        subject: "Коротке знайомство з Kompis Bedrift",
+        subject: "Коротке знайомство з Buddy Business",
         preheader: "Внутрішній companion знань — чернетка.",
-        body: "Вітаємо,\n\n{{seller_display_name}} з {{seller_company}} хоче представити Kompis Bedrift.\n\n{{product_description}}",
+        body: "Вітаємо,\n\n{{seller_display_name}} з {{seller_company}} хоче представити Buddy Business.\n\n{{product_description}}",
         ctaLabel: "Дізнатися більше",
       },
       {
-        subject: "Una breve introducción a Kompis Bedrift",
+        subject: "Una breve introducción a Buddy Business",
         preheader: "Companion de conocimiento interno — borrador.",
-        body: "Hola,\n\n{{seller_display_name}} de {{seller_company}} desea presentar Kompis Bedrift.\n\n{{product_description}}",
+        body: "Hola,\n\n{{seller_display_name}} de {{seller_company}} desea presentar Buddy Business.\n\n{{product_description}}",
         ctaLabel: "Más información",
       },
     ),

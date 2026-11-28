@@ -29,12 +29,20 @@ assert.equal(kompisWebSalesHelperDisplayName("uk"), "Buddy");
 const NORDIC = new Set(["no", "sv", "da"]);
 const BUDDY = new Set(["en", "es", "pl", "uk"]);
 
-/** Nordic locales keep helper name Kompis; EN/ES/PL/UK use Buddy (product name Kompis Web stays). */
+function expectedProductWeb(locale: string): string {
+  return NORDIC.has(locale) ? "Kompis Web" : "Buddy Web";
+}
+
+function expectedProductBedrift(locale: string): string {
+  return NORDIC.has(locale) ? "Kompis Bedrift" : "Buddy Business";
+}
+
+/** Nordic locales keep helper name Kompis; EN/ES/PL/UK use Buddy. */
 function helperNameLeak(locale: string, sales: unknown): string[] {
   const blob = JSON.stringify(sales);
   const protectedBlob = blob
-    .replaceAll("Kompis Web", "«PW»")
-    .replaceAll("Kompis Bedrift", "«PB»");
+    .replaceAll(expectedProductWeb(locale), "«PW»")
+    .replaceAll(expectedProductBedrift(locale), "«PB»");
   const leaks: string[] = [];
   if (NORDIC.has(locale)) {
     if (protectedBlob.includes("Buddy")) leaks.push("unexpected Buddy in Nordic helper copy");
@@ -54,14 +62,16 @@ type AuditRow = {
 function walk(obj: unknown, path: string, rows: AuditRow[], locale: string) {
   if (typeof obj === "string") {
     if (!/Kompis|Buddy|buddy|kompis/i.test(obj)) return;
-    const withoutProduct = obj.replaceAll("Kompis Web", "").replaceAll("Kompis Bedrift", "");
+    const withoutProduct = obj
+      .replaceAll(expectedProductWeb(locale), "")
+      .replaceAll(expectedProductBedrift(locale), "");
     if (/\bBuddy\b/i.test(obj)) {
       rows.push({ locale, path, text: obj, kind: "assistant" });
     }
     if (/\bKompis\b/i.test(withoutProduct)) {
       rows.push({ locale, path, text: obj, kind: "assistant" });
     }
-    if (/Kompis Web/.test(obj)) {
+    if (obj.includes(expectedProductWeb(locale))) {
       rows.push({ locale, path, text: obj, kind: "product" });
     }
     if (/Aipify works for you/.test(obj)) {
@@ -119,12 +129,24 @@ for (const [locale, marketing] of localeBundles) {
   assert.match(surface, new RegExp(`\\b${expectedHelper}\\b`), `${locale}: helper name ${expectedHelper}`);
   if (BUDDY.has(locale)) {
     assert.doesNotMatch(
-      surface.replaceAll("Kompis Web", "«PW»").replaceAll("Kompis Bedrift", "«PB»"),
+      surface
+        .replaceAll(expectedProductWeb(locale), "«PW»")
+        .replaceAll(expectedProductBedrift(locale), "«PB»"),
       /\bKompis\b/,
       `${locale}: assistant must not be Kompis`,
     );
+    assert.match(
+      JSON.stringify(sales),
+      /Buddy Web/,
+      `${locale}: product name Buddy Web required`,
+    );
   } else {
     assert.doesNotMatch(surface, /\bBuddy\b/, `${locale}: assistant must not be Buddy`);
+    assert.match(
+      JSON.stringify(sales),
+      /Kompis Web/,
+      `${locale}: product name Kompis Web required`,
+    );
   }
 
   walk(sales, "kompisWebSales", auditRows, locale);
@@ -132,14 +154,16 @@ for (const [locale, marketing] of localeBundles) {
 
 const assistantMistakes = auditRows.filter((row) => {
   if (row.kind !== "assistant") return false;
-  const withoutProduct = row.text.replaceAll("Kompis Web", "").replaceAll("Kompis Bedrift", "");
+  const withoutProduct = row.text
+    .replaceAll(expectedProductWeb(row.locale), "")
+    .replaceAll(expectedProductBedrift(row.locale), "");
   if (NORDIC.has(row.locale)) return /\bBuddy\b/i.test(row.text);
   return /\bKompis\b/i.test(withoutProduct);
 });
 assert.equal(assistantMistakes.length, 0, JSON.stringify(assistantMistakes.slice(0, 5), null, 2));
 
 const productRows = auditRows.filter((r) => r.kind === "product");
-assert.ok(productRows.length > 0, "expected intentional Kompis Web product-name occurrences");
+assert.ok(productRows.length > 0, "expected intentional product-name occurrences");
 
 console.log(
   "kompis-web-sales locale policy: PASS",

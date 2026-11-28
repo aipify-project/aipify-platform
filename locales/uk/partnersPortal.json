@@ -290,8 +290,8 @@
       "notReadyBody": "Журнал продавця та розрахунки ще не активні в цьому середовищі. Функції залишаються недоступними, доки Aipify їх не ввімкне."
     },
     "kompis": {
-      "honestBlockedTitle": "Kompis help unavailable here",
-      "honestBlockedBody": "Kompis help is disabled during partner certification and test flows. Use Academy materials instead."
+      "honestBlockedTitle": "Buddy help unavailable here",
+      "honestBlockedBody": "Buddy help is disabled during partner certification and test flows. Use Academy materials instead."
     },
     "workspace": {
       "loading": "Завантаження робочого простору партнера…",
@@ -358,7 +358,7 @@
       },
       "academy": {
         "title": "Академія зростання",
-        "subtitle": "Навчання за продуктом і сертифікація. Прохідний бал — 80%. Допомога Kompis вимкнена під час тесту."
+        "subtitle": "Навчання за продуктом і сертифікація. Прохідний бал — 80%. Допомога Buddy вимкнена під час тесту."
       },
       "certifications": {
         "title": "Мої сертифікації",
@@ -428,7 +428,7 @@
       "intro": "You are ready for the certification test. Answer 15 questions. You must get at least 12 of 15 correct to pass.",
       "start": "Почати тест",
       "starting": "Запуск тесту",
-      "kompisBlocked": "Допомога Kompis вимкнена під час цього тесту. Aipify не дає підказок під час іспиту.",
+      "kompisBlocked": "Допомога Buddy вимкнена під час цього тесту. Aipify не дає підказок під час іспиту.",
       "progress": "Запитання {current} із {total}",
       "answered": "Відповідей: {count} із {total}",
       "previous": "Назад",
@@ -437,7 +437,7 @@
       "submitting": "Надсилання",
       "submitDisabledHint": "Дайте відповідь на всі запитання, щоб надіслати тест. Скористайтеся кнопкою «Назад», щоб знайти пропущені.",
       "questionRegion": "Запитання іспиту",
-      "passedTitle": "Congratulations! You are now certified in Kompis Web.",
+      "passedTitle": "Congratulations! You are now certified in Buddy Web.",
       "passedBody": "You answered enough questions correctly. Your certificate is ready when Aipify has recorded the result.",
       "failedTitle": "Sorry, you did not pass this time.",
       "failedBody": "You need at least 12 of 15 correct (80%). Review the chapters below, then try again with a new question set.",
@@ -454,13 +454,13 @@
       "scorePercentOnly": "Результат: {score}% — складено"
     },
     "lessons": {
-      "title": "Уроки про Kompis Web",
-      "intro": "You can revisit any chapter before the test. Kompis help is not available during the exam.",
+      "title": "Уроки про Buddy Web",
+      "intro": "You can revisit any chapter before the test. Buddy help is not available during the exam.",
       "lessonNumber": "Урок {number}",
       "plannedCatalogNote": "Пакети й ціни в цьому уроці — це запланований каталог, який ще не діє в білінгу. Ніколи не подавайте їх як обов’язкові пропозиції.",
-      "eyebrow": "Growth Academy · Kompis Web",
-      "heroTitle": "Get certified in Kompis Web",
-      "heroBody": "Learn to present Kompis Web in a safe and professional way. Read the six chapters, then take the certification test (at least 12 of 15 correct).",
+      "eyebrow": "Growth Academy · Buddy Web",
+      "heroTitle": "Get certified in Buddy Web",
+      "heroBody": "Learn to present Buddy Web in a safe and professional way. Read the six chapters, then take the certification test (at least 12 of 15 correct).",
       "chapterProgress": "Переглянуто розділів: {viewed} з {total}",
       "continueLesson": "Continue training",
       "startExamCta": "Start the certification test",
@@ -473,7 +473,7 @@
       "intro": "Дізнайтеся, як описано кожен продукт, його заплановану довідкову ціну та вашу комісію після публікації Aipify.",
       "filterLabel": "Фільтр за категорією",
       "filterAll": "Усі",
-      "filterKompis": "Kompis",
+      "filterKompis": "Buddy",
       "filterVoice": "Aipify Voice (майбутнє)",
       "sellable": "Доступний для продажу",
       "future": "Незабаром",
@@ -576,7 +576,7 @@
       "signatureTitle": "Підпис продавця",
       "signatureIntro": "Професійний підпис із фото, значком Certified Aipify Sales Partner, брендингом Aipify та особистим посиланням для продажів, коли сертифікація активна.",
       "signatureLockedNote": "Значок, логотип і твердження про сертифікацію належать системі. Фото та посилання беруться з вашого схваленого акаунта.",
-      "signatureBadgeActive": "Badge active for Kompis Web",
+      "signatureBadgeActive": "Badge active for Buddy Web",
       "signatureBadgeInactive": "Badge appears after you pass and your partner account stays approved.",
       "signatureCopyHtml": "Copy HTML",
       "signatureCopied": "Copied",
@@ -654,13 +654,13 @@
       "linkCta": "Створити посилання",
       "assetsTitle": "Бібліотека банерів і шаблонів",
       "assetsEmptyTitle": "Маркетингові матеріали ще не імпортовано",
-      "assetsEmptyBody": "Банери Budda/Buddy власника ще відсутні в цьому репозиторії. Імпортуйте затверджені банери продуктів у партнерську бібліотеку — тоді вони з’являться тут за продуктом і мовою. Доти використовуйте лише особисте посилання із затвердженим текстом.",
+      "assetsEmptyBody": "Банери Buddy власника ще відсутні в цьому репозиторії. Імпортуйте затверджені банери продуктів у партнерську бібліотеку — тоді вони з’являться тут за продуктом і мовою. Доти використовуйте лише особисте посилання із затвердженим текстом.",
       "productTabs": "Продукт",
       "localeTabs": "Мова",
       "voiceNote": "Aipify Voice незабаром і недоступний для активних банерів продажів.",
       "signatureNote": "Значки сертифікації та зафіксований текст продукту контролює Aipify. Ви можете додати лише ім’я, фото та автентифіковане посилання у дозволені поля.",
-      "filterKompisWeb": "Kompis Web",
-      "filterKompisBedrift": "Kompis Bedrift",
+      "filterKompisWeb": "Buddy Web",
+      "filterKompisBedrift": "Buddy Business",
       "filterVoice": "Aipify Voice"
     },
     "verify": {
@@ -1079,10 +1079,10 @@
     },
     "academyHub": {
       "productTabsLabel": "Продукти Academy",
-      "kompisWeb": "Kompis Web",
-      "kompisBedrift": "Kompis Bedrift",
+      "kompisWeb": "Buddy Web",
+      "kompisBedrift": "Buddy Business",
       "bedriftNotPublishedTitle": "Навчання ще не опубліковано",
-      "bedriftNotPublishedBody": "Academy для Kompis Bedrift ще недоступна. Ваш прогрес і сертифікат Kompis Web залишаються без змін.",
+      "bedriftNotPublishedBody": "Academy для Buddy Business ще недоступна. Ваш прогрес і сертифікат Buddy Web залишаються без змін.",
       "voiceFuture": "Aipify Voice",
       "voiceFutureBody": "Вміст Academy для цього продукту ще не опубліковано."
     },
