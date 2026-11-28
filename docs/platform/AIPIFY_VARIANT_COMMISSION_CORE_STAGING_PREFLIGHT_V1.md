@@ -49,7 +49,9 @@ Legacy rates require **explicit** variant mapping before any backfill — see `A
 1. `docs/platform/sql-candidates/csp_product_variants_billing_v1.sql`  
    SHA256: `9d7c6643f58054d29656ccee8a0bcfbb3fd932b42825e32766bd6741af98d426`
 2. `docs/platform/sql-candidates/csp_variant_commission_rate_versions_v1.sql`  
-   SHA256: `d34ecae9bc2d6b4c94de64b88c6e6ff5ddec017fcf389e3bea12d39a0aba864f`
+   SHA256 (Staging-installed / Git-aligned): `8a732222ca1aa9aa08e0c6300e71c9875934797393c1c7a5e9c3dcae03fb721e`  
+   Original preflight YES SHA (failed PL/pgSQL parse): `d34ecae9bc2d6b4c94de64b88c6e6ff5ddec017fcf389e3bea12d39a0aba864f`  
+   Deviation review: `docs/platform/AIPIFY_VARIANT_COMMISSION_STAGING_SQL_DEVIATION_REVIEW_V1.md`
 3. **After** DDL apply only — verify harness (not part of activation):  
    `docs/platform/sql-candidates/NOT_APPLIED_csp_variant_commission_staging_verify_harness_v1.sql`  
    SHA256: `017ee8fbd4f548025d54b450ab677a1fa554bf3f730be4ee8f97bcc16992c945`  

@@ -250,8 +250,8 @@ begin
     if v_existing.model = v_model
        and v_existing.currency = v_currency
        and v_existing.active is not distinct from coalesce(p_active, true)
-       and v_existing.amount is not distinct from case when v_model = 'fixed' then p_amount else null end
-       and v_existing.rate_pct is not distinct from case when v_model = 'percent' then p_rate_pct else null end
+       and v_existing.amount is not distinct from (case when v_model = 'fixed' then p_amount else null end)
+       and v_existing.rate_pct is not distinct from (case when v_model = 'percent' then p_rate_pct else null end)
        and v_existing.percent_basis is not distinct from v_basis
     then
       return jsonb_build_object(
@@ -275,8 +275,8 @@ begin
     percent_basis, active, effective_from, created_by, supersedes_id, notes
   ) values (
     p_product_id, v_key, v_interval, v_model,
-    case when v_model = 'fixed' then p_amount else null end,
-    case when v_model = 'percent' then p_rate_pct else null end,
+    (case when v_model = 'fixed' then p_amount else null end),
+    (case when v_model = 'percent' then p_rate_pct else null end),
     v_currency, v_basis, coalesce(p_active, true), v_effective, v_uid,
     p_supersedes_id, nullif(btrim(coalesce(p_notes, '')), '')
   )
@@ -294,8 +294,8 @@ begin
       'variant_key', v_key,
       'billing_interval', v_interval,
       'model', v_model,
-      'amount', case when v_model = 'fixed' then p_amount else null end,
-      'rate_pct', case when v_model = 'percent' then p_rate_pct else null end,
+      'amount', (case when v_model = 'fixed' then p_amount else null end),
+      'rate_pct', (case when v_model = 'percent' then p_rate_pct else null end),
       'currency', v_currency,
       'effective_from', v_effective,
       'settlement_activated', false
