@@ -44,7 +44,7 @@ const baseProduct = {
   localeApproved: true,
   logoSrc: null,
   heroImagePath: null,
-  accent: "purple",
+  accent: "violet",
   letter: "K",
   openHref: null,
   moduleKey: null,
