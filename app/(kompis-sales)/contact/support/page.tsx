@@ -39,6 +39,12 @@ export default async function ContactSupportPage() {
     mailtoFallback: t("marketing.supportIntake.mailtoFallback"),
     mailtoLabel: t("marketing.supportIntake.mailtoLabel"),
     verificationRequired: t("marketing.supportIntake.verificationRequired"),
+    privacy: t(intakeLive ? "marketing.supportIntake.privacy" : "marketing.supportIntake.privacyInactive"),
+    nameRequired: t("marketing.supportIntake.nameRequired"),
+    emailInvalid: t("marketing.supportIntake.emailInvalid"),
+    subjectTooShort: t("marketing.supportIntake.subjectTooShort"),
+    messageTooShort: t("marketing.supportIntake.messageTooShort"),
+    referenceLabel: t("marketing.supportIntake.referenceLabel"),
   };
 
   return (

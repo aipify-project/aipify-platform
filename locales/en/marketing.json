@@ -8472,7 +8472,14 @@
     "errorGeneric": "Could not send the request. Try again or use email.",
     "mailtoFallback": "Email remains available as an alternative contact channel.",
     "mailtoLabel": "Email support@aipify.ai",
-    "verificationRequired": "Complete the security check before submitting."
+    "verificationRequired": "Complete the security check before submitting.",
+    "privacy": "Aipify Group AS stores only the name, email, subject, and message you send, so support can reply. This information is not sold. You do not receive access to other requests.",
+    "privacyInactive": "This form is not saving requests yet. Aipify Group AS will not store what you type here until ticket intake is approved. Use the email alternative if you need to reach us now.",
+    "nameRequired": "Enter your name.",
+    "emailInvalid": "Enter a valid email address.",
+    "subjectTooShort": "Subject must be at least 3 characters.",
+    "messageTooShort": "Message must be at least 10 characters.",
+    "referenceLabel": "Reference"
   },
   "personalSalesPage": {
     "metaTitle": "Aipify",
