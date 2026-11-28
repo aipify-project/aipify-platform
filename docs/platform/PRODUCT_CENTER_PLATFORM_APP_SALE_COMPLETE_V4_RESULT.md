@@ -19,9 +19,11 @@ Date: 2026-11-27
 ## CORE_BLOCKED (exact owner SQL gates — do not apply without new approval)
 
 1. **Variant + billing storage** — `docs/platform/sql-candidates/csp_product_variants_billing_v1.sql`  
-   - Prior SHA256: `014d1a341b95de0587ce0d93edc1d31f19a1367d3916278035b5ddce317e9c4d`  
-   - Status: PREPARED_ONLY  
-   - Unlocks: persist variants, quota unit labels, monthly/yearly prices from Platform editor
+   - Authoritative SHA256: `9d7c6643f58054d29656ccee8a0bcfbb3fd932b42825e32766bd6741af98d426` (Staging-installed)  
+   - Obsolete SHA256 (do not use): `014d1a341b95de0587ce0d93edc1d31f19a1367d3916278035b5ddce317e9c4d`  
+   - Status: Staging APPLIED; Production PREPARED_ONLY pending exact YES  
+   - Unlocks: persist variants, quota unit labels, monthly/yearly prices from Platform editor  
+   - See: `docs/platform/AIPIFY_VARIANT_BILLING_PRODUCTION_SHA_DIFF_VERIFIED.md`
 
 2. **Channel RPC enrichment** — `docs/platform/sql-candidates/unified_product_catalog_channel_rpc_v1.sql`  
    - Prior SHA256: `1a4cf73ea426119dd913564e9fc0d5215b921018530553f17f13f72d9f8dee24`  

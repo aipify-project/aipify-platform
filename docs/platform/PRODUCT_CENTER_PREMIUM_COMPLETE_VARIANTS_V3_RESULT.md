@@ -26,9 +26,11 @@ Yearly price is an independent amount (not 12× monthly).
 ## SQL candidate (do not apply)
 
 - File: `docs/platform/sql-candidates/csp_product_variants_billing_v1.sql`
-- SHA256: `014d1a341b95de0587ce0d93edc1d31f19a1367d3916278035b5ddce317e9c4d`
+- SHA256 (authoritative Staging-installed / Production Step 1): `9d7c6643f58054d29656ccee8a0bcfbb3fd932b42825e32766bd6741af98d426`
+- Obsolete SHA (do not use): `014d1a341b95de0587ce0d93edc1d31f19a1367d3916278035b5ddce317e9c4d`
 - Effects: `csp_product_variants`, `csp_product_variant_prices`, read/upsert RPCs
 - Non-effects: no Stripe objects, no checkout enablement, no percent ledger, no seed products
+- See: `docs/platform/AIPIFY_VARIANT_BILLING_PRODUCTION_SHA_DIFF_VERIFIED.md`
 
 ## Remaining owner gates
 
