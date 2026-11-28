@@ -4,7 +4,7 @@
 -- Creates one disposable CSP seller, bridges once, asserts matrix, cleans exact IDs.
 -- Prerequisite: bridge SQL APPLIED + deps shim APPLIED on Staging.
 -- =============================================================================
--- Job: AIPIFY_UNIFIED_SELLER_BRIDGE_STAGING_E2E_SAFETY_PATCH / HARNESS
+-- Job: AIPIFY_UNIFIED_SELLER_BRIDGE_STAGING_CRM_PERMISSION_FIX / HARNESS
 -- Cleanup rule: delete ONLY exact UUIDs created by the current verify() run.
 -- No DELETE by display_name, email prefix, or slug pattern.
 -- =============================================================================
@@ -50,6 +50,10 @@ begin
 
   -- Dedicated org / customer / company / users by exact IDs only
   if p_org_id is not null then
+    delete from public.organization_role_permissions where organization_id = p_org_id;
+    get diagnostics v_n = row_count;
+    v_deleted := v_deleted || jsonb_build_object('role_permissions', v_n);
+    delete from public.organization_user_permissions where organization_id = p_org_id;
     delete from public.organization_users where organization_id = p_org_id;
     if p_user_id is not null then
       delete from public.organization_users where user_id = p_user_id;
@@ -143,6 +147,10 @@ declare
   v_org_count_after int;
   v_cleanup jsonb;
   v_pass boolean;
+  v_gp_view_before int;
+  v_gp_view_after int;
+  v_crm_unauth jsonb;
+  v_perm_ok boolean;
 begin
   if to_regprocedure('public.ensure_growth_partner_app_profile_for_csp_partner(uuid)') is null then
     return jsonb_build_object('ok', false, 'error', 'bridge_rpc_missing');
@@ -163,6 +171,9 @@ begin
     into v_comm_before from public.csp_commission_ledger;
   select count(*)::int into v_qs_before from public.csp_qualified_sales;
   select count(*)::int into v_org_count_before from public.organizations;
+  select count(*)::int into v_gp_view_before
+  from public.organization_role_permissions
+  where permission_key = 'growth_partner.view';
 
   insert into auth.users (
     instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,
@@ -254,7 +265,34 @@ begin
       and jsonb_typeof(v_links->'csp_attribution_links') = 'array';
   v_results := v_results || jsonb_build_array(jsonb_build_object('t','own_links_crm_ready','ok',v_ok,'r',v_links));
 
-  -- CRM list: must return ok=true for this certified seller (not merely "callable")
+  -- Permission scoped ONLY to fixture org + growth_partner role
+  v_perm_ok := exists (
+    select 1 from public.organization_role_permissions rp
+    where rp.organization_id = v_org_id
+      and rp.role = 'growth_partner'
+      and rp.permission_key = 'growth_partner.view'
+  )
+  and not exists (
+    select 1 from public.organization_role_permissions rp
+    where rp.organization_id = v_org_id
+      and rp.permission_key = 'growth_partner.view'
+      and rp.role is distinct from 'growth_partner'
+  )
+  and (
+    select count(*)::int from public.organization_role_permissions
+    where permission_key = 'growth_partner.view'
+      and organization_id is distinct from v_org_id
+  ) = v_gp_view_before
+  and (
+    select count(*)::int from public.organization_role_permissions
+    where permission_key = 'growth_partner.view'
+  ) = v_gp_view_before + 1;
+  v_results := v_results || jsonb_build_array(jsonb_build_object(
+    't','fixture_only_growth_partner_view_grant','ok',v_perm_ok,
+    'before', v_gp_view_before, 'org_id', v_org_id
+  ));
+
+  -- CRM list: must return ok=true for this certified seller
   v_crm := public.list_own_personal_sales_page_interests();
   v_ok := coalesce((v_crm->>'ok')::boolean, false) = true
       and jsonb_typeof(v_crm->'interests') = 'array'
@@ -266,6 +304,16 @@ begin
       );
   v_results := v_results || jsonb_build_array(jsonb_build_object(
     't','list_own_interests_ok_for_seller','ok',v_ok,'r',v_crm
+  ));
+
+  -- Unauthorized (platform admin, no GP membership) still forbidden
+  perform set_config('request.jwt.claim.sub', v_admin::text, true);
+  perform set_config('request.jwt.claims', json_build_object('sub', v_admin::text, 'role', 'authenticated')::text, true);
+  v_crm_unauth := public.list_own_personal_sales_page_interests();
+  v_ok := coalesce((v_crm_unauth->>'ok')::boolean, true) = false
+      and coalesce(v_crm_unauth->>'error','') = 'forbidden';
+  v_results := v_results || jsonb_build_array(jsonb_build_object(
+    't','unauthorized_interests_forbidden','ok',v_ok,'r',v_crm_unauth
   ));
 
   -- Suspend via platform admin
@@ -333,20 +381,31 @@ begin
     into v_comm_after from public.csp_commission_ledger;
   select count(*)::int into v_qs_after from public.csp_qualified_sales;
 
+  select count(*)::int into v_gp_view_after
+  from public.organization_role_permissions
+  where permission_key = 'growth_partner.view';
+
   v_ok := coalesce((v_cleanup->>'ok')::boolean, false)
       and v_org_count_after = v_org_count_before
       and v_attr_after = v_attr_before
       and v_comm_after = v_comm_before
       and v_qs_after = v_qs_before
+      and v_gp_view_after = v_gp_view_before
       and not exists (select 1 from public.csp_partner_profiles where id = v_partner_id)
       and (v_profile_id is null or not exists (select 1 from public.growth_partner_app_profiles where id = v_profile_id))
       and (v_org_id is null or not exists (select 1 from public.organizations where id = v_org_id))
+      and (v_org_id is null or not exists (
+            select 1 from public.organization_role_permissions where organization_id = v_org_id
+          ))
       and (v_company_id is null or not exists (select 1 from public.companies where id = v_company_id))
       and (v_user_id is null or not exists (select 1 from public.users where id = v_user_id))
       and not exists (select 1 from auth.users where id = v_admin)
       and not exists (select 1 from auth.users where id = v_seller)
       and not exists (select 1 from public.platform_admins where auth_user_id = v_admin);
-  v_results := v_results || jsonb_build_array(jsonb_build_object('t','cleanup_exact_ids_complete','ok',v_ok,'r',v_cleanup));
+  v_results := v_results || jsonb_build_array(jsonb_build_object(
+    't','cleanup_exact_ids_complete','ok',v_ok,'r',v_cleanup,
+    'gp_view_before', v_gp_view_before, 'gp_view_after', v_gp_view_after
+  ));
 
   v_pass := not exists (
     select 1 from jsonb_array_elements(v_results) e where coalesce((e->>'ok')::boolean, false) = false

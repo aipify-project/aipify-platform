@@ -6,7 +6,7 @@
 --          dedicated-org provisioner when Staging lacks Production tables.
 -- Does NOT create sellers, bridge profiles, or run E2E.
 -- =============================================================================
--- Job: AIPIFY_UNIFIED_SELLER_BRIDGE_STAGING_E2E_SAFETY_PATCH / DEPS_SHIM
+-- Job: AIPIFY_UNIFIED_SELLER_BRIDGE_STAGING_CRM_PERMISSION_FIX / DEPS_SHIM
 -- Prerequisite: bridge SQL already APPLIED_VERIFIED on Staging.
 -- =============================================================================
 
@@ -182,20 +182,29 @@ begin
     $fn$;
   end if;
 
-  if to_regprocedure('public._gp455_seed_role_permissions(uuid)') is null then
-    execute $fn$
-      create function public._gp455_seed_role_permissions(p_org_id uuid)
-      returns void
-      language plpgsql
-      security definer
-      set search_path = public
-      as $body$
-      begin
+  -- STAGING CRM fix: always install minimal seed (replaces prior no-op stub).
+  -- Grants ONLY growth_partner.view to role growth_partner for the dedicated org.
+  execute $fn$
+    create or replace function public._gp455_seed_role_permissions(p_org_id uuid)
+    returns void
+    language plpgsql
+    security definer
+    set search_path = public
+    as $body$
+    begin
+      if p_org_id is null then
         return;
-      end;
-      $body$;
-    $fn$;
-  end if;
+      end if;
+      insert into public.organization_role_permissions (organization_id, role, permission_key)
+      values (p_org_id, 'growth_partner', 'growth_partner.view')
+      on conflict (organization_id, role, permission_key) do nothing;
+    end;
+    $body$;
+  $fn$;
+  execute $c$
+    comment on function public._gp455_seed_role_permissions(uuid) is
+      'STAGING SHIM — grants only growth_partner.view to role growth_partner for p_org_id. Not Production seed.';
+  $c$;
 
   if to_regprocedure('public._mta_sync_organization_from_customer(uuid)') is null then
     execute $fn$
