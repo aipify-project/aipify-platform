@@ -10,6 +10,7 @@
 import { useMemo } from "react";
 import type { ProductVariantDefinition, ProductVariantPrice } from "@/lib/product-catalog/variants";
 import { canPersistVariantCommissionRules } from "@/lib/product-catalog/variant-commission";
+import { isConfiguredBillingPeriodPrice } from "@/lib/product-catalog/commission-rates-presentation";
 import {
   VariantCommissionFields,
   type VariantCommissionFieldsLabels,
@@ -208,6 +209,9 @@ export function ProductVariantBuilder({
                       className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2"
                     />
                   </label>
+                  <p className="sm:col-span-2 text-xs text-[color:var(--aipify-text-secondary)]">
+                    {labels.vatExclusive}
+                  </p>
                   <label className="text-sm">
                     <span className="font-medium">{labels.monthlyPrice}</span>
                     <input
@@ -216,21 +220,21 @@ export function ProductVariantBuilder({
                       onChange={(event) => patchPriceAmount(index, "month", event.target.value)}
                       className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2"
                     />
-                    <span className="mt-1 block text-xs text-[color:var(--aipify-text-secondary)]">
-                      {labels.vatExclusive}
-                    </span>
-                    <VariantCommissionFields
-                      interval="month"
-                      currency={currency}
-                      priceAmountMajor={variant.monthlyPrice?.amountMajor ?? null}
-                      value={variant.monthlyPrice?.commission}
-                      labels={{ ...labels.commission, title: labels.commissionMonth }}
-                      onChange={(next) => {
-                        const base =
-                          variant.monthlyPrice ?? priceShell("month", currency, null);
-                        patch(index, { monthlyPrice: { ...base, commission: next } });
-                      }}
-                    />
+                    {isConfiguredBillingPeriodPrice(variant.monthlyPrice?.amountMajor) ? (
+                      <VariantCommissionFields
+                        interval="month"
+                        currency={currency}
+                        priceAmountMajor={variant.monthlyPrice?.amountMajor ?? null}
+                        value={variant.monthlyPrice?.commission}
+                        labels={{ ...labels.commission, title: labels.commissionMonth }}
+                        compactVat
+                        onChange={(next) => {
+                          const base =
+                            variant.monthlyPrice ?? priceShell("month", currency, null);
+                          patch(index, { monthlyPrice: { ...base, commission: next } });
+                        }}
+                      />
+                    ) : null}
                   </label>
                   <label className="text-sm">
                     <span className="font-medium">{labels.yearlyPrice}</span>
@@ -240,20 +244,20 @@ export function ProductVariantBuilder({
                       onChange={(event) => patchPriceAmount(index, "year", event.target.value)}
                       className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2"
                     />
-                    <span className="mt-1 block text-xs text-[color:var(--aipify-text-secondary)]">
-                      {labels.vatExclusive}
-                    </span>
-                    <VariantCommissionFields
-                      interval="year"
-                      currency={currency}
-                      priceAmountMajor={variant.yearlyPrice?.amountMajor ?? null}
-                      value={variant.yearlyPrice?.commission}
-                      labels={{ ...labels.commission, title: labels.commissionYear }}
-                      onChange={(next) => {
-                        const base = variant.yearlyPrice ?? priceShell("year", currency, null);
-                        patch(index, { yearlyPrice: { ...base, commission: next } });
-                      }}
-                    />
+                    {isConfiguredBillingPeriodPrice(variant.yearlyPrice?.amountMajor) ? (
+                      <VariantCommissionFields
+                        interval="year"
+                        currency={currency}
+                        priceAmountMajor={variant.yearlyPrice?.amountMajor ?? null}
+                        value={variant.yearlyPrice?.commission}
+                        labels={{ ...labels.commission, title: labels.commissionYear }}
+                        compactVat
+                        onChange={(next) => {
+                          const base = variant.yearlyPrice ?? priceShell("year", currency, null);
+                          patch(index, { yearlyPrice: { ...base, commission: next } });
+                        }}
+                      />
+                    ) : null}
                   </label>
                   <label className="text-sm sm:col-span-2">
                     <span className="font-medium">{labels.oneTimePrice}</span>
@@ -263,21 +267,21 @@ export function ProductVariantBuilder({
                       onChange={(event) => patchPriceAmount(index, "one_time", event.target.value)}
                       className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2"
                     />
-                    <span className="mt-1 block text-xs text-[color:var(--aipify-text-secondary)]">
-                      {labels.vatExclusive}
-                    </span>
-                    <VariantCommissionFields
-                      interval="one_time"
-                      currency={currency}
-                      priceAmountMajor={variant.oneTimePrice?.amountMajor ?? null}
-                      value={variant.oneTimePrice?.commission}
-                      labels={{ ...labels.commission, title: labels.commissionOneTime }}
-                      onChange={(next) => {
-                        const base =
-                          variant.oneTimePrice ?? priceShell("one_time", currency, null);
-                        patch(index, { oneTimePrice: { ...base, commission: next } });
-                      }}
-                    />
+                    {isConfiguredBillingPeriodPrice(variant.oneTimePrice?.amountMajor) ? (
+                      <VariantCommissionFields
+                        interval="one_time"
+                        currency={currency}
+                        priceAmountMajor={variant.oneTimePrice?.amountMajor ?? null}
+                        value={variant.oneTimePrice?.commission}
+                        labels={{ ...labels.commission, title: labels.commissionOneTime }}
+                        compactVat
+                        onChange={(next) => {
+                          const base =
+                            variant.oneTimePrice ?? priceShell("one_time", currency, null);
+                          patch(index, { oneTimePrice: { ...base, commission: next } });
+                        }}
+                      />
+                    ) : null}
                   </label>
                   <label className="text-sm sm:col-span-2">
                     <span className="font-medium">{labels.providerPriceId}</span>

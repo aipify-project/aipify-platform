@@ -8645,7 +8645,7 @@
         "attribution_link_created": "Säljlänk skapad",
         "qualified_sale_recorded": "Kvalificerad försäljning registrerad"
       },
-      "ratesReadOnly": "Det här är de lagrade fasta provisionssatserna. Procentprovision kan inte sparas från den här sidan.",
+      "ratesReadOnly": "Skrivskyddad vy av säljarprovision per produktvariant och betalningsperiod. Redigera satser i produktredigeraren.",
       "directionAdminToPartner": "Från Aipify till säljare",
       "directionPartnerToAdmin": "Från säljare till Aipify",
       "deliveryStatus": {
@@ -8685,7 +8685,22 @@
       "ratesColInterval": "Faktureringsperiod",
       "ratesColModel": "Modell",
       "ratesLegacyProductTitle": "Äldre produktnivåsatser (oförändrade)",
-      "ratesVariantCoreTitle": "Variantprovisionsregler (Core)"
+      "ratesVariantCoreTitle": "Variantprovisionsregler (Core)",
+      "ratesColCustomerPrice": "Kundpris (exkl. moms)",
+      "ratesColCommission": "Provision",
+      "ratesNotConfigured": "Inte konfigurerad",
+      "ratesCalculatedAtPayment": "Beräknas vid betalning",
+      "ratesEditProduct": "Redigera produkt",
+      "ratesHistoricalTitle": "Historiska satser",
+      "ratesEmptyTitle": "Inga variantsprovisioner sparade",
+      "ratesEmptyBody": "När Platform sparar säljarprovision per variant och betalningsperiod i produktredigeraren visas satserna här. Inget hittas på.",
+      "ratesIntervalMonth": "Månadsvis",
+      "ratesIntervalYear": "Årsvis",
+      "ratesIntervalOneTime": "Engångs",
+      "ratesFixedZero": "{amount} (konfigurerad)",
+      "ratesPercentOfNet": "{rate} % av netto efter rabatt (exkl. moms)",
+      "ratesEstimatedAmount": "uppskattning {amount}",
+      "ratesExVatNote": "Kundpriser och provisioner är exkl. moms. Äldre produktsatser hålls åtskilda och används aldrig som automatisk variantsprovision."
     },
     "messages": {
       "title": "Kommunikation",

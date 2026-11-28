@@ -38,6 +38,7 @@ export function VariantCommissionFields({
   value,
   labels,
   onChange,
+  compactVat = false,
 }: {
   interval: ProductBillingInterval;
   currency: string;
@@ -45,6 +46,8 @@ export function VariantCommissionFields({
   value: VariantIntervalCommissionRule | null | undefined;
   labels: VariantCommissionFieldsLabels;
   onChange: (next: VariantIntervalCommissionRule | null) => void;
+  /** When true, skip repeating ex-VAT lines already shown on the parent price card. */
+  compactVat?: boolean;
 }) {
   if (value == null) {
     return (
@@ -171,10 +174,12 @@ export function VariantCommissionFields({
             }
             className="mt-1 w-full rounded-xl border border-[color:var(--aipify-border)] px-3 py-2 disabled:opacity-60"
           />
-          <span className="mt-1 block text-xs text-[color:var(--aipify-text-secondary)]">
-            {labels.exVat}
-            {rule.amountMajor === 0 ? ` · ${labels.freeHint}` : ""}
-          </span>
+          {!compactVat || rule.amountMajor === 0 ? (
+            <span className="mt-1 block text-xs text-[color:var(--aipify-text-secondary)]">
+              {compactVat ? null : labels.exVat}
+              {rule.amountMajor === 0 ? `${compactVat ? "" : " · "}${labels.freeHint}` : ""}
+            </span>
+          ) : null}
         </label>
       ) : (
         <label className="block text-sm">
@@ -202,6 +207,7 @@ export function VariantCommissionFields({
           />
           <span className="mt-1 block text-xs text-[color:var(--aipify-text-secondary)]">
             {labels.percentBasis}
+            {compactVat ? null : ` · ${labels.exVat}`}
           </span>
         </label>
       )}
@@ -211,7 +217,9 @@ export function VariantCommissionFields({
           ? labels.previewInactive
           : preview.amountMajor == null
             ? labels.preview
-            : `${labels.preview}: ${preview.amountMajor.toLocaleString()} ${preview.currency ?? currency} (${labels.exVat})`}
+            : `${labels.preview}: ${preview.amountMajor.toLocaleString()} ${preview.currency ?? currency}${
+                compactVat ? "" : ` (${labels.exVat})`
+              }`}
       </p>
     </div>
   );

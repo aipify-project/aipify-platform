@@ -8655,7 +8655,7 @@
         "attribution_link_created": "Sales link created",
         "qualified_sale_recorded": "Qualified sale recorded"
       },
-      "ratesReadOnly": "These are the stored fixed commission rates. Percent commission cannot be saved from this page.",
+      "ratesReadOnly": "Read-only view of seller commission per product variant and billing period. Edit rates in the product editor.",
       "newMessage": "New message",
       "closeCompose": "Close",
       "fromAdmin": "Platform admin",
@@ -8685,7 +8685,22 @@
       "ratesColInterval": "Billing period",
       "ratesColModel": "Model",
       "ratesLegacyProductTitle": "Legacy product-level rates (unchanged)",
-      "ratesVariantCoreTitle": "Variant commission rules (Core)"
+      "ratesVariantCoreTitle": "Variant commission rules (Core)",
+      "ratesColCustomerPrice": "Customer price (ex VAT)",
+      "ratesColCommission": "Commission",
+      "ratesNotConfigured": "Not configured",
+      "ratesCalculatedAtPayment": "Calculated at payment",
+      "ratesEditProduct": "Edit product",
+      "ratesHistoricalTitle": "Historical rates",
+      "ratesEmptyTitle": "No variant commission rates stored",
+      "ratesEmptyBody": "When Platform saves seller commission per variant and billing period in the product editor, the rates appear here. Nothing is invented.",
+      "ratesIntervalMonth": "Monthly",
+      "ratesIntervalYear": "Yearly",
+      "ratesIntervalOneTime": "One-time",
+      "ratesFixedZero": "{amount} (configured)",
+      "ratesPercentOfNet": "{rate}% of net after discount (ex VAT)",
+      "ratesEstimatedAmount": "estimate {amount}",
+      "ratesExVatNote": "Customer prices and commissions are exclusive of VAT. Legacy product-level rates stay separate and are never used as automatic variant commission."
     },
     "messages": {
       "title": "Communication",

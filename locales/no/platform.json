@@ -8378,7 +8378,7 @@
         "attribution_link_created": "Salgslenke opprettet",
         "qualified_sale_recorded": "Kvalifisert salg registrert"
       },
-      "ratesReadOnly": "Dette er de lagrede faste provisjonssatsene. Prosentprovisjon kan ikke lagres fra denne siden.",
+      "ratesReadOnly": "Skrivebeskyttet visning av selgerprovisjon per produktvariant og betalingsperiode. Rediger satser i produkteditoren.",
       "directionAdminToPartner": "Fra Aipify til selger",
       "directionPartnerToAdmin": "Fra selger til Aipify",
       "deliveryStatus": {
@@ -8418,7 +8418,22 @@
       "ratesColInterval": "Faktureringsperiode",
       "ratesColModel": "Modell",
       "ratesLegacyProductTitle": "Eldre produktnivå-satser (uendret)",
-      "ratesVariantCoreTitle": "Variantprovisjonsregler (Core)"
+      "ratesVariantCoreTitle": "Variantprovisjonsregler (Core)",
+      "ratesColCustomerPrice": "Kundepris (eks. MVA)",
+      "ratesColCommission": "Provisjon",
+      "ratesNotConfigured": "Ikke konfigurert",
+      "ratesCalculatedAtPayment": "Beregnes ved betaling",
+      "ratesEditProduct": "Rediger produkt",
+      "ratesHistoricalTitle": "Historiske satser",
+      "ratesEmptyTitle": "Ingen variantprovisjoner lagret",
+      "ratesEmptyBody": "Når Platform lagrer selgerprovisjon per variant og betalingsperiode i produkteditoren, vises satsene her. Ingenting finnes opp.",
+      "ratesIntervalMonth": "Månedlig",
+      "ratesIntervalYear": "Årlig",
+      "ratesIntervalOneTime": "Engangs",
+      "ratesFixedZero": "{amount} (konfigurert)",
+      "ratesPercentOfNet": "{rate} % av netto etter rabatt (eks. MVA)",
+      "ratesEstimatedAmount": "estimat {amount}",
+      "ratesExVatNote": "Kundepriser og provisjoner er ekskl. MVA. Eldre produktsatser holdes adskilt og brukes aldri som automatisk variantprovisjon."
     },
     "messages": {
       "title": "Kommunikasjon",

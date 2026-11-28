@@ -1,12 +1,21 @@
 import { NextResponse } from "next/server";
 import { guardPrivilegedPlatformApi } from "@/lib/auth/platform-server-access";
-import { listVariantCommissionRatesFromCore } from "@/lib/product-catalog/variant-commission-core";
+import {
+  buildCustomerPriceHints,
+  type CustomerPriceHint,
+  customerPriceLookupKey,
+} from "@/lib/product-catalog/commission-rates-presentation";
+import {
+  listVariantCommissionRatesFromCore,
+  loadProductVariantsBundle,
+} from "@/lib/product-catalog/variant-commission-core";
 import { resolveVariantCommissionPersistCapability } from "@/lib/product-catalog/variant-commission-core-gate";
 import { createClient } from "@/lib/supabase/server";
 
 /**
  * Shared variant commission list for Provisjonspriser.
- * Same Core source as product editor. Production fail-closed until activation flag.
+ * Same Core source as product editor. Includes customer price hints from variants bundle when available.
+ * Production fail-closed until activation flag. Never invents prices.
  */
 export async function GET(request: Request) {
   try {
@@ -23,6 +32,7 @@ export async function GET(request: Request) {
           error: capability.productionBound ? "production_fail_closed" : "persist_env_disabled",
           reason: capability.reason,
           rows: [],
+          price_hints: {},
           settlement_activated: false,
         },
         { status: capability.productionBound ? 403 : 503 },
@@ -50,21 +60,39 @@ export async function GET(request: Request) {
           error: listed.error,
           detail: listed.detail ?? null,
           rows: [],
+          price_hints: {},
           settlement_activated: false,
         },
         { status },
       );
     }
 
+    const priceHints: Record<string, CustomerPriceHint> = {};
+    const productKeys = [
+      ...new Set(
+        listed.rows
+          .map((r) => (r.productKey ?? "").trim())
+          .filter((k) => k.length > 0),
+      ),
+    ];
+    for (const productKey of productKeys) {
+      const loaded = await loadProductVariantsBundle(supabase, productKey);
+      if (!loaded.ok) continue;
+      Object.assign(priceHints, buildCustomerPriceHints(productKey, loaded.variants));
+    }
+
     return NextResponse.json({
       found: true,
       persist_enabled: true,
       rows: listed.rows,
+      price_hints: priceHints,
       settlement_activated: false,
+      // Expose key helper for clients that rebuild lookups.
+      lookup_key_example: customerPriceLookupKey("product_key", "variant_key", "month"),
     });
   } catch {
     return NextResponse.json(
-      { found: false, error: "variant_commission_rates_load_failed", rows: [] },
+      { found: false, error: "variant_commission_rates_load_failed", rows: [], price_hints: {} },
       { status: 500 },
     );
   }
