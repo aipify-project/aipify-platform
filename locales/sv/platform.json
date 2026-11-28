@@ -9331,6 +9331,16 @@
     "notMeasuredHint": "Inte mätt ännu. Det finns ingen tillförlitlig aktivitet eller besökssiffra för det här fönstret.",
     "unavailable": "Inte tillgängligt",
     "dayScope": "Kalenderdygn ({zone})",
-    "lastChecked": "Senast kontrollerad"
+    "lastChecked": "Senast kontrollerad",
+    "operationalShort": "I drift",
+    "newAppCustomersShort": "APP+",
+    "newSellersShort": "Säljare+",
+    "appCustomersOnlineShort": "APP online",
+    "sellersOnlineShort": "Säljare online",
+    "signedInUsersShort": "Inloggade",
+    "visitorsShort": "Besökare",
+    "stale": "Uppdatering fördröjd",
+    "expand": "Status",
+    "collapse": "Dölj status"
   }
 }

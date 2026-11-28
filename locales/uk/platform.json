@@ -9331,6 +9331,16 @@
     "notMeasuredHint": "Ще не виміряно. Немає надійної активності чи кількості відвідувань для цього вікна.",
     "unavailable": "Недоступно",
     "dayScope": "Календарна доба ({zone})",
-    "lastChecked": "Востаннє перевірено"
+    "lastChecked": "Востаннє перевірено",
+    "operationalShort": "Працює",
+    "newAppCustomersShort": "APP+",
+    "newSellersShort": "Продавці+",
+    "appCustomersOnlineShort": "APP онлайн",
+    "sellersOnlineShort": "Продавці онлайн",
+    "signedInUsersShort": "Увійшли",
+    "visitorsShort": "Відвідувачі",
+    "stale": "Оновлення затримано",
+    "expand": "Статус",
+    "collapse": "Сховати статус"
   }
 }

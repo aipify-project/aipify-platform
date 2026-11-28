@@ -8831,6 +8831,16 @@
     "notMeasuredHint": "Ikke målt endnu. Der findes ingen pålidelig aktivitet eller besøgstal for dette vindue.",
     "unavailable": "Ikke tilgængelig",
     "dayScope": "Kalenderdøgn ({zone})",
-    "lastChecked": "Sidst kontrolleret"
+    "lastChecked": "Sidst kontrolleret",
+    "operationalShort": "I drift",
+    "newAppCustomersShort": "APP+",
+    "newSellersShort": "Sælgere+",
+    "appCustomersOnlineShort": "APP online",
+    "sellersOnlineShort": "Sælgere online",
+    "signedInUsersShort": "Logget ind",
+    "visitorsShort": "Besøgende",
+    "stale": "Opdatering forsinket",
+    "expand": "Status",
+    "collapse": "Skjul status"
   }
 }

@@ -41,6 +41,8 @@ type TopbarProps = {
   feedbackButton?: ReactNode;
   /** Customer APP: Contact Support shortcut — separate from Share feedback. */
   supportContactButton?: ReactNode;
+  /** Platform Admin only: global live status between search and organization selector. */
+  statusSlot?: ReactNode;
 };
 
 export default function Topbar({
@@ -68,10 +70,11 @@ export default function Topbar({
   companionButton,
   feedbackButton,
   supportContactButton,
+  statusSlot,
 }: TopbarProps) {
   return (
-    <header className={`sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-8 ${AipifyShellClasses.topbar}`}>
-      <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+    <header className={`sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-2 px-3 sm:gap-3 sm:px-6 lg:gap-4 lg:px-8 ${AipifyShellClasses.topbar}`}>
+      <div className="flex min-w-0 shrink items-center gap-2 sm:gap-3">
         <button
           type="button"
           onClick={onMenuClick}
@@ -94,7 +97,7 @@ export default function Topbar({
           </svg>
         </button>
 
-        <div className="relative min-w-0 flex-1 max-w-md">
+        <div className="relative min-w-0 w-[min(100%,18rem)] sm:w-[min(100%,20rem)]">
           {onCommandBarClick ? (
             <button
               type="button"
@@ -149,6 +152,10 @@ export default function Topbar({
           )}
         </div>
       </div>
+
+      {statusSlot ? (
+        <div className="min-w-0 flex-1 overflow-visible px-1">{statusSlot}</div>
+      ) : null}
 
       <div className="flex shrink-0 items-center gap-2 sm:gap-3">
         {supportContactButton}

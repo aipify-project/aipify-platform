@@ -1,0 +1,52 @@
+-- PREPARED_ONLY — do not apply in any environment without separate owner approval.
+-- Agent 4 (Platform Admin global live status bar) — candidacy only.
+--
+-- PURPOSE
+-- Provide one Platform-admin-only snapshot for online / signed-in indicators so the
+-- global topbar can leave not_measured for:
+--   • APP customers online now (unique users, presence freshness window)
+--   • Sellers online now (seller/program context, no double-count within indicator)
+--   • Signed-in users now (unique authenticated users with active presence — not
+--     overlapping category sums, not mere valid JWT alone)
+--
+-- OUT OF SCOPE HERE
+-- • Visitors today — public analytics / GA4 is Agent 3; do not invent tracking.
+-- • New APP customers / new sellers — already served by existing reads.
+-- • New presence writes, tracking, or heartbeat publishers.
+--
+-- ASSUMPTIONS TO VERIFY BEFORE APPLY
+-- 1. An authoritative presence/heartbeat table with user_id + last_seen_at exists
+--    and documents freshness (recommended window: 5 minutes).
+-- 2. Role/program context can distinguish APP customer users vs sellers without
+--    double-counting inside a single indicator.
+-- 3. Platform access uses the same gate as other portal RPCs
+--    (e.g. _ppsf258_require_platform_access / is_platform_admin).
+--
+-- Until this (or an equivalent verified contract) is approved and applied, the
+-- UI MUST show not_measured / unavailable — never fabricated zeros.
+
+-- Placeholder signature only — replace body after schema verification.
+-- create or replace function public.get_platform_admin_live_status_presence_snapshot()
+-- returns jsonb
+-- language plpgsql
+-- stable
+-- security definer
+-- set search_path = public
+-- as $$
+-- begin
+--   perform public._ppsf258_require_platform_access();
+--   return jsonb_build_object(
+--     'freshness_window_seconds', 300,
+--     'day_time_zone', 'UTC',
+--     'app_customers_online', null,
+--     'sellers_online', null,
+--     'signed_in_users', null,
+--     'checked_at', timezone('utc', now())
+--   );
+-- end;
+-- $$;
+--
+-- revoke all on function public.get_platform_admin_live_status_presence_snapshot() from public;
+-- grant execute on function public.get_platform_admin_live_status_presence_snapshot() to authenticated;
+
+select 'platform_admin_global_live_status_presence_snapshot_v1_prepared_only'::text as candidate_marker;

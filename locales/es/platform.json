@@ -2652,6 +2652,16 @@
     "notMeasuredHint": "Aún no medido. No hay una actividad ni un recuento de visitas fiables para este periodo.",
     "unavailable": "No disponible",
     "dayScope": "Día natural ({zone})",
-    "lastChecked": "Última comprobación"
+    "lastChecked": "Última comprobación",
+    "operationalShort": "En servicio",
+    "newAppCustomersShort": "APP+",
+    "newSellersShort": "Vendedores+",
+    "appCustomersOnlineShort": "APP en línea",
+    "sellersOnlineShort": "Vendedores en línea",
+    "signedInUsersShort": "Con sesión",
+    "visitorsShort": "Visitantes",
+    "stale": "Actualización retrasada",
+    "expand": "Estado",
+    "collapse": "Ocultar estado"
   }
 }

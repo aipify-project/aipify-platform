@@ -9331,6 +9331,16 @@
     "notMeasuredHint": "Jeszcze nie mierzone. Brak wiarygodnej aktywności lub liczby odwiedzin dla tego okna.",
     "unavailable": "Niedostępne",
     "dayScope": "Doba kalendarzowa ({zone})",
-    "lastChecked": "Ostatnio sprawdzono"
+    "lastChecked": "Ostatnio sprawdzono",
+    "operationalShort": "Działa",
+    "newAppCustomersShort": "APP+",
+    "newSellersShort": "Sprzedawcy+",
+    "appCustomersOnlineShort": "APP online",
+    "sellersOnlineShort": "Sprzedawcy online",
+    "signedInUsersShort": "Zalogowani",
+    "visitorsShort": "Odwiedzający",
+    "stale": "Aktualizacja opóźniona",
+    "expand": "Status",
+    "collapse": "Ukryj status"
   }
 }

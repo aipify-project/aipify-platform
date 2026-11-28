@@ -25,6 +25,8 @@ import {
 import { NotificationCenterDrawer } from "@/components/presence/NotificationCenterDrawer";
 import type { UnifiedNotificationCenterLabels } from "@/lib/presence/unified-notification-feed";
 import Topbar from "./Topbar";
+import { PlatformGlobalLiveStatusBar } from "@/components/platform/platform-portal/PlatformGlobalLiveStatusBar";
+import type { PlatformTrafficStatusLabels } from "@/lib/platform-portal/traffic-status-labels";
 import { OrganizationSwitcher } from "@/components/app/organization";
 import {
   ProductContextSwitcher,
@@ -160,6 +162,8 @@ type DashboardShellProps = {
     href: string;
     label: string;
   };
+  /** Platform Admin global live status bar (topbar slot). */
+  trafficStatusLabels?: PlatformTrafficStatusLabels;
   onMenuClick?: () => void;
   children: React.ReactNode;
 };
@@ -202,6 +206,7 @@ export default function DashboardShell({
   customerProfileLink,
   customerSupportLink,
   supportContactLink,
+  trafficStatusLabels,
   children,
 }: DashboardShellProps) {
   if (commandBar) {
@@ -246,6 +251,7 @@ export default function DashboardShell({
           customerProfileLink={customerProfileLink}
           customerSupportLink={customerSupportLink}
           supportContactLink={supportContactLink}
+          trafficStatusLabels={trafficStatusLabels}
           shellUiLabels={shellUiLabels}
           organizationSwitcherLabels={organizationSwitcherLabels}
           productContext={productContext}
@@ -292,6 +298,7 @@ export default function DashboardShell({
       customerProfileLink={customerProfileLink}
       customerSupportLink={customerSupportLink}
       supportContactLink={supportContactLink}
+      trafficStatusLabels={trafficStatusLabels}
       shellUiLabels={shellUiLabels}
       organizationSwitcherLabels={organizationSwitcherLabels}
       productContext={productContext}
@@ -342,6 +349,7 @@ function DashboardShellFrame({
   customerProfileLink,
   customerSupportLink,
   supportContactLink,
+  trafficStatusLabels,
   commandBarLabels,
   children,
 }: DashboardShellFrameProps) {
@@ -735,6 +743,14 @@ function DashboardShellFrame({
           feedbackButton={
             shellVariant === "customer" && voiceOfCustomerLabels ? (
               <TopbarShareFeedbackButton labels={voiceOfCustomerLabels} />
+            ) : undefined
+          }
+          statusSlot={
+            shellVariant === "platform" && trafficStatusLabels ? (
+              <PlatformGlobalLiveStatusBar
+                labels={trafficStatusLabels}
+                locale={locale}
+              />
             ) : undefined
           }
         />

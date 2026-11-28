@@ -9337,6 +9337,16 @@
     "notMeasuredHint": "Not measured yet. There is no reliable activity or visitor count for this window.",
     "unavailable": "Not available",
     "dayScope": "Calendar day ({zone})",
-    "lastChecked": "Last checked"
+    "lastChecked": "Last checked",
+    "operationalShort": "Operating",
+    "newAppCustomersShort": "APP+",
+    "newSellersShort": "Sellers+",
+    "appCustomersOnlineShort": "APP online",
+    "sellersOnlineShort": "Sellers online",
+    "signedInUsersShort": "Signed in",
+    "visitorsShort": "Visitors",
+    "stale": "Update delayed",
+    "expand": "Status",
+    "collapse": "Hide status"
   }
 }
