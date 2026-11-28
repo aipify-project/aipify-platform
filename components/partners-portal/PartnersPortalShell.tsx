@@ -12,6 +12,10 @@ import {
 import { CSP_PARTNER_PORTAL_NAV_GROUPS } from "@/lib/partners-portal/csp-nav";
 import { SELLER_PORTAL_LAYOUT } from "@/lib/partners-portal/design-tokens";
 import { markPartnersSoftNavReady, markPartnersSoftNavStart } from "@/lib/partners-portal/soft-nav-perf";
+import {
+  mapPartnersHrefToAppHost,
+  salesPartnerPathIsActive,
+} from "@/lib/sales-partner-app-migration/phase-c-shared-surfaces";
 import GrowthPartnerPortalSignOutButton from "@/components/growth-partner-portal/GrowthPartnerPortalSignOutButton";
 import { PoweredByAipifyFooter } from "@/components/branding/PoweredByAipifyFooter";
 
@@ -36,14 +40,7 @@ type PartnersPortalShellProps = {
 const NAV_OPEN_KEY = "aipify.csp.nav.open";
 
 function itemIsActive(href: string, pathname: string, section: string | null): boolean {
-  const [path, query = ""] = href.split("?");
-  const wanted = new URLSearchParams(query).get("section");
-  if (path === "/partners") return pathname === "/partners";
-  const pathMatch = pathname === path || pathname.startsWith(`${path}/`);
-  if (!pathMatch) return false;
-  if (wanted) return section === wanted;
-  if (path === "/partners/marketing/assets") return section !== "library";
-  return true;
+  return salesPartnerPathIsActive(href, pathname, section);
 }
 
 function activeGroupId(groups: PartnersPortalNavGroup[], pathname: string, section: string | null): string {
@@ -168,7 +165,15 @@ function PartnersPortalFrame({
     return (
       <nav className="flex h-full flex-col" aria-label={navLabels.mainNavigation ?? portalTitle}>
         <div className="border-b border-[#E8E4F2] px-4 py-4">
-          <Link href={PARTNERS_PORTAL_HOME_ROUTE} className="flex items-center gap-3" onClick={() => setMobileOpen(false)}>
+          <Link
+            href={
+              certifiedSalesPartnerMode
+                ? mapPartnersHrefToAppHost(PARTNERS_PORTAL_HOME_ROUTE)
+                : PARTNERS_PORTAL_HOME_ROUTE
+            }
+            className="flex items-center gap-3"
+            onClick={() => setMobileOpen(false)}
+          >
             <Image
               src="/website-kompis/design-v1/brand/aipify-mark.svg"
               alt=""
@@ -212,13 +217,16 @@ function PartnersPortalFrame({
                 )}
                 <ul id={`${idPrefix}-csp-nav-${group.id}`} className={open ? "space-y-0.5 pb-1" : "hidden"} hidden={!open}>
                   {group.items.map((item) => {
+                    const href = certifiedSalesPartnerMode
+                      ? mapPartnersHrefToAppHost(item.href)
+                      : item.href;
                     const active = certifiedSalesPartnerMode
                       ? itemIsActive(item.href, pathname, section)
                       : pathname === item.href || (item.href !== "/partners" && pathname.startsWith(item.href));
                     return (
                       <li key={item.id}>
                         <Link
-                          href={item.href}
+                          href={href}
                           prefetch
                           aria-current={active ? "page" : undefined}
                           onClick={() => setMobileOpen(false)}

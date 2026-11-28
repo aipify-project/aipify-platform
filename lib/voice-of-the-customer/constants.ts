@@ -59,3 +59,9 @@ export const PRIORITY_BADGES: Record<FeedbackPriority, string> = {
 export const CUSTOMER_FEEDBACK_POLICY_ARTICLE_SLUG = "customer-feedback-and-product-improvement";
 
 export const CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH = `/app/support/knowledge-center/articles/${CUSTOMER_FEEDBACK_POLICY_ARTICLE_SLUG}`;
+
+/**
+ * Public marketing Knowledge Center path — used by partner/seller feedback so
+ * guidelines do not bounce partners into customer APP login.
+ */
+export const PARTNER_FEEDBACK_POLICY_ARTICLE_PATH = `/knowledge/articles/${CUSTOMER_FEEDBACK_POLICY_ARTICLE_SLUG}`;

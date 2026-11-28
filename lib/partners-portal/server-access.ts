@@ -2,6 +2,7 @@ import { cache } from "react";
 import { NextResponse } from "next/server";
 import type { SupabaseClient, User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
+import { getAuthenticatedUserFromSession } from "@/lib/supabase/session-auth";
 import {
   fetchCspPartnerStatusForAuthUser,
   isCspPartnerPortalStatusAllowed,
@@ -34,9 +35,8 @@ export type PartnersPortalServerAccess =
 export const resolvePartnersPortalServerAccess = cache(async (): Promise<PartnersPortalServerAccess> => {
   try {
     const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    // Cookie session only — proxy owns refresh; avoid Auth network getUser on every gate.
+    const user = await getAuthenticatedUserFromSession(supabase);
     if (!user) return { kind: "unauthorized" };
 
     const avatarUrl = resolvePartnersAvatarPointer(user.user_metadata?.avatar_url);

@@ -8,12 +8,15 @@ type TopbarShareFeedbackButtonProps = {
   labels: VocWidgetLabels;
   pageContext?: string;
   failureMessage?: string;
+  /** Override guidelines href (e.g. public KC for partners). */
+  policyHref?: string;
 };
 
 export function TopbarShareFeedbackButton({
   labels,
   pageContext,
   failureMessage,
+  policyHref,
 }: TopbarShareFeedbackButtonProps) {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -42,6 +45,7 @@ export function TopbarShareFeedbackButton({
         returnFocusRef={triggerRef}
         pageContext={pageContext}
         failureMessage={failureMessage}
+        policyHref={policyHref}
       />
     </>
   );

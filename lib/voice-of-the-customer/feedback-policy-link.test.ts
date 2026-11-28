@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import {
   CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH,
   CUSTOMER_FEEDBACK_POLICY_ARTICLE_SLUG,
+  PARTNER_FEEDBACK_POLICY_ARTICLE_PATH,
 } from "./constants";
 import { getAllArticleSlugs } from "@/lib/marketing/knowledge/registry";
 
@@ -16,20 +17,36 @@ assert.equal(
   CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH,
   "/app/support/knowledge-center/articles/customer-feedback-and-product-improvement"
 );
+assert.equal(
+  PARTNER_FEEDBACK_POLICY_ARTICLE_PATH,
+  "/knowledge/articles/customer-feedback-and-product-improvement"
+);
 assert.notEqual(CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH, "/install");
 assert.notEqual(CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH, "#");
+assert.notEqual(PARTNER_FEEDBACK_POLICY_ARTICLE_PATH, CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH);
 assert.ok(getAllArticleSlugs().includes(CUSTOMER_FEEDBACK_POLICY_ARTICLE_SLUG));
 
-const widgetSource = fs.readFileSync(
-  path.join(ROOT, "components/app/voice-of-the-customer/ShareFeedbackWidget.tsx"),
+const dialogSource = fs.readFileSync(
+  path.join(ROOT, "components/app/voice-of-the-customer/ShareFeedbackDialog.tsx"),
   "utf8"
 );
-assert.match(widgetSource, /CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH/);
-assert.doesNotMatch(widgetSource, /resolveAppHref\("\/app\/license"\)/);
-assert.doesNotMatch(widgetSource, /href=["']#["']/);
-assert.match(widgetSource, /target="_blank"/);
-assert.match(widgetSource, /rel="noopener noreferrer"/);
-assert.match(widgetSource, /trustStatementLinkAria/);
+assert.match(dialogSource, /CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH/);
+assert.match(dialogSource, /policyHref/);
+assert.doesNotMatch(dialogSource, /resolveAppHref\("\/app\/license"\)/);
+assert.doesNotMatch(dialogSource, /href=["']#["']/);
+assert.match(dialogSource, /target="_blank"/);
+assert.match(dialogSource, /rel="noopener noreferrer"/);
+assert.match(dialogSource, /trustStatementLinkAria/);
+assert.match(
+  dialogSource,
+  /bg-\[image:var\(--app-primary-gradient,linear-gradient/,
+);
+
+const partnerTopbar = fs.readFileSync(
+  path.join(ROOT, "components/partners-portal/PartnersPortalTopbarActions.tsx"),
+  "utf8"
+);
+assert.match(partnerTopbar, /PARTNER_FEEDBACK_POLICY_ARTICLE_PATH/);
 
 for (const locale of LOCALES) {
   const marketing = JSON.parse(

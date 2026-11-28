@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
 import { callCspRpc, failClosedJson, isKompisHelpAvailableInPartnerContext } from "@/lib/certified-sales-partner";
 import { createClient } from "@/lib/supabase/server";
+import { getAuthenticatedUserFromSession } from "@/lib/supabase/session-auth";
 
 /** Partner portal bundle — fail-closed when CSP Core is inactive. */
 export async function GET() {
   try {
     const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    const user = await getAuthenticatedUserFromSession(supabase);
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const result = await callCspRpc(supabase, "csp_get_partner_overview");
