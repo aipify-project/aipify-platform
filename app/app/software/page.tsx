@@ -31,10 +31,14 @@ export const revalidate = 0;
 const LOCALES = new Set<ProductCatalogLocaleCode>(["en", "no", "sv", "da", "pl", "uk", "es"]);
 
 /** APP Store — APP-channel products only (not SALE-only partner catalogue). */
+type SoftwareSearchParams = {
+  category?: string | string[];
+};
+
 export default async function SoftwareCatalogPage({
   searchParams,
 }: {
-  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+  searchParams?: Promise<SoftwareSearchParams>;
 }) {
   const locale = await getLocale();
   const catalogLocale: ProductCatalogLocaleCode = LOCALES.has(locale as ProductCatalogLocaleCode)
@@ -51,7 +55,7 @@ export default async function SoftwareCatalogPage({
     resolveHubWorkspaceContext(),
     loadSubscriptionProductReads(),
     createClient(),
-    searchParams ?? Promise.resolve({}),
+    searchParams ?? Promise.resolve({} as SoftwareSearchParams),
   ]);
   const portfolio = buildPortfolioLabels(t);
   const showcase = buildSoftwareShowcaseLabels(t);
