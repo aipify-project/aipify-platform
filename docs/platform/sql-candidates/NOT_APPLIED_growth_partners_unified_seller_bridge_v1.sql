@@ -27,6 +27,11 @@
 --   ZERO new portal / get_growth_portal_access dependency
 --   ZERO deletion of CSP links, leads, or history on suspend
 --   ZERO overwrite of existing APP customer tenant_type / subscription_plan
+--
+-- Production plan constraint (organizations_subscription_plan_check):
+--   allowed: starter|business|professional|enterprise|internal
+--   Dedicated GP orgs use organizations.subscription_plan value internal (NOT a new commercial plan).
+--   Seller identity remains CSP-authoritative; tenant_type stays 'growth_partner'.
 -- =============================================================================
 
 -- Drop prior unreleased bridge helper signatures if a partial experimental apply ever occurred.
@@ -375,11 +380,13 @@ begin
 
   v_org_id := v_customer_id;
   perform public._mta_sync_organization_from_customer(v_customer_id);
+  -- Use allowed Production plan value. Do not invent subscription_plan=growth_partner.
+  -- Identity/capability remain tenant_type=growth_partner + organization_users.role=growth_partner.
   update public.organizations set
     name = p_company,
     slug = v_slug,
     status = 'active',
-    subscription_plan = 'growth_partner',
+    subscription_plan = 'internal',
     updated_at = now()
   where id = v_org_id;
 
@@ -912,9 +919,10 @@ begin
 
   v_org_id := v_customer_id;
   perform public._mta_sync_organization_from_customer(v_customer_id);
+  -- Production organizations_subscription_plan_check has no growth_partner value.
   update public.organizations set
     name = p_payload->>'company_name', slug = v_slug, status = 'active',
-    subscription_plan = 'growth_partner', updated_at = now()
+    subscription_plan = 'internal', updated_at = now()
   where id = v_org_id;
 
   perform public._mta_seed_organization_modules(v_org_id);

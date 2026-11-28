@@ -1,16 +1,18 @@
 # AIPIFY_GROWTH_PARTNERS_UNIFIED_SELLER_BRIDGE_V1
 
-STATUS: SQL_SECURITY_VERIFIED (SQL NOT_APPLIED)
+STATUS: PRODUCTION_PLAN_FIX_READY (SQL NOT_APPLIED)
 
 ## Identity
 
 - Authoritative seller: `csp_partner_profiles` (1:1 `auth_user_id`)
 - Capability layer: dedicated `growth_partner_app_profiles` org + tracking links for `/s/{slug}` and interest CRM
 - Primary portal: `/partners` (no new portal)
+- Dedicated org: `tenant_type = growth_partner`, `organizations.subscription_plan = internal` (Production plan check)
 
 ## Core candidate (do not apply without exact YES)
 
 - File: `docs/platform/sql-candidates/NOT_APPLIED_growth_partners_unified_seller_bridge_v1.sql`
+- SHA-256: `4db4c931b17cefaeee0e354fc446027f0099c61ce464ede927cbc5163e2324d0`
 - SHA-256 sidecar: `NOT_APPLIED_growth_partners_unified_seller_bridge_v1.sql.sha256`
 - Public RPCs:
   - `ensure_growth_partner_app_profile_for_csp_partner(uuid)` — platform admin, idempotent + advisory lock

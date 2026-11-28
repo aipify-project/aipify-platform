@@ -84,6 +84,20 @@ test("SQL refuses APP customer org conversion and uses dedicated GP org", () => 
   assert.match(sql, /Keep users\.company_id unchanged/i);
 });
 
+test("SQL uses subscription_plan=internal for dedicated GP orgs (Production plan check)", () => {
+  // organizations_subscription_plan_check has no growth_partner value.
+  assert.match(sql, /subscription_plan = 'internal'/);
+  assert.equal(
+    (sql.match(/subscription_plan = 'internal'/g) || []).length,
+    2,
+    "provision + signup must both use internal",
+  );
+  assert.doesNotMatch(sql, /subscription_plan = 'growth_partner'/);
+  // Identity remains growth_partner via tenant_type / org role — not commercial plan.
+  assert.match(sql, /tenant_type = 'growth_partner'/);
+  assert.match(sql, /tenant_type stays 'growth_partner'|aipify_tenant_profiles/);
+});
+
 test("SQL requires product-specific kompis_web certification for certified+active link", () => {
   assert.match(sql, /sp\.product_key = v_product_key/);
   assert.match(sql, /p_product_key text default 'kompis_web'/);
