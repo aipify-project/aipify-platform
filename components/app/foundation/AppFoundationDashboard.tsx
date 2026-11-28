@@ -253,6 +253,7 @@ export function AppFoundationDashboard({
             </ul>
           ) : (
             <AppEmptyState
+              variant="compact"
               title={labels.attentionEmptyTitle}
               description={labels.attentionEmptyDescription}
               actionHref={attentionCtaHref}
@@ -270,7 +271,7 @@ export function AppFoundationDashboard({
               {labels.productsDescription}
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {webCard === "open" ? (
               <AppIconActionCard
                 href={FOUNDATION_NAV_BINDINGS.kompisWebDashboard}

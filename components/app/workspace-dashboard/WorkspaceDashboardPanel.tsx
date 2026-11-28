@@ -201,6 +201,7 @@ export function WorkspaceDashboardPanel({
             </ul>
           ) : (
             <AppEmptyState
+              variant="compact"
               title={labels.attentionEmptyTitle}
               description={labels.attentionEmptyDescription}
               actionHref={CUSTOMER_CATALOG_ROUTE}
