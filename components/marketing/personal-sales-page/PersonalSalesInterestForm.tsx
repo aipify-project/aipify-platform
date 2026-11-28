@@ -33,7 +33,7 @@ export function PersonalSalesInterestForm({
   return (
     <form
       id={formId}
-      className="space-y-3"
+      className="personal-sales-interest-card"
       aria-labelledby="personal-sales-interest"
       onSubmit={(event) => {
         event.preventDefault();
@@ -68,7 +68,10 @@ export function PersonalSalesInterestForm({
             if (error === "invalid_email") setNotice(labels.interestErrorEmail);
             else if (error === "acknowledgement_required") setNotice(labels.interestErrorAcknowledgement);
             else if (error === "rate_limited") setNotice(labels.interestErrorRateLimited);
-            else if (error === "duplicate" || (payload && typeof payload === "object" && (payload as { duplicate?: unknown }).duplicate === true)) {
+            else if (
+              error === "duplicate" ||
+              (payload && typeof payload === "object" && (payload as { duplicate?: unknown }).duplicate === true)
+            ) {
               setNotice(labels.interestDuplicate);
             } else if (error === "core_pending") setNotice(labels.interestPending);
             else setNotice(labels.interestErrorClosed);
@@ -77,29 +80,37 @@ export function PersonalSalesInterestForm({
           .finally(() => setBusy(false));
       }}
     >
-      <h2 id="personal-sales-interest">{labels.interestTitle}</h2>
-      <p>{labels.interestPrivacy}</p>
-      <label className="block text-sm">
-        {labels.interestName}
-        <input
-          name="display_name"
-          autoComplete="name"
-          required
-          disabled={!enabled || busy}
-          className="mt-1 w-full rounded-xl border px-3 py-2"
-        />
-      </label>
-      <label className="block text-sm">
-        {labels.interestEmail}
-        <input
-          name="email"
-          type="email"
-          autoComplete="email"
-          required
-          disabled={!enabled || busy}
-          className="mt-1 w-full rounded-xl border px-3 py-2"
-        />
-      </label>
+      <header className="personal-sales-interest-header">
+        <h2 id="personal-sales-interest" className="personal-sales-interest-title">
+          {labels.interestTitle}
+        </h2>
+        <p className="personal-sales-interest-lead">{labels.interestPrivacy}</p>
+      </header>
+
+      <div className="personal-sales-interest-fields">
+        <label className="personal-sales-interest-field">
+          <span className="personal-sales-interest-label">{labels.interestName}</span>
+          <input
+            name="display_name"
+            autoComplete="name"
+            required
+            disabled={!enabled || busy}
+            className="personal-sales-interest-input"
+          />
+        </label>
+        <label className="personal-sales-interest-field">
+          <span className="personal-sales-interest-label">{labels.interestEmail}</span>
+          <input
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            disabled={!enabled || busy}
+            className="personal-sales-interest-input"
+          />
+        </label>
+      </div>
+
       <input
         type="text"
         name="company_website"
@@ -110,22 +121,35 @@ export function PersonalSalesInterestForm({
         defaultValue=""
       />
       <input type="hidden" name="idempotency_key" value={idempotencyKey} readOnly />
-      <label className="flex items-start gap-2 text-sm">
-        <input name="follow_up_acknowledged" type="checkbox" disabled={!enabled || busy} required={enabled} />
+
+      <label className="personal-sales-interest-consent">
+        <input
+          name="follow_up_acknowledged"
+          type="checkbox"
+          disabled={!enabled || busy}
+          required={enabled}
+          className="personal-sales-interest-checkbox"
+        />
         <span>{labels.interestAcknowledgement}</span>
       </label>
-      <p>
-        <Link href="/privacy">{labels.privacyLink}</Link>
+
+      <div className="personal-sales-interest-actions">
+        <button
+          type="submit"
+          className="kompis-web-sales-primary personal-sales-interest-submit"
+          disabled={!enabled || busy}
+          aria-disabled={!enabled || busy}
+        >
+          {labels.interestTitle}
+        </button>
+        <Link href="/privacy" className="personal-sales-interest-privacy">
+          {labels.privacyLink}
+        </Link>
+      </div>
+
+      <p className="personal-sales-interest-status" role="status">
+        {notice}
       </p>
-      <button
-        type="submit"
-        className="kompis-web-sales-primary"
-        disabled={!enabled || busy}
-        aria-disabled={!enabled || busy}
-      >
-        {labels.interestTitle}
-      </button>
-      <p role="status">{notice}</p>
     </form>
   );
 }

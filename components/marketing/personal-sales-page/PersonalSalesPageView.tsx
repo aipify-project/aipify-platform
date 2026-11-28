@@ -59,18 +59,18 @@ export function PersonalSalesPageView({
               }
             : null
         }
+        interestPanel={
+          published && interestEnabled ? (
+            <PersonalSalesInterestForm
+              labels={labels}
+              enabled
+              code={code}
+              productKey="kompis_web"
+              locale={locale}
+            />
+          ) : null
+        }
       />
-      {published && interestEnabled ? (
-        <section className="mx-auto w-full max-w-xl px-4 pb-16">
-          <PersonalSalesInterestForm
-            labels={labels}
-            enabled
-            code={code}
-            productKey="kompis_web"
-            locale={locale}
-          />
-        </section>
-      ) : null}
     </>
   );
 }
