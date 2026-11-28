@@ -5,6 +5,7 @@ import { loadAccountProfileView } from "@/lib/app/account-profile/load";
 import { parseAccountProfileTab } from "@/lib/app/account-profile/tabs";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon } from "@/lib/app-portal/hubs/hub-copy";
+import { AppLayoutClasses } from "@/lib/design/app-layout";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -31,17 +32,20 @@ export default async function CustomerProfilePage({
   }
 
   return (
-    <AppHubShell
-      breadcrumbLabel={common.breadcrumb}
-      breadcrumb={[
-        { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
-        { label: labels.title },
-      ]}
-      eyebrow=""
-      title={labels.title}
-      description={labels.description}
-    >
-      <AppCustomerProfilePanel view={view} labels={labels} locale={locale} activeTab={activeTab} />
-    </AppHubShell>
+    // Match Kundeservice (`/app/support/requests`): pagePaddingX around pageWidth content.
+    <div className={`${AppLayoutClasses.pagePaddingX} pb-10 pt-0`}>
+      <AppHubShell
+        breadcrumbLabel={common.breadcrumb}
+        breadcrumb={[
+          { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
+          { label: labels.title },
+        ]}
+        eyebrow=""
+        title={labels.title}
+        description={labels.description}
+      >
+        <AppCustomerProfilePanel view={view} labels={labels} locale={locale} activeTab={activeTab} />
+      </AppHubShell>
+    </div>
   );
 }

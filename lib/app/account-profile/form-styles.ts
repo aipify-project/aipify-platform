@@ -4,9 +4,12 @@
  * Keep APP profile in the same form family — do not invent a third style.
  */
 
-/** Outer white form surface — ~800px desktop (760–820), never full viewport. */
+/**
+ * Outer white form surface — full APP content frame width.
+ * Matches Kundeservice (`AppLayoutClasses.pageWidth` / `max-w-[1560px]`) via parent shell.
+ */
 export const ACCOUNT_PROFILE_FORM_CARD_CLASS =
-  "mx-auto w-full max-w-[50rem] rounded-[28px] border border-[rgba(96,82,176,.15)] bg-white p-6 shadow-[0_12px_30px_rgba(38,33,87,.07)] sm:p-8";
+  "w-full min-w-0 rounded-[28px] border border-[rgba(96,82,176,.15)] bg-white p-6 shadow-[0_12px_30px_rgba(38,33,87,.07)] sm:p-8";
 
 /** Two-column field pairs on desktop; single column on narrow screens. */
 export const ACCOUNT_PROFILE_FIELD_GRID_CLASS = "grid gap-4 sm:grid-cols-2";

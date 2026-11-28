@@ -268,13 +268,13 @@ const formStyles = fs.readFileSync(
 );
 const authLayout = fs.readFileSync(path.join(ROOT, "components/auth/AuthLayout.tsx"), "utf8");
 assert.match(formStyles, /rounded-\[28px\]/);
-assert.match(formStyles, /max-w-\[50rem\]/);
+assert.doesNotMatch(formStyles, /max-w-\[50rem\]/);
 assert.match(formStyles, /ACCOUNT_PROFILE_FIELD_GRID_CLASS/);
 assert.match(formStyles, /border-\[rgba\(96,82,176,\.15\)\]/);
 assert.match(panel, /companyOrganizationNumber/);
 assert.match(panel, /officialCustomerNumber/);
 assert.match(panel, /companyInvoiceAddress/);
-assert.match(panel, /max-w-\[50rem\]/);
+assert.doesNotMatch(panel, /max-w-\[50rem\]/);
 assert.doesNotMatch(panel, /referenceHidden/);
 assert.doesNotMatch(panel, /localStorage/);
 assert.match(authLayout, /rounded-\[28px\]/);
