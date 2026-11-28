@@ -27,6 +27,7 @@ export function buildKompisWebSalesMetadata(
   return {
     title,
     description,
+    robots: { index: true, follow: true },
     alternates: { canonical: KOMPIS_WEB_SALES_CANONICAL_URL },
     openGraph: {
       title,
@@ -37,7 +38,7 @@ export function buildKompisWebSalesMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: "Aipify works for you",
+      title,
       description,
     },
   };
