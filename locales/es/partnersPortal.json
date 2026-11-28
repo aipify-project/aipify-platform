@@ -507,7 +507,17 @@
       "monthly": "Mensual",
       "yearly": "Anual",
       "annualQuotaNote": "El pago anual sigue renovando la cuota cada mes.",
-      "freePrice": "Gratis"
+      "freePrice": "Gratis",
+      "commissionNotConfigured": "No configurado",
+      "commissionZero": "{amount} (configurado)",
+      "commissionPercent": "{rate}% neto tras descuento (sin IVA)",
+      "commissionEstimate": "Estimación de producto (no tarifa de variante): {amount}",
+      "mostPopular": "Más popular",
+      "seeDetails": "Info",
+      "closeDetails": "Cerrar",
+      "featuresHeading": "Qué conviene saber",
+      "vatUnknown": "El IVA sigue el precio de cliente publicado.",
+      "catalogLoadError": "Aipify no pudo cargar las comisiones por variante. El listado sigue mostrando productos Core publicados."
     },
     "overview": {
       "title": "Tu resumen de socio",

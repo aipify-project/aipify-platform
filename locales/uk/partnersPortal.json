@@ -507,7 +507,17 @@
       "monthly": "Щомісяця",
       "yearly": "Щорічно",
       "annualQuotaNote": "Річна оплата все одно поновлює квоту щомісяця.",
-      "freePrice": "Безкоштовно"
+      "freePrice": "Безкоштовно",
+      "commissionNotConfigured": "Не налаштовано",
+      "commissionZero": "{amount} (налаштовано)",
+      "commissionPercent": "{rate}% від нетто після знижки (без ПДВ)",
+      "commissionEstimate": "Оцінка продукту (не ставка варіанту): {amount}",
+      "mostPopular": "Найпопулярніше",
+      "seeDetails": "Інфо",
+      "closeDetails": "Закрити",
+      "featuresHeading": "Варто знати",
+      "vatUnknown": "ПДВ відповідає опублікованій ціні клієнта.",
+      "catalogLoadError": "Aipify не зміг завантажити комісії варіантів. Список і далі показує опубліковані продукти Core."
     },
     "overview": {
       "title": "Ваш огляд партнера",

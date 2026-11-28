@@ -68,9 +68,21 @@ test("register table supports compact channels column and clickable name", () =>
 
 test("partner SALE catalog filters through unified sale channel", () => {
   const panel = read("components/partners-portal/CertifiedSalesPartnerProductCatalogPanel.tsx");
-  assert.match(panel, /filterSalesCatalogProducts/);
-  assert.match(panel, /buildUnifiedCatalog/);
+  const storefront = read("lib/product-catalog/partner-storefront-view-model.ts");
+  assert.match(panel, /buildPartnerStorefrontViewModel/);
+  assert.match(panel, /PremiumProductCatalogCard/);
+  assert.match(panel, /mode="sale"/);
   assert.match(panel, /Never APP-only/);
+  assert.match(storefront, /filterSalesCatalogProducts/);
+  assert.match(storefront, /buildUnifiedCatalog/);
+  assert.match(storefront, /authoritativeEmpty/);
+});
+
+test("partner SALE catalog resolves variant commission from Core slots", () => {
+  const panel = read("components/partners-portal/CertifiedSalesPartnerProductCatalogPanel.tsx");
+  assert.match(panel, /resolvePartnerSaleCommissionText/);
+  assert.match(panel, /commissionNotConfigured/);
+  assert.match(panel, /productLevelCommissionEstimate/);
 });
 
 test("RPC staging approval still names exact SHA gate", () => {

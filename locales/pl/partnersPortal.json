@@ -507,7 +507,17 @@
       "monthly": "Miesięcznie",
       "yearly": "Rocznie",
       "annualQuotaNote": "Roczna płatność nadal odnawia limit co miesiąc.",
-      "freePrice": "Bezpłatnie"
+      "freePrice": "Bezpłatnie",
+      "commissionNotConfigured": "Nie skonfigurowano",
+      "commissionZero": "{amount} (skonfigurowane)",
+      "commissionPercent": "{rate}% netto po rabacie (bez VAT)",
+      "commissionEstimate": "Szacunek produktu (nie stawka wariantu): {amount}",
+      "mostPopular": "Najpopularniejsze",
+      "seeDetails": "Info",
+      "closeDetails": "Zamknij",
+      "featuresHeading": "Warto wiedzieć",
+      "vatUnknown": "VAT wynika z opublikowanej ceny klienta.",
+      "catalogLoadError": "Aipify nie mógł wczytać prowizji wariantów. Lista nadal pokazuje opublikowane produkty Core."
     },
     "overview": {
       "title": "Twój przegląd partnera",

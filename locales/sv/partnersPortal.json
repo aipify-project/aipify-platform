@@ -631,7 +631,17 @@
       "monthly": "Månadsvis",
       "yearly": "Årligen",
       "annualQuotaNote": "Årlig betalning förnyar fortfarande kvoten varje månad.",
-      "freePrice": "Gratis"
+      "freePrice": "Gratis",
+      "commissionNotConfigured": "Inte konfigurerad",
+      "commissionZero": "{amount} (konfigurerad)",
+      "commissionPercent": "{rate} % av netto efter rabatt (exkl. moms)",
+      "commissionEstimate": "Produktuppskattning (inte variantsats): {amount}",
+      "mostPopular": "Mest populär",
+      "seeDetails": "Info",
+      "closeDetails": "Stäng",
+      "featuresHeading": "Bra att veta",
+      "vatUnknown": "Moms följer det publicerade kundpriset.",
+      "catalogLoadError": "Aipify kunde inte hämta variantprovision. Produktlistan visar fortfarande publicerade Core-produkter."
     },
     "overview": {
       "title": "Din partneröversikt",

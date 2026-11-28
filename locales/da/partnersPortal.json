@@ -631,7 +631,17 @@
       "monthly": "Månedlig",
       "yearly": "Årlig",
       "annualQuotaNote": "Årlig betaling fornyer stadig kvoten hver måned.",
-      "freePrice": "Gratis"
+      "freePrice": "Gratis",
+      "commissionNotConfigured": "Ikke konfigureret",
+      "commissionZero": "{amount} (konfigureret)",
+      "commissionPercent": "{rate} % af netto efter rabat (ekskl. moms)",
+      "commissionEstimate": "Produktestimat (ikke variantsats): {amount}",
+      "mostPopular": "Mest populær",
+      "seeDetails": "Info",
+      "closeDetails": "Luk",
+      "featuresHeading": "Godt at vide",
+      "vatUnknown": "Moms følger den publicerede kundepris.",
+      "catalogLoadError": "Aipify kunne ikke hente variantprovision. Produktlisten viser stadig publicerede Core-produkter."
     },
     "overview": {
       "title": "Din partneroversigt",
