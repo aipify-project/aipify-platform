@@ -178,19 +178,10 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
     };
   }, []);
 
-  // Soft-nav must not re-fetch the full messages+email unread payload on every
-  // menu click — polling + visibility already keep the badge fresh. Only force
-  // a refresh when entering communication surfaces where the unread set matters.
-  useEffect(() => {
-    const onMessages =
-      pathname.includes("/account/messages") || pathname.includes("/sales-partner/messages");
-    const onNotifications =
-      pathname.includes("/account/notifications") ||
-      pathname.includes("/sales-partner/notifications");
-    if (onMessages || onNotifications) {
-      void refreshUnread();
-    }
-  }, [refreshUnread, pathname]);
+  // Soft-nav must not re-fetch unread on every menu click. Messages/notifications
+  // panels already load the same list with runImmediately — a forced topbar
+  // refresh here duplicated full-body fetches and amplified the access-gate tax.
+  // Polling + invalidate bus keep the badge fresh without a pathname force-fetch.
 
   useEffect(() => {
     return subscribeCspUnreadInvalidate((detail) => {

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
@@ -95,4 +95,49 @@ test("href map covers every partners path in map keys", () => {
   for (const [from, to] of Object.entries(SALES_PARTNER_PARTNERS_TO_APP_HREF)) {
     assert.equal(mapPartnersHrefToAppHost(from), to);
   }
+});
+
+test("perf contracts: parallel unread, portal abort, session auth", () => {
+  const topbar = readFileSync(
+    path.join(root, "components/partners-portal/PartnersPortalTopbarActions.tsx"),
+    "utf8",
+  );
+  assert.match(topbar, /Promise\.all/);
+  assert.doesNotMatch(
+    topbar,
+    /if \(onMessages \|\| onNotifications\) \{\s*void refreshUnread\(\);/,
+  );
+
+  const portal = readFileSync(
+    path.join(root, "components/partners-portal/CspPortalSessionProvider.tsx"),
+    "utf8",
+  );
+  assert.match(portal, /AbortController/);
+  assert.match(portal, /CSP_PORTAL_CLIENT_FETCH_TIMEOUT_MS/);
+
+  const notifications = readFileSync(
+    path.join(root, "components/partners-portal/CertifiedSalesPartnerNotificationsPanel.tsx"),
+    "utf8",
+  );
+  assert.match(notifications, /AbortController/);
+
+  const accessApi = readFileSync(
+    path.join(root, "app/api/partners-portal/access/route.ts"),
+    "utf8",
+  );
+  assert.match(accessApi, /Promise\.all/);
+  assert.match(accessApi, /getAuthenticatedUserFromSession/);
+
+  const serverAccess = readFileSync(
+    path.join(root, "lib/partners-portal/server-access.ts"),
+    "utf8",
+  );
+  assert.match(serverAccess, /getAuthenticatedUserFromSession/);
+  assert.doesNotMatch(serverAccess, /supabase\.auth\.getUser\(\)/);
+
+  const portalApi = readFileSync(
+    path.join(root, "app/api/certified-sales-partner/portal/route.ts"),
+    "utf8",
+  );
+  assert.match(portalApi, /getAuthenticatedUserFromSession/);
 });
