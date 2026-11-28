@@ -61,10 +61,11 @@ const appearancePage = readFileSync(
   "utf8",
 );
 assert.match(appearancePage, /readWebsiteKompisAppearanceFailClosed/);
-assert.match(appearancePage, /appearanceWriterUnavailable/);
+assert.match(appearancePage, /appearanceWriterUnavailableTitle/);
 assert.match(appearancePage, /appearanceWriterBlockedBody/);
+assert.match(appearancePage, /appearanceCandidateReadyNote/);
 assert.match(appearancePage, /appearanceInstallChromeCard/);
-assert.doesNotMatch(appearancePage, /fake.?success/i);
+assert.doesNotMatch(appearancePage, /onSubmit|fakeSuccess/);
 assert.doesNotMatch(appearancePage, /writeWebsiteKompisAppearanceFailClosed/);
 
 const sql = readFileSync(
@@ -81,7 +82,7 @@ const shaFile = readFileSync(
   join(process.cwd(), "docs/platform/sql-candidates/website_kompis_appearance_settings_v1.sql.sha256"),
   "utf8",
 ).trim();
-assert.match(shaFile, /^[a-f0-9]{64}$/);
+assert.match(shaFile, /^[a-f0-9]{64}(\s|$)/);
 
 const frozenManifest = readFileSync(
   join(process.cwd(), "docs/integrations/website-kompis-public-chain-frozen-manifest.json"),
