@@ -38,6 +38,21 @@ export function parseCoreSalesProductRow(raw: unknown): CoreSalesProductRow | nu
   const publishApp = asBool(row.publish_app) ?? asBool(row.publishApp);
   const published = asBool(row.published) ?? publishSale ?? false;
 
+  const dependsRaw =
+    row.depends_on_product_keys ?? row.dependsOnProductKeys ?? row.depends_on;
+  const dependsOnProductKeys: string[] = [];
+  if (Array.isArray(dependsRaw)) {
+    const seen = new Set<string>();
+    for (const item of dependsRaw) {
+      if (typeof item !== "string") continue;
+      const key = item.trim().toLowerCase();
+      if (!/^[a-z0-9_-]{1,64}$/.test(key) || seen.has(key)) continue;
+      seen.add(key);
+      dependsOnProductKeys.push(key);
+      if (dependsOnProductKeys.length >= 12) break;
+    }
+  }
+
   return {
     id,
     productKey: productKey.toLowerCase(),
@@ -47,12 +62,20 @@ export function parseCoreSalesProductRow(raw: unknown): CoreSalesProductRow | nu
     published,
     publishSale,
     publishApp,
+    productType: asString(row.product_type ?? row.productType)?.toLowerCase() ?? null,
+    categoryId: asString(row.category_id ?? row.categoryId ?? row.category)?.toLowerCase() ?? null,
+    dependsOnProductKeys,
     updatedAt: asString(row.updated_at ?? row.updatedAt),
   };
 }
 
 export type LoadCoreProductsResult =
-  | { ok: true; channelSchema: boolean; products: CoreSalesProductRow[] }
+  | {
+      ok: true;
+      channelSchema: boolean;
+      products: CoreSalesProductRow[];
+      dependencySemantics: "all" | null;
+    }
   | { ok: false; reason: "missing" | "forbidden" | "error"; detail?: string };
 
 /** Platform overview products[] (includes commission — Platform Admin only). */
@@ -94,13 +117,20 @@ export async function loadAppStoreCoreProducts(
     .filter((row): row is CoreSalesProductRow => Boolean(row))
     .map((row) => ({
       ...row,
-      // APP surface must never carry partner commission.
+      // APP surface must never carry partner commission in customer payloads.
       fixedCommissionAmount: null,
       currency: null,
-      publishApp: true,
+      // RPC already filters publish_app + master_active; keep explicit core truth.
+      publishApp: row.publishApp === false ? false : true,
       publishSale: null,
       published: false,
     }));
 
-  return { ok: true, channelSchema: root.channel_schema === true, products };
+  return {
+    ok: true,
+    channelSchema: root.channel_schema === true,
+    products,
+    dependencySemantics:
+      root.dependency_semantics === "all" || root.dependencySemantics === "all" ? "all" : null,
+  };
 }

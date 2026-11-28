@@ -30,6 +30,13 @@ export {
   resolveAppCheckoutCta,
 } from "./checkout-readiness";
 export {
+  buildAppStorefrontViewModel,
+  toAppStorefrontProduct,
+  PARTNER_STOREFRONT_REUSE_CONTRACT,
+  type AppStorefrontProduct,
+  type AppStorefrontViewModel,
+} from "./app-storefront-view-model";
+export {
   formatVariantQuotaLabel,
   priceForInterval,
   type ProductBillingInterval,

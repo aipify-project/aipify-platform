@@ -24,6 +24,10 @@ export type CoreSalesProductRow = {
   publishApp?: boolean | null;
   /** Present only after Core channel SQL; until then SALE uses legacy `published`. */
   publishSale?: boolean | null;
+  /** Core taxonomy — null/empty means unconfigured (never invent). */
+  productType?: string | null;
+  categoryId?: string | null;
+  dependsOnProductKeys?: string[];
 };
 
 export type AppEntitlementHint = {
@@ -66,7 +70,8 @@ function resolveCopy(
  */
 function appChannel(
   def: NonNullable<ReturnType<typeof getCanonicalProduct>>,
-  core: CoreSalesProductRow | undefined
+  core: CoreSalesProductRow | undefined,
+  coreChannelApplied: boolean,
 ): UnifiedProductChannelState {
   if (core && typeof core.publishApp === "boolean") {
     return core.publishApp
@@ -79,6 +84,11 @@ function appChannel(
       visibleInStore: false,
       source: "none",
     };
+  }
+  // When Core APP channel RPC is applied, empty/missing publish_app means not listed —
+  // never fill the storefront from registry seeds.
+  if (coreChannelApplied) {
+    return { status: "unpublished", visibleInStore: false, source: "core" };
   }
   if (def.defaultAppPublished) {
     return {
@@ -205,24 +215,39 @@ export function blockedPercentCommission(): Extract<
 /**
  * Merge canonical registry with Core SALE rows and optional APP entitlements.
  * Does not invent Core APP publication — registry fallback is labelled explicitly.
+ *
+ * `coreChannelApplied: true` means `csp_list_app_store_products` answered successfully.
+ * Then APP listing is Core-only (including honest empty when publish_app count is 0).
  */
 export function buildUnifiedCatalog(input: {
   locale: ProductCatalogLocaleCode;
   coreProducts?: CoreSalesProductRow[] | null;
   entitlements?: AppEntitlementHint[];
+  /** When true, never use registry_fallback for APP visibility. */
+  coreChannelApplied?: boolean;
 }): UnifiedCatalogProduct[] {
   const coreByKey = new Map((input.coreProducts ?? []).map((row) => [row.productKey, row]));
   const entitlementByKey = new Map((input.entitlements ?? []).map((row) => [row.productKey, row]));
+  const coreChannelApplied = input.coreChannelApplied === true;
 
   return CANONICAL_PRODUCT_REGISTRY.map((def) => {
     const core = coreByKey.get(def.productKey);
     const copy = resolveCopy(def, input.locale);
     const entitlement = entitlementByKey.get(def.productKey);
     const coreTitle = typeof core?.title === "string" ? core.title.trim() : "";
+    const storeCategoryId =
+      (typeof core?.categoryId === "string" && core.categoryId.trim() !== ""
+        ? core.categoryId.trim().toLowerCase()
+        : null) ?? def.category;
     return {
       productKey: def.productKey,
       sku: def.sku,
       category: def.category,
+      storeCategoryId,
+      productType: core?.productType ?? null,
+      dependsOnProductKeys: Array.isArray(core?.dependsOnProductKeys)
+        ? core!.dependsOnProductKeys
+        : [],
       // Core-published title wins when present; registry copy remains fallback.
       title: coreTitle || copy.title,
       tagline: copy.tagline,
@@ -234,13 +259,14 @@ export function buildUnifiedCatalog(input: {
       letter: def.letter,
       openHref: def.openHref,
       moduleKey: def.moduleKey,
-      app: appChannel(def, core),
+      app: appChannel(def, core, coreChannelApplied),
       sale: saleChannel(def, core),
       customerPrice: customerPrice(def.productKey),
       variants: variantsForProduct(def.productKey),
       commission: resolveCommission(core),
       coreProductId: core?.id ?? null,
       purchaseReadiness: purchaseReadiness(def.productKey, entitlement),
+      entitlementActive: entitlement?.active === true,
       updatedAt: core?.updatedAt ?? null,
     };
   });

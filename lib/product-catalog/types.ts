@@ -72,6 +72,12 @@ export type UnifiedCatalogProduct = {
   productKey: string;
   sku: string;
   category: CanonicalProductDefinition["category"];
+  /** Open store category id from Core taxonomy when set; else registry category. */
+  storeCategoryId: string;
+  /** Core product_type when configured; null = unconfigured. */
+  productType: string | null;
+  /** ALL-semantics dependency keys from Core; empty when none/unconfigured. */
+  dependsOnProductKeys: string[];
   title: string;
   tagline: string;
   description: string;
@@ -96,9 +102,15 @@ export type UnifiedCatalogProduct = {
    * Empty when the product has no packaged variants yet.
    */
   variants: ProductVariantDefinition[];
+  /**
+   * Partner/Platform commission model from Core SALE row.
+   * APP customer storefronts must strip this before client payload (use `toAppStorefrontProduct`).
+   */
   commission: ProductCatalogCommissionModel;
   /** Core CSP row id when present. */
   coreProductId: string | null;
   purchaseReadiness: ProductCatalogPurchaseReadiness;
+  /** Authoritative entitlement hint for this workspace when provided. */
+  entitlementActive: boolean;
   updatedAt: string | null;
 };
