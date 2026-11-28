@@ -5,8 +5,10 @@
 | | |
 | --- | --- |
 | Branch | `agent/core-product-operational-configuration-master-v5-20261128` |
-| Baseline | `origin/main` includes #538 (`330bafc37`) + #539 |
+| PR | [#540](https://github.com/aipify-project/aipify-platform/pull/540) · tip `43c6df42c` · **CODE_READY** (not merged) |
+| Baseline | `origin/main` includes #538 (`330bafc37`) + #539 (`39afd264f`) |
 | #538 Production | **LIVE** — `app.aipify.ai` → `dpl_G1MnFE4oWDZGaychFV25MweCN4PP` READY · commit `330bafc37` · aliases include `app.aipify.ai` |
+| #539 Production | **READY** — `39afd264f` → `dpl_C9ixMhyEeWUKtVeqxwjSHpB49GA9` / `dpl_6BE3eiXB2p9C71yykJG2wep7JYcG` |
 | Public-chain freeze | untouched |
 | SQL apply / Stripe / provision / media upload / presence writer | none in this PR |
 
