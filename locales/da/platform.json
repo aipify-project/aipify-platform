@@ -7731,7 +7731,25 @@
       "editorVariantAnnualRenewsMonthly": "Årsplan fornyer kvote månedligt",
       "editorModuleBinding": "APP-softwaremodul",
       "editorModuleReady": "Klar til APP-menu når rettighed er aktiv",
-      "editorModuleNotReady": "Ikke menuklar endnu"
+      "editorModuleNotReady": "Ikke menuklar endnu",
+      "editorVariantVatExclusive": "Alle beløb er ekskl. moms.",
+      "editorVariantCommissionNotSaved": "Sælgerprovision pr. variant blev ikke gemt — Core-lagring er endnu ikke tilgængelig.",
+      "editorLegacyProductCommissionHint": "Den faste produktprovision nedenfor er den historiske sats. Kortlæg den til varianter før eventuel backfill.",
+      "editorVariantCommissionPersistenceBlocked": "Sælgerprovision pr. variant kan ikke gemmes, før den godkendte Core-opdatering er anvendt. Redigering her er kun forhåndsvisning.",
+      "editorVariantCommissionMonth": "Sælgerprovision — månedlig",
+      "editorVariantCommissionYear": "Sælgerprovision — årlig",
+      "editorVariantCommissionOneTime": "Sælgerprovision — engangskøb",
+      "editorVariantCommissionTitle": "Sælgerprovision",
+      "editorVariantCommissionActive": "Aktiv",
+      "editorVariantCommissionInactive": "Inaktiv",
+      "editorVariantCommissionModelFixed": "Fast beløb (ekskl. moms)",
+      "editorVariantCommissionModelPercent": "Procent af pris (ekskl. moms)",
+      "editorVariantCommissionAmountFixed": "Fast provision (ekskl. moms)",
+      "editorVariantCommissionRatePercent": "Provisionsprocent",
+      "editorVariantCommissionPreview": "Beregnet provision (ekskl. moms)",
+      "editorVariantCommissionPreviewInactive": "Inaktiv — der optjenes ingen provision for denne periode.",
+      "editorVariantCommissionPercentBasis": "Procent beregnes af netto salgsbeløb ekskl. moms.",
+      "editorVariantCommissionFreeHint": "Gratisvarianter kan bruge 0 kr provision."
     },
     "live": {
       "loading": "Indlæser sælgerdata",
@@ -8089,7 +8107,13 @@
       "settingsApprovalTitle": "Kræver platformsgodkendelse",
       "settingsApprovalPercent": "Procentprovision er ikke gemt. Den faste engangsregel gælder stadig.",
       "settingsApprovalMessages": "Læst-status for beskeder opdateres, når samtalen åbnes.",
-      "unread": "Ulæst"
+      "unread": "Ulæst",
+      "ratesVariantMappingNote": "Eksisterende produktniveau-satser skal kortlægges eksplicit til varianter før eventuel backfill. Historiske salg og satser forbliver uændrede.",
+      "ratesPersistenceBlocked": "Lagring af variantprovision er utilgængelig, indtil godkendt Core SQL og RPC er anvendt. Behandl ikke redigeringsudkast som gemt.",
+      "ratesOpenProductEditor": "Åbn produkteditor for at angive sælgerprovision pr. variant",
+      "ratesColVariantMapping": "Variantkortlægning",
+      "ratesMappingRequired": "Kræver eksplicit variantkortlægning før backfill",
+      "ratesExVat": "ekskl. moms"
     },
     "messages": {
       "title": "Kommunikation",

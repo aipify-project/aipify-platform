@@ -8253,7 +8253,25 @@
       "editorVariantAnnualRenewsMonthly": "Annual plan renews quota monthly",
       "editorModuleBinding": "APP software module",
       "editorModuleReady": "Ready for APP menu when entitled",
-      "editorModuleNotReady": "Not menu-ready yet"
+      "editorModuleNotReady": "Not menu-ready yet",
+      "editorVariantVatExclusive": "All amounts exclude VAT.",
+      "editorVariantCommissionNotSaved": "Seller commission per variant was not saved — Core storage is not available yet.",
+      "editorLegacyProductCommissionHint": "The fixed product commission below is the historical rate. Map it to variants before any backfill.",
+      "editorVariantCommissionPersistenceBlocked": "Variant seller commission cannot be saved until the approved Core update is applied. Editing here is preview only.",
+      "editorVariantCommissionMonth": "Seller commission — monthly",
+      "editorVariantCommissionYear": "Seller commission — yearly",
+      "editorVariantCommissionOneTime": "Seller commission — one-time",
+      "editorVariantCommissionTitle": "Seller commission",
+      "editorVariantCommissionActive": "Active",
+      "editorVariantCommissionInactive": "Inactive",
+      "editorVariantCommissionModelFixed": "Fixed amount (ex VAT)",
+      "editorVariantCommissionModelPercent": "Percent of price (ex VAT)",
+      "editorVariantCommissionAmountFixed": "Fixed commission (ex VAT)",
+      "editorVariantCommissionRatePercent": "Commission percent",
+      "editorVariantCommissionPreview": "Calculated commission (ex VAT)",
+      "editorVariantCommissionPreviewInactive": "Inactive — no commission accrues for this period.",
+      "editorVariantCommissionPercentBasis": "Percent is calculated on the net sales amount excluding VAT.",
+      "editorVariantCommissionFreeHint": "Free variants can use 0 commission."
     },
     "live": {
       "loading": "Loading seller data",
@@ -8611,7 +8629,13 @@
       "settingsApprovalTitle": "Requires platform approval",
       "settingsApprovalPercent": "Percent commission is not stored. The fixed one-time rule remains in force.",
       "settingsApprovalMessages": "Message read status updates when a conversation is opened.",
-      "unread": "Unread"
+      "unread": "Unread",
+      "ratesVariantMappingNote": "Existing product-level rates must be mapped explicitly to variants before any backfill. Historical sales and rates stay unchanged.",
+      "ratesPersistenceBlocked": "Variant commission storage is unavailable until the approved Core SQL and RPC are applied. Do not treat editor drafts as saved.",
+      "ratesOpenProductEditor": "Open product editor to set seller commission per variant",
+      "ratesColVariantMapping": "Variant mapping",
+      "ratesMappingRequired": "Requires explicit variant mapping before backfill",
+      "ratesExVat": "ex VAT"
     },
     "messages": {
       "title": "Communication",

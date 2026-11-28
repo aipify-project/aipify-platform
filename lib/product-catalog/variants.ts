@@ -5,6 +5,7 @@
  */
 
 import { localizeQuotaUnit } from "./quota-labels";
+import type { VariantIntervalCommissionRule } from "./variant-commission";
 
 export type ProductBillingInterval = "month" | "year" | "one_time";
 
@@ -22,11 +23,19 @@ export type ProductVariantPrice = {
   /** Minor units when known (e.g. 59900 øre). */
   amountMinor: number | null;
   interval: ProductBillingInterval;
-  /** Display-only VAT note until checkout contract fixes tax. */
+  /**
+   * New Platform writes use exclusive. Catalog planned rows may still be `unknown`
+   * until operator confirms VAT labelling.
+   */
   vatLabel: "unknown" | "inclusive" | "exclusive";
   /** Provider price id when mapped — never create Stripe objects from UI. */
   providerPriceId: string | null;
   purchasable: boolean;
+  /**
+   * Seller commission for this interval. Draft-only until Core variant commission RPC.
+   * Amounts are exclusive of VAT.
+   */
+  commission?: VariantIntervalCommissionRule | null;
 };
 
 export type ProductVariantDefinition = {

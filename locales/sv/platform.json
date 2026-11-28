@@ -8253,7 +8253,25 @@
       "editorVariantAnnualRenewsMonthly": "Årsplan förnyar kvot månadsvis",
       "editorModuleBinding": "APP-programvarumodul",
       "editorModuleReady": "Redo för APP-meny när behörighet är aktiv",
-      "editorModuleNotReady": "Inte menyklar ännu"
+      "editorModuleNotReady": "Inte menyklar ännu",
+      "editorVariantVatExclusive": "Alla belopp är exkl. moms.",
+      "editorVariantCommissionNotSaved": "Säljarprovision per variant sparades inte — Core-lagring är inte tillgänglig ännu.",
+      "editorLegacyProductCommissionHint": "Den fasta produktprovisionen nedan är den historiska satsen. Mappa den till varianter innan eventuell backfill.",
+      "editorVariantCommissionPersistenceBlocked": "Säljarprovision per variant kan inte sparas förrän den godkända Core-uppdateringen är tillämpad. Redigering här är endast förhandsvisning.",
+      "editorVariantCommissionMonth": "Säljarprovision — månadsvis",
+      "editorVariantCommissionYear": "Säljarprovision — årsvis",
+      "editorVariantCommissionOneTime": "Säljarprovision — engångsköp",
+      "editorVariantCommissionTitle": "Säljarprovision",
+      "editorVariantCommissionActive": "Aktiv",
+      "editorVariantCommissionInactive": "Inaktiv",
+      "editorVariantCommissionModelFixed": "Fast belopp (exkl. moms)",
+      "editorVariantCommissionModelPercent": "Procent av pris (exkl. moms)",
+      "editorVariantCommissionAmountFixed": "Fast provision (exkl. moms)",
+      "editorVariantCommissionRatePercent": "Provisionsprocent",
+      "editorVariantCommissionPreview": "Beräknad provision (exkl. moms)",
+      "editorVariantCommissionPreviewInactive": "Inaktiv — ingen provision intjänas för denna period.",
+      "editorVariantCommissionPercentBasis": "Procent beräknas på netto försäljningsbelopp exkl. moms.",
+      "editorVariantCommissionFreeHint": "Gratisvarianter kan använda 0 kr provision."
     },
     "live": {
       "loading": "Läser in säljardata",
@@ -8611,7 +8629,13 @@
       "settingsApprovalTitle": "Kräver plattformsgodkännande",
       "settingsApprovalPercent": "Procentprovision lagras inte. Den fasta engångsregeln gäller fortfarande.",
       "settingsApprovalMessages": "Lässtatus för meddelanden uppdateras när konversationen öppnas.",
-      "unread": "Oläst"
+      "unread": "Oläst",
+      "ratesVariantMappingNote": "Befintliga produktnivåsatser måste mappas uttryckligen till varianter innan eventuell backfill. Historiska försäljningar och satser förblir oförändrade.",
+      "ratesPersistenceBlocked": "Lagring av variantprovision är otillgänglig tills godkänd Core SQL och RPC har tillämpats. Behandla inte redigeringsutkast som sparade.",
+      "ratesOpenProductEditor": "Öppna produktredigeraren för att ange säljarprovision per variant",
+      "ratesColVariantMapping": "Variantmappning",
+      "ratesMappingRequired": "Kräver uttrycklig variantmappning före backfill",
+      "ratesExVat": "exkl. moms"
     },
     "messages": {
       "title": "Kommunikation",

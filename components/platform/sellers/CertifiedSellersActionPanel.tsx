@@ -310,7 +310,12 @@ export function CertifiedSellersActionPanel({
         (masterActive === true && (publishAppChecked || publishSale));
 
       if (!needsChannelWrite) {
-        setMessage({ kind: "ok", text: labels.success });
+        setMessage({
+          kind: "ok",
+          text: editorLabels?.variantCommissionNotSaved
+            ? `${labels.success} ${editorLabels.variantCommissionNotSaved}`
+            : labels.success,
+        });
         onSuccess?.();
         if (standaloneEditor && editorMode === "create") {
           router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
@@ -329,7 +334,12 @@ export function CertifiedSellersActionPanel({
         { quiet: true },
       );
       if (channelOutcome === "ok") {
-        setMessage({ kind: "ok", text: labels.success });
+        setMessage({
+          kind: "ok",
+          text: editorLabels?.variantCommissionNotSaved
+            ? `${labels.success} ${editorLabels.variantCommissionNotSaved}`
+            : labels.success,
+        });
         onSuccess?.();
         if (standaloneEditor && editorMode === "create") {
           router.replace(`/platform/sellers/products/${encodeURIComponent(productKey)}`);
