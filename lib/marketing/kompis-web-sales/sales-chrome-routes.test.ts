@@ -34,6 +34,16 @@ for (const rel of [salesSupport, salesCsp, salesPrivacy, salesTerms]) {
   assert.doesNotMatch(src, /MarketingFooter/, `${rel} must not import MarketingFooter`);
 }
 
+const supportSrc = read(salesSupport);
+assert.match(supportSrc, /PublicSafeBackLink/, "contact/support uses safe back");
+assert.match(supportSrc, /start\.back/, "contact/support uses localized Back");
+assert.doesNotMatch(supportSrc, /start\.backHome/, "contact/support must not say Back to Kompis Web");
+
+const cspSrc = read(salesCsp);
+assert.match(cspSrc, /PublicSafeBackLink/, "partner apply uses safe back");
+assert.match(cspSrc, /start\.back/, "partner apply uses localized Back");
+assert.doesNotMatch(cspSrc, /start\.backHome/, "partner apply must not say Back to Kompis Web");
+
 const chromeSrc = read(chrome);
 assert.match(chromeSrc, /kompis-web-sales-nav/);
 assert.match(chromeSrc, /becomeSeller/);

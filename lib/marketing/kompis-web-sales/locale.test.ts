@@ -100,7 +100,8 @@ for (const [locale, marketing] of localeBundles) {
   const labels = parseKompisWebSalesLabels(marketing as Record<string, unknown>);
   assert.ok(labels.hero.titleBefore.includes("Aipify"), `${locale}: H1 must lead with Aipify`);
   assert.ok(labels.meta.title.includes("Aipify works for you"), `${locale}: meta.title brand phrase`);
-  assert.ok(labels.footer.tagline.includes("Aipify works for you"), `${locale}: footer brand phrase`);
+  assert.equal(labels.footer.tagline, "Aipify works for you", `${locale}: general footer brand phrase`);
+  assert.doesNotMatch(labels.footer.tagline, /Kompis|Buddy/i, `${locale}: footer must not name product`);
   assert.equal(labels.hrefs.start, "/start");
   assert.doesNotMatch(
     `${labels.hero.secondaryCta} ${labels.finalCta.secondary} ${labels.pricing.paid.cta} ${labels.pricing.plannedNote} ${labels.pricing.paid.checkoutUnavailable}`,

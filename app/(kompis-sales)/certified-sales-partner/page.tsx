@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { CertifiedSalesPartnerRegistrationForm } from "@/components/marketing/CertifiedSalesPartnerRegistrationForm";
 import KompisWebSalesChrome from "@/components/marketing/kompis-web-sales/KompisWebSalesChrome";
+import PublicSafeBackLink from "@/components/marketing/PublicSafeBackLink";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { createTranslator } from "@/lib/i18n/translate";
 import { loadKompisWebSalesRouteContext } from "@/lib/marketing/kompis-web-sales/sales-route";
@@ -68,9 +68,11 @@ export default async function CertifiedSalesPartnerRecruitmentPage() {
           <a href="#how-it-works" className="kompis-web-sales-cta-quiet">
             {t("marketing.certifiedSalesPartner.hero.secondaryCta")}
           </a>
-          <Link href={salesLabels.hrefs.home} className="kompis-web-sales-cta-quiet">
-            {salesLabels.start.backHome}
-          </Link>
+          <PublicSafeBackLink
+            label={salesLabels.start.back}
+            className="kompis-web-sales-cta-quiet"
+            fallbackHref={salesLabels.hrefs.home}
+          />
         </div>
         <ul className="kompis-web-sales-feature-strip" style={{ marginTop: 32 }}>
           {[
