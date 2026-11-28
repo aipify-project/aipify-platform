@@ -1,7 +1,9 @@
 /**
  * Public Send-reply Core contract.
- * Staging applied 2026-11-27 (SHA 6d19b67f…). Production requires separate YES.
- * Companion APP get-messages SQL is a separate gate.
+ * Staging applied 2026-11-27 (SHA 6d19b67f…).
+ * Production applied 2026-11-28 (ledger 20261128175108) — runtime activation V1.
+ * Companion APP get-messages: Production ledger 20261128175211.
+ * Email transport remains OFF.
  */
 
 import {
@@ -21,12 +23,12 @@ export const SUPPORT_SEND_PUBLIC_REPLY_RPC =
 /** Staging Core auedugihkduoaikfusqe — owner YES applied 2026-11-27. */
 export const SUPPORT_SEND_PUBLIC_REPLY_STAGING_APPLIED = true as const;
 
-/** Production remains closed until separate owner YES. */
-export const SUPPORT_SEND_PUBLIC_REPLY_PRODUCTION_APPLIED = false as const;
+/** Production Core qbcqoixhrvhnuwphefvw — owner YES applied 2026-11-28. */
+export const SUPPORT_SEND_PUBLIC_REPLY_PRODUCTION_APPLIED = true as const;
 
 /**
- * @deprecated Prefer isSupportSendPublicReplyApplied() — Staging-only until Production YES.
- * Kept false so Production-bound defaults stay fail-closed in static checks.
+ * @deprecated Prefer isSupportSendPublicReplyApplied(url).
+ * Mirrors Production applied flag for legacy static imports.
  */
 export const SUPPORT_SEND_PUBLIC_REPLY_APPLIED =
   SUPPORT_SEND_PUBLIC_REPLY_PRODUCTION_APPLIED;
@@ -49,5 +51,5 @@ export const SUPPORT_APP_VISIBLE_MESSAGES_SQL_PATH =
 export const SUPPORT_APP_VISIBLE_MESSAGES_SQL_SHA256 =
   "3582eb87ad1efe3547e63821b59c7d0505239545b728683faf4808825e1a9617" as const;
 
-/** False until companion APP get RPC is applied (separate YES). */
-export const SUPPORT_APP_VISIBLE_MESSAGES_APPLIED = false as const;
+/** Production get_app_portal_support_request includes customer_visible messages. */
+export const SUPPORT_APP_VISIBLE_MESSAGES_APPLIED = true as const;
