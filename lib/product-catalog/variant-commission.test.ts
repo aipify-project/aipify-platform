@@ -13,13 +13,13 @@ import {
 import { VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION } from "./variant-commission-core-gate";
 import { qualifyFixedCommission, qualifyPercentCommission } from "./commission-rules";
 
-test("variant commission persistence is fail-closed on Production / unbound env", () => {
+test("variant commission persistence is enabled on Production when activation flag is true", () => {
   const previous = process.env.NEXT_PUBLIC_SUPABASE_URL;
   process.env.NEXT_PUBLIC_SUPABASE_URL = "https://qbcqoixhrvhnuwphefvw.supabase.co";
-  assert.equal(VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION, false);
-  assert.equal(VARIANT_COMMISSION_PERSISTENCE.canPersist, false);
-  assert.equal(canPersistVariantCommissionRules(), false);
-  assert.equal(VARIANT_COMMISSION_PERSISTENCE.status, "production_fail_closed");
+  assert.equal(VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION, true);
+  assert.equal(VARIANT_COMMISSION_PERSISTENCE.canPersist, true);
+  assert.equal(canPersistVariantCommissionRules(), true);
+  assert.equal(VARIANT_COMMISSION_PERSISTENCE.status, "production_core_enabled");
   if (previous === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_URL;
   else process.env.NEXT_PUBLIC_SUPABASE_URL = previous;
 });
