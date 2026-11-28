@@ -14,6 +14,10 @@ import type { HumanVerificationLabels } from "@/lib/system-notice/types";
 export type SupportIntakeFormLabels = {
   title: string;
   subtitle: string;
+  /** Post-submit confirmation subtitle — replaces pre-submit intro copy. */
+  successSubtitle: string;
+  /** Short guidance under the reference after a successful submit. */
+  successNextStep: string;
   name: string;
   email: string;
   subject: string;
@@ -206,13 +210,29 @@ export default function SupportIntakeForm({
   return (
     <section className={AipifyPublicFormClasses.panel} data-testid="public-support-intake-form">
       <h1 className={AipifyPublicFormClasses.title}>{labels.title}</h1>
-      <p className={AipifyPublicFormClasses.subtitle}>{labels.subtitle}</p>
+      <p className={AipifyPublicFormClasses.subtitle}>
+        {confirmed ? labels.successSubtitle : labels.subtitle}
+      </p>
 
       {confirmed ? (
-        <div className={`mt-6 ${AipifyPublicFormClasses.noticeSuccess}`} role="status">
-          <p className="font-medium">{labels.successSubmitted}</p>
-          <p className="mt-2 text-sm">
-            {labels.referenceLabel}: <span className="font-semibold">{ticketNumber}</span>
+        <div
+          className={`mt-5 ${AipifyPublicFormClasses.noticeSuccess}`}
+          role="status"
+          data-testid="public-support-intake-success"
+        >
+          <p className="text-base font-semibold leading-snug text-emerald-950">
+            {labels.successSubmitted}
+          </p>
+          <div className="mt-3 rounded-lg border border-emerald-200/80 bg-white/70 px-3.5 py-3">
+            <p className="text-xs font-medium uppercase tracking-wide text-emerald-800/80">
+              {labels.referenceLabel}
+            </p>
+            <p className="mt-1 font-mono text-lg font-semibold tracking-wide text-emerald-950">
+              {ticketNumber}
+            </p>
+          </div>
+          <p className="mt-3 text-sm leading-relaxed text-emerald-900/90">
+            {labels.successNextStep}
           </p>
         </div>
       ) : (

@@ -29,6 +29,8 @@ const KEYS = [
   "successCorePending",
   "temporaryUnavailable",
   "successSubmitted",
+  "successSubtitle",
+  "successNextStep",
   "mailtoLabel",
 ] as const;
 
@@ -61,6 +63,10 @@ assert.match(form, /temporaryUnavailable/);
 assert.match(form, /rate_limit_unavailable/);
 assert.doesNotMatch(form, /json\.live === false/);
 assert.match(form, /successCorePending/);
+assert.match(form, /successSubtitle/);
+assert.match(form, /successNextStep/);
+assert.match(form, /confirmed \? labels\.successSubtitle : labels\.subtitle/);
+assert.match(form, /public-support-intake-success/);
 assert.match(form, /PublicFormHoneypot/);
 assert.match(api, /support-intake:diag/);
 assert.match(form, /AipifyPublicFormClasses/);
@@ -78,6 +84,8 @@ assert.doesNotMatch(api, /randomUUID/);
 assert.match(api, /partner_id|tenant_id|company_id/);
 assert.match(appContact, /renderAppPortalFoundationPage\("contactSupport"\)/);
 assert.doesNotMatch(appContact, /SupportIntakeForm|support-intake\/web/);
+assert.match(page, /successSubtitle/);
+assert.match(page, /successNextStep/);
 
 const partner = read("components/marketing/CertifiedSalesPartnerRegistrationForm.tsx");
 assert.match(partner, /AipifyPublicFormClasses/);
@@ -121,8 +129,11 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"] as const) {
   }
   assert.match(block.mailtoLabel, /support@aipify\.ai/);
   assert.doesNotMatch(block.successSubmitted, /SUP-/);
+  assert.doesNotMatch(block.successSubtitle, /SUP-/);
+  assert.doesNotMatch(block.successNextStep, /SUP-/);
   assert.doesNotMatch(block.successCorePending, /SUP-/);
   assert.doesNotMatch(block.temporaryUnavailable, /SUP-/);
+  assert.doesNotMatch(block.successSubtitle, /Send a support request|Send en support|Email remains available/i);
   assert.doesNotMatch(block.subtitle, /after approval|etter godkjenning|efter godkännande|efter godkendelse|po zatwierdzeniu|після схвалення|tras aprobación/i);
   assert.doesNotMatch(block.subtitle, /not active yet|ikke aktivt ennå|inte aktivt ännu|ikke aktivt endnu|nie jest jeszcze aktywny|ще не активний|aún no está activa/i);
 }

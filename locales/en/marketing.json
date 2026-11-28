@@ -8470,7 +8470,7 @@
     "submitting": "Sending…",
     "successCorePending": "Automatic ticket intake is not active yet. Use the email alternative below — we will not invent a ticket number.",
     "temporaryUnavailable": "Support intake is temporarily unavailable. Try again shortly, or use the email alternative below — we will not invent a ticket number.",
-    "successSubmitted": "Your request was registered.",
+    "successSubmitted": "Thank you — Aipify has registered your request.",
     "errorGeneric": "Could not send the request. Try again or use email.",
     "mailtoFallback": "Email remains available as an alternative contact channel.",
     "mailtoLabel": "Email support@aipify.ai",
@@ -8481,7 +8481,9 @@
     "emailInvalid": "Enter a valid email address.",
     "subjectTooShort": "Subject must be at least 3 characters.",
     "messageTooShort": "Message must be at least 10 characters.",
-    "referenceLabel": "Reference"
+    "referenceLabel": "Reference",
+    "successSubtitle": "Your support request has been registered. Support can follow up using the reference below.",
+    "successNextStep": "Keep this reference if you contact us again about the same request."
   },
   "personalSalesPage": {
     "metaTitle": "Aipify",
