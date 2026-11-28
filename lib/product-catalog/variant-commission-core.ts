@@ -386,17 +386,23 @@ type PersistEnvOptions = {
   supabaseUrl?: string | null;
 };
 
-/** Probe whether required RPCs exist (Staging only). */
+function persistGateError(
+  capability: ReturnType<typeof resolveVariantCommissionPersistCapability>,
+): PersistVariantsError {
+  return {
+    ok: false,
+    error: capability.productionBound ? "production_fail_closed" : "persist_env_disabled",
+  };
+}
+
+/** Probe whether required RPCs exist (Staging, or Production when activation flag is on). */
 export async function probeVariantCommissionCoreRpcs(
   supabase: CspRpcClient,
   options?: PersistEnvOptions,
 ): Promise<{ ready: true } | PersistVariantsError> {
   const capability = resolveVariantCommissionPersistCapability(options?.supabaseUrl);
-  if (capability.productionBound) {
-    return { ok: false, error: "production_fail_closed" };
-  }
   if (!capability.canAttemptPersist) {
-    return { ok: false, error: "persist_env_disabled" };
+    return persistGateError(capability);
   }
   const probe = await callCspRpc(supabase, "list_csp_variant_commission_rates", {
     p_product_id: null,
@@ -416,11 +422,8 @@ export async function loadProductVariantsBundle(
   | PersistVariantsError
 > {
   const capability = resolveVariantCommissionPersistCapability(options?.supabaseUrl);
-  if (capability.productionBound) {
-    return { ok: false, error: "production_fail_closed" };
-  }
   if (!capability.canAttemptPersist) {
-    return { ok: false, error: "persist_env_disabled" };
+    return persistGateError(capability);
   }
   const result = await callCspRpc<CoreVariantsBundle>(supabase, "get_csp_product_variants_bundle", {
     p_product_key: productKey,
@@ -446,11 +449,8 @@ export async function listVariantCommissionRatesFromCore(
   | PersistVariantsError
 > {
   const capability = resolveVariantCommissionPersistCapability(options?.supabaseUrl);
-  if (capability.productionBound) {
-    return { ok: false, error: "production_fail_closed" };
-  }
   if (!capability.canAttemptPersist) {
-    return { ok: false, error: "persist_env_disabled" };
+    return persistGateError(capability);
   }
   const result = await callCspRpc(supabase, "list_csp_variant_commission_rates", {
     p_product_id: productId,
@@ -502,7 +502,9 @@ async function persistOneCommission(
   interval: ProductBillingInterval,
   rule: VariantIntervalCommissionRule | null | undefined,
 ): Promise<{ saved: boolean; unchanged: boolean; error?: PersistVariantsError }> {
-  if (!rule) {
+  // null / undefined = not configured → never invent a 0 kr Core version.
+  // Explicit fixed amountMajor 0 (or percent 0) is a configured rule and may persist.
+  if (rule == null) {
     return { saved: false, unchanged: false };
   }
   // get_effective returns found:false when no version exists yet — that is a valid
@@ -584,11 +586,8 @@ export async function persistProductVariantsToCore(
   options?: PersistEnvOptions,
 ): Promise<PersistVariantsResult> {
   const capability = resolveVariantCommissionPersistCapability(options?.supabaseUrl);
-  if (capability.productionBound) {
-    return { ok: false, error: "production_fail_closed" };
-  }
   if (!capability.canAttemptPersist) {
-    return { ok: false, error: "persist_env_disabled" };
+    return persistGateError(capability);
   }
 
   const productKey = input.productKey.trim();

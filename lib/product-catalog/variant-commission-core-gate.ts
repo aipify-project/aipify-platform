@@ -2,8 +2,8 @@
  * Variant + commission Core persistence gate.
  *
  * Staging Core (auedugihkduoaikfusqe) may persist when RPCs exist.
- * Production Core stays fail-closed — no writes even if RPCs appear later
- * without a separate owner YES.
+ * Production Core stays fail-closed until VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION
+ * is flipped true by exact owner YES (separate activation task).
  */
 
 import {
@@ -18,14 +18,21 @@ export {
   resolveConfiguredSupabaseProjectRef,
 };
 
-/** True only when the app is bound to Staging Core. Production always false. */
+/**
+ * Production UI/API persist activation switch.
+ * Keep false until exact owner YES for Production persistence activation.
+ * Does not enable Stripe, checkout, or commission settlement/earn.
+ */
+export const VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION = false;
+
+/** True only when the app is bound to Staging Core. */
 export function isVariantCommissionStagingPersistEnvEnabled(
   url: string | null | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL,
 ): boolean {
   return resolveConfiguredSupabaseProjectRef(url) === AIPIFY_CORE_STAGING_PROJECT_REF;
 }
 
-/** Production Core bound — must never open variant commission writes. */
+/** True when NEXT_PUBLIC_SUPABASE_URL points at Production Core. */
 export function isVariantCommissionProductionCoreBound(
   url: string | null | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL,
 ): boolean {
@@ -41,6 +48,7 @@ export type VariantCommissionPersistCapability = {
   canAttemptPersist: boolean;
   reason:
     | "staging_core_bound"
+    | "production_core_bound"
     | "production_fail_closed"
     | "unknown_or_unbound_core";
 };
@@ -62,6 +70,16 @@ export function resolveVariantCommissionPersistCapability(
     };
   }
   if (productionBound) {
+    if (VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION) {
+      return {
+        envEnabled: true,
+        productionBound: true,
+        stagingBound: false,
+        projectRef,
+        canAttemptPersist: true,
+        reason: "production_core_bound",
+      };
+    }
     return {
       envEnabled: false,
       productionBound: true,

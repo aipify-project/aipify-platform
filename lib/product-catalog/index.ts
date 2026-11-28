@@ -42,6 +42,7 @@ export {
   VARIANT_COMMISSION_PERCENT_BASIS,
   canPersistVariantCommissionRules,
   emptyVariantCommissionRule,
+  isConfiguredVariantCommissionRule,
   normalizeVariantCommissionRule,
   previewVariantCommissionExVat,
   type VariantCommissionModel,
@@ -50,6 +51,7 @@ export {
 export {
   AIPIFY_CORE_PRODUCTION_PROJECT_REF,
   AIPIFY_CORE_STAGING_PROJECT_REF,
+  VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION,
   isVariantCommissionProductionCoreBound,
   isVariantCommissionStagingPersistEnvEnabled,
   resolveVariantCommissionPersistCapability,

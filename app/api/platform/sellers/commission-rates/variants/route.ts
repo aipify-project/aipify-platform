@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 
 /**
  * Shared variant commission list for Provisjonspriser.
- * Same Core source as product editor. Production fail-closed.
+ * Same Core source as product editor. Production fail-closed until activation flag.
  */
 export async function GET(request: Request) {
   try {

@@ -148,6 +148,71 @@ test("Staging persist flow: create variant, prices, commission versions; skip un
   assert.ok(calls.includes("upsert_csp_variant_commission_rate"));
 });
 
+test("not-configured (null) commission never upserts a 0 kr version", async () => {
+  let commissionUpserts = 0;
+  const variant: ProductVariantDefinition = {
+    variantKey: "e2e_unset",
+    productKey: "e2e_product",
+    adminName: "unset",
+    customerLabel: "Unset",
+    sortOrder: 0,
+    active: true,
+    recommended: false,
+    quotaValue: null,
+    quotaUnit: null,
+    quotaKind: "none",
+    annualRenewsQuotaMonthly: false,
+    monthlyPrice: {
+      currency: "NOK",
+      amountMajor: 199,
+      amountMinor: 19900,
+      interval: "month",
+      vatLabel: "exclusive",
+      providerPriceId: null,
+      purchasable: false,
+      commission: null,
+    },
+    yearlyPrice: null,
+    oneTimePrice: null,
+    features: [],
+  };
+  const result = await persistProductVariantsToCore(
+    {
+      rpc: async (name: string) => {
+        if (name === "get_csp_product_variants_bundle") {
+          return {
+            data: {
+              product_key: "e2e_product",
+              product_id: "22222222-2222-2222-2222-222222222222",
+              variants: [],
+            },
+            error: null,
+          };
+        }
+        if (name === "upsert_csp_product_variant" || name === "upsert_csp_product_variant_price") {
+          return { data: { ok: true }, error: null };
+        }
+        if (name === "upsert_csp_variant_commission_rate") {
+          commissionUpserts += 1;
+          return { data: { ok: true }, error: null };
+        }
+        if (name === "get_effective_csp_variant_commission") {
+          return { data: { found: false, settlement_activated: false }, error: null };
+        }
+        return { data: null, error: { message: `unexpected ${name}` } };
+      },
+    },
+    { productKey: "e2e_product", variants: [variant] },
+    { supabaseUrl: STAGING_URL },
+  );
+  assert.equal(result.ok, true);
+  if (result.ok) {
+    assert.equal(result.pricesSaved, 1);
+    assert.equal(result.commissionsSaved, 0);
+  }
+  assert.equal(commissionUpserts, 0);
+});
+
 test("missing RPC returns clear failure (never false success)", async () => {
   const result = await persistProductVariantsToCore(
     {

@@ -11,8 +11,9 @@ import { resolveVariantCommissionPersistCapability } from "@/lib/product-catalog
 import { createClient } from "@/lib/supabase/server";
 
 /**
- * Product variants + interval commission — Staging Core only.
- * Production remains fail-closed (no writes, no false success).
+ * Product variants + interval commission.
+ * Production stays fail-closed until VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION
+ * is flipped by exact owner YES. Never claims false save success.
  */
 export async function GET(request: Request) {
   try {

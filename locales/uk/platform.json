@@ -8272,6 +8272,9 @@
       "editorVariantCommissionPreviewInactive": "Неактивна — за цей період комісія не нараховується.",
       "editorVariantCommissionPercentBasis": "Відсоток рахується від чистої суми продажу без ПДВ.",
       "editorVariantCommissionFreeHint": "Безкоштовні варіанти можуть мати комісію 0.",
+      "editorVariantCommissionNotConfigured": "Не налаштовано — не буде збережено як 0.",
+      "editorVariantCommissionConfigure": "Налаштувати комісію продавця",
+      "editorVariantCommissionClear": "Очистити (залишити неналаштованим)",
       "editorVariantCommissionSaved": "Ціни варіантів і правила комісії продавця збережено в Core (нові версії комісії при зміні).",
       "editorVariantCommissionSaveFailed": "Не вдалося зберегти ціни варіантів або комісію продавця. Деталі продукту могли зберегтися, але комісію не збережено."
     },

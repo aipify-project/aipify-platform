@@ -1,6 +1,7 @@
 /**
  * Variant × billing-interval seller commission — shared types for Opprett produkt
- * and Provisjonspriser. Staging Core may persist; Production stays fail-closed.
+ * and Provisjonspriser. Staging Core may persist; Production stays fail-closed until
+ * VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION is owner-approved.
  *
  * Does not change historical product-level rates or qualified sales.
  */
@@ -14,17 +15,28 @@ export const VARIANT_COMMISSION_PERCENT_BASIS = "net_ex_vat_after_discount" as c
 
 export type VariantCommissionModel = "fixed" | "percent";
 
-/** Draft / display rule for one (variant, interval). Amounts are exclusive of VAT. */
+/**
+ * Draft / display rule for one (variant, interval). Amounts are exclusive of VAT.
+ * Absence of a rule (`null` on the price) means **not configured** — do not persist.
+ * An explicit rule with `amountMajor: 0` (fixed) is configured zero (free variant OK).
+ */
 export type VariantIntervalCommissionRule = {
   active: boolean;
   model: VariantCommissionModel;
-  /** Fixed NOK (major units), ex VAT. Use 0 for free variants. */
+  /** Fixed NOK (major units), ex VAT. Use 0 for free variants when configured. */
   amountMajor: number | null;
   /** Percent of net sales amount ex VAT (0–100). */
   ratePct: number | null;
   currency: string;
   percentBasis: typeof VARIANT_COMMISSION_PERCENT_BASIS;
 };
+
+/** True when a rule object exists (including explicit 0). False for null/undefined. */
+export function isConfiguredVariantCommissionRule(
+  rule: VariantIntervalCommissionRule | null | undefined,
+): rule is VariantIntervalCommissionRule {
+  return rule != null;
+}
 
 export type VariantCommissionByInterval = {
   month: VariantIntervalCommissionRule | null;
@@ -37,9 +49,14 @@ export type VariantCommissionByInterval = {
  * Production and unbound envs stay fail-closed (never claim save success).
  */
 export const VARIANT_COMMISSION_PERSISTENCE = {
-  get status(): "staging_core_enabled" | "production_fail_closed" | "blocked_needs_core_rpc" {
+  get status():
+    | "staging_core_enabled"
+    | "production_core_enabled"
+    | "production_fail_closed"
+    | "blocked_needs_core_rpc" {
     const cap = resolveVariantCommissionPersistCapability();
     if (cap.stagingBound) return "staging_core_enabled";
+    if (cap.productionBound && cap.canAttemptPersist) return "production_core_enabled";
     if (cap.productionBound) return "production_fail_closed";
     return "blocked_needs_core_rpc";
   },
@@ -53,7 +70,7 @@ export const VARIANT_COMMISSION_PERSISTENCE = {
   ] as const,
 };
 
-/** True only when Staging Core is bound. Production always false. */
+/** True when env allows Core persist attempts (Staging, or Production after activation flag). */
 export function canPersistVariantCommissionRules(
   url: string | null | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL,
 ): boolean {
