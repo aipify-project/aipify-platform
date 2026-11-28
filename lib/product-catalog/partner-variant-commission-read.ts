@@ -106,14 +106,21 @@ export function extractPartnerCommissionSlots(
 ): PartnerVariantCommissionSlot[] {
   const slots: PartnerVariantCommissionSlot[] = [];
   for (const variant of variants) {
-    for (const interval of ["month", "year", "one_time"] as const) {
-      const price = priceForInterval(variant, interval);
+    const byInterval: Array<{
+      interval: ProductBillingInterval;
+      price: ReturnType<typeof priceForInterval> | ProductVariantDefinition["oneTimePrice"];
+    }> = [
+      { interval: "month", price: priceForInterval(variant, "month") },
+      { interval: "year", price: priceForInterval(variant, "year") },
+      { interval: "one_time", price: variant.oneTimePrice ?? null },
+    ];
+    for (const row of byInterval) {
       slots.push(
         slotFromIntervalRule({
           productKey,
           variantKey: variant.variantKey,
-          billingInterval: interval,
-          rule: price?.commission ?? null,
+          billingInterval: row.interval,
+          rule: row.price?.commission ?? null,
         }),
       );
     }
