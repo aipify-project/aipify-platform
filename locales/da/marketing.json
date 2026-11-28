@@ -7279,9 +7279,9 @@
         "Check your email to confirm your account if required.",
         "Sign in to your Growth Partner workspace when invited.",
         "Complete any required onboarding for the products you will represent.",
-        "Email partners@aipify.ai if you have questions during onboarding."
+        "Brug Kontakt support, hvis du har spørgsmål under onboarding."
       ],
-      "successContact": "Questions? Email partners@aipify.ai or use the contact page — we respond with clear next steps.",
+      "successContact": "Spørgsmål? Brug Kontakt support — Aipify svarer med klare næste skridt.",
       "successPortalCta": "Continue to Growth Partner workspace"
     },
     "split": {
@@ -7562,7 +7562,7 @@
         },
         {
           "question": "What support does Aipify provide?",
-          "answer": "Aipify provides product, partner process, and contact through partners@aipify.ai. Specific portal tools depend on what is enabled after approval."
+          "answer": "Aipify giver produktvejledning og partnerproces-støtte via Kontakt support. Specifikke portalværktøjer afhænger af, hvad der er aktiveret efter godkendelse."
         },
         {
           "question": "Can sole proprietorships (ENK) apply?",
@@ -7578,7 +7578,7 @@
       "title": "Klar til at blive partner med Aipify?",
       "subtitle": "Ansøg som Growth Partner for Kompis Web og Kompis Bedrift. Provision følger partneraftalen — indkomst er ikke garanteret.",
       "primary": "Ansøg om at blive Growth Partner",
-      "secondary": "Kontakt partners@aipify.ai"
+      "secondary": "Kontakt support"
     },
     "partnerAdvisor": {
       "title": "Partner Success Team",
@@ -7588,7 +7588,7 @@
       "role": "Growth Partner onboarding",
       "availability": "Contact for onboarding questions",
       "contactLabel": "Contact",
-      "contactPath": "partners@aipify.ai",
+      "contactPath": "/contact/support",
       "services": [
         "Growth Partner onboarding questions",
         "Application guidance",
@@ -7596,7 +7596,7 @@
         "Product orientation for Web and Bedrift"
       ]
     },
-    "footerNote": "Aipify Group AS · Bergen, Norway · partners@aipify.ai"
+    "footerNote": "Aipify Group AS · Bergen, Norge"
   },
   "knowledgePageRedesign": {
     "hero": {

@@ -31,7 +31,6 @@ const KEYS = [
   "successSubmitted",
   "successSubtitle",
   "successNextStep",
-  "mailtoLabel",
 ] as const;
 
 function read(rel: string): string {
@@ -54,7 +53,7 @@ assert.match(page, /privacyInactive/);
 assert.match(page, /subtitleInactive/);
 assert.match(page, /temporaryUnavailable/);
 assert.doesNotMatch(page, /ticketNumber\s*[:=]\s*["']SUP-/);
-assert.match(form, /support@aipify\.ai/);
+assert.doesNotMatch(form, /support@aipify\.ai|mailto:|mailtoLabel|mailtoFallback|PublicFormInfoNotice/);
 assert.match(form, /intakeLive/);
 assert.match(form, /disabled=\{!intakeLive/);
 assert.match(form, /TICKET_NUMBER_RE/);
@@ -70,7 +69,6 @@ assert.match(form, /public-support-intake-success/);
 assert.match(form, /PublicFormHoneypot/);
 assert.match(api, /support-intake:diag/);
 assert.match(form, /AipifyPublicFormClasses/);
-assert.match(form, /PublicFormInfoNotice/);
 assert.match(form, /variant="light"/);
 assert.match(form, /compact/);
 assert.doesNotMatch(form, /intakeLive \? \(\s*<AipifyHumanVerification/);
@@ -86,6 +84,7 @@ assert.match(appContact, /renderAppPortalFoundationPage\("contactSupport"\)/);
 assert.doesNotMatch(appContact, /SupportIntakeForm|support-intake\/web/);
 assert.match(page, /successSubtitle/);
 assert.match(page, /successNextStep/);
+assert.doesNotMatch(page, /mailtoLabel|mailtoFallback/);
 
 const partner = read("components/marketing/CertifiedSalesPartnerRegistrationForm.tsx");
 assert.match(partner, /AipifyPublicFormClasses/);
@@ -127,7 +126,6 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"] as const) {
     assert.equal(typeof block[key], "string", `${locale}.${key}`);
     assert.ok(block[key].trim().length > 0, `${locale}.${key} empty`);
   }
-  assert.match(block.mailtoLabel, /support@aipify\.ai/);
   assert.doesNotMatch(block.successSubmitted, /SUP-/);
   assert.doesNotMatch(block.successSubtitle, /SUP-/);
   assert.doesNotMatch(block.successNextStep, /SUP-/);

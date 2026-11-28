@@ -56,6 +56,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: meta.homeTitle ?? "Aipify",
     description: meta.homeDescription,
+    /**
+     * Legacy marketing shell — crawlable so noindex is observed, but not preferred
+     * over the Kompis Web sales chrome (`(kompis-sales)`). Not robots-disallow.
+     */
+    robots: { index: false, follow: true },
     openGraph: {
       title: meta.homeTitle,
       description: meta.homeDescription,

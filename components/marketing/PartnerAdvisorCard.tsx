@@ -63,7 +63,7 @@ export function PartnerAdvisorCard({ labels }: Props) {
       <p className="mt-6 text-sm text-aipify-text-secondary">
         {labels.contactLabel}:{" "}
         <Link href={contactHref} className={`font-medium ${PublicMarketingClasses.link}`}>
-          {labels.contactPath}
+          {contactHref.startsWith("mailto:") ? labels.contactPath : labels.contactLabel}
         </Link>
       </p>
     </div>

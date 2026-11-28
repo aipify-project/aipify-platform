@@ -8,7 +8,7 @@ import { loadKompisWebSalesRouteContext } from "@/lib/marketing/kompis-web-sales
 
 /**
  * Isolated sales shell for `/`, `/kompis-web`, `/start`, `/contact/support`,
- * `/certified-sales-partner`, and public legal pages.
+ * `/growth-partners`, `/certified-sales-partner`, and public legal pages.
  * Consent labels must follow the same cookie-only sales locale as the page
  * (not Accept-Language), so English anonymous visitors do not see Norwegian consent.
  */

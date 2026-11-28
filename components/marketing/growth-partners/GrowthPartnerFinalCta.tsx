@@ -24,9 +24,9 @@ export default function GrowthPartnerFinalCta({ finalCta }: Props) {
               {finalCta.primary}
             </a>
             <Link
-              href="/contact"
+              href="/contact/support"
               className={`w-full sm:w-auto ${AipifyMarketingClasses.secondaryCta} px-7 py-3.5 text-base`}
-              {...marketingDataAttr("cta_click", "growth_partner_final_speak_success")}
+              {...marketingDataAttr("cta_click", "growth_partner_final_contact_support")}
             >
               {finalCta.secondary}
             </Link>

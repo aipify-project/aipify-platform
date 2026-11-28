@@ -30,14 +30,15 @@ for (const source of [support, partner]) {
   assert.match(source, /PublicFormHoneypot/);
   assert.match(source, /variant="light"/);
   assert.match(source, /compact/);
-  assert.match(source, /PublicFormInfoNotice/);
 }
 
+assert.doesNotMatch(support, /PublicFormInfoNotice|mailto:|support@aipify\.ai/);
 assert.match(support, /disabled=\{!intakeLive/);
 assert.doesNotMatch(support, /intakeLive \?\s*\n?\s*<AipifyHumanVerification/);
 assert.match(support, /support-intake-closed/);
 assert.doesNotMatch(support, /SUPPORT_INTAKE_RPC_CONNECTED\s*=\s*true/);
 
+assert.match(partner, /PublicFormInfoNotice/);
 assert.match(partner, /data-testid="csp-process-info"|testId="csp-process-info"/);
 
 console.log("public-form-style-parity.test.ts: ok");
