@@ -99,8 +99,14 @@ type Props = {
   selectedPublishApp?: boolean | null;
   selectedMasterActive?: boolean | null;
   selectedLogoSrc?: string | null;
+  selectedHeroImagePath?: string | null;
   selectedCategory?: string | null;
   selectedProductType?: string | null;
+  selectedCatalogProduct?: import("@/lib/product-catalog").UnifiedCatalogProduct | null;
+  selectedCoreProductId?: string | null;
+  selectedTitleFromCore?: string | null;
+  channelSchemaAvailable?: boolean;
+  previewLocale?: string;
   /** Core product keys for dependency picker (same register). */
   dependencyCandidates?: string[];
   /** Shopify-layout editor labels (required when section=products). */
@@ -130,8 +136,14 @@ export function CertifiedSellersActionPanel({
   selectedPublishApp = null,
   selectedMasterActive = null,
   selectedLogoSrc = null,
+  selectedHeroImagePath = null,
   selectedCategory = null,
   selectedProductType = null,
+  selectedCatalogProduct = null,
+  selectedCoreProductId = null,
+  selectedTitleFromCore = null,
+  channelSchemaAvailable = true,
+  previewLocale = "en",
   dependencyCandidates = [],
   editorLabels,
   standaloneEditor = false,
@@ -507,9 +519,15 @@ export function CertifiedSellersActionPanel({
           publishApp={selectedPublishApp}
           masterActive={selectedMasterActive}
           logoSrc={selectedLogoSrc}
+          heroImagePath={selectedHeroImagePath}
           category={selectedCategory}
           productType={selectedProductType}
           dependencyCandidates={dependencyCandidates}
+          catalogProduct={selectedCatalogProduct}
+          coreProductId={selectedCoreProductId}
+          titleFromCore={selectedTitleFromCore}
+          channelSchemaAvailable={channelSchemaAvailable}
+          previewLocale={previewLocale}
           pending={pending}
           onSubmit={onProducts}
           onDiscard={() => {

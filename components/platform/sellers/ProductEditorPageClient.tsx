@@ -80,6 +80,7 @@ export function ProductEditorPageClient({
             publishApp: p.publishApp,
           }))
         : null,
+      coreChannelApplied: listFromCore,
     });
     return catalog.find((p) => p.productKey === productKey) ?? null;
   }, [catalogLocale, mode, overview, productKey]);
@@ -140,8 +141,14 @@ export function ProductEditorPageClient({
       }
       selectedMasterActive={coreRow?.masterActive ?? null}
       selectedLogoSrc={selected?.logoSrc ?? null}
-      selectedCategory={selected?.category ?? null}
-      selectedProductType={selected?.category ?? null}
+      selectedHeroImagePath={selected?.heroImagePath ?? null}
+      selectedCategory={selected?.storeCategoryId ?? selected?.category ?? null}
+      selectedProductType={selected?.productType ?? null}
+      selectedCatalogProduct={selected}
+      selectedCoreProductId={coreRow?.id ?? selected?.coreProductId ?? null}
+      selectedTitleFromCore={coreRow?.title ?? null}
+      channelSchemaAvailable={overview?.products !== null}
+      previewLocale={catalogLocale}
       dependencyCandidates={(overview?.products ?? []).map((p) => p.productKey)}
       onSuccess={() => void load()}
     />
