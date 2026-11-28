@@ -37,6 +37,13 @@ export {
   type AppStorefrontViewModel,
 } from "./app-storefront-view-model";
 export {
+  applyAuthoritativeCorePricing,
+  deriveCustomerPriceFromCoreVariants,
+  loadAuthoritativeVariantsForProducts,
+  stripVariantCommission,
+  AUTHORITATIVE_PRICING_RPC,
+} from "./authoritative-pricing";
+export {
   buildCommissionRatesPresentation,
   buildCustomerPriceHints,
   isConfiguredBillingPeriodPrice,

@@ -19,6 +19,10 @@ import {
   loadAppStoreCoreProducts,
   type ProductCatalogLocaleCode,
 } from "@/lib/product-catalog";
+import {
+  applyAuthoritativeCorePricing,
+  loadAuthoritativeVariantsForProducts,
+} from "@/lib/product-catalog/authoritative-pricing";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -72,7 +76,7 @@ export default async function SoftwareCatalogPage({
   const coreChannelApplied = coreLoad.ok;
   const coreProducts = coreLoad.ok ? coreLoad.products : null;
 
-  const allProducts = filterAppStoreProducts(
+  let allProducts = filterAppStoreProducts(
     buildUnifiedCatalog({
       locale: catalogLocale,
       coreProducts,
@@ -83,6 +87,41 @@ export default async function SoftwareCatalogPage({
       ],
     }),
   );
+
+  // Authoritative Core variant prices — never keep planned/hardcoded amounts once Core answers.
+  let coreVariantsNote: string | null = null;
+  if (coreChannelApplied && allProducts.length > 0) {
+    const loaded = await loadAuthoritativeVariantsForProducts(
+      supabase,
+      allProducts.map((p) => p.productKey),
+    );
+    if (loaded.ok) {
+      const map = { ...loaded.variantsByProductKey };
+      for (const product of allProducts) {
+        if (!Object.prototype.hasOwnProperty.call(map, product.productKey)) {
+          map[product.productKey] = [];
+        }
+      }
+      allProducts = applyAuthoritativeCorePricing({
+        products: allProducts,
+        coreVariantsByKey: map,
+        coreVariantsResolved: true,
+        stripCommission: true,
+      });
+      if (loaded.failedKeys.length > 0) {
+        coreVariantsNote = showcase.coreChannelPending ?? null;
+      }
+    } else {
+      // Fail closed: do not present planned catalog as Core price.
+      allProducts = applyAuthoritativeCorePricing({
+        products: allProducts,
+        coreVariantsByKey: Object.fromEntries(allProducts.map((p) => [p.productKey, []])),
+        coreVariantsResolved: true,
+        stripCommission: true,
+      });
+      coreVariantsNote = showcase.coreChannelPending ?? null;
+    }
+  }
 
   const rawCategory = params.category;
   const categoryParam = Array.isArray(rawCategory) ? rawCategory[0] : rawCategory;
@@ -116,7 +155,7 @@ export default async function SoftwareCatalogPage({
   ]);
 
   const corePendingNote =
-    !coreLoad.ok && coreLoad.reason === "missing"
+    (!coreLoad.ok && coreLoad.reason === "missing") || coreVariantsNote
       ? showcase.coreChannelPending ?? null
       : null;
 

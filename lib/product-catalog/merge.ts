@@ -133,8 +133,10 @@ function customerPrice(productKey: string): UnifiedCatalogProduct["customerPrice
 }
 
 /**
- * Attach planned variants for known products.
- * Source of truth for Kompis Web quotas/prices: WEBSITE_KOMPIS_PLAN_CATALOG
+ * Planned/reference variants for known products (editor scaffolds + offline demos).
+ * NOT authoritative customer pricing once Core variants resolve —
+ * use applyAuthoritativeCorePricing / get_csp_product_variants_bundle instead.
+ * Source of planned Kompis Web quotas: WEBSITE_KOMPIS_PLAN_CATALOG
  * (150 / 2500 / 10000 — not a hardcoded 6000). Annual renews answers monthly.
  */
 export function variantsForProduct(productKey: string): ProductVariantDefinition[] {

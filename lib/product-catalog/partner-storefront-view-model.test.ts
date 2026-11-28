@@ -128,3 +128,95 @@ test("PARTNER_STOREFRONT_REUSE_CONTRACT stays sale-safe", () => {
 });
 
 console.log("partner-storefront-view-model.test.ts: ok");
+
+test("partner storefront: Core empty variants clear planned prices when resolved", () => {
+  const vm = buildPartnerStorefrontViewModel({
+    locale: "en",
+    overviewProducts: [
+      {
+        id: "p1",
+        productKey: "kompis_web",
+        fixedCommissionAmount: 500,
+        currency: "NOK",
+        certificationStatus: "passed",
+      },
+    ],
+    coreReady: true,
+    coreVariantsByKey: { kompis_web: [] },
+    coreVariantsResolved: true,
+  });
+  assert.equal(vm.products.length, 1);
+  assert.equal(vm.products[0]?.variants.length, 0);
+  assert.equal(vm.products[0]?.customerPrice.status, "unavailable");
+  assert.equal(vm.products[0]?.customerPrice.fromMonthly, null);
+});
+
+test("partner storefront: unresolved Core keeps planned variants", () => {
+  const vm = buildPartnerStorefrontViewModel({
+    locale: "en",
+    overviewProducts: [
+      {
+        id: "p1",
+        productKey: "kompis_web",
+        fixedCommissionAmount: 500,
+        currency: "NOK",
+        certificationStatus: "passed",
+      },
+    ],
+    coreReady: true,
+    coreVariantsByKey: { kompis_web: [] },
+    coreVariantsResolved: false,
+  });
+  assert.ok((vm.products[0]?.variants.length ?? 0) > 0);
+  assert.notEqual(vm.products[0]?.customerPrice.fromMonthly, null);
+});
+
+test("partner storefront: Core variants overlay replaces planned amounts", () => {
+  const vm = buildPartnerStorefrontViewModel({
+    locale: "en",
+    overviewProducts: [
+      {
+        id: "p1",
+        productKey: "kompis_web",
+        fixedCommissionAmount: 500,
+        currency: "NOK",
+        certificationStatus: "passed",
+      },
+    ],
+    coreReady: true,
+    coreVariantsResolved: true,
+    coreVariantsByKey: {
+      kompis_web: [
+        {
+          variantKey: "core_variant",
+          productKey: "kompis_web",
+          adminName: "Core",
+          customerLabel: "Core price",
+          sortOrder: 0,
+          active: true,
+          recommended: false,
+          quotaValue: 2500,
+          quotaUnit: "answers",
+          quotaKind: "monthly_renewing",
+          annualRenewsQuotaMonthly: true,
+          monthlyPrice: {
+            currency: "NOK",
+            amountMajor: 199,
+            amountMinor: 19900,
+            interval: "month",
+            vatLabel: "exclusive",
+            providerPriceId: null,
+            purchasable: false,
+            commission: null,
+          },
+          yearlyPrice: null,
+          oneTimePrice: null,
+          features: [],
+        },
+      ],
+    },
+  });
+  assert.equal(vm.products[0]?.variants.length, 1);
+  assert.equal(vm.products[0]?.variants[0]?.variantKey, "core_variant");
+  assert.equal(vm.products[0]?.customerPrice.fromMonthly, 199);
+});
