@@ -3,9 +3,13 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { classifyBridgeAccessDenial, mapGpStatusFromCsp } from "./parse";
-import { UNIFIED_SELLER_BRIDGE_SQL_CANDIDATE } from "./constants";
+import {
+  UNIFIED_SELLER_BRIDGE_SQL_CANDIDATE,
+  UNIFIED_SELLER_BRIDGE_TENANT_TYPE_PATCH,
+} from "./constants";
 
 const sql = readFileSync(UNIFIED_SELLER_BRIDGE_SQL_CANDIDATE, "utf8");
+const tenantTypePatch = readFileSync(UNIFIED_SELLER_BRIDGE_TENANT_TYPE_PATCH, "utf8");
 
 test("negative access: unauthenticated callers are unauthorized", () => {
   for (const rpc of ["ensureForCsp", "ensureOwn", "syncFromCsp", "getOwnLinks"] as const) {
@@ -93,9 +97,35 @@ test("SQL uses subscription_plan=internal for dedicated GP orgs (Production plan
     "provision + signup must both use internal",
   );
   assert.doesNotMatch(sql, /subscription_plan = 'growth_partner'/);
-  // Identity remains growth_partner via tenant_type / org role — not commercial plan.
-  assert.match(sql, /tenant_type = 'growth_partner'/);
-  assert.match(sql, /tenant_type stays 'growth_partner'|aipify_tenant_profiles/);
+});
+
+test("SQL uses tenant_type=internal for dedicated GP orgs (Production tenant_type check)", () => {
+  // aipify_tenant_profiles_tenant_type_check has no growth_partner value.
+  assert.match(sql, /v_slug, 'internal'/);
+  assert.equal((sql.match(/v_slug, 'internal'/g) || []).length, 2, "provision + signup inserts");
+  assert.match(sql, /tenant_type = 'internal'/);
+  assert.doesNotMatch(sql, /tenant_type = 'growth_partner'/);
+  // Identity remains growth_partner via metadata + org role — not constrained tenant_type.
+  assert.match(sql, /organization_type', 'growth_partner'/);
+  assert.match(sql, /role = 'growth_partner'/);
+  assert.match(sql, /in \('customer', 'enterprise', 'pilot_customer', 'sandbox'\)/);
+});
+
+test("tenant_type Production patch updates only provision + signup and preserves GP identity", () => {
+  assert.match(tenantTypePatch, /_usb_provision_dedicated_gp_org_for_auth/);
+  assert.match(tenantTypePatch, /complete_growth_partner_public_signup/);
+  assert.match(tenantTypePatch, /v_slug, 'internal'/);
+  assert.match(tenantTypePatch, /tenant_type = 'internal'/);
+  assert.doesNotMatch(tenantTypePatch, /tenant_type = 'growth_partner'/);
+  assert.match(tenantTypePatch, /organization_type', 'growth_partner'/);
+  assert.match(tenantTypePatch, /role = 'growth_partner'/);
+  assert.match(tenantTypePatch, /subscription_plan = 'internal'/);
+  assert.doesNotMatch(tenantTypePatch, /alter table/i);
+  assert.doesNotMatch(tenantTypePatch, /drop constraint/i);
+  assert.doesNotMatch(tenantTypePatch, /_usb_staging_/);
+  const digest = createHash("sha256").update(readFileSync(UNIFIED_SELLER_BRIDGE_TENANT_TYPE_PATCH)).digest("hex");
+  const shaFile = readFileSync(`${UNIFIED_SELLER_BRIDGE_TENANT_TYPE_PATCH}.sha256`, "utf8").trim();
+  assert.equal(shaFile.split(/\s+/)[0], digest);
 });
 
 test("SQL requires product-specific kompis_web certification for certified+active link", () => {

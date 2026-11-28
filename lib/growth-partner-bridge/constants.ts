@@ -3,6 +3,10 @@
 export const UNIFIED_SELLER_BRIDGE_SQL_CANDIDATE =
   "docs/platform/sql-candidates/NOT_APPLIED_growth_partners_unified_seller_bridge_v1.sql";
 
+/** Minimal Production patch after bridge install — tenant_type=internal only. */
+export const UNIFIED_SELLER_BRIDGE_TENANT_TYPE_PATCH =
+  "docs/platform/sql-candidates/NOT_APPLIED_growth_partners_unified_seller_bridge_tenant_type_internal_v1.sql";
+
 export const UNIFIED_SELLER_BRIDGE_RPC = {
   ensureForCsp: "ensure_growth_partner_app_profile_for_csp_partner",
   ensureOwn: "ensure_own_growth_partner_app_profile_from_csp",

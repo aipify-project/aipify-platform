@@ -31,7 +31,7 @@
 -- Production plan constraint (organizations_subscription_plan_check):
 --   allowed: starter|business|professional|enterprise|internal
 --   Dedicated GP orgs use organizations.subscription_plan value internal (NOT a new commercial plan).
---   Seller identity remains CSP-authoritative; tenant_type stays 'growth_partner'.
+--   Seller identity remains CSP-authoritative; dedicated orgs use tenant_type='internal' (Production check).
 -- =============================================================================
 
 -- Drop prior unreleased bridge helper signatures if a partial experimental apply ever occurred.
@@ -323,8 +323,11 @@ begin
     order by c.created_at asc
     limit 1;
 
+    -- Production aipify_tenant_profiles_tenant_type_check allows only:
+    -- internal|pilot_customer|customer|enterprise|sandbox (no growth_partner).
+    -- Dedicated GP bridge orgs use tenant_type=internal; refuse converting APP customers.
     if v_existing_tenant_type is not null
-       and v_existing_tenant_type is distinct from 'growth_partner' then
+       and v_existing_tenant_type in ('customer', 'enterprise', 'pilot_customer', 'sandbox') then
       return jsonb_build_object(
         'ok', false,
         'error', 'existing_app_customer_org',
@@ -366,7 +369,7 @@ begin
     tenant_id, name, slug, tenant_type, industry, region,
     default_language, supported_languages, timezone, pilot_status, pilot_stage, metadata
   ) values (
-    v_customer_id, p_company, v_slug, 'growth_partner',
+    v_customer_id, p_company, v_slug, 'internal',
     'growth_partner', p_country, 'en', array['en'],
     'Europe/Oslo', 'setup', 1,
     jsonb_build_object(
@@ -381,7 +384,7 @@ begin
   v_org_id := v_customer_id;
   perform public._mta_sync_organization_from_customer(v_customer_id);
   -- Use allowed Production plan value. Do not invent subscription_plan=growth_partner.
-  -- Identity/capability remain tenant_type=growth_partner + organization_users.role=growth_partner.
+  -- Identity/capability: tenant_type=internal (Production check) + metadata.organization_type=growth_partner + organization_users.role=growth_partner.
   update public.organizations set
     name = p_company,
     slug = v_slug,
@@ -904,7 +907,7 @@ begin
     tenant_id, name, slug, tenant_type, industry, region,
     default_language, supported_languages, timezone, pilot_status, pilot_stage, metadata
   ) values (
-    v_customer_id, p_payload->>'company_name', v_slug, 'growth_partner',
+    v_customer_id, p_payload->>'company_name', v_slug, 'internal',
     'growth_partner', p_payload->>'country', 'en', array['en'],
     'Europe/Oslo', 'setup', 1,
     jsonb_build_object(
@@ -914,7 +917,7 @@ begin
     )
   )
   on conflict (tenant_id) do update set
-    name = excluded.name, slug = excluded.slug, tenant_type = 'growth_partner',
+    name = excluded.name, slug = excluded.slug, tenant_type = 'internal',
     metadata = aipify_tenant_profiles.metadata || excluded.metadata, updated_at = now();
 
   v_org_id := v_customer_id;

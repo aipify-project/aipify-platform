@@ -7,7 +7,7 @@ STATUS: PRODUCTION_PLAN_FIX_READY (SQL NOT_APPLIED)
 - Authoritative seller: `csp_partner_profiles` (1:1 `auth_user_id`)
 - Capability layer: dedicated `growth_partner_app_profiles` org + tracking links for `/s/{slug}` and interest CRM
 - Primary portal: `/partners` (no new portal)
-- Dedicated org: `tenant_type = growth_partner`, `organizations.subscription_plan = internal` (Production plan check)
+- Dedicated org: `aipify_tenant_profiles.tenant_type = internal` (Production tenant_type check), `organizations.subscription_plan = internal` (Production plan check); GP identity in metadata + `organization_users.role`
 
 ## Core candidate (do not apply without exact YES)
 
