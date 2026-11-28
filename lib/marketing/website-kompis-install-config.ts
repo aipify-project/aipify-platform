@@ -3,6 +3,7 @@ import {
   resolveCompanionLauncherIconVariant,
   type CompanionLauncherIconVariantKey,
 } from "@/lib/branding/companion-launcher-icons";
+import { isNordicKompisLocale } from "@/lib/brand/kompis-buddy-display";
 import { canonicalFaqContentLanguage, type FaqContentLanguageCode } from "@/lib/website-kompis-faq/content-languages";
 import {
   hasPublicCompanionVisitorContext,
@@ -291,8 +292,8 @@ function disabledCopy(locale: string, siteLabel: string | null): string {
     case "en":
     default:
       return named
-        ? `Website Kompis is temporarily unavailable for ${named}. Contact ${named} for more information.`
-        : "Website Kompis is temporarily unavailable. Contact the business for more information.";
+        ? `Website Buddy is temporarily unavailable for ${named}. Contact ${named} for more information.`
+        : "Website Buddy is temporarily unavailable. Contact the business for more information.";
   }
 }
 
@@ -309,7 +310,12 @@ export function buildWebsiteKompisDisabledResponse(
       steps: [],
     },
     actions: [],
-    sources: [{ title: siteLabel ?? "Website Kompis", route: WEBSITE_KOMPIS_DISABLED_SOURCE }],
+    sources: [
+      {
+        title: siteLabel ?? (isNordicKompisLocale(locale) ? "Website Kompis" : "Website Buddy"),
+        route: WEBSITE_KOMPIS_DISABLED_SOURCE,
+      },
+    ],
     confidence: { level: "low" as const, score: 0.1 },
     supportEscalation: { offered: false as const, reason: null },
     locale,

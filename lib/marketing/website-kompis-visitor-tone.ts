@@ -535,13 +535,13 @@ const EMBED_UI_SHELL: Record<
     sourceFromSite: "Kilde fra nettstedet",
   },
   en: {
-    title: "Website Kompis",
-    productName: "Kompis",
+    title: "Website Buddy",
+    productName: "Buddy",
     send: "Send",
     sending: "Sending…",
     unavailable: "Temporarily unavailable",
     error: "Something went wrong. Please try again.",
-    open: "Open Kompis",
+    open: "Open Buddy",
     close: "Close chat",
     minimize: "Minimize chat",
     credit: "Powered by Aipify",
@@ -574,26 +574,26 @@ const EMBED_UI_SHELL: Record<
     sourceFromSite: "Kilde fra hjemmesiden",
   },
   pl: {
-    title: "Website Kompis",
-    productName: "Kompis",
+    title: "Website Buddy",
+    productName: "Buddy",
     send: "Wyślij",
     sending: "Wysyłanie…",
     unavailable: "Tymczasowo niedostępne",
     error: "Coś poszło nie tak. Spróbuj ponownie.",
-    open: "Otwórz Kompis",
+    open: "Otwórz Buddy",
     close: "Zamknij czat",
     minimize: "Zminimalizuj czat",
     credit: "Napędzane przez Aipify",
     sourceFromSite: "Źródło ze strony",
   },
   uk: {
-    title: "Website Kompis",
-    productName: "Kompis",
+    title: "Website Buddy",
+    productName: "Buddy",
     send: "Надіслати",
     sending: "Надсилання…",
     unavailable: "Тимчасово недоступно",
     error: "Щось пішло не так. Спробуйте ще раз.",
-    open: "Відкрити Kompis",
+    open: "Відкрити Buddy",
     close: "Закрити чат",
     minimize: "Згорнути чат",
     credit: "Працює на Aipify",
@@ -610,6 +610,7 @@ export function resolveWebsiteKompisEmbedUiLabels(input: {
   const locale = canonicalVisitorLocale(input.locale) as WebsiteKompisEmbedLocale;
   const variant =
     input.welcomeMessageVariant === "compact" ? "compact" : ("standard" as const);
+  // Unsupported host locales (and missing shell rows) fall back to English Buddy labels.
   const shell = EMBED_UI_SHELL[locale] ?? EMBED_UI_SHELL.en;
   const feedback = EMBED_FEEDBACK_SHELL[locale] ?? EMBED_FEEDBACK_SHELL.en;
   const welcome = EMBED_UI_COPY[locale]?.[variant] ?? EMBED_UI_COPY.en[variant];
