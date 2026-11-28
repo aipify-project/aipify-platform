@@ -1,0 +1,45 @@
+AIPIFY_PUBLIC_GROWTH_SUPPORT_ANALYTICS_COMPLETE_MASTER_V2 — RESULT
+Agent 3 · branch feat/public-growth-support-analytics-master-v2
+worktree: aipify-core-support-complete-two-way-communication-v1
+(NOT Agent 1 commercial/billing worktree)
+
+A BASELINE
+- aipify.ai/www: dpl_3Q81Usbic7kL8kgwVzDuCyUAMv17 @ 03f7bebce (includes #535+#536) LIVE
+- app.aipify.ai: dpl_4o5P78xvonzGyqyFrMrQ7LaRobUb @ 03f7bebce LIVE
+- #535 verified on Production alias HEAD (not inferred from older dpl_3P7FNf7)
+- Freeze: 3-file DRIFT reported; no freeze edits
+
+B SUPPORT
+- Inbox two-way LIVE; notify SQL CODE_READY (not applied)
+- Candidate SHA256 b599dab2c473efa5df9d91088789f9a7d18da7fe50358455764b90333d8fe26a
+- E2E BLOCKED (no authorized sessions); SUP-1067A439 read-only
+
+C EMAIL
+- CODE_READY / gated; SUPPORT_EMAIL_* remain false; approval pack V2
+
+D LEGACY
+- Exact 301 matrix V2 prepared; NO new redirects applied
+- robots: removed /login from allow (disallow kept)
+
+E-G SEO
+- hreflang reciprocal same-URL on sales home + growth-partners CODE_READY
+- sitemap/robots LIVE smoke 200
+
+H GSC
+- robots/sitemap LIVE; indexed counts BLOCKED without GSC access; recipe V2
+
+I/J ANALYTICS → AGENT 4
+- visitor-today contract + fail-closed GA4 adapter CODE_READY
+- wired to Platform traffic status visitorsToday (unavailable until YES)
+- no new tracking tags
+
+K COORDINATION
+- Agent 1/2/4 worktrees untouched
+
+L STATUS SUMMARY
+- LIVE: Production #535/#536 baseline, two-way inbox, public SEO smoke
+- CODE_READY: notify SQL, email pack, 301 matrix, hreflang, visitor-today
+- BLOCKED: notify apply, email send, E2E, GSC counts, GA4 live fetch, freeze fix
+- NOT COMPLETE for full journey end-to-end (honest)
+
+Report: docs/platform/AIPIFY_PUBLIC_GROWTH_SUPPORT_ANALYTICS_COMPLETE_MASTER_V2_REPORT.md

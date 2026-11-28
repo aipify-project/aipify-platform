@@ -153,6 +153,8 @@ export function buildPlatformTrafficStatus(input: {
   dayTimeZone: string;
   newAppCustomersToday: TrafficCount;
   newSellersToday: TrafficCount;
+  /** Agent 3 visitor-today contract → Agent 4 top-bar. Omit = not_measured. */
+  visitorsToday?: TrafficCount;
 }): PlatformTrafficStatus {
   return {
     checkedAt: input.checkedAt,
@@ -163,6 +165,6 @@ export function buildPlatformTrafficStatus(input: {
     appCustomersOnline: NOT_MEASURED,
     sellersOnline: NOT_MEASURED,
     signedInUsers: NOT_MEASURED,
-    visitorsToday: NOT_MEASURED,
+    visitorsToday: input.visitorsToday ?? NOT_MEASURED,
   };
 }

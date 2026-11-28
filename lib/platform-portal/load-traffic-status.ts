@@ -9,6 +9,8 @@ import {
   type PlatformTrafficStatus,
   type TrafficCount,
 } from "@/lib/platform-portal/traffic-status";
+import { resolveVisitorTodayFromGa4 } from "@/lib/platform-portal/visitor-today-ga4-adapter";
+import { visitorTodayToTrafficCount } from "@/lib/platform-portal/visitor-today-contract";
 
 const SOURCE_UNAVAILABLE: TrafficCount = { state: "unavailable", reason: "source_unavailable" };
 const SELLER_LIST_LIMIT = 500;
@@ -89,14 +91,16 @@ async function loadNewSellersToday(now: Date, timeZone: string): Promise<Traffic
 /** Server read for the Platform overview status bar. No new database functions. */
 export async function loadPlatformTrafficStatus(now = new Date()): Promise<PlatformTrafficStatus> {
   const dayTimeZone = resolveAuthoritativeTimeZone();
-  const [newAppCustomersToday, newSellersToday] = await Promise.all([
+  const [newAppCustomersToday, newSellersToday, visitorToday] = await Promise.all([
     loadNewAppCustomersToday(now, dayTimeZone),
     loadNewSellersToday(now, dayTimeZone),
+    resolveVisitorTodayFromGa4({ now, dayTimeZone }),
   ]);
   return buildPlatformTrafficStatus({
     checkedAt: now.toISOString(),
     dayTimeZone,
     newAppCustomersToday,
     newSellersToday,
+    visitorsToday: visitorTodayToTrafficCount(visitorToday),
   });
 }
