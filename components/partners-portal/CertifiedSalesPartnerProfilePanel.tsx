@@ -257,7 +257,7 @@ export function CertifiedSalesPartnerProfilePanel({
             />
           </div>
           <Link
-            href="/partners/account/help/contact"
+            href="/app/sales-partner/help/contact"
             className="mt-6 inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-4 text-sm font-semibold text-[#7C3AED]"
           >
             {labels.contactCta}
@@ -270,7 +270,7 @@ export function CertifiedSalesPartnerProfilePanel({
           <AipifyAlert tone="info">{labels.payoutIntro}</AipifyAlert>
           <CertifiedSalesPartnerBankPanel labels={bankLabels} onDirtyChange={setPayoutDirty} />
           <Link
-            href="/partners/settlement"
+            href="/app/sales-partner/commissions"
             className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] bg-white px-4 text-sm font-semibold text-[#1E293B]"
           >
             {labels.openSettlement}

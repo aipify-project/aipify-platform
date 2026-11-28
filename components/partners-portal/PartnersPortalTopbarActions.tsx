@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
-import { Bell, MessageSquare, Settings2, UserRound } from "lucide-react";
+import { Bell, Headset, MessageSquare, Settings2, UserRound } from "lucide-react";
 import { AppLanguageSelector } from "@/components/app/AppLanguageSelector";
 import { TopbarShareFeedbackButton } from "@/components/app/voice-of-the-customer/TopbarShareFeedbackButton";
 import type { AppLocale } from "@/lib/i18n/app-locales";
@@ -14,6 +14,7 @@ import {
   SALES_PARTNER_PHASE_C_SHARED_SURFACES,
 } from "@/lib/sales-partner-app-migration/phase-c-shared-surfaces";
 import { PARTNER_MESSAGE_UNREAD_BADGE } from "@/lib/sales-partner-app-migration/messaging-performance";
+import { SALES_PARTNER_SHARED_APP_SURFACES } from "@/lib/sales-partner-app-migration/shared-surfaces-complete";
 import { PARTNER_FEEDBACK_POLICY_ARTICLE_PATH } from "@/lib/voice-of-the-customer/constants";
 
 const ICON_LINK =
@@ -58,7 +59,9 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
 
   const messagesHref = mapPartnersHrefToAppHost("/partners/account/messages");
   const notificationsHref = SALES_PARTNER_PHASE_C_SHARED_SURFACES.notificationsApp.href;
-  const profileHref = mapPartnersHrefToAppHost("/partners/account/profile");
+  const partnerProfileHref = mapPartnersHrefToAppHost("/partners/account/profile");
+  const appProfileHref = SALES_PARTNER_SHARED_APP_SURFACES.appProfile.href;
+  const appSupportHref = SALES_PARTNER_SHARED_APP_SURFACES.appSupport.href;
   const helpHref = mapPartnersHrefToAppHost("/partners/account/settings");
   const messagesActive =
     pathname.includes("/account/messages") || pathname.includes("/sales-partner/messages");
@@ -142,12 +145,30 @@ export function PartnersPortalTopbarActions({ locale, labels, avatarUrl = null }
           >
             <Link
               role="menuitem"
-              href={profileHref}
+              href={appProfileHref}
+              className="flex items-center gap-2 px-3 py-2.5 text-sm text-[#1E293B] hover:bg-[#F6F4FB]"
+              onClick={() => setMenuOpen(false)}
+            >
+              <UserRound className="h-4 w-4 text-[#7C3AED]" aria-hidden />
+              {labels.appProfile}
+            </Link>
+            <Link
+              role="menuitem"
+              href={partnerProfileHref}
               className="flex items-center gap-2 px-3 py-2.5 text-sm text-[#1E293B] hover:bg-[#F6F4FB]"
               onClick={() => setMenuOpen(false)}
             >
               <UserRound className="h-4 w-4 text-[#7C3AED]" aria-hidden />
               {labels.profile}
+            </Link>
+            <Link
+              role="menuitem"
+              href={appSupportHref}
+              className="flex items-center gap-2 px-3 py-2.5 text-sm text-[#1E293B] hover:bg-[#F6F4FB]"
+              onClick={() => setMenuOpen(false)}
+            >
+              <Headset className="h-4 w-4 text-[#7C3AED]" aria-hidden />
+              {labels.appSupport}
             </Link>
             <Link
               role="menuitem"

@@ -873,7 +873,9 @@
         "trustStatementLinkAria": "Open the Customer Feedback & Product Improvement Policy in a new tab"
       },
       "settingsMenu": "Help & settings",
-      "unread": "Unread"
+      "unread": "Unread",
+      "appProfile": "Account profile",
+      "appSupport": "Customer support"
     },
     "messages": {
       "title": "Messages",
@@ -965,6 +967,29 @@
           "title": "Contact Aipify",
           "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
           "cta": "Open contact form"
+        }
+      },
+      "sharedAppTitle": "Shared Aipify App",
+      "sharedApp": {
+        "profile": {
+          "title": "Account profile",
+          "body": "Manage your personal Aipify account details. Partner payout and certification stay in Aipify Partner profile.",
+          "cta": "Open account profile"
+        },
+        "support": {
+          "title": "Customer support",
+          "body": "Open the shared support center for tickets and help. Partner-specific contact remains under Help.",
+          "cta": "Open customer support"
+        },
+        "notifications": {
+          "title": "Notifications",
+          "body": "Shared Aipify notifications — separate from partner admin messages.",
+          "cta": "Open notifications"
+        },
+        "knowledge": {
+          "title": "Knowledge Center",
+          "body": "Read public product guidance and policies without leaving the App.",
+          "cta": "Open Knowledge Center"
         }
       }
     },
@@ -1681,7 +1706,8 @@
           "normal": "Normal",
           "urgent": "Urgent",
           "critical": "Critical"
-        }
+        },
+        "appSupportCta": "Open customer support"
       }
     }
   }

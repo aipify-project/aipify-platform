@@ -1,3 +1,6 @@
+import { mapPartnersHrefToAppHost } from "@/lib/sales-partner-app-migration/phase-c-shared-surfaces";
+import { SALES_PARTNER_SHARED_APP_SURFACES } from "@/lib/sales-partner-app-migration/shared-surfaces-complete";
+
 export type CspHelpLabels = {
   title: string;
   intro: string;
@@ -7,6 +10,14 @@ export type CspHelpLabels = {
     body: string;
     href?: string;
     cta?: string;
+  }>;
+  sharedAppTitle: string;
+  sharedApp: Array<{
+    id: string;
+    title: string;
+    body: string;
+    href: string;
+    cta: string;
   }>;
 };
 
@@ -27,12 +38,22 @@ export type CspNotificationsLabels = {
 /** Server-safe. Must not live in a client component module. */
 export function buildCspHelpLabels(t: (key: string) => string): CspHelpLabels {
   const p = "partnersPortal.certifiedSalesPartner.help";
-  const section = (id: string, href?: string) => ({
+  const section = (id: string, partnersHref?: string) => {
+    const href = partnersHref ? mapPartnersHrefToAppHost(partnersHref) : undefined;
+    return {
+      id,
+      title: t(`${p}.sections.${id}.title`),
+      body: t(`${p}.sections.${id}.body`),
+      href,
+      cta: href ? t(`${p}.sections.${id}.cta`) : undefined,
+    };
+  };
+  const shared = (id: string, href: string) => ({
     id,
-    title: t(`${p}.sections.${id}.title`),
-    body: t(`${p}.sections.${id}.body`),
+    title: t(`${p}.sharedApp.${id}.title`),
+    body: t(`${p}.sharedApp.${id}.body`),
     href,
-    cta: href ? t(`${p}.sections.${id}.cta`) : undefined,
+    cta: t(`${p}.sharedApp.${id}.cta`),
   });
   return {
     title: t(`${p}.title`),
@@ -43,8 +64,15 @@ export function buildCspHelpLabels(t: (key: string) => string): CspHelpLabels {
       section("salesLinks", "/partners/referrals/links"),
       section("commission", "/partners/account/help/commission"),
       section("payouts", "/partners/settlement"),
-      section("materials", "/partners/marketing/assets"),
+      section("materials", "/partners/marketing/assets?section=library"),
       section("contact", "/partners/account/help/contact"),
+    ],
+    sharedAppTitle: t(`${p}.sharedAppTitle`),
+    sharedApp: [
+      shared("profile", SALES_PARTNER_SHARED_APP_SURFACES.appProfile.href),
+      shared("support", SALES_PARTNER_SHARED_APP_SURFACES.appSupport.href),
+      shared("notifications", SALES_PARTNER_SHARED_APP_SURFACES.appNotifications.href),
+      shared("knowledge", SALES_PARTNER_SHARED_APP_SURFACES.knowledgeCenter.href),
     ],
   };
 }

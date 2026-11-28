@@ -52,6 +52,25 @@ export function CertifiedSalesPartnerHelpPanel({ labels }: { labels: CspHelpLabe
           );
         })}
       </div>
+      {labels.sharedApp.length > 0 ? (
+        <div className="space-y-3">
+          <h2 className="text-base font-semibold text-[#1E293B]">{labels.sharedAppTitle}</h2>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {labels.sharedApp.map((item) => (
+              <AipifyCard key={item.id} as="article" padding="md">
+                <h3 className="font-semibold text-[#1E293B]">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#64748B]">{item.body}</p>
+                <Link
+                  href={item.href}
+                  className="mt-4 inline-flex text-sm font-semibold text-[#7C3AED] hover:underline"
+                >
+                  {item.cta}
+                </Link>
+              </AipifyCard>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -35,6 +35,9 @@ export const SALES_PARTNER_PARTNERS_TO_APP_HREF: Readonly<Record<string, string>
   "/partners/account/notifications": "/app/notifications",
   "/partners/account/profile": `${SALES_PARTNER_APP_MODULE_BASE}/profile`,
   "/partners/account/settings": `${SALES_PARTNER_APP_MODULE_BASE}/help`,
+  "/partners/account/help/getting-started": `${SALES_PARTNER_APP_MODULE_BASE}/help/getting-started`,
+  "/partners/account/help/commission": `${SALES_PARTNER_APP_MODULE_BASE}/help/commission`,
+  "/partners/account/help/contact": `${SALES_PARTNER_APP_MODULE_BASE}/help/contact`,
 };
 
 /** Shared APP surfaces — reuse when dual-role; CSP-specific data stays on module hosts. */
@@ -46,13 +49,13 @@ export const SALES_PARTNER_PHASE_C_SHARED_SURFACES = {
   },
   profileApp: {
     href: "/app/profile",
-    parity: "csp_payout_and_cert_remain_on_module_profile",
-    interimHost: `${SALES_PARTNER_APP_MODULE_BASE}/profile`,
+    parity: "reuse_app_min_profil_csp_payout_cert_on_module",
+    moduleHost: `${SALES_PARTNER_APP_MODULE_BASE}/profile`,
   },
   supportApp: {
     href: "/app/support",
-    parity: "agent3_support_ticket_intake_fenced",
-    interimHost: `${SALES_PARTNER_APP_MODULE_BASE}/help`,
+    parity: "reuse_app_kundeservice_plus_csp_contact_when_gate_live",
+    moduleContactHost: `${SALES_PARTNER_APP_MODULE_BASE}/help/contact`,
   },
   knowledgePublic: {
     href: "/knowledge/articles",
@@ -60,7 +63,8 @@ export const SALES_PARTNER_PHASE_C_SHARED_SURFACES = {
   },
   feedback: {
     channel: "voice_of_the_customer",
-    supportTicketIntegration: "BLOCKED_agent3_fence",
+    /** Product feedback via VoC. Support tickets via CSP contact API or /app/support — Agent 3 owns gates. */
+    supportTicketIntegration: "csp_contact_or_app_support_no_agent3_edits",
   },
 } as const;
 

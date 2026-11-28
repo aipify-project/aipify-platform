@@ -194,7 +194,7 @@ export const SALES_PARTNER_APP_ROUTE_MATRIX: readonly SalesPartnerRouteRow[] = [
     targetAppPath: "/app/sales-partner/profile",
     hostStrategy: "thin_app_host",
     parityNotes:
-      "Phase C thin host preserves payout/certification; do not auto-merge into /app/profile",
+      "Module host keeps payout/certification; personal Min profil reuses /app/profile (Shared Surfaces Complete)",
   },
   {
     capability: "help",
@@ -202,7 +202,7 @@ export const SALES_PARTNER_APP_ROUTE_MATRIX: readonly SalesPartnerRouteRow[] = [
     targetAppPath: "/app/sales-partner/help",
     hostStrategy: "thin_app_host",
     parityNotes:
-      "Phase C thin host for partner settings; Support Ticket intake fenced to Agent 3 — dual-role may also open /app/support",
+      "Partner guides + CSP contact; Kundeservice reuses /app/support; Agent 3 owns support-intake gates",
   },
 ] as const;
 
@@ -430,7 +430,7 @@ export const SALES_PARTNER_PHASE_B_FILE_PLAN = [
 ] as const;
 
 export const SALES_PARTNER_PHASE_C_SCOPE =
-  "Shared APP profile/notifications/feedback/KC/support parity; messages unification decision" as const;
+  "Shared Surfaces Complete: APP profile/support/feedback/KC/notifications reused; messages stay module-local" as const;
 export const SALES_PARTNER_PHASE_D_SCOPE =
   "Retire authenticated /partners shell only after separate owner YES; keep public URLs + history" as const;
 

@@ -749,7 +749,9 @@
         "trustStatementLinkAria": "Відкрити політику щодо відгуків клієнтів і вдосконалення продукту в новій вкладці"
       },
       "settingsMenu": "Допомога та налаштування",
-      "unread": "Непрочитане"
+      "unread": "Непрочитане",
+      "appProfile": "Профіль облікового запису",
+      "appSupport": "Підтримка клієнтів"
     },
     "messages": {
       "title": "Повідомлення",
@@ -841,6 +843,29 @@
           "title": "Contact Aipify",
           "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
           "cta": "Відкрити форму контакту"
+        }
+      },
+      "sharedAppTitle": "Спільний додаток Aipify",
+      "sharedApp": {
+        "profile": {
+          "title": "Профіль облікового запису",
+          "body": "Керуйте особистим обліковим записом Aipify. Виплати та сертифікація залишаються в профілі Aipify Partner.",
+          "cta": "Відкрити профіль"
+        },
+        "support": {
+          "title": "Підтримка клієнтів",
+          "body": "Відкрийте спільний центр підтримки. Партнерський контакт залишається в Довідці.",
+          "cta": "Відкрити підтримку"
+        },
+        "notifications": {
+          "title": "Сповіщення",
+          "body": "Спільні сповіщення Aipify — окремо від повідомлень адміна продавцю.",
+          "cta": "Відкрити сповіщення"
+        },
+        "knowledge": {
+          "title": "Центр знань",
+          "body": "Читайте публічні поради та політики без зміни порталу.",
+          "cta": "Відкрити центр знань"
         }
       }
     },
@@ -1557,7 +1582,8 @@
           "normal": "Звичайний",
           "urgent": "Терміново",
           "critical": "Критично"
-        }
+        },
+        "appSupportCta": "Відкрити підтримку клієнтів"
       }
     }
   }
