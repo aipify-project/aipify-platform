@@ -6,6 +6,11 @@ import { callCspRpc } from "@/lib/certified-sales-partner/core-rpc";
 import { evaluateSalesLinkGates } from "@/lib/certified-sales-partner/partner-overview";
 import { parseCspPortalView } from "@/lib/certified-sales-partner/portal-view";
 import { buildCspPublicLinkPath, isCspLinkCode } from "@/lib/certified-sales-partner/attribution-policy";
+import {
+  getOwnUnifiedSellerSalesLinks,
+  resolvePersonalSalesPath,
+  toPublicPersonalSalesUrl,
+} from "@/lib/growth-partner-bridge";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -14,8 +19,9 @@ import { buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-lab
 import { createClient } from "@/lib/supabase/server";
 
 /**
- * Partner sales center. The public named page stays unpublished until Core
- * can resolve this code, so the working action is the existing sales link.
+ * Partner sales center.
+ * Personal landing page = Growth Partner primary_link_slug → /s/{slug} (never CSP codes).
+ * CSP attribution stays separate on /p/{csp-code}/….
  */
 export default async function PartnerPersonalSalesPage() {
   const locale = await getLocale();
@@ -36,12 +42,27 @@ export default async function PartnerPersonalSalesPage() {
   const raw = overview.ready && overview.data && typeof overview.data === "object" ? (overview.data as Record<string, unknown>) : {};
   const salesMeasured = raw.sales_summary != null;
   const gate = view ? evaluateSalesLinkGates(view.overview, "kompis_web") : null;
-  const link = view?.links.find((item) => item.active && isCspLinkCode(item.code)) ?? null;
-  const personalPath = link?.code ? `/s/${link.code}?lang=${locale}` : null;
+  const attributionLink = view?.links.find((item) => item.active && isCspLinkCode(item.code)) ?? null;
   const salesPath =
-    link?.code && gate?.allowed
-      ? buildCspPublicLinkPath({ code: link.code, productKey: "kompis_web", channel: "referral_link" })
+    attributionLink?.code && gate?.allowed
+      ? buildCspPublicLinkPath({
+          code: attributionLink.code,
+          productKey: "kompis_web",
+          channel: "referral_link",
+        })
       : null;
+
+  const unified = await getOwnUnifiedSellerSalesLinks(supabase);
+  const personalRelative =
+    unified.ready && unified.data.ok
+      ? resolvePersonalSalesPath({
+          growthPartnerSlug: unified.data.primaryLinkSlug,
+          linkStatus: unified.data.linkStatus,
+          locale,
+        })
+      : null;
+  const personalPublicUrl = toPublicPersonalSalesUrl(personalRelative);
+  const personalPublished = Boolean(personalPublicUrl);
 
   return (
     <CertifiedSalesPartnerWorkspacePanel labels={shell}>
@@ -52,18 +73,28 @@ export default async function PartnerPersonalSalesPage() {
         <p className="max-w-2xl text-sm leading-6 text-slate-600">{labels.previewBody}</p>
         {!overview.ready || !view ? <p>{labels.notAvailable}</p> : null}
         {view && !gate?.allowed ? <p>{labels.gateBlocked}</p> : null}
-        {view && gate?.allowed && !link ? <p>{labels.noLink}</p> : null}
-        {personalPath ? (
+        {view && gate?.allowed && !attributionLink ? <p>{labels.noLink}</p> : null}
+
+        {personalPublished && personalPublicUrl && personalRelative ? (
+          <div className="space-y-2 rounded-2xl border border-[#E8E4F2] bg-white p-4">
+            <h3 className="text-sm font-semibold text-slate-800">{labels.personalLink}</h3>
+            <p className="text-sm font-medium text-emerald-800">{labels.pagePublished}</p>
+            <p className="break-all text-sm">{personalPublicUrl}</p>
+            <div className="flex flex-wrap gap-2">
+              <CopyLinkButton value={personalPublicUrl} copyLabel={labels.copy} copiedLabel={labels.copied} />
+              <ShareLinkButton value={personalPublicUrl} shareLabel={labels.share} copiedLabel={labels.copied} />
+              <Link className="inline-flex min-h-11 items-center text-sm font-semibold text-[#5538D3]" href={personalRelative}>
+                {labels.open}
+              </Link>
+            </div>
+          </div>
+        ) : view && gate?.allowed ? (
           <div className="space-y-2 rounded-2xl border border-[#E8E4F2] bg-white p-4">
             <h3 className="text-sm font-semibold text-slate-800">{labels.personalLink}</h3>
             <p className="text-sm text-slate-600">{labels.pagePending}</p>
-            <p className="break-all text-sm">{personalPath}</p>
-            <div className="flex flex-wrap gap-2">
-              <CopyLinkButton value={personalPath} copyLabel={labels.copy} copiedLabel={labels.copied} />
-              <ShareLinkButton value={personalPath} shareLabel={labels.share} copiedLabel={labels.copied} />
-            </div>
           </div>
         ) : null}
+
         {salesPath ? (
           <div className="space-y-2 rounded-2xl border border-[#E8E4F2] bg-white p-4">
             <h3 className="text-sm font-semibold text-slate-800">{labels.attributionLink}</h3>
@@ -77,6 +108,7 @@ export default async function PartnerPersonalSalesPage() {
             </div>
           </div>
         ) : null}
+
         <p className="text-sm text-slate-600">{labels.leadsNote}</p>
         <Link className="inline-flex min-h-11 items-center text-sm font-semibold text-[#5538D3]" href="/partners/customers/leads">
           {labels.seeLeads}

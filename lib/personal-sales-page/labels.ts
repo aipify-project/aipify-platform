@@ -56,6 +56,7 @@ export type PersonalSalesLabels = {
   platformInterestBody: string;
   platformInterestEmpty: string;
   pagePending: string;
+  pagePublished: string;
   share: string;
   seeLeads: string;
   leadsNote: string;
@@ -99,9 +100,10 @@ const EN: PersonalSalesLabels = {
   closedCta: "Continue to Aipify",
   leadsCta: "See my leads",
   previewTitle: "My sales page",
-  previewBody: "The public page uses your existing partner code. A named recommendation is shown only when the public link is verified.",
+  previewBody:
+    "Your personal landing page uses your Growth Partner link. The sales link below stays as the separate CSP attribution path.",
   attributionLink: "Sales link",
-  personalLink: "Sales page",
+  personalLink: "My landing page",
   copy: "Copy",
   copied: "Copied",
   open: "Open",
@@ -133,7 +135,8 @@ const EN: PersonalSalesLabels = {
   platformInterestTitle: "Personal page interests",
   platformInterestBody: "Contact details stay in this administration view. They are not part of public counts.",
   platformInterestEmpty: "No interest has been stored yet.",
-  pagePending: "The named landing page is not published for this code yet.",
+  pagePending: "The named landing page is not published yet.",
+  pagePublished: "Published",
   share: "Share",
   seeLeads: "See my leads",
   leadsNote: "Leads, customers, sales, and commission stay separate.",
@@ -199,6 +202,7 @@ export function parsePersonalSalesLabels(source: unknown): PersonalSalesLabels {
     platformInterestBody: text(row.platformInterestBody, EN.platformInterestBody),
     platformInterestEmpty: text(row.platformInterestEmpty, EN.platformInterestEmpty),
     pagePending: text(row.pagePending, EN.pagePending),
+    pagePublished: text(row.pagePublished, EN.pagePublished),
     share: text(row.share, EN.share),
     seeLeads: text(row.seeLeads, EN.seeLeads),
     leadsNote: text(row.leadsNote, EN.leadsNote),

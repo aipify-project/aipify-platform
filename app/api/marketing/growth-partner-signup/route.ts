@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import {
+  CSP_SELLER_EXISTS_CODE,
+  detectOwnCspPartnerPresence,
+  guardGrowthPartnerSignupAgainstCsp,
+  isCspSellerExistsPayload,
+  PARTNERS_PORTAL_REDIRECT,
+} from "@/lib/growth-partner-bridge";
 import { assertPublicFormSubmission, logSuspiciousSubmission } from "@/lib/public-forms/bot-protection";
+import { createClient } from "@/lib/supabase/server";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -31,6 +38,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: guard.error }, { status: guard.status });
     }
 
+    // Dual-registration guard (app-layer): CSP identity is authoritative.
+    const cspPresence = await detectOwnCspPartnerPresence(supabase);
+    if (cspPresence.known) {
+      const blocked = guardGrowthPartnerSignupAgainstCsp({ cspPartnerId: cspPresence.partnerId });
+      if (blocked.blocked) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: blocked.code,
+            code: blocked.code,
+            redirect_path: blocked.redirectPath,
+            csp_partner_id: cspPresence.partnerId,
+          },
+          { status: 409 },
+        );
+      }
+    }
+
     const email = sanitize(body.email, 254)?.toLowerCase();
     if (!email || !EMAIL_RE.test(email)) {
       return NextResponse.json({ error: "Valid email is required" }, { status: 400 });
@@ -56,6 +81,18 @@ export async function POST(request: Request) {
     });
 
     if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    if (isCspSellerExistsPayload(data)) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: CSP_SELLER_EXISTS_CODE,
+          code: CSP_SELLER_EXISTS_CODE,
+          redirect_path: PARTNERS_PORTAL_REDIRECT,
+          ...(data && typeof data === "object" ? (data as Record<string, unknown>) : {}),
+        },
+        { status: 409 },
+      );
+    }
     return NextResponse.json(data);
   } catch {
     return NextResponse.json({ error: "Failed to complete Growth Partner registration" }, { status: 500 });

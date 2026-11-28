@@ -8911,9 +8911,9 @@
     "productUnavailable": "Den här produkten är inte tillgänglig på den här sidan.",
     "closedCta": "Fortsätt till Aipify",
     "previewTitle": "Min försäljningssida",
-    "previewBody": "Den offentliga sidan använder din befintliga partnerkod. Ett namn visas bara när den offentliga länken är verifierad.",
+    "previewBody": "Din personliga landningssida använder Growth Partner-länken. Försäljningslänken nedan förblir den separata CSP-attribueringsvägen.",
     "attributionLink": "Försäljningslänk",
-    "personalLink": "Säljsida",
+    "personalLink": "Min landningssida",
     "leadsCta": "Se mina leads",
     "copy": "Kopiera",
     "copied": "Kopierad",
@@ -8933,7 +8933,7 @@
     "interestPending": "Intresseanmälan är inte aktiv ännu. Ingenting sparas från den här sidan.",
     "interestPrivacy": "När anmälan öppnar skickas intresset bara till den namngivna Aipify-säljaren för uppföljning. Det är inte en försäljning och inte samtycke till marknadsföring.",
     "privacyLink": "Integritet",
-    "pagePending": "Den namngivna landningssidan är inte publicerad för den här koden ännu.",
+    "pagePending": "Den namngivna landningssidan är inte publicerad ännu.",
     "share": "Dela",
     "seeLeads": "Se mina leads",
     "leadsNote": "Leads, kunder, försäljning och provision hålls åtskilda.",
@@ -8948,6 +8948,7 @@
     "interestErrorClosed": "Den här sidan kan inte spara intresse just nu.",
     "platformInterestTitle": "Intressen från personlig sida",
     "platformInterestBody": "Kontaktuppgifter stannar i den här administrationsvyn. De ingår inte i offentliga siffror.",
-    "platformInterestEmpty": "Inget intresse har sparats ännu."
+    "platformInterestEmpty": "Inget intresse har sparats ännu.",
+    "pagePublished": "Publicerad"
   }
 }

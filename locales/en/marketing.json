@@ -8501,9 +8501,9 @@
     "productUnavailable": "This product is not available on this page.",
     "closedCta": "Continue to Aipify",
     "previewTitle": "My sales page",
-    "previewBody": "The public page uses your existing partner code. A named recommendation is shown only when the public link is verified.",
+    "previewBody": "Your personal landing page uses your Growth Partner link. The sales link below stays as the separate CSP attribution path.",
     "attributionLink": "Sales link",
-    "personalLink": "Sales page",
+    "personalLink": "My landing page",
     "leadsCta": "See my leads",
     "copy": "Copy",
     "copied": "Copied",
@@ -8523,7 +8523,7 @@
     "interestPending": "Interest registration is not active yet. Nothing is stored from this page.",
     "interestPrivacy": "When registration opens, the interest is sent only to the named Aipify seller for follow-up. It is not a sale and it is not marketing consent.",
     "privacyLink": "Privacy",
-    "pagePending": "The named landing page is not published for this code yet.",
+    "pagePending": "The named landing page is not published yet.",
     "share": "Share",
     "seeLeads": "See my leads",
     "leadsNote": "Leads, customers, sales, and commission stay separate.",
@@ -8538,6 +8538,7 @@
     "interestErrorClosed": "This page cannot store interest right now.",
     "platformInterestTitle": "Personal page interests",
     "platformInterestBody": "Contact details stay in this administration view. They are not part of public counts.",
-    "platformInterestEmpty": "No interest has been stored yet."
+    "platformInterestEmpty": "No interest has been stored yet.",
+    "pagePublished": "Published"
   }
 }
