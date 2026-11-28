@@ -19,6 +19,10 @@ export type PartnersPortalTopbarLabels = {
   unread: string;
   messages: string;
   profile: string;
+  /** Shared APP Min profil — personal account, not CSP payout/cert. */
+  appProfile: string;
+  /** Shared APP Kundeservice. */
+  appSupport: string;
   settingsMenu: string;
   avatarAlt: string;
   skipToContent: string;
@@ -80,6 +84,8 @@ export function buildPartnersPortalTopbarLabels(t: Translator): PartnersPortalTo
     unread: t(`${P}.unread`),
     messages: t(`${P}.messages`),
     profile: t(`${P}.profile`),
+    appProfile: t(`${P}.appProfile`),
+    appSupport: t(`${P}.appSupport`),
     settingsMenu: t(`${P}.settingsMenu`),
     avatarAlt: t(`${P}.avatarAlt`),
     skipToContent: t(`${P}.skipToContent`),

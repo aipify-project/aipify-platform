@@ -1,6 +1,7 @@
 /**
  * Presentation copy for the partner sales experience.
  * Visible words come from locale files. This module only selects keys and routes.
+ * Hrefs are mapped to APP thin hosts so materials/guides stay in /app/sales-partner/*.
  */
 import type { Translator } from "@/lib/i18n/translate";
 import type {
@@ -13,6 +14,11 @@ import type {
   SalesHeroModel,
   SuggestionModel,
 } from "@/components/partners-portal/sales-experience";
+import { mapPartnersHrefToAppHost } from "@/lib/sales-partner-app-migration/phase-c-shared-surfaces";
+
+function appHref(partnersHref: string): string {
+  return mapPartnersHrefToAppHost(partnersHref);
+}
 
 const NS = "partnersPortal.certifiedSalesPartner.salesExperience";
 const GUIDE = "partnersPortal.certifiedSalesPartner.guides.commission";
@@ -21,30 +27,29 @@ type StepId = "product" | "need" | "link" | "review";
 type TalkId = "find" | "contact" | "listen" | "show" | "share" | "follow";
 
 const START_STEPS: { id: StepId; icon: GuidanceStepModel["icon"]; href: string }[] = [
-  { id: "product", icon: "product", href: "/partners/marketing/product-catalog" },
-  { id: "need", icon: "need", href: "/partners/marketing/assets" },
-  { id: "link", icon: "link", href: "/partners/referrals/links" },
-  { id: "review", icon: "commission", href: "/partners/customers/pipeline" },
+  { id: "product", icon: "product", href: appHref("/partners/marketing/product-catalog") },
+  { id: "need", icon: "need", href: appHref("/partners/marketing/assets") },
+  { id: "link", icon: "link", href: appHref("/partners/referrals/links") },
+  { id: "review", icon: "commission", href: appHref("/partners/customers/pipeline") },
 ];
 
 const TALK_STEPS: { id: TalkId; icon: GuidanceStepModel["icon"]; href: string }[] = [
-  { id: "find", icon: "search", href: "/partners/marketing/product-catalog" },
-  { id: "contact", icon: "message", href: "/partners/marketing/email-templates" },
-  { id: "listen", icon: "listen", href: "/partners/marketing/assets" },
-  { id: "show", icon: "present", href: "/partners/marketing/product-catalog" },
-  { id: "share", icon: "link", href: "/partners/referrals/links" },
-  { id: "follow", icon: "follow", href: "/partners/customers/leads" },
+  { id: "find", icon: "search", href: appHref("/partners/marketing/product-catalog") },
+  { id: "contact", icon: "message", href: appHref("/partners/marketing/email-templates") },
+  { id: "listen", icon: "listen", href: appHref("/partners/marketing/assets") },
+  { id: "show", icon: "present", href: appHref("/partners/marketing/product-catalog") },
+  { id: "share", icon: "link", href: appHref("/partners/referrals/links") },
+  { id: "follow", icon: "follow", href: appHref("/partners/customers/leads") },
 ];
 
 const CATEGORIES: { id: string; href?: string }[] = [
-  { id: "start", href: "/partners/marketing/email-templates" },
+  { id: "start", href: appHref("/partners/marketing/email-templates") },
   { id: "questions" },
   { id: "value" },
   { id: "objections" },
-  { id: "followUp", href: "/partners/marketing/email-templates" },
-  { id: "commission", href: "/partners/account/help/commission" },
+  { id: "followUp", href: appHref("/partners/marketing/email-templates") },
+  { id: "commission", href: appHref("/partners/account/help/commission") },
 ];
-
 const COMMISSION_GUIDE_TOPICS = ["monthly", "renewals", "refunds", "payout"] as const;
 const SHARE_CHANNELS = ["email", "linkedin", "instagram", "facebook", "x", "tiktok", "snapchat", "qr", "personal"] as const;
 
@@ -91,9 +96,9 @@ export function buildHomeExperience(t: Translator): {
       title: t(`${NS}.hero.homeTitle`),
       support: t(`${NS}.hero.homeSupport`),
       actions: [
-        { href: "/partners/marketing/product-catalog", label: t(`${NS}.actions.products`) },
-        { href: "/partners/marketing/assets", label: t(`${NS}.actions.tools`) },
-        { href: "/partners/referrals/links", label: t(`${NS}.actions.links`) },
+        { href: appHref("/partners/marketing/product-catalog"), label: t(`${NS}.actions.products`) },
+        { href: appHref("/partners/marketing/assets"), label: t(`${NS}.actions.tools`) },
+        { href: appHref("/partners/referrals/links"), label: t(`${NS}.actions.links`) },
       ],
     },
     stepsLabel: t(`${NS}.start.title`),
@@ -106,9 +111,9 @@ export function buildHomeExperience(t: Translator): {
     suggestionNotice: t(`${NS}.suggestionNotice`),
     suggestions: (
       [
-        ["reviewProduct", "/partners/marketing/product-catalog"],
-        ["readQuestion", "/partners/marketing/assets"],
-        ["checkLink", "/partners/referrals/links"],
+        ["reviewProduct", appHref("/partners/marketing/product-catalog")],
+        ["readQuestion", appHref("/partners/marketing/assets")],
+        ["checkLink", appHref("/partners/referrals/links")],
       ] as const
     ).map(([id, href]) => ({
       id,
@@ -253,21 +258,21 @@ export function buildAcademyExperience(t: Translator): {
         title: t(`${NS}.academy.learn.title`),
         body: t(`${NS}.academy.learn.body`),
         status: learnedStatus,
-        action: { href: "/partners/academy/training", label: t(`${NS}.academy.learn.action`) },
+        action: { href: appHref("/partners/academy/training"), label: t(`${NS}.academy.learn.action`) },
       },
       {
         id: "pass",
         title: t(`${NS}.academy.pass.title`),
         body: t(`${NS}.academy.pass.body`),
         status: notPassedStatus,
-        action: { href: "/partners/academy/certifications", label: t(`${NS}.academy.pass.action`) },
+        action: { href: appHref("/partners/academy/certifications"), label: t(`${NS}.academy.pass.action`) },
       },
       {
         id: "sell",
         title: t(`${NS}.academy.sell.title`),
         body: t(`${NS}.academy.sell.body`),
         status: sellStatus,
-        action: { href: "/partners/marketing/product-catalog", label: t(`${NS}.academy.sell.action`) },
+        action: { href: appHref("/partners/marketing/product-catalog"), label: t(`${NS}.academy.sell.action`) },
       },
     ],
   };

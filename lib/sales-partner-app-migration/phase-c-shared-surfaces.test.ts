@@ -61,15 +61,17 @@ test("active matching treats APP and partners paths as equivalent", () => {
   );
 });
 
-test("Phase C shared surfaces document Agent 3 fence and no auto profile merge", () => {
+test("Phase C shared surfaces reuse APP profile/support; Agent 3 gates untouched", () => {
   assert.equal(
     SALES_PARTNER_PHASE_C_SHARED_SURFACES.feedback.supportTicketIntegration,
-    "BLOCKED_agent3_fence",
+    "csp_contact_or_app_support_no_agent3_edits",
   );
-  assert.match(
+  assert.equal(
     SALES_PARTNER_PHASE_C_SHARED_SURFACES.profileApp.parity,
-    /csp_payout/,
+    "reuse_app_min_profil_csp_payout_cert_on_module",
   );
+  assert.equal(SALES_PARTNER_PHASE_C_SHARED_SURFACES.supportApp.href, "/app/support");
+  assert.equal(SALES_PARTNER_PHASE_C_SHARED_SURFACES.profileApp.href, "/app/profile");
 });
 
 test("Phase C thin hosts exist for profile help; notifications redirects to APP", () => {

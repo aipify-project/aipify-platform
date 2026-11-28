@@ -873,7 +873,9 @@
         "trustStatementLinkAria": "Öppna policyn för kundåterkoppling och produktförbättring i en ny flik"
       },
       "settingsMenu": "Hjälp och inställningar",
-      "unread": "Oläst"
+      "unread": "Oläst",
+      "appProfile": "Min profil",
+      "appSupport": "Kundservice"
     },
     "messages": {
       "title": "Meddelanden",
@@ -965,6 +967,29 @@
           "title": "Contact Aipify",
           "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
           "cta": "Öppna kontaktformulär"
+        }
+      },
+      "sharedAppTitle": "Delad Aipify-app",
+      "sharedApp": {
+        "profile": {
+          "title": "Min profil",
+          "body": "Hantera ditt personliga Aipify-konto. Utbetalning och certifiering ligger i Aipify Partner-profilen.",
+          "cta": "Öppna min profil"
+        },
+        "support": {
+          "title": "Kundservice",
+          "body": "Öppna det delade supportcentret för ärenden och hjälp. Partnerspecifik kontakt finns under Hjälp.",
+          "cta": "Öppna kundservice"
+        },
+        "notifications": {
+          "title": "Aviseringar",
+          "body": "Delade Aipify-aviseringar — skilda från adminmeddelanden till säljare.",
+          "cta": "Öppna aviseringar"
+        },
+        "knowledge": {
+          "title": "Kunskapscenter",
+          "body": "Läs offentlig produktvägledning och riktlinjer utan att byta portal.",
+          "cta": "Öppna kunskapscenter"
         }
       }
     },
@@ -1681,7 +1706,8 @@
           "normal": "Normal",
           "urgent": "Brådskande",
           "critical": "Kritisk"
-        }
+        },
+        "appSupportCta": "Öppna kundservice"
       }
     }
   }

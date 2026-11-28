@@ -873,7 +873,9 @@
         "trustStatementLinkAria": "Åpne retningslinjer for kundetilbakemelding og produktforbedring i ny fane"
       },
       "settingsMenu": "Hjelp og innstillinger",
-      "unread": "Ulest"
+      "unread": "Ulest",
+      "appProfile": "Min profil",
+      "appSupport": "Kundeservice"
     },
     "messages": {
       "title": "Meldinger",
@@ -965,6 +967,29 @@
           "title": "Kontakt Aipify",
           "body": "Bruk Meldinger i selgerpanelet for autorisert kommunikasjon med Platform Admin. For haste saker om kontoen, bruk tilbakemeldingsknappen i toppmenyen.",
           "cta": "Åpne kontaktskjema"
+        }
+      },
+      "sharedAppTitle": "Felles Aipify-app",
+      "sharedApp": {
+        "profile": {
+          "title": "Min profil",
+          "body": "Administrer din personlige Aipify-konto. Utbetaling og sertifisering ligger i Aipify Partner-profilen.",
+          "cta": "Åpne min profil"
+        },
+        "support": {
+          "title": "Kundeservice",
+          "body": "Åpne felles kundesenter for saker og hjelp. Partnerspesifikk kontakt finnes under Hjelp.",
+          "cta": "Åpne kundeservice"
+        },
+        "notifications": {
+          "title": "Varsler",
+          "body": "Felles Aipify-varsler — atskilt fra adminmeldinger til selger.",
+          "cta": "Åpne varsler"
+        },
+        "knowledge": {
+          "title": "Kunnskapssenter",
+          "body": "Les offentlig produktveiledning og retningslinjer uten å bytte portal.",
+          "cta": "Åpne kunnskapssenter"
         }
       }
     },
@@ -1681,7 +1706,8 @@
           "normal": "Normal",
           "urgent": "Haster",
           "critical": "Kritisk"
-        }
+        },
+        "appSupportCta": "Åpne kundeservice"
       }
     }
   }

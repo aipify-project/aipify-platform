@@ -749,7 +749,9 @@
         "trustStatementLinkAria": "Otwórz zasady opinii klientów i ulepszania produktu w nowej karcie"
       },
       "settingsMenu": "Pomoc i ustawienia",
-      "unread": "Nieprzeczytane"
+      "unread": "Nieprzeczytane",
+      "appProfile": "Profil konta",
+      "appSupport": "Obsługa klienta"
     },
     "messages": {
       "title": "Wiadomości",
@@ -841,6 +843,29 @@
           "title": "Contact Aipify",
           "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
           "cta": "Otwórz formularz kontaktu"
+        }
+      },
+      "sharedAppTitle": "Wspólna aplikacja Aipify",
+      "sharedApp": {
+        "profile": {
+          "title": "Profil konta",
+          "body": "Zarządzaj osobistym kontem Aipify. Wypłaty i certyfikacja pozostają w profilu Aipify Partner.",
+          "cta": "Otwórz profil konta"
+        },
+        "support": {
+          "title": "Obsługa klienta",
+          "body": "Otwórz wspólne centrum wsparcia. Kontakt partnerski pozostaje w Pomocy.",
+          "cta": "Otwórz obsługę klienta"
+        },
+        "notifications": {
+          "title": "Powiadomienia",
+          "body": "Wspólne powiadomienia Aipify — oddzielne od wiadomości admina do sprzedawcy.",
+          "cta": "Otwórz powiadomienia"
+        },
+        "knowledge": {
+          "title": "Centrum wiedzy",
+          "body": "Czytaj publiczne wskazówki i zasady bez zmiany portalu.",
+          "cta": "Otwórz centrum wiedzy"
         }
       }
     },
@@ -1557,7 +1582,8 @@
           "normal": "Normalny",
           "urgent": "Pilne",
           "critical": "Krytyczne"
-        }
+        },
+        "appSupportCta": "Otwórz obsługę klienta"
       }
     }
   }

@@ -19,10 +19,9 @@ const REPO_ROOT = join(import.meta.dirname, "../..");
 test("Phase B marker and thin hosts cover matrix", () => {
   assert.equal(SALES_PARTNER_APP_MIGRATION_PHASE_B, "B");
   assert.equal(thinHostsCoverMatrix(), true);
-  assert.equal(
-    SALES_PARTNER_THIN_HOSTS.length,
-    SALES_PARTNER_APP_ROUTE_MATRIX.filter((r) => r.hostStrategy === "thin_app_host").length,
-  );
+  const matrixThin = SALES_PARTNER_APP_ROUTE_MATRIX.filter((r) => r.hostStrategy === "thin_app_host").length;
+  // Shared Surfaces Complete adds help sub-hosts beyond the Phase A matrix rows.
+  assert.ok(SALES_PARTNER_THIN_HOSTS.length >= matrixThin);
 });
 
 test("each thin host page and partners source module exist on disk", () => {

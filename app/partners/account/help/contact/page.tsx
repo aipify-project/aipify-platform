@@ -44,6 +44,7 @@ export default async function PartnersHelpContactPage() {
           blockedBody: t(`${p}.blockedBody`),
           mailtoCta: t(`${p}.mailtoCta`),
           messagesCta: t(`${p}.messagesCta`),
+          appSupportCta: t(`${p}.appSupportCta`),
           success: t(`${p}.success`),
           error: t(`${p}.error`),
           senderTitle: t(`${p}.senderTitle`),

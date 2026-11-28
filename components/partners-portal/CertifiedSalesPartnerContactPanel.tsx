@@ -24,6 +24,8 @@ export type CspContactLabels = {
   blockedBody: string;
   mailtoCta: string;
   messagesCta: string;
+  /** Shared APP Kundeservice — dual-role; not CSP inbox. */
+  appSupportCta: string;
   success: string;
   error: string;
   senderTitle: string;
@@ -140,10 +142,16 @@ export function CertifiedSalesPartnerContactPanel({
               {labels.mailtoCta}
             </a>
             <Link
-              href="/partners/account/messages"
+              href="/app/sales-partner/messages"
               className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-4 text-sm font-semibold text-[#7C3AED]"
             >
               {labels.messagesCta}
+            </Link>
+            <Link
+              href="/app/support"
+              className="inline-flex min-h-11 items-center rounded-xl border border-[#E8E4F2] px-4 text-sm font-semibold text-[#1E293B]"
+            >
+              {labels.appSupportCta}
             </Link>
           </div>
         </section>

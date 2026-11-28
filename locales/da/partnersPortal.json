@@ -873,7 +873,9 @@
         "trustStatementLinkAria": "Åbn politikken for kundefeedback og produktforbedring i en ny fane"
       },
       "settingsMenu": "Hjælp og indstillinger",
-      "unread": "Ulæst"
+      "unread": "Ulæst",
+      "appProfile": "Min profil",
+      "appSupport": "Kundeservice"
     },
     "messages": {
       "title": "Beskeder",
@@ -965,6 +967,29 @@
           "title": "Contact Aipify",
           "body": "Use Messages in the seller panel for authorised communication with Platform Admin. For urgent account issues, use the feedback button in the top bar.",
           "cta": "Åbn kontaktformular"
+        }
+      },
+      "sharedAppTitle": "Fælles Aipify-app",
+      "sharedApp": {
+        "profile": {
+          "title": "Min profil",
+          "body": "Administrer din personlige Aipify-konto. Udbetaling og certificering ligger i Aipify Partner-profilen.",
+          "cta": "Åbn min profil"
+        },
+        "support": {
+          "title": "Kundeservice",
+          "body": "Åbn det fælles supportcenter for sager og hjælp. Partnerspecifik kontakt findes under Hjælp.",
+          "cta": "Åbn kundeservice"
+        },
+        "notifications": {
+          "title": "Notifikationer",
+          "body": "Fælles Aipify-notifikationer — adskilt fra adminbeskeder til sælger.",
+          "cta": "Åbn notifikationer"
+        },
+        "knowledge": {
+          "title": "Videnscenter",
+          "body": "Læs offentlig produktvejledning og retningslinjer uden at skifte portal.",
+          "cta": "Åbn videnscenter"
         }
       }
     },
@@ -1681,7 +1706,8 @@
           "normal": "Normal",
           "urgent": "Haster",
           "critical": "Kritisk"
-        }
+        },
+        "appSupportCta": "Åbn kundeservice"
       }
     }
   }

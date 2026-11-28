@@ -100,6 +100,21 @@ export const SALES_PARTNER_THIN_HOSTS: readonly SalesPartnerThinHost[] = [
     appPath: "/app/sales-partner/help",
     partnersPageModule: "app/partners/account/settings/page.tsx",
   },
+  {
+    capability: "help_getting_started",
+    appPath: "/app/sales-partner/help/getting-started",
+    partnersPageModule: "app/partners/account/help/getting-started/page.tsx",
+  },
+  {
+    capability: "help_commission",
+    appPath: "/app/sales-partner/help/commission",
+    partnersPageModule: "app/partners/account/help/commission/page.tsx",
+  },
+  {
+    capability: "help_contact",
+    appPath: "/app/sales-partner/help/contact",
+    partnersPageModule: "app/partners/account/help/contact/page.tsx",
+  },
 ] as const;
 
 /** Phase B menu bindings — APP hosts (no /partners cutover). */
