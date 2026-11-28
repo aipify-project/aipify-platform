@@ -2,8 +2,9 @@
 
 **Status:** READY for owner YES — **STOP before install**  
 **Date:** 2026-11-28  
-**Source PR:** https://github.com/aipify-project/aipify-platform/pull/496 (`feat/variant-billing-production-source-v1` @ `e680098cb83b8ac1a42ad8d2b13ce601e9c27b79`)  
-**SQL content commit:** `86116e55965d8f8c4b493a7426b343bfdcf9a1d6`  
+**Source PR:** https://github.com/aipify-project/aipify-platform/pull/496 (`feat/variant-billing-production-source-v1`)  
+**Install pin:** file path + SHA256 `9d7c6643…` (verify `git show <merge_sha>:docs/platform/sql-candidates/csp_product_variants_billing_v1.sql | sha256sum` before apply)  
+**SQL content commit:** `86116e55965d8f8c4b493a7426b343bfdcf9a1d6` (first commit with exact SQL bytes; later PR commits are docs-only)  
 **Target Core:** Production `qbcqoixhrvhnuwphefvw`  
 **Gates honored:** READ_ONLY · NO_SQL_APPLY · NO_PRODUCTION_WRITE · NO_GATE_ACTIVATION · NO_STRIPE_CHANGE · NO_PAYMENT · NO_COMMISSION_ACTIVATION  
 **SOURCE_READY:** `docs/platform/AIPIFY_VARIANT_BILLING_PRODUCTION_SOURCE_READY.md`
