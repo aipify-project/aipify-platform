@@ -7650,7 +7650,15 @@
         "appearanceOperatorCard": "Otwórz zaawansowane narzędzia publikacji, gdy potrzebujesz stron kandydatów i kontroli publikacji.",
         "appearanceProfileCard": "Profil przestrzeni roboczej i prezentacja konta są w Koncie — nie są tu powielane.",
         "appearanceSupportCard": "Potrzebujesz pomocy z prezentacją dla odwiedzających? Otwórz zgłoszenia obsługi klienta.",
-        "usageCard": "Sprawdź limit odpowiedzi i pozostałą pojemność bez wymyślania zer."
+        "appearanceWriterUnavailableTitle": "Edytor wyglądu nie jest jeszcze dostępny",
+        "appearanceWriterUnavailableBody": "Aipify nie może zapisać wyglądu widżetu dla odwiedzających, dopóki zapis Core nie zostanie zatwierdzony i aktywowany. Ta strona pozostaje fail-closed — bez wymyślonych ustawień ani fałszywego sukcesu.",
+        "appearanceCandidateReadyNote": "Kandydat SQL Core jest przygotowany do zatwierdzenia przez właściciela. Apply i aktywacja wymagają osobnego dokładnego YES dla każdego środowiska.",
+        "appearanceConfigStatusLabel": "Status konfiguracji",
+        "appearanceWriterStatusUnavailable": "Zapis niedostępny",
+        "usageCard": "Sprawdź limit odpowiedzi i pozostałą pojemność bez wymyślania zer.",
+        "appearanceInstallChromeCard": "Otwórz Połączenie, aby edytować ikonę startową, ton i styl powitania dla zweryfikowanej domeny — przez istniejące ustawienia instalacji Core.",
+        "appearanceWriterUnavailable": "Edytor motywu nieaktywny",
+        "appearanceWriterBlockedBody": "Kolor akcentu i dowolny tekst powitalny nie są jeszcze edytowalne tutaj. Ustawienia wyglądu Core wymagają osobnej zgody właściciela. Wygląd instalacji pozostaje w Połączeniu."
       },
       "bedrift": {
         "dashboardTitle": "Przegląd Buddy Business",

@@ -8635,7 +8635,15 @@
         "appearanceOperatorCard": "Open advanced website publishing tools when you need candidate pages and publish controls.",
         "appearanceProfileCard": "Workspace profile and account presentation live under Account — not duplicated here.",
         "appearanceSupportCard": "Need help with visitor presentation? Open customer support requests.",
-        "usageCard": "Review answer allowance and remaining capacity without inventing zeros."
+        "appearanceWriterUnavailableTitle": "Appearance editor not available yet",
+        "appearanceWriterUnavailableBody": "Aipify cannot save visitor-widget appearance until the Core writer is approved and activated. This page stays fail-closed — no invented settings or fake success.",
+        "appearanceCandidateReadyNote": "A Core SQL candidate is prepared for owner approval. Apply and activation require a separate exact YES per environment.",
+        "appearanceConfigStatusLabel": "Configuration status",
+        "appearanceWriterStatusUnavailable": "Writer unavailable",
+        "usageCard": "Review answer allowance and remaining capacity without inventing zeros.",
+        "appearanceInstallChromeCard": "Open Connection to edit launcher icon, tone, and welcome style for a verified domain — using the existing Core install settings.",
+        "appearanceWriterUnavailable": "Theme editor not activated",
+        "appearanceWriterBlockedBody": "Accent colour and free-text welcome are not editable here yet. Core appearance settings need a separate owner approval. Install chrome settings stay on Connection."
       },
       "bedrift": {
         "dashboardTitle": "Buddy Business overview",

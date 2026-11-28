@@ -8712,7 +8712,15 @@
         "appearanceOperatorCard": "Åpne avanserte publiseringsverktøy når du trenger kandidatsider og publiseringskontroller.",
         "appearanceProfileCard": "Arbeidsområdets profil og kontopresentasjon ligger under Konto — ikke duplisert her.",
         "appearanceSupportCard": "Trenger du hjelp med presentasjon for besøkende? Åpne kundeservicehenvendelser.",
-        "usageCard": "Se svarkvote og gjenværende kapasitet uten å finne opp nullverdier."
+        "appearanceWriterUnavailableTitle": "Utseende-redigering er ikke tilgjengelig ennå",
+        "appearanceWriterUnavailableBody": "Aipify kan ikke lagre utseende for besøks-widgeten før Core-skriveren er godkjent og aktivert. Denne siden forblir fail-closed — ingen oppdiktede innstillinger eller falsk suksess.",
+        "appearanceCandidateReadyNote": "En Core SQL-kandidat er klar for eiergodkjenning. Apply og aktivering krever separat eksakt YES per miljø.",
+        "appearanceConfigStatusLabel": "Konfigurasjonsstatus",
+        "appearanceWriterStatusUnavailable": "Skriver utilgjengelig",
+        "usageCard": "Se svarkvote og gjenværende kapasitet uten å finne opp nullverdier.",
+        "appearanceInstallChromeCard": "Åpne Tilkobling for å redigere startikon, tone og velkomststil for et verifisert domene — via eksisterende Core-installasjonsinnstillinger.",
+        "appearanceWriterUnavailable": "Temaeditor ikke aktivert",
+        "appearanceWriterBlockedBody": "Aksentfarge og fri tekst-velkomst kan ikke redigeres her ennå. Core-utseendeinnstillinger krever egen eiergodkjenning. Installasjonsutseende forblir under Tilkobling."
       },
       "bedrift": {
         "dashboardTitle": "Oversikt for Kompis Bedrift",
