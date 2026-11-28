@@ -744,6 +744,10 @@ export function buildCspCatalogLabels(t: Translator): CspCatalogLabels {
     commissionAmount: k("commissionAmount"),
     commissionPending: k("commissionPending"),
     commissionNone: k("commissionNone"),
+    commissionNotConfigured: k("commissionNotConfigured"),
+    commissionZero: k("commissionZero"),
+    commissionPercent: k("commissionPercent"),
+    commissionEstimate: k("commissionEstimate"),
     certificationLabel: k("certificationLabel"),
     certNotStarted: k("certNotStarted"),
     certInProgress: k("certInProgress"),
@@ -771,6 +775,12 @@ export function buildCspCatalogLabels(t: Translator): CspCatalogLabels {
     yearly: k("yearly"),
     annualQuotaNote: k("annualQuotaNote"),
     freePrice: k("freePrice"),
+    mostPopular: k("mostPopular"),
+    seeDetails: k("seeDetails"),
+    closeDetails: k("closeDetails"),
+    featuresHeading: k("featuresHeading"),
+    vatUnknown: k("vatUnknown"),
+    catalogLoadError: k("catalogLoadError"),
   };
 }
 

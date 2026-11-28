@@ -1,28 +1,35 @@
 "use client";
 
+/**
+ * Partner SALE product catalog — Core-authoritative via csp_get_partner_overview.
+ * Reuses PremiumProductCatalogCard mode="sale" (PARTNER_STOREFRONT_REUSE_CONTRACT).
+ * Never APP-only. No buy/checkout. Variant commission from Core rates (null ≠ 0).
+ */
+
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { evaluateCspCopyLinkEligibility } from "@/lib/certified-sales-partner/copy-link-eligibility";
+import { CSP_CATALOG_FILTERS, type CspCatalogFilter } from "@/lib/certified-sales-partner/product-catalog-display";
 import {
-  CSP_CATALOG_FILTERS,
-  getLocalizedCspCatalogProducts,
-  type CspCatalogFilter,
-  type CspLocalizedCatalogProduct,
-} from "@/lib/certified-sales-partner/product-catalog-display";
+  buildPartnerStorefrontViewModel,
+  productLevelCommissionEstimate,
+  type PartnerStorefrontFilter,
+} from "@/lib/product-catalog/partner-storefront-view-model";
 import {
-  buildUnifiedCatalog,
-  filterSalesCatalogProducts,
-  variantsForProduct,
+  indexPartnerCommissionSlots,
+  partnerCommissionLookupKey,
+  resolvePartnerSaleCommissionText,
+  type PartnerVariantCommissionSlot,
+} from "@/lib/product-catalog/partner-variant-commission-read";
+import {
+  variantHasPaidCustomerPrice,
   type ProductCatalogLocaleCode,
+  type UnifiedCatalogProduct,
 } from "@/lib/product-catalog";
-import {
-  formatVariantQuotaLabel,
-  priceForInterval,
-  type ProductVariantDefinition,
-} from "@/lib/product-catalog/variants";
-import { variantHasPaidCustomerPrice } from "@/lib/product-catalog/quota-labels";
+import type { ProductVariantDefinition } from "@/lib/product-catalog/variants";
+import { PremiumProductCatalogCard, type PremiumCatalogCardLabels } from "@/components/shared/product-catalog/PremiumProductCatalogCard";
 import { ensureCspSalesLink, useCspSalesLinks, writeClipboard } from "./csp-sales-links-client";
-import { GuidedProductCard, SalesExperienceHero } from "./sales-experience";
+import { SalesExperienceHero } from "./sales-experience";
 import type { SalesHeroModel } from "./sales-experience";
 import { useCspPortal } from "./CertifiedSalesPartnerWorkspacePanel";
 
@@ -56,6 +63,14 @@ export type CspCatalogLabels = {
   commissionPending: string;
   /** Free / unpaid variant — never show product-level fixed commission. */
   commissionNone?: string;
+  /** Variant×period rate missing in Core (null ≠ 0). */
+  commissionNotConfigured?: string;
+  /** Explicit Core zero for variant×period. */
+  commissionZero?: string;
+  /** Template with {rate}. */
+  commissionPercent?: string;
+  /** Marked estimate only — never automatic variant rate. Template with {amount}. */
+  commissionEstimate?: string;
   certificationLabel: string;
   certNotStarted: string;
   certInProgress: string;
@@ -84,122 +99,16 @@ export type CspCatalogLabels = {
   yearly?: string;
   annualQuotaNote?: string;
   freePrice?: string;
+  mostPopular?: string;
+  seeDetails?: string;
+  closeDetails?: string;
+  featuresHeading?: string;
+  vatUnknown?: string;
+  catalogLoadError?: string;
 };
 
 function fill(template: string, values: Record<string, string | number>): string {
   return template.replace(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match));
-}
-
-function SaleVariantPriceBlock({
-  productKey,
-  locale,
-  labels,
-  fallbackMonthly,
-  onVariantChange,
-}: {
-  productKey: string;
-  locale: string;
-  labels: CspCatalogLabels;
-  fallbackMonthly: { amount: number; currency: string } | null;
-  onVariantChange?: (variant: ProductVariantDefinition | null) => void;
-}) {
-  const variants = useMemo(
-    () => variantsForProduct(productKey).filter((v) => v.active),
-    [productKey],
-  );
-  const [variantKey, setVariantKey] = useState(
-    () => variants.find((v) => v.recommended)?.variantKey ?? variants[0]?.variantKey ?? null,
-  );
-  const [interval, setInterval] = useState<"month" | "year">("month");
-  const variant = variants.find((v) => v.variantKey === variantKey) ?? variants[0] ?? null;
-  const price = variant ? priceForInterval(variant, interval) : null;
-  const amount =
-    price?.amountMajor ??
-    (interval === "month" ? fallbackMonthly?.amount ?? null : null);
-  const currency = price?.currency ?? fallbackMonthly?.currency ?? "NOK";
-
-  useEffect(() => {
-    onVariantChange?.(variant ?? null);
-  }, [onVariantChange, variant]);
-
-  if (variants.length === 0 && amount == null) {
-    return (
-      <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.noPlannedPrice}</p>
-    );
-  }
-
-  return (
-    <div className="space-y-2">
-      {variants.length > 0 ? (
-        <div className="flex gap-1 overflow-x-auto rounded-xl border border-[color:var(--aipify-border)] p-1">
-          {variants.map((item) => {
-            const selected = item.variantKey === variant?.variantKey;
-            return (
-              <button
-                key={item.variantKey}
-                type="button"
-                aria-pressed={selected}
-                onClick={() => {
-                  setVariantKey(item.variantKey);
-                  onVariantChange?.(item);
-                }}
-                className={`whitespace-nowrap rounded-lg px-2.5 py-1 text-xs font-semibold ${
-                  selected
-                    ? "bg-[color:var(--aipify-companion-purple)] text-white"
-                    : "text-[color:var(--aipify-text-primary)]"
-                }`}
-              >
-                {formatVariantQuotaLabel(item, locale)}
-              </button>
-            );
-          })}
-        </div>
-      ) : null}
-      <div className="inline-flex rounded-xl border border-[color:var(--aipify-border)] p-1">
-        {(
-          [
-            ["month", labels.monthly ?? "Monthly"],
-            ["year", labels.yearly ?? "Yearly"],
-          ] as const
-        ).map(([value, label]) => (
-          <button
-            key={value}
-            type="button"
-            aria-pressed={interval === value}
-            onClick={() => setInterval(value)}
-            className={`rounded-lg px-2.5 py-1 text-xs font-semibold ${
-              interval === value
-                ? "bg-[color:var(--aipify-companion-purple)] text-white"
-                : "text-[color:var(--aipify-text-primary)]"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-      <p className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">
-        {amount != null
-          ? `${formatMoney(amount, currency, locale)} · ${
-              interval === "month" ? labels.monthly ?? "Monthly" : labels.yearly ?? "Yearly"
-            }`
-          : variant && !variantHasPaidCustomerPrice(variant)
-            ? labels.freePrice || labels.noPlannedPrice
-            : labels.noPlannedPrice}
-      </p>
-      <p className="text-xs text-[color:var(--aipify-text-muted)]">{labels.plannedPriceNote}</p>
-      {variant?.annualRenewsQuotaMonthly && interval === "year" && labels.annualQuotaNote ? (
-        <p className="text-xs text-[color:var(--aipify-text-secondary)]">{labels.annualQuotaNote}</p>
-      ) : null}
-    </div>
-  );
-}
-
-function formatMoney(amount: number, currency: string, locale: string): string {
-  try {
-    return new Intl.NumberFormat(locale, { style: "currency", currency, maximumFractionDigits: 2 }).format(amount);
-  } catch {
-    return `${amount} ${currency}`;
-  }
 }
 
 type StatusTone = "ok" | "progress" | "muted" | "warn";
@@ -255,11 +164,9 @@ function StatusIcon({ tone }: { tone: StatusTone }) {
 }
 
 function certificationPresentation(
-  product: CspLocalizedCatalogProduct,
   status: string | null | undefined,
   labels: CspCatalogLabels,
 ): { text: string; tone: StatusTone } {
-  if (product.future) return { text: labels.certNotApplicable, tone: "muted" };
   switch (status) {
     case "passed":
       return { text: labels.certPassed, tone: "ok" };
@@ -276,120 +183,43 @@ function certificationPresentation(
   }
 }
 
-function SaleCatalogProductCard({
-  product,
-  locale,
-  labels,
-  overview,
-  note,
-  pending,
-  onCopyLink,
-  portalOverview,
-  experience,
-}: {
-  product: CspLocalizedCatalogProduct;
-  locale: string;
-  labels: CspCatalogLabels;
-  overview:
-    | { certificationStatus: string | null; commissionAmount: number | null; currency: string | null }
-    | undefined;
-  note: { text: string; tone: StatusTone } | undefined;
-  pending: boolean;
-  onCopyLink: () => void;
-  portalOverview: Parameters<typeof evaluateCspCopyLinkEligibility>[0];
-  experience?: CspProductExperience;
-}) {
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariantDefinition | null>(null);
-  const cert = certificationPresentation(product, overview?.certificationStatus, labels);
-  const eligibility = evaluateCspCopyLinkEligibility(portalOverview, product.key);
-  const amount = overview?.commissionAmount;
-  const currency = overview?.currency;
-  const selectedIsPaid = selectedVariant ? variantHasPaidCustomerPrice(selectedVariant) : true;
-  const commissionText = product.future
-    ? labels.future
-    : !selectedIsPaid
-      ? labels.commissionNone || labels.commissionPending
-      : typeof amount === "number" && typeof currency === "string" && currency
-        ? fill(labels.commissionAmount, { amount: formatMoney(amount, currency, locale) })
-        : labels.commissionPending;
-  const certPassed = overview?.certificationStatus === "passed";
-  const canShare = !product.future && eligibility.allowed;
-  const know = [experience?.know, product.future ? labels.futureNote : labels.plannedPriceNote].filter(Boolean).join(" ");
-
-  return (
-    <GuidedProductCard
-      title={product.title}
-      imageSrc={product.imagePath}
-      imageAlt={experience?.imageAlt ?? product.title}
-      statusLabel={product.future ? labels.future : labels.sellable}
-      value={product.description}
-      audienceLabel={labels.audienceLabel}
-      audience={product.audience}
-      knowLabel={experience?.knowLabel ?? labels.benefitsLabel}
-      know={know}
-      priceLabel={labels.plannedPriceNote}
-      price={
-        <SaleVariantPriceBlock
-          productKey={product.key}
-          locale={locale}
-          labels={labels}
-          fallbackMonthly={
-            product.plannedReferencePrice
-              ? {
-                  amount: product.plannedReferencePrice.fromMonthly,
-                  currency: product.plannedReferencePrice.currency,
-                }
-              : null
-          }
-          onVariantChange={setSelectedVariant}
-        />
-      }
-      commissionLabel={labels.commissionLabel}
-      commission={commissionText}
-      readMoreLabel={experience?.readMore ?? labels.shareMarketing}
-      closeLabel={experience?.close ?? labels.filterAll}
-      shareLabel={experience?.share ?? labels.copyLink}
-      sharePending={pending}
-      shareDisabledReason={product.future ? labels.futureNote : labels.linkGatesNotMet}
-      onShare={canShare ? onCopyLink : undefined}
-      details={
-        <div className="space-y-3">
-          {product.benefits.length > 0 ? (
-            <ul className="list-disc space-y-1 pl-5">
-              {product.benefits.map((benefit) => (
-                <li key={benefit}>{benefit}</li>
-              ))}
-            </ul>
-          ) : null}
-          <p>
-            <StatusIcon tone={cert.tone} /> {labels.certificationLabel}: {cert.text}
-          </p>
-          <p>{labels.noBuy}</p>
-          {product.hasTraining ? (
-            <Link href={certPassed ? "/partners/academy/certifications" : "/partners/academy/training"} className="font-semibold text-[#5538D3]">
-              {certPassed ? labels.viewCertificate || labels.certPassed : labels.takeTraining}
-            </Link>
-          ) : (
-            <p>{labels.trainingNotPublished}</p>
-          )}
-        </div>
-      }
-      footer={
-        note ? (
-          <p className={`mt-3 flex items-start gap-1.5 rounded-lg border p-2 text-xs ${TONE_CLASSES[note.tone]}`} role="status">
-            <StatusIcon tone={note.tone} />
-            <span className="break-all">{note.text}</span>
-          </p>
-        ) : null
-      }
-    />
-  );
+function toPremiumLabels(labels: CspCatalogLabels): PremiumCatalogCardLabels {
+  return {
+    mostPopular: labels.mostPopular ?? labels.sellable,
+    monthly: labels.monthly ?? "Monthly",
+    yearly: labels.yearly ?? "Yearly",
+    fromPrice: labels.plannedPrice,
+    plannedPriceNote: labels.plannedPriceNote,
+    notReadyForPurchase: labels.noBuy,
+    contactAipify: labels.shareMarketing,
+    seeDetails: labels.seeDetails ?? labels.shareMarketing,
+    annualQuotaNote: labels.annualQuotaNote ?? "",
+    commissionFixed: labels.commissionAmount,
+    commissionPercentBlocked: labels.commissionPercent ?? labels.commissionPending,
+    commissionPending: labels.commissionPending,
+    commissionNone: labels.commissionNone,
+    info: labels.seeDetails ?? labels.shareMarketing,
+    share: labels.copyLink,
+    noBuy: labels.noBuy,
+    featuresHeading: labels.featuresHeading ?? labels.benefitsLabel,
+    closeDetails: labels.closeDetails ?? labels.filterAll,
+    vatUnknown: labels.vatUnknown ?? labels.plannedPriceNote,
+    freePrice: labels.freePrice,
+  };
 }
+
+type CatalogApiPayload = {
+  found?: boolean;
+  commissions?: PartnerVariantCommissionSlot[];
+  variants_by_key?: Record<string, ProductVariantDefinition[]>;
+  error?: string;
+};
 
 /**
  * Partner product catalog. Partners never purchase here: only gated "copy sales link" and training.
- * Commission amounts come from Core overview only — never invented.
+ * Commission amounts come from Core variant rates — never invented; never auto-use legacy product rate.
  * Free variants never inherit the paid product-level fixed commission in the UI.
+ * Uses filterSalesCatalogProducts / buildUnifiedCatalog via buildPartnerStorefrontViewModel — Never APP-only.
  */
 export function CertifiedSalesPartnerProductCatalogPanel({
   labels,
@@ -405,6 +235,13 @@ export function CertifiedSalesPartnerProductCatalogPanel({
   const [filter, setFilter] = useState<CspCatalogFilter>("all");
   const [pendingKey, setPendingKey] = useState<string | null>(null);
   const [notes, setNotes] = useState<Record<string, { text: string; tone: StatusTone }>>({});
+  const [coreVariantsByKey, setCoreVariantsByKey] = useState<Record<string, ProductVariantDefinition[]> | null>(null);
+  const [commissionSlots, setCommissionSlots] = useState<PartnerVariantCommissionSlot[]>([]);
+  const [catalogFetchError, setCatalogFetchError] = useState(false);
+
+  const catalogLocale = (
+    ["en", "no", "sv", "da", "pl", "uk", "es"].includes(locale) ? locale : "en"
+  ) as ProductCatalogLocaleCode;
 
   const overviewByKey = useMemo(() => {
     const map = new Map<string, { certificationStatus: string | null; commissionAmount: number | null; currency: string | null }>();
@@ -420,36 +257,56 @@ export function CertifiedSalesPartnerProductCatalogPanel({
     return map;
   }, [portal]);
 
-  /** SALE channel only: Core-published sale products + future orientation cards. Never APP-only. */
-  const products = useMemo(() => {
-    const all = getLocalizedCspCatalogProducts(locale, filter);
-    if (!portal) return all;
-    const catalogLocale = (
-      ["en", "no", "sv", "da", "pl", "uk", "es"].includes(locale) ? locale : "en"
-    ) as ProductCatalogLocaleCode;
-    const saleVisible = new Set(
-      filterSalesCatalogProducts(
-        buildUnifiedCatalog({
-          locale: catalogLocale,
-          coreProducts: portal.overview.products
-            .filter((row) => row.productKey)
-            .map((row) => ({
-              id: row.id ?? row.productKey!,
-              productKey: row.productKey!,
-              title: null,
-              currency: row.currency,
-              fixedCommissionAmount: row.fixedCommissionAmount,
-              published: true,
-              publishSale: true,
-              publishApp: null,
-            })),
-        }),
-      ).map((product) => product.productKey),
-    );
-    return all.filter(
-      (product) => product.future || (overviewByKey.has(product.key) && saleVisible.has(product.key)),
-    );
-  }, [locale, filter, portal, overviewByKey]);
+  useEffect(() => {
+    if (!portal) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch("/api/certified-sales-partner/catalog", { credentials: "same-origin" });
+        if (!res.ok) {
+          if (!cancelled) setCatalogFetchError(true);
+          return;
+        }
+        const data = (await res.json()) as CatalogApiPayload;
+        if (cancelled) return;
+        if (data.found !== true) {
+          setCatalogFetchError(true);
+          return;
+        }
+        setCatalogFetchError(false);
+        setCommissionSlots(Array.isArray(data.commissions) ? data.commissions : []);
+        setCoreVariantsByKey(data.variants_by_key && typeof data.variants_by_key === "object" ? data.variants_by_key : {});
+      } catch {
+        if (!cancelled) setCatalogFetchError(true);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [portal]);
+
+  const commissionIndex = useMemo(() => indexPartnerCommissionSlots(commissionSlots), [commissionSlots]);
+
+  /** SALE channel only: Core-published sale products. Never APP-only. No registry seed when Core empty. */
+  const storefront = useMemo(() => {
+    if (!portal) {
+      return buildPartnerStorefrontViewModel({
+        locale: catalogLocale,
+        overviewProducts: [],
+        coreReady: false,
+      });
+    }
+    return buildPartnerStorefrontViewModel({
+      locale: catalogLocale,
+      overviewProducts: portal.overview.products,
+      coreReady: true,
+      categoryFilter: filter as PartnerStorefrontFilter,
+      coreVariantsByKey,
+    });
+  }, [portal, catalogLocale, filter, coreVariantsByKey]);
+
+  const products = storefront.products;
+  const premiumLabels = useMemo(() => toPremiumLabels(labels), [labels]);
 
   const filterLabels: Record<CspCatalogFilter, string> = {
     all: labels.filterAll,
@@ -457,16 +314,50 @@ export function CertifiedSalesPartnerProductCatalogPanel({
     voice: labels.filterVoice,
   };
 
+  const resolveCommission = useCallback(
+    (product: UnifiedCatalogProduct) =>
+      (input: { variant: ProductVariantDefinition | null; interval: "month" | "year" }) => {
+        const variant = input.variant;
+        const slot =
+          variant != null
+            ? commissionIndex.get(
+                partnerCommissionLookupKey(product.productKey, variant.variantKey, input.interval),
+              )
+            : undefined;
+        // Touch helper so free-plan commission rules stay contract-tested.
+        if (variant && !variantHasPaidCustomerPrice(variant)) {
+          return labels.commissionNone || labels.commissionPending;
+        }
+        return resolvePartnerSaleCommissionText({
+          variant,
+          interval: input.interval,
+          slot,
+          productLevelEstimate: productLevelCommissionEstimate(product),
+          locale,
+          labels: {
+            commissionNone: labels.commissionNone || labels.commissionPending,
+            commissionNotConfigured: labels.commissionNotConfigured || labels.commissionPending,
+            commissionZero: labels.commissionZero || "{amount}",
+            commissionFixed: labels.commissionAmount,
+            commissionPercent: labels.commissionPercent || labels.commissionPending,
+            commissionEstimate: labels.commissionEstimate,
+            commissionPending: labels.commissionPending,
+          },
+        });
+      },
+    [commissionIndex, labels, locale],
+  );
+
   if (!portal) return null;
 
-  async function copyLink(product: CspLocalizedCatalogProduct) {
-    setPendingKey(product.key);
-    setNotes((prev) => ({ ...prev, [product.key]: { text: labels.copyingLink, tone: "muted" } }));
-    const setNote = (text: string, tone: StatusTone) => setNotes((prev) => ({ ...prev, [product.key]: { text, tone } }));
+  async function copyLink(productKey: string) {
+    setPendingKey(productKey);
+    setNotes((prev) => ({ ...prev, [productKey]: { text: labels.copyingLink, tone: "muted" } }));
+    const setNote = (text: string, tone: StatusTone) => setNotes((prev) => ({ ...prev, [productKey]: { text, tone } }));
     try {
       const existing = linksState.phase === "ready" ? linksState.links : [];
       const outcome = await ensureCspSalesLink({
-        productKey: product.key,
+        productKey,
         channel: "referral_link",
         existing,
       });
@@ -527,6 +418,12 @@ export function CertifiedSalesPartnerProductCatalogPanel({
         })}
       </div>
 
+      {catalogFetchError ? (
+        <p className="rounded-xl border border-orange-300 bg-orange-50 p-4 text-sm text-orange-900" role="alert">
+          {labels.catalogLoadError || labels.error}
+        </p>
+      ) : null}
+
       {products.length === 0 ? (
         <p className="rounded-xl border border-[color:var(--aipify-border)] bg-[color:var(--aipify-surface)] p-4 text-sm text-[color:var(--aipify-text-secondary)]">
           {labels.empty}
@@ -534,21 +431,64 @@ export function CertifiedSalesPartnerProductCatalogPanel({
       ) : (
         <ul className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {products.map((product) => {
-            const overview = overviewByKey.get(product.key);
-            const note = notes[product.key];
+            const overview = overviewByKey.get(product.productKey);
+            const note = notes[product.productKey];
+            const cert = certificationPresentation(overview?.certificationStatus, labels);
+            const eligibility = evaluateCspCopyLinkEligibility(portal.overview, product.productKey);
+            const certPassed = overview?.certificationStatus === "passed";
+            const canShare = eligibility.allowed;
+            const shareLabel = experience?.share ?? labels.copyLink;
             return (
-              <SaleCatalogProductCard
-                key={product.key}
-                product={product}
-                locale={locale}
-                labels={labels}
-                overview={overview}
-                note={note}
-                pending={pendingKey === product.key}
-                onCopyLink={() => void copyLink(product)}
-                portalOverview={portal.overview}
-                experience={experience}
-              />
+              <li key={product.productKey} className="list-none">
+                <PremiumProductCatalogCard
+                  product={product}
+                  mode="sale"
+                  locale={locale}
+                  labels={{ ...premiumLabels, share: shareLabel }}
+                  heroSrc={product.heroImagePath ?? product.logoSrc}
+                  features={
+                    experience?.know
+                      ? [{ label: experience.know, included: true }]
+                      : undefined
+                  }
+                  shareDisabled={pendingKey === product.productKey || !canShare}
+                  onShare={
+                    canShare
+                      ? ({ productKey }) => {
+                          void copyLink(productKey);
+                        }
+                      : undefined
+                  }
+                  resolveSaleCommission={resolveCommission(product)}
+                  detailsExtra={
+                    <>
+                      <p className="flex items-start gap-1.5">
+                        <StatusIcon tone={cert.tone} />
+                        <span>
+                          {labels.certificationLabel}: {cert.text}
+                        </span>
+                      </p>
+                      <p>{labels.noBuy}</p>
+                      <Link
+                        href={certPassed ? "/partners/academy/certifications" : "/partners/academy/training"}
+                        className="font-semibold text-[#5538D3]"
+                      >
+                        {certPassed ? labels.viewCertificate || labels.certPassed : labels.takeTraining}
+                      </Link>
+                    </>
+                  }
+                  footerNote={
+                    note ? (
+                      <p className={`mt-1 flex items-start gap-1.5 rounded-lg border p-2 text-xs ${TONE_CLASSES[note.tone]}`} role="status">
+                        <StatusIcon tone={note.tone} />
+                        <span className="break-all">{note.text}</span>
+                      </p>
+                    ) : !canShare ? (
+                      <p className="text-xs text-[color:var(--aipify-text-secondary)]">{labels.linkGatesNotMet}</p>
+                    ) : null
+                  }
+                />
+              </li>
             );
           })}
         </ul>

@@ -6,7 +6,7 @@
  * Buy/Upgrade stay fail-closed until checkout readiness is Production-true.
  */
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { Check, Info, Share2, X } from "lucide-react";
 import Link from "next/link";
 import type { UnifiedCatalogProduct } from "@/lib/product-catalog";
@@ -75,6 +75,9 @@ export function PremiumProductCatalogCard({
   features,
   onShare,
   shareDisabled,
+  resolveSaleCommission,
+  detailsExtra,
+  footerNote,
 }: {
   product: UnifiedCatalogProduct;
   mode: PremiumCatalogCardMode;
@@ -88,6 +91,16 @@ export function PremiumProductCatalogCard({
     interval: "month" | "year";
   }) => void;
   shareDisabled?: boolean;
+  /**
+   * SALE mode only. When provided, overrides product-level commission display.
+   * Partner catalog must pass variant×interval Core rates — never legacy product rate as automatic.
+   */
+  resolveSaleCommission?: (input: {
+    variant: ProductVariantDefinition | null;
+    interval: "month" | "year";
+  }) => string;
+  detailsExtra?: ReactNode;
+  footerNote?: ReactNode;
 }) {
   const variants = useMemo(() => activeVariants(product), [product]);
   const recommended = variants.find((v) => v.recommended) ?? variants[0] ?? null;
@@ -103,15 +116,18 @@ export function PremiumProductCatalogCard({
   const cta = resolveAppCheckoutCta({ product, variant, interval });
 
   const selectedIsPaid = variant ? variantHasPaidCustomerPrice(variant) : false;
-  const commissionText = !selectedIsPaid
-    ? labels.commissionNone || labels.commissionPending
-    : product.commission.kind === "fixed"
-      ? labels.commissionFixed
-          .replace("{amount}", String(product.commission.amount))
-          .replace("{currency}", product.commission.currency)
-      : product.commission.kind === "percent"
-        ? labels.commissionPercentBlocked
-        : labels.commissionPending;
+  const commissionText =
+    mode === "sale" && resolveSaleCommission
+      ? resolveSaleCommission({ variant, interval })
+      : !selectedIsPaid
+        ? labels.commissionNone || labels.commissionPending
+        : product.commission.kind === "fixed"
+          ? labels.commissionFixed
+              .replace("{amount}", String(product.commission.amount))
+              .replace("{currency}", product.commission.currency)
+          : product.commission.kind === "percent"
+            ? labels.commissionPercentBlocked
+            : labels.commissionPending;
 
   const image = heroSrc ?? product.heroImagePath ?? product.logoSrc;
 
@@ -306,6 +322,8 @@ export function PremiumProductCatalogCard({
             </>
           )}
         </div>
+
+        {footerNote ? <div className="pt-1">{footerNote}</div> : null}
       </div>
 
       {detailsOpen ? (
@@ -355,6 +373,7 @@ export function PremiumProductCatalogCard({
               </>
             ) : null}
             <p className="mt-4 text-xs text-[color:var(--aipify-text-muted)]">{labels.vatUnknown}</p>
+            {detailsExtra ? <div className="mt-4 space-y-2 text-sm">{detailsExtra}</div> : null}
           </div>
         </div>
       ) : null}

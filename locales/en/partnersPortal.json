@@ -631,7 +631,17 @@
       "monthly": "Monthly",
       "yearly": "Yearly",
       "annualQuotaNote": "Annual billing still renews the quota each month.",
-      "freePrice": "Free"
+      "freePrice": "Free",
+      "commissionNotConfigured": "Not configured",
+      "commissionZero": "{amount} (configured)",
+      "commissionPercent": "{rate}% of net after discount (ex VAT)",
+      "commissionEstimate": "Product estimate (not variant rate): {amount}",
+      "mostPopular": "Most popular",
+      "seeDetails": "Info",
+      "closeDetails": "Close",
+      "featuresHeading": "What to know",
+      "vatUnknown": "VAT treatment follows the published customer price.",
+      "catalogLoadError": "Aipify could not load variant commission rates. Product listing still reflects published Core products."
     },
     "overview": {
       "title": "Your partner overview",

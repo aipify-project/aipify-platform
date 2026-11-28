@@ -631,7 +631,17 @@
       "monthly": "Månedlig",
       "yearly": "Årlig",
       "annualQuotaNote": "Årlig betaling fornyer fortsatt kvoten hver måned.",
-      "freePrice": "Gratis"
+      "freePrice": "Gratis",
+      "commissionNotConfigured": "Ikke konfigurert",
+      "commissionZero": "{amount} (konfigurert)",
+      "commissionPercent": "{rate} % av netto etter rabatt (eks. MVA)",
+      "commissionEstimate": "Produktestimat (ikke variantsats): {amount}",
+      "mostPopular": "Mest populær",
+      "seeDetails": "Info",
+      "closeDetails": "Lukk",
+      "featuresHeading": "Dette bør du vite",
+      "vatUnknown": "MVA følger den publiserte kundeeprisen.",
+      "catalogLoadError": "Aipify kunne ikke hente variantprovisjon. Produktlisten viser fortsatt publiserte Core-produkter."
     },
     "overview": {
       "title": "Din partneroversikt",
