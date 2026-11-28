@@ -469,15 +469,38 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/support/requests") || pathname.startsWith("/app/support/history")) {
     return "supportTickets";
   }
-  if (pathname.startsWith("/partners/academy")) return "salesPartnerAcademy";
-  if (pathname.startsWith("/partners/business-continuity/commission")) {
+  if (pathname.startsWith("/app/sales-partner/academy") || pathname.startsWith("/partners/academy")) {
+    return "salesPartnerAcademy";
+  }
+  if (
+    pathname.startsWith("/app/sales-partner/commissions") ||
+    pathname.startsWith("/partners/settlement") ||
+    pathname.startsWith("/partners/business-continuity/commission")
+  ) {
     return "salesPartnerCommissions";
   }
-  if (pathname.startsWith("/partners/customers")) return "salesPartnerCustomers";
-  if (pathname.startsWith("/partners/marketing/product-catalog")) {
+  if (
+    pathname.startsWith("/app/sales-partner/customers") ||
+    pathname.startsWith("/app/sales-partner/leads") ||
+    pathname.startsWith("/app/sales-partner/pipeline") ||
+    pathname.startsWith("/partners/customers")
+  ) {
+    return "salesPartnerCustomers";
+  }
+  if (
+    pathname.startsWith("/app/sales-partner/products") ||
+    pathname.startsWith("/partners/marketing/product-catalog")
+  ) {
     return "salesPartnerProducts";
   }
-  if (pathname === "/partners" || pathname === "/partners/") return "salesPartnerOverview";
+  if (
+    pathname === "/app/sales-partner" ||
+    pathname === "/app/sales-partner/" ||
+    pathname === "/partners" ||
+    pathname === "/partners/"
+  ) {
+    return "salesPartnerOverview";
+  }
   if (
     pathname === "/app/profile" ||
     pathname.startsWith("/app/profile/") ||

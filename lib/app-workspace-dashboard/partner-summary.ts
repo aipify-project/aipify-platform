@@ -1,6 +1,9 @@
+import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { isCspPartnerPortalStatusAllowed } from "@/lib/certified-sales-partner/partner-access";
 import { parsePartnerOverview } from "@/lib/certified-sales-partner/partner-overview";
 import type { WorkspacePartnerSummary } from "./types";
+
+const SALES_PARTNER_APP_HREF = FOUNDATION_NAV_BINDINGS.salesPartnerOverview;
 
 function asRecord(value: unknown): Record<string, unknown> | null {
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;
@@ -87,7 +90,7 @@ export function buildWorkspacePartnerSummary(input: {
         payableCommission: null,
         currency: null,
       },
-      partnerHref: "/partners",
+      partnerHref: SALES_PARTNER_APP_HREF,
       lastUpdatedAt: null,
       messageKey: input.economyError ? "error" : "unavailable",
     };
@@ -132,7 +135,7 @@ export function buildWorkspacePartnerSummary(input: {
         payableCommission: null,
         currency,
       },
-      partnerHref: "/partners",
+      partnerHref: SALES_PARTNER_APP_HREF,
       lastUpdatedAt: null,
       messageKey: "unavailable",
     };
@@ -147,7 +150,7 @@ export function buildWorkspacePartnerSummary(input: {
       payableCommission,
       currency,
     },
-    partnerHref: "/partners",
+    partnerHref: SALES_PARTNER_APP_HREF,
     lastUpdatedAt:
       typeof root.generated_at === "string"
         ? root.generated_at

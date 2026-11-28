@@ -122,7 +122,7 @@ function bundle(activeModuleKeys: Set<string>, salesPartnerAuthorized = false) {
   assert.equal(authorized.availability, "authorized");
   assert.equal(authorized.kpis.registeredSales, 3);
   assert.equal(authorized.kpis.pendingCommission, 100);
-  assert.equal(authorized.partnerHref, "/partners");
+  assert.equal(authorized.partnerHref, "/app/sales-partner");
 }
 
 console.log("module-manifest + workspace dashboard adapters: ok");

@@ -56,8 +56,8 @@ export const APP_SOFTWARE_MODULE_MANIFESTS: readonly ModuleManifest[] = [
     productContextId: null,
     labelKey: "customerApp.portalStructure.navGroups.salesPartner",
     iconToken: "salesPartner",
-    /** Existing Certified Sales Partner portal — not a parallel APP product. */
-    canonicalRoute: "/partners",
+    /** Phase B APP thin hosts — CSP APIs unchanged; /partners not retired. */
+    canonicalRoute: "/app/sales-partner",
     sortOrder: 30,
     readiness: "activated",
     accessPolicy: "partner_identity",

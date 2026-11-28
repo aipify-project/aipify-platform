@@ -233,6 +233,11 @@ export type LiveBindingGap = {
  * Today's APP deep-links vs contract. Phase A documents gaps; Phase B may fix
  * bindings without retiring `/partners`.
  */
+/**
+ * Live APP deep-links after Phase B host cutover (menu → `/app/sales-partner/*`).
+ * Historical Phase A gaps (missing customers/academy roots; commissions ≠ settlement)
+ * are resolved by thin hosts + additive `/partners` root redirects — `/partners` not retired.
+ */
 export const SALES_PARTNER_LIVE_BINDING_GAPS: readonly LiveBindingGap[] = [
   {
     navId: "salesPartnerOverview",
@@ -249,19 +254,19 @@ export const SALES_PARTNER_LIVE_BINDING_GAPS: readonly LiveBindingGap[] = [
   {
     navId: "salesPartnerCustomers",
     liveHref: FOUNDATION_NAV_BINDINGS.salesPartnerCustomers,
-    issue: "missing_page_root",
+    issue: "ok",
     contractTarget: "/app/sales-partner/customers",
   },
   {
     navId: "salesPartnerCommissions",
     liveHref: FOUNDATION_NAV_BINDINGS.salesPartnerCommissions,
-    issue: "diverges_from_csp_nav",
+    issue: "ok",
     contractTarget: "/app/sales-partner/commissions",
   },
   {
     navId: "salesPartnerAcademy",
     liveHref: FOUNDATION_NAV_BINDINGS.salesPartnerAcademy,
-    issue: "missing_page_root",
+    issue: "ok",
     contractTarget: "/app/sales-partner/academy",
   },
 ] as const;

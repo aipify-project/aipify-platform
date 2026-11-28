@@ -19,3 +19,12 @@ export {
   listCspNavHrefs,
   findMatrixRowByCurrentPath,
 } from "./phase-a-contract";
+
+export {
+  SALES_PARTNER_APP_MIGRATION_PHASE_B,
+  SALES_PARTNER_THIN_HOSTS,
+  SALES_PARTNER_PHASE_B_NAV_BINDINGS,
+  thinHostsCoverMatrix,
+} from "./phase-b-hosts";
+
+export { SALES_PARTNER_LICENSE_ARCHITECTURE } from "./phase-b-license-contract";

@@ -60,10 +60,13 @@ export function CertifiedSalesPartnerMarketingCenter({
   labels,
   locale,
   experience,
+  initialSection = "center",
 }: {
   labels: CspMarketingLabels;
   locale: string;
   experience?: ToolsExperience;
+  /** APP thin hosts set library without depending on nav ?section= alone. */
+  initialSection?: "center" | "library";
 }) {
   const portal = useCspPortal();
   const router = useRouter();
@@ -71,8 +74,10 @@ export function CertifiedSalesPartnerMarketingCenter({
   const [product, setProduct] = useState<ProductKey>("kompis_web");
   const [marketingLocale, setMarketingLocale] = useState<Locale>(isCspShareLocale(locale) ? locale : "en");
   const [tab, setTab] = useState<CenterTab>("texts");
-  const [section, setSection] = useState<"center" | "library">("center");
-  const [workspace, setWorkspace] = useState<"process" | "conversations" | "materials" | "sharing">("process");
+  const [section, setSection] = useState<"center" | "library">(initialSection);
+  const [workspace, setWorkspace] = useState<"process" | "conversations" | "materials" | "sharing">(
+    initialSection === "library" ? "materials" : "process",
+  );
   const [platforms, setPlatforms] = useState<CspSocialPlatform[]>([]);
   const [copyId, setCopyId] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -82,10 +87,10 @@ export function CertifiedSalesPartnerMarketingCenter({
   useEffect(() => {
     setOrigin(window.location.origin);
     const query = new URLSearchParams(window.location.search);
-    const library = query.get("section") === "library";
+    const library = initialSection === "library" || query.get("section") === "library";
     setSection(library ? "library" : "center");
     if (library) setWorkspace("materials");
-  }, []);
+  }, [initialSection]);
 
   function chooseSection(next: "center" | "library") {
     setSection(next);
