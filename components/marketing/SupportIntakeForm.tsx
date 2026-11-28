@@ -5,7 +5,8 @@ import {
   AipifyHumanVerification,
   PublicFormHoneypot,
 } from "@/components/ui/aipify-human-verification";
-import { AipifyMarketingClasses, AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
+import { PublicFormInfoNotice } from "@/components/ui/public-form-info-notice";
+import { AipifyPublicFormClasses } from "@/lib/public-forms/public-form-ui";
 import { usePublicFormGuard } from "@/lib/public-forms/use-public-form-guard";
 import { sanitizeSupportIntakePayload, type IntakeValidationField } from "@/lib/support-intake/sanitize";
 import type { HumanVerificationLabels } from "@/lib/system-notice/types";
@@ -46,8 +47,6 @@ type FormStatus = "idle" | "submitting" | "blocked" | "done" | "error";
 
 const SUPPORT_EMAIL = "support@aipify.ai";
 const TICKET_NUMBER_RE = /^SUP-[A-Z0-9]{8}$/;
-
-const inputClass = `mt-1.5 w-full px-4 py-3 text-base sm:text-sm ${AipifyShellClasses.input} disabled:cursor-not-allowed disabled:opacity-60`;
 
 function fieldError(
   field: IntakeValidationField,
@@ -196,45 +195,44 @@ export default function SupportIntakeForm({
   }
 
   return (
-    <div className="mx-auto w-full max-w-xl">
-      <h1 className="text-2xl font-semibold tracking-tight text-aipify-text sm:text-3xl">{labels.title}</h1>
-      <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">{labels.subtitle}</p>
+    <section className={AipifyPublicFormClasses.panel} data-testid="public-support-intake-form">
+      <h1 className={AipifyPublicFormClasses.title}>{labels.title}</h1>
+      <p className={AipifyPublicFormClasses.subtitle}>{labels.subtitle}</p>
 
       {confirmed ? (
-        <div
-          className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-emerald-950"
-          role="status"
-        >
+        <div className={`mt-6 ${AipifyPublicFormClasses.noticeSuccess}`} role="status">
           <p className="font-medium">{labels.successSubmitted}</p>
           <p className="mt-2 text-sm">
             {labels.referenceLabel}: <span className="font-semibold">{ticketNumber}</span>
           </p>
         </div>
       ) : (
-        <form className={`mt-6 space-y-4 ${AipifyMarketingClasses.card}`} onSubmit={onSubmit} noValidate>
+        <form className={AipifyPublicFormClasses.formStack} onSubmit={onSubmit} noValidate>
           {storageClosed ? (
             <div
               id="support-intake-closed"
-              className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-950"
+              className={AipifyPublicFormClasses.noticeWarning}
               role="status"
             >
               {labels.successCorePending}
             </div>
           ) : null}
+
           <PublicFormHoneypot />
-          <label className="block text-sm">
-            <span className="font-medium text-aipify-text">{labels.name}</span>
+
+          <label className={AipifyPublicFormClasses.field}>
+            <span className={AipifyPublicFormClasses.label}>{labels.name}</span>
             <input
               name="name"
               autoComplete="name"
               value={name}
               onChange={(event) => setName(event.target.value)}
               required
-              className={inputClass}
+              className={AipifyPublicFormClasses.input}
             />
           </label>
-          <label className="block text-sm">
-            <span className="font-medium text-aipify-text">{labels.email}</span>
+          <label className={AipifyPublicFormClasses.field}>
+            <span className={AipifyPublicFormClasses.label}>{labels.email}</span>
             <input
               name="email"
               type="email"
@@ -243,62 +241,77 @@ export default function SupportIntakeForm({
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
-              className={inputClass}
+              className={AipifyPublicFormClasses.input}
             />
           </label>
-          <label className="block text-sm">
-            <span className="font-medium text-aipify-text">{labels.subject}</span>
+          <label className={AipifyPublicFormClasses.field}>
+            <span className={AipifyPublicFormClasses.label}>{labels.subject}</span>
             <input
               name="subject"
               value={subject}
               onChange={(event) => setSubject(event.target.value)}
               required
-              className={inputClass}
+              className={AipifyPublicFormClasses.input}
             />
           </label>
-          <label className="block text-sm">
-            <span className="font-medium text-aipify-text">{labels.message}</span>
+          <label className={AipifyPublicFormClasses.field}>
+            <span className={AipifyPublicFormClasses.label}>{labels.message}</span>
             <textarea
               name="message"
               value={message}
               onChange={(event) => setMessage(event.target.value)}
               required
               rows={6}
-              className={inputClass}
+              className={AipifyPublicFormClasses.input}
             />
           </label>
-          <p className="text-xs leading-relaxed text-aipify-text-secondary">{labels.privacy}</p>
-          {intakeLive ? (
-            <AipifyHumanVerification labels={verificationLabels} onVerified={onVerified} />
-          ) : null}
-          {verificationRequired && intakeLive ? (
-            <p className="text-sm text-amber-800">{labels.verificationRequired}</p>
-          ) : null}
+
+          <p className={AipifyPublicFormClasses.hint}>{labels.privacy}</p>
+
+          <div id="support-intake-verification" tabIndex={-1} className="focus:outline-none">
+            <AipifyHumanVerification
+              labels={verificationLabels}
+              variant="light"
+              compact
+              onVerified={onVerified}
+              onReset={onVerificationReset}
+            />
+            {verificationRequired && intakeLive ? (
+              <p className="mt-2 text-sm font-medium text-amber-800" role="alert">
+                {labels.verificationRequired}
+              </p>
+            ) : null}
+          </div>
+
+          <PublicFormInfoNotice testId="support-intake-email-alternative">
+            <p>
+              <a className={AipifyPublicFormClasses.link} href={emailHref}>
+                {labels.mailtoLabel}
+              </a>
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-aipify-text-muted">{labels.mailtoFallback}</p>
+          </PublicFormInfoNotice>
+
           {error ? (
-            <p className="text-sm text-red-700" role="alert">
+            <p className="text-sm font-medium text-red-700" role="alert">
               {error}
             </p>
           ) : null}
-          <button
-            type="submit"
-            disabled={!intakeLive || status === "submitting"}
-            aria-describedby={storageClosed ? "support-intake-closed" : undefined}
-            className={
-              intakeLive
-                ? `w-full sm:w-auto ${AipifyMarketingClasses.primaryCta} disabled:cursor-not-allowed disabled:opacity-60`
-                : `w-full cursor-not-allowed sm:w-auto ${AipifyMarketingClasses.secondaryCta} opacity-70`
-            }
-          >
-            {status === "submitting" ? labels.submitting : labels.submit}
-          </button>
-          <div className="border-t border-aipify-border pt-4">
-            <a className="text-sm font-semibold text-aipify-companion hover:underline" href={emailHref}>
-              {labels.mailtoLabel}
-            </a>
-            <p className="mt-1 text-xs leading-relaxed text-aipify-text-secondary">{labels.mailtoFallback}</p>
+
+          <div>
+            <button
+              type="submit"
+              disabled={!intakeLive || status === "submitting"}
+              aria-describedby={storageClosed ? "support-intake-closed" : undefined}
+              className={
+                intakeLive ? AipifyPublicFormClasses.submit : AipifyPublicFormClasses.submitQuiet
+              }
+            >
+              {status === "submitting" ? labels.submitting : labels.submit}
+            </button>
           </div>
         </form>
       )}
-    </div>
+    </section>
   );
 }

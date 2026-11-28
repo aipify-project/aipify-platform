@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { AipifyHumanVerification, PublicFormHoneypot } from "@/components/ui/aipify-human-verification";
+import { PublicFormInfoNotice } from "@/components/ui/public-form-info-notice";
 import {
   buildCspLoginUrl,
   CSP_CREATE_ACCOUNT_URL,
@@ -16,6 +17,7 @@ import {
   CSP_FIELD_BY_ERROR_CODE,
 } from "@/lib/certified-sales-partner/registration";
 import { listIsoAlpha2Countries } from "@/lib/platform-portal/countries";
+import { AipifyPublicFormClasses } from "@/lib/public-forms/public-form-ui";
 import { usePublicFormGuard } from "@/lib/public-forms/use-public-form-guard";
 import type { HumanVerificationLabels } from "@/lib/system-notice/types";
 
@@ -369,10 +371,10 @@ export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabe
     fieldErrors[field] ? messageFor(fieldErrors[field]!) : undefined;
 
   return (
-    <section className="w-full rounded-2xl border border-aipify-border bg-aipify-surface p-6 shadow-sm sm:p-8">
-      <h2 className="text-xl font-semibold text-aipify-text">{labels.title}</h2>
+    <section className={AipifyPublicFormClasses.panel}>
+      <h2 className={AipifyPublicFormClasses.title}>{labels.title}</h2>
       <form
-        className="relative mt-6 grid gap-4 sm:grid-cols-2"
+        className={`${AipifyPublicFormClasses.formStack} sm:grid-cols-2`}
         onSubmit={onSubmit}
         onChange={(event) => {
           const name = (event.target as unknown as HTMLInputElement).name;
@@ -574,18 +576,13 @@ export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabe
           ) : null}
         </div>
 
-        <div
-          className="flex items-start gap-2.5 rounded-xl border border-aipify-border bg-aipify-canvas px-4 py-3 text-sm sm:col-span-2"
-          data-testid="csp-process-info"
+        <PublicFormInfoNotice
+          className="sm:col-span-2"
+          title={labels.processTitle}
+          testId="csp-process-info"
         >
-          <span className="mt-0.5 shrink-0 text-aipify-text-secondary">
-            <InfoIcon />
-          </span>
-          <div>
-            <p className="font-semibold text-aipify-text">{labels.processTitle}</p>
-            <p className="mt-1 leading-relaxed text-aipify-text-secondary">{labels.processBody}</p>
-          </div>
-        </div>
+          {labels.processBody}
+        </PublicFormInfoNotice>
 
         {message ? (
           <div className="sm:col-span-2" ref={messageRef}>
@@ -598,7 +595,7 @@ export function CertifiedSalesPartnerRegistrationForm({ labels, verificationLabe
             type="submit"
             disabled={pending || submitted}
             aria-disabled={pending || submitted}
-            className="inline-flex w-full items-center justify-center rounded-xl bg-[color:var(--aipify-companion-purple)] px-5 py-3 text-sm font-semibold text-white disabled:opacity-60 sm:w-auto"
+            className={AipifyPublicFormClasses.submit}
           >
             {pending ? labels.submitting : submitted ? labels.successTitle : labels.submit}
           </button>

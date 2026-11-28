@@ -56,11 +56,13 @@ export default async function ContactSupportPage() {
       contentMaxWidth={720}
     >
       <p className="kompis-web-sales-eyebrow">{appName}</p>
-      <SupportIntakeForm
-        labels={formLabels}
-        verificationLabels={buildHumanVerificationLabels(t)}
-        intakeLive={intakeLive}
-      />
+      <div className="mt-4">
+        <SupportIntakeForm
+          labels={formLabels}
+          verificationLabels={buildHumanVerificationLabels(t)}
+          intakeLive={intakeLive}
+        />
+      </div>
       <p style={{ marginTop: 28 }}>
         <Link href={salesLabels.hrefs.home} className="kompis-web-sales-cta-quiet">
           {salesLabels.start.backHome}

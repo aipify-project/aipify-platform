@@ -54,6 +54,12 @@ assert.match(form, /disabled=\{!intakeLive/);
 assert.match(form, /TICKET_NUMBER_RE/);
 assert.match(form, /labels\.privacy/);
 assert.match(form, /PublicFormHoneypot/);
+assert.match(form, /AipifyPublicFormClasses/);
+assert.match(form, /PublicFormInfoNotice/);
+assert.match(form, /variant="light"/);
+assert.match(form, /compact/);
+assert.doesNotMatch(form, /intakeLive \? \(\s*<AipifyHumanVerification/);
+assert.match(form, /AipifyHumanVerification/);
 assert.doesNotMatch(form, /createClient|supabase\.from|ticket_id:\s*crypto|SUP-\$\{/);
 assert.doesNotMatch(api, /resend|nodemailer|sendMail|sendEmail/);
 assert.match(api, /createServiceRoleClient/);
@@ -63,6 +69,18 @@ assert.doesNotMatch(api, /randomUUID/);
 assert.match(api, /partner_id|tenant_id|company_id/);
 assert.match(appContact, /renderAppPortalFoundationPage\("contactSupport"\)/);
 assert.doesNotMatch(appContact, /SupportIntakeForm|support-intake\/web/);
+
+const partner = read("components/marketing/CertifiedSalesPartnerRegistrationForm.tsx");
+assert.match(partner, /AipifyPublicFormClasses/);
+assert.match(partner, /PublicFormInfoNotice/);
+assert.match(partner, /variant="light"/);
+assert.match(partner, /compact/);
+assert.match(partner, /AipifyHumanVerification/);
+
+const sharedUi = read("lib/public-forms/public-form-ui.ts");
+assert.match(sharedUi, /panel:/);
+assert.match(sharedUi, /rounded-2xl border border-aipify-border bg-aipify-surface p-6 shadow-sm sm:p-8/);
+assert.match(sharedUi, /submit:/);
 
 const missingEmail = sanitizeSupportIntakePayload(
   { subject: "Emne", message: "Dette er en testmelding.", contactName: "Ada" },
