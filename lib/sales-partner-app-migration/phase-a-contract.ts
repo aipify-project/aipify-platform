@@ -183,10 +183,10 @@ export const SALES_PARTNER_APP_ROUTE_MATRIX: readonly SalesPartnerRouteRow[] = [
   {
     capability: "notifications",
     currentPartnersPath: "/partners/account/notifications",
-    targetAppPath: "/app/sales-partner/notifications",
-    hostStrategy: "thin_app_host",
+    targetAppPath: "/app/notifications",
+    hostStrategy: "reuse_app_surface",
     parityNotes:
-      "Phase C interim thin host (CSP unread). Shared /app/notifications reuse remains unknown until signed-in QA",
+      "Messaging Performance V1: Varsler is shared APP; CSP inbox stays at /app/sales-partner/messages only",
   },
   {
     capability: "profile",

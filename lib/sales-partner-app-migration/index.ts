@@ -39,3 +39,12 @@ export {
   mapPartnersHrefToAppHost,
   salesPartnerPathIsActive,
 } from "./phase-c-shared-surfaces";
+
+export {
+  SALES_PARTNER_MESSAGING_PERFORMANCE_MARKER,
+  PARTNER_MESSAGES_APP_PATH,
+  PARTNER_MESSAGES_API_PATH,
+  SHARED_APP_NOTIFICATIONS_PATH,
+  PARTNER_MESSAGE_UNREAD_BADGE,
+  PARTNER_MESSAGES_CLIENT_RULES,
+} from "./messaging-performance";

@@ -52,9 +52,11 @@ function initialsFor(direction: string, labels: PartnersPortalMessagesLabels): s
 
 /**
  * Partner inbox — Core RPC via /api/certified-sales-partner/messages.
+ * Loaded only while this page is mounted (never from layout/topbar).
  * Never renders sample or other sellers' messages.
  * Mark-read only when a thread is opened — never on mere list load.
  * Own sent messages are never counted as unread.
+ * Support tickets are a separate surface — never mixed into this inbox.
  */
 export function PartnersMessagesCenterPanel({ labels, locale }: Props) {
   const [phase, setPhase] = useState<Phase>("loading");
