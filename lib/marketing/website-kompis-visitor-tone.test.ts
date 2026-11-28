@@ -48,8 +48,9 @@ const swedishShell = resolveWebsiteKompisEmbedUiLabels({ locale: "se", welcomeMe
 assert.equal(swedishShell.productName, "Kompis");
 assert.equal(swedishShell.placeholder, "Skriv ett meddelande…");
 const englishShell = resolveWebsiteKompisEmbedUiLabels({ locale: "en", welcomeMessageVariant: "compact" });
-assert.equal(englishShell.productName, "Kompis");
-assert.equal(englishShell.title, "Website Kompis");
+assert.equal(englishShell.productName, "Buddy");
+assert.equal(englishShell.title, "Website Buddy");
+assert.equal(englishShell.open, "Open Buddy");
 assert.equal(compactLabels.quickActions.length, 2);
 assert.ok(!compactLabels.quickActions.some((action) => /kontakt/i.test(action.label)));
 

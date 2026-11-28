@@ -213,6 +213,30 @@
     "reason": "Owner authorized observability-only Public Chain instrumentation: one redacted faq_collection sibling event per ask with source/fetch/RPC/relevance/safety/kept counters and skip-reason enum. No retrieval, relevance, safety, or answer-selection behavior change. Manifest hashes move to the approved files; files stay out of files[] because matching ledger rows fail the freeze gate.",
     "filesArrayUnchanged": true
   },
+  "closedBuddyWidgetNameCandidate": {
+    "status": "owner approved narrow freeze exception",
+    "date": "2026-11-28",
+    "names": "Website Kompis Public Chain",
+    "ownerApproval": "AIPIFY_WEBSITE_KOMPIS_BUDDY_WIDGET_NAME_FIX_V1",
+    "scope": "User-facing product display names only: Nordic Kompis / non-Nordic Buddy in visitor embed shell, host iframe accessibility title, and English disabled copy. No layout, retrieval, answer policy, or Core behavior change.",
+    "runtimeFiles": [
+      "lib/marketing/website-kompis-visitor-tone.ts",
+      "public/embed/website-kompis.js",
+      "lib/marketing/website-kompis-install-config.ts"
+    ],
+    "baselineSha256": {
+      "lib/marketing/website-kompis-visitor-tone.ts": "df4380639d491272abe1d5a5ef8ee22ea46e12b9c9ab9cafb99f373d78b59b7b",
+      "public/embed/website-kompis.js": "43de4c31c99a562cac0971db9e1b8cca3a715a53923f1d3df308e987b3895de2",
+      "lib/marketing/website-kompis-install-config.ts": "e7255b79367f0d2acd1df62ed466f76d59b03bc025ee5564653934ea302b232d"
+    },
+    "proposedSha256": {
+      "lib/marketing/website-kompis-visitor-tone.ts": "f3813e4348fb9cd0d3e2d3a76d36c2735c256e6c4bed45aa0d152bb919bc5381",
+      "public/embed/website-kompis.js": "6222ac692ebb36b31ee11a540b2a8bf04b72667486180631e26cec32ad5e7d20",
+      "lib/marketing/website-kompis-install-config.ts": "8d0edba774785064e564f3094a1d3ab9a994b0859d880c5ee144c5d418f9a716"
+    },
+    "reason": "Owner approved a narrow Website Kompis Public Chain exception for locale-aware visitor product names only. Manifest hashes move to the approved files. install-config leaves files[] because a matching ledger row fails the freeze gate; prior PR #272 locale-list drift is superseded by this approved baseline.",
+    "filesArrayUnchanged": false
+  },
   "files": [
     {
       "path": "components/embed/WebsiteKompisEmbedWidget.tsx",
@@ -227,13 +251,6 @@
       "manifestSha256": "ae14aacb3aff82bc803b5ec2d6ac7de7cb2242f6571564a859c4bdc65c90b42a",
       "observedSha256": "24cde88546fa851ed726007b35a4f8d95f0c50df98bf6b57e326ec9bbb1d77f7",
       "reason": "PR #272 uses the English missing-price sentence unless the locale is Norwegian or Spanish."
-    },
-    {
-      "path": "lib/marketing/website-kompis-install-config.ts",
-      "introducedBy": "c2757397576964709781b86c114a3518d7003786",
-      "manifestSha256": "531b06c77a3ac19dfa6fcb9022a4bdf4242f8cd4a6fe5a6290cd8d06fc59d7f9",
-      "observedSha256": "e7255b79367f0d2acd1df62ed466f76d59b03bc025ee5564653934ea302b232d",
-      "reason": "PR #272 accepts a saved site locale from the content-language set instead of the previous seven-code list."
     },
     {
       "path": "lib/marketing/website-kompis-answer-feedback-server.ts",

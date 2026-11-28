@@ -846,8 +846,20 @@
 
   var iframe = document.createElement("iframe");
   iframe.src = coreOrigin + "/embed/website-kompis?" + params.toString();
-  iframe.title = "Website Kompis";
-  iframe.setAttribute("aria-label", "Website Kompis");
+  // Locale-aware accessibility name only — Nordic: Website Kompis; otherwise Website Buddy.
+  var iframeProductTitle = (function websiteKompisIframeProductTitle(rawLocale) {
+    var code = String(rawLocale || "no")
+      .trim()
+      .toLowerCase()
+      .slice(0, 2);
+    if (code === "nb" || code === "nn") code = "no";
+    if (code === "se") code = "sv";
+    if (code === "dk") code = "da";
+    if (code === "no" || code === "sv" || code === "da") return "Website Kompis";
+    return "Website Buddy";
+  })(locale);
+  iframe.title = iframeProductTitle;
+  iframe.setAttribute("aria-label", iframeProductTitle);
   // Eager load — lazy delays the closed resize handshake and can leave a host-sized blank frame.
   iframe.setAttribute("allow", "clipboard-write");
   iframe.setAttribute("allowtransparency", "true");
