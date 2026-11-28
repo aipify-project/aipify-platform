@@ -73,7 +73,9 @@ const mergedCore = applyApprovedContentToPresentation({
 });
 assert.equal(mergedCore.contentSource, "core");
 assert.equal(mergedCore.title, "Buddy Web");
-assert.equal(mergedCore.logoSrc, "products/kompis_web/logo.png");
+// Display src stays registry until signed URL attach — never private Storage path.
+assert.equal(mergedCore.logoSrc, "/brand/mark.svg");
+assert.equal(mergedCore.logoPath, "products/kompis_web/logo.png");
 assert.deepEqual(mergedCore.benefits, ["FAQ", "Knowledge"]);
 
 assert.equal(

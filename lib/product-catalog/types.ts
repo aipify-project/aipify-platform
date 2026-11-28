@@ -82,6 +82,10 @@ export type UnifiedCatalogProduct = {
   tagline: string;
   description: string;
   localeApproved: boolean;
+  /** Approved Core benefits when present; empty when missing — never invented. */
+  benefits?: string[];
+  /** Whether title/tagline/description came from Core approved locale copy. */
+  contentSource?: "core" | "registry_fallback";
   logoSrc: string | null;
   heroImagePath: string | null;
   accent: CanonicalProductDefinition["accent"];

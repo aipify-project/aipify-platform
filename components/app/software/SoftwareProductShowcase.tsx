@@ -18,6 +18,9 @@ function featureRows(
   product: UnifiedCatalogProduct,
   locale: string,
 ): Array<{ label: string; included: boolean }> {
+  if (Array.isArray(product.benefits) && product.benefits.length > 0) {
+    return product.benefits.slice(0, 6).map((label) => ({ label, included: true }));
+  }
   if (product.productKey === "kompis_web") {
     return product.variants
       .filter((v) => v.active)
@@ -173,6 +176,7 @@ export function SoftwareProductShowcase({
                 mode="app"
                 locale={locale}
                 labels={cardLabels}
+                heroSrc={product.heroImagePath ?? product.logoSrc}
                 features={featureRows(product, locale)}
               />
             </div>

@@ -19,6 +19,7 @@ import {
   loadAppStoreCoreProducts,
   type ProductCatalogLocaleCode,
 } from "@/lib/product-catalog";
+import { enrichCatalogProductsWithApprovedMedia } from "@/lib/product-catalog/content-media-enrich";
 import {
   applyAuthoritativeCorePricing,
   loadAuthoritativeVariantsForProducts,
@@ -132,6 +133,19 @@ export default async function SoftwareCatalogPage({
       : typeof categoryParam === "string" && categoryParam.trim() !== ""
         ? resolveStoreCategoryId({ productKey: null, category: categoryParam })
         : "all";
+
+  // Core approved locale + short-lived signed media (channel=app). Missing stays missing.
+  if (coreChannelApplied && allProducts.length > 0) {
+    try {
+      allProducts = await enrichCatalogProductsWithApprovedMedia(supabase, {
+        products: allProducts,
+        locale: catalogLocale,
+        channel: "app",
+      });
+    } catch {
+      // Soft-fail: keep registry presentation; never invent Core copy/media.
+    }
+  }
 
   const products =
     categoryFilter === "all"

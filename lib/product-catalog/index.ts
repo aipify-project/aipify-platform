@@ -117,7 +117,16 @@ export {
   createChannelProductMediaSignedUrl,
   type ProductMediaSignedUrlResult,
 } from "./product-media-signed-url";
-export { overlayApprovedProductPresentation } from "./content-media-presentation";
+export {
+  enrichUnifiedCatalogProduct,
+  isPublicCatalogAsset,
+  overlayApprovedProductPresentation,
+  type EnrichedCatalogProduct,
+} from "./content-media-presentation";
+export {
+  enrichCatalogProductsWithApprovedMedia,
+  loadApprovedContentForProducts,
+} from "./content-media-enrich";
 export {
   formatVariantQuotaLabel,
   priceForInterval,

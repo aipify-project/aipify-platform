@@ -98,7 +98,11 @@ export function parseApprovedProductContent(raw: unknown): ApprovedProductConten
   };
 }
 
-/** Merge Core approved content onto catalog presentation fields without inventing. */
+/**
+ * Merge Core approved content onto catalog presentation without inventing copy.
+ * Storage paths stay in logoPath/heroPath — never place private bucket paths in img src.
+ * Display logoSrc/heroImagePath keep public registry assets until a signed URL is attached.
+ */
 export function applyApprovedContentToPresentation(input: {
   title: string;
   tagline: string;
@@ -112,6 +116,8 @@ export function applyApprovedContentToPresentation(input: {
   description: string;
   logoSrc: string | null;
   heroImagePath: string | null;
+  logoPath: string | null;
+  heroPath: string | null;
   benefits: string[];
   contentSource: "core" | "registry_fallback";
 } {
@@ -123,6 +129,8 @@ export function applyApprovedContentToPresentation(input: {
       description: input.description,
       logoSrc: input.logoSrc,
       heroImagePath: input.heroImagePath,
+      logoPath: null,
+      heroPath: null,
       benefits: [],
       contentSource: "registry_fallback",
     };
@@ -131,8 +139,10 @@ export function applyApprovedContentToPresentation(input: {
     title: content.title || input.title,
     tagline: content.tagline || input.tagline,
     description: content.description || input.description,
-    logoSrc: content.logoPath || input.logoSrc,
-    heroImagePath: content.heroPath || input.heroImagePath,
+    logoSrc: input.logoSrc,
+    heroImagePath: input.heroImagePath,
+    logoPath: content.logoPath,
+    heroPath: content.heroPath,
     benefits: content.benefits,
     contentSource: "core",
   };

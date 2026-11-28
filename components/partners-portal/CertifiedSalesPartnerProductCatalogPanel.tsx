@@ -238,6 +238,20 @@ export function CertifiedSalesPartnerProductCatalogPanel({
   const [coreVariantsByKey, setCoreVariantsByKey] = useState<Record<string, ProductVariantDefinition[]> | null>(null);
   const [commissionSlots, setCommissionSlots] = useState<PartnerVariantCommissionSlot[]>([]);
   const [catalogFetchError, setCatalogFetchError] = useState(false);
+  const [presentationByKey, setPresentationByKey] = useState<
+    Record<
+      string,
+      {
+        title: string;
+        tagline: string;
+        description: string;
+        benefits: string[];
+        localeApproved: boolean;
+        logoSrc: string | null;
+        heroSrc: string | null;
+      }
+    >
+  >({});
 
   const catalogLocale = (
     ["en", "no", "sv", "da", "pl", "uk", "es"].includes(locale) ? locale : "en"
@@ -285,6 +299,53 @@ export function CertifiedSalesPartnerProductCatalogPanel({
     };
   }, [portal]);
 
+  useEffect(() => {
+    if (!portal) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(
+          `/api/certified-sales-partner/products/presentation?locale=${encodeURIComponent(catalogLocale)}`,
+          { credentials: "same-origin", cache: "no-store" },
+        );
+        if (!res.ok) return;
+        const data = (await res.json()) as {
+          ok?: boolean;
+          products?: Array<{
+            product_key?: string;
+            title?: string;
+            tagline?: string;
+            description?: string;
+            benefits?: string[];
+            locale_approved?: boolean;
+            logo_src?: string | null;
+            hero_src?: string | null;
+          }>;
+        };
+        if (cancelled || data.ok !== true || !Array.isArray(data.products)) return;
+        const next: typeof presentationByKey = {};
+        for (const row of data.products) {
+          if (!row.product_key) continue;
+          next[row.product_key] = {
+            title: row.title ?? "",
+            tagline: row.tagline ?? "",
+            description: row.description ?? "",
+            benefits: Array.isArray(row.benefits) ? row.benefits : [],
+            localeApproved: row.locale_approved === true,
+            logoSrc: row.logo_src ?? null,
+            heroSrc: row.hero_src ?? null,
+          };
+        }
+        setPresentationByKey(next);
+      } catch {
+        // Soft-fail: keep registry presentation; never invent Core copy.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [portal, catalogLocale]);
+
   const commissionIndex = useMemo(() => indexPartnerCommissionSlots(commissionSlots), [commissionSlots]);
 
   /** SALE channel only: Core-published sale products. Never APP-only. No registry seed when Core empty. */
@@ -307,7 +368,23 @@ export function CertifiedSalesPartnerProductCatalogPanel({
     });
   }, [portal, catalogLocale, filter, coreVariantsByKey, catalogFetchError]);
 
-  const products = storefront.products;
+  const products = useMemo(() => {
+    return storefront.products.map((product) => {
+      const overlay = presentationByKey[product.productKey];
+      if (!overlay) return product;
+      return {
+        ...product,
+        title: overlay.title || product.title,
+        tagline: overlay.tagline || product.tagline,
+        description: overlay.description || product.description,
+        localeApproved: overlay.localeApproved,
+        benefits: overlay.benefits,
+        logoSrc: overlay.logoSrc,
+        heroImagePath: overlay.heroSrc,
+        contentSource: overlay.localeApproved ? ("core" as const) : ("registry_fallback" as const),
+      };
+    });
+  }, [storefront.products, presentationByKey]);
   const premiumLabels = useMemo(() => toPremiumLabels(labels), [labels]);
 
   const filterLabels: Record<CspCatalogFilter, string> = {
@@ -449,9 +526,11 @@ export function CertifiedSalesPartnerProductCatalogPanel({
                   labels={{ ...premiumLabels, share: shareLabel }}
                   heroSrc={product.heroImagePath ?? product.logoSrc}
                   features={
-                    experience?.know
-                      ? [{ label: experience.know, included: true }]
-                      : undefined
+                    Array.isArray(product.benefits) && product.benefits.length > 0
+                      ? product.benefits.slice(0, 6).map((label) => ({ label, included: true }))
+                      : experience?.know
+                        ? [{ label: experience.know, included: true }]
+                        : undefined
                   }
                   shareDisabled={pendingKey === product.productKey || !canShare}
                   onShare={
