@@ -475,7 +475,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       contact: asString(footer.contact, "Contact"),
       becomeSeller: asString(footer.becomeSeller, "Become a seller"),
       home: asString(footer.home, "Aipify home"),
-      tagline: asString(footer.tagline, "Aipify works for you · Kompis Web"),
+      tagline: asString(footer.tagline, "Aipify works for you"),
     },
     start: {
       metaTitle: asString(start.metaTitle, "Start free | Kompis Web"),

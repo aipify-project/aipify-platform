@@ -1,10 +1,15 @@
 -- PREPARED_ONLY — do not apply until exact owner Staging approval, then separate Production approval.
 -- AIPIFY PLATFORM — Product Center Premium Complete — variants + billing prices
+-- STAGING PREFLIGHT: verified 2026-11-28 against auedugihkduoaikfusqe
+--   - csp_sales_products present (3 rows: kompis_web/bedrift, aipify_voice)
+--   - csp_product_variants / csp_product_variant_prices ABSENT (safe first apply)
+--   - Does not touch csp_commission_rate_versions or csp_qualified_sales
 --
 -- PURPOSE
 --   Additive Core storage for product variants (plans) and per-interval prices
 --   (month / year / one_time) bound to csp_sales_products.product_key.
 --   Provider (Stripe) product/price IDs are optional mappings — never created by this SQL.
+--   Amounts are stored exclusive of VAT for new Platform writes (vat_label default exclusive).
 --
 -- EFFECTS (when applied)
 --   + public.csp_product_variants
@@ -17,7 +22,7 @@
 --   Does NOT create Stripe products/prices
 --   Does NOT enable APP checkout or percent commission settlement
 --   Does NOT mutate existing fixed commissions on csp_sales_products
---   Does NOT seed demo/test products
+--   Does NOT seed demo/test products or copy 500/800 NOK rates
 --   Does NOT change publish_app / publish_sale channel flags
 --
 -- ROLLBACK
@@ -35,7 +40,8 @@
 
 create table if not exists public.csp_product_variants (
   id uuid primary key default gen_random_uuid(),
-  product_key text not null,
+  product_key text not null
+    references public.csp_sales_products (product_key) on delete restrict,
   variant_key text not null,
   admin_name text not null,
   customer_label text not null,
@@ -64,14 +70,16 @@ create index if not exists csp_product_variants_product_idx
 
 create table if not exists public.csp_product_variant_prices (
   id uuid primary key default gen_random_uuid(),
-  product_key text not null,
+  product_key text not null
+    references public.csp_sales_products (product_key) on delete restrict,
   variant_key text not null,
   billing_interval text not null
     check (billing_interval in ('month', 'year', 'one_time')),
   currency char(3) not null,
   amount_minor bigint,
   amount_major numeric(12, 2),
-  vat_label text not null default 'unknown'
+  -- New Platform writes use exclusive. 'unknown' retained for legacy/import rows only.
+  vat_label text not null default 'exclusive'
     check (vat_label in ('unknown', 'inclusive', 'exclusive')),
   provider text,
   provider_product_id text,
@@ -197,6 +205,11 @@ begin
   if p_product_key is null or p_variant_key is null then
     raise exception 'product_and_variant_required';
   end if;
+  if not exists (
+    select 1 from public.csp_sales_products sp where sp.product_key = p_product_key
+  ) then
+    raise exception 'unknown_product_key';
+  end if;
 
   insert into public.csp_product_variants (
     product_key, variant_key, admin_name, customer_label, sort_order, active,
@@ -243,7 +256,7 @@ create or replace function public.upsert_csp_product_variant_price(
   p_currency char(3),
   p_amount_minor bigint default null,
   p_amount_major numeric default null,
-  p_vat_label text default 'unknown',
+  p_vat_label text default 'exclusive',
   p_provider text default null,
   p_provider_product_id text default null,
   p_provider_price_id text default null,
@@ -262,6 +275,19 @@ begin
   if p_billing_interval not in ('month', 'year', 'one_time') then
     raise exception 'invalid_billing_interval';
   end if;
+  if not exists (
+    select 1 from public.csp_sales_products sp where sp.product_key = p_product_key
+  ) then
+    raise exception 'unknown_product_key';
+  end if;
+  if not exists (
+    select 1
+    from public.csp_product_variants v
+    where v.product_key = p_product_key
+      and v.variant_key = p_variant_key
+  ) then
+    raise exception 'unknown_variant_key';
+  end if;
   -- Never mark purchasable without an explicit provider price mapping.
   if coalesce(p_purchasable, false) = true
      and (p_provider_price_id is null or length(trim(p_provider_price_id)) = 0) then
@@ -273,7 +299,7 @@ begin
     vat_label, provider, provider_product_id, provider_price_id, purchasable, active, updated_at
   ) values (
     p_product_key, p_variant_key, p_billing_interval, upper(p_currency),
-    p_amount_minor, p_amount_major, coalesce(p_vat_label, 'unknown'),
+    p_amount_minor, p_amount_major, coalesce(nullif(trim(p_vat_label), ''), 'exclusive'),
     p_provider, p_provider_product_id, p_provider_price_id,
     coalesce(p_purchasable, false), coalesce(p_active, true), now()
   )
