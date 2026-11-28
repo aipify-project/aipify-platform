@@ -1090,7 +1090,7 @@
     "submitting": "Wysyłanie…",
     "successCorePending": "Automatyczny odbiór zgłoszeń nie jest jeszcze aktywny. Użyj adresu e-mail poniżej — nie tworzymy numeru sprawy.",
     "temporaryUnavailable": "Odbiór zgłoszeń jest chwilowo niedostępny. Spróbuj ponownie wkrótce albo użyj e-maila poniżej — nie tworzymy numeru sprawy.",
-    "successSubmitted": "Zgłoszenie zostało zarejestrowane.",
+    "successSubmitted": "Dziękujemy — Aipify zarejestrował Twoje zgłoszenie.",
     "errorGeneric": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie lub użyj e-maila.",
     "mailtoFallback": "E-mail pozostaje alternatywnym kanałem kontaktu.",
     "mailtoLabel": "Napisz na support@aipify.ai",
@@ -1101,7 +1101,9 @@
     "emailInvalid": "Podaj prawidłowy adres e-mail.",
     "subjectTooShort": "Temat musi mieć co najmniej 3 znaki.",
     "messageTooShort": "Wiadomość musi mieć co najmniej 10 znaków.",
-    "referenceLabel": "Numer referencyjny"
+    "referenceLabel": "Numer referencyjny",
+    "successSubtitle": "Twoje zgłoszenie zostało zarejestrowane. Support może kontynuować sprawę na podstawie poniższego numeru.",
+    "successNextStep": "Zachowaj numer referencyjny, jeśli skontaktujesz się ponownie w tej samej sprawie."
   },
   "personalSalesPage": {
     "metaTitle": "Aipify",

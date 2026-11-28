@@ -8880,7 +8880,7 @@
     "submitting": "Sender…",
     "successCorePending": "Automatisk sagsindtag er ikke aktivt endnu. Brug e-mailalternativet nedenfor — vi opretter ikke et falsk sagsnummer.",
     "temporaryUnavailable": "Supportindtag er midlertidigt utilgængeligt. Prøv igen snart, eller brug e-mailalternativet nedenfor — vi opretter ikke et falsk sagsnummer.",
-    "successSubmitted": "Din anmodning blev registreret.",
+    "successSubmitted": "Tak — Aipify har registreret din anmodning.",
     "errorGeneric": "Kunne ikke sende anmodningen. Prøv igen eller brug e-mail.",
     "mailtoFallback": "E-mail forbliver tilgængelig som alternativ kontaktkanal.",
     "mailtoLabel": "Send e-mail til support@aipify.ai",
@@ -8891,7 +8891,9 @@
     "emailInvalid": "Skriv en gyldig e-mailadresse.",
     "subjectTooShort": "Emnet skal have mindst 3 tegn.",
     "messageTooShort": "Beskeden skal have mindst 10 tegn.",
-    "referenceLabel": "Reference"
+    "referenceLabel": "Reference",
+    "successSubtitle": "Din supportanmodning er registreret. Support kan følge op med referencen nedenfor.",
+    "successNextStep": "Gem referencen, hvis du kontakter os igen om samme sag."
   },
   "personalSalesPage": {
     "metaTitle": "Aipify",

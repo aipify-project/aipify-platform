@@ -422,7 +422,7 @@
     "submitting": "Enviando…",
     "successCorePending": "La recepción automática de tickets aún no está activa. Usa el correo de abajo — no inventamos un número de ticket.",
     "temporaryUnavailable": "La recepción de soporte no está disponible temporalmente. Inténtalo de nuevo en breve o usa el correo de abajo — no inventamos un número de ticket.",
-    "successSubmitted": "Tu solicitud quedó registrada.",
+    "successSubmitted": "Gracias — Aipify ha registrado tu solicitud.",
     "errorGeneric": "No se pudo enviar la solicitud. Inténtalo de nuevo o usa el correo.",
     "mailtoFallback": "El correo sigue disponible como canal de contacto alternativo.",
     "mailtoLabel": "Escribir a support@aipify.ai",
@@ -433,7 +433,9 @@
     "emailInvalid": "Introduce un correo electrónico válido.",
     "subjectTooShort": "El asunto debe tener al menos 3 caracteres.",
     "messageTooShort": "El mensaje debe tener al menos 10 caracteres.",
-    "referenceLabel": "Referencia"
+    "referenceLabel": "Referencia",
+    "successSubtitle": "Tu solicitud de soporte ha quedado registrada. Support puede dar seguimiento con la referencia de abajo.",
+    "successNextStep": "Guarda esta referencia si vuelves a contactarnos por la misma solicitud."
   },
   "personalSalesPage": {
     "metaTitle": "Aipify",

@@ -8895,7 +8895,7 @@
     "submitting": "Sender…",
     "successCorePending": "Automatisk saksinntak er ikke aktivt ennå. Bruk e-postalternativet nedenfor — vi lager ikke et falskt saksnummer.",
     "temporaryUnavailable": "Supportinntak er midlertidig utilgjengelig. Prøv igjen snart, eller bruk e-postalternativet nedenfor — vi lager ikke et falskt saksnummer.",
-    "successSubmitted": "Forespørselen din ble registrert.",
+    "successSubmitted": "Takk — Aipify har registrert forespørselen din.",
     "errorGeneric": "Kunne ikke sende forespørselen. Prøv igjen eller bruk e-post.",
     "mailtoFallback": "E-post forblir tilgjengelig som alternativ kontaktkanal.",
     "mailtoLabel": "Send e-post til support@aipify.ai",
@@ -8906,7 +8906,9 @@
     "emailInvalid": "Skriv inn en gyldig e-postadresse.",
     "subjectTooShort": "Emnet må ha minst 3 tegn.",
     "messageTooShort": "Meldingen må ha minst 10 tegn.",
-    "referenceLabel": "Referanse"
+    "referenceLabel": "Referanse",
+    "successSubtitle": "Supportforespørselen din er registrert. Support kan følge opp med referansen under.",
+    "successNextStep": "Behold referansen hvis du tar kontakt igjen om samme sak."
   },
   "personalSalesPage": {
     "metaTitle": "Aipify",
