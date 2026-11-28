@@ -43,8 +43,11 @@ const home = read("components/app/foundation/AppFoundationDashboard.tsx");
 assert.match(home, /webHomeCardState\(websiteKompisAvailable\)/);
 assert.match(home, /webCard === "open" \? \([\s\S]*kompisWebDashboard/);
 assert.match(home, /webCard === "unknown" \? labels\.webDataUnavailable : labels\.webUnavailable/);
-assert.match(home, /bedriftHomeCardState\(kompisBedriftAvailable\) === "open"/);
-assert.match(home, /AppIconStatusCard[\s\S]*labels\.bedriftUnavailable/);
+assert.match(home, /bedriftHomeCardState\(kompisBedriftAvailable\)/);
+assert.match(home, /bedriftCard === "open"/);
+assert.match(home, /bedriftCard === "unknown"/);
+assert.match(home, /labels\.bedriftDataUnavailable/);
+assert.match(home, /labels\.bedriftUnavailable/);
 assert.match(home, /CUSTOMER_CATALOG_ROUTE/);
 assert.match(home, /FOUNDATION_NAV_BINDINGS\.kompisWebConnection/);
 assert.match(home, /FOUNDATION_NAV_BINDINGS\.accountIntegrations/);
@@ -70,7 +73,7 @@ assert.match(knowledge, /\/app\/settings\/employee-knowledge/);
 
 const invoices = read("app/app/account/invoices/page.tsx");
 assert.doesNotMatch(invoices, /createInvoice|issueInvoice|paymentButton|create_invoice/i);
-assert.match(invoices, /EnterpriseInvoiceDetailsPanel/);
+assert.match(invoices, /subscriptionTabHref\("invoices"\)|EnterpriseInvoiceDetailsPanel/);
 
 const shell = read("components/app/hubs/AppHubShell.tsx");
 assert.match(shell, /aria-label=\{breadcrumbLabel\}/);
@@ -85,8 +88,12 @@ for (const locale of ["en", "no", "sv", "da", "es", "pl", "uk"]) {
   assert.equal(typeof portal.portalStructure.productHubs.common.breadcrumb, "string");
   assert.equal(typeof portal.portalStructure.foundationDashboard.webUnavailable, "string");
   assert.equal(typeof portal.portalStructure.foundationDashboard.webDataUnavailable, "string");
+  assert.equal(typeof portal.portalStructure.foundationDashboard.bedriftDataUnavailable, "string");
   assert.equal(typeof portal.portalStructure.foundationDashboard.dataUnavailable, "string");
   assert.equal(typeof portal.portalStructure.foundationDashboard.exploreTitle, "string");
+  assert.equal(typeof portal.portalStructure.foundationDashboard.attentionEmptyTitle, "string");
+  assert.equal(typeof portal.portalStructure.workspaceDashboard.modulesEmptyTitle, "string");
+  assert.equal(typeof portal.portalStructure.workspaceDashboard.ticketsCountsPartial, "string");
   assert.equal(typeof portal.portalStructure.productHubs.bedrift.knowledgeBoundaryStatus, "string");
   assert.equal(typeof core.kompisOperator.boundaryNote, "string");
   assert.ok(core.kompisOperator.boundaryNote.length > 40);

@@ -8548,7 +8548,7 @@
     "foundationDashboard": {
       "eyebrow": "Overview",
       "title": "Your Aipify workspace",
-      "description": "A calm starting point for your products and account.",
+      "description": "Your personal Aipify home — welcome, products, and account shortcuts.",
       "welcomeNamed": "Welcome back. You are working in {organization}.",
       "welcomeGeneric": "Welcome back. Choose a product or review your account.",
       "orgFallback": "Your organization",
@@ -8567,7 +8567,7 @@
       "integrationsTitle": "Integrations",
       "integrationsDescription": "See connected apps and complete pending connections.",
       "accountTitle": "Account",
-      "accountDescription": "Subscription status and notification preferences — without fake invoice lists.",
+      "accountDescription": "Personal shortcuts to subscription and invoices. Operational KPIs live on Dashboard.",
       "subscriptionTitle": "Subscription and billing",
       "subscriptionDescription": "Review plan status and billing details in one place.",
       "attentionTitle": "Needs attention",
@@ -8601,7 +8601,14 @@
       "openInvoices": "View invoices",
       "openSubscription": "Manage subscription",
       "openExplore": "Explore products",
-      "openHelp": "Open help"
+      "openHelp": "Open help",
+      "bedriftDataUnavailable": "Kompis Bedrift status could not be read. That is separate from an inactive product.",
+      "attentionEmptyTitle": "All clear",
+      "attentionEmptyDescription": "Nothing needs your attention right now. Explore products or review your connection when you are ready.",
+      "attentionEmptyCta": "Explore products",
+      "loadErrorTitle": "Workspace could not be loaded",
+      "loadErrorDescription": "Something unexpected happened while preparing your home. Please try again.",
+      "retryLabel": "Try again"
     },
     "productHubs": {
       "common": {
@@ -8787,7 +8794,7 @@
     "workspaceDashboard": {
       "eyebrow": "Workspace",
       "title": "Overview of your workspace",
-      "description": "A shared control center for your Aipify modules, support cases, and partner activity.",
+      "description": "Operational work overview — modules, support cases, and key status for this organization.",
       "lastUpdated": "Last updated",
       "notAvailable": "Not available",
       "summaryTitle": "Summary",
@@ -8843,7 +8850,17 @@
         "reopened": "Reopened",
         "archived": "Archived",
         "unknown": "Unknown status"
-      }
+      },
+      "modulesEmptyTitle": "No modules to show yet",
+      "modulesEmptyDescription": "When products are entitled for this organization, they appear here. Explore the catalog to see what is available.",
+      "modulesEmptyCta": "Explore products",
+      "ticketsCountsPartial": "Case counts are based on the loaded list and may be incomplete.",
+      "attentionEmptyTitle": "Nothing needs attention",
+      "attentionEmptyDescription": "Modules and support look calm. Open Explore when you want to review available products.",
+      "attentionEmptyCta": "Explore products",
+      "loadErrorTitle": "Dashboard could not be loaded",
+      "loadErrorDescription": "Something unexpected happened while preparing your work overview. Please try again.",
+      "retryLabel": "Try again"
     }
   }
 }

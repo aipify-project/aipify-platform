@@ -29,6 +29,12 @@ export type WorkspaceTicketPreview = {
 export type WorkspaceTicketSummary = {
   availability: WorkspaceTicketAvailability;
   counts: WorkspaceTicketCounts;
+  /**
+   * True when counts are derived from the support list payload (not a dedicated
+   * aggregate). UI must label these as partial so zeros/numbers never look like
+   * complete platform totals.
+   */
+  countsPartial: boolean;
   recent: WorkspaceTicketPreview[];
   lastUpdatedAt: string | null;
   listHref: string;

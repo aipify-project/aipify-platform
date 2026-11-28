@@ -8624,7 +8624,7 @@
     "foundationDashboard": {
       "eyebrow": "Översikt",
       "title": "Din Aipify-arbetsyta",
-      "description": "En lugn startpunkt för dina produkter och ditt konto.",
+      "description": "Ditt personliga Aipify-hem — välkomst, produkter och kontogenvägar.",
       "welcomeNamed": "Välkommen tillbaka. Du arbetar i {organization}.",
       "welcomeGeneric": "Välkommen tillbaka. Välj en produkt eller granska kontot.",
       "orgFallback": "Din organisation",
@@ -8643,7 +8643,7 @@
       "integrationsTitle": "Integrationer",
       "integrationsDescription": "Se anslutna appar och slutför väntande anslutningar.",
       "accountTitle": "Konto",
-      "accountDescription": "Abonnemangsstatus och aviseringsinställningar — utan påhittade fakturalistor.",
+      "accountDescription": "Personliga genvägar till prenumeration och fakturor. Operativa nyckeltal finns under Dashboard.",
       "subscriptionTitle": "Abonnemang och fakturering",
       "subscriptionDescription": "Se planstatus och faktureringsuppgifter på ett ställe.",
       "attentionTitle": "Behöver uppmärksamhet",
@@ -8677,7 +8677,14 @@
       "openInvoices": "Visa fakturor",
       "openSubscription": "Hantera prenumeration",
       "openExplore": "Utforska produkter",
-      "openHelp": "Öppna hjälp"
+      "openHelp": "Öppna hjälp",
+      "bedriftDataUnavailable": "Status för Kompis Bedrift kunde inte läsas. Det är inte detsamma som att produkten är inaktiv.",
+      "attentionEmptyTitle": "Allt är i ordning",
+      "attentionEmptyDescription": "Inget behöver uppmärksamhet just nu. Utforska produkter eller granska anslutningen när du är redo.",
+      "attentionEmptyCta": "Utforska produkter",
+      "loadErrorTitle": "Arbetsytan kunde inte laddas",
+      "loadErrorDescription": "Något oväntat hände när Aipify förberedde ditt hem. Försök igen.",
+      "retryLabel": "Försök igen"
     },
     "productHubs": {
       "common": {
@@ -8863,7 +8870,7 @@
     "workspaceDashboard": {
       "eyebrow": "Arbetsyta",
       "title": "Översikt över arbetsytan",
-      "description": "Ett gemensamt kontrollcenter för dina Aipify-moduler, supportärenden och partneraktivitet.",
+      "description": "Operativ arbetsöversikt — moduler, supportärenden och nyckelstatus för organisationen.",
       "lastUpdated": "Senast uppdaterad",
       "notAvailable": "Inte tillgängligt",
       "summaryTitle": "Sammanfattning",
@@ -8919,7 +8926,17 @@
         "reopened": "Återöppnad",
         "archived": "Arkiverad",
         "unknown": "Okänd status"
-      }
+      },
+      "modulesEmptyTitle": "Inga moduler att visa ännu",
+      "modulesEmptyDescription": "När produkter är tillgängliga för organisationen visas de här. Utforska katalogen för att se vad som finns.",
+      "modulesEmptyCta": "Utforska produkter",
+      "ticketsCountsPartial": "Ärenderäkningar baseras på den inlästa listan och kan vara ofullständiga.",
+      "attentionEmptyTitle": "Inget behöver uppmärksamhet",
+      "attentionEmptyDescription": "Moduler och support ser lugna ut. Öppna Utforska när du vill granska tillgängliga produkter.",
+      "attentionEmptyCta": "Utforska produkter",
+      "loadErrorTitle": "Dashboard kunde inte laddas",
+      "loadErrorDescription": "Något oväntat hände när Aipify förberedde arbetsöversikten. Försök igen.",
+      "retryLabel": "Försök igen"
     }
   }
 }

@@ -7563,7 +7563,7 @@
     "foundationDashboard": {
       "eyebrow": "Przegląd",
       "title": "Twój obszar roboczy Aipify",
-      "description": "Spokojny punkt wyjścia dla produktów i konta.",
+      "description": "Twój osobisty dom Aipify — powitanie, produkty i skróty do konta.",
       "welcomeNamed": "Witamy ponownie. Pracujesz w {organization}.",
       "welcomeGeneric": "Witamy ponownie. Wybierz produkt albo przejrzyj konto.",
       "orgFallback": "Twoja organizacja",
@@ -7582,7 +7582,7 @@
       "integrationsTitle": "Integracje",
       "integrationsDescription": "Zobacz połączone aplikacje i dokończ oczekujące połączenia.",
       "accountTitle": "Konto",
-      "accountDescription": "Status subskrypcji i preferencje powiadomień — bez fikcyjnych list faktur.",
+      "accountDescription": "Osobiste skróty do subskrypcji i faktur. Operacyjne wskaźniki są na Panelu.",
       "subscriptionTitle": "Subskrypcja i rozliczenia",
       "subscriptionDescription": "Sprawdź status planu i szczegóły rozliczeń w jednym miejscu.",
       "attentionTitle": "Wymaga uwagi",
@@ -7616,7 +7616,14 @@
       "openInvoices": "Zobacz faktury",
       "openSubscription": "Zarządzaj subskrypcją",
       "openExplore": "Przeglądaj produkty",
-      "openHelp": "Otwórz pomoc"
+      "openHelp": "Otwórz pomoc",
+      "bedriftDataUnavailable": "Nie udało się odczytać statusu Kompis Bedrift. To nie oznacza, że produkt jest nieaktywny.",
+      "attentionEmptyTitle": "Wszystko w porządku",
+      "attentionEmptyDescription": "Nic nie wymaga uwagi. Przeglądaj produkty lub sprawdź połączenie, gdy będziesz gotowy.",
+      "attentionEmptyCta": "Przeglądaj produkty",
+      "loadErrorTitle": "Nie udało się wczytać obszaru roboczego",
+      "loadErrorDescription": "Wystąpił nieoczekiwany problem podczas przygotowania strony głównej. Spróbuj ponownie.",
+      "retryLabel": "Spróbuj ponownie"
     },
     "productHubs": {
       "common": {
@@ -7802,7 +7809,7 @@
     "workspaceDashboard": {
       "eyebrow": "Obszar roboczy",
       "title": "Przegląd obszaru roboczego",
-      "description": "Wspólne centrum kontroli modułów Aipify, spraw wsparcia i aktywności partnerskiej.",
+      "description": "Operacyjny przegląd pracy — moduły, sprawy wsparcia i kluczowe statusy organizacji.",
       "lastUpdated": "Ostatnia aktualizacja",
       "notAvailable": "Niedostępne",
       "summaryTitle": "Podsumowanie",
@@ -7858,7 +7865,17 @@
         "reopened": "Ponownie otwarta",
         "archived": "Zarchiwizowana",
         "unknown": "Nieznany status"
-      }
+      },
+      "modulesEmptyTitle": "Brak modułów do wyświetlenia",
+      "modulesEmptyDescription": "Gdy produkty będą dostępne dla tej organizacji, pojawią się tutaj. Przeglądaj katalog, aby zobaczyć ofertę.",
+      "modulesEmptyCta": "Przeglądaj produkty",
+      "ticketsCountsPartial": "Liczba spraw jest oparta na wczytanej liście i może być niepełna.",
+      "attentionEmptyTitle": "Nic nie wymaga uwagi",
+      "attentionEmptyDescription": "Moduły i wsparcie wyglądają spokojnie. Otwórz Explore, aby przejrzeć dostępne produkty.",
+      "attentionEmptyCta": "Przeglądaj produkty",
+      "loadErrorTitle": "Nie udało się wczytać panelu",
+      "loadErrorDescription": "Wystąpił nieoczekiwany problem podczas przygotowania przeglądu pracy. Spróbuj ponownie.",
+      "retryLabel": "Spróbuj ponownie"
     }
   }
 }

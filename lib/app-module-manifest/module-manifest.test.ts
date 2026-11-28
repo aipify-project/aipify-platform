@@ -74,6 +74,7 @@ function bundle(activeModuleKeys: Set<string>, salesPartnerAuthorized = false) {
   const unavailable = buildWorkspaceTicketSummary({ listPayload: null });
   assert.equal(unavailable.availability, "unavailable");
   assert.equal(unavailable.counts.open, null);
+  assert.equal(unavailable.countsPartial, false);
 
   const available = buildWorkspaceTicketSummary({
     listPayload: {
@@ -97,6 +98,7 @@ function bundle(activeModuleKeys: Set<string>, salesPartnerAuthorized = false) {
   assert.equal(available.availability, "available");
   assert.equal(available.counts.waitingCustomer, 1);
   assert.equal(available.recent.length, 1);
+  assert.equal(available.countsPartial, true);
 }
 
 {

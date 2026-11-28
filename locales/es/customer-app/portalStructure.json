@@ -7272,7 +7272,7 @@
     "foundationDashboard": {
       "eyebrow": "Resumen",
       "title": "Su espacio de trabajo Aipify",
-      "description": "Un punto de partida tranquilo para sus productos y su cuenta.",
+      "description": "Su inicio personal en Aipify: bienvenida, productos y accesos a la cuenta.",
       "welcomeNamed": "Bienvenido de nuevo. Está trabajando en {organization}.",
       "welcomeGeneric": "Bienvenido de nuevo. Elija un producto o revise su cuenta.",
       "orgFallback": "Su organización",
@@ -7291,7 +7291,7 @@
       "integrationsTitle": "Integraciones",
       "integrationsDescription": "Vea aplicaciones conectadas y complete conexiones pendientes.",
       "accountTitle": "Cuenta",
-      "accountDescription": "Estado de la suscripción y preferencias de notificación — sin listas de facturas inventadas.",
+      "accountDescription": "Accesos personales a suscripción y facturas. Los indicadores operativos están en el Panel.",
       "subscriptionTitle": "Suscripción y facturación",
       "subscriptionDescription": "Revise el estado del plan y los detalles de facturación en un solo lugar.",
       "attentionTitle": "Requiere atención",
@@ -7325,7 +7325,14 @@
       "openInvoices": "Ver facturas",
       "openSubscription": "Administrar suscripción",
       "openExplore": "Explorar productos",
-      "openHelp": "Abrir ayuda"
+      "openHelp": "Abrir ayuda",
+      "bedriftDataUnavailable": "No se pudo leer el estado de Kompis Bedrift. Eso no significa que el producto esté inactivo.",
+      "attentionEmptyTitle": "Todo en orden",
+      "attentionEmptyDescription": "Nada requiere atención ahora. Explore productos o revise la conexión cuando esté listo.",
+      "attentionEmptyCta": "Explorar productos",
+      "loadErrorTitle": "No se pudo cargar el espacio de trabajo",
+      "loadErrorDescription": "Ocurrió algo inesperado al preparar su inicio. Inténtelo de nuevo.",
+      "retryLabel": "Intentar de nuevo"
     },
     "productHubs": {
       "common": {
@@ -7504,7 +7511,7 @@
     "workspaceDashboard": {
       "eyebrow": "Espacio de trabajo",
       "title": "Resumen del espacio de trabajo",
-      "description": "Un centro de control compartido para tus módulos Aipify, casos de soporte y actividad de partner.",
+      "description": "Resumen operativo del trabajo: módulos, casos de soporte y estado clave de la organización.",
       "lastUpdated": "Última actualización",
       "notAvailable": "No disponible",
       "summaryTitle": "Resumen",
@@ -7560,7 +7567,17 @@
         "reopened": "Reabierto",
         "archived": "Archivado",
         "unknown": "Estado desconocido"
-      }
+      },
+      "modulesEmptyTitle": "Aún no hay módulos que mostrar",
+      "modulesEmptyDescription": "Cuando haya productos con acceso para esta organización, aparecerán aquí. Explore el catálogo para ver lo disponible.",
+      "modulesEmptyCta": "Explorar productos",
+      "ticketsCountsPartial": "Los recuentos de casos se basan en la lista cargada y pueden estar incompletos.",
+      "attentionEmptyTitle": "Nada requiere atención",
+      "attentionEmptyDescription": "Los módulos y el soporte se ven en calma. Abra Explorar cuando quiera revisar productos disponibles.",
+      "attentionEmptyCta": "Explorar productos",
+      "loadErrorTitle": "No se pudo cargar el panel",
+      "loadErrorDescription": "Ocurrió algo inesperado al preparar el resumen de trabajo. Inténtelo de nuevo.",
+      "retryLabel": "Intentar de nuevo"
     }
   }
 }
