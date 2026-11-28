@@ -13,6 +13,7 @@ const root = process.cwd();
 const KEYS = [
   "title",
   "subtitle",
+  "subtitleInactive",
   "name",
   "email",
   "subject",
@@ -26,6 +27,7 @@ const KEYS = [
   "messageTooShort",
   "referenceLabel",
   "successCorePending",
+  "temporaryUnavailable",
   "successSubmitted",
   "mailtoLabel",
 ] as const;
@@ -47,12 +49,16 @@ assert.equal(getSupportIntakeGateState().emailTransportEnabled, false);
 
 assert.match(page, /getSupportIntakeGateState\(\)\.live/);
 assert.match(page, /privacyInactive/);
+assert.match(page, /subtitleInactive/);
+assert.match(page, /temporaryUnavailable/);
 assert.doesNotMatch(page, /ticketNumber\s*[:=]\s*["']SUP-/);
 assert.match(form, /support@aipify\.ai/);
 assert.match(form, /intakeLive/);
 assert.match(form, /disabled=\{!intakeLive/);
 assert.match(form, /TICKET_NUMBER_RE/);
 assert.match(form, /labels\.privacy/);
+assert.match(form, /temporaryUnavailable/);
+assert.match(form, /successCorePending/);
 assert.match(form, /PublicFormHoneypot/);
 assert.match(form, /AipifyPublicFormClasses/);
 assert.match(form, /PublicFormInfoNotice/);
@@ -101,7 +107,7 @@ const shortSubject = sanitizeSupportIntakePayload(
 assert.equal(shortSubject.ok, false);
 if (!shortSubject.ok) assert.equal(shortSubject.field, "subject");
 
-for (const locale of ["en", "no", "sv", "da", "pl", "uk"] as const) {
+for (const locale of ["en", "no", "sv", "da", "pl", "uk", "es"] as const) {
   const marketing = JSON.parse(read(`locales/${locale}/marketing.json`)) as {
     supportIntake?: Record<string, string>;
   };
@@ -113,6 +119,9 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"] as const) {
   assert.match(block.mailtoLabel, /support@aipify\.ai/);
   assert.doesNotMatch(block.successSubmitted, /SUP-/);
   assert.doesNotMatch(block.successCorePending, /SUP-/);
+  assert.doesNotMatch(block.temporaryUnavailable, /SUP-/);
+  assert.doesNotMatch(block.subtitle, /after approval|etter godkjenning|efter godkännande|efter godkendelse|po zatwierdzeniu|після схвалення|tras aprobación/i);
+  assert.doesNotMatch(block.subtitle, /not active yet|ikke aktivt ennå|inte aktivt ännu|ikke aktivt endnu|nie jest jeszcze aktywny|ще не активний|aún no está activa/i);
 }
 
 const en = JSON.parse(read("locales/en/marketing.json")).supportIntake.title as string;
