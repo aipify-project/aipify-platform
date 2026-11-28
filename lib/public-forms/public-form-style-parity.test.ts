@@ -14,10 +14,10 @@ const partner = readFileSync(
   "utf8",
 );
 
-assert.equal(SUPPORT_INTAKE_RPC_CONNECTED, false);
-assert.equal(SUPPORT_INTAKE_FEATURE_GATE, false);
+assert.equal(SUPPORT_INTAKE_RPC_CONNECTED, true);
+assert.equal(SUPPORT_INTAKE_FEATURE_GATE, true);
 assert.equal(SUPPORT_EMAIL_TRANSPORT_ENABLED, false);
-assert.equal(getSupportIntakeGateState().live, false);
+assert.equal(getSupportIntakeGateState().live, true);
 
 assert.ok(AipifyPublicFormClasses.panel.includes("rounded-2xl"));
 assert.ok(AipifyPublicFormClasses.panel.includes("sm:p-8"));

@@ -45,11 +45,11 @@ async function main() {
   process.env.NEXT_PUBLIC_SUPABASE_URL =
     "https://qbcqoixhrvhnuwphefvw.supabase.co";
 
-  assert.equal(SUPPORT_INTAKE_RPC_CONNECTED, false);
-  assert.equal(SUPPORT_INTAKE_FEATURE_GATE, false);
+  assert.equal(SUPPORT_INTAKE_RPC_CONNECTED, true);
+  assert.equal(SUPPORT_INTAKE_FEATURE_GATE, true);
   assert.equal(SUPPORT_EMAIL_TRANSPORT_ENABLED, false);
   assert.equal(APP_PORTAL_SUPPORT_CREATE_LIVE, true);
-  assert.equal(getSupportIntakeGateState().live, false);
+  assert.equal(getSupportIntakeGateState().live, true);
   assert.equal(mapIntakeCategoryToAppCategory("billing"), "billing");
   assert.equal(mapIntakeCategoryToAppCategory("product"), "business_packs");
   assert.equal(mapIntakePriorityToAppPriority("critical"), "urgent");
@@ -91,8 +91,10 @@ async function main() {
   });
   assert.equal(denied.ok, false);
   if (!denied.ok) {
-    assert.equal(denied.code, "core_not_applied");
-    assert.equal(httpStatusForIntakeDenial(denied.code), 503);
+    // Live gates require an explicit server rpc client — never invent a ticket.
+    assert.equal(denied.code, "unknown");
+    assert.equal(httpStatusForIntakeDenial(denied.code), 500);
+    assert.equal("ticketNumber" in denied, false);
   }
 
   const partnerDenied = await submitSupportIntake({
