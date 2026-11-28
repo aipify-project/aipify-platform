@@ -286,7 +286,8 @@
       "salesPartnerProducts": "Продукти для продажу",
       "salesPartnerCustomers": "Мої клієнти",
       "salesPartnerCommissions": "Продажі та комісія",
-      "salesPartnerAcademy": "Академія та допомога"
+      "salesPartnerAcademy": "Академія та допомога",
+      "kompisWebUsage": "Використання та план"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7558,7 +7559,8 @@
       "hintReviewUnseparated": "Показується як некорисні, доки відкриті справи не можна зберегти окремо",
       "knowledgeWindowNote": "Числа стосуються найновіших {minimum} FAQ, не всієї бібліотеки.",
       "shortcutCreate": "Почніть чернетку FAQ, яку ви публікуєте самі.",
-      "domainCount": "{count} доменів"
+      "domainCount": "{count} доменів",
+      "usageDescription": "Перегляньте призначений план Buddy Web і використання відповідей із Core. Ця сторінка не починає покупку."
     },
     "foundationDashboard": {
       "eyebrow": "Огляд",
@@ -7647,7 +7649,8 @@
         "appearanceFaqCard": "Опублікуйте FAQ і знання для відвідувачів — це формує, на що Buddy може відповідати.",
         "appearanceOperatorCard": "Відкрийте розширені інструменти публікації, коли потрібні кандидатні сторінки та контроль публікації.",
         "appearanceProfileCard": "Профіль робочої області та представлення облікового запису — у розділі Обліковий запис, без дублювання тут.",
-        "appearanceSupportCard": "Потрібна допомога з презентацією для відвідувачів? Відкрийте запити до підтримки."
+        "appearanceSupportCard": "Потрібна допомога з презентацією для відвідувачів? Відкрийте запити до підтримки.",
+        "usageCard": "Перегляньте ліміт відповідей і залишок без вигаданих нулів."
       },
       "bedrift": {
         "dashboardTitle": "Огляд Buddy Business",
@@ -7684,7 +7687,10 @@
         "connectionCard": "Перегляньте готовність продукту та статус ліцензії Buddy Business на цьому обліковому записі.",
         "connectionModulesCard": "Перегляньте модулі Buddy Business — цей екран їх не купує й не активує.",
         "connectionSupportCard": "Відкрийте підтримку клієнтів, коли підключення або доступ потребують допомоги.",
-        "connectionSoftwareCard": "Переглядайте продукти й права APP, не виходячи з контексту цієї робочої області."
+        "connectionSoftwareCard": "Переглядайте продукти й права APP, не виходячи з контексту цієї робочої області.",
+        "licenseActive": "Buddy Business ліцензовано для цього робочого простору",
+        "licenseInactive": "Buddy Business ще не ліцензовано для цього робочого простору",
+        "licenseUnknown": "Не вдалося підтвердити статус ліцензії Buddy Business"
       },
       "account": {
         "overviewTitle": "Центр облікового запису",

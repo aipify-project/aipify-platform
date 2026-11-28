@@ -20,6 +20,8 @@ export const FOUNDATION_NAV_BINDINGS = {
   kompisWebFaq: "/app/website-kompis/faq",
   kompisWebConnection: "/app/website-kompis/connection",
   kompisWebAppearance: "/app/website-kompis/appearance",
+  /** Authoritative answer quota / assigned plan read (not checkout). */
+  kompisWebUsage: "/app/website-kompis/usage",
   kompisWebModules: "/app/software",
   kompisWebSettings: "/app/website-kompis/settings",
   kompisBedriftDashboard: "/app/kompis-bedrift",

@@ -143,7 +143,8 @@
       "salesPartnerProducts": "Sales products",
       "salesPartnerCustomers": "Mine kunder",
       "salesPartnerCommissions": "Salg og provision",
-      "salesPartnerAcademy": "Akademi og hjælp"
+      "salesPartnerAcademy": "Akademi og hjælp",
+      "kompisWebUsage": "Brug og plan"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -8619,7 +8620,8 @@
       "hintReviewUnseparated": "Vises som ikke nyttige, indtil åbne sager kan gemmes for sig",
       "knowledgeWindowNote": "Tallene gælder de nyeste {minimum} FAQ'er, ikke hele biblioteket.",
       "shortcutCreate": "Start et FAQ-udkast, du selv publicerer.",
-      "domainCount": "{count} domæner"
+      "domainCount": "{count} domæner",
+      "usageDescription": "Se tildelt Kompis Web-plan og svarbrug fra Core. Denne side starter ikke et køb."
     },
     "foundationDashboard": {
       "eyebrow": "Oversigt",
@@ -8708,7 +8710,8 @@
         "appearanceFaqCard": "Publicér FAQ og viden, besøgende kan læse — det former, hvad Kompis kan svare.",
         "appearanceOperatorCard": "Åbn avancerede publiceringsværktøjer, når du har brug for kandidatsider og publiceringskontroller.",
         "appearanceProfileCard": "Arbejdsområdets profil og kontopræsentation ligger under Konto — ikke duplikeret her.",
-        "appearanceSupportCard": "Har du brug for hjælp til besøgspræsentation? Åbn kundeservicehenvendelser."
+        "appearanceSupportCard": "Har du brug for hjælp til besøgspræsentation? Åbn kundeservicehenvendelser.",
+        "usageCard": "Se svarloft og resterende kapacitet uden at opfinde nuller."
       },
       "bedrift": {
         "dashboardTitle": "Oversigt for Kompis Bedrift",
@@ -8745,7 +8748,10 @@
         "connectionCard": "Se produktberedskab og licensstatus for Kompis Bedrift på denne konto.",
         "connectionModulesCard": "Se moduler tilgængelige for Kompis Bedrift — denne visning køber eller aktiverer dem ikke.",
         "connectionSupportCard": "Åbn kundeservice, når forbindelse eller adgang har brug for hjælp.",
-        "connectionSoftwareCard": "Gennemse APP-produkter og rettigheder uden at forlade denne arbejdsområdekontekst."
+        "connectionSoftwareCard": "Gennemse APP-produkter og rettigheder uden at forlade denne arbejdsområdekontekst.",
+        "licenseActive": "Kompis Bedrift er licenseret til dette arbejdsområde",
+        "licenseInactive": "Kompis Bedrift er endnu ikke licenseret til dette arbejdsområde",
+        "licenseUnknown": "Licensstatus for Kompis Bedrift kunne ikke bekræftes"
       },
       "account": {
         "overviewTitle": "Kontocenter",

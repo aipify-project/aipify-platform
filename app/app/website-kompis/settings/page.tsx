@@ -1,6 +1,7 @@
 import {
   ArrowUpRight,
   Bell,
+  Gauge,
   Link2,
   MessagesSquare,
   Palette,
@@ -46,6 +47,12 @@ export default async function WebsiteKompisSettingsPage() {
       title: t("customerApp.portalStructure.nav.kompisWebAppearance"),
       description: t("customerApp.portalStructure.webHub.appearanceDescription"),
       icon: Palette,
+    },
+    {
+      href: FOUNDATION_NAV_BINDINGS.kompisWebUsage,
+      title: t("customerApp.portalStructure.nav.kompisWebUsage"),
+      description: hubT(t, "web.usageCard"),
+      icon: Gauge,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.accountIntegrations,
