@@ -6,6 +6,10 @@ import { callCspRpc } from "@/lib/certified-sales-partner/core-rpc";
 import { evaluateSalesLinkGates } from "@/lib/certified-sales-partner/partner-overview";
 import { parseCspPortalView } from "@/lib/certified-sales-partner/portal-view";
 import { buildCspPublicLinkPath, isCspLinkCode } from "@/lib/certified-sales-partner/attribution-policy";
+import {
+  getOwnUnifiedSellerSalesLinks,
+  resolvePersonalSalesPath,
+} from "@/lib/growth-partner-bridge";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -14,8 +18,8 @@ import { buildCspWorkspaceLabels } from "@/lib/partners-portal/csp-workspace-lab
 import { createClient } from "@/lib/supabase/server";
 
 /**
- * Partner sales center. The public named page stays unpublished until Core
- * can resolve this code, so the working action is the existing sales link.
+ * Partner sales center. Personal `/s/{slug}` comes from the Growth Partner
+ * capability bridge (same auth as CSP). CSP attribution stays on `/p/{code}`.
  */
 export default async function PartnerPersonalSalesPage() {
   const locale = await getLocale();
@@ -37,10 +41,19 @@ export default async function PartnerPersonalSalesPage() {
   const salesMeasured = raw.sales_summary != null;
   const gate = view ? evaluateSalesLinkGates(view.overview, "kompis_web") : null;
   const link = view?.links.find((item) => item.active && isCspLinkCode(item.code)) ?? null;
-  const personalPath = link?.code ? `/s/${link.code}?lang=${locale}` : null;
   const salesPath =
     link?.code && gate?.allowed
       ? buildCspPublicLinkPath({ code: link.code, productKey: "kompis_web", channel: "referral_link" })
+      : null;
+
+  const unified = await getOwnUnifiedSellerSalesLinks(supabase);
+  const personalPath =
+    unified.ready && unified.data.ok
+      ? resolvePersonalSalesPath({
+          growthPartnerSlug: unified.data.primaryLinkSlug,
+          linkStatus: unified.data.linkStatus,
+          locale,
+        })
       : null;
 
   return (
@@ -56,12 +69,16 @@ export default async function PartnerPersonalSalesPage() {
         {personalPath ? (
           <div className="space-y-2 rounded-2xl border border-[#E8E4F2] bg-white p-4">
             <h3 className="text-sm font-semibold text-slate-800">{labels.personalLink}</h3>
-            <p className="text-sm text-slate-600">{labels.pagePending}</p>
             <p className="break-all text-sm">{personalPath}</p>
             <div className="flex flex-wrap gap-2">
               <CopyLinkButton value={personalPath} copyLabel={labels.copy} copiedLabel={labels.copied} />
               <ShareLinkButton value={personalPath} shareLabel={labels.share} copiedLabel={labels.copied} />
             </div>
+          </div>
+        ) : view && gate?.allowed ? (
+          <div className="space-y-2 rounded-2xl border border-[#E8E4F2] bg-white p-4">
+            <h3 className="text-sm font-semibold text-slate-800">{labels.personalLink}</h3>
+            <p className="text-sm text-slate-600">{labels.pagePending}</p>
           </div>
         ) : null}
         {salesPath ? (
