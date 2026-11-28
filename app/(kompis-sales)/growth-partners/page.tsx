@@ -25,7 +25,19 @@ export async function generateMetadata(): Promise<Metadata> {
     title: meta?.title,
     description: meta?.description,
     robots: { index: true, follow: true },
-    alternates: { canonical: "https://aipify.ai/growth-partners" },
+    alternates: {
+      canonical: "https://aipify.ai/growth-partners",
+      languages: {
+        en: "https://aipify.ai/growth-partners",
+        no: "https://aipify.ai/growth-partners",
+        sv: "https://aipify.ai/growth-partners",
+        da: "https://aipify.ai/growth-partners",
+        pl: "https://aipify.ai/growth-partners",
+        uk: "https://aipify.ai/growth-partners",
+        es: "https://aipify.ai/growth-partners",
+        "x-default": "https://aipify.ai/growth-partners",
+      },
+    },
   };
 }
 

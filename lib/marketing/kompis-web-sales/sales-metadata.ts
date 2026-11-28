@@ -8,6 +8,23 @@ export type KompisWebSalesRoutePath = "/" | "/kompis-web";
 export const KOMPIS_WEB_SALES_CANONICAL_URL = "https://aipify.ai/";
 
 /**
+ * Cookie/UI locale sites share one indexable URL.
+ * Reciprocal hreflang points each language tag + x-default at the same canonical.
+ */
+export const KOMPIS_WEB_SALES_HREFLANG: NonNullable<
+  NonNullable<Metadata["alternates"]>["languages"]
+> = {
+  en: KOMPIS_WEB_SALES_CANONICAL_URL,
+  no: KOMPIS_WEB_SALES_CANONICAL_URL,
+  sv: KOMPIS_WEB_SALES_CANONICAL_URL,
+  da: KOMPIS_WEB_SALES_CANONICAL_URL,
+  pl: KOMPIS_WEB_SALES_CANONICAL_URL,
+  uk: KOMPIS_WEB_SALES_CANONICAL_URL,
+  es: KOMPIS_WEB_SALES_CANONICAL_URL,
+  "x-default": KOMPIS_WEB_SALES_CANONICAL_URL,
+};
+
+/**
  * @deprecated Prefer `kompisWebSalesBrowserTitle(locale)`.
  * Kept as the English (Buddy Web) default for callers without a locale.
  */
@@ -28,7 +45,10 @@ export function buildKompisWebSalesMetadata(
     title,
     description,
     robots: { index: true, follow: true },
-    alternates: { canonical: KOMPIS_WEB_SALES_CANONICAL_URL },
+    alternates: {
+      canonical: KOMPIS_WEB_SALES_CANONICAL_URL,
+      languages: KOMPIS_WEB_SALES_HREFLANG,
+    },
     openGraph: {
       title,
       description,
