@@ -161,9 +161,10 @@ export default function SupportIntakeForm({
         ticketNumber?: string;
       };
 
+      // temporaryUnavailable only for true intake unavailability — never spam/honeypot.
       if (
         res.status === 503 ||
-        json.live === false ||
+        json.code === "rate_limit_unavailable" ||
         json.code === "core_not_applied" ||
         json.code === "channel_not_activated" ||
         json.code === "feature_gate_off"

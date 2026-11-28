@@ -167,12 +167,15 @@ export type SupportCenterLabels = {
     preparedOnly: string;
     incomingLive: string;
     stagingOnly: string;
+    runtimeUnverified: string;
     web: string;
     webNote: string;
+    webNoteLive: string;
     app: string;
     appNote: string;
     partner: string;
     partnerNote: string;
+    partnerNoteLive: string;
     module: string;
     moduleNote: string;
     kompis: string;

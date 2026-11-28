@@ -211,7 +211,15 @@ export function PublicFormHoneypot() {
       name="_honeypot"
       tabIndex={-1}
       autoComplete="off"
+      autoCapitalize="off"
+      autoCorrect="off"
+      spellCheck={false}
       aria-hidden="true"
+      // Password managers / autofill must not fill this trap field.
+      data-lpignore="true"
+      data-1p-ignore="true"
+      data-bwignore="true"
+      data-form-type="other"
       className="pointer-events-none absolute left-[-9999px] h-0 w-0 opacity-0"
     />
   );
