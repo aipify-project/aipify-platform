@@ -5,13 +5,13 @@
     "description": "Opublikowane produkty i obecny dostęp firmy. Ceny pojawiają się tylko wtedy, gdy Platform je opublikuje.",
     "categoriesLabel": "Kategorie produktów",
     "all": "Wszystkie produkty",
-    "kompis": "Kompis",
+    "kompis": "Buddy",
     "voice": "Aipify Voice",
     "otherCategory": "Inne produkty",
-    "kompisWebTitle": "Kompis Web",
-    "kompisWebDescription": "Odpowiedzi dla odwiedzających na podstawie zatwierdzonych treści witryny firmy.",
-    "kompisBedriftTitle": "Kompis Bedrift",
-    "kompisBedriftDescription": "Wewnętrzna wiedza i przepływy pracy dla zespołu firmy.",
+    "kompisWebTitle": "Buddy Web",
+    "kompisWebDescription": "Pomaga odwiedzającym uzyskać jasne odpowiedzi na podstawie zatwierdzonych treści witryny.",
+    "kompisBedriftTitle": "Buddy Business",
+    "kompisBedriftDescription": "Wewnętrzna wiedza i procesy dla zespołu firmy.",
     "stateActive": "Licencjonowany",
     "stateNotLicensed": "Bez licencji",
     "stateUnknown": "Status jest niedostępny",
@@ -34,6 +34,9 @@
     "purchasePending": "Otwieranie bezpiecznej płatności…",
     "purchaseError": "Nie udało się rozpocząć zakupu. Spróbuj ponownie.",
     "emptyTitle": "Brak produktów w tym widoku",
-    "emptyDescription": "Wybierz inną kategorię albo otwórz Abonament, aby zobaczyć aktywne usługi."
+    "emptyDescription": "Wybierz inną kategorię albo otwórz Abonament, aby zobaczyć aktywne usługi.",
+    "salesGrowth": "Sprzedaż i wzrost",
+    "addons": "Dodatki",
+    "requiresProduct": "Wymaga"
   }
 }

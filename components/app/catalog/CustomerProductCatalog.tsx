@@ -43,7 +43,9 @@ function catalogHref(input: {
 function categoryLabel(category: CatalogCategory, labels: CustomerCatalogLabels): string {
   if (category.labelKey === "all") return labels.all;
   if (category.labelKey === "kompis") return labels.kompis;
+  if (category.labelKey === "salesGrowth") return labels.salesGrowth;
   if (category.labelKey === "voice") return labels.voice;
+  if (category.labelKey === "addons") return labels.addons;
   return category.label ?? labels.otherCategory;
 }
 
@@ -221,7 +223,7 @@ export function CustomerProductCatalog({
                     {product.imagePath ? (
                       <Image
                         src={product.imagePath}
-                        alt=""
+                        alt={productTitle(product, labels)}
                         width={48}
                         height={48}
                         className="h-12 w-12 shrink-0 object-contain"
@@ -244,6 +246,11 @@ export function CustomerProductCatalog({
                   {description ? (
                     <p className="mt-1.5 text-sm leading-relaxed text-[var(--app-text-muted)]">
                       {description}
+                    </p>
+                  ) : null}
+                  {product.dependsOnProductKeys.length > 0 ? (
+                    <p className="mt-2 text-xs leading-relaxed text-[var(--app-text-muted)]">
+                      {labels.requiresProduct}: {product.dependsOnProductKeys.join(", ")}
                     </p>
                   ) : null}
 
