@@ -13,6 +13,7 @@ import { AppLayoutClasses } from "@/lib/design/app-layout";
 import {
   APP_SOFTWARE_STORE_ROUTE,
   APP_SUBSCRIPTION_ROUTE,
+  appSoftwareDetailHref,
   isValidAppProductKeyParam,
   resolveAppProductAccessState,
   resolveAppProductPrimaryAction,
