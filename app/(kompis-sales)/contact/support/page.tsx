@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import KompisWebSalesChrome from "@/components/marketing/kompis-web-sales/KompisWebSalesChrome";
+import PublicSafeBackLink from "@/components/marketing/PublicSafeBackLink";
 import SupportIntakeForm from "@/components/marketing/SupportIntakeForm";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -64,9 +64,11 @@ export default async function ContactSupportPage() {
         />
       </div>
       <p style={{ marginTop: 28 }}>
-        <Link href={salesLabels.hrefs.home} className="kompis-web-sales-cta-quiet">
-          {salesLabels.start.backHome}
-        </Link>
+        <PublicSafeBackLink
+          label={salesLabels.start.back}
+          className="kompis-web-sales-cta-quiet"
+          fallbackHref={salesLabels.hrefs.home}
+        />
       </p>
     </KompisWebSalesChrome>
   );
