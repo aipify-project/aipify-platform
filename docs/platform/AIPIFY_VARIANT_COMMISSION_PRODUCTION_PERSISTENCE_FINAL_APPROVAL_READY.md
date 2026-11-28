@@ -3,6 +3,8 @@
 **Status:** `AIPIFY_VARIANT_COMMISSION_PRODUCTION_PERSISTENCE_FINAL_APPROVAL_READY`  
 **Date:** 2026-11-28  
 **Branch:** `feat/variant-commission-production-persist-final-gate-v1`  
+**PR:** https://github.com/aipify-project/aipify-platform/pull/500  
+**Commit:** `aef0ecee3`  
 **Gates:** CODE PREPARATION ONLY · NO_GATE_ACTIVATION · NO_PRODUCTION_WRITE · NO_SQL_APPLY · NO_STRIPE_CHANGE · NO_PAYMENT · NO_COMMISSION_ACTIVATION  
 **Stop:** before flipping activation / before Production writes
 
