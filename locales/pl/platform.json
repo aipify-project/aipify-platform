@@ -9317,8 +9317,8 @@
   },
   "trafficStatus": {
     "region": "Aktywność platformy",
-    "operational": "Platforma działa",
-    "operationalHint": "Platform Admin odpowiedział na to żądanie. To nie jest osobna kontrola wszystkich usług.",
+    "operational": "Konsola admina odpowiada",
+    "operationalHint": "API Platform Admin odpowiedziało na to żądanie. To ograniczona kontrola konsoli — nie kontrola wszystkich usług.",
     "newAppCustomers": "Nowi klienci APP dzisiaj",
     "newAppCustomersHint": "Organizacje klientów utworzone w tej dobie kalendarzowej. Wewnętrzne spółki platformy i środowiska testowe nie są wliczane.",
     "newSellers": "Nowi sprzedawcy dzisiaj",
@@ -9331,6 +9331,18 @@
     "notMeasuredHint": "Jeszcze nie mierzone. Brak wiarygodnej aktywności lub liczby odwiedzin dla tego okna.",
     "unavailable": "Niedostępne",
     "dayScope": "Doba kalendarzowa ({zone})",
-    "lastChecked": "Ostatnio sprawdzono"
+    "lastChecked": "Ostatnio sprawdzono",
+    "operationalShort": "Konsola OK",
+    "newAppCustomersShort": "APP+",
+    "newSellersShort": "Sprzedawcy+",
+    "appCustomersOnlineShort": "APP online",
+    "sellersOnlineShort": "Sprzedawcy online",
+    "signedInUsersShort": "Zalogowani",
+    "visitorsShort": "Odwiedzający",
+    "stale": "Aktualizacja opóźniona",
+    "expand": "Status",
+    "collapse": "Ukryj status",
+    "visitorsHint": "Unikalni publiczni odwiedzający w dniu kalendarzowym. Wymaga zatwierdzonego agregatu GA4 Data API (Agent 3). Opóźnione dane GA4 nigdy nie są oznaczane jako dokładny czas rzeczywisty.",
+    "source": "Źródło"
   }
 }

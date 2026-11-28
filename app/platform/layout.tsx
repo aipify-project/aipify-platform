@@ -14,6 +14,7 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildPresenceLabels } from "@/lib/presence/labels";
+import { buildPlatformTrafficStatusLabels } from "@/lib/platform-portal/traffic-status-labels";
 
 /** Platform admin shell — skip build-time static prerender. */
 export const dynamic = "force-dynamic";
@@ -96,6 +97,7 @@ export default async function PlatformLayout({
             labels: buildCommandBarLabels(t),
             navSources: platformNavSources(t),
           }}
+          trafficStatusLabels={buildPlatformTrafficStatusLabels(t)}
         >
           {children}
         </DashboardShell>

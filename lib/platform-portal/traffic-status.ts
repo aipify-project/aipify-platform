@@ -8,18 +8,34 @@ export type TrafficCount =
   | { state: "value"; value: number }
   | { state: "unavailable"; reason: "not_measured" | "source_unavailable" };
 
+export type PlatformOperationalStatus = {
+  /** Admin API answered — not a full multi-service probe. */
+  state: "console_responding";
+  scope: "platform_admin_api";
+  fullServiceProbe: false;
+};
+
 export type PlatformTrafficStatus = {
   checkedAt: string;
   /** IANA zone used for “today”. */
   dayTimeZone: string;
-  /** Platform Admin answered this request. Not a separate infrastructure probe. */
-  operational: "console_responding";
+  operational: PlatformOperationalStatus;
   newAppCustomersToday: TrafficCount;
   newSellersToday: TrafficCount;
   appCustomersOnline: TrafficCount;
   sellersOnline: TrafficCount;
   signedInUsers: TrafficCount;
   visitorsToday: TrafficCount;
+  /** Per-metric source labels for tooltips (no secrets). */
+  sources: {
+    operational: string;
+    newAppCustomersToday: string;
+    newSellersToday: string;
+    appCustomersOnline: string;
+    sellersOnline: string;
+    signedInUsers: string;
+    visitorsToday: string;
+  };
 };
 
 const NOT_MEASURED: TrafficCount = { state: "unavailable", reason: "not_measured" };
@@ -148,23 +164,50 @@ export function countNewAppCustomersToday(input: {
   });
 }
 
+const SOURCE_REGISTRY_CUSTOMERS = "get_platform_portal_customers + environment filter";
+const SOURCE_SELLER_REGISTRY = "csp_partner_profiles registry";
+const SOURCE_PRESENCE_RPC = "get_platform_admin_live_status_presence_snapshot";
+const SOURCE_PRESENCE_PENDING = "presence snapshot not applied / no producer";
+const SOURCE_VISITORS_PENDING =
+  "Agent 3 visitor-today · not_configured (GA4 Data API)";
+const SOURCE_OPERATIONAL = "platform_admin_api (limited — not full service health)";
+
 export function buildPlatformTrafficStatus(input: {
   checkedAt: string;
   dayTimeZone: string;
   newAppCustomersToday: TrafficCount;
   newSellersToday: TrafficCount;
+  appCustomersOnline?: TrafficCount;
+  sellersOnline?: TrafficCount;
+  signedInUsers?: TrafficCount;
   /** Agent 3 visitor-today contract → Agent 4 top-bar. Omit = not_measured. */
   visitorsToday?: TrafficCount;
+  presenceMeasured?: boolean;
+  visitorsSource?: string;
 }): PlatformTrafficStatus {
+  const presenceMeasured = input.presenceMeasured === true;
   return {
     checkedAt: input.checkedAt,
     dayTimeZone: input.dayTimeZone,
-    operational: "console_responding",
+    operational: {
+      state: "console_responding",
+      scope: "platform_admin_api",
+      fullServiceProbe: false,
+    },
     newAppCustomersToday: input.newAppCustomersToday,
     newSellersToday: input.newSellersToday,
-    appCustomersOnline: NOT_MEASURED,
-    sellersOnline: NOT_MEASURED,
-    signedInUsers: NOT_MEASURED,
+    appCustomersOnline: input.appCustomersOnline ?? NOT_MEASURED,
+    sellersOnline: input.sellersOnline ?? NOT_MEASURED,
+    signedInUsers: input.signedInUsers ?? NOT_MEASURED,
     visitorsToday: input.visitorsToday ?? NOT_MEASURED,
+    sources: {
+      operational: SOURCE_OPERATIONAL,
+      newAppCustomersToday: SOURCE_REGISTRY_CUSTOMERS,
+      newSellersToday: SOURCE_SELLER_REGISTRY,
+      appCustomersOnline: presenceMeasured ? SOURCE_PRESENCE_RPC : SOURCE_PRESENCE_PENDING,
+      sellersOnline: presenceMeasured ? SOURCE_PRESENCE_RPC : SOURCE_PRESENCE_PENDING,
+      signedInUsers: presenceMeasured ? SOURCE_PRESENCE_RPC : SOURCE_PRESENCE_PENDING,
+      visitorsToday: input.visitorsSource?.trim() || SOURCE_VISITORS_PENDING,
+    },
   };
 }

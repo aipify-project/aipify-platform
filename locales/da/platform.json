@@ -8817,8 +8817,8 @@
   },
   "trafficStatus": {
     "region": "Platformaktivitet",
-    "operational": "Platformen er i drift",
-    "operationalHint": "Platform Admin svarede på denne forespørgsel. Dette er ikke en separat kontrol af alle tjenester.",
+    "operational": "Admin-konsol svarer",
+    "operationalHint": "Platform Admin API besvarede denne anmodning. Dette er et begrænset konsoltjek — ikke et tjek af alle tjenester.",
     "newAppCustomers": "Nye APP-kunder i dag",
     "newAppCustomersHint": "Kundeorganisationer oprettet i dette kalenderdøgn. Interne platformselskaber og testmiljøer er ikke med.",
     "newSellers": "Nye sælgere i dag",
@@ -8831,6 +8831,18 @@
     "notMeasuredHint": "Ikke målt endnu. Der findes ingen pålidelig aktivitet eller besøgstal for dette vindue.",
     "unavailable": "Ikke tilgængelig",
     "dayScope": "Kalenderdøgn ({zone})",
-    "lastChecked": "Sidst kontrolleret"
+    "lastChecked": "Sidst kontrolleret",
+    "operationalShort": "Konsol OK",
+    "newAppCustomersShort": "APP+",
+    "newSellersShort": "Sælgere+",
+    "appCustomersOnlineShort": "APP online",
+    "sellersOnlineShort": "Sælgere online",
+    "signedInUsersShort": "Logget ind",
+    "visitorsShort": "Besøgende",
+    "stale": "Opdatering forsinket",
+    "expand": "Status",
+    "collapse": "Skjul status",
+    "visitorsHint": "Unikke offentlige besøgende for kalenderdagen. Kræver godkendt GA4 Data API-aggregat (Agent 3). Forsinket GA4-data mærkes aldrig som eksakt realtid.",
+    "source": "Kilde"
   }
 }
