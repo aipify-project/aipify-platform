@@ -28,6 +28,13 @@ assert.deepEqual(
   parseDeclaredDependencies({ depends_on: ["kompis_web", "bad key!", "kompis_web", "design_pack"] }),
   ["kompis_web", "design_pack"]
 );
+assert.deepEqual(
+  parseDeclaredDependencies({
+    depends_on_product_keys: ["kompis_bedrift", "kompis_web"],
+    depends_on: ["ignored_when_primary_present"],
+  }),
+  ["kompis_bedrift", "kompis_web"]
+);
 assert.deepEqual(parseDeclaredDependencies({}), []);
 
 console.log("categories.test.ts: OK");
