@@ -155,6 +155,100 @@ test("parseVariantsJsonInput rejects invalid payload and accepts free 0 commissi
   }
 });
 
+test("parseVariantsJsonInput: null commission ok; commission without price rejected; null≠0", () => {
+  const unset = parseVariantsJsonInput([
+    {
+      variantKey: "a",
+      productKey: "p",
+      adminName: "a",
+      customerLabel: "a",
+      sortOrder: 0,
+      active: true,
+      recommended: false,
+      quotaValue: null,
+      quotaUnit: null,
+      quotaKind: "none",
+      annualRenewsQuotaMonthly: false,
+      monthlyPrice: {
+        currency: "NOK",
+        amountMajor: 100,
+        amountMinor: 10000,
+        interval: "month",
+        vatLabel: "exclusive",
+        providerPriceId: null,
+        purchasable: false,
+        commission: null,
+      },
+      yearlyPrice: null,
+      oneTimePrice: null,
+      features: [],
+    },
+  ]);
+  assert.equal(unset.ok, true);
+
+  const orphan = parseVariantsJsonInput([
+    {
+      variantKey: "b",
+      productKey: "p",
+      adminName: "b",
+      customerLabel: "b",
+      sortOrder: 0,
+      active: true,
+      recommended: false,
+      quotaValue: null,
+      quotaUnit: null,
+      quotaKind: "none",
+      annualRenewsQuotaMonthly: false,
+      monthlyPrice: {
+        currency: "NOK",
+        amountMajor: null,
+        amountMinor: null,
+        interval: "month",
+        vatLabel: "exclusive",
+        providerPriceId: null,
+        purchasable: false,
+        commission: normalizeVariantCommissionRule({ model: "fixed", amountMajor: 50 }),
+      },
+      yearlyPrice: null,
+      oneTimePrice: null,
+      features: [],
+    },
+  ]);
+  assert.equal(orphan.ok, false);
+  if (!orphan.ok) assert.equal(orphan.error, "commission_requires_configured_price");
+
+  const badPercent = parseVariantsJsonInput([
+    {
+      variantKey: "c",
+      productKey: "p",
+      adminName: "c",
+      customerLabel: "c",
+      sortOrder: 0,
+      active: true,
+      recommended: false,
+      quotaValue: null,
+      quotaUnit: null,
+      quotaKind: "none",
+      annualRenewsQuotaMonthly: false,
+      monthlyPrice: {
+        currency: "NOK",
+        amountMajor: 200,
+        amountMinor: 20000,
+        interval: "month",
+        vatLabel: "exclusive",
+        providerPriceId: null,
+        purchasable: false,
+        commission: { model: "percent", ratePct: 150, amountMajor: null, active: true, currency: "NOK", percentBasis: "net_ex_vat_after_discount" },
+      },
+      yearlyPrice: null,
+      oneTimePrice: null,
+      features: [],
+    },
+  ]);
+  assert.equal(badPercent.ok, false);
+  if (!badPercent.ok) assert.equal(badPercent.error, "invalid_percent_commission_rate");
+});
+
 test("mapCoreListToVariantCommissionRows keeps settlement fields out of earn path", () => {
   const rows = mapCoreListToVariantCommissionRows([
     {
