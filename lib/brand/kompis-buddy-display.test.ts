@@ -49,9 +49,7 @@ const NON_NORDIC = ["en", "pl", "uk", "es"] as const;
 const NORDIC = ["no", "sv", "da"] as const;
 
 /** Paths (relative to locales/{locale}/) skipped — technical notes that intentionally cite IDs. */
-const ALLOWLIST_PATH_SUBSTRINGS = [
-  // none yet — values should use Buddy* with technical ids in parentheses only
-];
+const ALLOWLIST_PATH_SUBSTRINGS: readonly string[] = [];
 
 function walkStrings(
   value: unknown,
