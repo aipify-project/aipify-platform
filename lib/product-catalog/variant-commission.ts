@@ -5,7 +5,8 @@
  * Does not change historical product-level rates or qualified sales.
  */
 
-import type { ProductBillingInterval } from "./variants";
+/** Mirrors ProductBillingInterval — kept local to avoid circular import with variants.ts. */
+export type VariantCommissionBillingInterval = "month" | "year" | "one_time";
 
 export const VARIANT_COMMISSION_PERCENT_BASIS = "net_ex_vat_after_discount" as const;
 
@@ -153,7 +154,7 @@ export function previewVariantCommissionExVat(input: {
   };
 }
 
-export function commissionIntervals(): ProductBillingInterval[] {
+export function commissionIntervals(): VariantCommissionBillingInterval[] {
   return ["month", "year", "one_time"];
 }
 
