@@ -41,6 +41,27 @@ export function parseTrafficCount(value: unknown): TrafficCount | null {
   return null;
 }
 
+function parseSources(value: unknown): PlatformTrafficStatus["sources"] | null {
+  const row = asRecord(value);
+  if (!row) return null;
+  const keys = [
+    "operational",
+    "newAppCustomersToday",
+    "newSellersToday",
+    "appCustomersOnline",
+    "sellersOnline",
+    "signedInUsers",
+    "visitorsToday",
+  ] as const;
+  const out: Partial<PlatformTrafficStatus["sources"]> = {};
+  for (const key of keys) {
+    const text = row[key];
+    if (typeof text !== "string" || !text.trim()) return null;
+    out[key] = text.trim();
+  }
+  return out as PlatformTrafficStatus["sources"];
+}
+
 /**
  * Parse a server snapshot. Never maps null/missing fields to 0.
  * Incomplete payloads return null so the client keeps the last good snapshot.
@@ -52,7 +73,16 @@ export function parsePlatformTrafficStatus(raw: unknown): PlatformTrafficStatus 
   const checkedAt = typeof row.checkedAt === "string" ? row.checkedAt.trim() : "";
   const dayTimeZone = typeof row.dayTimeZone === "string" ? row.dayTimeZone.trim() : "";
   if (!checkedAt || Number.isNaN(Date.parse(checkedAt)) || !dayTimeZone) return null;
-  if (row.operational !== "console_responding") return null;
+
+  const operational = asRecord(row.operational);
+  if (
+    !operational ||
+    operational.state !== "console_responding" ||
+    operational.scope !== "platform_admin_api" ||
+    operational.fullServiceProbe !== false
+  ) {
+    return null;
+  }
 
   const newAppCustomersToday = parseTrafficCount(row.newAppCustomersToday);
   const newSellersToday = parseTrafficCount(row.newSellersToday);
@@ -60,6 +90,7 @@ export function parsePlatformTrafficStatus(raw: unknown): PlatformTrafficStatus 
   const sellersOnline = parseTrafficCount(row.sellersOnline);
   const signedInUsers = parseTrafficCount(row.signedInUsers);
   const visitorsToday = parseTrafficCount(row.visitorsToday);
+  const sources = parseSources(row.sources);
 
   if (
     !newAppCustomersToday ||
@@ -67,7 +98,8 @@ export function parsePlatformTrafficStatus(raw: unknown): PlatformTrafficStatus 
     !appCustomersOnline ||
     !sellersOnline ||
     !signedInUsers ||
-    !visitorsToday
+    !visitorsToday ||
+    !sources
   ) {
     return null;
   }
@@ -75,13 +107,18 @@ export function parsePlatformTrafficStatus(raw: unknown): PlatformTrafficStatus 
   return {
     checkedAt,
     dayTimeZone,
-    operational: "console_responding",
+    operational: {
+      state: "console_responding",
+      scope: "platform_admin_api",
+      fullServiceProbe: false,
+    },
     newAppCustomersToday,
     newSellersToday,
     appCustomersOnline,
     sellersOnline,
     signedInUsers,
     visitorsToday,
+    sources,
   };
 }
 

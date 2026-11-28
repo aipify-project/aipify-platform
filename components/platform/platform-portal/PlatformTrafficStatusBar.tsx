@@ -66,48 +66,51 @@ export function PlatformTrafficStatusBar({
       })
     : labels.unavailable;
 
+  const withSource = (hint: string, source: string | undefined) =>
+    source ? `${hint} · ${labels.source}: ${source}` : hint;
+
   const metrics = status
     ? [
         {
           key: "newAppCustomers",
           shortLabel: labels.newAppCustomersShort,
           fullLabel: labels.newAppCustomers,
-          hint: labels.newAppCustomersHint,
+          hint: withSource(labels.newAppCustomersHint, status.sources.newAppCustomersToday),
           value: displayValue(status.newAppCustomersToday, labels),
         },
         {
           key: "newSellers",
           shortLabel: labels.newSellersShort,
           fullLabel: labels.newSellers,
-          hint: labels.newSellersHint,
+          hint: withSource(labels.newSellersHint, status.sources.newSellersToday),
           value: displayValue(status.newSellersToday, labels),
         },
         {
           key: "appCustomersOnline",
           shortLabel: labels.appCustomersOnlineShort,
           fullLabel: labels.appCustomersOnline,
-          hint: labels.notMeasuredHint,
+          hint: withSource(labels.notMeasuredHint, status.sources.appCustomersOnline),
           value: displayValue(status.appCustomersOnline, labels),
         },
         {
           key: "sellersOnline",
           shortLabel: labels.sellersOnlineShort,
           fullLabel: labels.sellersOnline,
-          hint: labels.notMeasuredHint,
+          hint: withSource(labels.notMeasuredHint, status.sources.sellersOnline),
           value: displayValue(status.sellersOnline, labels),
         },
         {
           key: "signedInUsers",
           shortLabel: labels.signedInUsersShort,
           fullLabel: labels.signedInUsers,
-          hint: labels.notMeasuredHint,
+          hint: withSource(labels.notMeasuredHint, status.sources.signedInUsers),
           value: displayValue(status.signedInUsers, labels),
         },
         {
           key: "visitors",
           shortLabel: labels.visitorsShort,
           fullLabel: labels.visitors,
-          hint: labels.notMeasuredHint,
+          hint: withSource(labels.visitorsHint, status.sources.visitorsToday),
           value: displayValue(status.visitorsToday, labels),
         },
       ]
@@ -116,8 +119,11 @@ export function PlatformTrafficStatusBar({
   const dayScope = status
     ? labels.dayScope.replace("{zone}", status.dayTimeZone)
     : labels.unavailable;
+  const operationalTitle = status
+    ? withSource(labels.operationalHint, status.sources.operational)
+    : labels.operationalHint;
   const metaLine = [
-    labels.operationalHint,
+    operationalTitle,
     dayScope,
     `${labels.lastChecked}: ${checked}`,
     freshness === "stale" ? labels.stale : null,
@@ -138,7 +144,7 @@ export function PlatformTrafficStatusBar({
               ? "border-amber-200 bg-amber-50 text-amber-950"
               : "border-emerald-200 bg-emerald-50 text-emerald-950"
           }`}
-          title={labels.operationalHint}
+          title={operationalTitle}
         >
           <span
             className={`h-1.5 w-1.5 shrink-0 rounded-full ${
@@ -147,7 +153,7 @@ export function PlatformTrafficStatusBar({
             aria-hidden="true"
           />
           <span className="whitespace-nowrap">{labels.operationalShort}</span>
-          <span className="sr-only">{labels.operationalHint}</span>
+          <span className="sr-only">{operationalTitle}</span>
         </div>
 
         {/* Desktop / wide: single compact row */}

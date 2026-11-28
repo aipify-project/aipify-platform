@@ -2638,8 +2638,8 @@
   },
   "trafficStatus": {
     "region": "Actividad de la plataforma",
-    "operational": "La plataforma está en funcionamiento",
-    "operationalHint": "Platform Admin respondió a esta solicitud. No es una comprobación separada de todos los servicios.",
+    "operational": "Consola de admin responde",
+    "operationalHint": "La API de Platform Admin respondió a esta solicitud. Es una comprobación limitada de consola — no una sonda de todos los servicios.",
     "newAppCustomers": "Nuevos clientes de APP hoy",
     "newAppCustomersHint": "Organizaciones de clientes creadas en este día natural. Las empresas internas de la plataforma y los entornos de prueba no se incluyen.",
     "newSellers": "Nuevos vendedores hoy",
@@ -2653,7 +2653,7 @@
     "unavailable": "No disponible",
     "dayScope": "Día natural ({zone})",
     "lastChecked": "Última comprobación",
-    "operationalShort": "En servicio",
+    "operationalShort": "Consola OK",
     "newAppCustomersShort": "APP+",
     "newSellersShort": "Vendedores+",
     "appCustomersOnlineShort": "APP en línea",
@@ -2662,6 +2662,8 @@
     "visitorsShort": "Visitantes",
     "stale": "Actualización retrasada",
     "expand": "Estado",
-    "collapse": "Ocultar estado"
+    "collapse": "Ocultar estado",
+    "visitorsHint": "Visitantes públicos únicos del día calendario. Requiere un agregado aprobado de GA4 Data API (Agente 3). Los datos GA4 retrasados nunca se etiquetan como tiempo real exacto.",
+    "source": "Fuente"
   }
 }

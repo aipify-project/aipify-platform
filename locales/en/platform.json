@@ -9323,8 +9323,8 @@
   },
   "trafficStatus": {
     "region": "Platform activity",
-    "operational": "Platform is operating",
-    "operationalHint": "Platform Admin answered this request. This is not a separate check of every service.",
+    "operational": "Admin console responding",
+    "operationalHint": "Platform Admin API answered this request. This is a limited console check — not a probe of every service.",
     "newAppCustomers": "New APP customers today",
     "newAppCustomersHint": "Customer organizations created during this calendar day. Internal platform companies and test environments are not included.",
     "newSellers": "New sellers today",
@@ -9338,7 +9338,7 @@
     "unavailable": "Not available",
     "dayScope": "Calendar day ({zone})",
     "lastChecked": "Last checked",
-    "operationalShort": "Operating",
+    "operationalShort": "Console OK",
     "newAppCustomersShort": "APP+",
     "newSellersShort": "Sellers+",
     "appCustomersOnlineShort": "APP online",
@@ -9347,6 +9347,8 @@
     "visitorsShort": "Visitors",
     "stale": "Update delayed",
     "expand": "Status",
-    "collapse": "Hide status"
+    "collapse": "Hide status",
+    "visitorsHint": "Unique public visitors for the calendar day. Requires an approved GA4 Data API aggregate (Agent 3). Delayed GA4 data is never labeled exact realtime.",
+    "source": "Source"
   }
 }

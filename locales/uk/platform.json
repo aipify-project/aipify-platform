@@ -9317,8 +9317,8 @@
   },
   "trafficStatus": {
     "region": "Активність платформи",
-    "operational": "Платформа працює",
-    "operationalHint": "Platform Admin відповів на цей запит. Це не окрема перевірка всіх служб.",
+    "operational": "Адмін-консоль відповідає",
+    "operationalHint": "API Platform Admin відповіло на цей запит. Це обмежена перевірка консолі — не перевірка всіх сервісів.",
     "newAppCustomers": "Нові клієнти APP сьогодні",
     "newAppCustomersHint": "Клієнтські організації, створені в цю календарну добу. Внутрішні компанії платформи та тестові середовища не враховуються.",
     "newSellers": "Нові продавці сьогодні",
@@ -9332,7 +9332,7 @@
     "unavailable": "Недоступно",
     "dayScope": "Календарна доба ({zone})",
     "lastChecked": "Востаннє перевірено",
-    "operationalShort": "Працює",
+    "operationalShort": "Консоль OK",
     "newAppCustomersShort": "APP+",
     "newSellersShort": "Продавці+",
     "appCustomersOnlineShort": "APP онлайн",
@@ -9341,6 +9341,8 @@
     "visitorsShort": "Відвідувачі",
     "stale": "Оновлення затримано",
     "expand": "Статус",
-    "collapse": "Сховати статус"
+    "collapse": "Сховати статус",
+    "visitorsHint": "Унікальні публічні відвідувачі за календарний день. Потрібен затверджений агрегат GA4 Data API (Agent 3). Затримані дані GA4 ніколи не позначаються як точний реалтайм.",
+    "source": "Джерело"
   }
 }

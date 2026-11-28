@@ -22,18 +22,34 @@ assert.deepEqual(parseTrafficCount({ state: "unavailable", reason: "not_measured
 });
 assert.equal(parseTrafficCount({ state: "unavailable", reason: "other" }), null);
 
+const sources = {
+  operational: "platform_admin_api",
+  newAppCustomersToday: "registry",
+  newSellersToday: "sellers",
+  appCustomersOnline: "presence",
+  sellersOnline: "presence",
+  signedInUsers: "presence",
+  visitorsToday: "ga4-pending",
+};
+
 const good = parsePlatformTrafficStatus({
   checkedAt: "2026-11-28T12:00:00.000Z",
   dayTimeZone: "UTC",
-  operational: "console_responding",
+  operational: {
+    state: "console_responding",
+    scope: "platform_admin_api",
+    fullServiceProbe: false,
+  },
   newAppCustomersToday: { state: "value", value: 0 },
   newSellersToday: { state: "value", value: 2 },
   appCustomersOnline: { state: "unavailable", reason: "not_measured" },
   sellersOnline: { state: "unavailable", reason: "not_measured" },
   signedInUsers: { state: "unavailable", reason: "not_measured" },
   visitorsToday: { state: "unavailable", reason: "not_measured" },
+  sources,
 });
 assert.ok(good);
+assert.equal(good.operational.fullServiceProbe, false);
 assert.equal(good.newAppCustomersToday.state, "value");
 if (good.newAppCustomersToday.state === "value") {
   assert.equal(good.newAppCustomersToday.value, 0);
@@ -46,7 +62,6 @@ assert.equal(
     operational: "console_responding",
     newAppCustomersToday: { state: "value", value: 1 },
     newSellersToday: { state: "value", value: 1 },
-    // Missing online/visitor fields must not become 0.
   }),
   null,
 );

@@ -9317,8 +9317,8 @@
   },
   "trafficStatus": {
     "region": "Plattformsaktivitet",
-    "operational": "Plattformen är i drift",
-    "operationalHint": "Platform Admin svarade på den här förfrågan. Det här är inte en separat kontroll av alla tjänster.",
+    "operational": "Admin-konsolen svarar",
+    "operationalHint": "Platform Admin API svarade på denna begäran. Detta är en begränsad konsollkontroll — inte en kontroll av alla tjänster.",
     "newAppCustomers": "Nya APP-kunder idag",
     "newAppCustomersHint": "Kundorganisationer som skapats under det här kalenderdygnet. Interna plattformsbolag och testmiljöer ingår inte.",
     "newSellers": "Nya säljare idag",
@@ -9332,7 +9332,7 @@
     "unavailable": "Inte tillgängligt",
     "dayScope": "Kalenderdygn ({zone})",
     "lastChecked": "Senast kontrollerad",
-    "operationalShort": "I drift",
+    "operationalShort": "Konsol OK",
     "newAppCustomersShort": "APP+",
     "newSellersShort": "Säljare+",
     "appCustomersOnlineShort": "APP online",
@@ -9341,6 +9341,8 @@
     "visitorsShort": "Besökare",
     "stale": "Uppdatering fördröjd",
     "expand": "Status",
-    "collapse": "Dölj status"
+    "collapse": "Dölj status",
+    "visitorsHint": "Unika offentliga besökare för kalenderdagen. Kräver godkänt GA4 Data API-aggregat (Agent 3). Fördröjd GA4-data märks aldrig som exakt realtid.",
+    "source": "Källa"
   }
 }

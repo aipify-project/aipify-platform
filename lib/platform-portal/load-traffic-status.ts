@@ -2,6 +2,7 @@ import { listCspPlatformPartners } from "@/lib/certified-sales-partner/partner-a
 import { resolveAuthoritativeTimeZone } from "@/lib/platform-presentation-quality/bcp47";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
+import { loadPlatformLivePresenceSnapshot } from "@/lib/platform-portal/live-presence/load-presence-snapshot";
 import {
   buildPlatformTrafficStatus,
   countCreatedOnCalendarDay,
@@ -13,6 +14,7 @@ import { resolveVisitorTodayFromGa4 } from "@/lib/platform-portal/visitor-today-
 import { visitorTodayToTrafficCount } from "@/lib/platform-portal/visitor-today-contract";
 
 const SOURCE_UNAVAILABLE: TrafficCount = { state: "unavailable", reason: "source_unavailable" };
+const NOT_MEASURED: TrafficCount = { state: "unavailable", reason: "not_measured" };
 const SELLER_LIST_LIMIT = 500;
 
 async function loadCustomerEnvironments(
@@ -88,19 +90,37 @@ async function loadNewSellersToday(now: Date, timeZone: string): Promise<Traffic
   }
 }
 
-/** Server read for the Platform overview status bar. No new database functions. */
+/** Server read for the Platform Admin global status bar. Fail closed for unmeasured. */
 export async function loadPlatformTrafficStatus(now = new Date()): Promise<PlatformTrafficStatus> {
   const dayTimeZone = resolveAuthoritativeTimeZone();
-  const [newAppCustomersToday, newSellersToday, visitorToday] = await Promise.all([
+  const [newAppCustomersToday, newSellersToday, presence, visitorToday] = await Promise.all([
     loadNewAppCustomersToday(now, dayTimeZone),
     loadNewSellersToday(now, dayTimeZone),
+    loadPlatformLivePresenceSnapshot(),
     resolveVisitorTodayFromGa4({ now, dayTimeZone }),
   ]);
+
+  const presenceMeasured = presence?.measured === true;
+  const visitorsToday = visitorTodayToTrafficCount(visitorToday);
+  const visitorsSource =
+    visitorToday.source === "ga4_data_api"
+      ? `ga4_data_api · ${visitorToday.freshness}${visitorToday.note ? ` · ${visitorToday.note}` : ""}`
+      : visitorToday.source === "fixture"
+        ? "fixture (tests only)"
+        : `Agent 3 visitor-today · ${visitorToday.source}/${visitorToday.freshness}${
+            visitorToday.note ? ` · ${visitorToday.note}` : ""
+          }`;
+
   return buildPlatformTrafficStatus({
     checkedAt: now.toISOString(),
     dayTimeZone,
     newAppCustomersToday,
     newSellersToday,
-    visitorsToday: visitorTodayToTrafficCount(visitorToday),
+    appCustomersOnline: presenceMeasured ? presence.appCustomersOnline : NOT_MEASURED,
+    sellersOnline: presenceMeasured ? presence.sellersOnline : NOT_MEASURED,
+    signedInUsers: presenceMeasured ? presence.signedInUsers : NOT_MEASURED,
+    visitorsToday,
+    presenceMeasured,
+    visitorsSource,
   });
 }

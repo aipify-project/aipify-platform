@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePollingTask } from "@/lib/polling/use-polling-task";
 import {
   PLATFORM_TRAFFIC_STATUS_API_PATH,
@@ -32,6 +32,16 @@ export function PlatformGlobalLiveStatusBar({
   const [expanded, setExpanded] = useState(false);
   const lastSuccessAtMs = useRef<number | null>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      abortRef.current?.abort();
+      abortRef.current = null;
+    };
+  }, []);
 
   const execute = useCallback(async (): Promise<boolean> => {
     abortRef.current?.abort();
@@ -50,6 +60,8 @@ export function PlatformGlobalLiveStatusBar({
         headers: { Accept: "application/json" },
       });
 
+      if (!mountedRef.current) return false;
+
       if (response.status === 401 || response.status === 403) {
         setFreshness("unavailable");
         return false;
@@ -60,6 +72,8 @@ export function PlatformGlobalLiveStatusBar({
       }
 
       const payload: unknown = await response.json();
+      if (!mountedRef.current) return false;
+
       const parsed = parsePlatformTrafficStatus(payload);
       if (!parsed) {
         setFreshness(trafficStatusFreshness(lastSuccessAtMs.current));
@@ -71,7 +85,9 @@ export function PlatformGlobalLiveStatusBar({
       setFreshness("fresh");
       return true;
     } catch {
-      setFreshness(trafficStatusFreshness(lastSuccessAtMs.current));
+      if (mountedRef.current) {
+        setFreshness(trafficStatusFreshness(lastSuccessAtMs.current));
+      }
       return false;
     } finally {
       window.clearTimeout(timeoutId);

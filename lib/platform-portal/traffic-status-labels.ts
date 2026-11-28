@@ -17,11 +17,13 @@ export type PlatformTrafficStatusLabels = {
   signedInUsersShort: string;
   visitors: string;
   visitorsShort: string;
+  visitorsHint: string;
   notMeasured: string;
   notMeasuredHint: string;
   unavailable: string;
   dayScope: string;
   lastChecked: string;
+  source: string;
   stale: string;
   expand: string;
   collapse: string;
@@ -50,11 +52,13 @@ export function buildPlatformTrafficStatusLabels(t: Translator): PlatformTraffic
     signedInUsersShort: t("platform.trafficStatus.signedInUsersShort"),
     visitors: t("platform.trafficStatus.visitors"),
     visitorsShort: t("platform.trafficStatus.visitorsShort"),
+    visitorsHint: t("platform.trafficStatus.visitorsHint"),
     notMeasured: t("platform.trafficStatus.notMeasured"),
     notMeasuredHint: t("platform.trafficStatus.notMeasuredHint"),
     unavailable: t("platform.trafficStatus.unavailable"),
     dayScope: t("platform.trafficStatus.dayScope"),
     lastChecked: t("platform.trafficStatus.lastChecked"),
+    source: t("platform.trafficStatus.source"),
     stale: t("platform.trafficStatus.stale"),
     expand: t("platform.trafficStatus.expand"),
     collapse: t("platform.trafficStatus.collapse"),
