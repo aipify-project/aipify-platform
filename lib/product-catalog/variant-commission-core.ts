@@ -338,40 +338,42 @@ function sameCommission(
   return Number(current.rate_pct ?? NaN) === Number(next.p_rate_pct);
 }
 
-export type PersistVariantsResult =
-  | {
-      ok: true;
-      productKey: string;
-      productId: string | null;
-      variantsSaved: number;
-      pricesSaved: number;
-      commissionsSaved: number;
-      commissionsUnchanged: number;
-      settlementActivated: false;
-    }
-  | {
-      ok: false;
-      error:
-        | "production_fail_closed"
-        | "persist_env_disabled"
-        | "rpc_missing"
-        | "rpc_error"
-        | "forbidden"
-        | "unauthorized"
-        | "product_id_required"
-        | "invalid_variants_json"
-        | "variants_must_be_array"
-        | "invalid_variant_row"
-        | "variant_key_required"
-        | "csp_backend_not_applied"
-        | "partner_not_found"
-        | "partner_not_active";
-      detail?: string;
-    };
+export type PersistVariantsError = {
+  ok: false;
+  error:
+    | "production_fail_closed"
+    | "persist_env_disabled"
+    | "rpc_missing"
+    | "rpc_error"
+    | "forbidden"
+    | "unauthorized"
+    | "product_id_required"
+    | "invalid_variants_json"
+    | "variants_must_be_array"
+    | "invalid_variant_row"
+    | "variant_key_required"
+    | "csp_backend_not_applied"
+    | "partner_not_found"
+    | "partner_not_active";
+  detail?: string;
+};
+
+export type PersistVariantsSuccess = {
+  ok: true;
+  productKey: string;
+  productId: string | null;
+  variantsSaved: number;
+  pricesSaved: number;
+  commissionsSaved: number;
+  commissionsUnchanged: number;
+  settlementActivated: false;
+};
+
+export type PersistVariantsResult = PersistVariantsSuccess | PersistVariantsError;
 
 function mapRpcError(
   result: Extract<CspRpcResult, { ready: false }>,
-): PersistVariantsResult {
+): PersistVariantsError {
   return {
     ok: false,
     error: result.error,
@@ -388,7 +390,7 @@ type PersistEnvOptions = {
 export async function probeVariantCommissionCoreRpcs(
   supabase: CspRpcClient,
   options?: PersistEnvOptions,
-): Promise<{ ready: true } | PersistVariantsResult> {
+): Promise<{ ready: true } | PersistVariantsError> {
   const capability = resolveVariantCommissionPersistCapability(options?.supabaseUrl);
   if (capability.productionBound) {
     return { ok: false, error: "production_fail_closed" };
@@ -411,7 +413,7 @@ export async function loadProductVariantsBundle(
   options?: PersistEnvOptions,
 ): Promise<
   | { ok: true; bundle: CoreVariantsBundle; variants: ProductVariantDefinition[]; persistEnabled: boolean }
-  | PersistVariantsResult
+  | PersistVariantsError
 > {
   const capability = resolveVariantCommissionPersistCapability(options?.supabaseUrl);
   if (capability.productionBound) {
@@ -441,7 +443,7 @@ export async function listVariantCommissionRatesFromCore(
   options?: PersistEnvOptions,
 ): Promise<
   | { ok: true; rows: VariantCommissionListRow[]; persistEnabled: boolean }
-  | PersistVariantsResult
+  | PersistVariantsError
 > {
   const capability = resolveVariantCommissionPersistCapability(options?.supabaseUrl);
   if (capability.productionBound) {
@@ -499,7 +501,7 @@ async function persistOneCommission(
   variantKey: string,
   interval: ProductBillingInterval,
   rule: VariantIntervalCommissionRule | null | undefined,
-): Promise<{ saved: boolean; unchanged: boolean; error?: PersistVariantsResult }> {
+): Promise<{ saved: boolean; unchanged: boolean; error?: PersistVariantsError }> {
   if (!rule) {
     return { saved: false, unchanged: false };
   }
