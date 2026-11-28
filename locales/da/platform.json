@@ -8123,7 +8123,7 @@
         "attribution_link_created": "Salgslenke opprettet",
         "qualified_sale_recorded": "Kvalifisert salg registrert"
       },
-      "ratesReadOnly": "Dette er de gemte faste provisionssatser. Procentprovision kan ikke gemmes fra denne side.",
+      "ratesReadOnly": "Skrivebeskyttet visning af sælgerprovision pr. produktvariant og betalingsperiode. Rediger satser i produkteditoren.",
       "directionAdminToPartner": "Fra Aipify til sælger",
       "directionPartnerToAdmin": "Fra sælger til Aipify",
       "deliveryStatus": {
@@ -8163,7 +8163,22 @@
       "ratesColInterval": "Faktureringsperiode",
       "ratesColModel": "Model",
       "ratesLegacyProductTitle": "Ældre produktniveau-satser (uændrede)",
-      "ratesVariantCoreTitle": "Variantprovisionsregler (Core)"
+      "ratesVariantCoreTitle": "Variantprovisionsregler (Core)",
+      "ratesColCustomerPrice": "Kundepris (ekskl. moms)",
+      "ratesColCommission": "Provision",
+      "ratesNotConfigured": "Ikke konfigureret",
+      "ratesCalculatedAtPayment": "Beregnes ved betaling",
+      "ratesEditProduct": "Rediger produkt",
+      "ratesHistoricalTitle": "Historiske satser",
+      "ratesEmptyTitle": "Ingen variantprovisioner gemt",
+      "ratesEmptyBody": "Når Platform gemmer sælgerprovision pr. variant og betalingsperiode i produkteditoren, vises satserne her. Intet opfindes.",
+      "ratesIntervalMonth": "Månedlig",
+      "ratesIntervalYear": "Årlig",
+      "ratesIntervalOneTime": "Engangs",
+      "ratesFixedZero": "{amount} (konfigureret)",
+      "ratesPercentOfNet": "{rate} % af netto efter rabat (ekskl. moms)",
+      "ratesEstimatedAmount": "estimat {amount}",
+      "ratesExVatNote": "Kundepriser og provisioner er ekskl. moms. Ældre produktsatser holdes adskilt og bruges aldrig som automatisk variantprovision."
     },
     "messages": {
       "title": "Kommunikation",

@@ -6,8 +6,14 @@ import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { CertifiedSellersMessageDesk } from "@/components/platform/sellers/CertifiedSellersMessageDesk";
 import { CertifiedSellersSectionPanel } from "@/components/platform/sellers/CertifiedSellersSectionPanel";
-import { CommissionRatesVariantDraft } from "@/components/platform/sellers/CommissionRatesVariantDraft";
+import { CommissionRatesPresentationPanel, type CommissionRatesPresentationLabels } from "@/components/platform/sellers/CommissionRatesPresentationPanel";
 import type { VariantCommissionFieldsLabels } from "@/components/platform/sellers/VariantCommissionFields";
+import {
+  buildCommissionRatesPresentation,
+  type CustomerPriceHint,
+} from "@/lib/product-catalog/commission-rates-presentation";
+import type { VariantCommissionListRow } from "@/lib/product-catalog/variant-commission-core";
+import type { ProductCatalogLocaleCode } from "@/lib/product-catalog/types";
 import {
   isCspMessageRecipientEligible,
   parseCspMessageRecipients,
@@ -134,6 +140,21 @@ export type SellersOpsLabels = {
   ratesColModel: string;
   ratesLegacyProductTitle: string;
   ratesVariantCoreTitle: string;
+  ratesColCustomerPrice: string;
+  ratesColCommission: string;
+  ratesNotConfigured: string;
+  ratesCalculatedAtPayment: string;
+  ratesEditProduct: string;
+  ratesHistoricalTitle: string;
+  ratesEmptyTitle: string;
+  ratesEmptyBody: string;
+  ratesIntervalMonth: string;
+  ratesIntervalYear: string;
+  ratesIntervalOneTime: string;
+  ratesFixedZero: string;
+  ratesPercentOfNet: string;
+  ratesEstimatedAmount: string;
+  ratesExVatNote: string;
   ratesCommissionDraft: VariantCommissionFieldsLabels;
   ratesCommissionMonth: string;
   ratesCommissionYear: string;
@@ -203,6 +224,7 @@ export function CertifiedSellersOpsPanel({
   const [phase, setPhase] = useState<Phase>("loading");
   const [rows, setRows] = useState<Array<Record<string, unknown>>>([]);
   const [variantRateRows, setVariantRateRows] = useState<Array<Record<string, unknown>>>([]);
+  const [priceHints, setPriceHints] = useState<Record<string, CustomerPriceHint>>({});
   const [variantRatesPersistEnabled, setVariantRatesPersistEnabled] = useState(false);
   const [query, setQuery] = useState("");
   const [partnerFilter, setPartnerFilter] = useState("");
@@ -318,24 +340,33 @@ export function CertifiedSellersOpsPanel({
             found?: boolean;
             persist_enabled?: boolean;
             rows?: Array<Record<string, unknown>>;
+            price_hints?: Record<string, CustomerPriceHint>;
           } | null;
           if (seq !== loadSeqRef.current) return false;
           if (variantRes.ok && variantBody?.found && variantBody.persist_enabled) {
             setVariantRatesPersistEnabled(true);
             setVariantRateRows(Array.isArray(variantBody.rows) ? variantBody.rows : []);
+            const hints =
+              variantBody.price_hints && typeof variantBody.price_hints === "object"
+                ? (variantBody.price_hints as Record<string, CustomerPriceHint>)
+                : {};
+            setPriceHints(hints);
           } else {
             setVariantRatesPersistEnabled(false);
             setVariantRateRows([]);
+            setPriceHints({});
           }
         } catch {
           if (!controller.signal.aborted && seq === loadSeqRef.current) {
             setVariantRatesPersistEnabled(false);
             setVariantRateRows([]);
+            setPriceHints({});
           }
         }
       } else {
         setVariantRatesPersistEnabled(false);
         setVariantRateRows([]);
+        setPriceHints({});
       }
       setPhase("ready");
       return true;
@@ -345,6 +376,7 @@ export function CertifiedSellersOpsPanel({
         setPhase("error");
         setRows([]);
         setVariantRateRows([]);
+        setPriceHints({});
         setVariantRatesPersistEnabled(false);
       }
       return false;
@@ -670,92 +702,84 @@ export function CertifiedSellersOpsPanel({
                     {l.ratesVariantMappingNote}
                   </p>
                   <p className="mb-4">
-                    <a
+                    <Link
                       href="/platform/sellers/products"
                       className="text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
                     >
                       {l.ratesOpenProductEditor}
-                    </a>
+                    </Link>
                   </p>
-                  {!variantRatesPersistEnabled ? (
-                    <CommissionRatesVariantDraft
-                      labels={l.ratesCommissionDraft}
-                      intervalTitles={{
-                        month: l.ratesCommissionMonth,
-                        year: l.ratesCommissionYear,
-                        one_time: l.ratesCommissionOneTime,
-                      }}
-                      persistenceBlocked={l.ratesPersistenceBlocked}
-                    />
-                  ) : (
+                  {variantRatesPersistEnabled ? (
                     <div className="mb-6">
                       <h3 className="mb-2 text-sm font-semibold text-[color:var(--aipify-text-primary)]">
                         {l.ratesVariantCoreTitle}
                       </h3>
-                      <Table
-                        caption={l.ratesVariantCoreTitle}
-                        headers={[
-                          l.colProduct,
-                          l.ratesColVariant,
-                          l.ratesColInterval,
-                          l.ratesColModel,
-                          l.colAmount,
-                          l.colEffectiveFrom,
-                        ]}
-                      >
-                        {variantRateRows.map((r) => (
-                          <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
-                            <td className="px-3 py-2 font-mono text-sm">{str(r.productKey) || l.notReported}</td>
-                            <td className="px-3 py-2 font-mono text-sm">{str(r.variantKey) || l.notReported}</td>
-                            <td className="px-3 py-2 text-sm">{str(r.billingInterval) || l.notReported}</td>
-                            <td className="px-3 py-2 text-sm">{str(r.model) || l.notReported}</td>
-                            <td className="px-3 py-2 text-sm">
-                              {str(r.model) === "percent"
-                                ? r.ratePct == null
-                                  ? l.notReported
-                                  : `${num(r.ratePct)}% (${l.ratesExVat})`
-                                : r.amount == null
-                                  ? l.notReported
-                                  : `${num(r.amount).toLocaleString(bcp47)} ${str(r.currency)} (${l.ratesExVat})`}
-                            </td>
-                            <td className="px-3 py-2">
-                              {formatPlatformDateTimeShort(str(r.effectiveFrom) || null, dateOptions)}
-                            </td>
-                          </tr>
-                        ))}
-                      </Table>
+                      <CommissionRatesPresentationPanel
+                        locale={locale}
+                        sections={buildCommissionRatesPresentation({
+                          rows: variantRateRows as unknown as VariantCommissionListRow[],
+                          priceHints,
+                          locale: (["en", "no", "sv", "da", "pl", "uk", "es"].includes(locale)
+                            ? locale
+                            : "en") as ProductCatalogLocaleCode,
+                        })}
+                        labels={{
+                          colVariant: l.ratesColVariant,
+                          colCustomerPrice: l.ratesColCustomerPrice,
+                          colCommission: l.ratesColCommission,
+                          colInterval: l.ratesColInterval,
+                          notConfigured: l.ratesNotConfigured,
+                          calculatedAtPayment: l.ratesCalculatedAtPayment,
+                          editProduct: l.ratesEditProduct,
+                          historicalTitle: l.ratesHistoricalTitle,
+                          emptyTitle: l.ratesEmptyTitle,
+                          emptyBody: l.ratesEmptyBody,
+                          intervalMonth: l.ratesIntervalMonth,
+                          intervalYear: l.ratesIntervalYear,
+                          intervalOneTime: l.ratesIntervalOneTime,
+                          fixedZero: l.ratesFixedZero,
+                          percentOfNet: l.ratesPercentOfNet,
+                          estimatedAmount: l.ratesEstimatedAmount,
+                          exVatNote: l.ratesExVatNote,
+                        } satisfies CommissionRatesPresentationLabels}
+                      />
                     </div>
-                  )}
-                  <h3 className="mb-2 text-sm font-semibold text-[color:var(--aipify-text-primary)]">
-                    {l.ratesLegacyProductTitle}
-                  </h3>
-                  <Table
-                    caption={l.ratesLegacyProductTitle}
-                    headers={[l.colProduct, l.colAmount, l.colEffectiveFrom, l.ratesColVariantMapping]}
-                  >
-                    {filtered.map((r) => (
-                      <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
-                        <td className="px-3 py-2">
-                          <p className="font-medium">{str(r.productTitle) || l.notReported}</p>
-                          {str(r.productKey) ? (
-                            <details className="text-xs text-[color:var(--aipify-text-secondary)]">
-                              <summary>{l.colProduct}</summary>
-                              <p className="mt-1 font-mono">{str(r.productKey)}</p>
-                            </details>
-                          ) : null}
-                        </td>
-                        <td className="px-3 py-2">
-                          {r.amount == null
-                            ? l.notReported
-                            : `${num(r.amount).toLocaleString(bcp47)} ${str(r.currency)} (${l.ratesExVat})`}
-                        </td>
-                        <td className="px-3 py-2">{formatPlatformDateTimeShort(str(r.effectiveFrom) || null, dateOptions)}</td>
-                        <td className="px-3 py-2 text-sm text-[color:var(--aipify-text-secondary)]">
-                          {l.ratesMappingRequired}
-                        </td>
-                      </tr>
-                    ))}
-                  </Table>
+                  ) : null}
+                  <details className="mb-2 rounded-xl border border-[color:var(--aipify-border)] bg-white p-3">
+                    <summary className="cursor-pointer text-sm font-semibold text-[color:var(--aipify-text-primary)]">
+                      {l.ratesLegacyProductTitle}
+                    </summary>
+                    <p className="mb-2 mt-2 text-xs text-[color:var(--aipify-text-secondary)]">
+                      {l.ratesMappingRequired}
+                    </p>
+                    <Table
+                      caption={l.ratesLegacyProductTitle}
+                      headers={[l.colProduct, l.colAmount, l.colEffectiveFrom, l.ratesColVariantMapping]}
+                    >
+                      {filtered.map((r) => (
+                        <tr key={str(r.id)} className="border-t border-[color:var(--aipify-border)]">
+                          <td className="px-3 py-2">
+                            <p className="font-medium">{str(r.productTitle) || l.notReported}</p>
+                            {str(r.productKey) ? (
+                              <details className="text-xs text-[color:var(--aipify-text-secondary)]">
+                                <summary>{l.colProduct}</summary>
+                                <p className="mt-1 font-mono">{str(r.productKey)}</p>
+                              </details>
+                            ) : null}
+                          </td>
+                          <td className="px-3 py-2">
+                            {r.amount == null
+                              ? l.notReported
+                              : `${num(r.amount).toLocaleString(bcp47)} ${str(r.currency)} (${l.ratesExVat})`}
+                          </td>
+                          <td className="px-3 py-2">{formatPlatformDateTimeShort(str(r.effectiveFrom) || null, dateOptions)}</td>
+                          <td className="px-3 py-2 text-sm text-[color:var(--aipify-text-secondary)]">
+                            {l.ratesMappingRequired}
+                          </td>
+                        </tr>
+                      ))}
+                    </Table>
+                  </details>
                   </>
                 ) : null}
               </div>

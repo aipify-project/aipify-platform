@@ -8645,7 +8645,7 @@
         "attribution_link_created": "Utworzono link sprzedażowy",
         "qualified_sale_recorded": "Zarejestrowano kwalifikowaną sprzedaż"
       },
-      "ratesReadOnly": "To zapisane stałe stawki prowizji. Prowizji procentowej nie można zapisać z tej strony.",
+      "ratesReadOnly": "Podgląd prowizji sprzedawcy według wariantu i okresu płatności. Edytuj stawki w edytorze produktu.",
       "directionAdminToPartner": "Od Aipify do sprzedawcy",
       "directionPartnerToAdmin": "Od sprzedawcy do Aipify",
       "deliveryStatus": {
@@ -8685,7 +8685,22 @@
       "ratesColInterval": "Okres rozliczeniowy",
       "ratesColModel": "Model",
       "ratesLegacyProductTitle": "Starsze stawki na poziomie produktu (bez zmian)",
-      "ratesVariantCoreTitle": "Reguły prowizji wariantowej (Core)"
+      "ratesVariantCoreTitle": "Reguły prowizji wariantowej (Core)",
+      "ratesColCustomerPrice": "Cena klienta (bez VAT)",
+      "ratesColCommission": "Prowizja",
+      "ratesNotConfigured": "Nie skonfigurowano",
+      "ratesCalculatedAtPayment": "Obliczane przy płatności",
+      "ratesEditProduct": "Edytuj produkt",
+      "ratesHistoricalTitle": "Historyczne stawki",
+      "ratesEmptyTitle": "Brak zapisanych prowizji wariantów",
+      "ratesEmptyBody": "Gdy Platform zapisze prowizję sprzedawcy dla wariantu i okresu w edytorze produktu, stawki pojawią się tutaj. Nic nie jest wymyślane.",
+      "ratesIntervalMonth": "Miesięcznie",
+      "ratesIntervalYear": "Rocznie",
+      "ratesIntervalOneTime": "Jednorazowo",
+      "ratesFixedZero": "{amount} (skonfigurowane)",
+      "ratesPercentOfNet": "{rate}% netto po rabacie (bez VAT)",
+      "ratesEstimatedAmount": "szacunek {amount}",
+      "ratesExVatNote": "Ceny klienta i prowizje są bez VAT. Starsze stawki produktowe pozostają osobno i nigdy nie są automatyczną prowizją wariantu."
     },
     "messages": {
       "title": "Komunikacja",

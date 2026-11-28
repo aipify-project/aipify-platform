@@ -37,6 +37,13 @@ export {
   type AppStorefrontViewModel,
 } from "./app-storefront-view-model";
 export {
+  buildCommissionRatesPresentation,
+  buildCustomerPriceHints,
+  isConfiguredBillingPeriodPrice,
+  type CommissionProductSection,
+  type CommissionPresentationRow,
+} from "./commission-rates-presentation";
+export {
   buildPartnerStorefrontViewModel,
   overviewProductsToCoreRows,
   productLevelCommissionEstimate,

@@ -8645,7 +8645,7 @@
         "attribution_link_created": "Посилання для продажу створено",
         "qualified_sale_recorded": "Кваліфікований продаж записано"
       },
-      "ratesReadOnly": "Це збережені фіксовані ставки комісії. Відсоткову комісію не можна зберегти з цієї сторінки.",
+      "ratesReadOnly": "Лише перегляд комісії продавця за варіантом і періодом оплати. Редагуйте ставки в редакторі продукту.",
       "directionAdminToPartner": "Від Aipify до продавця",
       "directionPartnerToAdmin": "Від продавця до Aipify",
       "deliveryStatus": {
@@ -8685,7 +8685,22 @@
       "ratesColInterval": "Розрахунковий період",
       "ratesColModel": "Модель",
       "ratesLegacyProductTitle": "Старі ставки на рівні продукту (без змін)",
-      "ratesVariantCoreTitle": "Правила комісії за варіант (Core)"
+      "ratesVariantCoreTitle": "Правила комісії за варіант (Core)",
+      "ratesColCustomerPrice": "Ціна клієнта (без ПДВ)",
+      "ratesColCommission": "Комісія",
+      "ratesNotConfigured": "Не налаштовано",
+      "ratesCalculatedAtPayment": "Розраховується під час оплати",
+      "ratesEditProduct": "Редагувати продукт",
+      "ratesHistoricalTitle": "Історичні ставки",
+      "ratesEmptyTitle": "Немає збережених комісій варіантів",
+      "ratesEmptyBody": "Коли Platform збереже комісію продавця для варіанту та періоду в редакторі продукту, ставки з’являться тут. Нічого не вигадується.",
+      "ratesIntervalMonth": "Щомісяця",
+      "ratesIntervalYear": "Щорічно",
+      "ratesIntervalOneTime": "Одноразово",
+      "ratesFixedZero": "{amount} (налаштовано)",
+      "ratesPercentOfNet": "{rate}% від нетто після знижки (без ПДВ)",
+      "ratesEstimatedAmount": "оцінка {amount}",
+      "ratesExVatNote": "Ціни клієнта та комісії без ПДВ. Старі ставки продукту залишаються окремо і ніколи не є автоматичною комісією варіанту."
     },
     "messages": {
       "title": "Комунікація",

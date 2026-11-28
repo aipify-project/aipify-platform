@@ -1891,7 +1891,7 @@
         "attribution_link_created": "Enlace de venta creado",
         "qualified_sale_recorded": "Venta cualificada registrada"
       },
-      "ratesReadOnly": "Estas son las tasas fijas de comisión guardadas. La comisión porcentual no se puede guardar desde esta página.",
+      "ratesReadOnly": "Vista de solo lectura de la comisión del vendedor por variante y periodo. Edita las tarifas en el editor de producto.",
       "directionAdminToPartner": "De Aipify al vendedor",
       "directionPartnerToAdmin": "Del vendedor a Aipify",
       "deliveryStatus": {
@@ -1925,7 +1925,22 @@
       "ratesOpenProductEditor": "Abrir el editor de producto para definir la comisión del vendedor por variante",
       "ratesColVariantMapping": "Asignación de variantes",
       "ratesMappingRequired": "Requiere asignación explícita de variantes antes del backfill",
-      "ratesExVat": "sin IVA"
+      "ratesExVat": "sin IVA",
+      "ratesColCustomerPrice": "Precio de cliente (sin IVA)",
+      "ratesColCommission": "Comisión",
+      "ratesNotConfigured": "No configurado",
+      "ratesCalculatedAtPayment": "Se calcula en el pago",
+      "ratesEditProduct": "Editar producto",
+      "ratesHistoricalTitle": "Tarifas históricas",
+      "ratesEmptyTitle": "No hay comisiones de variante guardadas",
+      "ratesEmptyBody": "Cuando Platform guarde la comisión del vendedor por variante y periodo en el editor de producto, las tarifas aparecerán aquí. No se inventa nada.",
+      "ratesIntervalMonth": "Mensual",
+      "ratesIntervalYear": "Anual",
+      "ratesIntervalOneTime": "Único",
+      "ratesFixedZero": "{amount} (configurado)",
+      "ratesPercentOfNet": "{rate}% neto tras descuento (sin IVA)",
+      "ratesEstimatedAmount": "estimación {amount}",
+      "ratesExVatNote": "Los precios de cliente y las comisiones son sin IVA. Las tarifas de producto antiguas se mantienen aparte y nunca se usan como comisión automática de variante."
     },
     "messages": {
       "title": "Comunicación",
