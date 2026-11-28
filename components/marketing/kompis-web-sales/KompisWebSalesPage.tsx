@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useId, useRef, useState, useTransition, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, useTransition, type FormEvent, type ReactNode } from "react";
 import type { KompisWebSalesLabels } from "@/lib/marketing/kompis-web-sales/labels";
 import { kompisWebSalesHelperDisplayName } from "@/lib/marketing/kompis-web-sales/locale";
 import { writeSignupHandoff } from "@/lib/marketing/kompis-web-sales/signup-handoff";
@@ -37,6 +37,8 @@ type Props = {
   localePaths?: Partial<Record<PublicFooterEnabledLocale, string>>;
   /** Fail-closed contact note. No write, no success claim. */
   followUp?: { title: string; pending: string; privacy: string; privacyLabel: string } | null;
+  /** Live personal-page interest form. Rendered in main before the footer. */
+  interestPanel?: ReactNode;
 };
 
 const BENEFIT_ICONS = [
@@ -85,6 +87,7 @@ export default function KompisWebSalesPage({
   closedNotice,
   localePaths,
   followUp,
+  interestPanel,
 }: Props) {
   const router = useRouter();
   const registrationHref = startHref || labels.hrefs.start;
@@ -688,6 +691,14 @@ export default function KompisWebSalesPage({
             />
           </div>
         </section>
+        {interestPanel ? (
+          <section
+            className="kompis-web-sales-shell kompis-web-sales-section kompis-web-sales-interest-wrap"
+            aria-labelledby="personal-sales-interest"
+          >
+            {interestPanel}
+          </section>
+        ) : null}
         {followUp ? (
           <section className="kompis-web-sales-shell kompis-web-sales-section" aria-labelledby="sales-follow-up">
             <h2 id="sales-follow-up">{followUp.title}</h2>

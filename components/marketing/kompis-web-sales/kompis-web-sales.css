@@ -1127,6 +1127,160 @@ a.kompis-web-sales-cta-quiet:hover {
   filter: drop-shadow(0 18px 30px rgba(24, 25, 54, 0.25));
 }
 
+.kompis-web-sales-interest-wrap {
+  padding-block: clamp(28px, 5vw, 48px) clamp(36px, 6vw, 64px);
+}
+
+.personal-sales-interest-card {
+  width: min(100%, 840px);
+  margin-inline: auto;
+  display: grid;
+  gap: 22px;
+  padding: clamp(24px, 4vw, 36px) clamp(20px, 3.5vw, 40px);
+  border-radius: 24px;
+  border: 1px solid rgba(105, 87, 241, 0.16);
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 245, 255, 0.98) 55%, rgba(238, 236, 255, 0.92) 100%);
+  box-shadow:
+    0 18px 48px rgba(80, 69, 160, 0.1),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+.personal-sales-interest-header {
+  display: grid;
+  gap: 10px;
+  max-width: 42rem;
+}
+
+.personal-sales-interest-title {
+  margin: 0;
+  font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-weight: 780;
+  color: var(--sales-ink);
+}
+
+.personal-sales-interest-lead {
+  margin: 0;
+  color: var(--sales-muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.personal-sales-interest-fields {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 720px) {
+  .personal-sales-interest-fields {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+}
+
+.personal-sales-interest-field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.personal-sales-interest-label {
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: var(--sales-ink);
+}
+
+.personal-sales-interest-input {
+  width: 100%;
+  min-height: 48px;
+  border-radius: var(--sales-radius-control);
+  border: 1px solid var(--sales-stroke);
+  background: #fff;
+  color: var(--sales-ink);
+  padding: 0.75rem 0.95rem;
+  font: inherit;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.personal-sales-interest-input:hover:not(:disabled) {
+  border-color: rgba(105, 87, 241, 0.35);
+}
+
+.personal-sales-interest-input:focus {
+  outline: none;
+  border-color: var(--sales-purple);
+  box-shadow: 0 0 0 3px rgba(105, 87, 241, 0.18);
+}
+
+.personal-sales-interest-input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.personal-sales-interest-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(105, 87, 241, 0.12);
+  background: rgba(238, 236, 255, 0.45);
+  color: var(--sales-ink);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.personal-sales-interest-checkbox {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+  accent-color: var(--sales-purple);
+}
+
+.personal-sales-interest-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+}
+
+.personal-sales-interest-submit {
+  min-height: 48px;
+  padding-inline: 1.35rem;
+  box-shadow: 0 10px 24px rgba(96, 66, 232, 0.28);
+}
+
+.personal-sales-interest-submit:disabled {
+  opacity: 0.55;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.personal-sales-interest-privacy {
+  color: var(--sales-purple-deep) !important;
+  font-weight: 650;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.personal-sales-interest-status {
+  margin: 0;
+  min-height: 1.35rem;
+  color: var(--sales-muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.personal-sales-interest-status:empty {
+  display: none;
+}
+
 .kompis-web-sales-footer {
   padding: 48px 0 36px;
   border-top: 1px solid var(--sales-stroke);
