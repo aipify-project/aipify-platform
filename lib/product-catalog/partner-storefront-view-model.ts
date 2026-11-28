@@ -12,6 +12,7 @@ import {
   filterSalesCatalogProducts,
   type CoreSalesProductRow,
 } from "@/lib/product-catalog/merge";
+import { applyAuthoritativeCorePricing } from "@/lib/product-catalog/authoritative-pricing";
 import { PARTNER_STOREFRONT_REUSE_CONTRACT } from "@/lib/product-catalog/app-storefront-view-model";
 import type { ProductCatalogLocaleCode, UnifiedCatalogProduct } from "@/lib/product-catalog/types";
 import type { ProductVariantDefinition } from "@/lib/product-catalog/variants";
@@ -82,6 +83,11 @@ export function buildPartnerStorefrontViewModel(input: {
   categoryFilter?: PartnerStorefrontFilter | null;
   /** Optional Core variants overlay (from get_csp_product_variants_bundle). */
   coreVariantsByKey?: Record<string, ProductVariantDefinition[]> | null;
+  /**
+   * True after a successful Core variants read for this request.
+   * When true, planned/hardcoded prices are never kept as fallback.
+   */
+  coreVariantsResolved?: boolean;
 }): PartnerStorefrontViewModel {
   if (!input.coreReady) {
     return {
@@ -105,11 +111,22 @@ export function buildPartnerStorefrontViewModel(input: {
   // Never APP-only: drop anything that lost sale visibility after merge.
   products = products.filter((p) => p.sale.visibleInStore && p.sale.source === "core");
 
-  if (input.coreVariantsByKey) {
-    products = products.map((product) => {
-      const overlay = input.coreVariantsByKey?.[product.productKey];
-      if (!overlay || overlay.length === 0) return product;
-      return { ...product, variants: overlay };
+  const coreVariantsResolved = input.coreVariantsResolved === true;
+  if (coreVariantsResolved) {
+    // Ensure every SALE product key exists in the map so missing Core rows clear planned prices.
+    const map: Record<string, ProductVariantDefinition[]> = {
+      ...(input.coreVariantsByKey ?? {}),
+    };
+    for (const product of products) {
+      if (!Object.prototype.hasOwnProperty.call(map, product.productKey)) {
+        map[product.productKey] = [];
+      }
+    }
+    products = applyAuthoritativeCorePricing({
+      products,
+      coreVariantsByKey: map,
+      coreVariantsResolved: true,
+      stripCommission: false,
     });
   }
 

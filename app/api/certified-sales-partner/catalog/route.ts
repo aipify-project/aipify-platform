@@ -6,9 +6,10 @@ import { createClient } from "@/lib/supabase/server";
 /**
  * Partner catalog facts from Core (published products only):
  * - product-level fixed commission + certification (overview)
- * - variant × interval commission slots from get_csp_product_variants_bundle
+ * - authoritative variant prices + commission slots from get_csp_product_variants_bundle
  *
- * Never invents rates. Null slot = not configured (≠ explicit 0).
+ * Customer prices come from Core variants only — never invent rates or planned amounts.
+ * Null slot / missing amount ≠ explicit 0.
  * Does not activate settlement, Stripe, or checkout.
  */
 export async function GET() {

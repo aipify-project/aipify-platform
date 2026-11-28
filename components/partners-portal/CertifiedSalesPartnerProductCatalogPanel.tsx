@@ -302,8 +302,10 @@ export function CertifiedSalesPartnerProductCatalogPanel({
       coreReady: true,
       categoryFilter: filter as PartnerStorefrontFilter,
       coreVariantsByKey,
+      // Successful catalog fetch (even empty variants) clears planned fallback.
+      coreVariantsResolved: !catalogFetchError && coreVariantsByKey !== null,
     });
-  }, [portal, catalogLocale, filter, coreVariantsByKey]);
+  }, [portal, catalogLocale, filter, coreVariantsByKey, catalogFetchError]);
 
   const products = storefront.products;
   const premiumLabels = useMemo(() => toPremiumLabels(labels), [labels]);
