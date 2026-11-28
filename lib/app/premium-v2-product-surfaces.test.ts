@@ -51,6 +51,8 @@ assert.match(home, /labels\.bedriftUnavailable/);
 assert.match(home, /CUSTOMER_CATALOG_ROUTE/);
 assert.match(home, /FOUNDATION_NAV_BINDINGS\.kompisWebConnection/);
 assert.match(home, /FOUNDATION_NAV_BINDINGS\.accountIntegrations/);
+assert.match(home, /md:grid-cols-3/);
+assert.match(home, /variant="compact"/);
 assert.doesNotMatch(home, /websiteKompisAvailable === false \? \([\s\S]*kompisWebDashboard/);
 
 const hub = read("components/app/app-portal/AppPortalIntegrationsHubPanel.tsx");
