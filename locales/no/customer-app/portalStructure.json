@@ -8606,7 +8606,7 @@
       "qaDescription": "Se spørsmål og tilbakemeldinger fra besøkende på nettstedet.",
       "faqDescription": "Publiser og vedlikehold offentlig FAQ og kunnskap for nettstedet ditt — sider og dokumenter når tilgjengelig.",
       "connectionDescription": "Koble domener, installasjoner og besøkendes tilgang for Kompis Web.",
-      "appearanceDescription": "Velg widget-utseende, velkomstmeldinger og presentasjon for besøkende.",
+      "appearanceDescription": "Åpne stedene som former presentasjon for besøkende — tilkobling, kunnskap og avanserte nettstedverktøy.",
       "settingsDescription": "Nettstedinnstillinger for tilkobling, utseende og avanserte verktøy.",
       "operatorLink": "Åpne nettstedsutgiver (Kompis)",
       "presenceReady": "Aipify er klar til å hjelpe på de verifiserte sidene.",
@@ -8703,7 +8703,13 @@
         "connectionDomainsTitle": "Domener og installasjoner",
         "connectionDomainsCard": "Kontroller domener og besøkertilgang for nettstedskompanjongen.",
         "connectionVsSubscription": "Abonnement viser Aipify-planen. Tilkobling viser om produktet er klart for denne kontoen.",
-        "connectionLicenseNote": "Trenger du plan- eller betalingsdetaljer?"
+        "connectionLicenseNote": "Trenger du plan- eller betalingsdetaljer?",
+        "appearanceHonestNote": "Utseende for besøks-widgeten følger tilkoblingen til nettstedet og publisert kunnskap. Det finnes ingen egen lagreskjema her som finner opp innstillinger.",
+        "appearanceConnectionCard": "Bekreft nettstedstilkoblingen før besøkende ser Kompis på sidene dine.",
+        "appearanceFaqCard": "Publiser FAQ og kunnskap besøkende kan lese — dette former hva Kompis kan svare.",
+        "appearanceOperatorCard": "Åpne avanserte publiseringsverktøy når du trenger kandidatsider og publiseringskontroller.",
+        "appearanceProfileCard": "Arbeidsområdets profil og kontopresentasjon ligger under Konto — ikke duplisert her.",
+        "appearanceSupportCard": "Trenger du hjelp med presentasjon for besøkende? Åpne kundeservicehenvendelser."
       },
       "bedrift": {
         "dashboardTitle": "Oversikt for Kompis Bedrift",
@@ -8736,7 +8742,11 @@
         "connectionDescription": "Se om Kompis Bedrift er tilgjengelig og gyldig for denne kontoen. Planendringer ligger under Abonnement.",
         "connectionAccessCard": "Se personer og tilgang for organisasjonen.",
         "connectionVsSubscription": "Abonnement viser Aipify-planen. Tilkobling viser om produktet er klart for denne kontoen.",
-        "connectionLicenseNote": "Trenger du plan- eller betalingsdetaljer?"
+        "connectionLicenseNote": "Trenger du plan- eller betalingsdetaljer?",
+        "connectionCard": "Se produktberedskap og lisensstatus for Kompis Bedrift på denne kontoen.",
+        "connectionModulesCard": "Se moduler tilgjengelig for Kompis Bedrift — denne visningen kjøper eller aktiverer dem ikke.",
+        "connectionSupportCard": "Åpne kundeservice når tilkobling eller tilgang trenger hjelp.",
+        "connectionSoftwareCard": "Bla gjennom APP-produkter og rettigheter uten å forlate denne arbeidsområdetskonteksten."
       },
       "account": {
         "overviewTitle": "Kontosenter",

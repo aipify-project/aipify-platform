@@ -69,6 +69,13 @@ export default async function KompisBedriftDashboardPage() {
       tone: "slate",
       icon: "modules",
     },
+    {
+      href: FOUNDATION_NAV_BINDINGS.kompisBedriftConnection,
+      title: t("customerApp.portalStructure.nav.kompisBedriftConnection"),
+      description: hubT(t, "bedrift.connectionCard"),
+      tone: "purple",
+      icon: "connection",
+    },
   ];
 
   return (
