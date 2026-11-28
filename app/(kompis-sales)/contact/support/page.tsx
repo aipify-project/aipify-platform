@@ -48,8 +48,6 @@ export default async function ContactSupportPage() {
     successSubtitle: t("marketing.supportIntake.successSubtitle"),
     successNextStep: t("marketing.supportIntake.successNextStep"),
     errorGeneric: t("marketing.supportIntake.errorGeneric"),
-    mailtoFallback: t("marketing.supportIntake.mailtoFallback"),
-    mailtoLabel: t("marketing.supportIntake.mailtoLabel"),
     verificationRequired: t("marketing.supportIntake.verificationRequired"),
     privacy: t(intakeLive ? "marketing.supportIntake.privacy" : "marketing.supportIntake.privacyInactive"),
     nameRequired: t("marketing.supportIntake.nameRequired"),

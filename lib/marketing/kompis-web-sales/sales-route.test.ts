@@ -52,7 +52,8 @@ const contactRule = MARKETING_PUBLIC_REDIRECTS.find((r) => r.source === "/contac
 assert.equal(contactRule?.destination, "/contact/support");
 assert.equal(contactRule?.permanent, true);
 assert.equal(labels.hrefs.contact, "/contact/support");
-assert.equal(labels.hrefs.becomeSeller, "/certified-sales-partner#apply");
+assert.equal(labels.hrefs.becomeSeller, "/growth-partners#apply");
+assert.equal(labels.hrefs.growthPartners, "/growth-partners");
 assert.equal(labels.growthPartners.cta, "Become a seller");
 assert.equal(labels.growthPartners.learnMore, "Learn about Growth Partners");
 assert.notEqual(labels.growthPartners.cta, labels.growthPartners.learnMore);

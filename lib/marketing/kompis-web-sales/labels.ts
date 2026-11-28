@@ -175,7 +175,7 @@ export type KompisWebSalesLabels = {
     contact: "/contact/support";
     contactMailto: "mailto:hello@aipify.ai";
     growthPartners: "/growth-partners";
-    becomeSeller: "/certified-sales-partner#apply";
+    becomeSeller: "/growth-partners#apply";
     faq: "/#faq";
     home: "/";
     aipify: "https://aipify.ai";
@@ -527,7 +527,7 @@ export function parseKompisWebSalesLabels(marketing: MarketingDictionary): Kompi
       contact: "/contact/support",
       contactMailto: "mailto:hello@aipify.ai",
       growthPartners: "/growth-partners",
-      becomeSeller: "/certified-sales-partner#apply",
+      becomeSeller: "/growth-partners#apply",
       faq: "/#faq",
       home: "/",
       aipify: "https://aipify.ai",

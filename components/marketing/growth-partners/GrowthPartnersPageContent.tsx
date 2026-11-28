@@ -1,4 +1,3 @@
-import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
 import GrowthPartnerBusinessModelSection from "./GrowthPartnerBusinessModelSection";
 import GrowthPartnerCertificationSection from "./GrowthPartnerCertificationSection";
 import GrowthPartnerCommissionSection from "./GrowthPartnerCommissionSection";
@@ -15,7 +14,7 @@ export type { GrowthPartnersPageRedesignLabels as GrowthPartnersPageLabels } fro
 
 export default function GrowthPartnersPageContent({ labels, verificationLabels }: GrowthPartnersPageContentProps) {
   return (
-    <div className="bg-[#f3f5fb] text-[#1f2235]">
+    <div className="text-[#1f2235]">
       <GrowthPartnerHeroWithForm labels={labels} verificationLabels={verificationLabels} />
       <div className="space-y-2 pb-4">
         <GrowthPartnerSplitSection split={labels.split} />
@@ -31,9 +30,6 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
         <GrowthPartnerFaqAccordion faq={labels.faq} />
         <GrowthPartnerFinalCta finalCta={labels.finalCta} />
       </div>
-      <footer className={`${PublicMarketingClasses.container} pb-10 text-center text-sm text-[#687086]`}>
-        {labels.footerNote}
-      </footer>
     </div>
   );
 }
