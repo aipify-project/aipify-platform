@@ -8272,6 +8272,9 @@
       "editorVariantCommissionPreviewInactive": "Inactive — no commission accrues for this period.",
       "editorVariantCommissionPercentBasis": "Percent is calculated on the net sales amount excluding VAT.",
       "editorVariantCommissionFreeHint": "Free variants can use 0 commission.",
+      "editorVariantCommissionNotConfigured": "Not configured — will not be saved as 0.",
+      "editorVariantCommissionConfigure": "Configure seller commission",
+      "editorVariantCommissionClear": "Clear (leave not configured)",
       "editorVariantCommissionSaved": "Variant prices and seller commission rules were saved to Core (new commission versions when changed).",
       "editorVariantCommissionSaveFailed": "Variant prices or seller commission could not be saved. Product details may have been saved, but commission was not stored."
     },

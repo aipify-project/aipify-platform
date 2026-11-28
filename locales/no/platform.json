@@ -8005,6 +8005,9 @@
       "editorVariantCommissionPreviewInactive": "Inaktiv — ingen provisjon opptjenes for denne perioden.",
       "editorVariantCommissionPercentBasis": "Prosent beregnes av netto salgsbeløp ekskl. MVA.",
       "editorVariantCommissionFreeHint": "Gratisvarianter kan bruke 0 kr provisjon.",
+      "editorVariantCommissionNotConfigured": "Ikke konfigurert — lagres ikke som 0 kr.",
+      "editorVariantCommissionConfigure": "Konfigurer selgerprovisjon",
+      "editorVariantCommissionClear": "Fjern (la stå ikke konfigurert)",
       "editorVariantCommissionSaved": "Variantpriser og selgerprovisjonsregler ble lagret i Core (nye provisjonsversjoner ved endring).",
       "editorVariantCommissionSaveFailed": "Variantpriser eller selgerprovisjon kunne ikke lagres. Produktdetaljer kan være lagret, men provisjon ble ikke lagret."
     },

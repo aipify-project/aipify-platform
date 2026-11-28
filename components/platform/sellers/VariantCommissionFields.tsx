@@ -2,7 +2,7 @@
 
 /**
  * Shared seller-commission controls for Opprett/Rediger produkt and Provisjonspriser.
- * Preview only — never persists until Core RPC is owner-approved.
+ * null = not configured (never auto-saved as 0). Explicit rule with amount 0 = free variant OK.
  */
 
 import {
@@ -26,6 +26,9 @@ export type VariantCommissionFieldsLabels = {
   exVat: string;
   percentBasis: string;
   freeHint: string;
+  notConfigured: string;
+  configure: string;
+  clearConfiguration: string;
 };
 
 export function VariantCommissionFields({
@@ -41,8 +44,28 @@ export function VariantCommissionFields({
   priceAmountMajor: number | null;
   value: VariantIntervalCommissionRule | null | undefined;
   labels: VariantCommissionFieldsLabels;
-  onChange: (next: VariantIntervalCommissionRule) => void;
+  onChange: (next: VariantIntervalCommissionRule | null) => void;
 }) {
+  if (value == null) {
+    return (
+      <div
+        className="mt-2 space-y-2 rounded-xl border border-dashed border-[color:var(--aipify-border)] bg-white/60 p-3"
+        data-interval={interval}
+        data-commission-state="not_configured"
+      >
+        <p className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">{labels.title}</p>
+        <p className="text-sm text-[color:var(--aipify-text-secondary)]">{labels.notConfigured}</p>
+        <button
+          type="button"
+          className="rounded-xl border border-[color:var(--aipify-border)] px-3 py-1.5 text-sm font-semibold text-[color:var(--aipify-companion-purple)]"
+          onClick={() => onChange(emptyVariantCommissionRule(currency))}
+        >
+          {labels.configure}
+        </button>
+      </div>
+    );
+  }
+
   const rule = normalizeVariantCommissionRule(value, currency);
   const preview = previewVariantCommissionExVat({
     rule,
@@ -53,19 +76,29 @@ export function VariantCommissionFields({
     <div
       className="mt-2 space-y-2 rounded-xl border border-[color:var(--aipify-border)] bg-white/80 p-3"
       data-interval={interval}
+      data-commission-state="configured"
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm font-semibold text-[color:var(--aipify-text-primary)]">{labels.title}</p>
-        <label className="inline-flex items-center gap-2 text-sm">
-          <input
-            type="checkbox"
-            checked={rule.active}
-            onChange={(event) =>
-              onChange(normalizeVariantCommissionRule({ ...rule, active: event.target.checked }, currency))
-            }
-          />
-          {rule.active ? labels.active : labels.inactive}
-        </label>
+        <div className="flex flex-wrap items-center gap-3">
+          <label className="inline-flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={rule.active}
+              onChange={(event) =>
+                onChange(normalizeVariantCommissionRule({ ...rule, active: event.target.checked }, currency))
+              }
+            />
+            {rule.active ? labels.active : labels.inactive}
+          </label>
+          <button
+            type="button"
+            className="text-xs font-semibold text-[color:var(--aipify-text-secondary)] underline"
+            onClick={() => onChange(null)}
+          >
+            {labels.clearConfiguration}
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-3 text-sm">
@@ -184,9 +217,10 @@ export function VariantCommissionFields({
   );
 }
 
+/** Prefer null for not configured; do not invent 0 kr. */
 export function ensureIntervalCommission(
   current: VariantIntervalCommissionRule | null | undefined,
   currency: string,
-): VariantIntervalCommissionRule {
-  return current ? normalizeVariantCommissionRule(current, currency) : emptyVariantCommissionRule(currency);
+): VariantIntervalCommissionRule | null {
+  return current ? normalizeVariantCommissionRule(current, currency) : null;
 }

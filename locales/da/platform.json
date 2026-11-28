@@ -7750,6 +7750,9 @@
       "editorVariantCommissionPreviewInactive": "Inaktiv — der optjenes ingen provision for denne periode.",
       "editorVariantCommissionPercentBasis": "Procent beregnes af netto salgsbeløb ekskl. moms.",
       "editorVariantCommissionFreeHint": "Gratisvarianter kan bruge 0 kr provision.",
+      "editorVariantCommissionNotConfigured": "Ikke konfigureret — gemmes ikke som 0 kr.",
+      "editorVariantCommissionConfigure": "Konfigurer sælgerprovision",
+      "editorVariantCommissionClear": "Ryd (lad være ikke konfigureret)",
       "editorVariantCommissionSaved": "Variantpriser og sælgerprovisionsregler blev gemt i Core (nye provisionsversioner ved ændring).",
       "editorVariantCommissionSaveFailed": "Variantpriser eller sælgerprovision kunne ikke gemmes. Produktdetaljer kan være gemt, men provision blev ikke gemt."
     },

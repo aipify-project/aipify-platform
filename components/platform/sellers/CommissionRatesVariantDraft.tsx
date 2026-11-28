@@ -3,13 +3,11 @@
 /**
  * Provisjonspriser — shared VariantCommissionFields draft when Core persist is closed.
  * No hardcoded product prices. Preview only; never claims save.
+ * Starts not configured (null) so empty drafts are not implied as 0 kr.
  */
 
 import { useState } from "react";
-import {
-  emptyVariantCommissionRule,
-  type VariantIntervalCommissionRule,
-} from "@/lib/product-catalog/variant-commission";
+import type { VariantIntervalCommissionRule } from "@/lib/product-catalog/variant-commission";
 import {
   VariantCommissionFields,
   type VariantCommissionFieldsLabels,
@@ -26,13 +24,13 @@ export function CommissionRatesVariantDraft({
   intervalTitles: { month: string; year: string; one_time: string };
   persistenceBlocked: string;
 }) {
-  const [rules, setRules] = useState<Record<(typeof INTERVALS)[number], VariantIntervalCommissionRule>>(
-    () => ({
-      month: emptyVariantCommissionRule("NOK"),
-      year: emptyVariantCommissionRule("NOK"),
-      one_time: emptyVariantCommissionRule("NOK"),
-    }),
-  );
+  const [rules, setRules] = useState<
+    Record<(typeof INTERVALS)[number], VariantIntervalCommissionRule | null>
+  >(() => ({
+    month: null,
+    year: null,
+    one_time: null,
+  }));
 
   return (
     <div className="mb-6 space-y-3 rounded-2xl border border-[color:var(--aipify-border)] bg-white p-4">

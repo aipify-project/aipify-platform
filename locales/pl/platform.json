@@ -8272,6 +8272,9 @@
       "editorVariantCommissionPreviewInactive": "Nieaktywna — za ten okres nie nalicza się prowizji.",
       "editorVariantCommissionPercentBasis": "Procent liczony jest od kwoty netto sprzedaży bez VAT.",
       "editorVariantCommissionFreeHint": "Warianty bezpłatne mogą mieć prowizję 0.",
+      "editorVariantCommissionNotConfigured": "Nie skonfigurowano — nie zostanie zapisane jako 0.",
+      "editorVariantCommissionConfigure": "Skonfiguruj prowizję sprzedawcy",
+      "editorVariantCommissionClear": "Wyczyść (pozostaw nieskonfigurowane)",
       "editorVariantCommissionSaved": "Ceny wariantów i reguły prowizji sprzedawcy zapisano w Core (nowe wersje prowizji przy zmianie).",
       "editorVariantCommissionSaveFailed": "Nie udało się zapisać cen wariantów lub prowizji sprzedawcy. Szczegóły produktu mogły zostać zapisane, ale prowizja nie."
     },

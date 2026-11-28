@@ -301,6 +301,9 @@ export function buildProductShopifyEditorLabels(t: Translator): ProductShopifyEd
         exVat: k("editorVariantVatExclusive"),
         percentBasis: k("editorVariantCommissionPercentBasis"),
         freeHint: k("editorVariantCommissionFreeHint"),
+        notConfigured: k("editorVariantCommissionNotConfigured"),
+        configure: k("editorVariantCommissionConfigure"),
+        clearConfiguration: k("editorVariantCommissionClear"),
       },
     },
   };

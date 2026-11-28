@@ -6,19 +6,30 @@ import {
   VARIANT_COMMISSION_PERCENT_BASIS,
   canPersistVariantCommissionRules,
   emptyVariantCommissionRule,
+  isConfiguredVariantCommissionRule,
   normalizeVariantCommissionRule,
   previewVariantCommissionExVat,
 } from "./variant-commission";
+import { VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION } from "./variant-commission-core-gate";
 import { qualifyFixedCommission, qualifyPercentCommission } from "./commission-rules";
 
 test("variant commission persistence is fail-closed on Production / unbound env", () => {
   const previous = process.env.NEXT_PUBLIC_SUPABASE_URL;
   process.env.NEXT_PUBLIC_SUPABASE_URL = "https://qbcqoixhrvhnuwphefvw.supabase.co";
+  assert.equal(VARIANT_COMMISSION_PRODUCTION_PERSIST_ACTIVATION, false);
   assert.equal(VARIANT_COMMISSION_PERSISTENCE.canPersist, false);
   assert.equal(canPersistVariantCommissionRules(), false);
   assert.equal(VARIANT_COMMISSION_PERSISTENCE.status, "production_fail_closed");
   if (previous === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_URL;
   else process.env.NEXT_PUBLIC_SUPABASE_URL = previous;
+});
+
+test("null commission is not configured; explicit 0 is configured free", () => {
+  assert.equal(isConfiguredVariantCommissionRule(null), false);
+  assert.equal(isConfiguredVariantCommissionRule(undefined), false);
+  const zero = normalizeVariantCommissionRule({ model: "fixed", amountMajor: 0 });
+  assert.equal(isConfiguredVariantCommissionRule(zero), true);
+  assert.equal(zero.amountMajor, 0);
 });
 
 test("normalize fixed and percent rules; free variant allows 0", () => {

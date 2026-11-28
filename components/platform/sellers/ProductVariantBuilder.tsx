@@ -9,10 +9,7 @@
 
 import { useMemo } from "react";
 import type { ProductVariantDefinition, ProductVariantPrice } from "@/lib/product-catalog/variants";
-import {
-  canPersistVariantCommissionRules,
-  emptyVariantCommissionRule,
-} from "@/lib/product-catalog/variant-commission";
+import { canPersistVariantCommissionRules } from "@/lib/product-catalog/variant-commission";
 import {
   VariantCommissionFields,
   type VariantCommissionFieldsLabels,
@@ -62,7 +59,8 @@ function priceShell(
     vatLabel: "exclusive",
     providerPriceId: null,
     purchasable: false,
-    commission: emptyVariantCommissionRule(currency),
+    // null = not configured (do not auto-persist as 0 kr).
+    commission: null,
   };
 }
 
@@ -133,7 +131,8 @@ export function ProductVariantBuilder({
       vatLabel: "exclusive",
       providerPriceId: existing?.providerPriceId ?? null,
       purchasable: false,
-      commission: existing?.commission ?? emptyVariantCommissionRule(currency),
+      // Preserve null (not configured); never invent emptyVariantCommissionRule(0).
+      commission: existing?.commission ?? null,
     };
     if (interval === "month") patch(index, { monthlyPrice: nextPrice });
     else if (interval === "year") patch(index, { yearlyPrice: nextPrice });

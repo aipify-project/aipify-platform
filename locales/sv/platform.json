@@ -8272,6 +8272,9 @@
       "editorVariantCommissionPreviewInactive": "Inaktiv — ingen provision intjänas för denna period.",
       "editorVariantCommissionPercentBasis": "Procent beräknas på netto försäljningsbelopp exkl. moms.",
       "editorVariantCommissionFreeHint": "Gratisvarianter kan använda 0 kr provision.",
+      "editorVariantCommissionNotConfigured": "Inte konfigurerad — sparas inte som 0 kr.",
+      "editorVariantCommissionConfigure": "Konfigurera säljarprovision",
+      "editorVariantCommissionClear": "Rensa (lämna okonfigurerad)",
       "editorVariantCommissionSaved": "Variantpriser och säljarprovisionsregler sparades i Core (nya provisionsversioner vid ändring).",
       "editorVariantCommissionSaveFailed": "Variantpriser eller säljarprovision kunde inte sparas. Produktdetaljer kan ha sparats, men provisionen lagrades inte."
     },
