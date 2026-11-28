@@ -1,9 +1,11 @@
 /**
  * Shared public-form rate limit.
  *
- * Uses the Upstash Redis REST store already configured for this app
- * (UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN). One counter is visible
- * to every Vercel instance. No new service and no new dependency.
+ * Uses the existing Upstash Redis REST store. Prefer the documented pair
+ * (`UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`). Fall back to the
+ * Vercel Marketplace Upstash / KV REST names when that pair is missing or is
+ * not an HTTPS Upstash REST endpoint. One counter is visible to every Vercel
+ * instance. No new service and no new dependency.
  *
  * Missing configuration or a store error fails closed. Callers must not
  * treat that as a stored submission.
@@ -28,6 +30,11 @@ export type SharedRateLimitDecision =
   | { ok: false; status: 429; retryAfterSeconds: number }
   | { ok: false; status: 503; unavailable: true };
 
+export type SharedRateLimitRestCredentials = {
+  url: string;
+  token: string;
+};
+
 type MemoryBucket = { count: number; expiresAt: number };
 
 export function createMemoryRateLimitBackend(
@@ -51,7 +58,59 @@ export function createMemoryRateLimitBackend(
   };
 }
 
-type UpstashPipelineRow = { result?: unknown };
+type UpstashPipelineRow = { result?: unknown; error?: unknown };
+
+/** HTTPS Upstash REST base URL only — never redis:// or credential-bearing URLs. */
+export function isUpstashRestUrl(value: string | null | undefined): boolean {
+  const raw = value?.trim() ?? "";
+  if (!raw) return false;
+  try {
+    const parsed = new URL(raw);
+    if (parsed.protocol !== "https:") return false;
+    if (parsed.username || parsed.password) return false;
+    const host = parsed.hostname.toLowerCase();
+    return host === "upstash.io" || host.endsWith(".upstash.io");
+  } catch {
+    return false;
+  }
+}
+
+function normalizeRestToken(token: string): string {
+  return token.replace(/^Bearer\s+/i, "").trim();
+}
+
+/**
+ * Resolve REST credentials from the documented pair first, then Marketplace
+ * Upstash/KV aliases. Reject redis:// and empty values — fail closed instead.
+ */
+export function resolveSharedRateLimitRestCredentials(
+  env: NodeJS.ProcessEnv = process.env,
+): SharedRateLimitRestCredentials | null {
+  const candidates: Array<{ url: string; token: string }> = [
+    {
+      url: env.UPSTASH_REDIS_REST_URL?.trim() ?? "",
+      token: env.UPSTASH_REDIS_REST_TOKEN?.trim() ?? "",
+    },
+    {
+      url: env.UPSTASH_REDIS_REST_KV_REST_API_URL?.trim() ?? "",
+      token: env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN?.trim() ?? "",
+    },
+    {
+      url: env.KV_REST_API_URL?.trim() ?? "",
+      token: env.KV_REST_API_TOKEN?.trim() ?? "",
+    },
+  ];
+
+  for (const candidate of candidates) {
+    const token = normalizeRestToken(candidate.token);
+    if (!isUpstashRestUrl(candidate.url) || !token) continue;
+    return {
+      url: candidate.url.replace(/\/$/, ""),
+      token,
+    };
+  }
+  return null;
+}
 
 export function createUpstashRestBackend(input: {
   url?: string | null;
@@ -59,8 +118,8 @@ export function createUpstashRestBackend(input: {
   fetchImpl?: typeof fetch;
 }): SharedRateLimitBackend | null {
   const url = input.url?.trim().replace(/\/$/, "") ?? "";
-  const token = input.token?.trim() ?? "";
-  if (!url || !token) return null;
+  const token = normalizeRestToken(input.token?.trim() ?? "");
+  if (!isUpstashRestUrl(url) || !token) return null;
   const fetchImpl = input.fetchImpl ?? fetch;
   return {
     async increment(key, windowSeconds) {
@@ -72,7 +131,7 @@ export function createUpstashRestBackend(input: {
         },
         body: JSON.stringify([
           ["INCR", key],
-          ["EXPIRE", key, String(windowSeconds), "NX"],
+          ["EXPIRE", key, windowSeconds, "NX"],
           ["TTL", key],
         ]),
         cache: "no-store",
@@ -81,6 +140,9 @@ export function createUpstashRestBackend(input: {
         throw new Error("shared_rate_limit_unavailable");
       }
       const payload = (await response.json()) as UpstashPipelineRow[];
+      if (!Array.isArray(payload) || payload.some((row) => row?.error != null)) {
+        throw new Error("shared_rate_limit_unavailable");
+      }
       const count = Number(payload[0]?.result);
       const ttl = Number(payload[2]?.result);
       if (!Number.isFinite(count)) {
@@ -105,10 +167,9 @@ export function setSharedRateLimitBackendForTests(
 
 export function resolveSharedRateLimitBackend(): SharedRateLimitBackend | null {
   if (testBackend !== undefined) return testBackend;
-  return createUpstashRestBackend({
-    url: process.env.UPSTASH_REDIS_REST_URL,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN,
-  });
+  const credentials = resolveSharedRateLimitRestCredentials();
+  if (!credentials) return null;
+  return createUpstashRestBackend(credentials);
 }
 
 export async function consumeSharedRateLimit(input: {

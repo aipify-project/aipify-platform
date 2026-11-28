@@ -8,7 +8,7 @@ Public submission stays closed: `SUPPORT_INTAKE_RPC_CONNECTED` and `SUPPORT_INTA
 
 - The public form sends one idempotency key per attempt and reuses it if the request is repeated. The API does not invent a replacement key.
 - Web create in the V3 candidate takes a transaction lock on that key before it reads or inserts a ticket. A second concurrent call waits and returns the first ticket. A unique-key conflict raises, so the extra ticket rolls back.
-- Public support rate limiting uses the existing Upstash Redis REST store (`UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`). The counter is shared across Vercel instances. Limit: 8 requests per IP per 15 minutes. The IP is stored as a hash. If the store is missing or errors, the API returns 503 and no ticket number.
+- Public support rate limiting uses the existing Upstash Redis REST store. Prefer `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` when they are a valid HTTPS Upstash REST endpoint; otherwise fall back to Marketplace aliases (`UPSTASH_REDIS_REST_KV_REST_API_URL` / `UPSTASH_REDIS_REST_KV_REST_API_TOKEN`, or `KV_REST_API_URL` / `KV_REST_API_TOKEN`). The counter is shared across Vercel instances. Limit: 8 requests per IP per 15 minutes. The IP is stored as a hash. If the store is missing or errors, the API returns 503 and no ticket number.
 - Honeypot, minimum fill time, and the human check stay in place.
 - Other public forms still use their existing in-memory guard.
 
